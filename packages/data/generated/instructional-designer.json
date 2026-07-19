@@ -242,29 +242,13 @@
         "slug": "accountant"
       },
       {
-        "t": "Project Manager",
-        "m": 27,
-        "slug": "project-manager"
+        "t": "Financial Controller",
+        "m": 24,
+        "slug": "controller"
       }
     ],
-    "construction-manager": [
-      {
-        "t": "Landscape Architect",
-        "m": 26,
-        "slug": "landscape-architect"
-      },
-      {
-        "t": "Architect",
-        "m": 20,
-        "slug": "architect"
-      }
-    ],
+    "construction-manager": [],
     "mechanical-engineer": [
-      {
-        "t": "Architect",
-        "m": 26,
-        "slug": "architect"
-      },
       {
         "t": "Building Performance Analyst",
         "m": 19,
@@ -288,11 +272,6 @@
         "t": "Design Technologist",
         "m": 35,
         "slug": "design-technologist"
-      },
-      {
-        "t": "Product Designer",
-        "m": 19,
-        "slug": "product-designer"
       }
     ],
     "interior-designer": [
@@ -324,11 +303,6 @@
         "t": "Teacher",
         "m": 47,
         "slug": "teacher"
-      },
-      {
-        "t": "Architect",
-        "m": 16,
-        "slug": "architect"
       }
     ]
   },
@@ -352,23 +326,23 @@
   "bridges": [
     [
       "corporate-trainer",
-      "graphic-designer_1",
-      0.5
+      "professor_0",
+      0.38
     ],
     [
-      "interior-designer",
-      "construction-manager_1",
-      0.4
+      "mechanical-engineer",
+      "interior-designer_0",
+      0.26
     ],
     [
-      "interior-designer",
-      "mechanical-engineer_0",
-      0.4
+      "construction-manager",
+      "interior-designer_1",
+      0.26
     ],
     [
-      "interior-designer",
-      "professor_1",
-      0.4
+      "creative-director",
+      "corporate-trainer_0",
+      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

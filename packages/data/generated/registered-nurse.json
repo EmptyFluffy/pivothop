@@ -269,18 +269,7 @@
         "slug": "real-estate-developer"
       }
     ],
-    "teacher": [
-      {
-        "t": "Landscape Architect",
-        "m": 9,
-        "slug": "landscape-architect"
-      },
-      {
-        "t": "Corporate Trainer",
-        "m": 7,
-        "slug": "corporate-trainer"
-      }
-    ],
+    "teacher": [],
     "creative-director": [
       {
         "t": "Journalist",
@@ -295,40 +284,18 @@
     ],
     "project-manager": [
       {
-        "t": "Marketing Manager",
-        "m": 33,
-        "slug": "marketing-manager"
-      },
-      {
         "t": "Management Consultant",
         "m": 32,
         "slug": "management-consultant"
-      }
-    ],
-    "instructional-designer": [
-      {
-        "t": "Financial Analyst",
-        "m": 22,
-        "slug": "financial-analyst"
       },
       {
-        "t": "Mechanical Engineer",
-        "m": 15,
-        "slug": "mechanical-engineer"
+        "t": "Product Manager",
+        "m": 30,
+        "slug": "product-manager"
       }
     ],
-    "professor": [
-      {
-        "t": "Mechanical Engineer",
-        "m": 25,
-        "slug": "mechanical-engineer"
-      },
-      {
-        "t": "Architect",
-        "m": 16,
-        "slug": "architect"
-      }
-    ]
+    "instructional-designer": [],
+    "professor": []
   },
   "cross": [
     [
@@ -349,24 +316,24 @@
   ],
   "bridges": [
     [
-      "customer-success-manager",
-      "project-manager_0",
-      0.37
-    ],
-    [
       "project-manager",
       "customer-success-manager_0",
       0.33
     ],
     [
-      "construction-manager",
-      "instructional-designer_1",
-      0.28
+      "project-manager",
+      "construction-manager_0",
+      0.26
     ],
     [
-      "construction-manager",
-      "professor_0",
-      0.28
+      "professor",
+      "construction-manager_1",
+      0.25
+    ],
+    [
+      "customer-success-manager",
+      "project-manager_1",
+      0.24
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

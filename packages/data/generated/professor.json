@@ -234,24 +234,8 @@
     }
   ],
   "next": {
-    "teacher": [
-      {
-        "t": "Registered Nurse",
-        "m": 10,
-        "slug": "registered-nurse"
-      },
-      {
-        "t": "Corporate Trainer",
-        "m": 7,
-        "slug": "corporate-trainer"
-      }
-    ],
+    "teacher": [],
     "mechanical-engineer": [
-      {
-        "t": "Construction Manager",
-        "m": 22,
-        "slug": "construction-manager"
-      },
       {
         "t": "Building Performance Analyst",
         "m": 19,
@@ -270,28 +254,17 @@
         "slug": "design-technologist"
       }
     ],
-    "interior-designer": [
-      {
-        "t": "Construction Manager",
-        "m": 27,
-        "slug": "construction-manager"
-      },
-      {
-        "t": "Urban Planner",
-        "m": 12,
-        "slug": "urban-planner"
-      }
-    ],
+    "interior-designer": [],
     "electrical-engineer": [
-      {
-        "t": "Construction Manager",
-        "m": 26,
-        "slug": "construction-manager"
-      },
       {
         "t": "Civil Engineer",
         "m": 21,
         "slug": "civil-engineer"
+      },
+      {
+        "t": "Creative Technologist",
+        "m": 18,
+        "slug": "creative-technologist"
       }
     ],
     "technical-artist": [
@@ -299,19 +272,9 @@
         "t": "Creative Director",
         "m": 22,
         "slug": "creative-director"
-      },
-      {
-        "t": "Design Technologist",
-        "m": 13,
-        "slug": "design-technologist"
       }
     ],
     "landscape-architect": [
-      {
-        "t": "Construction Manager",
-        "m": 25,
-        "slug": "construction-manager"
-      },
       {
         "t": "Urban Planner",
         "m": 20,
@@ -323,11 +286,6 @@
         "t": "Financial Analyst",
         "m": 22,
         "slug": "financial-analyst"
-      },
-      {
-        "t": "Construction Manager",
-        "m": 17,
-        "slug": "construction-manager"
       }
     ]
   },
@@ -365,24 +323,24 @@
   ],
   "bridges": [
     [
-      "architect",
-      "mechanical-engineer_0",
-      0.28
+      "interior-designer",
+      "architect_0",
+      0.27
     ],
     [
-      "architect",
-      "interior-designer_0",
-      0.28
+      "electrical-engineer",
+      "architect_0",
+      0.26
     ],
     [
-      "architect",
-      "electrical-engineer_0",
-      0.28
+      "landscape-architect",
+      "architect_0",
+      0.25
     ],
     [
-      "architect",
-      "landscape-architect_0",
-      0.28
+      "mechanical-engineer",
+      "architect_0",
+      0.22
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

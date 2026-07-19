@@ -239,25 +239,9 @@
         "t": "Mechanical Engineer",
         "m": 15,
         "slug": "mechanical-engineer"
-      },
-      {
-        "t": "Instructional Designer",
-        "m": 7,
-        "slug": "instructional-designer"
       }
     ],
-    "design-technologist": [
-      {
-        "t": "Architect",
-        "m": 14,
-        "slug": "architect"
-      },
-      {
-        "t": "Frontend Developer",
-        "m": 6,
-        "slug": "frontend-developer"
-      }
-    ],
+    "design-technologist": [],
     "creative-director": [
       {
         "t": "Journalist",
@@ -270,42 +254,20 @@
         "slug": "technical-artist"
       }
     ],
-    "graphic-designer": [
-      {
-        "t": "Construction Manager",
-        "m": 20,
-        "slug": "construction-manager"
-      },
-      {
-        "t": "Journalist",
-        "m": 18,
-        "slug": "journalist"
-      }
-    ],
+    "graphic-designer": [],
     "marketing-manager": [
       {
-        "t": "Project Manager",
-        "m": 23,
-        "slug": "project-manager"
-      },
-      {
-        "t": "Real Estate Developer",
+        "t": "Interior Designer",
         "m": 20,
-        "slug": "real-estate-developer"
-      }
-    ],
-    "creative-technologist": [
-      {
-        "t": "Data Analyst",
-        "m": 15,
-        "slug": "data-analyst"
+        "slug": "interior-designer"
       },
       {
-        "t": "Electrical Engineer",
-        "m": 13,
-        "slug": "electrical-engineer"
+        "t": "Urban Planner",
+        "m": 17,
+        "slug": "urban-planner"
       }
     ],
+    "creative-technologist": [],
     "product-manager": [
       {
         "t": "Project Manager",
@@ -325,9 +287,9 @@
         "slug": "construction-manager"
       },
       {
-        "t": "Real Estate Developer",
-        "m": 25,
-        "slug": "real-estate-developer"
+        "t": "Architect",
+        "m": 21,
+        "slug": "architect"
       }
     ]
   },
@@ -365,24 +327,24 @@
   ],
   "bridges": [
     [
-      "creative-director",
-      "graphic-designer_1",
-      0.69
-    ],
-    [
-      "product-manager",
-      "marketing-manager_0",
-      0.43
-    ],
-    [
-      "product-manager",
-      "creative-technologist_0",
-      0.35
-    ],
-    [
       "customer-success-manager",
-      "graphic-designer_0",
-      0.34
+      "product-manager_0",
+      0.24
+    ],
+    [
+      "marketing-manager",
+      "product-manager_0",
+      0.23
+    ],
+    [
+      "graphic-designer",
+      "customer-success-manager_0",
+      0.2
+    ],
+    [
+      "marketing-manager",
+      "customer-success-manager_0",
+      0.19
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -237,14 +237,14 @@
   "next": {
     "data-analyst": [
       {
-        "t": "Project Manager",
-        "m": 32,
-        "slug": "project-manager"
-      },
-      {
         "t": "Creative Technologist",
         "m": 28,
         "slug": "creative-technologist"
+      },
+      {
+        "t": "Financial Analyst",
+        "m": 26,
+        "slug": "financial-analyst"
       }
     ],
     "machine-learning-engineer": [
@@ -254,9 +254,9 @@
         "slug": "backend-developer"
       },
       {
-        "t": "Software Engineer",
-        "m": 62,
-        "slug": "software-engineer"
+        "t": "IT Support Specialist",
+        "m": 38,
+        "slug": "it-support"
       }
     ],
     "product-manager": [
@@ -295,28 +295,17 @@
         "slug": "business-analyst"
       }
     ],
-    "data-engineer": [
-      {
-        "t": "Software Engineer",
-        "m": 54,
-        "slug": "software-engineer"
-      },
-      {
-        "t": "Industrial Engineer",
-        "m": 41,
-        "slug": "industrial-engineer"
-      }
-    ],
+    "data-engineer": [],
     "research-scientist": [
       {
-        "t": "Software Engineer",
-        "m": 35,
-        "slug": "software-engineer"
+        "t": "Account Executive",
+        "m": 26,
+        "slug": "account-executive"
       },
       {
-        "t": "Project Manager",
-        "m": 31,
-        "slug": "project-manager"
+        "t": "Customer Support Specialist",
+        "m": 25,
+        "slug": "customer-support"
       }
     ],
     "solutions-architect": [
@@ -326,9 +315,9 @@
         "slug": "software-engineer"
       },
       {
-        "t": "Backend Developer",
-        "m": 62,
-        "slug": "backend-developer"
+        "t": "Industrial Engineer",
+        "m": 61,
+        "slug": "industrial-engineer"
       }
     ]
   },
@@ -367,23 +356,23 @@
   "bridges": [
     [
       "solutions-architect",
-      "machine-learning-engineer_1",
-      0.71
-    ],
-    [
-      "solutions-architect",
-      "data-engineer_0",
-      0.71
-    ],
-    [
-      "solutions-architect",
-      "research-scientist_0",
-      0.71
+      "machine-learning-engineer_0",
+      0.62
     ],
     [
       "machine-learning-engineer",
+      "solutions-architect_0",
+      0.62
+    ],
+    [
+      "data-engineer",
+      "solutions-architect_0",
+      0.54
+    ],
+    [
+      "data-engineer",
       "solutions-architect_1",
-      0.63
+      0.41
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

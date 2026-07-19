@@ -237,26 +237,26 @@
   "next": {
     "customer-success-manager": [
       {
-        "t": "Marketing Manager",
-        "m": 37,
-        "slug": "marketing-manager"
+        "t": "Architect",
+        "m": 21,
+        "slug": "architect"
       },
       {
-        "t": "Construction Manager",
-        "m": 34,
-        "slug": "construction-manager"
+        "t": "Registered Nurse",
+        "m": 16,
+        "slug": "registered-nurse"
       }
     ],
     "product-manager": [
       {
-        "t": "Marketing Manager",
-        "m": 46,
-        "slug": "marketing-manager"
+        "t": "Real Estate Developer",
+        "m": 29,
+        "slug": "real-estate-developer"
       },
       {
-        "t": "Product Designer",
-        "m": 37,
-        "slug": "product-designer"
+        "t": "Creative Director",
+        "m": 29,
+        "slug": "creative-director"
       }
     ],
     "project-manager": [
@@ -266,9 +266,9 @@
         "slug": "construction-manager"
       },
       {
-        "t": "Marketing Manager",
-        "m": 33,
-        "slug": "marketing-manager"
+        "t": "Financial Analyst",
+        "m": 27,
+        "slug": "financial-analyst"
       }
     ],
     "data-analyst": [
@@ -278,9 +278,9 @@
         "slug": "creative-technologist"
       },
       {
-        "t": "Financial Analyst",
-        "m": 26,
-        "slug": "financial-analyst"
+        "t": "Operations Manager",
+        "m": 23,
+        "slug": "operations-manager"
       }
     ],
     "graphic-designer": [
@@ -288,11 +288,6 @@
         "t": "Design Technologist",
         "m": 35,
         "slug": "design-technologist"
-      },
-      {
-        "t": "Creative Director",
-        "m": 22,
-        "slug": "creative-director"
       }
     ],
     "sales-engineer": [
@@ -366,24 +361,24 @@
   ],
   "bridges": [
     [
-      "project-manager",
-      "customer-success-manager_1",
-      0.48
+      "software-engineer",
+      "sales-engineer_1",
+      0.42
     ],
     [
       "sales-engineer",
-      "product-manager_1",
-      0.48
+      "software-engineer_1",
+      0.41
     ],
     [
-      "sales-engineer",
-      "customer-success-manager_0",
-      0.47
+      "software-engineer",
+      "sales-engineer_0",
+      0.36
     ],
     [
-      "sales-engineer",
-      "product-manager_0",
-      0.47
+      "customer-success-manager",
+      "project-manager_0",
+      0.34
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

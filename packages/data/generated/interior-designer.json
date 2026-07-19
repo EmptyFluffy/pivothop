@@ -247,40 +247,13 @@
         "slug": "computational-designer"
       }
     ],
-    "landscape-architect": [
-      {
-        "t": "Professor / Lecturer",
-        "m": 7,
-        "slug": "professor"
-      },
-      {
-        "t": "Teacher",
-        "m": 6,
-        "slug": "teacher"
-      }
-    ],
-    "mechanical-engineer": [
-      {
-        "t": "Building Performance Analyst",
-        "m": 19,
-        "slug": "building-performance-analyst"
-      },
-      {
-        "t": "Computational Designer",
-        "m": 12,
-        "slug": "computational-designer"
-      }
-    ],
+    "landscape-architect": [],
+    "mechanical-engineer": [],
     "construction-manager": [
       {
-        "t": "Project Manager",
-        "m": 18,
-        "slug": "project-manager"
-      },
-      {
-        "t": "Customer Success Manager",
+        "t": "Graphic Designer",
         "m": 15,
-        "slug": "customer-success-manager"
+        "slug": "graphic-designer"
       }
     ],
     "electrical-engineer": [
@@ -307,18 +280,7 @@
         "slug": "project-manager"
       }
     ],
-    "bim-manager": [
-      {
-        "t": "Financial Controller",
-        "m": 12,
-        "slug": "controller"
-      },
-      {
-        "t": "Professor / Lecturer",
-        "m": 9,
-        "slug": "professor"
-      }
-    ],
+    "bim-manager": [],
     "civil-engineer": [
       {
         "t": "Building Performance Analyst",
@@ -366,24 +328,24 @@
   ],
   "bridges": [
     [
-      "civil-engineer",
-      "mechanical-engineer_0",
-      0.56
-    ],
-    [
-      "civil-engineer",
-      "bim-manager_0",
-      0.25
-    ],
-    [
-      "urban-planner",
-      "construction-manager_0",
-      0.21
-    ],
-    [
       "architect",
-      "mechanical-engineer_1",
-      0.2
+      "civil-engineer_0",
+      0.19
+    ],
+    [
+      "mechanical-engineer",
+      "civil-engineer_0",
+      0.19
+    ],
+    [
+      "construction-manager",
+      "urban-planner_1",
+      0.18
+    ],
+    [
+      "civil-engineer",
+      "urban-planner_1",
+      0.15
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -249,26 +249,21 @@
     ],
     "real-estate-developer": [
       {
-        "t": "Graphic Designer",
-        "m": 27,
-        "slug": "graphic-designer"
+        "t": "Technical Writer",
+        "m": 26,
+        "slug": "technical-writer"
       },
       {
-        "t": "Management Consultant",
-        "m": 26,
-        "slug": "management-consultant"
+        "t": "Electrical Engineer",
+        "m": 19,
+        "slug": "electrical-engineer"
       }
     ],
     "customer-success-manager": [
       {
-        "t": "Product Manager",
-        "m": 24,
-        "slug": "product-manager"
-      },
-      {
-        "t": "Project Manager",
-        "m": 24,
-        "slug": "project-manager"
+        "t": "Architect",
+        "m": 21,
+        "slug": "architect"
       }
     ],
     "corporate-trainer": [
@@ -297,14 +292,9 @@
     ],
     "marketing-manager": [
       {
-        "t": "Design Technologist",
-        "m": 28,
-        "slug": "design-technologist"
-      },
-      {
-        "t": "Graphic Designer",
-        "m": 27,
-        "slug": "graphic-designer"
+        "t": "Urban Planner",
+        "m": 17,
+        "slug": "urban-planner"
       }
     ],
     "construction-manager": [
@@ -314,9 +304,9 @@
         "slug": "interior-designer"
       },
       {
-        "t": "Mechanical Engineer",
-        "m": 28,
-        "slug": "mechanical-engineer"
+        "t": "Landscape Architect",
+        "m": 26,
+        "slug": "landscape-architect"
       }
     ],
     "bookkeeper": [
@@ -366,24 +356,24 @@
   ],
   "bridges": [
     [
+      "corporate-trainer",
+      "account-executive_0",
+      0.36
+    ],
+    [
+      "corporate-trainer",
+      "product-designer_0",
+      0.33
+    ],
+    [
+      "account-executive",
+      "bookkeeper_1",
+      0.33
+    ],
+    [
       "product-designer",
-      "marketing-manager_0",
-      0.6
-    ],
-    [
-      "account-executive",
-      "real-estate-developer_0",
-      0.5
-    ],
-    [
-      "account-executive",
-      "marketing-manager_1",
-      0.5
-    ],
-    [
-      "account-executive",
-      "real-estate-developer_1",
-      0.49
+      "account-executive_0",
+      0.32
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

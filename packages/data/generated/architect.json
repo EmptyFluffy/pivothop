@@ -229,42 +229,15 @@
     }
   ],
   "next": {
-    "interior-designer": [
-      {
-        "t": "Urban Planner",
-        "m": 12,
-        "slug": "urban-planner"
-      },
-      {
-        "t": "BIM Manager",
-        "m": 12,
-        "slug": "bim-manager"
-      }
-    ],
+    "interior-designer": [],
     "landscape-architect": [
       {
         "t": "Urban Planner",
         "m": 20,
         "slug": "urban-planner"
-      },
-      {
-        "t": "Civil Engineer",
-        "m": 18,
-        "slug": "civil-engineer"
       }
     ],
-    "mechanical-engineer": [
-      {
-        "t": "Professor / Lecturer",
-        "m": 10,
-        "slug": "professor"
-      },
-      {
-        "t": "UX Designer",
-        "m": 10,
-        "slug": "ux-designer"
-      }
-    ],
+    "mechanical-engineer": [],
     "electrical-engineer": [
       {
         "t": "Civil Engineer",
@@ -302,18 +275,7 @@
       }
     ],
     "computational-designer": [],
-    "building-performance-analyst": [
-      {
-        "t": "Civil Engineer",
-        "m": 9,
-        "slug": "civil-engineer"
-      },
-      {
-        "t": "GIS Analyst",
-        "m": 7,
-        "slug": "gis-analyst"
-      }
-    ]
+    "building-performance-analyst": []
   },
   "cross": [
     [
@@ -339,24 +301,14 @@
   ],
   "bridges": [
     [
-      "design-technologist",
-      "mechanical-engineer_1",
-      0.25
-    ],
-    [
-      "electrical-engineer",
-      "landscape-architect_1",
-      0.21
-    ],
-    [
-      "electrical-engineer",
-      "building-performance-analyst_0",
-      0.21
-    ],
-    [
       "landscape-architect",
-      "interior-designer_0",
-      0.2
+      "electrical-engineer_0",
+      0.18
+    ],
+    [
+      "electrical-engineer",
+      "design-technologist_0",
+      0.18
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

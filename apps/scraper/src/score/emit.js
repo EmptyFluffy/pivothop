@@ -11,6 +11,7 @@ const MIN_ORIGIN_POSTINGS = 50;
 const LOW_CONFIDENCE_POSTINGS = 30;
 const FIRST_HOPS = 8;
 const KIDS_PER_HOP = 2;
+const KID_MIN_MATCH = 15; // a second hop below this is noise, not a route
 const CROSS_MAX = 6;
 const BRIDGE_MAX = 4;
 
@@ -90,12 +91,31 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
       };
     });
 
+    // Second hops. Three rules keep two-hop stories honest:
+    //   1. quality floor — a kid below KID_MIN_MATCH is noise, not a route
+    //   2. bridge-beats-direct — presenting origin→P→K claims P is the way in; if the
+    //      origin reaches K directly at equal or better match, that claim is false
+    //   3. one parent per kid — each kid occupation attaches to its best parent only;
+    //      other first-hops that also reach it become bridge edges, as in the reference
+    const directMatch = new Map((adj[origin] ?? []).map((x) => [x.dest, x.match]));
+    const candidates = [];
+    for (const h of hops) {
+      for (const k of adj[h.dest] ?? []) {
+        if (k.dest === origin || hopSlugs.has(k.dest)) continue;
+        if (k.match < KID_MIN_MATCH) continue;
+        if (k.match <= (directMatch.get(k.dest) ?? 0)) continue;
+        candidates.push({ parent: h.dest, slug: k.dest, match: k.match });
+      }
+    }
+    candidates.sort((a, b) => b.match - a.match);
+    const kidParent = new Map(); // kid slug -> best parent
+    for (const c of candidates) if (!kidParent.has(c.slug)) kidParent.set(c.slug, c);
     const next = {};
     for (const h of hops) {
-      next[h.dest] = (adj[h.dest] ?? [])
-        .filter((k) => k.dest !== origin && !hopSlugs.has(k.dest))
+      next[h.dest] = [...kidParent.values()]
+        .filter((c) => c.parent === h.dest)
         .slice(0, KIDS_PER_HOP)
-        .map((k) => ({ t: occInfo(k.dest).title, m: k.match, slug: k.dest }));
+        .map((c) => ({ t: occInfo(c.slug).title, m: c.match, slug: c.slug }));
     }
 
     // Cross-links: skill overlap between first-hops, strongest pairs only.
@@ -117,7 +137,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         for (const other of hops) {
           if (other.dest === h.dest) continue;
           const hit = (adj[other.dest] ?? []).find((x) => x.dest === kid.slug);
-          if (hit) bridges.push([other.dest, `${h.dest}_${i}`, +(hit.match / 100).toFixed(2)]);
+          if (hit && hit.match >= KID_MIN_MATCH) bridges.push([other.dest, `${h.dest}_${i}`, +(hit.match / 100).toFixed(2)]);
         }
       });
     }

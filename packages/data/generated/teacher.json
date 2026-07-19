@@ -235,24 +235,8 @@
     }
   ],
   "next": {
-    "professor": [
-      {
-        "t": "Mechanical Engineer",
-        "m": 25,
-        "slug": "mechanical-engineer"
-      },
-      {
-        "t": "Architect",
-        "m": 16,
-        "slug": "architect"
-      }
-    ],
+    "professor": [],
     "registered-nurse": [
-      {
-        "t": "Construction Manager",
-        "m": 35,
-        "slug": "construction-manager"
-      },
       {
         "t": "Social Worker",
         "m": 23,
@@ -264,11 +248,6 @@
         "t": "Financial Analyst",
         "m": 22,
         "slug": "financial-analyst"
-      },
-      {
-        "t": "Construction Manager",
-        "m": 17,
-        "slug": "construction-manager"
       }
     ],
     "landscape-architect": [
@@ -302,9 +281,9 @@
         "slug": "journalist"
       },
       {
-        "t": "Graphic Designer",
-        "m": 27,
-        "slug": "graphic-designer"
+        "t": "Marketing Manager",
+        "m": 21,
+        "slug": "marketing-manager"
       }
     ],
     "creative-technologist": [
@@ -314,23 +293,12 @@
         "slug": "design-technologist"
       },
       {
-        "t": "Graphic Designer",
-        "m": 25,
-        "slug": "graphic-designer"
+        "t": "Data Analyst",
+        "m": 15,
+        "slug": "data-analyst"
       }
     ],
-    "ux-designer": [
-      {
-        "t": "Product Designer",
-        "m": 36,
-        "slug": "product-designer"
-      },
-      {
-        "t": "Design Technologist",
-        "m": 36,
-        "slug": "design-technologist"
-      }
-    ]
+    "ux-designer": []
   },
   "cross": [
     [
@@ -356,24 +324,24 @@
   ],
   "bridges": [
     [
+      "ux-designer",
+      "corporate-trainer_0",
+      0.36
+    ],
+    [
+      "ux-designer",
+      "creative-technologist_0",
+      0.36
+    ],
+    [
+      "creative-director",
+      "corporate-trainer_0",
+      0.26
+    ],
+    [
       "creative-technologist",
-      "ux-designer_1",
-      0.58
-    ],
-    [
-      "corporate-trainer",
-      "ux-designer_0",
-      0.5
-    ],
-    [
-      "corporate-trainer",
-      "registered-nurse_0",
-      0.45
-    ],
-    [
-      "corporate-trainer",
-      "instructional-designer_1",
-      0.45
+      "corporate-trainer_0",
+      0.22
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

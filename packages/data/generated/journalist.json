@@ -237,50 +237,23 @@
   "next": {
     "creative-director": [
       {
-        "t": "Creative Technologist",
-        "m": 31,
-        "slug": "creative-technologist"
-      },
-      {
-        "t": "Product Designer",
-        "m": 26,
-        "slug": "product-designer"
-      }
-    ],
-    "technical-writer": [
-      {
-        "t": "Mechanical Engineer",
-        "m": 20,
-        "slug": "mechanical-engineer"
-      },
-      {
-        "t": "Interior Designer",
+        "t": "Instructional Designer",
         "m": 15,
-        "slug": "interior-designer"
+        "slug": "instructional-designer"
       }
     ],
-    "graphic-designer": [
-      {
-        "t": "Design Technologist",
-        "m": 35,
-        "slug": "design-technologist"
-      },
-      {
-        "t": "Construction Manager",
-        "m": 20,
-        "slug": "construction-manager"
-      }
-    ],
+    "technical-writer": [],
+    "graphic-designer": [],
     "video-editor": [
-      {
-        "t": "Creative Technologist",
-        "m": 42,
-        "slug": "creative-technologist"
-      },
       {
         "t": "Mechanical Engineer",
         "m": 25,
         "slug": "mechanical-engineer"
+      },
+      {
+        "t": "Electrical Engineer",
+        "m": 23,
+        "slug": "electrical-engineer"
       }
     ],
     "motion-designer": [
@@ -302,9 +275,9 @@
         "slug": "customer-success-manager"
       },
       {
-        "t": "Design Technologist",
-        "m": 28,
-        "slug": "design-technologist"
+        "t": "Product Manager",
+        "m": 22,
+        "slug": "product-manager"
       }
     ],
     "content-strategist": [
@@ -314,9 +287,9 @@
         "slug": "copywriter"
       },
       {
-        "t": "Creative Technologist",
-        "m": 38,
-        "slug": "creative-technologist"
+        "t": "Construction Manager",
+        "m": 33,
+        "slug": "construction-manager"
       }
     ],
     "auditor": [
@@ -366,24 +339,24 @@
   ],
   "bridges": [
     [
-      "motion-designer",
-      "graphic-designer_0",
-      0.52
+      "video-editor",
+      "motion-designer_1",
+      0.42
     ],
     [
-      "motion-designer",
-      "marketing-manager_1",
-      0.52
+      "content-strategist",
+      "motion-designer_1",
+      0.38
     ],
     [
-      "motion-designer",
-      "creative-director_0",
-      0.45
+      "graphic-designer",
+      "motion-designer_0",
+      0.35
     ],
     [
-      "motion-designer",
-      "video-editor_0",
-      0.45
+      "auditor",
+      "motion-designer_1",
+      0.35
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

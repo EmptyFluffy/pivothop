@@ -235,40 +235,13 @@
   "next": {
     "product-designer": [
       {
-        "t": "Customer Success Manager",
-        "m": 16,
-        "slug": "customer-success-manager"
-      },
-      {
-        "t": "Journalist",
-        "m": 16,
-        "slug": "journalist"
+        "t": "Corporate Trainer",
+        "m": 15,
+        "slug": "corporate-trainer"
       }
     ],
-    "design-technologist": [
-      {
-        "t": "Architect",
-        "m": 14,
-        "slug": "architect"
-      },
-      {
-        "t": "Frontend Developer",
-        "m": 6,
-        "slug": "frontend-developer"
-      }
-    ],
-    "graphic-designer": [
-      {
-        "t": "Construction Manager",
-        "m": 20,
-        "slug": "construction-manager"
-      },
-      {
-        "t": "Journalist",
-        "m": 18,
-        "slug": "journalist"
-      }
-    ],
+    "design-technologist": [],
+    "graphic-designer": [],
     "mechanical-engineer": [
       {
         "t": "Architect",
@@ -307,28 +280,12 @@
     ],
     "marketing-manager": [
       {
-        "t": "Customer Success Manager",
-        "m": 32,
-        "slug": "customer-success-manager"
-      },
-      {
-        "t": "Project Manager",
-        "m": 23,
-        "slug": "project-manager"
+        "t": "Urban Planner",
+        "m": 17,
+        "slug": "urban-planner"
       }
     ],
-    "creative-technologist": [
-      {
-        "t": "Data Analyst",
-        "m": 15,
-        "slug": "data-analyst"
-      },
-      {
-        "t": "Electrical Engineer",
-        "m": 13,
-        "slug": "electrical-engineer"
-      }
-    ]
+    "creative-technologist": []
   },
   "cross": [
     [
@@ -364,24 +321,24 @@
   ],
   "bridges": [
     [
-      "creative-director",
-      "product-designer_1",
-      0.69
+      "marketing-manager",
+      "product-manager_1",
+      0.32
     ],
     [
-      "creative-director",
-      "graphic-designer_1",
-      0.69
+      "marketing-manager",
+      "product-manager_0",
+      0.23
     ],
     [
-      "product-manager",
-      "marketing-manager_1",
-      0.43
+      "marketing-manager",
+      "mechanical-engineer_1",
+      0.2
     ],
     [
-      "product-manager",
-      "product-designer_0",
-      0.41
+      "graphic-designer",
+      "creative-director_0",
+      0.18
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

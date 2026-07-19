@@ -235,28 +235,12 @@
     }
   ],
   "next": {
-    "journalist": [
-      {
-        "t": "Video Editor",
-        "m": 8,
-        "slug": "video-editor"
-      },
-      {
-        "t": "Motion Designer",
-        "m": 7,
-        "slug": "motion-designer"
-      }
-    ],
+    "journalist": [],
     "mechanical-engineer": [
       {
-        "t": "Architect",
-        "m": 26,
-        "slug": "architect"
-      },
-      {
-        "t": "Construction Manager",
-        "m": 22,
-        "slug": "construction-manager"
+        "t": "Building Performance Analyst",
+        "m": 19,
+        "slug": "building-performance-analyst"
       }
     ],
     "creative-director": [
@@ -271,18 +255,7 @@
         "slug": "technical-artist"
       }
     ],
-    "graphic-designer": [
-      {
-        "t": "Design Technologist",
-        "m": 35,
-        "slug": "design-technologist"
-      },
-      {
-        "t": "Construction Manager",
-        "m": 20,
-        "slug": "construction-manager"
-      }
-    ],
+    "graphic-designer": [],
     "interior-designer": [
       {
         "t": "Architect",
@@ -321,14 +294,14 @@
     ],
     "marketing-manager": [
       {
-        "t": "Customer Success Manager",
-        "m": 32,
-        "slug": "customer-success-manager"
+        "t": "Project Manager",
+        "m": 23,
+        "slug": "project-manager"
       },
       {
-        "t": "Design Technologist",
-        "m": 28,
-        "slug": "design-technologist"
+        "t": "Urban Planner",
+        "m": 17,
+        "slug": "urban-planner"
       }
     ]
   },
@@ -356,24 +329,24 @@
   ],
   "bridges": [
     [
-      "product-designer",
-      "graphic-designer_0",
-      0.6
+      "graphic-designer",
+      "product-designer_1",
+      0.35
+    ],
+    [
+      "marketing-manager",
+      "real-estate-developer_0",
+      0.32
+    ],
+    [
+      "marketing-manager",
+      "product-designer_1",
+      0.28
     ],
     [
       "product-designer",
-      "marketing-manager_1",
-      0.6
-    ],
-    [
-      "interior-designer",
-      "mechanical-engineer_0",
-      0.4
-    ],
-    [
-      "real-estate-developer",
-      "marketing-manager_0",
-      0.36
+      "creative-director_0",
+      0.27
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

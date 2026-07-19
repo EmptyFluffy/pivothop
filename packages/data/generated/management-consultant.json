@@ -235,28 +235,12 @@
     }
   ],
   "next": {
-    "project-manager": [
-      {
-        "t": "Construction Manager",
-        "m": 48,
-        "slug": "construction-manager"
-      },
-      {
-        "t": "Marketing Manager",
-        "m": 33,
-        "slug": "marketing-manager"
-      }
-    ],
+    "project-manager": [],
     "customer-success-manager": [
       {
-        "t": "Marketing Manager",
-        "m": 37,
-        "slug": "marketing-manager"
-      },
-      {
-        "t": "Construction Manager",
-        "m": 34,
-        "slug": "construction-manager"
+        "t": "Registered Nurse",
+        "m": 16,
+        "slug": "registered-nurse"
       }
     ],
     "financial-analyst": [
@@ -273,26 +257,26 @@
     ],
     "supply-chain-analyst": [
       {
-        "t": "Construction Manager",
-        "m": 48,
-        "slug": "construction-manager"
-      },
-      {
         "t": "Recruiter",
         "m": 32,
         "slug": "recruiter"
+      },
+      {
+        "t": "Journalist",
+        "m": 26,
+        "slug": "journalist"
       }
     ],
     "real-estate-developer": [
       {
-        "t": "Marketing Manager",
-        "m": 35,
-        "slug": "marketing-manager"
+        "t": "Technical Writer",
+        "m": 26,
+        "slug": "technical-writer"
       },
       {
-        "t": "Graphic Designer",
-        "m": 27,
-        "slug": "graphic-designer"
+        "t": "Account Executive",
+        "m": 20,
+        "slug": "account-executive"
       }
     ],
     "product-manager": [
@@ -314,9 +298,9 @@
         "slug": "construction-manager"
       },
       {
-        "t": "Accountant",
-        "m": 40,
-        "slug": "accountant"
+        "t": "Mechanical Engineer",
+        "m": 29,
+        "slug": "mechanical-engineer"
       }
     ],
     "urban-planner": [
@@ -366,24 +350,24 @@
   ],
   "bridges": [
     [
-      "controller",
-      "project-manager_0",
-      0.49
-    ],
-    [
-      "controller",
-      "customer-success-manager_1",
-      0.49
-    ],
-    [
-      "controller",
-      "supply-chain-analyst_0",
-      0.49
+      "project-manager",
+      "controller_0",
+      0.48
     ],
     [
       "supply-chain-analyst",
-      "project-manager_0",
+      "controller_0",
       0.48
+    ],
+    [
+      "controller",
+      "financial-analyst_0",
+      0.4
+    ],
+    [
+      "customer-success-manager",
+      "product-manager_0",
+      0.37
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

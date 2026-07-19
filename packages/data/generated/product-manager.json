@@ -235,18 +235,7 @@
     }
   ],
   "next": {
-    "marketing-manager": [
-      {
-        "t": "Graphic Designer",
-        "m": 27,
-        "slug": "graphic-designer"
-      },
-      {
-        "t": "Creative Director",
-        "m": 24,
-        "slug": "creative-director"
-      }
-    ],
+    "marketing-manager": [],
     "project-manager": [
       {
         "t": "Construction Manager",
@@ -254,21 +243,21 @@
         "slug": "construction-manager"
       },
       {
-        "t": "Financial Analyst",
-        "m": 27,
-        "slug": "financial-analyst"
+        "t": "Interior Designer",
+        "m": 26,
+        "slug": "interior-designer"
       }
     ],
     "customer-success-manager": [
       {
-        "t": "Construction Manager",
-        "m": 34,
-        "slug": "construction-manager"
+        "t": "Architect",
+        "m": 21,
+        "slug": "architect"
       },
       {
-        "t": "Graphic Designer",
-        "m": 21,
-        "slug": "graphic-designer"
+        "t": "Registered Nurse",
+        "m": 16,
+        "slug": "registered-nurse"
       }
     ],
     "product-designer": [
@@ -290,23 +279,12 @@
         "slug": "creative-technologist"
       },
       {
-        "t": "Financial Analyst",
-        "m": 26,
-        "slug": "financial-analyst"
+        "t": "Operations Manager",
+        "m": 23,
+        "slug": "operations-manager"
       }
     ],
-    "design-technologist": [
-      {
-        "t": "Creative Technologist",
-        "m": 27,
-        "slug": "creative-technologist"
-      },
-      {
-        "t": "UX Designer",
-        "m": 25,
-        "slug": "ux-designer"
-      }
-    ],
+    "design-technologist": [],
     "management-consultant": [
       {
         "t": "Financial Analyst",
@@ -321,14 +299,14 @@
     ],
     "real-estate-developer": [
       {
-        "t": "Graphic Designer",
-        "m": 27,
-        "slug": "graphic-designer"
-      },
-      {
         "t": "Technical Writer",
         "m": 26,
         "slug": "technical-writer"
+      },
+      {
+        "t": "Account Executive",
+        "m": 20,
+        "slug": "account-executive"
       }
     ]
   },
@@ -366,24 +344,24 @@
   ],
   "bridges": [
     [
+      "management-consultant",
+      "project-manager_0",
+      0.36
+    ],
+    [
+      "customer-success-manager",
+      "project-manager_0",
+      0.34
+    ],
+    [
       "product-designer",
-      "design-technologist_1",
-      0.66
+      "data-analyst_0",
+      0.27
     ],
     [
-      "project-manager",
-      "customer-success-manager_0",
-      0.48
-    ],
-    [
-      "management-consultant",
-      "project-manager_1",
-      0.44
-    ],
-    [
-      "management-consultant",
-      "data-analyst_1",
-      0.44
+      "design-technologist",
+      "data-analyst_0",
+      0.27
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

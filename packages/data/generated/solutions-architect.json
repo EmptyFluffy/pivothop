@@ -237,34 +237,24 @@
   "next": {
     "software-engineer": [
       {
-        "t": "Product Manager",
-        "m": 48,
-        "slug": "product-manager"
-      },
-      {
-        "t": "Machine Learning Engineer",
-        "m": 39,
-        "slug": "machine-learning-engineer"
+        "t": "Management Consultant",
+        "m": 35,
+        "slug": "management-consultant"
       }
     ],
     "backend-developer": [
       {
-        "t": "Machine Learning Engineer",
-        "m": 35,
-        "slug": "machine-learning-engineer"
+        "t": "Customer Success Manager",
+        "m": 30,
+        "slug": "customer-success-manager"
       },
       {
-        "t": "Product Manager",
-        "m": 32,
-        "slug": "product-manager"
+        "t": "Real Estate Developer",
+        "m": 25,
+        "slug": "real-estate-developer"
       }
     ],
     "industrial-engineer": [
-      {
-        "t": "DevOps Engineer",
-        "m": 56,
-        "slug": "devops-engineer"
-      },
       {
         "t": "Project Manager",
         "m": 37,
@@ -273,14 +263,14 @@
     ],
     "data-analyst": [
       {
-        "t": "Project Manager",
-        "m": 32,
-        "slug": "project-manager"
+        "t": "Creative Technologist",
+        "m": 28,
+        "slug": "creative-technologist"
       },
       {
-        "t": "Product Manager",
-        "m": 29,
-        "slug": "product-manager"
+        "t": "Financial Analyst",
+        "m": 26,
+        "slug": "financial-analyst"
       }
     ],
     "data-engineer": [
@@ -290,9 +280,9 @@
         "slug": "data-scientist"
       },
       {
-        "t": "Machine Learning Engineer",
-        "m": 41,
-        "slug": "machine-learning-engineer"
+        "t": "Product Analyst",
+        "m": 38,
+        "slug": "product-analyst"
       }
     ],
     "sales-engineer": [
@@ -312,23 +302,18 @@
         "t": "DevOps Engineer",
         "m": 63,
         "slug": "devops-engineer"
-      },
-      {
-        "t": "IT Support Specialist",
-        "m": 45,
-        "slug": "it-support"
       }
     ],
     "research-scientist": [
       {
-        "t": "Product Manager",
-        "m": 35,
-        "slug": "product-manager"
+        "t": "Design Technologist",
+        "m": 28,
+        "slug": "design-technologist"
       },
       {
-        "t": "Project Manager",
-        "m": 31,
-        "slug": "project-manager"
+        "t": "Customer Support Specialist",
+        "m": 25,
+        "slug": "customer-support"
       }
     ]
   },
@@ -366,24 +351,24 @@
   ],
   "bridges": [
     [
-      "security-engineer",
-      "industrial-engineer_0",
-      0.63
-    ],
-    [
       "industrial-engineer",
       "security-engineer_0",
       0.56
     ],
     [
-      "sales-engineer",
-      "security-engineer_1",
-      0.54
+      "software-engineer",
+      "sales-engineer_1",
+      0.48
+    ],
+    [
+      "security-engineer",
+      "sales-engineer_0",
+      0.45
     ],
     [
       "sales-engineer",
-      "software-engineer_0",
-      0.52
+      "security-engineer_0",
+      0.45
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -233,40 +233,13 @@
     }
   ],
   "next": {
-    "building-performance-analyst": [
-      {
-        "t": "Mechanical Engineer",
-        "m": 17,
-        "slug": "mechanical-engineer"
-      },
-      {
-        "t": "Architect",
-        "m": 10,
-        "slug": "architect"
-      }
-    ],
-    "journalist": [
-      {
-        "t": "Video Editor",
-        "m": 8,
-        "slug": "video-editor"
-      },
-      {
-        "t": "Motion Designer",
-        "m": 7,
-        "slug": "motion-designer"
-      }
-    ],
+    "building-performance-analyst": [],
+    "journalist": [],
     "technical-writer": [
       {
         "t": "Mechanical Engineer",
         "m": 20,
         "slug": "mechanical-engineer"
-      },
-      {
-        "t": "Interior Designer",
-        "m": 15,
-        "slug": "interior-designer"
       }
     ],
     "marketing-manager": [
@@ -276,9 +249,9 @@
         "slug": "customer-success-manager"
       },
       {
-        "t": "Design Technologist",
-        "m": 28,
-        "slug": "design-technologist"
+        "t": "Real Estate Developer",
+        "m": 20,
+        "slug": "real-estate-developer"
       }
     ],
     "project-manager": [
@@ -300,9 +273,9 @@
         "slug": "design-technologist"
       },
       {
-        "t": "Construction Manager",
-        "m": 20,
-        "slug": "construction-manager"
+        "t": "UX Designer",
+        "m": 16,
+        "slug": "ux-designer"
       }
     ],
     "financial-analyst": [
@@ -345,16 +318,6 @@
   "bridges": [
     [
       "project-manager",
-      "graphic-designer_1",
-      0.48
-    ],
-    [
-      "graphic-designer",
-      "marketing-manager_1",
-      0.35
-    ],
-    [
-      "project-manager",
       "marketing-manager_0",
       0.29
     ],
@@ -362,6 +325,16 @@
       "marketing-manager",
       "graphic-designer_0",
       0.28
+    ],
+    [
+      "marketing-manager",
+      "creative-director_1",
+      0.25
+    ],
+    [
+      "financial-analyst",
+      "project-manager_1",
+      0.23
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

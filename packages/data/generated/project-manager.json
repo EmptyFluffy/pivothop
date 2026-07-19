@@ -235,30 +235,8 @@
     }
   ],
   "next": {
-    "construction-manager": [
-      {
-        "t": "Mechanical Engineer",
-        "m": 28,
-        "slug": "mechanical-engineer"
-      },
-      {
-        "t": "Landscape Architect",
-        "m": 26,
-        "slug": "landscape-architect"
-      }
-    ],
-    "marketing-manager": [
-      {
-        "t": "Design Technologist",
-        "m": 28,
-        "slug": "design-technologist"
-      },
-      {
-        "t": "Graphic Designer",
-        "m": 27,
-        "slug": "graphic-designer"
-      }
-    ],
+    "construction-manager": [],
+    "marketing-manager": [],
     "management-consultant": [
       {
         "t": "Supply Chain Analyst",
@@ -285,14 +263,14 @@
     ],
     "customer-success-manager": [
       {
-        "t": "Real Estate Developer",
-        "m": 25,
-        "slug": "real-estate-developer"
+        "t": "Account Executive",
+        "m": 19,
+        "slug": "account-executive"
       },
       {
-        "t": "Graphic Designer",
-        "m": 21,
-        "slug": "graphic-designer"
+        "t": "Registered Nurse",
+        "m": 16,
+        "slug": "registered-nurse"
       }
     ],
     "data-analyst": [
@@ -366,24 +344,24 @@
   ],
   "bridges": [
     [
-      "management-consultant",
-      "customer-success-manager_0",
-      0.4
+      "product-manager",
+      "management-consultant_1",
+      0.29
     ],
     [
-      "management-consultant",
-      "marketing-manager_1",
-      0.36
+      "marketing-manager",
+      "product-manager_1",
+      0.28
     ],
     [
-      "management-consultant",
-      "customer-success-manager_1",
-      0.36
+      "product-manager",
+      "data-analyst_0",
+      0.26
     ],
     [
-      "interior-designer",
-      "construction-manager_1",
-      0.35
+      "construction-manager",
+      "interior-designer_1",
+      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

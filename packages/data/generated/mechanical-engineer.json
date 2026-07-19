@@ -234,25 +234,9 @@
         "t": "Design Technologist",
         "m": 23,
         "slug": "design-technologist"
-      },
-      {
-        "t": "Urban Planner",
-        "m": 16,
-        "slug": "urban-planner"
       }
     ],
-    "interior-designer": [
-      {
-        "t": "Urban Planner",
-        "m": 12,
-        "slug": "urban-planner"
-      },
-      {
-        "t": "BIM Manager",
-        "m": 12,
-        "slug": "bim-manager"
-      }
-    ],
+    "interior-designer": [],
     "construction-manager": [
       {
         "t": "Project Manager",
@@ -265,28 +249,12 @@
         "slug": "customer-success-manager"
       }
     ],
-    "building-performance-analyst": [
-      {
-        "t": "Civil Engineer",
-        "m": 9,
-        "slug": "civil-engineer"
-      },
-      {
-        "t": "GIS Analyst",
-        "m": 7,
-        "slug": "gis-analyst"
-      }
-    ],
+    "building-performance-analyst": [],
     "landscape-architect": [
       {
         "t": "Urban Planner",
         "m": 20,
         "slug": "urban-planner"
-      },
-      {
-        "t": "Civil Engineer",
-        "m": 18,
-        "slug": "civil-engineer"
       }
     ],
     "electrical-engineer": [
@@ -307,11 +275,6 @@
         "t": "Teacher",
         "m": 47,
         "slug": "teacher"
-      },
-      {
-        "t": "Technical Artist",
-        "m": 14,
-        "slug": "technical-artist"
       }
     ]
   },
@@ -349,24 +312,14 @@
   ],
   "bridges": [
     [
-      "electrical-engineer",
-      "building-performance-analyst_0",
-      0.21
-    ],
-    [
-      "electrical-engineer",
-      "landscape-architect_1",
-      0.21
-    ],
-    [
       "landscape-architect",
-      "architect_1",
-      0.2
+      "electrical-engineer_0",
+      0.18
     ],
     [
-      "landscape-architect",
-      "interior-designer_0",
-      0.2
+      "architect",
+      "landscape-architect_0",
+      0.16
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

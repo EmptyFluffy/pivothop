@@ -235,18 +235,7 @@
     }
   ],
   "next": {
-    "security-engineer": [
-      {
-        "t": "Industrial Engineer",
-        "m": 52,
-        "slug": "industrial-engineer"
-      },
-      {
-        "t": "Backend Developer",
-        "m": 46,
-        "slug": "backend-developer"
-      }
-    ],
+    "security-engineer": [],
     "it-support": [
       {
         "t": "Customer Success Manager",
@@ -254,9 +243,9 @@
         "slug": "customer-success-manager"
       },
       {
-        "t": "Project Manager",
-        "m": 41,
-        "slug": "project-manager"
+        "t": "Graphic Designer",
+        "m": 40,
+        "slug": "graphic-designer"
       }
     ],
     "product-manager": [
@@ -266,21 +255,21 @@
         "slug": "project-manager"
       },
       {
-        "t": "Customer Success Manager",
-        "m": 41,
-        "slug": "customer-success-manager"
+        "t": "Real Estate Developer",
+        "m": 29,
+        "slug": "real-estate-developer"
       }
     ],
     "solutions-architect": [
       {
-        "t": "Backend Developer",
-        "m": 62,
-        "slug": "backend-developer"
-      },
-      {
         "t": "Industrial Engineer",
         "m": 61,
         "slug": "industrial-engineer"
+      },
+      {
+        "t": "Data Analyst",
+        "m": 60,
+        "slug": "data-analyst"
       }
     ],
     "software-engineer": [
@@ -290,9 +279,9 @@
         "slug": "backend-developer"
       },
       {
-        "t": "Data Analyst",
-        "m": 55,
-        "slug": "data-analyst"
+        "t": "Management Consultant",
+        "m": 35,
+        "slug": "management-consultant"
       }
     ],
     "product-designer": [
@@ -309,26 +298,21 @@
     ],
     "marketing-manager": [
       {
-        "t": "Customer Success Manager",
-        "m": 32,
-        "slug": "customer-success-manager"
+        "t": "Interior Designer",
+        "m": 20,
+        "slug": "interior-designer"
       },
       {
-        "t": "Design Technologist",
-        "m": 28,
-        "slug": "design-technologist"
+        "t": "Construction Manager",
+        "m": 19,
+        "slug": "construction-manager"
       }
     ],
     "devops-engineer": [
       {
-        "t": "Industrial Engineer",
-        "m": 52,
-        "slug": "industrial-engineer"
-      },
-      {
-        "t": "Backend Developer",
-        "m": 44,
-        "slug": "backend-developer"
+        "t": "Social Worker",
+        "m": 29,
+        "slug": "social-worker"
       }
     ]
   },
@@ -366,24 +350,24 @@
   ],
   "bridges": [
     [
-      "software-engineer",
-      "security-engineer_1",
-      0.69
-    ],
-    [
-      "software-engineer",
-      "solutions-architect_0",
-      0.69
-    ],
-    [
-      "software-engineer",
-      "devops-engineer_1",
-      0.69
-    ],
-    [
       "solutions-architect",
-      "security-engineer_1",
+      "software-engineer_0",
       0.62
+    ],
+    [
+      "software-engineer",
+      "solutions-architect_1",
+      0.55
+    ],
+    [
+      "security-engineer",
+      "solutions-architect_0",
+      0.52
+    ],
+    [
+      "devops-engineer",
+      "solutions-architect_0",
+      0.52
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

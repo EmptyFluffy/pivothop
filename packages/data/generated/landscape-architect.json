@@ -235,18 +235,7 @@
     }
   ],
   "next": {
-    "interior-designer": [
-      {
-        "t": "Graphic Designer",
-        "m": 11,
-        "slug": "graphic-designer"
-      },
-      {
-        "t": "Marketing Manager",
-        "m": 10,
-        "slug": "marketing-manager"
-      }
-    ],
+    "interior-designer": [],
     "architect": [
       {
         "t": "Design Technologist",
@@ -261,14 +250,9 @@
     ],
     "construction-manager": [
       {
-        "t": "Project Manager",
-        "m": 18,
-        "slug": "project-manager"
-      },
-      {
-        "t": "Customer Success Manager",
+        "t": "Graphic Designer",
         "m": 15,
-        "slug": "customer-success-manager"
+        "slug": "graphic-designer"
       }
     ],
     "urban-planner": [
@@ -283,18 +267,7 @@
         "slug": "project-manager"
       }
     ],
-    "mechanical-engineer": [
-      {
-        "t": "Building Performance Analyst",
-        "m": 19,
-        "slug": "building-performance-analyst"
-      },
-      {
-        "t": "Computational Designer",
-        "m": 12,
-        "slug": "computational-designer"
-      }
-    ],
+    "mechanical-engineer": [],
     "civil-engineer": [
       {
         "t": "Building Performance Analyst",
@@ -319,18 +292,7 @@
         "slug": "creative-technologist"
       }
     ],
-    "bim-manager": [
-      {
-        "t": "Financial Controller",
-        "m": 12,
-        "slug": "controller"
-      },
-      {
-        "t": "Professor / Lecturer",
-        "m": 9,
-        "slug": "professor"
-      }
-    ]
+    "bim-manager": []
   },
   "cross": [
     [
@@ -366,24 +328,24 @@
   ],
   "bridges": [
     [
-      "civil-engineer",
-      "mechanical-engineer_0",
-      0.56
+      "architect",
+      "civil-engineer_0",
+      0.19
+    ],
+    [
+      "mechanical-engineer",
+      "civil-engineer_0",
+      0.19
+    ],
+    [
+      "construction-manager",
+      "urban-planner_1",
+      0.18
     ],
     [
       "civil-engineer",
-      "bim-manager_0",
-      0.25
-    ],
-    [
-      "urban-planner",
-      "interior-designer_1",
-      0.24
-    ],
-    [
-      "urban-planner",
-      "construction-manager_0",
-      0.21
+      "urban-planner_1",
+      0.15
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

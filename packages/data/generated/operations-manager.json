@@ -237,28 +237,17 @@
   "next": {
     "data-analyst": [
       {
-        "t": "Product Manager",
-        "m": 29,
-        "slug": "product-manager"
-      },
-      {
         "t": "Creative Technologist",
         "m": 28,
         "slug": "creative-technologist"
-      }
-    ],
-    "project-manager": [
-      {
-        "t": "Product Manager",
-        "m": 30,
-        "slug": "product-manager"
       },
       {
-        "t": "Financial Analyst",
-        "m": 27,
-        "slug": "financial-analyst"
+        "t": "Software Engineer",
+        "m": 23,
+        "slug": "software-engineer"
       }
     ],
+    "project-manager": [],
     "construction-manager": [
       {
         "t": "Interior Designer",
@@ -278,9 +267,9 @@
         "slug": "design-technologist"
       },
       {
-        "t": "Creative Director",
-        "m": 22,
-        "slug": "creative-director"
+        "t": "Journalist",
+        "m": 18,
+        "slug": "journalist"
       }
     ],
     "management-consultant": [
@@ -297,26 +286,21 @@
     ],
     "marketing-manager": [
       {
-        "t": "Design Technologist",
-        "m": 28,
-        "slug": "design-technologist"
-      },
-      {
-        "t": "Product Designer",
-        "m": 25,
-        "slug": "product-designer"
+        "t": "Creative Director",
+        "m": 24,
+        "slug": "creative-director"
       }
     ],
     "customer-success-manager": [
       {
-        "t": "Real Estate Developer",
-        "m": 25,
-        "slug": "real-estate-developer"
+        "t": "Architect",
+        "m": 21,
+        "slug": "architect"
       },
       {
-        "t": "Product Manager",
-        "m": 24,
-        "slug": "product-manager"
+        "t": "Account Executive",
+        "m": 19,
+        "slug": "account-executive"
       }
     ],
     "bookkeeper": [
@@ -326,9 +310,9 @@
         "slug": "accountant"
       },
       {
-        "t": "Product Manager",
-        "m": 40,
-        "slug": "product-manager"
+        "t": "Product Designer",
+        "m": 31,
+        "slug": "product-designer"
       }
     ]
   },
@@ -366,24 +350,24 @@
   ],
   "bridges": [
     [
-      "management-consultant",
-      "project-manager_1",
-      0.44
-    ],
-    [
       "bookkeeper",
-      "data-analyst_0",
-      0.4
+      "management-consultant_0",
+      0.3
     ],
     [
-      "bookkeeper",
-      "project-manager_0",
-      0.4
+      "marketing-manager",
+      "graphic-designer_0",
+      0.28
     ],
     [
-      "management-consultant",
-      "customer-success-manager_0",
-      0.4
+      "project-manager",
+      "management-consultant_0",
+      0.27
+    ],
+    [
+      "project-manager",
+      "construction-manager_0",
+      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

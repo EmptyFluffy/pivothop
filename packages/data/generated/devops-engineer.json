@@ -235,64 +235,32 @@
     }
   ],
   "next": {
-    "security-engineer": [
-      {
-        "t": "Network Engineer",
-        "m": 36,
-        "slug": "network-engineer"
-      },
-      {
-        "t": "Data Engineer",
-        "m": 35,
-        "slug": "data-engineer"
-      }
-    ],
-    "industrial-engineer": [
-      {
-        "t": "Data Analyst",
-        "m": 49,
-        "slug": "data-analyst"
-      },
-      {
-        "t": "Data Engineer",
-        "m": 41,
-        "slug": "data-engineer"
-      }
-    ],
+    "security-engineer": [],
+    "industrial-engineer": [],
     "software-engineer": [
       {
-        "t": "Data Analyst",
-        "m": 55,
-        "slug": "data-analyst"
-      },
-      {
-        "t": "Product Manager",
-        "m": 48,
-        "slug": "product-manager"
+        "t": "Management Consultant",
+        "m": 35,
+        "slug": "management-consultant"
       }
     ],
     "backend-developer": [
       {
-        "t": "Machine Learning Engineer",
-        "m": 35,
-        "slug": "machine-learning-engineer"
-      },
-      {
-        "t": "Product Manager",
-        "m": 32,
-        "slug": "product-manager"
+        "t": "Real Estate Developer",
+        "m": 25,
+        "slug": "real-estate-developer"
       }
     ],
     "research-scientist": [
       {
-        "t": "Product Manager",
-        "m": 35,
-        "slug": "product-manager"
+        "t": "Design Technologist",
+        "m": 28,
+        "slug": "design-technologist"
       },
       {
-        "t": "Project Manager",
-        "m": 31,
-        "slug": "project-manager"
+        "t": "Financial Analyst",
+        "m": 26,
+        "slug": "financial-analyst"
       }
     ],
     "sales-engineer": [
@@ -314,9 +282,9 @@
         "slug": "customer-success-manager"
       },
       {
-        "t": "Product Manager",
-        "m": 44,
-        "slug": "product-manager"
+        "t": "Project Manager",
+        "m": 41,
+        "slug": "project-manager"
       }
     ],
     "solutions-architect": [
@@ -366,24 +334,24 @@
   ],
   "bridges": [
     [
-      "solutions-architect",
-      "industrial-engineer_0",
-      0.6
-    ],
-    [
-      "solutions-architect",
-      "software-engineer_0",
-      0.6
-    ],
-    [
-      "solutions-architect",
-      "security-engineer_1",
+      "software-engineer",
+      "solutions-architect_0",
       0.55
+    ],
+    [
+      "industrial-engineer",
+      "solutions-architect_0",
+      0.49
     ],
     [
       "software-engineer",
-      "industrial-engineer_0",
-      0.55
+      "sales-engineer_0",
+      0.48
+    ],
+    [
+      "solutions-architect",
+      "sales-engineer_0",
+      0.48
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
