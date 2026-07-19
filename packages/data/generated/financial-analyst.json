@@ -240,15 +240,21 @@
         "t": "Building Performance Analyst",
         "m": 19,
         "slug": "building-performance-analyst"
-      },
-      {
-        "t": "Compliance Officer",
-        "m": 18,
-        "slug": "compliance-officer"
       }
     ],
     "instructional-designer": [],
-    "project-manager": [],
+    "project-manager": [
+      {
+        "t": "Technical Writer",
+        "m": 18,
+        "slug": "technical-writer"
+      },
+      {
+        "t": "Social Media Manager",
+        "m": 15,
+        "slug": "social-media-manager"
+      }
+    ],
     "controller": [
       {
         "t": "Interior Designer",
@@ -280,18 +286,12 @@
         "slug": "creative-technologist"
       },
       {
-        "t": "Software Engineer",
-        "m": 23,
-        "slug": "software-engineer"
+        "t": "Data Engineer",
+        "m": 20,
+        "slug": "data-engineer"
       }
     ],
-    "construction-manager": [
-      {
-        "t": "Landscape Architect",
-        "m": 26,
-        "slug": "landscape-architect"
-      }
-    ],
+    "construction-manager": [],
     "marketing-manager": [
       {
         "t": "Design Technologist",
@@ -344,6 +344,11 @@
       0.32
     ],
     [
+      "management-consultant",
+      "controller_0",
+      0.3
+    ],
+    [
       "construction-manager",
       "controller_0",
       0.29
@@ -352,11 +357,6 @@
       "project-manager",
       "management-consultant_0",
       0.29
-    ],
-    [
-      "construction-manager",
-      "controller_1",
-      0.28
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -237,52 +237,36 @@
   "next": {
     "software-engineer": [
       {
-        "t": "Management Consultant",
-        "m": 35,
-        "slug": "management-consultant"
-      }
-    ],
-    "backend-developer": [
-      {
-        "t": "Customer Success Manager",
-        "m": 30,
-        "slug": "customer-success-manager"
-      },
-      {
-        "t": "Real Estate Developer",
-        "m": 25,
-        "slug": "real-estate-developer"
-      }
-    ],
-    "industrial-engineer": [
-      {
-        "t": "Project Manager",
-        "m": 37,
-        "slug": "project-manager"
-      }
-    ],
-    "data-analyst": [
-      {
-        "t": "Creative Technologist",
-        "m": 28,
-        "slug": "creative-technologist"
-      },
-      {
         "t": "Financial Analyst",
         "m": 26,
         "slug": "financial-analyst"
       }
     ],
-    "data-engineer": [
+    "backend-developer": [],
+    "industrial-engineer": [
       {
-        "t": "Data Scientist",
-        "m": 48,
-        "slug": "data-scientist"
-      },
+        "t": "Technical Writer",
+        "m": 17,
+        "slug": "technical-writer"
+      }
+    ],
+    "data-analyst": [
+      {
+        "t": "Accountant",
+        "m": 21,
+        "slug": "accountant"
+      }
+    ],
+    "data-engineer": [
       {
         "t": "Product Analyst",
         "m": 38,
         "slug": "product-analyst"
+      },
+      {
+        "t": "Compliance Officer",
+        "m": 30,
+        "slug": "compliance-officer"
       }
     ],
     "sales-engineer": [
@@ -292,9 +276,9 @@
         "slug": "it-support"
       },
       {
-        "t": "Product Manager",
-        "m": 52,
-        "slug": "product-manager"
+        "t": "Product Designer",
+        "m": 48,
+        "slug": "product-designer"
       }
     ],
     "security-engineer": [
@@ -302,18 +286,23 @@
         "t": "DevOps Engineer",
         "m": 63,
         "slug": "devops-engineer"
-      }
-    ],
-    "research-scientist": [
+      },
       {
         "t": "Design Technologist",
         "m": 28,
         "slug": "design-technologist"
-      },
+      }
+    ],
+    "research-scientist": [
       {
         "t": "Customer Support Specialist",
         "m": 25,
         "slug": "customer-support"
+      },
+      {
+        "t": "Architect",
+        "m": 19,
+        "slug": "architect"
       }
     ]
   },
@@ -356,11 +345,6 @@
       0.56
     ],
     [
-      "software-engineer",
-      "sales-engineer_1",
-      0.48
-    ],
-    [
       "security-engineer",
       "sales-engineer_0",
       0.45
@@ -369,6 +353,11 @@
       "sales-engineer",
       "security-engineer_0",
       0.45
+    ],
+    [
+      "software-engineer",
+      "sales-engineer_0",
+      0.35
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -235,18 +235,7 @@
     }
   ],
   "next": {
-    "customer-success-manager": [
-      {
-        "t": "Architect",
-        "m": 21,
-        "slug": "architect"
-      },
-      {
-        "t": "Registered Nurse",
-        "m": 16,
-        "slug": "registered-nurse"
-      }
-    ],
+    "customer-success-manager": [],
     "sales-representative": [
       {
         "t": "Corporate Trainer",
@@ -297,30 +286,13 @@
     ],
     "construction-manager": [
       {
-        "t": "Interior Designer",
-        "m": 29,
-        "slug": "interior-designer"
-      },
-      {
         "t": "Mechanical Engineer",
         "m": 28,
         "slug": "mechanical-engineer"
       }
     ],
-    "project-manager": [
-      {
-        "t": "Accountant",
-        "m": 21,
-        "slug": "accountant"
-      }
-    ],
-    "marketing-manager": [
-      {
-        "t": "Creative Director",
-        "m": 24,
-        "slug": "creative-director"
-      }
-    ]
+    "project-manager": [],
+    "marketing-manager": []
   },
   "cross": [
     [
@@ -366,14 +338,14 @@
       0.27
     ],
     [
-      "project-manager",
-      "construction-manager_0",
-      0.26
-    ],
-    [
       "marketing-manager",
       "sales-representative_1",
       0.25
+    ],
+    [
+      "project-manager",
+      "management-consultant_1",
+      0.23
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

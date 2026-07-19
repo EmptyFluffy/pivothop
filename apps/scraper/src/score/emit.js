@@ -12,6 +12,7 @@ const LOW_CONFIDENCE_POSTINGS = 30;
 const FIRST_HOPS = 8;
 const KIDS_PER_HOP = 2;
 const KID_MIN_MATCH = 15; // a second hop below this is noise, not a route
+const KID_ADVANTAGE = 5;  // a two-hop detour must beat the direct route decisively, not by rounding error
 const CROSS_MAX = 6;
 const BRIDGE_MAX = 4;
 
@@ -103,7 +104,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
       for (const k of adj[h.dest] ?? []) {
         if (k.dest === origin || hopSlugs.has(k.dest)) continue;
         if (k.match < KID_MIN_MATCH) continue;
-        if (k.match <= (directMatch.get(k.dest) ?? 0)) continue;
+        if (k.match < (directMatch.get(k.dest) ?? 0) + KID_ADVANTAGE) continue;
         candidates.push({ parent: h.dest, slug: k.dest, match: k.match });
       }
     }

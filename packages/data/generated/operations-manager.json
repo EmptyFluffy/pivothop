@@ -240,24 +240,19 @@
         "t": "Creative Technologist",
         "m": 28,
         "slug": "creative-technologist"
-      },
-      {
-        "t": "Software Engineer",
-        "m": 23,
-        "slug": "software-engineer"
       }
     ],
     "project-manager": [],
     "construction-manager": [
       {
-        "t": "Interior Designer",
-        "m": 29,
-        "slug": "interior-designer"
-      },
-      {
         "t": "Mechanical Engineer",
         "m": 28,
         "slug": "mechanical-engineer"
+      },
+      {
+        "t": "Landscape Architect",
+        "m": 26,
+        "slug": "landscape-architect"
       }
     ],
     "graphic-designer": [
@@ -274,35 +269,18 @@
     ],
     "management-consultant": [
       {
-        "t": "Financial Analyst",
-        "m": 44,
-        "slug": "financial-analyst"
-      },
-      {
         "t": "Supply Chain Analyst",
         "m": 40,
         "slug": "supply-chain-analyst"
-      }
-    ],
-    "marketing-manager": [
-      {
-        "t": "Creative Director",
-        "m": 24,
-        "slug": "creative-director"
-      }
-    ],
-    "customer-success-manager": [
-      {
-        "t": "Architect",
-        "m": 21,
-        "slug": "architect"
       },
       {
-        "t": "Account Executive",
-        "m": 19,
-        "slug": "account-executive"
+        "t": "Urban Planner",
+        "m": 36,
+        "slug": "urban-planner"
       }
     ],
+    "marketing-manager": [],
+    "customer-success-manager": [],
     "bookkeeper": [
       {
         "t": "Accountant",
@@ -350,9 +328,9 @@
   ],
   "bridges": [
     [
-      "bookkeeper",
-      "management-consultant_0",
-      0.3
+      "management-consultant",
+      "bookkeeper_0",
+      0.33
     ],
     [
       "marketing-manager",
@@ -360,14 +338,14 @@
       0.28
     ],
     [
-      "project-manager",
-      "management-consultant_0",
-      0.27
+      "management-consultant",
+      "construction-manager_1",
+      0.26
     ],
     [
-      "project-manager",
-      "construction-manager_0",
-      0.26
+      "marketing-manager",
+      "bookkeeper_1",
+      0.25
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

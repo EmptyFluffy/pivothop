@@ -1,7 +1,7 @@
 import { readJson, writeJson, supabaseUpsert } from '../lib/store.js';
 import { AGGREGATES_FILE, ADJACENCY_FILE } from '../lib/paths.js';
 
-const TOP_K = 12; // sparse storage: top-k destinations per origin
+const TOP_K = 48; // sparse but deep: emit-time direct-route comparisons need real numbers, not truncation zeros
 const MIN_SHARED_SKILLS = 3; // evidence floor: a pair sharing fewer distinct skills is not scored
 
 /**

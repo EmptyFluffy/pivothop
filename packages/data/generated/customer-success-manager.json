@@ -244,9 +244,9 @@
         "slug": "technical-writer"
       },
       {
-        "t": "Account Executive",
+        "t": "Sales Representative",
         "m": 20,
-        "slug": "account-executive"
+        "slug": "sales-representative"
       }
     ],
     "product-manager": [
@@ -263,9 +263,9 @@
     ],
     "project-manager": [
       {
-        "t": "Accountant",
-        "m": 21,
-        "slug": "accountant"
+        "t": "Social Media Manager",
+        "m": 15,
+        "slug": "social-media-manager"
       }
     ],
     "management-consultant": [
@@ -349,14 +349,14 @@
       0.33
     ],
     [
+      "management-consultant",
+      "architect_0",
+      0.3
+    ],
+    [
       "construction-manager",
       "architect_0",
       0.29
-    ],
-    [
-      "marketing-manager",
-      "graphic-designer_0",
-      0.28
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

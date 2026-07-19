@@ -243,23 +243,12 @@
         "slug": "construction-manager"
       },
       {
-        "t": "Interior Designer",
-        "m": 26,
-        "slug": "interior-designer"
-      }
-    ],
-    "customer-success-manager": [
-      {
-        "t": "Architect",
-        "m": 21,
-        "slug": "architect"
-      },
-      {
         "t": "Registered Nurse",
-        "m": 16,
+        "m": 17,
         "slug": "registered-nurse"
       }
     ],
+    "customer-success-manager": [],
     "product-designer": [
       {
         "t": "UX Designer",
@@ -274,14 +263,14 @@
     ],
     "data-analyst": [
       {
-        "t": "Creative Technologist",
-        "m": 28,
-        "slug": "creative-technologist"
+        "t": "Data Engineer",
+        "m": 20,
+        "slug": "data-engineer"
       },
       {
-        "t": "Operations Manager",
-        "m": 23,
-        "slug": "operations-manager"
+        "t": "Compliance Officer",
+        "m": 19,
+        "slug": "compliance-officer"
       }
     ],
     "design-technologist": [],
@@ -304,9 +293,9 @@
         "slug": "technical-writer"
       },
       {
-        "t": "Account Executive",
+        "t": "Sales Representative",
         "m": 20,
-        "slug": "account-executive"
+        "slug": "sales-representative"
       }
     ]
   },
@@ -354,14 +343,14 @@
       0.34
     ],
     [
-      "product-designer",
-      "data-analyst_0",
+      "project-manager",
+      "management-consultant_0",
       0.27
     ],
     [
-      "design-technologist",
-      "data-analyst_0",
-      0.27
+      "data-analyst",
+      "management-consultant_0",
+      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

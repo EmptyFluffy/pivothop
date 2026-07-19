@@ -281,9 +281,9 @@
         "slug": "journalist"
       },
       {
-        "t": "Marketing Manager",
-        "m": 21,
-        "slug": "marketing-manager"
+        "t": "Technical Artist",
+        "m": 19,
+        "slug": "technical-artist"
       }
     ],
     "creative-technologist": [
@@ -334,14 +334,14 @@
       0.36
     ],
     [
-      "creative-director",
-      "corporate-trainer_0",
+      "corporate-trainer",
+      "landscape-architect_0",
       0.26
     ],
     [
-      "creative-technologist",
+      "creative-director",
       "corporate-trainer_0",
-      0.22
+      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

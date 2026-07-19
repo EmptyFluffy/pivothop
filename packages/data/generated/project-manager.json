@@ -261,18 +261,7 @@
         "slug": "design-technologist"
       }
     ],
-    "customer-success-manager": [
-      {
-        "t": "Account Executive",
-        "m": 19,
-        "slug": "account-executive"
-      },
-      {
-        "t": "Registered Nurse",
-        "m": 16,
-        "slug": "registered-nurse"
-      }
-    ],
+    "customer-success-manager": [],
     "data-analyst": [
       {
         "t": "Creative Technologist",
@@ -280,9 +269,9 @@
         "slug": "creative-technologist"
       },
       {
-        "t": "Operations Manager",
-        "m": 23,
-        "slug": "operations-manager"
+        "t": "Data Engineer",
+        "m": 20,
+        "slug": "data-engineer"
       }
     ],
     "financial-analyst": [
@@ -344,6 +333,16 @@
   ],
   "bridges": [
     [
+      "management-consultant",
+      "financial-analyst_0",
+      0.33
+    ],
+    [
+      "management-consultant",
+      "interior-designer_0",
+      0.33
+    ],
+    [
       "product-manager",
       "management-consultant_1",
       0.29
@@ -352,16 +351,6 @@
       "marketing-manager",
       "product-manager_1",
       0.28
-    ],
-    [
-      "product-manager",
-      "data-analyst_0",
-      0.26
-    ],
-    [
-      "construction-manager",
-      "interior-designer_1",
-      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
