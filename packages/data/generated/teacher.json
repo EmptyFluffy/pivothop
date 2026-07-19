@@ -14,7 +14,7 @@
       "title": "Professor / Lecturer",
       "field": "Education",
       "desc": "",
-      "match": 30,
+      "match": 35,
       "salary": "$55k–$90k",
       "demand": "Low",
       "remote": "0%",
@@ -38,36 +38,11 @@
       }
     },
     {
-      "id": "aerospace-engineer",
-      "title": "Aerospace Engineer",
-      "field": "Engineering",
-      "desc": "",
-      "match": 10,
-      "salary": "$115k–$120k",
-      "demand": "Low",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Teaching",
-        "Observability"
-      ],
-      "learn": [
-        "Electrical Systems",
-        "FEA / Simulation",
-        "Risk Management"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 6,
-        "salaried": 6
-      }
-    },
-    {
       "id": "registered-nurse",
       "title": "Registered Nurse",
       "field": "Healthcare",
       "desc": "",
-      "match": 9,
+      "match": 10,
       "salary": "$60k–$110k",
       "demand": "High",
       "remote": "0%",
@@ -88,6 +63,62 @@
       "provenance": {
         "postings": 545,
         "salaried": 515
+      }
+    },
+    {
+      "id": "instructional-designer",
+      "title": "Instructional Designer",
+      "field": "Education",
+      "desc": "",
+      "match": 9,
+      "salary": "$60k–$105k",
+      "demand": "Moderate",
+      "remote": "19%",
+      "time": "12–24 mo",
+      "have": [
+        "Instructional Design",
+        "Training & Facilitation",
+        "Supply Chain",
+        "Curriculum Development"
+      ],
+      "learn": [
+        "Agile",
+        "Customer Service",
+        "HR Operations",
+        "Lean / Six Sigma"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 157,
+        "salaried": 157
+      }
+    },
+    {
+      "id": "landscape-architect",
+      "title": "Landscape Architect",
+      "field": "Architecture",
+      "desc": "",
+      "match": 9,
+      "salary": "$55k–$95k",
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Assessment",
+        "Training & Facilitation",
+        "Scheduling",
+        "Teaching"
+      ],
+      "learn": [
+        "Urban Design",
+        "Sustainability",
+        "Construction Documentation",
+        "Project Management"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 236,
+        "salaried": 236
       }
     },
     {
@@ -119,67 +150,11 @@
       }
     },
     {
-      "id": "landscape-architect",
-      "title": "Landscape Architect",
-      "field": "Architecture",
-      "desc": "",
-      "match": 7,
-      "salary": "$55k–$95k",
-      "demand": "Moderate",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Assessment",
-        "Training & Facilitation",
-        "Scheduling",
-        "Teaching"
-      ],
-      "learn": [
-        "Urban Design",
-        "Sustainability",
-        "Construction Documentation",
-        "Project Management"
-      ],
-      "low_confidence": false,
-      "provenance": {
-        "postings": 236,
-        "salaried": 236
-      }
-    },
-    {
-      "id": "instructional-designer",
-      "title": "Instructional Designer",
-      "field": "Education",
-      "desc": "",
-      "match": 7,
-      "salary": "$60k–$105k",
-      "demand": "Moderate",
-      "remote": "19%",
-      "time": "12–24 mo",
-      "have": [
-        "Instructional Design",
-        "Training & Facilitation",
-        "Supply Chain",
-        "Curriculum Development"
-      ],
-      "learn": [
-        "Agile",
-        "Customer Service",
-        "HR Operations",
-        "Lean / Six Sigma"
-      ],
-      "low_confidence": false,
-      "provenance": {
-        "postings": 157,
-        "salaried": 157
-      }
-    },
-    {
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
       "desc": "",
-      "match": 6,
+      "match": 7,
       "salary": "$115k–$155k",
       "demand": "Moderate",
       "remote": "3%",
@@ -207,7 +182,7 @@
       "title": "Creative Technologist",
       "field": "Technology",
       "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
-      "match": 5,
+      "match": 7,
       "salary": "$95k–$175k",
       "demand": "Low",
       "remote": "0%",
@@ -229,134 +204,177 @@
         "postings": 29,
         "salaried": 29
       }
+    },
+    {
+      "id": "ux-designer",
+      "title": "UX Designer",
+      "field": "Design",
+      "desc": "Designs how software should feel to use. Researches users, maps flows, sketches interfaces, and defends the human experience against every other project pressure.",
+      "match": 6,
+      "salary": "$70k–$115k",
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Design Thinking",
+        "A/B Testing",
+        "Training & Facilitation",
+        "Teaching"
+      ],
+      "learn": [
+        "Prototyping",
+        "Interaction Design",
+        "Wireframing",
+        "User Research"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 257,
+        "salaried": 257
+      }
     }
   ],
   "next": {
     "professor": [
       {
         "t": "Mechanical Engineer",
-        "m": 17,
+        "m": 25,
         "slug": "mechanical-engineer"
       },
       {
         "t": "Architect",
-        "m": 12,
+        "m": 16,
         "slug": "architect"
-      }
-    ],
-    "aerospace-engineer": [
-      {
-        "t": "Compliance Officer",
-        "m": 12,
-        "slug": "compliance-officer"
-      },
-      {
-        "t": "Supply Chain Analyst",
-        "m": 11,
-        "slug": "supply-chain-analyst"
       }
     ],
     "registered-nurse": [
       {
         "t": "Construction Manager",
-        "m": 24,
+        "m": 35,
         "slug": "construction-manager"
       },
       {
         "t": "Social Worker",
-        "m": 21,
+        "m": 23,
         "slug": "social-worker"
-      }
-    ],
-    "corporate-trainer": [
-      {
-        "t": "Product Designer",
-        "m": 34,
-        "slug": "product-designer"
-      },
-      {
-        "t": "Customer Success Manager",
-        "m": 31,
-        "slug": "customer-success-manager"
-      }
-    ],
-    "landscape-architect": [
-      {
-        "t": "Architect",
-        "m": 31,
-        "slug": "architect"
-      },
-      {
-        "t": "Interior Designer",
-        "m": 29,
-        "slug": "interior-designer"
       }
     ],
     "instructional-designer": [
       {
         "t": "Financial Analyst",
-        "m": 19,
+        "m": 22,
         "slug": "financial-analyst"
       },
       {
         "t": "Construction Manager",
-        "m": 12,
+        "m": 17,
         "slug": "construction-manager"
+      }
+    ],
+    "landscape-architect": [
+      {
+        "t": "Interior Designer",
+        "m": 36,
+        "slug": "interior-designer"
+      },
+      {
+        "t": "Architect",
+        "m": 35,
+        "slug": "architect"
+      }
+    ],
+    "corporate-trainer": [
+      {
+        "t": "Product Designer",
+        "m": 50,
+        "slug": "product-designer"
+      },
+      {
+        "t": "Customer Success Manager",
+        "m": 47,
+        "slug": "customer-success-manager"
       }
     ],
     "creative-director": [
       {
         "t": "Journalist",
-        "m": 51,
+        "m": 69,
         "slug": "journalist"
       },
       {
-        "t": "Photographer",
-        "m": 40,
-        "slug": "photographer"
+        "t": "Graphic Designer",
+        "m": 27,
+        "slug": "graphic-designer"
       }
     ],
     "creative-technologist": [
       {
         "t": "Design Technologist",
-        "m": 42,
+        "m": 58,
         "slug": "design-technologist"
       },
       {
-        "t": "Journalist",
-        "m": 32,
-        "slug": "journalist"
+        "t": "Graphic Designer",
+        "m": 25,
+        "slug": "graphic-designer"
+      }
+    ],
+    "ux-designer": [
+      {
+        "t": "Product Designer",
+        "m": 36,
+        "slug": "product-designer"
+      },
+      {
+        "t": "Design Technologist",
+        "m": 36,
+        "slug": "design-technologist"
       }
     ]
   },
   "cross": [
     [
-      "corporate-trainer",
       "instructional-designer",
-      0.32
+      "corporate-trainer",
+      0.52
+    ],
+    [
+      "registered-nurse",
+      "corporate-trainer",
+      0.4
+    ],
+    [
+      "corporate-trainer",
+      "ux-designer",
+      0.33
+    ],
+    [
+      "creative-director",
+      "creative-technologist",
+      0.33
     ]
   ],
   "bridges": [
     [
-      "creative-director",
-      "creative-technologist_1",
-      0.51
-    ],
-    [
       "creative-technologist",
-      "creative-director_0",
-      0.32
+      "ux-designer_1",
+      0.58
     ],
     [
-      "landscape-architect",
-      "professor_1",
-      0.31
+      "corporate-trainer",
+      "ux-designer_0",
+      0.5
     ],
     [
       "corporate-trainer",
       "registered-nurse_0",
-      0.27
+      0.45
+    ],
+    [
+      "corporate-trainer",
+      "instructional-designer_1",
+      0.45
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

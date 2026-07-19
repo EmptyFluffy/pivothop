@@ -10,33 +10,11 @@
   },
   "roles": [
     {
-      "id": "photographer",
-      "title": "Photographer",
-      "field": "Design",
-      "desc": "",
-      "match": 34,
-      "salary": null,
-      "demand": "Low",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Writing & Editing"
-      ],
-      "learn": [
-        "Photography"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 3,
-        "salaried": 3
-      }
-    },
-    {
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
       "desc": "",
-      "match": 30,
+      "match": 32,
       "salary": "$115k–$155k",
       "demand": "Moderate",
       "remote": "3%",
@@ -60,36 +38,11 @@
       }
     },
     {
-      "id": "creative-technologist",
-      "title": "Creative Technologist",
-      "field": "Technology",
-      "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
-      "match": 18,
-      "salary": "$95k–$175k",
-      "demand": "Low",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Writing & Editing"
-      ],
-      "learn": [
-        "Design Systems",
-        "Supply Chain",
-        "NLP",
-        "Spark"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 29,
-        "salaried": 29
-      }
-    },
-    {
       "id": "technical-writer",
       "title": "Technical Writer",
       "field": "Writing",
       "desc": "",
-      "match": 10,
+      "match": 11,
       "salary": "$70k–$105k",
       "demand": "Moderate",
       "remote": "1%",
@@ -113,35 +66,11 @@
       }
     },
     {
-      "id": "copywriter",
-      "title": "Copywriter",
-      "field": "Writing",
-      "desc": "",
-      "match": 9,
-      "salary": null,
-      "demand": "Low",
-      "remote": "50%",
-      "time": "12–24 mo",
-      "have": [
-        "Writing & Editing"
-      ],
-      "learn": [
-        "Copywriting",
-        "Sales",
-        "SEO"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 2,
-        "salaried": 2
-      }
-    },
-    {
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
       "desc": "",
-      "match": 9,
+      "match": 11,
       "salary": "$40k–$75k",
       "demand": "Moderate",
       "remote": "1%",
@@ -219,159 +148,243 @@
         "postings": 8,
         "salaried": 7
       }
+    },
+    {
+      "id": "marketing-manager",
+      "title": "Marketing Manager",
+      "field": "Business",
+      "desc": "",
+      "match": 6,
+      "salary": "$60k–$120k",
+      "demand": "High",
+      "remote": "8%",
+      "time": "12–24 mo",
+      "have": [
+        "Data Analysis",
+        "Presentation",
+        "Procurement",
+        "Writing & Editing"
+      ],
+      "learn": [
+        "Product Management",
+        "Market Research",
+        "Email Marketing",
+        "CRM"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 357,
+        "salaried": 325
+      }
+    },
+    {
+      "id": "content-strategist",
+      "title": "Content Strategist",
+      "field": "Writing",
+      "desc": "",
+      "match": 5,
+      "salary": "$80k–$90k",
+      "demand": "Low",
+      "remote": "20%",
+      "time": "12–24 mo",
+      "have": [
+        "Content Marketing",
+        "Writing & Editing",
+        "Video Editing",
+        "Translation"
+      ],
+      "learn": [
+        "Social Media",
+        "Compliance",
+        "Supply Chain",
+        "Email Marketing"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 10,
+        "salaried": 7
+      }
+    },
+    {
+      "id": "auditor",
+      "title": "Auditor",
+      "field": "Finance",
+      "desc": "",
+      "match": 5,
+      "salary": "$105k–$145k",
+      "demand": "Low",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Data Analysis",
+        "Journalism",
+        "Translation",
+        "Presentation"
+      ],
+      "learn": [
+        "Audit",
+        "Accounting",
+        "Supply Chain",
+        "Financial Modeling"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 21,
+        "salaried": 20
+      }
     }
   ],
   "next": {
-    "photographer": [
-      {
-        "t": "Illustrator",
-        "m": 9,
-        "slug": "illustrator"
-      },
-      {
-        "t": "Brand Designer",
-        "m": 7,
-        "slug": "brand-designer"
-      }
-    ],
     "creative-director": [
       {
-        "t": "Product Designer",
-        "m": 22,
-        "slug": "product-designer"
-      },
-      {
-        "t": "Marketing Manager",
-        "m": 18,
-        "slug": "marketing-manager"
-      }
-    ],
-    "creative-technologist": [
-      {
-        "t": "Design Technologist",
-        "m": 42,
-        "slug": "design-technologist"
+        "t": "Creative Technologist",
+        "m": 31,
+        "slug": "creative-technologist"
       },
       {
         "t": "Product Designer",
-        "m": 18,
+        "m": 26,
         "slug": "product-designer"
       }
     ],
     "technical-writer": [
       {
         "t": "Mechanical Engineer",
-        "m": 14,
+        "m": 20,
         "slug": "mechanical-engineer"
       },
       {
-        "t": "Real Estate Developer",
-        "m": 12,
-        "slug": "real-estate-developer"
-      }
-    ],
-    "copywriter": [
-      {
-        "t": "SEO Specialist",
-        "m": 35,
-        "slug": "seo-specialist"
-      },
-      {
-        "t": "Content Strategist",
-        "m": 18,
-        "slug": "content-strategist"
+        "t": "Interior Designer",
+        "m": 15,
+        "slug": "interior-designer"
       }
     ],
     "graphic-designer": [
       {
         "t": "Design Technologist",
-        "m": 26,
+        "m": 35,
         "slug": "design-technologist"
       },
       {
-        "t": "Product Designer",
-        "m": 17,
-        "slug": "product-designer"
+        "t": "Construction Manager",
+        "m": 20,
+        "slug": "construction-manager"
       }
     ],
     "video-editor": [
       {
-        "t": "Service Designer",
-        "m": 38,
-        "slug": "service-designer"
+        "t": "Creative Technologist",
+        "m": 42,
+        "slug": "creative-technologist"
       },
       {
-        "t": "Content Strategist",
-        "m": 22,
-        "slug": "content-strategist"
+        "t": "Mechanical Engineer",
+        "m": 25,
+        "slug": "mechanical-engineer"
       }
     ],
     "motion-designer": [
       {
         "t": "Design Technologist",
-        "m": 31,
+        "m": 52,
         "slug": "design-technologist"
       },
       {
-        "t": "Product Designer",
-        "m": 22,
-        "slug": "product-designer"
+        "t": "Creative Technologist",
+        "m": 45,
+        "slug": "creative-technologist"
+      }
+    ],
+    "marketing-manager": [
+      {
+        "t": "Customer Success Manager",
+        "m": 32,
+        "slug": "customer-success-manager"
+      },
+      {
+        "t": "Design Technologist",
+        "m": 28,
+        "slug": "design-technologist"
+      }
+    ],
+    "content-strategist": [
+      {
+        "t": "Copywriter",
+        "m": 40,
+        "slug": "copywriter"
+      },
+      {
+        "t": "Creative Technologist",
+        "m": 38,
+        "slug": "creative-technologist"
+      }
+    ],
+    "auditor": [
+      {
+        "t": "Accountant",
+        "m": 52,
+        "slug": "accountant"
+      },
+      {
+        "t": "Business Analyst",
+        "m": 42,
+        "slug": "business-analyst"
       }
     ]
   },
   "cross": [
     [
-      "photographer",
-      "creative-director",
-      0.4
-    ],
-    [
       "creative-director",
       "video-editor",
-      0.38
+      0.58
     ],
     [
-      "video-editor",
-      "motion-designer",
-      0.37
+      "graphic-designer",
+      "auditor",
+      0.54
     ],
     [
       "graphic-designer",
       "video-editor",
-      0.34
+      0.53
     ],
     [
-      "photographer",
-      "copywriter",
-      0.33
+      "graphic-designer",
+      "motion-designer",
+      0.49
     ],
     [
-      "photographer",
+      "creative-director",
+      "motion-designer",
+      0.47
+    ],
+    [
       "video-editor",
-      0.32
+      "motion-designer",
+      0.45
     ]
   ],
   "bridges": [
     [
-      "creative-technologist",
+      "motion-designer",
       "graphic-designer_0",
-      0.42
-    ],
-    [
-      "creative-technologist",
-      "motion-designer_0",
-      0.42
+      0.52
     ],
     [
       "motion-designer",
-      "creative-technologist_0",
-      0.31
+      "marketing-manager_1",
+      0.52
     ],
     [
       "motion-designer",
-      "graphic-designer_0",
-      0.31
+      "creative-director_0",
+      0.45
+    ],
+    [
+      "motion-designer",
+      "video-editor_0",
+      0.45
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

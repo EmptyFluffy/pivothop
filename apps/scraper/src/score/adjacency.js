@@ -2,16 +2,22 @@ import { readJson, writeJson, supabaseUpsert } from '../lib/store.js';
 import { AGGREGATES_FILE, ADJACENCY_FILE } from '../lib/paths.js';
 
 const TOP_K = 12; // sparse storage: top-k destinations per origin
+const MIN_SHARED_SKILLS = 3; // evidence floor: a pair sharing fewer distinct skills is not scored
 
 /**
  * Occupation-to-occupation adjacency from weighted skill overlap.
  *
  * For each ordered pair (origin -> dest), over the union of both top-20 skill maps
  * (share = fraction of that occupation's postings mentioning the skill):
- *   jaccard  = Σ min(o_s, d_s) / Σ max(o_s, d_s)     — symmetric profile similarity
  *   coverage = Σ_{s∈dest} min(o_s, d_s) / Σ_{s∈dest} d_s — how much of the destination's
  *              demanded skill weight the origin's profile already carries (directional)
- *   match    = round(100 · (0.45·jaccard + 0.55·coverage))
+ *   jaccard  = Σ min(o_s, d_s) / Σ max(o_s, d_s)     — symmetric profile similarity
+ *   match    = round(100 · coverage)                 — the displayed number: a real,
+ *              interpretable percentage ("X% of what the destination asks for, you have")
+ *
+ * Ranking is by match, jaccard as tie-breaker. Pairs sharing fewer than
+ * MIN_SHARED_SKILLS distinct skills are not scored at all — thin-profile origins
+ * (short descriptions, niche vocabularies) must not produce confident-looking noise.
  *
  * Deterministic given the same aggregates; the ±5-across-runs acceptance tolerance
  * absorbs data drift between scrapes, not algorithmic noise.
@@ -32,25 +38,27 @@ export async function adjacency({ log }) {
       if (d === o) continue;
       const om = maps[o], dm = maps[d];
       if (!om.size || !dm.size) continue;
-      let sumMin = 0, sumMax = 0, cov = 0, covDen = 0;
+      let sumMin = 0, sumMax = 0, cov = 0, covDen = 0, shared = 0;
       const union = new Set([...om.keys(), ...dm.keys()]);
       for (const s of union) {
         const a = om.get(s) ?? 0, b = dm.get(s) ?? 0;
+        if (a && b) shared++;
         sumMin += Math.min(a, b);
         sumMax += Math.max(a, b);
       }
+      if (shared < MIN_SHARED_SKILLS) continue;
       for (const [s, w] of dm) { covDen += w; cov += Math.min(om.get(s) ?? 0, w); }
       if (!sumMax || !covDen) continue;
       const jaccard = sumMin / sumMax;
       const coverage = cov / covDen;
-      const match = Math.round(100 * (0.45 * jaccard + 0.55 * coverage));
-      if (match > 0) scored.push({ dest: d, match, jaccard: +jaccard.toFixed(4), coverage: +coverage.toFixed(4), dest_postings: roles[d].count });
+      const match = Math.round(100 * coverage);
+      if (match > 0) scored.push({ dest: d, match, jaccard: +jaccard.toFixed(4), coverage: +coverage.toFixed(4), shared, dest_postings: roles[d].count });
     }
-    scored.sort((a, b) => b.match - a.match);
+    scored.sort((a, b) => b.match - a.match || b.jaccard - a.jaccard);
     out[o] = scored.slice(0, TOP_K);
   }
 
-  writeJson(ADJACENCY_FILE, { ranAt: new Date().toISOString(), formula: 'match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares', topK: TOP_K, origins: out });
+  writeJson(ADJACENCY_FILE, { ranAt: new Date().toISOString(), formula: 'match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored', topK: TOP_K, origins: out });
   log(`adjacency: scored ${slugs.length} origins, top-${TOP_K} kept per origin`);
 
   const rows = Object.entries(out).flatMap(([origin, dests]) =>

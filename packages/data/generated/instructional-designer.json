@@ -14,7 +14,7 @@
       "title": "Financial Analyst",
       "field": "Finance",
       "desc": "",
-      "match": 19,
+      "match": 22,
       "salary": "$60k–$80k",
       "demand": "High",
       "remote": "3%",
@@ -42,7 +42,7 @@
       "title": "Construction Manager",
       "field": "Construction",
       "desc": "",
-      "match": 12,
+      "match": 17,
       "salary": "$75k–$115k",
       "demand": "Moderate",
       "remote": "0%",
@@ -66,11 +66,39 @@
       }
     },
     {
+      "id": "mechanical-engineer",
+      "title": "Mechanical Engineer",
+      "field": "Engineering",
+      "desc": "",
+      "match": 15,
+      "salary": "$70k–$120k",
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Quality Control",
+        "Lean / Six Sigma",
+        "FEA / Simulation",
+        "Supply Chain"
+      ],
+      "learn": [
+        "Spec Writing",
+        "Prototyping",
+        "Project Management",
+        "3D Modeling"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 282,
+        "salaried": 282
+      }
+    },
+    {
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
       "desc": "",
-      "match": 11,
+      "match": 13,
       "salary": "$115k–$155k",
       "demand": "Moderate",
       "remote": "3%",
@@ -94,31 +122,59 @@
       }
     },
     {
-      "id": "mechanical-engineer",
-      "title": "Mechanical Engineer",
-      "field": "Engineering",
+      "id": "graphic-designer",
+      "title": "Graphic Designer",
+      "field": "Design",
       "desc": "",
       "match": 11,
-      "salary": "$70k–$120k",
+      "salary": "$40k–$75k",
+      "demand": "Moderate",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Presentation",
+        "Writing & Editing",
+        "Customer Service",
+        "Accessibility"
+      ],
+      "learn": [
+        "Procurement",
+        "Branding",
+        "Email Marketing",
+        "Product Management"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 289,
+        "salaried": 287
+      }
+    },
+    {
+      "id": "interior-designer",
+      "title": "Interior Designer",
+      "field": "Design",
+      "desc": "",
+      "match": 11,
+      "salary": "$55k–$85k",
       "demand": "Moderate",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
-        "Quality Control",
-        "Lean / Six Sigma",
-        "FEA / Simulation",
-        "Supply Chain"
+        "Presentation",
+        "Drafting",
+        "Supply Chain",
+        "Customer Service"
       ],
       "learn": [
-        "Spec Writing",
-        "Prototyping",
+        "Space Planning",
+        "Revit",
         "Project Management",
-        "3D Modeling"
+        "Construction Documentation"
       ],
       "low_confidence": false,
       "provenance": {
-        "postings": 282,
-        "salaried": 282
+        "postings": 219,
+        "salaried": 217
       }
     },
     {
@@ -150,87 +206,31 @@
       }
     },
     {
-      "id": "graphic-designer",
-      "title": "Graphic Designer",
-      "field": "Design",
+      "id": "professor",
+      "title": "Professor / Lecturer",
+      "field": "Education",
       "desc": "",
       "match": 9,
-      "salary": "$40k–$75k",
-      "demand": "Moderate",
-      "remote": "1%",
-      "time": "12–24 mo",
-      "have": [
-        "Presentation",
-        "Writing & Editing",
-        "Customer Service",
-        "Accessibility"
-      ],
-      "learn": [
-        "Procurement",
-        "Branding",
-        "Email Marketing",
-        "Product Management"
-      ],
-      "low_confidence": false,
-      "provenance": {
-        "postings": 289,
-        "salaried": 287
-      }
-    },
-    {
-      "id": "interior-designer",
-      "title": "Interior Designer",
-      "field": "Design",
-      "desc": "",
-      "match": 8,
-      "salary": "$55k–$85k",
-      "demand": "Moderate",
+      "salary": "$55k–$90k",
+      "demand": "Low",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
-        "Presentation",
         "Drafting",
-        "Supply Chain",
-        "Customer Service"
+        "Curriculum Development",
+        "Illustration",
+        "Scheduling"
       ],
       "learn": [
-        "Space Planning",
-        "Revit",
-        "Project Management",
-        "Construction Documentation"
+        "Teaching",
+        "Welding / Fabrication",
+        "Motion Design",
+        "Photography"
       ],
       "low_confidence": false,
       "provenance": {
-        "postings": 219,
-        "salaried": 217
-      }
-    },
-    {
-      "id": "project-manager",
-      "title": "Project Manager",
-      "field": "Business",
-      "desc": "",
-      "match": 7,
-      "salary": "$75k–$135k",
-      "demand": "High",
-      "remote": "9%",
-      "time": "12–24 mo",
-      "have": [
-        "Customer Service",
-        "Lean / Six Sigma",
-        "Cybersecurity",
-        "Presentation"
-      ],
-      "learn": [
-        "Project Management",
-        "Data Analysis",
-        "Observability",
-        "Operations"
-      ],
-      "low_confidence": false,
-      "provenance": {
-        "postings": 475,
-        "salaried": 417
+        "postings": 69,
+        "salaried": 67
       }
     }
   ],
@@ -238,128 +238,138 @@
     "financial-analyst": [
       {
         "t": "Accountant",
-        "m": 34,
+        "m": 41,
         "slug": "accountant"
       },
       {
-        "t": "Management Consultant",
-        "m": 21,
-        "slug": "management-consultant"
+        "t": "Project Manager",
+        "m": 27,
+        "slug": "project-manager"
       }
     ],
     "construction-manager": [
       {
-        "t": "Construction Estimator",
-        "m": 21,
-        "slug": "construction-estimator"
-      },
-      {
         "t": "Landscape Architect",
-        "m": 21,
+        "m": 26,
         "slug": "landscape-architect"
-      }
-    ],
-    "creative-director": [
-      {
-        "t": "Journalist",
-        "m": 51,
-        "slug": "journalist"
       },
       {
-        "t": "Photographer",
-        "m": 40,
-        "slug": "photographer"
+        "t": "Architect",
+        "m": 20,
+        "slug": "architect"
       }
     ],
     "mechanical-engineer": [
       {
         "t": "Architect",
-        "m": 23,
+        "m": 26,
         "slug": "architect"
       },
       {
-        "t": "Service Designer",
-        "m": 16,
-        "slug": "service-designer"
+        "t": "Building Performance Analyst",
+        "m": 19,
+        "slug": "building-performance-analyst"
       }
     ],
-    "corporate-trainer": [
+    "creative-director": [
       {
-        "t": "Product Designer",
-        "m": 34,
-        "slug": "product-designer"
+        "t": "Journalist",
+        "m": 69,
+        "slug": "journalist"
       },
       {
-        "t": "Customer Success Manager",
+        "t": "Creative Technologist",
         "m": 31,
-        "slug": "customer-success-manager"
+        "slug": "creative-technologist"
       }
     ],
     "graphic-designer": [
       {
         "t": "Design Technologist",
-        "m": 26,
+        "m": 35,
         "slug": "design-technologist"
       },
       {
         "t": "Product Designer",
-        "m": 17,
+        "m": 19,
         "slug": "product-designer"
       }
     ],
     "interior-designer": [
       {
         "t": "Architect",
-        "m": 36,
+        "m": 40,
         "slug": "architect"
       },
       {
         "t": "Landscape Architect",
-        "m": 29,
+        "m": 35,
         "slug": "landscape-architect"
       }
     ],
-    "project-manager": [
+    "corporate-trainer": [
       {
-        "t": "Management Consultant",
-        "m": 29,
-        "slug": "management-consultant"
+        "t": "Product Designer",
+        "m": 50,
+        "slug": "product-designer"
       },
       {
-        "t": "Product Manager",
-        "m": 26,
-        "slug": "product-manager"
+        "t": "Customer Success Manager",
+        "m": 47,
+        "slug": "customer-success-manager"
+      }
+    ],
+    "professor": [
+      {
+        "t": "Teacher",
+        "m": 47,
+        "slug": "teacher"
+      },
+      {
+        "t": "Architect",
+        "m": 16,
+        "slug": "architect"
       }
     ]
   },
   "cross": [
     [
       "construction-manager",
-      "project-manager",
-      0.33
+      "corporate-trainer",
+      0.45
+    ],
+    [
+      "graphic-designer",
+      "corporate-trainer",
+      0.36
+    ],
+    [
+      "mechanical-engineer",
+      "corporate-trainer",
+      0.32
     ]
   ],
   "bridges": [
     [
-      "interior-designer",
-      "mechanical-engineer_0",
-      0.36
-    ],
-    [
       "corporate-trainer",
       "graphic-designer_1",
-      0.34
-    ],
-    [
-      "project-manager",
-      "financial-analyst_1",
-      0.29
+      0.5
     ],
     [
       "interior-designer",
       "construction-manager_1",
-      0.29
+      0.4
+    ],
+    [
+      "interior-designer",
+      "mechanical-engineer_0",
+      0.4
+    ],
+    [
+      "interior-designer",
+      "professor_1",
+      0.4
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

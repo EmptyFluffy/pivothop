@@ -10,32 +10,11 @@
   },
   "roles": [
     {
-      "id": "mep-engineer",
-      "title": "MEP Engineer",
-      "field": "Engineering",
-      "desc": "",
-      "match": 36,
-      "salary": "$65k–$95k",
-      "demand": "Low",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Revit",
-        "BIM"
-      ],
-      "learn": [],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 12,
-        "salaried": 12
-      }
-    },
-    {
       "id": "interior-designer",
       "title": "Interior Designer",
       "field": "Design",
       "desc": "",
-      "match": 25,
+      "match": 38,
       "salary": "$55k–$85k",
       "demand": "Moderate",
       "remote": "0%",
@@ -63,7 +42,7 @@
       "title": "Architect",
       "field": "Architecture",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
-      "match": 24,
+      "match": 34,
       "salary": "$60k–$105k",
       "demand": "Moderate",
       "remote": "4%",
@@ -91,7 +70,7 @@
       "title": "Landscape Architect",
       "field": "Architecture",
       "desc": "",
-      "match": 19,
+      "match": 29,
       "salary": "$55k–$95k",
       "demand": "Moderate",
       "remote": "0%",
@@ -119,7 +98,7 @@
       "title": "Construction Manager",
       "field": "Construction",
       "desc": "",
-      "match": 18,
+      "match": 27,
       "salary": "$75k–$115k",
       "demand": "Moderate",
       "remote": "0%",
@@ -147,7 +126,7 @@
       "title": "Mechanical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 17,
+      "match": 27,
       "salary": "$70k–$120k",
       "demand": "Moderate",
       "remote": "0%",
@@ -175,7 +154,7 @@
       "title": "Electrical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 15,
+      "match": 20,
       "salary": "$65k–$135k",
       "demand": "Low",
       "remote": "2%",
@@ -199,47 +178,67 @@
       }
     },
     {
-      "id": "construction-estimator",
-      "title": "Construction Estimator",
-      "field": "Construction",
+      "id": "controller",
+      "title": "Financial Controller",
+      "field": "Finance",
       "desc": "",
-      "match": 11,
-      "salary": "$50k–$90k",
+      "match": 12,
+      "salary": "$60k–$70k",
       "demand": "Low",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
         "Project Management",
-        "Procurement"
+        "BIM",
+        "Scheduling",
+        "Training & Facilitation"
       ],
       "learn": [
-        "Cost Estimating",
-        "Spec Writing"
+        "Maintenance",
+        "Accounting",
+        "SQL",
+        "Stakeholder Management"
       ],
       "low_confidence": true,
       "provenance": {
-        "postings": 10,
-        "salaried": 10
+        "postings": 12,
+        "salaried": 9
+      }
+    },
+    {
+      "id": "professor",
+      "title": "Professor / Lecturer",
+      "field": "Education",
+      "desc": "",
+      "match": 9,
+      "salary": "$55k–$90k",
+      "demand": "Low",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Drafting",
+        "Welding / Fabrication",
+        "3D Modeling",
+        "Scheduling"
+      ],
+      "learn": [
+        "Teaching",
+        "Curriculum Development",
+        "Motion Design",
+        "Photography"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 69,
+        "salaried": 67
       }
     }
   ],
   "next": {
-    "mep-engineer": [
-      {
-        "t": "Financial Controller",
-        "m": 6,
-        "slug": "controller"
-      },
-      {
-        "t": "Design Technologist",
-        "m": 4,
-        "slug": "design-technologist"
-      }
-    ],
     "interior-designer": [
       {
         "t": "Urban Planner",
-        "m": 11,
+        "m": 12,
         "slug": "urban-planner"
       },
       {
@@ -251,73 +250,85 @@
     "architect": [
       {
         "t": "Design Technologist",
-        "m": 17,
+        "m": 23,
         "slug": "design-technologist"
       },
       {
         "t": "Computational Designer",
-        "m": 17,
+        "m": 20,
         "slug": "computational-designer"
       }
     ],
     "landscape-architect": [
       {
         "t": "Urban Planner",
-        "m": 19,
+        "m": 20,
         "slug": "urban-planner"
       },
       {
         "t": "Civil Engineer",
-        "m": 17,
+        "m": 18,
         "slug": "civil-engineer"
       }
     ],
     "construction-manager": [
       {
         "t": "Project Manager",
-        "m": 16,
+        "m": 18,
         "slug": "project-manager"
       },
       {
         "t": "Customer Success Manager",
-        "m": 14,
+        "m": 15,
         "slug": "customer-success-manager"
       }
     ],
     "mechanical-engineer": [
       {
-        "t": "Service Designer",
-        "m": 16,
-        "slug": "service-designer"
+        "t": "Building Performance Analyst",
+        "m": 19,
+        "slug": "building-performance-analyst"
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 15,
-        "slug": "building-performance-analyst"
+        "t": "Computational Designer",
+        "m": 12,
+        "slug": "computational-designer"
       }
     ],
     "electrical-engineer": [
       {
-        "t": "Service Designer",
-        "m": 52,
-        "slug": "service-designer"
+        "t": "Civil Engineer",
+        "m": 21,
+        "slug": "civil-engineer"
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 24,
-        "slug": "building-performance-analyst"
+        "t": "Creative Technologist",
+        "m": 18,
+        "slug": "creative-technologist"
       }
     ],
-    "construction-estimator": [
+    "controller": [
       {
-        "t": "Service Designer",
-        "m": 35,
-        "slug": "service-designer"
+        "t": "Financial Analyst",
+        "m": 43,
+        "slug": "financial-analyst"
       },
       {
-        "t": "Graphic Designer",
-        "m": 12,
-        "slug": "graphic-designer"
+        "t": "Accountant",
+        "m": 40,
+        "slug": "accountant"
+      }
+    ],
+    "professor": [
+      {
+        "t": "Teacher",
+        "m": 47,
+        "slug": "teacher"
+      },
+      {
+        "t": "Technical Artist",
+        "m": 14,
+        "slug": "technical-artist"
       }
     ]
   },
@@ -325,45 +336,55 @@
     [
       "interior-designer",
       "architect",
-      0.46
+      0.58
     ],
     [
       "architect",
       "electrical-engineer",
-      0.4
+      0.53
     ],
     [
       "architect",
       "landscape-architect",
-      0.39
+      0.5
+    ],
+    [
+      "construction-manager",
+      "controller",
+      0.49
     ],
     [
       "architect",
       "mechanical-engineer",
-      0.33
+      0.45
+    ],
+    [
+      "mechanical-engineer",
+      "electrical-engineer",
+      0.43
     ]
   ],
   "bridges": [
     [
-      "electrical-engineer",
-      "mechanical-engineer_0",
-      0.52
+      "controller",
+      "construction-manager_0",
+      0.37
     ],
     [
-      "electrical-engineer",
-      "construction-estimator_0",
-      0.52
+      "controller",
+      "interior-designer_1",
+      0.26
     ],
     [
-      "construction-estimator",
-      "mechanical-engineer_0",
-      0.35
+      "controller",
+      "landscape-architect_1",
+      0.26
     ],
     [
-      "construction-estimator",
+      "controller",
       "electrical-engineer_0",
-      0.35
+      0.26
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

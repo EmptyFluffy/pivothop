@@ -14,7 +14,7 @@
       "title": "Architect",
       "field": "Architecture",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
-      "match": 36,
+      "match": 40,
       "salary": "$60k–$105k",
       "demand": "Moderate",
       "remote": "4%",
@@ -42,7 +42,7 @@
       "title": "Landscape Architect",
       "field": "Architecture",
       "desc": "",
-      "match": 29,
+      "match": 35,
       "salary": "$55k–$95k",
       "demand": "Moderate",
       "remote": "0%",
@@ -70,7 +70,7 @@
       "title": "Mechanical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 23,
+      "match": 29,
       "salary": "$70k–$120k",
       "demand": "Moderate",
       "remote": "0%",
@@ -98,7 +98,7 @@
       "title": "Construction Manager",
       "field": "Construction",
       "desc": "",
-      "match": 22,
+      "match": 27,
       "salary": "$75k–$115k",
       "demand": "Moderate",
       "remote": "0%",
@@ -126,7 +126,7 @@
       "title": "Electrical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 13,
+      "match": 14,
       "salary": "$65k–$135k",
       "demand": "Low",
       "remote": "2%",
@@ -150,27 +150,31 @@
       }
     },
     {
-      "id": "construction-estimator",
-      "title": "Construction Estimator",
-      "field": "Construction",
-      "desc": "",
-      "match": 13,
-      "salary": "$50k–$90k",
+      "id": "urban-planner",
+      "title": "Urban Planner",
+      "field": "Architecture",
+      "desc": "Shapes cities and neighborhoods over years, not weeks. Works with public policy, GIS data, and community input to design zoning, mobility, and public space.",
+      "match": 12,
+      "salary": "$75k–$105k",
       "demand": "Low",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
-        "Project Management",
-        "Spec Writing"
+        "Urban Design",
+        "Sustainability",
+        "Data Analysis",
+        "Project Management"
       ],
       "learn": [
-        "Cost Estimating",
-        "Procurement"
+        "Zoning",
+        "Event Planning",
+        "Transportation Planning",
+        "Compliance"
       ],
       "low_confidence": true,
       "provenance": {
-        "postings": 10,
-        "salaried": 10
+        "postings": 26,
+        "salaried": 26
       }
     },
     {
@@ -178,7 +182,7 @@
       "title": "BIM Manager",
       "field": "Architecture",
       "desc": "Owns the digital model across a project team. Sets standards, coordinates disciplines, and makes sure every drawing in the set comes from one source of truth.",
-      "match": 11,
+      "match": 12,
       "salary": "$60k–$90k",
       "demand": "High",
       "remote": "1%",
@@ -202,31 +206,31 @@
       }
     },
     {
-      "id": "urban-planner",
-      "title": "Urban Planner",
-      "field": "Architecture",
-      "desc": "Shapes cities and neighborhoods over years, not weeks. Works with public policy, GIS data, and community input to design zoning, mobility, and public space.",
+      "id": "civil-engineer",
+      "title": "Civil Engineer",
+      "field": "Engineering",
+      "desc": "",
       "match": 11,
-      "salary": "$75k–$105k",
+      "salary": "$65k–$120k",
       "demand": "Low",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
+        "Construction Administration",
+        "Spec Writing",
         "Urban Design",
-        "Sustainability",
-        "Data Analysis",
-        "Project Management"
+        "Presentation"
       ],
       "learn": [
-        "Zoning",
-        "Event Planning",
-        "Transportation Planning",
-        "Compliance"
+        "Contracts",
+        "Quality Control",
+        "Deep Learning",
+        "Audit"
       ],
       "low_confidence": true,
       "provenance": {
-        "postings": 26,
-        "salaried": 26
+        "postings": 17,
+        "salaried": 17
       }
     }
   ],
@@ -234,143 +238,153 @@
     "architect": [
       {
         "t": "Design Technologist",
-        "m": 17,
+        "m": 23,
         "slug": "design-technologist"
       },
       {
         "t": "Computational Designer",
-        "m": 17,
+        "m": 20,
         "slug": "computational-designer"
       }
     ],
     "landscape-architect": [
       {
-        "t": "Civil Engineer",
-        "m": 17,
-        "slug": "civil-engineer"
+        "t": "Professor / Lecturer",
+        "m": 7,
+        "slug": "professor"
       },
       {
-        "t": "Visualization Artist",
-        "m": 14,
-        "slug": "visualization-artist"
+        "t": "Teacher",
+        "m": 6,
+        "slug": "teacher"
       }
     ],
     "mechanical-engineer": [
       {
-        "t": "Service Designer",
-        "m": 16,
-        "slug": "service-designer"
+        "t": "Building Performance Analyst",
+        "m": 19,
+        "slug": "building-performance-analyst"
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 15,
-        "slug": "building-performance-analyst"
+        "t": "Computational Designer",
+        "m": 12,
+        "slug": "computational-designer"
       }
     ],
     "construction-manager": [
       {
         "t": "Project Manager",
-        "m": 16,
+        "m": 18,
         "slug": "project-manager"
       },
       {
         "t": "Customer Success Manager",
-        "m": 14,
+        "m": 15,
         "slug": "customer-success-manager"
       }
     ],
     "electrical-engineer": [
       {
-        "t": "Service Designer",
-        "m": 52,
-        "slug": "service-designer"
+        "t": "Professor / Lecturer",
+        "m": 19,
+        "slug": "professor"
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 24,
-        "slug": "building-performance-analyst"
-      }
-    ],
-    "construction-estimator": [
-      {
-        "t": "Service Designer",
-        "m": 35,
-        "slug": "service-designer"
-      },
-      {
-        "t": "Graphic Designer",
-        "m": 12,
-        "slug": "graphic-designer"
-      }
-    ],
-    "bim-manager": [
-      {
-        "t": "MEP Engineer",
-        "m": 36,
-        "slug": "mep-engineer"
-      },
-      {
-        "t": "Financial Controller",
-        "m": 10,
-        "slug": "controller"
+        "t": "Creative Technologist",
+        "m": 18,
+        "slug": "creative-technologist"
       }
     ],
     "urban-planner": [
       {
-        "t": "Computational Designer",
-        "m": 19,
-        "slug": "computational-designer"
+        "t": "Marketing Manager",
+        "m": 24,
+        "slug": "marketing-manager"
       },
       {
-        "t": "Civil Engineer",
-        "m": 19,
-        "slug": "civil-engineer"
+        "t": "Project Manager",
+        "m": 21,
+        "slug": "project-manager"
+      }
+    ],
+    "bim-manager": [
+      {
+        "t": "Financial Controller",
+        "m": 12,
+        "slug": "controller"
+      },
+      {
+        "t": "Professor / Lecturer",
+        "m": 9,
+        "slug": "professor"
+      }
+    ],
+    "civil-engineer": [
+      {
+        "t": "Building Performance Analyst",
+        "m": 56,
+        "slug": "building-performance-analyst"
+      },
+      {
+        "t": "Financial Controller",
+        "m": 25,
+        "slug": "controller"
       }
     ]
   },
   "cross": [
     [
       "landscape-architect",
+      "civil-engineer",
+      0.85
+    ],
+    [
+      "landscape-architect",
       "urban-planner",
-      0.41
+      0.59
     ],
     [
       "architect",
       "electrical-engineer",
-      0.4
+      0.53
     ],
     [
       "architect",
       "landscape-architect",
-      0.39
+      0.5
+    ],
+    [
+      "architect",
+      "civil-engineer",
+      0.46
     ],
     [
       "architect",
       "mechanical-engineer",
-      0.33
+      0.45
     ]
   ],
   "bridges": [
     [
-      "electrical-engineer",
+      "civil-engineer",
       "mechanical-engineer_0",
-      0.52
+      0.56
     ],
     [
-      "electrical-engineer",
-      "construction-estimator_0",
-      0.52
+      "civil-engineer",
+      "bim-manager_0",
+      0.25
     ],
     [
-      "construction-estimator",
-      "mechanical-engineer_0",
-      0.35
+      "urban-planner",
+      "construction-manager_0",
+      0.21
     ],
     [
-      "construction-estimator",
-      "electrical-engineer_0",
-      0.35
+      "architect",
+      "mechanical-engineer_1",
+      0.2
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

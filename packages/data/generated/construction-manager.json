@@ -14,7 +14,7 @@
       "title": "Interior Designer",
       "field": "Design",
       "desc": "",
-      "match": 23,
+      "match": 29,
       "salary": "$55k–$85k",
       "demand": "Moderate",
       "remote": "0%",
@@ -42,7 +42,7 @@
       "title": "Mechanical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 22,
+      "match": 28,
       "salary": "$70k–$120k",
       "demand": "Moderate",
       "remote": "0%",
@@ -66,35 +66,11 @@
       }
     },
     {
-      "id": "construction-estimator",
-      "title": "Construction Estimator",
-      "field": "Construction",
-      "desc": "",
-      "match": 21,
-      "salary": "$50k–$90k",
-      "demand": "Low",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Project Management",
-        "Procurement"
-      ],
-      "learn": [
-        "Cost Estimating",
-        "Spec Writing"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 10,
-        "salaried": 10
-      }
-    },
-    {
       "id": "landscape-architect",
       "title": "Landscape Architect",
       "field": "Architecture",
       "desc": "",
-      "match": 21,
+      "match": 26,
       "salary": "$55k–$95k",
       "demand": "Moderate",
       "remote": "0%",
@@ -122,7 +98,7 @@
       "title": "Architect",
       "field": "Architecture",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
-      "match": 17,
+      "match": 20,
       "salary": "$60k–$105k",
       "demand": "Moderate",
       "remote": "4%",
@@ -150,7 +126,7 @@
       "title": "Project Manager",
       "field": "Business",
       "desc": "",
-      "match": 16,
+      "match": 18,
       "salary": "$75k–$135k",
       "demand": "High",
       "remote": "9%",
@@ -178,7 +154,7 @@
       "title": "Customer Success Manager",
       "field": "Business",
       "desc": "",
-      "match": 14,
+      "match": 15,
       "salary": "$55k–$115k",
       "demand": "High",
       "remote": "5%",
@@ -206,7 +182,7 @@
       "title": "Graphic Designer",
       "field": "Design",
       "desc": "",
-      "match": 12,
+      "match": 15,
       "salary": "$40k–$75k",
       "demand": "Moderate",
       "remote": "1%",
@@ -227,38 +203,52 @@
         "postings": 289,
         "salaried": 287
       }
+    },
+    {
+      "id": "building-performance-analyst",
+      "title": "Building Performance Analyst",
+      "field": "Architecture",
+      "desc": "",
+      "match": 14,
+      "salary": "$65k–$80k",
+      "demand": "Low",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "QA / Testing",
+        "Quality Control",
+        "Sustainability"
+      ],
+      "learn": [
+        "Data Analysis",
+        "Data Visualization",
+        "Energy Modeling"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 28,
+        "salaried": 28
+      }
     }
   ],
   "next": {
     "interior-designer": [
       {
         "t": "Electrical Engineer",
-        "m": 13,
+        "m": 14,
         "slug": "electrical-engineer"
       },
       {
-        "t": "BIM Manager",
-        "m": 11,
-        "slug": "bim-manager"
+        "t": "Urban Planner",
+        "m": 12,
+        "slug": "urban-planner"
       }
     ],
     "mechanical-engineer": [
       {
-        "t": "Service Designer",
-        "m": 16,
-        "slug": "service-designer"
-      },
-      {
-        "t": "Building Performance Analyst",
-        "m": 15,
-        "slug": "building-performance-analyst"
-      }
-    ],
-    "construction-estimator": [
-      {
-        "t": "Service Designer",
-        "m": 35,
-        "slug": "service-designer"
+        "t": "Electrical Engineer",
+        "m": 13,
+        "slug": "electrical-engineer"
       },
       {
         "t": "Computational Designer",
@@ -269,61 +259,73 @@
     "landscape-architect": [
       {
         "t": "Urban Planner",
-        "m": 19,
+        "m": 20,
         "slug": "urban-planner"
       },
       {
         "t": "Civil Engineer",
-        "m": 17,
+        "m": 18,
         "slug": "civil-engineer"
       }
     ],
     "architect": [
       {
         "t": "Electrical Engineer",
-        "m": 27,
+        "m": 29,
         "slug": "electrical-engineer"
       },
       {
         "t": "Design Technologist",
-        "m": 17,
+        "m": 23,
         "slug": "design-technologist"
       }
     ],
     "project-manager": [
       {
-        "t": "Management Consultant",
-        "m": 29,
-        "slug": "management-consultant"
+        "t": "Marketing Manager",
+        "m": 33,
+        "slug": "marketing-manager"
       },
       {
-        "t": "Product Manager",
-        "m": 26,
-        "slug": "product-manager"
+        "t": "Management Consultant",
+        "m": 32,
+        "slug": "management-consultant"
       }
     ],
     "customer-success-manager": [
       {
         "t": "Marketing Manager",
-        "m": 30,
+        "m": 37,
         "slug": "marketing-manager"
       },
       {
         "t": "Real Estate Developer",
-        "m": 22,
+        "m": 25,
         "slug": "real-estate-developer"
       }
     ],
     "graphic-designer": [
       {
         "t": "Design Technologist",
-        "m": 26,
+        "m": 35,
         "slug": "design-technologist"
       },
       {
         "t": "Creative Director",
-        "m": 18,
+        "m": 22,
         "slug": "creative-director"
+      }
+    ],
+    "building-performance-analyst": [
+      {
+        "t": "Civil Engineer",
+        "m": 9,
+        "slug": "civil-engineer"
+      },
+      {
+        "t": "GIS Analyst",
+        "m": 7,
+        "slug": "gis-analyst"
       }
     ]
   },
@@ -331,40 +333,45 @@
     [
       "interior-designer",
       "architect",
-      0.46
+      0.58
     ],
     [
       "landscape-architect",
       "architect",
-      0.39
+      0.5
     ],
     [
       "mechanical-engineer",
       "architect",
-      0.33
+      0.45
+    ],
+    [
+      "interior-designer",
+      "landscape-architect",
+      0.36
     ]
   ],
   "bridges": [
     [
-      "construction-estimator",
-      "mechanical-engineer_0",
-      0.35
-    ],
-    [
-      "architect",
-      "interior-designer_0",
-      0.27
+      "customer-success-manager",
+      "project-manager_0",
+      0.37
     ],
     [
       "graphic-designer",
       "architect_1",
-      0.26
+      0.35
     ],
     [
       "project-manager",
       "customer-success-manager_0",
-      0.25
+      0.33
+    ],
+    [
+      "architect",
+      "interior-designer_0",
+      0.29
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

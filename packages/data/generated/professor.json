@@ -14,7 +14,7 @@
       "title": "Teacher",
       "field": "Education",
       "desc": "",
-      "match": 37,
+      "match": 47,
       "salary": "$55k–$65k",
       "demand": "High",
       "remote": "0%",
@@ -42,7 +42,7 @@
       "title": "Mechanical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 17,
+      "match": 25,
       "salary": "$70k–$120k",
       "demand": "Moderate",
       "remote": "0%",
@@ -66,36 +66,11 @@
       }
     },
     {
-      "id": "aerospace-engineer",
-      "title": "Aerospace Engineer",
-      "field": "Engineering",
-      "desc": "",
-      "match": 15,
-      "salary": "$115k–$120k",
-      "demand": "Low",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Teaching",
-        "FEA / Simulation"
-      ],
-      "learn": [
-        "Electrical Systems",
-        "Observability",
-        "Risk Management"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 6,
-        "salaried": 6
-      }
-    },
-    {
       "id": "architect",
       "title": "Architect",
       "field": "Architecture",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
-      "match": 12,
+      "match": 16,
       "salary": "$60k–$105k",
       "demand": "Moderate",
       "remote": "4%",
@@ -119,11 +94,39 @@
       }
     },
     {
+      "id": "interior-designer",
+      "title": "Interior Designer",
+      "field": "Design",
+      "desc": "",
+      "match": 15,
+      "salary": "$55k–$85k",
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Construction Documentation",
+        "Spec Writing",
+        "Sustainability",
+        "Drafting"
+      ],
+      "learn": [
+        "Space Planning",
+        "Revit",
+        "Project Management",
+        "Presentation"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 219,
+        "salaried": 217
+      }
+    },
+    {
       "id": "electrical-engineer",
       "title": "Electrical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 12,
+      "match": 14,
       "salary": "$65k–$135k",
       "demand": "Low",
       "remote": "2%",
@@ -151,7 +154,7 @@
       "title": "Technical Artist",
       "field": "Technology",
       "desc": "",
-      "match": 11,
+      "match": 14,
       "salary": "$65k–$135k",
       "demand": "Low",
       "remote": "2%",
@@ -174,39 +177,11 @@
       }
     },
     {
-      "id": "interior-designer",
-      "title": "Interior Designer",
-      "field": "Design",
-      "desc": "",
-      "match": 11,
-      "salary": "$55k–$85k",
-      "demand": "Moderate",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Construction Documentation",
-        "Spec Writing",
-        "Sustainability",
-        "Drafting"
-      ],
-      "learn": [
-        "Space Planning",
-        "Revit",
-        "Project Management",
-        "Presentation"
-      ],
-      "low_confidence": false,
-      "provenance": {
-        "postings": 219,
-        "salaried": 217
-      }
-    },
-    {
       "id": "landscape-architect",
       "title": "Landscape Architect",
       "field": "Architecture",
       "desc": "",
-      "match": 9,
+      "match": 13,
       "salary": "$55k–$95k",
       "demand": "Moderate",
       "remote": "0%",
@@ -228,13 +203,41 @@
         "postings": 236,
         "salaried": 236
       }
+    },
+    {
+      "id": "instructional-designer",
+      "title": "Instructional Designer",
+      "field": "Education",
+      "desc": "",
+      "match": 12,
+      "salary": "$60k–$105k",
+      "demand": "Moderate",
+      "remote": "19%",
+      "time": "12–24 mo",
+      "have": [
+        "Instructional Design",
+        "Curriculum Development",
+        "HR Operations",
+        "Illustration"
+      ],
+      "learn": [
+        "Agile",
+        "Training & Facilitation",
+        "Customer Service",
+        "Supply Chain"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 157,
+        "salaried": 157
+      }
     }
   ],
   "next": {
     "teacher": [
       {
         "t": "Registered Nurse",
-        "m": 9,
+        "m": 10,
         "slug": "registered-nurse"
       },
       {
@@ -246,85 +249,85 @@
     "mechanical-engineer": [
       {
         "t": "Construction Manager",
-        "m": 18,
+        "m": 22,
         "slug": "construction-manager"
       },
       {
-        "t": "Service Designer",
-        "m": 16,
-        "slug": "service-designer"
-      }
-    ],
-    "aerospace-engineer": [
-      {
-        "t": "Corporate Trainer",
-        "m": 12,
-        "slug": "corporate-trainer"
-      },
-      {
-        "t": "Compliance Officer",
-        "m": 12,
-        "slug": "compliance-officer"
+        "t": "Building Performance Analyst",
+        "m": 19,
+        "slug": "building-performance-analyst"
       }
     ],
     "architect": [
       {
         "t": "Construction Manager",
-        "m": 21,
+        "m": 28,
         "slug": "construction-manager"
       },
       {
         "t": "Design Technologist",
-        "m": 17,
+        "m": 23,
         "slug": "design-technologist"
-      }
-    ],
-    "electrical-engineer": [
-      {
-        "t": "Service Designer",
-        "m": 52,
-        "slug": "service-designer"
-      },
-      {
-        "t": "Building Performance Analyst",
-        "m": 24,
-        "slug": "building-performance-analyst"
-      }
-    ],
-    "technical-artist": [
-      {
-        "t": "Visualization Artist",
-        "m": 25,
-        "slug": "visualization-artist"
-      },
-      {
-        "t": "Creative Director",
-        "m": 17,
-        "slug": "creative-director"
       }
     ],
     "interior-designer": [
       {
         "t": "Construction Manager",
-        "m": 22,
+        "m": 27,
         "slug": "construction-manager"
       },
       {
-        "t": "Construction Estimator",
+        "t": "Urban Planner",
+        "m": 12,
+        "slug": "urban-planner"
+      }
+    ],
+    "electrical-engineer": [
+      {
+        "t": "Construction Manager",
+        "m": 26,
+        "slug": "construction-manager"
+      },
+      {
+        "t": "Civil Engineer",
+        "m": 21,
+        "slug": "civil-engineer"
+      }
+    ],
+    "technical-artist": [
+      {
+        "t": "Creative Director",
+        "m": 22,
+        "slug": "creative-director"
+      },
+      {
+        "t": "Design Technologist",
         "m": 13,
-        "slug": "construction-estimator"
+        "slug": "design-technologist"
       }
     ],
     "landscape-architect": [
       {
         "t": "Construction Manager",
-        "m": 20,
+        "m": 25,
         "slug": "construction-manager"
       },
       {
         "t": "Urban Planner",
-        "m": 19,
+        "m": 20,
         "slug": "urban-planner"
+      }
+    ],
+    "instructional-designer": [
+      {
+        "t": "Financial Analyst",
+        "m": 22,
+        "slug": "financial-analyst"
+      },
+      {
+        "t": "Construction Manager",
+        "m": 17,
+        "slug": "construction-manager"
       }
     ]
   },
@@ -332,45 +335,55 @@
     [
       "architect",
       "interior-designer",
-      0.46
+      0.58
     ],
     [
       "architect",
       "electrical-engineer",
-      0.4
+      0.53
     ],
     [
       "architect",
       "landscape-architect",
-      0.39
+      0.5
     ],
     [
       "mechanical-engineer",
       "architect",
-      0.33
+      0.45
+    ],
+    [
+      "mechanical-engineer",
+      "electrical-engineer",
+      0.43
+    ],
+    [
+      "interior-designer",
+      "electrical-engineer",
+      0.37
     ]
   ],
   "bridges": [
     [
-      "electrical-engineer",
-      "mechanical-engineer_1",
-      0.52
-    ],
-    [
-      "interior-designer",
+      "architect",
       "mechanical-engineer_0",
-      0.22
+      0.28
     ],
     [
-      "interior-designer",
-      "architect_0",
-      0.22
+      "architect",
+      "interior-designer_0",
+      0.28
     ],
     [
-      "interior-designer",
+      "architect",
+      "electrical-engineer_0",
+      0.28
+    ],
+    [
+      "architect",
       "landscape-architect_0",
-      0.22
+      0.28
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

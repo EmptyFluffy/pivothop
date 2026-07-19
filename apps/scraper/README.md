@@ -58,10 +58,10 @@ With `SUPABASE_URL` + `SUPABASE_SERVICE_KEY` in the root `.env`, rows also upser
 ## The match formula
 
 ```
-match(origin → dest) = round(100 · (0.45 · weightedJaccard + 0.55 · destCoverage))
+match(origin → dest) = round(100 · destCoverage)
 ```
 
-over the two occupations' top-20 skill shares (share = fraction of postings mentioning the skill). `destCoverage` is directional: how much of the destination's demanded skill weight the origin's profile already carries. Deterministic given the same aggregates; the acceptance tolerance (±5 across runs) absorbs data drift between scrapes.
+over the two occupations' top-20 skill shares (share = fraction of postings mentioning the skill). `destCoverage` is directional — how much of the destination's demanded skill weight the origin's profile already carries — which makes the displayed number interpretable: *"X% of what this role asks for, you already have."* Ranking is by match with weighted Jaccard as tie-breaker; pairs sharing fewer than 3 distinct skills are not scored at all (the evidence floor that keeps thin-profile origins from producing confident-looking noise). Deterministic given the same aggregates; the acceptance tolerance (±5 across runs) absorbs data drift between scrapes.
 
 ## Growing the mapping
 

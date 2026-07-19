@@ -14,7 +14,7 @@
       "title": "Construction Manager",
       "field": "Construction",
       "desc": "",
-      "match": 24,
+      "match": 35,
       "salary": "$75k–$115k",
       "demand": "Moderate",
       "remote": "0%",
@@ -42,7 +42,7 @@
       "title": "Social Worker",
       "field": "Healthcare",
       "desc": "",
-      "match": 21,
+      "match": 23,
       "salary": null,
       "demand": "Low",
       "remote": "0%",
@@ -68,7 +68,7 @@
       "title": "Customer Success Manager",
       "field": "Business",
       "desc": "",
-      "match": 16,
+      "match": 21,
       "salary": "$55k–$115k",
       "demand": "High",
       "remote": "5%",
@@ -92,11 +92,39 @@
       }
     },
     {
+      "id": "teacher",
+      "title": "Teacher",
+      "field": "Education",
+      "desc": "",
+      "match": 20,
+      "salary": "$55k–$65k",
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Teaching",
+        "Training & Facilitation",
+        "Case Management",
+        "Observability"
+      ],
+      "learn": [
+        "Classroom Management",
+        "Curriculum Development",
+        "Design Thinking",
+        "Photography"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 459,
+        "salaried": 458
+      }
+    },
+    {
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
       "desc": "",
-      "match": 14,
+      "match": 19,
       "salary": "$115k–$155k",
       "demand": "Moderate",
       "remote": "3%",
@@ -124,7 +152,7 @@
       "title": "Project Manager",
       "field": "Business",
       "desc": "",
-      "match": 14,
+      "match": 18,
       "salary": "$75k–$135k",
       "demand": "High",
       "remote": "9%",
@@ -148,59 +176,31 @@
       }
     },
     {
-      "id": "corporate-trainer",
-      "title": "Corporate Trainer",
+      "id": "instructional-designer",
+      "title": "Instructional Designer",
       "field": "Education",
       "desc": "",
-      "match": 14,
-      "salary": "$80k–$125k",
-      "demand": "Low",
-      "remote": "5%",
+      "match": 17,
+      "salary": "$60k–$105k",
+      "demand": "Moderate",
+      "remote": "19%",
       "time": "12–24 mo",
       "have": [
-        "Training & Facilitation",
-        "Observability",
         "Instructional Design",
-        "Customer Service"
-      ],
-      "learn": [
-        "Accessibility",
-        "Figma",
-        "Prototyping",
-        "Social Media"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 21,
-        "salaried": 12
-      }
-    },
-    {
-      "id": "teacher",
-      "title": "Teacher",
-      "field": "Education",
-      "desc": "",
-      "match": 14,
-      "salary": "$55k–$65k",
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Teaching",
         "Training & Facilitation",
-        "Case Management",
-        "Observability"
+        "Customer Service",
+        "Lean / Six Sigma"
       ],
       "learn": [
-        "Classroom Management",
+        "Agile",
+        "Supply Chain",
         "Curriculum Development",
-        "Design Thinking",
-        "Photography"
+        "HR Operations"
       ],
       "low_confidence": false,
       "provenance": {
-        "postings": 459,
-        "salaried": 458
+        "postings": 157,
+        "salaried": 157
       }
     },
     {
@@ -208,7 +208,7 @@
       "title": "Professor / Lecturer",
       "field": "Education",
       "desc": "",
-      "match": 12,
+      "match": 16,
       "salary": "$55k–$90k",
       "demand": "Low",
       "remote": "0%",
@@ -236,138 +236,138 @@
     "construction-manager": [
       {
         "t": "Interior Designer",
-        "m": 23,
+        "m": 29,
         "slug": "interior-designer"
       },
       {
         "t": "Mechanical Engineer",
-        "m": 22,
+        "m": 28,
         "slug": "mechanical-engineer"
       }
     ],
     "social-worker": [
       {
         "t": "Lawyer",
-        "m": 18,
+        "m": 22,
         "slug": "lawyer"
       },
       {
-        "t": "HR Manager",
-        "m": 18,
-        "slug": "hr-manager"
+        "t": "Bookkeeper",
+        "m": 20,
+        "slug": "bookkeeper"
       }
     ],
     "customer-success-manager": [
       {
         "t": "Marketing Manager",
-        "m": 30,
+        "m": 37,
         "slug": "marketing-manager"
       },
       {
         "t": "Real Estate Developer",
-        "m": 22,
+        "m": 25,
         "slug": "real-estate-developer"
+      }
+    ],
+    "teacher": [
+      {
+        "t": "Landscape Architect",
+        "m": 9,
+        "slug": "landscape-architect"
+      },
+      {
+        "t": "Corporate Trainer",
+        "m": 7,
+        "slug": "corporate-trainer"
       }
     ],
     "creative-director": [
       {
         "t": "Journalist",
-        "m": 51,
+        "m": 69,
         "slug": "journalist"
       },
       {
-        "t": "Photographer",
-        "m": 40,
-        "slug": "photographer"
+        "t": "Creative Technologist",
+        "m": 31,
+        "slug": "creative-technologist"
       }
     ],
     "project-manager": [
       {
+        "t": "Marketing Manager",
+        "m": 33,
+        "slug": "marketing-manager"
+      },
+      {
         "t": "Management Consultant",
-        "m": 29,
-        "slug": "management-consultant"
-      },
-      {
-        "t": "Product Manager",
-        "m": 26,
-        "slug": "product-manager"
-      }
-    ],
-    "corporate-trainer": [
-      {
-        "t": "Product Designer",
-        "m": 34,
-        "slug": "product-designer"
-      },
-      {
-        "t": "Instructional Designer",
         "m": 32,
-        "slug": "instructional-designer"
+        "slug": "management-consultant"
       }
     ],
-    "teacher": [
+    "instructional-designer": [
       {
-        "t": "Aerospace Engineer",
-        "m": 10,
-        "slug": "aerospace-engineer"
+        "t": "Financial Analyst",
+        "m": 22,
+        "slug": "financial-analyst"
       },
       {
-        "t": "Landscape Architect",
-        "m": 7,
-        "slug": "landscape-architect"
+        "t": "Mechanical Engineer",
+        "m": 15,
+        "slug": "mechanical-engineer"
       }
     ],
     "professor": [
       {
         "t": "Mechanical Engineer",
-        "m": 17,
+        "m": 25,
         "slug": "mechanical-engineer"
       },
       {
-        "t": "Aerospace Engineer",
-        "m": 15,
-        "slug": "aerospace-engineer"
+        "t": "Architect",
+        "m": 16,
+        "slug": "architect"
       }
     ]
   },
   "cross": [
     [
+      "construction-manager",
+      "project-manager",
+      0.48
+    ],
+    [
       "teacher",
       "professor",
-      0.37
+      0.47
     ],
     [
       "construction-manager",
-      "project-manager",
-      0.33
-    ],
-    [
       "customer-success-manager",
-      "corporate-trainer",
-      0.31
+      0.34
     ]
   ],
   "bridges": [
     [
+      "customer-success-manager",
+      "project-manager_0",
+      0.37
+    ],
+    [
       "project-manager",
       "customer-success-manager_0",
-      0.25
+      0.33
     ],
     [
-      "corporate-trainer",
-      "project-manager_0",
-      0.24
-    ],
-    [
-      "creative-director",
-      "corporate-trainer_0",
-      0.22
+      "construction-manager",
+      "instructional-designer_1",
+      0.28
     ],
     [
       "construction-manager",
       "professor_0",
-      0.22
+      0.28
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

@@ -10,39 +10,11 @@
   },
   "roles": [
     {
-      "id": "architect",
-      "title": "Architect",
-      "field": "Architecture",
-      "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
-      "match": 31,
-      "salary": "$60k–$105k",
-      "demand": "Moderate",
-      "remote": "4%",
-      "time": "12–24 mo",
-      "have": [
-        "Construction Documentation",
-        "Sustainability",
-        "AutoCAD",
-        "Project Management"
-      ],
-      "learn": [
-        "Revit",
-        "BIM",
-        "AWS",
-        "Prototyping"
-      ],
-      "low_confidence": false,
-      "provenance": {
-        "postings": 290,
-        "salaried": 287
-      }
-    },
-    {
       "id": "interior-designer",
       "title": "Interior Designer",
       "field": "Design",
       "desc": "",
-      "match": 29,
+      "match": 36,
       "salary": "$55k–$85k",
       "demand": "Moderate",
       "remote": "0%",
@@ -66,11 +38,39 @@
       }
     },
     {
+      "id": "architect",
+      "title": "Architect",
+      "field": "Architecture",
+      "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
+      "match": 35,
+      "salary": "$60k–$105k",
+      "demand": "Moderate",
+      "remote": "4%",
+      "time": "12–24 mo",
+      "have": [
+        "Construction Documentation",
+        "Sustainability",
+        "AutoCAD",
+        "Project Management"
+      ],
+      "learn": [
+        "Revit",
+        "BIM",
+        "AWS",
+        "Prototyping"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 290,
+        "salaried": 287
+      }
+    },
+    {
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
       "desc": "",
-      "match": 20,
+      "match": 25,
       "salary": "$75k–$115k",
       "demand": "Moderate",
       "remote": "0%",
@@ -98,7 +98,7 @@
       "title": "Urban Planner",
       "field": "Architecture",
       "desc": "Shapes cities and neighborhoods over years, not weeks. Works with public policy, GIS data, and community input to design zoning, mobility, and public space.",
-      "match": 19,
+      "match": 20,
       "salary": "$75k–$105k",
       "demand": "Low",
       "remote": "0%",
@@ -122,39 +122,11 @@
       }
     },
     {
-      "id": "civil-engineer",
-      "title": "Civil Engineer",
-      "field": "Engineering",
-      "desc": "",
-      "match": 17,
-      "salary": "$65k–$120k",
-      "demand": "Low",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Construction Administration",
-        "Spec Writing",
-        "Contracts",
-        "Urban Design"
-      ],
-      "learn": [
-        "Presentation",
-        "Deep Learning",
-        "Audit",
-        "Event Planning"
-      ],
-      "low_confidence": true,
-      "provenance": {
-        "postings": 17,
-        "salaried": 17
-      }
-    },
-    {
       "id": "mechanical-engineer",
       "title": "Mechanical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 16,
+      "match": 20,
       "salary": "$70k–$120k",
       "demand": "Moderate",
       "remote": "0%",
@@ -178,26 +150,31 @@
       }
     },
     {
-      "id": "visualization-artist",
-      "title": "Visualization Artist",
-      "field": "Design",
+      "id": "civil-engineer",
+      "title": "Civil Engineer",
+      "field": "Engineering",
       "desc": "",
-      "match": 14,
-      "salary": "$80k–$105k",
+      "match": 18,
+      "salary": "$65k–$120k",
       "demand": "Low",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
+        "Construction Administration",
+        "Spec Writing",
+        "Contracts",
         "Urban Design"
       ],
       "learn": [
-        "Rendering",
-        "Unreal Engine"
+        "Presentation",
+        "Deep Learning",
+        "Audit",
+        "Event Planning"
       ],
       "low_confidence": true,
       "provenance": {
-        "postings": 9,
-        "salaried": 9
+        "postings": 17,
+        "salaried": 17
       }
     },
     {
@@ -205,7 +182,7 @@
       "title": "Electrical Engineer",
       "field": "Engineering",
       "desc": "",
-      "match": 11,
+      "match": 12,
       "salary": "$65k–$135k",
       "demand": "Low",
       "remote": "2%",
@@ -227,154 +204,187 @@
         "postings": 42,
         "salaried": 41
       }
+    },
+    {
+      "id": "bim-manager",
+      "title": "BIM Manager",
+      "field": "Architecture",
+      "desc": "Owns the digital model across a project team. Sets standards, coordinates disciplines, and makes sure every drawing in the set comes from one source of truth.",
+      "match": 9,
+      "salary": "$60k–$90k",
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Training & Facilitation",
+        "Sustainability",
+        "AutoCAD"
+      ],
+      "learn": [
+        "BIM",
+        "Revit",
+        "Clash Detection",
+        "Navisworks"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 430,
+        "salaried": 430
+      }
     }
   ],
   "next": {
+    "interior-designer": [
+      {
+        "t": "Graphic Designer",
+        "m": 11,
+        "slug": "graphic-designer"
+      },
+      {
+        "t": "Marketing Manager",
+        "m": 10,
+        "slug": "marketing-manager"
+      }
+    ],
     "architect": [
       {
         "t": "Design Technologist",
-        "m": 17,
+        "m": 23,
         "slug": "design-technologist"
       },
       {
         "t": "Computational Designer",
-        "m": 17,
+        "m": 20,
         "slug": "computational-designer"
-      }
-    ],
-    "interior-designer": [
-      {
-        "t": "Construction Estimator",
-        "m": 13,
-        "slug": "construction-estimator"
-      },
-      {
-        "t": "BIM Manager",
-        "m": 11,
-        "slug": "bim-manager"
       }
     ],
     "construction-manager": [
       {
-        "t": "Construction Estimator",
-        "m": 21,
-        "slug": "construction-estimator"
+        "t": "Project Manager",
+        "m": 18,
+        "slug": "project-manager"
       },
       {
-        "t": "Project Manager",
-        "m": 16,
-        "slug": "project-manager"
+        "t": "Customer Success Manager",
+        "m": 15,
+        "slug": "customer-success-manager"
       }
     ],
     "urban-planner": [
       {
-        "t": "Computational Designer",
-        "m": 19,
-        "slug": "computational-designer"
-      },
-      {
         "t": "Marketing Manager",
-        "m": 18,
+        "m": 24,
         "slug": "marketing-manager"
-      }
-    ],
-    "civil-engineer": [
-      {
-        "t": "Service Designer",
-        "m": 59,
-        "slug": "service-designer"
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 35,
-        "slug": "building-performance-analyst"
+        "t": "Project Manager",
+        "m": 21,
+        "slug": "project-manager"
       }
     ],
     "mechanical-engineer": [
       {
-        "t": "Service Designer",
-        "m": 16,
-        "slug": "service-designer"
+        "t": "Building Performance Analyst",
+        "m": 19,
+        "slug": "building-performance-analyst"
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 15,
-        "slug": "building-performance-analyst"
+        "t": "Computational Designer",
+        "m": 12,
+        "slug": "computational-designer"
       }
     ],
-    "visualization-artist": [
+    "civil-engineer": [
       {
-        "t": "Technical Artist",
-        "m": 20,
-        "slug": "technical-artist"
+        "t": "Building Performance Analyst",
+        "m": 56,
+        "slug": "building-performance-analyst"
       },
       {
-        "t": "Illustrator",
-        "m": 6,
-        "slug": "illustrator"
+        "t": "Financial Controller",
+        "m": 25,
+        "slug": "controller"
       }
     ],
     "electrical-engineer": [
       {
-        "t": "Service Designer",
-        "m": 52,
-        "slug": "service-designer"
+        "t": "Professor / Lecturer",
+        "m": 19,
+        "slug": "professor"
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 24,
-        "slug": "building-performance-analyst"
+        "t": "Creative Technologist",
+        "m": 18,
+        "slug": "creative-technologist"
+      }
+    ],
+    "bim-manager": [
+      {
+        "t": "Financial Controller",
+        "m": 12,
+        "slug": "controller"
+      },
+      {
+        "t": "Professor / Lecturer",
+        "m": 9,
+        "slug": "professor"
       }
     ]
   },
   "cross": [
     [
-      "architect",
       "interior-designer",
-      0.46
+      "architect",
+      0.58
+    ],
+    [
+      "interior-designer",
+      "civil-engineer",
+      0.53
     ],
     [
       "architect",
       "electrical-engineer",
-      0.4
+      0.53
     ],
     [
-      "interior-designer",
+      "architect",
       "civil-engineer",
-      0.34
+      0.46
     ],
     [
       "architect",
       "mechanical-engineer",
-      0.33
+      0.45
     ],
     [
-      "architect",
-      "civil-engineer",
-      0.3
+      "mechanical-engineer",
+      "electrical-engineer",
+      0.43
     ]
   ],
   "bridges": [
     [
       "civil-engineer",
       "mechanical-engineer_0",
-      0.59
+      0.56
     ],
     [
       "civil-engineer",
-      "electrical-engineer_0",
-      0.59
+      "bim-manager_0",
+      0.25
     ],
     [
-      "electrical-engineer",
-      "civil-engineer_0",
-      0.52
+      "urban-planner",
+      "interior-designer_1",
+      0.24
     ],
     [
-      "electrical-engineer",
-      "mechanical-engineer_0",
-      0.52
+      "urban-planner",
+      "construction-manager_0",
+      0.21
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

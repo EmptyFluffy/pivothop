@@ -41,6 +41,17 @@ export function preview({ log, origin = 'architect' }) {
     /\[\[[^\n]*(\n\s*\.forEach\(function\(x\)\{GEDGES\.push\(\{from:x\[0\],to:x\[1\],w:x\[2\],k:'bridge'\}\);\}\);)/,
     `${JSON.stringify(gen.bridges)}$1`
   );
+  // Preview-copy-only physics guard: the reference clamps node position at the stage
+  // bounds but not velocity, which is fine for the demo's strong edge weights — but
+  // real data can park nodes on the walls with residual velocity, so nodeEnergy()
+  // never drops below the unfold threshold and labels never fade in. Zeroing velocity
+  // at the clamp guarantees settling for any dataset. (Candidate upstream fix for the
+  // Phase 2 port; the reference file itself stays untouched.)
+  html = html.replace(
+    'if(n.x<40)n.x=40;else if(n.x>860)n.x=860;\n      if(n.y<36)n.y=36;else if(n.y>604)n.y=604;',
+    'if(n.x<40){n.x=40;n.vx=0;}else if(n.x>860){n.x=860;n.vx=0;}\n      if(n.y<36){n.y=36;n.vy=0;}else if(n.y>604){n.y=604;n.vy=0;}'
+  );
+
   // Center wordmark: the origin's name, with the clearance zone scaled to its length.
   html = html.replace(/label:'Architect'/, `label:${JSON.stringify(gen.origin.title)}`);
   html = html.replace(/PILL_W=108/, `PILL_W=${Math.max(70, Math.round(gen.origin.title.length * 11.5))}`);

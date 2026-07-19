@@ -14,7 +14,7 @@
       "title": "Construction Manager",
       "field": "Construction",
       "desc": "",
-      "match": 33,
+      "match": 48,
       "salary": "$75k–$115k",
       "demand": "Moderate",
       "remote": "0%",
@@ -38,11 +38,39 @@
       }
     },
     {
+      "id": "marketing-manager",
+      "title": "Marketing Manager",
+      "field": "Business",
+      "desc": "",
+      "match": 33,
+      "salary": "$60k–$120k",
+      "demand": "High",
+      "remote": "8%",
+      "time": "12–24 mo",
+      "have": [
+        "Product Management",
+        "Data Analysis",
+        "Observability",
+        "Project Management"
+      ],
+      "learn": [
+        "Market Research",
+        "Email Marketing",
+        "CRM",
+        "Salesforce"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 357,
+        "salaried": 325
+      }
+    },
+    {
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
       "desc": "",
-      "match": 29,
+      "match": 32,
       "salary": "$55k–$110k",
       "demand": "Moderate",
       "remote": "32%",
@@ -70,7 +98,7 @@
       "title": "Product Manager",
       "field": "Business",
       "desc": "",
-      "match": 26,
+      "match": 30,
       "salary": "$90k–$170k",
       "demand": "High",
       "remote": "12%",
@@ -94,39 +122,11 @@
       }
     },
     {
-      "id": "marketing-manager",
-      "title": "Marketing Manager",
-      "field": "Business",
-      "desc": "",
-      "match": 25,
-      "salary": "$60k–$120k",
-      "demand": "High",
-      "remote": "8%",
-      "time": "12–24 mo",
-      "have": [
-        "Product Management",
-        "Data Analysis",
-        "Observability",
-        "Project Management"
-      ],
-      "learn": [
-        "Market Research",
-        "Email Marketing",
-        "CRM",
-        "Salesforce"
-      ],
-      "low_confidence": false,
-      "provenance": {
-        "postings": 357,
-        "salaried": 325
-      }
-    },
-    {
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
       "desc": "",
-      "match": 23,
+      "match": 29,
       "salary": "$55k–$115k",
       "demand": "High",
       "remote": "5%",
@@ -154,7 +154,7 @@
       "title": "Data Analyst",
       "field": "Technology",
       "desc": "Turns messy business data into decisions. Runs the queries, builds the dashboards, and translates what patterns actually mean for the people making the calls.",
-      "match": 22,
+      "match": 27,
       "salary": "$60k–$105k",
       "demand": "High",
       "remote": "4%",
@@ -182,7 +182,7 @@
       "title": "Financial Analyst",
       "field": "Finance",
       "desc": "",
-      "match": 22,
+      "match": 27,
       "salary": "$60k–$80k",
       "demand": "High",
       "remote": "3%",
@@ -206,185 +206,185 @@
       }
     },
     {
-      "id": "supply-chain-analyst",
-      "title": "Supply Chain Analyst",
-      "field": "Business",
+      "id": "interior-designer",
+      "title": "Interior Designer",
+      "field": "Design",
       "desc": "",
-      "match": 21,
-      "salary": "$65k–$85k",
-      "demand": "Low",
-      "remote": "29%",
+      "match": 26,
+      "salary": "$55k–$85k",
+      "demand": "Moderate",
+      "remote": "0%",
       "time": "12–24 mo",
       "have": [
-        "Procurement",
-        "Observability",
-        "Risk Management",
-        "Excel"
+        "Project Management",
+        "Presentation",
+        "Customer Service",
+        "Data Analysis"
       ],
       "learn": [
-        "Supply Chain",
-        "Sustainability",
-        "SAP",
-        "Accounting"
+        "Space Planning",
+        "Revit",
+        "Construction Documentation",
+        "Spec Writing"
       ],
-      "low_confidence": true,
+      "low_confidence": false,
       "provenance": {
-        "postings": 14,
-        "salaried": 10
+        "postings": 219,
+        "salaried": 217
       }
     }
   ],
   "next": {
     "construction-manager": [
       {
-        "t": "Interior Designer",
-        "m": 23,
-        "slug": "interior-designer"
+        "t": "Mechanical Engineer",
+        "m": 28,
+        "slug": "mechanical-engineer"
       },
       {
-        "t": "Mechanical Engineer",
-        "m": 22,
-        "slug": "mechanical-engineer"
+        "t": "Landscape Architect",
+        "m": 26,
+        "slug": "landscape-architect"
+      }
+    ],
+    "marketing-manager": [
+      {
+        "t": "Design Technologist",
+        "m": 28,
+        "slug": "design-technologist"
+      },
+      {
+        "t": "Graphic Designer",
+        "m": 27,
+        "slug": "graphic-designer"
       }
     ],
     "management-consultant": [
       {
-        "t": "Computational Designer",
-        "m": 33,
-        "slug": "computational-designer"
+        "t": "Supply Chain Analyst",
+        "m": 40,
+        "slug": "supply-chain-analyst"
       },
       {
         "t": "Real Estate Developer",
-        "m": 30,
+        "m": 40,
         "slug": "real-estate-developer"
       }
     ],
     "product-manager": [
       {
         "t": "Product Designer",
-        "m": 27,
+        "m": 37,
         "slug": "product-designer"
       },
       {
-        "t": "Real Estate Developer",
-        "m": 23,
-        "slug": "real-estate-developer"
-      }
-    ],
-    "marketing-manager": [
-      {
-        "t": "Graphic Designer",
-        "m": 21,
-        "slug": "graphic-designer"
-      },
-      {
-        "t": "Product Designer",
-        "m": 21,
-        "slug": "product-designer"
+        "t": "Design Technologist",
+        "m": 33,
+        "slug": "design-technologist"
       }
     ],
     "customer-success-manager": [
       {
         "t": "Real Estate Developer",
-        "m": 22,
+        "m": 25,
         "slug": "real-estate-developer"
       },
       {
-        "t": "Account Executive",
-        "m": 18,
-        "slug": "account-executive"
+        "t": "Graphic Designer",
+        "m": 21,
+        "slug": "graphic-designer"
       }
     ],
     "data-analyst": [
       {
-        "t": "Software Engineer",
-        "m": 22,
-        "slug": "software-engineer"
+        "t": "Creative Technologist",
+        "m": 28,
+        "slug": "creative-technologist"
       },
       {
         "t": "Operations Manager",
-        "m": 22,
+        "m": 23,
         "slug": "operations-manager"
       }
     ],
     "financial-analyst": [
       {
         "t": "Accountant",
-        "m": 34,
+        "m": 41,
         "slug": "accountant"
       },
       {
         "t": "Instructional Designer",
-        "m": 29,
+        "m": 40,
         "slug": "instructional-designer"
       }
     ],
-    "supply-chain-analyst": [
+    "interior-designer": [
       {
-        "t": "Librarian",
-        "m": 33,
-        "slug": "librarian"
+        "t": "Architect",
+        "m": 40,
+        "slug": "architect"
       },
       {
-        "t": "Recruiter",
-        "m": 29,
-        "slug": "recruiter"
+        "t": "Landscape Architect",
+        "m": 35,
+        "slug": "landscape-architect"
       }
     ]
   },
   "cross": [
     [
       "management-consultant",
-      "supply-chain-analyst",
-      0.35
-    ],
-    [
-      "management-consultant",
       "customer-success-manager",
-      0.34
+      0.47
     ],
     [
-      "product-manager",
       "marketing-manager",
-      0.33
+      "product-manager",
+      0.46
     ],
     [
       "management-consultant",
       "financial-analyst",
-      0.32
-    ],
-    [
-      "management-consultant",
-      "product-manager",
-      0.31
+      0.44
     ],
     [
       "product-manager",
       "customer-success-manager",
-      0.31
+      0.41
+    ],
+    [
+      "management-consultant",
+      "product-manager",
+      0.39
+    ],
+    [
+      "marketing-manager",
+      "customer-success-manager",
+      0.37
     ]
   ],
   "bridges": [
     [
       "management-consultant",
-      "product-manager_1",
-      0.3
+      "customer-success-manager_0",
+      0.4
     ],
     [
       "management-consultant",
-      "customer-success-manager_0",
-      0.3
+      "marketing-manager_1",
+      0.36
     ],
     [
       "management-consultant",
       "customer-success-manager_1",
-      0.28
+      0.36
     ],
     [
-      "product-manager",
-      "marketing-manager_1",
-      0.27
+      "interior-designer",
+      "construction-manager_1",
+      0.35
     ]
   ],
-  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }
