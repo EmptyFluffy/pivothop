@@ -28,8 +28,16 @@ No LinkedIn, no Indeed, no ToS-violating sources.
 | Remotive | none | remote-first postings, JSON API |
 | RemoteOK | none | remote postings with annual USD salary estimates |
 | Greenhouse boards | none | public JSON per company; curated list in `config/greenhouse-companies.json`; pay-transparency ranges parsed from posting text |
+| Lever boards | none | public JSON per company; full descriptions, salaryRange when published |
+| Ashby boards | none | public JSON per org; full descriptions + compensation tiers |
+| SmartRecruiters | none | enterprise boards (AEC lives here); full text via capped, cached detail calls |
+| Arbeitnow | none | EU-weighted board, full descriptions |
+| Jobicy | none | remote board, annual salary fields |
 | Adzuna | `ADZUNA_APP_ID` + `ADZUNA_APP_KEY` | free at developer.adzuna.com — primary breadth + salary source |
 | USAJOBS | `USAJOBS_API_KEY` + `USAJOBS_EMAIL` | free at developer.usajobs.gov — clean US salary bands |
+| Reed | `REED_API_KEY` | free at reed.co.uk/developers — UK employer-stated salaries |
+
+**Observed-mobility layer:** `taxonomy:onet` downloads O*NET Related Occupations (CC-BY, US DoL) and joins it to the taxonomy via SOC codes → `packages/data/taxonomy/related-occupations.json`. Emitted routes carry `observed: <tier>` when the pair is independently attested. Corroboration, never ranking — postings measure forward-looking demand; O*NET measures curated structure; disagreement is editorial signal. Candidates for later: CPS/IPUMS transition matrices, Nesta Career Causeways.
 
 All requests are cached on disk (`cache/`, ~20h TTL) and rate-limited per host. Every module is runnable independently: `ingest remotive`, `ingest greenhouse`, ...
 

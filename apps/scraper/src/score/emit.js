@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { readJson, writeJson } from '../lib/store.js';
-import { AGGREGATES_FILE, ADJACENCY_FILE, GENERATED_DIR } from '../lib/paths.js';
+import { AGGREGATES_FILE, ADJACENCY_FILE, GENERATED_DIR, TAXONOMY_DIR } from '../lib/paths.js';
 import { getTaxonomy } from '../normalize/titles.js';
 import { skillName } from '../normalize/skills.js';
 
@@ -86,6 +86,11 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
   const adj = readJson(ADJACENCY_FILE)?.origins;
   if (!agg || !adj) { log('emit: missing aggregates/adjacency — run `aggregate` and `score` first'); return null; }
 
+  // Observed-relatedness layer (O*NET, via taxonomy:onet). Corroboration, not ranking:
+  // routes the observed data agrees with carry the annotation and its provenance.
+  const observed = readJson(path.join(TAXONOMY_DIR, 'related-occupations.json'))?.pairs ?? {};
+  const observedTier = (from, to) => (observed[from] ?? []).find((r) => r.slug === to)?.tier ?? null;
+
   const origins = onlyOrigin ? [onlyOrigin] : Object.keys(adj);
   const index = [];
 
@@ -130,6 +135,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         learn: wf.filter((s) => s.earned === 0).slice(0, 4).map((s) => s.name),
         waterfall: wf,
         low_confidence: d.count < LOW_CONFIDENCE_POSTINGS,
+        observed: observedTier(origin, h.dest), // O*NET relatedness tier when the pair is independently attested
         provenance: { postings: d.count, salaried: d.salaried_count },
       };
     });
@@ -161,6 +167,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         m: k.match, // origin-relative readiness — the same measure as every other node
         slug: k.dest,
         via: { parent: best.parent, readiness_after: best.to, gain: best.gain },
+        observed: observedTier(origin, k.dest),
       });
       kidCount++;
       const second = gains.find((g) => g.parent !== best.parent && g.gain >= BRIDGE_MIN_GAIN);
