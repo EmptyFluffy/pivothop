@@ -3,8 +3,388 @@
   "origin": {
     "slug": "accountant",
     "title": "Accountant",
-    "postings": 23
+    "field": "Finance",
+    "postings": 389,
+    "salary": "$60k–$75k",
+    "remote": "2%"
   },
-  "insufficient": true,
-  "note": "Only 23 mapped postings for this origin — honest empty state, never invented routes."
+  "roles": [
+    {
+      "id": "financial-analyst",
+      "title": "Financial Analyst",
+      "field": "Finance",
+      "desc": "",
+      "match": 34,
+      "salary": "$60k–$80k",
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Accounting",
+        "Forecasting",
+        "Financial Modeling",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Agile",
+        "Presentation",
+        "Salesforce",
+        "Looker"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 324,
+        "salaried": 320
+      }
+    },
+    {
+      "id": "controller",
+      "title": "Financial Controller",
+      "field": "Finance",
+      "desc": "",
+      "match": 19,
+      "salary": "$60k–$70k",
+      "demand": "Low",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Accounting",
+        "Forecasting",
+        "Tax",
+        "Audit"
+      ],
+      "learn": [
+        "Maintenance",
+        "Project Management",
+        "SQL",
+        "Stakeholder Management"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 12,
+        "salaried": 9
+      }
+    },
+    {
+      "id": "project-manager",
+      "title": "Project Manager",
+      "field": "Business",
+      "desc": "",
+      "match": 17,
+      "salary": "$75k–$135k",
+      "demand": "High",
+      "remote": "9%",
+      "time": "12–24 mo",
+      "have": [
+        "Data Analysis",
+        "Observability",
+        "Operations",
+        "Customer Service"
+      ],
+      "learn": [
+        "Project Management",
+        "Jira",
+        "Risk Management",
+        "Stakeholder Management"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 475,
+        "salaried": 417
+      }
+    },
+    {
+      "id": "compliance-officer",
+      "title": "Compliance Officer",
+      "field": "Finance",
+      "desc": "",
+      "match": 17,
+      "salary": "$130k–$180k",
+      "demand": "Low",
+      "remote": "57%",
+      "time": "12–24 mo",
+      "have": [
+        "Accounting",
+        "Observability",
+        "NLP",
+        "Audit"
+      ],
+      "learn": [
+        "Compliance",
+        "Risk Management",
+        "Contracts",
+        "SQL"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 14,
+        "salaried": 9
+      }
+    },
+    {
+      "id": "management-consultant",
+      "title": "Management Consultant",
+      "field": "Business",
+      "desc": "",
+      "match": 15,
+      "salary": "$55k–$110k",
+      "demand": "Moderate",
+      "remote": "32%",
+      "time": "12–24 mo",
+      "have": [
+        "Sustainability",
+        "Accounting",
+        "SAP",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Project Management",
+        "Account Management",
+        "SQL",
+        "Presentation"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 85,
+        "salaried": 63
+      }
+    },
+    {
+      "id": "bookkeeper",
+      "title": "Bookkeeper",
+      "field": "Finance",
+      "desc": "",
+      "match": 15,
+      "salary": "$45k–$80k",
+      "demand": "Low",
+      "remote": "11%",
+      "time": "12–24 mo",
+      "have": [
+        "Accounting",
+        "Audit",
+        "Data Analysis",
+        "Excel"
+      ],
+      "learn": [
+        "HR Operations",
+        "QuickBooks",
+        "Accessibility",
+        "Social Media"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 9,
+        "salaried": 9
+      }
+    },
+    {
+      "id": "data-analyst",
+      "title": "Data Analyst",
+      "field": "Technology",
+      "desc": "Turns messy business data into decisions. Runs the queries, builds the dashboards, and translates what patterns actually mean for the people making the calls.",
+      "match": 14,
+      "salary": "$60k–$105k",
+      "demand": "High",
+      "remote": "4%",
+      "time": "12–24 mo",
+      "have": [
+        "Data Analysis",
+        "Data Visualization",
+        "Excel",
+        "Observability"
+      ],
+      "learn": [
+        "SQL",
+        "Python",
+        "ETL",
+        "Tableau"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 343,
+        "salaried": 328
+      }
+    },
+    {
+      "id": "construction-manager",
+      "title": "Construction Manager",
+      "field": "Construction",
+      "desc": "",
+      "match": 13,
+      "salary": "$75k–$115k",
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Customer Service",
+        "Supply Chain",
+        "Sustainability",
+        "Observability"
+      ],
+      "learn": [
+        "Project Management",
+        "Construction Administration",
+        "Procurement",
+        "Quality Control"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 289,
+        "salaried": 288
+      }
+    }
+  ],
+  "next": {
+    "financial-analyst": [
+      {
+        "t": "Instructional Designer",
+        "m": 29,
+        "slug": "instructional-designer"
+      },
+      {
+        "t": "Product Manager",
+        "m": 14,
+        "slug": "product-manager"
+      }
+    ],
+    "controller": [
+      {
+        "t": "Service Designer",
+        "m": 24,
+        "slug": "service-designer"
+      },
+      {
+        "t": "Construction Estimator",
+        "m": 23,
+        "slug": "construction-estimator"
+      }
+    ],
+    "project-manager": [
+      {
+        "t": "Product Manager",
+        "m": 26,
+        "slug": "product-manager"
+      },
+      {
+        "t": "Marketing Manager",
+        "m": 25,
+        "slug": "marketing-manager"
+      }
+    ],
+    "compliance-officer": [
+      {
+        "t": "Lawyer",
+        "m": 31,
+        "slug": "lawyer"
+      },
+      {
+        "t": "Operations Manager",
+        "m": 31,
+        "slug": "operations-manager"
+      }
+    ],
+    "management-consultant": [
+      {
+        "t": "Supply Chain Analyst",
+        "m": 34,
+        "slug": "supply-chain-analyst"
+      },
+      {
+        "t": "Customer Success Manager",
+        "m": 34,
+        "slug": "customer-success-manager"
+      }
+    ],
+    "bookkeeper": [
+      {
+        "t": "Product Manager",
+        "m": 30,
+        "slug": "product-manager"
+      },
+      {
+        "t": "Operations Manager",
+        "m": 29,
+        "slug": "operations-manager"
+      }
+    ],
+    "data-analyst": [
+      {
+        "t": "Product Manager",
+        "m": 25,
+        "slug": "product-manager"
+      },
+      {
+        "t": "Software Engineer",
+        "m": 22,
+        "slug": "software-engineer"
+      }
+    ],
+    "construction-manager": [
+      {
+        "t": "Interior Designer",
+        "m": 23,
+        "slug": "interior-designer"
+      },
+      {
+        "t": "Mechanical Engineer",
+        "m": 22,
+        "slug": "mechanical-engineer"
+      }
+    ]
+  },
+  "cross": [
+    [
+      "project-manager",
+      "management-consultant",
+      0.44
+    ],
+    [
+      "compliance-officer",
+      "data-analyst",
+      0.36
+    ],
+    [
+      "project-manager",
+      "construction-manager",
+      0.33
+    ],
+    [
+      "financial-analyst",
+      "controller",
+      0.32
+    ],
+    [
+      "financial-analyst",
+      "management-consultant",
+      0.32
+    ],
+    [
+      "financial-analyst",
+      "compliance-officer",
+      0.31
+    ]
+  ],
+  "bridges": [
+    [
+      "management-consultant",
+      "financial-analyst_1",
+      0.31
+    ],
+    [
+      "management-consultant",
+      "project-manager_0",
+      0.31
+    ],
+    [
+      "management-consultant",
+      "bookkeeper_0",
+      0.31
+    ],
+    [
+      "compliance-officer",
+      "bookkeeper_1",
+      0.31
+    ]
+  ],
+  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
 }

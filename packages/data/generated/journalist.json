@@ -3,8 +3,375 @@
   "origin": {
     "slug": "journalist",
     "title": "Journalist",
-    "postings": 1
+    "field": "Writing",
+    "postings": 169,
+    "salary": "$40k–$65k",
+    "remote": "1%"
   },
-  "insufficient": true,
-  "note": "Only 1 mapped postings for this origin — honest empty state, never invented routes."
+  "roles": [
+    {
+      "id": "photographer",
+      "title": "Photographer",
+      "field": "Design",
+      "desc": "",
+      "match": 34,
+      "salary": null,
+      "demand": "Low",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Writing & Editing"
+      ],
+      "learn": [
+        "Photography"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 3,
+        "salaried": 3
+      }
+    },
+    {
+      "id": "creative-director",
+      "title": "Creative Director",
+      "field": "Design",
+      "desc": "",
+      "match": 30,
+      "salary": "$115k–$155k",
+      "demand": "Moderate",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Writing & Editing",
+        "Presentation",
+        "Procurement",
+        "Excel"
+      ],
+      "learn": [
+        "Training & Facilitation",
+        "Product Management",
+        "EHR / EMR",
+        "Observability"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 116,
+        "salaried": 109
+      }
+    },
+    {
+      "id": "creative-technologist",
+      "title": "Creative Technologist",
+      "field": "Technology",
+      "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
+      "match": 18,
+      "salary": "$95k–$175k",
+      "demand": "Low",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Writing & Editing"
+      ],
+      "learn": [
+        "Design Systems",
+        "Supply Chain",
+        "NLP",
+        "Spark"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 29,
+        "salaried": 29
+      }
+    },
+    {
+      "id": "technical-writer",
+      "title": "Technical Writer",
+      "field": "Writing",
+      "desc": "",
+      "match": 10,
+      "salary": "$70k–$105k",
+      "demand": "Moderate",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Writing & Editing",
+        "Presentation",
+        "Content Marketing",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Technical Writing",
+        "Cybersecurity",
+        "Operations",
+        "Supply Chain"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 187,
+        "salaried": 186
+      }
+    },
+    {
+      "id": "copywriter",
+      "title": "Copywriter",
+      "field": "Writing",
+      "desc": "",
+      "match": 9,
+      "salary": null,
+      "demand": "Low",
+      "remote": "50%",
+      "time": "12–24 mo",
+      "have": [
+        "Writing & Editing"
+      ],
+      "learn": [
+        "Copywriting",
+        "Sales",
+        "SEO"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 2,
+        "salaried": 2
+      }
+    },
+    {
+      "id": "graphic-designer",
+      "title": "Graphic Designer",
+      "field": "Design",
+      "desc": "",
+      "match": 9,
+      "salary": "$40k–$75k",
+      "demand": "Moderate",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Presentation",
+        "Procurement",
+        "Writing & Editing",
+        "Motion Design"
+      ],
+      "learn": [
+        "Branding",
+        "Customer Service",
+        "Email Marketing",
+        "Accessibility"
+      ],
+      "low_confidence": false,
+      "provenance": {
+        "postings": 289,
+        "salaried": 287
+      }
+    },
+    {
+      "id": "video-editor",
+      "title": "Video Editor",
+      "field": "Design",
+      "desc": "",
+      "match": 8,
+      "salary": "$90k–$105k",
+      "demand": "Low",
+      "remote": "27%",
+      "time": "12–24 mo",
+      "have": [
+        "Video Editing",
+        "Writing & Editing",
+        "Presentation",
+        "Motion Design"
+      ],
+      "learn": [
+        "After Effects",
+        "Event Planning",
+        "Lean / Six Sigma",
+        "NLP"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 15,
+        "salaried": 12
+      }
+    },
+    {
+      "id": "motion-designer",
+      "title": "Motion Designer",
+      "field": "Design",
+      "desc": "",
+      "match": 7,
+      "salary": "$80k–$140k",
+      "demand": "Low",
+      "remote": "13%",
+      "time": "12–24 mo",
+      "have": [
+        "Motion Design",
+        "Video Editing",
+        "Writing & Editing",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Figma",
+        "After Effects",
+        "HR Operations",
+        "Prototyping"
+      ],
+      "low_confidence": true,
+      "provenance": {
+        "postings": 8,
+        "salaried": 7
+      }
+    }
+  ],
+  "next": {
+    "photographer": [
+      {
+        "t": "Illustrator",
+        "m": 9,
+        "slug": "illustrator"
+      },
+      {
+        "t": "Brand Designer",
+        "m": 7,
+        "slug": "brand-designer"
+      }
+    ],
+    "creative-director": [
+      {
+        "t": "Product Designer",
+        "m": 22,
+        "slug": "product-designer"
+      },
+      {
+        "t": "Marketing Manager",
+        "m": 18,
+        "slug": "marketing-manager"
+      }
+    ],
+    "creative-technologist": [
+      {
+        "t": "Design Technologist",
+        "m": 42,
+        "slug": "design-technologist"
+      },
+      {
+        "t": "Product Designer",
+        "m": 18,
+        "slug": "product-designer"
+      }
+    ],
+    "technical-writer": [
+      {
+        "t": "Mechanical Engineer",
+        "m": 14,
+        "slug": "mechanical-engineer"
+      },
+      {
+        "t": "Real Estate Developer",
+        "m": 12,
+        "slug": "real-estate-developer"
+      }
+    ],
+    "copywriter": [
+      {
+        "t": "SEO Specialist",
+        "m": 35,
+        "slug": "seo-specialist"
+      },
+      {
+        "t": "Content Strategist",
+        "m": 18,
+        "slug": "content-strategist"
+      }
+    ],
+    "graphic-designer": [
+      {
+        "t": "Design Technologist",
+        "m": 26,
+        "slug": "design-technologist"
+      },
+      {
+        "t": "Product Designer",
+        "m": 17,
+        "slug": "product-designer"
+      }
+    ],
+    "video-editor": [
+      {
+        "t": "Service Designer",
+        "m": 38,
+        "slug": "service-designer"
+      },
+      {
+        "t": "Content Strategist",
+        "m": 22,
+        "slug": "content-strategist"
+      }
+    ],
+    "motion-designer": [
+      {
+        "t": "Design Technologist",
+        "m": 31,
+        "slug": "design-technologist"
+      },
+      {
+        "t": "Product Designer",
+        "m": 22,
+        "slug": "product-designer"
+      }
+    ]
+  },
+  "cross": [
+    [
+      "photographer",
+      "creative-director",
+      0.4
+    ],
+    [
+      "creative-director",
+      "video-editor",
+      0.38
+    ],
+    [
+      "video-editor",
+      "motion-designer",
+      0.37
+    ],
+    [
+      "graphic-designer",
+      "video-editor",
+      0.34
+    ],
+    [
+      "photographer",
+      "copywriter",
+      0.33
+    ],
+    [
+      "photographer",
+      "video-editor",
+      0.32
+    ]
+  ],
+  "bridges": [
+    [
+      "creative-technologist",
+      "graphic-designer_0",
+      0.42
+    ],
+    [
+      "creative-technologist",
+      "motion-designer_0",
+      0.42
+    ],
+    [
+      "motion-designer",
+      "creative-technologist_0",
+      0.31
+    ],
+    [
+      "motion-designer",
+      "graphic-designer_0",
+      0.31
+    ]
+  ],
+  "formula": "match = round(100·(0.45·weightedJaccard + 0.55·destCoverage)) over top-20 skill shares"
 }
