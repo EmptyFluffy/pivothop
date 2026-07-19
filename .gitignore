@@ -1,0 +1,29 @@
+# original input material — canonical copies live in docs/ and apps/web/reference/
+MD files/
+
+# macOS
+.DS_Store
+
+# deps
+node_modules/
+
+# next.js
+apps/web/.next/
+apps/web/out/
+apps/web/next-env.d.ts
+
+# env — never commit credentials
+.env
+.env.local
+.env.*.local
+
+# scraper local data + response cache (regenerable; can be large)
+apps/scraper/data/
+apps/scraper/cache/
+
+# build output
+dist/
+*.tsbuildinfo
+
+# logs
+*.log

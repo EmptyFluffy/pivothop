@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FairElephant — Remote compensation, explained</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 112 100"><g fill="%2315151a"><path d="M60.92 0L64.67 0L71.5 0.52L77.42 1.75L82.98 4.16L88.33 7.92L92.46 11.86L95.05 15.56L97.04 20.28L98.76 26.43L99.79 38.42L100 47.16L100 57.74L99.47 72.47L98.25 78.66L96.06 82.19L92.83 85.01L89.42 86.74L86.14 87.25L84.92 85.9L84.11 83.1L83.7 73.15L83.25 64.81L82.2 60.54L80.16 57.51L76.99 54.79L72.62 52.91L67.03 52.05L61.97 51.23L58.04 50.1L54.39 48.21L50.74 45.39L47.84 42.41L45.94 39.54L44.61 36.61L43.7 33.59L43.28 27.33L43.35 16.8L44.17 8.56L45.81 4.79L48.49 2.61L52.26 1.05L54.79 0.17Z"/><path d="M32.74 29.05L36.33 29.66L38.1 31.89L38.66 35.39L39.84 39.09L41.76 42.96L44.79 46.94L48.74 50.76L53.09 53.69L58 55.73L63.96 56.95L70.12 57.66L73.9 58.79L75.75 60.28L77 61.95L77.67 65L77.85 73.05L77.75 78.95L74.36 86.32L66.73 87.8L61.21 86.51L60.05 85.21L59.43 80.26L58.49 77.34L56.91 74.56L54.64 71.89L51.89 69.71L48.74 68.15L45.11 67.42L41 67.6L36.96 68.92L33.24 71.46L30.49 74.16L28.94 76.66L28.01 79.94L27.5 84.31L22.15 87.14L10.2 87.55L5.1 85.69L1.7 82.08L0 76.71L0 69.59L0.6 56.01L1.48 52.26L2.69 48.91L4.13 45.99L5.55 43.6L7.34 41.36L10.68 38.18L14.99 34.59L18.59 32.25L21.71 30.92L25.14 29.9L28.33 29.2Z"/></g></svg>' />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#15151a;--ink-2:#56565e;--ink-3:#8a8a93;
+    --paper:#f5f3ed;--paper-2:#eae7df;--card:#faf9f5;
+    --rule:#d5cfbf;--rule-2:#b8b0a0;
+    --accent:#f24d1e;--accent-press:#d63f12;--accent-tint:#ffe7df;
+    --black:#0c0c14;
+    --display:"Archivo",system-ui,sans-serif;
+    --sans:"Space Grotesk",system-ui,sans-serif;
+    --mono:"Space Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.45}
+  a{color:inherit;text-decoration:none}
+  .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .mark{display:inline-block;color:var(--ink)}
+  .mark svg{display:block;width:100%;height:100%}
+  input,select,button{font-family:inherit;font-size:inherit;color:inherit}
+
+  .frame{max-width:1240px;margin:0 auto;position:relative;background:var(--paper);border-left:0.5px solid var(--rule);border-right:0.5px solid var(--rule)}
+  .content{position:relative}
+
+  /* top micro-bar */
+
+  /* nav */
+  .nav{display:grid;grid-template-columns:auto repeat(4,1fr) auto auto;border-bottom:0.5px solid var(--rule);align-items:stretch}
+  .nav .brand{display:flex;align-items:center;gap:11px;padding:18px 24px;border-right:0.5px solid var(--rule)}
+  .nav .brand .mark{width:30px;height:26px}
+  .nav .brand .wm{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+  .navlink{display:flex;align-items:center;justify-content:center;border-right:0.5px solid var(--rule);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:0 6px;text-align:center;transition:color .15s,background .15s}
+  .navlink:hover{color:var(--ink);background:var(--paper-2)}
+  .navlink.emp{padding:0 24px;border-right:0.5px solid var(--rule);color:var(--ink)}
+  .nav .cta{display:flex;align-items:center;justify-content:center;gap:12px;padding:0 26px;background:var(--black);color:#f4f4f6;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;transition:background .2s}
+  .nav .cta:hover{background:#05050b}
+
+  /* hero */
+  .hero{border-bottom:0.5px solid var(--rule);text-align:center;padding:68px 30px 68px}
+  .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px}
+  .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(36px,5.2vw,62px);line-height:1.03;letter-spacing:-.025em}
+  .hero h1 .em{font-weight:700}
+  .hero p{max-width:520px;margin:22px auto 0;font-size:16px;color:var(--ink-2);line-height:1.5}
+
+  /* calculator */
+  .calc-wrap{border-bottom:0.5px solid var(--rule)}
+  .calc{display:grid;grid-template-columns:repeat(4,1fr) 168px;background:var(--card);border:1px solid var(--ink)}
+  .cfield{padding:16px 22px;border-right:0.5px solid var(--rule);display:flex;flex-direction:column;gap:7px;min-width:0}
+  .cfield .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .cfield input,.cfield select{border:none;background:none;outline:none;font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink);width:100%;padding:0;appearance:none;cursor:pointer}
+  .cfield input{cursor:text}
+  .cfield:focus-within{box-shadow:inset 0 -2px 0 var(--accent)}
+  .calc .analyze{background:var(--black);color:#f5f5f7;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;transition:background .2s}
+  .calc .analyze:hover{background:var(--accent)}
+  .calc-note{display:flex;justify-content:space-between;padding:12px 24px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+
+  /* results */
+  .results{border-bottom:0.5px solid var(--rule)}
+  .results .head{padding:16px 24px;border-bottom:0.5px solid var(--rule)}
+  .rcards{display:grid;grid-template-columns:repeat(3,1fr)}
+  .rcard{padding:28px 24px 24px;border-right:0.5px solid var(--rule);background:var(--card);min-height:228px;display:flex;flex-direction:column}
+  .rcard:last-child{border-right:none}
+  .rcard .cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .rcard .big{font-family:var(--display);font-size:56px;font-weight:700;letter-spacing:-.04em;line-height:1;margin-top:16px;font-variant-numeric:tabular-nums}
+  .rcard .big small{font-size:19px;color:var(--ink-3);font-weight:400;letter-spacing:0;margin-left:5px}
+  .rcard .delta{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.04em}
+  .rcard .sub{margin-top:8px;font-size:13px;color:var(--ink-2);line-height:1.45}
+  .scorebar{margin-top:auto;height:6px;background:var(--paper-2);position:relative}
+  .scorebar > i{position:absolute;left:0;top:0;bottom:0;width:82%;background:var(--accent)}
+  .scoreticks{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--mono);font-size:9.5px;color:var(--ink-3);letter-spacing:.06em}
+  .methodlist{margin-top:16px;display:flex;flex-direction:column}
+  .methodlist div{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:0.5px solid var(--rule);font-size:13.5px}
+  .methodlist div:first-child{border-top:none}
+  .methodlist .on{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+
+  /* methodology */
+  .method{border-bottom:0.5px solid var(--rule)}
+  .method .head{padding:34px 24px 20px}
+  .method .head .lbl{margin-bottom:12px;display:block}
+  .method .head h2{font-family:var(--display);font-size:clamp(24px,3vw,34px);font-weight:600;letter-spacing:-.02em}
+  .method .head p{margin-top:10px;max-width:460px;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .mrow{display:grid;grid-template-columns:64px 56px 1fr 1.4fr;align-items:center;border-top:0.5px solid var(--rule)}
+  .mrow > *{padding:20px 18px}
+  .mrow .idx{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.06em}
+  .mrow .ic{display:flex;align-items:center;justify-content:center}
+  .mrow .ic svg{width:22px;height:22px;stroke:var(--ink);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .mrow .t{font-size:15px;font-weight:500}
+  .mrow .d{font-size:13.5px;color:var(--ink-2);line-height:1.45;border-left:0.5px solid var(--rule)}
+  .mrow:hover{background:var(--paper-2)}
+  .mrow:hover .ic svg{stroke:var(--accent)}
+
+  /* footer */
+  .foot{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-bottom:0.5px solid var(--rule)}
+  .foot > div{padding:30px 24px;border-right:0.5px solid var(--rule)}
+  .foot > div:last-child{border-right:none}
+  .foot .brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .foot .brand .mark{width:28px;height:24px}
+  .foot .brand .wm{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+  .foot .tg{font-size:13px;color:var(--ink-2);line-height:1.5;max-width:240px}
+  .foot h5{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+  .foot ul{list-style:none}.foot ul li{margin:9px 0}
+  .foot ul a{font-size:13.5px;color:var(--ink-2)}.foot ul a:hover{color:var(--ink)}
+  .copy{display:flex;justify-content:space-between;padding:13px 24px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .foot .ppro{margin-top:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+  /* lenses — one salary, seven answers */
+  .lenses{border-bottom:0.5px solid var(--rule)}
+  .lenses .head{padding:34px 24px 10px}
+  .lenses .head .lbl{margin-bottom:12px;display:block}
+  .lenses .head h2{font-family:var(--display);font-size:clamp(24px,3vw,34px);font-weight:600;letter-spacing:-.02em}
+  .lenses .head p{margin-top:10px;max-width:520px;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .lscale{display:grid;grid-template-columns:190px 1fr 96px;gap:0 18px;padding:14px 24px 8px;font-family:var(--mono);font-size:9.5px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+  .lscale .rng{display:flex;justify-content:space-between}
+  .lscale .ra{text-align:right}
+  .lrow{display:grid;grid-template-columns:190px 1fr 96px;gap:0 18px;align-items:center;border-top:0.5px solid var(--rule);padding:0 24px;height:58px;transition:background .15s}
+  .lrow:hover{background:var(--paper-2)}
+  .lrow .nm{font-size:13.5px;font-weight:500;line-height:1.15}
+  .lrow .nm small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase;margin-top:3px}
+  .ltrack{position:relative;height:100%}
+  .ltrack .base{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--rule-2)}
+  .ltrack .offer{position:absolute;top:13px;bottom:13px;left:50%;width:0;border-left:1px dashed var(--ink-3)}
+  .ltrack .dot{position:absolute;top:50%;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;background:var(--ink);border-radius:50%;transition:left 1s cubic-bezier(.2,.8,.2,1)}
+  .lrow.hot .dot{background:var(--accent)}
+  .lrow.hot .val{color:var(--accent)}
+  .lrow .val{text-align:right;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .loffer-cap{padding:12px 24px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase;display:flex;gap:9px;align-items:center}
+  .loffer-cap i{width:14px;height:0;border-top:1px dashed var(--ink-3)}
+  @media (prefers-reduced-motion:reduce){.ltrack .dot{transition:none}}
+
+  /* capture */
+  .capture{display:grid;grid-template-columns:1fr 1fr;border-bottom:0.5px solid var(--rule)}
+  .capture .txt{padding:34px 26px;border-right:0.5px solid var(--rule)}
+  .capture .txt .lbl{display:block;margin-bottom:12px;color:var(--accent)}
+  .capture .txt h3{font-family:var(--display);font-weight:600;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em}
+  .capture .txt p{margin-top:8px;font-size:14px;color:var(--ink-2);line-height:1.5;max-width:400px}
+  .capture .frm{padding:34px 26px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+  .cap-row{display:grid;grid-template-columns:1fr auto;border:1px solid var(--ink);background:var(--card)}
+  .cap-row input{border:none;background:none;outline:none;padding:0 16px;font-family:var(--sans);font-size:14px;color:var(--ink);height:52px;min-width:0}
+  .cap-row button{border:none;background:var(--black);color:#f4f4f6;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:0 22px;cursor:pointer;transition:background .2s}
+  .cap-row button:hover{background:var(--accent)}
+  .cap-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-3);line-height:1.6}
+
+  @media(max-width:1000px){
+    .nav{grid-template-columns:1fr auto}.navlink{display:none}
+    .calc{grid-template-columns:1fr 1fr}.cfield:nth-child(odd){border-right:0.5px solid var(--rule)}
+    .calc .analyze{grid-column:1 / -1;padding:18px}
+    .rcards{grid-template-columns:1fr}.rcard{border-right:none;border-bottom:0.5px solid var(--rule);min-height:0}
+    .rcard:last-child{border-bottom:none}
+    .foot{grid-template-columns:1fr 1fr}.foot>div:nth-child(2){border-right:none}
+    .mrow{grid-template-columns:46px 1fr;grid-auto-rows:auto}
+    .mrow .ic{display:none}.mrow .d{border-left:none;grid-column:1 / -1;padding-top:0}
+    .lscale,.lrow{grid-template-columns:112px 1fr 78px;gap:0 10px}
+    .capture{grid-template-columns:1fr}
+    .capture .txt{border-right:none;border-bottom:0.5px solid var(--rule)}
+  }
+  @media(max-width:560px){.foot{grid-template-columns:1fr}.foot>div{border-right:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="elephant" viewBox="0 0 100 87.8">
+    <path fill="currentColor" d="M60.92 0L64.67 0L71.5 0.52L77.42 1.75L82.98 4.16L88.33 7.92L92.46 11.86L95.05 15.56L97.04 20.28L98.76 26.43L99.79 38.42L100 47.16L100 57.74L99.47 72.47L98.25 78.66L96.06 82.19L92.83 85.01L89.42 86.74L86.14 87.25L84.92 85.9L84.11 83.1L83.7 73.15L83.25 64.81L82.2 60.54L80.16 57.51L76.99 54.79L72.62 52.91L67.03 52.05L61.97 51.23L58.04 50.1L54.39 48.21L50.74 45.39L47.84 42.41L45.94 39.54L44.61 36.61L43.7 33.59L43.28 27.33L43.35 16.8L44.17 8.56L45.81 4.79L48.49 2.61L52.26 1.05L54.79 0.17Z"/>
+    <path fill="currentColor" d="M32.74 29.05L36.33 29.66L38.1 31.89L38.66 35.39L39.84 39.09L41.76 42.96L44.79 46.94L48.74 50.76L53.09 53.69L58 55.73L63.96 56.95L70.12 57.66L73.9 58.79L75.75 60.28L77 61.95L77.67 65L77.85 73.05L77.75 78.95L74.36 86.32L66.73 87.8L61.21 86.51L60.05 85.21L59.43 80.26L58.49 77.34L56.91 74.56L54.64 71.89L51.89 69.71L48.74 68.15L45.11 67.42L41 67.6L36.96 68.92L33.24 71.46L30.49 74.16L28.94 76.66L28.01 79.94L27.5 84.31L22.15 87.14L10.2 87.55L5.1 85.69L1.7 82.08L0 76.71L0 69.59L0.6 56.01L1.48 52.26L2.69 48.91L4.13 45.99L5.55 43.6L7.34 41.36L10.68 38.18L14.99 34.59L18.59 32.25L21.71 30.92L25.14 29.9L28.33 29.2Z"/>
+  </symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+  <symbol id="i-ppp" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h3l2 12h11M8 16l-1 4h12M9 8h12l-2 6"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 11h16M9 6V4h6v2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7M6 9v11h12V9"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M5 20V12M10 20V5M15 20v-9M20 20V8"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol>
+</svg>
+
+<div class="frame">
+  <div class="content">
+
+    <header class="nav">
+      <a class="brand"><span class="mark"><svg><use href="#elephant"/></svg></span><span class="wm">FairElephant</span></a>
+      <a class="navlink" href="#method">Methodology</a>
+      <a class="navlink" href="#">Data sources</a>
+      <a class="navlink" href="#">Index</a>
+      <a class="navlink" href="#">About</a>
+      <a class="navlink emp" href="#employers">For employers</a>
+      <a class="cta" href="#calc">Analyze &rarr;</a>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">Remote compensation &middot; fairness data</div>
+      <h1>Remote compensation,<br><span class="em">explained.</span></h1>
+      <p>Compare your compensation against multiple fairness models using real salary and cost-of-living data.</p>
+    </section>
+
+    <section class="calc-wrap" id="calc">
+      <div class="calc">
+        <label class="cfield">
+          <span class="l">Current country</span>
+          <select><option>Costa Rica</option><option>Portugal</option><option>Mexico</option><option>India</option><option>Spain</option></select>
+        </label>
+        <label class="cfield">
+          <span class="l">Hiring country</span>
+          <select><option>United States</option><option>Germany</option><option>United Kingdom</option><option>Canada</option><option>Netherlands</option></select>
+        </label>
+        <label class="cfield">
+          <span class="l">Annual salary</span>
+          <input type="text" inputmode="numeric" value="$80,000" />
+        </label>
+        <label class="cfield">
+          <span class="l">Occupation</span>
+          <input type="text" value="Senior Designer" />
+        </label>
+        <button class="analyze" id="analyzeBtn">Analyze &rarr;</button>
+      </div>
+      <div class="calc-note">
+        <span>Sources: live job postings &middot; OECD PPP &middot; Numbeo cost index</span>
+        <span>No sign-up &middot; results are private</span>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <div class="head"><span class="lbl">Analysis &mdash; Senior Designer &middot; Costa Rica &larr; United States</span></div>
+      <div class="rcards">
+        <div class="rcard">
+          <span class="cap">Fairness score</span>
+          <div class="big">82<small>/100</small></div>
+          <div class="sub">Good match for the remote market.</div>
+          <div class="scorebar"><i></i></div>
+          <div class="scoreticks"><span>0</span><span>50</span><span>100</span></div>
+        </div>
+        <div class="rcard">
+          <span class="cap">Expected fair salary</span>
+          <div class="big">$94,000</div>
+          <span class="delta">+18% &nbsp;vs current offer</span>
+          <div class="sub" style="margin-top:auto">Adjusted for purchasing power, housing and savings capacity.</div>
+        </div>
+        <div class="rcard">
+          <span class="cap">Method</span>
+          <div class="methodlist">
+            <div><span>Purchasing power</span><span class="on">On</span></div>
+            <div><span>Housing index</span><span class="on">On</span></div>
+            <div><span>Savings index</span><span class="on">On</span></div>
+            <div><span>Market salary</span><span class="on">On</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lenses" id="lenses">
+      <div class="head">
+        <span class="lbl">The lenses</span>
+        <h2>Same salary. Seven answers.</h2>
+        <p>Each fairness lens reads the same $80,000 offer differently. The spread between them is the story.</p>
+      </div>
+      <div class="lscale"><span>Lens</span><span class="rng"><span>$30k</span><span>$80k</span><span>$130k</span></span><span class="ra">Reads as</span></div>
+      <div class="lrow"><div class="nm">Local market salary<small>Costa Rica</small></div><div class="ltrack"><i class="base"></i><i class="offer"></i><b class="dot" data-x="12"></b></div><div class="val">$42,000</div></div>
+      <div class="lrow"><div class="nm">Purchasing power<small>OECD PPP</small></div><div class="ltrack"><i class="base"></i><i class="offer"></i><b class="dot" data-x="37"></b></div><div class="val">$67,000</div></div>
+      <div class="lrow"><div class="nm">Housing-affordability par<small>Rent index</small></div><div class="ltrack"><i class="base"></i><i class="offer"></i><b class="dot" data-x="41"></b></div><div class="val">$71,000</div></div>
+      <div class="lrow"><div class="nm">Savings-capacity par<small>Residual income</small></div><div class="ltrack"><i class="base"></i><i class="offer"></i><b class="dot" data-x="46"></b></div><div class="val">$76,000</div></div>
+      <div class="lrow"><div class="nm">Ethical band midpoint<small>Blended</small></div><div class="ltrack"><i class="base"></i><i class="offer"></i><b class="dot" data-x="59"></b></div><div class="val">$89,000</div></div>
+      <div class="lrow hot"><div class="nm">Remote market median<small>Live postings</small></div><div class="ltrack"><i class="base"></i><i class="offer"></i><b class="dot" data-x="64"></b></div><div class="val">$94,000</div></div>
+      <div class="lrow"><div class="nm">Employer-country rate<small>United States</small></div><div class="ltrack"><i class="base"></i><i class="offer"></i><b class="dot" data-x="88"></b></div><div class="val">$118,000</div></div>
+      <div class="loffer-cap"><i></i><span>Your current offer &mdash; $80,000</span></div>
+    </section>
+
+    <section class="method" id="method">
+      <div class="head">
+        <span class="lbl">Methodology</span>
+        <h2>Seven models. One transparent score.</h2>
+        <p>Every input is sourced from public salary, cost-of-living and housing data. Nothing is estimated by hand.</p>
+      </div>
+      <div class="mrow"><div class="idx">01</div><div class="ic"><svg viewBox="0 0 24 24"><use href="#i-globe"/></svg></div><div class="t">Hiring-country baseline</div><div class="d">Benchmarks the offer against typical pay for the role in the country doing the hiring.</div></div>
+      <div class="mrow"><div class="idx">02</div><div class="ic"><svg viewBox="0 0 24 24"><use href="#i-ppp"/></svg></div><div class="t">Purchasing power (PPP)</div><div class="d">Adjusts the figure so a dollar is measured by what it actually buys where you live.</div></div>
+      <div class="mrow"><div class="idx">03</div><div class="ic"><svg viewBox="0 0 24 24"><use href="#i-cart"/></svg></div><div class="t">Cost of living</div><div class="d">Weighs everyday expenses — food, transport, utilities — against the compensation.</div></div>
+      <div class="mrow"><div class="idx">04</div><div class="ic"><svg viewBox="0 0 24 24"><use href="#i-save"/></svg></div><div class="t">Ability to save</div><div class="d">Estimates the share of income left after essential spending in your location.</div></div>
+      <div class="mrow"><div class="idx">05</div><div class="ic"><svg viewBox="0 0 24 24"><use href="#i-home"/></svg></div><div class="t">Housing affordability</div><div class="d">Compares the salary against local rent and ownership costs for a single household.</div></div>
+      <div class="mrow"><div class="idx">06</div><div class="ic"><svg viewBox="0 0 24 24"><use href="#i-bars"/></svg></div><div class="t">Local salary percentiles</div><div class="d">Places the offer on the distribution of comparable local salaries, p10 to p90.</div></div>
+      <div class="mrow"><div class="idx">07</div><div class="ic"><svg viewBox="0 0 24 24"><use href="#i-pulse"/></svg></div><div class="t">Remote market rate</div><div class="d">Tracks what comparable fully-remote roles are paying across live job postings.</div></div>
+    </section>
+
+    <section class="capture" id="report">
+      <div class="txt">
+        <span class="lbl">Get your full breakdown</span>
+        <h3>The complete report, in your inbox.</h3>
+        <p>All seven lenses on your exact numbers, as a clean PDF. Free, no account.</p>
+      </div>
+      <div class="frm">
+        <div class="cap-row"><input type="email" placeholder="you@email.com" aria-label="Email" /><button id="capBtn">Send my report &rarr;</button></div>
+        <span class="cap-note">We'll also flag you when your market rate moves.</span>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div>
+        <div class="brand"><span class="mark"><svg><use href="#elephant"/></svg></span><span class="wm">FairElephant</span></div>
+        <div class="tg">A free, transparent index for understanding remote compensation.</div>
+        <div class="ppro">A PivotHop product</div>
+      </div>
+      <div><h5>Product</h5><ul><li><a href="#calc">Analyze</a></li><li><a href="#method">Methodology</a></li><li><a href="#">Remote index</a></li><li><a href="#">PivotHop &mdash; career radar &nearr;</a></li></ul></div>
+      <div><h5>Data</h5><ul><li><a href="#">Sources</a></li><li><a href="#">Coverage</a></li><li><a href="#">Changelog</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#">About</a></li><li><a href="#">Privacy</a></li><li><a href="#">Contact</a></li></ul></div>
+    </footer>
+    <div class="copy"><span>&copy; 2026 FairElephant</span><span>Real data &middot; no hype</span></div>
+
+  </div>
+</div>
+
+<script>
+  document.getElementById("analyzeBtn").addEventListener("click",function(){
+    document.getElementById("results").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  var RM=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var dots=document.querySelectorAll(".ltrack .dot");
+  function place(){dots.forEach(function(d){d.style.left=d.getAttribute("data-x")+"%";});}
+  if(RM){dots.forEach(function(d){d.style.transition="none";});place();}
+  else{setTimeout(place,150);}
+  var cb=document.getElementById("capBtn");
+  if(cb){cb.addEventListener("click",function(){cb.textContent="Sent \u2014 check your inbox";});}
+</script>
+</body>
+</html>

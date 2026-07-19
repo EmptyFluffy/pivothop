@@ -1,0 +1,17 @@
+{
+  "name": "pivothop",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Career moves, measured. Monorepo: web app, scraper, shared data contract, report generation.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "scrape": "npm run --workspace apps/scraper cli --"
+  }
+}
