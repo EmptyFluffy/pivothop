@@ -55,6 +55,8 @@ With `SUPABASE_URL` + `SUPABASE_SERVICE_KEY` in the root `.env`, rows also upser
 - a destination backed by <30 postings carries `low_confidence: true`
 - an origin with <50 mapped postings gets `{ insufficient: true }` — the honest empty state, never invented routes
 
+Ring semantics: every node's match is origin-relative readiness (the same coverage metric everywhere). Ring 1 is the top-8; ring 2 is the next tier shown at its honest lower number, each kid attached to the first-hop that best *unlocks* it — merge the origin's skill profile with the parent's and measure the coverage gain (`via: {parent, readiness_after, gain}`). Each ring-1 role also carries a `waterfall` array decomposing its match point-by-point per skill (earned points sum to the displayed match) — the structured route doc that the report export and route pages narrate from.
+
 ## The match formula
 
 ```

@@ -10,9 +10,17 @@ import { skillName } from '../normalize/skills.js';
 const MIN_ORIGIN_POSTINGS = 50;
 const LOW_CONFIDENCE_POSTINGS = 30;
 const FIRST_HOPS = 8;
+
+// Ring semantics: every node's match is ORIGIN-RELATIVE READINESS (same coverage
+// metric everywhere). Ring 1 = the most reachable destinations. Ring 2 = real
+// destinations at lower readiness, shown honestly — not hidden behind an invented
+// prerequisite. A kid attaches to the first-hop that best UNLOCKS it: merge the
+// origin's skill profile with the parent's (elementwise max — what you'd carry
+// after time in that role) and measure how much the kid's coverage rises.
 const KIDS_PER_HOP = 2;
-const KID_MIN_MATCH = 15; // a second hop below this is noise, not a route
-const KID_ADVANTAGE = 5;  // a two-hop detour must beat the direct route decisively, not by rounding error
+const KIDS_TOTAL_MAX = 16;
+const KID_MIN_READINESS = 10; // below this even the honest framing is noise
+const BRIDGE_MIN_GAIN = 5;    // a second parent must add real unlock, not rounding error
 const CROSS_MAX = 6;
 const BRIDGE_MAX = 4;
 
@@ -35,10 +43,43 @@ function occInfo(slug) {
   return occ ?? { slug, title: slug, field: '', desc: '' };
 }
 
+const skillMap = (aggRole) => new Map((aggRole?.top_skills ?? []).map((t) => [t.id, t.share]));
+
+function coverage(om, dm) {
+  let cov = 0, den = 0;
+  for (const [s, w] of dm) { den += w; cov += Math.min(om.get(s) ?? 0, w); }
+  return den ? cov / den : 0;
+}
+
+function mergeMax(a, b) {
+  const m = new Map(a);
+  for (const [s, w] of b) m.set(s, Math.max(m.get(s) ?? 0, w));
+  return m;
+}
+
+/**
+ * The waterfall: coverage decomposes exactly over the destination's top-20 skills,
+ * so each skill's demand share IS the number of match points it carries. earned
+ * points sum to the displayed match; the remainder is the gap, skill by skill.
+ * This array is the structured route doc the AI-assisted export narrates from —
+ * every claim in a generated plan traceable to a field scraped from real postings.
+ */
+function waterfall(oMap, dMap) {
+  let den = 0;
+  for (const w of dMap.values()) den += w;
+  if (!den) return [];
+  return [...dMap]
+    .map(([s, w]) => {
+      const earned = Math.min(oMap.get(s) ?? 0, w);
+      return { skill: s, name: skillName(s), pts: +(100 * w / den).toFixed(1), earned: +(100 * earned / den).toFixed(1) };
+    })
+    .sort((a, b) => b.pts - a.pts);
+}
+
 /**
  * Emits per-origin generated files keyed by origin slug into packages/data/generated/.
- * Shape mirrors the reference implementation's ROLES/NEXT exactly, plus provenance
- * and confidence flags. The graph loads the file for whatever origin the user selects.
+ * Shape mirrors the reference implementation's ROLES/NEXT, plus readiness-tier kids,
+ * unlock provenance, waterfall arrays, numeric salary bands, and confidence flags.
  */
 export async function emit({ log, origin: onlyOrigin } = {}) {
   const agg = readJson(AGGREGATES_FILE)?.roles;
@@ -56,7 +97,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     const file = path.join(GENERATED_DIR, `${origin}.json`);
     if (oAgg.count < MIN_ORIGIN_POSTINGS) {
       writeJson(file, {
-        version: 1,
+        version: 2,
         origin: { slug: origin, title: oInfo.title, postings: oAgg.count },
         insufficient: true,
         note: `Only ${oAgg.count} mapped postings for this origin — honest empty state, never invented routes.`,
@@ -65,16 +106,15 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
       continue;
     }
 
-    const oSkills = new Map((oAgg.top_skills ?? []).map((t) => [t.id, t.share]));
+    const oMap = skillMap(oAgg);
     const hops = (adj[origin] ?? []).slice(0, FIRST_HOPS);
     const hopSlugs = new Set(hops.map((h) => h.dest));
 
     const roles = hops.map((h) => {
       const d = agg[h.dest];
       const info = occInfo(h.dest);
-      const dSkills = (d.top_skills ?? []);
-      const have = dSkills.filter((s) => oSkills.has(s.id)).slice(0, 4).map((s) => skillName(s.id));
-      const learn = dSkills.filter((s) => !oSkills.has(s.id)).slice(0, 4).map((s) => skillName(s.id));
+      const dMap = skillMap(d);
+      const wf = waterfall(oMap, dMap);
       return {
         id: h.dest,
         title: info.title,
@@ -82,42 +122,51 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         desc: info.desc ?? '',
         match: h.match,
         salary: d.salaried_count >= 5 ? fmtSalary(d.salary_p25, d.salary_p75) : null,
+        salary_band: d.salaried_count >= 5 ? [d.salary_p25, d.salary_p75] : null,
         demand: demandTier(d.count),
         remote: `${Math.round(d.remote_share * 100)}%`,
         time: timeEstimate(h.match),
-        have,
-        learn,
+        have: wf.filter((s) => s.earned > 0).slice(0, 4).map((s) => s.name),
+        learn: wf.filter((s) => s.earned === 0).slice(0, 4).map((s) => s.name),
+        waterfall: wf,
         low_confidence: d.count < LOW_CONFIDENCE_POSTINGS,
         provenance: { postings: d.count, salaried: d.salaried_count },
       };
     });
 
-    // Second hops. Three rules keep two-hop stories honest:
-    //   1. quality floor — a kid below KID_MIN_MATCH is noise, not a route
-    //   2. bridge-beats-direct — presenting origin→P→K claims P is the way in; if the
-    //      origin reaches K directly at equal or better match, that claim is false
-    //   3. one parent per kid — each kid occupation attaches to its best parent only;
-    //      other first-hops that also reach it become bridge edges, as in the reference
-    const directMatch = new Map((adj[origin] ?? []).map((x) => [x.dest, x.match]));
-    const candidates = [];
-    for (const h of hops) {
-      for (const k of adj[h.dest] ?? []) {
-        if (k.dest === origin || hopSlugs.has(k.dest)) continue;
-        if (k.match < KID_MIN_MATCH) continue;
-        if (k.match < (directMatch.get(k.dest) ?? 0) + KID_ADVANTAGE) continue;
-        candidates.push({ parent: h.dest, slug: k.dest, match: k.match });
-      }
+    // Ring 2: destinations ranked below the first hops, at honest origin-relative
+    // readiness, each attached to the parent that best unlocks it.
+    const parentMaps = new Map(hops.map((h) => [h.dest, mergeMax(oMap, skillMap(agg[h.dest]))]));
+    const slots = new Map(hops.map((h) => [h.dest, 0]));
+    const next = Object.fromEntries(hops.map((h) => [h.dest, []]));
+    const bridges = [];
+    let kidCount = 0;
+
+    for (const k of (adj[origin] ?? []).slice(FIRST_HOPS)) {
+      if (kidCount >= KIDS_TOTAL_MAX) break;
+      if (k.match < KID_MIN_READINESS) continue;
+      const kMap = skillMap(agg[k.dest]);
+      const gains = hops
+        .map((h) => {
+          const to = Math.round(100 * coverage(parentMaps.get(h.dest), kMap));
+          return { parent: h.dest, to, gain: to - k.match };
+        })
+        .sort((a, b) => b.gain - a.gain);
+      const best = gains.find((g) => slots.get(g.parent) < KIDS_PER_HOP);
+      if (!best) continue;
+      slots.set(best.parent, slots.get(best.parent) + 1);
+      const idx = next[best.parent].length;
+      next[best.parent].push({
+        t: occInfo(k.dest).title,
+        m: k.match, // origin-relative readiness — the same measure as every other node
+        slug: k.dest,
+        via: { parent: best.parent, readiness_after: best.to, gain: best.gain },
+      });
+      kidCount++;
+      const second = gains.find((g) => g.parent !== best.parent && g.gain >= BRIDGE_MIN_GAIN);
+      if (second) bridges.push([second.parent, `${best.parent}_${idx}`, +(second.to / 100).toFixed(2)]);
     }
-    candidates.sort((a, b) => b.match - a.match);
-    const kidParent = new Map(); // kid slug -> best parent
-    for (const c of candidates) if (!kidParent.has(c.slug)) kidParent.set(c.slug, c);
-    const next = {};
-    for (const h of hops) {
-      next[h.dest] = [...kidParent.values()]
-        .filter((c) => c.parent === h.dest)
-        .slice(0, KIDS_PER_HOP)
-        .map((c) => ({ t: occInfo(c.slug).title, m: c.match, slug: c.slug }));
-    }
+    bridges.sort((a, b) => b[2] - a[2]).splice(BRIDGE_MAX);
 
     // Cross-links: skill overlap between first-hops, strongest pairs only.
     const cross = [];
@@ -131,22 +180,17 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     }
     cross.sort((a, b) => b[2] - a[2]).splice(CROSS_MAX);
 
-    // Bridges: a kid reachable from a *second* parent — the most interesting edges in the graph.
-    const bridges = [];
-    for (const h of hops) {
-      (next[h.dest] ?? []).forEach((kid, i) => {
-        for (const other of hops) {
-          if (other.dest === h.dest) continue;
-          const hit = (adj[other.dest] ?? []).find((x) => x.dest === kid.slug);
-          if (hit && hit.match >= KID_MIN_MATCH) bridges.push([other.dest, `${h.dest}_${i}`, +(hit.match / 100).toFixed(2)]);
-        }
-      });
-    }
-    bridges.sort((a, b) => b[2] - a[2]).splice(BRIDGE_MAX);
-
     writeJson(file, {
-      version: 1,
-      origin: { slug: origin, title: oInfo.title, field: oInfo.field, postings: oAgg.count, salary: fmtSalary(oAgg.salary_p25, oAgg.salary_p75), remote: `${Math.round(oAgg.remote_share * 100)}%` },
+      version: 2,
+      origin: {
+        slug: origin,
+        title: oInfo.title,
+        field: oInfo.field,
+        postings: oAgg.count,
+        salary: fmtSalary(oAgg.salary_p25, oAgg.salary_p75),
+        salary_band: [oAgg.salary_p25, oAgg.salary_p75],
+        remote: `${Math.round(oAgg.remote_share * 100)}%`,
+      },
       roles,
       next,
       cross,
@@ -157,7 +201,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
   }
 
   index.sort((a, b) => b.postings - a.postings);
-  writeJson(path.join(GENERATED_DIR, 'index.json'), { version: 1, origins: index });
+  writeJson(path.join(GENERATED_DIR, 'index.json'), { version: 2, origins: index });
   const ok = index.filter((i) => !i.insufficient).length;
   log(`emit: ${index.length} origin files written (${ok} with routes, ${index.length - ok} honest empty states) → packages/data/generated/`);
   return index;
