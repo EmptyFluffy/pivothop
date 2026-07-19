@@ -1,0 +1,2224 @@
+{
+  "$comment": "Skill dictionary for extraction from posting descriptions. Seeded from O*NET/ESCO skill vocabulary plus a curated architecture-adjacent list. Aliases are matched with word boundaries, case-insensitive. Deliberately excludes wash-out generics (communication, teamwork, problem solving) — they carry no adjacency signal.",
+  "skills": [
+    {
+      "id": "rhino",
+      "name": "Rhino",
+      "aliases": [
+        "rhino",
+        "rhino3d",
+        "rhino 3d",
+        "rhinoceros 3d",
+        "rhinoceros"
+      ]
+    },
+    {
+      "id": "grasshopper",
+      "name": "Grasshopper",
+      "aliases": [
+        "grasshopper",
+        "grasshopper3d"
+      ]
+    },
+    {
+      "id": "revit",
+      "name": "Revit",
+      "aliases": [
+        "revit",
+        "autodesk revit",
+        "revit api"
+      ]
+    },
+    {
+      "id": "autocad",
+      "name": "AutoCAD",
+      "aliases": [
+        "autocad",
+        "auto cad"
+      ]
+    },
+    {
+      "id": "sketchup",
+      "name": "SketchUp",
+      "aliases": [
+        "sketchup",
+        "sketch up"
+      ]
+    },
+    {
+      "id": "archicad",
+      "name": "ArchiCAD",
+      "aliases": [
+        "archicad",
+        "archi cad"
+      ]
+    },
+    {
+      "id": "dynamo",
+      "name": "Dynamo",
+      "aliases": [
+        "dynamo"
+      ]
+    },
+    {
+      "id": "navisworks",
+      "name": "Navisworks",
+      "aliases": [
+        "navisworks"
+      ]
+    },
+    {
+      "id": "bim",
+      "name": "BIM",
+      "aliases": [
+        "bim",
+        "building information modeling",
+        "building information modelling"
+      ]
+    },
+    {
+      "id": "clash-detection",
+      "name": "Clash Detection",
+      "aliases": [
+        "clash detection",
+        "clash coordination"
+      ]
+    },
+    {
+      "id": "iso-19650",
+      "name": "ISO 19650",
+      "aliases": [
+        "iso 19650",
+        "iso-19650"
+      ]
+    },
+    {
+      "id": "vray",
+      "name": "V-Ray",
+      "aliases": [
+        "v-ray",
+        "vray"
+      ]
+    },
+    {
+      "id": "enscape",
+      "name": "Enscape",
+      "aliases": [
+        "enscape"
+      ]
+    },
+    {
+      "id": "lumion",
+      "name": "Lumion",
+      "aliases": [
+        "lumion"
+      ]
+    },
+    {
+      "id": "twinmotion",
+      "name": "Twinmotion",
+      "aliases": [
+        "twinmotion"
+      ]
+    },
+    {
+      "id": "rendering",
+      "name": "Rendering",
+      "aliases": [
+        "rendering",
+        "photorealistic rendering",
+        "renders",
+        "arch viz",
+        "archviz",
+        "architectural visualization"
+      ]
+    },
+    {
+      "id": "3d-modeling",
+      "name": "3D Modeling",
+      "aliases": [
+        "3d modeling",
+        "3d modelling",
+        "3d model",
+        "3d models"
+      ]
+    },
+    {
+      "id": "parametric-design",
+      "name": "Parametric Design",
+      "aliases": [
+        "parametric design",
+        "parametric modeling",
+        "parametric modelling",
+        "computational design",
+        "generative design",
+        "design computation"
+      ]
+    },
+    {
+      "id": "construction-documents",
+      "name": "Construction Documentation",
+      "aliases": [
+        "construction documents",
+        "construction documentation",
+        "construction drawings",
+        "drawing sets",
+        "cd set",
+        "permit drawings",
+        "working drawings"
+      ]
+    },
+    {
+      "id": "detailing",
+      "name": "Detailing",
+      "aliases": [
+        "detailing",
+        "construction details",
+        "technical detailing"
+      ]
+    },
+    {
+      "id": "building-codes",
+      "name": "Building Codes",
+      "aliases": [
+        "building codes",
+        "building code",
+        "code compliance",
+        "ibc",
+        "zoning codes",
+        "ada compliance"
+      ]
+    },
+    {
+      "id": "spec-writing",
+      "name": "Spec Writing",
+      "aliases": [
+        "specifications",
+        "spec writing",
+        "specification writing",
+        "csi masterformat",
+        "masterformat"
+      ]
+    },
+    {
+      "id": "ffe",
+      "name": "FF&E",
+      "aliases": [
+        "ff&e",
+        "ffe",
+        "furniture, fixtures and equipment",
+        "furniture specification"
+      ]
+    },
+    {
+      "id": "space-planning",
+      "name": "Space Planning",
+      "aliases": [
+        "space planning",
+        "test fits",
+        "programming architectural"
+      ]
+    },
+    {
+      "id": "materials",
+      "name": "Materials",
+      "aliases": [
+        "material selection",
+        "materials research",
+        "material palettes",
+        "finishes selection"
+      ]
+    },
+    {
+      "id": "leed",
+      "name": "LEED",
+      "aliases": [
+        "leed",
+        "leed ap",
+        "breeam",
+        "well building"
+      ]
+    },
+    {
+      "id": "sustainability",
+      "name": "Sustainability",
+      "aliases": [
+        "sustainability",
+        "sustainable design",
+        "net zero",
+        "net-zero",
+        "decarbonization",
+        "embodied carbon",
+        "passive house",
+        "passivhaus"
+      ]
+    },
+    {
+      "id": "energy-modeling",
+      "name": "Energy Modeling",
+      "aliases": [
+        "energy modeling",
+        "energy modelling",
+        "energyplus",
+        "ies ve",
+        "building performance simulation",
+        "energy simulation",
+        "daylight analysis"
+      ]
+    },
+    {
+      "id": "digital-twin",
+      "name": "Digital Twin",
+      "aliases": [
+        "digital twin",
+        "digital twins"
+      ]
+    },
+    {
+      "id": "point-cloud",
+      "name": "Point Cloud / Scanning",
+      "aliases": [
+        "point cloud",
+        "laser scanning",
+        "lidar",
+        "photogrammetry",
+        "reality capture",
+        "scan to bim"
+      ]
+    },
+    {
+      "id": "gis",
+      "name": "GIS",
+      "aliases": [
+        "gis",
+        "geographic information systems",
+        "geospatial",
+        "spatial analysis"
+      ]
+    },
+    {
+      "id": "arcgis",
+      "name": "ArcGIS",
+      "aliases": [
+        "arcgis",
+        "arc gis",
+        "esri",
+        "qgis"
+      ]
+    },
+    {
+      "id": "zoning",
+      "name": "Zoning",
+      "aliases": [
+        "zoning",
+        "land use",
+        "entitlements",
+        "site planning"
+      ]
+    },
+    {
+      "id": "urban-design",
+      "name": "Urban Design",
+      "aliases": [
+        "urban design",
+        "master planning",
+        "masterplanning",
+        "placemaking",
+        "streetscape"
+      ]
+    },
+    {
+      "id": "policy-analysis",
+      "name": "Policy Analysis",
+      "aliases": [
+        "policy analysis",
+        "public policy",
+        "policy development",
+        "policy research"
+      ]
+    },
+    {
+      "id": "community-engagement",
+      "name": "Community Engagement",
+      "aliases": [
+        "community engagement",
+        "public engagement",
+        "stakeholder engagement",
+        "community outreach",
+        "public consultation"
+      ]
+    },
+    {
+      "id": "transportation-planning",
+      "name": "Transportation Planning",
+      "aliases": [
+        "transportation planning",
+        "transit planning",
+        "traffic analysis",
+        "mobility planning",
+        "transportation modeling"
+      ]
+    },
+    {
+      "id": "cost-estimating",
+      "name": "Cost Estimating",
+      "aliases": [
+        "cost estimating",
+        "cost estimation",
+        "quantity takeoff",
+        "quantity surveying",
+        "cost planning"
+      ]
+    },
+    {
+      "id": "construction-administration",
+      "name": "Construction Administration",
+      "aliases": [
+        "construction administration",
+        "construction management",
+        "site supervision",
+        "rfis",
+        "submittals",
+        "punch list"
+      ]
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "aliases": [
+        "figma"
+      ]
+    },
+    {
+      "id": "sketch-app",
+      "name": "Sketch",
+      "aliases": [
+        "sketch app"
+      ]
+    },
+    {
+      "id": "adobe-xd",
+      "name": "Adobe XD",
+      "aliases": [
+        "adobe xd"
+      ]
+    },
+    {
+      "id": "photoshop",
+      "name": "Photoshop",
+      "aliases": [
+        "photoshop",
+        "adobe photoshop"
+      ]
+    },
+    {
+      "id": "illustrator-app",
+      "name": "Illustrator",
+      "aliases": [
+        "adobe illustrator"
+      ]
+    },
+    {
+      "id": "indesign",
+      "name": "InDesign",
+      "aliases": [
+        "indesign",
+        "adobe indesign"
+      ]
+    },
+    {
+      "id": "after-effects",
+      "name": "After Effects",
+      "aliases": [
+        "after effects",
+        "adobe after effects"
+      ]
+    },
+    {
+      "id": "premiere",
+      "name": "Premiere Pro",
+      "aliases": [
+        "premiere pro",
+        "adobe premiere",
+        "final cut",
+        "davinci resolve"
+      ]
+    },
+    {
+      "id": "blender",
+      "name": "Blender",
+      "aliases": [
+        "blender"
+      ]
+    },
+    {
+      "id": "cinema-4d",
+      "name": "Cinema 4D",
+      "aliases": [
+        "cinema 4d",
+        "c4d"
+      ]
+    },
+    {
+      "id": "3ds-max",
+      "name": "3ds Max",
+      "aliases": [
+        "3ds max",
+        "3dsmax"
+      ]
+    },
+    {
+      "id": "maya",
+      "name": "Maya",
+      "aliases": [
+        "autodesk maya"
+      ]
+    },
+    {
+      "id": "zbrush",
+      "name": "ZBrush",
+      "aliases": [
+        "zbrush"
+      ]
+    },
+    {
+      "id": "substance",
+      "name": "Substance",
+      "aliases": [
+        "substance painter",
+        "substance designer"
+      ]
+    },
+    {
+      "id": "unity",
+      "name": "Unity",
+      "aliases": [
+        "unity",
+        "unity3d",
+        "unity 3d"
+      ]
+    },
+    {
+      "id": "unreal",
+      "name": "Unreal Engine",
+      "aliases": [
+        "unreal engine",
+        "unreal",
+        "ue4",
+        "ue5"
+      ]
+    },
+    {
+      "id": "touchdesigner",
+      "name": "TouchDesigner",
+      "aliases": [
+        "touchdesigner",
+        "touch designer"
+      ]
+    },
+    {
+      "id": "creative-coding",
+      "name": "Creative Coding",
+      "aliases": [
+        "creative coding",
+        "processing",
+        "p5.js",
+        "openframeworks",
+        "three.js",
+        "threejs",
+        "webgl",
+        "shaders",
+        "glsl"
+      ]
+    },
+    {
+      "id": "prototyping",
+      "name": "Prototyping",
+      "aliases": [
+        "prototyping",
+        "prototype",
+        "prototypes",
+        "proof of concept",
+        "rapid prototyping"
+      ]
+    },
+    {
+      "id": "wireframing",
+      "name": "Wireframing",
+      "aliases": [
+        "wireframing",
+        "wireframes",
+        "mockups",
+        "mock-ups"
+      ]
+    },
+    {
+      "id": "user-research",
+      "name": "User Research",
+      "aliases": [
+        "user research",
+        "user interviews",
+        "contextual inquiry",
+        "field studies",
+        "diary studies",
+        "persona development",
+        "user personas"
+      ]
+    },
+    {
+      "id": "usability-testing",
+      "name": "Usability Testing",
+      "aliases": [
+        "usability testing",
+        "usability studies",
+        "user testing",
+        "moderated testing"
+      ]
+    },
+    {
+      "id": "design-systems",
+      "name": "Design Systems",
+      "aliases": [
+        "design system",
+        "design systems",
+        "component library",
+        "component libraries",
+        "design tokens"
+      ]
+    },
+    {
+      "id": "interaction-design",
+      "name": "Interaction Design",
+      "aliases": [
+        "interaction design",
+        "ixd",
+        "user flows",
+        "journey mapping",
+        "user journeys",
+        "information architecture"
+      ]
+    },
+    {
+      "id": "visual-design",
+      "name": "Visual Design",
+      "aliases": [
+        "visual design",
+        "ui design",
+        "user interface design",
+        "interface design"
+      ]
+    },
+    {
+      "id": "typography",
+      "name": "Typography",
+      "aliases": [
+        "typography",
+        "type design"
+      ]
+    },
+    {
+      "id": "branding",
+      "name": "Branding",
+      "aliases": [
+        "branding",
+        "brand identity",
+        "brand guidelines",
+        "identity systems",
+        "logo design"
+      ]
+    },
+    {
+      "id": "motion-design",
+      "name": "Motion Design",
+      "aliases": [
+        "motion design",
+        "motion graphics",
+        "animation",
+        "2d animation",
+        "3d animation"
+      ]
+    },
+    {
+      "id": "design-thinking",
+      "name": "Design Thinking",
+      "aliases": [
+        "design thinking",
+        "human-centered design",
+        "human centered design",
+        "design sprints",
+        "design sprint"
+      ]
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "aliases": [
+        "accessibility",
+        "wcag",
+        "a11y",
+        "inclusive design",
+        "section 508"
+      ]
+    },
+    {
+      "id": "service-design",
+      "name": "Service Design",
+      "aliases": [
+        "service design",
+        "service blueprints",
+        "service blueprinting"
+      ]
+    },
+    {
+      "id": "video-editing",
+      "name": "Video Editing",
+      "aliases": [
+        "video editing",
+        "video production",
+        "post-production",
+        "color grading",
+        "videography"
+      ]
+    },
+    {
+      "id": "photography",
+      "name": "Photography",
+      "aliases": [
+        "photography",
+        "photo editing",
+        "studio lighting",
+        "retouching"
+      ]
+    },
+    {
+      "id": "illustration",
+      "name": "Illustration",
+      "aliases": [
+        "illustration",
+        "digital illustration",
+        "concept art",
+        "storyboarding",
+        "storyboards"
+      ]
+    },
+    {
+      "id": "cad-mechanical",
+      "name": "Mechanical CAD",
+      "aliases": [
+        "solidworks",
+        "fusion 360",
+        "creo",
+        "catia",
+        "nx cad",
+        "inventor",
+        "onshape"
+      ]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "aliases": [
+        "python"
+      ]
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "aliases": [
+        "javascript",
+        "js",
+        "es6",
+        "ecmascript"
+      ]
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "aliases": [
+        "typescript"
+      ]
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "aliases": [
+        "react",
+        "reactjs",
+        "react.js",
+        "next.js",
+        "nextjs"
+      ]
+    },
+    {
+      "id": "vue",
+      "name": "Vue",
+      "aliases": [
+        "vue",
+        "vuejs",
+        "vue.js",
+        "nuxt"
+      ]
+    },
+    {
+      "id": "angular",
+      "name": "Angular",
+      "aliases": [
+        "angular",
+        "angularjs"
+      ]
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "aliases": [
+        "node.js",
+        "nodejs",
+        "node js",
+        "express.js",
+        "expressjs"
+      ]
+    },
+    {
+      "id": "html-css",
+      "name": "HTML/CSS",
+      "aliases": [
+        "html",
+        "css",
+        "html5",
+        "css3",
+        "sass",
+        "scss",
+        "tailwind"
+      ]
+    },
+    {
+      "id": "csharp",
+      "name": "C#",
+      "aliases": [
+        "c#",
+        ".net",
+        "dotnet",
+        "asp.net"
+      ]
+    },
+    {
+      "id": "cpp",
+      "name": "C++",
+      "aliases": [
+        "c++"
+      ]
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "aliases": [
+        "java",
+        "spring boot",
+        "kotlin"
+      ]
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "aliases": [
+        "golang"
+      ]
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "aliases": [
+        "rust"
+      ]
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "aliases": [
+        "ruby",
+        "ruby on rails",
+        "rails"
+      ]
+    },
+    {
+      "id": "php",
+      "name": "PHP",
+      "aliases": [
+        "php",
+        "laravel",
+        "wordpress development"
+      ]
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "aliases": [
+        "swift",
+        "swiftui",
+        "ios development"
+      ]
+    },
+    {
+      "id": "sql",
+      "name": "SQL",
+      "aliases": [
+        "sql",
+        "postgresql",
+        "postgres",
+        "mysql",
+        "sql server",
+        "t-sql",
+        "pl/sql",
+        "sqlite"
+      ]
+    },
+    {
+      "id": "nosql",
+      "name": "NoSQL",
+      "aliases": [
+        "nosql",
+        "mongodb",
+        "dynamodb",
+        "redis",
+        "elasticsearch",
+        "cassandra"
+      ]
+    },
+    {
+      "id": "r-lang",
+      "name": "R",
+      "aliases": [
+        "r programming",
+        "rstudio",
+        "r language"
+      ]
+    },
+    {
+      "id": "matlab",
+      "name": "MATLAB",
+      "aliases": [
+        "matlab",
+        "simulink"
+      ]
+    },
+    {
+      "id": "excel",
+      "name": "Excel",
+      "aliases": [
+        "excel",
+        "microsoft excel",
+        "advanced excel",
+        "pivot tables",
+        "vlookup",
+        "google sheets",
+        "spreadsheets"
+      ]
+    },
+    {
+      "id": "vba",
+      "name": "VBA",
+      "aliases": [
+        "vba",
+        "excel macros"
+      ]
+    },
+    {
+      "id": "power-bi",
+      "name": "Power BI",
+      "aliases": [
+        "power bi",
+        "powerbi"
+      ]
+    },
+    {
+      "id": "tableau",
+      "name": "Tableau",
+      "aliases": [
+        "tableau"
+      ]
+    },
+    {
+      "id": "looker",
+      "name": "Looker",
+      "aliases": [
+        "looker",
+        "lookml",
+        "looker studio",
+        "data studio",
+        "metabase",
+        "qlik",
+        "superset"
+      ]
+    },
+    {
+      "id": "dbt",
+      "name": "dbt",
+      "aliases": [
+        "dbt"
+      ]
+    },
+    {
+      "id": "spark",
+      "name": "Spark",
+      "aliases": [
+        "spark",
+        "pyspark",
+        "databricks",
+        "hadoop"
+      ]
+    },
+    {
+      "id": "airflow",
+      "name": "Airflow",
+      "aliases": [
+        "airflow",
+        "dagster",
+        "prefect",
+        "luigi"
+      ]
+    },
+    {
+      "id": "etl",
+      "name": "ETL",
+      "aliases": [
+        "etl",
+        "elt",
+        "data pipelines",
+        "data pipeline",
+        "data integration",
+        "data warehousing",
+        "data warehouse",
+        "snowflake",
+        "bigquery",
+        "redshift"
+      ]
+    },
+    {
+      "id": "data-visualization",
+      "name": "Data Visualization",
+      "aliases": [
+        "data visualization",
+        "data visualisation",
+        "dashboards",
+        "dashboarding",
+        "d3.js",
+        "d3js",
+        "data viz"
+      ]
+    },
+    {
+      "id": "statistics",
+      "name": "Statistics",
+      "aliases": [
+        "statistics",
+        "statistical analysis",
+        "statistical modeling",
+        "regression analysis",
+        "hypothesis testing",
+        "bayesian"
+      ]
+    },
+    {
+      "id": "machine-learning",
+      "name": "Machine Learning",
+      "aliases": [
+        "machine learning",
+        "ml models",
+        "predictive modeling",
+        "scikit-learn",
+        "sklearn",
+        "xgboost",
+        "random forest"
+      ]
+    },
+    {
+      "id": "deep-learning",
+      "name": "Deep Learning",
+      "aliases": [
+        "deep learning",
+        "neural networks",
+        "tensorflow",
+        "pytorch",
+        "keras",
+        "transformers"
+      ]
+    },
+    {
+      "id": "nlp",
+      "name": "NLP",
+      "aliases": [
+        "nlp",
+        "natural language processing",
+        "text mining",
+        "llm",
+        "llms",
+        "large language models",
+        "prompt engineering",
+        "generative ai",
+        "genai"
+      ]
+    },
+    {
+      "id": "computer-vision",
+      "name": "Computer Vision",
+      "aliases": [
+        "computer vision",
+        "opencv",
+        "image processing",
+        "object detection"
+      ]
+    },
+    {
+      "id": "pandas",
+      "name": "Pandas/NumPy",
+      "aliases": [
+        "pandas",
+        "numpy",
+        "jupyter",
+        "matplotlib"
+      ]
+    },
+    {
+      "id": "ab-testing",
+      "name": "A/B Testing",
+      "aliases": [
+        "a/b testing",
+        "ab testing",
+        "experimentation",
+        "split testing",
+        "multivariate testing"
+      ]
+    },
+    {
+      "id": "data-modeling",
+      "name": "Data Modeling",
+      "aliases": [
+        "data modeling",
+        "data modelling",
+        "dimensional modeling",
+        "star schema",
+        "database design",
+        "schema design"
+      ]
+    },
+    {
+      "id": "data-analysis",
+      "name": "Data Analysis",
+      "aliases": [
+        "data analysis",
+        "data analytics",
+        "quantitative analysis",
+        "analytical skills",
+        "analytics"
+      ]
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "aliases": [
+        "git",
+        "github",
+        "gitlab",
+        "version control",
+        "bitbucket"
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Docker",
+      "aliases": [
+        "docker",
+        "containers",
+        "containerization"
+      ]
+    },
+    {
+      "id": "kubernetes",
+      "name": "Kubernetes",
+      "aliases": [
+        "kubernetes",
+        "k8s",
+        "helm"
+      ]
+    },
+    {
+      "id": "aws",
+      "name": "AWS",
+      "aliases": [
+        "aws",
+        "amazon web services",
+        "ec2",
+        "s3",
+        "lambda"
+      ]
+    },
+    {
+      "id": "azure",
+      "name": "Azure",
+      "aliases": [
+        "azure",
+        "microsoft azure"
+      ]
+    },
+    {
+      "id": "gcp",
+      "name": "GCP",
+      "aliases": [
+        "gcp",
+        "google cloud"
+      ]
+    },
+    {
+      "id": "terraform",
+      "name": "Terraform",
+      "aliases": [
+        "terraform",
+        "infrastructure as code",
+        "iac",
+        "ansible",
+        "cloudformation",
+        "pulumi"
+      ]
+    },
+    {
+      "id": "cicd",
+      "name": "CI/CD",
+      "aliases": [
+        "ci/cd",
+        "cicd",
+        "continuous integration",
+        "continuous deployment",
+        "jenkins",
+        "github actions",
+        "circleci"
+      ]
+    },
+    {
+      "id": "linux",
+      "name": "Linux",
+      "aliases": [
+        "linux",
+        "unix",
+        "bash",
+        "shell scripting",
+        "powershell"
+      ]
+    },
+    {
+      "id": "rest-apis",
+      "name": "REST APIs",
+      "aliases": [
+        "rest api",
+        "rest apis",
+        "restful",
+        "api design",
+        "api development",
+        "graphql",
+        "grpc",
+        "webhooks",
+        "api integration",
+        "apis"
+      ]
+    },
+    {
+      "id": "microservices",
+      "name": "Microservices",
+      "aliases": [
+        "microservices",
+        "distributed systems",
+        "event-driven architecture",
+        "kafka",
+        "rabbitmq",
+        "message queues"
+      ]
+    },
+    {
+      "id": "observability",
+      "name": "Observability",
+      "aliases": [
+        "observability",
+        "monitoring",
+        "datadog",
+        "grafana",
+        "prometheus",
+        "splunk",
+        "new relic",
+        "logging and monitoring"
+      ]
+    },
+    {
+      "id": "networking",
+      "name": "Networking",
+      "aliases": [
+        "tcp/ip",
+        "dns",
+        "vpn",
+        "firewalls",
+        "cisco",
+        "routing and switching",
+        "network security",
+        "lan/wan"
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Cybersecurity",
+      "aliases": [
+        "cybersecurity",
+        "information security",
+        "penetration testing",
+        "vulnerability assessment",
+        "siem",
+        "incident response",
+        "threat detection",
+        "security audits",
+        "owasp",
+        "encryption"
+      ]
+    },
+    {
+      "id": "qa-testing",
+      "name": "QA / Testing",
+      "aliases": [
+        "quality assurance",
+        "test automation",
+        "selenium",
+        "cypress",
+        "playwright",
+        "test cases",
+        "test plans",
+        "regression testing",
+        "unit testing",
+        "manual testing"
+      ]
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "aliases": [
+        "salesforce",
+        "apex",
+        "sfdc"
+      ]
+    },
+    {
+      "id": "sap",
+      "name": "SAP",
+      "aliases": [
+        "sap",
+        "sap erp",
+        "s/4hana",
+        "oracle erp",
+        "netsuite",
+        "erp systems",
+        "erp"
+      ]
+    },
+    {
+      "id": "crm",
+      "name": "CRM",
+      "aliases": [
+        "crm",
+        "hubspot",
+        "zoho",
+        "pipedrive",
+        "crm systems"
+      ]
+    },
+    {
+      "id": "jira",
+      "name": "Jira",
+      "aliases": [
+        "jira",
+        "confluence",
+        "asana",
+        "trello",
+        "monday.com",
+        "clickup",
+        "notion"
+      ]
+    },
+    {
+      "id": "agile",
+      "name": "Agile",
+      "aliases": [
+        "agile",
+        "scrum",
+        "kanban",
+        "sprint planning",
+        "sprints",
+        "safe framework",
+        "agile methodologies"
+      ]
+    },
+    {
+      "id": "project-management",
+      "name": "Project Management",
+      "aliases": [
+        "project management",
+        "project planning",
+        "project delivery",
+        "pmp",
+        "prince2",
+        "ms project",
+        "gantt",
+        "critical path",
+        "project schedules",
+        "project coordination"
+      ]
+    },
+    {
+      "id": "product-management",
+      "name": "Product Management",
+      "aliases": [
+        "product management",
+        "product strategy",
+        "product roadmap",
+        "roadmapping",
+        "product discovery",
+        "product requirements",
+        "prds",
+        "user stories",
+        "backlog management",
+        "product vision"
+      ]
+    },
+    {
+      "id": "stakeholder-management",
+      "name": "Stakeholder Management",
+      "aliases": [
+        "stakeholder management",
+        "stakeholder communication",
+        "cross-functional collaboration",
+        "cross functional teams",
+        "executive communication"
+      ]
+    },
+    {
+      "id": "budgeting",
+      "name": "Budgeting",
+      "aliases": [
+        "budgeting",
+        "budget management",
+        "cost control",
+        "cost management",
+        "p&l",
+        "profit and loss"
+      ]
+    },
+    {
+      "id": "forecasting",
+      "name": "Forecasting",
+      "aliases": [
+        "forecasting",
+        "financial forecasting",
+        "demand forecasting",
+        "financial planning",
+        "fp&a",
+        "variance analysis",
+        "scenario planning"
+      ]
+    },
+    {
+      "id": "financial-modeling",
+      "name": "Financial Modeling",
+      "aliases": [
+        "financial modeling",
+        "financial modelling",
+        "dcf",
+        "valuation",
+        "financial analysis",
+        "underwriting",
+        "pro forma"
+      ]
+    },
+    {
+      "id": "accounting",
+      "name": "Accounting",
+      "aliases": [
+        "accounting",
+        "gaap",
+        "ifrs",
+        "general ledger",
+        "month-end close",
+        "reconciliation",
+        "journal entries",
+        "accounts payable",
+        "accounts receivable",
+        "financial statements",
+        "financial reporting"
+      ]
+    },
+    {
+      "id": "quickbooks",
+      "name": "QuickBooks",
+      "aliases": [
+        "quickbooks",
+        "xero",
+        "sage",
+        "payroll processing",
+        "adp"
+      ]
+    },
+    {
+      "id": "tax",
+      "name": "Tax",
+      "aliases": [
+        "tax preparation",
+        "tax compliance",
+        "tax returns",
+        "tax planning",
+        "corporate tax"
+      ]
+    },
+    {
+      "id": "audit",
+      "name": "Audit",
+      "aliases": [
+        "auditing",
+        "internal audit",
+        "internal controls",
+        "sox compliance",
+        "sox"
+      ]
+    },
+    {
+      "id": "risk-management",
+      "name": "Risk Management",
+      "aliases": [
+        "risk management",
+        "risk assessment",
+        "risk analysis",
+        "risk mitigation",
+        "enterprise risk"
+      ]
+    },
+    {
+      "id": "compliance",
+      "name": "Compliance",
+      "aliases": [
+        "regulatory compliance",
+        "aml",
+        "kyc",
+        "gdpr",
+        "hipaa compliance",
+        "regulatory reporting",
+        "regulatory affairs"
+      ]
+    },
+    {
+      "id": "contracts",
+      "name": "Contracts",
+      "aliases": [
+        "contract negotiation",
+        "contract management",
+        "contract drafting",
+        "contract review",
+        "legal research",
+        "legal writing",
+        "due diligence",
+        "litigation"
+      ]
+    },
+    {
+      "id": "procurement",
+      "name": "Procurement",
+      "aliases": [
+        "procurement",
+        "sourcing",
+        "vendor management",
+        "supplier management",
+        "purchasing",
+        "rfp",
+        "rfps",
+        "vendor negotiations"
+      ]
+    },
+    {
+      "id": "supply-chain",
+      "name": "Supply Chain",
+      "aliases": [
+        "supply chain",
+        "logistics",
+        "inventory management",
+        "warehouse operations",
+        "fulfillment",
+        "shipping and receiving",
+        "wms",
+        "demand planning",
+        "s&op"
+      ]
+    },
+    {
+      "id": "lean-six-sigma",
+      "name": "Lean / Six Sigma",
+      "aliases": [
+        "lean",
+        "six sigma",
+        "kaizen",
+        "continuous improvement",
+        "process improvement",
+        "process optimization",
+        "5s",
+        "value stream mapping"
+      ]
+    },
+    {
+      "id": "operations",
+      "name": "Operations",
+      "aliases": [
+        "operations management",
+        "business operations",
+        "operational excellence",
+        "standard operating procedures",
+        "sops",
+        "workflow optimization"
+      ]
+    },
+    {
+      "id": "seo",
+      "name": "SEO",
+      "aliases": [
+        "seo",
+        "search engine optimization",
+        "keyword research",
+        "link building",
+        "technical seo",
+        "on-page seo"
+      ]
+    },
+    {
+      "id": "sem",
+      "name": "SEM / Paid Media",
+      "aliases": [
+        "sem",
+        "google ads",
+        "ppc",
+        "paid search",
+        "paid social",
+        "facebook ads",
+        "meta ads",
+        "programmatic advertising",
+        "media buying",
+        "adwords"
+      ]
+    },
+    {
+      "id": "google-analytics",
+      "name": "Google Analytics",
+      "aliases": [
+        "google analytics",
+        "ga4",
+        "google tag manager",
+        "web analytics",
+        "amplitude",
+        "mixpanel",
+        "heap"
+      ]
+    },
+    {
+      "id": "content-marketing",
+      "name": "Content Marketing",
+      "aliases": [
+        "content marketing",
+        "content strategy",
+        "content creation",
+        "editorial calendar",
+        "content calendar",
+        "blogging"
+      ]
+    },
+    {
+      "id": "copywriting",
+      "name": "Copywriting",
+      "aliases": [
+        "copywriting",
+        "copy editing",
+        "copyediting",
+        "proofreading",
+        "ad copy",
+        "sales copy"
+      ]
+    },
+    {
+      "id": "email-marketing",
+      "name": "Email Marketing",
+      "aliases": [
+        "email marketing",
+        "mailchimp",
+        "klaviyo",
+        "marketo",
+        "email campaigns",
+        "marketing automation",
+        "drip campaigns",
+        "newsletters"
+      ]
+    },
+    {
+      "id": "social-media",
+      "name": "Social Media",
+      "aliases": [
+        "social media marketing",
+        "social media management",
+        "instagram",
+        "tiktok",
+        "linkedin marketing",
+        "community management",
+        "social media strategy",
+        "influencer marketing"
+      ]
+    },
+    {
+      "id": "market-research",
+      "name": "Market Research",
+      "aliases": [
+        "market research",
+        "competitive analysis",
+        "consumer insights",
+        "survey design",
+        "focus groups",
+        "market analysis",
+        "customer insights"
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Sales",
+      "aliases": [
+        "prospecting",
+        "cold calling",
+        "lead generation",
+        "closing deals",
+        "sales cycle",
+        "quota",
+        "pipeline management",
+        "outbound sales",
+        "consultative selling",
+        "solution selling"
+      ]
+    },
+    {
+      "id": "negotiation",
+      "name": "Negotiation",
+      "aliases": [
+        "negotiation",
+        "negotiations",
+        "deal structuring"
+      ]
+    },
+    {
+      "id": "account-management",
+      "name": "Account Management",
+      "aliases": [
+        "account management",
+        "client relationships",
+        "client management",
+        "relationship management",
+        "customer retention",
+        "renewals",
+        "upselling",
+        "cross-selling",
+        "churn reduction"
+      ]
+    },
+    {
+      "id": "customer-service",
+      "name": "Customer Service",
+      "aliases": [
+        "customer service",
+        "customer support",
+        "ticketing systems",
+        "zendesk",
+        "intercom",
+        "help desk software",
+        "customer satisfaction",
+        "csat",
+        "sla management"
+      ]
+    },
+    {
+      "id": "recruiting",
+      "name": "Recruiting",
+      "aliases": [
+        "recruiting",
+        "recruitment",
+        "sourcing candidates",
+        "full-cycle recruiting",
+        "applicant tracking",
+        "ats",
+        "talent acquisition",
+        "candidate screening",
+        "boolean search"
+      ]
+    },
+    {
+      "id": "hr-operations",
+      "name": "HR Operations",
+      "aliases": [
+        "hris",
+        "workday",
+        "bamboohr",
+        "employee relations",
+        "performance management",
+        "compensation and benefits",
+        "benefits administration",
+        "offboarding",
+        "hr policies",
+        "employment law"
+      ]
+    },
+    {
+      "id": "training",
+      "name": "Training & Facilitation",
+      "aliases": [
+        "training delivery",
+        "facilitation",
+        "workshop facilitation",
+        "coaching",
+        "mentoring",
+        "training programs",
+        "employee training",
+        "train the trainer"
+      ]
+    },
+    {
+      "id": "presentation",
+      "name": "Presentation",
+      "aliases": [
+        "presentation skills",
+        "public speaking",
+        "powerpoint",
+        "keynote",
+        "pitch decks",
+        "executive presentations",
+        "presentations"
+      ]
+    },
+    {
+      "id": "event-planning",
+      "name": "Event Planning",
+      "aliases": [
+        "event planning",
+        "event management",
+        "event production",
+        "event coordination",
+        "trade shows",
+        "conferences",
+        "event logistics"
+      ]
+    },
+    {
+      "id": "grant-writing",
+      "name": "Grant Writing",
+      "aliases": [
+        "grant writing",
+        "grant proposals",
+        "fundraising",
+        "donor relations",
+        "grant management",
+        "proposal development"
+      ]
+    },
+    {
+      "id": "writing",
+      "name": "Writing & Editing",
+      "aliases": [
+        "editing",
+        "storytelling",
+        "long-form content",
+        "feature writing",
+        "essays"
+      ]
+    },
+    {
+      "id": "journalism",
+      "name": "Journalism",
+      "aliases": [
+        "journalism",
+        "interviewing sources",
+        "fact-checking",
+        "fact checking",
+        "ap style",
+        "news writing",
+        "investigative reporting",
+        "beat reporting"
+      ]
+    },
+    {
+      "id": "technical-writing",
+      "name": "Technical Writing",
+      "aliases": [
+        "technical writing",
+        "technical documentation",
+        "user guides",
+        "api documentation",
+        "release notes",
+        "knowledge base",
+        "style guides",
+        "markdown",
+        "docs-as-code"
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research",
+      "aliases": [
+        "literature review",
+        "qualitative research",
+        "quantitative research",
+        "research methods",
+        "academic research",
+        "research design"
+      ]
+    },
+    {
+      "id": "translation",
+      "name": "Translation",
+      "aliases": [
+        "translation",
+        "localization",
+        "bilingual",
+        "multilingual",
+        "spanish fluency",
+        "interpretation"
+      ]
+    },
+    {
+      "id": "curriculum",
+      "name": "Curriculum Development",
+      "aliases": [
+        "curriculum development",
+        "curriculum design",
+        "lesson planning",
+        "lesson plans",
+        "learning objectives",
+        "course development",
+        "syllabus"
+      ]
+    },
+    {
+      "id": "classroom-management",
+      "name": "Classroom Management",
+      "aliases": [
+        "classroom management",
+        "student engagement",
+        "behavior management",
+        "differentiated instruction",
+        "iep",
+        "special education"
+      ]
+    },
+    {
+      "id": "instructional-design",
+      "name": "Instructional Design",
+      "aliases": [
+        "instructional design",
+        "addie",
+        "learning design",
+        "e-learning",
+        "elearning",
+        "articulate storyline",
+        "articulate rise",
+        "captivate",
+        "scorm",
+        "lms",
+        "learning management system",
+        "canvas lms",
+        "moodle",
+        "blackboard"
+      ]
+    },
+    {
+      "id": "assessment",
+      "name": "Assessment",
+      "aliases": [
+        "assessment design",
+        "student assessment",
+        "grading",
+        "rubrics",
+        "standardized testing",
+        "formative assessment",
+        "evaluation design"
+      ]
+    },
+    {
+      "id": "teaching",
+      "name": "Teaching",
+      "aliases": [
+        "teaching",
+        "instruction",
+        "tutoring",
+        "lecturing",
+        "pedagogy",
+        "student support",
+        "academic advising"
+      ]
+    },
+    {
+      "id": "patient-care",
+      "name": "Patient Care",
+      "aliases": [
+        "patient care",
+        "bedside care",
+        "patient assessment",
+        "vital signs",
+        "patient safety",
+        "direct patient care",
+        "patient education",
+        "care coordination"
+      ]
+    },
+    {
+      "id": "clinical",
+      "name": "Clinical Skills",
+      "aliases": [
+        "clinical experience",
+        "clinical skills",
+        "triage",
+        "medication administration",
+        "iv therapy",
+        "phlebotomy",
+        "wound care",
+        "acls",
+        "bls",
+        "cpr certified"
+      ]
+    },
+    {
+      "id": "ehr",
+      "name": "EHR / EMR",
+      "aliases": [
+        "ehr",
+        "emr",
+        "epic",
+        "cerner",
+        "meditech",
+        "electronic health records",
+        "electronic medical records",
+        "medical records",
+        "charting"
+      ]
+    },
+    {
+      "id": "medical-coding",
+      "name": "Medical Coding",
+      "aliases": [
+        "medical coding",
+        "icd-10",
+        "cpt codes",
+        "medical billing",
+        "revenue cycle",
+        "claims processing",
+        "prior authorization"
+      ]
+    },
+    {
+      "id": "clinical-research",
+      "name": "Clinical Research",
+      "aliases": [
+        "clinical trials",
+        "clinical research",
+        "gcp",
+        "good clinical practice",
+        "irb",
+        "clinical data management",
+        "edc",
+        "protocol development",
+        "fda regulations",
+        "regulatory submissions"
+      ]
+    },
+    {
+      "id": "case-management",
+      "name": "Case Management",
+      "aliases": [
+        "case management",
+        "care planning",
+        "discharge planning",
+        "crisis intervention",
+        "counseling",
+        "behavioral health",
+        "mental health assessment",
+        "treatment planning",
+        "psychotherapy"
+      ]
+    },
+    {
+      "id": "health-education",
+      "name": "Health Education",
+      "aliases": [
+        "health education",
+        "health promotion",
+        "public health",
+        "epidemiology",
+        "health policy",
+        "community health"
+      ]
+    },
+    {
+      "id": "cad-drafting",
+      "name": "Drafting",
+      "aliases": [
+        "drafting",
+        "cad drafting",
+        "technical drawings",
+        "shop drawings",
+        "blueprints",
+        "blueprint reading",
+        "schematics"
+      ]
+    },
+    {
+      "id": "gd-t",
+      "name": "GD&T",
+      "aliases": [
+        "gd&t",
+        "geometric dimensioning",
+        "tolerance analysis",
+        "dfm",
+        "design for manufacturing"
+      ]
+    },
+    {
+      "id": "fea",
+      "name": "FEA / Simulation",
+      "aliases": [
+        "fea",
+        "finite element analysis",
+        "cfd",
+        "computational fluid dynamics",
+        "structural analysis",
+        "simulation",
+        "thermal analysis"
+      ]
+    },
+    {
+      "id": "plc",
+      "name": "PLC / Controls",
+      "aliases": [
+        "plc",
+        "plc programming",
+        "scada",
+        "hmi",
+        "automation systems",
+        "industrial automation",
+        "ladder logic",
+        "allen bradley",
+        "siemens plc"
+      ]
+    },
+    {
+      "id": "electrical-systems",
+      "name": "Electrical Systems",
+      "aliases": [
+        "electrical systems",
+        "circuit design",
+        "pcb design",
+        "wiring",
+        "electrical troubleshooting",
+        "nec code",
+        "low voltage",
+        "circuit analysis",
+        "power distribution"
+      ]
+    },
+    {
+      "id": "hvac-systems",
+      "name": "HVAC Systems",
+      "aliases": [
+        "hvac systems",
+        "refrigeration",
+        "epa 608",
+        "heat pumps",
+        "ductwork",
+        "hvac troubleshooting",
+        "chillers",
+        "boilers"
+      ]
+    },
+    {
+      "id": "welding-fabrication",
+      "name": "Welding / Fabrication",
+      "aliases": [
+        "welding",
+        "mig welding",
+        "tig welding",
+        "fabrication",
+        "machining",
+        "cnc",
+        "cnc machining",
+        "sheet metal"
+      ]
+    },
+    {
+      "id": "preventive-maintenance",
+      "name": "Maintenance",
+      "aliases": [
+        "preventive maintenance",
+        "preventative maintenance",
+        "equipment maintenance",
+        "troubleshooting equipment",
+        "repairs",
+        "work orders",
+        "cmms",
+        "facilities maintenance"
+      ]
+    },
+    {
+      "id": "safety",
+      "name": "Safety / OSHA",
+      "aliases": [
+        "osha",
+        "safety compliance",
+        "safety training",
+        "workplace safety",
+        "hazard assessment",
+        "safety protocols",
+        "ehs",
+        "risk assessments safety"
+      ]
+    },
+    {
+      "id": "food-service",
+      "name": "Food Service",
+      "aliases": [
+        "food preparation",
+        "menu development",
+        "food safety",
+        "servsafe",
+        "haccp",
+        "culinary",
+        "kitchen operations",
+        "menu planning",
+        "inventory food"
+      ]
+    },
+    {
+      "id": "scheduling",
+      "name": "Scheduling",
+      "aliases": [
+        "scheduling",
+        "shift scheduling",
+        "calendar management",
+        "resource scheduling",
+        "staffing",
+        "roster management"
+      ]
+    },
+    {
+      "id": "quality-control",
+      "name": "Quality Control",
+      "aliases": [
+        "quality control",
+        "quality inspection",
+        "qc",
+        "inspection",
+        "iso 9001",
+        "quality management systems",
+        "qms",
+        "gmp",
+        "capa"
+      ]
+    }
+  ]
+}
