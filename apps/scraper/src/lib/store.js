@@ -7,9 +7,19 @@ export function readNdjson(file) {
   return fs.readFileSync(file, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l));
 }
 
-export function writeNdjson(file, rows) {
+// Atomic write: serialize to a temp file in the same directory, then rename over the
+// target. rename() is atomic on the same filesystem, so a crash mid-write leaves the
+// previous good file intact rather than a truncated one. The accumulated corpus is the
+// asset — a half-written postings_raw.ndjson would be a genuine data loss.
+function atomicWrite(file, contents) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, rows.map((r) => JSON.stringify(r)).join('\n') + (rows.length ? '\n' : ''));
+  const tmp = `${file}.tmp-${process.pid}`;
+  fs.writeFileSync(tmp, contents);
+  fs.renameSync(tmp, file);
+}
+
+export function writeNdjson(file, rows) {
+  atomicWrite(file, rows.map((r) => JSON.stringify(r)).join('\n') + (rows.length ? '\n' : ''));
 }
 
 /** Merge rows into an NDJSON file by key. Returns {added, updated, total}. */
@@ -27,13 +37,26 @@ export function upsertNdjson(file, rows, keyFn) {
 }
 
 export function writeJson(file, obj) {
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(obj, null, 2) + '\n');
+  atomicWrite(file, JSON.stringify(obj, null, 2) + '\n');
 }
 
 export function readJson(file, fallback = null) {
   if (!fs.existsSync(file)) return fallback;
   return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+// Tolerant NDJSON read: skip any line that fails to parse (e.g. a legacy truncated
+// tail from before atomic writes) rather than throwing the whole corpus away.
+export function readNdjsonSafe(file) {
+  if (!fs.existsSync(file)) return [];
+  const out = [];
+  let bad = 0;
+  for (const l of fs.readFileSync(file, 'utf8').split('\n')) {
+    if (!l) continue;
+    try { out.push(JSON.parse(l)); } catch { bad++; }
+  }
+  if (bad) console.warn(`readNdjsonSafe: skipped ${bad} unparseable line(s) in ${path.basename(file)}`);
+  return out;
 }
 
 /**
