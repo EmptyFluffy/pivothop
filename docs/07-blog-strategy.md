@@ -146,3 +146,49 @@ The blog succeeds if it's the only publication in the AEC-career space that cons
 - Rejects the incentives (no bootcamp affiliate revenue, no LinkedIn Learning partnerships, no sponsored posts)
 
 That combination is a moat. Every other publication in the space is structurally incapable of doing all four. That's why they'll keep losing readers to us.
+
+---
+
+## The flagship data report: the PivotHop Adjacency Index
+
+*A recurring, annual research report that becomes PivotHop's signature publication — the piece that gets cited, linked, and re-quoted for a year. Modeled on the structure of Upwork's Future Workforce Index, built entirely on our own scrape.*
+
+### Why this format, and what to steal from it
+
+Upwork's *Future Workforce Index 2026* is the reference model for what a pillar data report should be. Read it and take the machinery, not the topic:
+
+- **One proprietary dataset, one thesis.** Their whole report hangs on a single defensible claim — "AI is splitting the value of work; the premium is moving to orchestrators" — and every figure serves it. Ours must do the same with one claim the scrape can prove.
+- **A named concept people can repeat.** "The AI orchestrator" is the report's payload. It's a handle the reader carries away and re-uses in their own words. A data report without a named idea is just charts. Ours needs its own handle (candidate below).
+- **Numbered findings, three takeaways, one conclusion.** Not twelve points. Three, each a single sentence of finding followed by the evidence. Discipline is the format.
+- **Methodology section that shows the work.** They state sample size, timeframe, how the LLM classification worked, and — critically — where the measurement is uncertain. That last part is what separates research from marketing. Ours states posting counts, sources, the match formula, and the confidence floors, and admits what the scrape can't see.
+- **Named authors with real credentials.** E-E-A-T. Carlos bylines it; the about page carries the authority.
+
+What **not** to copy: the corporate register ("harness worker-led experimentation," "capture AI's value"). Every sentence of ours goes through the voice rules in `01-style-direction.md`. Upwork writes like a consultancy; we write like a working person who counted something.
+
+### The twist — our thesis, not theirs
+
+Upwork's frame is **AI-complexity**: low-complexity execution is commoditizing, complex AI-augmented work is appreciating. True, but it's their marketplace's story and everyone in the AI-commentary space is already telling a version of it.
+
+Ours is one layer underneath, and it's the thing only PivotHop's data can say: **the labor market is reorganizing around transferable skills, not titles — and the scrape can measure exactly which skills carry a person across a field boundary, and what that crossing is worth.** The "orchestrator premium" Upwork observed is, structurally, an **adjacency premium**: the people who win are the ones whose skill set spans the gap between where they are and an adjacent field. Upwork saw the shadow of it in freelance rates. We can measure the object itself, from live postings, per occupation, with the salary attached.
+
+The named concept (pick one, test both): **"bridge skills"** — the specific skills that appear across the most occupation boundaries and are therefore the highest-leverage things a person can learn to become adjacent-employable — or **"the adjacency premium"** — the measurable salary and mobility gain that comes from holding a skill set that spans two fields instead of sitting deep in one.
+
+### Structure, mapped to our data
+
+Every figure below is producible *today* from the scrape output — no new instrumentation, just queries against `packages/data/generated/` and the aggregates. Numbers in brackets are placeholders; the real ones come from the run, and Carlos writes the editorial around them in his voice. **Nothing ships with an invented number.**
+
+1. **Finding 1 — Skills travel; titles don't.** The skills that appear in the most distinct occupations (the bridge skills). *Source:* skill-frequency aggregates across all `role_aggregates`, counting in how many occupations each skill clears a demand threshold. The uncopyable sentence is a specific ranked list: "Across [N] postings in [M] occupations, the skills that show up in the most different fields are [Python, project management, data analysis, …] — and none of them are what any of those fields calls itself."
+2. **Finding 2 — The adjacency premium is real and it has a number.** Compare the salary of postings demanding a cross-domain skill set against single-domain postings in the same field. *Source:* `postings` salary bands segmented by whether the posting's skills span ≥2 of our occupation skill-profiles. "Postings that ask for [origin-field skill] *and* [adjacent-field skill] pay [X]% more than either field's median."
+3. **Finding 3 — Some fields are wider than others.** Which origin occupations have the most (and widest-match) exit routes, and which destination fields are absorbing the most adjacent talent. *Source:* the adjacency graph directly — count and mean-match of each origin's top routes; in-degree of each destination. "An architect can reach [K] adjacent fields at ≥40% skill overlap. A [narrow field] can reach [few]. Breadth of exit is itself a career asset, and it's unevenly distributed."
+4. **The named idea, stated plainly**, then the three implications: for someone in a commoditizing role, for someone choosing what to learn next (learn the bridge skill, not the deep-field skill), for employers (the adjacent candidate is cheaper to find and already 70–90% covered — this is the hook into the employer/concierge side and the flagship "Business Case for Hiring Adjacent Talent" piece).
+5. **Methodology.** Sources (Adzuna, Greenhouse, Lever, Ashby, SmartRecruiters, USAJOBS, Reed, Remotive, RemoteOK, Jobicy — no LinkedIn, no Indeed), total postings, timeframe, the match formula in one line, the confidence floors, O*NET corroboration, and an honest paragraph on what postings *can't* see (skills people have but postings don't name — exactly why architects' project-management ability is under-measured; this is the judgment layer's job).
+
+### Cadence and leverage
+
+- **Annual**, like Upwork's — "The PivotHop Adjacency Index 2026" — so it compounds: year two reports the *change* ("bridge skills that appreciated," "fields that widened"), which is a second uncopyable report for free.
+- It's the **launch data-post's** big sibling. The r/Architects launch post (per `09-marketing-strategy.md`) is one finding from this — most likely Finding 1 scoped to architecture ("the 8 non-architecture skills that show up most in postings hiring architects"). Ship the scoped Reddit chart first; the full Index is the flagship it graduates into once the scrape clears the gate.
+- Every figure is an OG image rendered from the design system; every finding is a LinkedIn post in Carlos's voice; the whole thing is the single most linkable asset on the site.
+
+### Ship gate
+
+Same as everything else: **real numbers or it doesn't ship.** This brief is a blueprint, not a draft — the statistics are placeholders until the scrape produces them at confidence, and the editorial voice is Carlos's, not drafted copy. Build it when the launch vertical clears its posting gate and the global tier has enough origins at confidence to make Finding 3 honest. Until then it sits here as the plan.
