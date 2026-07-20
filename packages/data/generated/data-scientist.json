@@ -243,13 +243,13 @@
       "field": "Science",
       "desc": "",
       "match": 66,
-      "salary": "$130k–$300k",
+      "salary": "$115k–$285k",
       "salary_band": [
-        130223,
-        300000
+        113267,
+        285000
       ],
       "demand": "Moderate",
-      "remote": "13%",
+      "remote": "12%",
       "time": "9–16 mo",
       "have": [
         "Machine Learning",
@@ -259,137 +259,137 @@
       ],
       "learn": [
         "Event Planning",
+        "Translation",
         "Cybersecurity",
-        "Microservices",
-        "Translation"
+        "Microservices"
       ],
       "waterfall": [
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 15.4,
-          "earned": 14.3
+          "pts": 14.8,
+          "earned": 14.8
         },
         {
           "skill": "nlp",
           "name": "NLP",
-          "pts": 13.4,
-          "earned": 6.8
+          "pts": 12.8,
+          "earned": 7.1
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 9.3,
-          "earned": 9.3
+          "pts": 9.7,
+          "earned": 9.7
         },
         {
           "skill": "deep-learning",
           "name": "Deep Learning",
-          "pts": 6.9,
-          "earned": 2.7
+          "pts": 6.6,
+          "earned": 2.9
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 6.5,
-          "earned": 6.4
+          "pts": 6.6,
+          "earned": 6.6
         },
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 6.1,
-          "earned": 4.6
+          "pts": 6.2,
+          "earned": 4.8
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 5.3,
-          "earned": 2.7
+          "pts": 5.4,
+          "earned": 2.9
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 4.9,
-          "earned": 4.9
+          "pts": 5.1,
+          "earned": 5.1
         },
         {
           "skill": "etl",
           "name": "ETL",
-          "pts": 4,
-          "earned": 4
+          "pts": 3.9,
+          "earned": 3.9
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 3.2,
-          "earned": 3.2
+          "pts": 3.5,
+          "earned": 3.5
         },
         {
           "skill": "event-planning",
           "name": "Event Planning",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "cybersecurity",
-          "name": "Cybersecurity",
-          "pts": 2.8,
-          "earned": 0
-        },
-        {
-          "skill": "microservices",
-          "name": "Microservices",
-          "pts": 2.8,
+          "pts": 3.1,
           "earned": 0
         },
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 2.8,
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "cybersecurity",
+          "name": "Cybersecurity",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "microservices",
+          "name": "Microservices",
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "aws",
           "name": "AWS",
-          "pts": 2.4,
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "clinical-research",
+          "name": "Clinical Research",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "research",
+          "name": "Research",
+          "pts": 2.3,
           "earned": 0
         },
         {
           "skill": "kubernetes",
           "name": "Kubernetes",
-          "pts": 2.4,
+          "pts": 2.3,
           "earned": 0
         },
         {
           "skill": "sql",
           "name": "SQL",
-          "pts": 2.4,
-          "earned": 2.4
+          "pts": 2.3,
+          "earned": 2.3
         },
         {
           "skill": "ab-testing",
           "name": "A/B Testing",
-          "pts": 2,
-          "earned": 2
-        },
-        {
-          "skill": "gcp",
-          "name": "GCP",
-          "pts": 2,
-          "earned": 0
-        },
-        {
-          "skill": "statistics",
-          "name": "Statistics",
-          "pts": 2,
-          "earned": 2
+          "pts": 1.9,
+          "earned": 1.9
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 77,
-        "salaried": 62
+        "postings": 84,
+        "salaried": 69
       }
     },
     {
@@ -1129,17 +1129,6 @@
   "next": {
     "data-analyst": [
       {
-        "t": "Business Analyst",
-        "m": 33,
-        "slug": "business-analyst",
-        "via": {
-          "parent": "data-analyst",
-          "readiness_after": 40,
-          "gain": 7
-        },
-        "observed": "Supplemental"
-      },
-      {
         "t": "Architect",
         "m": 33,
         "slug": "architect",
@@ -1149,17 +1138,28 @@
           "gain": 10
         },
         "observed": null
-      }
-    ],
-    "bi-developer": [
+      },
       {
         "t": "IT Support Specialist",
         "m": 32,
         "slug": "it-support",
         "via": {
+          "parent": "data-analyst",
+          "readiness_after": 33,
+          "gain": 1
+        },
+        "observed": null
+      }
+    ],
+    "bi-developer": [
+      {
+        "t": "Marketing Manager",
+        "m": 30,
+        "slug": "marketing-manager",
+        "via": {
           "parent": "bi-developer",
-          "readiness_after": 32,
-          "gain": 0
+          "readiness_after": 33,
+          "gain": 3
         },
         "observed": null
       },
@@ -1177,48 +1177,48 @@
     ],
     "research-scientist": [
       {
+        "t": "Statistician",
+        "m": 44,
+        "slug": "statistician",
+        "via": {
+          "parent": "research-scientist",
+          "readiness_after": 51,
+          "gain": 7
+        },
+        "observed": "Primary-Short"
+      },
+      {
         "t": "Economist",
         "m": 38,
         "slug": "economist",
         "via": {
           "parent": "research-scientist",
-          "readiness_after": 42,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
-        "t": "Software Engineer",
-        "m": 33,
-        "slug": "software-engineer",
-        "via": {
-          "parent": "research-scientist",
           "readiness_after": 41,
-          "gain": 8
+          "gain": 3
         },
         "observed": null
       }
     ],
     "market-researcher": [
       {
-        "t": "Statistician",
-        "m": 44,
-        "slug": "statistician",
+        "t": "Business Analyst",
+        "m": 41,
+        "slug": "business-analyst",
         "via": {
           "parent": "market-researcher",
-          "readiness_after": 50,
-          "gain": 6
+          "readiness_after": 54,
+          "gain": 13
         },
-        "observed": "Primary-Short"
+        "observed": "Supplemental"
       },
       {
-        "t": "Marketing Manager",
+        "t": "Financial Analyst",
         "m": 33,
-        "slug": "marketing-manager",
+        "slug": "financial-analyst",
         "via": {
           "parent": "market-researcher",
-          "readiness_after": 50,
-          "gain": 17
+          "readiness_after": 45,
+          "gain": 12
         },
         "observed": null
       }
@@ -1284,13 +1284,13 @@
         "observed": null
       },
       {
-        "t": "Financial Analyst",
-        "m": 34,
-        "slug": "financial-analyst",
+        "t": "Software Engineer",
+        "m": 33,
+        "slug": "software-engineer",
         "via": {
           "parent": "product-manager",
-          "readiness_after": 47,
-          "gain": 13
+          "readiness_after": 36,
+          "gain": 3
         },
         "observed": null
       }
@@ -1324,7 +1324,7 @@
     [
       "research-scientist",
       "machine-learning-engineer",
-      0.8
+      0.75
     ],
     [
       "data-analyst",
@@ -1360,7 +1360,7 @@
     ],
     [
       "machine-learning-engineer",
-      "research-scientist_1",
+      "product-manager_1",
       0.57
     ],
     [
@@ -1369,8 +1369,8 @@
       0.53
     ],
     [
-      "research-scientist",
-      "machine-learning-engineer_1",
+      "product-analyst",
+      "market-researcher_0",
       0.53
     ]
   ],

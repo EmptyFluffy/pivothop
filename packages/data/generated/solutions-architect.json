@@ -1258,22 +1258,22 @@
     "industrial-engineer": [
       {
         "t": "Real Estate Developer",
-        "m": 34,
+        "m": 36,
         "slug": "real-estate-developer",
         "via": {
           "parent": "industrial-engineer",
-          "readiness_after": 42,
-          "gain": 8
+          "readiness_after": 43,
+          "gain": 7
         },
         "observed": null
       },
       {
         "t": "Account Executive",
-        "m": 32,
+        "m": 33,
         "slug": "account-executive",
         "via": {
           "parent": "industrial-engineer",
-          "readiness_after": 34,
+          "readiness_after": 35,
           "gain": 2
         },
         "observed": null
@@ -1316,18 +1316,29 @@
         "observed": "Primary-Short"
       },
       {
-        "t": "QA Engineer",
+        "t": "Data Scientist",
         "m": 32,
-        "slug": "qa-engineer",
+        "slug": "data-scientist",
         "via": {
           "parent": "software-engineer",
-          "readiness_after": 50,
-          "gain": 18
+          "readiness_after": 32,
+          "gain": 0
         },
-        "observed": "Primary-Long"
+        "observed": null
       }
     ],
     "sales-engineer": [
+      {
+        "t": "Business Analyst",
+        "m": 41,
+        "slug": "business-analyst",
+        "via": {
+          "parent": "sales-engineer",
+          "readiness_after": 53,
+          "gain": 12
+        },
+        "observed": null
+      },
       {
         "t": "Product Manager",
         "m": 38,
@@ -1335,17 +1346,6 @@
         "via": {
           "parent": "sales-engineer",
           "readiness_after": 56,
-          "gain": 18
-        },
-        "observed": null
-      },
-      {
-        "t": "Customer Success Manager",
-        "m": 37,
-        "slug": "customer-success-manager",
-        "via": {
-          "parent": "sales-engineer",
-          "readiness_after": 55,
           "gain": 18
         },
         "observed": null
@@ -1401,6 +1401,17 @@
     ],
     "it-support": [
       {
+        "t": "Customer Success Manager",
+        "m": 37,
+        "slug": "customer-success-manager",
+        "via": {
+          "parent": "it-support",
+          "readiness_after": 53,
+          "gain": 16
+        },
+        "observed": null
+      },
+      {
         "t": "Security Engineer",
         "m": 35,
         "slug": "security-engineer",
@@ -1410,28 +1421,17 @@
           "gain": 17
         },
         "observed": "Supplemental"
-      },
-      {
-        "t": "Data Scientist",
-        "m": 32,
-        "slug": "data-scientist",
-        "via": {
-          "parent": "it-support",
-          "readiness_after": 34,
-          "gain": 2
-        },
-        "observed": null
       }
     ],
     "machine-learning-engineer": [
       {
         "t": "Research Scientist",
-        "m": 39,
+        "m": 40,
         "slug": "research-scientist",
         "via": {
           "parent": "machine-learning-engineer",
-          "readiness_after": 80,
-          "gain": 41
+          "readiness_after": 77,
+          "gain": 37
         },
         "observed": null
       },
@@ -1483,13 +1483,13 @@
   "bridges": [
     [
       "machine-learning-engineer",
-      "it-support_1",
+      "software-engineer_1",
       0.57
     ],
     [
-      "management-consultant",
-      "industrial-engineer_0",
-      0.56
+      "sales-engineer",
+      "it-support_0",
+      0.55
     ],
     [
       "sales-engineer",
@@ -1498,7 +1498,7 @@
     ],
     [
       "machine-learning-engineer",
-      "sales-engineer_0",
+      "sales-engineer_1",
       0.54
     ]
   ],

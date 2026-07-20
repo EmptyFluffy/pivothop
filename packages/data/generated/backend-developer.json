@@ -1256,13 +1256,13 @@
         "observed": "Supplemental"
       },
       {
-        "t": "Statistician",
-        "m": 18,
-        "slug": "statistician",
+        "t": "Business Analyst",
+        "m": 19,
+        "slug": "business-analyst",
         "via": {
           "parent": "industrial-engineer",
-          "readiness_after": 21,
-          "gain": 3
+          "readiness_after": 27,
+          "gain": 8
         },
         "observed": null
       }
@@ -1293,23 +1293,23 @@
     ],
     "mobile-developer": [
       {
+        "t": "Statistician",
+        "m": 18,
+        "slug": "statistician",
+        "via": {
+          "parent": "mobile-developer",
+          "readiness_after": 19,
+          "gain": 1
+        },
+        "observed": null
+      },
+      {
         "t": "Account Executive",
         "m": 18,
         "slug": "account-executive",
         "via": {
           "parent": "mobile-developer",
-          "readiness_after": 20,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Psychologist",
-        "m": 17,
-        "slug": "psychologist",
-        "via": {
-          "parent": "mobile-developer",
-          "readiness_after": 17,
+          "readiness_after": 18,
           "gain": 0
         },
         "observed": null
@@ -1405,8 +1405,8 @@
         "slug": "research-scientist",
         "via": {
           "parent": "sales-engineer",
-          "readiness_after": 45,
-          "gain": 11
+          "readiness_after": 46,
+          "gain": 12
         },
         "observed": null
       }

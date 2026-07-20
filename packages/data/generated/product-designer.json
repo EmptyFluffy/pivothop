@@ -439,7 +439,7 @@
       "salary": "$95k–$150k",
       "salary_band": [
         92949,
-        151853
+        151952
       ],
       "demand": "Moderate",
       "remote": "6%",
@@ -581,8 +581,8 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 180,
-        "salaried": 168
+        "postings": 178,
+        "salaried": 167
       }
     },
     {
@@ -989,14 +989,14 @@
       "title": "Marketing Manager",
       "field": "Business",
       "desc": "",
-      "match": 29,
-      "salary": "$60k–$125k",
+      "match": 28,
+      "salary": "$55k–$120k",
       "salary_band": [
-        60815,
-        124443
+        55895,
+        120723
       ],
       "demand": "High",
-      "remote": "15%",
+      "remote": "14%",
       "time": "12–24 mo",
       "have": [
         "Product Management",
@@ -1014,14 +1014,14 @@
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 11.6,
-          "earned": 10.4
+          "pts": 11.4,
+          "earned": 11.2
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
           "pts": 9,
-          "earned": 2.3
+          "earned": 2.5
         },
         {
           "skill": "market-research",
@@ -1038,7 +1038,7 @@
         {
           "skill": "crm",
           "name": "CRM",
-          "pts": 6.4,
+          "pts": 6.3,
           "earned": 0
         },
         {
@@ -1050,36 +1050,36 @@
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 5.1,
-          "earned": 2.9
+          "pts": 4.8,
+          "earned": 3.1
         },
         {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 4.7,
-          "earned": 4.6
+          "skill": "content-marketing",
+          "name": "Content Marketing",
+          "pts": 4.8,
+          "earned": 0
         },
         {
           "skill": "event-planning",
           "name": "Event Planning",
-          "pts": 4.6,
+          "pts": 4.5,
+          "earned": 0
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 4.4,
+          "earned": 4.4
+        },
+        {
+          "skill": "sem",
+          "name": "SEM / Paid Media",
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "salesforce",
           "name": "Salesforce",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "content-marketing",
-          "name": "Content Marketing",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "sem",
-          "name": "SEM / Paid Media",
           "pts": 4.1,
           "earned": 0
         },
@@ -1090,58 +1090,69 @@
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.4,
-          "earned": 0
-        },
-        {
           "skill": "ab-testing",
           "name": "A/B Testing",
-          "pts": 3.4,
-          "earned": 2.9
+          "pts": 3.5,
+          "earned": 3.1
         },
         {
           "skill": "social-media",
           "name": "Social Media",
+          "pts": 3.5,
+          "earned": 3.5
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
           "pts": 3.3,
-          "earned": 3.3
+          "earned": 0
         },
         {
           "skill": "stakeholder-management",
           "name": "Stakeholder Management",
-          "pts": 3.1,
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "sales",
+          "name": "Sales",
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 3.1,
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 2.7,
+          "pts": 2.6,
           "earned": 0
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.5,
-          "earned": 2.1
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 575,
-        "salaried": 437
+        "postings": 626,
+        "salaried": 483
       }
     }
   ],
   "next": {
     "ux-designer": [
+      {
+        "t": "Journalist",
+        "m": 17,
+        "slug": "journalist",
+        "via": {
+          "parent": "ux-designer",
+          "readiness_after": 19,
+          "gain": 2
+        },
+        "observed": null
+      },
       {
         "t": "Social Media Manager",
         "m": 16,
@@ -1152,20 +1163,20 @@
           "gain": 1
         },
         "observed": null
-      },
+      }
+    ],
+    "design-technologist": [
       {
         "t": "Video Editor",
         "m": 15,
         "slug": "video-editor",
         "via": {
-          "parent": "ux-designer",
+          "parent": "design-technologist",
           "readiness_after": 17,
           "gain": 2
         },
         "observed": null
-      }
-    ],
-    "design-technologist": [
+      },
       {
         "t": "Project Manager",
         "m": 15,
@@ -1176,17 +1187,6 @@
           "gain": 3
         },
         "observed": null
-      },
-      {
-        "t": "Game Designer",
-        "m": 14,
-        "slug": "game-designer",
-        "via": {
-          "parent": "design-technologist",
-          "readiness_after": 14,
-          "gain": 0
-        },
-        "observed": "Primary-Long"
       }
     ],
     "ux-researcher": [
@@ -1202,18 +1202,29 @@
         "observed": null
       },
       {
-        "t": "Management Consultant",
-        "m": 13,
-        "slug": "management-consultant",
+        "t": "Game Designer",
+        "m": 14,
+        "slug": "game-designer",
         "via": {
           "parent": "ux-researcher",
-          "readiness_after": 16,
-          "gain": 3
+          "readiness_after": 14,
+          "gain": 0
         },
-        "observed": null
+        "observed": "Primary-Long"
       }
     ],
     "creative-director": [
+      {
+        "t": "Product Manager",
+        "m": 19,
+        "slug": "product-manager",
+        "via": {
+          "parent": "creative-director",
+          "readiness_after": 23,
+          "gain": 4
+        },
+        "observed": null
+      },
       {
         "t": "Service Designer",
         "m": 19,
@@ -1222,17 +1233,6 @@
           "parent": "creative-director",
           "readiness_after": 28,
           "gain": 9
-        },
-        "observed": null
-      },
-      {
-        "t": "Journalist",
-        "m": 17,
-        "slug": "journalist",
-        "via": {
-          "parent": "creative-director",
-          "readiness_after": 60,
-          "gain": 43
         },
         "observed": null
       }
@@ -1263,6 +1263,17 @@
     ],
     "creative-technologist": [
       {
+        "t": "Mechanical Engineer",
+        "m": 23,
+        "slug": "mechanical-engineer",
+        "via": {
+          "parent": "creative-technologist",
+          "readiness_after": 29,
+          "gain": 6
+        },
+        "observed": null
+      },
+      {
         "t": "Frontend Developer",
         "m": 19,
         "slug": "frontend-developer",
@@ -1272,17 +1283,6 @@
           "gain": 4
         },
         "observed": "Primary-Short"
-      },
-      {
-        "t": "Product Manager",
-        "m": 19,
-        "slug": "product-manager",
-        "via": {
-          "parent": "creative-technologist",
-          "readiness_after": 26,
-          "gain": 7
-        },
-        "observed": null
       }
     ],
     "graphic-designer": [
@@ -1311,23 +1311,23 @@
     ],
     "marketing-manager": [
       {
+        "t": "Real Estate Developer",
+        "m": 25,
+        "slug": "real-estate-developer",
+        "via": {
+          "parent": "marketing-manager",
+          "readiness_after": 48,
+          "gain": 23
+        },
+        "observed": null
+      },
+      {
         "t": "Copywriter",
         "m": 25,
         "slug": "copywriter",
         "via": {
           "parent": "marketing-manager",
-          "readiness_after": 49,
-          "gain": 24
-        },
-        "observed": null
-      },
-      {
-        "t": "Real Estate Developer",
-        "m": 23,
-        "slug": "real-estate-developer",
-        "via": {
-          "parent": "marketing-manager",
-          "readiness_after": 49,
+          "readiness_after": 51,
           "gain": 26
         },
         "observed": null
@@ -1361,12 +1361,17 @@
       0.36
     ],
     [
-      "graphic-designer",
-      "marketing-manager",
-      0.36
+      "creative-director",
+      "ux-writer",
+      0.35
     ]
   ],
   "bridges": [
+    [
+      "creative-director",
+      "ux-designer_0",
+      0.6
+    ],
     [
       "ux-writer",
       "ux-researcher_0",
@@ -1374,13 +1379,8 @@
     ],
     [
       "creative-director",
-      "marketing-manager_0",
+      "marketing-manager_1",
       0.44
-    ],
-    [
-      "marketing-manager",
-      "design-technologist_0",
-      0.43
     ],
     [
       "creative-director",

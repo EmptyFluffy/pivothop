@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.pivothop.scraper.daily</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/carlos/Desktop/PivotHop/apps/scraper/scripts/daily-run.sh</string>
+  </array>
+
+  <!-- Run every day at 07:15 local. If the Mac was asleep, launchd runs it once at next wake. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>7</integer>
+    <key>Minute</key><integer>15</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/carlos/Desktop/PivotHop/apps/scraper/data/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/carlos/Desktop/PivotHop/apps/scraper/data/launchd.err.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

@@ -1257,6 +1257,17 @@
   "next": {
     "industrial-engineer": [
       {
+        "t": "Research Scientist",
+        "m": 39,
+        "slug": "research-scientist",
+        "via": {
+          "parent": "industrial-engineer",
+          "readiness_after": 51,
+          "gain": 12
+        },
+        "observed": null
+      },
+      {
         "t": "Data Analyst",
         "m": 26,
         "slug": "data-analyst",
@@ -1266,28 +1277,17 @@
           "gain": 21
         },
         "observed": null
-      },
+      }
+    ],
+    "security-engineer": [
       {
         "t": "Compliance Officer",
         "m": 21,
         "slug": "compliance-officer",
         "via": {
-          "parent": "industrial-engineer",
+          "parent": "security-engineer",
           "readiness_after": 32,
           "gain": 11
-        },
-        "observed": null
-      }
-    ],
-    "security-engineer": [
-      {
-        "t": "Research Scientist",
-        "m": 38,
-        "slug": "research-scientist",
-        "via": {
-          "parent": "security-engineer",
-          "readiness_after": 50,
-          "gain": 12
         },
         "observed": null
       },
@@ -1305,17 +1305,6 @@
     ],
     "network-engineer": [
       {
-        "t": "Customer Support Specialist",
-        "m": 19,
-        "slug": "customer-support",
-        "via": {
-          "parent": "network-engineer",
-          "readiness_after": 34,
-          "gain": 15
-        },
-        "observed": null
-      },
-      {
         "t": "Technical Writer",
         "m": 19,
         "slug": "technical-writer",
@@ -1323,6 +1312,17 @@
           "parent": "network-engineer",
           "readiness_after": 26,
           "gain": 7
+        },
+        "observed": null
+      },
+      {
+        "t": "Project Manager",
+        "m": 18,
+        "slug": "project-manager",
+        "via": {
+          "parent": "network-engineer",
+          "readiness_after": 37,
+          "gain": 19
         },
         "observed": null
       }
@@ -1483,13 +1483,8 @@
   "bridges": [
     [
       "solutions-architect",
-      "industrial-engineer_0",
+      "industrial-engineer_1",
       0.62
-    ],
-    [
-      "it-support",
-      "network-engineer_0",
-      0.57
     ],
     [
       "backend-developer",
@@ -1500,6 +1495,11 @@
       "sales-engineer",
       "it-support_1",
       0.52
+    ],
+    [
+      "backend-developer",
+      "solutions-architect_0",
+      0.51
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

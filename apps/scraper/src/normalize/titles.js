@@ -5,7 +5,11 @@ import { TAXONOMY_DIR } from '../lib/paths.js';
 // Rules-first title canonicalization against the occupation taxonomy.
 // Every unmapped title is logged for review — the synonym tables grow from that log.
 
-const SENIORITY = /\b(senior|sr\.?|junior|jr\.?|lead|principal|staff|associate|assistant|chief|head of|head|intern|entry[- ]?level|mid[- ]?level|graduate|trainee|apprentice|expert|specialist i{1,3}|i{1,3}|iv|v|\d+)\b/g;
+// NB: "assistant" and "associate" are deliberately NOT stripped — they are load-bearing
+// nouns in real occupations (Medical Assistant, Teaching Assistant, Accounts Assistant,
+// Research Associate). The phrase matcher still recovers the head noun of "Assistant
+// Project Manager" by containment, so keeping them costs nothing and saves whole occupations.
+const SENIORITY = /\b(senior|sr\.?|junior|jr\.?|lead|principal|staff|chief|head of|head|intern|entry[- ]?level|mid[- ]?level|graduate|trainee|apprentice|expert|specialist i{1,3}|i{1,3}|iv|v|\d+)\b/g;
 const NOISE = /\b(remote|hybrid|onsite|on-site|contract|contractor|freelance|part[- ]?time|full[- ]?time|temporary|temp|permanent|urgent|immediate|new|now hiring|work from home|wfh|m\/f\/d|f\/m\/d|h\/f)\b/g;
 
 export function cleanTitle(raw) {

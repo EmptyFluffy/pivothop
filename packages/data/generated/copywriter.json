@@ -14,6 +14,107 @@
   },
   "roles": [
     {
+      "id": "police-officer",
+      "title": "Police Officer",
+      "field": "Public Safety",
+      "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
+      "match": 42,
+      "salary": "$30k–$35k",
+      "salary_band": [
+        31623,
+        33674
+      ],
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Presentation",
+        "Supply Chain",
+        "Teaching",
+        "Training & Facilitation"
+      ],
+      "learn": [
+        "Case Management",
+        "Curriculum Development",
+        "Operations",
+        "Audit"
+      ],
+      "waterfall": [
+        {
+          "skill": "case-management",
+          "name": "Case Management",
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "curriculum",
+          "name": "Curriculum Development",
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 9.1,
+          "earned": 9.1
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 9.1,
+          "earned": 9.1
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 9.1,
+          "earned": 9.1
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 9.1,
+          "earned": 9.1
+        },
+        {
+          "skill": "audit",
+          "name": "Audit",
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "observability",
+          "name": "Observability",
+          "pts": 9.1,
+          "earned": 5.2
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 9.1,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 118,
+        "salaried": 118
+      }
+    },
+    {
       "id": "journalist",
       "title": "Journalist",
       "field": "Writing",
@@ -177,7 +278,7 @@
       "salary": "$95k–$150k",
       "salary_band": [
         92949,
-        151853
+        151952
       ],
       "demand": "Moderate",
       "remote": "6%",
@@ -199,7 +300,7 @@
           "skill": "writing",
           "name": "Writing & Editing",
           "pts": 35.5,
-          "earned": 11.9
+          "earned": 11.8
         },
         {
           "skill": "training",
@@ -319,8 +420,8 @@
       "low_confidence": false,
       "observed": "Primary-Long",
       "provenance": {
-        "postings": 180,
-        "salaried": 168
+        "postings": 178,
+        "salaried": 167
       }
     },
     {
@@ -483,14 +584,14 @@
       "title": "Marketing Manager",
       "field": "Business",
       "desc": "",
-      "match": 16,
-      "salary": "$60k–$125k",
+      "match": 17,
+      "salary": "$55k–$120k",
       "salary_band": [
-        60815,
-        124443
+        55895,
+        120723
       ],
       "demand": "High",
-      "remote": "15%",
+      "remote": "14%",
       "time": "12–24 mo",
       "have": [
         "Product Management",
@@ -502,14 +603,14 @@
         "Data Analysis",
         "Market Research",
         "Event Planning",
-        "Salesforce"
+        "SEM / Paid Media"
       ],
       "waterfall": [
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 11.6,
-          "earned": 0.7
+          "pts": 11.4,
+          "earned": 0.8
         },
         {
           "skill": "data-analysis",
@@ -527,53 +628,53 @@
           "skill": "email-marketing",
           "name": "Email Marketing",
           "pts": 7.2,
-          "earned": 2.2
+          "earned": 2.3
         },
         {
           "skill": "crm",
           "name": "CRM",
-          "pts": 6.4,
-          "earned": 2.9
+          "pts": 6.3,
+          "earned": 3.1
         },
         {
           "skill": "project-management",
           "name": "Project Management",
           "pts": 6,
-          "earned": 0.7
+          "earned": 0.8
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 5.1,
-          "earned": 0.7
+          "pts": 4.8,
+          "earned": 0.8
         },
         {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 4.7,
-          "earned": 4.7
+          "skill": "content-marketing",
+          "name": "Content Marketing",
+          "pts": 4.8,
+          "earned": 1.5
         },
         {
           "skill": "event-planning",
           "name": "Event Planning",
-          "pts": 4.6,
+          "pts": 4.5,
+          "earned": 0
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 4.4,
+          "earned": 4.4
+        },
+        {
+          "skill": "sem",
+          "name": "SEM / Paid Media",
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "salesforce",
           "name": "Salesforce",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "content-marketing",
-          "name": "Content Marketing",
-          "pts": 4.1,
-          "earned": 1.4
-        },
-        {
-          "skill": "sem",
-          "name": "SEM / Paid Media",
           "pts": 4.1,
           "earned": 0
         },
@@ -584,53 +685,53 @@
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.4,
-          "earned": 0.7
-        },
-        {
           "skill": "ab-testing",
           "name": "A/B Testing",
-          "pts": 3.4,
+          "pts": 3.5,
           "earned": 0
         },
         {
           "skill": "social-media",
           "name": "Social Media",
+          "pts": 3.5,
+          "earned": 1.5
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
           "pts": 3.3,
-          "earned": 1.4
+          "earned": 0.8
         },
         {
           "skill": "stakeholder-management",
           "name": "Stakeholder Management",
-          "pts": 3.1,
+          "pts": 3,
           "earned": 0
+        },
+        {
+          "skill": "sales",
+          "name": "Sales",
+          "pts": 2.8,
+          "earned": 0.8
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 3.1,
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 2.7,
+          "pts": 2.6,
           "earned": 0.4
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.5,
-          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 575,
-        "salaried": 437
+        "postings": 626,
+        "salaried": 483
       }
     },
     {
@@ -1055,164 +1156,10 @@
         "postings": 209,
         "salaried": 197
       }
-    },
-    {
-      "id": "content-strategist",
-      "title": "Content Strategist",
-      "field": "Writing",
-      "desc": "",
-      "match": 11,
-      "salary": "$60k–$90k",
-      "salary_band": [
-        58767,
-        90000
-      ],
-      "demand": "Low",
-      "remote": "18%",
-      "time": "12–24 mo",
-      "have": [
-        "Content Marketing",
-        "Writing & Editing",
-        "Social Media",
-        "Email Marketing"
-      ],
-      "learn": [
-        "NLP",
-        "Video Editing",
-        "Compliance",
-        "Data Analysis"
-      ],
-      "waterfall": [
-        {
-          "skill": "content-marketing",
-          "name": "Content Marketing",
-          "pts": 18.7,
-          "earned": 0.6
-        },
-        {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 9.3,
-          "earned": 3
-        },
-        {
-          "skill": "social-media",
-          "name": "Social Media",
-          "pts": 6.7,
-          "earned": 0.6
-        },
-        {
-          "skill": "nlp",
-          "name": "NLP",
-          "pts": 6.7,
-          "earned": 0
-        },
-        {
-          "skill": "email-marketing",
-          "name": "Email Marketing",
-          "pts": 5.3,
-          "earned": 0.9
-        },
-        {
-          "skill": "video-editing",
-          "name": "Video Editing",
-          "pts": 5.3,
-          "earned": 0
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 5.3,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 5.3,
-          "earned": 0.3
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 4,
-          "earned": 0
-        },
-        {
-          "skill": "sales",
-          "name": "Sales",
-          "pts": 4,
-          "earned": 0.3
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4,
-          "earned": 0.4
-        },
-        {
-          "skill": "seo",
-          "name": "SEO",
-          "pts": 4,
-          "earned": 1.6
-        },
-        {
-          "skill": "copywriting",
-          "name": "Copywriting",
-          "pts": 2.7,
-          "earned": 2
-        },
-        {
-          "skill": "google-analytics",
-          "name": "Google Analytics",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 2.7,
-          "earned": 0.3
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 2.7,
-          "earned": 0.1
-        },
-        {
-          "skill": "branding",
-          "name": "Branding",
-          "pts": 2.7,
-          "earned": 0.6
-        },
-        {
-          "skill": "food-service",
-          "name": "Food Service",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "jira",
-          "name": "Jira",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "technical-writing",
-          "name": "Technical Writing",
-          "pts": 2.7,
-          "earned": 0
-        }
-      ],
-      "low_confidence": true,
-      "observed": "Primary-Short",
-      "provenance": {
-        "postings": 22,
-        "salaried": 15
-      }
     }
   ],
   "next": {
+    "police-officer": [],
     "journalist": [],
     "creative-director": [
       {
@@ -1230,6 +1177,17 @@
     "graphic-designer": [],
     "marketing-manager": [
       {
+        "t": "Content Strategist",
+        "m": 11,
+        "slug": "content-strategist",
+        "via": {
+          "parent": "marketing-manager",
+          "readiness_after": 20,
+          "gain": 9
+        },
+        "observed": "Primary-Short"
+      },
+      {
         "t": "Facilities Manager",
         "m": 11,
         "slug": "facilities-manager",
@@ -1242,54 +1200,26 @@
       }
     ],
     "creative-technologist": [],
-    "motion-designer": [],
-    "technical-writer": [
-      {
-        "t": "Electrical Engineer",
-        "m": 11,
-        "slug": "electrical-engineer",
-        "via": {
-          "parent": "technical-writer",
-          "readiness_after": 26,
-          "gain": 15
-        },
-        "observed": null
-      }
-    ],
-    "content-strategist": [
+    "motion-designer": [
       {
         "t": "Video Editor",
         "m": 10,
         "slug": "video-editor",
         "via": {
-          "parent": "content-strategist",
-          "readiness_after": 44,
-          "gain": 34
+          "parent": "motion-designer",
+          "readiness_after": 27,
+          "gain": 17
         },
         "observed": null
       }
-    ]
+    ],
+    "technical-writer": []
   },
   "cross": [
     [
       "journalist",
-      "content-strategist",
-      0.64
-    ],
-    [
-      "journalist",
       "creative-director",
       0.55
-    ],
-    [
-      "creative-director",
-      "content-strategist",
-      0.52
-    ],
-    [
-      "creative-technologist",
-      "content-strategist",
-      0.5
     ],
     [
       "graphic-designer",
@@ -1297,9 +1227,24 @@
       0.4
     ],
     [
+      "creative-director",
+      "graphic-designer",
+      0.35
+    ],
+    [
+      "creative-director",
+      "creative-technologist",
+      0.34
+    ],
+    [
       "graphic-designer",
       "marketing-manager",
-      0.36
+      0.34
+    ],
+    [
+      "creative-director",
+      "motion-designer",
+      0.31
     ]
   ],
   "bridges": [
@@ -1309,19 +1254,19 @@
       0.27
     ],
     [
-      "motion-designer",
-      "content-strategist_0",
-      0.27
+      "creative-director",
+      "motion-designer_0",
+      0.26
     ],
     [
       "technical-writer",
-      "marketing-manager_0",
+      "marketing-manager_1",
       0.25
     ],
     [
       "creative-director",
-      "technical-writer_0",
-      0.21
+      "marketing-manager_0",
+      0.19
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
