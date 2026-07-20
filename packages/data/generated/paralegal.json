@@ -1184,13 +1184,13 @@
         "observed": null
       },
       {
-        "t": "Professor / Lecturer",
-        "m": 13,
-        "slug": "professor",
+        "t": "Civil Engineer",
+        "m": 14,
+        "slug": "civil-engineer",
         "via": {
           "parent": "lawyer",
-          "readiness_after": 27,
-          "gain": 14
+          "readiness_after": 25,
+          "gain": 11
         },
         "observed": null
       }
@@ -1208,26 +1208,26 @@
         "observed": null
       },
       {
-        "t": "Social Worker",
-        "m": 12,
-        "slug": "social-worker",
+        "t": "Professor / Lecturer",
+        "m": 13,
+        "slug": "professor",
         "via": {
           "parent": "therapist",
-          "readiness_after": 39,
-          "gain": 27
+          "readiness_after": 20,
+          "gain": 7
         },
         "observed": null
       }
     ],
     "physical-therapist": [
       {
-        "t": "Construction Manager",
+        "t": "Social Worker",
         "m": 12,
-        "slug": "construction-manager",
+        "slug": "social-worker",
         "via": {
           "parent": "physical-therapist",
-          "readiness_after": 22,
-          "gain": 10
+          "readiness_after": 33,
+          "gain": 21
         },
         "observed": null
       },
@@ -1269,6 +1269,17 @@
     ],
     "building-surveyor": [
       {
+        "t": "Architect",
+        "m": 17,
+        "slug": "architect",
+        "via": {
+          "parent": "building-surveyor",
+          "readiness_after": 37,
+          "gain": 20
+        },
+        "observed": null
+      },
+      {
         "t": "Urban Planner",
         "m": 14,
         "slug": "urban-planner",
@@ -1276,17 +1287,6 @@
           "parent": "building-surveyor",
           "readiness_after": 23,
           "gain": 9
-        },
-        "observed": null
-      },
-      {
-        "t": "Civil Engineer",
-        "m": 14,
-        "slug": "civil-engineer",
-        "via": {
-          "parent": "building-surveyor",
-          "readiness_after": 34,
-          "gain": 20
         },
         "observed": null
       }
@@ -1304,13 +1304,13 @@
         "observed": null
       },
       {
-        "t": "Architect",
+        "t": "Construction Manager",
         "m": 12,
-        "slug": "architect",
+        "slug": "construction-manager",
         "via": {
           "parent": "facilities-manager",
-          "readiness_after": 20,
-          "gain": 8
+          "readiness_after": 34,
+          "gain": 22
         },
         "observed": null
       }
@@ -1385,13 +1385,13 @@
     ],
     [
       "construction-estimator",
-      "building-surveyor_1",
+      "building-surveyor_0",
       0.39
     ],
     [
       "construction-estimator",
-      "facilities-manager_0",
-      0.38
+      "lawyer_1",
+      0.39
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -1237,29 +1237,18 @@
         "observed": null
       },
       {
-        "t": "Operations Manager",
+        "t": "Executive Assistant",
         "m": 22,
-        "slug": "operations-manager",
+        "slug": "executive-assistant",
         "via": {
           "parent": "construction-manager",
-          "readiness_after": 25,
-          "gain": 3
+          "readiness_after": 28,
+          "gain": 6
         },
         "observed": null
       }
     ],
     "management-consultant": [
-      {
-        "t": "Architect",
-        "m": 26,
-        "slug": "architect",
-        "via": {
-          "parent": "management-consultant",
-          "readiness_after": 44,
-          "gain": 18
-        },
-        "observed": null
-      },
       {
         "t": "Financial Analyst",
         "m": 23,
@@ -1268,6 +1257,17 @@
           "parent": "management-consultant",
           "readiness_after": 31,
           "gain": 8
+        },
+        "observed": null
+      },
+      {
+        "t": "Operations Manager",
+        "m": 22,
+        "slug": "operations-manager",
+        "via": {
+          "parent": "management-consultant",
+          "readiness_after": 28,
+          "gain": 6
         },
         "observed": null
       }
@@ -1346,17 +1346,6 @@
     ],
     "facilities-manager": [
       {
-        "t": "Executive Assistant",
-        "m": 22,
-        "slug": "executive-assistant",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 25,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
         "t": "Customer Support Specialist",
         "m": 21,
         "slug": "customer-support",
@@ -1366,20 +1355,20 @@
           "gain": 5
         },
         "observed": null
-      }
-    ],
-    "building-surveyor": [
+      },
       {
         "t": "Financial Controller",
         "m": 21,
         "slug": "controller",
         "via": {
-          "parent": "building-surveyor",
-          "readiness_after": 23,
-          "gain": 2
+          "parent": "facilities-manager",
+          "readiness_after": 29,
+          "gain": 8
         },
         "observed": null
-      },
+      }
+    ],
+    "building-surveyor": [
       {
         "t": "Product Manager",
         "m": 21,
@@ -1388,6 +1377,17 @@
           "parent": "building-surveyor",
           "readiness_after": 21,
           "gain": 0
+        },
+        "observed": null
+      },
+      {
+        "t": "Civil Engineer",
+        "m": 21,
+        "slug": "civil-engineer",
+        "via": {
+          "parent": "building-surveyor",
+          "readiness_after": 37,
+          "gain": 16
         },
         "observed": null
       }
@@ -1437,9 +1437,9 @@
       0.46
     ],
     [
-      "construction-manager",
-      "management-consultant_0",
-      0.42
+      "construction-estimator",
+      "building-surveyor_1",
+      0.45
     ],
     [
       "building-surveyor",

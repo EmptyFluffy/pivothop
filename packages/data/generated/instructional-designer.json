@@ -873,8 +873,8 @@
       "match": 15,
       "salary": "$70k–$145k",
       "salary_band": [
-        68706,
-        144231
+        68602,
+        145040
       ],
       "demand": "Moderate",
       "remote": "1%",
@@ -992,8 +992,8 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 168,
-        "salaried": 162
+        "postings": 167,
+        "salaried": 161
       }
     },
     {
@@ -1166,13 +1166,13 @@
         "observed": null
       },
       {
-        "t": "Landscape Architect",
+        "t": "Architect",
         "m": 10,
-        "slug": "landscape-architect",
+        "slug": "architect",
         "via": {
           "parent": "police-officer",
-          "readiness_after": 11,
-          "gain": 1
+          "readiness_after": 10,
+          "gain": 0
         },
         "observed": null
       }
@@ -1310,13 +1310,13 @@
         "observed": null
       },
       {
-        "t": "Architect",
+        "t": "Landscape Architect",
         "m": 10,
-        "slug": "architect",
+        "slug": "landscape-architect",
         "via": {
           "parent": "service-designer",
-          "readiness_after": 20,
-          "gain": 10
+          "readiness_after": 12,
+          "gain": 2
         },
         "observed": null
       }
@@ -1380,6 +1380,11 @@
       0.51
     ],
     [
+      "structural-engineer",
+      "police-officer_1",
+      0.51
+    ],
+    [
       "facilities-manager",
       "financial-analyst_1",
       0.42
@@ -1388,11 +1393,6 @@
       "physical-therapist",
       "police-officer_0",
       0.41
-    ],
-    [
-      "ux-writer",
-      "ux-researcher_0",
-      0.4
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

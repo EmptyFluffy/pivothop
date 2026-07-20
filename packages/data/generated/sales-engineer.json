@@ -173,56 +173,56 @@
       "title": "Solutions Architect",
       "field": "Technology",
       "desc": "",
-      "match": 58,
+      "match": 59,
       "salary": "$105k–$180k",
       "salary_band": [
         104187,
         180000
       ],
       "demand": "High",
-      "remote": "20%",
+      "remote": "19%",
       "time": "12–24 mo",
       "have": [
         "Python",
         "Data Analysis",
-        "Spark",
-        "AWS"
+        "AWS",
+        "Spark"
       ],
       "learn": [
         "Excel",
         "SQL",
-        "ETL",
-        "NLP"
+        "NLP",
+        "ETL"
       ],
       "waterfall": [
         {
           "skill": "python",
           "name": "Python",
-          "pts": 8.8,
-          "earned": 8.8
+          "pts": 9.1,
+          "earned": 9.1
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 8.4,
-          "earned": 4.3
-        },
-        {
-          "skill": "spark",
-          "name": "Spark",
-          "pts": 7.2,
-          "earned": 3.6
+          "pts": 8.1,
+          "earned": 4.5
         },
         {
           "skill": "aws",
           "name": "AWS",
+          "pts": 7.2,
+          "earned": 7.2
+        },
+        {
+          "skill": "spark",
+          "name": "Spark",
           "pts": 6.9,
-          "earned": 6.9
+          "earned": 3.7
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 6.6,
+          "pts": 6.3,
           "earned": 0
         },
         {
@@ -232,26 +232,26 @@
           "earned": 6.2
         },
         {
-          "skill": "sql",
-          "name": "SQL",
-          "pts": 6,
-          "earned": 0
-        },
-        {
           "skill": "gcp",
           "name": "GCP",
           "pts": 5.8,
           "earned": 5.8
         },
         {
-          "skill": "java",
-          "name": "Java",
-          "pts": 5,
-          "earned": 4.6
+          "skill": "sql",
+          "name": "SQL",
+          "pts": 5.7,
+          "earned": 0
         },
         {
-          "skill": "etl",
-          "name": "ETL",
+          "skill": "java",
+          "name": "Java",
+          "pts": 4.8,
+          "earned": 4.8
+        },
+        {
+          "skill": "nlp",
+          "name": "NLP",
           "pts": 4.3,
           "earned": 0
         },
@@ -264,20 +264,26 @@
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 4.2,
-          "earned": 4.2
+          "pts": 4.1,
+          "earned": 4.1
         },
         {
-          "skill": "nlp",
-          "name": "NLP",
-          "pts": 3.6,
+          "skill": "etl",
+          "name": "ETL",
+          "pts": 4.1,
           "earned": 0
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
+          "skill": "training",
+          "name": "Training & Facilitation",
           "pts": 3.5,
           "earned": 0
+        },
+        {
+          "skill": "observability",
+          "name": "Observability",
+          "pts": 3.5,
+          "earned": 3.5
         },
         {
           "skill": "event-planning",
@@ -292,21 +298,15 @@
           "earned": 0
         },
         {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 3.3,
-          "earned": 3.3
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 3.4,
+          "earned": 0
         },
         {
           "skill": "nosql",
           "name": "NoSQL",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 3,
+          "pts": 3.1,
           "earned": 0
         },
         {
@@ -319,8 +319,8 @@
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 500,
-        "salaried": 239
+        "postings": 540,
+        "salaried": 272
       }
     },
     {
@@ -1451,13 +1451,13 @@
   "cross": [
     [
       "industrial-engineer",
-      "solutions-architect",
+      "security-engineer",
       0.68
     ],
     [
       "industrial-engineer",
-      "security-engineer",
-      0.68
+      "solutions-architect",
+      0.67
     ],
     [
       "solutions-architect",
@@ -1497,9 +1497,9 @@
       0.56
     ],
     [
-      "solutions-architect",
-      "software-engineer_1",
-      0.55
+      "real-estate-developer",
+      "management-consultant_0",
+      0.54
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

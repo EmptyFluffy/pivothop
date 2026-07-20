@@ -9,6 +9,7 @@ import { emit } from './score/emit.js';
 import { preview } from './preview.js';
 import { fetchOnetRelated } from './taxonomy/onet.js';
 import { verify } from './score/verify.js';
+import { bridgeSkills } from './analyze/bridge-skills.js';
 
 loadEnv();
 const log = (...a) => console.log(...a);
@@ -94,6 +95,7 @@ switch (cmd) {
     verify({ log }); // sanity invariants + drift vs the last snapshot, every run
     break;
   case 'verify': verify({ log, snapshot: process.argv.includes('--snapshot') }); break;
+  case 'analyze:bridge': bridgeSkills({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'preview': preview({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'fx:update': await fxUpdate(); break;
   case 'taxonomy:onet': await fetchOnetRelated({ log }); break;
@@ -112,6 +114,7 @@ Usage: npm run scrape -- <command>
   preview [origin]      inject an origin's generated data into the reference graph for eyeballing
   fx:update             refresh the monthly FX snapshot
   verify [--snapshot]   sanity invariants + match-score drift vs the last snapshot
+  analyze:bridge [origin] the non-native skills most demanded in an origin's postings
   status                data-quality counters and per-occupation counts
 
 Local-first: everything persists to apps/scraper/data/ as NDJSON. With SUPABASE_URL +

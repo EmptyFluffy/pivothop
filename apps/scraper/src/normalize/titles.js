@@ -28,10 +28,16 @@ function buildMatcher() {
   const exact = new Map();       // cleaned synonym -> slug
   const phrases = [];            // [{phrase, slug}] for containment, longest first
   for (const occ of occupations) {
-    for (const syn of [occ.title.toLowerCase(), ...occ.synonyms]) {
-      const c = syn.replace(/\s+/g, ' ').trim();
+    // exactOnly synonyms map only on an exact title match, never by containment.
+    // For heavily-suffixed role words like "architect" (AI Architect, SOC Architect,
+    // Enablement Architect…) containment would be a magnet that pollutes the vertical;
+    // exact-only means bare "Architect" maps here and every "X Architect" must earn a
+    // specific phrase or fall through to unmapped.
+    const exactOnly = new Set((occ.exactOnly ?? []).map((s) => s.toLowerCase().replace(/\s+/g, ' ').trim()));
+    for (const syn of [occ.title.toLowerCase(), ...occ.synonyms, ...(occ.exactOnly ?? [])]) {
+      const c = syn.toLowerCase().replace(/\s+/g, ' ').trim();
       if (!exact.has(c)) exact.set(c, occ.slug);
-      phrases.push({ phrase: c, slug: occ.slug });
+      if (!exactOnly.has(c)) phrases.push({ phrase: c, slug: occ.slug });
     }
   }
   phrases.sort((a, b) => b.phrase.length - a.phrase.length);

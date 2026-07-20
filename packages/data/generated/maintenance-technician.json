@@ -1221,12 +1221,12 @@
     "electrical-engineer": [
       {
         "t": "Architect",
-        "m": 16,
+        "m": 18,
         "slug": "architect",
         "via": {
           "parent": "electrical-engineer",
-          "readiness_after": 50,
-          "gain": 34
+          "readiness_after": 56,
+          "gain": 38
         },
         "observed": null
       },
@@ -1378,6 +1378,11 @@
       0.56
     ],
     [
+      "structural-engineer",
+      "electrical-engineer_0",
+      0.5
+    ],
+    [
       "electrical-engineer",
       "structural-engineer_1",
       0.5
@@ -1385,11 +1390,6 @@
     [
       "construction-manager",
       "building-surveyor_1",
-      0.43
-    ],
-    [
-      "electrical-engineer",
-      "mechanical-engineer_1",
       0.43
     ]
   ],

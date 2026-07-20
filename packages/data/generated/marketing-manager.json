@@ -1425,17 +1425,6 @@
     ],
     "interior-designer": [
       {
-        "t": "Architect",
-        "m": 19,
-        "slug": "architect",
-        "via": {
-          "parent": "interior-designer",
-          "readiness_after": 51,
-          "gain": 32
-        },
-        "observed": null
-      },
-      {
         "t": "UX Writer",
         "m": 18,
         "slug": "ux-writer",
@@ -1443,6 +1432,17 @@
           "parent": "interior-designer",
           "readiness_after": 18,
           "gain": 0
+        },
+        "observed": null
+      },
+      {
+        "t": "Technical Writer",
+        "m": 18,
+        "slug": "technical-writer",
+        "via": {
+          "parent": "interior-designer",
+          "readiness_after": 20,
+          "gain": 2
         },
         "observed": null
       }
@@ -1497,9 +1497,9 @@
       0.42
     ],
     [
-      "management-consultant",
-      "interior-designer_0",
-      0.4
+      "copywriter",
+      "graphic-designer_0",
+      0.38
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

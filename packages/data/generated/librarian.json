@@ -1185,6 +1185,17 @@
     ],
     "construction-estimator": [
       {
+        "t": "Architect",
+        "m": 14,
+        "slug": "architect",
+        "via": {
+          "parent": "construction-estimator",
+          "readiness_after": 36,
+          "gain": 22
+        },
+        "observed": null
+      },
+      {
         "t": "Landscape Architect",
         "m": 14,
         "slug": "landscape-architect",
@@ -1194,17 +1205,6 @@
           "gain": 16
         },
         "observed": null
-      },
-      {
-        "t": "Management Consultant",
-        "m": 12,
-        "slug": "management-consultant",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 14,
-          "gain": 2
-        },
-        "observed": "Supplemental"
       }
     ],
     "teacher": [
@@ -1281,15 +1281,15 @@
     ],
     "vdc-manager": [
       {
-        "t": "Architect",
-        "m": 11,
-        "slug": "architect",
+        "t": "Management Consultant",
+        "m": 12,
+        "slug": "management-consultant",
         "via": {
           "parent": "vdc-manager",
-          "readiness_after": 22,
-          "gain": 11
+          "readiness_after": 14,
+          "gain": 2
         },
-        "observed": null
+        "observed": "Supplemental"
       },
       {
         "t": "Service Designer",
@@ -1386,6 +1386,11 @@
   ],
   "bridges": [
     [
+      "structural-engineer",
+      "construction-estimator_0",
+      0.51
+    ],
+    [
       "construction-manager",
       "facilities-manager_1",
       0.43
@@ -1399,11 +1404,6 @@
       "construction-manager",
       "facilities-manager_0",
       0.38
-    ],
-    [
-      "structural-engineer",
-      "construction-estimator_0",
-      0.37
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

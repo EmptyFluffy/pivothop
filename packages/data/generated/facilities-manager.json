@@ -1277,8 +1277,8 @@
         "slug": "architect",
         "via": {
           "parent": "interior-designer",
-          "readiness_after": 48,
-          "gain": 35
+          "readiness_after": 63,
+          "gain": 50
         },
         "observed": null
       },
@@ -1329,6 +1329,11 @@
   ],
   "bridges": [
     [
+      "structural-engineer",
+      "interior-designer_0",
+      0.49
+    ],
+    [
       "construction-manager",
       "building-surveyor_0",
       0.47
@@ -1342,11 +1347,6 @@
       "interior-designer",
       "structural-engineer_0",
       0.41
-    ],
-    [
-      "structural-engineer",
-      "interior-designer_0",
-      0.39
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

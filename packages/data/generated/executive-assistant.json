@@ -1292,13 +1292,13 @@
         "observed": null
       },
       {
-        "t": "Structural Engineer",
+        "t": "Architect",
         "m": 26,
-        "slug": "structural-engineer",
+        "slug": "architect",
         "via": {
           "parent": "construction-estimator",
-          "readiness_after": 53,
-          "gain": 27
+          "readiness_after": 41,
+          "gain": 15
         },
         "observed": null
       }
@@ -1425,6 +1425,17 @@
     ],
     "librarian": [
       {
+        "t": "Structural Engineer",
+        "m": 26,
+        "slug": "structural-engineer",
+        "via": {
+          "parent": "librarian",
+          "readiness_after": 30,
+          "gain": 4
+        },
+        "observed": null
+      },
+      {
         "t": "Medical Assistant",
         "m": 25,
         "slug": "medical-assistant",
@@ -1432,17 +1443,6 @@
           "parent": "librarian",
           "readiness_after": 27,
           "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Pharmacist",
-        "m": 24,
-        "slug": "pharmacist",
-        "via": {
-          "parent": "librarian",
-          "readiness_after": 25,
-          "gain": 1
         },
         "observed": null
       }
@@ -1497,8 +1497,8 @@
       0.54
     ],
     [
-      "business-analyst",
-      "marketing-manager_1",
+      "construction-estimator",
+      "librarian_0",
       0.53
     ]
   ],

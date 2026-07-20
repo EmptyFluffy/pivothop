@@ -1130,17 +1130,6 @@
   "next": {
     "facilities-manager": [
       {
-        "t": "Creative Technologist",
-        "m": 19,
-        "slug": "creative-technologist",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 20,
-          "gain": 1
-        },
-        "observed": null
-      },
-      {
         "t": "Executive Assistant",
         "m": 18,
         "slug": "executive-assistant",
@@ -1150,6 +1139,17 @@
           "gain": 3
         },
         "observed": "Supplemental"
+      },
+      {
+        "t": "Marketing Manager",
+        "m": 18,
+        "slug": "marketing-manager",
+        "via": {
+          "parent": "facilities-manager",
+          "readiness_after": 19,
+          "gain": 1
+        },
+        "observed": null
       }
     ],
     "supply-chain-analyst": [
@@ -1237,15 +1237,15 @@
         "observed": null
       },
       {
-        "t": "Architect",
-        "m": 20,
-        "slug": "architect",
+        "t": "Customer Success Manager",
+        "m": 19,
+        "slug": "customer-success-manager",
         "via": {
           "parent": "construction-manager",
-          "readiness_after": 36,
-          "gain": 16
+          "readiness_after": 32,
+          "gain": 13
         },
-        "observed": null
+        "observed": "Primary-Long"
       }
     ],
     "graphic-designer": [
@@ -1261,15 +1261,15 @@
         "observed": null
       },
       {
-        "t": "Customer Success Manager",
+        "t": "Creative Technologist",
         "m": 19,
-        "slug": "customer-success-manager",
+        "slug": "creative-technologist",
         "via": {
           "parent": "graphic-designer",
-          "readiness_after": 24,
-          "gain": 5
+          "readiness_after": 28,
+          "gain": 9
         },
-        "observed": "Primary-Long"
+        "observed": null
       }
     ],
     "environmental-engineer": [
@@ -1298,17 +1298,6 @@
     ],
     "police-officer": [
       {
-        "t": "Marketing Manager",
-        "m": 18,
-        "slug": "marketing-manager",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 19,
-          "gain": 1
-        },
-        "observed": null
-      },
-      {
         "t": "Construction Estimator",
         "m": 18,
         "slug": "construction-estimator",
@@ -1316,6 +1305,17 @@
           "parent": "police-officer",
           "readiness_after": 20,
           "gain": 2
+        },
+        "observed": null
+      },
+      {
+        "t": "Therapist / Counselor",
+        "m": 17,
+        "slug": "therapist",
+        "via": {
+          "parent": "police-officer",
+          "readiness_after": 21,
+          "gain": 4
         },
         "observed": null
       }
@@ -1356,22 +1356,22 @@
   "bridges": [
     [
       "construction-manager",
-      "police-officer_1",
+      "police-officer_0",
       0.45
     ],
     [
       "project-manager",
-      "graphic-designer_1",
+      "construction-manager_1",
       0.43
     ],
     [
       "supply-chain-analyst",
-      "police-officer_0",
+      "facilities-manager_1",
       0.43
     ],
     [
-      "project-manager",
-      "construction-manager_1",
+      "supply-chain-analyst",
+      "facilities-manager_0",
       0.41
     ]
   ],

@@ -1191,12 +1191,12 @@
       },
       {
         "t": "Solutions Architect",
-        "m": 27,
+        "m": 28,
         "slug": "solutions-architect",
         "via": {
           "parent": "machine-learning-engineer",
-          "readiness_after": 55,
-          "gain": 28
+          "readiness_after": 57,
+          "gain": 29
         },
         "observed": null
       }
@@ -1238,29 +1238,18 @@
         "observed": null
       },
       {
-        "t": "Customer Support Specialist",
+        "t": "Management Consultant",
         "m": 26,
-        "slug": "customer-support",
+        "slug": "management-consultant",
         "via": {
           "parent": "product-manager",
-          "readiness_after": 36,
-          "gain": 10
+          "readiness_after": 47,
+          "gain": 21
         },
         "observed": null
       }
     ],
     "data-analyst": [
-      {
-        "t": "Statistician",
-        "m": 25,
-        "slug": "statistician",
-        "via": {
-          "parent": "data-analyst",
-          "readiness_after": 35,
-          "gain": 10
-        },
-        "observed": null
-      },
       {
         "t": "Compliance Officer",
         "m": 25,
@@ -1269,6 +1258,17 @@
           "parent": "data-analyst",
           "readiness_after": 43,
           "gain": 18
+        },
+        "observed": null
+      },
+      {
+        "t": "Lawyer",
+        "m": 23,
+        "slug": "lawyer",
+        "via": {
+          "parent": "data-analyst",
+          "readiness_after": 35,
+          "gain": 12
         },
         "observed": null
       }
@@ -1286,13 +1286,13 @@
         "observed": null
       },
       {
-        "t": "Lawyer",
-        "m": 23,
-        "slug": "lawyer",
+        "t": "Mechanical Engineer",
+        "m": 22,
+        "slug": "mechanical-engineer",
         "via": {
           "parent": "psychologist",
-          "readiness_after": 31,
-          "gain": 8
+          "readiness_after": 28,
+          "gain": 6
         },
         "observed": null
       }
@@ -1310,13 +1310,13 @@
         "observed": null
       },
       {
-        "t": "Mechanical Engineer",
-        "m": 22,
-        "slug": "mechanical-engineer",
+        "t": "Network Engineer",
+        "m": 21,
+        "slug": "network-engineer",
         "via": {
           "parent": "creative-technologist",
-          "readiness_after": 28,
-          "gain": 6
+          "readiness_after": 21,
+          "gain": 0
         },
         "observed": null
       }
@@ -1334,13 +1334,13 @@
         "observed": null
       },
       {
-        "t": "Management Consultant",
-        "m": 26,
-        "slug": "management-consultant",
+        "t": "Statistician",
+        "m": 25,
+        "slug": "statistician",
         "via": {
           "parent": "data-scientist",
-          "readiness_after": 41,
-          "gain": 15
+          "readiness_after": 52,
+          "gain": 27
         },
         "observed": null
       }
@@ -1358,13 +1358,13 @@
         "observed": null
       },
       {
-        "t": "Architect",
-        "m": 28,
-        "slug": "architect",
+        "t": "Customer Support Specialist",
+        "m": 26,
+        "slug": "customer-support",
         "via": {
           "parent": "project-manager",
-          "readiness_after": 44,
-          "gain": 16
+          "readiness_after": 39,
+          "gain": 13
         },
         "observed": null
       }
@@ -1411,17 +1411,17 @@
     [
       "industrial-engineer",
       "machine-learning-engineer_1",
-      0.54
+      0.56
     ],
     [
       "project-manager",
-      "data-scientist_1",
+      "product-manager_1",
       0.52
     ],
     [
       "data-scientist",
-      "data-analyst_0",
-      0.52
+      "project-manager_0",
+      0.49
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

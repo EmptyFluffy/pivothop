@@ -1149,9 +1149,9 @@
   "next": {
     "physical-therapist": [
       {
-        "t": "Civil Engineer",
+        "t": "Environmental Engineer",
         "m": 14,
-        "slug": "civil-engineer",
+        "slug": "environmental-engineer",
         "via": {
           "parent": "physical-therapist",
           "readiness_after": 18,
@@ -1160,13 +1160,13 @@
         "observed": null
       },
       {
-        "t": "Environmental Engineer",
-        "m": 14,
-        "slug": "environmental-engineer",
+        "t": "Technical Artist",
+        "m": 13,
+        "slug": "technical-artist",
         "via": {
           "parent": "physical-therapist",
-          "readiness_after": 18,
-          "gain": 4
+          "readiness_after": 13,
+          "gain": 0
         },
         "observed": null
       }
@@ -1208,13 +1208,13 @@
         "observed": null
       },
       {
-        "t": "Technical Artist",
+        "t": "Service Designer",
         "m": 13,
-        "slug": "technical-artist",
+        "slug": "service-designer",
         "via": {
           "parent": "nurse-practitioner",
-          "readiness_after": 13,
-          "gain": 0
+          "readiness_after": 18,
+          "gain": 5
         },
         "observed": null
       }
@@ -1232,13 +1232,13 @@
         "observed": null
       },
       {
-        "t": "Service Designer",
+        "t": "Structural Engineer",
         "m": 13,
-        "slug": "service-designer",
+        "slug": "structural-engineer",
         "via": {
           "parent": "police-officer",
-          "readiness_after": 14,
-          "gain": 1
+          "readiness_after": 13,
+          "gain": 0
         },
         "observed": null
       }
@@ -1280,13 +1280,13 @@
         "observed": null
       },
       {
-        "t": "Architect",
+        "t": "Civil Engineer",
         "m": 14,
-        "slug": "architect",
+        "slug": "civil-engineer",
         "via": {
           "parent": "paralegal",
-          "readiness_after": 18,
-          "gain": 4
+          "readiness_after": 20,
+          "gain": 6
         },
         "observed": null
       }
@@ -1375,6 +1375,11 @@
   "bridges": [
     [
       "building-surveyor",
+      "police-officer_1",
+      0.47
+    ],
+    [
+      "building-surveyor",
       "nurse-practitioner_0",
       0.41
     ],
@@ -1385,13 +1390,8 @@
     ],
     [
       "building-surveyor",
-      "physical-therapist_0",
+      "paralegal_1",
       0.35
-    ],
-    [
-      "medical-assistant",
-      "social-worker_1",
-      0.31
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

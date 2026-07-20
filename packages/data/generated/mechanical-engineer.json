@@ -1091,14 +1091,14 @@
       "title": "Architect",
       "field": "Architecture",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
-      "match": 24,
-      "salary": "$55k–$90k",
+      "match": 25,
+      "salary": "$55k–$85k",
       "salary_band": [
-        55256,
-        90706
+        53774,
+        82500
       ],
       "demand": "High",
-      "remote": "4%",
+      "remote": "2%",
       "time": "12–24 mo",
       "have": [
         "Sustainability",
@@ -1110,135 +1110,135 @@
         "Revit",
         "Drafting",
         "Construction Documentation",
-        "Training & Facilitation"
+        "Urban Design"
       ],
       "waterfall": [
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 11.2,
+          "pts": 15.4,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 8.9,
-          "earned": 6.3
+          "pts": 13.5,
+          "earned": 7.9
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 7.8,
-          "earned": 3.4
+          "pts": 9.6,
+          "earned": 4.3
         },
         {
           "skill": "cad-drafting",
           "name": "Drafting",
-          "pts": 7,
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "construction-documents",
+          "name": "Construction Documentation",
+          "pts": 7.5,
           "earned": 0
         },
         {
           "skill": "spec-writing",
           "name": "Spec Writing",
-          "pts": 6.2,
-          "earned": 6.2
-        },
-        {
-          "skill": "construction-documents",
-          "name": "Construction Documentation",
-          "pts": 5.8,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 5.4,
-          "earned": 5.2
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 5,
-          "earned": 0
-        },
-        {
-          "skill": "nlp",
-          "name": "NLP",
-          "pts": 4.8,
-          "earned": 0
+          "pts": 7,
+          "earned": 7
         },
         {
           "skill": "urban-design",
           "name": "Urban Design",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 4,
-          "earned": 0
-        },
-        {
-          "skill": "aws",
-          "name": "AWS",
-          "pts": 3.8,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 3.7,
+          "pts": 6.5,
           "earned": 0
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 3.7,
+          "pts": 5.5,
           "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 3.2,
-          "earned": 3.1
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "product-management",
-          "name": "Product Management",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "azure",
-          "name": "Azure",
-          "pts": 3,
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "bim",
           "name": "BIM",
-          "pts": 3,
+          "pts": 3.6,
           "earned": 0
         },
         {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 2.8,
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.6,
+          "earned": 3.6
+        },
+        {
+          "skill": "detailing",
+          "name": "Detailing",
+          "pts": 2.9,
           "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 1.8,
+          "earned": 0
+        },
+        {
+          "skill": "building-codes",
+          "name": "Building Codes",
+          "pts": 1.6,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 1,
+          "earned": 1
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "service-design",
+          "name": "Service Design",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "etl",
+          "name": "ETL",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 1,
+          "earned": 1
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 989,
-        "salaried": 942
+        "postings": 800,
+        "salaried": 793
       }
     }
   ],
@@ -1389,6 +1389,17 @@
     ],
     "civil-engineer": [
       {
+        "t": "Building Performance Analyst",
+        "m": 17,
+        "slug": "building-performance-analyst",
+        "via": {
+          "parent": "civil-engineer",
+          "readiness_after": 23,
+          "gain": 6
+        },
+        "observed": null
+      },
+      {
         "t": "Landscape Architect",
         "m": 16,
         "slug": "landscape-architect",
@@ -1396,17 +1407,6 @@
           "parent": "civil-engineer",
           "readiness_after": 52,
           "gain": 36
-        },
-        "observed": null
-      },
-      {
-        "t": "VDC Manager",
-        "m": 16,
-        "slug": "vdc-manager",
-        "via": {
-          "parent": "civil-engineer",
-          "readiness_after": 40,
-          "gain": 24
         },
         "observed": null
       }
@@ -1418,19 +1418,19 @@
         "slug": "interior-designer",
         "via": {
           "parent": "architect",
-          "readiness_after": 61,
-          "gain": 41
+          "readiness_after": 65,
+          "gain": 45
         },
         "observed": null
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 17,
-        "slug": "building-performance-analyst",
+        "t": "VDC Manager",
+        "m": 16,
+        "slug": "vdc-manager",
         "via": {
           "parent": "architect",
-          "readiness_after": 25,
-          "gain": 8
+          "readiness_after": 40,
+          "gain": 24
         },
         "observed": null
       }
@@ -1440,7 +1440,7 @@
     [
       "structural-engineer",
       "architect",
-      0.71
+      0.79
     ],
     [
       "structural-engineer",
@@ -1476,12 +1476,12 @@
     ],
     [
       "architect",
-      "civil-engineer_0",
-      0.48
+      "civil-engineer_1",
+      0.5
     ],
     [
       "construction-manager",
-      "civil-engineer_1",
+      "architect_1",
       0.43
     ],
     [

@@ -1143,17 +1143,6 @@
   "next": {
     "bookkeeper": [
       {
-        "t": "Auditor",
-        "m": 17,
-        "slug": "auditor",
-        "via": {
-          "parent": "bookkeeper",
-          "readiness_after": 17,
-          "gain": 0
-        },
-        "observed": null
-      },
-      {
         "t": "Supply Chain Analyst",
         "m": 16,
         "slug": "supply-chain-analyst",
@@ -1161,6 +1150,17 @@
           "parent": "bookkeeper",
           "readiness_after": 17,
           "gain": 1
+        },
+        "observed": null
+      },
+      {
+        "t": "Real Estate Developer",
+        "m": 16,
+        "slug": "real-estate-developer",
+        "via": {
+          "parent": "bookkeeper",
+          "readiness_after": 16,
+          "gain": 0
         },
         "observed": null
       }
@@ -1274,13 +1274,13 @@
         "observed": null
       },
       {
-        "t": "Building Surveyor",
-        "m": 19,
-        "slug": "building-surveyor",
+        "t": "Auditor",
+        "m": 17,
+        "slug": "auditor",
         "via": {
           "parent": "construction-estimator",
-          "readiness_after": 30,
-          "gain": 11
+          "readiness_after": 18,
+          "gain": 1
         },
         "observed": null
       }
@@ -1311,17 +1311,6 @@
     ],
     "environmental-engineer": [
       {
-        "t": "Architect",
-        "m": 20,
-        "slug": "architect",
-        "via": {
-          "parent": "environmental-engineer",
-          "readiness_after": 39,
-          "gain": 19
-        },
-        "observed": null
-      },
-      {
         "t": "Urban Planner",
         "m": 19,
         "slug": "urban-planner",
@@ -1329,6 +1318,17 @@
           "parent": "environmental-engineer",
           "readiness_after": 33,
           "gain": 14
+        },
+        "observed": null
+      },
+      {
+        "t": "Building Surveyor",
+        "m": 19,
+        "slug": "building-surveyor",
+        "via": {
+          "parent": "environmental-engineer",
+          "readiness_after": 31,
+          "gain": 12
         },
         "observed": null
       }
@@ -1379,7 +1379,7 @@
     ],
     [
       "construction-manager",
-      "construction-estimator_1",
+      "environmental-engineer_1",
       0.5
     ],
     [

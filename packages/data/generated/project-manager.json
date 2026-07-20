@@ -1251,17 +1251,6 @@
     ],
     "customer-success-manager": [
       {
-        "t": "Product Manager",
-        "m": 29,
-        "slug": "product-manager",
-        "via": {
-          "parent": "customer-success-manager",
-          "readiness_after": 34,
-          "gain": 5
-        },
-        "observed": null
-      },
-      {
         "t": "Operations Manager",
         "m": 26,
         "slug": "operations-manager",
@@ -1271,6 +1260,17 @@
           "gain": 8
         },
         "observed": "Primary-Long"
+      },
+      {
+        "t": "Lawyer",
+        "m": 26,
+        "slug": "lawyer",
+        "via": {
+          "parent": "customer-success-manager",
+          "readiness_after": 30,
+          "gain": 4
+        },
+        "observed": null
       }
     ],
     "librarian": [
@@ -1299,17 +1299,6 @@
     ],
     "management-consultant": [
       {
-        "t": "Architect",
-        "m": 32,
-        "slug": "architect",
-        "via": {
-          "parent": "management-consultant",
-          "readiness_after": 48,
-          "gain": 16
-        },
-        "observed": null
-      },
-      {
         "t": "Marketing Manager",
         "m": 30,
         "slug": "marketing-manager",
@@ -1319,20 +1308,20 @@
           "gain": 17
         },
         "observed": null
+      },
+      {
+        "t": "Product Manager",
+        "m": 29,
+        "slug": "product-manager",
+        "via": {
+          "parent": "management-consultant",
+          "readiness_after": 39,
+          "gain": 10
+        },
+        "observed": null
       }
     ],
     "construction-estimator": [
-      {
-        "t": "Lawyer",
-        "m": 26,
-        "slug": "lawyer",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 27,
-          "gain": 1
-        },
-        "observed": null
-      },
       {
         "t": "Financial Analyst",
         "m": 25,
@@ -1343,24 +1332,35 @@
           "gain": 2
         },
         "observed": null
-      }
-    ],
-    "police-officer": [
+      },
       {
         "t": "Building Surveyor",
         "m": 25,
         "slug": "building-surveyor",
         "via": {
-          "parent": "police-officer",
-          "readiness_after": 26,
-          "gain": 1
+          "parent": "construction-estimator",
+          "readiness_after": 31,
+          "gain": 6
         },
         "observed": null
-      },
+      }
+    ],
+    "police-officer": [
       {
         "t": "Customer Support Specialist",
         "m": 24,
         "slug": "customer-support",
+        "via": {
+          "parent": "police-officer",
+          "readiness_after": 24,
+          "gain": 0
+        },
+        "observed": null
+      },
+      {
+        "t": "HR Manager",
+        "m": 24,
+        "slug": "hr-manager",
         "via": {
           "parent": "police-officer",
           "readiness_after": 24,
@@ -1429,23 +1429,23 @@
   "bridges": [
     [
       "business-analyst",
-      "customer-success-manager_1",
+      "customer-success-manager_0",
       0.51
     ],
     [
       "construction-manager",
-      "police-officer_0",
+      "construction-estimator_1",
       0.5
     ],
     [
-      "construction-estimator",
-      "management-consultant_0",
-      0.48
+      "business-analyst",
+      "construction-estimator_0",
+      0.46
     ],
     [
-      "business-analyst",
-      "construction-estimator_1",
-      0.46
+      "construction-manager",
+      "facilities-manager_0",
+      0.43
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
