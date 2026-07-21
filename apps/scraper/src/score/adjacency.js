@@ -8,7 +8,13 @@ const MIN_SHARED_SKILLS = 3; // evidence floor: a pair sharing fewer distinct sk
 // postings — e.g. police officer at 1% top share), must not be ranked: a near-zero
 // coverage denominator turns two generic skills into a huge fake match.
 const MIN_DEST_POSTINGS = 30;
-const MIN_PROFILE_DEN = 0.5;
+// Profile-depth handling: a destination whose top-20 shares sum below FULL_PROFILE_DEN
+// gets its match DAMPED by den/FULL_PROFILE_DEN (thin dictionary coverage inflates
+// coverage ratios; damping neutralizes the inflation instead of banning legitimate
+// neighbors like structural-engineer at den~0.42). Below HARD_MIN_DEN the profile is
+// genuinely degenerate (police-officer pre-enrichment at ~0.15) and is not scored.
+const FULL_PROFILE_DEN = 0.5;
+const HARD_MIN_DEN = 0.25;
 
 /**
  * Occupation-to-occupation adjacency from weighted skill overlap.
@@ -46,7 +52,8 @@ export async function adjacency({ log }) {
       if (!om.size || !dm.size) continue;
       if (roles[d].count < MIN_DEST_POSTINGS) continue;
       let dden = 0; for (const w of dm.values()) dden += w;
-      if (dden < MIN_PROFILE_DEN) continue;
+      if (dden < HARD_MIN_DEN) continue;
+      const denDamp = Math.min(1, dden / FULL_PROFILE_DEN);
       let sumMin = 0, sumMax = 0, cov = 0, covDen = 0, shared = 0;
       const union = new Set([...om.keys(), ...dm.keys()]);
       for (const s of union) {
@@ -60,7 +67,7 @@ export async function adjacency({ log }) {
       if (!sumMax || !covDen) continue;
       const jaccard = sumMin / sumMax;
       const coverage = cov / covDen;
-      const match = Math.round(100 * coverage);
+      const match = Math.round(100 * coverage * denDamp);
       if (match > 0) scored.push({ dest: d, match, jaccard: +jaccard.toFixed(4), coverage: +coverage.toFixed(4), shared, dest_postings: roles[d].count });
     }
     scored.sort((a, b) => b.match - a.match || b.jaccard - a.jaccard);

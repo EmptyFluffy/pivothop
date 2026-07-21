@@ -34,11 +34,12 @@ export function rankPersonalized(chips, profiles, meta, names, originSlug, origi
   const scored = [];
   for (const [slug, p] of Object.entries(profiles)) {
     if (slug === originSlug) continue;
-    if (p.den < 0.5) continue; // degenerate profile: dictionary barely covers this occupation
+    if (p.den < 0.25) continue; // truly degenerate: dictionary barely covers this occupation
     let cov = 0, shared = 0;
     for (const [s, w] of Object.entries(p.s)) if (have.has(s)) { cov += w; shared++; }
     if (shared < 2) continue;
-    const match = Math.round((100 * cov) / p.den);
+    // thin profiles (den < 0.5) get damped, not banned — inflation neutralized proportionally
+    const match = Math.round(((100 * cov) / p.den) * Math.min(1, p.den / 0.5));
     direct.set(slug, match);
     if (match >= MIN_MATCH) scored.push({ slug, match });
   }

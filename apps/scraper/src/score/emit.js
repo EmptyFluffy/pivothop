@@ -84,10 +84,13 @@ function waterfall(oMap, dMap) {
   let den = 0;
   for (const w of dMap.values()) den += w;
   if (!den) return [];
+  // Same thin-profile damping as adjacency scoring: pts scale by min(1, den/0.5) so the
+  // per-skill decomposition still sums to the (damped) match it explains.
+  const damp = Math.min(1, den / 0.5);
   return [...dMap]
     .map(([s, w]) => {
       const earned = Math.min(oMap.get(s) ?? 0, w);
-      return { skill: s, name: skillName(s), pts: +(100 * w / den).toFixed(1), earned: +(100 * earned / den).toFixed(1) };
+      return { skill: s, name: skillName(s), pts: +(100 * w * damp / den).toFixed(1), earned: +(100 * earned * damp / den).toFixed(1) };
     })
     .sort((a, b) => b.pts - a.pts);
 }
