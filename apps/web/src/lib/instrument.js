@@ -284,7 +284,7 @@ export function mountInstrument(DATA,HOOKS){
   window.__hopJump=function(i){ if(HOOKS.onTrailJump)HOOKS.onTrailJump(i); };
   window.__hop=function(sl,title){ if(HOOKS.canRecenter&&!HOOKS.canRecenter(sl))return; hideHopTag(); if(HOOKS.onRecenter)HOOKS.onRecenter(sl,title); };
   /* ══ state machine ══ */
-  var hoveredLayer=null,clickedNode=null,dragging=null,unfolding=false;
+  var hoveredLayer=null,clickedNode=null,dragging=null,unfolding=false,needsRefit=false;
 
   function focusMode(){
     if(clickedNode)return{mode:'click',id:clickedNode};
@@ -394,14 +394,17 @@ export function mountInstrument(DATA,HOOKS){
     youG.appendChild(pt);
     nodesG.appendChild(youG);
     el.pill=youG;
-    /* hop affordance tag: one persistent element, repositioned on hover (never rebuilt) */
-    var tagG=svgEl('g',{'class':'hop-tag','opacity':'0','pointer-events':'none'});
-    var tagR=svgEl('rect',{x:0,y:-11,width:112,height:15,fill:'#faf9f5',stroke:'#15151a','stroke-width':'0.6'});
-    var tagT=svgEl('text',{x:56,y:0,'text-anchor':'middle','font-family':'Space Mono, monospace','font-size':'7.5','letter-spacing':'1.2','fill':'#15151a'});
-    tagT.textContent='2\u00d7 CLICK \u2014 HOP HERE';
-    tagG.appendChild(tagR);tagG.appendChild(tagT);
-    SVG.appendChild(tagG);
-    el.hopTag=tagG;
+    /* hop affordance: HTML overlay in the stage — constant SCREEN size (an SVG tag
+       scales with the viewBox and shrinks on big graphs), ink plate + paper mono per
+       tooltip contrast/legibility guidelines */
+    var stageEl=document.getElementById('stage');
+    if(stageEl&&!document.getElementById('hopTip')){
+      var tip=document.createElement('div');
+      tip.id='hopTip';tip.className='hop-tip';
+      tip.textContent='2\u00d7 CLICK \u00b7 HOP HERE';
+      stageEl.appendChild(tip);
+    }
+    el.hopTag=document.getElementById('hopTip');
     SVG.appendChild(nodesG);
 
     var labelsG=svgEl('g',{id:'labelsLayer'});
@@ -518,7 +521,11 @@ export function mountInstrument(DATA,HOOKS){
     }else{
       for(var m=0;m<act.length;m++){var mn=act[m];if(mn.type==='you')continue;mn.lvx=0;mn.lvy=0;}
       rafId=null;
-      fitViewBox(); /* re-fit at rest: origin switches and drags move content the initial fit never saw */
+      /* re-fit ONLY after an unfold or a real drag. Refitting after hover settles
+         rescales the world every time the active label set changes — the graph
+         visibly shifts sideways under the cursor (found by user, verified by
+         viewBox diff 868->943 on kid hover). */
+      if(needsRefit){fitViewBox();needsRefit=false;}
     }
   }
   function commitStateChange(){
@@ -541,6 +548,7 @@ export function mountInstrument(DATA,HOOKS){
     updateEdgeGeometry();updateNodeGeometry();
     updateEdgeVisuals();updateNodeVisuals();
     unfolding=true;
+    needsRefit=true;
     ensureLoop(3000);
   }
 
@@ -681,11 +689,15 @@ export function mountInstrument(DATA,HOOKS){
   var hopHoverNode=null,hopTagTimer=null;
   function showHopTag(n){
     if(!el.hopTag)return;
-    var r=nodeRadius(n);
-    el.hopTag.setAttribute('transform','translate('+(n.x-56)+' '+(n.y-r-10)+')');
-    el.hopTag.setAttribute('opacity','1');
+    var ctm=SVG.getScreenCTM();if(!ctm)return;
+    var pt=SVG.createSVGPoint();pt.x=n.x;pt.y=n.y-nodeRadius(n)-4;
+    var sp=pt.matrixTransform(ctm);
+    var sr=document.getElementById('stage').getBoundingClientRect();
+    el.hopTag.style.left=(sp.x-sr.left)+'px';
+    el.hopTag.style.top=(sp.y-sr.top)+'px';
+    el.hopTag.classList.add('on');
   }
-  function hideHopTag(){ if(el.hopTag)el.hopTag.setAttribute('opacity','0'); if(hopTagTimer){clearTimeout(hopTagTimer);hopTagTimer=null;} hopHoverNode=null; }
+  function hideHopTag(){ if(el.hopTag)el.hopTag.classList.remove('on'); if(hopTagTimer){clearTimeout(hopTagTimer);hopTagTimer=null;} hopHoverNode=null; }
   SVG.addEventListener('mousemove',function(ev){
     if(unfolding)return;
     if(!dragging&&!clickedNode){
@@ -745,6 +757,7 @@ export function mountInstrument(DATA,HOOKS){
     }
   });
   window.addEventListener('mouseup',function(){
+    if(dragging&&dragMoved)needsRefit=true;
     if(!dragging)return;
     var dId=dragging.id;
     var wasClick=!dragMoved;

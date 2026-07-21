@@ -347,4 +347,5 @@
 .d-hop .nd{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
 .crumb.link{background:none;border:none;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:0}
 .crumb.link:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
-.hop-tag{transition:opacity .15s}
+.hop-tip{position:absolute;z-index:6;transform:translate(-50%,-100%);background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;letter-spacing:.14em;white-space:nowrap;padding:9px 14px;pointer-events:none;opacity:0;transition:opacity .16s}
+.hop-tip.on{opacity:1}
