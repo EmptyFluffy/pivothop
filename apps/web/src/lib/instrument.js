@@ -537,8 +537,10 @@ export function mountInstrument(DATA){
     var txt=(o.kind==='lateral')?'Lateral':('Pivot → '+(o.cluster||''));
     return '<span class="lbl">'+txt+'</span>';
   }
+  function setExportCTA(){var re=document.getElementById('railExport');if(re)re.innerHTML='<div class="d-export" onclick="openExport()"><div class="in"><span class="tx"><span class="a">Export this route</span><span class="b">Free PDF &middot; no account</span></span><svg viewBox="0 0 24 24"><use href="#i-export45"/></svg></div></div>';}
   function renderRoleDetail(rl){
     xsel={kind:'role',role:rl};
+    setExportCTA();
     var d=document.getElementById('detail');if(!d)return;
     d.innerHTML=
       '<div class="d-cap"><span class="d-sector">'+rl.field+'</span>'+kindTag(rl)+'</div>'+
@@ -551,11 +553,11 @@ export function mountInstrument(DATA){
       '<div class="drow"><span class="k">Transition</span><span class="v">'+rl.time+'</span></div>'+
       '<div class="dsk"><div class="cap">Skills you have</div><div class="tags">'+pills(rl.have,"have")+'</div></div>'+
       '<div class="dsk"><div class="cap">Skills to build</div><div class="tags">'+pills(rl.learn,"")+'</div></div>'+
-      (rl.next.length?'<div class="dsk"><div class="cap">Opens paths to</div><div class="tags">'+pills(rl.next.map(function(x){return x.t;}),"")+'</div></div>':'')+
-      '<div class="d-export" onclick="openExport()"><div class="in"><span class="tx"><span class="a">Export this route</span><span class="b">Free PDF &middot; no account</span></span><svg viewBox="0 0 24 24"><use href="#i-export45"/></svg></div></div>';
+      (rl.next.length?'<div class="dsk"><div class="cap">Opens paths to</div><div class="tags">'+pills(rl.next.map(function(x){return x.t;}),"")+'</div></div>':'');
   }
   function renderKidDetail(kid,parent){
     xsel={kind:'kid',kid:kid,parent:parent};
+    setExportCTA();
     var d=document.getElementById('detail');if(!d)return;
     d.innerHTML=
       '<div class="d-cap"><span class="d-sector">Second hop</span><span class="lbl">Via '+parent.title+'</span></div>'+
@@ -563,8 +565,7 @@ export function mountInstrument(DATA){
       '<div class="d-match"><span class="n">'+kid.m+'</span><span class="u">% match at second hop</span></div>'+
       '<div class="drow"><span class="k">Path</span><span class="v">'+DATA.originLabel+' &rarr; '+parent.title+' &rarr; '+kid.t+'</span></div>'+
       '<div class="drow"><span class="k">Bridge role</span><span class="v">'+parent.title+'</span></div>'+
-      '<div class="dsk"><div class="cap">How this pivot works</div><p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-top:4px">Reach this destination by first moving to '+parent.title+', which builds the foundation for a step into '+kid.t+' over the following 6&ndash;18 months. Two-hop moves take longer but open a wider range of destinations than a single pivot can.</p></div>'+
-      '<div class="d-export" onclick="openExport()"><div class="in"><span class="tx"><span class="a">Export this route</span><span class="b">Free PDF &middot; no account</span></span><svg viewBox="0 0 24 24"><use href="#i-export45"/></svg></div></div>';
+      '<div class="dsk"><div class="cap">How this pivot works</div><p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-top:4px">Reach this destination by first moving to '+parent.title+', which builds the foundation for a step into '+kid.t+' over the following 6&ndash;18 months. Two-hop moves take longer but open a wider range of destinations than a single pivot can.</p></div>';
   }
   function updateTrail(id){
     var tc=document.getElementById('trailCrumbs');if(!tc)return;

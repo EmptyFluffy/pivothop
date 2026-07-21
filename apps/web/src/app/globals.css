@@ -115,9 +115,11 @@
   .tags{display:flex;flex-wrap:wrap;gap:6px}
   .tag{font-family:var(--mono);font-size:11px;padding:5px 9px;border:0.5px solid var(--rule-2);color:var(--ink-2);background:var(--card)}
   .tag.have{background:var(--accent-tint);border-color:transparent;color:var(--accent-press)}
-  /* full-bleed export CTA: cancels the rail's 30px left pad and the detail's 24px
-     right pad so the accent block runs edge to edge — the rail's one big action */
-  .d-export{position:sticky;bottom:0;margin:auto -24px 0 -30px;padding-top:18px;background:linear-gradient(to bottom,transparent,var(--paper) 55%)}
+  /* the export CTA lives OUTSIDE the scrollable detail, as the rail's bottom module:
+     full-bleed to the rail cell's true edges regardless of scrollbar or breakpoint */
+  #railExport{display:none;flex:none;margin:0 0 -26px -30px}
+  .rail.dmode #railExport{display:block}
+  .d-export{margin:0}
   .d-export .in{background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:24px 22px 24px 30px;cursor:pointer;transition:background .18s}
   .d-export .in:hover{background:var(--accent-press)}
   .d-export .a{display:block;font-weight:600;font-size:21px;letter-spacing:-.01em;line-height:1.1}
