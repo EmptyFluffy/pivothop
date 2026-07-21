@@ -77,9 +77,16 @@ export function FEClient() {
   const [ran, setRan] = useState(false);
   const [mode, setMode] = useState<'local' | 'remote' | 'gap'>('local');
   const [pinned, setPinned] = useState<string | null>(null);
+  const [openLens, setOpenLens] = useState<string | null>(null);
   const mapRef = useRef<HTMLDivElement>(null);
+  const lbodyRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [poleLeft, setPoleLeft] = useState<number | null>(null);
+  const dragScale = useRef<{ lo: number; hi: number } | null>(null);
 
   useEffect(() => {
+    document.querySelectorAll('.fe-root .hero, .fe-root .calcwrap, .fe-root .method .mrow, .fe-root .manif, .fe-root .atlas, .fe-root .foot').forEach((el) => el.classList.add('rv'));
+    import('../../lib/reveal.js').then((r) => (r as { mountReveal: () => void }).mountReveal());
     fetch('/data/salaries/index.json').then((r) => r.json()).then((d) => setIndex(d.occupations || []));
     fetch('/data/price-levels.json').then((r) => r.json()).then((d) => setLevels(d.levels || {}));
   }, []);
@@ -89,6 +96,24 @@ export function FEClient() {
   }, [slug]);
 
   const L = useMemo(() => computeLenses(doc, levels, cur, hire), [doc, levels, cur, hire]);
+  const lensScale = useMemo(() => {
+    if (!L || !L.lenses.length) return null;
+    const lvals = L.lenses.map((l) => l.v);
+    return { lo: Math.min(...lvals) * 0.7, hi: Math.max(...lvals) * 1.15 };
+  }, [L]);
+  useEffect(() => {
+    const place = () => {
+      const track = trackRef.current, lbody = lbodyRef.current;
+      if (!track || !lbody || !lensScale) return;
+      const tr = track.getBoundingClientRect(), lb = lbody.getBoundingClientRect();
+      const t = Math.max(0, Math.min(1, (salary - lensScale.lo) / (lensScale.hi - lensScale.lo)));
+      setPoleLeft(tr.left - lb.left + t * tr.width);
+    };
+    place();
+    window.addEventListener('resize', place);
+    const id = setTimeout(place, 80); // after fonts/layout settle
+    return () => { window.removeEventListener('resize', place); clearTimeout(id); };
+  }, [salary, lensScale, ran, openLens]);
   const score = L?.fair ? Math.max(0, Math.min(100, Math.round(100 * (salary / L.fair) / 1.15))) : null;
   const verdict = score == null ? '' :
     score >= 87 ? 'At or above the fair remote band.' :
@@ -170,7 +195,7 @@ export function FEClient() {
             <select value={slug} onChange={(e) => setSlug(e.target.value)}>
               {occOpts.map((o) => <option key={o.slug} value={o.slug}>{o.title}</option>)}
             </select></label>
-          <button className="go" id="analyzeBtn" onClick={() => setRan(true)}>
+          <button className="go" id="analyzeBtn" onClick={() => { setRan(true); requestAnimationFrame(() => setTimeout(() => document.getElementById('results')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60)); }}>
             <span>Run the numbers</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 18, height: 18 }}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
           </button>
@@ -179,7 +204,7 @@ export function FEClient() {
 
       {/* results */}
       {ran && L && (
-        <section className="band" id="results">
+        <section className="band rv rv-in" id="results">
           <div className="band-head">
             <span className="lbl">Analysis · {doc?.title} · {ISO2NAME[cur]} ← {ISO2NAME[hire]}</span>
             <span className="src">Live postings · BLS OEWS · World Bank ICP · no sign-up</span>
@@ -212,34 +237,62 @@ export function FEClient() {
       )}
 
       {/* lenses */}
-      {ran && L && L.lenses.length > 0 && (
-        <section className="lenses" id="lenses">
-          <div className="h-cap">The lenses</div>
-          <h2>Same salary. {L.lenses.length} answers.</h2>
-          <p className="sub">Each lens reads the same offer differently. The spread between them is the story.</p>
-          <div className="lbody">
-            {(() => {
-              const vals = L.lenses.map((l) => l.v).concat([salary]);
-              const lo = Math.min(...vals) * 0.8, hiV = Math.max(...vals) * 1.1;
-              const X = (v: number) => Math.max(0, Math.min(100, (100 * (v - lo)) / (hiV - lo)));
-              return (
-                <>
-                  {L.lenses.map((l) => (
-                    <div key={l.name} className={`lrow${l.hot ? ' hot' : ''}`}>
-                      <div className="nm">{l.name}<small>{l.sub}</small></div>
-                      <div className="ltrack"><i className="base"></i><b className="dot" style={{ left: `${X(l.v)}%` }}></b></div>
-                      <div><div className="val">{fmt(l.v)}</div><div className="rd">{l.v >= salary * 1.05 ? 'above your number' : l.v <= salary * 0.95 ? 'below your number' : 'at your number'}</div></div>
-                    </div>
-                  ))}
-                  <div className="offerline" style={{ left: `${X(salary)}%` }}>
-                    <span className="grip"></span><span className="tag">Your number · {fmt(salary)}</span>
+      {ran && L && L.lenses.length > 0 && (() => {
+        // scale frozen to the LENS values only — the pole must not stretch its own ruler
+        const { lo, hi: hiV } = lensScale!;
+        const X = (v: number) => Math.max(0, Math.min(100, (100 * (v - lo)) / (hiV - lo)));
+        const onPointerDown = (e: React.PointerEvent) => {
+          (e.target as Element).setPointerCapture?.(e.pointerId);
+          dragScale.current = { lo, hi: hiV };
+          const move = (ev: PointerEvent) => {
+            const track = trackRef.current; if (!track || !dragScale.current) return;
+            const r = track.getBoundingClientRect();
+            const t = Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width));
+            const v = dragScale.current.lo + t * (dragScale.current.hi - dragScale.current.lo);
+            setSalary(Math.round(v / 500) * 500);
+          };
+          const up = () => { dragScale.current = null; window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+          window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+        };
+        const explain: Record<string, string> = {
+          'Local market salary': `The median of postings with stated pay for ${doc?.title.toLowerCase()} in ${ISO2NAME[cur]}. Where we have no local postings, it is the US blended median scaled by the World Bank price level for ${ISO2NAME[cur]}, and the label says estimated.`,
+          'Purchasing-power par': `The employer-country rate converted at what money buys: rate times the price-level ratio between ${ISO2NAME[cur]} and ${ISO2NAME[hire]} (World Bank ICP, 2023). The salary that buys the same life where you live.`,
+          'Ethical band midpoint': 'The midpoint between purchasing-power par and the remote market median. One reading of a fair split: the employer saves against home-country rates, you earn above local purchasing power. A convention, not a law, which is why it is labeled blended.',
+          'Remote market median': `The median of ${doc?.remote ? 'fully-remote postings' : 'all postings'} with stated pay for this occupation across our sources, ${doc?.observations.toLocaleString()} salary observations total, refreshed with every daily run. This is the number the fairness score anchors on.`,
+          'Employer-country rate': `The blended median for ${ISO2NAME[hire]}: posting percentiles shrunk toward the official anchor by sample size${hire === 'US' ? ' (BLS OEWS, May 2024)' : ''}. What the same work is priced at in the employer's own market.`,
+        };
+        return (
+          <section className="lenses" id="lenses">
+            <div className="h-cap">The lenses</div>
+            <h2>Same salary. {L.lenses.length} answers.</h2>
+            <p className="sub">Each lens reads the same offer differently. The spread between them is the story. Drag the line to test another number, click a lens for how it is computed.</p>
+            <div className="lbody" ref={lbodyRef}>
+              {L.lenses.map((l, i) => (
+                <div key={l.name}>
+                  <div className={`lrow${l.hot ? ' hot' : ''}${openLens === l.name ? ' open' : ''}`} role="button" tabIndex={0} aria-expanded={openLens === l.name}
+                    onClick={() => setOpenLens(openLens === l.name ? null : l.name)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenLens(openLens === l.name ? null : l.name); } }}>
+                    <div className="nm">{l.name}<small>{l.sub}</small></div>
+                    <div className="ltrack" ref={i === 0 ? trackRef : undefined}><i className="base"></i><b className="dot" style={{ left: `${X(l.v)}%` }}></b></div>
+                    <div><div className="val">{fmt(l.v)}</div><div className="rd">{l.v >= salary * 1.05 ? 'above your number' : l.v <= salary * 0.95 ? 'below your number' : 'at your number'}</div></div>
                   </div>
-                </>
-              );
-            })()}
-          </div>
-        </section>
-      )}
+                  {openLens === l.name && (
+                    <div className="lexp"><p>{explain[l.name]}</p></div>
+                  )}
+                </div>
+              ))}
+              {poleLeft != null && (
+                <div className="offerline" style={{ left: poleLeft }} role="slider" tabIndex={0}
+                  aria-label="Your offer" aria-valuemin={Math.round(lo)} aria-valuemax={Math.round(hiV)} aria-valuenow={salary}
+                  onPointerDown={onPointerDown}
+                  onKeyDown={(e) => { if (e.key === 'ArrowLeft') setSalary(Math.max(Math.round(lo), salary - 1000)); else if (e.key === 'ArrowRight') setSalary(Math.min(Math.round(hiV), salary + 1000)); }}>
+                  <span className="grip"></span><span className="tag">Your number · {fmt(salary)}</span>
+                </div>
+              )}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* atlas */}
       <section className="atlas" id="atlas">

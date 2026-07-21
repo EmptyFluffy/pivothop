@@ -197,3 +197,14 @@
     .fe-root .capture{grid-template-columns:1fr;gap:36px}
     .fe-root .foot{grid-template-columns:1fr 1fr;gap:32px}
   }
+
+/* lens expanders + row affordance */
+.fe-root .lrow{cursor:pointer}
+.fe-root .lrow:hover .nm{color:var(--ink)}
+.fe-root .lrow.open .nm{color:var(--accent)}
+.fe-root .lexp{border-top:0.5px dashed var(--rule);padding:12px 0 16px;max-width:70ch}
+.fe-root .lexp p{font-size:13px;line-height:1.6;color:var(--ink-2)}
+/* pole confined + above rows */
+.fe-root .offerline{pointer-events:auto}
+/* generous drag hit-zone around the 1px pole */
+.fe-root .offerline::before{content:"";position:absolute;top:0;bottom:0;left:-9px;right:-9px}

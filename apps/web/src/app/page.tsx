@@ -29,6 +29,9 @@ export default function Home() {
     import('@/lib/instrument.js').then((m) => {
       const mount = (m as unknown as { mountInstrument: (d: unknown, h: Hooks) => Controller }).mountInstrument;
       wireSearch(mount);
+      // section-enter reveals — never the instrument band itself
+      document.querySelectorAll('.how .step, .cloudband, .manif, .capture, .proof').forEach((el) => el.classList.add('rv'));
+      import('@/lib/reveal.js').then((r) => (r as { mountReveal: (x?: Element) => void }).mountReveal());
     });
   }, []);
 

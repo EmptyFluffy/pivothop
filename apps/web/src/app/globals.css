@@ -424,3 +424,9 @@ input:focus-visible{outline:none}
 .post-sources p{font-size:12.5px;line-height:1.6;color:var(--ink-3);margin:0;max-width:none}
 .post-foot{display:flex;justify-content:space-between;margin-top:40px;border-top:0.5px solid var(--rule);padding-top:16px}
 .post-foot a{text-decoration:none}
+
+/* section-enter reveal (shared by both instruments) */
+@media (prefers-reduced-motion: no-preference){
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s cubic-bezier(.3,.7,.3,1)}
+  .rv.rv-in{opacity:1;transform:none}
+}
