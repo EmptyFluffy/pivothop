@@ -2,38 +2,43 @@
 // Physics ported verbatim from the reference; only data source + accent color changed.
 
 export function mountInstrument(DATA){
-  var ROLES=DATA.roles;
-
-  // second hops: where each role leads next (bridge concept)
-  var NEXT=DATA.next;
-  // angles derived from count — layout is count-agnostic (min 5 / max 10 by product rule)
-  ROLES.forEach(function(rl){rl.next=NEXT[rl.id]||[];});
-
-  /* ══ graph data derived from ROLES/NEXT ══ */
-  var GNODES=[{id:'you',type:'you',label:DATA.originLabel,match:100}];
-  ROLES.forEach(function(r){GNODES.push({id:r.id,type:'first',label:r.title,match:r.match});});
-  Object.keys(NEXT).forEach(function(pid){
-    NEXT[pid].forEach(function(k,i){GNODES.push({id:pid+'_'+i,type:'kid',label:k.t.replace(/&amp;/g,'&'),match:k.m,parent:pid});});
-  });
-  var GEDGES=[];
-  ROLES.forEach(function(r){GEDGES.push({from:'you',to:r.id,w:r.match/100,k:'primary'});});
-  Object.keys(NEXT).forEach(function(pid){
-    NEXT[pid].forEach(function(k,i){GEDGES.push({from:pid,to:pid+'_'+i,w:k.m/100,k:'kid'});});
-  });
-  DATA.cross.forEach(function(x){GEDGES.push({from:x[0],to:x[1],w:x[2],k:'cross'});});
-  DATA.bridges.forEach(function(x){GEDGES.push({from:x[0],to:x[1],w:x[2],k:'bridge'});});
-
-  var NODE_BY_ID={}; GNODES.forEach(function(n){NODE_BY_ID[n.id]=n;});
-  var NBRS={}; GNODES.forEach(function(n){NBRS[n.id]=Object.create(null);});
-  GEDGES.forEach(function(e){NBRS[e.from][e.to]=true;NBRS[e.to][e.from]=true;e.a=NODE_BY_ID[e.from];e.b=NODE_BY_ID[e.to];});
-
   var PILL_W=108,PILL_H=24;   /* wordmark clearance zone */
-  GNODES.forEach(function(n){
-    var t=n.label;
-    if(n.type==='you'){n.lblW=PILL_W;n.lblH=PILL_H;}
-    else if(n.type==='first'){n.lblW=Math.max(t.length*12.5*0.6,9*9.5*0.72)+8;n.lblH=30;}
-    else{n.lblW=t.length*10.5*0.6+8;n.lblH=16;}
-  });
+  var ROLES,NEXT,GNODES,GEDGES,NODE_BY_ID,NBRS;
+  function derive(){
+    ROLES=DATA.roles; NEXT=DATA.next;
+    ROLES.forEach(function(rl){rl.next=NEXT[rl.id]||[];});
+    GNODES=[{id:'you',type:'you',label:DATA.originLabel,match:100}];
+    ROLES.forEach(function(r){GNODES.push({id:r.id,type:'first',label:r.title,match:r.match});});
+    Object.keys(NEXT).forEach(function(pid){NEXT[pid].forEach(function(k,i){GNODES.push({id:pid+'_'+i,type:'kid',label:(k.t||'').replace(/&amp;/g,'&'),match:k.m,parent:pid});});});
+    GEDGES=[];
+    ROLES.forEach(function(r){GEDGES.push({from:'you',to:r.id,w:r.match/100,k:'primary'});});
+    Object.keys(NEXT).forEach(function(pid){NEXT[pid].forEach(function(k,i){GEDGES.push({from:pid,to:pid+'_'+i,w:k.m/100,k:'kid'});});});
+    (DATA.cross||[]).forEach(function(x){GEDGES.push({from:x[0],to:x[1],w:x[2],k:'cross'});});
+    (DATA.bridges||[]).forEach(function(x){GEDGES.push({from:x[0],to:x[1],w:x[2],k:'bridge'});});
+    NODE_BY_ID={}; GNODES.forEach(function(n){NODE_BY_ID[n.id]=n;});
+    GEDGES=GEDGES.filter(function(e){return NODE_BY_ID[e.from]&&NODE_BY_ID[e.to];});
+    NBRS={}; GNODES.forEach(function(n){NBRS[n.id]=Object.create(null);});
+    GEDGES.forEach(function(e){NBRS[e.from][e.to]=true;NBRS[e.to][e.from]=true;e.a=NODE_BY_ID[e.from];e.b=NODE_BY_ID[e.to];});
+    GNODES.forEach(function(n){
+      var t=n.label;
+      if(n.type==='you'){n.lblW=PILL_W;n.lblH=PILL_H;}
+      else if(n.type==='first'){n.lblW=Math.max(t.length*12.5*0.6,9*9.5*0.72)+8;n.lblH=30;}
+      else{n.lblW=t.length*10.5*0.6+8;n.lblH=16;}
+    });
+  }
+  derive();
+  function hydrateStatic(){
+    var q=function(x){return document.querySelector(x);};
+    var lbl=q('.band-head .lbl'); if(lbl)lbl.innerHTML='Career graph · '+DATA.originLabel;
+    var sc=q('.band-head .score b'); if(sc&&ROLES[0])sc.textContent=ROLES[0].match;
+    var freq={};ROLES.forEach(function(r){(r.have||[]).concat(r.learn||[]).forEach(function(sk){freq[sk]=(freq[sk]||0)+1;});});
+    var top=Object.keys(freq).sort(function(a,b){return freq[b]-freq[a];}).slice(0,6);
+    var sk=q('.proof .sk'); if(sk){sk.innerHTML='<span class="cap">In demand across your routes</span>'+top.join(' · ');}
+    var stats=document.querySelectorAll('.proof .fstat .v');
+    if(stats[0])stats[0].textContent=ROLES.length;
+    if(stats[1])stats[1].textContent=(DATA.postings||0).toLocaleString();
+    var role=document.getElementById('qRole'); if(role)role.placeholder=DATA.originLabel;
+  }
   function nodeRadius(n){if(n.type==='you')return 12;if(n.type==='first')return 3+n.match/24;return 3;}
 
   /* ══ node physics — anisotropic gravity for a wide ellipse ══ */
@@ -357,7 +362,7 @@ export function mountInstrument(DATA){
       fill:'#faf9f5',stroke:'none','pointer-events':'none'}));
     var pt=svgEl('text',{x:you.x,y:you.y+5,'text-anchor':'middle','font-family':'Space Grotesk',
       'font-size':15,'letter-spacing':1.8,'font-weight':700,fill:'#15151a','pointer-events':'none'});
-    pt.textContent='ARCHITECT';
+    pt.textContent=(you.label||'').toUpperCase();
     youG.appendChild(pt);
     nodesG.appendChild(youG);
     el.pill=youG;
@@ -533,14 +538,14 @@ export function mountInstrument(DATA){
       '<div class="d-cap"><span class="d-sector">Second hop</span><span class="lbl">Via '+parent.title+'</span></div>'+
       '<div class="d-title">'+kid.t+'</div>'+
       '<div class="d-match"><span class="n">'+kid.m+'</span><span class="u">% match at second hop</span></div>'+
-      '<div class="drow"><span class="k">Path</span><span class="v">Architect &rarr; '+parent.title+' &rarr; '+kid.t+'</span></div>'+
+      '<div class="drow"><span class="k">Path</span><span class="v">'+DATA.originLabel+' &rarr; '+parent.title+' &rarr; '+kid.t+'</span></div>'+
       '<div class="drow"><span class="k">Bridge role</span><span class="v">'+parent.title+'</span></div>'+
       '<div class="dsk"><div class="cap">How this pivot works</div><p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-top:4px">Reach this destination by first moving to '+parent.title+', which builds the foundation for a step into '+kid.t+' over the following 6&ndash;18 months. Two-hop moves take longer but open a wider range of destinations than a single pivot can.</p></div>'+
       '<div class="d-export" onclick="openExport()"><div class="in"><span class="tx"><span class="a">Export this route</span><span class="b">PDF report &middot; free &middot; no account</span></span><svg viewBox="0 0 24 24"><use href="#i-export45"/></svg></div></div>';
   }
   function updateTrail(id){
     var tc=document.getElementById('trailCrumbs');if(!tc)return;
-    var crumbs=['Architect'];
+    var crumbs=[DATA.originLabel];
     if(id&&id!=='you'){
       if(id.indexOf('_')>-1){
         var parts=id.split('_');
@@ -708,6 +713,7 @@ export function mountInstrument(DATA){
   buildDOM();
   fitViewBox();
   buildRail();
+  hydrateStatic();
   updateTrail(null);
   /* replay the unfold so first paint animates from the pill */
   runUnfold();
@@ -782,9 +788,9 @@ export function mountInstrument(DATA){
     var match=isKid?curSel.ch.m:selRoleObj.match;
     var baseSal=isKid?curSel.ch.parent.salary:selRoleObj.salary;
     var salTop=baseSal.split("\u2013").pop();
-    var names=isKid?["Architect",bridge,tgt]:["Architect",tgt];
+    var names=isKid?[DATA.originLabel,bridge,tgt]:[DATA.originLabel,tgt];
     var sl=[];
-    sl.push({wide:1,label:"Route report \u00b7 personal PDF",title:"Architect \u2192 "+tgt,
+    sl.push({wide:1,label:"Route report \u00b7 personal PDF",title:DATA.originLabel+" \u2192 "+tgt,
       body:"Everything the radar knows about this exact move \u2014 your match, your gaps, your plan, your numbers \u2014 computed from live posting data and packaged into one clean document with your name on it.",
       stats:[[match+"%","Your match"],[(isKid?"07":"06"),"Sections"],["12","Pages"],["8","Min read"]],
       route:dgRoute(names)});
@@ -849,4 +855,7 @@ export function mountInstrument(DATA){
   if(xin){xin.addEventListener("focus",function(){xmanual=true;stopAuto();});}
   var xsend=document.getElementById("xsend");
   if(xsend){xsend.addEventListener("click",function(){xmanual=true;stopAuto();xsend.textContent="Sent \u2014 check your inbox";});}
+
+  function loadOrigin(nd){ DATA=nd; derive(); seedCompressed(); buildDOM(); buildRail(); hydrateStatic(); runUnfold(); }
+  return { loadOrigin: loadOrigin };
 }
