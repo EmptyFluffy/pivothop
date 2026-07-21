@@ -22,6 +22,10 @@ export default function Home() {
     if (mounted.current || !ref.current) return;
     mounted.current = true;
     ref.current.innerHTML = SHELL;
+    import('@/lib/cloud.js').then((m) => {
+      const c = document.getElementById('cloudCanvas') as HTMLCanvasElement | null;
+      if (c) (m as { initCloud: (c: HTMLCanvasElement, cap: HTMLElement | null) => void }).initCloud(c, document.getElementById('cloudCap'));
+    });
     import('@/lib/instrument.js').then((m) => {
       const mount = (m as unknown as { mountInstrument: (d: unknown, h: Hooks) => Controller }).mountInstrument;
       wireSearch(mount);
