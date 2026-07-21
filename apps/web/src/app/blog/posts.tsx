@@ -1076,4 +1076,321 @@ export const POSTS: Post[] = [
       </>
     ),
   },
+
+  {
+    slug: 'every-feed-is-the-same-machine',
+    title: 'Google, TikTok, Instagram, X: four algorithms became the same machine',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'In eighteen months, every major feed rebuilt itself around one architecture: a model that reads your content and predicts who will finish it. What converged, why it converged, and what it means for anyone who publishes anything.',
+    minutes: 9,
+    faq: [
+      { q: 'How did the X algorithm change in 2026?', a: 'In January 2026 X replaced its legacy recommendation system with a Grok-based transformer model that reads posts and videos directly. Reported engagement weights are steep: a reply counts roughly 27 times a like, and a sustained conversation roughly 150 times, across about 5 billion ranking decisions a day.' },
+      { q: 'What happened to the TikTok algorithm after the US deal?', a: 'After the January 2026 joint venture led by Oracle, Silver Lake, and MGX, the US recommendation system is being retrained on American user data as a separate fork, with reports through mid-2026. The ranking logic itself still centers on completion and depth signals like shares and saves, with the viral completion bar reported around 70 percent.' },
+      { q: 'What do all the 2026 feed algorithms have in common?', a: 'Three things: they rank by predicted attention depth (watch time, completion, replies, sends) rather than declared relationships; they read the content itself with large models instead of relying on metadata and links; and they distribute by interest, which makes follower counts and backlink counts weaker currencies than they have ever been.' },
+    ],
+    body: (
+      <>
+        <p>
+          For twenty years the big distribution systems were different
+          machines. Google ranked pages by links. Twitter showed you who you
+          followed, newest first. Instagram was a photo feed of your friends.
+          TikTok was the weird one, guessing what strangers might watch.
+          Then, in about eighteen months, all four quietly rebuilt themselves
+          into the same machine, and almost nobody said it out loud.
+        </p>
+        <p>
+          The machine works like this. Take everything that could be shown.
+          Have a model read it, the actual content, not the metadata. Predict,
+          per person, the probability that this specific human will give it
+          deep attention: finish the video, reply to the post, send it to a
+          friend, not click away from the answer. Rank by that prediction.
+          Repeat billions of times a day.
+        </p>
+        <h3>The receipts, platform by platform</h3>
+        <p>
+          X made the loudest move: in January 2026 it discarded its legacy
+          ranking stack entirely for a Grok-based transformer that reads every
+          post and watches every video, making around 5 billion ranking
+          decisions daily. The reported weights tell you what the model is
+          for. A reply counts roughly 27 times a like. A genuine
+          back-and-forth conversation, roughly 150 times. Likes, the currency
+          of the 2010s, are now the copper coin. Even the Following feed is
+          algorithmically re-sorted, which is a quiet way of saying the
+          follow relationship no longer decides much.
+        </p>
+        <p>
+          Instagram said it with a metric. Adam Mosseri spent 2025 telling
+          creators that watch time ranks Reels and that sends per reach, the
+          share of viewers who DM your content to someone, is weighted three
+          to five times a like. Then the app consolidated everything into one
+          number: views. Not followers. Views. When a platform renames its
+          primary metric, it is telling you what its model optimizes.
+        </p>
+        <p>
+          TikTok, which invented the machine, spent the period proving how
+          valuable it is: the January 2026 US joint venture led by Oracle,
+          Silver Lake, and MGX exists substantially because the algorithm
+          could not simply be handed over, so it is being retrained on
+          American data as a separate fork. Meanwhile the bar rose. The
+          completion rate that used to trigger wide distribution, around
+          half, is now reported near 70 percent. The machine got pickier as
+          everyone learned to feed it.
+        </p>
+        <p>
+          And Google, the biggest publisher-facing change of all: AI
+          Overviews went from about 6.5 percent of queries in January 2025 to
+          roughly 48 percent of searches by early 2026, and somewhere between
+          58 and 68 percent of searches now end with no click to any website.
+          In the fully conversational AI Mode, the no-click figure reportedly
+          reaches 93 percent. Google still reads the web. Increasingly, it
+          reads it so you do not have to.
+        </p>
+        <h3>Why they all converged</h3>
+        <p>
+          Not conspiracy. Economics plus capability. Every one of these
+          companies sells attention to advertisers, so every one of them is
+          paid in retention, and retention is best predicted by deep
+          engagement signals, not declared relationships. That pressure
+          always existed. What changed is capability: models got good enough
+          to read the content itself, cheaply, at feed scale. Once you can
+          score a video by watching it, links and follows and keywords are
+          just noisy proxies you no longer need. Each platform reached the
+          same conclusion because each was solving the same equation with the
+          same new tool.
+        </p>
+        <h3>What it means if you publish anything</h3>
+        <p>
+          First, audiences are rented by the piece now. A follower count is a
+          mailing list the platform charges you to use; every post starts
+          nearly from zero and earns distribution on its own predicted depth.
+          Second, the openings are everything: the three-second rule on
+          video, the first sentence of an answer, because the model samples
+          before it commits. Third, depth beats breadth everywhere at once:
+          one piece that 70 percent of viewers finish outranks five pieces
+          they skim, on every platform, simultaneously, because it is the
+          same machine. And fourth, for the written web specifically: being
+          the source a model cites has replaced being the link a person
+          clicks, which favors pages with verifiable, unusual substance over
+          pages with volume.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          The convergence is bad news for tactics and good news for material.
+          Every trick tuned to one platform's quirks depreciates, because
+          the quirks are being replaced by models that read like careful
+          humans. What survives is what would survive a careful human:
+          things worth finishing, worth replying to, worth sending to a
+          friend, worth citing. The four machines disagree about formats and
+          durations. About substance, for the first time, they all agree.
+        </p>
+        <Sources>
+          <p>
+            X: Grok-based rebuild and engagement weights as reported by
+            platform analyses of the 2026 ranking system. Instagram: Adam
+            Mosseri's public statements on watch time, sends per reach, and
+            the views metric, 2025. TikTok: joint-venture reporting (Oracle,
+            Silver Lake, MGX, January 2026) and creator-analytics data on
+            completion thresholds. Google: AI Overview trigger rates and
+            zero-click ranges from Semrush and independent SEO telemetry,
+            2025 to 2026. Figures are the platforms' and analysts' claims,
+            dated in text; feeds change faster than citations.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'seo-died-again',
+    title: 'SEO died again in 2026. Here is what the survivors are doing',
+    pillar: 'Run It 10,000 Times',
+    date: 'July 2026',
+    dek: 'Half of Google searches now show an AI answer and most end without a click. The discipline is not dead, but it has been reorganized around one question: what makes a machine cite you?',
+    minutes: 8,
+    faq: [
+      { q: 'Is SEO dead in 2026?', a: 'The clicks-from-rankings version is shrinking fast: AI Overviews appear on roughly 48 percent of searches and 58 to 68 percent of searches end without a click. The visibility discipline is alive and arguably harder: brands cited inside AI answers see materially higher clickthrough than uncited ones, so the work moved from ranking pages to becoming a citable source.' },
+      { q: 'What still works in SEO now?', a: 'The consistent survivors: unique verifiable data no one else publishes, clear extractable answers under descriptive headers, real author expertise with visible sourcing, structured data, and distribution channels that do not depend on Google at all. Volume tactics and generic listicles are the main casualties.' },
+      { q: 'Should I still start a blog in 2026?', a: 'Yes, with adjusted expectations: publish for citation and direct audience rather than click harvesting. A small library of genuinely original material now outperforms a large library of adequate material, because models select sources the way editors do.' },
+    ],
+    body: (
+      <>
+        <p>
+          SEO has died more times than rock and roll. This particular death,
+          though, has numbers attached. AI Overviews, the Gemini-written
+          answers at the top of Google, appeared on about 6.5 percent of
+          queries in January 2025 and appear on roughly 48 percent of
+          searches now. Between 58 and 68 percent of searches end with no
+          click to any website. When an AI summary is present, clicks on
+          traditional results reportedly drop by nearly half, and in the
+          conversational AI Mode, 93 percent of sessions end without a
+          click. If your business model was ranking pages and harvesting the
+          clicks, that model has been repossessed.
+        </p>
+        <h3>The part that did not die</h3>
+        <p>
+          Read the same telemetry from the other side. Brands cited inside AI
+          Overviews see around 35 percent higher organic clickthrough than
+          uncited brands. The model still needs sources; it just stopped
+          needing ten of them per query. Search traffic did not evaporate so
+          much as consolidate onto whatever the machine decides is worth
+          quoting. Which turns the old discipline inside out: the job is no
+          longer to rank among many answers. It is to be the source the one
+          answer is built from.
+        </p>
+        <h3>What the survivors do differently</h3>
+        <p>
+          Watching what still earns visibility in 2026, four patterns repeat.
+          The survivors publish numbers nobody else has: original datasets,
+          measurements, counts, the kind of sentence a model cannot generate
+          without citing someone. They write extractable answers, one or two
+          direct sentences under a header that says what question is being
+          answered, because that is the shape the machine lifts. They put a
+          named human with checkable credentials behind the words, since the
+          ranking systems now weight provenance the way editors always did.
+          And they stopped treating Google as the only road: newsletters,
+          communities, and the other feeds now carry the discovery weight
+          that ten blue links used to.
+        </p>
+        <p>
+          The casualties are just as consistent. Programmatic pages that
+          rephrase common knowledge. Listicles assembled from other
+          listicles. Word-count inflation, which models see straight
+          through. The entire genre of content written to occupy a keyword
+          rather than to say something. None of that earns a citation,
+          because none of it is a source.
+        </p>
+        <h3>A small disclosure</h3>
+        <p>
+          We are not neutral observers here. This site publishes career data
+          from our own pipeline precisely because original numbers are the
+          one asset the new machine reliably rewards, and our posts carry
+          direct answers and sources boxes for exactly the reasons described
+          above. This piece is, among other things, us showing our homework.
+          If the strategy is wrong, you will be able to watch it fail in
+          public, which is more than most SEO advice offers.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          Stop asking how to rank and start asking a colder question: if a
+          careful machine read everything on this topic, would it have any
+          reason to quote you? If the answer is no, no tactic will save the
+          page, and the honest move is to go get something worth quoting: a
+          measurement, an experiment, an experience, a dataset. If the
+          answer is yes, most of the remaining work is making the quotable
+          part easy to find and easy to lift. The discipline used to reward
+          people who understood the index. It now rewards people who have
+          something to say. As deaths go, SEO could have done worse.
+        </p>
+        <Sources>
+          <p>
+            AI Overview trigger rates, zero-click ranges, CTR effects, and
+            citation lift: Semrush and independent SEO telemetry as reported
+            2025 to 2026 (figures vary by study; ranges given). The
+            disclosure section describes this site's own approach; judge the
+            advice against our visibility accordingly.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'seo-specialist-career-priced',
+    title: 'SEO specialist as a career, priced at the exact moment the job is being rewritten',
+    pillar: 'What Carried Over',
+    date: 'July 2026',
+    dek: 'The US median for SEO specialists in our data is about 80,000 dollars, the skill appears in four professions\u2019 demand, and the role is mid-mutation into AI visibility work. A career analysis with the numbers attached.',
+    minutes: 7,
+    faq: [
+      { q: 'How much do SEO specialists make in 2026?', a: 'In our data, the blended US median for SEO specialists is about 79,700 dollars, from 120 salary observations across 178 postings. For context, content strategists sit near 84,700, data analysts near 97,000, and marketing managers near 125,900 in the same corpus.' },
+      { q: 'Is SEO a good career now that AI answers most searches?', a: 'It is a changing one. Demand in our corpus is steady and the discipline is being rewritten toward AI visibility work (getting cited by answer engines), which favors people who can combine content judgment with measurement. The ceiling opens when the role broadens toward strategy or analytics.' },
+      { q: 'What does an SEO specialist transition into?', a: 'By measured skill overlap in our graph: marketing manager (32 percent), copywriter (31), content strategist (30), and social media manager (26), with marketing management carrying roughly a 46,000 dollar median premium over the specialist role.' },
+    ],
+    body: (
+      <>
+        <p>
+          There is a whole profession built on being findable, and right now
+          it is having the strangest year of its existence. We track 178 SEO
+          specialist postings in our corpus, 120 of them with stated pay.
+          The blended US median: about 79,700 dollars. That number, and the
+          numbers around it, tell a sharper career story than the discourse
+          does.
+        </p>
+        <h3>Where the role sits in the pay landscape</h3>
+        <p>
+          Eighty thousand puts the SEO specialist in respectable but
+          revealing company. Copywriters in our data sit near 81,700.
+          Content strategists near 84,700. Data analysts, whose toolkit
+          overlaps more than either side admits, near 97,000. Marketing
+          managers, the role SEO specialists most often grow into, near
+          125,900. The spread is the career advice: the specialist title
+          pays for a craft, and the next 46,000 dollars pays for owning the
+          strategy the craft serves. SEO is a fine place to stand and an
+          expensive place to stop.
+        </p>
+        <h3>What the demand data says about the skill</h3>
+        <p>
+          Beyond the specialist role itself, SEO as a skill appears
+          meaningfully in the posting demand of copywriters at 8.2 percent,
+          content strategists at 5.5, and marketing managers at 3.2. Read
+          that as the market saying SEO is becoming a literacy as much as a
+          job: a thing adjacent professionals are expected to hold, the way
+          everyone in an office eventually had to hold spreadsheets. For a
+          specialist, that is both a threat and an exit ramp. The threat is
+          commodification of the basics. The exit ramp is that every one of
+          those adjacent roles values your depth, and our graph prices the
+          moves: marketing manager at 32 percent measured overlap,
+          copywriter at 31, content strategist at 30, social media manager
+          at 26.
+        </p>
+        <h3>The rewrite happening inside the job</h3>
+        <p>
+          Meanwhile the work itself is mutating. With AI answers on roughly
+          half of Google results and most searches ending clickless, the
+          center of the discipline is sliding from rankings to citations:
+          structured answers, original data, entity work, provenance,
+          visibility inside ChatGPT and Perplexity as much as inside the ten
+          blue links. The postings have started to say it out loud, asking
+          for generative engine optimization and AI search alongside the
+          classic keyword work. For anyone entering now, this is the actual
+          opportunity: the veterans optimized indexes for twenty years, but
+          nobody has twenty years of experience getting cited by a language
+          model. On the new subskill, everyone started in 2024.
+        </p>
+        <h3>An honest word on the floor and the ceiling</h3>
+        <p>
+          The floor: the low end of SEO, the tooling-and-checklists end, is
+          exactly the work AI systems are best at absorbing, and postings
+          for it will thin. The ceiling: people who can prove they moved
+          revenue through search, in whatever form search takes, keep
+          commanding marketing-leadership pay. The variable that decides
+          which side you land on is measurement. The specialists who thrive
+          in our data read like analysts who happen to work on visibility,
+          not like content workers who happen to know meta tags.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          If you are considering the field: enter through the new door,
+          citations and AI visibility, and build the measurement habit from
+          day one; the median is decent, the learning curve is real, and
+          the seniority path runs through strategy. If you are already in
+          it: your title's basics are becoming everyone's literacy, your
+          frontier is brand new, and your best-paying neighbors are one
+          measured step away. The profession built on being findable is
+          being asked to find itself. On the evidence, it has done harder
+          things.
+        </p>
+        <Sources>
+          <p>
+            SEO specialist counts, salaries, skill-demand shares, and
+            transition overlaps: PivotHop July 2026 run (178 postings, 120
+            with stated pay; blended US medians shrink posting percentiles
+            toward BLS OEWS anchors; overlaps computed over top-20 posting
+            skills). Search-landscape figures: Semrush and independent
+            telemetry as reported 2025 to 2026, detailed in our companion
+            piece on the 2026 search reset.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
 ];
