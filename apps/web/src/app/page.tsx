@@ -160,9 +160,9 @@ function wireSearch(controller: Controller) {
     return [...seen.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([id]) => ({ id, name: skillNames[id] || id }));
   }
 
-  function renderPanel(addQuery = '') {
+  function renderPanel(addQuery = '', animateId?: string) {
     const chipHtml = chips.map((c) =>
-      `<button class="chip" data-id="${c}" title="Remove" style="display:inline-flex;align-items:center;gap:7px;background:var(--accent-tint);border:none;color:var(--accent-press);font:inherit;font-size:12.5px;padding:6px 10px;margin:0 6px 6px 0;cursor:pointer">${skillNames[c] || c}<span style="font-weight:700">&times;</span></button>`
+      `<button class="chip${c === animateId ? ' chip-in' : ''}" data-id="${c}" title="Remove" style="display:inline-flex;align-items:center;gap:7px;background:var(--accent-tint);border:none;color:var(--accent-press);font:inherit;font-size:12.5px;padding:6px 10px;margin:0 6px 6px 0;cursor:pointer">${skillNames[c] || c}<span style="font-weight:700">&times;</span></button>`
     ).join('') || '<span style="font-size:12.5px;color:var(--ink-3)">No skills — add some below</span>';
     const sugg = suggestions(addQuery);
     const suggHtml = sugg.map((s) =>
@@ -179,10 +179,14 @@ function wireSearch(controller: Controller) {
       `<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3)">${chips.length} skills</span></div>`;
 
     panel.querySelectorAll<HTMLButtonElement>('.chip').forEach((b) =>
-      b.addEventListener('mousedown', (e) => { e.preventDefault(); chips = chips.filter((c) => c !== b.dataset.id); refreshSummary(); renderPanel(); scheduleApply(); })
+      b.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        b.classList.add('chip-out');
+        setTimeout(() => { chips = chips.filter((c) => c !== b.dataset.id); refreshSummary(); renderPanel(); scheduleApply(); }, 150);
+      })
     );
     panel.querySelectorAll<HTMLButtonElement>('.sugg').forEach((b) =>
-      b.addEventListener('mousedown', (e) => { e.preventDefault(); if (!chips.includes(b.dataset.id!)) chips.push(b.dataset.id!); refreshSummary(); renderPanel(); scheduleApply(); })
+      b.addEventListener('mousedown', (e) => { e.preventDefault(); const id = b.dataset.id!; if (!chips.includes(id)) chips.push(id); refreshSummary(); renderPanel('', id); scheduleApply(); })
     );
     const add = panel.querySelector<HTMLInputElement>('#chipAdd')!;
     add.addEventListener('input', () => { const v = add.value; renderPanel(v); (panel.querySelector('#chipAdd') as HTMLInputElement).focus(); const na = panel.querySelector<HTMLInputElement>('#chipAdd')!; na.setSelectionRange(v.length, v.length); });

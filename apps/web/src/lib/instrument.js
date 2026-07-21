@@ -139,7 +139,7 @@ export function mountInstrument(DATA){
       var d=Math.sqrt(dx*dx+dy*dy)||1;
       var push=n.type==='first'?52:32;
       n.lx=n.x+(dx/d)*push;n.ly=n.y+(dy/d)*push;n.lvx=0;n.lvy=0;
-      n.lAvgX=undefined;n.lAvgY=undefined;n.lStable=0;
+      n.lAvgX=undefined;n.lAvgY=undefined;n.lStable=0;n.lLocked=false;
     });
   }
   function stepLabels(activeList){
@@ -171,8 +171,10 @@ export function mountInstrument(DATA){
       var n=activeList[i3];if(n.type==='you')continue;
       n.lvx+=(n.lIdealX-n.lx)*ANCHOR;
       n.lvy+=(n.lIdealY-n.ly)*ANCHOR;
+      var halfWL=n.lblW/2,halfHL=n.lblH/2;
       for(var jj=0;jj<GNODES.length;jj++){
         var o=GNODES[jj];
+        if(o===n)continue; /* own dot: the radial anchor owns that relationship */
         if(o.type==='you'){
           var hwY=PILL_W/2+8,hhY=PILL_H/2+8;
           var dxY=n.lx-o.x,dyY=n.ly-o.y;
@@ -184,16 +186,17 @@ export function mountInstrument(DATA){
           }
           continue;
         }
-        var cushion=nodeRadius(o)+8;
+        /* box-aware: the label is a wide rectangle, not a point — a dot must clear
+           the box EDGE by the cushion, or text sits on top of secondary dots */
+        var hwN=halfWL+nodeRadius(o)+12,hhN=halfHL+nodeRadius(o)+12;
         var dx2=n.lx-o.x,dy2=n.ly-o.y;
-        var dsq=dx2*dx2+dy2*dy2;
-        if(dsq<cushion*cushion&&dsq>0.1){
-          var d2=Math.sqrt(dsq);
-          var pp=(cushion-d2)*0.5;
-          n.lvx+=(dx2/d2)*pp;n.lvy+=(dy2/d2)*pp;
+        var adx2=Math.abs(dx2),ady2=Math.abs(dy2);
+        if(adx2<hwN&&ady2<hhN){
+          var oxN=hwN-adx2,oyN=hhN-ady2;
+          if(oxN<oyN)n.lvx+=oxN*(dx2>=0?1:-1)*0.5;
+          else n.lvy+=oyN*(dy2>=0?1:-1)*0.5;
         }
       }
-      var halfWL=n.lblW/2,halfHL=n.lblH/2;
       for(var jk=0;jk<GEDGES.length;jk++){
         var ee=GEDGES[jk];
         var x1=ee.a.x,y1=ee.a.y,x2=ee.b.x,y2=ee.b.y;
@@ -220,6 +223,13 @@ export function mountInstrument(DATA){
     }
     for(var i4=0;i4<activeList.length;i4++){
       var n=activeList[i4];if(n.type==='you')continue;
+      /* lock-on-snap: once settled, a label freezes until its own node moves.
+         Conflicting forces above the dead-zone otherwise sustain a visible
+         limit-cycle vibration after drags. Frozen slightly-imperfect beats vibrating. */
+      if(n.lLocked){
+        if(Math.abs(n.x-n.lLockX)>1.2||Math.abs(n.y-n.lLockY)>1.2){n.lLocked=false;n.lStable=0;}
+        else{n.lvx=0;n.lvy=0;continue;}
+      }
       n.lvx*=0.62;n.lvy*=0.62;
       if(n.lvx>-0.04&&n.lvx<0.04)n.lvx=0;
       if(n.lvy>-0.04&&n.lvy<0.04)n.lvy=0;
@@ -231,13 +241,22 @@ export function mountInstrument(DATA){
       var velSq=n.lvx*n.lvx+n.lvy*n.lvy;
       if(devSq<0.6&&velSq<0.4){
         n.lStable++;
-        if(n.lStable>6){n.lx=n.lAvgX;n.ly=n.lAvgY;n.lvx=0;n.lvy=0;}
+        if(n.lStable>6){n.lx=n.lAvgX;n.ly=n.lAvgY;n.lvx=0;n.lvy=0;n.lLocked=true;n.lLockX=n.x;n.lLockY=n.y;}
       }else n.lStable=0;
     }
   }
 
   /* ══ auto-fit viewBox to settled content ══ */
   function fitViewBox(){
+    GNODES.forEach(function(n){
+      if(n.type==='you')return;
+      if(!shouldLabel(n)||n.lx===undefined||isNaN(n.lx)){
+        var rdx=n.x-CX,rdy=n.y-CY;
+        var rd=Math.sqrt(rdx*rdx+rdy*rdy)||1;
+        var rpush=n.type==='first'?52:32;
+        n.lx=n.x+(rdx/rd)*rpush;n.ly=n.y+(rdy/rd)*rpush;n.lvx=0;n.lvy=0;n.lLocked=false;n.lStable=0;n.lAvgX=undefined;
+      }
+    });
     var minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
     GNODES.forEach(function(n){
       var r=n.type==='you'?0:nodeRadius(n);
@@ -485,13 +504,14 @@ export function mountInstrument(DATA){
     }else{
       for(var m=0;m<act.length;m++){var mn=act[m];if(mn.type==='you')continue;mn.lvx=0;mn.lvy=0;}
       rafId=null;
+      fitViewBox(); /* re-fit at rest: origin switches and drags move content the initial fit never saw */
     }
   }
   function commitStateChange(){
     updateEdgeVisuals();
     updateNodeVisuals();
     for(var i=0;i<GNODES.length;i++){
-      GNODES[i].lAvgX=undefined;GNODES[i].lAvgY=undefined;GNODES[i].lStable=0;
+      GNODES[i].lAvgX=undefined;GNODES[i].lAvgY=undefined;GNODES[i].lStable=0;GNODES[i].lLocked=false;
     }
     ensureLoop(500);
   }
@@ -835,6 +855,6 @@ export function mountInstrument(DATA){
   var xsend=document.getElementById('xsend');
   if(xsend){xsend.addEventListener('click',function(){xsend.querySelector('span').textContent='Sent — check your inbox';});}
 
-  function loadOrigin(nd){ DATA=nd; derive(); seedCompressed(); buildDOM(); buildRail(); hydrateStatic(); runUnfold(); }
+  function loadOrigin(nd){ DATA=nd; derive(); seedCompressed(); initLabels(); buildDOM(); buildRail(); hydrateStatic(); runUnfold(); }
   return { loadOrigin: loadOrigin };
 }
