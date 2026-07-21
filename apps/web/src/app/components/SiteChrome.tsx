@@ -15,7 +15,7 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
       </Link>
       <a className="navlink" href="/fairelephant.html">FairElephant <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></a>
       <Link className="navlink" href="/#how">Method</Link>
-      <a className="navlink" href="#">Blog</a>
+      <Link className="navlink" href="/blog">Blog</Link>
       <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
       <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">For employers</Link>
     </header>

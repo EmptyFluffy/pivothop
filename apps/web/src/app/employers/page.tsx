@@ -7,7 +7,7 @@ import { EmployerForm } from './EmployerForm';
 export const metadata: Metadata = {
   title: 'For employers — PivotHop',
   description:
-    'Hire from adjacent professions with the numbers attached. PivotHop measures how far a candidate\'s current skills reach into your role, then hand-matches the ones already moving. Concierge and free while the board is in pilot.',
+    'The adjacent-talent job board is being built in the open. Founding employers get hand-matched candidates free during the pilot, founding pricing locked, and their roles seeded on day one.',
 };
 
 function stats() {
@@ -31,9 +31,9 @@ export default function Employers() {
 
           <p className="emp-lead">
             The best candidate for your role might not hold your role's title today.
-            PivotHop reads live postings and measures how far each profession's skills
-            reach into yours, so you can hire the motivated eighty percent instead of
-            bidding on the exhausted hundred.
+            PivotHop measures how far each profession's skills reach into yours, so
+            you can hire the motivated eighty percent instead of bidding on the
+            exhausted hundred.
           </p>
 
           <div className="emp-stats">
@@ -43,38 +43,57 @@ export default function Employers() {
           </div>
 
           <section className="ab-sec">
-            <h2>The market nobody else is recruiting</h2>
+            <h2>Where this is honestly at</h2>
             <p>
-              For any role you post, there are professions whose day-to-day work
-              already covers most of what you need. A structural engineer covers most
-              of a facade consultant's job. A nurse covers most of a clinical
-              coordinator's. These people rarely apply, because job boards match on
-              titles and their title is different. Nobody is in their inbox. Their
-              salary expectations were not set by your competitors.
+              There is no job board here yet. The candidate side is live and free,
+              and the numbers above grow with every daily run. The board opens when
+              enough candidates are exporting route reports toward real roles that
+              matches stop being a favor and start being a market. We would rather
+              tell you that than collect your job specs into a drawer.
             </p>
             <p>
-              PivotHop's users are the exception: they came here because they are
-              actively measuring a move, and the instrument told them exactly which
-              skills they are missing before they ever talk to you. When one of them
-              reaches your role, the gap analysis comes with them.
+              What exists today is a waiting list with a shape: twenty founding
+              spots, for companies that already believe adjacent hiring works and
+              want the first crack at the board that proves it.
             </p>
           </section>
 
           <section className="ab-sec">
-            <h2>How it works right now</h2>
+            <h2>What founding employers get</h2>
             <p>
-              Concierge, honestly. Tell us the role. Carlos runs it through the
-              adjacency model, checks which professions clear seventy percent skill
-              coverage, and personally reviews the people already pointing that way.
-              You get two or three candidates and a short note on why each one maps,
-              usually within three business days. If the model says your role has no
-              good adjacent routes, he tells you that instead.
+              <b>An adjacency map for one role, now.</b> Join the list and, if you
+              want it, name a role. We run it through the model and send back which
+              professions clear seventy percent skill coverage toward it, with the
+              overlap itemized. Free, no call required, useful even if you never
+              hire through us.
             </p>
             <p>
-              This will eventually be a paid board where you flag roles as open to
-              adjacent candidates. It is free while we build it by hand, because the
-              first employers teach us what the board needs to be. No charge, no
-              contract, no obligation past the first conversation.
+              <b>Hand-matched candidates during the pilot, free.</b> Before the
+              board exists as software, it exists as Carlos reading the graph and
+              making introductions. Founding employers get those introductions at
+              no charge while the pilot runs.
+            </p>
+            <p>
+              <b>Founding pricing, locked.</b> When the board opens, founding
+              members keep whatever rate we agree the product was worth during the
+              pilot. You help set the price by being there while we discover it.
+            </p>
+            <p>
+              <b>Day-one seeding.</b> The board launches with founding roles
+              already posted and matched, not an empty room.
+            </p>
+          </section>
+
+          <section className="ab-sec">
+            <h2>Why the market is worth being early to</h2>
+            <p>
+              For any role you post, there are professions whose day-to-day work
+              already covers most of what you need. Those people rarely apply,
+              because job boards match on titles and their title is different.
+              Nobody is in their inbox. Their salary expectations were not set by
+              your competitors. PivotHop's users are the exception: they arrive
+              having measured the move, with the skill gap itemized before you ever
+              talk to them.
             </p>
           </section>
 
@@ -82,21 +101,14 @@ export default function Employers() {
             <h2>What we will not do</h2>
             <p>
               Your email starts a conversation, not a drip campaign. No newsletter,
-              no automated sequences, no reselling your contact to recruiters. Every
-              message you get from PivotHop is written by a person, for you, about
-              your role.
+              no automated sequences, no reselling your contact to recruiters. One
+              email when the board opens. That is the whole funnel.
             </p>
           </section>
 
           <section className="ab-sec ab-contact">
-            <h2>Tell us about the role</h2>
+            <h2>Claim one of the twenty</h2>
             <EmployerForm />
-            <p className="emp-promise">
-              Carlos personally reviews every request. If PivotHop can help, he
-              replies within three business days with candidates who fit and a short
-              call to discuss. If it is not a fit, he says so. Either way, you hear
-              back.
-            </p>
           </section>
         </main>
       </div>

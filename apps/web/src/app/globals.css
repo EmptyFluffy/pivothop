@@ -403,3 +403,24 @@ input:focus-visible{outline:none}
 .emp-promise{margin-top:18px;font-size:13.5px;color:var(--ink-2);line-height:1.6;border-top:0.5px solid var(--rule);padding-top:14px}
 .cta.on{background:var(--accent)}
 @media (max-width:700px){.ef-row2{grid-template-columns:1fr}.emp-stats{grid-template-columns:1fr}.emp-stats>div{border-right:none;border-bottom:0.5px solid var(--rule)}}
+
+/* ── blog ── */
+.blog-list{display:flex;flex-direction:column;margin-top:10px}
+.blog-card{display:block;border-top:1px solid var(--ink);padding:26px 0 30px;color:var(--ink);text-decoration:none}
+.blog-card:last-child{border-bottom:1px solid var(--ink)}
+.bc-meta{display:flex;align-items:center;gap:8px}
+.bc-ico .px-ico{width:16px;height:16px;vertical-align:-2px}
+.bc-dot{opacity:.5}
+.blog-card h2{font-family:var(--sans);font-weight:600;font-size:23px;letter-spacing:-.015em;line-height:1.15;margin:12px 0 8px;max-width:24ch}
+.blog-card p{font-size:14.5px;line-height:1.55;color:var(--ink-2);max-width:58ch}
+.bc-read{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-press)}
+.blog-card:hover h2{color:var(--accent-press)}
+.post-h1{font-family:var(--sans);font-weight:600;font-size:clamp(28px,4.2vw,42px);letter-spacing:-.02em;line-height:1.08;max-width:22ch;margin-bottom:16px}
+.post-dek{font-size:17px;line-height:1.55;color:var(--ink-2);max-width:56ch;border-bottom:0.5px solid var(--rule);padding-bottom:22px;margin-bottom:30px}
+.post-body p{font-size:15.5px;line-height:1.7;color:var(--ink-2);max-width:62ch;margin-bottom:16px}
+.post-body h3{font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:30px 0 10px}
+.post-sources{border:1px solid var(--ink);padding:16px 18px;margin-top:34px}
+.post-sources .lbl{display:block;margin-bottom:8px}
+.post-sources p{font-size:12.5px;line-height:1.6;color:var(--ink-3);margin:0;max-width:none}
+.post-foot{display:flex;justify-content:space-between;margin-top:40px;border-top:0.5px solid var(--rule);padding-top:16px}
+.post-foot a{text-decoration:none}
