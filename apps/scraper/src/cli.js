@@ -15,6 +15,7 @@ import { fetchCapabilities } from './taxonomy/onet-capabilities.js';
 import { analyzeCapability } from './analyze/capability.js';
 import { analyzeFit } from './analyze/fit.js';
 import { demandAdjacency } from './analyze/demand-adjacency.js';
+import { redditTransitions } from './analyze/reddit-transitions.js';
 
 loadEnv();
 const log = (...a) => console.log(...a);
@@ -109,6 +110,7 @@ switch (cmd) {
   case 'analyze:capability': analyzeCapability({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'analyze:fit': analyzeFit({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'analyze:demand': demandAdjacency({ log }); break;
+  case 'analyze:reddit': await redditTransitions({ log }); break;
   case 'status': status(); break;
   default:
     log(`PivotHop scraper — the gate.
@@ -126,6 +128,8 @@ Usage: npm run scrape -- <command>
   verify [--snapshot]   sanity invariants + match-score drift vs the last snapshot
   analyze:bridge [origin] the non-native skills most demanded in an origin's postings
   analyze:cooccur        related skills by co-occurrence (Rhino -> Grasshopper) for typeahead
+  analyze:demand         employer-attested background adjacency from posting text
+  analyze:reddit         self-reported career transitions mined from Reddit (needs REDDIT_* keys)
   status                data-quality counters and per-occupation counts
 
 Local-first: everything persists to apps/scraper/data/ as NDJSON. With SUPABASE_URL +

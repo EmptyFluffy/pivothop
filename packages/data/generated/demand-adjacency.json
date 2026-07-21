@@ -1,49 +1,49 @@
 {
   "$comment": "Employer-attested adjacency from posting text: DEST postings that name ORIGIN as a welcome background. score = per-origin-normalized share of DEST postings welcoming ORIGIN. Captures non-obvious, human moves O*NET misses. docs/15 Thread 6.",
   "scanned": 28553,
-  "attested": 1270,
+  "attested": 1749,
   "origins": {
     "construction-manager": [
       {
         "dest": "bim-manager",
         "count": 3,
-        "lift": 27.68,
+        "lift": 39.86,
         "score": 100,
         "title": "BIM Manager"
       },
       {
         "dest": "construction-estimator",
         "count": 17,
-        "lift": 27.68,
+        "lift": 39.86,
         "score": 100,
         "title": "Construction Estimator"
       },
       {
         "dest": "civil-engineer",
         "count": 4,
-        "lift": 27.68,
+        "lift": 39.86,
         "score": 100,
         "title": "Civil Engineer"
       },
       {
         "dest": "sales-representative",
         "count": 3,
-        "lift": 3.19,
-        "score": 12,
+        "lift": 3.86,
+        "score": 10,
         "title": "Sales Representative"
       },
       {
         "dest": "project-manager",
         "count": 7,
-        "lift": 1.96,
-        "score": 7,
+        "lift": 2.54,
+        "score": 6,
         "title": "Project Manager"
       },
       {
         "dest": "account-executive",
         "count": 3,
-        "lift": 0.74,
-        "score": 3,
+        "lift": 0.36,
+        "score": 1,
         "title": "Account Executive"
       }
     ],
@@ -51,110 +51,168 @@
       {
         "dest": "marketing-manager",
         "count": 7,
-        "lift": 146.29,
+        "lift": 147.5,
         "score": 100,
         "title": "Marketing Manager"
       }
     ],
     "operations-manager": [
       {
-        "dest": "real-estate-developer",
-        "count": 4,
-        "lift": 6.32,
-        "score": 100,
-        "title": "Real Estate Developer"
-      },
-      {
         "dest": "accountant",
         "count": 36,
-        "lift": 6.32,
+        "lift": 9.39,
         "score": 100,
         "title": "Accountant"
       },
       {
-        "dest": "data-analyst",
-        "count": 10,
-        "lift": 4.86,
-        "score": 77,
-        "title": "Data Analyst"
+        "dest": "real-estate-developer",
+        "count": 4,
+        "lift": 5.37,
+        "score": 57,
+        "title": "Real Estate Developer"
       },
       {
         "dest": "sales-representative",
         "count": 16,
-        "lift": 3.89,
-        "score": 62,
+        "lift": 4.85,
+        "score": 52,
         "title": "Sales Representative"
       },
       {
         "dest": "recruiter",
         "count": 4,
-        "lift": 3.16,
+        "lift": 4.7,
         "score": 50,
         "title": "Recruiter"
       },
       {
         "dest": "business-analyst",
         "count": 4,
-        "lift": 3.16,
+        "lift": 4.7,
         "score": 50,
         "title": "Business Analyst"
       },
       {
-        "dest": "account-executive",
-        "count": 41,
-        "lift": 2.31,
-        "score": 37,
-        "title": "Account Executive"
+        "dest": "data-analyst",
+        "count": 9,
+        "lift": 4.45,
+        "score": 47,
+        "title": "Data Analyst"
       },
       {
         "dest": "auditor",
         "count": 3,
-        "lift": 1.46,
+        "lift": 2.17,
         "score": 23,
         "title": "Auditor"
       },
       {
+        "dest": "product-manager",
+        "count": 19,
+        "lift": 1.31,
+        "score": 14,
+        "title": "Product Manager"
+      },
+      {
         "dest": "management-consultant",
-        "count": 13,
-        "lift": 1.23,
-        "score": 19,
+        "count": 10,
+        "lift": 1.29,
+        "score": 14,
         "title": "Management Consultant"
       },
       {
-        "dest": "product-manager",
-        "count": 20,
-        "lift": 0.96,
-        "score": 15,
-        "title": "Product Manager"
+        "dest": "account-executive",
+        "count": 41,
+        "lift": 1.15,
+        "score": 12,
+        "title": "Account Executive"
       },
       {
         "dest": "software-engineer",
         "count": 3,
-        "lift": 0.49,
-        "score": 8,
+        "lift": 0.63,
+        "score": 7,
         "title": "Software Engineer"
       },
       {
         "dest": "project-manager",
         "count": 8,
-        "lift": 0.51,
-        "score": 8,
+        "lift": 0.68,
+        "score": 7,
         "title": "Project Manager"
+      }
+    ],
+    "management-consultant": [
+      {
+        "dest": "operations-manager",
+        "count": 13,
+        "lift": 8.32,
+        "score": 100,
+        "title": "Operations Manager"
+      },
+      {
+        "dest": "sales-representative",
+        "count": 5,
+        "lift": 3.72,
+        "score": 45,
+        "title": "Sales Representative"
+      },
+      {
+        "dest": "sales-engineer",
+        "count": 17,
+        "lift": 3.26,
+        "score": 39,
+        "title": "Sales Engineer"
+      },
+      {
+        "dest": "machine-learning-engineer",
+        "count": 3,
+        "lift": 1.92,
+        "score": 23,
+        "title": "Machine Learning Engineer"
+      },
+      {
+        "dest": "product-manager",
+        "count": 9,
+        "lift": 1.53,
+        "score": 18,
+        "title": "Product Manager"
+      },
+      {
+        "dest": "project-manager",
+        "count": 4,
+        "lift": 0.84,
+        "score": 10,
+        "title": "Project Manager"
+      },
+      {
+        "dest": "solutions-architect",
+        "count": 4,
+        "lift": 0.61,
+        "score": 7,
+        "title": "Solutions Architect"
+      },
+      {
+        "dest": "account-executive",
+        "count": 9,
+        "lift": 0.62,
+        "score": 7,
+        "title": "Account Executive"
       }
     ],
     "security-engineer": [
       {
         "dest": "sales-engineer",
         "count": 8,
-        "lift": 16.93,
+        "lift": 8.94,
         "score": 100,
         "title": "Sales Engineer"
       },
       {
         "dest": "project-manager",
         "count": 3,
-        "lift": 2.82,
-        "score": 17,
+        "lift": 3.66,
+        "score": 41,
         "title": "Project Manager"
       }
     ],
@@ -162,121 +220,186 @@
       {
         "dest": "product-designer",
         "count": 11,
-        "lift": 39.38,
+        "lift": 56.73,
         "score": 100,
         "title": "Product Designer"
       },
       {
         "dest": "ux-researcher",
         "count": 3,
-        "lift": 39.38,
+        "lift": 56.73,
         "score": 100,
         "title": "UX Researcher"
       },
       {
-        "dest": "corporate-trainer",
-        "count": 3,
-        "lift": 19.69,
-        "score": 50,
-        "title": "Corporate Trainer"
-      },
-      {
         "dest": "customer-success-manager",
         "count": 3,
-        "lift": 9.09,
+        "lift": 13.09,
         "score": 23,
         "title": "Customer Success Manager"
       },
       {
+        "dest": "corporate-trainer",
+        "count": 3,
+        "lift": 10.01,
+        "score": 18,
+        "title": "Corporate Trainer"
+      },
+      {
         "dest": "software-engineer",
         "count": 6,
-        "lift": 6.06,
-        "score": 15,
+        "lift": 7.56,
+        "score": 13,
         "title": "Software Engineer"
+      }
+    ],
+    "sales-representative": [
+      {
+        "dest": "corporate-trainer",
+        "count": 11,
+        "lift": 2.52,
+        "score": 100,
+        "title": "Corporate Trainer"
+      },
+      {
+        "dest": "account-executive",
+        "count": 209,
+        "lift": 2.44,
+        "score": 97,
+        "title": "Account Executive"
+      },
+      {
+        "dest": "operations-manager",
+        "count": 19,
+        "lift": 2.06,
+        "score": 82,
+        "title": "Operations Manager"
+      },
+      {
+        "dest": "sales-engineer",
+        "count": 59,
+        "lift": 1.92,
+        "score": 76,
+        "title": "Sales Engineer"
+      },
+      {
+        "dest": "real-estate-developer",
+        "count": 3,
+        "lift": 1.67,
+        "score": 66,
+        "title": "Real Estate Developer"
+      },
+      {
+        "dest": "solutions-architect",
+        "count": 58,
+        "lift": 1.49,
+        "score": 59,
+        "title": "Solutions Architect"
+      },
+      {
+        "dest": "data-analyst",
+        "count": 7,
+        "lift": 1.44,
+        "score": 57,
+        "title": "Data Analyst"
+      },
+      {
+        "dest": "management-consultant",
+        "count": 9,
+        "lift": 0.48,
+        "score": 19,
+        "title": "Management Consultant"
+      },
+      {
+        "dest": "project-manager",
+        "count": 3,
+        "lift": 0.11,
+        "score": 4,
+        "title": "Project Manager"
       }
     ],
     "software-engineer": [
       {
         "dest": "backend-developer",
         "count": 7,
-        "lift": 2.81,
+        "lift": 4.05,
         "score": 100,
         "title": "Backend Developer"
       },
       {
-        "dest": "machine-learning-engineer",
-        "count": 33,
-        "lift": 2.81,
-        "score": 100,
-        "title": "Machine Learning Engineer"
-      },
-      {
         "dest": "data-engineer",
         "count": 21,
-        "lift": 2.81,
+        "lift": 4.05,
         "score": 100,
         "title": "Data Engineer"
       },
       {
         "dest": "security-engineer",
         "count": 12,
-        "lift": 2.81,
+        "lift": 4.05,
         "score": 100,
         "title": "Security Engineer"
       },
       {
         "dest": "research-scientist",
         "count": 3,
-        "lift": 2.81,
+        "lift": 4.05,
         "score": 100,
         "title": "Research Scientist"
       },
       {
         "dest": "industrial-engineer",
         "count": 3,
-        "lift": 2.81,
+        "lift": 4.05,
         "score": 100,
         "title": "Industrial Engineer"
       },
       {
         "dest": "it-support",
         "count": 15,
-        "lift": 2.81,
+        "lift": 4.05,
         "score": 100,
         "title": "IT Support Specialist"
       },
       {
         "dest": "architect",
         "count": 3,
-        "lift": 2.81,
+        "lift": 4.05,
         "score": 100,
         "title": "Architect"
       },
       {
+        "dest": "machine-learning-engineer",
+        "count": 33,
+        "lift": 3.71,
+        "score": 92,
+        "title": "Machine Learning Engineer"
+      },
+      {
         "dest": "devops-engineer",
         "count": 30,
-        "lift": 2.56,
+        "lift": 3.68,
         "score": 91,
         "title": "DevOps Engineer"
       },
       {
         "dest": "customer-success-manager",
         "count": 10,
-        "lift": 2.16,
+        "lift": 3.12,
         "score": 77,
         "title": "Customer Success Manager"
       },
       {
         "dest": "product-manager",
         "count": 86,
-        "lift": 1.83,
-        "score": 65,
+        "lift": 2.56,
+        "score": 63,
         "title": "Product Manager"
       },
       {
         "dest": "qa-engineer",
         "count": 6,
-        "lift": 1.69,
+        "lift": 2.43,
         "score": 60,
         "title": "QA Engineer"
       }
@@ -285,7 +408,7 @@
       {
         "dest": "paralegal",
         "count": 19,
-        "lift": 53.89,
+        "lift": 77.63,
         "score": 100,
         "title": "Paralegal"
       }
@@ -294,15 +417,15 @@
       {
         "dest": "management-consultant",
         "count": 4,
-        "lift": 7.64,
+        "lift": 11.55,
         "score": 100,
         "title": "Management Consultant"
       },
       {
         "dest": "product-manager",
-        "count": 4,
-        "lift": 3.88,
-        "score": 51,
+        "count": 3,
+        "lift": 4.65,
+        "score": 40,
         "title": "Product Manager"
       }
     ],
@@ -310,101 +433,101 @@
       {
         "dest": "bookkeeper",
         "count": 5,
-        "lift": 20.9,
+        "lift": 30.1,
         "score": 100,
         "title": "Bookkeeper"
       },
       {
         "dest": "financial-analyst",
         "count": 23,
-        "lift": 16.02,
+        "lift": 23.08,
         "score": 77,
         "title": "Financial Analyst"
       },
       {
         "dest": "auditor",
         "count": 10,
-        "lift": 16.08,
+        "lift": 23.16,
         "score": 77,
         "title": "Auditor"
       },
       {
         "dest": "business-analyst",
         "count": 4,
-        "lift": 10.45,
+        "lift": 15.05,
         "score": 50,
         "title": "Business Analyst"
       },
       {
-        "dest": "account-executive",
-        "count": 4,
-        "lift": 0.75,
-        "score": 4,
-        "title": "Account Executive"
-      },
-      {
         "dest": "project-manager",
         "count": 3,
-        "lift": 0.63,
+        "lift": 0.82,
         "score": 3,
         "title": "Project Manager"
+      },
+      {
+        "dest": "account-executive",
+        "count": 4,
+        "lift": 0.36,
+        "score": 1,
+        "title": "Account Executive"
       }
     ],
     "marketing-manager": [
       {
-        "dest": "operations-manager",
-        "count": 4,
-        "lift": 20.48,
-        "score": 100,
-        "title": "Operations Manager"
-      },
-      {
         "dest": "recruiter",
         "count": 4,
-        "lift": 10.24,
-        "score": 50,
+        "lift": 14.75,
+        "score": 100,
         "title": "Recruiter"
       },
       {
         "dest": "corporate-trainer",
         "count": 3,
-        "lift": 10.24,
-        "score": 50,
+        "lift": 5.21,
+        "score": 35,
         "title": "Corporate Trainer"
       },
       {
         "dest": "sales-representative",
         "count": 4,
-        "lift": 3.15,
-        "score": 15,
+        "lift": 3.81,
+        "score": 26,
         "title": "Sales Representative"
       },
       {
-        "dest": "account-executive",
-        "count": 16,
-        "lift": 2.93,
-        "score": 14,
-        "title": "Account Executive"
+        "dest": "operations-manager",
+        "count": 4,
+        "lift": 3.28,
+        "score": 22,
+        "title": "Operations Manager"
       },
       {
         "dest": "product-manager",
         "count": 11,
-        "lift": 1.71,
-        "score": 8,
+        "lift": 2.39,
+        "score": 16,
         "title": "Product Manager"
       },
       {
         "dest": "management-consultant",
         "count": 4,
-        "lift": 1.22,
-        "score": 6,
+        "lift": 1.62,
+        "score": 11,
         "title": "Management Consultant"
+      },
+      {
+        "dest": "account-executive",
+        "count": 16,
+        "lift": 1.41,
+        "score": 10,
+        "title": "Account Executive"
       },
       {
         "dest": "project-manager",
         "count": 4,
-        "lift": 0.83,
-        "score": 4,
+        "lift": 1.07,
+        "score": 7,
         "title": "Project Manager"
       }
     ],
@@ -412,36 +535,36 @@
       {
         "dest": "structural-engineer",
         "count": 20,
-        "lift": 14.03,
+        "lift": 20.21,
         "score": 100,
         "title": "Structural Engineer"
       },
       {
         "dest": "building-performance-analyst",
         "count": 3,
-        "lift": 14.03,
+        "lift": 20.21,
         "score": 100,
         "title": "Building Performance Analyst"
       },
       {
         "dest": "project-manager",
         "count": 26,
-        "lift": 3.68,
-        "score": 26,
+        "lift": 4.78,
+        "score": 24,
         "title": "Project Manager"
       },
       {
         "dest": "solutions-architect",
         "count": 20,
-        "lift": 3.12,
-        "score": 22,
+        "lift": 2.66,
+        "score": 13,
         "title": "Solutions Architect"
       },
       {
         "dest": "software-engineer",
         "count": 4,
-        "lift": 1.44,
-        "score": 10,
+        "lift": 1.8,
+        "score": 9,
         "title": "Software Engineer"
       }
     ],
@@ -449,45 +572,61 @@
       {
         "dest": "maintenance-technician",
         "count": 3,
-        "lift": 73.14,
+        "lift": 105.36,
         "score": 100,
         "title": "Maintenance Technician"
       },
       {
-        "dest": "sales-engineer",
-        "count": 5,
-        "lift": 8.31,
-        "score": 11,
-        "title": "Sales Engineer"
-      },
-      {
         "dest": "management-consultant",
         "count": 6,
-        "lift": 6.55,
-        "score": 9,
+        "lift": 8.66,
+        "score": 8,
         "title": "Management Consultant"
+      },
+      {
+        "dest": "sales-engineer",
+        "count": 5,
+        "lift": 4.39,
+        "score": 4,
+        "title": "Sales Engineer"
+      }
+    ],
+    "product-manager": [
+      {
+        "dest": "marketing-manager",
+        "count": 3,
+        "lift": 63.21,
+        "score": 100,
+        "title": "Marketing Manager"
+      },
+      {
+        "dest": "project-manager",
+        "count": 4,
+        "lift": 7.66,
+        "score": 12,
+        "title": "Project Manager"
       }
     ],
     "business-analyst": [
       {
         "dest": "solutions-architect",
         "count": 34,
-        "lift": 8.79,
+        "lift": 7.5,
         "score": 100,
         "title": "Solutions Architect"
       },
       {
         "dest": "management-consultant",
         "count": 7,
-        "lift": 2.43,
-        "score": 28,
+        "lift": 3.21,
+        "score": 43,
         "title": "Management Consultant"
       },
       {
         "dest": "software-engineer",
         "count": 3,
-        "lift": 1.79,
-        "score": 20,
+        "lift": 2.23,
+        "score": 30,
         "title": "Software Engineer"
       }
     ],
@@ -495,15 +634,15 @@
       {
         "dest": "solutions-architect",
         "count": 18,
-        "lift": 9.75,
+        "lift": 8.32,
         "score": 100,
         "title": "Solutions Architect"
       },
       {
         "dest": "sales-engineer",
         "count": 3,
-        "lift": 3.32,
-        "score": 34,
+        "lift": 1.76,
+        "score": 21,
         "title": "Sales Engineer"
       }
     ],
@@ -511,41 +650,57 @@
       {
         "dest": "data-scientist",
         "count": 12,
-        "lift": 42.67,
+        "lift": 61.46,
         "score": 100,
         "title": "Data Scientist"
       }
     ],
     "it-support": [
       {
-        "dest": "sales-engineer",
-        "count": 4,
-        "lift": 13.3,
-        "score": 100,
-        "title": "Sales Engineer"
-      },
-      {
         "dest": "devops-engineer",
         "count": 3,
-        "lift": 13.3,
+        "lift": 19.16,
         "score": 100,
         "title": "DevOps Engineer"
+      },
+      {
+        "dest": "sales-engineer",
+        "count": 4,
+        "lift": 7.02,
+        "score": 37,
+        "title": "Sales Engineer"
       }
     ],
     "copywriter": [
       {
         "dest": "software-engineer",
         "count": 16,
-        "lift": 26.26,
+        "lift": 32.78,
         "score": 100,
         "title": "Software Engineer"
+      }
+    ],
+    "frontend-developer": [
+      {
+        "dest": "software-engineer",
+        "count": 6,
+        "lift": 19.67,
+        "score": 100,
+        "title": "Software Engineer"
+      },
+      {
+        "dest": "account-executive",
+        "count": 4,
+        "lift": 1.77,
+        "score": 9,
+        "title": "Account Executive"
       }
     ],
     "economist": [
       {
         "dest": "financial-analyst",
         "count": 7,
-        "lift": 34.13,
+        "lift": 49.17,
         "score": 100,
         "title": "Financial Analyst"
       }
@@ -554,36 +709,36 @@
       {
         "dest": "software-engineer",
         "count": 7,
-        "lift": 4.71,
+        "lift": 5.88,
         "score": 100,
         "title": "Software Engineer"
       },
       {
-        "dest": "account-executive",
-        "count": 18,
-        "lift": 4.22,
-        "score": 90,
-        "title": "Account Executive"
-      },
-      {
         "dest": "product-manager",
         "count": 8,
-        "lift": 1.59,
-        "score": 34,
+        "lift": 2.22,
+        "score": 38,
         "title": "Product Manager"
+      },
+      {
+        "dest": "account-executive",
+        "count": 18,
+        "lift": 2.04,
+        "score": 35,
+        "title": "Account Executive"
       },
       {
         "dest": "management-consultant",
         "count": 3,
-        "lift": 1.18,
-        "score": 25,
+        "lift": 1.55,
+        "score": 26,
         "title": "Management Consultant"
       },
       {
         "dest": "project-manager",
         "count": 3,
-        "lift": 0.8,
-        "score": 17,
+        "lift": 1.03,
+        "score": 18,
         "title": "Project Manager"
       }
     ],
@@ -591,21 +746,21 @@
       {
         "dest": "mechanical-engineer",
         "count": 5,
-        "lift": 85.33,
+        "lift": 122.92,
         "score": 100,
         "title": "Mechanical Engineer"
       },
       {
         "dest": "qa-engineer",
         "count": 4,
-        "lift": 34.13,
+        "lift": 49.17,
         "score": 40,
         "title": "QA Engineer"
       },
       {
         "dest": "project-manager",
         "count": 3,
-        "lift": 2.59,
+        "lift": 3.35,
         "score": 3,
         "title": "Project Manager"
       }
@@ -614,7 +769,7 @@
       {
         "dest": "interior-designer",
         "count": 5,
-        "lift": 204.8,
+        "lift": 295,
         "score": 100,
         "title": "Interior Designer"
       }
@@ -623,23 +778,23 @@
       {
         "dest": "construction-manager",
         "count": 4,
-        "lift": 53.89,
+        "lift": 77.63,
         "score": 100,
         "title": "Construction Manager"
       },
       {
         "dest": "project-manager",
         "count": 15,
-        "lift": 8.17,
-        "score": 15,
+        "lift": 10.59,
+        "score": 14,
         "title": "Project Manager"
       }
     ],
     "teacher": [
       {
         "dest": "registered-nurse",
-        "count": 3,
-        "lift": 341.33,
+        "count": 4,
+        "lift": 368.75,
         "score": 100,
         "title": "Registered Nurse"
       }
@@ -648,25 +803,16 @@
       {
         "dest": "project-manager",
         "count": 12,
-        "lift": 10.34,
+        "lift": 13.41,
         "score": 100,
         "title": "Project Manager"
-      }
-    ],
-    "product-designer": [
-      {
-        "dest": "product-manager",
-        "count": 3,
-        "lift": 7.76,
-        "score": 100,
-        "title": "Product Manager"
       }
     ],
     "registered-nurse": [
       {
         "dest": "nurse-practitioner",
         "count": 4,
-        "lift": 256,
+        "lift": 368.75,
         "score": 100,
         "title": "Nurse Practitioner"
       }
