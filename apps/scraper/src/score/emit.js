@@ -6,6 +6,7 @@ import { skillName } from '../normalize/skills.js';
 import { loadCapabilities, capabilitySimilarity } from '../analyze/capability.js';
 import { mobilityScore, mobilityTier } from './mobility.js';
 import { mobilityFlowScore } from './mobility-flow.js';
+import { mobilityFlowEscoScore } from './mobility-flow-esco.js';
 
 // Confidence tiers per the build playbook: <30 postings behind a number -> low-confidence
 // flag in the UI; an origin with <50 mapped postings total -> "insufficient data yet"
@@ -140,16 +141,19 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     const fitSignals = (dest, R) => {
       const cRaw = rawC.get(dest);
       const capability = cRaw == null ? null : Math.round(100 * (cRaw - cMin) / (cMax - cMin || 1));
-      // Prefer real observed CPS flow; fall back to O*NET curated relatedness where the
-      // pair is unresolvable at ACS resolution (same bucket / unmapped).
+      // Primary mobility for the (US-focused) fit: observed US CPS flow, then EU observed
+      // flow to fill pairs the coarser US ACS can't resolve, then O*NET curated relatedness.
+      // mobility_eu is the EU (Belgium) observed flow exposed separately, geography-labeled,
+      // for the rail's disambiguation view — never blended into US magnitudes. (docs/15 Thread 6)
       const flow = mobilityFlowScore(origin, dest);
+      const flowEu = mobilityFlowEscoScore(origin, dest);
       const related = mobilityScore(origin, dest);
-      const mobility = flow ?? related;
-      const mobility_source = flow != null ? 'observed-flow' : related != null ? 'related' : null;
+      const mobility = flow ?? flowEu ?? related;
+      const mobility_source = flow != null ? 'observed-flow-us' : flowEu != null ? 'observed-flow-eu' : related != null ? 'related' : null;
       const parts = [[FIT_W.R, R], [FIT_W.C, capability], [FIT_W.M, mobility]].filter(([, v]) => v != null);
       const wsum = parts.reduce((s, [w]) => s + w, 0);
       const fit = Math.round(parts.reduce((s, [w, v]) => s + w * v, 0) / wsum);
-      return { fit, capability, mobility, mobility_source, mobility_tier: flow != null ? null : mobilityTier(origin, dest) };
+      return { fit, capability, mobility, mobility_source, mobility_eu: flowEu, mobility_tier: flow != null ? null : mobilityTier(origin, dest) };
     };
 
     const roles = hops.map((h) => {
