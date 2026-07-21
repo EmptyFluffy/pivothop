@@ -15,115 +15,6 @@
   },
   "roles": [
     {
-      "id": "police-officer",
-      "title": "Police Officer",
-      "field": "Public Safety",
-      "cluster": "Service",
-      "kind": "pivot",
-      "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
-      "match": 41,
-      "fit": 32,
-      "capability": 9,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$30k–$35k",
-      "salary_band": [
-        31623,
-        33674
-      ],
-      "demand": "Moderate",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Presentation",
-        "Supply Chain",
-        "Teaching",
-        "Training & Facilitation"
-      ],
-      "learn": [
-        "Case Management",
-        "Curriculum Development",
-        "Operations",
-        "Audit"
-      ],
-      "waterfall": [
-        {
-          "skill": "case-management",
-          "name": "Case Management",
-          "pts": 9.1,
-          "earned": 0
-        },
-        {
-          "skill": "curriculum",
-          "name": "Curriculum Development",
-          "pts": 9.1,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 9.1,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 9.1,
-          "earned": 9.1
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 9.1,
-          "earned": 9.1
-        },
-        {
-          "skill": "teaching",
-          "name": "Teaching",
-          "pts": 9.1,
-          "earned": 9.1
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 9.1,
-          "earned": 9.1
-        },
-        {
-          "skill": "audit",
-          "name": "Audit",
-          "pts": 9.1,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 9.1,
-          "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 9.1,
-          "earned": 5
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 9.1,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 118,
-        "salaried": 118
-      }
-    },
-    {
       "id": "journalist",
       "title": "Journalist",
       "field": "Writing",
@@ -132,7 +23,7 @@
       "desc": "",
       "match": 34,
       "fit": 57,
-      "capability": 64,
+      "capability": 66,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 34,
@@ -294,8 +185,8 @@
       "kind": "pivot",
       "desc": "",
       "match": 21,
-      "fit": 37,
-      "capability": 67,
+      "fit": 38,
+      "capability": 68,
       "mobility": 50,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 5,
@@ -458,7 +349,7 @@
       "desc": "",
       "match": 20,
       "fit": 29,
-      "capability": 67,
+      "capability": 69,
       "mobility": 18,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 7,
@@ -620,8 +511,8 @@
       "kind": "pivot",
       "desc": "",
       "match": 18,
-      "fit": 31,
-      "capability": 68,
+      "fit": 32,
+      "capability": 70,
       "mobility": 31,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 21,
@@ -783,8 +674,8 @@
       "kind": "lateral",
       "desc": "",
       "match": 16,
-      "fit": 37,
-      "capability": 63,
+      "fit": 38,
+      "capability": 65,
       "mobility": 63,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
@@ -947,7 +838,7 @@
       "desc": "",
       "match": 15,
       "fit": 23,
-      "capability": 49,
+      "capability": 52,
       "mobility": 18,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 21,
@@ -1227,12 +1118,175 @@
         "postings": 30,
         "salaried": 30
       }
+    },
+    {
+      "id": "video-editor",
+      "title": "Video Editor",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "desc": "",
+      "match": 10,
+      "fit": 14,
+      "capability": 40,
+      "mobility": 1,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 7,
+      "mobility_tier": null,
+      "salary": "$45k–$90k",
+      "salary_band": [
+        42514,
+        88119
+      ],
+      "demand": "Low",
+      "remote": "12%",
+      "time": "12–24 mo",
+      "have": [
+        "Writing & Editing",
+        "Presentation",
+        "Social Media",
+        "Branding"
+      ],
+      "learn": [
+        "Video Editing",
+        "Premiere Pro",
+        "Motion Design",
+        "After Effects"
+      ],
+      "waterfall": [
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 29.3,
+          "earned": 6
+        },
+        {
+          "skill": "video-editing",
+          "name": "Video Editing",
+          "pts": 15.9,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 6.1,
+          "earned": 0.6
+        },
+        {
+          "skill": "social-media",
+          "name": "Social Media",
+          "pts": 6.1,
+          "earned": 1.1
+        },
+        {
+          "skill": "premiere",
+          "name": "Premiere Pro",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "motion-design",
+          "name": "Motion Design",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "after-effects",
+          "name": "After Effects",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "branding",
+          "name": "Branding",
+          "pts": 3.7,
+          "earned": 1.1
+        },
+        {
+          "skill": "illustration",
+          "name": "Illustration",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "event-planning",
+          "name": "Event Planning",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "nlp",
+          "name": "NLP",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "accessibility",
+          "name": "Accessibility",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "git",
+          "name": "Git",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "spec-writing",
+          "name": "Spec Writing",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 1.2,
+          "earned": 0
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 1.2,
+          "earned": 0.6
+        },
+        {
+          "skill": "rendering",
+          "name": "Rendering",
+          "pts": 1.2,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 1.2,
+          "earned": 0.9
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 50,
+        "salaried": 44
+      }
     }
   ],
   "next": {
-    "police-officer": [],
     "journalist": [],
-    "marketing-manager": [
+    "marketing-manager": [],
+    "creative-director": [
       {
         "t": "UX Researcher",
         "m": 10,
@@ -1248,142 +1302,41 @@
         ],
         "observed": null,
         "fit": 20,
-        "capability": 46,
+        "capability": 49,
         "mobility": null,
         "mobility_source": null,
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "marketing-manager",
-          "readiness_after": 28,
-          "gain": 18
-        }
-      }
-    ],
-    "creative-director": [
-      {
-        "t": "Physical Therapist",
-        "m": 11,
-        "slug": "physical-therapist",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Patient Care",
-          "Clinical Skills",
-          "Case Management",
-          "Scheduling"
-        ],
-        "observed": null,
-        "fit": 9,
-        "capability": 14,
-        "mobility": 2,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 2,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
           "parent": "creative-director",
-          "readiness_after": 24,
-          "gain": 13
-        }
-      },
-      {
-        "t": "Video Editor",
-        "m": 10,
-        "slug": "video-editor",
-        "field": "Design",
-        "cluster": "Design",
-        "kind": "pivot",
-        "gap": [
-          "Video Editing",
-          "Premiere Pro",
-          "Motion Design",
-          "After Effects"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": 36,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 7,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "creative-director",
-          "readiness_after": 27,
-          "gain": 17
+          "readiness_after": 30,
+          "gain": 20
         }
       }
     ],
-    "graphic-designer": [
-      {
-        "t": "Facilities Manager",
-        "m": 10,
-        "slug": "facilities-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Operations",
-          "Safety / OSHA",
-          "Procurement"
-        ],
-        "observed": null,
-        "fit": 7,
-        "capability": 0,
-        "mobility": 7,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 11,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "graphic-designer",
-          "readiness_after": 25,
-          "gain": 15
-        }
-      }
-    ],
+    "graphic-designer": [],
     "technical-writer": [],
     "motion-designer": [],
-    "creative-technologist": [
-      {
-        "t": "Content Strategist",
-        "m": 11,
-        "slug": "content-strategist",
-        "field": "Writing",
-        "cluster": "Media & Writing",
-        "kind": "lateral",
-        "gap": [
-          "NLP",
-          "Video Editing",
-          "Compliance",
-          "Data Analysis"
-        ],
-        "observed": "Primary-Short",
-        "fit": 27,
-        "capability": 72,
-        "mobility": 28,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 28,
-        "mobility_tier": "Primary-Short",
-        "reach": "bridged",
-        "via": {
-          "parent": "creative-technologist",
-          "readiness_after": 21,
-          "gain": 10
-        }
-      }
-    ]
+    "creative-technologist": [],
+    "video-editor": []
   },
   "direct": [],
   "cross": [
     [
       "journalist",
+      "video-editor",
+      0.56
+    ],
+    [
+      "journalist",
       "creative-director",
       0.53
+    ],
+    [
+      "creative-director",
+      "video-editor",
+      0.47
     ],
     [
       "graphic-designer",
@@ -1391,46 +1344,21 @@
       0.43
     ],
     [
-      "creative-director",
-      "creative-technologist",
-      0.34
-    ],
-    [
-      "creative-director",
       "graphic-designer",
-      0.33
+      "video-editor",
+      0.43
     ],
     [
-      "creative-director",
       "motion-designer",
-      0.32
-    ],
-    [
-      "marketing-manager",
-      "graphic-designer",
-      0.31
+      "video-editor",
+      0.4
     ]
   ],
   "bridges": [
     [
-      "creative-director",
-      "marketing-manager_0",
-      0.3
-    ],
-    [
-      "motion-designer",
-      "creative-director_1",
-      0.26
-    ],
-    [
       "marketing-manager",
-      "graphic-designer_0",
-      0.23
-    ],
-    [
-      "creative-director",
-      "creative-technologist_0",
-      0.2
+      "creative-director_0",
+      0.28
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

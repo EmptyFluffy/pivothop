@@ -34,6 +34,7 @@ export function rankPersonalized(chips, profiles, meta, names, originSlug, origi
   const scored = [];
   for (const [slug, p] of Object.entries(profiles)) {
     if (slug === originSlug) continue;
+    if (p.den < 0.5) continue; // degenerate profile: dictionary barely covers this occupation
     let cov = 0, shared = 0;
     for (const [s, w] of Object.entries(p.s)) if (have.has(s)) { cov += w; shared++; }
     if (shared < 2) continue;

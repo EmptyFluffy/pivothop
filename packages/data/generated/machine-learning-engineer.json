@@ -1349,61 +1349,34 @@
         }
       },
       {
-        "t": "Creative Technologist",
-        "m": 32,
-        "slug": "creative-technologist",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
+        "t": "Business Analyst",
+        "m": 27,
+        "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
         "gap": [
-          "Writing & Editing",
-          "Design Systems",
-          "Supply Chain",
-          "Branding"
+          "HR Operations",
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Project Management"
         ],
         "observed": null,
-        "fit": 30,
+        "fit": 33,
         "capability": null,
-        "mobility": 26,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 26,
+        "mobility": 46,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 100,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "research-scientist",
-          "readiness_after": 46,
-          "gain": 14
+          "readiness_after": 45,
+          "gain": 18
         }
       }
     ],
     "software-engineer": [
-      {
-        "t": "Mobile Developer",
-        "m": 40,
-        "slug": "mobile-developer",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
-        "gap": [
-          "React",
-          "TypeScript",
-          "Swift",
-          "Accounting"
-        ],
-        "observed": "Primary-Short",
-        "fit": 51,
-        "capability": null,
-        "mobility": 76,
-        "mobility_source": "related",
-        "mobility_eu": null,
-        "mobility_tier": "Primary-Short",
-        "reach": "bridged",
-        "via": {
-          "parent": "software-engineer",
-          "readiness_after": 66,
-          "gain": 26
-        }
-      },
       {
         "t": "Backend Developer",
         "m": 39,
@@ -1429,6 +1402,33 @@
           "parent": "software-engineer",
           "readiness_after": 60,
           "gain": 21
+        }
+      },
+      {
+        "t": "QA Engineer",
+        "m": 26,
+        "slug": "qa-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "QA / Testing",
+          "Git",
+          "Lean / Six Sigma",
+          "Linux"
+        ],
+        "observed": "Supplemental",
+        "fit": 24,
+        "capability": null,
+        "mobility": 20,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 20,
+        "mobility_tier": "Supplemental",
+        "reach": "bridged",
+        "via": {
+          "parent": "software-engineer",
+          "readiness_after": 43,
+          "gain": 17
         }
       }
     ],
@@ -1458,33 +1458,6 @@
           "parent": "solutions-architect",
           "readiness_after": 63,
           "gain": 22
-        }
-      },
-      {
-        "t": "Business Analyst",
-        "m": 27,
-        "slug": "business-analyst",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "HR Operations",
-          "Lean / Six Sigma",
-          "Scheduling",
-          "Project Management"
-        ],
-        "observed": null,
-        "fit": 33,
-        "capability": null,
-        "mobility": 46,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 100,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "solutions-architect",
-          "readiness_after": 42,
-          "gain": 15
         }
       }
     ],
@@ -1517,143 +1490,171 @@
         }
       },
       {
-        "t": "Statistician",
-        "m": 33,
-        "slug": "statistician",
-        "field": "Science",
-        "cluster": "Science",
-        "kind": "pivot",
+        "t": "Creative Technologist",
+        "m": 32,
+        "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
         "gap": [
-          "Translation",
-          "Risk Management",
-          "Data Visualization",
-          "Forecasting"
+          "Writing & Editing",
+          "Design Systems",
+          "Supply Chain",
+          "Branding"
         ],
         "observed": null,
-        "fit": 23,
+        "fit": 30,
         "capability": null,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
+        "mobility": 26,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 26,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "data-scientist",
-          "readiness_after": 53,
-          "gain": 20
+          "readiness_after": 49,
+          "gain": 17
         }
       }
     ],
     "data-analyst": [
       {
-        "t": "Product Analyst",
-        "m": 33,
-        "slug": "product-analyst",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
-        "gap": [
-          "Data Visualization",
-          "Looker",
-          "Tableau",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 54,
-        "capability": null,
-        "mobility": 100,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 100,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "data-analyst",
-          "readiness_after": 49,
-          "gain": 16
-        }
-      },
-      {
-        "t": "Market Researcher",
-        "m": 30,
-        "slug": "market-researcher",
-        "field": "Business",
-        "cluster": "Business",
+        "t": "Compliance Officer",
+        "m": 23,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
         "kind": "pivot",
         "gap": [
-          "Research",
-          "FEA / Simulation",
-          "Supply Chain",
+          "Compliance",
+          "Risk Management",
+          "Accounting",
           "Data Visualization"
         ],
         "observed": null,
-        "fit": 22,
+        "fit": 17,
         "capability": null,
-        "mobility": 5,
+        "mobility": 3,
         "mobility_source": "observed-flow-us",
         "mobility_eu": 6,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "data-analyst",
-          "readiness_after": 44,
+          "readiness_after": 37,
           "gain": 14
+        }
+      },
+      {
+        "t": "Operations Manager",
+        "m": 19,
+        "slug": "operations-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Operations",
+          "Salesforce",
+          "Data Visualization",
+          "Stakeholder Management"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": 9,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 11,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "data-analyst",
+          "readiness_after": 37,
+          "gain": 18
         }
       }
     ],
-    "product-manager": [],
+    "product-manager": [
+      {
+        "t": "UX Researcher",
+        "m": 23,
+        "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Product Management"
+        ],
+        "observed": null,
+        "fit": 23,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "product-manager",
+          "readiness_after": 51,
+          "gain": 28
+        }
+      }
+    ],
     "it-support": [
       {
-        "t": "Network Engineer",
-        "m": 32,
-        "slug": "network-engineer",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
+        "t": "Customer Success Manager",
+        "m": 22,
+        "slug": "customer-success-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
         "gap": [
-          "Networking",
-          "Terraform",
-          "Cybersecurity",
-          "Linux"
+          "Account Management",
+          "Customer Service",
+          "Product Management",
+          "Jira"
         ],
-        "observed": "Supplemental",
-        "fit": 30,
+        "observed": null,
+        "fit": 20,
         "capability": null,
-        "mobility": 26,
+        "mobility": 16,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 5,
+        "mobility_eu": 2,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "it-support",
-          "readiness_after": 50,
-          "gain": 18
+          "readiness_after": 41,
+          "gain": 19
         }
       },
       {
-        "t": "QA Engineer",
-        "m": 26,
-        "slug": "qa-engineer",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
+        "t": "Customer Support Specialist",
+        "m": 20,
+        "slug": "customer-support",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
         "gap": [
-          "QA / Testing",
-          "Git",
-          "Lean / Six Sigma",
-          "Linux"
+          "Customer Service",
+          "Translation",
+          "Operations",
+          "Lean / Six Sigma"
         ],
-        "observed": "Supplemental",
-        "fit": 24,
+        "observed": null,
+        "fit": 19,
         "capability": null,
-        "mobility": 20,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 20,
-        "mobility_tier": "Supplemental",
+        "mobility": 16,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 1,
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "it-support",
-          "readiness_after": 39,
-          "gain": 13
+          "readiness_after": 51,
+          "gain": 31
         }
       }
     ],
@@ -1716,46 +1717,46 @@
   },
   "direct": [
     {
-      "t": "Economist",
-      "m": 29,
-      "slug": "economist",
-      "field": "Science",
-      "cluster": "Science",
-      "kind": "pivot",
+      "t": "Design Technologist",
+      "m": 23,
+      "slug": "design-technologist",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "gap": [
-        "Forecasting",
-        "HR Operations",
-        "Supply Chain",
-        "FEA / Simulation"
+        "Design Systems",
+        "Email Marketing",
+        "BIM",
+        "Accessibility"
       ],
       "observed": null,
-      "fit": 20,
+      "fit": 23,
       "capability": null,
-      "mobility": 1,
+      "mobility": 24,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
+      "mobility_eu": 7,
       "mobility_tier": null,
       "reach": "direct"
     },
     {
-      "t": "SEO Specialist",
-      "m": 26,
-      "slug": "seo-specialist",
-      "field": "Business",
-      "cluster": "Business",
+      "t": "Teaching Assistant",
+      "m": 20,
+      "slug": "teaching-assistant",
+      "field": "Education",
+      "cluster": "Education",
       "kind": "pivot",
       "gap": [
-        "SEO",
-        "Content Marketing",
-        "SEM / Paid Media",
-        "Audit"
+        "Teaching",
+        "Scheduling",
+        "Classroom Management",
+        "Assessment"
       ],
       "observed": null,
-      "fit": 19,
+      "fit": 14,
       "capability": null,
-      "mobility": 5,
+      "mobility": 2,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 6,
+      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1794,24 +1795,24 @@
   ],
   "bridges": [
     [
-      "data-scientist",
-      "data-analyst_1",
-      0.63
-    ],
-    [
-      "data-scientist",
-      "data-analyst_0",
-      0.62
-    ],
-    [
       "industrial-engineer",
       "solutions-architect_0",
       0.57
     ],
     [
-      "industrial-engineer",
+      "solutions-architect",
       "software-engineer_0",
-      0.52
+      0.51
+    ],
+    [
+      "solutions-architect",
+      "research-scientist_0",
+      0.48
+    ],
+    [
+      "research-scientist",
+      "data-scientist_1",
+      0.46
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

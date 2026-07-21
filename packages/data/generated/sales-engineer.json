@@ -23,7 +23,7 @@
       "desc": "",
       "match": 60,
       "fit": 46,
-      "capability": 38,
+      "capability": 35,
       "mobility": 23,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 11,
@@ -186,7 +186,7 @@
       "desc": "",
       "match": 59,
       "fit": 44,
-      "capability": 40,
+      "capability": 38,
       "mobility": 14,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 3,
@@ -349,7 +349,7 @@
       "desc": "",
       "match": 52,
       "fit": 45,
-      "capability": 52,
+      "capability": 50,
       "mobility": 24,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 5,
@@ -675,7 +675,7 @@
       "desc": "",
       "match": 49,
       "fit": 39,
-      "capability": 30,
+      "capability": 27,
       "mobility": 26,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 26,
@@ -838,7 +838,7 @@
       "desc": "",
       "match": 48,
       "fit": 37,
-      "capability": 54,
+      "capability": 52,
       "mobility": 1,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 1,
@@ -1156,171 +1156,198 @@
       }
     },
     {
-      "id": "network-engineer",
-      "title": "Network Engineer",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
+      "id": "marketing-manager",
+      "title": "Marketing Manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
-      "match": 45,
-      "fit": 32,
-      "capability": 34,
-      "mobility": 3,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 3,
+      "match": 42,
+      "fit": 60,
+      "capability": 60,
+      "mobility": 100,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 54,
       "mobility_tier": null,
-      "salary": "$100k–$195k",
+      "salary": "$60k–$115k",
       "salary_band": [
-        101767,
-        194000
+        57610,
+        116100
       ],
-      "demand": "Low",
-      "remote": "22%",
+      "demand": "High",
+      "remote": "12%",
       "time": "12–24 mo",
       "have": [
-        "Observability",
-        "Python",
-        "Cybersecurity",
-        "Linux"
+        "Product Management",
+        "Data Analysis",
+        "Project Management",
+        "Presentation"
       ],
       "learn": [
-        "Networking",
-        "Terraform",
-        "Operations",
-        "Git"
+        "Market Research",
+        "Email Marketing",
+        "CRM",
+        "Content Marketing"
       ],
       "waterfall": [
         {
-          "skill": "networking",
-          "name": "Networking",
-          "pts": 15.7,
+          "skill": "product-management",
+          "name": "Product Management",
+          "pts": 10.7,
+          "earned": 10.7
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 8.7,
+          "earned": 8.7
+        },
+        {
+          "skill": "market-research",
+          "name": "Market Research",
+          "pts": 7.5,
           "earned": 0
         },
         {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 11.4,
-          "earned": 8.6
-        },
-        {
-          "skill": "terraform",
-          "name": "Terraform",
-          "pts": 10,
+          "skill": "email-marketing",
+          "name": "Email Marketing",
+          "pts": 6.7,
           "earned": 0
         },
         {
-          "skill": "python",
-          "name": "Python",
-          "pts": 7.1,
-          "earned": 7.1
-        },
-        {
-          "skill": "cybersecurity",
-          "name": "Cybersecurity",
-          "pts": 5.7,
-          "earned": 5
-        },
-        {
-          "skill": "linux",
-          "name": "Linux",
-          "pts": 5.7,
-          "earned": 4.3
-        },
-        {
-          "skill": "rest-apis",
-          "name": "REST APIs",
-          "pts": 5.7,
-          "earned": 5.7
-        },
-        {
-          "skill": "aws",
-          "name": "AWS",
-          "pts": 5.7,
-          "earned": 5.7
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "git",
-          "name": "Git",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "clinical",
-          "name": "Clinical Skills",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "clinical-research",
-          "name": "Clinical Research",
-          "pts": 2.9,
-          "earned": 2.9
-        },
-        {
-          "skill": "gcp",
-          "name": "GCP",
-          "pts": 2.9,
-          "earned": 2.9
-        },
-        {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 2.9,
+          "skill": "crm",
+          "name": "CRM",
+          "pts": 6.3,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 2.9,
-          "earned": 2.9
+          "pts": 6.1,
+          "earned": 6.1
         },
         {
-          "skill": "journalism",
-          "name": "Journalism",
-          "pts": 1.4,
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 5.1,
+          "earned": 5.1
+        },
+        {
+          "skill": "event-planning",
+          "name": "Event Planning",
+          "pts": 4.8,
+          "earned": 4.8
+        },
+        {
+          "skill": "content-marketing",
+          "name": "Content Marketing",
+          "pts": 4.8,
           "earned": 0
         },
         {
-          "skill": "nlp",
-          "name": "NLP",
-          "pts": 1.4,
+          "skill": "sem",
+          "name": "SEM / Paid Media",
+          "pts": 4.8,
           "earned": 0
         },
         {
-          "skill": "technical-writing",
-          "name": "Technical Writing",
-          "pts": 1.4,
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "salesforce",
+          "name": "Salesforce",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "social-media",
+          "name": "Social Media",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 3.6,
+          "earned": 3.6
+        },
+        {
+          "skill": "ab-testing",
+          "name": "A/B Testing",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "sales",
+          "name": "Sales",
+          "pts": 3,
+          "earned": 3
+        },
+        {
+          "skill": "seo",
+          "name": "SEO",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "stakeholder-management",
+          "name": "Stakeholder Management",
+          "pts": 2.8,
           "earned": 0
         }
       ],
-      "low_confidence": true,
+      "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 18,
-        "salaried": 13
+        "postings": 739,
+        "salaried": 585
       }
     }
   ],
   "next": {
     "industrial-engineer": [
+      {
+        "t": "Business Analyst",
+        "m": 32,
+        "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "HR Operations",
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Audit"
+        ],
+        "observed": null,
+        "fit": 34,
+        "capability": 50,
+        "mobility": 24,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 10,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "industrial-engineer",
+          "readiness_after": 42,
+          "gain": 10
+        }
+      },
       {
         "t": "Executive Assistant",
         "m": 30,
@@ -1335,8 +1362,8 @@
           "Account Management"
         ],
         "observed": null,
-        "fit": 49,
-        "capability": 36,
+        "fit": 48,
+        "capability": 34,
         "mobility": 100,
         "mobility_source": "observed-flow-eu",
         "mobility_eu": 100,
@@ -1392,7 +1419,7 @@
         ],
         "observed": null,
         "fit": 36,
-        "capability": 61,
+        "capability": 60,
         "mobility": 15,
         "mobility_source": "observed-flow-us",
         "mobility_eu": 26,
@@ -1407,88 +1434,61 @@
     ],
     "management-consultant": [
       {
-        "t": "Marketing Manager",
-        "m": 42,
-        "slug": "marketing-manager",
+        "t": "Customer Success Manager",
+        "m": 30,
+        "slug": "customer-success-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "lateral",
         "gap": [
-          "Market Research",
-          "Email Marketing",
-          "CRM",
-          "Content Marketing"
+          "Account Management",
+          "Customer Service",
+          "SQL",
+          "Jira"
         ],
         "observed": null,
-        "fit": 60,
-        "capability": 61,
-        "mobility": 100,
+        "fit": 26,
+        "capability": 47,
+        "mobility": 2,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 54,
+        "mobility_eu": 59,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "management-consultant",
-          "readiness_after": 56,
-          "gain": 14
+          "readiness_after": 49,
+          "gain": 19
         }
       },
       {
-        "t": "Account Executive",
-        "m": 33,
-        "slug": "account-executive",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Negotiation",
-          "Salesforce",
-          "Forecasting",
-          "Account Management"
-        ],
-        "observed": "Supplemental",
-        "fit": 50,
-        "capability": null,
-        "mobility": 86,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "management-consultant",
-          "readiness_after": 43,
-          "gain": 10
-        }
-      }
-    ],
-    "software-engineer": [
-      {
-        "t": "Mobile Developer",
-        "m": 41,
-        "slug": "mobile-developer",
+        "t": "Data Analyst",
+        "m": 27,
+        "slug": "data-analyst",
         "field": "Technology",
         "cluster": "Technology",
         "kind": "pivot",
         "gap": [
-          "React",
-          "TypeScript",
-          "Swift",
-          "SQL"
+          "SQL",
+          "Data Visualization",
+          "ETL",
+          "Tableau"
         ],
-        "observed": "Primary-Short",
-        "fit": 59,
+        "observed": null,
+        "fit": 19,
         "capability": null,
-        "mobility": 100,
+        "mobility": 2,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 4,
+        "mobility_eu": 10,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "software-engineer",
-          "readiness_after": 69,
-          "gain": 28
+          "parent": "management-consultant",
+          "readiness_after": 36,
+          "gain": 9
         }
-      },
+      }
+    ],
+    "software-engineer": [
       {
         "t": "Backend Developer",
         "m": 39,
@@ -1514,6 +1514,33 @@
           "parent": "software-engineer",
           "readiness_after": 62,
           "gain": 23
+        }
+      },
+      {
+        "t": "Data Engineer",
+        "m": 28,
+        "slug": "data-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "ETL",
+          "SQL",
+          "Airflow",
+          "dbt"
+        ],
+        "observed": null,
+        "fit": 51,
+        "capability": 55,
+        "mobility": 100,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 4,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "software-engineer",
+          "readiness_after": 37,
+          "gain": 9
         }
       }
     ],
@@ -1546,30 +1573,30 @@
         }
       },
       {
-        "t": "Graphic Designer",
-        "m": 35,
-        "slug": "graphic-designer",
-        "field": "Design",
-        "cluster": "Design",
-        "kind": "pivot",
+        "t": "Account Executive",
+        "m": 33,
+        "slug": "account-executive",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
         "gap": [
-          "Branding",
-          "Writing & Editing",
-          "Motion Design",
-          "Photoshop"
+          "Negotiation",
+          "Salesforce",
+          "Forecasting",
+          "Account Management"
         ],
-        "observed": null,
-        "fit": 38,
-        "capability": 54,
-        "mobility": 31,
+        "observed": "Supplemental",
+        "fit": 50,
+        "capability": null,
+        "mobility": 86,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 4,
+        "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "it-support",
           "readiness_after": 44,
-          "gain": 9
+          "gain": 11
         }
       }
     ],
@@ -1588,8 +1615,8 @@
           "CI/CD"
         ],
         "observed": null,
-        "fit": 55,
-        "capability": 39,
+        "fit": 54,
+        "capability": 36,
         "mobility": 100,
         "mobility_source": "observed-flow-us",
         "mobility_eu": 2,
@@ -1616,7 +1643,7 @@
         ],
         "observed": null,
         "fit": 31,
-        "capability": 46,
+        "capability": 44,
         "mobility": 4,
         "mobility_source": "observed-flow-eu",
         "mobility_eu": 4,
@@ -1631,132 +1658,105 @@
     ],
     "real-estate-developer": [
       {
-        "t": "Customer Success Manager",
-        "m": 30,
-        "slug": "customer-success-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
+        "t": "Civil Engineer",
+        "m": 25,
+        "slug": "civil-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
         "gap": [
-          "Account Management",
-          "Customer Service",
-          "SQL",
-          "Jira"
+          "Spec Writing",
+          "Assessment",
+          "AutoCAD",
+          "Quality Control"
         ],
         "observed": null,
-        "fit": 27,
-        "capability": 49,
-        "mobility": 2,
+        "fit": 28,
+        "capability": 35,
+        "mobility": 30,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 59,
+        "mobility_eu": 1,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
-          "readiness_after": 41,
-          "gain": 11
+          "readiness_after": 33,
+          "gain": 8
         }
       }
     ],
-    "network-engineer": [
+    "marketing-manager": [
       {
-        "t": "Systems Administrator",
-        "m": 41,
-        "slug": "systems-administrator",
-        "field": "Technology",
-        "cluster": "Technology",
+        "t": "Graphic Designer",
+        "m": 35,
+        "slug": "graphic-designer",
+        "field": "Design",
+        "cluster": "Design",
         "kind": "pivot",
         "gap": [
-          "Jira",
-          "Operations",
-          "HR Operations",
-          "CI/CD"
+          "Branding",
+          "Writing & Editing",
+          "Motion Design",
+          "Photoshop"
         ],
         "observed": null,
-        "fit": 31,
-        "capability": 39,
-        "mobility": 4,
-        "mobility_source": "observed-flow-eu",
+        "fit": 37,
+        "capability": 52,
+        "mobility": 31,
+        "mobility_source": "observed-flow-us",
         "mobility_eu": 4,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "network-engineer",
-          "readiness_after": 50,
-          "gain": 9
-        }
-      },
-      {
-        "t": "Business Analyst",
-        "m": 32,
-        "slug": "business-analyst",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "HR Operations",
-          "Lean / Six Sigma",
-          "Scheduling",
-          "Audit"
-        ],
-        "observed": null,
-        "fit": 34,
-        "capability": 52,
-        "mobility": 24,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 10,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "network-engineer",
-          "readiness_after": 43,
-          "gain": 11
+          "parent": "marketing-manager",
+          "readiness_after": 49,
+          "gain": 14
         }
       }
     ]
   },
   "direct": [
     {
-      "t": "Librarian",
-      "m": 30,
-      "slug": "librarian",
-      "field": "Education",
-      "cluster": "Education",
-      "kind": "pivot",
+      "t": "Recruiter",
+      "m": 27,
+      "slug": "recruiter",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "gap": [
-        "Accessibility",
-        "Teaching",
-        "Training & Facilitation",
-        "Budgeting"
+        "Recruiting",
+        "Supply Chain",
+        "Branding",
+        "Stakeholder Management"
       ],
       "observed": null,
       "fit": 23,
-      "capability": 29,
-      "mobility": 1,
+      "capability": 31,
+      "mobility": 8,
       "mobility_source": "observed-flow-eu",
-      "mobility_eu": 1,
+      "mobility_eu": 8,
       "mobility_tier": null,
       "reach": "direct"
     },
     {
-      "t": "Data Engineer",
-      "m": 28,
-      "slug": "data-engineer",
+      "t": "QA Engineer",
+      "m": 26,
+      "slug": "qa-engineer",
       "field": "Technology",
       "cluster": "Technology",
       "kind": "pivot",
       "gap": [
-        "ETL",
+        "QA / Testing",
+        "Git",
         "SQL",
-        "Airflow",
-        "dbt"
+        "Lean / Six Sigma"
       ],
       "observed": null,
-      "fit": 52,
-      "capability": 56,
+      "fit": 47,
+      "capability": 39,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 4,
+      "mobility_eu": 2,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1783,30 +1783,30 @@
       0.56
     ],
     [
-      "security-engineer",
-      "network-engineer",
-      0.51
-    ],
-    [
       "software-engineer",
       "security-engineer",
       0.48
+    ],
+    [
+      "solutions-architect",
+      "management-consultant",
+      0.44
     ]
   ],
   "bridges": [
+    [
+      "solutions-architect",
+      "management-consultant_1",
+      0.63
+    ],
     [
       "software-engineer",
       "security-engineer_0",
       0.59
     ],
     [
-      "real-estate-developer",
-      "management-consultant_0",
-      0.54
-    ],
-    [
       "solutions-architect",
-      "software-engineer_1",
+      "software-engineer_0",
       0.54
     ],
     [

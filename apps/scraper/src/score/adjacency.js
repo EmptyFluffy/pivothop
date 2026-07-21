@@ -3,6 +3,12 @@ import { AGGREGATES_FILE, ADJACENCY_FILE } from '../lib/paths.js';
 
 const TOP_K = 48; // sparse but deep: emit-time direct-route comparisons need real numbers, not truncation zeros
 const MIN_SHARED_SKILLS = 3; // evidence floor: a pair sharing fewer distinct skills is not scored
+// Destination floors. A destination with few postings, or a DEGENERATE profile (top-20
+// skill shares summing to almost nothing because our dictionary barely matches its
+// postings — e.g. police officer at 1% top share), must not be ranked: a near-zero
+// coverage denominator turns two generic skills into a huge fake match.
+const MIN_DEST_POSTINGS = 30;
+const MIN_PROFILE_DEN = 0.5;
 
 /**
  * Occupation-to-occupation adjacency from weighted skill overlap.
@@ -38,6 +44,9 @@ export async function adjacency({ log }) {
       if (d === o) continue;
       const om = maps[o], dm = maps[d];
       if (!om.size || !dm.size) continue;
+      if (roles[d].count < MIN_DEST_POSTINGS) continue;
+      let dden = 0; for (const w of dm.values()) dden += w;
+      if (dden < MIN_PROFILE_DEN) continue;
       let sumMin = 0, sumMax = 0, cov = 0, covDen = 0, shared = 0;
       const union = new Set([...om.keys(), ...dm.keys()]);
       for (const s of union) {
