@@ -3,6 +3,8 @@ import { readJson, writeJson } from '../lib/store.js';
 import { AGGREGATES_FILE, ADJACENCY_FILE, GENERATED_DIR, TAXONOMY_DIR } from '../lib/paths.js';
 import { getTaxonomy } from '../normalize/titles.js';
 import { skillName } from '../normalize/skills.js';
+import { loadCapabilities, capabilitySimilarity } from '../analyze/capability.js';
+import { mobilityScore, mobilityTier } from './mobility.js';
 
 // Confidence tiers per the build playbook: <30 postings behind a number -> low-confidence
 // flag in the UI; an origin with <50 mapped postings total -> "insufficient data yet"
@@ -23,6 +25,11 @@ const KID_MIN_READINESS = 10; // below this even the honest framing is noise
 const BRIDGE_MIN_GAIN = 8;    // a parent must add a real unlock to count as a bridge; below this, the kid stands alone
 const CROSS_MAX = 6;
 const BRIDGE_MAX = 4;
+// Secondary "fit" blends skill readiness (R, the headline) with capability similarity (C)
+// and observed-mobility prior (M). R stays the displayed match and drives the graph; fit
+// is rich context in the rail. Re-weighted over whichever signals a pair actually has.
+// (docs/15, Thread 7)
+const FIT_W = { R: 0.55, C: 0.2, M: 0.25 };
 
 function fmtSalary(p25, p75) {
   if (!p25 || !p75) return null;
@@ -122,6 +129,23 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     const hops = (adj[origin] ?? []).slice(0, FIRST_HOPS);
     const hopSlugs = new Set(hops.map((h) => h.dest));
 
+    // Fit signals, normalized per-origin over this origin's candidate destinations so C, M
+    // and R share a 0..100 scale. R (skill readiness) stays the headline; fit is secondary.
+    const cap = loadCapabilities();
+    const rawC = new Map((adj[origin] ?? []).map((x) => [x.dest,
+      cap?.vectors?.[origin] && cap?.vectors?.[x.dest] ? capabilitySimilarity(cap.vectors, origin, x.dest) : null]));
+    const cVals = [...rawC.values()].filter((v) => v != null);
+    const cMin = Math.min(...cVals, 0), cMax = Math.max(...cVals, 1);
+    const fitSignals = (dest, R) => {
+      const cRaw = rawC.get(dest);
+      const capability = cRaw == null ? null : Math.round(100 * (cRaw - cMin) / (cMax - cMin || 1));
+      const mobility = mobilityScore(origin, dest);
+      const parts = [[FIT_W.R, R], [FIT_W.C, capability], [FIT_W.M, mobility]].filter(([, v]) => v != null);
+      const wsum = parts.reduce((s, [w]) => s + w, 0);
+      const fit = Math.round(parts.reduce((s, [w, v]) => s + w * v, 0) / wsum);
+      return { fit, capability, mobility, mobility_tier: mobilityTier(origin, dest) };
+    };
+
     const roles = hops.map((h) => {
       const d = agg[h.dest];
       const info = occInfo(h.dest);
@@ -134,7 +158,8 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         cluster: info.cluster,
         kind: routeKind(origin, h.dest),
         desc: info.desc ?? '',
-        match: h.match,
+        match: h.match, // skill readiness (R) — the headline number, drives the graph
+        ...fitSignals(h.dest, h.match), // fit + capability + mobility — secondary context
         salary: d.salaried_count >= 5 ? fmtSalary(d.salary_p25, d.salary_p75) : null,
         salary_band: d.salaried_count >= 5 ? [d.salary_p25, d.salary_p75] : null,
         demand: demandTier(d.count),
@@ -170,13 +195,14 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
       const gap = waterfall(oMap, kMap).filter((s) => s.earned === 0).slice(0, 4).map((s) => s.name);
       const kidBase = {
         t: info.title,
-        m: k.match, // origin-relative readiness — the same measure as every other node
+        m: k.match, // origin-relative readiness (R) — the same measure as every other node
         slug: k.dest,
         field: info.field,
         cluster: info.cluster,
         kind: routeKind(origin, k.dest),
         gap, // the missing skills to be ready to apply, straight from the waterfall
         observed: observedTier(origin, k.dest),
+        ...fitSignals(k.dest, k.match), // fit + capability + mobility
       };
       const gains = hops
         .map((h) => {

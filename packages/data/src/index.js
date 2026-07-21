@@ -9,7 +9,11 @@ export const GENERATED_DIR = path.join(PKG_ROOT, 'generated');
  * The contract the graph consumes. Per-origin file shape (version 2):
  * {
  *   origin: { slug, title, field, cluster, postings, salary, salary_band: [p25, p75], remote },
- *   roles:  [{ id, title, field, cluster, kind, desc, match, salary, salary_band, demand, remote, time,
+ *   roles:  [{ id, title, field, cluster, kind, desc,
+ *              match,       // skill readiness (R) — the HEADLINE number, drives the graph
+ *              fit, capability, mobility, mobility_tier,  // secondary: fit = blend of R + C + M,
+ *                                                          // shown decomposed in the rail; any may be null
+ *              salary, salary_band, demand, remote, time,
  *              have[], learn[],
  *              waterfall: [{ skill, name, pts, earned }],  // coverage decomposed per skill;
  *                                                          // earned sums to match — the structured
