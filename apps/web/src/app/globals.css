@@ -300,3 +300,21 @@
 .d-sig-row .f{display:block;height:5px;background:var(--accent)}
 .d-sig-row .v{font-family:var(--mono);font-size:10px;font-weight:700;text-align:right}
 .d-sig-src{font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-top:4px}
+
+/* ── macOS-style minimal scrollbars: thin overlay thumb, invisible until needed ── */
+#railDetail, .xsig, .ta-drop, .chips-drop{scrollbar-width:thin;scrollbar-color:transparent transparent;overscroll-behavior:contain}
+#railDetail:hover, .xsig:hover, .ta-drop:hover, .chips-drop:hover{scrollbar-color:rgba(21,21,26,.22) transparent}
+#railDetail::-webkit-scrollbar, .xsig::-webkit-scrollbar, .ta-drop::-webkit-scrollbar, .chips-drop::-webkit-scrollbar{width:5px;height:5px}
+#railDetail::-webkit-scrollbar-track, .xsig::-webkit-scrollbar-track, .ta-drop::-webkit-scrollbar-track, .chips-drop::-webkit-scrollbar-track{background:transparent}
+#railDetail::-webkit-scrollbar-thumb, .xsig::-webkit-scrollbar-thumb, .ta-drop::-webkit-scrollbar-thumb, .chips-drop::-webkit-scrollbar-thumb{background:transparent;border-radius:3px}
+#railDetail:hover::-webkit-scrollbar-thumb, .xsig:hover::-webkit-scrollbar-thumb, .ta-drop:hover::-webkit-scrollbar-thumb, .chips-drop:hover::-webkit-scrollbar-thumb{background:rgba(21,21,26,.22)}
+
+/* ── entrances: dropdowns slide-settle, the sheet rises — display:none→block restarts these ── */
+@media (prefers-reduced-motion: no-preference){
+  .ta-drop, .chips-drop{animation:dropIn .18s cubic-bezier(.3,.7,.3,1)}
+  @keyframes dropIn{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:translateY(0)}}
+  .xmodal.open .xsheet{animation:sheetIn .28s cubic-bezier(.3,.7,.3,1)}
+  @keyframes sheetIn{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+  .xmodal.open .veil{animation:veilIn .22s ease-out}
+  @keyframes veilIn{from{opacity:0}to{opacity:1}}
+}
