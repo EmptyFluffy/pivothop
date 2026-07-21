@@ -130,6 +130,22 @@ So a user sees *why* they're close: "60% there because you use Rhino, and archit
 
 ---
 
+## Data acquisition notes (credentials & later sources)
+
+**Reddit testimony (analyze:reddit) — free app, needed to run it live.**
+1. Log in at reddit.com → **reddit.com/prefs/apps** → "create another app".
+2. Name it, select type **script**, set redirect uri `http://localhost`, create.
+3. On that same page the app shows a **client_id** (the string under the app name / under "personal use script") and a **secret**. Those two *are* the API access — there is no separate API key page.
+4. `.env`: `REDDIT_CLIENT_ID=…`, `REDDIT_CLIENT_SECRET=…`. Reads public posts via application-only OAuth, rate-limited.
+
+**IPUMS CPS occupation-flow matrix (LATER / optional — the "heavy" one).** Real occupation→occupation flow ("of architects who changed jobs, X% became Y"). Heavy because you *build* the matrix from raw microdata, not download it: panel-link the same person across monthly CPS samples, and the Census OCC codes are coarse (~500 buckets, drift across years) so niche moves like architect→UX may be invisible even here. Steps when worth it:
+1. Free account at **cps.ipums.org**.
+2. Build an extract: linkable monthly samples + variables `OCC`/`OCC2010`, `CPSIDP` (person link key), employment status; submit; wait; download.
+3. Link persons across months via `CPSIDP`; keep those employed with a valid occupation in both.
+4. Count occupation→occupation transitions; crosswalk Census OCC → our taxonomy; normalize into `M_flow`.
+5. Drop into the fit where the O*NET mobility prior `M` sits now — the architecture already supports it.
+Recommendation: prefer Reddit testimony + the usage flywheel first; IPUMS only if the coarse-code payoff proves worth the dig.
+
 ## Sources
 
 - Management Science, lateral vs vertical mobility · BLS SOC job families & career clusters · O*NET-SOC taxonomy
