@@ -13,6 +13,7 @@ import { bridgeSkills } from './analyze/bridge-skills.js';
 import { cooccur } from './analyze/cooccur.js';
 import { fetchCapabilities } from './taxonomy/onet-capabilities.js';
 import { analyzeCapability } from './analyze/capability.js';
+import { analyzeFit } from './analyze/fit.js';
 
 loadEnv();
 const log = (...a) => console.log(...a);
@@ -105,6 +106,7 @@ switch (cmd) {
   case 'taxonomy:onet': await fetchOnetRelated({ log }); break;
   case 'taxonomy:capabilities': await fetchCapabilities({ log }); break;
   case 'analyze:capability': analyzeCapability({ log, origin: originFlag ?? arg ?? 'architect' }); break;
+  case 'analyze:fit': analyzeFit({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'status': status(); break;
   default:
     log(`PivotHop scraper — the gate.
