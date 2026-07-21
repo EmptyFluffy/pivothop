@@ -36,9 +36,18 @@ const IconMail = () => (
 export default function About() {
   return (
     <div className="about-page">
-      <header className="ab-nav">
-        <Link href="/" className="brand">PIVOTHOP</Link>
-        <span className="lbl">About</span>
+      <header className="nav">
+        <Link href="/" className="brand">
+          <span className="mark">
+            <svg viewBox="-8 -12 139 124" aria-hidden="true"><g fill="currentColor"><path d="M31.9 0 A25.3 15 0 0 0 82.5 0 Z" /><path fillRule="evenodd" d="M83.3 0 L92 0 C104 0 116 8 121 20 C124 27 123 34 119 38 C112 41 100 40 90 40 L83.3 40 Z M103.3 20 a3.7 3.7 0 1 0 0.01 0 Z" /><path d="M83.1 40 L83.1 76 C91 76 99 82 102 90 C103.5 94 103 98 101.5 99.7 L24 99.7 C23.5 92 25 84 28.6 75 C32 64 40 53 58.9 45 C67 41 73 40 78.6 40 Z" /><circle cx="10" cy="89.5" r="10" /></g></svg>
+          </span>
+          <span className="wm">PIVOTHOP</span>
+        </Link>
+        <a className="navlink" href="/fairelephant.html">FairElephant <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></a>
+        <Link className="navlink" href="/#how">Method</Link>
+        <a className="navlink" href="#">Blog</a>
+        <Link className="navlink on" href="/about">About</Link>
+        <Link className="cta" href="/#employers">For employers</Link>
       </header>
 
       <main className="ab-main">
@@ -99,19 +108,18 @@ export default function About() {
         <section className="ab-sec">
           <h2><IconPerson /> The person behind it</h2>
           <p>
-            Carlos Vinocour is a Costa Rican architect. He trained at ETSAM in Madrid,
-            then spent years on luxury hospitality work at Gensler, in collaboration
-            with Zaha Hadid Architects, and at Antoine Predock, where he is a senior
-            project designer today. Somewhere between the competition boards and the
-            construction sets, the scripts he wrote to generate drawings became more
-            interesting than the drawings.
+            Carlos is an architect. He has spent well over a decade on luxury
+            hospitality projects with international offices, the kind of work where a
+            building takes years and every drawing gets checked three times. Somewhere
+            between the competition boards and the construction sets, the scripts he
+            wrote to generate drawings became more interesting than the drawings.
           </p>
           <p>
             PivotHop started as the tool he needed during that shift and could not
             find. Architecture is the first vertical because it is the profession he
             can verify from the inside, not because the instrument stops there. He
-            runs the project solo, evenings and weekends, from San José. He also plays
-            bass in a shoegaze band called ADULTHOOD, which has nothing to do with
+            runs the project solo, evenings and weekends, around a full-time design
+            job. He also plays bass in a shoegaze band, which has nothing to do with
             career data and that is the point.
           </p>
         </section>
@@ -151,11 +159,9 @@ export default function About() {
             '@type': 'AboutPage',
             mainEntity: {
               '@type': 'Person',
-              name: 'Carlos Vinocour',
+              name: 'Carlos',
               jobTitle: 'Architect and founder',
               worksFor: { '@type': 'Organization', name: 'PivotHop' },
-              alumniOf: 'ETSAM Madrid',
-              nationality: 'Costa Rica',
             },
           }),
         }}
