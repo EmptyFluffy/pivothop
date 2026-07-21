@@ -16,7 +16,7 @@ export async function fetchRaw({ log }) {
   const headers = { host: 'data.usajobs.gov', 'user-agent': email, 'authorization-key': key };
   const rows = [];
   for (const term of cfg.terms) {
-    const url = `https://data.usajobs.gov/api/search?Keyword=${encodeURIComponent(term)}&ResultsPerPage=250`;
+    const url = `https://data.usajobs.gov/api/search?Keyword=${encodeURIComponent(term)}&ResultsPerPage=500`;
     let body;
     try { body = await fetchJson(url, { headers, minIntervalMs: 1500 }); }
     catch (err) { log(`usajobs:"${term}" — ${err.message}`); continue; }

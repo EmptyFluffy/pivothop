@@ -19,7 +19,7 @@ export async function fetchRaw({ log }) {
       for (let page = 1; page <= cfg.adzunaPagesPerQuery; page++) {
         const url = `https://api.adzuna.com/v1/api/jobs/${country}/search/${page}?app_id=${id}&app_key=${key}&results_per_page=50&what=${encodeURIComponent(term)}&content-type=application/json`;
         let body;
-        try { body = await fetchJson(url, { minIntervalMs: 1500 }); }
+        try { body = await fetchJson(url, { minIntervalMs: 2500 }); }
         catch (err) { log(`adzuna:${country}:"${term}" p${page} — ${err.message}`); break; }
         const results = body?.results ?? [];
         if (!results.length) break;
