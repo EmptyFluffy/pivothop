@@ -4,7 +4,7 @@ import { SHELL } from '@/lib/shell';
 import { DATA } from '@/lib/data';
 import { seedChips, rankPersonalized } from '@/lib/personalize';
 
-type Origin = { slug: string; title: string; field: string; postings: number };
+type Origin = { slug: string; title: string; field: string; postings: number; ok: boolean; syn: string[] };
 type Controller = { loadOrigin: (d: unknown) => void };
 type Profiles = Record<string, { s: Record<string, number>; den: number }>;
 type OccMeta = Record<string, { title: string; field: string; cluster: string | null; desc: string; salary: string | null; demand: string; remote: string; postings: number }>;
@@ -93,12 +93,31 @@ function wireSearch(controller: Controller) {
 
   function renderTa(q: string) {
     const query = q.trim().toLowerCase();
-    const hits = origins.filter((o) => !query || o.title.toLowerCase().includes(query)).sort((a, b) => b.postings - a.postings).slice(0, 8);
-    if (!hits.length) { taBox.style.display = 'none'; return; }
-    taBox.innerHTML = hits.map((o) =>
-      `<button class="ta-item" data-slug="${o.slug}" data-title="${o.title}" style="display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;background:none;border:none;border-bottom:0.5px solid var(--rule);padding:11px 16px;cursor:pointer;font:inherit;color:var(--ink)"><span style="font-size:14.5px">${o.title}</span><span style="font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">${o.field}</span></button>`
-    ).join('');
-    taBox.querySelectorAll<HTMLButtonElement>('.ta-item').forEach((b) => {
+    // Search titles AND synonyms — "web designer" must find UX Designer. When the hit
+    // came via a synonym, show it as context. Occupations without enough data appear
+    // disabled with an honest label instead of silently missing (per the docs' rule:
+    // the empty state is shown, never nothing).
+    const scored = origins
+      .map((o) => {
+        const t = o.title.toLowerCase();
+        if (!query) return { o, via: null as string | null, rank: o.ok ? 0 : 1 };
+        if (t.includes(query)) return { o, via: null, rank: (t.startsWith(query) ? 0 : 1) + (o.ok ? 0 : 2) };
+        const syn = (o.syn || []).find((x) => x.includes(query));
+        if (syn) return { o, via: syn, rank: 2 + (o.ok ? 0 : 2) };
+        return null;
+      })
+      .filter((x): x is { o: Origin; via: string | null; rank: number } => !!x)
+      .sort((a, b) => a.rank - b.rank || b.o.postings - a.o.postings)
+      .slice(0, 8);
+    if (!scored.length) { taBox.style.display = 'none'; return; }
+    taBox.innerHTML = scored.map(({ o, via }) => {
+      const right = o.ok
+        ? `<span style="font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">${o.field}</span>`
+        : `<span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--rule-2)">Not enough data yet</span>`;
+      const viaLine = via ? `<span style="display:block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:2px">${via} →</span>` : '';
+      return `<button class="ta-item" data-slug="${o.slug}" data-title="${o.title}" ${o.ok ? '' : 'disabled'} style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;text-align:left;background:none;border:none;border-bottom:0.5px solid var(--rule);padding:11px 16px;font:inherit;color:${o.ok ? 'var(--ink)' : 'var(--ink-3)'};cursor:${o.ok ? 'pointer' : 'default'}"><span style="font-size:14.5px">${viaLine}${o.title}</span>${right}</button>`;
+    }).join('');
+    taBox.querySelectorAll<HTMLButtonElement>('.ta-item:not([disabled])').forEach((b) => {
       b.addEventListener('mousedown', (e) => { e.preventDefault(); loadOriginBySlug(b.dataset.slug!, b.dataset.title!); });
     });
     placeUnder(taBox, roleInput!);
