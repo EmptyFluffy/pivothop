@@ -51,6 +51,7 @@ export function mountInstrument(DATA,HOOKS){
   /* ══ node physics — anisotropic gravity for a wide ellipse ══ */
   var CX=450,CY=320;
   var SVG=document.getElementById('graph');
+  SVG.setAttribute('viewBox','0 0 900 640'); /* the frame is FIXED — fonts and center never change; walls keep content inside */
   var NS='http://www.w3.org/2000/svg';
   var REPULSE=3600,CENTER_GX=0.00045,CENTER_GY=0.00105;
   var IDEAL={primary:150,kid:92,cross:240,bridge:170};
@@ -128,8 +129,8 @@ export function mountInstrument(DATA,HOOKS){
       /* zero velocity at the clamp: real data can park nodes on the walls with
          residual velocity, so nodeEnergy() never crosses the unfold threshold and
          labels never fade in (found in the Phase-1 preview harness; same fix). */
-      if(n.x<40){n.x=40;n.vx=0;}else if(n.x>860){n.x=860;n.vx=0;}
-      if(n.y<36){n.y=36;n.vy=0;}else if(n.y>604){n.y=604;n.vy=0;}
+      if(n.x<60){n.x=60;n.vx=0;}else if(n.x>840){n.x=840;n.vx=0;}
+      if(n.y<50){n.y=50;n.vy=0;}else if(n.y>590){n.y=590;n.vy=0;}
     }
   }
   function nodeEnergy(){
@@ -247,10 +248,21 @@ export function mountInstrument(DATA,HOOKS){
         n.lLocked=true;n.lLockX=n.x;n.lLockY=n.y;
         continue;
       }
+      /* stage walls repel labels before integration (soft), then clamp (hard):
+         the frame is fixed — nothing may cross it, ever */
+      var wPad=8,hwW=n.lblW/2,hhW=n.lblH/2;
+      if(n.lx-hwW<wPad)n.lvx+=(wPad-(n.lx-hwW))*0.3;
+      else if(n.lx+hwW>900-wPad)n.lvx-=((n.lx+hwW)-(900-wPad))*0.3;
+      if(n.ly-hhW<wPad)n.lvy+=(wPad-(n.ly-hhW))*0.3;
+      else if(n.ly+hhW>640-wPad)n.lvy-=((n.ly+hhW)-(640-wPad))*0.3;
       n.lvx*=0.62;n.lvy*=0.62;
       if(n.lvx>-0.04&&n.lvx<0.04)n.lvx=0;
       if(n.lvy>-0.04&&n.lvy<0.04)n.lvy=0;
       n.lx+=n.lvx;n.ly+=n.lvy;
+      if(n.lx-hwW<wPad){n.lx=wPad+hwW;n.lvx=0;}
+      else if(n.lx+hwW>900-wPad){n.lx=900-wPad-hwW;n.lvx=0;}
+      if(n.ly-hhW<wPad){n.ly=wPad+hhW;n.lvy=0;}
+      else if(n.ly+hhW>640-wPad){n.ly=640-wPad-hhW;n.lvy=0;}
       if(n.lAvgX===undefined){n.lAvgX=n.lx;n.lAvgY=n.ly;n.lStable=0;}
       else{n.lAvgX=n.lAvgX*0.85+n.lx*0.15;n.lAvgY=n.lAvgY*0.85+n.ly*0.15;}
       var ddx=n.lx-n.lAvgX,ddy=n.ly-n.lAvgY;
@@ -521,9 +533,6 @@ export function mountInstrument(DATA,HOOKS){
         var act2=activeLabelList();
         for(var s=0;s<260;s++)stepLabels(act2);
         updateLabels();
-        /* fit NOW, before the reveal — deferring to loop settle made the viewBox
-           snap seconds after the graph visually landed (the "late reposition") */
-        fitViewBox();needsRefit=false;
         el.labelsLayer.classList.remove('hidden');
       }
       rafId=requestAnimationFrame(tick);
@@ -540,11 +549,7 @@ export function mountInstrument(DATA,HOOKS){
     }else{
       for(var m=0;m<act.length;m++){var mn=act[m];if(mn.type==='you')continue;mn.lvx=0;mn.lvy=0;}
       rafId=null;
-      /* re-fit ONLY after an unfold or a real drag. Refitting after hover settles
-         rescales the world every time the active label set changes — the graph
-         visibly shifts sideways under the cursor (found by user, verified by
-         viewBox diff 868->943 on kid hover). */
-      if(needsRefit){fitViewBox();needsRefit=false;}
+
     }
   }
   function commitStateChange(){
@@ -572,7 +577,6 @@ export function mountInstrument(DATA,HOOKS){
     updateEdgeGeometry();updateNodeGeometry();
     updateEdgeVisuals();updateNodeVisuals();
     unfolding=true;
-    needsRefit=true;
     ensureLoop(3000);
   }
 
@@ -788,7 +792,6 @@ export function mountInstrument(DATA,HOOKS){
     }
   });
   window.addEventListener('mouseup',function(){
-    if(dragging&&dragMoved)needsRefit=true;
     if(!dragging)return;
     var dId=dragging.id;
     var wasClick=!dragMoved;
@@ -857,7 +860,6 @@ export function mountInstrument(DATA,HOOKS){
   initLabels();
   (function(){var act=activeLabelList();for(var s1=0;s1<260;s1++)stepLabels(act);})();
   buildDOM();
-  fitViewBox();
   buildRail();
   var railFilterBtn=document.getElementById('railFilter');
   if(railFilterBtn)railFilterBtn.addEventListener('click',function(){railPivotsOnly=!railPivotsOnly;buildRail();});
