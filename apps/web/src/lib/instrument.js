@@ -688,12 +688,17 @@ export function mountInstrument(DATA){
   });
 
   /* rail */
+  var railPivotsOnly=false;
   function buildRail(){
     var box=document.getElementById('railList');if(!box)return;
+    var fb=document.getElementById('railFilter');
+    var hasKinds=ROLES.some(function(r){return r.kind;});
+    if(fb){fb.style.display=hasKinds?'':'none';fb.classList.toggle('on',railPivotsOnly);fb.setAttribute('aria-pressed',railPivotsOnly?'true':'false');}
     var sorted=ROLES.slice().sort(function(a,b){return b.match-a.match;});
-    box.innerHTML=sorted.map(function(r){
+    if(railPivotsOnly&&hasKinds)sorted=sorted.filter(function(r){return r.kind==='pivot';});
+    box.innerHTML=(sorted.map(function(r){
       return '<button class="rail-item" data-id="'+r.id+'"><span>'+r.title+'</span><span class="pc">'+r.match+'%</span></button>';
-    }).join('');
+    }).join(''))||'<div class="rail-empty">No cross-industry pivots in the top routes yet.</div>';
     box.querySelectorAll('.rail-item').forEach(function(b){
       b.addEventListener('click',function(){
         var rid=b.getAttribute('data-id');
@@ -737,6 +742,8 @@ export function mountInstrument(DATA){
   buildDOM();
   fitViewBox();
   buildRail();
+  var railFilterBtn=document.getElementById('railFilter');
+  if(railFilterBtn)railFilterBtn.addEventListener('click',function(){railPivotsOnly=!railPivotsOnly;buildRail();});
   hydrateStatic();
   updateTrail(null);
   /* replay the unfold so first paint animates from the pill */

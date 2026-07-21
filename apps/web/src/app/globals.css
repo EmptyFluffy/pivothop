@@ -233,7 +233,8 @@
     .hero .sub{grid-template-columns:1fr}
     .hero .sub p{grid-column:1}
     .band-grid{grid-template-columns:1fr}
-    .rail{padding:18px 22px;border-right:none;border-bottom:0.5px solid var(--rule)}
+    .rail{padding:18px 22px;border-right:none;border-bottom:0.5px solid var(--rule);height:auto}
+    #railExport{margin:0 -22px -18px -22px}
     #railRoles{flex-direction:row;flex-wrap:wrap;gap:4px 18px}
     #railRoles .rl-cap{width:100%}
     .rail-item{padding:4px 0}
@@ -246,6 +247,12 @@
     .how .n{font-size:52px}
     .capture{grid-template-columns:1fr;gap:36px}
     .foot{grid-template-columns:1fr 1fr;gap:32px}
+  }
+
+  @media (max-width:560px){
+    .nav{grid-template-columns:1fr auto;height:52px}
+    .nav .navlink{display:none}
+    .nav .cta{font-size:9.5px;letter-spacing:.08em;padding:0 14px}
   }
 
   .ico{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
@@ -310,3 +317,10 @@
   .xmodal.open .veil{animation:veilIn .22s ease-out}
   @keyframes veilIn{from{opacity:0}to{opacity:1}}
 }
+/* rail filter chip: All routes / Pivots only */
+.rl-head{display:flex;align-items:baseline;justify-content:space-between;padding-right:24px;margin-bottom:14px}
+.rl-head .rl-cap{margin-bottom:0}
+.rl-filter{background:none;border:0.5px solid var(--rule-2);color:var(--ink-3);font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;cursor:pointer;transition:all .15s}
+.rl-filter:hover{color:var(--ink)}
+.rl-filter.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.rail-empty{font-size:12.5px;color:var(--ink-3);padding:10px 0;line-height:1.5}

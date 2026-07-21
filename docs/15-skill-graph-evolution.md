@@ -98,35 +98,35 @@ So a user sees *why* they're close: "60% there because you use Rhino, and archit
 ## Checklist
 
 **Phase A — data layer (backend-only, now):**
-- [ ] Industry cluster on every occupation in the taxonomy (field→cluster + AEC-engineer overrides)
-- [ ] Emitter: `cluster` + `kind` (lateral/pivot) on every ring-1 role and ring-2 kid
-- [ ] Emitter: conditional bridges — kids are `bridged` (via a parent) or `direct` (standalone in ring 2 with gap); only bridged kids emit a bridge edge
-- [ ] `analyze:cooccur` command: per-skill top co-occurring skills from postings → generated file
-- [ ] Blog pillar entry for Thread 3 in `docs/07-blog-strategy.md`
-- [ ] Re-run pipeline, verify sanity + stability, refresh preview, commit
+- [x] Industry cluster on every occupation in the taxonomy (field→cluster + AEC-engineer overrides)
+- [x] Emitter: `cluster` + `kind` (lateral/pivot) on every ring-1 role and ring-2 kid
+- [x] Emitter: conditional bridges — kids are `bridged` (via a parent) or `direct` (standalone in ring 2 with gap); only bridged kids emit a bridge edge
+- [x] `analyze:cooccur` command: per-skill top co-occurring skills from postings → generated file
+- [x] Blog pillar entry for Thread 3 in `docs/07-blog-strategy.md`
+- [x] Re-run pipeline, verify sanity + stability, refresh preview, commit
 
 **Phase B — personalization model (data, next):**
-- [ ] Origin as an editable skill vector; readiness re-derives from the vector, not the occupation average
-- [ ] Skill-context tiebreak in title mapping for ambiguous bare titles
+- [x] Origin as an editable skill vector (client-side, apps/web lib/personalize.js — binary demand-weight coverage, full ring-2/cross/bridge topology); readiness re-derives from the vector, not the occupation average
+- [ ] Skill-context tiebreak in title mapping (still open) for ambiguous bare titles
 
 **Phase D — multi-signal fit (data, the human layer):**
-- [ ] Ingest O*NET Abilities + Work Activities per occupation (join by SOC) → capability vectors
-- [ ] Capability similarity `C` (cosine) origin↔dest; confirm it pulls UX / 3D / product design closer to architecture
-- [ ] Observed mobility `M`: normalize O*NET Related (Tier A) into a base-rate-adjusted prior
-- [ ] Nesta Career Causeways crosswalk (Tier B) → real transition data
-- [ ] BLS occupational separations / CPS flow matrices (Tier C) → "% who actually move"
-- [ ] Combined `fit = wR·R + wC·C + wM·M` with graceful fallback; `R` stays visible
-- [ ] Emit the three signals + provenance per route for the rail decomposition
-- [ ] Re-tune, verify stability, guard against popularity bias
+- [x] Ingest O*NET Abilities + Work Activities per occupation (join by SOC) → capability vectors
+- [x] Capability similarity `C` (cosine) origin↔dest; confirm it pulls UX / 3D / product design closer to architecture
+- [x] Observed mobility `M`: normalize O*NET Related (Tier A) into a base-rate-adjusted prior
+- [x] SUPERSEDED by better sources: Oxford CPS observed-flow matrix (US) + JobHop ISCO matrix (EU), both ingested (Tier B) → real transition data
+- [x] Oxford CPS-derived flow matrix ingested (Zenodo, CC BY 4.0) as M_flow primary (Tier C) → "% who actually move"
+- [x] Combined `fit = wR·R + wC·C + wM·M` with graceful fallback; `R` stays visible
+- [x] Emit the three signals + provenance per route for the rail decomposition
+- [x] Re-tune, verify stability (verify command, snapshot drift), guard against popularity bias
 
 **Phase C — Phase 2 frontend (React rail + vanilla physics):**
-- [ ] Title typeahead, disambiguation-first, field shown
-- [ ] Editable skill chips seeded from the occupation
-- [ ] Related-skill suggestions from co-occurrence (add Rhino → suggest Grasshopper)
-- [ ] Standalone-kid rendering (faint origin→kid `reach` edge, longer ideal length)
-- [ ] Lateral/pivot rail tag + filter chip
-- [ ] Rail panel: the three-signal fit decomposition (readiness · abilities · commonly-done)
-- [ ] Background compute + reveal-on-run (keep the unfold as the theatrical moment)
+- [x] Title typeahead, disambiguation-first, field shown
+- [x] Editable skill chips seeded from the occupation
+- [x] Related-skill suggestions from co-occurrence (add Rhino → suggest Grasshopper)
+- [ ] Standalone-kid rendering (data emits `direct` kids; graph render still pending) (faint origin→kid `reach` edge, longer ideal length)
+- [x] Lateral/pivot rail tag + filter chip
+- [x] Rail panel: the three-signal fit decomposition (readiness · abilities · commonly-done)
+- [ ] Background compute + reveal-on-run (unfold replays on apply; precompute-while-typing still open) (keep the unfold as the theatrical moment)
 
 ---
 

@@ -334,3 +334,33 @@ Email subject lines follow the same voice discipline. No "🎉", no "Big news!",
 | Domain | career transition | remote compensation |
 
 Cool for careers, warm for compensation. Anyone landing on either site should know within a second that they're in the same house. When they appear together (nav references, footer, ecosystem callouts), they read as sibling instruments in one system.
+
+---
+
+## Ratified amendments (2026-07, built and verified in apps/web)
+
+These decisions were made against rendered mockups and the running app; they override the corresponding values above. The reference HTML files still carry the original cobalt — when porting, apply these amendments on top.
+
+**Accent — Klein ultramarine replaces electric cobalt.**
+- `--accent: #002FA6` (Yves Klein ultramarine — an artist's blue, not an app blue)
+- `--accent-press: #001f7a` · `--accent-tint: #e3e8f7`
+- Contrast on white: 10.7:1 (manifesto rule ≥4.5:1 passes with room). The old `#2b3cf5` read "shiny tech"; a muted periwinkle candidate read "social-media navy" — both rejected against renders.
+- The graph's kid-edge tint becomes `#4b60c9`.
+
+**The arrow motif — Lucide `arrow-up-right`, everywhere an action or route points outward.**
+- Source: lucide.dev (MIT), 24px grid, 2.2px stroke, round caps — consistent with the thin-line icon family.
+- Used on: every CTA ("Run the graph ↗", "Send my report ↗", "Export this route ↗"), nav outbound cells, rail route rows, route titles ("Architect ↗ Structural Engineer"). It is the visual verb of the product — a move.
+- Never the HTML entity `&nearr;` (renders as a system glyph, off-brand).
+
+**The export sheet — single-job capture over a live document preview.**
+- Left half: a full-bleed miniature of the report's actual first page, rendered from the selected route's real data (masthead, route title, readiness bars, 90-day plan, "Page 1 of 6 · N postings read"). The deliverable is the proof. No blur-tease, no autoplay carousel — both violate the no-dark-patterns rule.
+- Right half: ONE capture module, vertically centered — mono route context line, "Get the six-page report for this route." (specific number), oversized email field (autofocused, ink underline → accent on focus), full-width accent Send directly beneath, trust line, one quiet mono contents line. Nothing else competes.
+- The preview page's layout IS the visual spec for the delivered PDF (Phase 3 renders the same template) — preview and deliverable must match.
+
+**Imagery — halftone pinned, Sistine rejected.**
+- Representational/classical imagery (e.g. the Michelangelo hands) is rejected: it's a category cliché and violates "entirely typographic and vectorial."
+- The halftone/dot-matrix *technique* is approved in principle (it is a print method) but only applied to our own material (data fields, the marks, the graph) — currently pinned, unused, pending a placement that doesn't read as texture for texture's sake.
+
+**Typefaces — reconfirmed.** Space Grotesk + Space Mono stay. Brutalist character comes from layout, hairlines, arrows, scale, and Mono-as-instrument-voice — not from swapping to a generic neo-grotesque.
+
+**Motion additions (inside `prefers-reduced-motion` gates):** dropdowns settle in at 180ms / 7px on `cubic-bezier(.3,.7,.3,1)`; the export sheet rises 16px with a .985→1 scale settle at 280ms behind a 220ms veil fade. Scroll areas use macOS-style overlay scrollbars (5px, hover-only thumb).
