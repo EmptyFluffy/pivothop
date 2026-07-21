@@ -104,7 +104,7 @@
 
   /* detail — lives in the rail */
   #detail{display:flex;flex-direction:column;flex:1;min-height:0}
-  .d-cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+  .d-cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;gap:14px}
   .d-sector{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
   .d-title{font-weight:600;font-size:20px;letter-spacing:-.015em;line-height:1.1}
   .d-match{display:flex;align-items:baseline;gap:8px;margin:10px 0 18px}
@@ -338,3 +338,13 @@
   .chip-out{animation:chipOut .16s ease-in forwards;pointer-events:none}
   @keyframes chipOut{to{opacity:0;transform:scale(.82)}}
 }
+/* hop: recenter action in the rail + clickable trail history */
+.d-hop{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:none;border:1px solid var(--ink);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13.5px;padding:12px 14px;margin:16px 0 4px;cursor:pointer;transition:background .15s,color .15s}
+.d-hop:hover{background:var(--ink);color:var(--paper)}
+.d-hop .ico{flex:none}
+.d-hop.off{border-color:var(--rule-2);color:var(--ink-3);cursor:default;justify-content:space-between}
+.d-hop.off:hover{background:none;color:var(--ink-3)}
+.d-hop .nd{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+.crumb.link{background:none;border:none;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:0}
+.crumb.link:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.hop-tag{transition:opacity .15s}

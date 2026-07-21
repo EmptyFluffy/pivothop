@@ -1,7 +1,8 @@
 /* eslint-disable */
 // Physics ported verbatim from the reference; only data source + accent color changed.
 
-export function mountInstrument(DATA){
+export function mountInstrument(DATA,HOOKS){
+  HOOKS=HOOKS||{};
   var PILL_W=108,PILL_H=24;   /* wordmark clearance zone */
   var ROLES,NEXT,GNODES,GEDGES,NODE_BY_ID,NBRS;
   function derive(){
@@ -9,7 +10,7 @@ export function mountInstrument(DATA){
     ROLES.forEach(function(rl){rl.next=NEXT[rl.id]||[];});
     GNODES=[{id:'you',type:'you',label:DATA.originLabel,match:100}];
     ROLES.forEach(function(r){GNODES.push({id:r.id,type:'first',label:r.title,match:r.match});});
-    Object.keys(NEXT).forEach(function(pid){NEXT[pid].forEach(function(k,i){GNODES.push({id:pid+'_'+i,type:'kid',label:(k.t||'').replace(/&amp;/g,'&'),match:k.m,parent:pid});});});
+    Object.keys(NEXT).forEach(function(pid){NEXT[pid].forEach(function(k,i){GNODES.push({id:pid+'_'+i,type:'kid',label:(k.t||'').replace(/&amp;/g,'&'),match:k.m,parent:pid,slug:k.slug});});});
     GEDGES=[];
     ROLES.forEach(function(r){GEDGES.push({from:'you',to:r.id,w:r.match/100,k:'primary'});});
     Object.keys(NEXT).forEach(function(pid){NEXT[pid].forEach(function(k,i){GEDGES.push({from:pid,to:pid+'_'+i,w:k.m/100,k:'kid'});});});
@@ -277,6 +278,11 @@ export function mountInstrument(DATA){
       (minX-PADV)+' '+(minY-PADV)+' '+((maxX-minX)+PADV*2)+' '+((maxY-minY)+PADV*2));
   }
 
+  function nodeSlug(n){ if(!n)return null; return n.type==='first'?n.id:(n.slug||null); }
+  function canHop(n){ var sl=nodeSlug(n); return !!(sl&&HOOKS.canRecenter&&HOOKS.canRecenter(sl)); }
+  function doHop(n){ var sl=nodeSlug(n); if(!sl||!canHop(n))return; hideHopTag(); if(HOOKS.onRecenter)HOOKS.onRecenter(sl, NODE_BY_ID[n.id]?NODE_BY_ID[n.id].label:sl); }
+  window.__hopJump=function(i){ if(HOOKS.onTrailJump)HOOKS.onTrailJump(i); };
+  window.__hop=function(sl,title){ if(HOOKS.canRecenter&&!HOOKS.canRecenter(sl))return; hideHopTag(); if(HOOKS.onRecenter)HOOKS.onRecenter(sl,title); };
   /* ══ state machine ══ */
   var hoveredLayer=null,clickedNode=null,dragging=null,unfolding=false;
 
@@ -388,6 +394,14 @@ export function mountInstrument(DATA){
     youG.appendChild(pt);
     nodesG.appendChild(youG);
     el.pill=youG;
+    /* hop affordance tag: one persistent element, repositioned on hover (never rebuilt) */
+    var tagG=svgEl('g',{'class':'hop-tag','opacity':'0','pointer-events':'none'});
+    var tagR=svgEl('rect',{x:0,y:-11,width:112,height:15,fill:'#faf9f5',stroke:'#15151a','stroke-width':'0.6'});
+    var tagT=svgEl('text',{x:56,y:0,'text-anchor':'middle','font-family':'Space Mono, monospace','font-size':'7.5','letter-spacing':'1.2','fill':'#15151a'});
+    tagT.textContent='2\u00d7 CLICK \u2014 HOP HERE';
+    tagG.appendChild(tagR);tagG.appendChild(tagT);
+    SVG.appendChild(tagG);
+    el.hopTag=tagG;
     SVG.appendChild(nodesG);
 
     var labelsG=svgEl('g',{id:'labelsLayer'});
@@ -552,6 +566,11 @@ export function mountInstrument(DATA){
     if(!rows)return '';
     return '<div class="dsk"><div class="cap">Why this fit</div><div class="d-sig">'+rows+'</div></div>';
   }
+  function hopButton(slug,title){
+    var can=HOOKS.canRecenter?HOOKS.canRecenter(slug):false;
+    if(can)return '<button class="d-hop" onclick="window.__hop(\''+slug+'\',\''+String(title).replace(/'/g,'')+'\')"><span>Hop here \u2014 recenter the graph</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></button>';
+    return '<button class="d-hop off" disabled><span>Hop here</span><span class="nd">Not enough data yet</span></button>';
+  }
   function licenseStrip(o){
     if(!o.license)return '';
     var head=(o.license.req==='required')?'Licensed profession':'License for some roles';
@@ -570,7 +589,8 @@ export function mountInstrument(DATA){
     d.innerHTML=
       '<div class="d-cap"><span class="d-sector">'+rl.field+'</span>'+kindTag(rl)+'</div>'+
       '<div class="d-title">'+rl.title+'</div>'+
-      '<div class="d-match"><span class="n">'+rl.match+'</span><span class="u">% match from architect</span></div>'+
+      '<div class="d-match"><span class="n">'+rl.match+'</span><span class="u">% match from '+(DATA.personalized?'your skills':DATA.originLabel.toLowerCase())+'</span></div>'+
+      hopButton(rl.id,rl.title)+
       detailSignals(rl)+licenseStrip(rl)+
       '<div class="drow"><span class="k">Avg salary</span><span class="v">'+rl.salary+'</span></div>'+
       '<div class="drow"><span class="k">Job demand</span><span class="v">'+rl.demand+'</span></div>'+
@@ -588,13 +608,19 @@ export function mountInstrument(DATA){
       '<div class="d-cap"><span class="d-sector">Second hop</span><span class="lbl">Via '+parent.title+'</span></div>'+
       '<div class="d-title">'+kid.t+'</div>'+
       '<div class="d-match"><span class="n">'+kid.m+'</span><span class="u">% match at second hop</span></div>'+
+      hopButton(kid.slug||'',kid.t)+
       '<div class="drow"><span class="k">Path</span><span class="v">'+DATA.originLabel+' &rarr; '+parent.title+' &rarr; '+kid.t+'</span></div>'+
       '<div class="drow"><span class="k">Bridge role</span><span class="v">'+parent.title+'</span></div>'+
       '<div class="dsk"><div class="cap">How this pivot works</div><p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-top:4px">Reach this destination by first moving to '+parent.title+', which builds the foundation for a step into '+kid.t+' over the following 6&ndash;18 months. Two-hop moves take longer but open a wider range of destinations than a single pivot can.</p></div>';
   }
   function updateTrail(id){
     var tc=document.getElementById('trailCrumbs');if(!tc)return;
-    var crumbs=[DATA.originLabel];
+    var hops=(HOOKS.getTrail?HOOKS.getTrail():null)||[{title:DATA.originLabel}];
+    var crumbs=[];
+    for(var hi=0;hi<hops.length-1;hi++){
+      crumbs.push('<button class="crumb link" onclick="window.__hopJump('+hi+')">'+hops[hi].title+'</button>');
+    }
+    crumbs.push(DATA.originLabel);
     if(id&&id!=='you'){
       if(id.indexOf('_')>-1){
         var parts=id.split('_');
@@ -652,6 +678,14 @@ export function mountInstrument(DATA){
     return best;
   }
 
+  var hopHoverNode=null,hopTagTimer=null;
+  function showHopTag(n){
+    if(!el.hopTag)return;
+    var r=nodeRadius(n);
+    el.hopTag.setAttribute('transform','translate('+(n.x-56)+' '+(n.y-r-10)+')');
+    el.hopTag.setAttribute('opacity','1');
+  }
+  function hideHopTag(){ if(el.hopTag)el.hopTag.setAttribute('opacity','0'); if(hopTagTimer){clearTimeout(hopTagTimer);hopTagTimer=null;} hopHoverNode=null; }
   SVG.addEventListener('mousemove',function(ev){
     if(unfolding)return;
     if(!dragging&&!clickedNode){
@@ -659,6 +693,13 @@ export function mountInstrument(DATA){
       var hit=hitTestNode(p.x,p.y);
       var newLayer=hit?(hit.type==='first'?'first':'kid'):null;
       if(newLayer!==hoveredLayer){hoveredLayer=newLayer;commitStateChange();}
+      if(hit!==hopHoverNode){
+        hideHopTag();
+        if(hit&&canHop(hit)){
+          hopHoverNode=hit;
+          hopTagTimer=setTimeout(function(){ if(hopHoverNode===hit)showHopTag(hit); },500);
+        }
+      }
     }
     if(dragging){
       if(dragStart){
@@ -671,7 +712,14 @@ export function mountInstrument(DATA){
     }
   });
   SVG.addEventListener('mouseleave',function(){
+    hideHopTag();
     if(!dragging&&!clickedNode&&hoveredLayer!==null){hoveredLayer=null;commitStateChange();}
+  });
+  SVG.addEventListener('dblclick',function(ev){
+    if(unfolding||dragMoved)return;
+    var p=svgPoint(ev);
+    var hit=hitTestNode(p.x,p.y);
+    if(hit)doHop(hit);
   });
   SVG.addEventListener('mousedown',function(ev){
     if(unfolding)return;

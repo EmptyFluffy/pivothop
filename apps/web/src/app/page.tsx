@@ -6,6 +6,7 @@ import { seedChips, rankPersonalized } from '@/lib/personalize';
 
 type Origin = { slug: string; title: string; field: string; postings: number; ok: boolean; syn: string[] };
 type Controller = { loadOrigin: (d: unknown) => void };
+type Hooks = { canRecenter: (slug: string) => boolean; onRecenter: (slug: string, title: string) => void; getTrail: () => { slug: string; title: string }[]; onTrailJump: (i: number) => void };
 type Profiles = Record<string, { s: Record<string, number>; den: number }>;
 type OccMeta = Record<string, { title: string; field: string; cluster: string | null; desc: string; salary: string | null; demand: string; remote: string; postings: number }>;
 
@@ -22,8 +23,8 @@ export default function Home() {
     mounted.current = true;
     ref.current.innerHTML = SHELL;
     import('@/lib/instrument.js').then((m) => {
-      const controller = (m as unknown as { mountInstrument: (d: unknown) => Controller }).mountInstrument(DATA);
-      wireSearch(controller);
+      const mount = (m as unknown as { mountInstrument: (d: unknown, h: Hooks) => Controller }).mountInstrument;
+      wireSearch(mount);
     });
   }, []);
 
@@ -37,10 +38,42 @@ function el(tag: string, css: Partial<CSSStyleDeclaration>, html?: string) {
   return e;
 }
 
-function wireSearch(controller: Controller) {
+function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   const roleInput = document.getElementById('qRole') as HTMLInputElement | null;
   const skillInput = document.getElementById('qSkills') as HTMLInputElement | null;
   if (!roleInput || !skillInput) return;
+
+  // ---------- hop navigation state (the trail) ----------
+  let hops: { slug: string; title: string }[] = [{ slug: 'architect', title: 'Architect' }];
+  const hooks: Hooks = {
+    canRecenter: (slug) => !!origins.find((o) => o.slug === slug && o.ok) && slug !== current.slug,
+    onRecenter: (slug, title) => { hopTo(slug, title, true, 'push'); },
+    getTrail: () => hops,
+    onTrailJump: (i) => { const h = hops[i]; if (!h) return; hops = hops.slice(0, i + 1); hopTo(h.slug, h.title, false, 'replace'); },
+  };
+  const controller = mount(DATA, hooks);
+
+  async function hopTo(slug: string, title: string, addHop: boolean, nav: 'push' | 'replace' | 'none' = 'push') {
+    if (addHop) hops = [...hops, { slug, title }];
+    current = { slug, title };
+    roleInput!.value = title;
+    if (personalized) {
+      // your skills travel with you: re-rank the personalized graph from the new center
+      controller.loadOrigin(rankPersonalized(chips, profiles, occMeta, skillNames, slug, title));
+    } else {
+      standardData = await fetch(`/data/${slug}.json`).then((r) => r.json());
+      chips = seedChips(profiles, slug);
+      refreshSummary();
+      controller.loadOrigin(standardData);
+    }
+    if (nav === 'push') history.pushState({ hops }, '', `?from=${slug}`);
+    else if (nav === 'replace') history.replaceState({ hops }, '', `?from=${slug}`);
+  }
+  window.addEventListener('popstate', (e) => {
+    const st = e.state as { hops?: { slug: string; title: string }[] } | null;
+    if (st?.hops?.length) { hops = st.hops; const last = hops[hops.length - 1]; hopTo(last.slug, last.title, false, 'none'); }
+  });
+  history.replaceState({ hops }, '', location.pathname);
 
   // ---------- shared state ----------
   let origins: Origin[] = [];
@@ -80,6 +113,8 @@ function wireSearch(controller: Controller) {
   };
 
   async function loadOriginBySlug(slug: string, title: string) {
+    hops = [{ slug, title }];
+    history.replaceState({ hops }, '', `?from=${slug}`);
     current = { slug, title };
     roleInput!.value = title;
     taBox.style.display = 'none';
