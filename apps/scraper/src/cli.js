@@ -9,6 +9,7 @@ import { emit } from './score/emit.js';
 import { preview } from './preview.js';
 import { fetchOnetRelated } from './taxonomy/onet.js';
 import { verify } from './score/verify.js';
+import { salaryBands } from './analyze/salary-bands.js';
 import { bridgeSkills } from './analyze/bridge-skills.js';
 import { cooccur } from './analyze/cooccur.js';
 import { fetchCapabilities } from './taxonomy/onet-capabilities.js';
@@ -115,6 +116,7 @@ switch (cmd) {
   case 'analyze:flow': analyzeFlow({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'analyze:flow-eu': analyzeFlowEsco({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'analyze:reddit': await redditTransitions({ log }); break;
+  case 'salaries': await salaryBands({ log }); break;
   case 'status': status(); break;
   default:
     log(`PivotHop scraper — the gate.
