@@ -11,6 +11,8 @@ import { fetchOnetRelated } from './taxonomy/onet.js';
 import { verify } from './score/verify.js';
 import { bridgeSkills } from './analyze/bridge-skills.js';
 import { cooccur } from './analyze/cooccur.js';
+import { fetchCapabilities } from './taxonomy/onet-capabilities.js';
+import { analyzeCapability } from './analyze/capability.js';
 
 loadEnv();
 const log = (...a) => console.log(...a);
@@ -101,6 +103,8 @@ switch (cmd) {
   case 'preview': preview({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'fx:update': await fxUpdate(); break;
   case 'taxonomy:onet': await fetchOnetRelated({ log }); break;
+  case 'taxonomy:capabilities': await fetchCapabilities({ log }); break;
+  case 'analyze:capability': analyzeCapability({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'status': status(); break;
   default:
     log(`PivotHop scraper — the gate.
