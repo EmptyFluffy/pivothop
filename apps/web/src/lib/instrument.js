@@ -29,14 +29,14 @@ export function mountInstrument(DATA){
   derive();
   function hydrateStatic(){
     var q=function(x){return document.querySelector(x);};
-    var lbl=q('.band-head .lbl'); if(lbl)lbl.innerHTML='Career graph · '+DATA.originLabel;
+    var lbl=q('.band-head .lbl'); if(lbl)lbl.innerHTML=DATA.personalized?('Career graph · '+DATA.originLabel+' · personalized from '+DATA.skillCount+' skills'):('Career graph · '+DATA.originLabel);
     var sc=q('.band-head .score b'); if(sc&&ROLES[0])sc.textContent=ROLES[0].match;
     var freq={};ROLES.forEach(function(r){(r.have||[]).concat(r.learn||[]).forEach(function(sk){freq[sk]=(freq[sk]||0)+1;});});
     var top=Object.keys(freq).sort(function(a,b){return freq[b]-freq[a];}).slice(0,6);
     var sk=q('.proof .sk'); if(sk){sk.innerHTML='<span class="cap">In demand across your routes</span>'+top.join(' · ');}
     var stats=document.querySelectorAll('.proof .fstat .v');
     if(stats[0])stats[0].textContent=ROLES.length;
-    if(stats[1])stats[1].textContent=(DATA.postings||0).toLocaleString();
+    if(stats[1])stats[1].textContent=DATA.postings?DATA.postings.toLocaleString():'\u2014';
     var role=document.getElementById('qRole'); if(role)role.placeholder=DATA.originLabel;
   }
   function nodeRadius(n){if(n.type==='you')return 12;if(n.type==='first')return 3+n.match/24;return 3;}
