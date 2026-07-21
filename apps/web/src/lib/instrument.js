@@ -39,6 +39,12 @@ export function mountInstrument(DATA,HOOKS){
     if(stats[0])stats[0].textContent=ROLES.length;
     if(stats[1])stats[1].textContent=DATA.postings?DATA.postings.toLocaleString():'\u2014';
     var role=document.getElementById('qRole'); if(role)role.placeholder=DATA.originLabel;
+    var qs=document.getElementById('qSkills');
+    if(qs&&document.activeElement!==qs){
+      var haveFreq={};ROLES.forEach(function(r){(r.have||[]).forEach(function(sk){haveFreq[sk]=(haveFreq[sk]||0)+1;});});
+      var topHave=Object.keys(haveFreq).sort(function(a,b){return haveFreq[b]-haveFreq[a];}).slice(0,3);
+      if(topHave.length)qs.placeholder=topHave.join(', ')+'\u2026';
+    }
   }
   function nodeRadius(n){if(n.type==='you')return 12;if(n.type==='first')return 3+n.match/24;return 3;}
 
@@ -140,7 +146,7 @@ export function mountInstrument(DATA,HOOKS){
       var d=Math.sqrt(dx*dx+dy*dy)||1;
       var push=n.type==='first'?52:32;
       n.lx=n.x+(dx/d)*push;n.ly=n.y+(dy/d)*push;n.lvx=0;n.lvy=0;
-      n.lAvgX=undefined;n.lAvgY=undefined;n.lStable=0;n.lLocked=false;
+      n.lAvgX=undefined;n.lAvgY=undefined;n.lStable=0;n.lLocked=false;n.lAge=0;
     });
   }
   function stepLabels(activeList){
@@ -228,8 +234,18 @@ export function mountInstrument(DATA,HOOKS){
          Conflicting forces above the dead-zone otherwise sustain a visible
          limit-cycle vibration after drags. Frozen slightly-imperfect beats vibrating. */
       if(n.lLocked){
-        if(Math.abs(n.x-n.lLockX)>1.2||Math.abs(n.y-n.lLockY)>1.2){n.lLocked=false;n.lStable=0;}
+        if(Math.abs(n.x-n.lLockX)>1.2||Math.abs(n.y-n.lLockY)>1.2){n.lLocked=false;n.lStable=0;n.lAge=0;}
         else{n.lvx=0;n.lvy=0;continue;}
+      }
+      /* convergence guarantee: a label pinched between conflicting forces can
+         limit-cycle just above the stability thresholds and vibrate forever.
+         After ~1.5s of solving it takes its rolling average and freezes —
+         no label oscillates indefinitely, by construction. */
+      n.lAge=(n.lAge||0)+1;
+      if(n.lAge>270&&n.lAvgX!==undefined){
+        n.lx=n.lAvgX;n.ly=n.lAvgY;n.lvx=0;n.lvy=0;
+        n.lLocked=true;n.lLockX=n.x;n.lLockY=n.y;
+        continue;
       }
       n.lvx*=0.62;n.lvy*=0.62;
       if(n.lvx>-0.04&&n.lvx<0.04)n.lvx=0;
@@ -255,7 +271,7 @@ export function mountInstrument(DATA,HOOKS){
         var rdx=n.x-CX,rdy=n.y-CY;
         var rd=Math.sqrt(rdx*rdx+rdy*rdy)||1;
         var rpush=n.type==='first'?52:32;
-        n.lx=n.x+(rdx/rd)*rpush;n.ly=n.y+(rdy/rd)*rpush;n.lvx=0;n.lvy=0;n.lLocked=false;n.lStable=0;n.lAvgX=undefined;
+        n.lx=n.x+(rdx/rd)*rpush;n.ly=n.y+(rdy/rd)*rpush;n.lvx=0;n.lvy=0;n.lLocked=false;n.lStable=0;n.lAge=0;n.lAvgX=undefined;
       }
     });
     var minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
@@ -505,6 +521,9 @@ export function mountInstrument(DATA,HOOKS){
         var act2=activeLabelList();
         for(var s=0;s<260;s++)stepLabels(act2);
         updateLabels();
+        /* fit NOW, before the reveal — deferring to loop settle made the viewBox
+           snap seconds after the graph visually landed (the "late reposition") */
+        fitViewBox();needsRefit=false;
         el.labelsLayer.classList.remove('hidden');
       }
       rafId=requestAnimationFrame(tick);
@@ -537,7 +556,7 @@ export function mountInstrument(DATA,HOOKS){
          labels visibly slide away from the cursor. Locked labels stay planted and act
          as repellers; newcomers solve around them. Unlock happens only when a node
          actually moves (drag/unfold). */
-      GNODES[i].lAvgX=undefined;GNODES[i].lAvgY=undefined;GNODES[i].lStable=0;
+      GNODES[i].lAvgX=undefined;GNODES[i].lAvgY=undefined;GNODES[i].lStable=0;GNODES[i].lAge=0;
     }
     ensureLoop(500);
   }
@@ -613,6 +632,13 @@ export function mountInstrument(DATA,HOOKS){
       '<div class="dsk"><div class="cap">Skills to build</div><div class="tags">'+pills(rl.learn,"")+'</div></div>'+
       (rl.next.length?'<div class="dsk"><div class="cap">Opens paths to</div><div class="tags">'+pills(rl.next.map(function(x){return x.t;}),"")+'</div></div>':'');
   }
+  function kidStory(kid,parent){
+    var out='Your skills cover '+kid.m+'% of what '+kid.t+' postings ask for today.';
+    if(kid.gap&&kid.gap.length)out+=' Missing: '+kid.gap.slice(0,3).join(', ')+'.';
+    if(kid.after!=null&&kid.after>kid.m)out+=' Route through '+parent.title+' first and readiness reads '+kid.after+'% \u2014 the bridge earns its detour.';
+    else out+=' No bridge required \u2014 this one opens directly as the gap closes.';
+    return out;
+  }
   function renderKidDetail(kid,parent){
     xsel={kind:'kid',kid:kid,parent:parent};
     setExportCTA();
@@ -624,7 +650,7 @@ export function mountInstrument(DATA,HOOKS){
       hopButton(kid.slug||'',kid.t)+
       '<div class="drow"><span class="k">Path</span><span class="v">'+DATA.originLabel+' &rarr; '+parent.title+' &rarr; '+kid.t+'</span></div>'+
       '<div class="drow"><span class="k">Bridge role</span><span class="v">'+parent.title+'</span></div>'+
-      '<div class="dsk"><div class="cap">How this pivot works</div><p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-top:4px">Reach this destination by first moving to '+parent.title+', which builds the foundation for a step into '+kid.t+' over the following 6&ndash;18 months. Two-hop moves take longer but open a wider range of destinations than a single pivot can.</p></div>';
+      '<div class="dsk"><div class="cap">The gap, measured</div><p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-top:4px">'+kidStory(kid,parent)+'</p></div>';
   }
   function updateTrail(id){
     var tc=document.getElementById('trailCrumbs');if(!tc)return;
@@ -919,7 +945,16 @@ export function mountInstrument(DATA,HOOKS){
   document.getElementById('xveil').addEventListener('click',closeX);
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeX();});
   var xsend=document.getElementById('xsend');
-  if(xsend){xsend.addEventListener('click',function(){xsend.querySelector('span').textContent='Sent — check your inbox';});}
+  if(xsend){xsend.addEventListener('click',function(){
+    var em=document.getElementById('xemail');
+    var note=document.getElementById('xemailNote');
+    if(em&&(!em.value||!em.checkValidity())){
+      if(!note){note=document.createElement('div');note.id='xemailNote';note.className='fnote';note.style.color='var(--ink)';note.textContent='Enter a valid email first.';em.parentNode.insertBefore(note,em.nextSibling);}
+      em.focus();return;
+    }
+    if(note)note.remove();
+    xsend.querySelector('span').textContent='Sent \u2014 check your inbox';
+  });}
 
   function loadOrigin(nd){ DATA=nd; derive(); seedCompressed(); initLabels(); buildDOM(); buildRail(); hydrateStatic(); runUnfold(); }
   return { loadOrigin: loadOrigin };

@@ -95,7 +95,9 @@ export function rankPersonalized(chips, profiles, meta, names, originSlug, origi
     if (!best) continue;
     slots.set(best.parent, slots.get(best.parent) + 1);
     const idx = next[best.parent].length;
-    next[best.parent].push({ t: meta[k.slug].title, m: k.match, slug: k.slug });
+    const kGap = Object.entries(profiles[k.slug].s).sort((a, b) => b[1] - a[1])
+      .filter(([sk]) => !have.has(sk)).slice(0, 3).map(([sk]) => names[sk] || sk);
+    next[best.parent].push({ t: meta[k.slug].title, m: k.match, slug: k.slug, gap: kGap, after: best.to > k.match ? best.to : undefined });
     kidCount++;
     const second = gains.find((g) => g.parent !== best.parent && g.gain >= BRIDGE_MIN_GAIN);
     if (second && bridges.length < BRIDGE_MAX) bridges.push([second.parent, best.parent + '_' + idx, +(second.to / 100).toFixed(2)]);

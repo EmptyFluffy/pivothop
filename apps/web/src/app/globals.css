@@ -350,3 +350,7 @@
 .hop-tip{position:absolute;z-index:6;transform:translate(-50%,calc(-100% - 7px));background:var(--ink);color:var(--paper);font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:0;white-space:nowrap;padding:9px 13px;border-radius:7px;box-shadow:0 6px 18px rgba(21,21,26,.22);pointer-events:none;opacity:0;transition:opacity .16s,transform .16s}
 .hop-tip::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--ink)}
 .hop-tip.on{opacity:1}
+/* keyboard affordances: highlighted combobox row + system focus ring */
+.ta-item.hi{background:var(--paper-2)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input:focus-visible{outline:none}

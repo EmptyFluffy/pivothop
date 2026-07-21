@@ -53,6 +53,11 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   };
   const controller = mount(DATA, hooks);
 
+  function setStatus(msg: string | null) {
+    const lbl = document.querySelector('.band-head .lbl');
+    if (!lbl) return;
+    if (msg) { (lbl as HTMLElement).dataset.prev = lbl.innerHTML; lbl.innerHTML = msg; }
+  }
   async function hopTo(slug: string, title: string, addHop: boolean, nav: 'push' | 'replace' | 'none' = 'push') {
     if (addHop) hops = [...hops, { slug, title }];
     current = { slug, title };
@@ -61,7 +66,14 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
       // your skills travel with you: re-rank the personalized graph from the new center
       controller.loadOrigin(rankPersonalized(chips, profiles, occMeta, skillNames, slug, title));
     } else {
-      standardData = await fetch(`/data/${slug}.json`).then((r) => r.json());
+      setStatus(`Career graph \u00b7 reading ${title} postings\u2026`);
+      try {
+        standardData = await fetch(`/data/${slug}.json`).then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json(); });
+      } catch {
+        setStatus(`Couldn\u2019t load ${title} \u2014 check your connection and try again.`);
+        hops = hops.filter((h) => h.slug !== slug);
+        return;
+      }
       chips = seedChips(profiles, slug);
       refreshSummary();
       controller.loadOrigin(standardData);
@@ -118,7 +130,13 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     current = { slug, title };
     roleInput!.value = title;
     taBox.style.display = 'none';
-    standardData = await fetch(`/data/${slug}.json`).then((r) => r.json());
+    setStatus(`Career graph \u00b7 reading ${title} postings\u2026`);
+    try {
+      standardData = await fetch(`/data/${slug}.json`).then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json(); });
+    } catch {
+      setStatus(`Couldn\u2019t load ${title} \u2014 check your connection and try again.`);
+      return;
+    }
     personalized = false;
     chips = seedChips(profiles, slug);
     refreshSummary();
@@ -158,9 +176,26 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     placeUnder(taBox, roleInput!);
     taBox.style.display = 'block';
   }
-  roleInput.addEventListener('focus', () => renderTa(roleInput.value));
-  roleInput.addEventListener('input', () => renderTa(roleInput.value));
+  let taIdx = -1;
+  function taHighlight(items: NodeListOf<HTMLButtonElement>) {
+    items.forEach((b, i) => b.classList.toggle('hi', i === taIdx));
+    if (taIdx >= 0 && items[taIdx]) items[taIdx].scrollIntoView({ block: 'nearest' });
+  }
+  roleInput.addEventListener('focus', () => { taIdx = -1; renderTa(roleInput.value); });
+  roleInput.addEventListener('input', () => { taIdx = -1; renderTa(roleInput.value); });
   roleInput.addEventListener('blur', () => setTimeout(() => (taBox.style.display = 'none'), 150));
+  roleInput.addEventListener('keydown', (e) => {
+    if (taBox.style.display !== 'block') return;
+    const items = taBox.querySelectorAll<HTMLButtonElement>('.ta-item:not([disabled])');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); taIdx = (taIdx + 1) % items.length; taHighlight(items); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); taIdx = (taIdx - 1 + items.length) % items.length; taHighlight(items); }
+    else if (e.key === 'Enter') {
+      e.preventDefault();
+      const pick = (taIdx >= 0 && items[taIdx]) || items[0];
+      if (pick) loadOriginBySlug(pick.dataset.slug!, pick.dataset.title!);
+    } else if (e.key === 'Escape') { taBox.style.display = 'none'; roleInput!.blur(); }
+  });
 
   // ---------- skill chips panel ----------
   const panel = el('div', { position: 'absolute', zIndex: '60', display: 'none', background: 'var(--card)', border: '1px solid var(--ink)', padding: '18px 30px 16px', boxShadow: '0 18px 36px rgba(21,21,26,.10)', maxHeight: '420px', overflowY: 'auto' });
@@ -231,16 +266,41 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     });
   }
 
-  skillInput.addEventListener('focus', async () => {
-    await core;
+  // The skills field is a live combobox: focus clears it to a query box (summary
+  // restores on close), typing filters the dictionary, Enter adds the top match,
+  // Backspace on empty removes the last chip, Escape closes. Fully keyboard-usable.
+  let skillsOpen = false;
+  function openSkills() {
+    skillsOpen = true;
+    skillInput!.value = '';
     renderPanel();
-    placeUnder(panel, skillInput);
+    placeUnder(panel, skillInput!);
     panel.style.display = 'block';
-    skillInput.blur(); // panel takes over; the field is a summary, not a text input
+  }
+  function closeSkills() {
+    if (!skillsOpen) return;
+    skillsOpen = false;
+    panel.style.display = 'none';
+    refreshSummary();
+  }
+  skillInput.addEventListener('focus', async () => { await core; openSkills(); });
+  skillInput.addEventListener('input', () => { if (skillsOpen) renderPanel(skillInput!.value); });
+  skillInput.addEventListener('keydown', (e) => {
+    if (!skillsOpen) return;
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const top = panel.querySelector<HTMLButtonElement>('.sugg');
+      if (top) { const id = top.dataset.id!; if (!chips.includes(id)) chips.push(id); skillInput!.value = ''; renderPanel('', id); scheduleApply(); }
+    } else if (e.key === 'Backspace' && !skillInput!.value && chips.length) {
+      chips = chips.slice(0, -1); renderPanel(); scheduleApply();
+    } else if (e.key === 'Escape') { closeSkills(); skillInput!.blur(); }
+  });
+  skillInput.addEventListener('blur', (e) => {
+    setTimeout(() => { if (!panel.contains(document.activeElement)) closeSkills(); }, 140);
   });
   document.addEventListener('mousedown', (e) => {
     const t = e.target as Node;
-    if (panel.style.display === 'block' && t.isConnected && !panel.contains(t) && t !== skillInput) panel.style.display = 'none';
+    if (panel.style.display === 'block' && t.isConnected && !panel.contains(t) && t !== skillInput) closeSkills();
   });
   window.addEventListener('scroll', () => {
     if (taBox.style.display === 'block') placeUnder(taBox, roleInput);

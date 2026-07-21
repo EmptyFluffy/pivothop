@@ -32,7 +32,13 @@ def to_data(g):
               'mobility': r.get('mobility'), 'mobility_source': r.get('mobility_source'),
               'mobility_eu': r.get('mobility_eu'), 'kind': r.get('kind'), 'cluster': r.get('cluster'),
               'license': r.get('license')} for r in g['roles']]
-    nxt = {r['id']: [{'t': k['t'], 'm': k['m'], 'slug': k.get('slug')} for k in g.get('next', {}).get(r['id'], [])] for r in g['roles']}
+    def kid(k):
+        out = {'t': k['t'], 'm': k['m'], 'slug': k.get('slug'), 'gap': k.get('gap', [])}
+        via = k.get('via')
+        if via and via.get('readiness_after') is not None:
+            out['after'] = via['readiness_after']
+        return out
+    nxt = {r['id']: [kid(k) for k in g.get('next', {}).get(r['id'], [])] for r in g['roles']}
     o = g['origin']
     return {'originLabel': o['title'], 'originSlug': o['slug'], 'field': o.get('field', ''),
             'postings': o.get('postings', 0), 'salary': o.get('salary'), 'roles': roles, 'next': nxt,
