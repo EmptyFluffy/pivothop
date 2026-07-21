@@ -132,11 +132,10 @@ So a user sees *why* they're close: "60% there because you use Rhino, and archit
 
 ## Data acquisition notes (credentials & later sources)
 
-**Reddit testimony (analyze:reddit) — free app, needed to run it live.**
-1. Log in at reddit.com → **reddit.com/prefs/apps** → "create another app".
-2. Name it, select type **script**, set redirect uri `http://localhost`, create.
-3. On that same page the app shows a **client_id** (the string under the app name / under "personal use script") and a **secret**. Those two *are* the API access — there is no separate API key page.
-4. `.env`: `REDDIT_CLIENT_ID=…`, `REDDIT_CLIENT_SECRET=…`. Reads public posts via application-only OAuth, rate-limited.
+**Reddit testimony (analyze:reddit) — SHELVED on compliance grounds (2026-07).**
+Reddit's Responsible Builder Policy now requires *explicit approval* for our use. Mining public posts to derive a dataset is "research" under the policy, and **"any research that uses Reddit data collected outside of the Reddit for Researchers (RFR) Program is in violation of this policy."** It also restricts "non-commercial mining, scraping" without written approval. So the simple script-app → read-public-posts → extract-transitions approach is *not* compliant, regardless of whether the app technically works.
+
+Decision: **do not run the Reddit miner without RFR (or commercial) approval.** PivotHop's whole positioning is the honest instrument that does not cut ToS corners (same reason we refuse LinkedIn/Indeed) — mining Reddit against its policy would contradict that directly. The miner code stays dormant in the repo; if RFR approval is ever granted, it works as-is. Until then the behavioral-flow signal comes from the **usage flywheel** (our own users' route choices), which is compliant, higher-resolution, and proprietary. The RFR application path exists (file a ticket via Reddit Help → Developer Platform) but is heavyweight and aimed at academic researchers — not worth it at this stage.
 
 **IPUMS CPS occupation-flow matrix (LATER / optional — the "heavy" one).** Real occupation→occupation flow ("of architects who changed jobs, X% became Y"). Heavy because you *build* the matrix from raw microdata, not download it: panel-link the same person across monthly CPS samples, and the Census OCC codes are coarse (~500 buckets, drift across years) so niche moves like architect→UX may be invisible even here. Steps when worth it:
 1. Free account at **cps.ipums.org**.

@@ -3,11 +3,17 @@ import { readJson, writeJson } from '../lib/store.js';
 import { CONFIG_DIR, GENERATED_DIR } from '../lib/paths.js';
 import { matchOccupationInText } from '../normalize/disciplines.js';
 
-// Reddit career-change testimony miner (docs/15, Thread 6). The closest FREE thing to
-// real behavioral flow: people literally write "I went from architecture to UX." This is
-// the signal that finally captures the non-obvious, human moves O*NET and skill-overlap
-// both miss. Uses Reddit's official OAuth API (read-only, application-only token) — needs
-// REDDIT_CLIENT_ID + REDDIT_CLIENT_SECRET in .env (free app at reddit.com/prefs/apps).
+// Reddit career-change testimony miner (docs/15, Thread 6).
+//
+// ⚠ SHELVED ON COMPLIANCE GROUNDS — DO NOT RUN WITHOUT APPROVAL. Reddit's Responsible
+// Builder Policy classifies mining public posts to derive a dataset as "research", and
+// research outside the Reddit for Researchers (RFR) Program violates the policy; it also
+// restricts non-commercial mining/scraping without written approval. PivotHop does not cut
+// ToS corners (same reason we refuse LinkedIn/Indeed), so this stays dormant unless/until
+// RFR approval exists. The behavioral-flow signal comes from the usage flywheel instead.
+// Kept in the repo because it works as-is the moment approval is granted. See docs/15.
+//
+// Technically it would use Reddit's OAuth API (read-only) via REDDIT_CLIENT_ID/SECRET.
 //
 // Extraction is deliberately conservative: only "from X to Y" testimony where BOTH X and Y
 // map to our occupation taxonomy is counted. Regex + taxonomy matching, no LLM dependency —
