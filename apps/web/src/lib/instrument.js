@@ -118,8 +118,11 @@ export function mountInstrument(DATA){
       n.vy+=(CY-n.y)*CENTER_GY;
       n.vx*=damping;n.vy*=damping;
       n.x+=n.vx;n.y+=n.vy;
-      if(n.x<40)n.x=40;else if(n.x>860)n.x=860;
-      if(n.y<36)n.y=36;else if(n.y>604)n.y=604;
+      /* zero velocity at the clamp: real data can park nodes on the walls with
+         residual velocity, so nodeEnergy() never crosses the unfold threshold and
+         labels never fade in (found in the Phase-1 preview harness; same fix). */
+      if(n.x<40){n.x=40;n.vx=0;}else if(n.x>860){n.x=860;n.vx=0;}
+      if(n.y<36){n.y=36;n.vy=0;}else if(n.y>604){n.y=604;n.vy=0;}
     }
   }
   function nodeEnergy(){

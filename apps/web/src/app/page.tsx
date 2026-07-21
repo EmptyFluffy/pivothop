@@ -63,11 +63,19 @@ function wireSearch(controller: Controller) {
   fetch('/data/skill-cooccur.json').then((r) => r.json()).then((d) => (cooccur = d.skills || {}));
 
   // ---------- role typeahead ----------
-  const taBox = el('div', { position: 'absolute', zIndex: '50', display: 'none', background: 'var(--card)', border: '1px solid var(--ink)', maxHeight: '340px', overflowY: 'auto' });
+  const taBox = el('div', { position: 'absolute', zIndex: '50', display: 'none', background: 'var(--card)', border: '1px solid var(--ink)', maxHeight: '340px', overflowY: 'auto', boxShadow: '0 18px 36px rgba(21,21,26,.10)' });
   document.body.appendChild(taBox);
+  // Anchor flush to the search cell: left/width match the field's cell exactly and the
+  // dropdown's top border collapses into the searchbar's bottom border (1px overlap) —
+  // predictable trigger-aligned placement per combobox UX practice.
   const placeUnder = (box: HTMLElement, input: HTMLElement) => {
-    const r = input.getBoundingClientRect();
-    Object.assign(box.style, { left: r.left + window.scrollX + 'px', top: r.bottom + window.scrollY + 'px', width: Math.max(r.width, 340) + 'px' });
+    const cell = (input.closest('label') as HTMLElement) || input;
+    const r = cell.getBoundingClientRect();
+    Object.assign(box.style, {
+      left: r.left + window.scrollX + 'px',
+      top: r.bottom + window.scrollY - 1 + 'px',
+      width: r.width + 'px',
+    });
   };
 
   async function loadOriginBySlug(slug: string, title: string) {
@@ -100,7 +108,7 @@ function wireSearch(controller: Controller) {
   roleInput.addEventListener('blur', () => setTimeout(() => (taBox.style.display = 'none'), 150));
 
   // ---------- skill chips panel ----------
-  const panel = el('div', { position: 'absolute', zIndex: '60', display: 'none', background: 'var(--card)', border: '1px solid var(--ink)', padding: '16px 18px', width: '460px' });
+  const panel = el('div', { position: 'absolute', zIndex: '60', display: 'none', background: 'var(--card)', border: '1px solid var(--ink)', padding: '18px 30px 16px', boxShadow: '0 18px 36px rgba(21,21,26,.10)', maxHeight: '420px', overflowY: 'auto' });
   document.body.appendChild(panel);
 
   function refreshSummary() {
