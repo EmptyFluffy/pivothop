@@ -27,3 +27,10 @@ dist/
 
 # logs
 *.log
+
+# stray images in repo root (not project assets)
+*.png
+*.webp
+!apps/web/public/*.png
+!apps/web/**/*.png
+!marketing/**/*.png
