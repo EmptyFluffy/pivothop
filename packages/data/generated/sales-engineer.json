@@ -4,6 +4,7 @@
     "slug": "sales-engineer",
     "title": "Sales Engineer",
     "field": "Business",
+    "cluster": "Business",
     "postings": 280,
     "salary": "$120k–$210k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "industrial-engineer",
       "title": "Industrial Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 60,
       "salary": "$95k–$130k",
@@ -172,6 +175,8 @@
       "id": "solutions-architect",
       "title": "Solutions Architect",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 59,
       "salary": "$105k–$180k",
@@ -327,6 +332,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 52,
       "salary": "$45k–$95k",
@@ -482,6 +489,8 @@
       "id": "software-engineer",
       "title": "Software Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 51,
       "salary": "$110k–$225k",
@@ -637,6 +646,8 @@
       "id": "it-support",
       "title": "IT Support Specialist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 49,
       "salary": "$85k–$160k",
@@ -792,6 +803,8 @@
       "id": "security-engineer",
       "title": "Security Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 48,
       "salary": "$180k–$290k",
@@ -947,6 +960,8 @@
       "id": "real-estate-developer",
       "title": "Real Estate Developer",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 46,
       "salary": "$80k–$135k",
@@ -1102,6 +1117,8 @@
       "id": "network-engineer",
       "title": "Network Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 45,
       "salary": "$100k–$195k",
@@ -1260,23 +1277,22 @@
         "t": "Executive Assistant",
         "m": 30,
         "slug": "executive-assistant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Scheduling",
+          "Supply Chain",
+          "Excel",
+          "Account Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "industrial-engineer",
           "readiness_after": 44,
           "gain": 14
-        },
-        "observed": null
-      },
-      {
-        "t": "Data Engineer",
-        "m": 28,
-        "slug": "data-engineer",
-        "via": {
-          "parent": "industrial-engineer",
-          "readiness_after": 35,
-          "gain": 7
-        },
-        "observed": null
+        }
       }
     ],
     "solutions-architect": [
@@ -1284,23 +1300,43 @@
         "t": "Machine Learning Engineer",
         "m": 37,
         "slug": "machine-learning-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Machine Learning",
+          "NLP",
+          "Deep Learning",
+          "A/B Testing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "solutions-architect",
           "readiness_after": 53,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
         "t": "Product Manager",
         "m": 37,
         "slug": "product-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "NLP",
+          "Agile",
+          "SQL",
+          "A/B Testing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "solutions-architect",
           "readiness_after": 54,
           "gain": 17
-        },
-        "observed": null
+        }
       }
     ],
     "management-consultant": [
@@ -1308,23 +1344,43 @@
         "t": "Marketing Manager",
         "m": 42,
         "slug": "marketing-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Market Research",
+          "Email Marketing",
+          "CRM",
+          "Content Marketing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 56,
           "gain": 14
-        },
-        "observed": null
+        }
       },
       {
         "t": "Account Executive",
         "m": 33,
         "slug": "account-executive",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Negotiation",
+          "Salesforce",
+          "Forecasting",
+          "Account Management"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 43,
           "gain": 10
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
     "software-engineer": [
@@ -1332,23 +1388,43 @@
         "t": "Mobile Developer",
         "m": 41,
         "slug": "mobile-developer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "React",
+          "TypeScript",
+          "Swift",
+          "SQL"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "software-engineer",
           "readiness_after": 69,
           "gain": 28
-        },
-        "observed": "Primary-Short"
+        }
       },
       {
         "t": "Backend Developer",
         "m": 39,
         "slug": "backend-developer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Microservices",
+          "SQL",
+          "Kubernetes",
+          "Git"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "software-engineer",
           "readiness_after": 62,
           "gain": 23
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "it-support": [
@@ -1356,23 +1432,43 @@
         "t": "Project Manager",
         "m": 36,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Supply Chain",
+          "Lean / Six Sigma",
+          "Operations",
+          "Risk Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "it-support",
           "readiness_after": 56,
           "gain": 20
-        },
-        "observed": null
+        }
       },
       {
         "t": "Graphic Designer",
         "m": 35,
         "slug": "graphic-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Branding",
+          "Writing & Editing",
+          "Motion Design",
+          "Photoshop"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "it-support",
           "readiness_after": 44,
           "gain": 9
-        },
-        "observed": null
+        }
       }
     ],
     "security-engineer": [
@@ -1380,23 +1476,43 @@
         "t": "DevOps Engineer",
         "m": 40,
         "slug": "devops-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Kubernetes",
+          "Terraform",
+          "Microservices",
+          "CI/CD"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "security-engineer",
           "readiness_after": 62,
           "gain": 22
-        },
-        "observed": null
+        }
       },
       {
         "t": "Research Scientist",
         "m": 38,
         "slug": "research-scientist",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "Machine Learning",
+          "NLP",
+          "Deep Learning",
+          "HR Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "security-engineer",
           "readiness_after": 58,
           "gain": 20
-        },
-        "observed": null
+        }
       }
     ],
     "real-estate-developer": [
@@ -1404,23 +1520,22 @@
         "t": "Customer Success Manager",
         "m": 30,
         "slug": "customer-success-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Account Management",
+          "Customer Service",
+          "SQL",
+          "Jira"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 41,
           "gain": 11
-        },
-        "observed": null
-      },
-      {
-        "t": "Librarian",
-        "m": 30,
-        "slug": "librarian",
-        "via": {
-          "parent": "real-estate-developer",
-          "readiness_after": 35,
-          "gain": 5
-        },
-        "observed": null
+        }
       }
     ],
     "network-engineer": [
@@ -1428,26 +1543,80 @@
         "t": "Systems Administrator",
         "m": 41,
         "slug": "systems-administrator",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Jira",
+          "Operations",
+          "HR Operations",
+          "CI/CD"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "network-engineer",
           "readiness_after": 50,
           "gain": 9
-        },
-        "observed": null
+        }
       },
       {
         "t": "Business Analyst",
         "m": 32,
         "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "HR Operations",
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Audit"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "network-engineer",
           "readiness_after": 43,
           "gain": 11
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Librarian",
+      "m": 30,
+      "slug": "librarian",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Accessibility",
+        "Teaching",
+        "Training & Facilitation",
+        "Budgeting"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Data Engineer",
+      "m": 28,
+      "slug": "data-engineer",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "ETL",
+        "SQL",
+        "Airflow",
+        "dbt"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "industrial-engineer",
@@ -1487,11 +1656,6 @@
       0.59
     ],
     [
-      "it-support",
-      "real-estate-developer_1",
-      0.57
-    ],
-    [
       "real-estate-developer",
       "management-consultant_0",
       0.54
@@ -1499,6 +1663,11 @@
     [
       "solutions-architect",
       "software-engineer_1",
+      0.54
+    ],
+    [
+      "industrial-engineer",
+      "it-support_0",
       0.54
     ]
   ],

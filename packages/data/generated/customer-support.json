@@ -4,6 +4,7 @@
     "slug": "customer-support",
     "title": "Customer Support Specialist",
     "field": "Business",
+    "cluster": "Business",
     "postings": 74,
     "salary": "$40k–$80k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 50,
       "salary": "$55k–$95k",
@@ -172,6 +175,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 44,
       "salary": "$75k–$135k",
@@ -327,6 +332,8 @@
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 41,
       "salary": "$60k–$120k",
@@ -482,6 +489,8 @@
       "id": "hr-manager",
       "title": "HR Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 38,
       "salary": "$100k–$195k",
@@ -607,6 +616,8 @@
       "id": "business-analyst",
       "title": "Business Analyst",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 38,
       "salary": "$85k–$140k",
@@ -762,6 +773,8 @@
       "id": "it-support",
       "title": "IT Support Specialist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 35,
       "salary": "$85k–$160k",
@@ -917,6 +930,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 34,
       "salary": "$45k–$95k",
@@ -1072,6 +1087,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 34,
       "salary": "$80k–$120k",
@@ -1225,52 +1242,49 @@
     }
   ],
   "next": {
-    "facilities-manager": [
-      {
-        "t": "Research Scientist",
-        "m": 21,
-        "slug": "research-scientist",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 23,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Real Estate Developer",
-        "m": 21,
-        "slug": "real-estate-developer",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 24,
-          "gain": 3
-        },
-        "observed": null
-      }
-    ],
+    "facilities-manager": [],
     "project-manager": [
       {
         "t": "Product Manager",
         "m": 31,
         "slug": "product-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Product Management",
+          "Agile",
+          "Observability",
+          "Prototyping"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 44,
           "gain": 13
-        },
-        "observed": null
+        }
       },
       {
         "t": "Executive Assistant",
         "m": 26,
         "slug": "executive-assistant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Scheduling",
+          "Event Planning",
+          "Project Management",
+          "Presentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 43,
           "gain": 17
-        },
-        "observed": null
+        }
       }
     ],
     "customer-success-manager": [
@@ -1278,71 +1292,88 @@
         "t": "Financial Controller",
         "m": 25,
         "slug": "controller",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Excel",
+          "Accounting",
+          "SAP",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
           "readiness_after": 36,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
-        "t": "UX Writer",
-        "m": 25,
-        "slug": "ux-writer",
+        "t": "Sales Representative",
+        "m": 24,
+        "slug": "sales-representative",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Sales",
+          "CRM",
+          "Observability",
+          "Accessibility"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
-          "readiness_after": 32,
-          "gain": 7
-        },
-        "observed": null
+          "readiness_after": 34,
+          "gain": 10
+        }
       }
     ],
-    "hr-manager": [
-      {
-        "t": "Medical Assistant",
-        "m": 23,
-        "slug": "medical-assistant",
-        "via": {
-          "parent": "hr-manager",
-          "readiness_after": 28,
-          "gain": 5
-        },
-        "observed": null
-      },
-      {
-        "t": "Registered Nurse",
-        "m": 23,
-        "slug": "registered-nurse",
-        "via": {
-          "parent": "hr-manager",
-          "readiness_after": 30,
-          "gain": 7
-        },
-        "observed": null
-      }
-    ],
+    "hr-manager": [],
     "business-analyst": [
       {
         "t": "Operations Manager",
         "m": 30,
         "slug": "operations-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Data Visualization",
+          "Stakeholder Management",
+          "Accounting",
+          "Excel"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 54,
           "gain": 24
-        },
-        "observed": null
+        }
       },
       {
         "t": "Lawyer",
         "m": 27,
         "slug": "lawyer",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Negotiation",
+          "Contracts",
+          "Compliance",
+          "Case Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 49,
           "gain": 22
-        },
-        "observed": null
+        }
       }
     ],
     "it-support": [
@@ -1350,47 +1381,87 @@
         "t": "Technical Writer",
         "m": 27,
         "slug": "technical-writer",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Git",
+          "Quality Control",
+          "Content Marketing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "it-support",
           "readiness_after": 43,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
         "t": "Compliance Officer",
         "m": 25,
         "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Risk Management",
+          "Observability",
+          "Accounting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "it-support",
           "readiness_after": 38,
           "gain": 13
-        },
-        "observed": null
+        }
       }
     ],
     "management-consultant": [
       {
-        "t": "Creative Technologist",
-        "m": 25,
-        "slug": "creative-technologist",
-        "via": {
-          "parent": "management-consultant",
-          "readiness_after": 29,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
-        "t": "Sales Representative",
-        "m": 24,
-        "slug": "sales-representative",
+        "t": "Research Scientist",
+        "m": 21,
+        "slug": "research-scientist",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "Python",
+          "Deep Learning",
+          "Prototyping",
+          "Observability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 31,
-          "gain": 7
-        },
-        "observed": null
+          "gain": 10
+        }
+      },
+      {
+        "t": "Real Estate Developer",
+        "m": 21,
+        "slug": "real-estate-developer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Negotiation",
+          "Product Management",
+          "Procurement",
+          "Contracts"
+        ],
+        "observed": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "management-consultant",
+          "readiness_after": 40,
+          "gain": 19
+        }
       }
     ],
     "construction-manager": [
@@ -1398,26 +1469,112 @@
         "t": "Maintenance Technician",
         "m": 32,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Sustainability",
+          "Observability",
+          "Project Management",
+          "HVAC Systems"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 54,
           "gain": 22
-        },
-        "observed": null
+        }
       },
       {
         "t": "Police Officer",
         "m": 27,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Presentation",
+          "Teaching"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 55,
           "gain": 28
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "UX Writer",
+      "m": 25,
+      "slug": "ux-writer",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Design Systems",
+        "Accessibility",
+        "Content Marketing",
+        "Excel"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Creative Technologist",
+      "m": 25,
+      "slug": "creative-technologist",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Design Systems",
+        "Spark",
+        "Branding"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Medical Assistant",
+      "m": 23,
+      "slug": "medical-assistant",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Scheduling",
+        "Patient Care",
+        "Observability",
+        "EHR / EMR"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Registered Nurse",
+      "m": 23,
+      "slug": "registered-nurse",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Clinical Skills",
+        "Case Management",
+        "Health Education"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "project-manager",

@@ -4,6 +4,7 @@
     "slug": "customer-success-manager",
     "title": "Customer Success Manager",
     "field": "Business",
+    "cluster": "Business",
     "postings": 476,
     "salary": "$60k–$120k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 45,
       "salary": "$75k–$135k",
@@ -172,6 +175,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 37,
       "salary": "$45k–$95k",
@@ -327,6 +332,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 36,
       "salary": "$80k–$120k",
@@ -482,6 +489,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 35,
       "salary": "$65k–$100k",
@@ -637,6 +646,8 @@
       "id": "real-estate-developer",
       "title": "Real Estate Developer",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 33,
       "salary": "$80k–$135k",
@@ -792,6 +803,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$60k–$115k",
@@ -947,6 +960,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 29,
       "salary": "$95k–$150k",
@@ -1102,6 +1117,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 29,
       "salary": "$55k–$95k",
@@ -1260,23 +1277,43 @@
         "t": "Business Analyst",
         "m": 24,
         "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Audit",
+          "Translation"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 42,
           "gain": 18
-        },
-        "observed": "Primary-Short"
+        }
       },
       {
         "t": "Executive Assistant",
         "m": 23,
         "slug": "executive-assistant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Scheduling",
+          "Supply Chain",
+          "Event Planning",
+          "Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 38,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "management-consultant": [
@@ -1284,23 +1321,43 @@
         "t": "Financial Analyst",
         "m": 23,
         "slug": "financial-analyst",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Forecasting",
+          "Agile",
+          "Financial Modeling",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 31,
           "gain": 8
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Operations Manager",
+        "t": "Customer Support Specialist",
         "m": 21,
-        "slug": "operations-manager",
+        "slug": "customer-support",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Translation",
+          "Operations",
+          "Lean / Six Sigma",
+          "REST APIs"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
-          "readiness_after": 28,
-          "gain": 7
-        },
-        "observed": null
+          "readiness_after": 29,
+          "gain": 8
+        }
       }
     ],
     "construction-manager": [
@@ -1308,23 +1365,43 @@
         "t": "Building Surveyor",
         "m": 27,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "QA / Testing",
+          "Construction Administration",
+          "Scheduling",
+          "Contracts"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 55,
           "gain": 28
-        },
-        "observed": null
+        }
       },
       {
         "t": "Police Officer",
         "m": 27,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Operations",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 64,
           "gain": 37
-        },
-        "observed": null
+        }
       }
     ],
     "construction-estimator": [
@@ -1332,23 +1409,22 @@
         "t": "Structural Engineer",
         "m": 22,
         "slug": "structural-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Spec Writing",
+          "Construction Administration",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
           "readiness_after": 45,
           "gain": 23
-        },
-        "observed": null
-      },
-      {
-        "t": "Environmental Engineer",
-        "m": 21,
-        "slug": "environmental-engineer",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 25,
-          "gain": 4
-        },
-        "observed": null
+        }
       }
     ],
     "real-estate-developer": [
@@ -1356,23 +1432,43 @@
         "t": "Account Executive",
         "m": 26,
         "slug": "account-executive",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Sales",
+          "Negotiation",
+          "Forecasting",
+          "CRM"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 38,
           "gain": 12
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Product Manager",
+        "t": "Environmental Engineer",
         "m": 21,
-        "slug": "product-manager",
+        "slug": "environmental-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Financial Modeling",
+          "Urban Design",
+          "Sustainability",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
-          "readiness_after": 28,
-          "gain": 7
-        },
-        "observed": null
+          "readiness_after": 36,
+          "gain": 15
+        }
       }
     ],
     "marketing-manager": [
@@ -1380,23 +1476,43 @@
         "t": "Sales Representative",
         "m": 25,
         "slug": "sales-representative",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Sales",
+          "CRM",
+          "Accessibility",
+          "Social Media"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 36,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
         "t": "Social Media Manager",
         "m": 23,
         "slug": "social-media-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Social Media",
+          "Writing & Editing",
+          "Content Marketing",
+          "Event Planning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 35,
           "gain": 12
-        },
-        "observed": null
+        }
       }
     ],
     "creative-director": [
@@ -1404,50 +1520,103 @@
         "t": "UX Researcher",
         "m": 23,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Market Research"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 37,
           "gain": 14
-        },
-        "observed": "Primary-Short"
+        }
+      }
+    ],
+    "facilities-manager": [
+      {
+        "t": "Financial Controller",
+        "m": 21,
+        "slug": "controller",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Scheduling",
+          "Operations",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "facilities-manager",
+          "readiness_after": 29,
+          "gain": 8
+        }
       },
       {
         "t": "Maintenance Technician",
         "m": 21,
         "slug": "maintenance-technician",
-        "via": {
-          "parent": "creative-director",
-          "readiness_after": 24,
-          "gain": 3
-        },
-        "observed": null
-      }
-    ],
-    "facilities-manager": [
-      {
-        "t": "Customer Support Specialist",
-        "m": 21,
-        "slug": "customer-support",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Electrical Systems",
+          "Sustainability",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
-          "readiness_after": 26,
-          "gain": 5
-        },
-        "observed": null
-      },
-      {
-        "t": "Financial Controller",
-        "m": 21,
-        "slug": "controller",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 29,
-          "gain": 8
-        },
-        "observed": null
+          "readiness_after": 49,
+          "gain": 28
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Operations Manager",
+      "m": 21,
+      "slug": "operations-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "Operations",
+        "Data Visualization",
+        "Lean / Six Sigma",
+        "Tableau"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Product Manager",
+      "m": 21,
+      "slug": "product-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "NLP",
+        "REST APIs",
+        "Agile",
+        "Prototyping"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "construction-manager",
@@ -1492,14 +1661,14 @@
       0.49
     ],
     [
-      "facilities-manager",
-      "creative-director_1",
-      0.49
-    ],
-    [
       "real-estate-developer",
       "construction-manager_0",
       0.44
+    ],
+    [
+      "construction-manager",
+      "real-estate-developer_1",
+      0.39
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

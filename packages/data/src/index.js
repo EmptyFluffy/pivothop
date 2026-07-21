@@ -8,20 +8,24 @@ export const GENERATED_DIR = path.join(PKG_ROOT, 'generated');
 /**
  * The contract the graph consumes. Per-origin file shape (version 2):
  * {
- *   origin: { slug, title, field, postings, salary, salary_band: [p25, p75], remote },
- *   roles:  [{ id, title, field, desc, match, salary, salary_band, demand, remote, time,
+ *   origin: { slug, title, field, cluster, postings, salary, salary_band: [p25, p75], remote },
+ *   roles:  [{ id, title, field, cluster, kind, desc, match, salary, salary_band, demand, remote, time,
  *              have[], learn[],
  *              waterfall: [{ skill, name, pts, earned }],  // coverage decomposed per skill;
  *                                                          // earned sums to match — the structured
  *                                                          // route doc the export narrates from
- *              low_confidence, provenance: {postings, salaried} }],  // ring 1: top-8 by readiness
- *   next:   { [roleId]: [{ t, m, slug, via: { parent, readiness_after, gain } }] },
- *              // ring 2: real destinations at lower ORIGIN-RELATIVE readiness (m), attached
- *              // to the first-hop that best unlocks them; via documents that unlock
+ *              low_confidence, observed, provenance: {postings, salaried} }],  // ring 1: top-8 by readiness
+ *   next:   { [roleId]: [{ t, m, slug, field, cluster, kind, gap[], reach:'bridged',
+ *                          via: { parent, readiness_after, gain } }] },
+ *              // ring 2 BRIDGED: a first-hop unlocks these; via documents the unlock
+ *   direct: [{ t, m, slug, field, cluster, kind, gap[], reach:'direct' }],
+ *              // ring 2 DIRECT: reachable from the origin's own skills, standalone, no bridge.
+ *              // gap[] is the missing skills to be ready to apply. (docs/15, Thread 2)
  *   cross:  [[roleIdA, roleIdB, w]],                       // skill-overlap links between first hops
  *   bridges:[[roleId, kidId, w]],  // a second parent that also unlocks the kid;
  *                                  // kidId is "parentId_index" — load-bearing, see docs/13-graph-spec.md
  * }
+ * kind is 'lateral' (same industry cluster as origin) or 'pivot' (crosses it). (docs/15, Thread 1)
  * Origins below the confidence floor instead carry { insufficient: true } — the UI
  * shows the honest empty state, never invented routes.
  */

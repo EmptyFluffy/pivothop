@@ -4,6 +4,7 @@
     "slug": "ux-designer",
     "title": "UX Designer",
     "field": "Design",
+    "cluster": "Design",
     "postings": 317,
     "salary": "$70k–$120k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "design-technologist",
       "title": "Design Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 37,
       "salary": "$85k–$165k",
@@ -166,6 +169,8 @@
       "id": "ux-researcher",
       "title": "UX Researcher",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 34,
       "salary": "$85k–$135k",
@@ -321,6 +326,8 @@
       "id": "product-designer",
       "title": "Product Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "Owns a digital product's look, feel, and story end to end. Combines visual design, systems thinking, and close collaboration with engineers and PMs.",
       "match": 33,
       "salary": "$70k–$140k",
@@ -476,6 +483,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 24,
       "salary": "$95k–$150k",
@@ -631,6 +640,8 @@
       "id": "service-designer",
       "title": "Service Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 23,
       "salary": "$70k–$145k",
@@ -762,6 +773,8 @@
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 20,
       "salary": "$40k–$75k",
@@ -917,6 +930,8 @@
       "id": "motion-designer",
       "title": "Motion Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 18,
       "salary": "$65k–$140k",
@@ -1072,6 +1087,8 @@
       "id": "ux-writer",
       "title": "UX Writer",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 15,
       "salary": "$45k–$100k",
@@ -1209,12 +1226,22 @@
         "t": "Copywriter",
         "m": 10,
         "slug": "copywriter",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Copywriting",
+          "SEO",
+          "CRM",
+          "Email Marketing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 39,
           "gain": 29
-        },
-        "observed": null
+        }
       }
     ],
     "service-designer": [],
@@ -1224,12 +1251,22 @@
         "t": "Technical Artist",
         "m": 10,
         "slug": "technical-artist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Rendering",
+          "Unreal Engine",
+          "EHR / EMR",
+          "Python"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "motion-designer",
           "readiness_after": 23,
           "gain": 13
-        },
-        "observed": "Primary-Long"
+        }
       }
     ],
     "ux-writer": [
@@ -1237,26 +1274,47 @@
         "t": "Librarian",
         "m": 14,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Procurement",
+          "Budgeting",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-writer",
           "readiness_after": 45,
           "gain": 31
-        },
-        "observed": null
+        }
       },
       {
         "t": "Creative Technologist",
         "m": 12,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "NLP",
+          "Supply Chain",
+          "Spark",
+          "Branding"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-writer",
           "readiness_after": 36,
           "gain": 24
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [],
   "cross": [
     [
       "design-technologist",

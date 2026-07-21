@@ -4,6 +4,7 @@
     "slug": "bookkeeper",
     "title": "Bookkeeper",
     "field": "Finance",
+    "cluster": "Finance",
     "postings": 452,
     "salary": "$40k–$55k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "accountant",
       "title": "Accountant",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
       "desc": "",
       "match": 42,
       "salary": "$60k–$80k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 33,
       "salary": "$30k–$35k",
@@ -273,6 +278,8 @@
       "id": "financial-analyst",
       "title": "Financial Analyst",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
       "desc": "",
       "match": 24,
       "salary": "$65k–$90k",
@@ -428,6 +435,8 @@
       "id": "controller",
       "title": "Financial Controller",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
       "desc": "",
       "match": 20,
       "salary": "$65k–$75k",
@@ -583,6 +592,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 19,
       "salary": "$55k–$95k",
@@ -738,6 +749,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 17,
       "salary": "$65k–$100k",
@@ -893,6 +906,8 @@
       "id": "paralegal",
       "title": "Paralegal",
       "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
       "desc": "",
       "match": 13,
       "salary": "$40k–$75k",
@@ -1048,6 +1063,8 @@
       "id": "auditor",
       "title": "Auditor",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
       "desc": "",
       "match": 10,
       "salary": "$95k–$145k",
@@ -1209,12 +1226,22 @@
         "t": "Customer Success Manager",
         "m": 10,
         "slug": "customer-success-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Product Management",
+          "SQL",
+          "Jira",
+          "Project Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "controller",
           "readiness_after": 37,
           "gain": 27
-        },
-        "observed": null
+        }
       }
     ],
     "facilities-manager": [],
@@ -1225,15 +1252,26 @@
         "t": "Compliance Officer",
         "m": 10,
         "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "lateral",
+        "gap": [
+          "Compliance",
+          "Risk Management",
+          "Data Visualization",
+          "SQL"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "auditor",
           "readiness_after": 40,
           "gain": 30
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [],
   "cross": [
     [
       "controller",

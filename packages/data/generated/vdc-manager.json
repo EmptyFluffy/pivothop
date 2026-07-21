@@ -4,6 +4,7 @@
     "slug": "vdc-manager",
     "title": "VDC Manager",
     "field": "Architecture",
+    "cluster": "Built Environment",
     "postings": 82,
     "salary": "$90k–$130k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "structural-engineer",
       "title": "Structural Engineer",
       "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$60k–$110k",
@@ -172,6 +175,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 30,
       "salary": "$80k–$120k",
@@ -327,6 +332,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 30,
       "salary": "$65k–$100k",
@@ -482,6 +489,8 @@
       "id": "architect",
       "title": "Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
       "match": 27,
       "salary": "$55k–$85k",
@@ -637,6 +646,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 27,
       "salary": "$30k–$35k",
@@ -737,6 +748,8 @@
       "id": "landscape-architect",
       "title": "Landscape Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 26,
       "salary": "$55k–$95k",
@@ -892,6 +905,8 @@
       "id": "mechanical-engineer",
       "title": "Mechanical Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 25,
       "salary": "$65k–$120k",
@@ -1047,6 +1062,8 @@
       "id": "building-surveyor",
       "title": "Building Surveyor",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "Inspects buildings for defects, compliance, and condition. Advises on repair, regulation, and value across a building's life.",
       "match": 25,
       "salary": "$65k–$90k",
@@ -1150,23 +1167,43 @@
         "t": "Architectural Drafter",
         "m": 18,
         "slug": "architectural-drafter",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "AutoCAD",
+          "Drafting",
+          "Construction Documentation",
+          "3D Modeling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "structural-engineer",
           "readiness_after": 29,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
         "t": "Civil Engineer",
         "m": 18,
         "slug": "civil-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Spec Writing",
+          "Assessment",
+          "AutoCAD",
+          "Presentation"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "structural-engineer",
           "readiness_after": 47,
           "gain": 29
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "construction-manager": [
@@ -1174,23 +1211,43 @@
         "t": "Facilities Manager",
         "m": 22,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Procurement"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 61,
           "gain": 39
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
         "t": "Librarian",
         "m": 19,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Teaching",
+          "Procurement",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 30,
           "gain": 11
-        },
-        "observed": null
+        }
       }
     ],
     "construction-estimator": [],
@@ -1199,23 +1256,43 @@
         "t": "Interior Designer",
         "m": 23,
         "slug": "interior-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Space Planning",
+          "Presentation",
+          "Construction Documentation",
+          "Sustainability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "architect",
           "readiness_after": 67,
           "gain": 44
-        },
-        "observed": null
+        }
       },
       {
         "t": "BIM Manager",
         "m": 18,
         "slug": "bim-manager",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Clash Detection",
+          "Navisworks",
+          "3D Modeling",
+          "AutoCAD"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "architect",
           "readiness_after": 30,
           "gain": 12
-        },
-        "observed": "Primary-Long"
+        }
       }
     ],
     "police-officer": [],
@@ -1225,23 +1302,43 @@
         "t": "Electrical Engineer",
         "m": 22,
         "slug": "electrical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "Spec Writing",
+          "QA / Testing",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "mechanical-engineer",
           "readiness_after": 65,
           "gain": 43
-        },
-        "observed": null
+        }
       },
       {
         "t": "MEP Engineer",
         "m": 18,
         "slug": "mep-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Procurement",
+          "Health Education",
+          "Clinical Research",
+          "GCP"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "mechanical-engineer",
           "readiness_after": 32,
           "gain": 14
-        },
-        "observed": null
+        }
       }
     ],
     "building-surveyor": [
@@ -1249,15 +1346,26 @@
         "t": "Maintenance Technician",
         "m": 11,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Electrical Systems",
+          "Sustainability",
+          "Customer Service"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "building-surveyor",
           "readiness_after": 25,
           "gain": 14
-        },
-        "observed": "Supplemental"
+        }
       }
     ]
   },
+  "direct": [],
   "cross": [
     [
       "structural-engineer",

@@ -4,6 +4,7 @@
     "slug": "construction-estimator",
     "title": "Construction Estimator",
     "field": "Construction",
+    "cluster": "Built Environment",
     "postings": 505,
     "salary": "$65k–$100k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "structural-engineer",
       "title": "Structural Engineer",
       "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 35,
       "salary": "$60k–$110k",
@@ -172,6 +175,8 @@
       "id": "mechanical-engineer",
       "title": "Mechanical Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 28,
       "salary": "$65k–$120k",
@@ -327,6 +332,8 @@
       "id": "civil-engineer",
       "title": "Civil Engineer",
       "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 27,
       "salary": "$60k–$100k",
@@ -482,6 +489,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 26,
       "salary": "$55k–$95k",
@@ -637,6 +646,8 @@
       "id": "architect",
       "title": "Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
       "match": 23,
       "salary": "$55k–$85k",
@@ -792,6 +803,8 @@
       "id": "electrical-engineer",
       "title": "Electrical Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 23,
       "salary": "$70k–$185k",
@@ -947,6 +960,8 @@
       "id": "landscape-architect",
       "title": "Landscape Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 23,
       "salary": "$55k–$95k",
@@ -1102,6 +1117,8 @@
       "id": "vdc-manager",
       "title": "VDC Manager",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 22,
       "salary": "$90k–$130k",
@@ -1220,12 +1237,22 @@
         "t": "Librarian",
         "m": 18,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Teaching",
+          "Training & Facilitation",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
           "readiness_after": 40,
           "gain": 22
-        },
-        "observed": null
+        }
       }
     ],
     "facilities-manager": [
@@ -1233,12 +1260,22 @@
         "t": "Construction Manager",
         "m": 21,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Food Service",
+          "Operations",
+          "Quality Control",
+          "Observability"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 42,
           "gain": 21
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "architect": [
@@ -1246,12 +1283,22 @@
         "t": "Interior Designer",
         "m": 17,
         "slug": "interior-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Space Planning",
+          "Presentation",
+          "FF&E"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "architect",
           "readiness_after": 63,
           "gain": 46
-        },
-        "observed": null
+        }
       }
     ],
     "electrical-engineer": [
@@ -1259,12 +1306,22 @@
         "t": "Building Surveyor",
         "m": 19,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "QA / Testing",
+          "Scheduling",
+          "Contracts",
+          "Building Codes"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "electrical-engineer",
           "readiness_after": 40,
           "gain": 21
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
     "landscape-architect": [
@@ -1272,16 +1329,27 @@
         "t": "Urban Planner",
         "m": 12,
         "slug": "urban-planner",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Urban Design",
+          "Zoning",
+          "Community Engagement",
+          "Observability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "landscape-architect",
           "readiness_after": 37,
           "gain": 25
-        },
-        "observed": null
+        }
       }
     ],
     "vdc-manager": []
   },
+  "direct": [],
   "cross": [
     [
       "structural-engineer",

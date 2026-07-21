@@ -4,6 +4,7 @@
     "slug": "librarian",
     "title": "Librarian",
     "field": "Education",
+    "cluster": "Education",
     "postings": 260,
     "salary": "$45k–$85k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 45,
       "salary": "$30k–$35k",
@@ -118,6 +121,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 28,
       "salary": "$65k–$100k",
@@ -273,6 +278,8 @@
       "id": "teacher",
       "title": "Teacher",
       "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
       "desc": "",
       "match": 25,
       "salary": "$55k–$75k",
@@ -428,6 +435,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 24,
       "salary": "$55k–$95k",
@@ -583,6 +592,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 22,
       "salary": "$80k–$120k",
@@ -738,6 +749,8 @@
       "id": "civil-engineer",
       "title": "Civil Engineer",
       "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 21,
       "salary": "$60k–$100k",
@@ -893,6 +906,8 @@
       "id": "vdc-manager",
       "title": "VDC Manager",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 21,
       "salary": "$90k–$130k",
@@ -1006,6 +1021,8 @@
       "id": "professor",
       "title": "Professor / Lecturer",
       "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
       "desc": "",
       "match": 18,
       "salary": "$55k–$95k",
@@ -1159,100 +1176,94 @@
     }
   ],
   "next": {
-    "police-officer": [
-      {
-        "t": "Paralegal",
-        "m": 14,
-        "slug": "paralegal",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 18,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
-        "t": "Teaching Assistant",
-        "m": 11,
-        "slug": "teaching-assistant",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 12,
-          "gain": 1
-        },
-        "observed": null
-      }
-    ],
+    "police-officer": [],
     "construction-estimator": [
       {
         "t": "Architect",
         "m": 13,
         "slug": "architect",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Sustainability",
+          "Spec Writing",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
           "readiness_after": 29,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Management Consultant",
-        "m": 12,
-        "slug": "management-consultant",
+        "t": "Service Designer",
+        "m": 11,
+        "slug": "service-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Service Design",
+          "Drafting",
+          "Interaction Design",
+          "Azure"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
-          "readiness_after": 14,
-          "gain": 2
-        },
-        "observed": "Supplemental"
+          "readiness_after": 19,
+          "gain": 8
+        }
       }
     ],
-    "teacher": [
-      {
-        "t": "Therapist / Counselor",
-        "m": 12,
-        "slug": "therapist",
-        "via": {
-          "parent": "teacher",
-          "readiness_after": 15,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
-        "t": "Sales Representative",
-        "m": 11,
-        "slug": "sales-representative",
-        "via": {
-          "parent": "teacher",
-          "readiness_after": 12,
-          "gain": 1
-        },
-        "observed": null
-      }
-    ],
+    "teacher": [],
     "facilities-manager": [
       {
         "t": "Maintenance Technician",
         "m": 15,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Electrical Systems",
+          "Sustainability",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 46,
           "gain": 31
-        },
-        "observed": null
+        }
       },
       {
         "t": "Project Manager",
         "m": 14,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "Observability",
+          "Lean / Six Sigma",
+          "Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 24,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
     "construction-manager": [
@@ -1260,23 +1271,43 @@
         "t": "Physical Therapist",
         "m": 17,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Observability",
+          "Case Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 31,
           "gain": 14
-        },
-        "observed": null
+        }
       },
       {
         "t": "Building Surveyor",
         "m": 15,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "QA / Testing",
+          "Construction Administration",
+          "Account Management",
+          "Building Codes"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 44,
           "gain": 29
-        },
-        "observed": null
+        }
       }
     ],
     "civil-engineer": [
@@ -1284,74 +1315,190 @@
         "t": "Structural Engineer",
         "m": 18,
         "slug": "structural-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Spec Writing",
+          "Construction Administration",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
           "readiness_after": 64,
           "gain": 46
-        },
-        "observed": null
+        }
       },
       {
         "t": "Landscape Architect",
         "m": 15,
         "slug": "landscape-architect",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Urban Design",
+          "Sustainability",
+          "Construction Documentation",
+          "Construction Administration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
           "readiness_after": 50,
           "gain": 35
-        },
-        "observed": null
+        }
       }
     ],
     "vdc-manager": [
       {
-        "t": "Service Designer",
-        "m": 11,
-        "slug": "service-designer",
-        "via": {
-          "parent": "vdc-manager",
-          "readiness_after": 11,
-          "gain": 0
-        },
-        "observed": null
-      },
-      {
         "t": "Mechanical Engineer",
         "m": 10,
         "slug": "mechanical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Prototyping",
+          "Revit",
+          "HVAC Systems"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "vdc-manager",
           "readiness_after": 28,
           "gain": 18
-        },
-        "observed": null
+        }
       }
     ],
     "professor": [
       {
-        "t": "Corporate Trainer",
-        "m": 12,
-        "slug": "corporate-trainer",
+        "t": "Teaching Assistant",
+        "m": 11,
+        "slug": "teaching-assistant",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "lateral",
+        "gap": [
+          "Observability",
+          "Classroom Management",
+          "Assessment",
+          "Curriculum Development"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "professor",
-          "readiness_after": 16,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
-        "t": "UX Writer",
-        "m": 12,
-        "slug": "ux-writer",
-        "via": {
-          "parent": "professor",
-          "readiness_after": 14,
-          "gain": 2
-        },
-        "observed": null
+          "readiness_after": 35,
+          "gain": 24
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Paralegal",
+      "m": 14,
+      "slug": "paralegal",
+      "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
+      "gap": [
+        "Case Management",
+        "Compliance",
+        "Translation",
+        "SAP"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Corporate Trainer",
+      "m": 12,
+      "slug": "corporate-trainer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
+      "gap": [
+        "Instructional Design",
+        "Observability",
+        "Social Media",
+        "Figma"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "UX Writer",
+      "m": 12,
+      "slug": "ux-writer",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Design Systems",
+        "Translation",
+        "Content Marketing",
+        "Figma"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Management Consultant",
+      "m": 12,
+      "slug": "management-consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Presentation",
+        "Data Analysis",
+        "Sustainability",
+        "SQL"
+      ],
+      "observed": "Supplemental",
+      "reach": "direct"
+    },
+    {
+      "t": "Therapist / Counselor",
+      "m": 12,
+      "slug": "therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Case Management",
+        "Clinical Skills",
+        "Observability"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Sales Representative",
+      "m": 11,
+      "slug": "sales-representative",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Sales",
+        "Salesforce",
+        "CRM",
+        "Observability"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "construction-estimator",
@@ -1397,7 +1544,7 @@
     ],
     [
       "civil-engineer",
-      "vdc-manager_1",
+      "vdc-manager_0",
       0.41
     ],
     [

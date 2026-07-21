@@ -4,6 +4,7 @@
     "slug": "electrical-engineer",
     "title": "Electrical Engineer",
     "field": "Engineering",
+    "cluster": "Engineering & Manufacturing",
     "postings": 505,
     "salary": "$70k–$185k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "structural-engineer",
       "title": "Structural Engineer",
       "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 66,
       "salary": "$60k–$110k",
@@ -172,6 +175,8 @@
       "id": "mechanical-engineer",
       "title": "Mechanical Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "lateral",
       "desc": "",
       "match": 64,
       "salary": "$65k–$120k",
@@ -327,6 +332,8 @@
       "id": "architect",
       "title": "Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
       "match": 60,
       "salary": "$55k–$85k",
@@ -482,6 +489,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 54,
       "salary": "$65k–$100k",
@@ -637,6 +646,8 @@
       "id": "interior-designer",
       "title": "Interior Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 47,
       "salary": "$55k–$85k",
@@ -792,6 +803,8 @@
       "id": "civil-engineer",
       "title": "Civil Engineer",
       "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 44,
       "salary": "$60k–$100k",
@@ -947,6 +960,8 @@
       "id": "vdc-manager",
       "title": "VDC Manager",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 39,
       "salary": "$90k–$130k",
@@ -1060,6 +1075,8 @@
       "id": "landscape-architect",
       "title": "Landscape Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 37,
       "salary": "$55k–$95k",
@@ -1213,52 +1230,28 @@
     }
   ],
   "next": {
-    "structural-engineer": [
-      {
-        "t": "Aerospace Engineer",
-        "m": 20,
-        "slug": "aerospace-engineer",
-        "via": {
-          "parent": "structural-engineer",
-          "readiness_after": 24,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
-        "t": "Design Technologist",
-        "m": 13,
-        "slug": "design-technologist",
-        "via": {
-          "parent": "structural-engineer",
-          "readiness_after": 15,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "structural-engineer": [],
     "mechanical-engineer": [
       {
         "t": "Maintenance Technician",
         "m": 28,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Customer Service",
+          "HVAC Systems",
+          "Stakeholder Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "mechanical-engineer",
           "readiness_after": 44,
           "gain": 16
-        },
-        "observed": null
-      },
-      {
-        "t": "Electrician",
-        "m": 13,
-        "slug": "electrician",
-        "via": {
-          "parent": "mechanical-engineer",
-          "readiness_after": 15,
-          "gain": 2
-        },
-        "observed": null
+        }
       }
     ],
     "architect": [
@@ -1266,23 +1259,43 @@
         "t": "Building Performance Analyst",
         "m": 27,
         "slug": "building-performance-analyst",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Energy Modeling",
+          "Parametric Design",
+          "Data Analysis",
+          "Data Visualization"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "architect",
           "readiness_after": 35,
           "gain": 8
-        },
-        "observed": null
+        }
       },
       {
-        "t": "BIM Manager",
-        "m": 17,
-        "slug": "bim-manager",
+        "t": "Urban Planner",
+        "m": 13,
+        "slug": "urban-planner",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Urban Design",
+          "Zoning",
+          "Community Engagement",
+          "Event Planning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "architect",
           "readiness_after": 23,
-          "gain": 6
-        },
-        "observed": null
+          "gain": 10
+        }
       }
     ],
     "construction-estimator": [
@@ -1290,23 +1303,22 @@
         "t": "Facilities Manager",
         "m": 25,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
           "readiness_after": 44,
           "gain": 19
-        },
-        "observed": null
-      },
-      {
-        "t": "Service Designer",
-        "m": 12,
-        "slug": "service-designer",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 14,
-          "gain": 2
-        },
-        "observed": null
+        }
       }
     ],
     "interior-designer": [
@@ -1314,71 +1326,88 @@
         "t": "Building Surveyor",
         "m": 34,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Scheduling",
+          "Contracts",
+          "Account Management",
+          "Building Codes"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "interior-designer",
           "readiness_after": 52,
           "gain": 18
-        },
-        "observed": null
+        }
       },
       {
         "t": "Construction Manager",
         "m": 32,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Procurement",
+          "Food Service",
+          "Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "interior-designer",
           "readiness_after": 46,
           "gain": 14
-        },
-        "observed": null
+        }
       }
     ],
-    "civil-engineer": [
-      {
-        "t": "Physical Therapist",
-        "m": 15,
-        "slug": "physical-therapist",
-        "via": {
-          "parent": "civil-engineer",
-          "readiness_after": 21,
-          "gain": 6
-        },
-        "observed": null
-      },
-      {
-        "t": "Urban Planner",
-        "m": 13,
-        "slug": "urban-planner",
-        "via": {
-          "parent": "civil-engineer",
-          "readiness_after": 22,
-          "gain": 9
-        },
-        "observed": null
-      }
-    ],
+    "civil-engineer": [],
     "vdc-manager": [
       {
         "t": "Architectural Drafter",
         "m": 22,
         "slug": "architectural-drafter",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "3D Modeling",
+          "Health Education",
+          "Agile",
+          "Point Cloud / Scanning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "vdc-manager",
           "readiness_after": 33,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
         "t": "MEP Engineer",
         "m": 19,
         "slug": "mep-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Procurement",
+          "Health Education",
+          "Clinical Research",
+          "GCP"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "vdc-manager",
           "readiness_after": 31,
           "gain": 12
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "landscape-architect": [
@@ -1386,26 +1415,143 @@
         "t": "Police Officer",
         "m": 27,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Operations",
+          "Presentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "landscape-architect",
           "readiness_after": 44,
           "gain": 17
-        },
-        "observed": null
+        }
       },
       {
         "t": "Environmental Engineer",
         "m": 17,
         "slug": "environmental-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "lateral",
+        "gap": [
+          "Financial Modeling",
+          "Urban Design",
+          "Budgeting",
+          "Safety / OSHA"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "landscape-architect",
           "readiness_after": 38,
           "gain": 21
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Aerospace Engineer",
+      "m": 20,
+      "slug": "aerospace-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "lateral",
+      "gap": [
+        "Teaching",
+        "FEA / Simulation",
+        "Risk Management"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "BIM Manager",
+      "m": 17,
+      "slug": "bim-manager",
+      "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Clash Detection",
+        "Navisworks",
+        "3D Modeling",
+        "ISO 19650"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Physical Therapist",
+      "m": 15,
+      "slug": "physical-therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Clinical Skills",
+        "Case Management",
+        "Teaching"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Electrician",
+      "m": 13,
+      "slug": "electrician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "gap": [
+        "Maintenance",
+        "Deep Learning",
+        "Accessibility",
+        "SAP"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Design Technologist",
+      "m": 13,
+      "slug": "design-technologist",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "Design Systems",
+        "Email Marketing",
+        "NLP",
+        "Accessibility"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Service Designer",
+      "m": 12,
+      "slug": "service-designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Service Design",
+        "Interaction Design",
+        "Agile",
+        "Customer Service"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "structural-engineer",

@@ -4,6 +4,7 @@
     "slug": "copywriter",
     "title": "Copywriter",
     "field": "Writing",
+    "cluster": "Media & Writing",
     "postings": 215,
     "salary": "$55k–$95k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 41,
       "salary": "$30k–$35k",
@@ -118,6 +121,8 @@
       "id": "journalist",
       "title": "Journalist",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "lateral",
       "desc": "",
       "match": 34,
       "salary": "$50k–$85k",
@@ -273,6 +278,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 21,
       "salary": "$60k–$115k",
@@ -428,6 +435,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 20,
       "salary": "$95k–$150k",
@@ -583,6 +592,8 @@
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$40k–$75k",
@@ -738,6 +749,8 @@
       "id": "technical-writer",
       "title": "Technical Writer",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "lateral",
       "desc": "",
       "match": 16,
       "salary": "$70k–$105k",
@@ -893,6 +906,8 @@
       "id": "motion-designer",
       "title": "Motion Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 15,
       "salary": "$65k–$140k",
@@ -1048,6 +1063,8 @@
       "id": "creative-technologist",
       "title": "Creative Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
       "match": 15,
       "salary": "$95k–$170k",
@@ -1172,12 +1189,22 @@
         "t": "UX Researcher",
         "m": 10,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Market Research"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 28,
           "gain": 18
-        },
-        "observed": null
+        }
       }
     ],
     "creative-director": [
@@ -1185,23 +1212,43 @@
         "t": "Physical Therapist",
         "m": 11,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Case Management",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 24,
           "gain": 13
-        },
-        "observed": null
+        }
       },
       {
         "t": "Video Editor",
         "m": 10,
         "slug": "video-editor",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Video Editing",
+          "Premiere Pro",
+          "Motion Design",
+          "After Effects"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 27,
           "gain": 17
-        },
-        "observed": null
+        }
       }
     ],
     "graphic-designer": [
@@ -1209,12 +1256,22 @@
         "t": "Facilities Manager",
         "m": 10,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "graphic-designer",
           "readiness_after": 25,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "technical-writer": [],
@@ -1224,15 +1281,26 @@
         "t": "Content Strategist",
         "m": 11,
         "slug": "content-strategist",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "lateral",
+        "gap": [
+          "NLP",
+          "Video Editing",
+          "Compliance",
+          "Data Analysis"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
           "readiness_after": 21,
           "gain": 10
-        },
-        "observed": "Primary-Short"
+        }
       }
     ]
   },
+  "direct": [],
   "cross": [
     [
       "journalist",

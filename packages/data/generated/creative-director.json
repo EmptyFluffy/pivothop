@@ -4,6 +4,7 @@
     "slug": "creative-director",
     "title": "Creative Director",
     "field": "Design",
+    "cluster": "Design",
     "postings": 190,
     "salary": "$95k–$150k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "journalist",
       "title": "Journalist",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 53,
       "salary": "$50k–$85k",
@@ -172,6 +175,8 @@
       "id": "copywriter",
       "title": "Copywriter",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 37,
       "salary": "$55k–$95k",
@@ -327,6 +332,8 @@
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 33,
       "salary": "$40k–$75k",
@@ -482,6 +489,8 @@
       "id": "creative-technologist",
       "title": "Creative Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
       "match": 30,
       "salary": "$95k–$170k",
@@ -601,6 +610,8 @@
       "id": "ux-designer",
       "title": "UX Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "Designs how software should feel to use. Researches users, maps flows, sketches interfaces, and defends the human experience against every other project pressure.",
       "match": 29,
       "salary": "$70k–$120k",
@@ -756,6 +767,8 @@
       "id": "ux-researcher",
       "title": "UX Researcher",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 28,
       "salary": "$85k–$135k",
@@ -911,6 +924,8 @@
       "id": "motion-designer",
       "title": "Motion Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 27,
       "salary": "$65k–$140k",
@@ -1066,6 +1081,8 @@
       "id": "design-technologist",
       "title": "Design Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 27,
       "salary": "$85k–$165k",
@@ -1218,23 +1235,22 @@
         "t": "Police Officer",
         "m": 27,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Operations",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "journalist",
           "readiness_after": 48,
           "gain": 21
-        },
-        "observed": null
-      },
-      {
-        "t": "Physical Therapist",
-        "m": 21,
-        "slug": "physical-therapist",
-        "via": {
-          "parent": "journalist",
-          "readiness_after": 26,
-          "gain": 5
-        },
-        "observed": null
+        }
       }
     ],
     "copywriter": [
@@ -1242,47 +1258,66 @@
         "t": "Marketing Manager",
         "m": 21,
         "slug": "marketing-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "Market Research",
+          "Email Marketing",
+          "CRM"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "copywriter",
           "readiness_after": 35,
           "gain": 14
-        },
-        "observed": null
-      },
-      {
-        "t": "Therapist / Counselor",
-        "m": 17,
-        "slug": "therapist",
-        "via": {
-          "parent": "copywriter",
-          "readiness_after": 19,
-          "gain": 2
-        },
-        "observed": null
+        }
       }
     ],
     "graphic-designer": [
       {
-        "t": "Technical Artist",
-        "m": 18,
-        "slug": "technical-artist",
-        "via": {
-          "parent": "graphic-designer",
-          "readiness_after": 20,
-          "gain": 2
-        },
-        "observed": "Supplemental"
-      },
-      {
         "t": "Facilities Manager",
         "m": 18,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "graphic-designer",
           "readiness_after": 26,
           "gain": 8
-        },
-        "observed": null
+        }
+      },
+      {
+        "t": "Real Estate Developer",
+        "m": 15,
+        "slug": "real-estate-developer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Negotiation",
+          "Contracts",
+          "Sales",
+          "AWS"
+        ],
+        "observed": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "graphic-designer",
+          "readiness_after": 24,
+          "gain": 9
+        }
       }
     ],
     "creative-technologist": [
@@ -1290,23 +1325,22 @@
         "t": "Project Manager",
         "m": 20,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "Supply Chain",
+          "Lean / Six Sigma",
+          "Operations"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
           "readiness_after": 31,
           "gain": 11
-        },
-        "observed": "Primary-Short"
-      },
-      {
-        "t": "Maintenance Technician",
-        "m": 17,
-        "slug": "maintenance-technician",
-        "via": {
-          "parent": "creative-technologist",
-          "readiness_after": 18,
-          "gain": 1
-        },
-        "observed": null
+        }
       }
     ],
     "ux-designer": [
@@ -1314,98 +1348,206 @@
         "t": "Product Designer",
         "m": 20,
         "slug": "product-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Social Media",
+          "Interaction Design",
+          "Visual Design",
+          "User Research"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "ux-designer",
           "readiness_after": 44,
           "gain": 24
-        },
-        "observed": "Supplemental"
+        }
       },
       {
         "t": "Service Designer",
         "m": 19,
         "slug": "service-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Drafting",
+          "Interaction Design",
+          "Agile",
+          "Customer Service"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "ux-designer",
           "readiness_after": 32,
           "gain": 13
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
-    "ux-researcher": [
-      {
-        "t": "Librarian",
-        "m": 17,
-        "slug": "librarian",
-        "via": {
-          "parent": "ux-researcher",
-          "readiness_after": 22,
-          "gain": 5
-        },
-        "observed": null
-      },
-      {
-        "t": "Civil Engineer",
-        "m": 16,
-        "slug": "civil-engineer",
-        "via": {
-          "parent": "ux-researcher",
-          "readiness_after": 18,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "ux-researcher": [],
     "motion-designer": [
       {
         "t": "Video Editor",
         "m": 24,
         "slug": "video-editor",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Video Editing",
+          "Social Media",
+          "Premiere Pro",
+          "After Effects"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "motion-designer",
           "readiness_after": 37,
           "gain": 13
-        },
-        "observed": "Supplemental"
+        }
       },
       {
-        "t": "Customer Success Manager",
+        "t": "Technical Artist",
         "m": 18,
-        "slug": "customer-success-manager",
+        "slug": "technical-artist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Rendering",
+          "Python",
+          "Creative Coding",
+          "Drafting"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "motion-designer",
-          "readiness_after": 24,
-          "gain": 6
-        },
-        "observed": null
+          "readiness_after": 30,
+          "gain": 12
+        }
       }
     ],
-    "design-technologist": [
-      {
-        "t": "UX Writer",
-        "m": 15,
-        "slug": "ux-writer",
-        "via": {
-          "parent": "design-technologist",
-          "readiness_after": 21,
-          "gain": 6
-        },
-        "observed": "Supplemental"
-      },
-      {
-        "t": "Real Estate Developer",
-        "m": 15,
-        "slug": "real-estate-developer",
-        "via": {
-          "parent": "design-technologist",
-          "readiness_after": 17,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ]
+    "design-technologist": []
   },
+  "direct": [
+    {
+      "t": "Physical Therapist",
+      "m": 21,
+      "slug": "physical-therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Clinical Skills",
+        "Case Management",
+        "Teaching"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Customer Success Manager",
+      "m": 18,
+      "slug": "customer-success-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Account Management",
+        "Customer Service",
+        "Data Analysis",
+        "SQL"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Therapist / Counselor",
+      "m": 17,
+      "slug": "therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Case Management",
+        "Clinical Skills",
+        "QA / Testing"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Maintenance Technician",
+      "m": 17,
+      "slug": "maintenance-technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "gap": [
+        "Maintenance",
+        "Electrical Systems",
+        "Sustainability",
+        "Lean / Six Sigma"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Librarian",
+      "m": 17,
+      "slug": "librarian",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Teaching",
+        "Budgeting",
+        "Scheduling",
+        "Customer Service"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Civil Engineer",
+      "m": 16,
+      "slug": "civil-engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Spec Writing",
+        "Assessment",
+        "AutoCAD",
+        "Quality Control"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "UX Writer",
+      "m": 15,
+      "slug": "ux-writer",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Content Marketing",
+        "Excel",
+        "Technical Writing",
+        "Illustration"
+      ],
+      "observed": "Supplemental",
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "creative-technologist",

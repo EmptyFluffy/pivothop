@@ -4,6 +4,7 @@
     "slug": "physical-therapist",
     "title": "Physical Therapist",
     "field": "Healthcare",
+    "cluster": "Healthcare",
     "postings": 443,
     "salary": "$90k–$115k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 59,
       "salary": "$30k–$35k",
@@ -118,6 +121,8 @@
       "id": "therapist",
       "title": "Therapist / Counselor",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 56,
       "salary": "$85k–$110k",
@@ -273,6 +278,8 @@
       "id": "registered-nurse",
       "title": "Registered Nurse",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 38,
       "salary": "$60k–$105k",
@@ -428,6 +435,8 @@
       "id": "nurse-practitioner",
       "title": "Nurse Practitioner",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 38,
       "salary": "$30k–$140k",
@@ -583,6 +592,8 @@
       "id": "social-worker",
       "title": "Social Worker",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 28,
       "salary": "$60k–$110k",
@@ -738,6 +749,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 22,
       "salary": "$55k–$95k",
@@ -893,6 +906,8 @@
       "id": "paralegal",
       "title": "Paralegal",
       "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
       "desc": "",
       "match": 21,
       "salary": "$40k–$75k",
@@ -1048,6 +1063,8 @@
       "id": "medical-assistant",
       "title": "Medical Assistant",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 19,
       "salary": "$45k–$60k",
@@ -1201,124 +1218,94 @@
     }
   ],
   "next": {
-    "police-officer": [
-      {
-        "t": "Civil Engineer",
-        "m": 12,
-        "slug": "civil-engineer",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 12,
-          "gain": 0
-        },
-        "observed": null
-      },
-      {
-        "t": "Copywriter",
-        "m": 12,
-        "slug": "copywriter",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 14,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
-    "therapist": [
-      {
-        "t": "Professor / Lecturer",
-        "m": 12,
-        "slug": "professor",
-        "via": {
-          "parent": "therapist",
-          "readiness_after": 14,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Electrical Engineer",
-        "m": 10,
-        "slug": "electrical-engineer",
-        "via": {
-          "parent": "therapist",
-          "readiness_after": 12,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "police-officer": [],
+    "therapist": [],
     "registered-nurse": [
       {
         "t": "Construction Manager",
         "m": 15,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Project Management",
+          "Construction Administration",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "registered-nurse",
           "readiness_after": 39,
           "gain": 24
-        },
-        "observed": null
+        }
       },
-      {
-        "t": "Teacher",
-        "m": 14,
-        "slug": "teacher",
-        "via": {
-          "parent": "registered-nurse",
-          "readiness_after": 19,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
-    "nurse-practitioner": [
       {
         "t": "Instructional Designer",
         "m": 10,
         "slug": "instructional-designer",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Instructional Design",
+          "Agile",
+          "Customer Service",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
-          "parent": "nurse-practitioner",
-          "readiness_after": 14,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
-        "t": "Structural Engineer",
-        "m": 10,
-        "slug": "structural-engineer",
-        "via": {
-          "parent": "nurse-practitioner",
-          "readiness_after": 12,
-          "gain": 2
-        },
-        "observed": null
+          "parent": "registered-nurse",
+          "readiness_after": 21,
+          "gain": 11
+        }
       }
     ],
+    "nurse-practitioner": [],
     "social-worker": [
       {
         "t": "Psychologist",
         "m": 13,
         "slug": "psychologist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "lateral",
+        "gap": [
+          "Supply Chain",
+          "Clinical Research",
+          "Data Analysis",
+          "HR Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "social-worker",
           "readiness_after": 40,
           "gain": 27
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Creative Director",
-        "m": 12,
-        "slug": "creative-director",
+        "t": "Aerospace Engineer",
+        "m": 11,
+        "slug": "aerospace-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "FEA / Simulation",
+          "Electrical Systems",
+          "Risk Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "social-worker",
-          "readiness_after": 19,
-          "gain": 7
-        },
-        "observed": null
+          "readiness_after": 22,
+          "gain": 11
+        }
       }
     ],
     "facilities-manager": [
@@ -1326,23 +1313,43 @@
         "t": "Maintenance Technician",
         "m": 19,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "Sustainability",
+          "Customer Service",
+          "Project Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 46,
           "gain": 27
-        },
-        "observed": null
+        }
       },
       {
         "t": "Librarian",
         "m": 17,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Project Management",
+          "Budgeting",
+          "Customer Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 29,
           "gain": 12
-        },
-        "observed": null
+        }
       }
     ],
     "paralegal": [
@@ -1350,23 +1357,22 @@
         "t": "Building Surveyor",
         "m": 17,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Construction Administration",
+          "Project Management",
+          "Contracts",
+          "Account Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "paralegal",
           "readiness_after": 33,
           "gain": 16
-        },
-        "observed": null
-      },
-      {
-        "t": "Environmental Engineer",
-        "m": 16,
-        "slug": "environmental-engineer",
-        "via": {
-          "parent": "paralegal",
-          "readiness_after": 22,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
     "medical-assistant": [
@@ -1374,26 +1380,155 @@
         "t": "Teaching Assistant",
         "m": 11,
         "slug": "teaching-assistant",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Classroom Management",
+          "Assessment",
+          "Budgeting",
+          "Curriculum Development"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "medical-assistant",
           "readiness_after": 28,
           "gain": 17
-        },
-        "observed": null
-      },
-      {
-        "t": "Aerospace Engineer",
-        "m": 11,
-        "slug": "aerospace-engineer",
-        "via": {
-          "parent": "medical-assistant",
-          "readiness_after": 20,
-          "gain": 9
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Environmental Engineer",
+      "m": 16,
+      "slug": "environmental-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "Financial Modeling",
+        "Urban Design",
+        "Sustainability",
+        "Budgeting"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Teacher",
+      "m": 14,
+      "slug": "teacher",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Classroom Management",
+        "Curriculum Development",
+        "Design Thinking",
+        "Photography"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Creative Director",
+      "m": 12,
+      "slug": "creative-director",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Product Management",
+        "Service Design",
+        "Figma"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Professor / Lecturer",
+      "m": 12,
+      "slug": "professor",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Curriculum Development",
+        "HR Operations",
+        "Motion Design",
+        "NLP"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Civil Engineer",
+      "m": 12,
+      "slug": "civil-engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Spec Writing",
+        "Assessment",
+        "AutoCAD"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Copywriter",
+      "m": 12,
+      "slug": "copywriter",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Copywriting",
+        "SEO",
+        "CRM"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Electrical Engineer",
+      "m": 10,
+      "slug": "electrical-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "Electrical Systems",
+        "Revit",
+        "Spec Writing",
+        "Construction Administration"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Structural Engineer",
+      "m": 10,
+      "slug": "structural-engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Revit",
+        "Spec Writing",
+        "Construction Administration"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "nurse-practitioner",
@@ -1443,9 +1578,9 @@
       0.28
     ],
     [
-      "facilities-manager",
-      "paralegal_1",
-      0.28
+      "medical-assistant",
+      "social-worker_0",
+      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -4,6 +4,7 @@
     "slug": "urban-planner",
     "title": "Urban Planner",
     "field": "Architecture",
+    "cluster": "Built Environment",
     "postings": 73,
     "salary": "$55k–$100k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "landscape-architect",
       "title": "Landscape Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 57,
       "salary": "$55k–$95k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 36,
       "salary": "$30k–$35k",
@@ -273,6 +278,8 @@
       "id": "environmental-engineer",
       "title": "Environmental Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 32,
       "salary": "$45k–$120k",
@@ -368,6 +375,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$65k–$100k",
@@ -523,6 +532,8 @@
       "id": "architect",
       "title": "Architect",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
       "match": 25,
       "salary": "$55k–$85k",
@@ -678,6 +689,8 @@
       "id": "building-surveyor",
       "title": "Building Surveyor",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "Inspects buildings for defects, compliance, and condition. Advises on repair, regulation, and value across a building's life.",
       "match": 23,
       "salary": "$65k–$90k",
@@ -779,6 +792,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 23,
       "salary": "$55k–$95k",
@@ -934,6 +949,8 @@
       "id": "civil-engineer",
       "title": "Civil Engineer",
       "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "desc": "",
       "match": 21,
       "salary": "$60k–$100k",
@@ -1092,119 +1109,133 @@
         "t": "Structural Engineer",
         "m": 16,
         "slug": "structural-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Revit",
+          "Spec Writing",
+          "Construction Administration",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "landscape-architect",
           "readiness_after": 41,
           "gain": 25
-        },
-        "observed": null
+        }
       },
       {
         "t": "VDC Manager",
         "m": 15,
         "slug": "vdc-manager",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "BIM",
+          "Construction Administration",
+          "Lean / Six Sigma",
+          "Quality Control"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "landscape-architect",
           "readiness_after": 31,
           "gain": 16
-        },
-        "observed": null
+        }
       }
     ],
-    "police-officer": [
-      {
-        "t": "Social Worker",
-        "m": 11,
-        "slug": "social-worker",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 14,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
-        "t": "Management Consultant",
-        "m": 11,
-        "slug": "management-consultant",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 11,
-          "gain": 0
-        },
-        "observed": "Supplemental"
-      }
-    ],
+    "police-officer": [],
     "environmental-engineer": [
       {
         "t": "Physical Therapist",
         "m": 14,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Case Management",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "environmental-engineer",
           "readiness_after": 25,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
         "t": "Accountant",
         "m": 12,
         "slug": "accountant",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Accounting",
+          "Audit",
+          "SAP",
+          "Excel"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "environmental-engineer",
           "readiness_after": 20,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
-    "construction-estimator": [
-      {
-        "t": "Chef",
-        "m": 13,
-        "slug": "chef",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 19,
-          "gain": 6
-        },
-        "observed": null
-      },
-      {
-        "t": "Marketing Manager",
-        "m": 13,
-        "slug": "marketing-manager",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 16,
-          "gain": 3
-        },
-        "observed": null
-      }
-    ],
+    "construction-estimator": [],
     "architect": [
       {
         "t": "Interior Designer",
         "m": 18,
         "slug": "interior-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Space Planning",
+          "Construction Administration",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "architect",
           "readiness_after": 63,
           "gain": 45
-        },
-        "observed": null
+        }
       },
       {
         "t": "Mechanical Engineer",
         "m": 16,
         "slug": "mechanical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Prototyping",
+          "Revit",
+          "HVAC Systems"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "architect",
           "readiness_after": 54,
           "gain": 38
-        },
-        "observed": null
+        }
       }
     ],
     "building-surveyor": [
@@ -1212,23 +1243,43 @@
         "t": "Real Estate Developer",
         "m": 16,
         "slug": "real-estate-developer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Product Management",
+          "Procurement",
+          "Contracts",
+          "Sales"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "building-surveyor",
           "readiness_after": 24,
           "gain": 8
-        },
-        "observed": null
+        }
       },
       {
         "t": "Paralegal",
         "m": 15,
         "slug": "paralegal",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Case Management",
+          "Excel",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "building-surveyor",
           "readiness_after": 26,
           "gain": 11
-        },
-        "observed": null
+        }
       }
     ],
     "facilities-manager": [
@@ -1236,23 +1287,43 @@
         "t": "Construction Manager",
         "m": 19,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Customer Service",
+          "Construction Administration",
+          "Procurement",
+          "Food Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 40,
           "gain": 21
-        },
-        "observed": null
+        }
       },
       {
         "t": "Maintenance Technician",
         "m": 19,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Electrical Systems",
+          "Lean / Six Sigma",
+          "Customer Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 47,
           "gain": 28
-        },
-        "observed": null
+        }
       }
     ],
     "civil-engineer": [
@@ -1260,26 +1331,112 @@
         "t": "Librarian",
         "m": 17,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Procurement",
+          "Training & Facilitation",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
           "readiness_after": 38,
           "gain": 21
-        },
-        "observed": null
+        }
       },
       {
         "t": "Electrical Engineer",
         "m": 16,
         "slug": "electrical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "Revit",
+          "Spec Writing",
+          "Quality Control"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
           "readiness_after": 48,
           "gain": 32
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Chef",
+      "m": 13,
+      "slug": "chef",
+      "field": "Hospitality",
+      "cluster": "Service",
+      "kind": "pivot",
+      "gap": [
+        "Food Service",
+        "Spec Writing",
+        "Market Research",
+        "Vue"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Marketing Manager",
+      "m": 13,
+      "slug": "marketing-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Product Management",
+        "Market Research",
+        "Email Marketing",
+        "CRM"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Social Worker",
+      "m": 11,
+      "slug": "social-worker",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Case Management",
+        "Design Systems",
+        "Patient Care",
+        "Training & Facilitation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Management Consultant",
+      "m": 11,
+      "slug": "management-consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "SQL",
+        "Account Management",
+        "Salesforce",
+        "CRM"
+      ],
+      "observed": "Supplemental",
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "construction-estimator",

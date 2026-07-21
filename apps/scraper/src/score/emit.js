@@ -20,7 +20,7 @@ const FIRST_HOPS = 8;
 const KIDS_PER_HOP = 2;
 const KIDS_TOTAL_MAX = 16;
 const KID_MIN_READINESS = 10; // below this even the honest framing is noise
-const BRIDGE_MIN_GAIN = 5;    // a second parent must add real unlock, not rounding error
+const BRIDGE_MIN_GAIN = 8;    // a parent must add a real unlock to count as a bridge; below this, the kid stands alone
 const CROSS_MAX = 6;
 const BRIDGE_MAX = 4;
 
@@ -40,7 +40,14 @@ function timeEstimate(match) {
 
 function occInfo(slug) {
   const occ = getTaxonomy().occupations.find((o) => o.slug === slug);
-  return occ ?? { slug, title: slug, field: '', desc: '' };
+  return occ ?? { slug, title: slug, field: '', desc: '', cluster: null };
+}
+
+// Same industry cluster => a lateral move; crossing it => a real cross-industry pivot.
+// See docs/15-skill-graph-evolution.md, Thread 1.
+function routeKind(originSlug, destSlug) {
+  const a = occInfo(originSlug).cluster, b = occInfo(destSlug).cluster;
+  return a && b && a === b ? 'lateral' : 'pivot';
 }
 
 const skillMap = (aggRole) => new Map((aggRole?.top_skills ?? []).map((t) => [t.id, t.share]));
@@ -124,6 +131,8 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         id: h.dest,
         title: info.title,
         field: info.field,
+        cluster: info.cluster,
+        kind: routeKind(origin, h.dest),
         desc: info.desc ?? '',
         match: h.match,
         salary: d.salaried_count >= 5 ? fmtSalary(d.salary_p25, d.salary_p75) : null,
@@ -141,10 +150,15 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     });
 
     // Ring 2: destinations ranked below the first hops, at honest origin-relative
-    // readiness, each attached to the parent that best unlocks it.
+    // readiness. A kid is BRIDGED when a first-hop parent raises its readiness by a
+    // real margin (gain >= BRIDGE_MIN_GAIN) — then it hangs off that parent and can
+    // light a bridge. Otherwise it is DIRECT: reachable from the origin's own skills,
+    // standalone in ring 2, carrying its skill gap. Not every second-ring role needs a
+    // bridge. (docs/15-skill-graph-evolution.md, Thread 2)
     const parentMaps = new Map(hops.map((h) => [h.dest, mergeMax(oMap, skillMap(agg[h.dest]))]));
     const slots = new Map(hops.map((h) => [h.dest, 0]));
     const next = Object.fromEntries(hops.map((h) => [h.dest, []]));
+    const direct = [];
     const bridges = [];
     let kidCount = 0;
 
@@ -152,26 +166,35 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
       if (kidCount >= KIDS_TOTAL_MAX) break;
       if (k.match < KID_MIN_READINESS) continue;
       const kMap = skillMap(agg[k.dest]);
+      const info = occInfo(k.dest);
+      const gap = waterfall(oMap, kMap).filter((s) => s.earned === 0).slice(0, 4).map((s) => s.name);
+      const kidBase = {
+        t: info.title,
+        m: k.match, // origin-relative readiness — the same measure as every other node
+        slug: k.dest,
+        field: info.field,
+        cluster: info.cluster,
+        kind: routeKind(origin, k.dest),
+        gap, // the missing skills to be ready to apply, straight from the waterfall
+        observed: observedTier(origin, k.dest),
+      };
       const gains = hops
         .map((h) => {
           const to = Math.round(100 * coverage(parentMaps.get(h.dest), kMap));
           return { parent: h.dest, to, gain: to - k.match };
         })
         .sort((a, b) => b.gain - a.gain);
-      const best = gains.find((g) => slots.get(g.parent) < KIDS_PER_HOP);
-      if (!best) continue;
-      slots.set(best.parent, slots.get(best.parent) + 1);
-      const idx = next[best.parent].length;
-      next[best.parent].push({
-        t: occInfo(k.dest).title,
-        m: k.match, // origin-relative readiness — the same measure as every other node
-        slug: k.dest,
-        via: { parent: best.parent, readiness_after: best.to, gain: best.gain },
-        observed: observedTier(origin, k.dest),
-      });
+      const unlock = gains.find((g) => g.gain >= BRIDGE_MIN_GAIN && slots.get(g.parent) < KIDS_PER_HOP);
+      if (unlock) {
+        slots.set(unlock.parent, slots.get(unlock.parent) + 1);
+        const idx = next[unlock.parent].length;
+        next[unlock.parent].push({ ...kidBase, reach: 'bridged', via: { parent: unlock.parent, readiness_after: unlock.to, gain: unlock.gain } });
+        const second = gains.find((g) => g.parent !== unlock.parent && g.gain >= BRIDGE_MIN_GAIN);
+        if (second) bridges.push([second.parent, `${unlock.parent}_${idx}`, +(second.to / 100).toFixed(2)]);
+      } else {
+        direct.push({ ...kidBase, reach: 'direct' });
+      }
       kidCount++;
-      const second = gains.find((g) => g.parent !== best.parent && g.gain >= BRIDGE_MIN_GAIN);
-      if (second) bridges.push([second.parent, `${best.parent}_${idx}`, +(second.to / 100).toFixed(2)]);
     }
     bridges.sort((a, b) => b[2] - a[2]).splice(BRIDGE_MAX);
 
@@ -193,13 +216,15 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         slug: origin,
         title: oInfo.title,
         field: oInfo.field,
+        cluster: oInfo.cluster,
         postings: oAgg.count,
         salary: fmtSalary(oAgg.salary_p25, oAgg.salary_p75),
         salary_band: [oAgg.salary_p25, oAgg.salary_p75],
         remote: `${Math.round(oAgg.remote_share * 100)}%`,
       },
       roles,
-      next,
+      next,     // ring-2 kids that hang off a first-hop that unlocks them (bridged)
+      direct,   // ring-2 kids reachable from the origin's own skills, standalone (no bridge)
       cross,
       bridges,
       formula: readJson(ADJACENCY_FILE)?.formula,

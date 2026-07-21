@@ -4,6 +4,7 @@
     "slug": "motion-designer",
     "title": "Motion Designer",
     "field": "Design",
+    "cluster": "Design",
     "postings": 119,
     "salary": "$65k–$140k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 43,
       "salary": "$40k–$75k",
@@ -172,6 +175,8 @@
       "id": "copywriter",
       "title": "Copywriter",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 33,
       "salary": "$55k–$95k",
@@ -327,6 +332,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$95k–$150k",
@@ -482,6 +489,8 @@
       "id": "ux-designer",
       "title": "UX Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "Designs how software should feel to use. Researches users, maps flows, sketches interfaces, and defends the human experience against every other project pressure.",
       "match": 26,
       "salary": "$70k–$120k",
@@ -637,6 +646,8 @@
       "id": "journalist",
       "title": "Journalist",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 26,
       "salary": "$50k–$85k",
@@ -792,6 +803,8 @@
       "id": "exhibit-designer",
       "title": "Exhibit Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 25,
       "salary": "$60k–$90k",
@@ -861,6 +874,8 @@
       "id": "video-editor",
       "title": "Video Editor",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 24,
       "salary": "$45k–$90k",
@@ -1016,6 +1031,8 @@
       "id": "3d-modeler",
       "title": "3D Modeler",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 23,
       "salary": "$45k–$85k",
@@ -1114,23 +1131,22 @@
         "t": "Marketing Manager",
         "m": 13,
         "slug": "marketing-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Market Research",
+          "Email Marketing",
+          "Project Management",
+          "Event Planning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "copywriter",
           "readiness_after": 27,
           "gain": 14
-        },
-        "observed": null
-      },
-      {
-        "t": "Technical Writer",
-        "m": 11,
-        "slug": "technical-writer",
-        "via": {
-          "parent": "copywriter",
-          "readiness_after": 17,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
     "creative-director": [
@@ -1138,23 +1154,43 @@
         "t": "Product Designer",
         "m": 13,
         "slug": "product-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Social Media",
+          "Interaction Design",
+          "Visual Design",
+          "User Research"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 23,
           "gain": 10
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
         "t": "UX Researcher",
         "m": 13,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 31,
           "gain": 18
-        },
-        "observed": null
+        }
       }
     ],
     "ux-designer": [
@@ -1162,23 +1198,43 @@
         "t": "Design Technologist",
         "m": 16,
         "slug": "design-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Email Marketing",
+          "NLP",
+          "BIM",
+          "Accessibility"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "ux-designer",
           "readiness_after": 37,
           "gain": 21
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
         "t": "UX Writer",
         "m": 13,
         "slug": "ux-writer",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Translation",
+          "Accessibility",
+          "Content Marketing",
+          "Excel"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-designer",
           "readiness_after": 23,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
     "journalist": [],
@@ -1187,12 +1243,22 @@
         "t": "Social Media Manager",
         "m": 10,
         "slug": "social-media-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Social Media",
+          "Customer Service",
+          "Content Marketing",
+          "Event Planning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "exhibit-designer",
           "readiness_after": 18,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
     "video-editor": [
@@ -1200,23 +1266,43 @@
         "t": "Creative Technologist",
         "m": 18,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "NLP",
+          "Supply Chain",
+          "Spark",
+          "Data Visualization"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "video-editor",
           "readiness_after": 34,
           "gain": 16
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
         "t": "Brand Designer",
         "m": 13,
         "slug": "brand-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Photography",
+          "Accessibility",
+          "Creative Coding",
+          "HTML/CSS"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "video-editor",
           "readiness_after": 23,
           "gain": 10
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "3d-modeler": [
@@ -1224,26 +1310,59 @@
         "t": "Technical Artist",
         "m": 20,
         "slug": "technical-artist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Rendering",
+          "EHR / EMR",
+          "Python",
+          "Creative Coding"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "3d-modeler",
           "readiness_after": 35,
           "gain": 15
-        },
-        "observed": "Primary-Short"
-      },
-      {
-        "t": "Professor / Lecturer",
-        "m": 10,
-        "slug": "professor",
-        "via": {
-          "parent": "3d-modeler",
-          "readiness_after": 12,
-          "gain": 2
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Technical Writer",
+      "m": 11,
+      "slug": "technical-writer",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Technical Writing",
+        "Cybersecurity",
+        "Supply Chain",
+        "Git"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Professor / Lecturer",
+      "m": 10,
+      "slug": "professor",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Teaching",
+        "Curriculum Development",
+        "HR Operations",
+        "Training & Facilitation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "journalist",

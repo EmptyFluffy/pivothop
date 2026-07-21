@@ -4,6 +4,7 @@
     "slug": "data-engineer",
     "title": "Data Engineer",
     "field": "Technology",
+    "cluster": "Technology",
     "postings": 116,
     "salary": "$95k–$200k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "data-analyst",
       "title": "Data Analyst",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "Turns messy business data into decisions. Runs the queries, builds the dashboards, and translates what patterns actually mean for the people making the calls.",
       "match": 75,
       "salary": "$60k–$100k",
@@ -172,6 +175,8 @@
       "id": "backend-developer",
       "title": "Backend Developer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 55,
       "salary": "$110k–$195k",
@@ -327,6 +332,8 @@
       "id": "product-analyst",
       "title": "Product Analyst",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 55,
       "salary": "$65k–$130k",
@@ -482,6 +489,8 @@
       "id": "solutions-architect",
       "title": "Solutions Architect",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 55,
       "salary": "$105k–$180k",
@@ -637,6 +646,8 @@
       "id": "industrial-engineer",
       "title": "Industrial Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 54,
       "salary": "$95k–$130k",
@@ -792,6 +803,8 @@
       "id": "software-engineer",
       "title": "Software Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 47,
       "salary": "$110k–$225k",
@@ -947,6 +960,8 @@
       "id": "data-scientist",
       "title": "Data Scientist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 46,
       "salary": "$145k–$215k",
@@ -1102,6 +1117,8 @@
       "id": "devops-engineer",
       "title": "DevOps Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 40,
       "salary": "$110k–$195k",
@@ -1260,71 +1277,88 @@
         "t": "Business Analyst",
         "m": 23,
         "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "HR Operations",
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Project Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "data-analyst",
           "readiness_after": 35,
           "gain": 12
-        },
-        "observed": null
+        }
       },
       {
         "t": "Management Consultant",
         "m": 23,
         "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Presentation",
+          "Sustainability",
+          "Account Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "data-analyst",
           "readiness_after": 31,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
-    "backend-developer": [
-      {
-        "t": "Economist",
-        "m": 21,
-        "slug": "economist",
-        "via": {
-          "parent": "backend-developer",
-          "readiness_after": 22,
-          "gain": 1
-        },
-        "observed": null
-      },
-      {
-        "t": "Product Manager",
-        "m": 21,
-        "slug": "product-manager",
-        "via": {
-          "parent": "backend-developer",
-          "readiness_after": 26,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
+    "backend-developer": [],
     "product-analyst": [
       {
         "t": "Operations Manager",
         "m": 28,
         "slug": "operations-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Operations",
+          "Salesforce",
+          "Stakeholder Management",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-analyst",
           "readiness_after": 47,
           "gain": 19
-        },
-        "observed": null
+        }
       },
       {
         "t": "Statistician",
         "m": 23,
         "slug": "statistician",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "Statistics",
+          "Translation",
+          "Risk Management",
+          "Deep Learning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-analyst",
           "readiness_after": 31,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
     "solutions-architect": [
@@ -1332,23 +1366,43 @@
         "t": "IT Support Specialist",
         "m": 31,
         "slug": "it-support",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Customer Service",
+          "Linux",
+          "Technical Writing",
+          "Presentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "solutions-architect",
           "readiness_after": 49,
           "gain": 18
-        },
-        "observed": null
+        }
       },
       {
         "t": "Compliance Officer",
         "m": 24,
         "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Risk Management",
+          "Accounting",
+          "Audit"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "solutions-architect",
           "readiness_after": 36,
           "gain": 12
-        },
-        "observed": null
+        }
       }
     ],
     "industrial-engineer": [
@@ -1356,23 +1410,43 @@
         "t": "Research Scientist",
         "m": 34,
         "slug": "research-scientist",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "NLP",
+          "Deep Learning",
+          "Prototyping",
+          "HR Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "industrial-engineer",
           "readiness_after": 46,
           "gain": 12
-        },
-        "observed": null
+        }
       },
       {
         "t": "Security Engineer",
         "m": 33,
         "slug": "security-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Cybersecurity",
+          "Azure",
+          "Kubernetes",
+          "Clinical Skills"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "industrial-engineer",
           "readiness_after": 51,
           "gain": 18
-        },
-        "observed": null
+        }
       }
     ],
     "software-engineer": [
@@ -1380,23 +1454,43 @@
         "t": "QA Engineer",
         "m": 35,
         "slug": "qa-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "QA / Testing",
+          "Lean / Six Sigma",
+          "Linux",
+          "C++"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "software-engineer",
           "readiness_after": 50,
           "gain": 15
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
         "t": "Mobile Developer",
         "m": 29,
         "slug": "mobile-developer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "React",
+          "REST APIs",
+          "Java",
+          "TypeScript"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "software-engineer",
           "readiness_after": 69,
           "gain": 40
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "data-scientist": [
@@ -1404,23 +1498,43 @@
         "t": "Machine Learning Engineer",
         "m": 40,
         "slug": "machine-learning-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "NLP",
+          "Deep Learning",
+          "A/B Testing",
+          "Training & Facilitation"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "data-scientist",
           "readiness_after": 68,
           "gain": 28
-        },
-        "observed": "Supplemental"
+        }
       },
       {
         "t": "Market Researcher",
         "m": 35,
         "slug": "market-researcher",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Statistics",
+          "Research",
+          "FEA / Simulation",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "data-scientist",
           "readiness_after": 60,
           "gain": 25
-        },
-        "observed": null
+        }
       }
     ],
     "devops-engineer": [
@@ -1428,26 +1542,80 @@
         "t": "Network Engineer",
         "m": 39,
         "slug": "network-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Networking",
+          "Cybersecurity",
+          "Linux",
+          "REST APIs"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "devops-engineer",
           "readiness_after": 68,
           "gain": 29
-        },
-        "observed": "Supplemental"
+        }
       },
       {
         "t": "Sales Engineer",
         "m": 36,
         "slug": "sales-engineer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Presentation",
+          "Azure",
+          "REST APIs",
+          "JavaScript"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "devops-engineer",
           "readiness_after": 57,
           "gain": 21
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Economist",
+      "m": 21,
+      "slug": "economist",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
+      "gap": [
+        "Forecasting",
+        "HR Operations",
+        "NLP",
+        "Supply Chain"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Product Manager",
+      "m": 21,
+      "slug": "product-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Product Management",
+        "NLP",
+        "REST APIs",
+        "Agile"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "data-analyst",

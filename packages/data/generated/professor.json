@@ -4,6 +4,7 @@
     "slug": "professor",
     "title": "Professor / Lecturer",
     "field": "Education",
+    "cluster": "Education",
     "postings": 216,
     "salary": "$55k–$95k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "teacher",
       "title": "Teacher",
       "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
       "desc": "",
       "match": 57,
       "salary": "$55k–$75k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 45,
       "salary": "$30k–$35k",
@@ -273,6 +278,8 @@
       "id": "teaching-assistant",
       "title": "Teaching Assistant",
       "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
       "desc": "Supports a classroom teacher and the students who need the most help. The most common way into the education profession.",
       "match": 33,
       "salary": "$40k–$245k",
@@ -380,6 +387,8 @@
       "id": "librarian",
       "title": "Librarian",
       "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
       "desc": "",
       "match": 28,
       "salary": "$45k–$85k",
@@ -535,6 +544,8 @@
       "id": "physical-therapist",
       "title": "Physical Therapist",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$90k–$115k",
@@ -690,6 +701,8 @@
       "id": "instructional-designer",
       "title": "Instructional Designer",
       "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
       "desc": "",
       "match": 14,
       "salary": "$60k–$100k",
@@ -845,6 +858,8 @@
       "id": "ux-researcher",
       "title": "UX Researcher",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 12,
       "salary": "$85k–$135k",
@@ -1000,6 +1015,8 @@
       "id": "registered-nurse",
       "title": "Registered Nurse",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
       "desc": "",
       "match": 11,
       "salary": "$60k–$105k",
@@ -1162,23 +1179,43 @@
         "t": "Paralegal",
         "m": 10,
         "slug": "paralegal",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Case Management",
+          "Excel",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "physical-therapist",
           "readiness_after": 24,
           "gain": 14
-        },
-        "observed": null
+        }
       },
       {
         "t": "Environmental Engineer",
         "m": 10,
         "slug": "environmental-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Financial Modeling",
+          "Urban Design",
+          "Budgeting",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "physical-therapist",
           "readiness_after": 23,
           "gain": 13
-        },
-        "observed": null
+        }
       }
     ],
     "instructional-designer": [],
@@ -1187,12 +1224,22 @@
         "t": "Creative Director",
         "m": 10,
         "slug": "creative-director",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Product Management",
+          "Service Design",
+          "Figma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-researcher",
           "readiness_after": 25,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "registered-nurse": [
@@ -1200,26 +1247,47 @@
         "t": "Therapist / Counselor",
         "m": 11,
         "slug": "therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Case Management",
+          "Clinical Skills",
+          "Observability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "registered-nurse",
           "readiness_after": 71,
           "gain": 60
-        },
-        "observed": null
+        }
       },
       {
         "t": "Nurse Practitioner",
         "m": 11,
         "slug": "nurse-practitioner",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Case Management",
+          "Clinical Skills",
+          "Translation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "registered-nurse",
           "readiness_after": 74,
           "gain": 63
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [],
   "cross": [
     [
       "physical-therapist",

@@ -4,6 +4,7 @@
     "slug": "graphic-designer",
     "title": "Graphic Designer",
     "field": "Design",
+    "cluster": "Design",
     "postings": 425,
     "salary": "$40k–$75k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "motion-designer",
       "title": "Motion Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 33,
       "salary": "$65k–$140k",
@@ -172,6 +175,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 30,
       "salary": "$95k–$150k",
@@ -327,6 +332,8 @@
       "id": "copywriter",
       "title": "Copywriter",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 29,
       "salary": "$55k–$95k",
@@ -482,6 +489,8 @@
       "id": "design-technologist",
       "title": "Design Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 26,
       "salary": "$85k–$165k",
@@ -631,6 +640,8 @@
       "id": "ux-designer",
       "title": "UX Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "Designs how software should feel to use. Researches users, maps flows, sketches interfaces, and defends the human experience against every other project pressure.",
       "match": 22,
       "salary": "$70k–$120k",
@@ -786,6 +797,8 @@
       "id": "exhibit-designer",
       "title": "Exhibit Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 21,
       "salary": "$60k–$90k",
@@ -855,6 +868,8 @@
       "id": "video-editor",
       "title": "Video Editor",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 20,
       "salary": "$45k–$90k",
@@ -1010,6 +1025,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 20,
       "salary": "$60k–$115k",
@@ -1168,23 +1185,22 @@
         "t": "3D Modeler",
         "m": 14,
         "slug": "3d-modeler",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Unity",
+          "Visual Design",
+          "Blender",
+          "3D Modeling"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "motion-designer",
           "readiness_after": 23,
           "gain": 9
-        },
-        "observed": "Primary-Short"
-      },
-      {
-        "t": "Corporate Trainer",
-        "m": 11,
-        "slug": "corporate-trainer",
-        "via": {
-          "parent": "motion-designer",
-          "readiness_after": 13,
-          "gain": 2
-        },
-        "observed": null
+        }
       }
     ],
     "creative-director": [
@@ -1192,71 +1208,67 @@
         "t": "Real Estate Developer",
         "m": 14,
         "slug": "real-estate-developer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Negotiation",
+          "Contracts",
+          "Sales",
+          "AWS"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 24,
           "gain": 10
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Brand Designer",
+        "t": "Social Media Manager",
         "m": 13,
-        "slug": "brand-designer",
+        "slug": "social-media-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Content Marketing",
+          "Event Planning",
+          "Observability",
+          "Project Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
-          "readiness_after": 20,
-          "gain": 7
-        },
-        "observed": null
+          "readiness_after": 21,
+          "gain": 8
+        }
       }
     ],
-    "copywriter": [
-      {
-        "t": "Management Consultant",
-        "m": 13,
-        "slug": "management-consultant",
-        "via": {
-          "parent": "copywriter",
-          "readiness_after": 18,
-          "gain": 5
-        },
-        "observed": null
-      },
-      {
-        "t": "Project Manager",
-        "m": 12,
-        "slug": "project-manager",
-        "via": {
-          "parent": "copywriter",
-          "readiness_after": 15,
-          "gain": 3
-        },
-        "observed": null
-      }
-    ],
+    "copywriter": [],
     "design-technologist": [
       {
         "t": "Creative Technologist",
         "m": 16,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "NLP",
+          "Supply Chain",
+          "Spark",
+          "Data Visualization"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "design-technologist",
           "readiness_after": 36,
           "gain": 20
-        },
-        "observed": "Primary-Short"
-      },
-      {
-        "t": "Business Analyst",
-        "m": 11,
-        "slug": "business-analyst",
-        "via": {
-          "parent": "design-technologist",
-          "readiness_after": 11,
-          "gain": 0
-        },
-        "observed": null
+        }
       }
     ],
     "ux-designer": [
@@ -1264,71 +1276,88 @@
         "t": "UX Researcher",
         "m": 15,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-designer",
           "readiness_after": 39,
           "gain": 24
-        },
-        "observed": null
+        }
       },
       {
         "t": "Product Designer",
         "m": 14,
         "slug": "product-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Interaction Design",
+          "Visual Design",
+          "User Research",
+          "Training & Facilitation"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "ux-designer",
           "readiness_after": 41,
           "gain": 27
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
-    "exhibit-designer": [
-      {
-        "t": "Social Media Manager",
-        "m": 13,
-        "slug": "social-media-manager",
-        "via": {
-          "parent": "exhibit-designer",
-          "readiness_after": 21,
-          "gain": 8
-        },
-        "observed": null
-      },
-      {
-        "t": "Supply Chain Analyst",
-        "m": 10,
-        "slug": "supply-chain-analyst",
-        "via": {
-          "parent": "exhibit-designer",
-          "readiness_after": 10,
-          "gain": 0
-        },
-        "observed": null
-      }
-    ],
+    "exhibit-designer": [],
     "video-editor": [
       {
         "t": "Journalist",
         "m": 19,
         "slug": "journalist",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Audit",
+          "Journalism",
+          "Technical Writing",
+          "Copywriting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "video-editor",
           "readiness_after": 60,
           "gain": 41
-        },
-        "observed": null
+        }
       },
       {
         "t": "Facilities Manager",
         "m": 15,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "video-editor",
           "readiness_after": 28,
           "gain": 13
-        },
-        "observed": null
+        }
       }
     ],
     "marketing-manager": [
@@ -1336,26 +1365,144 @@
         "t": "Construction Estimator",
         "m": 15,
         "slug": "construction-estimator",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Project Management",
+          "Cost Estimating",
+          "Construction Administration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 33,
           "gain": 18
-        },
-        "observed": null
+        }
       },
       {
         "t": "Recruiter",
         "m": 14,
         "slug": "recruiter",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Recruiting",
+          "Supply Chain",
+          "Stakeholder Management",
+          "Observability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 26,
           "gain": 12
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Brand Designer",
+      "m": 13,
+      "slug": "brand-designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
+      "gap": [
+        "Accounting",
+        "Photography",
+        "Creative Coding",
+        "HTML/CSS"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Management Consultant",
+      "m": 13,
+      "slug": "management-consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Sustainability",
+        "SQL",
+        "Account Management"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Project Manager",
+      "m": 12,
+      "slug": "project-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Observability",
+        "Supply Chain",
+        "Lean / Six Sigma"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Corporate Trainer",
+      "m": 11,
+      "slug": "corporate-trainer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Training & Facilitation",
+        "Instructional Design",
+        "Observability",
+        "HR Operations"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Business Analyst",
+      "m": 11,
+      "slug": "business-analyst",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "HR Operations",
+        "Lean / Six Sigma",
+        "Observability",
+        "Scheduling"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Supply Chain Analyst",
+      "m": 10,
+      "slug": "supply-chain-analyst",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Supply Chain",
+        "SAP",
+        "Sustainability",
+        "Project Management"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "copywriter",
@@ -1400,14 +1547,14 @@
       0.42
     ],
     [
-      "marketing-manager",
-      "copywriter_0",
-      0.39
-    ],
-    [
       "creative-director",
       "design-technologist_0",
       0.35
+    ],
+    [
+      "video-editor",
+      "marketing-manager_0",
+      0.32
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

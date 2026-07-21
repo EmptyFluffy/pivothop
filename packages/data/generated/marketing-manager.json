@@ -4,6 +4,7 @@
     "slug": "marketing-manager",
     "title": "Marketing Manager",
     "field": "Business",
+    "cluster": "Business",
     "postings": 739,
     "salary": "$60k–$115k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "copywriter",
       "title": "Copywriter",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 53,
       "salary": "$55k–$95k",
@@ -172,6 +175,8 @@
       "id": "real-estate-developer",
       "title": "Real Estate Developer",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 38,
       "salary": "$80k–$135k",
@@ -327,6 +332,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 35,
       "salary": "$45k–$95k",
@@ -482,6 +489,8 @@
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 31,
       "salary": "$40k–$75k",
@@ -637,6 +646,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 30,
       "salary": "$75k–$135k",
@@ -792,6 +803,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 30,
       "salary": "$65k–$100k",
@@ -947,6 +960,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 29,
       "salary": "$95k–$150k",
@@ -1102,6 +1117,8 @@
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 28,
       "salary": "$60k–$120k",
@@ -1260,23 +1277,22 @@
         "t": "Journalist",
         "m": 23,
         "slug": "journalist",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Audit",
+          "Journalism",
+          "Technical Writing",
+          "Copywriting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "copywriter",
           "readiness_after": 39,
           "gain": 16
-        },
-        "observed": null
-      },
-      {
-        "t": "UX Writer",
-        "m": 18,
-        "slug": "ux-writer",
-        "via": {
-          "parent": "copywriter",
-          "readiness_after": 22,
-          "gain": 4
-        },
-        "observed": null
+        }
       }
     ],
     "real-estate-developer": [
@@ -1284,23 +1300,22 @@
         "t": "Facilities Manager",
         "m": 20,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 38,
           "gain": 18
-        },
-        "observed": null
-      },
-      {
-        "t": "Sales Representative",
-        "m": 19,
-        "slug": "sales-representative",
-        "via": {
-          "parent": "real-estate-developer",
-          "readiness_after": 25,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
     "management-consultant": [
@@ -1308,119 +1323,132 @@
         "t": "Supply Chain Analyst",
         "m": 21,
         "slug": "supply-chain-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "SAP",
+          "Sustainability",
+          "Accounting",
+          "Observability"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 32,
           "gain": 11
-        },
-        "observed": "Supplemental"
+        }
       },
       {
         "t": "Executive Assistant",
         "m": 21,
         "slug": "executive-assistant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Scheduling",
+          "Account Management",
+          "HR Operations",
+          "Jira"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 31,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
-    "graphic-designer": [
-      {
-        "t": "Product Designer",
-        "m": 19,
-        "slug": "product-designer",
-        "via": {
-          "parent": "graphic-designer",
-          "readiness_after": 25,
-          "gain": 6
-        },
-        "observed": null
-      },
-      {
-        "t": "SEO Specialist",
-        "m": 17,
-        "slug": "seo-specialist",
-        "via": {
-          "parent": "graphic-designer",
-          "readiness_after": 20,
-          "gain": 3
-        },
-        "observed": "Primary-Short"
-      }
-    ],
+    "graphic-designer": [],
     "project-manager": [
       {
         "t": "Product Manager",
         "m": 24,
         "slug": "product-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "NLP",
+          "REST APIs",
+          "Agile",
+          "Observability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 41,
           "gain": 17
-        },
-        "observed": null
+        }
       },
       {
         "t": "Librarian",
         "m": 22,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Teaching",
+          "Training & Facilitation",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 39,
           "gain": 17
-        },
-        "observed": null
+        }
       }
     ],
-    "construction-estimator": [
-      {
-        "t": "Technical Writer",
-        "m": 18,
-        "slug": "technical-writer",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 20,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Chef",
-        "m": 17,
-        "slug": "chef",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 24,
-          "gain": 7
-        },
-        "observed": null
-      }
-    ],
+    "construction-estimator": [],
     "creative-director": [
       {
         "t": "UX Researcher",
         "m": 25,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 42,
           "gain": 17
-        },
-        "observed": null
+        }
       },
       {
         "t": "Exhibit Designer",
         "m": 24,
         "slug": "exhibit-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "AutoCAD",
+          "Illustration",
+          "Wireframing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 39,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "customer-success-manager": [
@@ -1428,26 +1456,144 @@
         "t": "Construction Manager",
         "m": 24,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Construction Administration",
+          "Sustainability",
+          "Food Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
           "readiness_after": 46,
           "gain": 22
-        },
-        "observed": null
+        }
       },
       {
         "t": "Social Media Manager",
         "m": 22,
         "slug": "social-media-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Customer Service",
+          "Observability",
+          "Health Education",
+          "Lean / Six Sigma"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
           "readiness_after": 35,
           "gain": 13
-        },
-        "observed": "Primary-Short"
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Sales Representative",
+      "m": 19,
+      "slug": "sales-representative",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "Observability",
+        "Account Management",
+        "Accessibility",
+        "Training & Facilitation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Product Designer",
+      "m": 19,
+      "slug": "product-designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Prototyping",
+        "Design Systems",
+        "Figma",
+        "Interaction Design"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "UX Writer",
+      "m": 18,
+      "slug": "ux-writer",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Design Systems",
+        "Translation",
+        "Accessibility",
+        "Figma"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Technical Writer",
+      "m": 18,
+      "slug": "technical-writer",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Technical Writing",
+        "Cybersecurity",
+        "Git",
+        "Operations"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "SEO Specialist",
+      "m": 17,
+      "slug": "seo-specialist",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "NLP",
+        "Training & Facilitation",
+        "Audit",
+        "Google Analytics"
+      ],
+      "observed": "Primary-Short",
+      "reach": "direct"
+    },
+    {
+      "t": "Chef",
+      "m": 17,
+      "slug": "chef",
+      "field": "Hospitality",
+      "cluster": "Service",
+      "kind": "pivot",
+      "gap": [
+        "Food Service",
+        "Spec Writing",
+        "Vue",
+        "Urban Design"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "project-manager",

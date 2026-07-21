@@ -4,6 +4,7 @@
     "slug": "account-executive",
     "title": "Account Executive",
     "field": "Business",
+    "cluster": "Business",
     "postings": 1251,
     "salary": "$75k–$205k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "sales-representative",
       "title": "Sales Representative",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 75,
       "salary": "$35k–$80k",
@@ -172,6 +175,8 @@
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 63,
       "salary": "$60k–$120k",
@@ -327,6 +332,8 @@
       "id": "real-estate-developer",
       "title": "Real Estate Developer",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 59,
       "salary": "$80k–$135k",
@@ -482,6 +489,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 49,
       "salary": "$45k–$95k",
@@ -637,6 +646,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 46,
       "salary": "$75k–$135k",
@@ -792,6 +803,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 44,
       "salary": "$60k–$115k",
@@ -947,6 +960,8 @@
       "id": "bi-developer",
       "title": "BI Developer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 43,
       "salary": "$60k–$75k",
@@ -1016,6 +1031,8 @@
       "id": "business-analyst",
       "title": "Business Analyst",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 42,
       "salary": "$85k–$140k",
@@ -1174,71 +1191,67 @@
         "t": "Police Officer",
         "m": 36,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Operations",
+          "Teaching"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "sales-representative",
           "readiness_after": 45,
           "gain": 9
-        },
-        "observed": null
+        }
       },
       {
         "t": "Executive Assistant",
         "m": 31,
         "slug": "executive-assistant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Scheduling",
+          "Event Planning",
+          "Project Management",
+          "Jira"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "sales-representative",
           "readiness_after": 39,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
-    "customer-success-manager": [
-      {
-        "t": "Product Manager",
-        "m": 29,
-        "slug": "product-manager",
-        "via": {
-          "parent": "customer-success-manager",
-          "readiness_after": 34,
-          "gain": 5
-        },
-        "observed": "Primary-Long"
-      },
-      {
-        "t": "Corporate Trainer",
-        "m": 26,
-        "slug": "corporate-trainer",
-        "via": {
-          "parent": "customer-success-manager",
-          "readiness_after": 31,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
+    "customer-success-manager": [],
     "real-estate-developer": [
       {
         "t": "Facilities Manager",
         "m": 29,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 46,
           "gain": 17
-        },
-        "observed": null
-      },
-      {
-        "t": "Compliance Officer",
-        "m": 26,
-        "slug": "compliance-officer",
-        "via": {
-          "parent": "real-estate-developer",
-          "readiness_after": 33,
-          "gain": 7
-        },
-        "observed": null
+        }
       }
     ],
     "management-consultant": [
@@ -1246,23 +1259,43 @@
         "t": "Construction Manager",
         "m": 31,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Construction Administration",
+          "Sustainability",
+          "Food Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 52,
           "gain": 21
-        },
-        "observed": null
+        }
       },
       {
         "t": "Librarian",
         "m": 30,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Teaching",
+          "Budgeting",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 56,
           "gain": 26
-        },
-        "observed": null
+        }
       }
     ],
     "project-manager": [
@@ -1270,23 +1303,43 @@
         "t": "Lawyer",
         "m": 42,
         "slug": "lawyer",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Compliance",
+          "Case Management",
+          "Risk Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 53,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
         "t": "Recruiter",
         "m": 33,
         "slug": "recruiter",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Recruiting",
+          "Branding",
+          "Stakeholder Management",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 43,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
     "marketing-manager": [
@@ -1294,74 +1347,173 @@
         "t": "Graphic Designer",
         "m": 39,
         "slug": "graphic-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Branding",
+          "Writing & Editing",
+          "Motion Design",
+          "Photoshop"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 53,
           "gain": 14
-        },
-        "observed": null
+        }
       },
       {
         "t": "UX Researcher",
         "m": 32,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Market Research"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 43,
           "gain": 11
-        },
-        "observed": null
+        }
       }
     ],
-    "bi-developer": [
-      {
-        "t": "Creative Director",
-        "m": 26,
-        "slug": "creative-director",
-        "via": {
-          "parent": "bi-developer",
-          "readiness_after": 26,
-          "gain": 0
-        },
-        "observed": null
-      },
-      {
-        "t": "Solutions Architect",
-        "m": 25,
-        "slug": "solutions-architect",
-        "via": {
-          "parent": "bi-developer",
-          "readiness_after": 27,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "bi-developer": [],
     "business-analyst": [
       {
         "t": "Financial Analyst",
         "m": 40,
         "slug": "financial-analyst",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Accounting",
+          "Agile",
+          "Financial Modeling",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 58,
           "gain": 18
-        },
-        "observed": null
+        }
       },
       {
         "t": "Operations Manager",
         "m": 37,
         "slug": "operations-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Operations",
+          "Data Visualization",
+          "Stakeholder Management",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 60,
           "gain": 23
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Product Manager",
+      "m": 29,
+      "slug": "product-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "NLP",
+        "REST APIs",
+        "Agile",
+        "SQL"
+      ],
+      "observed": "Primary-Long",
+      "reach": "direct"
+    },
+    {
+      "t": "Corporate Trainer",
+      "m": 26,
+      "slug": "corporate-trainer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Instructional Design",
+        "Social Media",
+        "Figma",
+        "Prototyping"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Compliance Officer",
+      "m": 26,
+      "slug": "compliance-officer",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Compliance",
+        "Risk Management",
+        "Accounting",
+        "Data Visualization"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Creative Director",
+      "m": 26,
+      "slug": "creative-director",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Service Design",
+        "Figma",
+        "Design Systems"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Solutions Architect",
+      "m": 25,
+      "slug": "solutions-architect",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "Python",
+        "Spark",
+        "Azure",
+        "SQL"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "project-manager",

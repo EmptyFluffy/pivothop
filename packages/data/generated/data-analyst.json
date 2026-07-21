@@ -4,6 +4,7 @@
     "slug": "data-analyst",
     "title": "Data Analyst",
     "field": "Technology",
+    "cluster": "Technology",
     "postings": 496,
     "salary": "$60k–$100k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "bi-developer",
       "title": "BI Developer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 52,
       "salary": "$60k–$75k",
@@ -86,6 +89,8 @@
       "id": "product-analyst",
       "title": "Product Analyst",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$65k–$130k",
@@ -241,6 +246,8 @@
       "id": "operations-manager",
       "title": "Operations Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 32,
       "salary": "$85k–$150k",
@@ -396,6 +403,8 @@
       "id": "market-researcher",
       "title": "Market Researcher",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 32,
       "salary": "$100k–$125k",
@@ -551,6 +560,8 @@
       "id": "business-analyst",
       "title": "Business Analyst",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 30,
       "salary": "$85k–$140k",
@@ -706,6 +717,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 30,
       "salary": "$75k–$135k",
@@ -861,6 +874,8 @@
       "id": "compliance-officer",
       "title": "Compliance Officer",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
       "desc": "",
       "match": 28,
       "salary": "$95k–$190k",
@@ -1016,6 +1031,8 @@
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 28,
       "salary": "$60k–$120k",
@@ -1169,52 +1186,49 @@
     }
   ],
   "next": {
-    "bi-developer": [
-      {
-        "t": "Accountant",
-        "m": 19,
-        "slug": "accountant",
-        "via": {
-          "parent": "bi-developer",
-          "readiness_after": 25,
-          "gain": 6
-        },
-        "observed": null
-      },
-      {
-        "t": "Construction Estimator",
-        "m": 19,
-        "slug": "construction-estimator",
-        "via": {
-          "parent": "bi-developer",
-          "readiness_after": 21,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "bi-developer": [],
     "product-analyst": [
       {
         "t": "Solutions Architect",
         "m": 26,
         "slug": "solutions-architect",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Azure",
+          "GCP",
+          "Java",
+          "Clinical Research"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-analyst",
           "readiness_after": 40,
           "gain": 14
-        },
-        "observed": null
+        }
       },
       {
         "t": "Product Manager",
         "m": 23,
         "slug": "product-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Product Management",
+          "REST APIs",
+          "Agile",
+          "Prototyping"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-analyst",
           "readiness_after": 42,
           "gain": 19
-        },
-        "observed": null
+        }
       }
     ],
     "operations-manager": [
@@ -1222,23 +1236,43 @@
         "t": "Industrial Engineer",
         "m": 23,
         "slug": "industrial-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Azure",
+          "Clinical Research",
+          "GCP",
+          "Microservices"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "operations-manager",
           "readiness_after": 34,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Data Scientist",
+        "t": "Marketing Manager",
         "m": 21,
-        "slug": "data-scientist",
+        "slug": "marketing-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Product Management",
+          "Market Research",
+          "Email Marketing",
+          "CRM"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "operations-manager",
-          "readiness_after": 30,
-          "gain": 9
-        },
-        "observed": null
+          "readiness_after": 41,
+          "gain": 20
+        }
       }
     ],
     "market-researcher": [
@@ -1246,23 +1280,43 @@
         "t": "Creative Technologist",
         "m": 27,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Writing & Editing",
+          "Design Systems",
+          "Branding",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "market-researcher",
           "readiness_after": 52,
           "gain": 25
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Data Engineer",
+        "t": "Data Scientist",
         "m": 21,
-        "slug": "data-engineer",
+        "slug": "data-scientist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "A/B Testing",
+          "Machine Learning",
+          "Training & Facilitation",
+          "Forecasting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "market-researcher",
-          "readiness_after": 26,
-          "gain": 5
-        },
-        "observed": "Supplemental"
+          "readiness_after": 37,
+          "gain": 16
+        }
       }
     ],
     "business-analyst": [
@@ -1270,23 +1324,43 @@
         "t": "Mobile Developer",
         "m": 20,
         "slug": "mobile-developer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "React",
+          "REST APIs",
+          "Java",
+          "TypeScript"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 30,
           "gain": 10
-        },
-        "observed": null
+        }
       },
       {
         "t": "Recruiter",
         "m": 20,
         "slug": "recruiter",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Procurement",
+          "Recruiting",
+          "Branding",
+          "Stakeholder Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 39,
           "gain": 19
-        },
-        "observed": null
+        }
       }
     ],
     "project-manager": [
@@ -1294,23 +1368,43 @@
         "t": "Management Consultant",
         "m": 27,
         "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Presentation",
+          "Sustainability",
+          "Account Management",
+          "CRM"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 57,
           "gain": 30
-        },
-        "observed": "Supplemental"
+        }
       },
       {
         "t": "Facilities Manager",
         "m": 22,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 52,
           "gain": 30
-        },
-        "observed": null
+        }
       }
     ],
     "compliance-officer": [
@@ -1318,50 +1412,119 @@
         "t": "Financial Analyst",
         "m": 26,
         "slug": "financial-analyst",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Forecasting",
+          "Agile",
+          "Financial Modeling",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "compliance-officer",
           "readiness_after": 48,
           "gain": 22
-        },
-        "observed": null
+        }
       },
       {
         "t": "Lawyer",
         "m": 20,
         "slug": "lawyer",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Negotiation",
+          "Contracts",
+          "Compliance",
+          "HR Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "compliance-officer",
           "readiness_after": 57,
           "gain": 37
-        },
-        "observed": null
+        }
       }
     ],
     "customer-success-manager": [
       {
-        "t": "Marketing Manager",
-        "m": 21,
-        "slug": "marketing-manager",
-        "via": {
-          "parent": "customer-success-manager",
-          "readiness_after": 39,
-          "gain": 18
-        },
-        "observed": null
-      },
-      {
-        "t": "Research Scientist",
+        "t": "Construction Estimator",
         "m": 19,
-        "slug": "research-scientist",
+        "slug": "construction-estimator",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Cost Estimating",
+          "Construction Administration",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
-          "readiness_after": 22,
-          "gain": 3
-        },
-        "observed": null
+          "readiness_after": 36,
+          "gain": 17
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Data Engineer",
+      "m": 21,
+      "slug": "data-engineer",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
+      "gap": [
+        "Airflow",
+        "dbt",
+        "Git",
+        "CI/CD"
+      ],
+      "observed": "Supplemental",
+      "reach": "direct"
+    },
+    {
+      "t": "Research Scientist",
+      "m": 19,
+      "slug": "research-scientist",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
+      "gap": [
+        "Machine Learning",
+        "Deep Learning",
+        "Prototyping",
+        "HR Operations"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Accountant",
+      "m": 19,
+      "slug": "accountant",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Community Engagement",
+        "Audit",
+        "SAP",
+        "Financial Modeling"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "operations-manager",
@@ -1407,7 +1570,7 @@
     ],
     [
       "product-analyst",
-      "customer-success-manager_0",
+      "operations-manager_1",
       0.47
     ],
     [

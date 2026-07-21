@@ -4,6 +4,7 @@
     "slug": "facilities-manager",
     "title": "Facilities Manager",
     "field": "Business",
+    "cluster": "Business",
     "postings": 375,
     "salary": "$55k–$95k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 50,
       "salary": "$30k–$35k",
@@ -118,6 +121,8 @@
       "id": "maintenance-technician",
       "title": "Maintenance Technician",
       "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
       "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
       "match": 37,
       "salary": "$50k–$60k",
@@ -261,6 +266,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 31,
       "salary": "$80k–$120k",
@@ -416,6 +423,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 29,
       "salary": "$65k–$100k",
@@ -571,6 +580,8 @@
       "id": "building-surveyor",
       "title": "Building Surveyor",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "Inspects buildings for defects, compliance, and condition. Advises on repair, regulation, and value across a building's life.",
       "match": 19,
       "salary": "$65k–$90k",
@@ -672,6 +683,8 @@
       "id": "environmental-engineer",
       "title": "Environmental Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$45k–$120k",
@@ -767,6 +780,8 @@
       "id": "librarian",
       "title": "Librarian",
       "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$45k–$85k",
@@ -922,6 +937,8 @@
       "id": "vdc-manager",
       "title": "VDC Manager",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$90k–$130k",
@@ -1034,41 +1051,49 @@
   ],
   "next": {
     "police-officer": [],
-    "maintenance-technician": [
-      {
-        "t": "Financial Controller",
-        "m": 11,
-        "slug": "controller",
-        "via": {
-          "parent": "maintenance-technician",
-          "readiness_after": 18,
-          "gain": 7
-        },
-        "observed": null
-      }
-    ],
+    "maintenance-technician": [],
     "construction-manager": [
       {
         "t": "Mechanical Engineer",
         "m": 17,
         "slug": "mechanical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Prototyping",
+          "Revit",
+          "Construction Administration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 39,
           "gain": 22
-        },
-        "observed": null
+        }
       },
       {
         "t": "Project Manager",
         "m": 14,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Risk Management",
+          "Stakeholder Management",
+          "Presentation",
+          "Jira"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 25,
           "gain": 11
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
     "construction-estimator": [
@@ -1076,23 +1101,43 @@
         "t": "Electrical Engineer",
         "m": 12,
         "slug": "electrical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "Revit",
+          "Spec Writing",
+          "Quality Control"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
           "readiness_after": 31,
           "gain": 19
-        },
-        "observed": null
+        }
       },
       {
         "t": "Structural Engineer",
         "m": 12,
         "slug": "structural-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Spec Writing",
+          "Construction Administration",
+          "Construction Documentation"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
           "readiness_after": 39,
           "gain": 27
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
     "building-surveyor": [
@@ -1100,36 +1145,45 @@
         "t": "Paralegal",
         "m": 13,
         "slug": "paralegal",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Case Management",
+          "Excel",
+          "Teaching"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "building-surveyor",
           "readiness_after": 23,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
     "environmental-engineer": [
       {
-        "t": "Accountant",
-        "m": 12,
-        "slug": "accountant",
-        "via": {
-          "parent": "environmental-engineer",
-          "readiness_after": 19,
-          "gain": 7
-        },
-        "observed": null
-      },
-      {
         "t": "Landscape Architect",
         "m": 12,
         "slug": "landscape-architect",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Urban Design",
+          "Construction Documentation",
+          "Construction Administration",
+          "Assessment"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "environmental-engineer",
           "readiness_after": 47,
           "gain": 35
-        },
-        "observed": null
+        }
       }
     ],
     "librarian": [
@@ -1137,27 +1191,76 @@
         "t": "Physical Therapist",
         "m": 16,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Case Management",
+          "Teaching"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "librarian",
           "readiness_after": 27,
           "gain": 11
-        },
-        "observed": null
-      },
-      {
-        "t": "Registered Nurse",
-        "m": 12,
-        "slug": "registered-nurse",
-        "via": {
-          "parent": "librarian",
-          "readiness_after": 18,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
     "vdc-manager": []
   },
+  "direct": [
+    {
+      "t": "Accountant",
+      "m": 12,
+      "slug": "accountant",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Accounting",
+        "Audit",
+        "SAP",
+        "Financial Modeling"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Registered Nurse",
+      "m": 12,
+      "slug": "registered-nurse",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Clinical Skills",
+        "Case Management",
+        "Health Education"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Financial Controller",
+      "m": 11,
+      "slug": "controller",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Excel",
+        "Accounting",
+        "SAP",
+        "Stakeholder Management"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "police-officer",
@@ -1203,7 +1306,7 @@
     ],
     [
       "construction-manager",
-      "environmental-engineer_1",
+      "environmental-engineer_0",
       0.34
     ],
     [

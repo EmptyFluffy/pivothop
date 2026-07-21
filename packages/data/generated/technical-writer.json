@@ -4,6 +4,7 @@
     "slug": "technical-writer",
     "title": "Technical Writer",
     "field": "Writing",
+    "cluster": "Media & Writing",
     "postings": 228,
     "salary": "$70k–$105k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "copywriter",
       "title": "Copywriter",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "lateral",
       "desc": "",
       "match": 35,
       "salary": "$55k–$95k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 27,
       "salary": "$30k–$35k",
@@ -272,6 +277,8 @@
       "id": "journalist",
       "title": "Journalist",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "lateral",
       "desc": "",
       "match": 25,
       "salary": "$50k–$85k",
@@ -427,6 +434,8 @@
       "id": "creative-technologist",
       "title": "Creative Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
       "match": 18,
       "salary": "$95k–$170k",
@@ -545,6 +554,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$80k–$120k",
@@ -700,6 +711,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 16,
       "salary": "$60k–$115k",
@@ -855,6 +868,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 15,
       "salary": "$95k–$150k",
@@ -1009,6 +1024,8 @@
       "id": "ux-writer",
       "title": "UX Writer",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "lateral",
       "desc": "",
       "match": 14,
       "salary": "$45k–$100k",
@@ -1138,44 +1155,30 @@
     }
   ],
   "next": {
-    "copywriter": [
-      {
-        "t": "Electrical Engineer",
-        "m": 10,
-        "slug": "electrical-engineer",
-        "via": {
-          "parent": "copywriter",
-          "readiness_after": 15,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
-    "police-officer": [
-      {
-        "t": "Instructional Designer",
-        "m": 10,
-        "slug": "instructional-designer",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 15,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
+    "copywriter": [],
+    "police-officer": [],
     "journalist": [],
     "creative-technologist": [
       {
         "t": "UX Researcher",
         "m": 10,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
           "readiness_after": 23,
           "gain": 13
-        },
-        "observed": null
+        }
       }
     ],
     "construction-manager": [
@@ -1183,23 +1186,43 @@
         "t": "Mechanical Engineer",
         "m": 12,
         "slug": "mechanical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Prototyping",
+          "Revit",
+          "Project Management",
+          "HVAC Systems"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 36,
           "gain": 24
-        },
-        "observed": null
+        }
       },
       {
         "t": "Architect",
         "m": 10,
         "slug": "architect",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Sustainability",
+          "Project Management",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 32,
           "gain": 22
-        },
-        "observed": null
+        }
       }
     ],
     "marketing-manager": [
@@ -1207,23 +1230,43 @@
         "t": "Management Consultant",
         "m": 11,
         "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Presentation",
+          "Data Analysis",
+          "Sustainability"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 40,
           "gain": 29
-        },
-        "observed": "Primary-Short"
+        }
       },
       {
         "t": "Project Manager",
         "m": 10,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Data Analysis",
+          "Observability",
+          "Lean / Six Sigma"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 34,
           "gain": 24
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "creative-director": [
@@ -1231,23 +1274,43 @@
         "t": "Motion Designer",
         "m": 12,
         "slug": "motion-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Motion Design",
+          "After Effects",
+          "Figma",
+          "Illustration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 29,
           "gain": 17
-        },
-        "observed": null
+        }
       },
       {
         "t": "Video Editor",
         "m": 10,
         "slug": "video-editor",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Video Editing",
+          "Presentation",
+          "Social Media",
+          "Premiere Pro"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 29,
           "gain": 19
-        },
-        "observed": null
+        }
       }
     ],
     "ux-writer": [
@@ -1255,26 +1318,80 @@
         "t": "IT Support Specialist",
         "m": 11,
         "slug": "it-support",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Observability",
+          "Linux",
+          "SQL"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-writer",
           "readiness_after": 19,
           "gain": 8
-        },
-        "observed": null
+        }
       },
       {
         "t": "Customer Support Specialist",
         "m": 10,
         "slug": "customer-support",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Translation",
+          "Lean / Six Sigma",
+          "Data Analysis"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-writer",
           "readiness_after": 25,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Instructional Designer",
+      "m": 10,
+      "slug": "instructional-designer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Agile",
+        "Training & Facilitation",
+        "Customer Service",
+        "Curriculum Development"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Electrical Engineer",
+      "m": 10,
+      "slug": "electrical-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "Electrical Systems",
+        "Revit",
+        "Construction Administration",
+        "QA / Testing"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "copywriter",
@@ -1310,23 +1427,23 @@
   "bridges": [
     [
       "ux-writer",
-      "police-officer_0",
-      0.44
-    ],
-    [
-      "ux-writer",
       "creative-technologist_0",
       0.37
-    ],
-    [
-      "construction-manager",
-      "copywriter_0",
-      0.3
     ],
     [
       "ux-writer",
       "marketing-manager_0",
       0.29
+    ],
+    [
+      "ux-writer",
+      "creative-director_0",
+      0.27
+    ],
+    [
+      "creative-director",
+      "marketing-manager_1",
+      0.27
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

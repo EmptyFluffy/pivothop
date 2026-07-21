@@ -4,6 +4,7 @@
     "slug": "accountant",
     "title": "Accountant",
     "field": "Finance",
+    "cluster": "Finance",
     "postings": 638,
     "salary": "$60k–$80k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "bookkeeper",
       "title": "Bookkeeper",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
       "desc": "",
       "match": 73,
       "salary": "$40k–$55k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 55,
       "salary": "$30k–$35k",
@@ -273,6 +278,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 44,
       "salary": "$55k–$95k",
@@ -428,6 +435,8 @@
       "id": "financial-analyst",
       "title": "Financial Analyst",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
       "desc": "",
       "match": 41,
       "salary": "$65k–$90k",
@@ -583,6 +592,8 @@
       "id": "controller",
       "title": "Financial Controller",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
       "desc": "",
       "match": 35,
       "salary": "$65k–$75k",
@@ -738,6 +749,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 28,
       "salary": "$65k–$100k",
@@ -893,6 +906,8 @@
       "id": "environmental-engineer",
       "title": "Environmental Engineer",
       "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "desc": "",
       "match": 25,
       "salary": "$45k–$120k",
@@ -988,6 +1003,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 24,
       "salary": "$80k–$120k",
@@ -1141,76 +1158,29 @@
     }
   ],
   "next": {
-    "bookkeeper": [
-      {
-        "t": "Auditor",
-        "m": 16,
-        "slug": "auditor",
-        "via": {
-          "parent": "bookkeeper",
-          "readiness_after": 17,
-          "gain": 1
-        },
-        "observed": null
-      },
-      {
-        "t": "Management Consultant",
-        "m": 15,
-        "slug": "management-consultant",
-        "via": {
-          "parent": "bookkeeper",
-          "readiness_after": 15,
-          "gain": 0
-        },
-        "observed": "Supplemental"
-      }
-    ],
-    "police-officer": [
-      {
-        "t": "Paralegal",
-        "m": 18,
-        "slug": "paralegal",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 23,
-          "gain": 5
-        },
-        "observed": null
-      },
-      {
-        "t": "Journalist",
-        "m": 18,
-        "slug": "journalist",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 20,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "bookkeeper": [],
+    "police-officer": [],
     "facilities-manager": [
-      {
-        "t": "Supply Chain Analyst",
-        "m": 17,
-        "slug": "supply-chain-analyst",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 19,
-          "gain": 2
-        },
-        "observed": null
-      },
       {
         "t": "Maintenance Technician",
         "m": 17,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Electrical Systems",
+          "Sustainability",
+          "Customer Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 42,
           "gain": 25
-        },
-        "observed": null
+        }
       }
     ],
     "financial-analyst": [
@@ -1218,23 +1188,43 @@
         "t": "Project Manager",
         "m": 20,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Risk Management",
+          "Stakeholder Management",
+          "Presentation",
+          "Customer Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "financial-analyst",
           "readiness_after": 42,
           "gain": 22
-        },
-        "observed": null
+        }
       },
       {
         "t": "Lawyer",
         "m": 18,
         "slug": "lawyer",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Negotiation",
+          "Contracts",
+          "HR Operations",
+          "Case Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "financial-analyst",
           "readiness_after": 26,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
     "controller": [
@@ -1242,47 +1232,66 @@
         "t": "Business Analyst",
         "m": 21,
         "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "HR Operations",
+          "Scheduling",
+          "Presentation",
+          "Translation"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "controller",
           "readiness_after": 44,
           "gain": 23
-        },
-        "observed": "Supplemental"
+        }
       },
       {
         "t": "Compliance Officer",
         "m": 20,
         "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "lateral",
+        "gap": [
+          "Risk Management",
+          "Data Visualization",
+          "SQL",
+          "Contracts"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "controller",
           "readiness_after": 35,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "construction-estimator": [
       {
-        "t": "Real Estate Developer",
-        "m": 18,
-        "slug": "real-estate-developer",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 21,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
         "t": "Librarian",
         "m": 16,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Teaching",
+          "Scheduling",
+          "Customer Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
           "readiness_after": 24,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
     "environmental-engineer": [
@@ -1290,23 +1299,22 @@
         "t": "Urban Planner",
         "m": 19,
         "slug": "urban-planner",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Urban Design",
+          "Zoning",
+          "Sustainability",
+          "Event Planning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "environmental-engineer",
           "readiness_after": 33,
           "gain": 14
-        },
-        "observed": null
-      },
-      {
-        "t": "Customer Success Manager",
-        "m": 18,
-        "slug": "customer-success-manager",
-        "via": {
-          "parent": "environmental-engineer",
-          "readiness_after": 24,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
     "construction-manager": [
@@ -1314,26 +1322,160 @@
         "t": "VDC Manager",
         "m": 22,
         "slug": "vdc-manager",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "BIM",
+          "Construction Administration",
+          "Quality Control",
+          "Urban Design"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 51,
           "gain": 29
-        },
-        "observed": null
+        }
       },
       {
         "t": "Building Surveyor",
         "m": 19,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "QA / Testing",
+          "Construction Administration",
+          "Scheduling",
+          "Contracts"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 52,
           "gain": 33
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Real Estate Developer",
+      "m": 18,
+      "slug": "real-estate-developer",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Negotiation",
+        "Product Management",
+        "Contracts",
+        "Sales"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Customer Success Manager",
+      "m": 18,
+      "slug": "customer-success-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Customer Service",
+        "Product Management",
+        "SQL",
+        "Jira"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Paralegal",
+      "m": 18,
+      "slug": "paralegal",
+      "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
+      "gap": [
+        "Contracts",
+        "Case Management",
+        "Teaching",
+        "Translation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Journalist",
+      "m": 18,
+      "slug": "journalist",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Journalism",
+        "Technical Writing",
+        "Social Media"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Supply Chain Analyst",
+      "m": 17,
+      "slug": "supply-chain-analyst",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Sustainability",
+        "SEM / Paid Media",
+        "Risk Management",
+        "Social Media"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Auditor",
+      "m": 16,
+      "slug": "auditor",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
+      "gap": [
+        "Risk Management",
+        "Cybersecurity",
+        "Journalism",
+        "Policy Analysis"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Management Consultant",
+      "m": 15,
+      "slug": "management-consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Presentation",
+        "Sustainability",
+        "SQL",
+        "Salesforce"
+      ],
+      "observed": "Supplemental",
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "facilities-manager",
@@ -1369,7 +1511,7 @@
   "bridges": [
     [
       "controller",
-      "facilities-manager_1",
+      "facilities-manager_0",
       0.58
     ],
     [

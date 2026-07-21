@@ -4,6 +4,7 @@
     "slug": "ux-researcher",
     "title": "UX Researcher",
     "field": "Design",
+    "cluster": "Design",
     "postings": 199,
     "salary": "$85k–$135k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "ux-designer",
       "title": "UX Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "Designs how software should feel to use. Researches users, maps flows, sketches interfaces, and defends the human experience against every other project pressure.",
       "match": 28,
       "salary": "$70k–$120k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 27,
       "salary": "$30k–$35k",
@@ -272,6 +277,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 18,
       "salary": "$95k–$150k",
@@ -427,6 +434,8 @@
       "id": "design-technologist",
       "title": "Design Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$85k–$165k",
@@ -576,6 +585,8 @@
       "id": "product-designer",
       "title": "Product Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "Owns a digital product's look, feel, and story end to end. Combines visual design, systems thinking, and close collaboration with engineers and PMs.",
       "match": 16,
       "salary": "$70k–$140k",
@@ -731,6 +742,8 @@
       "id": "service-designer",
       "title": "Service Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 14,
       "salary": "$70k–$145k",
@@ -862,6 +875,8 @@
       "id": "real-estate-developer",
       "title": "Real Estate Developer",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 13,
       "salary": "$80k–$135k",
@@ -1017,6 +1032,8 @@
       "id": "product-manager",
       "title": "Product Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 12,
       "salary": "$90k–$185k",
@@ -1175,23 +1192,22 @@
         "t": "UX Writer",
         "m": 10,
         "slug": "ux-writer",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Design Systems",
+          "Translation",
+          "Content Marketing",
+          "Excel"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-designer",
           "readiness_after": 20,
           "gain": 10
-        },
-        "observed": null
-      },
-      {
-        "t": "Technical Artist",
-        "m": 10,
-        "slug": "technical-artist",
-        "via": {
-          "parent": "ux-designer",
-          "readiness_after": 15,
-          "gain": 5
-        },
-        "observed": null
+        }
       }
     ],
     "police-officer": [],
@@ -1200,23 +1216,43 @@
         "t": "Copywriter",
         "m": 12,
         "slug": "copywriter",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Copywriting",
+          "SEO",
+          "CRM",
+          "Email Marketing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 39,
           "gain": 27
-        },
-        "observed": null
+        }
       },
       {
         "t": "Project Manager",
         "m": 11,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Observability",
+          "Lean / Six Sigma",
+          "Operations"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 24,
           "gain": 13
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
     "design-technologist": [],
@@ -1225,60 +1261,88 @@
         "t": "Creative Technologist",
         "m": 11,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Design Systems",
+          "Spark",
+          "Branding",
+          "Data Visualization"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-designer",
           "readiness_after": 37,
           "gain": 26
-        },
-        "observed": null
+        }
       },
       {
         "t": "Graphic Designer",
         "m": 11,
         "slug": "graphic-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Branding",
+          "Procurement",
+          "Motion Design",
+          "Photoshop"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-designer",
           "readiness_after": 33,
           "gain": 22
-        },
-        "observed": null
+        }
       }
     ],
-    "service-designer": [
-      {
-        "t": "Civil Engineer",
-        "m": 10,
-        "slug": "civil-engineer",
-        "via": {
-          "parent": "service-designer",
-          "readiness_after": 15,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
+    "service-designer": [],
     "real-estate-developer": [
       {
         "t": "Marketing Manager",
         "m": 12,
         "slug": "marketing-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Email Marketing",
+          "CRM",
+          "Project Management",
+          "Event Planning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 45,
           "gain": 33
-        },
-        "observed": null
+        }
       },
       {
         "t": "Librarian",
         "m": 12,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Teaching",
+          "Procurement",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 27,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "product-manager": [
@@ -1286,26 +1350,80 @@
         "t": "Management Consultant",
         "m": 12,
         "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Sustainability",
+          "SQL",
+          "Account Management"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "product-manager",
           "readiness_after": 39,
           "gain": 27
-        },
-        "observed": "Primary-Short"
+        }
       },
       {
         "t": "Instructional Designer",
         "m": 12,
         "slug": "instructional-designer",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Instructional Design",
+          "Customer Service",
+          "Curriculum Development",
+          "FEA / Simulation"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "product-manager",
           "readiness_after": 29,
           "gain": 17
-        },
-        "observed": "Primary-Long"
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Technical Artist",
+      "m": 10,
+      "slug": "technical-artist",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "Motion Design",
+        "Rendering",
+        "Unreal Engine",
+        "EHR / EMR"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Civil Engineer",
+      "m": 10,
+      "slug": "civil-engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Spec Writing",
+        "AutoCAD",
+        "Quality Control"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "ux-designer",

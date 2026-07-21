@@ -4,6 +4,7 @@
     "slug": "real-estate-developer",
     "title": "Real Estate Developer",
     "field": "Business",
+    "cluster": "Business",
     "postings": 66,
     "salary": "$80k–$135k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 43,
       "salary": "$60k–$115k",
@@ -172,6 +175,8 @@
       "id": "building-surveyor",
       "title": "Building Surveyor",
       "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "Inspects buildings for defects, compliance, and condition. Advises on repair, regulation, and value across a building's life.",
       "match": 37,
       "salary": "$65k–$90k",
@@ -273,6 +278,8 @@
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$60k–$120k",
@@ -428,6 +435,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$75k–$135k",
@@ -583,6 +592,8 @@
       "id": "ux-researcher",
       "title": "UX Researcher",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 32,
       "salary": "$85k–$135k",
@@ -738,6 +749,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 32,
       "salary": "$55k–$95k",
@@ -893,6 +906,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 31,
       "salary": "$45k–$95k",
@@ -1048,6 +1063,8 @@
       "id": "paralegal",
       "title": "Paralegal",
       "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
       "desc": "",
       "match": 31,
       "salary": "$40k–$75k",
@@ -1206,23 +1223,43 @@
         "t": "Creative Director",
         "m": 24,
         "slug": "creative-director",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Service Design",
+          "Figma",
+          "Design Systems"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 34,
           "gain": 10
-        },
-        "observed": null
+        }
       },
       {
         "t": "Graphic Designer",
         "m": 24,
         "slug": "graphic-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Branding",
+          "Writing & Editing",
+          "Motion Design",
+          "Photoshop"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 38,
           "gain": 14
-        },
-        "observed": null
+        }
       }
     ],
     "building-surveyor": [
@@ -1230,23 +1267,43 @@
         "t": "Construction Estimator",
         "m": 31,
         "slug": "construction-estimator",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Cost Estimating",
+          "Construction Administration",
+          "Drafting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "building-surveyor",
           "readiness_after": 41,
           "gain": 10
-        },
-        "observed": null
+        }
       },
       {
         "t": "Landscape Architect",
         "m": 20,
         "slug": "landscape-architect",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Urban Design",
+          "Sustainability",
+          "Construction Documentation",
+          "Construction Administration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "building-surveyor",
           "readiness_after": 36,
           "gain": 16
-        },
-        "observed": null
+        }
       }
     ],
     "customer-success-manager": [
@@ -1254,23 +1311,43 @@
         "t": "Account Executive",
         "m": 24,
         "slug": "account-executive",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Forecasting",
+          "Observability",
+          "CRM",
+          "NoSQL"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
           "readiness_after": 38,
           "gain": 14
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Structural Engineer",
-        "m": 19,
-        "slug": "structural-engineer",
+        "t": "Accountant",
+        "m": 18,
+        "slug": "accountant",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Accounting",
+          "Community Engagement",
+          "Audit",
+          "SAP"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
-          "readiness_after": 24,
-          "gain": 5
-        },
-        "observed": null
+          "readiness_after": 26,
+          "gain": 8
+        }
       }
     ],
     "project-manager": [
@@ -1278,95 +1355,89 @@
         "t": "Lawyer",
         "m": 30,
         "slug": "lawyer",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "HR Operations",
+          "Case Management",
+          "Risk Management",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 48,
           "gain": 18
-        },
-        "observed": null
+        }
       },
       {
         "t": "Construction Manager",
         "m": 20,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Construction Administration",
+          "Supply Chain",
+          "Sustainability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 45,
           "gain": 25
-        },
-        "observed": null
+        }
       }
     ],
-    "ux-researcher": [
-      {
-        "t": "Business Analyst",
-        "m": 17,
-        "slug": "business-analyst",
-        "via": {
-          "parent": "ux-researcher",
-          "readiness_after": 18,
-          "gain": 1
-        },
-        "observed": null
-      },
-      {
-        "t": "Product Manager",
-        "m": 17,
-        "slug": "product-manager",
-        "via": {
-          "parent": "ux-researcher",
-          "readiness_after": 21,
-          "gain": 4
-        },
-        "observed": null
-      }
-    ],
-    "facilities-manager": [
-      {
-        "t": "Urban Planner",
-        "m": 23,
-        "slug": "urban-planner",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 30,
-          "gain": 7
-        },
-        "observed": null
-      },
-      {
-        "t": "Accountant",
-        "m": 18,
-        "slug": "accountant",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 23,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
+    "ux-researcher": [],
+    "facilities-manager": [],
     "management-consultant": [
       {
         "t": "Executive Assistant",
         "m": 19,
         "slug": "executive-assistant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Scheduling",
+          "Supply Chain",
+          "Event Planning",
+          "HR Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 30,
           "gain": 11
-        },
-        "observed": null
+        }
       },
       {
         "t": "Civil Engineer",
         "m": 19,
         "slug": "civil-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Assessment",
+          "AutoCAD",
+          "Quality Control"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 42,
           "gain": 23
-        },
-        "observed": null
+        }
       }
     ],
     "paralegal": [
@@ -1374,26 +1445,112 @@
         "t": "Police Officer",
         "m": 27,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Supply Chain",
+          "Teaching"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "paralegal",
           "readiness_after": 73,
           "gain": 46
-        },
-        "observed": null
+        }
       },
       {
         "t": "Librarian",
         "m": 18,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Teaching",
+          "Budgeting",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "paralegal",
           "readiness_after": 28,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Urban Planner",
+      "m": 23,
+      "slug": "urban-planner",
+      "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Urban Design",
+        "Sustainability",
+        "Community Engagement",
+        "Event Planning"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Structural Engineer",
+      "m": 19,
+      "slug": "structural-engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Revit",
+        "Spec Writing",
+        "Construction Administration",
+        "Construction Documentation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Business Analyst",
+      "m": 17,
+      "slug": "business-analyst",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "HR Operations",
+        "Lean / Six Sigma",
+        "Observability",
+        "Scheduling"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Product Manager",
+      "m": 17,
+      "slug": "product-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "NLP",
+        "REST APIs",
+        "Agile",
+        "Observability"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "project-manager",

@@ -4,6 +4,7 @@
     "slug": "data-scientist",
     "title": "Data Scientist",
     "field": "Technology",
+    "cluster": "Technology",
     "postings": 174,
     "salary": "$145k–$215k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "data-analyst",
       "title": "Data Analyst",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "Turns messy business data into decisions. Runs the queries, builds the dashboards, and translates what patterns actually mean for the people making the calls.",
       "match": 72,
       "salary": "$60k–$100k",
@@ -172,6 +175,8 @@
       "id": "bi-developer",
       "title": "BI Developer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 68,
       "salary": "$60k–$75k",
@@ -241,6 +246,8 @@
       "id": "research-scientist",
       "title": "Research Scientist",
       "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
       "desc": "",
       "match": 63,
       "salary": "$115k–$280k",
@@ -396,6 +403,8 @@
       "id": "product-analyst",
       "title": "Product Analyst",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 62,
       "salary": "$65k–$130k",
@@ -551,6 +560,8 @@
       "id": "market-researcher",
       "title": "Market Researcher",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 60,
       "salary": "$100k–$125k",
@@ -706,6 +717,8 @@
       "id": "machine-learning-engineer",
       "title": "Machine Learning Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 57,
       "salary": "$165k–$230k",
@@ -861,6 +874,8 @@
       "id": "product-manager",
       "title": "Product Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 52,
       "salary": "$90k–$185k",
@@ -1016,6 +1031,8 @@
       "id": "creative-technologist",
       "title": "Creative Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
       "match": 49,
       "salary": "$95k–$170k",
@@ -1133,76 +1150,50 @@
     }
   ],
   "next": {
-    "data-analyst": [
-      {
-        "t": "Financial Analyst",
-        "m": 37,
-        "slug": "financial-analyst",
-        "via": {
-          "parent": "data-analyst",
-          "readiness_after": 46,
-          "gain": 9
-        },
-        "observed": null
-      },
-      {
-        "t": "Police Officer",
-        "m": 36,
-        "slug": "police-officer",
-        "via": {
-          "parent": "data-analyst",
-          "readiness_after": 36,
-          "gain": 0
-        },
-        "observed": null
-      }
-    ],
-    "bi-developer": [
-      {
-        "t": "Software Engineer",
-        "m": 33,
-        "slug": "software-engineer",
-        "via": {
-          "parent": "bi-developer",
-          "readiness_after": 33,
-          "gain": 0
-        },
-        "observed": null
-      },
-      {
-        "t": "Translator",
-        "m": 31,
-        "slug": "translator",
-        "via": {
-          "parent": "bi-developer",
-          "readiness_after": 31,
-          "gain": 0
-        },
-        "observed": null
-      }
-    ],
+    "data-analyst": [],
+    "bi-developer": [],
     "research-scientist": [
       {
         "t": "Statistician",
         "m": 45,
         "slug": "statistician",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "Translation",
+          "Risk Management",
+          "Java",
+          "Project Management"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "research-scientist",
           "readiness_after": 54,
           "gain": 9
-        },
-        "observed": "Primary-Short"
+        }
       },
       {
         "t": "Management Consultant",
         "m": 35,
         "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Sustainability",
+          "Account Management",
+          "Salesforce"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "research-scientist",
           "readiness_after": 51,
           "gain": 16
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
     "product-analyst": [
@@ -1210,23 +1201,43 @@
         "t": "Operations Manager",
         "m": 38,
         "slug": "operations-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Operations",
+          "Salesforce",
+          "Stakeholder Management",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-analyst",
           "readiness_after": 57,
           "gain": 19
-        },
-        "observed": null
+        }
       },
       {
         "t": "Compliance Officer",
         "m": 36,
         "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Risk Management",
+          "Accounting",
+          "Audit"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-analyst",
           "readiness_after": 47,
           "gain": 11
-        },
-        "observed": null
+        }
       }
     ],
     "market-researcher": [
@@ -1234,23 +1245,43 @@
         "t": "Business Analyst",
         "m": 44,
         "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Project Management",
+          "Audit"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "market-researcher",
           "readiness_after": 55,
           "gain": 11
-        },
-        "observed": "Supplemental"
+        }
       },
       {
-        "t": "Economist",
-        "m": 39,
-        "slug": "economist",
+        "t": "Financial Analyst",
+        "m": 37,
+        "slug": "financial-analyst",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Accounting",
+          "Agile",
+          "Financial Modeling",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "market-researcher",
-          "readiness_after": 42,
-          "gain": 3
-        },
-        "observed": null
+          "readiness_after": 48,
+          "gain": 11
+        }
       }
     ],
     "machine-learning-engineer": [
@@ -1258,23 +1289,43 @@
         "t": "Solutions Architect",
         "m": 48,
         "slug": "solutions-architect",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "AWS",
+          "Excel",
+          "Azure",
+          "GCP"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "machine-learning-engineer",
           "readiness_after": 65,
           "gain": 17
-        },
-        "observed": null
+        }
       },
       {
         "t": "Data Engineer",
         "m": 45,
         "slug": "data-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Airflow",
+          "dbt",
+          "Data Modeling",
+          "AWS"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "machine-learning-engineer",
           "readiness_after": 54,
           "gain": 9
-        },
-        "observed": "Supplemental"
+        }
       }
     ],
     "product-manager": [
@@ -1282,23 +1333,43 @@
         "t": "Project Manager",
         "m": 39,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Lean / Six Sigma",
+          "Operations",
+          "Risk Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-manager",
           "readiness_after": 55,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
-        "t": "IT Support Specialist",
-        "m": 34,
-        "slug": "it-support",
+        "t": "UX Researcher",
+        "m": 32,
+        "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Market Research"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "product-manager",
-          "readiness_after": 37,
-          "gain": 3
-        },
-        "observed": null
+          "readiness_after": 51,
+          "gain": 19
+        }
       }
     ],
     "creative-technologist": [
@@ -1306,26 +1377,107 @@
         "t": "Product Designer",
         "m": 32,
         "slug": "product-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Design Systems",
+          "Social Media",
+          "Figma",
+          "Interaction Design"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
           "readiness_after": 46,
           "gain": 14
-        },
-        "observed": null
-      },
-      {
-        "t": "UX Researcher",
-        "m": 32,
-        "slug": "ux-researcher",
-        "via": {
-          "parent": "creative-technologist",
-          "readiness_after": 35,
-          "gain": 3
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Economist",
+      "m": 39,
+      "slug": "economist",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
+      "gap": [
+        "FEA / Simulation",
+        "Market Research",
+        "Policy Analysis",
+        "Compliance"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Police Officer",
+      "m": 36,
+      "slug": "police-officer",
+      "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
+      "gap": [
+        "Case Management",
+        "Curriculum Development",
+        "Operations",
+        "Teaching"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "IT Support Specialist",
+      "m": 34,
+      "slug": "it-support",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
+      "gap": [
+        "Customer Service",
+        "Linux",
+        "Technical Writing",
+        "Jira"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Software Engineer",
+      "m": 33,
+      "slug": "software-engineer",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
+      "gap": [
+        "Microservices",
+        "REST APIs",
+        "Java",
+        "AWS"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Translator",
+      "m": 31,
+      "slug": "translator",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Translation",
+        "Copywriting",
+        "Market Research",
+        "Operations"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "data-analyst",
@@ -1361,23 +1513,23 @@
   "bridges": [
     [
       "market-researcher",
-      "creative-technologist_1",
+      "product-manager_1",
       0.59
-    ],
-    [
-      "machine-learning-engineer",
-      "bi-developer_0",
-      0.58
-    ],
-    [
-      "research-scientist",
-      "machine-learning-engineer_0",
-      0.55
     ],
     [
       "machine-learning-engineer",
       "research-scientist_0",
       0.53
+    ],
+    [
+      "data-analyst",
+      "market-researcher_0",
+      0.52
+    ],
+    [
+      "data-analyst",
+      "product-manager_0",
+      0.48
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

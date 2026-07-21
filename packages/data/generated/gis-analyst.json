@@ -4,6 +4,7 @@
     "slug": "gis-analyst",
     "title": "GIS Analyst",
     "field": "Technology",
+    "cluster": "Technology",
     "postings": 161,
     "salary": "$65k–$90k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 27,
       "salary": "$30k–$35k",
@@ -117,6 +120,8 @@
       "id": "journalist",
       "title": "Journalist",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$50k–$85k",
@@ -272,6 +277,8 @@
       "id": "copywriter",
       "title": "Copywriter",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 18,
       "salary": "$55k–$95k",
@@ -427,6 +434,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 16,
       "salary": "$55k–$95k",
@@ -582,6 +591,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 14,
       "salary": "$60k–$115k",
@@ -737,6 +748,8 @@
       "id": "technical-writer",
       "title": "Technical Writer",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 14,
       "salary": "$70k–$105k",
@@ -892,6 +905,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 14,
       "salary": "$95k–$150k",
@@ -1047,6 +1062,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 14,
       "salary": "$80k–$120k",
@@ -1200,52 +1217,28 @@
     }
   ],
   "next": {
-    "police-officer": [
-      {
-        "t": "Maintenance Technician",
-        "m": 10,
-        "slug": "maintenance-technician",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 12,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Librarian",
-        "m": 10,
-        "slug": "librarian",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 17,
-          "gain": 7
-        },
-        "observed": null
-      }
-    ],
+    "police-officer": [],
     "journalist": [
       {
         "t": "Creative Technologist",
         "m": 10,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Design Systems",
+          "NLP",
+          "Supply Chain",
+          "Spark"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "journalist",
           "readiness_after": 22,
           "gain": 12
-        },
-        "observed": null
-      },
-      {
-        "t": "Construction Estimator",
-        "m": 10,
-        "slug": "construction-estimator",
-        "via": {
-          "parent": "journalist",
-          "readiness_after": 12,
-          "gain": 2
-        },
-        "observed": null
+        }
       }
     ],
     "copywriter": [
@@ -1253,36 +1246,66 @@
         "t": "Motion Designer",
         "m": 10,
         "slug": "motion-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Motion Design",
+          "After Effects",
+          "Figma",
+          "Illustration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "copywriter",
           "readiness_after": 19,
           "gain": 9
-        },
-        "observed": null
+        }
       }
     ],
     "facilities-manager": [
       {
-        "t": "Interior Designer",
-        "m": 12,
-        "slug": "interior-designer",
+        "t": "Maintenance Technician",
+        "m": 10,
+        "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Electrical Systems",
+          "Sustainability",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
-          "readiness_after": 16,
-          "gain": 4
-        },
-        "observed": null
+          "readiness_after": 42,
+          "gain": 32
+        }
       },
       {
-        "t": "Building Performance Analyst",
-        "m": 12,
-        "slug": "building-performance-analyst",
+        "t": "Librarian",
+        "m": 10,
+        "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Teaching",
+          "Procurement",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
-          "readiness_after": 14,
-          "gain": 2
-        },
-        "observed": null
+          "readiness_after": 23,
+          "gain": 13
+        }
       }
     ],
     "marketing-manager": [
@@ -1290,47 +1313,66 @@
         "t": "Management Consultant",
         "m": 13,
         "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Sustainability",
+          "SQL",
+          "Account Management",
+          "Salesforce"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 40,
           "gain": 27
-        },
-        "observed": null
+        }
       },
       {
         "t": "Project Manager",
         "m": 12,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Observability",
+          "Supply Chain",
+          "Lean / Six Sigma",
+          "Risk Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 34,
           "gain": 22
-        },
-        "observed": null
+        }
       }
     ],
     "technical-writer": [
       {
-        "t": "Real Estate Developer",
-        "m": 11,
-        "slug": "real-estate-developer",
-        "via": {
-          "parent": "technical-writer",
-          "readiness_after": 15,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
-        "t": "Architect",
+        "t": "Construction Estimator",
         "m": 10,
-        "slug": "architect",
+        "slug": "construction-estimator",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Cost Estimating",
+          "Construction Administration",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "technical-writer",
-          "readiness_after": 16,
-          "gain": 6
-        },
-        "observed": null
+          "readiness_after": 20,
+          "gain": 10
+        }
       }
     ],
     "creative-director": [
@@ -1338,23 +1380,43 @@
         "t": "Physical Therapist",
         "m": 14,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Observability",
+          "Case Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 30,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
         "t": "Graphic Designer",
         "m": 13,
         "slug": "graphic-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Branding",
+          "Procurement",
+          "Motion Design",
+          "Photoshop"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 36,
           "gain": 23
-        },
-        "observed": null
+        }
       }
     ],
     "construction-manager": [
@@ -1362,26 +1424,112 @@
         "t": "Civil Engineer",
         "m": 13,
         "slug": "civil-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Assessment",
+          "AutoCAD",
+          "Training & Facilitation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 34,
           "gain": 21
-        },
-        "observed": null
+        }
       },
       {
         "t": "Urban Planner",
         "m": 12,
         "slug": "urban-planner",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Urban Design",
+          "Sustainability",
+          "Community Engagement",
+          "Event Planning"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 24,
           "gain": 12
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Interior Designer",
+      "m": 12,
+      "slug": "interior-designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Revit",
+        "Space Planning",
+        "Construction Administration",
+        "Construction Documentation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Building Performance Analyst",
+      "m": 12,
+      "slug": "building-performance-analyst",
+      "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Sustainability",
+        "Energy Modeling",
+        "LEED",
+        "QA / Testing"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Real Estate Developer",
+      "m": 11,
+      "slug": "real-estate-developer",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Negotiation",
+        "Product Management",
+        "Procurement",
+        "Contracts"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Architect",
+      "m": 10,
+      "slug": "architect",
+      "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Revit",
+        "Sustainability",
+        "Spec Writing",
+        "Construction Documentation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "facilities-manager",
@@ -1417,23 +1565,23 @@
   "bridges": [
     [
       "construction-manager",
-      "journalist_1",
+      "technical-writer_0",
       0.46
     ],
     [
-      "marketing-manager",
-      "technical-writer_0",
-      0.42
-    ],
-    [
-      "facilities-manager",
-      "police-officer_0",
-      0.42
+      "creative-director",
+      "journalist_0",
+      0.35
     ],
     [
       "construction-manager",
       "facilities-manager_0",
-      0.36
+      0.33
+    ],
+    [
+      "marketing-manager",
+      "creative-director_1",
+      0.32
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

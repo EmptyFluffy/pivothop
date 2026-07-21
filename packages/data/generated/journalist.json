@@ -4,6 +4,7 @@
     "slug": "journalist",
     "title": "Journalist",
     "field": "Writing",
+    "cluster": "Media & Writing",
     "postings": 461,
     "salary": "$50k–$85k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "copywriter",
       "title": "Copywriter",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "lateral",
       "desc": "",
       "match": 40,
       "salary": "$55k–$95k",
@@ -172,6 +175,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 35,
       "salary": "$95k–$150k",
@@ -327,6 +332,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 28,
       "salary": "$30k–$35k",
@@ -428,6 +435,8 @@
       "id": "video-editor",
       "title": "Video Editor",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 19,
       "salary": "$45k–$90k",
@@ -583,6 +592,8 @@
       "id": "motion-designer",
       "title": "Motion Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 15,
       "salary": "$65k–$140k",
@@ -738,6 +749,8 @@
       "id": "technical-writer",
       "title": "Technical Writer",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "lateral",
       "desc": "",
       "match": 14,
       "salary": "$70k–$105k",
@@ -893,6 +906,8 @@
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 14,
       "salary": "$40k–$75k",
@@ -1048,6 +1063,8 @@
       "id": "social-media-manager",
       "title": "Social Media Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 12,
       "salary": "$55k–$145k",
@@ -1207,12 +1224,22 @@
         "t": "Physical Therapist",
         "m": 10,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Observability",
+          "Case Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 26,
           "gain": 16
-        },
-        "observed": null
+        }
       }
     ],
     "police-officer": [],
@@ -1225,26 +1252,47 @@
         "t": "Content Strategist",
         "m": 11,
         "slug": "content-strategist",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "lateral",
+        "gap": [
+          "NLP",
+          "Email Marketing",
+          "Compliance",
+          "Supply Chain"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "social-media-manager",
           "readiness_after": 30,
           "gain": 19
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
         "t": "Marketing Manager",
         "m": 11,
         "slug": "marketing-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Product Management",
+          "Market Research",
+          "Email Marketing",
+          "CRM"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "social-media-manager",
           "readiness_after": 46,
           "gain": 35
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [],
   "cross": [
     [
       "creative-director",

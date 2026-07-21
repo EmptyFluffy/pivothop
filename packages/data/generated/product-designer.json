@@ -4,6 +4,7 @@
     "slug": "product-designer",
     "title": "Product Designer",
     "field": "Design",
+    "cluster": "Design",
     "postings": 403,
     "salary": "$70k–$140k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "ux-designer",
       "title": "UX Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "Designs how software should feel to use. Researches users, maps flows, sketches interfaces, and defends the human experience against every other project pressure.",
       "match": 84,
       "salary": "$70k–$120k",
@@ -172,6 +175,8 @@
       "id": "design-technologist",
       "title": "Design Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 52,
       "salary": "$85k–$165k",
@@ -321,6 +326,8 @@
       "id": "ux-researcher",
       "title": "UX Researcher",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 50,
       "salary": "$85k–$135k",
@@ -476,6 +483,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 41,
       "salary": "$95k–$150k",
@@ -631,6 +640,8 @@
       "id": "ux-writer",
       "title": "UX Writer",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 37,
       "salary": "$45k–$100k",
@@ -762,6 +773,8 @@
       "id": "creative-technologist",
       "title": "Creative Technologist",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
       "match": 35,
       "salary": "$95k–$170k",
@@ -881,6 +894,8 @@
       "id": "graphic-designer",
       "title": "Graphic Designer",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
       "desc": "",
       "match": 33,
       "salary": "$40k–$75k",
@@ -1036,6 +1051,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 28,
       "salary": "$60k–$115k",
@@ -1189,100 +1206,51 @@
     }
   ],
   "next": {
-    "ux-designer": [
-      {
-        "t": "Librarian",
-        "m": 16,
-        "slug": "librarian",
-        "via": {
-          "parent": "ux-designer",
-          "readiness_after": 19,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
-        "t": "Video Editor",
-        "m": 15,
-        "slug": "video-editor",
-        "via": {
-          "parent": "ux-designer",
-          "readiness_after": 17,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
-    "design-technologist": [
-      {
-        "t": "Frontend Developer",
-        "m": 16,
-        "slug": "frontend-developer",
-        "via": {
-          "parent": "design-technologist",
-          "readiness_after": 18,
-          "gain": 2
-        },
-        "observed": "Primary-Short"
-      },
-      {
-        "t": "Customer Success Manager",
-        "m": 16,
-        "slug": "customer-success-manager",
-        "via": {
-          "parent": "design-technologist",
-          "readiness_after": 18,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
-    "ux-researcher": [
-      {
-        "t": "Project Manager",
-        "m": 16,
-        "slug": "project-manager",
-        "via": {
-          "parent": "ux-researcher",
-          "readiness_after": 19,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
-        "t": "Management Consultant",
-        "m": 14,
-        "slug": "management-consultant",
-        "via": {
-          "parent": "ux-researcher",
-          "readiness_after": 17,
-          "gain": 3
-        },
-        "observed": null
-      }
-    ],
+    "ux-designer": [],
+    "design-technologist": [],
+    "ux-researcher": [],
     "creative-director": [
       {
         "t": "Service Designer",
         "m": 20,
         "slug": "service-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Service Design",
+          "Drafting",
+          "Agile",
+          "Customer Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 29,
           "gain": 9
-        },
-        "observed": null
+        }
       },
       {
         "t": "Journalist",
         "m": 18,
         "slug": "journalist",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Audit",
+          "Journalism",
+          "Technical Writing",
+          "Copywriting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 59,
           "gain": 41
-        },
-        "observed": null
+        }
       }
     ],
     "ux-writer": [
@@ -1290,23 +1258,42 @@
         "t": "Exhibit Designer",
         "m": 23,
         "slug": "exhibit-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Event Planning",
+          "AutoCAD",
+          "Illustration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-writer",
           "readiness_after": 40,
           "gain": 17
-        },
-        "observed": null
+        }
       },
       {
         "t": "Corporate Trainer",
         "m": 21,
         "slug": "corporate-trainer",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Instructional Design",
+          "Observability",
+          "Customer Service",
+          "Project Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-writer",
           "readiness_after": 30,
           "gain": 9
-        },
-        "observed": null
+        }
       }
     ],
     "creative-technologist": [
@@ -1314,23 +1301,43 @@
         "t": "Product Manager",
         "m": 19,
         "slug": "product-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "NLP",
+          "REST APIs",
+          "Agile",
+          "Observability"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
           "readiness_after": 28,
           "gain": 9
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Social Media Manager",
-        "m": 17,
-        "slug": "social-media-manager",
+        "t": "Project Manager",
+        "m": 16,
+        "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Observability",
+          "Supply Chain",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
-          "readiness_after": 23,
-          "gain": 6
-        },
-        "observed": null
+          "readiness_after": 25,
+          "gain": 9
+        }
       }
     ],
     "graphic-designer": [
@@ -1338,23 +1345,43 @@
         "t": "Brand Designer",
         "m": 22,
         "slug": "brand-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Accounting",
+          "Branding",
+          "Illustration",
+          "Photography"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "graphic-designer",
           "readiness_after": 30,
           "gain": 8
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
         "t": "Motion Designer",
         "m": 22,
         "slug": "motion-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Motion Design",
+          "After Effects",
+          "Illustration",
+          "Photoshop"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "graphic-designer",
           "readiness_after": 37,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "marketing-manager": [
@@ -1362,26 +1389,144 @@
         "t": "Copywriter",
         "m": 24,
         "slug": "copywriter",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Copywriting",
+          "SEO",
+          "CRM",
+          "Email Marketing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 58,
           "gain": 34
-        },
-        "observed": null
+        }
       },
       {
         "t": "Real Estate Developer",
         "m": 20,
         "slug": "real-estate-developer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Negotiation",
+          "Procurement",
+          "Contracts",
+          "Sales"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
           "readiness_after": 41,
           "gain": 21
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Social Media Manager",
+      "m": 17,
+      "slug": "social-media-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Customer Service",
+        "Content Marketing",
+        "Event Planning",
+        "Observability"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Frontend Developer",
+      "m": 16,
+      "slug": "frontend-developer",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "React",
+        "TypeScript",
+        "REST APIs",
+        "JavaScript"
+      ],
+      "observed": "Primary-Short",
+      "reach": "direct"
+    },
+    {
+      "t": "Customer Success Manager",
+      "m": 16,
+      "slug": "customer-success-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Account Management",
+        "Customer Service",
+        "Observability",
+        "SQL"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Librarian",
+      "m": 16,
+      "slug": "librarian",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Teaching",
+        "Procurement",
+        "Budgeting"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Video Editor",
+      "m": 15,
+      "slug": "video-editor",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "lateral",
+      "gap": [
+        "Video Editing",
+        "Premiere Pro",
+        "Motion Design",
+        "After Effects"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Management Consultant",
+      "m": 14,
+      "slug": "management-consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Sustainability",
+        "SQL",
+        "Account Management"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "design-technologist",
@@ -1416,11 +1561,6 @@
   ],
   "bridges": [
     [
-      "ux-writer",
-      "ux-designer_0",
-      0.45
-    ],
-    [
       "creative-director",
       "marketing-manager_0",
       0.41
@@ -1432,8 +1572,13 @@
     ],
     [
       "marketing-manager",
-      "ux-researcher_1",
-      0.39
+      "creative-technologist_1",
+      0.38
+    ],
+    [
+      "creative-director",
+      "ux-writer_0",
+      0.36
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

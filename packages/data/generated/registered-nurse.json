@@ -4,6 +4,7 @@
     "slug": "registered-nurse",
     "title": "Registered Nurse",
     "field": "Healthcare",
+    "cluster": "Healthcare",
     "postings": 899,
     "salary": "$60k–$105k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "physical-therapist",
       "title": "Physical Therapist",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 84,
       "salary": "$90k–$115k",
@@ -172,6 +175,8 @@
       "id": "nurse-practitioner",
       "title": "Nurse Practitioner",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 71,
       "salary": "$30k–$140k",
@@ -327,6 +332,8 @@
       "id": "therapist",
       "title": "Therapist / Counselor",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 71,
       "salary": "$85k–$110k",
@@ -482,6 +489,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 62,
       "salary": "$30k–$35k",
@@ -583,6 +592,8 @@
       "id": "social-worker",
       "title": "Social Worker",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 40,
       "salary": "$60k–$110k",
@@ -738,6 +749,8 @@
       "id": "medical-assistant",
       "title": "Medical Assistant",
       "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "desc": "",
       "match": 37,
       "salary": "$45k–$60k",
@@ -893,6 +906,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 36,
       "salary": "$55k–$95k",
@@ -1048,6 +1063,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 35,
       "salary": "$80k–$120k",
@@ -1201,124 +1218,72 @@
     }
   ],
   "next": {
-    "physical-therapist": [
-      {
-        "t": "Environmental Engineer",
-        "m": 18,
-        "slug": "environmental-engineer",
-        "via": {
-          "parent": "physical-therapist",
-          "readiness_after": 19,
-          "gain": 1
-        },
-        "observed": null
-      },
-      {
-        "t": "Social Media Manager",
-        "m": 13,
-        "slug": "social-media-manager",
-        "via": {
-          "parent": "physical-therapist",
-          "readiness_after": 15,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
-    "nurse-practitioner": [
-      {
-        "t": "Professor / Lecturer",
-        "m": 16,
-        "slug": "professor",
-        "via": {
-          "parent": "nurse-practitioner",
-          "readiness_after": 19,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
-        "t": "Business Analyst",
-        "m": 14,
-        "slug": "business-analyst",
-        "via": {
-          "parent": "nurse-practitioner",
-          "readiness_after": 20,
-          "gain": 6
-        },
-        "observed": null
-      }
-    ],
+    "physical-therapist": [],
+    "nurse-practitioner": [],
     "therapist": [
       {
         "t": "Building Surveyor",
         "m": 17,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "QA / Testing",
+          "Construction Administration",
+          "Project Management",
+          "Contracts"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "therapist",
           "readiness_after": 28,
           "gain": 11
-        },
-        "observed": null
+        }
+      }
+    ],
+    "police-officer": [],
+    "social-worker": [
+      {
+        "t": "Psychologist",
+        "m": 16,
+        "slug": "psychologist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "lateral",
+        "gap": [
+          "Supply Chain",
+          "QA / Testing",
+          "Clinical Research",
+          "HR Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "social-worker",
+          "readiness_after": 40,
+          "gain": 24
+        }
       },
       {
         "t": "Aerospace Engineer",
         "m": 14,
         "slug": "aerospace-engineer",
-        "via": {
-          "parent": "therapist",
-          "readiness_after": 21,
-          "gain": 7
-        },
-        "observed": null
-      }
-    ],
-    "police-officer": [
-      {
-        "t": "Teacher",
-        "m": 18,
-        "slug": "teacher",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 20,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Lawyer",
-        "m": 13,
-        "slug": "lawyer",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 13,
-          "gain": 0
-        },
-        "observed": null
-      }
-    ],
-    "social-worker": [
-      {
-        "t": "Project Manager",
-        "m": 18,
-        "slug": "project-manager",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "QA / Testing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "social-worker",
-          "readiness_after": 23,
-          "gain": 5
-        },
-        "observed": null
-      },
-      {
-        "t": "Psychologist",
-        "m": 16,
-        "slug": "psychologist",
-        "via": {
-          "parent": "social-worker",
-          "readiness_after": 40,
-          "gain": 24
-        },
-        "observed": null
+          "readiness_after": 25,
+          "gain": 11
+        }
       }
     ],
     "medical-assistant": [
@@ -1326,23 +1291,43 @@
         "t": "Pharmacist",
         "m": 18,
         "slug": "pharmacist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "lateral",
+        "gap": [
+          "Supply Chain",
+          "QA / Testing",
+          "Compliance",
+          "Quality Control"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "medical-assistant",
           "readiness_after": 32,
           "gain": 14
-        },
-        "observed": null
+        }
       },
       {
         "t": "Customer Success Manager",
         "m": 15,
         "slug": "customer-success-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Account Management",
+          "Product Management",
+          "SQL",
+          "Jira"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "medical-assistant",
           "readiness_after": 24,
           "gain": 9
-        },
-        "observed": null
+        }
       }
     ],
     "facilities-manager": [
@@ -1350,50 +1335,204 @@
         "t": "Paralegal",
         "m": 26,
         "slug": "paralegal",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Excel",
+          "Procurement",
+          "Compliance"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 35,
           "gain": 9
-        },
-        "observed": null
+        }
       },
       {
         "t": "Maintenance Technician",
         "m": 24,
         "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Electrical Systems",
+          "Sustainability",
+          "Project Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 47,
           "gain": 23
-        },
-        "observed": null
+        }
       }
     ],
     "construction-manager": [
       {
-        "t": "Instructional Designer",
-        "m": 20,
-        "slug": "instructional-designer",
-        "via": {
-          "parent": "construction-manager",
-          "readiness_after": 24,
-          "gain": 4
-        },
-        "observed": null
-      },
-      {
         "t": "Librarian",
         "m": 19,
         "slug": "librarian",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Accessibility",
+          "Project Management",
+          "Procurement",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
           "readiness_after": 41,
           "gain": 22
-        },
-        "observed": null
+        }
+      },
+      {
+        "t": "Project Manager",
+        "m": 18,
+        "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Supply Chain",
+          "Stakeholder Management",
+          "Procurement"
+        ],
+        "observed": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "construction-manager",
+          "readiness_after": 30,
+          "gain": 12
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Instructional Designer",
+      "m": 20,
+      "slug": "instructional-designer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Agile",
+        "Supply Chain",
+        "Curriculum Development",
+        "HR Operations"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Teacher",
+      "m": 18,
+      "slug": "teacher",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Classroom Management",
+        "Curriculum Development",
+        "Design Thinking",
+        "Photography"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Environmental Engineer",
+      "m": 18,
+      "slug": "environmental-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "Financial Modeling",
+        "Urban Design",
+        "Sustainability",
+        "Budgeting"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Professor / Lecturer",
+      "m": 16,
+      "slug": "professor",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Curriculum Development",
+        "HR Operations",
+        "Motion Design",
+        "NLP"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Business Analyst",
+      "m": 14,
+      "slug": "business-analyst",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "HR Operations",
+        "Project Management",
+        "Audit",
+        "Procurement"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Social Media Manager",
+      "m": 13,
+      "slug": "social-media-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Social Media",
+        "Writing & Editing",
+        "Content Marketing",
+        "Event Planning"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Lawyer",
+      "m": 13,
+      "slug": "lawyer",
+      "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
+      "gap": [
+        "Negotiation",
+        "Contracts",
+        "Compliance",
+        "HR Operations"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "physical-therapist",
@@ -1438,14 +1577,14 @@
       0.39
     ],
     [
-      "construction-manager",
-      "physical-therapist_0",
-      0.38
+      "facilities-manager",
+      "construction-manager_0",
+      0.32
     ],
     [
-      "medical-assistant",
-      "facilities-manager_0",
-      0.33
+      "social-worker",
+      "medical-assistant_0",
+      0.29
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

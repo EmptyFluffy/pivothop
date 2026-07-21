@@ -4,6 +4,7 @@
     "slug": "lawyer",
     "title": "Lawyer",
     "field": "Legal",
+    "cluster": "Legal",
     "postings": 195,
     "salary": "$95k–$220k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "paralegal",
       "title": "Paralegal",
       "field": "Legal",
+      "cluster": "Legal",
+      "kind": "lateral",
       "desc": "",
       "match": 74,
       "salary": "$40k–$75k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 45,
       "salary": "$30k–$35k",
@@ -273,6 +278,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 41,
       "salary": "$75k–$135k",
@@ -428,6 +435,8 @@
       "id": "real-estate-developer",
       "title": "Real Estate Developer",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 40,
       "salary": "$80k–$135k",
@@ -583,6 +592,8 @@
       "id": "recruiter",
       "title": "Recruiter",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 35,
       "salary": "$55k–$110k",
@@ -738,6 +749,8 @@
       "id": "compliance-officer",
       "title": "Compliance Officer",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
       "desc": "",
       "match": 33,
       "salary": "$95k–$190k",
@@ -893,6 +906,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 31,
       "salary": "$55k–$95k",
@@ -1048,6 +1063,8 @@
       "id": "business-analyst",
       "title": "Business Analyst",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 29,
       "salary": "$85k–$140k",
@@ -1206,71 +1223,67 @@
         "t": "Physical Therapist",
         "m": 26,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Teaching",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "paralegal",
           "readiness_after": 39,
           "gain": 13
-        },
-        "observed": null
-      },
-      {
-        "t": "Account Executive",
-        "m": 23,
-        "slug": "account-executive",
-        "via": {
-          "parent": "paralegal",
-          "readiness_after": 24,
-          "gain": 1
-        },
-        "observed": null
+        }
       }
     ],
-    "police-officer": [
-      {
-        "t": "Operations Manager",
-        "m": 22,
-        "slug": "operations-manager",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 22,
-          "gain": 0
-        },
-        "observed": null
-      },
-      {
-        "t": "Social Worker",
-        "m": 22,
-        "slug": "social-worker",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 24,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "police-officer": [],
     "project-manager": [
       {
         "t": "Customer Success Manager",
         "m": 26,
         "slug": "customer-success-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Account Management",
+          "Customer Service",
+          "Product Management",
+          "Data Analysis"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 49,
           "gain": 23
-        },
-        "observed": null
+        }
       },
       {
         "t": "Executive Assistant",
         "m": 24,
         "slug": "executive-assistant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Scheduling",
+          "Event Planning",
+          "Account Management",
+          "Jira"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 42,
           "gain": 18
-        },
-        "observed": null
+        }
       }
     ],
     "real-estate-developer": [
@@ -1278,23 +1291,43 @@
         "t": "Building Surveyor",
         "m": 26,
         "slug": "building-surveyor",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "QA / Testing",
+          "Construction Administration",
+          "Scheduling",
+          "Account Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 42,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
         "t": "Financial Analyst",
         "m": 24,
         "slug": "financial-analyst",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Forecasting",
+          "Agile",
+          "Financial Modeling",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
           "readiness_after": 34,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
     "recruiter": [
@@ -1302,23 +1335,43 @@
         "t": "Supply Chain Analyst",
         "m": 28,
         "slug": "supply-chain-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Sustainability",
+          "SEM / Paid Media",
+          "Social Media",
+          "Writing & Editing"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "recruiter",
           "readiness_after": 44,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
         "t": "Creative Technologist",
         "m": 24,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Design Systems",
+          "Branding",
+          "Data Visualization"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "recruiter",
           "readiness_after": 33,
           "gain": 9
-        },
-        "observed": null
+        }
       }
     ],
     "compliance-officer": [
@@ -1326,23 +1379,43 @@
         "t": "Accountant",
         "m": 25,
         "slug": "accountant",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Community Engagement",
+          "Audit",
+          "Financial Modeling",
+          "Forecasting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "compliance-officer",
           "readiness_after": 52,
           "gain": 27
-        },
-        "observed": null
+        }
       },
       {
         "t": "Financial Controller",
         "m": 24,
         "slug": "controller",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Scheduling",
+          "Stakeholder Management",
+          "Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "compliance-officer",
           "readiness_after": 48,
           "gain": 24
-        },
-        "observed": null
+        }
       }
     ],
     "facilities-manager": [
@@ -1350,23 +1423,22 @@
         "t": "Construction Estimator",
         "m": 25,
         "slug": "construction-estimator",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Cost Estimating",
+          "Construction Administration",
+          "Drafting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
           "readiness_after": 40,
           "gain": 15
-        },
-        "observed": null
-      },
-      {
-        "t": "HR Manager",
-        "m": 23,
-        "slug": "hr-manager",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 26,
-          "gain": 3
-        },
-        "observed": null
+        }
       }
     ],
     "business-analyst": [
@@ -1374,26 +1446,112 @@
         "t": "Construction Manager",
         "m": 27,
         "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Construction Administration",
+          "Sustainability",
+          "Food Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 53,
           "gain": 26
-        },
-        "observed": null
+        }
       },
       {
         "t": "Therapist / Counselor",
         "m": 25,
         "slug": "therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "QA / Testing",
+          "EHR / EMR"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "business-analyst",
           "readiness_after": 38,
           "gain": 13
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Account Executive",
+      "m": 23,
+      "slug": "account-executive",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Sales",
+        "Salesforce",
+        "Forecasting",
+        "Account Management"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "HR Manager",
+      "m": 23,
+      "slug": "hr-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Operations",
+        "Data Analysis",
+        "Jira",
+        "React"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Operations Manager",
+      "m": 22,
+      "slug": "operations-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Operations",
+        "Data Analysis",
+        "Salesforce",
+        "Data Visualization"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Social Worker",
+      "m": 22,
+      "slug": "social-worker",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Design Systems",
+        "Patient Care",
+        "Health Education",
+        "Event Planning"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "project-manager",
@@ -1433,11 +1591,6 @@
       0.52
     ],
     [
-      "compliance-officer",
-      "police-officer_0",
-      0.51
-    ],
-    [
       "business-analyst",
       "compliance-officer_1",
       0.48
@@ -1446,6 +1599,11 @@
       "business-analyst",
       "project-manager_1",
       0.46
+    ],
+    [
+      "project-manager",
+      "business-analyst_0",
+      0.45
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

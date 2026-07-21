@@ -4,6 +4,7 @@
     "slug": "it-support",
     "title": "IT Support Specialist",
     "field": "Technology",
+    "cluster": "Technology",
     "postings": 128,
     "salary": "$85k–$160k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "customer-support",
       "title": "Customer Support Specialist",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 49,
       "salary": "$40k–$80k",
@@ -172,6 +175,8 @@
       "id": "network-engineer",
       "title": "Network Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 41,
       "salary": "$100k–$195k",
@@ -327,6 +332,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 40,
       "salary": "$45k–$95k",
@@ -482,6 +489,8 @@
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 39,
       "salary": "$60k–$120k",
@@ -637,6 +646,8 @@
       "id": "technical-writer",
       "title": "Technical Writer",
       "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
       "desc": "",
       "match": 39,
       "salary": "$70k–$105k",
@@ -792,6 +803,8 @@
       "id": "software-engineer",
       "title": "Software Engineer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 38,
       "salary": "$110k–$225k",
@@ -947,6 +960,8 @@
       "id": "solutions-architect",
       "title": "Solutions Architect",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "lateral",
       "desc": "",
       "match": 37,
       "salary": "$105k–$180k",
@@ -1102,6 +1117,8 @@
       "id": "sales-engineer",
       "title": "Sales Engineer",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
       "desc": "",
       "match": 36,
       "salary": "$120k–$210k",
@@ -1260,23 +1277,43 @@
         "t": "Physical Therapist",
         "m": 36,
         "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Case Management",
+          "Teaching",
+          "Scheduling"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-support",
           "readiness_after": 44,
           "gain": 8
-        },
-        "observed": null
+        }
       },
       {
         "t": "Business Analyst",
         "m": 34,
         "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "HR Operations",
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Project Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-support",
           "readiness_after": 52,
           "gain": 18
-        },
-        "observed": null
+        }
       }
     ],
     "network-engineer": [
@@ -1284,23 +1321,43 @@
         "t": "QA Engineer",
         "m": 31,
         "slug": "qa-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "QA / Testing",
+          "Git",
+          "Lean / Six Sigma",
+          "CI/CD"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "network-engineer",
           "readiness_after": 40,
           "gain": 9
-        },
-        "observed": "Primary-Long"
+        }
       },
       {
-        "t": "Registered Nurse",
-        "m": 31,
-        "slug": "registered-nurse",
+        "t": "Social Media Manager",
+        "m": 29,
+        "slug": "social-media-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Content Marketing",
+          "Project Management",
+          "Health Education"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "network-engineer",
           "readiness_after": 37,
-          "gain": 6
-        },
-        "observed": null
+          "gain": 8
+        }
       }
     ],
     "management-consultant": [
@@ -1308,23 +1365,43 @@
         "t": "Project Manager",
         "m": 36,
         "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Lean / Six Sigma",
+          "Operations",
+          "Risk Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 62,
           "gain": 26
-        },
-        "observed": null
+        }
       },
       {
         "t": "UX Researcher",
         "m": 30,
         "slug": "ux-researcher",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Research",
+          "User Research",
+          "Usability Testing",
+          "Product Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 40,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
     "customer-success-manager": [
@@ -1332,23 +1409,22 @@
         "t": "Sales Representative",
         "m": 32,
         "slug": "sales-representative",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Sales",
+          "Salesforce",
+          "CRM",
+          "Account Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
           "readiness_after": 46,
           "gain": 14
-        },
-        "observed": null
-      },
-      {
-        "t": "Social Media Manager",
-        "m": 29,
-        "slug": "social-media-manager",
-        "via": {
-          "parent": "customer-success-manager",
-          "readiness_after": 35,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
     "technical-writer": [
@@ -1356,23 +1432,43 @@
         "t": "Police Officer",
         "m": 36,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Operations",
+          "Teaching"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "technical-writer",
           "readiness_after": 55,
           "gain": 19
-        },
-        "observed": null
+        }
       },
       {
         "t": "Graphic Designer",
         "m": 30,
         "slug": "graphic-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Branding",
+          "Procurement",
+          "Writing & Editing",
+          "Motion Design"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "technical-writer",
           "readiness_after": 38,
           "gain": 8
-        },
-        "observed": null
+        }
       }
     ],
     "software-engineer": [
@@ -1380,23 +1476,43 @@
         "t": "Industrial Engineer",
         "m": 35,
         "slug": "industrial-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Clinical Research",
+          "GCP",
+          "Microservices",
+          "Spark"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "software-engineer",
           "readiness_after": 67,
           "gain": 32
-        },
-        "observed": null
+        }
       },
       {
         "t": "Mobile Developer",
         "m": 32,
         "slug": "mobile-developer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "React",
+          "Java",
+          "TypeScript",
+          "Swift"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "software-engineer",
           "readiness_after": 66,
           "gain": 34
-        },
-        "observed": "Primary-Short"
+        }
       }
     ],
     "solutions-architect": [
@@ -1404,23 +1520,43 @@
         "t": "Data Analyst",
         "m": 36,
         "slug": "data-analyst",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Data Visualization",
+          "ETL",
+          "Tableau",
+          "Power BI"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "solutions-architect",
           "readiness_after": 63,
           "gain": 27
-        },
-        "observed": null
+        }
       },
       {
         "t": "Research Scientist",
         "m": 35,
         "slug": "research-scientist",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "Machine Learning",
+          "Deep Learning",
+          "Prototyping",
+          "HR Operations"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "solutions-architect",
           "readiness_after": 47,
           "gain": 12
-        },
-        "observed": null
+        }
       }
     ],
     "sales-engineer": [
@@ -1428,26 +1564,64 @@
         "t": "Systems Administrator",
         "m": 35,
         "slug": "systems-administrator",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Operations",
+          "HR Operations",
+          "Procurement",
+          "CI/CD"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "sales-engineer",
           "readiness_after": 49,
           "gain": 14
-        },
-        "observed": "Primary-Short"
+        }
       },
       {
         "t": "Security Engineer",
         "m": 30,
         "slug": "security-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "GCP",
+          "Clinical Research",
+          "Kubernetes",
+          "Terraform"
+        ],
+        "observed": "Primary-Long",
+        "reach": "bridged",
         "via": {
           "parent": "sales-engineer",
           "readiness_after": 56,
           "gain": 26
-        },
-        "observed": "Primary-Long"
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Registered Nurse",
+      "m": 31,
+      "slug": "registered-nurse",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Case Management",
+        "Health Education",
+        "Teaching"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "solutions-architect",

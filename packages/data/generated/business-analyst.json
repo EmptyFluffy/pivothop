@@ -4,6 +4,7 @@
     "slug": "business-analyst",
     "title": "Business Analyst",
     "field": "Business",
+    "cluster": "Business",
     "postings": 176,
     "salary": "$85k–$140k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 66,
       "salary": "$75k–$135k",
@@ -172,6 +175,8 @@
       "id": "police-officer",
       "title": "Police Officer",
       "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 64,
       "salary": "$30k–$35k",
@@ -273,6 +278,8 @@
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 52,
       "salary": "$80k–$120k",
@@ -428,6 +435,8 @@
       "id": "facilities-manager",
       "title": "Facilities Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 50,
       "salary": "$55k–$95k",
@@ -583,6 +592,8 @@
       "id": "operations-manager",
       "title": "Operations Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 47,
       "salary": "$85k–$150k",
@@ -738,6 +749,8 @@
       "id": "bi-developer",
       "title": "BI Developer",
       "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
       "desc": "",
       "match": 45,
       "salary": "$60k–$75k",
@@ -807,6 +820,8 @@
       "id": "executive-assistant",
       "title": "Executive Assistant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 44,
       "salary": "$45k–$105k",
@@ -962,6 +977,8 @@
       "id": "controller",
       "title": "Financial Controller",
       "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
       "desc": "",
       "match": 44,
       "salary": "$65k–$75k",
@@ -1120,119 +1137,91 @@
         "t": "Management Consultant",
         "m": 42,
         "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Sustainability",
+          "Account Management",
+          "Salesforce",
+          "CRM"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 53,
           "gain": 11
-        },
-        "observed": null
-      },
-      {
-        "t": "Lawyer",
-        "m": 38,
-        "slug": "lawyer",
-        "via": {
-          "parent": "project-manager",
-          "readiness_after": 44,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
-    "police-officer": [
-      {
-        "t": "Librarian",
-        "m": 41,
-        "slug": "librarian",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 44,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
-        "t": "Nurse Practitioner",
-        "m": 33,
-        "slug": "nurse-practitioner",
-        "via": {
-          "parent": "police-officer",
-          "readiness_after": 35,
-          "gain": 2
-        },
-        "observed": null
-      }
-    ],
+    "police-officer": [],
     "construction-manager": [
       {
-        "t": "Psychologist",
+        "t": "Construction Estimator",
         "m": 33,
-        "slug": "psychologist",
+        "slug": "construction-estimator",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Cost Estimating",
+          "Construction Administration",
+          "Drafting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-manager",
-          "readiness_after": 35,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Graphic Designer",
-        "m": 33,
-        "slug": "graphic-designer",
-        "via": {
-          "parent": "construction-manager",
-          "readiness_after": 33,
-          "gain": 0
-        },
-        "observed": null
+          "readiness_after": 48,
+          "gain": 15
+        }
       }
     ],
-    "facilities-manager": [
-      {
-        "t": "Customer Support Specialist",
-        "m": 34,
-        "slug": "customer-support",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 37,
-          "gain": 3
-        },
-        "observed": null
-      },
-      {
-        "t": "Physical Therapist",
-        "m": 33,
-        "slug": "physical-therapist",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 38,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
+    "facilities-manager": [],
     "operations-manager": [
       {
         "t": "Compliance Officer",
         "m": 42,
         "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Risk Management",
+          "Contracts",
+          "NLP"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "operations-manager",
           "readiness_after": 58,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
         "t": "Customer Success Manager",
         "m": 42,
         "slug": "customer-success-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Account Management",
+          "Product Management",
+          "Jira",
+          "SAP"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "operations-manager",
           "readiness_after": 57,
           "gain": 15
-        },
-        "observed": null
+        }
       }
     ],
     "bi-developer": [
@@ -1240,23 +1229,22 @@
         "t": "Data Analyst",
         "m": 39,
         "slug": "data-analyst",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Python",
+          "ETL",
+          "Tableau",
+          "Power BI"
+        ],
+        "observed": "Primary-Short",
+        "reach": "bridged",
         "via": {
           "parent": "bi-developer",
           "readiness_after": 51,
           "gain": 12
-        },
-        "observed": "Primary-Short"
-      },
-      {
-        "t": "Construction Estimator",
-        "m": 33,
-        "slug": "construction-estimator",
-        "via": {
-          "parent": "bi-developer",
-          "readiness_after": 35,
-          "gain": 2
-        },
-        "observed": null
+        }
       }
     ],
     "executive-assistant": [
@@ -1264,23 +1252,43 @@
         "t": "Recruiter",
         "m": 37,
         "slug": "recruiter",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Recruiting",
+          "Branding",
+          "Stakeholder Management",
+          "Negotiation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "executive-assistant",
           "readiness_after": 47,
           "gain": 10
-        },
-        "observed": null
+        }
       },
       {
-        "t": "Social Media Manager",
-        "m": 35,
-        "slug": "social-media-manager",
+        "t": "Customer Support Specialist",
+        "m": 34,
+        "slug": "customer-support",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "REST APIs",
+          "Technical Writing",
+          "Jira",
+          "Account Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "executive-assistant",
-          "readiness_after": 39,
-          "gain": 4
-        },
-        "observed": null
+          "readiness_after": 45,
+          "gain": 11
+        }
       }
     ],
     "controller": [
@@ -1288,26 +1296,160 @@
         "t": "Financial Analyst",
         "m": 43,
         "slug": "financial-analyst",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Forecasting",
+          "Agile",
+          "Financial Modeling",
+          "Budgeting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "controller",
           "readiness_after": 58,
           "gain": 15
-        },
-        "observed": null
+        }
       },
       {
         "t": "Accountant",
         "m": 38,
         "slug": "accountant",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Community Engagement",
+          "SAP",
+          "Financial Modeling",
+          "Forecasting"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "controller",
           "readiness_after": 65,
           "gain": 27
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Librarian",
+      "m": 41,
+      "slug": "librarian",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Accessibility",
+        "Teaching",
+        "Budgeting",
+        "Event Planning"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Lawyer",
+      "m": 38,
+      "slug": "lawyer",
+      "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
+      "gap": [
+        "Negotiation",
+        "Contracts",
+        "Compliance",
+        "Case Management"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Social Media Manager",
+      "m": 35,
+      "slug": "social-media-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "Social Media",
+        "Writing & Editing",
+        "Content Marketing",
+        "Event Planning"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Psychologist",
+      "m": 33,
+      "slug": "psychologist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Case Management",
+        "QA / Testing",
+        "Clinical Research",
+        "Quality Control"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Nurse Practitioner",
+      "m": 33,
+      "slug": "nurse-practitioner",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Health Education",
+        "Case Management",
+        "Clinical Skills"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Graphic Designer",
+      "m": 33,
+      "slug": "graphic-designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Branding",
+        "Writing & Editing",
+        "Motion Design",
+        "Photoshop"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Physical Therapist",
+      "m": 33,
+      "slug": "physical-therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Clinical Skills",
+        "Case Management",
+        "Teaching"
+      ],
+      "observed": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "project-manager",

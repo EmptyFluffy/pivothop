@@ -4,6 +4,7 @@
     "slug": "product-manager",
     "title": "Product Manager",
     "field": "Business",
+    "cluster": "Business",
     "postings": 997,
     "salary": "$90k–$185k",
     "salary_band": [
@@ -17,6 +18,8 @@
       "id": "project-manager",
       "title": "Project Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 46,
       "salary": "$75k–$135k",
@@ -172,6 +175,8 @@
       "id": "ux-researcher",
       "title": "UX Researcher",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 45,
       "salary": "$85k–$135k",
@@ -327,6 +332,8 @@
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 43,
       "salary": "$60k–$115k",
@@ -482,6 +489,8 @@
       "id": "management-consultant",
       "title": "Management Consultant",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 36,
       "salary": "$45k–$95k",
@@ -637,6 +646,8 @@
       "id": "construction-estimator",
       "title": "Construction Estimator",
       "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
       "desc": "",
       "match": 35,
       "salary": "$65k–$100k",
@@ -792,6 +803,8 @@
       "id": "customer-success-manager",
       "title": "Customer Success Manager",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 33,
       "salary": "$60k–$120k",
@@ -947,6 +960,8 @@
       "id": "recruiter",
       "title": "Recruiter",
       "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "desc": "",
       "match": 31,
       "salary": "$55k–$110k",
@@ -1102,6 +1117,8 @@
       "id": "creative-director",
       "title": "Creative Director",
       "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
       "desc": "",
       "match": 30,
       "salary": "$95k–$150k",
@@ -1260,23 +1277,43 @@
         "t": "Business Analyst",
         "m": 28,
         "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Scheduling",
+          "Project Management",
+          "Presentation",
+          "Audit"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 46,
           "gain": 18
-        },
-        "observed": "Supplemental"
+        }
       },
       {
         "t": "Facilities Manager",
         "m": 27,
         "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Maintenance",
+          "Operations",
+          "Safety / OSHA",
+          "Customer Service"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "project-manager",
           "readiness_after": 52,
           "gain": 25
-        },
-        "observed": null
+        }
       }
     ],
     "ux-researcher": [
@@ -1284,47 +1321,45 @@
         "t": "Police Officer",
         "m": 27,
         "slug": "police-officer",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Curriculum Development",
+          "Operations",
+          "Presentation"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "ux-researcher",
           "readiness_after": 36,
           "gain": 9
-        },
-        "observed": null
-      },
-      {
-        "t": "Product Designer",
-        "m": 23,
-        "slug": "product-designer",
-        "via": {
-          "parent": "ux-researcher",
-          "readiness_after": 29,
-          "gain": 6
-        },
-        "observed": null
+        }
       }
     ],
     "marketing-manager": [
       {
-        "t": "Customer Support Specialist",
-        "m": 25,
-        "slug": "customer-support",
+        "t": "Product Designer",
+        "m": 23,
+        "slug": "product-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Design Systems",
+          "Social Media",
+          "Figma",
+          "Interaction Design"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
-          "readiness_after": 27,
-          "gain": 2
-        },
-        "observed": null
-      },
-      {
-        "t": "Compliance Officer",
-        "m": 24,
-        "slug": "compliance-officer",
-        "via": {
-          "parent": "marketing-manager",
-          "readiness_after": 30,
-          "gain": 6
-        },
-        "observed": null
+          "readiness_after": 31,
+          "gain": 8
+        }
       }
     ],
     "management-consultant": [
@@ -1332,47 +1367,66 @@
         "t": "Mechanical Engineer",
         "m": 28,
         "slug": "mechanical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Project Management",
+          "HVAC Systems",
+          "Construction Administration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 44,
           "gain": 16
-        },
-        "observed": null
+        }
       },
       {
         "t": "Real Estate Developer",
         "m": 27,
         "slug": "real-estate-developer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Negotiation",
+          "Contracts",
+          "Sales",
+          "AWS"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "management-consultant",
           "readiness_after": 45,
           "gain": 18
-        },
-        "observed": null
+        }
       }
     ],
     "construction-estimator": [
       {
-        "t": "Financial Analyst",
-        "m": 24,
-        "slug": "financial-analyst",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 26,
-          "gain": 2
-        },
-        "observed": "Supplemental"
-      },
-      {
         "t": "Electrical Engineer",
         "m": 22,
         "slug": "electrical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "Revit",
+          "Quality Control",
+          "Construction Administration"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
           "readiness_after": 35,
           "gain": 13
-        },
-        "observed": null
+        }
       }
     ],
     "customer-success-manager": [
@@ -1380,47 +1434,66 @@
         "t": "Data Analyst",
         "m": 26,
         "slug": "data-analyst",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Data Visualization",
+          "Python",
+          "ETL",
+          "Tableau"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
           "readiness_after": 35,
           "gain": 9
-        },
-        "observed": null
+        }
       },
-      {
-        "t": "Instructional Designer",
-        "m": 26,
-        "slug": "instructional-designer",
-        "via": {
-          "parent": "customer-success-manager",
-          "readiness_after": 31,
-          "gain": 5
-        },
-        "observed": null
-      }
-    ],
-    "recruiter": [
       {
         "t": "Operations Manager",
         "m": 25,
         "slug": "operations-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Operations",
+          "Salesforce",
+          "Data Visualization",
+          "Accounting"
+        ],
+        "observed": "Supplemental",
+        "reach": "bridged",
         "via": {
-          "parent": "recruiter",
-          "readiness_after": 30,
-          "gain": 5
-        },
-        "observed": "Supplemental"
-      },
+          "parent": "customer-success-manager",
+          "readiness_after": 33,
+          "gain": 8
+        }
+      }
+    ],
+    "recruiter": [
       {
         "t": "Lawyer",
         "m": 24,
         "slug": "lawyer",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Negotiation",
+          "Contracts",
+          "Compliance",
+          "Case Management"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "recruiter",
           "readiness_after": 34,
           "gain": 10
-        },
-        "observed": null
+        }
       }
     ],
     "creative-director": [
@@ -1428,26 +1501,112 @@
         "t": "Creative Technologist",
         "m": 27,
         "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Design Systems",
+          "Spark",
+          "Branding"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 51,
           "gain": 24
-        },
-        "observed": null
+        }
       },
       {
         "t": "UX Designer",
         "m": 27,
         "slug": "ux-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Interaction Design",
+          "Wireframing",
+          "Figma",
+          "Visual Design"
+        ],
+        "observed": null,
+        "reach": "bridged",
         "via": {
           "parent": "creative-director",
           "readiness_after": 47,
           "gain": 20
-        },
-        "observed": null
+        }
       }
     ]
   },
+  "direct": [
+    {
+      "t": "Instructional Designer",
+      "m": 26,
+      "slug": "instructional-designer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Instructional Design",
+        "Customer Service",
+        "Curriculum Development",
+        "FEA / Simulation"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Customer Support Specialist",
+      "m": 25,
+      "slug": "customer-support",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "Customer Service",
+        "Translation",
+        "Operations",
+        "Technical Writing"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Compliance Officer",
+      "m": 24,
+      "slug": "compliance-officer",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Compliance",
+        "Risk Management",
+        "Accounting",
+        "Data Visualization"
+      ],
+      "observed": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Financial Analyst",
+      "m": 24,
+      "slug": "financial-analyst",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Accounting",
+        "Forecasting",
+        "Financial Modeling",
+        "Budgeting"
+      ],
+      "observed": "Supplemental",
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "project-manager",

@@ -10,6 +10,7 @@ import { preview } from './preview.js';
 import { fetchOnetRelated } from './taxonomy/onet.js';
 import { verify } from './score/verify.js';
 import { bridgeSkills } from './analyze/bridge-skills.js';
+import { cooccur } from './analyze/cooccur.js';
 
 loadEnv();
 const log = (...a) => console.log(...a);
@@ -96,6 +97,7 @@ switch (cmd) {
     break;
   case 'verify': verify({ log, snapshot: process.argv.includes('--snapshot') }); break;
   case 'analyze:bridge': bridgeSkills({ log, origin: originFlag ?? arg ?? 'architect' }); break;
+  case 'analyze:cooccur': cooccur({ log }); break;
   case 'preview': preview({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'fx:update': await fxUpdate(); break;
   case 'taxonomy:onet': await fetchOnetRelated({ log }); break;
@@ -115,6 +117,7 @@ Usage: npm run scrape -- <command>
   fx:update             refresh the monthly FX snapshot
   verify [--snapshot]   sanity invariants + match-score drift vs the last snapshot
   analyze:bridge [origin] the non-native skills most demanded in an origin's postings
+  analyze:cooccur        related skills by co-occurrence (Rhino -> Grasshopper) for typeahead
   status                data-quality counters and per-occupation counts
 
 Local-first: everything persists to apps/scraper/data/ as NDJSON. With SUPABASE_URL +

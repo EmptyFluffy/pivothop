@@ -192,3 +192,19 @@ Every figure below is producible *today* from the scrape output — no new instr
 ### Ship gate
 
 Same as everything else: **real numbers or it doesn't ship.** This brief is a blueprint, not a draft — the statistics are placeholders until the scrape produces them at confidence, and the editorial voice is Carlos's, not drafted copy. Build it when the launch vertical clears its posting gate and the global tier has enough origins at confidence to make Finding 3 honest. Until then it sits here as the plan.
+
+---
+
+## Methodology pillar: "One word, two professions"
+
+*A second data/methodology post, sitting in the "Unbundle the Job" pillar. Where the Adjacency Index shows the data, this shows the machine — the honest-instrument brand made literal.*
+
+**The hook:** the word "architect" points at two completely different jobs. One designs buildings (SOC 17-1011, a licensed profession). One designs software systems (SOC 15-12xx, no license). A job scraper that can't tell them apart produces garbage — an architect asking about pivots gets told to learn Kubernetes. This post is the story of catching that and fixing it.
+
+**Why it's a real post and not naval-gazing:** it's a specific, true engineering story with a number attached (the contamination was real — tech-architect titles were polluting the building-architect data until we made "architect" an exact-only match and routed "AI Architect / Solutions Architect / SOC Architect" to their own occupation). It doubles as proof the instrument is built by someone who counts carefully, which is the entire brand.
+
+**The wider point (this is what makes it a pillar, not a changelog):** job titles are a broken interface for the labor market. "Architect," "Engineer," "Designer," "Analyst," "Manager" each name several unrelated jobs; the same skill set hides under a dozen titles. That's not a bug in our scraper — it's the reason skills-over-titles is the right frame for the whole product. The disambiguation problem *is* the thesis, told as a war story.
+
+**Structure:** the confusion (the two architects, the licensing/skills split) → the failure (what a naive scraper does with it) → the fix (qualifier + context, the industry-standard approach — cite that homonym titles get distinct SOC codes) → the generalization (every role word is ambiguous; titles are the problem skills solve) → the honest close (what our disambiguation still gets wrong).
+
+**Voice:** deadpan, first-person-plural-or-third, a real number in the first two sentences, no "revolutionary AI." Ships anytime — unlike the Adjacency Index it doesn't need the posting gate, just the story, which we already have.
