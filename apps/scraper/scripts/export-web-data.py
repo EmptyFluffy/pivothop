@@ -94,6 +94,17 @@ def main():
     json.dump({'names': skills}, open(os.path.join(OUT, 'skills-meta.json'), 'w'))
     shutil.copy(os.path.join(GEN, 'skill-cooccur.json'), os.path.join(OUT, 'skill-cooccur.json'))
 
+    # FairElephant: salary bands + price levels
+    sal_src = os.path.join(GEN, 'salaries')
+    if os.path.isdir(sal_src):
+        sal_out = os.path.join(OUT, 'salaries')
+        os.makedirs(sal_out, exist_ok=True)
+        for f in os.listdir(sal_src):
+            shutil.copy(os.path.join(sal_src, f), os.path.join(sal_out, f))
+    pl = os.path.join(ROOT, 'packages/data/vendor/worldbank/price-levels.json')
+    if os.path.exists(pl):
+        shutil.copy(pl, os.path.join(OUT, 'price-levels.json'))
+
     # initial architect payload baked into the app bundle
     g = json.load(open(os.path.join(GEN, 'architect.json')))
     d = to_data(g)
