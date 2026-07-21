@@ -35,12 +35,39 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <h1 className="post-h1">{post.title}</h1>
           <p className="post-dek">{post.dek}</p>
           <article className="post-body">{post.body}</article>
+          {post.faq && (
+            <div className="post-faq">
+              <h3>Quick answers</h3>
+              {post.faq.map((f) => (
+                <details key={f.q}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          )}
           <div className="post-foot">
             <Link href="/blog" className="lbl">&larr; All posts</Link>
             <Link href="/" className="lbl acc">Run your own numbers &rarr;</Link>
           </div>
         </main>
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: post.title,
+        description: post.dek,
+        datePublished: '2026-07-22',
+        author: { '@type': 'Person', name: 'Carlos', url: 'https://pivothop.com/about' },
+        publisher: { '@type': 'Organization', name: 'PivotHop' },
+      }) }} />
+      {post.faq && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: post.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+        }) }} />
+      )}
     </PageShell>
   );
 }

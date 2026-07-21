@@ -430,3 +430,12 @@ input:focus-visible{outline:none}
   .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s cubic-bezier(.3,.7,.3,1)}
   .rv.rv-in{opacity:1;transform:none}
 }
+
+/* post FAQ: quick answers, quotable */
+.post-faq{margin-top:36px;border-top:1px solid var(--ink);padding-top:18px}
+.post-faq h3{font-family:var(--sans);font-weight:600;font-size:17px;margin-bottom:10px}
+.post-faq details{border-bottom:0.5px solid var(--rule)}
+.post-faq summary{cursor:pointer;font-size:14.5px;font-weight:500;padding:12px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.post-faq summary::after{content:"+";font-family:var(--mono);color:var(--ink-3)}
+.post-faq details[open] summary::after{content:"\2212"}
+.post-faq details p{font-size:14px;line-height:1.6;color:var(--ink-2);padding:0 0 14px;max-width:62ch}
