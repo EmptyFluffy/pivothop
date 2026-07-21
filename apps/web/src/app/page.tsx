@@ -154,14 +154,29 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     // came via a synonym, show it as context. Occupations without enough data appear
     // disabled with an honest label instead of silently missing (per the docs' rule:
     // the empty state is shown, never nothing).
+    // word-boundary ranking: a query like "ai" must surface "AI Engineer" (word start),
+    // never "M-ai-ntenance" (mid-word substring) first.
+    const wordStart = (text: string, q: string) => text.split(/[\s/&-]+/).some((w) => w.startsWith(q));
     const scored = origins
       .map((o) => {
         const t = o.title.toLowerCase();
         if (!query) return { o, via: null as string | null, rank: o.ok ? 0 : 1 };
-        if (t.includes(query)) return { o, via: null, rank: (t.startsWith(query) ? 0 : 1) + (o.ok ? 0 : 2) };
-        const syn = (o.syn || []).find((x) => x.includes(query));
-        if (syn) return { o, via: syn, rank: 2 + (o.ok ? 0 : 2) };
-        return null;
+        let rank: number | null = null;
+        let via: string | null = null;
+        if (t.startsWith(query)) rank = 0;
+        else if (wordStart(t, query)) rank = 1;
+        else {
+          const synW = (o.syn || []).find((x) => wordStart(x, query));
+          if (synW) { rank = 2; via = synW; }
+          else if (t.includes(query)) rank = 3;
+          else {
+            const synI = (o.syn || []).find((x) => x.includes(query));
+            if (synI) { rank = 4; via = synI; }
+          }
+        }
+        if (rank == null) return null;
+        // data-thin occupations sink a little, but an exact title hit must stay visible
+        return { o, via, rank: rank + (o.ok ? 0 : 1.5) };
       })
       .filter((x): x is { o: Origin; via: string | null; rank: number } => !!x)
       .sort((a, b) => a.rank - b.rank || b.o.postings - a.o.postings)

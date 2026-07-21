@@ -364,3 +364,5 @@ input:focus-visible{outline:none}
 /* cloud tooltip variant: positioned inside the band, above the hovered dot */
 .cloudband{overflow:hidden}
 .cloud-tip{transform:translate(-50%,-100%)}
+.cloud-tip.below{transform:translate(-50%,0)}
+.cloud-tip.below::after{bottom:auto;top:-5px;border-top:none;border-bottom:6px solid var(--ink)}

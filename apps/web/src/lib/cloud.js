@@ -67,6 +67,18 @@ export async function initCloud(canvas, capEl) {
   const tip = document.createElement('div');
   tip.className = 'hop-tip cloud-tip';
   canvas.parentElement.appendChild(tip);
+  // clamp inside the band; flip below the dot when there is no headroom
+  function placeTip(i) {
+    const bw = canvas.parentElement.clientWidth;
+    const half = (tip.offsetWidth || 200) / 2;
+    let lx = canvas.offsetLeft + sx[i] / dpr;
+    lx = Math.max(half + 10, Math.min(bw - half - 10, lx));
+    const ty = canvas.offsetTop + sy[i] / dpr;
+    const flip = ty - (tip.offsetHeight || 36) - 16 < 8;
+    tip.style.left = lx + 'px';
+    tip.style.top = (flip ? ty + 14 : ty - 10) + 'px';
+    tip.classList.toggle('below', flip);
+  }
   canvas.addEventListener('mousemove', (ev) => {
     const r = canvas.getBoundingClientRect();
     const mx = (ev.clientX - r.left) * dpr, my = (ev.clientY - r.top) * dpr;
@@ -79,15 +91,13 @@ export async function initCloud(canvas, capEl) {
       hoverIdx = best;
       if (best >= 0) {
         tip.textContent = n[best][0] + ' · ' + (n[best][1] ? n[best][1].toLocaleString() + ' postings · ' : '') + d[best] + ' connections';
-        tip.style.left = canvas.offsetLeft + sx[best] / dpr + 'px';
-        tip.style.top = canvas.offsetTop + sy[best] / dpr - 10 + 'px';
+        placeTip(best);
         tip.classList.add('on');
         canvas.style.cursor = 'crosshair';
       } else { tip.classList.remove('on'); canvas.style.cursor = 'default'; }
       if (reduced) draw(0);
     } else if (best >= 0) {
-      tip.style.left = canvas.offsetLeft + sx[best] / dpr + 'px';
-      tip.style.top = canvas.offsetTop + sy[best] / dpr - 10 + 'px';
+      placeTip(best);
     }
   });
   canvas.addEventListener('mouseleave', () => { hoverIdx = -1; tip.classList.remove('on'); if (reduced) draw(0); });
