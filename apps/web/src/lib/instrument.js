@@ -801,14 +801,18 @@ export function mountInstrument(DATA){
     var o,hasBridge=false;
     if(xsel&&xsel.kind==='kid'){
       o={title:xsel.kid.t,match:xsel.kid.m,salary:xsel.parent.salary,demand:xsel.parent.demand,remote:xsel.parent.remote,
-         have:xsel.parent.have,learn:xsel.parent.learn,capability:null,mobility:null};
+         have:xsel.parent.have,learn:xsel.parent.learn};
       hasBridge=true;
     }else if(xsel&&xsel.kind==='role'){o=xsel.role;}
     else{o=ROLES[0];}
     document.getElementById('xdoc').innerHTML=buildPreviewPage(o);
-    document.getElementById('xsignals').innerHTML=buildSignals(o);
-    document.getElementById('xcontents').innerHTML=buildContents(hasBridge);
+    var rt=document.getElementById('xroute');
+    if(rt)rt.innerHTML=DATA.originLabel+' '+icoUR()+' '+o.title+' \u00b7 '+o.match+'% match'+(DATA.postings?(' \u00b7 '+DATA.postings.toLocaleString()+' postings read'):'');
+    var tc=document.getElementById('xcontents');
+    if(tc)tc.innerHTML='Inside: the role, decoded \u00b7 your 90-day plan'+(hasBridge?' \u00b7 the bridge role':'')+' \u00b7 evidence checklist \u00b7 your graph, printed \u00b7 salary map';
     document.getElementById('xmodal').classList.add('open');
+    var em=document.getElementById('xemail');
+    if(em)setTimeout(function(){em.focus();},120);
   }
   window.openExport=openExport;
 
