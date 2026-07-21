@@ -517,13 +517,31 @@ export function mountInstrument(DATA){
 
   function pills(a,c){return a.map(function(x){return '<span class="tag '+c+'">'+x+'</span>';}).join('');}
 
+  function detailSignals(o){
+    var rows='';
+    function row(k,v){ if(v==null)return; v=Math.max(0,Math.min(100,Math.round(v)));
+      rows+='<div class="d-sig-row"><span class="k">'+k+'</span><span class="t"><span class="f" style="width:'+v+'%"></span></span><span class="v">'+v+'</span></div>'; }
+    row('Skill readiness',o.match);
+    row('Shared abilities',o.capability);
+    row('Commonly done',o.mobility);
+    var src=(o.mobility==null)?'':(o.mobility_source==='observed-flow-us')?'observed US worker flow':(o.mobility_source==='observed-flow-eu')?'observed EU worker flow':(o.mobility_source==='related')?'O*NET related occupations':'';
+    if(src)rows+='<div class="d-sig-src">'+src+'</div>';
+    if(!rows)return '';
+    return '<div class="dsk"><div class="cap">Why this fit</div><div class="d-sig">'+rows+'</div></div>';
+  }
+  function kindTag(o){
+    if(!o.kind)return '';
+    var txt=(o.kind==='lateral')?'Lateral':('Pivot → '+(o.cluster||''));
+    return '<span class="lbl">'+txt+'</span>';
+  }
   function renderRoleDetail(rl){
     xsel={kind:'role',role:rl};
     var d=document.getElementById('detail');if(!d)return;
     d.innerHTML=
-      '<div class="d-cap"><span class="d-sector">'+rl.field+'</span></div>'+
+      '<div class="d-cap"><span class="d-sector">'+rl.field+'</span>'+kindTag(rl)+'</div>'+
       '<div class="d-title">'+rl.title+'</div>'+
       '<div class="d-match"><span class="n">'+rl.match+'</span><span class="u">% match from architect</span></div>'+
+      detailSignals(rl)+
       '<div class="drow"><span class="k">Avg salary</span><span class="v">'+rl.salary+'</span></div>'+
       '<div class="drow"><span class="k">Job demand</span><span class="v">'+rl.demand+'</span></div>'+
       '<div class="drow"><span class="k">Remote</span><span class="v">'+rl.remote+'</span></div>'+
