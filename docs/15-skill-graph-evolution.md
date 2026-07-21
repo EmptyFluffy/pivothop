@@ -52,6 +52,49 @@ The four threads below are facets of that shift.
 
 ---
 
+## Thread 5 — Capability similarity: the un-codable transfer
+
+**Problem:** cold posting-skill overlap can't see what makes an architect close to UX — spatial reasoning, visualization, judgment, originality. Those are durable human capabilities, not tools. Figma takes a week; spatial reasoning takes a career. Our tools-dictionary scores UX low (you don't list Figma) when the human truth is it's near.
+
+**The fix (fully obtainable):** O*NET publishes, per occupation, importance-weighted ratings across **52 Abilities** (incl. Spatial Orientation, Visualization, Originality, Deductive Reasoning) and **Work Activities** — the same downloadable database as Related Occupations, joined by SOC. Build a capability vector per occupation and compute origin↔dest **capability similarity `C`** (cosine). This is the signal that legitimately pulls UX, 3D/animation, and product design closer to architecture — because they share the cognitive/spatial profile, not the software. It also captures the Rhino+Blender→animation adjacency at the *capability* level (both are spatial-visualization work).
+
+**Property that matters:** `C` is occupation-level and durable, so it's the stable backbone; skill readiness `R` is the volatile, personalizable, current-market layer on top. Two different half-lives, two different jobs.
+
+## Thread 6 — Observed mobility: human gravity and credibility
+
+**Problem:** the strongest proof a pivot is real is that people actually make it. "60% of architects who leave go to X" is more credible than any similarity score, and it encodes all the transfer we can't measure at all.
+
+**Sources, in obtainability order:**
+- **Tier A (have):** O*NET Related Occupations — expert-curated relatedness, already ingested. Normalize into a mobility prior.
+- **Tier B (open, real):** [Nesta Career Causeways](https://github.com/nestauk/mapping-career-causeways) — data-derived transition recommendations with crowd-feasibility ratings across 1,600 ESCO jobs. The work is the **ESCO→our-taxonomy crosswalk**.
+- **Tier C (heavier, gold):** BLS Occupational Separations (Table 1.10, public occupational-transfer rates) and CPS-derived occupation→occupation flow matrices (the "% who actually move" — SOC-level; academic pipelines exist). Real flow, more processing.
+
+**The signal `M`:** normalized origin→dest mobility. **Normalize by base rate (lift)** — is this destination over-represented for *this* origin versus all origins — so popular sinks (Manager, PM) don't swamp everything. Graceful fallback when a pair is uncovered.
+
+## Thread 7 — The combined fit, shown honestly
+
+**The model** (three transparent signals, never one black box — this is the brand):
+- `R` skill readiness — coverage of the destination's posting-skills by the user's skill vector. The differentiator, personalizable.
+- `C` capability similarity — shared O*NET abilities/activities. The durable backbone.
+- `M` observed mobility — how often people actually move there, base-rate-normalized. The human gravity.
+- **`fit = wR·R + wC·C + wM·M`** (default weights ~0.5 / 0.2 / 0.3, tunable), with fallback to whatever signals exist. Node ranking/placement uses `fit`; **`R` stays visible as its own number** — never buried.
+
+**The rail panel decomposes it** — the "comprehensive way to show what's happening" the panel needs:
+> **UX Designer** — fit 71%
+> Skill readiness 58% · you already have visualization, design thinking
+> Shared core abilities 82% · spatial reasoning, originality, visualization
+> Commonly done · a top-5 destination for architects (observed)
+
+So a user sees *why* they're close: "60% there because you use Rhino, and architects commonly go here." Each line carries its provenance.
+
+**Risks and mitigations (write these down so we don't fool ourselves):**
+- *Popularity bias* in `M` → base-rate/lift normalization, capped weight.
+- *Losing the uncopyable precision* if `M` dominates → `R` leads and stays visible; `M` adjusts, never overrides.
+- *Coverage gaps* (M/C missing for a pair) → graceful degradation, and the panel says which signals it has.
+- *Circularity* (O*NET Related feeds both `C`'s source db and `M`) → keep `C` from abilities/activities only, `M` from relatedness/flows only; don't double-count.
+
+---
+
 ## Checklist
 
 **Phase A — data layer (backend-only, now):**
@@ -66,12 +109,23 @@ The four threads below are facets of that shift.
 - [ ] Origin as an editable skill vector; readiness re-derives from the vector, not the occupation average
 - [ ] Skill-context tiebreak in title mapping for ambiguous bare titles
 
+**Phase D — multi-signal fit (data, the human layer):**
+- [ ] Ingest O*NET Abilities + Work Activities per occupation (join by SOC) → capability vectors
+- [ ] Capability similarity `C` (cosine) origin↔dest; confirm it pulls UX / 3D / product design closer to architecture
+- [ ] Observed mobility `M`: normalize O*NET Related (Tier A) into a base-rate-adjusted prior
+- [ ] Nesta Career Causeways crosswalk (Tier B) → real transition data
+- [ ] BLS occupational separations / CPS flow matrices (Tier C) → "% who actually move"
+- [ ] Combined `fit = wR·R + wC·C + wM·M` with graceful fallback; `R` stays visible
+- [ ] Emit the three signals + provenance per route for the rail decomposition
+- [ ] Re-tune, verify stability, guard against popularity bias
+
 **Phase C — Phase 2 frontend (React rail + vanilla physics):**
 - [ ] Title typeahead, disambiguation-first, field shown
 - [ ] Editable skill chips seeded from the occupation
 - [ ] Related-skill suggestions from co-occurrence (add Rhino → suggest Grasshopper)
 - [ ] Standalone-kid rendering (faint origin→kid `reach` edge, longer ideal length)
 - [ ] Lateral/pivot rail tag + filter chip
+- [ ] Rail panel: the three-signal fit decomposition (readiness · abilities · commonly-done)
 - [ ] Background compute + reveal-on-run (keep the unfold as the theatrical moment)
 
 ---
