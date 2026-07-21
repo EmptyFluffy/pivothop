@@ -25,6 +25,7 @@
       "fit": 66,
       "capability": null,
       "mobility": null,
+      "mobility_source": null,
       "mobility_tier": null,
       "salary": "$40k–$100k",
       "salary_band": [
@@ -186,6 +187,7 @@
       "fit": 56,
       "capability": null,
       "mobility": null,
+      "mobility_source": null,
       "mobility_tier": null,
       "salary": "$110k–$195k",
       "salary_band": [
@@ -344,9 +346,10 @@
       "kind": "pivot",
       "desc": "",
       "match": 56,
-      "fit": 56,
+      "fit": 44,
       "capability": null,
-      "mobility": null,
+      "mobility": 17,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$95k–$130k",
       "salary_band": [
@@ -505,10 +508,11 @@
       "kind": "lateral",
       "desc": "",
       "match": 55,
-      "fit": 65,
+      "fit": 46,
       "capability": null,
-      "mobility": 87,
-      "mobility_tier": "Primary-Short",
+      "mobility": 27,
+      "mobility_source": "observed-flow",
+      "mobility_tier": null,
       "salary": "$105k–$180k",
       "salary_band": [
         104187,
@@ -666,10 +670,11 @@
       "kind": "lateral",
       "desc": "",
       "match": 43,
-      "fit": 41,
+      "fit": 46,
       "capability": null,
-      "mobility": 37,
-      "mobility_tier": "Supplemental",
+      "mobility": 52,
+      "mobility_source": "observed-flow",
+      "mobility_tier": null,
       "salary": "$85k–$160k",
       "salary_band": [
         86573,
@@ -827,9 +832,10 @@
       "kind": "pivot",
       "desc": "",
       "match": 42,
-      "fit": 42,
+      "fit": 31,
       "capability": null,
-      "mobility": null,
+      "mobility": 7,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$120k–$210k",
       "salary_band": [
@@ -991,6 +997,7 @@
       "fit": 60,
       "capability": null,
       "mobility": 100,
+      "mobility_source": "related",
       "mobility_tier": "Primary-Short",
       "salary": "$55k–$145k",
       "salary_band": [
@@ -1152,6 +1159,7 @@
       "fit": 38,
       "capability": null,
       "mobility": 32,
+      "mobility_source": "related",
       "mobility_tier": "Supplemental",
       "salary": "$165k–$230k",
       "salary_band": [
@@ -1319,10 +1327,11 @@
           "Product Management"
         ],
         "observed": "Primary-Long",
-        "fit": 47,
+        "fit": 36,
         "capability": null,
-        "mobility": 62,
-        "mobility_tier": "Primary-Long",
+        "mobility": 26,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "mobile-developer",
@@ -1344,9 +1353,10 @@
           "Jira"
         ],
         "observed": null,
-        "fit": 25,
+        "fit": 22,
         "capability": null,
-        "mobility": null,
+        "mobility": 16,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1374,6 +1384,7 @@
         "fit": 38,
         "capability": null,
         "mobility": 57,
+        "mobility_source": "related",
         "mobility_tier": "Primary-Long",
         "reach": "bridged",
         "via": {
@@ -1401,6 +1412,7 @@
         "fit": 27,
         "capability": null,
         "mobility": 32,
+        "mobility_source": "related",
         "mobility_tier": "Supplemental",
         "reach": "bridged",
         "via": {
@@ -1423,9 +1435,10 @@
           "Project Management"
         ],
         "observed": null,
-        "fit": 24,
+        "fit": 31,
         "capability": null,
-        "mobility": null,
+        "mobility": 46,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1450,9 +1463,10 @@
           "Power BI"
         ],
         "observed": null,
-        "fit": 41,
+        "fit": 59,
         "capability": null,
-        "mobility": null,
+        "mobility": 100,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1475,9 +1489,10 @@
           "Account Management"
         ],
         "observed": null,
-        "fit": 32,
+        "fit": 36,
         "capability": null,
-        "mobility": null,
+        "mobility": 46,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1502,10 +1517,11 @@
           "Linux"
         ],
         "observed": "Primary-Long",
-        "fit": 42,
+        "fit": 29,
         "capability": null,
-        "mobility": 67,
-        "mobility_tier": "Primary-Long",
+        "mobility": 26,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "it-support",
@@ -1527,10 +1543,11 @@
           "Procurement"
         ],
         "observed": "Supplemental",
-        "fit": 31,
+        "fit": 27,
         "capability": null,
-        "mobility": 37,
-        "mobility_tier": "Supplemental",
+        "mobility": 26,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "it-support",
@@ -1557,6 +1574,7 @@
         "fit": 39,
         "capability": null,
         "mobility": 37,
+        "mobility_source": "related",
         "mobility_tier": "Supplemental",
         "reach": "bridged",
         "via": {
@@ -1579,9 +1597,10 @@
           "Linux"
         ],
         "observed": null,
-        "fit": 37,
+        "fit": 28,
         "capability": null,
-        "mobility": null,
+        "mobility": 8,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1606,9 +1625,10 @@
           "A/B Testing"
         ],
         "observed": null,
-        "fit": 32,
+        "fit": 25,
         "capability": null,
-        "mobility": null,
+        "mobility": 9,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1633,9 +1653,10 @@
           "HR Operations"
         ],
         "observed": null,
-        "fit": 31,
+        "fit": 21,
         "capability": null,
-        "mobility": null,
+        "mobility": 0,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1658,9 +1679,10 @@
           "ETL"
         ],
         "observed": null,
-        "fit": 22,
+        "fit": 17,
         "capability": null,
-        "mobility": null,
+        "mobility": 5,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1686,9 +1708,10 @@
         "Data Visualization"
       ],
       "observed": null,
-      "fit": 23,
+      "fit": 17,
       "capability": null,
-      "mobility": null,
+      "mobility": 3,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1706,9 +1729,10 @@
         "Audit"
       ],
       "observed": null,
-      "fit": 23,
+      "fit": 17,
       "capability": null,
-      "mobility": null,
+      "mobility": 5,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     }

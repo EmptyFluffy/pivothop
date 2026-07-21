@@ -22,9 +22,10 @@
       "kind": "lateral",
       "desc": "",
       "match": 32,
-      "fit": 27,
+      "fit": 21,
       "capability": 12,
-      "mobility": null,
+      "mobility": 3,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$55k–$95k",
       "salary_band": [
@@ -183,9 +184,10 @@
       "kind": "lateral",
       "desc": "",
       "match": 30,
-      "fit": 38,
+      "fit": 29,
       "capability": 60,
-      "mobility": null,
+      "mobility": 1,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$55k–$85k",
       "salary_band": [
@@ -344,10 +346,11 @@
       "kind": "lateral",
       "desc": "",
       "match": 29,
-      "fit": 23,
+      "fit": 22,
       "capability": null,
-      "mobility": 9,
-      "mobility_tier": "Supplemental",
+      "mobility": 8,
+      "mobility_source": "observed-flow",
+      "mobility_tier": null,
       "salary": "$75k–$135k",
       "salary_band": [
         77032,
@@ -508,6 +511,7 @@
       "fit": 21,
       "capability": 0,
       "mobility": null,
+      "mobility_source": null,
       "mobility_tier": null,
       "salary": "$50k–$60k",
       "salary_band": [
@@ -654,9 +658,10 @@
       "kind": "pivot",
       "desc": "",
       "match": 27,
-      "fit": 27,
+      "fit": 21,
       "capability": 28,
-      "mobility": null,
+      "mobility": 3,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$80k–$120k",
       "salary_band": [
@@ -818,6 +823,7 @@
       "fit": 28,
       "capability": 32,
       "mobility": null,
+      "mobility_source": null,
       "mobility_tier": null,
       "salary": "$45k–$120k",
       "salary_band": [
@@ -916,9 +922,10 @@
       "kind": "pivot",
       "desc": "Enforces the law and responds to incidents in a community. Public-sector work with clear rank structure and pension.",
       "match": 27,
-      "fit": 24,
+      "fit": 19,
       "capability": 15,
-      "mobility": null,
+      "mobility": 4,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$30k–$35k",
       "salary_band": [
@@ -1022,9 +1029,10 @@
       "kind": "pivot",
       "desc": "",
       "match": 26,
-      "fit": 37,
+      "fit": 30,
       "capability": 69,
-      "mobility": null,
+      "mobility": 8,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$95k–$220k",
       "salary_band": [
@@ -1193,9 +1201,10 @@
           "Photoshop"
         ],
         "observed": null,
-        "fit": 28,
+        "fit": 22,
         "capability": 38,
-        "mobility": null,
+        "mobility": 2,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1218,10 +1227,11 @@
           "Account Management"
         ],
         "observed": "Supplemental",
-        "fit": 31,
+        "fit": 33,
         "capability": 65,
-        "mobility": 24,
-        "mobility_tier": "Supplemental",
+        "mobility": 33,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "supply-chain-analyst",
@@ -1245,9 +1255,10 @@
           "Service Design"
         ],
         "observed": null,
-        "fit": 26,
+        "fit": 20,
         "capability": 38,
-        "mobility": null,
+        "mobility": 1,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1270,10 +1281,11 @@
           "Training & Facilitation"
         ],
         "observed": "Supplemental",
-        "fit": 26,
+        "fit": 30,
         "capability": 62,
-        "mobility": 8,
-        "mobility_tier": "Supplemental",
+        "mobility": 26,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "project-manager",
@@ -1297,9 +1309,10 @@
           "Project Management"
         ],
         "observed": null,
-        "fit": 30,
+        "fit": 25,
         "capability": 70,
-        "mobility": null,
+        "mobility": 9,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1324,9 +1337,10 @@
           "Contracts"
         ],
         "observed": null,
-        "fit": 20,
+        "fit": 16,
         "capability": 19,
-        "mobility": null,
+        "mobility": 1,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1349,9 +1363,10 @@
           "Construction Administration"
         ],
         "observed": null,
-        "fit": 26,
+        "fit": 20,
         "capability": 47,
-        "mobility": null,
+        "mobility": 1,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1376,9 +1391,10 @@
           "Budgeting"
         ],
         "observed": null,
-        "fit": 18,
+        "fit": 13,
         "capability": null,
-        "mobility": null,
+        "mobility": 1,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1407,6 +1423,7 @@
         "fit": 25,
         "capability": 28,
         "mobility": null,
+        "mobility_source": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1429,10 +1446,11 @@
           "SQL"
         ],
         "observed": "Primary-Long",
-        "fit": 35,
+        "fit": 28,
         "capability": 66,
-        "mobility": 44,
-        "mobility_tier": "Primary-Long",
+        "mobility": 19,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "lawyer",
@@ -1457,9 +1475,10 @@
         "Agile"
       ],
       "observed": null,
-      "fit": 28,
+      "fit": 23,
       "capability": 50,
-      "mobility": null,
+      "mobility": 8,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1477,9 +1496,10 @@
         "ETL"
       ],
       "observed": null,
-      "fit": 19,
+      "fit": 14,
       "capability": null,
-      "mobility": null,
+      "mobility": 4,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1497,9 +1517,10 @@
         "Project Management"
       ],
       "observed": null,
-      "fit": 27,
+      "fit": 22,
       "capability": 50,
-      "mobility": null,
+      "mobility": 8,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1517,9 +1538,10 @@
         "QA / Testing"
       ],
       "observed": null,
-      "fit": 32,
+      "fit": 28,
       "capability": 69,
-      "mobility": null,
+      "mobility": 17,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1537,9 +1559,10 @@
         "Excel"
       ],
       "observed": null,
-      "fit": 27,
+      "fit": 22,
       "capability": 57,
-      "mobility": null,
+      "mobility": 8,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1557,9 +1580,10 @@
         "AWS"
       ],
       "observed": null,
-      "fit": 16,
+      "fit": 12,
       "capability": null,
-      "mobility": null,
+      "mobility": 3,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "reach": "direct"
     }

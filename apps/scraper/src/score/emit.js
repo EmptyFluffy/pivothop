@@ -5,6 +5,7 @@ import { getTaxonomy } from '../normalize/titles.js';
 import { skillName } from '../normalize/skills.js';
 import { loadCapabilities, capabilitySimilarity } from '../analyze/capability.js';
 import { mobilityScore, mobilityTier } from './mobility.js';
+import { mobilityFlowScore } from './mobility-flow.js';
 
 // Confidence tiers per the build playbook: <30 postings behind a number -> low-confidence
 // flag in the UI; an origin with <50 mapped postings total -> "insufficient data yet"
@@ -139,11 +140,16 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     const fitSignals = (dest, R) => {
       const cRaw = rawC.get(dest);
       const capability = cRaw == null ? null : Math.round(100 * (cRaw - cMin) / (cMax - cMin || 1));
-      const mobility = mobilityScore(origin, dest);
+      // Prefer real observed CPS flow; fall back to O*NET curated relatedness where the
+      // pair is unresolvable at ACS resolution (same bucket / unmapped).
+      const flow = mobilityFlowScore(origin, dest);
+      const related = mobilityScore(origin, dest);
+      const mobility = flow ?? related;
+      const mobility_source = flow != null ? 'observed-flow' : related != null ? 'related' : null;
       const parts = [[FIT_W.R, R], [FIT_W.C, capability], [FIT_W.M, mobility]].filter(([, v]) => v != null);
       const wsum = parts.reduce((s, [w]) => s + w, 0);
       const fit = Math.round(parts.reduce((s, [w, v]) => s + w * v, 0) / wsum);
-      return { fit, capability, mobility, mobility_tier: mobilityTier(origin, dest) };
+      return { fit, capability, mobility, mobility_source, mobility_tier: flow != null ? null : mobilityTier(origin, dest) };
     };
 
     const roles = hops.map((h) => {

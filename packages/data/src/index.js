@@ -11,8 +11,10 @@ export const GENERATED_DIR = path.join(PKG_ROOT, 'generated');
  *   origin: { slug, title, field, cluster, postings, salary, salary_band: [p25, p75], remote },
  *   roles:  [{ id, title, field, cluster, kind, desc,
  *              match,       // skill readiness (R) — the HEADLINE number, drives the graph
- *              fit, capability, mobility, mobility_tier,  // secondary: fit = blend of R + C + M,
- *                                                          // shown decomposed in the rail; any may be null
+ *              fit, capability, mobility, mobility_source, mobility_tier,  // secondary: fit = blend of
+ *                                                          // R + C + M, decomposed in the rail; any may be null.
+ *                                                          // mobility_source: 'observed-flow' (real CPS worker
+ *                                                          // flow, Oxford OMN) | 'related' (O*NET fallback)
  *              salary, salary_band, demand, remote, time,
  *              have[], learn[],
  *              waterfall: [{ skill, name, pts, earned }],  // coverage decomposed per skill;

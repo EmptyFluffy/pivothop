@@ -24,8 +24,9 @@
       "match": 32,
       "fit": 55,
       "capability": 69,
-      "mobility": 95,
-      "mobility_tier": "Primary-Short",
+      "mobility": 93,
+      "mobility_source": "observed-flow",
+      "mobility_tier": null,
       "salary": "$60k–$110k",
       "salary_band": [
         60495,
@@ -183,9 +184,10 @@
       "kind": "lateral",
       "desc": "",
       "match": 30,
-      "fit": 49,
+      "fit": 38,
       "capability": 100,
-      "mobility": null,
+      "mobility": 7,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$80k–$120k",
       "salary_band": [
@@ -347,6 +349,7 @@
       "fit": 43,
       "capability": 35,
       "mobility": 76,
+      "mobility_source": "related",
       "mobility_tier": "Supplemental",
       "salary": "$65k–$100k",
       "salary_band": [
@@ -505,10 +508,11 @@
       "kind": "lateral",
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
       "match": 27,
-      "fit": 42,
+      "fit": 29,
       "capability": 65,
-      "mobility": 57,
-      "mobility_tier": "Primary-Long",
+      "mobility": 6,
+      "mobility_source": "observed-flow",
+      "mobility_tier": null,
       "salary": "$55k–$85k",
       "salary_band": [
         53774,
@@ -669,6 +673,7 @@
       "fit": 33,
       "capability": 48,
       "mobility": null,
+      "mobility_source": null,
       "mobility_tier": null,
       "salary": "$30k–$35k",
       "salary_band": [
@@ -772,9 +777,10 @@
       "kind": "lateral",
       "desc": "",
       "match": 26,
-      "fit": 35,
+      "fit": 28,
       "capability": 61,
-      "mobility": null,
+      "mobility": 6,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$55k–$95k",
       "salary_band": [
@@ -933,9 +939,10 @@
       "kind": "pivot",
       "desc": "",
       "match": 25,
-      "fit": 28,
+      "fit": 46,
       "capability": 37,
-      "mobility": null,
+      "mobility": 100,
+      "mobility_source": "observed-flow",
       "mobility_tier": null,
       "salary": "$65k–$120k",
       "salary_band": [
@@ -1097,6 +1104,7 @@
       "fit": 49,
       "capability": 51,
       "mobility": 100,
+      "mobility_source": "related",
       "mobility_tier": "Primary-Short",
       "salary": "$65k–$90k",
       "salary_band": [
@@ -1209,9 +1217,10 @@
           "3D Modeling"
         ],
         "observed": null,
-        "fit": 17,
+        "fit": 13,
         "capability": 15,
-        "mobility": null,
+        "mobility": 1,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1236,8 +1245,9 @@
         "observed": "Primary-Short",
         "fit": 47,
         "capability": 69,
-        "mobility": 95,
-        "mobility_tier": "Primary-Short",
+        "mobility": 93,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "structural-engineer",
@@ -1261,10 +1271,11 @@
           "Procurement"
         ],
         "observed": "Primary-Long",
-        "fit": 38,
+        "fit": 27,
         "capability": 66,
-        "mobility": 52,
-        "mobility_tier": "Primary-Long",
+        "mobility": 8,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "construction-manager",
@@ -1289,6 +1300,7 @@
         "fit": 16,
         "capability": 9,
         "mobility": null,
+        "mobility_source": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1314,9 +1326,10 @@
           "Sustainability"
         ],
         "observed": null,
-        "fit": 33,
+        "fit": 28,
         "capability": 61,
-        "mobility": null,
+        "mobility": 13,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1342,6 +1355,7 @@
         "fit": 37,
         "capability": 65,
         "mobility": 57,
+        "mobility_source": "related",
         "mobility_tier": "Primary-Long",
         "reach": "bridged",
         "via": {
@@ -1368,9 +1382,10 @@
           "Construction Documentation"
         ],
         "observed": null,
-        "fit": 29,
+        "fit": 40,
         "capability": 49,
-        "mobility": null,
+        "mobility": 74,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1393,9 +1408,10 @@
           "GCP"
         ],
         "observed": null,
-        "fit": 23,
+        "fit": 42,
         "capability": 37,
-        "mobility": null,
+        "mobility": 100,
+        "mobility_source": "observed-flow",
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
@@ -1420,10 +1436,11 @@
           "Customer Service"
         ],
         "observed": "Supplemental",
-        "fit": 22,
+        "fit": 18,
         "capability": 39,
-        "mobility": 31,
-        "mobility_tier": "Supplemental",
+        "mobility": 18,
+        "mobility_source": "observed-flow",
+        "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "building-surveyor",
