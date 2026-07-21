@@ -518,6 +518,7 @@ export function mountInstrument(DATA){
   function pills(a,c){return a.map(function(x){return '<span class="tag '+c+'">'+x+'</span>';}).join('');}
 
   function renderRoleDetail(rl){
+    xsel={kind:'role',role:rl};
     var d=document.getElementById('detail');if(!d)return;
     d.innerHTML=
       '<div class="d-cap"><span class="d-sector">'+rl.field+'</span></div>'+
@@ -533,6 +534,7 @@ export function mountInstrument(DATA){
       '<div class="d-export" onclick="openExport()"><div class="in"><span class="tx"><span class="a">Export this route</span><span class="b">PDF report &middot; free &middot; no account</span></span><svg viewBox="0 0 24 24"><use href="#i-export45"/></svg></div></div>';
   }
   function renderKidDetail(kid,parent){
+    xsel={kind:'kid',kid:kid,parent:parent};
     var d=document.getElementById('detail');if(!d)return;
     d.innerHTML=
       '<div class="d-cap"><span class="d-sector">Second hop</span><span class="lbl">Via '+parent.title+'</span></div>'+
@@ -719,142 +721,81 @@ export function mountInstrument(DATA){
   runUnfold();
 
 
-  // ---- export modal: carousel brief + email capture ----
-  var xidx=0,xauto=null,xmanual=false;
+  // ---- export sheet: live preview of the actual report + signals + capture ----
+  // The preview is a real miniature of the report's first page, rendered
+  // deterministically from the selected route's data (no placeholder art, no autoplay,
+  // no blur-tease). Selection is tracked when a detail renders.
+  var xsel=null; // {kind:'role', role} | {kind:'kid', kid, parent}
 
-  // tiny diagram builders (all system colors, stroke-first)
-  function dgRoute(names){
-    var n=names.length,W=460,H=62,y=22;
-    var xs=[];for(var i=0;i<n;i++)xs.push(70+i*((W-140)/Math.max(n-1,1)));
-    var o='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:470px;height:auto">';
-    o+='<line x1="'+xs[0]+'" y1="'+y+'" x2="'+xs[n-1]+'" y2="'+y+'" stroke="#002FA6" stroke-width="1"/>';
-    names.forEach(function(nm,i){
-      var solid=(i===0);
-      o+='<circle cx="'+xs[i]+'" cy="'+y+'" r="5" fill="'+(solid?'#002FA6':'#faf9f5')+'" stroke="#002FA6" stroke-width="1.4"/>';
-      o+='<text x="'+xs[i]+'" y="'+(y+22)+'" text-anchor="middle" font-family="Space Mono, monospace" font-size="8.5" letter-spacing="1" fill="#56565e">'+nm.toUpperCase()+'</text>';
+  function pct(v){return (v==null)?null:Math.max(0,Math.min(100,Math.round(v)));}
+  function icoUR(){return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';}
+
+  function buildPreviewPage(o){
+    var bars='';
+    (o.have||[]).slice(0,3).forEach(function(sk){
+      bars+='<div class="m-bar"><span class="k">'+sk+'</span><span class="t"><span class="f" style="width:88%"></span></span><span class="v">yes</span></div>';
     });
-    return o+'</svg>';
-  }
-  function dgSteps(){
-    var o='<svg viewBox="0 0 150 92">';
-    o+='<line x1="14" y1="30" x2="136" y2="30" stroke="#002FA6" stroke-width="1"/>';
-    [["14","LEARN",1],["75","BUILD",0],["136","APPLY",0]].forEach(function(p){
-      o+='<circle cx="'+p[0]+'" cy="30" r="4.5" fill="'+(p[2]?'#002FA6':'#faf9f5')+'" stroke="#002FA6" stroke-width="1.4"/>';
-      o+='<text x="'+p[0]+'" y="52" text-anchor="middle" font-family="Space Mono, monospace" font-size="7.5" letter-spacing="1" fill="#8a8a93">'+p[1]+'</text>';
+    (o.learn||[]).slice(0,3).forEach(function(sk){
+      bars+='<div class="m-bar"><span class="k">'+sk+'</span><span class="t"><span class="f" style="width:18%"></span></span><span class="v">gap</span></div>';
     });
-    o+='<text x="75" y="76" text-anchor="middle" font-family="Space Mono, monospace" font-size="7" letter-spacing="1.5" fill="#b8b0a0">WEEK 1 \u2014 12</text>';
-    return o+'</svg>';
-  }
-  function dgBridge(){
-    var o='<svg viewBox="0 0 150 92">';
-    o+='<path d="M18 70 L75 28 L132 70" fill="none" stroke="#002FA6" stroke-width="1"/>';
-    o+='<circle cx="18" cy="70" r="4.5" fill="#002FA6"/>';
-    o+='<circle cx="75" cy="28" r="5" fill="#faf9f5" stroke="#002FA6" stroke-width="1.6"/>';
-    o+='<circle cx="75" cy="28" r="10" fill="none" stroke="#002FA6" stroke-width="0.8" opacity="0.5"/>';
-    o+='<circle cx="132" cy="70" r="4.5" fill="#faf9f5" stroke="#002FA6" stroke-width="1.4"/>';
-    o+='<text x="75" y="84" text-anchor="middle" font-family="Space Mono, monospace" font-size="7.5" letter-spacing="1.5" fill="#8a8a93">THE BRIDGE</text>';
-    return o+'</svg>';
-  }
-  function dgCheck(){
-    var o='<svg viewBox="0 0 150 96">';
-    [16,40,64,88].forEach(function(y,i){
-      o+='<rect x="10" y="'+(y-6)+'" width="12" height="12" fill="none" stroke="#002FA6" stroke-width="1.3"/>';
-      if(i<3)o+='<path d="M13 '+y+' l2.6 2.6 l4.8 -5.4" fill="none" stroke="#002FA6" stroke-width="1.6" stroke-linecap="round"/>';
-      o+='<line x1="32" y1="'+y+'" x2="'+(132-i*14)+'" y2="'+y+'" stroke="#d5cfbf" stroke-width="4" stroke-linecap="round"/>';
-    });
-    return o+'</svg>';
-  }
-  function dgRadar(){
-    var o='<svg viewBox="0 0 150 122">',cx2=75,cy2=60;
-    [18,34,50].forEach(function(r){o+='<circle cx="'+cx2+'" cy="'+cy2+'" r="'+r+'" fill="none" stroke="#d5cfbf" stroke-width="0.6"/>';});
-    var m=[0.92,0.78,0.66,0.84,0.7,0.62,0.86,0.58],pts=[];
-    m.forEach(function(v,i){var a=(-90+i*45)*Math.PI/180;pts.push([(cx2+v*50*Math.cos(a)).toFixed(1),(cy2+v*50*Math.sin(a)).toFixed(1)]);});
-    o+='<polygon points="'+pts.map(function(p){return p.join(",");}).join(" ")+'" fill="#002FA6" fill-opacity="0.08" stroke="#002FA6" stroke-width="0.9"/>';
-    pts.forEach(function(p){o+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.6" fill="#002FA6"/>';});
-    return o+'</svg>';
-  }
-  function dgSpark(){
-    var o='<svg viewBox="0 0 150 100">',cx2=75,cy2=50;
-    o+='<circle cx="'+cx2+'" cy="'+cy2+'" r="34" fill="none" stroke="#d5cfbf" stroke-width="0.6"/>';
-    for(var a=0;a<360;a+=45){var t=a*Math.PI/180;
-      o+='<line x1="'+(cx2+7*Math.cos(t)).toFixed(1)+'" y1="'+(cy2+7*Math.sin(t)).toFixed(1)+'" x2="'+(cx2+24*Math.cos(t)).toFixed(1)+'" y2="'+(cy2+24*Math.sin(t)).toFixed(1)+'" stroke="#002FA6" stroke-width="2.6" stroke-linecap="round"/>';}
-    return o+'</svg>';
+    var plan='';
+    var phases=[['WK 1—04',(o.learn&&o.learn[0])?('Foundations: '+o.learn[0]):'Foundations'],
+                ['WK 5—08',(o.learn&&o.learn[1])?(o.learn[1]+' + first artifact'):'Build the evidence'],
+                ['WK 9—12','Applications, positioned as proof']];
+    phases.forEach(function(ph){plan+='<div class="m-ph"><div class="w">'+ph[0]+'</div><div class="s">'+ph[1]+'</div></div>';});
+    return '<div class="xpage">'+
+      '<div class="m-head"><span class="m-brand">PIVOTHOP</span><span class="m-tag">Route report</span></div>'+
+      '<div class="m-route">'+DATA.originLabel+' '+icoUR()+' '+o.title+'</div>'+
+      '<div class="m-meta">'+o.match+'% match · '+(o.salary||'—')+' · '+(o.demand||'')+' demand · '+(o.remote||'')+' remote</div>'+
+      '<div class="m-cap">Skill readiness — read from live postings</div>'+bars+
+      '<div class="m-cap">The 90-day plan</div><div class="m-plan">'+plan+'</div>'+
+      '<div class="m-foot"><span>Page 1 of 6</span><span>'+(DATA.postings||'')+' postings read</span></div>'+
+    '</div>';
   }
 
-  function buildSlides(){
-    var isKid=(curSel&&curSel.kind==="kid");
-    var tgt=isKid?curSel.ch.t:selRoleObj.title;
-    var bridge=isKid?curSel.ch.parent.title:null;
-    var match=isKid?curSel.ch.m:selRoleObj.match;
-    var baseSal=isKid?curSel.ch.parent.salary:selRoleObj.salary;
-    var salTop=baseSal.split("\u2013").pop();
-    var names=isKid?[DATA.originLabel,bridge,tgt]:[DATA.originLabel,tgt];
-    var sl=[];
-    sl.push({wide:1,label:"Route report \u00b7 personal PDF",title:DATA.originLabel+" \u2192 "+tgt,
-      body:"Everything the radar knows about this exact move \u2014 your match, your gaps, your plan, your numbers \u2014 computed from live posting data and packaged into one clean document with your name on it.",
-      stats:[[match+"%","Your match"],[(isKid?"07":"06"),"Sections"],["12","Pages"],["8","Min read"]],
-      route:dgRoute(names)});
-    sl.push({t:"The role, decoded",b:"What a "+tgt+" actually does day to day \u2014 deliverables, tools, team shape, demand and remote share \u2014 so you walk in knowing the terrain before anyone interviews you on it.",pt:"Know exactly what you\u2019re getting into",big:match+"%",bigk:"match from architect"});
-    sl.push({t:"Your 90-day plan",b:"The gap between you and the role, ordered: which skills to build first, in what sequence, with a realistic weekly time budget. A plan you can start Monday morning.",pt:"Steps, not vibes",vis:dgSteps()});
-    if(bridge)sl.push({t:"The bridge role",b:bridge+" sits in the middle of this route. The report shows why it\u2019s reachable with the skills you have today \u2014 and how it compounds into "+tgt+".",pt:"The on-ramp most people can\u2019t see",vis:dgBridge()});
-    sl.push({t:"Evidence checklist",b:"The exact portfolio pieces and signals hiring managers look for from career-changers \u2014 what to build so your application reads as proof, not potential.",pt:"Proof beats resumes in 2026",vis:dgCheck()});
-    sl.push({t:"Your radar, printed",b:"The full first- and second-hop map exactly as computed \u2014 radius is match, angle is field \u2014 ready to revisit, print, or send to someone who should see it.",pt:"Your whole map, offline",vis:dgRadar()});
-    sl.push({t:"AI insight \u2014 next move",b:"A short, specific read on your strongest opening: the single action that moves your match the most in the next 90 days. Written for your profile, not a template.",pt:"Specific to you \u2014 not generic advice",vis:dgSpark()});
-    var rows;
-    if(!isKid){
-      var i=ROLES.indexOf(selRoleObj);
-      var nb=[ROLES[(i+1)%ROLES.length],ROLES[(i+ROLES.length-1)%ROLES.length]];
-      rows='<div class="rows an"><div><span>'+selRoleObj.title+'</span><span>'+selRoleObj.salary+'</span></div>'+
-        nb.map(function(r){return '<div><span>'+r.title+'</span><span>'+r.salary+'</span></div>';}).join("")+'</div>';
-    }else{
-      rows='<div class="rows an"><div><span>'+bridge+' \u00b7 bridge</span><span>'+baseSal+'</span></div>'+
-        '<div><span>'+tgt+'</span><span>full band in report</span></div></div>';
+  function buildSignals(o){
+    var rows='';
+    function row(k,v){ if(v==null)return; rows+='<div class="xsig-row"><span class="k">'+k+'</span><span class="t"><span class="f" style="width:'+v+'%"></span></span><span class="v">'+v+'</span></div>'; }
+    row('Skill readiness',pct(o.match));
+    row('Shared core abilities',pct(o.capability));
+    row('Commonly done',pct(o.mobility));
+    var src='';
+    if(o.mobility!=null){
+      src=(o.mobility_source==='observed-flow-us')?'observed US worker flow':
+          (o.mobility_source==='observed-flow-eu')?'observed EU worker flow':
+          (o.mobility_source==='related')?'O*NET related occupations':'';
     }
-    sl.push({t:"Salary map",b:"Pay bands for the target and its adjacent roles, side by side \u2014 so money and distance sit in the same view when you decide.",pt:"Negotiate from data, not vibes",rows:rows,big:salTop,bigk:"top of band"});
-    return sl;
+    if(src)rows+='<div class="xsig-src">'+src+'</div>';
+    return rows||'<div class="xsig-src">Signals compute as data accumulates</div>';
+  }
+
+  function buildContents(hasBridge){
+    var secs=[['02','The role, decoded'],['03','Your 90-day plan'],['04','Evidence checklist'],['05','Your graph, printed'],['06','Salary map']];
+    if(hasBridge)secs.splice(2,0,['·','The bridge role']);
+    return secs.map(function(x){return '<div class="xtoc"><span class="n">'+x[0]+'</span><span class="s">'+x[1]+'</span></div>';}).join('');
   }
 
   function openExport(){
-    var sl=buildSlides(),n=sl.length;
-    var tr=document.getElementById("xtrack");
-    tr.innerHTML=sl.map(function(o,i){
-      if(o.wide){
-        var st='<div class="xstats an">'+o.stats.map(function(x){return '<div><span class="v">'+x[0]+'</span><span class="k">'+x[1]+'</span></div>';}).join("")+'</div>';
-        return '<div class="xslide wide"><span class="num an">'+o.label+'</span><h3 class="an">'+o.title+'</h3><p class="an">'+o.body+'</p>'+st+'<div class="xroute an" style="margin-top:16px">'+o.route+'</div></div>';
-      }
-      var right=o.vis?('<div class="xs-r an">'+o.vis+'</div>'):(o.big?('<div class="xs-r an"><div class="xbig">'+o.big+'<small>'+o.bigk+'</small></div></div>'):'');
-      return '<div class="xslide"><div class="xs-l"><span class="num an">0'+(i+1)+' / 0'+n+'</span><h4 class="an">'+o.t+'</h4><p class="an">'+o.b+'</p>'+(o.pt?'<div class="pt an">'+o.pt+'</div>':'')+(o.rows||'')+'</div>'+right+'</div>';
-    }).join("");
-    xidx=0;xmanual=false;
-    document.getElementById("xmodal").classList.add("open");
-    tr.style.transform="translateX(0%)";
-    requestAnimationFrame(function(){requestAnimationFrame(function(){updX();});});
-    startAuto();
+    var o,hasBridge=false;
+    if(xsel&&xsel.kind==='kid'){
+      o={title:xsel.kid.t,match:xsel.kid.m,salary:xsel.parent.salary,demand:xsel.parent.demand,remote:xsel.parent.remote,
+         have:xsel.parent.have,learn:xsel.parent.learn,capability:null,mobility:null};
+      hasBridge=true;
+    }else if(xsel&&xsel.kind==='role'){o=xsel.role;}
+    else{o=ROLES[0];}
+    document.getElementById('xdoc').innerHTML=buildPreviewPage(o);
+    document.getElementById('xsignals').innerHTML=buildSignals(o);
+    document.getElementById('xcontents').innerHTML=buildContents(hasBridge);
+    document.getElementById('xmodal').classList.add('open');
   }
   window.openExport=openExport;
 
-  function updX(){
-    var tr=document.getElementById("xtrack"),n=tr.children.length;
-    tr.style.transform="translateX(-"+(xidx*100)+"%)";
-    for(var i=0;i<n;i++)tr.children[i].classList.toggle("act",i===xidx);
-    document.getElementById("xcount").textContent="0"+(xidx+1)+" / 0"+n;
-  }
-  function xgo(i){var n=document.getElementById("xtrack").children.length;xidx=((i%n)+n)%n;updX();}
-  function startAuto(){stopAuto();if(RM)return;xauto=setInterval(function(){xgo(xidx+1);},3800);}
-  function stopAuto(){if(xauto){clearInterval(xauto);xauto=null;}}
-  function closeX(){stopAuto();document.getElementById("xmodal").classList.remove("open");}
-  document.getElementById("xclose").addEventListener("click",closeX);
-  document.getElementById("xveil").addEventListener("click",closeX);
-  document.getElementById("xprev").addEventListener("click",function(){xmanual=true;stopAuto();xgo(xidx-1);});
-  document.getElementById("xnext").addEventListener("click",function(){xmanual=true;stopAuto();xgo(xidx+1);});
-  var xpanel=document.querySelector(".xpanel");
-  xpanel.addEventListener("mouseenter",stopAuto);
-  xpanel.addEventListener("mouseleave",function(){if(!xmanual&&document.getElementById("xmodal").classList.contains("open"))startAuto();});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeX();});
-  var xin=document.querySelector(".xfoot input");
-  if(xin){xin.addEventListener("focus",function(){xmanual=true;stopAuto();});}
-  var xsend=document.getElementById("xsend");
-  if(xsend){xsend.addEventListener("click",function(){xmanual=true;stopAuto();xsend.textContent="Sent \u2014 check your inbox";});}
+  function closeX(){document.getElementById('xmodal').classList.remove('open');}
+  document.getElementById('xclose').addEventListener('click',closeX);
+  document.getElementById('xveil').addEventListener('click',closeX);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeX();});
+  var xsend=document.getElementById('xsend');
+  if(xsend){xsend.addEventListener('click',function(){xsend.querySelector('span').textContent='Sent — check your inbox';});}
 
   function loadOrigin(nd){ DATA=nd; derive(); seedCompressed(); buildDOM(); buildRail(); hydrateStatic(); runUnfold(); }
   return { loadOrigin: loadOrigin };

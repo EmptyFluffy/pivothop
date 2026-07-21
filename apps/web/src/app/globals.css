@@ -245,3 +245,46 @@
   }
 
   .ico{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
+
+/* ── export sheet: live report preview + signals + capture ── */
+.xsheet{position:relative;background:var(--card);border:1px solid var(--ink);width:min(1060px,94vw);max-height:88vh;display:grid;grid-template-columns:minmax(400px,46%) 1fr;overflow:hidden}
+.xdoc{background:var(--paper-2);padding:34px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.xpage{background:#fff;width:100%;max-width:420px;aspect-ratio:0.773;box-shadow:0 1px 0 rgba(21,21,26,.18),0 14px 34px rgba(21,21,26,.16);padding:34px 32px;display:flex;flex-direction:column;overflow:hidden}
+.xpage .m-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:10px}
+.xpage .m-brand{font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.12em}
+.xpage .m-tag{font-family:var(--mono);font-size:8px;letter-spacing:.16em;color:var(--ink-3);text-transform:uppercase}
+.xpage .m-route{font-family:var(--sans);font-weight:600;font-size:24px;letter-spacing:-.02em;line-height:1.06;margin:20px 0 6px}
+.xpage .m-route .ico{color:var(--accent);width:.7em;height:.7em}
+.xpage .m-meta{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+.xpage .m-cap{font-family:var(--mono);font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:14px 0 8px}
+.xpage .m-bar{display:grid;grid-template-columns:86px 1fr 26px;gap:8px;align-items:center;margin:5px 0}
+.xpage .m-bar .k{font-family:var(--sans);font-size:9.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xpage .m-bar .t{display:block;height:5px;background:var(--paper-2)}
+.xpage .m-bar .f{display:block;height:5px;background:var(--accent)}
+.xpage .m-bar .v{font-family:var(--mono);font-size:8px;text-align:right;color:var(--ink-2)}
+.xpage .m-plan{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
+.xpage .m-ph{border-top:1px solid var(--rule-2);padding-top:6px}
+.xpage .m-ph .w{font-family:var(--mono);font-size:7px;letter-spacing:.12em;color:var(--ink-3)}
+.xpage .m-ph .s{font-family:var(--sans);font-size:9px;font-weight:500;line-height:1.3;margin-top:3px}
+.xpage .m-foot{margin-top:auto;display:flex;justify-content:space-between;border-top:0.5px solid var(--rule);padding-top:8px;font-family:var(--mono);font-size:7px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase}
+.xside{display:grid;grid-template-rows:1fr auto auto;border-left:1px solid var(--ink);min-height:0}
+.xsig{padding:28px 30px;position:relative;overflow-y:auto;min-height:0}
+.xsig .xclose{position:absolute;top:20px;right:22px;background:none;border:none;font-size:24px;line-height:1;cursor:pointer;color:var(--ink)}
+.xsig-cap{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.xsig-row{display:grid;grid-template-columns:150px 1fr 40px;gap:12px;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--rule)}
+.xsig-row .k{font-size:13.5px;color:var(--ink-2)}
+.xsig-row .t{display:block;height:7px;background:var(--paper-2)}
+.xsig-row .f{display:block;height:7px;background:var(--accent)}
+.xsig-row .v{font-family:var(--mono);font-size:12px;font-weight:700;text-align:right}
+.xsig-src{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-top:6px}
+.xtoc{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:0.5px solid var(--rule)}
+.xtoc .n{font-family:var(--mono);font-size:9px;color:var(--accent)}
+.xtoc .s{font-size:13px;color:var(--ink-2)}
+.xcap{border-top:0.5px solid var(--rule);padding:20px 30px}
+.xcap-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.xcap input{width:100%;background:none;border:none;border-bottom:1px solid var(--ink);font-family:var(--sans);font-size:19px;padding:6px 0 9px;color:var(--ink);outline:none}
+.xcap input::placeholder{color:var(--ink-3)}
+.xcap .fnote{margin-top:10px}
+.xgo{background:var(--accent);border:none;color:#fff;font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:-.01em;display:flex;align-items:center;justify-content:space-between;padding:22px 30px;cursor:pointer;transition:background .18s}
+.xgo:hover{background:var(--accent-press)}
+@media (max-width:900px){.xsheet{grid-template-columns:1fr}.xdoc{display:none}}
