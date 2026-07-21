@@ -100,8 +100,19 @@ async function loadObservations(log) {
   return obs;
 }
 
+/* FairElephant listing rule: an occupation appears on the remote-compensation
+ * instrument only when its remote market is MEASURABLE here — a real remote/onsite
+ * split, or >=15 remote salary observations, or a >=15% remote share. Physically
+ * bound work is excluded outright (Trades cluster + the hard list) no matter what
+ * a stray "remote" posting claims. */
+const FE_HARD_EXCLUDE = new Set(['police-officer', 'flight-attendant', 'chef', 'hotel-manager',
+  'warehouse-manager', 'construction-manager', 'landscape-architect', 'photographer',
+  'real-estate-agent', 'teaching-assistant', 'school-administrator', 'medical-assistant',
+  'physical-therapist', 'dentist', 'firefighter', 'pilot']);
+
 export async function salaryBands({ log }) {
   const occs = readJson(path.join(TAXONOMY_DIR, 'occupations.json')).occupations;
+  const clusterOf = Object.fromEntries(occs.map((o) => [o.slug, o.cluster || null]));
   const socOf = Object.fromEntries(occs.map((o) => [o.slug, (o.soc || '').split('.')[0] || null]));
   const titleOf = Object.fromEntries(occs.map((o) => [o.slug, o.title]));
   const oews = readJson(path.join(TAXONOMY_DIR, '../vendor/oews/wages.json'))?.wages ?? {};
@@ -173,8 +184,14 @@ export async function salaryBands({ log }) {
       recon.push({ slug, posted_p50: byCountry.US.posted.p50, oews_p50: anchor.US.p50, deviation_pct: dev, n: byCountry.US.posted.n, flag: Math.abs(dev) > 30 });
     }
 
+    const remoteObs = rows.filter((r) => r.remote).length;
+    const remoteShare = rows.length ? remoteObs / rows.length : 0;
+    const feViable = !FE_HARD_EXCLUDE.has(slug) && clusterOf[slug] !== 'Trades' &&
+      (remote != null || remoteObs >= 15 || remoteShare >= 0.15);
+
     const doc = {
       slug, title: titleOf[slug] || slug, soc,
+      fe_viable: feViable, remote_obs: remoteObs,
       updated: new Date().toISOString().slice(0, 10),
       observations: rows.length,
       global: all,
@@ -185,7 +202,7 @@ export async function salaryBands({ log }) {
       price_level_source: 'World Bank ICP 2023',
     };
     writeJson(path.join(outDir, `${slug}.json`), doc);
-    index.push({ slug, title: doc.title, observations: rows.length, has_anchor: !!anchor, countries: Object.keys(byCountry).length, remote_split: !!remote });
+    index.push({ slug, title: doc.title, observations: rows.length, has_anchor: !!anchor, countries: Object.keys(byCountry).length, remote_split: !!remote, fe_viable: feViable, remote_obs: remoteObs });
   }
 
   index.sort((a, b) => b.observations - a.observations);

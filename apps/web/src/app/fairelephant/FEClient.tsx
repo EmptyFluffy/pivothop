@@ -67,7 +67,7 @@ function computeLenses(doc: SalDoc | null, levels: Levels, cur: string, hire: st
 }
 
 export function FEClient() {
-  const [index, setIndex] = useState<{ slug: string; title: string; observations: number }[]>([]);
+  const [index, setIndex] = useState<{ slug: string; title: string; observations: number; fe_viable?: boolean }[]>([]);
   const [levels, setLevels] = useState<Levels>({});
   const [slug, setSlug] = useState('ux-designer');
   const [doc, setDoc] = useState<SalDoc | null>(null);
@@ -87,7 +87,12 @@ export function FEClient() {
   useEffect(() => {
     document.querySelectorAll('.fe-root .hero, .fe-root .calcwrap, .fe-root .method .mrow, .fe-root .manif, .fe-root .atlas, .fe-root .foot').forEach((el) => el.classList.add('rv'));
     import('../../lib/reveal.js').then((r) => (r as { mountReveal: () => void }).mountReveal());
-    fetch('/data/salaries/index.json').then((r) => r.json()).then((d) => setIndex(d.occupations || []));
+    fetch('/data/salaries/index.json').then((r) => r.json()).then((d) => {
+      const occ = d.occupations || [];
+      setIndex(occ);
+      const viable = occ.filter((o: { fe_viable?: boolean; observations: number }) => o.fe_viable && o.observations >= 50);
+      if (!viable.some((o: { slug: string }) => o.slug === 'ux-designer') && viable[0]) setSlug(viable[0].slug);
+    });
     fetch('/data/price-levels.json').then((r) => r.json()).then((d) => setLevels(d.levels || {}));
   }, []);
   useEffect(() => {
@@ -170,7 +175,10 @@ export function FEClient() {
   }, [atlas, pinned]);
 
   const countryOpts = Object.entries(ISO2NAME).sort((a, b) => a[1].localeCompare(b[1]));
-  const occOpts = index.filter((o) => o.observations >= 50);
+  // the remote-compensation instrument lists only occupations whose remote market
+  // is measurable here — desk work with real remote observations, never police officers
+  const occOpts = index.filter((o) => o.fe_viable && o.observations >= 50)
+    .sort((a, b) => a.title.localeCompare(b.title));
 
   return (
     <div>
