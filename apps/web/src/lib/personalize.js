@@ -65,6 +65,7 @@ export function rankPersonalized(chips, profiles, meta, names, originSlug, origi
       cluster: m.cluster,
       kind: null,
       desc: m.desc || '',
+      license: m.license || null,
       match: h.match,
       salary: m.salary || '—',
       demand: m.demand,

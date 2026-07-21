@@ -532,6 +532,11 @@ export function mountInstrument(DATA){
     if(!rows)return '';
     return '<div class="dsk"><div class="cap">Why this fit</div><div class="d-sig">'+rows+'</div></div>';
   }
+  function licenseStrip(o){
+    if(!o.license)return '';
+    var head=(o.license.req==='required')?'Licensed profession':'License for some roles';
+    return '<div class="d-lic"><span class="k">'+head+'</span><span class="t">'+o.license.label+'</span></div>';
+  }
   function kindTag(o){
     if(!o.kind)return '';
     var txt=(o.kind==='lateral')?'Lateral':('Pivot → '+(o.cluster||''));
@@ -546,7 +551,7 @@ export function mountInstrument(DATA){
       '<div class="d-cap"><span class="d-sector">'+rl.field+'</span>'+kindTag(rl)+'</div>'+
       '<div class="d-title">'+rl.title+'</div>'+
       '<div class="d-match"><span class="n">'+rl.match+'</span><span class="u">% match from architect</span></div>'+
-      detailSignals(rl)+
+      detailSignals(rl)+licenseStrip(rl)+
       '<div class="drow"><span class="k">Avg salary</span><span class="v">'+rl.salary+'</span></div>'+
       '<div class="drow"><span class="k">Job demand</span><span class="v">'+rl.demand+'</span></div>'+
       '<div class="drow"><span class="k">Remote</span><span class="v">'+rl.remote+'</span></div>'+

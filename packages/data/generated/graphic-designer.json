@@ -193,8 +193,8 @@
       "mobility_tier": null,
       "salary": "$95k–$150k",
       "salary_band": [
-        97465,
-        150377
+        96961,
+        149688
       ],
       "demand": "Moderate",
       "remote": "7%",
@@ -216,7 +216,7 @@
           "skill": "writing",
           "name": "Writing & Editing",
           "pts": 35,
-          "earned": 6.1
+          "earned": 6.2
         },
         {
           "skill": "training",
@@ -239,37 +239,37 @@
         {
           "skill": "figma",
           "name": "Figma",
-          "pts": 3.8,
-          "earned": 3.6
+          "pts": 3.7,
+          "earned": 3.7
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 3.8,
-          "earned": 3.8
+          "pts": 3.7,
+          "earned": 3.7
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 3.8,
-          "earned": 3.8
+          "pts": 3.7,
+          "earned": 3.7
         },
         {
           "skill": "design-systems",
           "name": "Design Systems",
-          "pts": 3.8,
+          "pts": 3.7,
           "earned": 2
         },
         {
           "skill": "ab-testing",
           "name": "A/B Testing",
-          "pts": 3.8,
+          "pts": 3.7,
           "earned": 0
         },
         {
           "skill": "stakeholder-management",
           "name": "Stakeholder Management",
-          "pts": 3.8,
+          "pts": 3.7,
           "earned": 0
         },
         {
@@ -336,8 +336,8 @@
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 190,
-        "salaried": 175
+        "postings": 191,
+        "salaried": 176
       }
     },
     {
@@ -839,8 +839,8 @@
       "mobility_tier": null,
       "salary": "$60k–$115k",
       "salary_band": [
-        57610,
-        116100
+        57815,
+        116456
       ],
       "demand": "High",
       "remote": "12%",
@@ -903,19 +903,19 @@
         {
           "skill": "event-planning",
           "name": "Event Planning",
-          "pts": 4.8,
+          "pts": 4.7,
           "earned": 0
         },
         {
           "skill": "content-marketing",
           "name": "Content Marketing",
-          "pts": 4.8,
+          "pts": 4.7,
           "earned": 0
         },
         {
           "skill": "sem",
           "name": "SEM / Paid Media",
-          "pts": 4.8,
+          "pts": 4.7,
           "earned": 0
         },
         {
@@ -955,15 +955,15 @@
           "earned": 0
         },
         {
-          "skill": "excel",
-          "name": "Excel",
+          "skill": "sales",
+          "name": "Sales",
           "pts": 3.1,
           "earned": 0
         },
         {
-          "skill": "sales",
-          "name": "Sales",
-          "pts": 3,
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.1,
           "earned": 0
         },
         {
@@ -982,8 +982,8 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 739,
-        "salaried": 585
+        "postings": 748,
+        "salaried": 594
       }
     },
     {
@@ -1279,9 +1279,64 @@
   ],
   "next": {
     "motion-designer": [],
-    "creative-director": [],
+    "creative-director": [
+      {
+        "t": "Project Manager",
+        "m": 11,
+        "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Observability",
+          "Supply Chain",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "fit": 13,
+        "capability": null,
+        "mobility": 17,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 6,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "creative-director",
+          "readiness_after": 23,
+          "gain": 12
+        }
+      }
+    ],
     "design-technologist": [],
     "ux-designer": [
+      {
+        "t": "Product Designer",
+        "m": 15,
+        "slug": "product-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "lateral",
+        "gap": [
+          "Interaction Design",
+          "Visual Design",
+          "User Research",
+          "Training & Facilitation"
+        ],
+        "observed": "Primary-Short",
+        "fit": 36,
+        "capability": null,
+        "mobility": 83,
+        "mobility_source": "related",
+        "mobility_eu": null,
+        "mobility_tier": "Primary-Short",
+        "reach": "bridged",
+        "via": {
+          "parent": "ux-designer",
+          "readiness_after": 41,
+          "gain": 26
+        }
+      },
       {
         "t": "UX Researcher",
         "m": 15,
@@ -1307,33 +1362,6 @@
           "parent": "ux-designer",
           "readiness_after": 39,
           "gain": 24
-        }
-      },
-      {
-        "t": "Product Designer",
-        "m": 14,
-        "slug": "product-designer",
-        "field": "Design",
-        "cluster": "Design",
-        "kind": "lateral",
-        "gap": [
-          "Interaction Design",
-          "Visual Design",
-          "User Research",
-          "Training & Facilitation"
-        ],
-        "observed": "Primary-Short",
-        "fit": 36,
-        "capability": null,
-        "mobility": 83,
-        "mobility_source": "related",
-        "mobility_eu": null,
-        "mobility_tier": "Primary-Short",
-        "reach": "bridged",
-        "via": {
-          "parent": "ux-designer",
-          "readiness_after": 41,
-          "gain": 27
         }
       }
     ],
@@ -1417,8 +1445,8 @@
         "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
-          "readiness_after": 42,
-          "gain": 28
+          "readiness_after": 43,
+          "gain": 29
         }
       }
     ],
@@ -1447,35 +1475,35 @@
         "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
-          "readiness_after": 23,
-          "gain": 10
+          "readiness_after": 24,
+          "gain": 11
         }
       },
       {
-        "t": "Project Manager",
-        "m": 12,
-        "slug": "project-manager",
+        "t": "Business Analyst",
+        "m": 11,
+        "slug": "business-analyst",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Project Management",
+          "HR Operations",
+          "Lean / Six Sigma",
           "Observability",
-          "Supply Chain",
-          "Lean / Six Sigma"
+          "Scheduling"
         ],
         "observed": null,
-        "fit": 14,
-        "capability": null,
-        "mobility": 17,
+        "fit": 18,
+        "capability": 28,
+        "mobility": 27,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 6,
+        "mobility_eu": 3,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "creative-technologist",
-          "readiness_after": 26,
-          "gain": 14
+          "readiness_after": 19,
+          "gain": 8
         }
       }
     ]
@@ -1492,7 +1520,7 @@
         "Training & Facilitation",
         "Instructional Design",
         "Observability",
-        "HR Operations"
+        "Teaching"
       ],
       "observed": null,
       "fit": 15,
@@ -1500,28 +1528,6 @@
       "mobility": 2,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 1,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Business Analyst",
-      "m": 11,
-      "slug": "business-analyst",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "gap": [
-        "HR Operations",
-        "Lean / Six Sigma",
-        "Observability",
-        "Scheduling"
-      ],
-      "observed": null,
-      "fit": 18,
-      "capability": 28,
-      "mobility": 27,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 3,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1588,17 +1594,17 @@
     ],
     [
       "marketing-manager",
-      "creative-technologist_1",
-      0.32
-    ],
-    [
-      "marketing-manager",
-      "ux-designer_0",
+      "ux-designer_1",
       0.31
     ],
     [
+      "marketing-manager",
+      "creative-director_0",
+      0.3
+    ],
+    [
       "creative-technologist",
-      "ux-designer_1",
+      "ux-designer_0",
       0.28
     ]
   ],

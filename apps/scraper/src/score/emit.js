@@ -167,6 +167,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         field: info.field,
         cluster: info.cluster,
         kind: routeKind(origin, h.dest),
+        license: info.license ?? null,
         desc: info.desc ?? '',
         match: h.match, // skill readiness (R) — the headline number, drives the graph
         ...fitSignals(h.dest, h.match), // fit + capability + mobility — secondary context
