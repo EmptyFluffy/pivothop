@@ -401,7 +401,7 @@ export function mountInstrument(DATA,HOOKS){
     if(stageEl&&!document.getElementById('hopTip')){
       var tip=document.createElement('div');
       tip.id='hopTip';tip.className='hop-tip';
-      tip.textContent='2\u00d7 CLICK \u00b7 HOP HERE';
+      tip.textContent='Double-click to hop here';
       stageEl.appendChild(tip);
     }
     el.hopTag=document.getElementById('hopTip');
@@ -532,7 +532,12 @@ export function mountInstrument(DATA,HOOKS){
     updateEdgeVisuals();
     updateNodeVisuals();
     for(var i=0;i<GNODES.length;i++){
-      GNODES[i].lAvgX=undefined;GNODES[i].lAvgY=undefined;GNODES[i].lStable=0;GNODES[i].lLocked=false;
+      /* reset averages so NEWLY-ACTIVATED labels settle fresh — but do NOT unlock
+         already-settled ones: unlocking on every hover re-solves the whole field and
+         labels visibly slide away from the cursor. Locked labels stay planted and act
+         as repellers; newcomers solve around them. Unlock happens only when a node
+         actually moves (drag/unfold). */
+      GNODES[i].lAvgX=undefined;GNODES[i].lAvgY=undefined;GNODES[i].lStable=0;
     }
     ensureLoop(500);
   }
