@@ -819,4 +819,261 @@ export const POSTS: Post[] = [
       </>
     ),
   },
+
+  {
+    slug: 'cluely-and-the-attention-economy',
+    title: 'Cluely, rage bait, and what the attention economy pays for',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'A startup built on the slogan cheat on everything raised millions, hit a 120 million dollar valuation, and then admitted its headline revenue was invented. There is a career lesson in here, and it is not the one the founders think.',
+    minutes: 7,
+    body: (
+      <>
+        <p>
+          If you missed the saga: Cluely launched in 2025 as an invisible AI
+          assistant with the slogan cheat on everything, engineered its own
+          outrage cycle on purpose, and rode the anger to a 15 million dollar
+          round from Andreessen Horowitz and a valuation around 120 million.
+          The founder gave interviews explaining that provocation was the
+          strategy. Rage bait as go-to-market, said out loud, with a straight
+          face.
+        </p>
+        <p>
+          Then, in March 2026, the same founder posted that the 7 million
+          dollars in annual recurring revenue he had told TechCrunch about the
+          previous summer was, in his words, blatantly dishonest. A formal
+          retraction, on X, of a number that had been load-bearing for the
+          whole story. The apology tour then misstated how the original
+          interview came about, which TechCrunch also documented. You could
+          not write a cleaner parable if you tried.
+        </p>
+        <h3>The uncomfortable part: it worked</h3>
+        <p>
+          The honest analysis has to start here. The attention strategy did
+          exactly what it was designed to do. It converted outrage into
+          awareness, awareness into a term sheet, and a term sheet into a
+          company that employs real people at real salaries. Anyone who tells
+          you attention engineering is not a skill has not watched a nobody
+          become a household name in tech on a marketing budget of zero. In
+          the careers we track, the growth and marketing roles increasingly
+          ask for exactly this: the ability to manufacture a moment. It pays.
+        </p>
+        <h3>The part they leave out of the playbook</h3>
+        <p>
+          Attention is a loan, and the collateral is credibility. The revenue
+          confession is what a margin call looks like. Once your numbers have
+          been publicly wrong on purpose, every future number you publish
+          costs more to believe, and companies run on believed numbers:
+          revenue for investors, salaries for candidates, benchmarks for
+          customers. The rage-bait playbook has a chapter missing, and it is
+          the one where the loan comes due at the exact moment you need to be
+          taken literally.
+        </p>
+        <h3>What this means if you work in tech</h3>
+        <p>
+          Two practical readings. If you are considering joining a
+          high-attention startup, do the diligence the founders are daring
+          you to skip: ask for the number behind the number, and notice
+          whether the company's public claims have survived contact with a
+          journalist. A company that lies about revenue at seed will
+          negotiate your equity refresh with the same instrument.
+        </p>
+        <p>
+          And if you are building a career in growth or marketing, learn the
+          skill without inheriting the ideology. The measurable version of
+          attention work, the campaigns with numbers you can defend in a
+          hiring interview two jobs later, compounds. The stunt version has
+          the same half-life as the outrage it borrowed. Recruiters remember
+          both kinds. So do juries, occasionally.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          We run a product whose entire bet is the opposite of Cluely's: that
+          numbers people can check beat stories people want to believe,
+          eventually, and that eventually is shorter than it looks. The
+          March confession did not surprise anyone who holds that bet. The
+          market for attention is real and it pays fast. The market for
+          being believed pays slower and much longer. Pick your market
+          knowingly. That is the whole lesson, and nobody has to cheat on
+          anything to learn it.
+        </p>
+        <Sources>
+          <p>
+            Cluely funding, valuation, slogan, and strategy: TechCrunch
+            reporting, June and July 2025. The revenue retraction and its
+            aftermath: TechCrunch, March 5, 2026, and the founder's own
+            public statements. Our characterization of growth-role demand is
+            from the PivotHop posting corpus. No numbers in this piece were
+            invented, which we mention because apparently it needs saying.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'forward-deployed-engineer',
+    title: 'The forward-deployed engineer: the job title quietly eating AI hiring',
+    pillar: 'Unbundle the Job',
+    date: 'July 2026',
+    dek: 'There are 337 forward-deployed engineer postings in our corpus right now, more than four times the count for prompt engineers. What the role is, who it fits, and why the AI labs invented a field job.',
+    minutes: 7,
+    faq: [
+      { q: 'What is a forward-deployed engineer?', a: 'An engineer who works inside customer organizations to make a complex product actually function there: integration, configuration, last-mile problem solving, and translating between the customer and the product team. The title comes from Palantir and has been adopted across AI companies as models turned out to need heavy on-site adaptation.' },
+      { q: 'How much do forward-deployed engineers make?', a: 'Postings rarely separate the title in salary data, but the adjacent measured bands in our corpus put comparable roles between roughly 140,000 and 150,000 dollars US median: solutions architects at about 146,000 and sales engineers at about 140,000, with AI engineers at about 150,500.' },
+      { q: 'What background do you need for forward-deployed roles?', a: 'The measured profile is hybrid: real coding ability plus customer-facing composure. In our adjacency data the professions closest to this mix are sales engineering, solutions architecture, and consulting backgrounds with technical depth. A pure research profile is usually a worse fit than a builder who can run a meeting.' },
+    ],
+    body: (
+      <>
+        <p>
+          Our corpus currently holds 337 postings with forward deployed in the
+          title. For scale, that is more than four times the number of prompt
+          engineer postings, a title that got a thousand thinkpieces. Nobody
+          writes thinkpieces about forward-deployed engineers. Companies just
+          keep hiring them, which is usually the better signal.
+        </p>
+        <h3>What the job actually is</h3>
+        <p>
+          The title is Palantir lineage: engineers embedded with the customer,
+          in their systems and their meetings, making an ambitious product
+          work in a specific messy reality. The AI industry adopted it for a
+          simple reason. Models demo beautifully and deploy painfully. Between
+          a foundation model and a working system inside an insurer or a
+          hospital chain sits a canyon of integration, evaluation, data
+          plumbing, and organizational translation. Someone has to live in
+          that canyon. The labs named the someone.
+        </p>
+        <h3>Who the role fits, measured</h3>
+        <p>
+          Read a batch of these postings and a profile emerges: writes real
+          code, runs real meetings, tolerates ambiguity, can tell a customer
+          no without losing the account, can tell the product team the
+          customer is right without losing face. In our adjacency graph, the
+          professions whose measured skills sit closest to that mix are sales
+          engineering and solutions architecture, which is consistent with
+          the strangest number in our AI analysis: sales engineers already
+          cover 50 percent of AI engineer demand, ahead of software
+          engineers. The industry needs translators with commit access, and
+          it has needed them for a while.
+        </p>
+        <h3>The money and the trade</h3>
+        <p>
+          Salary data rarely breaks out the exact title, but the measured
+          neighbors bracket it well: solutions architects at about 146,000
+          dollars US blended median in our data, sales engineers around
+          140,000, AI engineers about 150,500. The trade is travel, customer
+          hours, and the particular exhaustion of being permanently between
+          two organizations. The reward, beyond the band: forward-deployed
+          work generates the rarest kind of resume line, provable impact at
+          named customers, which converts into product, founding, and
+          leadership roles unusually well. It is the apprenticeship the AI
+          industry accidentally rebuilt.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          If you are technical but energized by people, or customer-facing
+          but underestimated technically, this title is the market catching
+          up to your shape. It does not require a research pedigree. It
+          requires the hybrid week most job titles force you to hide. The
+          337 postings are the market saying the hybrid is the job now. Say
+          yes while the title still sounds niche; the good arbitrage never
+          lasts.
+        </p>
+        <Sources>
+          <p>
+            Title counts from the PivotHop raw corpus, July 2026 (99,000
+            postings across thirteen sources; regex on titles). Salary bands
+            are blended US medians from our salary engine (postings shrunk
+            toward BLS OEWS anchors). The sales-engineer reach figure is
+            destination-demand coverage from the adjacency model.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'job-titles-born-since-2023',
+    title: 'Nine job titles that did not exist in 2023, counted in the wild',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'We watch new titles being born in the posting stream. Forward-deployed engineers, agentic everything, model evaluators, red-teamers: the census of the AI labor market\u2019s nursery.',
+    minutes: 6,
+    faq: [
+      { q: 'What new jobs has AI created?', a: 'In our July 2026 corpus the measurable new titles are forward-deployed engineer (337 postings), agentic roles (188), prompt engineer (72), model evaluator (13), AI red-teamer (11), and AI safety roles (11), alongside established-but-transformed titles like AI engineer at 943 postings.' },
+      { q: 'Is prompt engineering still a career in 2026?', a: 'It is consolidating rather than growing: 72 raw postings in our corpus against 943 for AI engineer, and our adjacency data shows prompt engineering skills folding into the broader AI engineer role, which posts a US median about 48,000 dollars higher.' },
+    ],
+    body: (
+      <>
+        <p>
+          Job titles are born in postings before they exist anywhere else.
+          Before the bootcamps, before the LinkedIn headlines, someone in a
+          hiring committee has to type a phrase into a job board for the
+          first time. Because we read the boards daily, we get to watch the
+          nursery. Here is the July 2026 census of titles that were not a
+          thing in 2023.
+        </p>
+        <h3>The census</h3>
+        <p>
+          Forward-deployed engineer: 337 postings, the clear leader, covered
+          at length in its own piece. Agentic roles, engineers and product
+          people building AI agents: 188 postings and climbing fast, the
+          phrase spreading from labs into commerce and operations titles.
+          Prompt engineer: 72 postings. Model evaluator: 13. AI red-teamer:
+          11. AI safety roles: 11. Responsible AI titles: a handful.
+          Growth engineer, the title Cluely-adjacent startups love: 3, which
+          suggests the attention economy generates more discourse than
+          headcount.
+        </p>
+        <h3>Which ones consolidate, which ones vanish</h3>
+        <p>
+          New titles follow one of two paths. Some consolidate into a broader
+          role once the skill stops being exotic. Prompt engineering is
+          visibly on this path: 72 postings against 943 for AI engineer, and
+          in our adjacency graph the two roles overlap so heavily that the
+          smaller one reads as a feature of the bigger one. The US median
+          gap, about 102,000 dollars for the specialist against 150,500 for
+          the generalist, is the market pricing the consolidation in real
+          time. Learn the skill, skip the title.
+        </p>
+        <p>
+          Others stay narrow because they answer to regulation or risk
+          rather than fashion. Red-teaming and model evaluation are small
+          but stubborn: 24 postings between them, mostly at companies with
+          compliance exposure, and they behave in the data like early
+          security engineering did, a niche that becomes an institution
+          because someone has to sign the audit. If you want a small pond
+          with a moat, that corner is worth a look before the certification
+          industry finds it.
+        </p>
+        <h3>How to read a newborn title</h3>
+        <p>
+          Three questions separate a career from a costume. Does the title
+          describe work someone was already doing under an older name, or
+          genuinely new work? Does demand come from many industries or one
+          hype cluster? And does the pay carry a premium over the nearest
+          established role, or a discount? Forward-deployed engineering
+          passes all three. Prompt engineering passes none of them anymore.
+          The agentic cluster passes the first two and is still arguing with
+          the third. Check again next quarter; the nursery updates daily.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          Chasing new titles is a bad strategy, and ignoring them is a
+          slightly worse one. The winning move is to watch which newborn
+          titles describe your existing week better than your current title
+          does, then apply while the applicant pool is still confused. That
+          window is the entire value of reading the nursery. It closes the
+          day the bootcamps open.
+        </p>
+        <Sources>
+          <p>
+            Title counts: regex over titles in the PivotHop raw corpus, July
+            2026, roughly 99,000 postings across thirteen sources. Salary
+            medians from our blended engine (BLS OEWS anchored). Counts are
+            floors, not totals: our sources undersample some markets, and a
+            title can exist in the wild before it reaches a board we read.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
 ];
