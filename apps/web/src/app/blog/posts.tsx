@@ -61,13 +61,22 @@ export const POSTS: Post[] = [
           three. The third time, the adjacent role simply pays better, and the
           main thing between you and it is that nobody told you it was adjacent.
         </p>
+        <div className="post-callout"><b>36%</b><span>of the 148 strong career adjacencies we measured point to a destination that posts a <strong>higher</strong> salary midpoint than the origin.</span></div>
         <h3>The biggest premiums, and the catch</h3>
         <p>
-          The largest premium in the data is medical assistant to pharmacist, a
-          125 percent jump in the midpoint of posted salaries at a 58 percent
-          skill match. Second is bookkeeper to financial controller at plus 108
-          percent. Third, medical assistant to physical therapist at plus 92.
+          The top of the table, with the licensing reality attached:
         </p>
+        <table className="post-table">
+          <caption>Largest pay premiums among strong adjacencies · PivotHop, July 2026</caption>
+          <thead><tr><th>Move</th><th>Skill match</th><th className="num">Pay delta</th><th>The gate</th></tr></thead>
+          <tbody>
+            <tr><td>Medical assistant → <strong>Pharmacist</strong></td><td>58%</td><td className="num"><strong>+125%</strong></td><td>Doctorate + state license</td></tr>
+            <tr><td>Bookkeeper → <strong>Financial controller</strong></td><td>55%</td><td className="num"><strong>+108%</strong></td><td>CPA for some roles only</td></tr>
+            <tr><td>Medical assistant → Physical therapist</td><td>68%</td><td className="num">+92%</td><td>Licensure exam</td></tr>
+            <tr><td>Customer support → Flight attendant</td><td>71%</td><td className="num">+69%</td><td>FAA certification</td></tr>
+            <tr><td>Architect → <strong>Electrical engineer</strong></td><td>58%</td><td className="num">+67%</td><td>PE for sign-off roles only</td></tr>
+          </tbody>
+        </table>
         <p>
           Now the catch, and it is the honest heart of this piece: the biggest
           premiums sit behind licenses. Pharmacist requires a doctorate and a
@@ -396,13 +405,18 @@ export const POSTS: Post[] = [
           in writing.
         </p>
         <p>
-          The answer, across 132 occupations with enough postings to trust: data
-          analysis and systems monitoring tie at the top, each appearing
-          meaningfully in the demand of 40 occupations. Project management
-          follows at 33, supply chain and logistics at 30, training and
-          facilitation at 28, customer service at 22, process improvement at 21,
-          Python at 20, SQL and professional writing at 19 each, presentation at
-          18, accounting at 18, prototyping and procurement at 17 each.
+          The answer, across 132 occupations with enough postings to trust:
+          <strong> data analysis and systems monitoring tie at the top</strong>,
+          each appearing meaningfully in the demand of 40 occupations.
+        </p>
+        <div className="post-bars">
+          {[['Data analysis', 40], ['Systems monitoring', 40], ['Project management', 33], ['Supply chain', 30], ['Training & facilitation', 28], ['Customer service', 22], ['Process improvement', 21], ['Python', 20], ['SQL', 19], ['Professional writing', 19]].map(([k, v]) => (
+            <div key={String(k)} className="pb-row"><span className="k">{k}</span><span className="t"><span className="f" style={{ width: `${(Number(v) / 40) * 100}%` }}></span></span><span className="v">{v}</span></div>
+          ))}
+        </div>
+        <p>
+          Presentation and accounting follow at 18 occupations each, prototyping
+          and procurement at 17.
         </p>
         <p>
           And at number fifteen, the newcomer: working with large language
@@ -652,21 +666,32 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          AI engineer went from a curiosity title to 943 postings in our corpus
+          AI engineer went from a curiosity title to <strong>943 postings</strong> in our corpus
           inside a year, and 670 of them state pay. The blended US median lands
-          at about 150,500 dollars. That much everyone suspected. What the
+          at about <strong>150,500 dollars</strong>. That much everyone suspected. What the
           reach table shows is less expected, and more useful if you are
           standing outside the field wondering about the door.
         </p>
         <h3>The doorway professions, measured</h3>
         <p>
           We compute, for every occupation, how much of an AI engineer's posted
-          skill demand it already covers. Machine learning engineer leads at 59
-          percent, no surprise. Then comes the surprise: sales engineer at 50,
-          ahead of software engineer at 46, data scientist at 45, and solutions
-          architect at 45. DevOps at 39, research scientist at 34, product
-          manager at 31.
+          skill demand it already covers. Machine learning engineer leads, no
+          surprise. Then comes the surprise in row two:
         </p>
+        <table className="post-table">
+          <caption>Skill coverage toward AI engineer, by origin profession · PivotHop, July 2026</caption>
+          <thead><tr><th>Coming from</th><th className="num">Coverage</th></tr></thead>
+          <tbody>
+            <tr><td>Machine learning engineer</td><td className="num">59%</td></tr>
+            <tr><td><strong>Sales engineer</strong></td><td className="num"><strong>50%</strong></td></tr>
+            <tr><td>Software engineer</td><td className="num">46%</td></tr>
+            <tr><td>Data scientist</td><td className="num">45%</td></tr>
+            <tr><td>Solutions architect</td><td className="num">45%</td></tr>
+            <tr><td>DevOps engineer</td><td className="num">39%</td></tr>
+            <tr><td>Research scientist</td><td className="num">34%</td></tr>
+            <tr><td>Product manager</td><td className="num">31%</td></tr>
+          </tbody>
+        </table>
         <p>
           A sales job, half way to the hottest engineering title of the decade.
           It stops being strange when you read what AI engineer postings
@@ -1388,6 +1413,208 @@ export const POSTS: Post[] = [
             skills). Search-landscape figures: Semrush and independent
             telemetry as reported 2025 to 2026, detailed in our companion
             piece on the 2026 search reset.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+
+  {
+    slug: 'pink-floyd-were-architecture-students',
+    title: 'Pink Floyd were architecture students, and it shows',
+    pillar: 'What Carried Over',
+    date: 'July 2026',
+    dek: 'Three of the four founders met in architecture school. So did the quiet half of the Pet Shop Boys. Weird Al holds the degree. Ice Cube holds the drafting certificate. A field guide to the most famous pivot in music, with the skills that actually carried.',
+    minutes: 8,
+    faq: [
+      { q: 'Which Pink Floyd members studied architecture?', a: 'Roger Waters, Nick Mason, and Richard Wright met as architecture students at the Regent Street Polytechnic in London (now the University of Westminster) between 1962 and 1965, where the band that became Pink Floyd first formed and rehearsed.' },
+      { q: 'Which famous musicians have architecture degrees?', a: 'Weird Al Yankovic graduated from Cal Poly with an architecture degree. Chris Lowe of the Pet Shop Boys studied architecture at Liverpool University and worked toward qualification before choosing music. Ice Cube earned an architectural drafting certificate from the Phoenix Institute of Technology.' },
+      { q: 'Do architecture skills transfer to creative careers?', a: 'Measurably, yes. In our adjacency data, the architect skill set overlaps strongly with design and technical-creative fields, and the underlying capabilities (spatial reasoning, systems thinking, staged sequencing of experience) are exactly what large-scale music production and stage design run on.' },
+    ],
+    body: (
+      <>
+        <p>
+          In 1962, three students at London's Regent Street Polytechnic were
+          supposed to be learning to design buildings. Roger Waters, Nick
+          Mason, and Richard Wright met in the architecture program, formed a
+          band, and used the school as a rehearsal space. The building got a
+          plaque. The profession got a lesson it still has not fully read.
+        </p>
+        <p>
+          Because Pink Floyd is not an isolated case. It is the loudest entry
+          in a pattern.
+        </p>
+        <table className="post-table">
+          <caption>The architecture-to-music roster · verified public accounts</caption>
+          <thead><tr><th>Person</th><th>Studied</th><th>Became</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Waters, Mason, Wright</strong></td><td>Architecture, Regent Street Polytechnic, 1962 to 1965</td><td>Pink Floyd</td></tr>
+            <tr><td><strong>Weird Al Yankovic</strong></td><td>Architecture degree, Cal Poly</td><td>The most successful parody musician alive</td></tr>
+            <tr><td><strong>Chris Lowe</strong></td><td>Architecture, Liverpool University</td><td>Pet Shop Boys</td></tr>
+            <tr><td><strong>Ice Cube</strong></td><td>Architectural drafting certificate, Phoenix Institute of Technology</td><td>N.W.A, then Hollywood</td></tr>
+          </tbody>
+        </table>
+        <h3>Coincidence, or a legible transfer</h3>
+        <p>
+          The lazy reading is that art schools of every kind leak musicians.
+          True, but architecture school leaks a particular kind. Listen to
+          what the Floyd actually built: album-length structures with
+          load-bearing sequences, concerts staged as inhabitable
+          environments, a literal wall constructed and demolished as
+          performance. Nick Mason has spoken about the band thinking in
+          terms of design, and the band's live shows were engineering
+          projects with rigging plans. The education did not vanish. It
+          changed medium.
+        </p>
+        <div className="post-pullq">
+          Architecture school teaches you to hold a large structure in your
+          head, sequence someone's experience through it, and ship it with a
+          team under a deadline. So does an album.
+        </div>
+        <p>
+          Our data makes the same point less romantically. When we unbundle
+          the architect's measured skill set, the threads are spatial
+          reasoning, systems coordination, visual communication, and staged
+          sequencing, and those threads score high toward design and
+          technical-creative fields in our adjacency graph. The capability
+          layer, the O*NET abilities architecture shares with creative
+          production, is the quiet reason an architecture dropout keeps
+          turning up behind famous work: the training transfers even when
+          the title does not.
+        </p>
+        <h3>What the dropouts kept</h3>
+        <p>
+          Weird Al kept the structural discipline; parody is form-perfect
+          reconstruction, a measured survey of an existing building with new
+          cladding. Chris Lowe kept the restraint; Pet Shop Boys records are
+          famously engineered, minimal, load-calculated pop. Ice Cube has
+          credited drafting school with teaching him precision he carried
+          into writing, and he studied it as a fallback in case music
+          failed, which is the most honest career-risk hedge in this whole
+          story. <strong>None of them wasted the training. They relocated
+          it.</strong>
+        </p>
+        <h3>The uncomfortable question for the profession</h3>
+        <p>
+          Why does architecture, specifically, produce so many spectacular
+          leavers? Our demand data offers a hypothesis: the profession
+          recruits people with the full creative-systems package, then pays
+          them below the adjacent engineering fields and gives the youngest
+          ones the least creative work. The most portable skill bundle in
+          the building industry, priced at a discount, held by people
+          trained to notice structural problems. Some of them notice the
+          one they are standing in.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          You are probably not going to found Pink Floyd. The transferable
+          lesson is smaller and more useful: the skills a demanding
+          education installs are rarely specific to the industry that
+          installed them, and the market for them is wider than the title
+          on the diploma. The famous cases prove the ceiling. The adjacency
+          data proves the floor. If architecture school can produce The
+          Dark Side of the Moon, your training can probably survive a
+          change of medium too. Type your job into the instrument and see
+          which mediums are already asking for it.
+        </p>
+        <Sources>
+          <p>
+            Regent Street Polytechnic history: University of Westminster and
+            the 2016 Pink Floyd plaque unveiling. Yankovic: Cal Poly
+            architecture degree, widely documented. Lowe: Liverpool
+            University architecture studies. Ice Cube: Phoenix Institute of
+            Technology drafting certificate, his own interviews. Adjacency
+            and capability claims: PivotHop July 2026 run and O*NET-derived
+            capability vectors. No apocryphal quotes were used, which for
+            this genre is apparently a differentiator.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'the-day-job-years',
+    title: 'The day-job years: Harrison Ford, Ken Jeong, and the pivot that keeps the paycheck',
+    pillar: 'Run It 10,000 Times',
+    date: 'July 2026',
+    dek: 'Ford built cabinets for eight years while turning down bad roles. Jeong saw patients by day and did stand-up at night. The famous version of the strategy our data says is the rational one: pivot in parallel, not in freefall.',
+    minutes: 7,
+    faq: [
+      { q: 'What did Harrison Ford do before acting?', a: 'He worked as a professional carpenter in Los Angeles for roughly eight years, taking acting roles selectively when they beat what he had been offered before. The carpentry paid the bills that made the selectivity possible.' },
+      { q: 'Was Ken Jeong really a doctor?', a: 'Yes. He trained in internal medicine at the University of North Carolina School of Medicine and practiced for years in New Orleans and Los Angeles while performing comedy at night, only leaving medicine when the acting career was established.' },
+      { q: 'Is it better to quit before changing careers?', a: 'The evidence favors overlap when you can get it: parallel pivots keep income while the new field is tested, and the famous cases (Ford, Jeong) plus the arithmetic of transition months both point the same way. Quit-first makes sense mainly when the current job prevents any parallel work.' },
+    ],
+    body: (
+      <>
+        <p>
+          The mythology of the career leap loves the burned boat. The
+          documented reality of two very famous pivots looks different: it
+          looks like a day job, kept deliberately, for years.
+        </p>
+        <h3>The carpenter</h3>
+        <p>
+          By 1970 Harrison Ford was a full-time professional carpenter in
+          Los Angeles. Not as a cover story: cabinets, studios, doorways,
+          paying clients, roughly <strong>eight years of it</strong>, during
+          which he did only a handful of films. He has been direct about the
+          mechanism: the trade income meant he could refuse acting work
+          that was worse than what he had already done. The carpentry was
+          not the obstacle to the acting career. It was the negotiating
+          position.
+        </p>
+        <h3>The doctor</h3>
+        <p>
+          Ken Jeong finished internal medicine training at the University
+          of North Carolina and practiced for years, New Orleans, then Los
+          Angeles, seeing patients by day and doing stand-up at night. The
+          license stayed active long after the comedy started working. The
+          pivot completed only when the destination could carry the
+          income, not when the frustration peaked.
+        </p>
+        <div className="post-callout"><b>2</b><span>famous pivots, one structure: <strong>keep the income, test the destination, convert when the evidence arrives.</strong> The boats were never burned. They were rented out.</span></div>
+        <h3>Why the parallel pivot is the rational one</h3>
+        <p>
+          Strip the fame away and the structure is just good decision
+          theory. A career change is a bet with an uncertain payoff and a
+          long settlement time; our transition estimates run six months to
+          two years for well-matched moves. Keeping the day job during
+          that window does three measurable things. It removes desperation
+          from the acceptance decision, which is how Ford could wait for
+          roles that beat his last one. It finances the skill gap, the
+          courses and portfolio pieces our waterfalls itemize, out of
+          cash flow instead of savings. And it keeps the option of not
+          switching, which matters because some tested destinations
+          honestly fail the test, and finding that out while employed is
+          a bargain.
+        </p>
+        <p>
+          The cost is real and worth stating: parallel pivots run on
+          evenings and weekends, for a long time, and they are slower than
+          the burned-boat version when the burned boat works. The famous
+          survivors of quit-first are famous partly because survivorship
+          is the whole selection. The day-job cohort has less dramatic
+          stories and, we suspect, a far better median outcome. Medians do
+          not give interviews.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          If your pivot can be run in parallel, run it in parallel: the
+          data on transition time, the arithmetic of skill-gap financing,
+          and the two most beloved day-job stories in Hollywood all point
+          the same direction. Use the instrument to size the gap, use the
+          paycheck to fund it, and hold the standard Ford held: the next
+          move has to beat the last one, or you keep the saw. This site
+          is built on evenings and weekends around a full-time design
+          job, so the advice is at least eaten where it is cooked.
+        </p>
+        <Sources>
+          <p>
+            Ford: contemporaneous accounts and his own interviews on the
+            carpentry years, circa 1970 to 1977. Jeong: NPR interviews and
+            his documented medical training and practice. Transition-time
+            estimates and skill-gap waterfalls: PivotHop July 2026 run.
+            Survivorship caveat applied throughout, including to the
+            examples themselves.
           </p>
         </Sources>
       </>
