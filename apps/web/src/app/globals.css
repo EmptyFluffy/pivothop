@@ -142,11 +142,19 @@
   /* ── how: numbered rows ── */
   .how{padding:96px 30px 100px;border-bottom:1px solid var(--ink)}
   .how .h-cap{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:44px}
-  .how .step{display:grid;grid-template-columns:170px 300px 1fr;gap:28px;align-items:baseline;padding:30px 0;border-top:0.5px solid var(--rule)}
+  .how .step{display:grid;grid-template-columns:170px 300px 1fr;gap:28px;align-items:center;padding:26px 0;border-top:0.5px solid var(--rule)}
   .how .step:first-of-type{border-top:none;padding-top:0}
-  .how .n{font-weight:700;font-size:76px;letter-spacing:-.04em;line-height:.9;color:var(--ink)}
   .how h4{font-weight:600;font-size:21px;letter-spacing:-.01em}
   .how p{font-size:15px;color:var(--ink-2);max-width:52ch}
+  /* 1-bit pixel icons, desktop-icon style: tile + mono label, classic selection
+     inversion on hover. crispEdges keeps the pixels hard at any size. */
+  .m-slot{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+  .m-ico{width:84px;height:84px;display:grid;place-items:center;border:1px solid var(--ink);color:var(--ink);background:transparent;transition:background .14s ease,color .14s ease}
+  .m-ico svg{width:52px;height:52px;shape-rendering:crispEdges;display:block}
+  .step:hover .m-ico{background:var(--ink);color:var(--paper)}
+  .m-ix{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-3);padding-left:2px}
+  .m-stat{display:block;margin-top:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .m-stat:empty{display:none}
 
   /* ── manifesto: the color block ── */
   .manif{background:var(--accent);color:#fff;padding:110px 30px 116px}
@@ -247,8 +255,10 @@
     .rail .d-undo{margin-top:0}
     .graph-stage{height:64vh;min-height:420px}
     .proof{flex-direction:column;align-items:flex-start}
-    .how .step{grid-template-columns:1fr;gap:8px}
-    .how .n{font-size:52px}
+    .how .step{grid-template-columns:1fr;gap:10px}
+    .how .m-slot{flex-direction:row;align-items:center}
+    .how .m-ico{width:56px;height:56px}
+    .how .m-ico svg{width:36px;height:36px}
     .capture{grid-template-columns:1fr;gap:36px}
     .foot{grid-template-columns:1fr 1fr;gap:32px}
   }

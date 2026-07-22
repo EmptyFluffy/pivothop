@@ -19,6 +19,15 @@ export async function initCloud(canvas, capEl) {
       ' live postings · ' + stats.connections.toLocaleString() +
       ' measured connections · rebuilt daily';
   }
+  // Method-section stat lines pull from the same nightly stats — one source, no drift.
+  const MSTAT = {
+    occupations: stats.occupations + ' occupations tracked',
+    postings: stats.postings.toLocaleString() + ' live postings, reread nightly',
+    connections: stats.connections.toLocaleString() + ' measured connections',
+  };
+  document.querySelectorAll('[data-mstat]').forEach((el) => {
+    if (MSTAT[el.dataset.mstat]) el.textContent = MSTAT[el.dataset.mstat];
+  });
 
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const ctx = canvas.getContext('2d');
