@@ -421,7 +421,7 @@ export const POSTS: Post[] = [
         </p>
         <h3>Half-life arithmetic</h3>
         <p>
-          Here is the calculation that matters. Suppose the move you want pays
+          The calculation that matters is a short one. Suppose the move you want pays
           40 percent more but needs a two-year credential. If you are ten
           years from the end of your working life, the raise pays for the
           gate several times over. If you are three years out, it may never
@@ -466,9 +466,9 @@ export const POSTS: Post[] = [
           in writing.
         </p>
         <p>
-          The answer, across 132 occupations with enough postings to trust:
+          The answer, across <strong>132 occupations</strong> with enough postings to trust:
           <strong> data analysis and systems monitoring tie at the top</strong>,
-          each appearing meaningfully in the demand of 40 occupations.
+          each appearing meaningfully in the demand of <strong>40 occupations</strong>.
         </p>
         <div className="post-bars">
           {[['Data analysis', 40], ['Systems monitoring', 40], ['Project management', 33], ['Supply chain', 30], ['Training & facilitation', 28], ['Customer service', 22], ['Process improvement', 21], ['Python', 20], ['SQL', 19], ['Professional writing', 19]].map(([k, v]) => (
@@ -570,9 +570,8 @@ export const POSTS: Post[] = [
         <h3>The pay cut is a risk, not a rule</h3>
         <p>
           The standard assumption is that changing fields means starting over on
-          salary. We measured it. Across 148 strong adjacencies in our graph,
-          moves where your current skills already cover at least half of what the destination asks for, <strong>36 percent point somewhere that posts a higher salary midpoint</strong> than where you started. One move in three is a raise,
-          not a sacrifice. The trick is that those moves are unevenly
+          salary. We measured it. Across <strong>148 strong adjacencies</strong> in our graph,
+          moves where your current skills already cover at least half of what the destination asks for, <strong>36 percent point somewhere that posts a higher salary midpoint</strong> than where you started. <strong>One move in three is a raise</strong>, not a sacrifice. The trick is that those moves are unevenly
           advertised: nobody recruits you into them, because recruiters search
           titles and your title is wrong.
         </p>
@@ -638,9 +637,7 @@ export const POSTS: Post[] = [
         <p>
           Nursing produces more exit talk than almost any profession, for
           reasons that need no explanation to anyone who has worked a floor
-          shift. We wanted destination data instead of discourse, so we
-          mapped 1,698 live nursing postings against every other profession we
-          track. What comes back is coherent, a little sobering, and more
+          shift. We wanted destination data instead of discourse, so we mapped <strong>1,698 live nursing postings</strong> against every other profession we track. What comes back is coherent, a little sobering, and more
           useful than the listicles.
         </p>
         <h3>The five best exits are all licensed</h3>
@@ -651,7 +648,7 @@ export const POSTS: Post[] = [
           roles.
         </p>
         <p>
-          Every single top exit runs through a license.
+          <strong>Every single top exit runs through a license.</strong>
           Healthcare does not really have adjacent careers; it has adjacent
           credentials. The skills transfer beautifully, patient assessment,
           documentation, care coordination, pharmacology basics, and then a
@@ -892,15 +889,14 @@ export const POSTS: Post[] = [
     title: 'Cluely, rage bait, and what the attention economy pays for',
     pillar: 'Shape of Work',
     date: 'July 2026',
-    dek: 'A startup built on the slogan cheat on everything raised millions, hit a <strong>120 million dollar valuation</strong>, and then admitted its headline revenue was invented. There is a career lesson in here, and it is not the one the founders think.',
+    dek: 'A startup built on the slogan cheat on everything raised millions, hit a 120 million dollar valuation, and then admitted its headline revenue was invented. There is a career lesson in here, and it is not the one the founders think.',
     minutes: 7,
     body: (
       <>
         <p>
           If you missed the saga: Cluely launched in 2025 as an invisible AI
           assistant with the slogan cheat on everything, engineered its own
-          outrage cycle on purpose, and rode the anger to a 15 million dollar
-          round from Andreessen Horowitz and a valuation around 120 million.
+          outrage cycle on purpose, and rode the anger to a <strong>15 million dollar round</strong> from Andreessen Horowitz and a valuation around <strong>120 million</strong>.
           The founder gave interviews explaining that provocation was the
           strategy. Rage bait as go-to-market, said out loud, with a straight
           face.
@@ -1070,8 +1066,7 @@ export const POSTS: Post[] = [
         <h3>The census</h3>
         <p>
           <strong>Forward-deployed engineer: 337 postings</strong>, the clear leader, covered
-          at length in its own piece. Agentic roles, engineers and product
-          people building AI agents: 188 postings and climbing fast, the
+          at length in its own piece. Agentic roles, engineers and product people building AI agents: <strong>188 postings</strong> and climbing fast, the
           phrase spreading from labs into commerce and operations titles.
           Prompt engineer: 72 postings. Model evaluator: 13. AI red-teamer:
           11. AI safety roles: 11. Responsible AI titles: a handful.
@@ -1166,8 +1161,7 @@ export const POSTS: Post[] = [
         <p>
           X made the loudest move: in January 2026 it discarded its legacy
           ranking stack entirely for a Grok-based transformer that reads every
-          post and watches every video, making around 5 billion ranking
-          decisions daily. The reported weights tell you what the model is
+          post and watches every video, making around <strong>5 billion ranking decisions daily</strong>. The reported weights tell you what the model is
           for. A reply counts roughly <strong>27 times a like</strong>. A genuine
           back-and-forth conversation, roughly 150 times. Likes, the currency
           of the 2010s, are now the copper coin. Even the Following feed is
@@ -1257,7 +1251,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'seo-died-again',
-    title: 'SEO died again in 2026. Here is what the survivors are doing',
+    title: 'SEO died again in 2026. What the survivors are doing differently',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Half of Google searches now show an AI answer and most end without a click. The discipline is not dead, but it has been reorganized around one question: what makes a machine cite you?',
@@ -1273,8 +1267,7 @@ export const POSTS: Post[] = [
           SEO has died more times than rock and roll. This particular death,
           though, has numbers attached. AI Overviews, the Gemini-written
           answers at the top of Google, appeared on about 6.5 percent of
-          queries in January 2025 and appear on roughly <strong>48 percent of searches</strong> now. Between 58 and 68 percent of searches end with no
-          click to any website. When an AI summary is present, clicks on
+          queries in January 2025 and appear on roughly <strong>48 percent of searches</strong> now. Between <strong>58 and 68 percent</strong> of searches end with no click to any website. When an AI summary is present, clicks on
           traditional results reportedly drop by nearly half, and in the
           conversational AI Mode, <strong>93 percent</strong> of sessions end without a click. If your business model was ranking pages and harvesting the
           clicks, that model has been repossessed.
@@ -1353,15 +1346,14 @@ export const POSTS: Post[] = [
     minutes: 7,
     faq: [
       { q: 'How much do SEO specialists make in 2026?', a: 'In our data, the blended US median for SEO specialists is about 79,700 dollars, from 120 salary observations across 178 postings. For context, content strategists sit near 84,700, data analysts near 97,000, and marketing managers near 125,900 in the same corpus.' },
-      { q: 'Is SEO a good career now that AI answers most searches?', a: 'It is a changing one. Demand in our corpus is steady and the discipline is being rewritten toward AI visibility work (getting cited by answer engines), which favors people who can combine content judgment with measurement. The ceiling opens when the role broadens toward strategy or analytics.' },
-      { q: 'What does an SEO specialist transition into?', a: 'By measured skill overlap in our graph: marketing manager (32 percent), copywriter (31), content strategist (30), and social media manager (26), with marketing management carrying roughly a 46,000 dollar median premium over the specialist role.' },
+      { q: 'Is SEO a good career now that AI answers most searches?', a: 'It is a changing one. Demand in our corpus is steady and the discipline is being rewritten toward AI visibility work (getting cited by answer engines), which favors people who can combine content judgment with numbers. The ceiling opens when the role broadens toward strategy or analytics.' },
+      { q: 'What does an SEO specialist transition into?', a: 'By skill overlap in our graph: marketing manager (32 percent), copywriter (31), content strategist (30), and social media manager (26), with marketing management carrying roughly a 46,000 dollar median premium over the specialist role.' },
     ],
     body: (
       <>
         <p>
           There is a whole profession built on being findable, and right now
-          it is having the strangest year of its existence. We track 178 SEO
-          specialist postings in our corpus, 120 of them with stated pay.
+          it is having the strangest year of its existence. We track <strong>178 SEO specialist postings</strong> in our corpus, 120 of them with stated pay.
           The blended US median: about <strong>79,700 dollars</strong>. That number, and the
           numbers around it, tell a sharper career story than the discourse
           does.
@@ -1582,8 +1574,7 @@ export const POSTS: Post[] = [
         <p>
           Ken Jeong finished internal medicine training at the University
           of North Carolina and practiced for years, New Orleans, then Los
-          Angeles, seeing patients by day and doing stand-up at night. The
-          license stayed active long after the comedy started working. The
+          Angeles, seeing patients by day and doing stand-up at night. <strong>The license stayed active</strong> long after the comedy started working. The
           pivot completed only when the destination could carry the
           income, not when the frustration peaked.
         </p>
@@ -1790,7 +1781,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'remote-premium-illusion',
-    title: 'We tried to verify the remote-pay premium and mostly failed. Here is the whole file',
+    title: 'We tried to verify the remote-pay premium and mostly failed. The whole file, published',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Our own data says remote software jobs post 87 percent more than onsite ones. We no longer believe that number as stated, and the reasons apply to every remote-salary statistic you have ever read.',
@@ -2176,8 +2167,7 @@ export const POSTS: Post[] = [
       <>
         <p>
           Two announcements, eighteen months apart, describe the whole
-          situation. In January 2025 Amazon ordered about 350,000 corporate
-          employees back five days a week. In April 2025 the Tokyo
+          situation. In January 2025 Amazon ordered about <strong>350,000 corporate employees</strong> back five days a week. In April 2025 the Tokyo
           Metropolitan Government, one of the largest employers in Japan,
           gave its workers a four-day option to fight burnout and a
           collapsing birth rate. The biggest names in world employment are
