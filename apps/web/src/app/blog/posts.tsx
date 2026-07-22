@@ -1620,4 +1620,287 @@ export const POSTS: Post[] = [
       </>
     ),
   },
+
+  {
+    slug: 'salary-secrecy-ranking',
+    title: 'The salary secrecy ranking: which professions will not tell you what they pay',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'Sales engineering postings state pay 44 percent of the time. Police postings, 98. We ranked 60 professions by how often they publish a number, and the pattern says more about power than about money.',
+    minutes: 7,
+    faq: [
+      { q: 'What percentage of job postings include salary?', a: 'In our July 2026 corpus of 74,470 postings, 70 percent state pay in some form. The range across professions is wide, from 44 percent in sales engineering to 98 percent in police work.' },
+      { q: 'Why do so many job postings hide the salary?', a: 'The strongest pattern in our data is that opacity tracks negotiation culture. Fields where individual deal-making is part of the job, sales and consulting above all, publish pay least. Fields with unions, civil service scales, or licensure publish it most.' },
+      { q: 'Which jobs are most transparent about pay?', a: 'Police officer postings state pay 98 percent of the time in our corpus, followed by teaching assistants at 96, medical writers at 95, MEP engineers at 94, and UX researchers at 92.' },
+    ],
+    body: (
+      <>
+        <p>
+          Seventy percent of the 74,470 postings in our corpus state a salary.
+          The other thirty percent are not distributed randomly, and the shape
+          of who hides pay turned out to be the most interesting ranking we
+          have produced this year.
+        </p>
+        <div className="post-callout"><b>44% vs 98%</b><span>share of postings that state pay: <strong>sales engineering</strong> at the secretive end, <strong>police work</strong> at the transparent end. Same economy, same month.</span></div>
+        <table className="post-table">
+          <caption>Share of postings stating pay, professions with 150+ postings · PivotHop, July 2026</caption>
+          <thead><tr><th>Most secretive</th><th className="num">States pay</th><th>Most transparent</th><th className="num">States pay</th></tr></thead>
+          <tbody>
+            <tr><td>Sales engineer</td><td className="num"><strong>44%</strong></td><td>Police officer</td><td className="num"><strong>98%</strong></td></tr>
+            <tr><td>Management consultant</td><td className="num">45%</td><td>Teaching assistant</td><td className="num">96%</td></tr>
+            <tr><td>Account executive</td><td className="num">47%</td><td>Medical writer</td><td className="num">95%</td></tr>
+            <tr><td>DevOps engineer</td><td className="num">48%</td><td>MEP engineer</td><td className="num">94%</td></tr>
+            <tr><td>Sales representative</td><td className="num">50%</td><td>UX researcher</td><td className="num">92%</td></tr>
+            <tr><td>Security engineer</td><td className="num">52%</td><td>Therapist / counselor</td><td className="num">90%</td></tr>
+          </tbody>
+        </table>
+        <h3>The pattern is negotiation, not money</h3>
+        <p>
+          A first guess would be that high salaries hide and low salaries
+          show. The table does not support it. Security engineers earn well
+          and hide pay; medical writers earn well and publish it. What the
+          secretive column shares is something else. In every one of those
+          fields, negotiating is part of the work itself. Sales roles
+          negotiate for a living. Consultants price engagements. The
+          employers hiring them treat the salary conversation as the first
+          test of the skill they are buying.
+        </p>
+        <p>
+          The transparent column mirrors it. Civil service scales, union
+          agreements, licensure bands, grant-funded positions: places where
+          pay is set by a schedule rather than a conversation. A police
+          department cannot improvise your number, so it prints it.
+        </p>
+        <h3>What opacity costs the candidate</h3>
+        <p>
+          A posting without a number moves the first offer to the end of the
+          process, after you have spent interview hours and started wanting
+          the job. Research on anchoring says whoever names the first figure
+          shapes the range, and a company that has seen ten thousand offers
+          knows the market better than someone who changes jobs every three
+          years. Opacity is not an oversight. It is a position.
+        </p>
+        <p>
+          Transparency laws in Colorado, California, New York, and Washington
+          have pushed the published share up in those states, which our
+          corpus reflects unevenly across sources. The professional pattern
+          survives the legal one, though. Even where the law requires a
+          band, sales postings publish wider bands than nursing postings do.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          If you work in a secretive field, assume the missing number is a
+          strategy and prepare accordingly. Look up the band before the
+          first call. Our salary pages carry blended figures for 152
+          occupations, built from the postings that do state pay plus
+          official statistics, precisely so that a blank posting does not
+          leave you blank too. And if you are choosing between fields, the
+          transparency column is worth a glance for its own sake. It tells
+          you in advance how much of your career will be spent haggling.
+        </p>
+        <Sources>
+          <p>
+            PivotHop corpus, July 2026: 74,470 mapped postings, thirteen
+            sources; occupations shown have at least 150 postings. Stating
+            pay means any salary figure or range in the structured posting
+            data. Source mix affects levels (boards differ in salary-field
+            requirements), which is why we rank professions against each
+            other within the same corpus rather than quoting absolute rates
+            as universal truths.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'remote-premium-illusion',
+    title: 'We tried to verify the remote-pay premium and mostly failed. Here is the whole file',
+    pillar: 'Run It 10,000 Times',
+    date: 'July 2026',
+    dek: 'Our own data says remote software jobs post 87 percent more than onsite ones. We no longer believe that number as stated, and the reasons apply to every remote-salary statistic you have ever read.',
+    minutes: 8,
+    faq: [
+      { q: 'Do remote jobs really pay more?', a: 'Remote postings in mixed corpora show large apparent premiums (61 to 119 percent across ten occupations in ours), but most of the gap comes from composition: remote-first boards list senior tech-heavy roles while general boards list everything. The clean within-source comparison our data would need is not currently possible, so the true premium is smaller than headline numbers and partly unknown.' },
+      { q: 'Why are remote salary statistics unreliable?', a: 'Because remote and onsite postings usually come from different kinds of sources with different seniority, industry, and company profiles. Comparing their medians measures who posts where, not what remote work itself pays. Any remote-pay claim that does not address this composition problem should be discounted.' },
+      { q: 'What is a realistic remote pay expectation?', a: 'Anchor on the occupation first: official medians (BLS OEWS) plus posted bands for your field, then treat remote as a modifier that mostly widens the candidate pool rather than a guaranteed raise. For US software engineering, the official all-worker median is about 133,000 dollars while remote-board postings cluster far above it, and the truth for a given person sits between those poles.' },
+    ],
+    body: (
+      <>
+        <p>
+          Ten occupations in our data have enough salary observations on both
+          sides to compare remote postings against onsite ones. Every single
+          premium came out large. Security engineering, plus 119 percent.
+          Product management, plus 99. Software engineering, plus 87 on a
+          sample of 409 remote against 1,877 onsite. Numbers like that would
+          make a lovely headline, and we drafted one.
+        </p>
+        <p>Then we tried to break it, because that is the house rule.</p>
+        <table className="post-table">
+          <caption>Apparent remote premium, posted medians · PivotHop, July 2026</caption>
+          <thead><tr><th>Occupation</th><th className="num">Remote n</th><th className="num">Onsite n</th><th className="num">Apparent premium</th></tr></thead>
+          <tbody>
+            <tr><td>Security engineer</td><td className="num">42</td><td className="num">372</td><td className="num">+119%</td></tr>
+            <tr><td>Product manager</td><td className="num">102</td><td className="num">873</td><td className="num">+99%</td></tr>
+            <tr><td>Account executive</td><td className="num">165</td><td className="num">659</td><td className="num">+94%</td></tr>
+            <tr><td>Software engineer</td><td className="num">409</td><td className="num">1,877</td><td className="num"><strong>+87%</strong></td></tr>
+            <tr><td>Data scientist</td><td className="num">55</td><td className="num">491</td><td className="num">+61%</td></tr>
+          </tbody>
+        </table>
+        <h3>The break attempt</h3>
+        <p>
+          The problem hiding in that table is where each column comes from.
+          Our remote observations arrive mostly through remote-first boards,
+          which skew senior, tech-heavy, and venture-funded. The onsite pool
+          arrives mostly through general boards carrying everything from
+          federal agencies to regional firms. Comparing the two medians
+          measures which kinds of companies use which kinds of boards at
+          least as much as it measures a premium for working from home.
+        </p>
+        <p>
+          The clean test would compare remote and onsite postings inside one
+          source, same board, same employer mix. We ran it. It cannot be
+          done with our current data: the general boards barely flag remote
+          at all. Adzuna gave us <strong>11 remote software postings against
+          1,095 onsite</strong>, and single digits for every other
+          occupation we tried. A comparison that thin proves nothing in
+          either direction, so we are publishing the failure instead of the
+          headline.
+        </p>
+        <h3>What survives scrutiny</h3>
+        <p>
+          Three things, more modest than the table. Remote-first employers
+          do post high salaries; whatever the cause, those jobs exist and
+          are real money. The official anchor gives scale: the US all-worker
+          median for software engineering sits near <strong>133,000
+          dollars</strong> (BLS OEWS), and remote-board postings cluster
+          well above it, so the population posting remotely is simply not
+          the median population. And the direction of the bias is knowable
+          even where its size is not, which means any remote-pay figure you
+          read, including ours, is an upper bound until someone shows you a
+          same-source comparison.
+        </p>
+        <div className="post-pullq">
+          The premium is real for some people and an artifact for the
+          average person, and most published statistics cannot tell you
+          which one you are.
+        </div>
+        <h3>Where this leaves you</h3>
+        <p>
+          If you are negotiating a remote offer, use occupation-level
+          anchors rather than remote-market headlines: the blended bands on
+          our salary pages start from official statistics and declare their
+          posting bias. If you are choosing remote work expecting an
+          automatic 87 percent raise, expect instead a wider set of
+          employers competing for you, which is worth plenty and is not the
+          same thing. We will rerun the within-source test as general
+          boards improve their remote flags, and this page will change when
+          the evidence does.
+        </p>
+        <Sources>
+          <p>
+            Apparent premiums: posted salary medians, remote-flagged versus
+            not, minimum 30 observations per side, PivotHop July 2026 run.
+            Within-source test: Adzuna-only split, reported counts above.
+            Official anchor: BLS OEWS May 2024, SOC 15-1252 family. This
+            piece supersedes any earlier internal use of the raw premium
+            figures.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'stepping-stone-jobs',
+    title: 'Stepping-stone jobs: the careers that unlock other careers',
+    pillar: 'Unbundle the Job',
+    date: 'July 2026',
+    dek: 'Some jobs are destinations. Others are doors. We counted which occupations most often serve as the bridge that makes a second move possible, and construction management wins by a distance.',
+    minutes: 7,
+    faq: [
+      { q: 'What is a stepping-stone job?', a: 'A role whose skill profile meaningfully raises your readiness for a third occupation you could not reach well directly. In our graph, a destination counts as a bridge when routing through it lifts measured skill coverage toward the next role by a real margin.' },
+      { q: 'Which jobs open the most career doors?', a: 'By bridge frequency in our July 2026 graph: construction manager appears as the enabling middle step in 79 routes, project manager in 50, mechanical engineer in 40, compliance officer and maintenance technician in 38 each.' },
+      { q: 'Are stepping-stone jobs worth taking?', a: 'When two offers are close, the one with higher bridge frequency buys more future options. The trade is real: bridge roles are usually coordination-heavy and less specialized, which is exactly why their skills transfer onward.' },
+    ],
+    body: (
+      <>
+        <p>
+          Career advice treats every job as a destination. The graph
+          disagrees. When we compute two-hop routes between occupations,
+          certain roles keep appearing in the middle, not because people
+          want them forever but because holding one raises your reach
+          toward places you could not go directly. We started calling them
+          bridge roles, counted them, and the census surprised us.
+        </p>
+        <table className="post-table">
+          <caption>Occupations most often serving as the bridge in two-hop routes · PivotHop, July 2026</caption>
+          <thead><tr><th>Bridge role</th><th className="num">Routes it enables</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Construction manager</strong></td><td className="num"><strong>79</strong></td></tr>
+            <tr><td>Project manager</td><td className="num">50</td></tr>
+            <tr><td>Mechanical engineer</td><td className="num">40</td></tr>
+            <tr><td>Compliance officer</td><td className="num">38</td></tr>
+            <tr><td>Maintenance technician</td><td className="num">38</td></tr>
+            <tr><td>Industrial engineer</td><td className="num">35</td></tr>
+            <tr><td>Chemical engineer</td><td className="num">34</td></tr>
+            <tr><td>Dietitian</td><td className="num">33</td></tr>
+          </tbody>
+        </table>
+        <h3>Why coordination roles dominate</h3>
+        <p>
+          Construction management enabling 79 onward routes was not the
+          result we expected, and then it was obvious. The job is a
+          crossroads by construction, so to speak: budgets, contracts,
+          scheduling, safety, engineering coordination, client management.
+          Each of those threads is the entry fee to a different next field.
+          Project management, its office-park cousin, does the same work
+          for the white-collar half of the graph.
+        </p>
+        <p>
+          The engineering entries earn their place differently. A
+          mechanical or chemical engineering role adds hard technical
+          credit that stacks with whatever you brought, so it converts
+          arts-adjacent and operations profiles into candidates for
+          technical fields that would not have interviewed them before.
+          Dietitian, the odd one out, bridges healthcare profiles toward
+          counseling, education, and food-industry roles, a small hub in a
+          heavily licensed region of the graph where any transferable node
+          matters.
+        </p>
+        <div className="post-callout"><b>1</b><span>connection. That is the entire measured adjacency of <strong>photographer</strong> in our graph, the loneliest node we track. Hotel manager also sits at one. Some jobs are rooms with a single door.</span></div>
+        <h3>Islands, and what they mean</h3>
+        <p>
+          The opposite of a bridge is an island: an occupation whose skill
+          profile connects to almost nothing at measurable strength.
+          Photography and hotel management sit there in our current data,
+          partly because their real skills, composition, service instincts,
+          crisis calm, live below what postings write down. If you hold an
+          island job, the graph is not saying you are stuck. It is saying
+          your written profile undersells you, and the fix is documenting
+          the coordination and client work your title hides before you
+          apply outward.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          Use bridge frequency as a tiebreaker. When two offers pay
+          similarly, the one that appears more often as other people's
+          middle step buys you a wider future, and that is worth something
+          even if you never spend it. A year of construction or project
+          management is rarely anyone's dream. As an option on eight other
+          careers, it prices rather well.
+        </p>
+        <Sources>
+          <p>
+            Bridge counts: number of two-hop routes across all origins in
+            which each occupation appears as the enabling middle step
+            (readiness gain of at least 5 points over the direct route),
+            PivotHop July 2026 run, 132 origins with routes. Island
+            examples: occupations with a single edge at match 20 or above
+            among those with 150-plus postings. Try your own two-hop map
+            with the instrument on the front page; double-click any node to
+            travel.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
 ];
