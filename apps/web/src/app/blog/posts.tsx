@@ -2191,8 +2191,7 @@ export const POSTS: Post[] = [
           market data, <strong>54 percent of Fortune 100 employees</strong>
           were under full five-day requirements by mid-2025, against
           <strong> 11 percent a year earlier</strong>. Whatever executives
-          say about collaboration, a five-fold jump in one year is not a
-          measured pedagogical conclusion. It is a coordinated retreat to
+          say about collaboration, a five-fold jump in one year is not a considered pedagogical conclusion. It is a coordinated retreat to
           a default that leadership never stopped preferring, timed for a
           labor market where employers hold the cards.
         </p>
@@ -2224,8 +2223,7 @@ export const POSTS: Post[] = [
         <p>
           For candidates, the divergence converts location policy into a
           compensation term, whether anyone prices it or not. A five-day
-          mandate is a pay cut measured in commuting hours; a contractual
-          four-day term is a raise measured the same way. Our own data
+          mandate is a pay cut measured in commuting hours; a contractual four-day term is a raise counted the same way. Our own data
           says the market has not caught up to pricing either: postings
           rarely state arrangements plainly, remote-pay statistics are
           composition-riddled, and only 0.09 percent of ads commit to a
