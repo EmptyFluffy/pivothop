@@ -463,10 +463,10 @@ input:focus-visible{outline:none}
 .post-body strong{color:var(--ink);font-weight:600}
 
 /* ── the adjacency field: klein copy panel + compressed network, one band ── */
-.fieldband{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink);min-height:520px}
+.fieldband{display:grid;grid-template-columns:1fr 1fr;min-height:520px;container-type:inline-size}
 .fb-copy{background:var(--accent);color:#fff;padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
 .fb-eyebrow{color:rgba(255,255,255,.75);margin-bottom:22px}
-.fb-copy h3{font-family:var(--sans);font-weight:700;font-size:clamp(28px,3vw,42px);letter-spacing:-.025em;line-height:1.06;max-width:14ch;margin-bottom:18px}
+.fb-copy h3{font-family:var(--sans);font-weight:700;font-size:clamp(26px,4.3cqi - 9px,47px);letter-spacing:-.028em;line-height:1.05;margin-bottom:18px}
 .fb-copy p{font-size:15px;line-height:1.6;color:rgba(255,255,255,.85);max-width:40ch}
 .fb-stats{margin-top:34px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);line-height:2}
 .fb-viz{position:relative;background:var(--accent);

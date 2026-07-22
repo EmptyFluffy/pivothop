@@ -35,10 +35,10 @@ export default function FairElephant() {
             <div className="h-cap">Method</div>
             <h2>Open models, one score.</h2>
             <div className="mgrid">
-              <div className="mrow"><div className="n">01</div><h4>Market salary</h4><p>Percentile bands from live postings with stated pay, trimmed and floored at 30 observations per cell.</p></div>
-              <div className="mrow"><div className="n">02</div><h4>Official anchor</h4><p>BLS OEWS wage percentiles by occupation and US state. Posting bands are shrunk toward the anchor by sample size.</p></div>
-              <div className="mrow"><div className="n">03</div><h4>Purchasing power</h4><p>World Bank ICP price levels convert pay between countries at what money actually buys.</p></div>
-              <div className="mrow"><div className="n">04</div><h4>Remote market rate</h4><p>What comparable fully-remote roles pay, tracked across live postings daily.</p></div>
+              <div className="mrow"><div className="n">A</div><h4>Market salary</h4><p>Percentile bands from live postings with stated pay, trimmed and floored at 30 observations per cell.</p></div>
+              <div className="mrow"><div className="n">B</div><h4>Official anchor</h4><p>BLS OEWS wage percentiles by occupation and US state. Posting bands are shrunk toward the anchor by sample size.</p></div>
+              <div className="mrow"><div className="n">C</div><h4>Purchasing power</h4><p>World Bank ICP price levels convert pay between countries at what money actually buys.</p></div>
+              <div className="mrow"><div className="n">D</div><h4>Remote market rate</h4><p>What comparable fully-remote roles pay, tracked across live postings daily.</p></div>
             </div>
           </section>
 
