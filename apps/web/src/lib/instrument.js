@@ -597,7 +597,7 @@ export function mountInstrument(DATA,HOOKS){
     row('Skill readiness',o.match);
     row('Shared abilities',o.capability);
     row('Commonly done',o.mobility);
-    var src=(o.mobility==null)?'':(o.mobility_source==='observed-flow-us')?'observed US worker flow':(o.mobility_source==='observed-flow-eu')?'observed EU worker flow':(o.mobility_source==='related')?'O*NET related occupations':'';
+    var src=(o.mobility==null)?'':(o.mobility_source==='observed-flow-us')?'observed US worker flow':(o.mobility_source==='observed-flow-ctot')?'observed US worker flow (DOL CPS/SIPP)':(o.mobility_source==='observed-flow-eu')?'observed EU worker flow':(o.mobility_source==='related')?'O*NET related occupations':'';
     if(src)rows+='<div class="d-sig-src">'+src+'</div>';
     if(!rows)return '';
     return '<div class="dsk"><div class="cap">Why this fit</div><div class="d-sig">'+rows+'</div></div>';
@@ -814,7 +814,10 @@ export function mountInstrument(DATA,HOOKS){
     var fb=document.getElementById('railFilter');
     var hasKinds=ROLES.some(function(r){return r.kind;});
     if(fb){fb.style.display=hasKinds?'':'none';fb.classList.toggle('on',railPivotsOnly);fb.setAttribute('aria-pressed',railPivotsOnly?'true':'false');}
-    var sorted=ROLES.slice().sort(function(a,b){return b.match-a.match;});
+    /* Rank by fit when the payload carries it (observed mobility + abilities steer
+       the order, docs/15 Thread 7); match stays the displayed number. Personalized
+       recomputes lack fit and fall back to match order. */
+    var sorted=ROLES.slice().sort(function(a,b){return ((b.fit!=null?b.fit:b.match)-(a.fit!=null?a.fit:a.match))||(b.match-a.match);});
     if(railPivotsOnly&&hasKinds)sorted=sorted.filter(function(r){return r.kind==='pivot';});
     box.innerHTML=(sorted.map(function(r){
       return '<button class="rail-item" data-id="'+r.id+'"><span>'+r.title+'</span><span class="pc">'+r.match+'%</span></button>';
@@ -910,6 +913,7 @@ export function mountInstrument(DATA,HOOKS){
     var src='';
     if(o.mobility!=null){
       src=(o.mobility_source==='observed-flow-us')?'observed US worker flow':
+          (o.mobility_source==='observed-flow-ctot')?'observed US worker flow (DOL CPS/SIPP)':
           (o.mobility_source==='observed-flow-eu')?'observed EU worker flow':
           (o.mobility_source==='related')?'O*NET related occupations':'';
     }

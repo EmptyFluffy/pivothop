@@ -21,6 +21,119 @@
   },
   "roles": [
     {
+      "id": "real-estate-agent",
+      "title": "Real Estate Agent",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "license": {
+        "req": "required",
+        "label": "State real-estate license required"
+      },
+      "desc": "",
+      "match": 22,
+      "fit": 46,
+      "capability": null,
+      "mobility": 100,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$35k–$85k",
+      "salary_band": [
+        35663,
+        84982
+      ],
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Sales",
+        "Training & Facilitation",
+        "Excel",
+        "Account Management"
+      ],
+      "learn": [
+        "Customer Service",
+        "Scheduling",
+        "SAP",
+        "Accounting"
+      ],
+      "waterfall": [
+        {
+          "skill": "sales",
+          "name": "Sales",
+          "pts": 39,
+          "earned": 12.3
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 3.7,
+          "earned": 3.7
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 2.2,
+          "earned": 2.2
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 1.5,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 1.5,
+          "earned": 1.5
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 0.7,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 0.7,
+          "earned": 0.7
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 0.7,
+          "earned": 0.7
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 0.7,
+          "earned": 0.7
+        },
+        {
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 0.7,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 267,
+        "salaried": 187
+      }
+    },
+    {
       "id": "marketing-manager",
       "title": "Marketing Manager",
       "field": "Business",
@@ -182,170 +295,6 @@
       "provenance": {
         "postings": 1452,
         "salaried": 933
-      }
-    },
-    {
-      "id": "management-consultant",
-      "title": "Management Consultant",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "lateral",
-      "license": null,
-      "desc": "",
-      "match": 34,
-      "fit": 25,
-      "capability": null,
-      "mobility": 6,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 5,
-      "mobility_tier": null,
-      "salary": "$45k–$95k",
-      "salary_band": [
-        47052,
-        94608
-      ],
-      "demand": "High",
-      "remote": "20%",
-      "time": "12–24 mo",
-      "have": [
-        "Project Management",
-        "Data Analysis",
-        "Presentation",
-        "Account Management"
-      ],
-      "learn": [
-        "Sustainability",
-        "SAP",
-        "SQL",
-        "CRM"
-      ],
-      "waterfall": [
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 11.5,
-          "earned": 3.8
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 8.4,
-          "earned": 4.8
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 7.5,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 7.3,
-          "earned": 4.8
-        },
-        {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 6.2,
-          "earned": 3.8
-        },
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 6.1,
-          "earned": 0
-        },
-        {
-          "skill": "sql",
-          "name": "SQL",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4.6,
-          "earned": 3.8
-        },
-        {
-          "skill": "crm",
-          "name": "CRM",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "salesforce",
-          "name": "Salesforce",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "aws",
-          "name": "AWS",
-          "pts": 4.1,
-          "earned": 4.1
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4,
-          "earned": 2.8
-        },
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "rest-apis",
-          "name": "REST APIs",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 3.3,
-          "earned": 3.3
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "product-management",
-          "name": "Product Management",
-          "pts": 3.2,
-          "earned": 3.2
-        },
-        {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 3.1,
-          "earned": 0
-        },
-        {
-          "skill": "java",
-          "name": "Java",
-          "pts": 2.9,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1818,
-        "salaried": 805
       }
     },
     {
@@ -677,167 +626,331 @@
       }
     },
     {
-      "id": "event-planner",
-      "title": "Event Planner",
+      "id": "management-consultant",
+      "title": "Management Consultant",
       "field": "Business",
       "cluster": "Business",
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 28,
-      "fit": 19,
+      "match": 34,
+      "fit": 25,
       "capability": null,
-      "mobility": 0,
+      "mobility": 6,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 3,
+      "mobility_eu": 5,
       "mobility_tier": null,
-      "salary": "$45k–$85k",
+      "salary": "$45k–$95k",
       "salary_band": [
-        44208,
-        83548
+        47052,
+        94608
       ],
-      "demand": "Moderate",
-      "remote": "1%",
+      "demand": "High",
+      "remote": "20%",
       "time": "12–24 mo",
       "have": [
-        "Event Planning",
-        "Supply Chain",
         "Project Management",
-        "Excel"
+        "Data Analysis",
+        "Presentation",
+        "Account Management"
       ],
       "learn": [
-        "Customer Service",
-        "FEA / Simulation",
-        "Lean / Six Sigma",
-        "Scheduling"
+        "Sustainability",
+        "SAP",
+        "SQL",
+        "CRM"
       ],
       "waterfall": [
         {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 44.8,
-          "earned": 3.8
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 14.6,
-          "earned": 3.8
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 7.3,
-          "earned": 0
-        },
-        {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 5.2,
-          "earned": 5.1
+          "pts": 11.5,
+          "earned": 3.8
         },
         {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 3.1,
-          "earned": 2.5
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 8.4,
+          "earned": 4.8
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 7.5,
+          "earned": 0
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 2.1,
-          "earned": 2.1
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "sales",
-          "name": "Sales",
-          "pts": 2.1,
-          "earned": 2.1
-        },
-        {
-          "skill": "contracts",
-          "name": "Contracts",
-          "pts": 2.1,
-          "earned": 2.1
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 2.1,
-          "earned": 2.1
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 2.1,
-          "earned": 2.1
+          "pts": 7.3,
+          "earned": 4.8
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 2.1,
-          "earned": 2.1
+          "pts": 6.2,
+          "earned": 3.8
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 2.1,
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 6.1,
           "earned": 0
         },
         {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 2.1,
+          "skill": "sql",
+          "name": "SQL",
+          "pts": 4.8,
           "earned": 0
         },
         {
-          "skill": "accessibility",
-          "name": "Accessibility",
-          "pts": 1,
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 4.6,
+          "earned": 3.8
+        },
+        {
+          "skill": "crm",
+          "name": "CRM",
+          "pts": 4.5,
           "earned": 0
         },
         {
-          "skill": "content-marketing",
-          "name": "Content Marketing",
-          "pts": 1,
+          "skill": "salesforce",
+          "name": "Salesforce",
+          "pts": 4.3,
           "earned": 0
         },
         {
-          "skill": "data-visualization",
-          "name": "Data Visualization",
-          "pts": 1,
+          "skill": "aws",
+          "name": "AWS",
+          "pts": 4.1,
+          "earned": 4.1
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 4,
+          "earned": 2.8
+        },
+        {
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 3.9,
           "earned": 0
         },
         {
-          "skill": "stakeholder-management",
-          "name": "Stakeholder Management",
-          "pts": 1,
+          "skill": "rest-apis",
+          "name": "REST APIs",
+          "pts": 3.5,
           "earned": 0
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 3.3,
+          "earned": 3.3
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "product-management",
+          "name": "Product Management",
+          "pts": 3.2,
+          "earned": 3.2
         },
         {
           "skill": "agile",
           "name": "Agile",
-          "pts": 1,
+          "pts": 3.1,
           "earned": 0
         },
         {
-          "skill": "grant-writing",
-          "name": "Grant Writing",
-          "pts": 1,
+          "skill": "java",
+          "name": "Java",
+          "pts": 2.9,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 139,
-        "salaried": 128
+        "postings": 1818,
+        "salaried": 805
+      }
+    },
+    {
+      "id": "economist",
+      "title": "Economist",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 24,
+      "fit": 24,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$115k–$290k",
+      "salary_band": [
+        117304,
+        287913
+      ],
+      "demand": "Moderate",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "AWS",
+        "Data Analysis",
+        "Market Research",
+        "Presentation"
+      ],
+      "learn": [
+        "Forecasting",
+        "Accounting",
+        "Statistics",
+        "Translation"
+      ],
+      "waterfall": [
+        {
+          "skill": "aws",
+          "name": "AWS",
+          "pts": 20.5,
+          "earned": 5.1
+        },
+        {
+          "skill": "forecasting",
+          "name": "Forecasting",
+          "pts": 11.2,
+          "earned": 0
+        },
+        {
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 6.8,
+          "earned": 0
+        },
+        {
+          "skill": "statistics",
+          "name": "Statistics",
+          "pts": 6.8,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 5.6,
+          "earned": 4.2
+        },
+        {
+          "skill": "market-research",
+          "name": "Market Research",
+          "pts": 5.6,
+          "earned": 2.5
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 5,
+          "earned": 4.2
+        },
+        {
+          "skill": "translation",
+          "name": "Translation",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "policy-analysis",
+          "name": "Policy Analysis",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "sql",
+          "name": "SQL",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "llm",
+          "name": "LLMs / Generative AI",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.1,
+          "earned": 2.5
+        },
+        {
+          "skill": "machine-learning",
+          "name": "Machine Learning",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "clio",
+          "name": "Clio / Relativity",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "law-enforcement",
+          "name": "Law Enforcement",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 2.5,
+          "earned": 2.5
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 2.5,
+          "earned": 2.5
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 155,
+        "salaried": 132
       }
     },
     {
@@ -1002,173 +1115,6 @@
       "provenance": {
         "postings": 237,
         "salaried": 219
-      }
-    },
-    {
-      "id": "lawyer",
-      "title": "Lawyer",
-      "field": "Legal",
-      "cluster": "Legal",
-      "kind": "pivot",
-      "license": {
-        "req": "required",
-        "label": "Bar admission required — jurisdiction-specific"
-      },
-      "desc": "",
-      "match": 26,
-      "fit": 19,
-      "capability": null,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 4,
-      "mobility_tier": null,
-      "salary": "$95k–$185k",
-      "salary_band": [
-        97465,
-        183240
-      ],
-      "demand": "High",
-      "remote": "9%",
-      "time": "12–24 mo",
-      "have": [
-        "Contracts",
-        "Negotiation",
-        "Procurement",
-        "Excel"
-      ],
-      "learn": [
-        "Compliance",
-        "HR Operations",
-        "Criminal Investigation",
-        "Case Management"
-      ],
-      "waterfall": [
-        {
-          "skill": "contracts",
-          "name": "Contracts",
-          "pts": 19.9,
-          "earned": 4.5
-        },
-        {
-          "skill": "negotiation",
-          "name": "Negotiation",
-          "pts": 10.7,
-          "earned": 5.8
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 6.3,
-          "earned": 0
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 6.2,
-          "earned": 0
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 6.2,
-          "earned": 4.5
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "case-management",
-          "name": "Case Management",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "llm",
-          "name": "LLMs / Generative AI",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "risk-management",
-          "name": "Risk Management",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "law-enforcement",
-          "name": "Law Enforcement",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 4,
-          "earned": 1.3
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.3,
-          "earned": 1.9
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 3.3,
-          "earned": 2.6
-        },
-        {
-          "skill": "cybersecurity",
-          "name": "Cybersecurity",
-          "pts": 3.1,
-          "earned": 1.3
-        },
-        {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 2.4,
-          "earned": 2.4
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 2.4,
-          "earned": 0
-        },
-        {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
-          "pts": 2,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 2,
-          "earned": 2
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 408,
-        "salaried": 269
       }
     },
     {
@@ -1337,6 +1283,62 @@
     }
   ],
   "next": {
+    "real-estate-agent": [
+      {
+        "t": "Real Estate Agent",
+        "m": 22,
+        "slug": "real-estate-agent",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Customer Service",
+          "Scheduling",
+          "SAP",
+          "Accounting"
+        ],
+        "observed": null,
+        "fit": 46,
+        "capability": null,
+        "mobility": 100,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "real-estate-agent",
+          "readiness_after": 100,
+          "gain": 78
+        }
+      },
+      {
+        "t": "Facilities Manager",
+        "m": 22,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Maintenance",
+          "Customer Service",
+          "Sustainability",
+          "Safety / OSHA"
+        ],
+        "observed": null,
+        "fit": 20,
+        "capability": null,
+        "mobility": 17,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 17,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "real-estate-agent",
+          "readiness_after": 40,
+          "gain": 18
+        }
+      }
+    ],
     "marketing-manager": [
       {
         "t": "Product Analyst",
@@ -1363,62 +1365,6 @@
           "parent": "marketing-manager",
           "readiness_after": 30,
           "gain": 9
-        }
-      }
-    ],
-    "management-consultant": [
-      {
-        "t": "Chemical Engineer",
-        "m": 23,
-        "slug": "chemical-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Lean / Six Sigma",
-          "Sustainability",
-          "Spec Writing",
-          "Compliance"
-        ],
-        "observed": null,
-        "fit": 16,
-        "capability": null,
-        "mobility": 0,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "management-consultant",
-          "readiness_after": 43,
-          "gain": 20
-        }
-      },
-      {
-        "t": "Business Analyst",
-        "m": 22,
-        "slug": "business-analyst",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "HR Operations",
-          "Lean / Six Sigma",
-          "Scheduling",
-          "Observability"
-        ],
-        "observed": null,
-        "fit": 17,
-        "capability": null,
-        "mobility": 6,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 3,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "management-consultant",
-          "readiness_after": 42,
-          "gain": 20
         }
       }
     ],
@@ -1480,6 +1426,33 @@
     ],
     "project-manager": [
       {
+        "t": "Compliance Officer",
+        "m": 26,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Observability",
+          "Risk Management",
+          "Quality Control"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": null,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 4,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "project-manager",
+          "readiness_after": 47,
+          "gain": 21
+        }
+      },
+      {
         "t": "Creative Director",
         "m": 26,
         "slug": "creative-director",
@@ -1505,120 +1478,65 @@
           "readiness_after": 39,
           "gain": 13
         }
-      },
+      }
+    ],
+    "management-consultant": [
       {
-        "t": "Industrial Engineer",
-        "m": 25,
-        "slug": "industrial-engineer",
+        "t": "Chemical Engineer",
+        "m": 23,
+        "slug": "chemical-engineer",
         "field": "Engineering",
         "cluster": "Engineering & Manufacturing",
         "kind": "pivot",
         "gap": [
           "Lean / Six Sigma",
-          "FEA / Simulation",
-          "Welding / Fabrication",
-          "Quality Control"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": null,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "project-manager",
-          "readiness_after": 41,
-          "gain": 16
-        }
-      }
-    ],
-    "event-planner": [
-      {
-        "t": "Real Estate Agent",
-        "m": 22,
-        "slug": "real-estate-agent",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Customer Service",
-          "Scheduling",
-          "SAP",
-          "Accounting"
-        ],
-        "observed": null,
-        "fit": 46,
-        "capability": null,
-        "mobility": 100,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "event-planner",
-          "readiness_after": 48,
-          "gain": 26
-        }
-      },
-      {
-        "t": "Facilities Manager",
-        "m": 22,
-        "slug": "facilities-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Maintenance",
-          "Customer Service",
           "Sustainability",
-          "Safety / OSHA"
+          "Spec Writing",
+          "Compliance"
         ],
         "observed": null,
-        "fit": 20,
+        "fit": 16,
         "capability": null,
-        "mobility": 17,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 17,
+        "mobility": 0,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "event-planner",
-          "readiness_after": 47,
-          "gain": 25
+          "parent": "management-consultant",
+          "readiness_after": 43,
+          "gain": 20
+        }
+      },
+      {
+        "t": "Business Analyst",
+        "m": 22,
+        "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "HR Operations",
+          "Lean / Six Sigma",
+          "Scheduling",
+          "Observability"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": null,
+        "mobility": 6,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 3,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "management-consultant",
+          "readiness_after": 42,
+          "gain": 20
         }
       }
     ],
-    "ux-researcher": [],
-    "lawyer": [
-      {
-        "t": "Compliance Officer",
-        "m": 26,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Compliance",
-          "Observability",
-          "Risk Management",
-          "Quality Control"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": null,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 4,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "lawyer",
-          "readiness_after": 63,
-          "gain": 37
-        }
-      },
+    "economist": [
       {
         "t": "Economist",
         "m": 24,
@@ -1641,12 +1559,40 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "lawyer",
-          "readiness_after": 39,
-          "gain": 15
+          "parent": "economist",
+          "readiness_after": 100,
+          "gain": 76
+        }
+      },
+      {
+        "t": "Recruiter",
+        "m": 21,
+        "slug": "recruiter",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
+        "gap": [
+          "Recruiting",
+          "Scheduling",
+          "Branding",
+          "Accounting"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": null,
+        "mobility": 2,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 8,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "economist",
+          "readiness_after": 33,
+          "gain": 12
         }
       }
     ],
+    "ux-researcher": [],
     "customer-success-manager": [
       {
         "t": "Construction Manager",
@@ -1728,24 +1674,24 @@
       "reach": "direct"
     },
     {
-      "t": "Recruiter",
-      "m": 21,
-      "slug": "recruiter",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "lateral",
+      "t": "Industrial Engineer",
+      "m": 25,
+      "slug": "industrial-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
       "gap": [
-        "Recruiting",
-        "Scheduling",
-        "Branding",
-        "Accounting"
+        "Lean / Six Sigma",
+        "FEA / Simulation",
+        "Welding / Fabrication",
+        "Quality Control"
       ],
       "observed": null,
-      "fit": 15,
+      "fit": 18,
       "capability": null,
-      "mobility": 2,
+      "mobility": 1,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 8,
+      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1784,13 +1730,13 @@
       0.44
     ],
     [
-      "management-consultant",
+      "executive-assistant",
       "project-manager",
       0.41
     ],
     [
-      "executive-assistant",
       "project-manager",
+      "management-consultant",
       0.41
     ],
     [
@@ -1806,13 +1752,8 @@
   ],
   "bridges": [
     [
-      "lawyer",
-      "executive-assistant_0",
-      0.86
-    ],
-    [
       "project-manager",
-      "event-planner_1",
+      "real-estate-agent_1",
       0.58
     ],
     [
@@ -1824,6 +1765,11 @@
       "project-manager",
       "management-consultant_0",
       0.5
+    ],
+    [
+      "project-manager",
+      "management-consultant_1",
+      0.49
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

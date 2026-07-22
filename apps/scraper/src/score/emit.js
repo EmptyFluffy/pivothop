@@ -133,11 +133,12 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     }
 
     const oMap = skillMap(oAgg);
-    const hops = (adj[origin] ?? []).slice(0, FIRST_HOPS);
-    const hopSlugs = new Set(hops.map((h) => h.dest));
 
     // Fit signals, normalized per-origin over this origin's candidate destinations so C, M
-    // and R share a 0..100 scale. R (skill readiness) stays the headline; fit is secondary.
+    // and R share a 0..100 scale. R (skill readiness) stays the headline number everywhere;
+    // fit RANKS (docs/15 Thread 7) — so a route people demonstrably take (high observed M)
+    // can surface even when cold skill overlap underrates it. Membership floor: match >= 12
+    // keeps pure-mobility ghosts with near-zero skill evidence off the graph.
     const cap = loadCapabilities();
     const rawC = new Map((adj[origin] ?? []).map((x) => [x.dest,
       cap?.vectors?.[origin] && cap?.vectors?.[x.dest] ? capabilitySimilarity(cap.vectors, origin, x.dest) : null]));
@@ -165,6 +166,16 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
       const fit = Math.round(parts.reduce((s, [w, v]) => s + w * v, 0) / wsum);
       return { fit, capability, mobility, mobility_source, mobility_eu: flowEu, mobility_tier: flow != null ? null : mobilityTier(origin, dest) };
     };
+
+    // Ring-1 membership and order: top FIRST_HOPS by fit over every scored candidate
+    // (not by raw match) — this is where the observed-mobility layer actually steers
+    // the graph. Ties break toward higher match, then the adjacency tie-break order.
+    const hops = (adj[origin] ?? [])
+      .filter((x) => x.match >= 12)
+      .map((x, i) => ({ ...x, _fit: fitSignals(x.dest, x.match).fit, _i: i }))
+      .sort((a, b) => (b._fit - a._fit) || (b.match - a.match) || (a._i - b._i))
+      .slice(0, FIRST_HOPS);
+    const hopSlugs = new Set(hops.map((h) => h.dest));
 
     const roles = hops.map((h) => {
       const d = agg[h.dest];
