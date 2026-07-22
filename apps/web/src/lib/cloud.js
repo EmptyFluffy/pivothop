@@ -22,6 +22,10 @@ export async function initCloud(canvas, capEl) {
 
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const ctx = canvas.getContext('2d');
+  const onBlue = canvas.dataset.theme === 'onblue';
+  const C = onBlue
+    ? { edge: (a) => `rgba(255,255,255,${a})`, edgeHot: 'rgba(255,255,255,0.9)', hub: 'rgba(255,255,255,0.95)', dot: 'rgba(255,255,255,0.6)', ring: '#ffffff', edgeBase: 0.05, edgeW: 0.13 }
+    : { edge: (a) => `rgba(0,47,166,${a})`, edgeHot: 'rgba(0,47,166,0.5)', hub: 'rgba(21,21,26,0.85)', dot: 'rgba(21,21,26,0.55)', ring: '#002FA6', edgeBase: 0.025, edgeW: 0.07 };
   let cw = 0, ch = 0;
   function size() {
     cw = canvas.clientWidth; ch = canvas.clientHeight;
@@ -50,16 +54,16 @@ export async function initCloud(canvas, capEl) {
     for (let k = 0; k < e.length; k++) {
       const ed = e[k], a = ed[0], b = ed[1];
       const hot = hoverIdx >= 0 && (a === hoverIdx || b === hoverIdx);
-      ctx.strokeStyle = hot ? 'rgba(0,47,166,0.5)' : 'rgba(0,47,166,' + (0.025 + ed[2] * 0.07) + ')';
+      ctx.strokeStyle = hot ? C.edgeHot : C.edge((C.edgeBase + ed[2] * C.edgeW).toFixed(3));
       ctx.beginPath(); ctx.moveTo(sx[a], sy[a]); ctx.lineTo(sx[b], sy[b]); ctx.stroke();
     }
     for (let i = 0; i < N; i++) {
       // ink-only dots, small: the accent belongs to the edges and the hover
       const r = (0.9 + Math.min(d[i], 60) / 60 * 0.9) * dpr;
-      ctx.fillStyle = d[i] > 34 ? 'rgba(21,21,26,0.85)' : 'rgba(21,21,26,0.55)';
+      ctx.fillStyle = d[i] > 34 ? C.hub : C.dot;
       ctx.beginPath(); ctx.arc(sx[i], sy[i], i === hoverIdx ? r + 1.6 * dpr : r, 0, 6.2832); ctx.fill();
       if (i === hoverIdx) {
-        ctx.strokeStyle = '#002FA6'; ctx.lineWidth = 1.2 * dpr;
+        ctx.strokeStyle = C.ring; ctx.lineWidth = 1.2 * dpr;
         ctx.beginPath(); ctx.arc(sx[i], sy[i], r + 4 * dpr, 0, 6.2832); ctx.stroke();
         ctx.lineWidth = 0.55 * dpr;
       }
