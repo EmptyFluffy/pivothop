@@ -18,6 +18,7 @@ import { analyzeFit } from './analyze/fit.js';
 import { demandAdjacency } from './analyze/demand-adjacency.js';
 import { analyzeFlow } from './score/mobility-flow.js';
 import { analyzeFlowEsco } from './score/mobility-flow-esco.js';
+import { analyzeFlowCtot } from './score/mobility-flow-ctot.js';
 import { redditTransitions } from './analyze/reddit-transitions.js';
 
 loadEnv();
@@ -115,6 +116,7 @@ switch (cmd) {
   case 'analyze:demand': demandAdjacency({ log }); break;
   case 'analyze:flow': analyzeFlow({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'analyze:flow-eu': analyzeFlowEsco({ log, origin: originFlag ?? arg ?? 'architect' }); break;
+  case 'analyze:flow-ctot': analyzeFlowCtot({ log, origin: originFlag ?? arg ?? 'electrician' }); break;
   case 'analyze:reddit': await redditTransitions({ log }); break;
   case 'salaries': await salaryBands({ log }); break;
   case 'status': status(); break;

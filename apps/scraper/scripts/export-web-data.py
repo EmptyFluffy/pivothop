@@ -41,7 +41,8 @@ def to_data(g):
     nxt = {r['id']: [kid(k) for k in g.get('next', {}).get(r['id'], [])] for r in g['roles']}
     o = g['origin']
     return {'originLabel': o['title'], 'originSlug': o['slug'], 'field': o.get('field', ''),
-            'postings': o.get('postings', 0), 'salary': o.get('salary'), 'roles': roles, 'next': nxt,
+            'postings': o.get('postings', 0), 'salary': o.get('salary'),
+            'separations': o.get('separations'), 'roles': roles, 'next': nxt,
             'cross': g.get('cross', []), 'bridges': g.get('bridges', [])}
 
 def fmt_sal(p25, p75):

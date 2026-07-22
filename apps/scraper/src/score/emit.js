@@ -6,7 +6,9 @@ import { skillName } from '../normalize/skills.js';
 import { loadCapabilities, capabilitySimilarity } from '../analyze/capability.js';
 import { mobilityScore, mobilityTier } from './mobility.js';
 import { mobilityFlowScore } from './mobility-flow.js';
+import { mobilityFlowCtotScore } from './mobility-flow-ctot.js';
 import { mobilityFlowEscoScore } from './mobility-flow-esco.js';
+import { separationsForSlug } from './separations.js';
 
 // Confidence tiers per the build playbook: <30 postings behind a number -> low-confidence
 // flag in the UI; an origin with <50 mapped postings total -> "insufficient data yet"
@@ -144,15 +146,20 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     const fitSignals = (dest, R) => {
       const cRaw = rawC.get(dest);
       const capability = cRaw == null ? null : Math.round(100 * (cRaw - cMin) / (cMax - cMin || 1));
-      // Primary mobility for the (US-focused) fit: observed US CPS flow, then EU observed
-      // flow to fill pairs the coarser US ACS can't resolve, then O*NET curated relatedness.
+      // Primary mobility for the (US-focused) fit: observed US CPS flow (OMN, deep panel),
+      // then CTOT CPS/SIPP flow (fresher, SOC-coded, mid-level origins) to fill pairs OMN
+      // can't resolve, then EU observed flow, then O*NET curated relatedness.
       // mobility_eu is the EU (Belgium) observed flow exposed separately, geography-labeled,
       // for the rail's disambiguation view — never blended into US magnitudes. (docs/15 Thread 6)
       const flow = mobilityFlowScore(origin, dest);
+      const flowCtot = mobilityFlowCtotScore(origin, dest);
       const flowEu = mobilityFlowEscoScore(origin, dest);
       const related = mobilityScore(origin, dest);
-      const mobility = flow ?? flowEu ?? related;
-      const mobility_source = flow != null ? 'observed-flow-us' : flowEu != null ? 'observed-flow-eu' : related != null ? 'related' : null;
+      const mobility = flow ?? flowCtot ?? flowEu ?? related;
+      const mobility_source = flow != null ? 'observed-flow-us'
+        : flowCtot != null ? 'observed-flow-ctot'
+        : flowEu != null ? 'observed-flow-eu'
+        : related != null ? 'related' : null;
       const parts = [[FIT_W.R, R], [FIT_W.C, capability], [FIT_W.M, mobility]].filter(([, v]) => v != null);
       const wsum = parts.reduce((s, [w]) => s + w, 0);
       const fit = Math.round(parts.reduce((s, [w, v]) => s + w * v, 0) / wsum);
@@ -261,6 +268,9 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         salary: fmtSalary(oAgg.salary_p25, oAgg.salary_p75),
         salary_band: [oAgg.salary_p25, oAgg.salary_p75],
         remote: `${Math.round(oAgg.remote_share * 100)}%`,
+        // BLS EP Table 1.10 annual-average rates: transfer = % who leave for a
+        // DIFFERENT occupation in a typical year — the honest base rate.
+        separations: separationsForSlug(origin),
       },
       roles,
       next,     // ring-2 kids that hang off a first-hop that unlocks them (bridged)
