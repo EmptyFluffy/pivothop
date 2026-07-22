@@ -2,11 +2,11 @@ import path from 'node:path';
 import { readJson } from '../lib/store.js';
 import { TAXONOMY_DIR } from '../lib/paths.js';
 
-// Observed-mobility prior M (docs/15, Thread 6). HONEST SCOPE: no free occupation->occupation
-// flow matrix exists (that needs IPUMS CPS microdata, a real project — or PivotHop's own
-// future usage data, the flywheel). So the best obtainable near-term signal is O*NET's
-// curated "related occupations": experts saying these transitions are real. It is a
-// corroboration prior, not "% who move", and it is labeled that way in the UI.
+// Curated-relatedness prior M (docs/15, Thread 6) — the LAST link in the mobility chain.
+// Since the OMN and JobHop ingests landed, real observed flow exists (mobility-flow.js,
+// mobility-flow-esco.js) and emit prefers it; this O*NET prior covers the pairs neither
+// flow source resolves. Experts saying "this transition is real" — a corroboration prior,
+// not "% who move", and it is labeled that way ('related') in the UI.
 //
 // Base-rate normalized: a destination that is "related" to almost every origin (a popular
 // sink) carries less signal than one specifically related to THIS origin. We damp by the

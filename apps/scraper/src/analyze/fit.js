@@ -3,6 +3,8 @@ import { readJson } from '../lib/store.js';
 import { TAXONOMY_DIR, ADJACENCY_FILE } from '../lib/paths.js';
 import { loadCapabilities, capabilitySimilarity } from './capability.js';
 import { mobilityScore, mobilityTier } from '../score/mobility.js';
+import { mobilityFlowScore } from '../score/mobility-flow.js';
+import { mobilityFlowEscoScore } from '../score/mobility-flow-esco.js';
 
 // The combined fit (docs/15, Thread 7), as an analysis before it's wired into emit.
 //   R = skill readiness (coverage), the differentiator, personalizable, always present
@@ -28,7 +30,8 @@ export function analyzeFit({ log, origin = 'architect' } = {}) {
   const rows = adj.map((x) => {
     const R = x.match;
     const C = normC(rawC.get(x.dest));
-    const M = mobilityScore(origin, x.dest);
+    // same chain as emit: observed US flow, then EU flow, then the curated prior
+    const M = mobilityFlowScore(origin, x.dest) ?? mobilityFlowEscoScore(origin, x.dest) ?? mobilityScore(origin, x.dest);
     // re-weight over present signals so a missing C or M doesn't just drag fit to zero
     const parts = [[W.R, R], [W.C, C], [W.M, M]].filter(([, v]) => v != null);
     const wsum = parts.reduce((s, [w]) => s + w, 0);

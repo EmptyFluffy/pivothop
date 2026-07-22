@@ -37,7 +37,11 @@ No LinkedIn, no Indeed, no ToS-violating sources.
 | USAJOBS | `USAJOBS_API_KEY` + `USAJOBS_EMAIL` | free at developer.usajobs.gov — clean US salary bands |
 | Reed | `REED_API_KEY` | free at reed.co.uk/developers — UK employer-stated salaries |
 
-**Observed-mobility layer:** `taxonomy:onet` downloads O*NET Related Occupations (CC-BY, US DoL) and joins it to the taxonomy via SOC codes → `packages/data/taxonomy/related-occupations.json`. Emitted routes carry `observed: <tier>` when the pair is independently attested. Corroboration, never ranking — postings measure forward-looking demand; O*NET measures curated structure; disagreement is editorial signal. Candidates for later: CPS/IPUMS transition matrices, Nesta Career Causeways.
+**Observed-mobility layer** (three sources, chained by strength in emit):
+1. **US observed flow** — the Oxford CPS-derived occupational mobility network (2010–2017, CC BY 4.0, `packages/data/vendor/omn`, joined via `taxonomy/acs-crosswalk.json`). Real worker transitions; the primary M signal (`mobility_source: 'observed-flow-us'`).
+2. **EU observed flow** — JobHop resume trajectories (Flanders/Belgium, CC BY 4.0, `vendor/jobhop`, ISCO-08 4-digit via `taxonomy/isco-crosswalk.json`). Finer than ACS on design roles; geography-labeled, exposed separately as `mobility_eu` and used as fallback (`'observed-flow-eu'`).
+3. **Curated relatedness** — `taxonomy:onet` downloads O*NET Related Occupations (CC-BY, US DoL) → `taxonomy/related-occupations.json`; base-rate-damped prior, last fallback (`'related'`). Emitted routes also carry `observed: <tier>` when a pair is independently attested.
+Corroboration, never ranking — postings measure forward-looking demand; flow measures where people actually went; disagreement is editorial signal. AI-era occupations absent from ACS/ISCO are mapped to the classical codes their workers were recorded under (bucket-sharing keeps intra-bucket pairs null). Candidates for later: DOL CTOT transitions, BLS 1.10 transfer rates, Villarreal 2020 OCC1990 matrices, Nesta Career Causeways.
 
 All requests are cached on disk (`cache/`, ~20h TTL) and rate-limited per host. Every module is runnable independently: `ingest remotive`, `ingest greenhouse`, ...
 
