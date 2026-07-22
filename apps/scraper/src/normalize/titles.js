@@ -12,13 +12,26 @@ import { TAXONOMY_DIR } from '../lib/paths.js';
 const SENIORITY = /\b(senior|sr\.?|junior|jr\.?|lead|principal|staff|chief|head of|head|intern|entry[- ]?level|mid[- ]?level|graduate|trainee|apprentice|expert|specialist i{1,3}|i{1,3}|iv|v|\d+)\b/g;
 const NOISE = /\b(remote|hybrid|onsite|on-site|contract|contractor|freelance|part[- ]?time|full[- ]?time|temporary|temp|permanent|urgent|immediate|new|now hiring|work from home|wfh|m\/f\/d|f\/m\/d|h\/f)\b/g;
 
+function cleanSegment(t) {
+  t = t.replace(NOISE, ' ').replace(SENIORITY, ' ');
+  t = t.replace(/[^a-z0-9&/+.# ]/g, ' ').replace(/\s+/g, ' ').trim();
+  return t;
+}
+
 export function cleanTitle(raw) {
   let t = String(raw).toLowerCase();
   t = t.replace(/\(.*?\)/g, ' ');            // parentheticals
   t = t.split(/ [-–—|@] | at |, /)[0];       // location/company tails
-  t = t.replace(NOISE, ' ').replace(SENIORITY, ' ');
-  t = t.replace(/[^a-z0-9&/+.# ]/g, ' ').replace(/\s+/g, ' ').trim();
-  return t;
+  return cleanSegment(t);
+}
+
+// All dash/comma/slash segments, cleaned individually. Corporate titles often lead
+// with the practice or program name ("AI and Data - Data Architect", "Specialist,
+// Global Exhibits Advisor", "Graphic Designer/Illustrator") — when the head segment
+// maps to nothing, the tail segments usually carry the real occupation.
+function titleSegments(raw) {
+  const t = String(raw).toLowerCase().replace(/\(.*?\)/g, ' ');
+  return t.split(/ [-–—|@] | at |, |\//).map(cleanSegment).filter(Boolean);
 }
 
 let matcher = null;
@@ -33,9 +46,13 @@ function buildMatcher() {
     // Enablement Architect…) containment would be a magnet that pollutes the vertical;
     // exact-only means bare "Architect" maps here and every "X Architect" must earn a
     // specific phrase or fall through to unmapped.
-    const exactOnly = new Set((occ.exactOnly ?? []).map((s) => s.toLowerCase().replace(/\s+/g, ' ').trim()));
+    // Synonyms pass through the same character cleaning as titles — otherwise a
+    // hyphenated synonym ("front-end engineer") is a dead key that no cleaned
+    // title (hyphens stripped) can ever reach.
+    const normSyn = (s) => s.toLowerCase().replace(/[^a-z0-9&/+.# ]/g, ' ').replace(/\s+/g, ' ').trim();
+    const exactOnly = new Set((occ.exactOnly ?? []).map(normSyn));
     for (const syn of [occ.title.toLowerCase(), ...occ.synonyms, ...(occ.exactOnly ?? [])]) {
-      const c = syn.toLowerCase().replace(/\s+/g, ' ').trim();
+      const c = normSyn(syn);
       if (!exact.has(c)) exact.set(c, occ.slug);
       if (!exactOnly.has(c)) phrases.push({ phrase: c, slug: occ.slug });
     }
@@ -49,10 +66,7 @@ export function getTaxonomy() {
   return matcher;
 }
 
-/** @returns {{slug:string, method:'exact'|'phrase'}|null} */
-export function mapTitle(rawTitle) {
-  const m = getTaxonomy();
-  const cleaned = cleanTitle(rawTitle);
+function matchOne(m, cleaned) {
   if (!cleaned) return null;
   const hitExact = m.exact.get(cleaned);
   if (hitExact) return { slug: hitExact, method: 'exact' };
@@ -61,6 +75,21 @@ export function mapTitle(rawTitle) {
   for (const { phrase, slug } of m.phrases) {
     if (phrase.length < 4) continue;
     if (padded.includes(` ${phrase} `)) return { slug, method: 'phrase' };
+  }
+  return null;
+}
+
+/** @returns {{slug:string, method:'exact'|'phrase'|'segment'}|null} */
+export function mapTitle(rawTitle) {
+  const m = getTaxonomy();
+  const primary = cleanTitle(rawTitle);
+  const first = matchOne(m, primary);
+  if (first) return first;
+  // Head segment mapped to nothing — try the remaining segments before giving up.
+  for (const seg of titleSegments(rawTitle)) {
+    if (seg === primary) continue;
+    const hit = matchOne(m, seg);
+    if (hit) return { slug: hit.slug, method: 'segment' };
   }
   return null;
 }

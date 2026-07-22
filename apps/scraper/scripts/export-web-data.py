@@ -105,6 +105,82 @@ def main():
     if os.path.exists(pl):
         shutil.copy(pl, os.path.join(OUT, 'price-levels.json'))
 
+    # The adjacency field (landing cloud): whole-network nodes/edges + live stats.
+    # Positions persist across rebuilds keyed by title — dots must not jump from
+    # one night to the next. Only new occupations get seeded (at their neighbors'
+    # centroid) and relaxed; the existing constellation stays frozen.
+    CLOUD_W, CLOUD_H, CLOUD_FLOOR = 900, 520, 13
+    cloud_path = os.path.join(OUT, 'cloud.json')
+    cloud_prev = {}
+    if os.path.exists(cloud_path):
+        try:
+            pc = json.load(open(cloud_path))
+            cloud_prev = {t: pc['p'][i] for i, (t, _c) in enumerate(pc['n'])}
+        except Exception:
+            cloud_prev = {}
+    adj_origins = json.load(open(os.path.join(ROOT, 'apps/scraper/data/adjacency.json')))['origins']
+    nodes = sorted((o['title'], o['slug']) for o in occ if agg.get(o['slug'], {}).get('count', 0) > 0)
+    nidx = {slug: i for i, (_t, slug) in enumerate(nodes)}
+    epairs = {}
+    for origin, dests in adj_origins.items():
+        if origin not in nidx: continue
+        for x in dests:
+            j = nidx.get(x['dest'])
+            if j is None or x['match'] < CLOUD_FLOOR: continue
+            a, b = sorted((nidx[origin], j))
+            if a == b: continue
+            w = round(x['match'] / 100, 2)
+            if w > epairs.get((a, b), 0): epairs[(a, b)] = w
+    cedges = [[a, b, w] for (a, b), w in sorted(epairs.items())]
+    cdeg = [0] * len(nodes)
+    for a, b, _w in cedges:
+        cdeg[a] += 1; cdeg[b] += 1
+    import random
+    rnd = random.Random(47)
+    cpos, new_nodes = [], []
+    for i, (title, _slug) in enumerate(nodes):
+        if title in cloud_prev: cpos.append([float(cloud_prev[title][0]), float(cloud_prev[title][1])])
+        else: cpos.append(None); new_nodes.append(i)
+    nbrs = {i: [] for i in new_nodes}
+    for a, b, w in cedges:
+        if a in nbrs: nbrs[a].append((b, w))
+        if b in nbrs: nbrs[b].append((a, w))
+    for i in new_nodes:
+        anchored = [(cpos[j], w) for j, w in nbrs[i] if cpos[j]]
+        if anchored:
+            sw = sum(w for _p, w in anchored) or 1
+            x = sum(p[0] * w for p, w in anchored) / sw + rnd.uniform(-40, 40)
+            y = sum(p[1] * w for p, w in anchored) / sw + rnd.uniform(-40, 40)
+        else:
+            x, y = CLOUD_W / 2 + rnd.uniform(-150, 150), CLOUD_H / 2 + rnd.uniform(-90, 90)
+        cpos[i] = [x, y]
+    for _step in range(160):  # relax only the new nodes against the frozen field
+        for i in new_nodes:
+            xi, yi = cpos[i]; fx = fy = 0.0
+            for j in range(len(nodes)):
+                if j == i: continue
+                dx, dy = xi - cpos[j][0], yi - cpos[j][1]
+                d2 = dx * dx + dy * dy + 0.01
+                if d2 < 2500:
+                    f = 900 / d2
+                    fx += dx * f; fy += dy * f
+            for j, w in nbrs[i]:
+                fx += (cpos[j][0] - xi) * 0.02 * w
+                fy += (cpos[j][1] - yi) * 0.02 * w
+            cpos[i][0] = min(CLOUD_W - 20, max(20, xi + fx * 0.5))
+            cpos[i][1] = min(CLOUD_H - 20, max(20, yi + fy * 0.5))
+    cloud = {
+        'p': [[round(x, 1), round(y, 1)] for x, y in cpos],
+        'd': cdeg,
+        'e': cedges,
+        'n': [[title, agg[slug]['count']] for title, slug in nodes],
+        'stats': {'occupations': len(nodes),
+                  'postings': sum(agg[slug]['count'] for _t, slug in nodes),
+                  'connections': len(cedges)},
+    }
+    json.dump(cloud, open(cloud_path, 'w'))
+    print(f"cloud: {len(nodes)} dots · {len(cedges)} edges · {cloud['stats']['postings']} postings ({len(new_nodes)} newly placed)")
+
     # initial architect payload baked into the app bundle
     g = json.load(open(os.path.join(GEN, 'architect.json')))
     d = to_data(g)
