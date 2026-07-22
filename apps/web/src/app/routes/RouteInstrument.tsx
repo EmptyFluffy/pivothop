@@ -5,15 +5,17 @@ import { DATA } from '@/lib/data';
 
 type Controller = { loadOrigin: (d: unknown) => void };
 type Origin = { slug: string; title: string; ok: boolean };
+type Payload = { originSlug: string; originLabel: string };
 
-/* The instrument band as a saved state (docs/05): full graph, this route's
-   destination already in click-focus. Reuses the landing's markup by
-   extracting only the instrument section from SHELL — physics and label
-   state stay in the vanilla module, untouched (porting non-negotiables).
-   No search bar here: a route page is one state; changing origin happens
-   on the instrument home. Hop navigation (double-click) still works via
-   lite hooks so the graph stays fully explorable. */
-export default function RouteInstrument({ focus }: { focus: string }) {
+/* The instrument band as a saved state (docs/05): full graph for THIS route's
+   origin, its destination already in click-focus. Reuses the landing's markup
+   by extracting only the instrument section from SHELL — physics and label
+   state stay in the vanilla module, untouched (porting non-negotiables). No
+   search bar here: a route page is one state; changing origin happens on the
+   instrument home. Hop navigation (double-click) still works via lite hooks so
+   the graph stays fully explorable. Architect uses the baked DATA for an
+   instant first paint; every other origin loads from its public/data file. */
+export default function RouteInstrument({ origin, focus }: { origin: string; focus: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const mounted = useRef(false);
 
@@ -36,10 +38,14 @@ export default function RouteInstrument({ focus }: { focus: string }) {
     let origins: Origin[] = [];
     fetch('/data/origins.json').then((r) => r.json()).then((d) => (origins = d.origins || [])).catch(() => {});
 
-    import('@/lib/instrument.js').then((m) => {
+    const loadInitial: Promise<Payload> = origin === 'architect'
+      ? Promise.resolve(DATA as unknown as Payload)
+      : fetch(`/data/${origin}.json`).then((r) => r.json());
+
+    Promise.all([import('@/lib/instrument.js'), loadInitial]).then(([m, data]) => {
       const mount = (m as unknown as { mountInstrument: (d: unknown, h: unknown) => Controller }).mountInstrument;
-      let hops = [{ slug: 'architect', title: 'Architect' }];
-      const controller = mount(DATA, {
+      let hops = [{ slug: data.originSlug, title: data.originLabel }];
+      const controller = mount(data, {
         canRecenter: (slug: string) => !!origins.find((o) => o.slug === slug && o.ok) && slug !== hops[hops.length - 1].slug,
         onRecenter: async (slug: string, title: string) => {
           try {
@@ -53,7 +59,9 @@ export default function RouteInstrument({ focus }: { focus: string }) {
           const h = hops[i];
           if (!h) return;
           hops = hops.slice(0, i + 1);
-          const d = h.slug === 'architect' ? DATA : await fetch(`/data/${h.slug}.json`).then((r) => r.json()).catch(() => null);
+          const d = h.slug === origin && origin === 'architect'
+            ? DATA
+            : await fetch(`/data/${h.slug}.json`).then((r) => r.json()).catch(() => null);
           if (d) controller.loadOrigin(d);
         },
       });
@@ -66,7 +74,7 @@ export default function RouteInstrument({ focus }: { focus: string }) {
       };
       setTimeout(() => tryFocus(), 1500);
     });
-  }, [focus]);
+  }, [origin, focus]);
 
   return <div ref={ref} className="route-instrument" suppressHydrationWarning />;
 }

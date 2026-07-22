@@ -1,13 +1,17 @@
 import type { ReactNode } from 'react';
-import { DATA } from '@/lib/data';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /* Preloaded route pages (docs/05): saved states of the instrument, one per
-   first-hop destination. Every number renders from the same baked payload the
-   graph uses (DATA), so the page and the instrument can never disagree.
-   The editorial block is the judgment layer — drafted for Carlos to rewrite
+   pivot. Numbers render at build time from the SAME per-origin payload the
+   graph loads at runtime (apps/web/public/data/{origin}.json), so the page
+   and the instrument can never disagree. Any origin with confident scrape
+   data can carry routes — architecture is just the first batch.
+   The editorial block is the judgment layer, drafted for Carlos to rewrite
    in his own voice before launch traffic (docs/05, non-negotiable #2).
    Evidence lists are hand-curated FROM the data: we select which extracted
-   skills to show, we never invent one. */
+   skills to surface, we never invent one. This module is server-only (fs);
+   it is imported exclusively by server components and the sitemap. */
 
 export type RouteRole = {
   id: string; title: string; field: string; match: number; fit?: number;
@@ -15,27 +19,50 @@ export type RouteRole = {
   have: string[]; learn: string[]; mobility?: number | null; mobility_source?: string | null;
   kind?: string | null; license?: { req: string; label: string } | null;
 };
+type OriginPayload = {
+  originLabel: string; originSlug: string; postings: number;
+  separations?: { transfer: number; exit: number };
+  roles: RouteRole[]; next: Record<string, { t: string; m: number; after?: number }[]>;
+};
 
 type Evidence = { label: string; state: 'have' | 'partial' | 'gap'; note: string };
 
 export type RouteDef = {
-  dest: string;                 // destination slug (must exist in DATA.roles)
+  origin: string;               // origin occupation slug (has a public/data file)
+  dest: string;                 // destination slug (must exist in that origin's roles)
   editorial: ReactNode;         // Carlos's judgment layer (draft)
   evidence: Evidence[];         // curated from the extracted skills
   faq: { q: string; a: string }[];
   related: string[];            // sibling route slugs
 };
 
-export function destRole(slug: string): RouteRole | undefined {
-  return (DATA.roles as RouteRole[]).find((r) => r.id === slug);
+const _cache = new Map<string, OriginPayload | null>();
+function getOrigin(slug: string): OriginPayload | null {
+  if (_cache.has(slug)) return _cache.get(slug)!;
+  let data: OriginPayload | null = null;
+  try {
+    data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', `${slug}.json`), 'utf8'));
+  } catch {
+    data = null;
+  }
+  _cache.set(slug, data);
+  return data;
 }
-export function unlocks(slug: string): { t: string; m: number; after?: number }[] {
-  return ((DATA.next as Record<string, { t: string; m: number; after?: number }[]>)[slug] ?? []);
+
+export function destRole(originSlug: string, destSlug: string): RouteRole | undefined {
+  return getOrigin(originSlug)?.roles.find((r) => r.id === destSlug);
 }
-export const ORIGIN = { slug: 'architect', title: 'Architect', postings: DATA.postings as number, separations: (DATA as { separations?: { transfer: number; exit: number } }).separations };
+export function unlocks(originSlug: string, destSlug: string): { t: string; m: number; after?: number }[] {
+  return getOrigin(originSlug)?.next[destSlug] ?? [];
+}
+export function originMeta(slug: string): { slug: string; title: string; postings: number; separations?: { transfer: number; exit: number } } {
+  const o = getOrigin(slug);
+  return { slug, title: o?.originLabel ?? slug, postings: o?.postings ?? 0, separations: o?.separations };
+}
 
 export const ROUTES: Record<string, RouteDef> = {
   'architect-to-interior-designer': {
+    origin: 'architect',
     dest: 'interior-designer',
     editorial: (
       <>
@@ -74,6 +101,7 @@ export const ROUTES: Record<string, RouteDef> = {
   },
 
   'architect-to-landscape-architect': {
+    origin: 'architect',
     dest: 'landscape-architect',
     editorial: (
       <>
@@ -112,6 +140,7 @@ export const ROUTES: Record<string, RouteDef> = {
   },
 
   'architect-to-structural-engineer': {
+    origin: 'architect',
     dest: 'structural-engineer',
     editorial: (
       <>
@@ -151,6 +180,7 @@ export const ROUTES: Record<string, RouteDef> = {
   },
 
   'architect-to-civil-engineer': {
+    origin: 'architect',
     dest: 'civil-engineer',
     editorial: (
       <>
@@ -189,6 +219,7 @@ export const ROUTES: Record<string, RouteDef> = {
   },
 
   'architect-to-electrical-engineer': {
+    origin: 'architect',
     dest: 'electrical-engineer',
     editorial: (
       <>
@@ -229,6 +260,7 @@ export const ROUTES: Record<string, RouteDef> = {
   },
 
   'architect-to-industrial-designer': {
+    origin: 'architect',
     dest: 'industrial-designer',
     editorial: (
       <>
@@ -269,6 +301,7 @@ export const ROUTES: Record<string, RouteDef> = {
   },
 
   'architect-to-mechanical-engineer': {
+    origin: 'architect',
     dest: 'mechanical-engineer',
     editorial: (
       <>
@@ -309,6 +342,7 @@ export const ROUTES: Record<string, RouteDef> = {
   },
 
   'architect-to-mep-engineer': {
+    origin: 'architect',
     dest: 'mep-engineer',
     editorial: (
       <>
@@ -346,6 +380,443 @@ export const ROUTES: Record<string, RouteDef> = {
     ],
     related: ['architect-to-mechanical-engineer', 'architect-to-electrical-engineer', 'architect-to-interior-designer'],
   },
+  'graphic-designer-to-ux-designer': {
+    origin: 'graphic-designer',
+    dest: 'ux-designer',
+    editorial: (
+      <>
+        <p>
+          The 19 percent readiness on this page is the most misleading number
+          in the set, and worth explaining before you believe it. UX postings
+          ask for a stack of words, user research, interaction design, design
+          systems, that graphic-design postings simply do not print, so the
+          overlap math reads low. But look at what the corpus already credits
+          graphic designers with: Figma, prototyping, wireframing,
+          accessibility. The tools are mostly shared. What is not shared is a
+          way of working. Graphic design defends a final artifact; UX defends
+          a decision, and has to show the research and the failed variants
+          that led there. The gap most graphic designers underestimate is not
+          skill, it is evidence: a portfolio of beautiful screens reads as
+          graphic design no matter how it is labeled. The move is won or lost
+          on one case study that shows a problem, the research, three
+          rejected directions, and a measured outcome. The pay makes the work
+          worth it, UX medians run tens of thousands above graphic design,
+          and BLS projects the two fields moving in opposite directions.
+          Concrete first step: take one project you already shipped and
+          rewrite it as a process story, not a gallery.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Figma and prototyping', state: 'have', note: 'The corpus already credits graphic designers with these' },
+      { label: 'Wireframing', state: 'have', note: 'Transfers directly' },
+      { label: 'Visual and accessibility fundamentals', state: 'have', note: 'Often stronger than junior UX hires' },
+      { label: 'User research and testing', state: 'gap', note: 'The half UX hires on; rarely in graphic practice' },
+      { label: 'Design systems and interaction patterns', state: 'partial', note: 'Some digital designers have this; many do not' },
+    ],
+    faq: [
+      { q: 'Can a graphic designer become a UX designer?', a: 'It is one of the most common creative pivots, and the tools overlap more than the posted-skill match suggests. Our corpus reads 19 percent readiness because UX postings demand research and systems vocabulary that graphic-design postings omit, not because the work is unrelated. The real gap is user research and process evidence.' },
+      { q: 'Does UX design pay more than graphic design?', a: 'Substantially. UX roles in our current corpus post a 70,000 to 150,000 dollar band against far lower graphic-design medians, and BLS projects web and digital interface design growing while graphic design is roughly flat.' },
+      { q: 'What is the biggest obstacle switching from graphic to UX design?', a: 'The portfolio, not the software. A book of polished visuals reads as graphic design; UX hiring wants to see a problem, the research, discarded directions, and an outcome. One genuine case study outweighs ten finished comps.' },
+      { q: 'How long does the graphic designer to UX transition take?', a: 'Our skill-gap estimate is 12 to 24 months to full readiness, shorter for designers already working in digital product who hold Figma and prototyping day to day.' },
+    ],
+    related: ['architect-to-industrial-designer', 'architect-to-interior-designer', 'marketing-manager-to-product-manager'],
+  },
+
+  'teacher-to-instructional-designer': {
+    origin: 'teacher',
+    dest: 'instructional-designer',
+    editorial: (
+      <>
+        <p>
+          This is the exit teachers search for most, and the 12 percent
+          readiness badly undersells it, because a classroom teacher already
+          does the core of the job under a different name. Curriculum
+          development, facilitation, assessment design, differentiating for
+          an audience that is not following: that is instructional design
+          with children in the room. What the corpus cannot see is that the
+          skill is there; what it correctly sees is that the tooling and the
+          vocabulary are not. Instructional design runs on authoring software
+          (Storyline, Captivate, Rise), an LMS, and a shared language of
+          ADDIE, learning objectives, and stakeholder sign-off that corporate
+          hiring managers screen for by keyword. The other quiet advantage is
+          on this page: 11 percent of instructional-design postings in our
+          corpus are fully remote, unusually high, against a classroom that
+          is remote essentially never. The move is real but it is not free,
+          you are trading a credential you already hold for a portfolio you
+          do not yet have. Concrete first step: rebuild one unit you have
+          taught a hundred times as a self-paced e-learning module in a free
+          trial of an authoring tool, and let that be the whole interview.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Curriculum and lesson design', state: 'have', note: 'The core of instructional design, under another name' },
+      { label: 'Facilitation and training', state: 'have', note: 'Transfers directly to corporate learning' },
+      { label: 'Assessment design', state: 'have', note: 'Learning-objective thinking is already yours' },
+      { label: 'Authoring tools (Storyline, Captivate, Rise)', state: 'gap', note: 'The keyword screen most teachers fail first' },
+      { label: 'LMS and corporate ADDIE vocabulary', state: 'gap', note: 'Same craft, different dialect' },
+    ],
+    faq: [
+      { q: 'Can a teacher become an instructional designer?', a: 'It is the most-searched exit from teaching and a well-worn one. The pedagogical skill transfers almost entirely; our corpus reads only 12 percent posted-skill readiness because instructional-design postings screen for authoring tools and corporate learning vocabulary that classroom postings never mention.' },
+      { q: 'Do instructional designers earn more than teachers?', a: 'Usually. Instructional-design roles in our corpus post a 55,000 to 105,000 dollar band; entry-level corporate roles commonly start above the national teacher average and rise past six figures with experience.' },
+      { q: 'Is instructional design a remote job?', a: 'More often than most fields: 11 percent of the instructional-design postings in our corpus are fully remote, against near-zero for classroom teaching. It is one of the few adjacent moves that also buys location flexibility.' },
+      { q: 'What do teachers need to learn to become instructional designers?', a: 'Not the pedagogy, which they have. The gaps are e-learning authoring tools (Articulate Storyline, Adobe Captivate, Rise), LMS familiarity, and the ADDIE framework vocabulary that corporate hiring screens for. One self-built e-learning sample usually clears all three.' },
+    ],
+    related: ['business-analyst-to-project-manager', 'marketing-manager-to-product-manager', 'graphic-designer-to-ux-designer'],
+  },
+
+  'registered-nurse-to-nurse-practitioner': {
+    origin: 'registered-nurse',
+    dest: 'nurse-practitioner',
+    editorial: (
+      <>
+        <p>
+          This is the highest-readiness route we publish, 78 percent, and the
+          observed data agrees emphatically: it is the single most common
+          destination for registered nurses who move, and the flow score
+          pins at 100. Everything about the clinical skill transfers, because
+          it is the same profession one credential up. So read the readiness
+          number carefully, because it measures skills, not the wall. The
+          wall is a graduate degree, an MSN or increasingly a DNP, plus a
+          national certification and a state APRN license, and that is
+          typically two to four years of school layered on top of the
+          bedside job, not the six-to-twelve-month skill-closing estimate
+          this page shows. Those two numbers answer different questions. The
+          skills say you are ready; the credential says you are not yet
+          allowed. That is not a discouragement, it is the whole planning
+          problem: this is a school decision and a specialty decision more
+          than a skills decision. The nurses who navigate it well pick the
+          population focus, family, acute care, psychiatric, before they
+          enroll, because switching tracks mid-program is expensive.
+          Concrete first step: shadow an NP in the specialty you think you
+          want for a week before you apply anywhere.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Direct patient care', state: 'have', note: 'The same clinical foundation, one level up' },
+      { label: 'Clinical assessment skills', state: 'have', note: 'Transfers directly into advanced practice' },
+      { label: 'Health education and counseling', state: 'have', note: 'Core to both roles' },
+      { label: 'Graduate degree (MSN or DNP)', state: 'gap', note: 'The real timeline: 2 to 4 years, not months' },
+      { label: 'APRN license and national certification', state: 'gap', note: 'The legal gate advanced practice requires' },
+    ],
+    faq: [
+      { q: 'Can a registered nurse become a nurse practitioner?', a: 'It is the most common move nurses make, with a posted-skill readiness of 78 percent, the highest route we publish, and an observed-flow score of 100. The clinical skills transfer almost entirely; the barrier is credential, not competence.' },
+      { q: 'How long does it take to go from RN to nurse practitioner?', a: 'Plan for two to four years, not the six-to-twelve-month skill-readiness estimate on this page. Those numbers measure different things: skills are close, but an MSN or DNP plus national certification and an APRN license is a multi-year credential added on top.' },
+      { q: 'Do nurse practitioners earn more than registered nurses?', a: 'Meaningfully. NP roles in our corpus post a wide band topping out around 125,000 dollars, above the registered-nurse median, and the gap widens in high-demand specialties and underserved regions.' },
+      { q: 'What should a nurse decide before applying to NP school?', a: 'The population focus. Family, acute care, psychiatric-mental-health, and neonatal are separate certification tracks, and switching mid-program is costly. Shadowing an NP in your target specialty before enrolling is the cheapest de-risking available.' },
+    ],
+    related: ['accountant-to-financial-analyst', 'paralegal-to-lawyer', 'teacher-to-instructional-designer'],
+  },
+
+  'accountant-to-financial-analyst': {
+    origin: 'accountant',
+    dest: 'financial-analyst',
+    editorial: (
+      <>
+        <p>
+          Accountants and financial analysts share a spreadsheet and disagree
+          about which direction time runs. Accounting is the record of what
+          happened, closed, reconciled, compliant. Analysis is the argument
+          about what happens next, forecasts, variance, the model behind a
+          budget request. The 43 percent readiness reflects that the raw
+          financial fluency transfers, forecasting, modeling, and budgeting
+          are already in the accountant&rsquo;s HAVE list, while the
+          forward-looking framing and the presentation layer are not. The
+          real gap is rarely technical. It is that analysts have to sell a
+          conclusion to people who will not read the workbook, so data
+          visualization and the one-slide narrative matter more than another
+          reconciliation ever did. For securities-facing roles a FINRA
+          license enters the picture, and the CFA is common though not
+          required for corporate FP&amp;A, which is the usual landing spot.
+          The pay premium is real but modest at the entry, around a fifth
+          more per external benchmarks, and widens with the CFA. Concrete
+          first step: take last quarter&rsquo;s actuals from your own
+          employer, build a variance-and-forecast model on top, and turn it
+          into a single slide a non-finance manager would act on.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Financial modeling', state: 'have', note: 'Already in the accountant skill set' },
+      { label: 'Forecasting and budgeting', state: 'have', note: 'Transfers directly to FP&A' },
+      { label: 'Financial-statement fluency', state: 'have', note: 'A genuine edge over non-accounting analysts' },
+      { label: 'Data visualization and narrative', state: 'gap', note: 'Analysts sell conclusions, not workbooks' },
+      { label: 'CFA or FINRA (role-dependent)', state: 'partial', note: 'Common for CFA, required only for securities roles' },
+    ],
+    faq: [
+      { q: 'Is it hard to switch from accountant to financial analyst?', a: 'It is one of the more natural finance pivots: posted-skill readiness is 43 percent and the core financial fluency, modeling, forecasting, and budgeting, transfers directly. The adjustment is mindset, from recording the past to forecasting the future, plus a stronger presentation layer.' },
+      { q: 'Do financial analysts make more than accountants?', a: 'Modestly at entry and more with credentials. External benchmarks put financial-analyst medians roughly 20 percent above accountants; our corpus shows overlapping bands with the analyst side rising faster into FP&A and corporate strategy.' },
+      { q: 'Do I need a CFA to become a financial analyst?', a: 'Not for most corporate FP&A roles, which is the common landing spot for accountants. The CFA helps and widens the pay gap; FINRA licensing is required only for securities-facing positions.' },
+      { q: 'What is the key difference between accounting and financial analysis?', a: 'Direction. Accounting reports what already happened and ensures compliance; analysis forecasts what should happen next and argues for decisions. The same numbers, used to look forward instead of back.' },
+    ],
+    related: ['business-analyst-to-project-manager', 'data-analyst-to-data-engineer', 'marketing-manager-to-product-manager'],
+  },
+
+  'software-engineer-to-solutions-architect': {
+    origin: 'software-engineer',
+    dest: 'solutions-architect',
+    editorial: (
+      <>
+        <p>
+          This is the cleanest senior move a software engineer can make on
+          our graph, 60 percent readiness, and the observed data confirms
+          engineers actually walk it. The cloud fluency is already there,
+          AWS, Azure, Python sit in the HAVE list, so the role is less a
+          retraining than a change in altitude. A software engineer is
+          measured by the code they ship; a solutions architect is measured
+          by the systems they let other people ship, and by whether the
+          business bought the design. That shift is where the real work is.
+          The gap is not technical depth, engineers usually have too much of
+          it, it is breadth and translation: sketching a system across
+          services you will never personally write, sizing tradeoffs for a
+          budget conversation, and explaining the whole thing to a room that
+          cannot read a stack trace. Pre-sales and stakeholder framing feel
+          foreign to a lot of strong engineers, and they are exactly the
+          differentiator. The pay band, 95,000 to 160,000 in our corpus,
+          reflects the seniority. Concrete first step: volunteer to own the
+          design document for the next cross-team system, then present it to
+          the least technical stakeholder you can find and rewrite whatever
+          they did not follow.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Cloud platforms (AWS, Azure)', state: 'have', note: 'Already in the engineer skill set' },
+      { label: 'System implementation depth', state: 'have', note: 'Usually more than the role needs' },
+      { label: 'Programming fluency', state: 'have', note: 'Transfers as credibility with build teams' },
+      { label: 'Multi-system breadth and tradeoff sizing', state: 'partial', note: 'The altitude change most engineers must practice' },
+      { label: 'Stakeholder translation and pre-sales', state: 'gap', note: 'The differentiator strong engineers most often lack' },
+    ],
+    faq: [
+      { q: 'How do you go from software engineer to solutions architect?', a: 'It is a natural senior step: posted-skill readiness is 60 percent and the cloud and implementation skills transfer directly. The move is mostly about breadth and communication, designing across systems you will not build and selling that design to non-engineers.' },
+      { q: 'What is the difference between a software engineer and a solutions architect?', a: 'An engineer is measured by the code they ship; an architect by the systems they enable others to ship and by whether the business accepted the design. Depth versus breadth, and building versus translating.' },
+      { q: 'Does solutions architecture pay more than software engineering?', a: 'Generally yes at the senior level. Solutions-architect roles in our corpus post a 95,000 to 160,000 dollar band, reflecting the seniority and the stakeholder-facing scope.' },
+      { q: 'What skill do engineers most need to become architects?', a: 'Translation. Sizing tradeoffs for a budget conversation and explaining a system to non-technical stakeholders is the differentiator; raw technical depth is usually already present in surplus.' },
+    ],
+    related: ['data-scientist-to-machine-learning-engineer', 'data-analyst-to-data-engineer', 'business-analyst-to-project-manager'],
+  },
+
+  'data-scientist-to-machine-learning-engineer': {
+    origin: 'data-scientist',
+    dest: 'machine-learning-engineer',
+    editorial: (
+      <>
+        <p>
+          These two roles are close enough, 51 percent readiness and a matching
+          observed-flow score, that companies routinely blur them, which is
+          exactly why the distinction is worth naming before you pivot. A data
+          scientist proves a model works. A machine-learning engineer makes it
+          run at three in the morning without waking anyone. The modeling half
+          transfers wholesale, machine learning, deep learning, LLMs, and
+          Python are all in the HAVE list, so nobody doubts you understand the
+          model. What the corpus flags as missing is the production stack:
+          MLOps, serving, monitoring, the discipline of turning a notebook into
+          a service with tests and rollback. That is real software engineering,
+          and it is the part a lot of data scientists have avoided precisely
+          because it is not modeling. The LLM wave has widened the seat, RAG,
+          vector search, and fine-tuning now sit inside the job, and demand is
+          concentrated there. The pay band tops out around 165,000 in our
+          corpus, slightly above the pure data-science band, and the gap is
+          the engineering. Concrete first step: take one model you have
+          already trained and stand it up as a monitored endpoint with a test
+          suite, then treat everything that broke as your syllabus.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Machine learning and deep learning', state: 'have', note: 'The modeling half transfers wholesale' },
+      { label: 'LLMs and generative AI', state: 'have', note: 'Already central to both roles' },
+      { label: 'Python', state: 'have', note: 'Shared foundation' },
+      { label: 'MLOps and model serving', state: 'gap', note: 'The production engineering data science often skips' },
+      { label: 'Monitoring, testing, deployment', state: 'gap', note: 'Turning a notebook into a reliable service' },
+    ],
+    faq: [
+      { q: 'What is the difference between a data scientist and a machine learning engineer?', a: 'A data scientist proves a model works; a machine-learning engineer makes it run reliably in production. The modeling overlaps heavily, our corpus reads 51 percent readiness, but the engineer owns serving, monitoring, and deployment.' },
+      { q: 'Can a data scientist become a machine learning engineer?', a: 'Commonly, and the observed transition data supports it. The modeling skills transfer directly; the work is closing the production-engineering gap, MLOps, testing, and deployment, which is real software engineering rather than more modeling.' },
+      { q: 'Does an ML engineer earn more than a data scientist?', a: 'Slightly, on our numbers: ML-engineer roles post up to about 165,000 dollars, a touch above the data-science band, with the premium concentrated in production and LLM-serving skills.' },
+      { q: 'What should a data scientist learn to become an ML engineer?', a: 'The production stack: MLOps tooling, model serving, monitoring, and the testing and rollback discipline of shipping software. Standing up one trained model as a monitored endpoint surfaces the whole syllabus.' },
+    ],
+    related: ['data-analyst-to-data-engineer', 'software-engineer-to-solutions-architect', 'marketing-manager-to-product-manager'],
+  },
+
+  'marketing-manager-to-product-manager': {
+    origin: 'marketing-manager',
+    dest: 'product-manager',
+    editorial: (
+      <>
+        <p>
+          The 19 percent readiness here hides one of the most reliable pivots
+          in tech, and the observed-flow score of 41 is the tell: marketers
+          become product managers constantly, whatever the skill math says.
+          The reason the match reads low is that product-manager postings are
+          written in an engineering-adjacent dialect, APIs, agile, observability,
+          that marketing postings do not use, even though a good marketing
+          manager already runs experiments, reads funnels, and owns a number.
+          A/B testing and data analysis are in the HAVE list for a reason.
+          What a marketer genuinely lacks is technical fluency with the build
+          side: enough understanding of how the thing is made to write a spec
+          engineers respect and to say no to scope with a real reason. Product
+          management is customer empathy plus prioritization plus technical
+          credibility, and marketers arrive with the first two and have to
+          earn the third. The pay ceiling is high, up to 175,000 in our corpus,
+          and remote availability is unusually good at 15 percent. Concrete
+          first step: attach yourself to one feature end to end, write its
+          spec, sit in the standups, and ship it, so your resume has a product
+          shipped rather than a campaign run.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'A/B testing and experimentation', state: 'have', note: 'Already core to marketing management' },
+      { label: 'Data analysis and funnels', state: 'have', note: 'Transfers directly to product metrics' },
+      { label: 'Customer empathy and positioning', state: 'have', note: 'The half product hiring values most from marketers' },
+      { label: 'Technical fluency (APIs, the build side)', state: 'gap', note: 'Enough to write a spec engineers respect' },
+      { label: 'Agile and roadmap ownership', state: 'partial', note: 'Some marketers run this; many have not owned delivery' },
+    ],
+    faq: [
+      { q: 'Can a marketing manager become a product manager?', a: 'It is a well-worn pivot, and the observed transition data backs it despite a modest 19 percent posted-skill match. Marketers arrive with customer empathy, experimentation, and metrics; the gap is technical fluency and roadmap ownership, not instinct.' },
+      { q: 'Why is the skill match low if marketers become PMs so often?', a: 'Because product-manager postings use an engineering-adjacent vocabulary, APIs, agile, observability, that marketing postings omit. The underlying work, running experiments and owning a number, overlaps far more than the keywords suggest.' },
+      { q: 'Does product management pay more than marketing management?', a: 'It can, at the top: product-manager roles in our corpus reach 175,000 dollars, and 15 percent are fully remote, both toward the higher end of what marketing management posts.' },
+      { q: 'What does a marketer need to learn to become a PM?', a: 'Enough technical fluency to write a spec engineers respect and to justify saying no to scope, plus formal roadmap and delivery ownership. Shipping one feature end to end with an engineering team is the fastest proof.' },
+    ],
+    related: ['business-analyst-to-project-manager', 'graphic-designer-to-ux-designer', 'data-analyst-to-data-engineer'],
+  },
+
+  'paralegal-to-lawyer': {
+    origin: 'paralegal',
+    dest: 'lawyer',
+    editorial: (
+      <>
+        <p>
+          This is the search everyone types and the move almost nobody makes
+          directly, and the honest version of this page has to say why. The
+          35 percent readiness looks encouraging, and the substantive
+          knowledge is genuinely there, paralegals live in contracts,
+          compliance, and negotiation, but readiness measures skills and the
+          barrier here is a credential that skills cannot shortcut. Becoming a
+          lawyer means law school and bar admission, three years and an exam,
+          and no amount of paralegal experience reduces the legal requirement
+          by a day. Paralegals also have the clearest possible view of what
+          the job actually is, which is why many who consider it choose one of
+          the adjacent seats instead: compliance officer, contract manager,
+          and legal operations all reward the exact knowledge a paralegal
+          already holds and none of them require the bar. So the real decision
+          is binary and worth being honest with yourself about. If you want to
+          practice law, the paralegal years are excellent preparation and zero
+          shortcut, budget the JD. If you want the pay and the seniority
+          without the courtroom, the compliance route is adjacent, uncredentialed,
+          and faster. Concrete first step: sit in on the work of both a junior
+          associate and a compliance officer before you spend a dollar on the
+          LSAT.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Contract and compliance knowledge', state: 'have', note: 'Genuine substantive legal grounding' },
+      { label: 'Negotiation and documentation', state: 'have', note: 'Transfers to practice and to legal ops' },
+      { label: 'Case and matter management', state: 'have', note: 'A real edge entering law school or compliance' },
+      { label: 'Juris Doctor (law degree)', state: 'gap', note: 'Three years; no paralegal shortcut exists' },
+      { label: 'Bar admission', state: 'gap', note: 'The legal gate to practice, jurisdiction by jurisdiction' },
+    ],
+    faq: [
+      { q: 'Can a paralegal become a lawyer?', a: 'Yes, but only through the same door as anyone else: law school and bar admission. Paralegal experience is strong preparation and legally shortens nothing. Our 35 percent readiness reflects real substantive knowledge, but the barrier is a credential, not a skill gap.' },
+      { q: 'Is it worth going from paralegal to lawyer?', a: 'It depends on whether you want to practice. If yes, the paralegal background is excellent preparation for a JD. If you mainly want higher pay and seniority, adjacent roles, compliance officer, contract manager, legal operations, reward the same knowledge without the bar.' },
+      { q: 'What can a paralegal do without going to law school?', a: 'Move sideways into compliance, contract management, or legal operations. All three value a paralegal&rsquo;s substantive knowledge, pay above many paralegal roles, and require no bar admission.' },
+      { q: 'How long does it take to become a lawyer from paralegal?', a: 'The credential path is the binding constraint: roughly three years of law school plus bar preparation and admission. The skill-readiness estimate on this page does not include that, because skills are not what the gate measures.' },
+    ],
+    related: ['registered-nurse-to-nurse-practitioner', 'accountant-to-financial-analyst', 'teacher-to-instructional-designer'],
+  },
+
+  'data-analyst-to-data-engineer': {
+    origin: 'data-analyst',
+    dest: 'data-engineer',
+    editorial: (
+      <>
+        <p>
+          Of every route in this batch, this one has the strongest human
+          signal: an observed-flow score of 100, meaning data engineer is the
+          single most common place data analysts actually go. The 42 percent
+          readiness understates a move the market clearly rewards. Analysts
+          already hold the load-bearing skills, SQL, Python, and ETL are all
+          in the HAVE list, so the pivot is less a new profession than a
+          change in what you are responsible for. An analyst queries the data
+          and answers the question. An engineer builds and owns the pipes that
+          deliver the data reliably, on schedule, at scale, so that a hundred
+          analysts can answer their questions without noticing the plumbing.
+          The gap is orchestration and infrastructure: dbt, Airflow, warehouse
+          modeling, and the on-call mindset that comes with owning a pipeline
+          other people depend on. That last part is the real adjustment,
+          analysts ship insights, engineers ship systems that must not break.
+          The pay rewards it, 75,000 to 130,000 in our corpus, above the
+          typical analyst band. Concrete first step: take one report you
+          currently refresh by hand and rebuild it as an automated pipeline
+          with dbt and a scheduler, then keep it running for a month and fix
+          whatever fails.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'SQL and Python', state: 'have', note: 'The load-bearing data-engineering skills' },
+      { label: 'ETL fundamentals', state: 'have', note: 'Already in the analyst skill set' },
+      { label: 'Data modeling instincts', state: 'partial', note: 'Analysts have query modeling; warehouse modeling is deeper' },
+      { label: 'Orchestration (dbt, Airflow)', state: 'gap', note: 'Automating and scheduling the pipeline' },
+      { label: 'Pipeline ownership and reliability', state: 'gap', note: 'Shipping systems that must not break, not just insights' },
+    ],
+    faq: [
+      { q: 'Is data engineer a natural next step for a data analyst?', a: 'It is the most common one on our data: the observed-flow score is 100, the highest destination for analysts who move. SQL, Python, and ETL transfer directly; the readiness reads 42 percent only because orchestration and infrastructure skills are new.' },
+      { q: 'What is the difference between a data analyst and a data engineer?', a: 'An analyst queries data to answer questions; an engineer builds and owns the pipelines that deliver data reliably at scale. Insights versus infrastructure, and reports versus systems that must not break.' },
+      { q: 'Does data engineering pay more than data analysis?', a: 'Typically yes. Data-engineer roles in our corpus post a 75,000 to 130,000 dollar band, above the usual analyst range, reflecting the on-call ownership and infrastructure scope.' },
+      { q: 'What should a data analyst learn to become a data engineer?', a: 'Pipeline orchestration and warehouse modeling: dbt, Airflow, and the reliability mindset of owning data other teams depend on. Converting one manual report into a scheduled, automated pipeline is the standard first project.' },
+    ],
+    related: ['data-scientist-to-machine-learning-engineer', 'software-engineer-to-solutions-architect', 'accountant-to-financial-analyst'],
+  },
+
+  'business-analyst-to-project-manager': {
+    origin: 'business-analyst',
+    dest: 'project-manager',
+    editorial: (
+      <>
+        <p>
+          At 66 percent readiness this is one of the smoother transitions we
+          track, and it is smooth for a specific reason: business analysts
+          already sit in the meetings project managers run. Requirements,
+          stakeholder wrangling, and data analysis are shared ground, and
+          project management already appears in the analyst&rsquo;s own skill
+          list. The distinction is one of ownership. A business analyst
+          defines what should be built and why; a project manager owns getting
+          it delivered, on a schedule, within a budget, past the risks. That
+          sounds like a small step and is actually the whole job, because
+          delivery accountability changes how you spend every hour. The gaps
+          the corpus flags are the formal apparatus of that accountability:
+          risk management, schedule and budget ownership, and the stakeholder
+          management that is less about gathering requirements and more about
+          holding people to commitments. A PMP or CAPM certification is the
+          common signal here, and unlike the licensed routes on this site it
+          is measured in months, not years. Concrete first step: on your
+          current project, volunteer to own the schedule and the risk log
+          yourself rather than feeding them to the PM, and run them for one
+          full delivery cycle.
+        </p>
+      </>
+    ),
+    evidence: [
+      { label: 'Requirements and stakeholder analysis', state: 'have', note: 'Shared ground with project management' },
+      { label: 'Project-management exposure', state: 'have', note: 'Already in the analyst skill set' },
+      { label: 'Data analysis and reporting', state: 'have', note: 'Transfers to status and delivery metrics' },
+      { label: 'Risk, schedule, and budget ownership', state: 'gap', note: 'The delivery accountability that defines the role' },
+      { label: 'PMP or CAPM certification', state: 'partial', note: 'The common signal; months, not years' },
+    ],
+    faq: [
+      { q: 'Can a business analyst become a project manager?', a: 'It is one of the smoother pivots we track, at 66 percent posted-skill readiness. Analysts already share requirements, stakeholder, and analysis work with PMs; the move is about taking on delivery ownership, schedule, budget, and risk.' },
+      { q: 'What is the difference between a business analyst and a project manager?', a: 'A business analyst defines what to build and why; a project manager owns delivering it on time and on budget. The step is from specifying work to being accountable for its completion.' },
+      { q: 'Do I need a PMP to move from BA to project manager?', a: 'Not strictly, but a PMP or the entry-level CAPM is the common signal and helps convert BA experience into PM offers. Unlike licensed pivots, it is a matter of months, not years.' },
+      { q: 'Does project management pay more than business analysis?', a: 'Comparably, with PM rising faster into program and delivery leadership. Our corpus shows overlapping bands around 75,000 to 130,000 dollars, with project management scaling higher as scope grows.' },
+    ],
+    related: ['marketing-manager-to-product-manager', 'accountant-to-financial-analyst', 'software-engineer-to-solutions-architect'],
+  },
+
 };
 
 export const ROUTE_SLUGS = Object.keys(ROUTES);
