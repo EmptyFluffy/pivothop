@@ -2263,4 +2263,119 @@ export const POSTS: Post[] = [
       </>
     ),
   },
+
+  {
+    slug: 'degree-premium-trick-question',
+    title: 'Who earns more, people with degrees or without? The trick question inside the obvious answer',
+    pillar: 'Run It 10,000 Times',
+    date: 'July 2026',
+    dek: 'Degree holders out-earn non-graduates by about 60 percent, and that number hides the interesting part: the paper ceiling has moved out of job-ad language entirely, and postings that say no degree required now pay MORE than ones demanding one.',
+    minutes: 9,
+    faq: [
+      { q: 'How much more do college graduates earn than non-graduates?', a: 'Substantially: BLS data for early 2026 puts median weekly earnings at 1,763 dollars for bachelor\u2019s holders against 977 for high school graduates, roughly a 60 to 80 percent premium depending on the cut. College Board reporting puts the annual gap around 31,200 dollars for full-time workers.' },
+      { q: 'Are companies really dropping degree requirements?', a: 'In announcements, yes; in hires, barely. The Harvard Business School and Burning Glass Institute study found fewer than 1 in 700 hires were actually affected by dropped degree requirements, and about 45 percent of companies that announced changes altered nothing in practice.' },
+      { q: 'Do job postings without degree requirements pay less?', a: 'In our corpus, the opposite. Postings that explicitly say no degree required or equivalent experience accepted carry a posted median of about 140,000 dollars, against 105,000 for postings that explicitly demand a degree, because openness language became standard in high-paying tech ads while explicit demands survive in lower-paying traditional sectors.' },
+    ],
+    body: (
+      <>
+        <p>
+          The obvious answer first, because it is true. People with degrees
+          earn more. BLS puts median weekly earnings for bachelor's holders
+          at <strong>1,763 dollars against 977</strong> for high school
+          graduates in early 2026, a gap that has held around 60 percent
+          for decades. Opportunity@Work counts <strong>70 million American
+          workers</strong> skilled through alternative routes, half the
+          workforce, and finds their wage gap against degree holders has
+          doubled over 30 years. By one of their estimates it takes a
+          worker without the paper more than three decades to reach what a
+          graduate earns on day one.
+        </p>
+        <p>
+          So the ranking is settled. What is not settled, and what our own
+          data complicates in a useful way, is the mechanism.
+        </p>
+        <h3>What 51,696 salaried postings say about degree language</h3>
+        <p>
+          We classified every salaried posting in our corpus by its degree
+          language. Postings that explicitly require a degree: 126, or
+          around 0.2 percent. Postings that explicitly welcome candidates
+          without one, the no-degree-required and equivalent-experience
+          phrasings: 665. Everything else, <strong>98 percent of the
+          corpus, says nothing either way</strong>.
+        </p>
+        <div className="post-callout"><b>$140k vs $105k</b><span>posted medians: postings that <strong>explicitly welcome non-graduates</strong> against postings that explicitly demand a degree. The openness premium is not a typo.</span></div>
+        <p>
+          Those two numbers invert the expected story. The ads that demand paper pay less than the ads that
+          waive it. The resolution of the paradox is who writes each
+          sentence. Or equivalent experience is boilerplate in
+          high-paying technology postings, a signal of modernity as much
+          as a policy. Degree required survives in older-fashioned,
+          lower-paying corners of the market. The language stopped
+          tracking the actual gate years ago.
+        </p>
+        <h3>Where the gate actually lives now</h3>
+        <p>
+          If 98 percent of ads are silent and the explicit language is
+          decorative, the degree filter has to live somewhere else, and
+          the research says it lives in the resume screen. The Harvard
+          Business School and Burning Glass Institute study of
+          skills-based hiring found that among companies that removed
+          degree requirements from postings, <strong>fewer than 1 in 700
+          hires</strong> actually changed as a result. About 45 percent
+          of announcing companies changed nothing in practice. A titled
+          minority, 37 percent, genuinely increased non-degree hiring by
+          around 20 percent, and 18 percent tried it and slid back.
+        </p>
+        <p>
+          Governments have moved harder than companies. More than half of
+          US states now encourage skills-based hiring for public jobs,
+          Maryland's early move covered half its state positions and
+          lifted hires 41 percent in a year, and federal standards for
+          technology roles dropped degree requirements in April 2026. The
+          public sector, which our secrecy ranking showed publishes pay
+          most honestly, is also the sector dismantling the paper gate
+          fastest. The pattern is consistent: rules-bound employers
+          change when the rule changes. Discretionary employers announce.
+        </p>
+        <h3>The other title premium</h3>
+        <p>
+          One more wrinkle from our own graph. The title that reliably
+          pays is not academic but legal: the biggest pay premiums in our
+          adjacency data sit behind licenses, pharmacist at plus 125
+          percent from medical assistant, controller-class finance roles,
+          engineering sign-off work. A license is a title the market
+          cannot quietly ignore at the resume screen, because practicing
+          without it is illegal rather than merely unconventional. Paper
+          you can enforce beats paper you can imply.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          For the 70 million without the degree: the ad text is no longer
+          the obstacle and never tells you the truth anyway. Target the
+          employers with verified behavior change, public-sector openings
+          where the rule itself moved, and licensed routes where the gate
+          is at least explicit and passable. Bring evidence a screen
+          cannot skim past, which is what portfolios, certifications, and
+          a documented skills inventory are for. For degree holders: the
+          premium is real, front-loaded, and quietly shrinking at the
+          margins where enforcement went silent. Either way, the paper
+          question is decided later and more arbitrarily than the
+          discourse admits, by a person or a model reading a resume in
+          six seconds. Write for that reader.
+        </p>
+        <Sources>
+          <p>
+            Earnings gaps: BLS usual weekly earnings, Q1 2026; College
+            Board Education Pays 2026. STARs figures: Opportunity@Work.
+            Skills-based hiring behavior: Harvard Business School and
+            Burning Glass Institute, 2024. State and federal changes:
+            NGA reporting, Maryland state data, OPM April 2026 standards.
+            Posting-language classification: PivotHop corpus, July 2026,
+            51,696 salaried postings, regex on requirement phrasing;
+            counts are floors and the silent share is the finding.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
 ];
