@@ -2053,4 +2053,216 @@ export const POSTS: Post[] = [
       </>
     ),
   },
+
+  {
+    slug: 'four-day-week-counted',
+    title: 'The four-day week, counted: 102 postings out of 110,681',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'Everyone talks about the four-day week. We searched our entire posting corpus for employers actually offering one, found 0.09 percent, and discovered the offers cluster in trades, not tech.',
+    minutes: 8,
+    faq: [
+      { q: 'How common is the four-day work week in job postings?', a: 'Rare. In our July 2026 corpus of 110,681 postings, 102 mention any four-day or compressed arrangement, which is 0.09 percent. Trials and headlines run far ahead of what employers put in writing.' },
+      { q: 'What are the different four-day week formats?', a: 'Four main species: the 100-80-100 model (full pay, 32-ish hours, output maintained), the compressed 4x10 (same 40 hours in four days), the 9-day fortnight (alternating five and four day weeks), and plain reduced-hours arrangements. They differ enormously in what an hour of your time earns.' },
+      { q: 'Which industries actually offer four-day weeks?', a: 'In our posting data the offers cluster in construction, trades, and engineering: civil engineers, electricians, welders, and financial analysts top the list. UK employers dominate, mostly through the 9-day fortnight. Tech postings barely register.' },
+    ],
+    body: (
+      <>
+        <p>
+          The four-day week has trials, books, a global nonprofit, and a
+          permanent slot in the discourse. We wanted the version that shows
+          up in writing, so we searched all 110,681 postings in our corpus
+          for any mention of a four-day, compressed, or reduced week. The
+          count came back at <strong>102 postings, or 0.09 percent</strong>.
+        </p>
+        <p>
+          One in eleven hundred. Whatever the four-day week is right now, it
+          is not yet a thing employers commit to in the job ad.
+        </p>
+        <h3>The four species, because they are not one thing</h3>
+        <table className="post-table">
+          <caption>Four-day formats and what an hour earns · definitions per UK pilot and scheduling literature</caption>
+          <thead><tr><th>Format</th><th>Hours</th><th>Pay</th><th>Your hourly rate</th></tr></thead>
+          <tbody>
+            <tr><td><strong>100-80-100</strong></td><td>~32 in 4 days</td><td>Full</td><td><strong>Rises ~25%</strong></td></tr>
+            <tr><td>Compressed 4x10</td><td>40 in 4 days</td><td>Full</td><td>Unchanged, days longer</td></tr>
+            <tr><td>9-day fortnight</td><td>~72 in 9 days</td><td>Full</td><td>Rises ~11%</td></tr>
+            <tr><td>Reduced hours</td><td>32 or 36</td><td>Often prorated</td><td>Check the letter</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The distinction matters more than the branding. The celebrated UK
+          pilot ran on 100-80-100: <strong>61 companies</strong>, full pay
+          for 80 percent of the hours, and afterward 56 kept going, with
+          sick days down 65 percent and revenue roughly flat. A compressed
+          4x10 gives you the same Friday but none of the raise; it moves
+          ten hours, it does not remove them. Two offers can both say
+          four-day week and differ by a quarter of your effective wage.
+        </p>
+        <h3>Who actually offers it, in writing</h3>
+        <p>
+          Now our 102. By format: 57 say four-day week without specifying,
+          <strong> 38 offer a 9-day fortnight</strong>, four name reduced
+          hours, three name 4x10. And the occupations at the top of the
+          list are not the ones the discourse predicts: civil engineers and
+          electricians lead with six postings each, then financial
+          analysts, welders, chefs, and compliance officers. Architects and
+          architectural technologists appear too. Software roles barely
+          register.
+        </p>
+        <div className="post-pullq">
+          In the postings, the four-day week is a recruiting lever for
+          trades and engineering firms competing for scarce hands, not a
+          tech perk. The revolution is wearing a hi-vis vest.
+        </div>
+        <p>
+          The fortnight number explains part of it. The 9-day fortnight is
+          an established UK arrangement, common in engineering and public
+          sector work, and our UK sources carry it into the corpus. It is
+          the four-day week's older, quieter cousin: alternating five and
+          four day weeks, every other Friday off, no manifesto attached.
+          Firms that already run it just say so in the ad, which is exactly
+          why it outnumbers the headline model in real postings.
+        </p>
+        <h3>Reading an offer without getting fooled</h3>
+        <p>
+          Three questions sort any four-day claim in under a minute. Are
+          the hours reduced or rearranged, since 32 at full pay is a raise
+          and 4x10 is a schedule. Is it in the contract or in the culture
+          deck, because a trial can end and a term cannot. And does it
+          survive seniority, as some firms quietly restore the fifth day
+          above a certain level. The Tokyo government, which moved its
+          workforce to a four-day option in April 2025, put it in policy.
+          A startup putting it in a careers-page banner has made a softer
+          promise.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          If a four-day week matters to you, the data suggests looking in
+          unexpected places: UK engineering and construction firms are
+          writing it into ads while famous tech names are marching the
+          other direction entirely. And when you find one, do the hourly
+          math before celebrating. The difference between the species is
+          the difference between a 25 percent raise and a longer Tuesday.
+        </p>
+        <Sources>
+          <p>
+            Corpus count: regex over description text of 110,681 raw
+            postings, PivotHop July 2026 (patterns: four-day week, 4x10,
+            32/36-hour week, 9-day fortnight, 100-80-100). Counts are
+            floors; ads can omit benefits. UK pilot figures: 4 Day Week
+            Global and Autonomy Institute reporting, 2023, with follow-up
+            trials through 2025. Tokyo: Tokyo Metropolitan Government
+            announcements, effective April 2025. Formats and hourly math:
+            our own arithmetic on stated terms.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
+    slug: 'the-giants-disagree',
+    title: 'The giants disagree about where you should sit',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'Amazon, JPMorgan, and half the Fortune 100 now demand five days in the office. Tokyo pays its workers to come in four. The corporate world is running two opposite experiments at once, and job seekers are the control group.',
+    minutes: 8,
+    faq: [
+      { q: 'Which companies require five days in office in 2026?', a: 'The full-time five-day list includes Amazon (since January 2025), JPMorgan Chase, AT&T, Goldman Sachs, Dell, Fidelity, and the US federal workforce, among others. Per JLL, 54 percent of Fortune 100 employees were under five-day mandates by mid-2025, up from 11 percent a year earlier.' },
+      { q: 'Are any big employers moving the other way?', a: 'Yes. The Tokyo Metropolitan Government introduced a four-day option for its employees in April 2025, the UK Employment Rights Act 2025 phases in flexible working as a default expectation, and follow-up four-day trials keep converting participants to permanent adopters.' },
+      { q: 'Does remote or hybrid work still exist at scale?', a: 'Broadly yes: surveys through 2026 put about two-thirds of companies at some hybrid arrangement and roughly 6 percent fully remote. The mandates are concentrated at famous, large employers, which makes them louder than their share of the labor market.' },
+    ],
+    body: (
+      <>
+        <p>
+          Two announcements, eighteen months apart, describe the whole
+          situation. In January 2025 Amazon ordered about 350,000 corporate
+          employees back five days a week. In April 2025 the Tokyo
+          Metropolitan Government, one of the largest employers in Japan,
+          gave its workers a four-day option to fight burnout and a
+          collapsing birth rate. The biggest names in world employment are
+          running opposite experiments on the same species.
+        </p>
+        <h3>The mandate camp</h3>
+        <p>
+          The five-day list reads like a stock index: Amazon, JPMorgan
+          Chase, AT&T, Goldman Sachs, Dell, Fidelity, plus the US federal
+          workforce. The velocity is the striking part. Per JLL's office
+          market data, <strong>54 percent of Fortune 100 employees</strong>
+          were under full five-day requirements by mid-2025, against
+          <strong> 11 percent a year earlier</strong>. Whatever executives
+          say about collaboration, a five-fold jump in one year is not a
+          measured pedagogical conclusion. It is a coordinated retreat to
+          a default that leadership never stopped preferring, timed for a
+          labor market where employers hold the cards.
+        </p>
+        <h3>The flexibility camp</h3>
+        <p>
+          The other experiment is quieter and more institutional. Tokyo
+          put its four-day option into government policy. The UK's
+          Employment Rights Act 2025 begins phasing in flexible working
+          as a default employees can request from day one. The four-day
+          trial pipeline keeps converting: the follow-up UK cohort chose
+          to continue at rates that embarrass most workplace initiatives.
+          And beneath the headlines, roughly <strong>two-thirds of
+          companies</strong> still run some hybrid arrangement, with about
+          6 percent fully remote. The mandates are concentrated among
+          famous employers, which makes them louder than their actual
+          share of hiring.
+        </p>
+        <table className="post-table">
+          <caption>The two experiments, side by side · July 2026</caption>
+          <thead><tr><th></th><th>Mandate camp</th><th>Flexibility camp</th></tr></thead>
+          <tbody>
+            <tr><td>Flagships</td><td>Amazon, JPMorgan, Goldman, AT&T</td><td>Tokyo Metro Gov, UK law, trial cohorts</td></tr>
+            <tr><td>Instrument</td><td>Attendance policy</td><td>Statute and contract terms</td></tr>
+            <tr><td>Stated reason</td><td>Collaboration, culture</td><td>Retention, health, demographics</td></tr>
+            <tr><td>Share of market</td><td>Loud minority</td><td>Quiet majority (hybrid ~67%)</td></tr>
+          </tbody>
+        </table>
+        <h3>What it does to the job landscape</h3>
+        <p>
+          For candidates, the divergence converts location policy into a
+          compensation term, whether anyone prices it or not. A five-day
+          mandate is a pay cut measured in commuting hours; a contractual
+          four-day term is a raise measured the same way. Our own data
+          says the market has not caught up to pricing either: postings
+          rarely state arrangements plainly, remote-pay statistics are
+          composition-riddled, and only 0.09 percent of ads commit to a
+          four-day term in writing. The gap between policy noise and
+          posting language is where negotiation currently lives.
+        </p>
+        <p>
+          There is also a sorting effect that will take years to show up
+          in data. Mandates at famous firms push flexibility-minded
+          seniors toward the quiet majority of hybrid employers, who get
+          to hire above their weight class without raising a salary. If
+          that sounds like an arbitrage, it is, and mid-sized firms are
+          the ones collecting it.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          Treat workplace policy as a term sheet item, not a vibe. Ask
+          where the arrangement is written down, what happened to it
+          during the last leadership change, and whether it survives
+          promotion. The giants have made their preferences legible from
+          both directions this year. The useful move is noticing that
+          most of the market never joined either camp, and that the
+          quiet middle is currently the best place to be a candidate
+          with leverage.
+        </p>
+        <Sources>
+          <p>
+            Mandate list and Fortune 100 shares: JLL Q2 2025 office
+            market data and RTO trackers, as reported through mid-2026.
+            Amazon policy: company announcement, effective January 2025.
+            Tokyo: Metropolitan Government policy, April 2025. UK:
+            Employment Rights Act 2025, staged provisions. Hybrid and
+            remote shares: workplace surveys 2025-2026, approximate.
+            Posting-language figures: PivotHop corpus, July 2026.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
 ];
