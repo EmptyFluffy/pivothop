@@ -446,7 +446,10 @@ input:focus-visible{outline:none}
 .post-table th{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--ink)}
 .post-table td{padding:9px 12px 9px 0;border-bottom:0.5px solid var(--rule);color:var(--ink-2);vertical-align:top}
 .post-table td b,.post-table td strong{color:var(--ink)}
-.post-table .num{font-variant-numeric:tabular-nums;text-align:right;padding-right:0;white-space:nowrap}
+.post-table .num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.post-table td.num:not(:last-child),.post-table th.num:not(:last-child){padding-right:36px}
+.post-table td:last-child,.post-table th:last-child{padding-right:0}
+.post-table th:not(:first-child),.post-table td:not(:first-child){padding-left:14px}
 .post-callout{border:1px solid var(--ink);padding:16px 20px;margin:20px 0;display:flex;gap:18px;align-items:baseline}
 .post-callout b{font-size:30px;letter-spacing:-.02em;line-height:1;white-space:nowrap}
 .post-callout span{font-size:13px;color:var(--ink-2);line-height:1.5}

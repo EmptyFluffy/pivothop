@@ -42,7 +42,7 @@ export const POSTS: Post[] = [
     title: 'The adjacency premium: what 148 strong career connections pay',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
-    dek: 'A third of well-matched career moves lead somewhere that pays more. The biggest raises hide behind licenses. Here is the whole table logic.',
+    dek: 'A third of well-matched career moves lead somewhere that pays more. The biggest raises hide behind licenses. The whole table logic follows.',
     minutes: 6,
     body: (
       <>
@@ -55,7 +55,7 @@ export const POSTS: Post[] = [
         </p>
         <p>
           Fifty-three of the 148, about 36 percent, point somewhere that pays more
-          than where they start. That number deserves a moment. The standard story
+          than where they start. The standard story
           about career changes is sacrifice: start over, take the pay cut, earn
           your way back. The postings say that story is true only two times out of
           three. The third time, the adjacent role simply pays better, and the
@@ -78,8 +78,7 @@ export const POSTS: Post[] = [
           </tbody>
         </table>
         <p>
-          Now the catch, and it is the honest heart of this piece: the biggest
-          premiums sit behind licenses. Pharmacist requires a doctorate and a
+          Now the catch: the biggest premiums sit behind licenses. Pharmacist requires a doctorate and a
           state license. Physical therapist requires a licensure exam. Flight
           attendant, plus 69 percent from customer support, requires FAA
           certification through an airline. The market is not stupid. Where the
@@ -132,14 +131,18 @@ export const POSTS: Post[] = [
           1,090 live job postings and you get a different answer. We read every
           architect posting in our corpus and counted which skills employers
           actually name. The top ten, by share of postings that mention them:
-          Revit at 11.6 percent, sustainability at 9.2, project management at
-          6.6, specification writing at 4.3, construction documentation at 4.0,
+          <strong>Revit at 11.6 percent</strong>, <strong>sustainability at 9.2</strong>, project management at 6.6, specification writing at 4.3, construction documentation at 4.0,
           urban design at 3.6, BIM at 3.3, construction administration at 2.8,
           quality control at 2.8, and LEED at 2.7.
         </p>
+        <div className="post-bars">
+          {[['Revit', 11.6], ['Sustainability', 9.2], ['Project management', 6.6], ['Spec writing', 4.3], ['Construction docs', 4.0], ['Urban design', 3.6], ['BIM', 3.3], ['Construction admin', 2.8], ['Quality control', 2.8], ['LEED', 2.7]].map(([k, v]) => (
+            <div key={String(k)} className="pb-row"><span className="k">{k}</span><span className="t"><span className="f" style={{ width: `${(Number(v) / 11.6) * 100}%` }}></span></span><span className="v">{v}%</span></div>
+          ))}
+        </div>
         <h3>Three things worth noticing</h3>
         <p>
-          First, sustainability is the number two skill in architecture hiring.
+          First, <strong>sustainability is the number two skill in architecture hiring</strong>.
           Not a specialization, not a nice-to-have: nearly one posting in ten
           names it, ahead of every design tool except Revit. If you are an
           architect who has done real energy modeling or LEED documentation, you
@@ -147,9 +150,7 @@ export const POSTS: Post[] = [
           list.
         </p>
         <p>
-          Second, the management cluster outweighs the drawing cluster. Project
-          management, construction administration, and quality control together
-          appear more often than Revit does. The profession sells itself to
+          Second, the management cluster outweighs the drawing cluster. Project management, construction administration, and quality control together <strong>appear more often than Revit does</strong>. The profession sells itself to
           students as a design career. The postings describe a coordination
           career with a design component. This gap between the story and the
           demand is exactly where pivots come from.
@@ -172,6 +173,18 @@ export const POSTS: Post[] = [
           two cheapest ways to move up the demand curve without leaving the
           profession.
         </p>
+        <h3>Using the list on a resume, this week</h3>
+        <p>
+          One practical conversion. Take your last three projects and rewrite
+          each bullet so it leads with a term from the demand list rather
+          than a design term: the LEED documentation you produced, the RFIs
+          you closed, the spec sections you owned, the consultant
+          coordination you ran. Nothing about the work changes. What changes
+          is that a recruiter scanning against these exact words, and
+          increasingly a model doing the same, finds you on the first pass.
+          The postings have told you the vocabulary. It would be rude not to
+          use it.
+        </p>
         <Sources>
           <p>
             PivotHop pipeline, July 2026 run: 1,090 postings mapped to the
@@ -190,7 +203,7 @@ export const POSTS: Post[] = [
     title: 'One word, two professions: the architect problem in job data',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
-    dek: 'Half the postings titled architect are not about buildings. Every career site you have used mixes them together. Here is how we split them, and why it matters.',
+    dek: 'Half the postings titled architect are not about buildings. Every career site you have used mixes them together. How we split them, and why it matters.',
     minutes: 5,
     body: (
       <>
@@ -213,8 +226,7 @@ export const POSTS: Post[] = [
         </p>
         <h3>How we split the word</h3>
         <p>
-          Our pipeline treats the bare word architect as claimable only by an
-          exact match. A posting titled just Architect maps to the building
+          Our pipeline treats the bare word architect as claimable <strong>only by an exact match</strong>. A posting titled just Architect maps to the building
           profession. Anything in the pattern of something architect, where the
           something is a technology word, routes to the technology occupation or,
           when we cannot tell, gets excluded rather than guessed. Every excluded
@@ -226,8 +238,27 @@ export const POSTS: Post[] = [
           by six different professions in our data. Engineer by more than ten.
           Analyst is a suffix on half the business world. Each of the 145
           occupations we track carries its own list of exact titles and
-          qualified phrases, currently about 600 synonyms, and the matcher takes
+          qualified phrases, currently about <strong>600 synonyms</strong>, and the matcher takes
           the longest specific phrase before it ever considers a generic word.
+        </p>
+        <table className="post-table">
+          <caption>Contested words in our taxonomy · July 2026</caption>
+          <thead><tr><th>The word</th><th className="num">Professions claiming it</th><th>Example collision</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Engineer</strong></td><td className="num">10+</td><td>Civil vs software vs sales engineer</td></tr>
+            <tr><td><strong>Designer</strong></td><td className="num">6</td><td>Interior vs product vs graphic</td></tr>
+            <tr><td>Architect</td><td className="num">5</td><td>Building vs solutions vs data</td></tr>
+            <tr><td>Analyst</td><td className="num">5</td><td>Financial vs data vs business</td></tr>
+            <tr><td>Manager</td><td className="num">dozens</td><td>Everything, always</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The scale of the collision is visible in our own counts: the
+          building profession holds <strong>1,178 postings</strong> in the
+          corpus while solutions architect alone holds <strong>736</strong>,
+          and the tech variants together outnumber the people who design
+          buildings. An unsplit average over that pile would miss every
+          number that matters by double digits.
         </p>
         <h3>Why you should care even if you are not an architect</h3>
         <p>
@@ -240,8 +271,7 @@ export const POSTS: Post[] = [
         </p>
         <p>
           Ours answers. Type architect into the instrument and you get two
-          entries, clearly labeled by field, with separate data underneath. The
-          building one currently reads 1,090 postings. The pile it was rescued
+          entries, clearly labeled by field, with separate data underneath. The building one currently reads <strong>1,090 postings</strong>. The pile it was rescued
           from was several times larger.
         </p>
         <Sources>
@@ -274,13 +304,11 @@ export const POSTS: Post[] = [
         </p>
         <p>
           The coordinator inside you is a construction manager or project
-          manager. This is the strongest single thread in the data: project
-          management appears in 6.6 percent of architect postings, and the
+          manager. This is the strongest single thread in the data: project management appears in <strong>6.6 percent</strong> of architect postings, and the
           management cluster is the biggest overlap in most architect routes.
           The modeler inside you is a BIM manager or architectural drafter,
           the two most Revit-weighted destinations we track. The environmental
-          conscience is a sustainability consultant, a route our model scores
-          in the nineties for architects who list energy modeling and LEED.
+          conscience is a sustainability consultant, a route our model scores <strong>in the nineties</strong> for architects who list energy modeling and LEED.
           The specifier, the person who knows what a spec section is for, maps
           toward construction estimating and technical writing. The urbanist
           goes to urban planning, license required in some states. The
@@ -289,6 +317,23 @@ export const POSTS: Post[] = [
           the flashing problem, is quality control and building surveying in
           waiting.
         </p>
+        <table className="post-table">
+          <caption>The seven threads and where each travels · PivotHop, July 2026</caption>
+          <thead><tr><th>The thread</th><th>Where it goes alone</th><th className="num">Graph score</th></tr></thead>
+          <tbody>
+            <tr><td>The coordinator</td><td>Construction or project management</td><td className="num">top overlap</td></tr>
+            <tr><td>The modeler</td><td>BIM management, drafting</td><td className="num">strong</td></tr>
+            <tr><td><strong>The environmentalist</strong></td><td>Sustainability consulting</td><td className="num"><strong>93%</strong>*</td></tr>
+            <tr><td>The specifier</td><td>Estimating, technical writing</td><td className="num">37%</td></tr>
+            <tr><td>The urbanist</td><td>Urban planning</td><td className="num">licensed, varies</td></tr>
+            <tr><td>The visualizer</td><td>3D, rendering, product imagery</td><td className="num">portfolio-led</td></tr>
+            <tr><td>The detail conscience</td><td>QC, building surveying</td><td className="num">36%</td></tr>
+          </tbody>
+        </table>
+        <p style={{ fontSize: 12, color: 'var(--ink-3)' }}>
+          *Personalized score with energy modeling and LEED added to the
+          skill vector; the seed profile alone scores lower.
+        </p>
         <h3>Why unbundling beats reinvention</h3>
         <p>
           The standard career-change fantasy is reinvention: become someone new.
@@ -296,8 +341,7 @@ export const POSTS: Post[] = [
           the thread of your current job you like most, find the profession
           that is mostly that thread, and close a much smaller gap than you
           feared. An architect moving to sustainability consulting is not
-          starting over. They are dropping six sevenths of the bundle and
-          getting paid for the seventh they kept.
+          starting over. They are dropping <strong>six sevenths of the bundle</strong> and getting paid for the seventh they kept.
         </p>
         <p>
           This is also the honest reading of why pivots fail. People leave
@@ -330,10 +374,9 @@ export const POSTS: Post[] = [
       <>
         <p>
           We looked at the top eight routes out of every occupation in our
-          graph, 1,112 routes in total, and asked a boring question with
+          graph, <strong>1,112 routes</strong> in total, and asked a boring question with
           expensive answers: how many of these destinations can you legally
-          just start doing? The result: 64 percent are license-free, 18 percent
-          require a license outright, and the rest need one for some roles or
+          just start doing? The result: <strong>64 percent are license-free</strong>, <strong>18 percent require a license outright</strong>, and the rest need one for some roles or
           some states.
         </p>
         <h3>The pattern</h3>
@@ -348,14 +391,33 @@ export const POSTS: Post[] = [
           almost entirely open, which is one unglamorous reason technology
           careers move faster: the exits have no tollbooths.
         </p>
+        <table className="post-table">
+          <caption>Two rings, two licensing worlds · PivotHop, July 2026</caption>
+          <thead><tr><th>Registered nurse's top exits</th><th>Gate</th><th>Software engineer's top exits</th><th>Gate</th></tr></thead>
+          <tbody>
+            <tr><td>Nurse practitioner (77%)</td><td><strong>License</strong></td><td>AI engineer</td><td>none</td></tr>
+            <tr><td>Dietitian (74%)</td><td><strong>License</strong></td><td>DevOps engineer</td><td>none</td></tr>
+            <tr><td>Physical therapist (68%)</td><td><strong>License</strong></td><td>Data engineer</td><td>none</td></tr>
+            <tr><td>Therapist (67%)</td><td><strong>License</strong></td><td>Backend developer</td><td>none</td></tr>
+            <tr><td>Pharmacist (65%)</td><td><strong>License</strong></td><td>Security engineer</td><td>none</td></tr>
+          </tbody>
+        </table>
+        <p>
+          A caution on geography before anyone books an exam: the licensing
+          map is state-shaped. Interior design is title-regulated in some
+          states and open in most. Dietitian licensure covers most of the
+          country but not all of it. Our annotations describe the common US
+          case, and the specific state you live in can move a route from
+          gated to open, which is occasionally the cheapest relocation
+          argument anyone will ever hand you.
+        </p>
         <p>
           This changes how you should read a match percentage. Our instrument
-          might say you are 63 percent ready for pharmacist, and that number is
+          might say you are <strong>63 percent ready</strong> for pharmacist, and that number is
           true of your skills. It is silent about the doctorate unless we say
           it out loud, so we do: every licensed destination in the product
           carries a plain label, licensed profession, with the specific gate
-          named. A route through a license is not a worse route. It is a
-          different loan.
+          named. A route through a license is not worse, just financed differently: you repay it in years instead of applications.
         </p>
         <h3>Half-life arithmetic</h3>
         <p>
@@ -398,8 +460,7 @@ export const POSTS: Post[] = [
       <>
         <p>
           The phrase transferable skills usually arrives without evidence, a
-          comfort blanket in a career book. We wanted the measured version, so we
-          asked a blunt question of our posting corpus: which skills appear in
+          comfort blanket in a career book. We wanted the counted version, so we asked a blunt question of our posting corpus: which skills appear in
           the hiring demand of the most different occupations? Not which skills
           sound portable. Which ones employers in unrelated fields actually put
           in writing.
@@ -420,7 +481,7 @@ export const POSTS: Post[] = [
         </p>
         <p>
           And at number fifteen, the newcomer: working with large language
-          models, named in the demand of 16 different occupations. Not just AI
+          models, named in the demand of <strong>16 different occupations</strong>. Not just AI
           companies. Marketing teams, law firms, logistics operators. A skill
           that did not exist as a hiring term three years ago now travels better
           than most things taught in a four-year degree.
@@ -444,7 +505,7 @@ export const POSTS: Post[] = [
         <h3>The practical read</h3>
         <p>
           If you are mid-career and worried your experience is too specific,
-          this list is the antidote and the assignment. Go through a normal week
+          this list is both the antidote and the assignment. Go through a normal week
           and write down every hour that was actually data analysis, project
           coordination, training, or writing, whatever your title called it.
           That inventory is your passport. Job titles do not transfer. Weeks do.
@@ -493,14 +554,11 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          Career change at 40 gets discussed as a feelings problem. It is mostly
-          an arithmetic problem, and the arithmetic is friendlier than the
-          internet suggests. Here is the whole calculation, with the numbers we
-          can actually measure.
+          Career change at 40 gets discussed as a feelings problem. It is mostly an arithmetic problem, and the arithmetic is friendlier than the forums suggest. The whole calculation fits in four short sections, with numbers attached.
         </p>
         <h3>The time horizon is the variable that matters</h3>
         <p>
-          At 40 you have, give or take, 25 working years left. That is more
+          At 40 you have, give or take, <strong>25 working years left</strong>. That is more
           career remaining than a 22-year-old has spent in school, total, since
           kindergarten. It is enough runway to amortize almost any retraining.
           A two-year credential that unlocks a 40 percent raise pays for itself
@@ -513,9 +571,7 @@ export const POSTS: Post[] = [
         <p>
           The standard assumption is that changing fields means starting over on
           salary. We measured it. Across 148 strong adjacencies in our graph,
-          moves where your existing skills already cover at least half the
-          destination's demands, 36 percent point somewhere that posts a higher
-          salary midpoint than where you started. One move in three is a raise,
+          moves where your current skills already cover at least half of what the destination asks for, <strong>36 percent point somewhere that posts a higher salary midpoint</strong> than where you started. One move in three is a raise,
           not a sacrifice. The trick is that those moves are unevenly
           advertised: nobody recruits you into them, because recruiters search
           titles and your title is wrong.
@@ -525,8 +581,7 @@ export const POSTS: Post[] = [
           The biggest raises in our data hide behind licenses, which is exactly
           the wrong shape for a 40-year-old in a hurry. So we cut the table the
           other way and kept only license-free destinations. The best
-          well-matched, no-new-degree raises right now: bookkeeper to financial
-          controller at plus 111 percent, sales representative to customer
+          well-matched, no-new-degree raises right now: bookkeeper to financial controller at <strong>plus 111 percent</strong>, sales representative to customer
           success manager at plus 68, accountant to financial controller at
           plus 52, architectural drafter to MEP engineering at plus 52,
           architect to electrical engineering at plus 50, customer support to
@@ -546,8 +601,7 @@ export const POSTS: Post[] = [
         </p>
         <h3>Where this leaves you</h3>
         <p>
-          Run the numbers before the feelings. Your remaining years, the
-          measured overlap between your week and the destination's postings,
+          Run the numbers before the feelings. Your remaining years, the overlap between your week and the destination's postings,
           the pay delta, and the gate. If the move clears that arithmetic, the
           age question answers itself. If it does not clear the arithmetic, no
           amount of motivation fixes it, and knowing that early is a gift. The
@@ -584,7 +638,7 @@ export const POSTS: Post[] = [
         <p>
           Nursing produces more exit talk than almost any profession, for
           reasons that need no explanation to anyone who has worked a floor
-          shift. We wanted the destination data instead of the discourse, so we
+          shift. We wanted destination data instead of discourse, so we
           mapped 1,698 live nursing postings against every other profession we
           track. What comes back is coherent, a little sobering, and more
           useful than the listicles.
@@ -592,20 +646,17 @@ export const POSTS: Post[] = [
         <h3>The five best exits are all licensed</h3>
         <p>
           By skill overlap, the destinations that best match what nursing
-          postings already ask for: nurse practitioner at 77 percent, dietitian
-          at 74, physical therapist at 68, therapist or counselor at 67,
+          postings already ask for: <strong>nurse practitioner at 77 percent</strong>, dietitian at 74, physical therapist at 68, therapist or counselor at 67,
           pharmacist at 65. Then social work at 49, licensed only for clinical
           roles.
         </p>
         <p>
-          Notice the pattern. Every single top exit runs through a license.
+          Every single top exit runs through a license.
           Healthcare does not really have adjacent careers; it has adjacent
           credentials. The skills transfer beautifully, patient assessment,
           documentation, care coordination, pharmacology basics, and then a
           state board stands at the door of each destination asking for two to
-          six more years. This is not a reason to stay put. It is a reason to
-          treat a nursing exit as a time-horizon decision, not a skills
-          decision. The skills were never the problem.
+          six more years. None of that argues for staying put. It argues for treating a nursing exit as a time-horizon decision rather than a skills decision. The skills were never the problem.
         </p>
         <h3>The un-glamorous middle path</h3>
         <p>
@@ -616,8 +667,7 @@ export const POSTS: Post[] = [
           nursing that transfer without a board exam: judgment, documentation
           discipline, and the ability to talk to both patients and physicians
           without losing anything in translation. The pay is usually a lateral
-          step from the blended US nursing median of about 96,500 dollars in
-          our data, sometimes a small raise with seniority.
+          step from the blended US nursing median of about <strong>96,500 dollars</strong> in our data, sometimes a small raise with seniority.
         </p>
         <h3>About remote work, honestly</h3>
         <p>
@@ -667,12 +717,12 @@ export const POSTS: Post[] = [
       <>
         <p>
           AI engineer went from a curiosity title to <strong>943 postings</strong> in our corpus
-          inside a year, and 670 of them state pay. The blended US median lands
+          inside a year, and <strong>670</strong> of them state pay. The blended US median lands
           at about <strong>150,500 dollars</strong>. That much everyone suspected. What the
           reach table shows is less expected, and more useful if you are
           standing outside the field wondering about the door.
         </p>
-        <h3>The doorway professions, measured</h3>
+        <h3>The doorway professions, counted</h3>
         <p>
           We compute, for every occupation, how much of an AI engineer's posted
           skill demand it already covers. Machine learning engineer leads, no
@@ -767,7 +817,7 @@ export const POSTS: Post[] = [
           Every architect knows the thread. Someone three years out of school
           asks whether to leave, forty replies say the profession is doomed,
           twelve say follow your passion, and nobody posts a number. We built
-          the numbers. Here is what 1,178 live architect postings and the
+          the numbers. What follows is what 1,178 live architect postings and the
           adjacency graph around them actually say, from a team whose founder
           drew construction sets for years before writing a line of this
           pipeline.
@@ -785,17 +835,14 @@ export const POSTS: Post[] = [
         </p>
         <h3>The exits, priced</h3>
         <p>
-          The measured routes out: interior design at 66 percent skill match,
-          electrical engineering at 57, structural at 52, landscape at 51,
+          The routes out, scored: <strong>interior design at 66 percent</strong> skill match, electrical engineering at 57, structural at 52, landscape at 51,
           mechanical at 49. Construction management and estimating sit just
           behind, and for architects who can show real energy modeling, our
           personalized model scores sustainability consulting in the
           nineties.
         </p>
         <p>
-          Now the pay, which the threads never quantify. The blended US median
-          for architects in our data is about 83,700 dollars. Structural
-          engineers: about 107,000. That is a 28 percent gap between two
+          Now the pay, which the threads never quantify. The blended US median for architects in our data is about <strong>83,700 dollars</strong>. Structural engineers: about <strong>107,000</strong>. That is a <strong>28 percent gap</strong> between two
           professions that share half their skill demand and often the same
           hallway. Electrical engineering prices similarly. Part of the gap is
           the PE license and the liability it carries. Part of it is that
@@ -811,20 +858,15 @@ export const POSTS: Post[] = [
           that did not exist five years ago. The passion caucus is also wrong:
           passion does not close a 28 percent structural pay gap, and telling
           people to ignore it is telling them to donate the difference to
-          their employer. The honest frame is neither. Architecture is a
-          viable profession with a measurable discount attached, surrounded by
-          well-matched exits that mostly price higher. Staying is defensible.
-          Leaving is defensible. Staying while believing you have no options
-          is the only position the data refuses to support.
+          their employer. The honest frame is neither. Architecture is a viable profession with a visible discount attached, surrounded by
+          well-matched exits that mostly price higher. Staying is defensible, and so is leaving. The one position the data refuses to support is staying while believing you have no options.
         </p>
         <h3>Where this leaves you</h3>
         <p>
-          Separate two questions the threads always merge. First: can you
-          leave? Measurably yes, in several directions, often at a raise, and
+          Separate two questions the threads always merge. First: can you leave? On the numbers, yes, in several directions, often at a raise, and
           the gaps are specific skills, not new degrees. Second: should you?
           That depends on which hours of your week you want more of, and no
-          scraper reaches that data. What we can do is make the first question
-          boring, settled, and numeric, so you can spend your energy on the
+          scraper reaches that data. What we can do is make the first question settled and numeric, so you can spend your energy on the
           second one, which was always the real question anyway. Type
           architect into the instrument, edit the skills until it looks like
           your actual week, and see your own map. The forum will still be
@@ -850,7 +892,7 @@ export const POSTS: Post[] = [
     title: 'Cluely, rage bait, and what the attention economy pays for',
     pillar: 'Shape of Work',
     date: 'July 2026',
-    dek: 'A startup built on the slogan cheat on everything raised millions, hit a 120 million dollar valuation, and then admitted its headline revenue was invented. There is a career lesson in here, and it is not the one the founders think.',
+    dek: 'A startup built on the slogan cheat on everything raised millions, hit a <strong>120 million dollar valuation</strong>, and then admitted its headline revenue was invented. There is a career lesson in here, and it is not the one the founders think.',
     minutes: 7,
     body: (
       <>
@@ -864,9 +906,7 @@ export const POSTS: Post[] = [
           face.
         </p>
         <p>
-          Then, in March 2026, the same founder posted that the 7 million
-          dollars in annual recurring revenue he had told TechCrunch about the
-          previous summer was, in his words, blatantly dishonest. A formal
+          Then, in March 2026, the same founder posted that the <strong>7 million dollars in annual recurring revenue</strong> he had told TechCrunch about the previous summer was, in his words, blatantly dishonest. A formal
           retraction, on X, of a number that had been load-bearing for the
           whole story. The apology tour then misstated how the original
           interview came about, which TechCrunch also documented. You could
@@ -928,8 +968,7 @@ export const POSTS: Post[] = [
             reporting, June and July 2025. The revenue retraction and its
             aftermath: TechCrunch, March 5, 2026, and the founder's own
             public statements. Our characterization of growth-role demand is
-            from the PivotHop posting corpus. No numbers in this piece were
-            invented, which we mention because apparently it needs saying.
+            from the PivotHop posting corpus. No numbers in this piece were invented.
           </p>
         </Sources>
       </>
@@ -950,8 +989,7 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          Our corpus currently holds 337 postings with forward deployed in the
-          title. For scale, that is more than four times the number of prompt
+          Our corpus currently holds <strong>337 postings</strong> with forward deployed in the title. For scale, that is more than four times the number of prompt
           engineer postings, a title that got a thousand thinkpieces. Nobody
           writes thinkpieces about forward-deployed engineers. Companies just
           keep hiring them, which is usually the better signal.
@@ -967,25 +1005,19 @@ export const POSTS: Post[] = [
           plumbing, and organizational translation. Someone has to live in
           that canyon. The labs named the someone.
         </p>
-        <h3>Who the role fits, measured</h3>
+        <h3>Who the role fits, according to the postings</h3>
         <p>
           Read a batch of these postings and a profile emerges: writes real
           code, runs real meetings, tolerates ambiguity, can tell a customer
           no without losing the account, can tell the product team the
-          customer is right without losing face. In our adjacency graph, the
-          professions whose measured skills sit closest to that mix are sales
-          engineering and solutions architecture, which is consistent with
-          the strangest number in our AI analysis: sales engineers already
-          cover 50 percent of AI engineer demand, ahead of software
+          customer is right without losing face. In our adjacency graph, the professions whose skills sit closest to that mix are sales
+          engineering and solutions architecture, which lines up with the strangest number in our AI analysis: sales engineers already cover <strong>50 percent of AI engineer demand</strong>, ahead of software
           engineers. The industry needs translators with commit access, and
           it has needed them for a while.
         </p>
         <h3>The money and the trade</h3>
         <p>
-          Salary data rarely breaks out the exact title, but the measured
-          neighbors bracket it well: solutions architects at about 146,000
-          dollars US blended median in our data, sales engineers around
-          140,000, AI engineers about 150,500. The trade is travel, customer
+          Salary data rarely breaks out the exact title, but the neighboring roles bracket it well: solutions architects at about <strong>146,000 dollars</strong> US blended median in our data, sales engineers around 140,000, AI engineers about <strong>150,500</strong>. The trade is travel, customer
           hours, and the particular exhaustion of being permanently between
           two organizations. The reward, beyond the band: forward-deployed
           work generates the rarest kind of resume line, provable impact at
@@ -1033,12 +1065,11 @@ export const POSTS: Post[] = [
           Before the bootcamps, before the LinkedIn headlines, someone in a
           hiring committee has to type a phrase into a job board for the
           first time. Because we read the boards daily, we get to watch the
-          nursery. Here is the July 2026 census of titles that were not a
-          thing in 2023.
+          nursery. The July 2026 census of titles that were not a thing in 2023, then.
         </p>
         <h3>The census</h3>
         <p>
-          Forward-deployed engineer: 337 postings, the clear leader, covered
+          <strong>Forward-deployed engineer: 337 postings</strong>, the clear leader, covered
           at length in its own piece. Agentic roles, engineers and product
           people building AI agents: 188 postings and climbing fast, the
           phrase spreading from labs into commerce and operations titles.
@@ -1052,11 +1083,10 @@ export const POSTS: Post[] = [
         <p>
           New titles follow one of two paths. Some consolidate into a broader
           role once the skill stops being exotic. Prompt engineering is
-          visibly on this path: 72 postings against 943 for AI engineer, and
+          visibly on this path: <strong>72 postings against 943</strong> for AI engineer, and
           in our adjacency graph the two roles overlap so heavily that the
           smaller one reads as a feature of the bigger one. The US median
-          gap, about 102,000 dollars for the specialist against 150,500 for
-          the generalist, is the market pricing the consolidation in real
+          gap, about <strong>102,000 dollars for the specialist against 150,500 for the generalist</strong>, is the market pricing the consolidation in real
           time. Learn the skill, skip the title.
         </p>
         <p>
@@ -1138,7 +1168,7 @@ export const POSTS: Post[] = [
           ranking stack entirely for a Grok-based transformer that reads every
           post and watches every video, making around 5 billion ranking
           decisions daily. The reported weights tell you what the model is
-          for. A reply counts roughly 27 times a like. A genuine
+          for. A reply counts roughly <strong>27 times a like</strong>. A genuine
           back-and-forth conversation, roughly 150 times. Likes, the currency
           of the 2010s, are now the copper coin. Even the Following feed is
           algorithmically re-sorted, which is a quiet way of saying the
@@ -1159,14 +1189,14 @@ export const POSTS: Post[] = [
           could not simply be handed over, so it is being retrained on
           American data as a separate fork. Meanwhile the bar rose. The
           completion rate that used to trigger wide distribution, around
-          half, is now reported near 70 percent. The machine got pickier as
+          half, is now reported near <strong>70 percent</strong>. The machine got pickier as
           everyone learned to feed it.
         </p>
         <p>
           And Google, the biggest publisher-facing change of all: AI
           Overviews went from about 6.5 percent of queries in January 2025 to
-          roughly 48 percent of searches by early 2026, and somewhere between
-          58 and 68 percent of searches now end with no click to any website.
+          roughly <strong>48 percent of searches</strong> by early 2026, and somewhere between
+          <strong>58 and 68 percent of searches</strong> now end with no click to any website.
           In the fully conversational AI Mode, the no-click figure reportedly
           reaches 93 percent. Google still reads the web. Increasingly, it
           reads it so you do not have to.
@@ -1243,19 +1273,15 @@ export const POSTS: Post[] = [
           SEO has died more times than rock and roll. This particular death,
           though, has numbers attached. AI Overviews, the Gemini-written
           answers at the top of Google, appeared on about 6.5 percent of
-          queries in January 2025 and appear on roughly 48 percent of
-          searches now. Between 58 and 68 percent of searches end with no
+          queries in January 2025 and appear on roughly <strong>48 percent of searches</strong> now. Between 58 and 68 percent of searches end with no
           click to any website. When an AI summary is present, clicks on
           traditional results reportedly drop by nearly half, and in the
-          conversational AI Mode, 93 percent of sessions end without a
-          click. If your business model was ranking pages and harvesting the
+          conversational AI Mode, <strong>93 percent</strong> of sessions end without a click. If your business model was ranking pages and harvesting the
           clicks, that model has been repossessed.
         </p>
         <h3>The part that did not die</h3>
         <p>
-          Read the same telemetry from the other side. Brands cited inside AI
-          Overviews see around 35 percent higher organic clickthrough than
-          uncited brands. The model still needs sources; it just stopped
+          Read the same telemetry from the other side. Brands cited inside AI Overviews see around <strong>35 percent higher organic clickthrough</strong> than uncited brands. The model still needs sources; it just stopped
           needing ten of them per query. Search traffic did not evaporate so
           much as consolidate onto whatever the machine decides is worth
           quoting. Which turns the old discipline inside out: the job is no
@@ -1336,7 +1362,7 @@ export const POSTS: Post[] = [
           There is a whole profession built on being findable, and right now
           it is having the strangest year of its existence. We track 178 SEO
           specialist postings in our corpus, 120 of them with stated pay.
-          The blended US median: about 79,700 dollars. That number, and the
+          The blended US median: about <strong>79,700 dollars</strong>. That number, and the
           numbers around it, tell a sharper career story than the discourse
           does.
         </p>
@@ -1345,9 +1371,7 @@ export const POSTS: Post[] = [
           Eighty thousand puts the SEO specialist in respectable but
           revealing company. Copywriters in our data sit near 81,700.
           Content strategists near 84,700. Data analysts, whose toolkit
-          overlaps more than either side admits, near 97,000. Marketing
-          managers, the role SEO specialists most often grow into, near
-          125,900. The spread is the career advice: the specialist title
+          overlaps more than either side admits, near 97,000. Marketing managers, the role SEO specialists most often grow into, near <strong>125,900</strong>. The spread is the career advice: the specialist title
           pays for a craft, and the next 46,000 dollars pays for owning the
           strategy the craft serves. SEO is a fine place to stand and an
           expensive place to stop.
@@ -1355,15 +1379,13 @@ export const POSTS: Post[] = [
         <h3>What the demand data says about the skill</h3>
         <p>
           Beyond the specialist role itself, SEO as a skill appears
-          meaningfully in the posting demand of copywriters at 8.2 percent,
-          content strategists at 5.5, and marketing managers at 3.2. Read
+          meaningfully in the posting demand of copywriters at <strong>8.2 percent</strong>, content strategists at 5.5, and marketing managers at 3.2. Read
           that as the market saying SEO is becoming a literacy as much as a
           job: a thing adjacent professionals are expected to hold, the way
           everyone in an office eventually had to hold spreadsheets. For a
           specialist, that is both a threat and an exit ramp. The threat is
           commodification of the basics. The exit ramp is that every one of
-          those adjacent roles values your depth, and our graph prices the
-          moves: marketing manager at 32 percent measured overlap,
+          those adjacent roles values your depth, and our graph prices the moves: marketing manager at 32 percent overlap,
           copywriter at 31, content strategist at 30, social media manager
           at 26.
         </p>
@@ -1387,9 +1409,7 @@ export const POSTS: Post[] = [
           exactly the work AI systems are best at absorbing, and postings
           for it will thin. The ceiling: people who can prove they moved
           revenue through search, in whatever form search takes, keep
-          commanding marketing-leadership pay. The variable that decides
-          which side you land on is measurement. The specialists who thrive
-          in our data read like analysts who happen to work on visibility,
+          commanding marketing-leadership pay. The variable that decides which side you land on is whether you can prove impact with numbers. The specialists who do well in our data read like analysts who happen to work on visibility,
           not like content workers who happen to know meta tags.
         </p>
         <h3>Where this leaves you</h3>
@@ -1399,8 +1419,7 @@ export const POSTS: Post[] = [
           day one; the median is decent, the learning curve is real, and
           the seniority path runs through strategy. If you are already in
           it: your title's basics are becoming everyone's literacy, your
-          frontier is brand new, and your best-paying neighbors are one
-          measured step away. The profession built on being findable is
+          frontier is brand new, and your best-paying neighbors are one documented step away. The profession built on being findable is
           being asked to find itself. On the evidence, it has done harder
           things.
         </p>
@@ -1472,8 +1491,7 @@ export const POSTS: Post[] = [
           team under a deadline. So does an album.
         </div>
         <p>
-          Our data makes the same point less romantically. When we unbundle
-          the architect's measured skill set, the threads are spatial
+          Our data makes the same point less romantically. When we unbundle what architect postings actually ask for, the threads are spatial
           reasoning, systems coordination, visual communication, and staged
           sequencing, and those threads score high toward design and
           technical-creative fields in our adjacency graph. The capability
@@ -1484,9 +1502,7 @@ export const POSTS: Post[] = [
         </p>
         <h3>What the dropouts kept</h3>
         <p>
-          Weird Al kept the structural discipline; parody is form-perfect
-          reconstruction, a measured survey of an existing building with new
-          cladding. Chris Lowe kept the restraint; Pet Shop Boys records are
+          Weird Al kept the structural discipline; parody is form-perfect reconstruction, a survey of an existing building redrawn with new cladding. Chris Lowe kept the restraint; Pet Shop Boys records are
           famously engineered, minimal, load-calculated pop. Ice Cube has
           credited drafting school with teaching him precision he carried
           into writing, and he studied it as a fallback in case music
@@ -1576,8 +1592,7 @@ export const POSTS: Post[] = [
         <p>
           Strip the fame away and the structure is just good decision
           theory. A career change is a bet with an uncertain payoff and a
-          long settlement time; our transition estimates run six months to
-          two years for well-matched moves. Keeping the day job during
+          long settlement time; our transition estimates run <strong>six months to two years</strong> for well-matched moves. Keeping the day job during
           that window does three measurable things. It removes desperation
           from the acceptance decision, which is how Ford could wait for
           roles that beat his last one. It finances the skill gap, the
@@ -1643,15 +1658,27 @@ export const POSTS: Post[] = [
         </p>
         <div className="post-callout"><b>44% vs 98%</b><span>share of postings that state pay: <strong>sales engineering</strong> at the secretive end, <strong>police work</strong> at the transparent end. Same economy, same month.</span></div>
         <table className="post-table">
-          <caption>Share of postings stating pay, professions with 150+ postings · PivotHop, July 2026</caption>
-          <thead><tr><th>Most secretive</th><th className="num">States pay</th><th>Most transparent</th><th className="num">States pay</th></tr></thead>
+          <caption>Most secretive professions, 150+ postings each · PivotHop, July 2026</caption>
+          <thead><tr><th>Profession</th><th className="num">States pay</th></tr></thead>
           <tbody>
-            <tr><td>Sales engineer</td><td className="num"><strong>44%</strong></td><td>Police officer</td><td className="num"><strong>98%</strong></td></tr>
-            <tr><td>Management consultant</td><td className="num">45%</td><td>Teaching assistant</td><td className="num">96%</td></tr>
-            <tr><td>Account executive</td><td className="num">47%</td><td>Medical writer</td><td className="num">95%</td></tr>
-            <tr><td>DevOps engineer</td><td className="num">48%</td><td>MEP engineer</td><td className="num">94%</td></tr>
-            <tr><td>Sales representative</td><td className="num">50%</td><td>UX researcher</td><td className="num">92%</td></tr>
-            <tr><td>Security engineer</td><td className="num">52%</td><td>Therapist / counselor</td><td className="num">90%</td></tr>
+            <tr><td>Sales engineer</td><td className="num"><strong>44%</strong></td></tr>
+            <tr><td>Management consultant</td><td className="num">45%</td></tr>
+            <tr><td>Account executive</td><td className="num">47%</td></tr>
+            <tr><td>DevOps engineer</td><td className="num">48%</td></tr>
+            <tr><td>Sales representative</td><td className="num">50%</td></tr>
+            <tr><td>Security engineer</td><td className="num">52%</td></tr>
+          </tbody>
+        </table>
+        <table className="post-table">
+          <caption>Most transparent professions, same corpus</caption>
+          <thead><tr><th>Profession</th><th className="num">States pay</th></tr></thead>
+          <tbody>
+            <tr><td>Police officer</td><td className="num"><strong>98%</strong></td></tr>
+            <tr><td>Teaching assistant</td><td className="num">96%</td></tr>
+            <tr><td>Medical writer</td><td className="num">95%</td></tr>
+            <tr><td>MEP engineer</td><td className="num">94%</td></tr>
+            <tr><td>UX researcher</td><td className="num">92%</td></tr>
+            <tr><td>Therapist / counselor</td><td className="num">90%</td></tr>
           </tbody>
         </table>
         <h3>The pattern is negotiation, not money</h3>
@@ -1806,9 +1833,7 @@ export const POSTS: Post[] = [
           Our remote observations arrive mostly through remote-first boards,
           which skew senior, tech-heavy, and venture-funded. The onsite pool
           arrives mostly through general boards carrying everything from
-          federal agencies to regional firms. Comparing the two medians
-          measures which kinds of companies use which kinds of boards at
-          least as much as it measures a premium for working from home.
+          federal agencies to regional firms. Comparing the two medians mostly tells you which kinds of companies use which kinds of boards, and only secondly what working from home pays.
         </p>
         <p>
           The clean test would compare remote and onsite postings inside one
@@ -1954,7 +1979,7 @@ export const POSTS: Post[] = [
           heavily licensed region of the graph where any transferable node
           matters.
         </p>
-        <div className="post-callout"><b>1</b><span>connection. That is the entire measured adjacency of <strong>photographer</strong> in our graph, the loneliest node we track. Hotel manager also sits at one. Some jobs are rooms with a single door.</span></div>
+        <div className="post-callout"><b>1</b><span>connection. That is the entire adjacency footprint of <strong>photographer</strong> in our graph, the loneliest node we track. Hotel manager also sits at one. Some jobs are rooms with a single door.</span></div>
         <h3>The bridge in action, with real routes</h3>
         <p>
           Abstract counts undersell what a bridge actually does, so here
@@ -1995,8 +2020,7 @@ export const POSTS: Post[] = [
         </p>
         <h3>Islands, and what they mean</h3>
         <p>
-          The opposite of a bridge is an island: an occupation whose skill
-          profile connects to almost nothing at measurable strength.
+          The opposite of a bridge is an island: an occupation whose skill profile connects to almost nothing above our scoring floor.
           Photography and hotel management sit there in our current data,
           partly because their real skills, composition, service instincts,
           crisis calm, live below what postings write down. If you hold an
