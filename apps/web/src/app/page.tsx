@@ -30,13 +30,35 @@ export default function Home() {
       const mount = (m as unknown as { mountInstrument: (d: unknown, h: Hooks) => Controller }).mountInstrument;
       wireSearch(mount);
       // section-enter reveals — never the instrument band itself
-      document.querySelectorAll('.how .step, .fieldband, .capture, .proof').forEach((el) => el.classList.add('rv'));
+      document.querySelectorAll('.how .step, .fieldband, .capture, .proof, .faq').forEach((el) => el.classList.add('rv'));
       import('@/lib/reveal.js').then((r) => (r as { mountReveal: (x?: Element) => void }).mountReveal());
     });
   }, []);
 
-  return <div ref={ref} suppressHydrationWarning />;
+  return (
+    <>
+      <div ref={ref} suppressHydrationWarning />
+      {/* Server-rendered FAQ schema (the visible FAQ mounts client-side with the
+          rest of SHELL; this keeps the structured data in the initial HTML for
+          reliable rich-result eligibility). Text mirrors the SHELL FAQ. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: LANDING_FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+      }) }} />
+    </>
+  );
 }
+
+const LANDING_FAQ = [
+  { q: 'How do I know which careers my skills transfer to?', a: 'Start from your skills, not a list of job titles. PivotHop reads live postings for every occupation, measures how much of a destination role you already cover, and ranks the moves by that overlap and by how often people actually make them. You get a shortlist of reachable roles with the salary, the skill gap, and the odds attached.' },
+  { q: 'What career can I switch to without going back to school?', a: 'Most adjacent ones. The moves that require a new degree or license, like nurse practitioner or lawyer, are the exception, and the instrument flags them explicitly. The larger group is roles you reach by closing a skill gap on the job or with short courses, which our data estimates at a few months to two years.' },
+  { q: 'Which careers are the easiest to switch into?', a: 'The ones next to what you already do. In our data the smoothest moves share a skill base: business analyst to project manager sits at 66 percent readiness, with accountant to financial analyst and data analyst to data engineer close behind. Difficulty rises with the size of the skill gap and whether a license stands in the way.' },
+  { q: 'How long does a career change take?', a: 'Most realistic pivots reach hiring readiness in six months to two years, set by the size of the skill gap rather than your effort. High-overlap moves land at the short end; licensed destinations run far longer because the barrier is a credential, not a skill. Every route on the instrument carries its own estimate.' },
+  { q: 'Can I change careers at 40 or later?', a: 'The skill gap is the barrier, not your age. Occupational transfers happen across every age band in the federal data, and an established worker usually brings more transferable skills, not fewer. The useful question is which destination your current skills reach soonest, which is what the instrument measures.' },
+  { q: 'Will changing careers mean a pay cut?', a: 'Not necessarily, and often the reverse. In our data a third of strong adjacent moves point to a destination that pays more than the origin. PivotHop shows the posted salary band for every route, so you see the pay consequence before you decide instead of assuming a pivot is a step down.' },
+  { q: 'How do I find my transferable skills?', a: 'Look at what your work requires, not what your title says. PivotHop seeds a skill profile from your occupation’s typical postings, then lets you edit it to match what you actually do and re-derives every route from it. The skills that open the most doors are usually the general ones, like communication, analysis, and project management, that you stopped noticing you had.' },
+];
 
 function el(tag: string, css: Partial<CSSStyleDeclaration>, html?: string) {
   const e = document.createElement(tag);

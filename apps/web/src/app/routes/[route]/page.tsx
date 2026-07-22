@@ -46,6 +46,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           Measured from <strong>{om.postings.toLocaleString()}</strong>{` live ${originLc} postings and the destination’s own corpus.`}
           {observed ? ' Corroborated by observed US worker transitions.' : ''} Updated with the nightly scrape.
         </p>
+        {r.license && <p className="rt-lic lbl">{r.license.label}</p>}
 
         <div className="rt-facts">
           <div><span className="v">{r.match}%</span><span className="k">Skill readiness</span></div>
@@ -55,7 +56,6 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           <div><span className="v">{r.remote}</span><span className="k">Fully remote share</span></div>
           {r.mobility != null && <div><span className="v">{r.mobility}</span><span className="k">{observed ? 'Observed flow (0–100)' : 'Relatedness (0–100)'}</span></div>}
         </div>
-        {r.license && <p className="rt-lic lbl">{r.license.label}</p>}
 
         <RouteInstrument origin={def.origin} focus={def.dest} />
         <p className="rt-hint lbl">The full instrument, preloaded to this route &middot; click any node to compare &middot; double-click to recenter</p>

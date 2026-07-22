@@ -65,14 +65,18 @@ export default function RouteInstrument({ origin, focus }: { origin: string; foc
           if (d) controller.loadOrigin(d);
         },
       });
-      // Focus the page's destination through the same code path a user's click
-      // takes — after the silent settle so the unfold isn't interrupted.
-      const tryFocus = (attempt = 0) => {
+      // Preload, don't freeze. The graph loads in the OPEN interactive state,
+      // exactly like the landing — hover lights layers, drag rearranges, click
+      // isolates on demand. Auto-clicking the destination would set clickedNode,
+      // which suppresses hover (instrument.js) and makes the graph feel stale.
+      // Instead we just highlight the destination in the rail and scroll it into
+      // view, so the route is indicated without killing interactivity.
+      const flag = (attempt = 0) => {
         const btn = document.querySelector<HTMLButtonElement>(`.rail-item[data-id="${focus}"]`);
-        if (btn) btn.click();
-        else if (attempt < 10) setTimeout(() => tryFocus(attempt + 1), 300);
+        if (btn) { btn.classList.add('rt-target'); btn.scrollIntoView({ block: 'nearest' }); }
+        else if (attempt < 10) setTimeout(() => flag(attempt + 1), 300);
       };
-      setTimeout(() => tryFocus(), 1500);
+      setTimeout(() => flag(), 1500);
     });
   }, [origin, focus]);
 
