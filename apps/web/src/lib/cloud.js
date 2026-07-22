@@ -38,10 +38,13 @@ export async function initCloud(canvas, capEl) {
 
   function draw(t) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const kx = (cw * dpr) / W, ky = (ch * dpr) / H;
+    // breathing space: content maps into an inner frame, 9% margin on every side
+    const PADF = 0.09;
+    const kx = (cw * dpr * (1 - 2 * PADF)) / W, ky = (ch * dpr * (1 - 2 * PADF)) / H;
+    const ox0 = cw * dpr * PADF, oy0 = ch * dpr * PADF;
     for (let i = 0; i < N; i++) {
-      sx[i] = (p[i][0] + Math.sin(t * 0.0008 + phase[i]) * amp[i]) * kx;
-      sy[i] = (p[i][1] + Math.cos(t * 0.00064 + phase[i] * 1.7) * amp[i] * 0.8) * ky;
+      sx[i] = ox0 + (p[i][0] + Math.sin(t * 0.0008 + phase[i]) * amp[i]) * kx;
+      sy[i] = oy0 + (p[i][1] + Math.cos(t * 0.00064 + phase[i] * 1.7) * amp[i] * 0.8) * ky;
     }
     ctx.lineWidth = 0.55 * dpr;
     for (let k = 0; k < e.length; k++) {
@@ -51,8 +54,9 @@ export async function initCloud(canvas, capEl) {
       ctx.beginPath(); ctx.moveTo(sx[a], sy[a]); ctx.lineTo(sx[b], sy[b]); ctx.stroke();
     }
     for (let i = 0; i < N; i++) {
-      const r = (1.1 + Math.min(d[i], 60) / 60 * 1.5) * dpr;
-      ctx.fillStyle = d[i] > 34 ? '#002FA6' : 'rgba(21,21,26,0.66)';
+      // ink-only dots, small: the accent belongs to the edges and the hover
+      const r = (0.9 + Math.min(d[i], 60) / 60 * 0.9) * dpr;
+      ctx.fillStyle = d[i] > 34 ? 'rgba(21,21,26,0.85)' : 'rgba(21,21,26,0.55)';
       ctx.beginPath(); ctx.arc(sx[i], sy[i], i === hoverIdx ? r + 1.6 * dpr : r, 0, 6.2832); ctx.fill();
       if (i === hoverIdx) {
         ctx.strokeStyle = '#002FA6'; ctx.lineWidth = 1.2 * dpr;
