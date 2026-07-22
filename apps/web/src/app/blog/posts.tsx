@@ -2410,4 +2410,505 @@ export const POSTS: Post[] = [
       </>
     ),
   },
+  {
+    slug: 'where-people-actually-go',
+    title: 'Where people actually go: what happened when we added real career-change data to the graph',
+    pillar: 'Run It 10,000 Times',
+    date: 'July 2026',
+    dek: 'Skill overlap says an architect resembles a structural engineer. Federal survey data says architects become interior designers and industrial designers. We wired three observed-transition datasets into the instrument, and the map moved.',
+    minutes: 9,
+    faq: [
+      { q: 'What is the difference between skill similarity and observed mobility?', a: 'Similarity models score how alike two jobs look on paper, from shared skills or tasks. Observed mobility counts people who actually moved, from surveys that record occupation last year and occupation now. The two disagree often, and the disagreements are the interesting part.' },
+      { q: 'Where does real occupation-to-occupation transition data come from?', a: 'Mostly federal surveys. We use a CPS-derived mobility network built by Oxford researchers (2010–2017, 464 occupations, CC BY 4.0), a Department of Labor public-use file of 43,350 weighted CPS and SIPP person transitions, and for European resolution the JobHop resume dataset from Flanders. All three are licensed for reuse with attribution.' },
+      { q: 'Why do people rarely make moves that look easy on paper?', a: 'Licensing, mostly. Of the twelve strongest cases in our data where skills say yes and people say no, eleven point at a licensed destination. A medical assistant matches 76 percent of a nurse practitioner’s posted skills, and almost nobody makes that jump directly, because the gate is a graduate degree and a license, not a skill gap.' },
+      { q: 'Does PivotHop rank career moves by skill match or by real transitions?', a: 'Both, separately and visibly. Skill readiness stays the number on every node. Ranking blends readiness (0.55), shared abilities (0.2), and observed mobility (0.25), and the panel decomposes the three signals so you can see exactly why a route surfaced.' },
+    ],
+    body: (
+      <>
+        <p>
+          Our graph has always been built from live postings: it reads what
+          employers ask for and scores how much of a destination role you
+          already cover. That number is useful and it has a blind spot you
+          could drive a truck through. It knows what the market wants. It
+          does not know what people do.
+        </p>
+        <p>
+          This month we wired in the missing half: three datasets of{' '}
+          <strong>observed career transitions</strong>, actual humans counted
+          moving from one occupation to another. An Oxford-built mobility
+          network derived from the Current Population Survey
+          (<strong>2010–2017, 464 occupations</strong>, published CC BY 4.0),
+          a Department of Labor public-use file of{' '}
+          <strong>43,350 survey-weighted person transitions</strong> from CPS
+          and SIPP, and, for finer European resolution, 355,315 anonymized
+          career trajectories from the JobHop resume dataset. Career-tech is
+          full of similarity models dressed up as mobility data. These three
+          are the real thing: someone was an electrician in one interview
+          and something else in the next.
+        </p>
+        <h3>Skills say no. People go anyway.</h3>
+        <p>
+          Across the 888 routes on our graph that now carry an observed
+          signal, <strong>224</strong> are moves the skill math would have
+          waved off, under 35 percent posted-skill overlap, that rank at or
+          near the top of where people from that origin actually land.
+        </p>
+        <table className="post-table">
+          <caption>Moves people make that skill overlap underrates · PivotHop + CPS/SIPP-derived flows, July 2026</caption>
+          <thead><tr><th>Move</th><th className="num">Skill match</th><th className="num">Observed flow</th></tr></thead>
+          <tbody>
+            <tr><td>Electrician → <strong>Construction manager</strong></td><td className="num">13%</td><td className="num"><strong>100</strong></td></tr>
+            <tr><td>Paralegal → <strong>Executive assistant</strong></td><td className="num">14%</td><td className="num"><strong>100</strong></td></tr>
+            <tr><td>Marketing manager → SEO specialist</td><td className="num">14%</td><td className="num">100</td></tr>
+            <tr><td>Real estate agent → Real estate developer</td><td className="num">13%</td><td className="num">100</td></tr>
+            <tr><td>Architect → <strong>Industrial designer</strong></td><td className="num">15%</td><td className="num"><strong>100</strong></td></tr>
+            <tr><td>Motion designer → Game designer</td><td className="num">12%</td><td className="num">100</td></tr>
+            <tr><td>Medical assistant → Registered nurse</td><td className="num">34%</td><td className="num">100</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The flow score is origin-relative: 100 means this is the single
+          most common destination we can resolve for people leaving that
+          occupation, not that everyone goes there. Read the electrician row
+          as: of the places departing electricians turn up, construction
+          manager leads. The posting-skill overlap between the two jobs is
+          13 percent, because postings for construction managers ask for
+          scheduling, budgeting, and stakeholder wrangling, none of which an
+          electrician’s posting mentions. The market learns those on the
+          job. The similarity model can’t see it. The survey can.
+        </p>
+        <div className="post-pullq">
+          A skill profile describes what a job asks for on day one. A flow
+          count describes what careers survive contact with.
+        </div>
+        <h3>Skills say yes. People stay home.</h3>
+        <p>
+          The reverse list is shorter and sharper: routes with 55 percent
+          overlap or better where the observed flow is close to zero.
+          Sixteen pairs qualify. Eleven of the twelve strongest point at a
+          destination that requires a license.
+        </p>
+        <table className="post-table">
+          <caption>High-overlap moves people rarely make · same sources</caption>
+          <thead><tr><th>Move</th><th className="num">Skill match</th><th className="num">Observed flow</th><th>The wall</th></tr></thead>
+          <tbody>
+            <tr><td>Medical assistant → <strong>Nurse practitioner</strong></td><td className="num"><strong>76%</strong></td><td className="num"><strong>1</strong></td><td>Master’s + RN license</td></tr>
+            <tr><td>Therapist → Physical therapist</td><td className="num">67%</td><td className="num">2</td><td>Doctorate + licensure</td></tr>
+            <tr><td>Social worker → Dietitian</td><td className="num">68%</td><td className="num">1</td><td>Registration exam</td></tr>
+            <tr><td>Psychologist → Nurse practitioner</td><td className="num">62%</td><td className="num">2</td><td>Different license entirely</td></tr>
+            <tr><td>Nurse practitioner → Physical therapist</td><td className="num">63%</td><td className="num">0</td><td>Doctorate + licensure</td></tr>
+          </tbody>
+        </table>
+        <div className="post-callout"><b>11 of 12</b><span>of the strongest “skills say yes, people say no” routes end at a <strong>licensed</strong> occupation. The wall the skill math cannot see is almost always a credential.</span></div>
+        <p>
+          This is worth sitting with if you are healthcare-adjacent. The
+          skills genuinely transfer; the surveys show the moves genuinely
+          not happening. Between those two facts sits two to six years of
+          school and an exam. Career advice that only reads skill overlap
+          will keep recommending these routes. The data on actual behavior
+          prices them properly.
+        </p>
+        <h3>Why three sources, not one</h3>
+        <p>
+          Each dataset fails somewhere specific, which is the reason we run
+          them together. The census occupation codes behind the Oxford
+          network throw every designer, interior, graphic, industrial,
+          UX, into one bucket, so “architects become designers” is as
+          precise as that source can get. The European resume data is coded
+          at ESCO leaf level, roughly 3,000 occupations, which separates a
+          product designer from a signage designer, but it describes the
+          Belgian labor market, so we display it as its own labeled signal
+          and never blend it into US magnitudes. The DOL file is
+          SOC-coded and fresher (roughly 2020) but covers only mid-level
+          origin occupations. Where a pair falls into one source’s blind
+          spot, the chain falls through to the next, and when none can
+          resolve it, the route says so instead of inventing a number.
+        </p>
+        <p>
+          One caveat to carry into every table above: a flow of 100 is
+          relative to the origin, and popular destinations are popular for
+          everyone. Project manager and business analyst absorb leavers
+          from half the economy, which says less about your specific
+          adjacency than interior design’s pull on architects does. The
+          curated relatedness prior we still keep as a fallback is damped
+          for exactly this, and the flow scores inherit the same
+          skepticism in ranking.
+        </p>
+        <h3>What changed on the instrument</h3>
+        <p>
+          Ranking on the graph now blends three signals, each shown
+          separately in the route panel: skill readiness (weight 0.55, still
+          the number printed on every node), shared work abilities from
+          O*NET (0.2), and observed mobility (0.25). For an architect, that
+          pulled industrial designer onto the first ring at an unglamorous
+          15 percent readiness, with the panel stating why: people who
+          leave architecture demonstrably go there. Structural engineer
+          stays high too, but for the opposite reason, high overlap, modest
+          flow. The two kinds of adjacency finally read differently.
+        </p>
+        <p>
+          One production note. The Department of Labor file arrived the hard
+          way: the agency’s public-use listing for the study was removed
+          from its site sometime between late 2022 and January 2026, and
+          both dol.gov and bls.gov now refuse automated clients outright. We
+          recovered the files byte-for-byte from Internet Archive snapshots
+          and verified them against the study documentation. Public data has
+          a shelf life. Mirror what you rely on.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          When you evaluate a move, ask two questions instead of one. What
+          share of the destination’s asks do I already cover, and do people
+          from my occupation actually arrive there? High overlap with no
+          flow usually means a licensing gate; budget years, not months.
+          Strong flow with low overlap means the market routinely retrains
+          people like you on the job, and the gap is more affordable than it
+          looks. The instrument now shows both numbers on every route, with
+          the source named. Run your own origin and read the disagreements
+          first.
+        </p>
+        <Sources>
+          <p>
+            Observed flows: del Rio-Chanona, Mealy et al., CPS-derived
+            occupational mobility network, 2010–2017, 464 occupations,
+            Zenodo, CC BY 4.0. US DOL OASP, Career Trajectories and
+            Occupational Transitions CPS/SIPP public-use dataset, December
+            2021, 43,350 weighted person transitions, recovered via Internet
+            Archive. JobHop v2 (VDAB / Ghent University), 355,315 resume
+            trajectories, ESCO-coded, CC BY 4.0. Skill matches: PivotHop
+            corpus, 77,443 mapped postings across 153 occupations, July
+            2026. Flow scores are origin-normalized; pairs sharing a census
+            occupation bucket are reported as unresolved rather than
+            invented. Full source catalog and licensing notes in our public
+            data documentation.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+
+  {
+    slug: 'careers-people-never-leave',
+    title: 'The careers people never leave, and the ones they flee',
+    pillar: 'Career Half-Life',
+    date: 'July 2026',
+    dek: 'Federal projections put a number on how often workers in each occupation move to a different one in an average year. Pharmacists: 1.3 percent. Tutors: 8.1. The spread is not random, and it is mostly not about loving your job.',
+    minutes: 8,
+    faq: [
+      { q: 'How many people change careers each year?', a: 'BLS Employment Projections (2024–34) put the annual occupational transfer rate at 5.9 percent of workers, with another 4.7 percent leaving the labor force. Roughly one worker in seventeen moves to a different occupation in an average year.' },
+      { q: 'Which careers have the lowest turnover to other occupations?', a: 'Expensively licensed ones. Pharmacists (1.3 percent a year), lawyers (1.4), and physical therapists (1.5) top the stickiness list in our tracked set, all doctorate-or-equivalent gated and all with six-figure or near six-figure medians.' },
+      { q: 'Do licensed workers change careers less often?', a: 'Only when the license was expensive. Across our tracked occupations, licensed and unlicensed workers transfer at nearly identical average rates (4.2 versus 4.4 percent a year). A chef’s certificate does not hold anyone; a pharmacy doctorate does.' },
+      { q: 'How often do architects leave architecture?', a: 'About 3.3 percent move to a different occupation in an average year, with another 2.5 percent leaving the labor force, per BLS 2024–34 projections. That is notably below the 5.9 percent all-occupation transfer rate.' },
+    ],
+    body: (
+      <>
+        <p>
+          In an average year, <strong>5.9 percent</strong> of American
+          workers move to a different occupation, and another{' '}
+          <strong>4.7 percent</strong> leave the labor force. That is the
+          all-occupation baseline from the BLS 2024–34 Employment
+          Projections, the same dataset agencies use to forecast openings.
+          One worker in seventeen changes what they do. The interesting part
+          is how unevenly that churn is distributed.
+        </p>
+        <p>
+          We joined the per-occupation rates to the 153 occupations our
+          instrument tracks. The spread runs from pharmacists at 1.3 percent
+          a year to tutors at 8.1. Same economy, six-fold difference in the
+          odds that a given colleague is gone next year.
+        </p>
+        <h3>The stickiest careers in our set</h3>
+        <table className="post-table">
+          <caption>Lowest annual occupational-transfer rates · BLS EP 2024–34 × PivotHop corpus medians, July 2026</caption>
+          <thead><tr><th>Occupation</th><th className="num">Transfer /yr</th><th className="num">Exit /yr</th><th className="num">Posted median</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Pharmacist</strong></td><td className="num"><strong>1.3%</strong></td><td className="num">2.4%</td><td className="num">$99,140</td></tr>
+            <tr><td><strong>Lawyer</strong></td><td className="num"><strong>1.4%</strong></td><td className="num">1.8%</td><td className="num">$137,576</td></tr>
+            <tr><td>Physical therapist</td><td className="num">1.5%</td><td className="num">2.1%</td><td className="num">$99,607</td></tr>
+            <tr><td>Nurse practitioner</td><td className="num">2.1%</td><td className="num">2.2%</td><td className="num">$86,521</td></tr>
+            <tr><td>Registered nurse</td><td className="num">2.1%</td><td className="num">2.8%</td><td className="num">$73,616</td></tr>
+            <tr><td>Psychologist</td><td className="num">2.2%</td><td className="num">2.7%</td><td className="num">$119,728</td></tr>
+            <tr><td>Actuary</td><td className="num">2.6%</td><td className="num">1.8%</td><td className="num">$122,291</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Every one of those is licensed, and not casually licensed:
+          doctorates, bar exams, actuarial exam sequences that take most of
+          a decade. Then look three rows further down our ranking and the
+          story complicates. Software engineers transfer at{' '}
+          <strong>3.2 percent</strong> a year, stickier than registered
+          nurses, with no license at all. Whatever is holding people, it is
+          not only the credential.
+        </p>
+        <h3>The revolving doors</h3>
+        <table className="post-table">
+          <caption>Highest annual occupational-transfer rates · same sources</caption>
+          <thead><tr><th>Occupation</th><th className="num">Transfer /yr</th><th className="num">Exit /yr</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Tutor</strong></td><td className="num"><strong>8.1%</strong></td><td className="num"><strong>9.0%</strong></td></tr>
+            <tr><td>Chef</td><td className="num">7.8%</td><td className="num">3.4%</td></tr>
+            <tr><td>Customer support specialist</td><td className="num">7.4%</td><td className="num">5.6%</td></tr>
+            <tr><td><strong>Medical assistant</strong></td><td className="num"><strong>7.4%</strong></td><td className="num">4.5%</td></tr>
+            <tr><td>Pilot</td><td className="num">7.2%</td><td className="num">3.8%</td></tr>
+            <tr><td>Paralegal</td><td className="num">7.2%</td><td className="num">3.2%</td></tr>
+            <tr><td>Flight attendant</td><td className="num">7.1%</td><td className="num">6.4%</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Tutors turn over almost completely: 8.1 percent transfer out and
+          another 9 percent exit the labor force every year, which is what
+          you would expect from a role that is often a between-things job
+          rather than a destination. Chefs and medical assistants churn
+          despite holding certificates. The pilot figure looks strange
+          until you notice the BLS category mixes commercial pilots
+          (crop dusting, charters, instruction) with the airline majors;
+          the instability lives at the commercial end.
+        </p>
+        <h3>Two different ways to leave</h3>
+        <p>
+          The table separates transfers (moved to a different occupation)
+          from exits (left the labor force), and the two tell different
+          stories about the same job. Tutors post the highest exit rate in
+          our set, 9 percent a year, because tutoring is frequently a
+          role people pass through on the way to school, parenting, or
+          retirement. Flight attendants exit at 6.4 percent, nearly as
+          high, an occupation people age out of or step away from rather
+          than convert into something adjacent. Chefs are the reverse
+          case: only 3.4 percent exit, but 7.8 percent transfer, meaning
+          chefs who leave kitchens overwhelmingly keep working, just not
+          as chefs. High exit reads as attrition from work itself; high
+          transfer reads as skills going somewhere else. If you are
+          planning a pivot, the second population is your competition and
+          your proof of feasibility at once.
+        </p>
+        <p>
+          Separations are also where job openings actually come from. The
+          same BLS table projects <strong>18.9 million</strong> openings a
+          year across the economy, and the overwhelming majority are
+          replacement needs, someone transferred or exited, rather than
+          newly created positions. Every churny occupation on the second
+          table is, from the other side of the desk, an occupation that is
+          constantly hiring.
+        </p>
+        <div className="post-callout"><b>r = −0.44</b><span>the correlation between an occupation’s posted median salary and its annual transfer rate across 123 occupations. Higher pay, fewer departures, with licensing doing less work than the paycheck.</span></div>
+        <p>
+          Because here is the twist worth keeping: licensing by itself
+          barely matters. Licensed occupations in our set average 4.2
+          percent annual transfer; unlicensed, 4.4. What separates the
+          sticky from the churny is what the position cost to reach and
+          what it pays to stay. A pharmacy doctorate is a moat. A food
+          handler’s certificate is a formality. Both are licenses.
+        </p>
+        <p>
+          Medical assistant is the list’s most instructive entry, because
+          its exits are not random. The observed-flow data shows departing
+          medical assistants overwhelmingly become registered nurses, the
+          ladder working as designed. What they almost never do is jump
+          straight to nurse practitioner, despite a 76 percent skill match.
+          One rung at a time, license by license. We wrote up that
+          full pattern in “Where people actually go.”
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          Your occupation’s transfer rate is your base odds, the prior
+          before anything about you. An architect’s 3.3 percent means
+          leaving is unusual, which cuts both ways: fewer competitors on
+          the way out, and less well-worn paths (the strongest observed one
+          leads to interior design). A paralegal’s 7.2 percent means the
+          door is already revolving, and the question is not whether people
+          leave but where they land best. The instrument now carries the
+          rate for every origin we track. Check your base rate before you
+          decide you are stuck, because in several of these occupations,
+          statistically, nobody is.
+        </p>
+        <Sources>
+          <p>
+            Transfer and exit rates: BLS Employment Projections, Table 1.10,
+            2024–34 vintage, annual averages, 832 detailed occupations,
+            public domain, joined to 147 of our 153 tracked occupations by
+            SOC code. Posted medians: PivotHop corpus, 77,443 mapped
+            postings, July 2026, cells floored at 100 postings. The
+            salary-transfer correlation is Pearson’s r over the 123
+            occupations clearing that floor. Observed destination flows:
+            see the source box in “Where people actually go.”
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+
+  {
+    slug: 'remote-friendly-careers-ranked',
+    title: 'Remote-friendly careers, ranked from 77,443 live postings (and the license that keeps you in the office)',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'Fully-remote share by occupation, from our own corpus: sales engineers at 29.7 percent, registered nurses at 0.3. The strongest predictor is not the industry. It is whether your job requires a state-issued license, and whether that license has learned to cross state lines.',
+    minutes: 9,
+    faq: [
+      { q: 'Which careers have the most remote jobs in 2026?', a: 'In our 77,443-posting corpus: sales engineer (29.7 percent of postings fully remote), motion designer (25.0), customer support specialist (22.7), management consultant (20.4), QA engineer (19.7), and account executive (19.6). Software engineer sits at 15.6 percent on the largest sample we track.' },
+      { q: 'Why do licensed professions have so few remote jobs?', a: 'A license binds you to the issuing state, so an employer hiring remote inherits a fifty-jurisdiction compliance problem. Licensed occupations in our corpus run 1.5 percent fully remote against 5.5 percent for unlicensed ones, a 3.7× gap.' },
+      { q: 'What are licensure compacts and do they enable remote work?', a: 'Interstate agreements that let one state’s license authorize practice in the others. PSYPACT covers psychologists in 42 jurisdictions as of June 2026, and the Nurse Licensure Compact covers 41 states. They unlock remote work only where the work itself is deliverable through a screen: psychologists reach 5.7 percent remote in our corpus while bedside nursing stays at 0.3.' },
+      { q: 'Which fields are becoming more remote-friendly?', a: 'Tracking by FlexJobs found legal, insurance, social media, and account management roles each grew fully-remote postings 30 percent or more during 2025. In our own corpus the legal profession’s words-only end already shows it: lawyers post 8.6 percent remote while the paralegals supporting them post 1 percent.' },
+    ],
+    body: (
+      <>
+        <p>
+          Across the 77,443 postings our scrapers currently hold,{' '}
+          <strong>5.3 percent</strong> are explicitly fully remote. That
+          headline number is almost useless, because the distribution
+          underneath it is savage: the most remote-friendly occupation we
+          track posts remote jobs at roughly <strong>300 times</strong> the
+          rate of the least. External counts bracket ours, for calibration:
+          Robert Half’s Q1 2026 read puts 4 percent of new postings fully
+          remote (19 percent hybrid), while boards that lean professional
+          report closer to 12.
+        </p>
+        <h3>The ranking</h3>
+        <table className="post-table">
+          <caption>Share of postings fully remote, by occupation · PivotHop corpus, July 2026, occupations with 100+ postings</caption>
+          <thead><tr><th>Occupation</th><th className="num">Remote share</th><th className="num">Postings</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Sales engineer</strong></td><td className="num"><strong>29.7%</strong></td><td className="num">387</td></tr>
+            <tr><td><strong>Motion designer</strong></td><td className="num"><strong>25.0%</strong></td><td className="num">216</td></tr>
+            <tr><td>Customer support specialist</td><td className="num">22.7%</td><td className="num">704</td></tr>
+            <tr><td>Management consultant</td><td className="num">20.4%</td><td className="num">1,818</td></tr>
+            <tr><td>QA engineer</td><td className="num">19.7%</td><td className="num">780</td></tr>
+            <tr><td>Account executive</td><td className="num">19.6%</td><td className="num">1,764</td></tr>
+            <tr><td>Software engineer</td><td className="num">15.6%</td><td className="num">4,041</td></tr>
+            <tr><td>Translator</td><td className="num">14.1%</td><td className="num">213</td></tr>
+            <tr><td>SEO specialist</td><td className="num">13.9%</td><td className="num">180</td></tr>
+            <tr><td>Medical writer</td><td className="num">12.2%</td><td className="num">238</td></tr>
+            <tr><td>Recruiter</td><td className="num">9.4%</td><td className="num">520</td></tr>
+            <tr><td>Lawyer</td><td className="num">8.6%</td><td className="num">408</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Two surprises before the pattern. First, the most remote job in
+          the corpus is a sales job. Sales engineering is technical
+          credibility delivered over video calls, and employers apparently
+          concluded the territory model beat the office years ago. Second,
+          the design profession split down the middle: motion designers post
+          25 percent remote while UX designers post 1.5 and graphic
+          designers 1.8. Motion work ships as files. Product design work,
+          post-RTO, apparently ships as meetings.
+        </p>
+        <h3>The license is the dividing line</h3>
+        <p>
+          Sort the whole corpus by one bit, does the occupation require a
+          state license, and the remote market splits open.
+        </p>
+        <div className="post-callout"><b>1.5% vs 5.5%</b><span>average fully-remote share for <strong>licensed</strong> occupations against unlicensed ones in our corpus. The credential that certifies you also pins you to a map.</span></div>
+        <p>
+          The mechanism is boring and absolute: a license is issued by a
+          state, valid in that state. An employer hiring a remote dietitian
+          or teacher inherits a compliance matrix across every state its
+          people might sit in, so it writes “on-site” instead. The floor
+          of our ranking is wall-to-wall licensed and physical: HVAC
+          technicians (435 postings, zero remote), landscape architects
+          (359, zero), teaching assistants, clinical research coordinators,
+          flight attendants, school administrators. All at exactly 0.0
+          percent.
+        </p>
+        <p>
+          The exceptions prove the rule with unusual precision, because the
+          exceptions are legislation. Psychology built itself an interstate
+          compact, PSYPACT, now spanning <strong>42 jurisdictions</strong>{' '}
+          as of June 2026 (Montana joined in October 2025). One
+          authorization, forty-plus states of legal telepractice. In our
+          corpus psychologists post <strong>5.7 percent</strong> remote,
+          the highest of any licensed clinical occupation we track, nearly
+          four times the licensed average. Nursing has an equally mature
+          compact, 41 states, and registered nurses still post{' '}
+          <strong>0.3 percent</strong> remote, because a compact can move
+          the license across a state line but not the patient’s body.
+          Lawyers, whose product is entirely words, post 8.6 percent even
+          though bar admission never joined a compact at all.
+        </p>
+        <div className="post-pullq">
+          A compact unlocks remote work exactly where the work was already
+          made of words. It does nothing for hands.
+        </div>
+        <p>
+          Which yields a two-question test for any licensed career: can the
+          work pass through a screen, and has the license learned to cross
+          state lines? Yes and yes, remote follows (psychology). Yes and
+          no, remote arrives anyway, slower (law). No and yes, the compact
+          helps travel staffing, not remote (nursing). No and no, see you
+          at the office (HVAC, forever).
+        </p>
+        <h3>What a zero is worth</h3>
+        <p>
+          A note on the floor of the ranking, because zero is a stronger
+          claim than a small number. HVAC technician’s 0.0 percent is
+          computed over 435 live postings; landscape architect’s over 359.
+          At those sample sizes a true 3 percent remote market would
+          almost certainly have shown at least one listing. It did not.
+          These are not thin cells rounding down; they are categories
+          where the remote job you are hoping for does not currently
+          exist on the boards we track.
+        </p>
+        <p>
+          Architecture, our launch vertical, sits barely above that floor
+          at <strong>1.6 percent</strong> of 1,290 postings. The reasons
+          are structural twice over: the work is anchored to sites and
+          consultants, and the stamp is anchored to a state board, with
+          reciprocity that never matured into a live compact the way
+          psychology’s did. The architects in our data who wanted remote
+          did not find remote architecture. They found the adjacent rooms,
+          and the two most remote-friendly of those, technical writing
+          and design-flavored consulting, appear in the top third of the
+          ranking above.
+        </p>
+        <h3>Moving toward remote, and away</h3>
+        <p>
+          Our corpus is a snapshot, so for direction we lean on dated
+          external tracking. FlexJobs’ year-over-year index found legal,
+          insurance, social media, and account management postings each
+          grew their fully-remote counts <strong>30 percent or more
+          during 2025</strong>, with engineering, administrative, and sales
+          categories nearly doubling. The unlicensed service layer around
+          licensed professions is where the growth concentrates: medical
+          writers (12.2 percent remote in our corpus) ride healthcare’s
+          remote wave without touching a patient, and remote paralegal
+          roles are growing from a low base while lawyers above them
+          already work from home. Meanwhile the RTO mandates we counted in
+          “The giants disagree” keep pulling the big-company end of
+          product and design work back on-site, which is likely part of why
+          UX sits at 1.5 percent while freelance-shaped creative work sits
+          at 25.
+        </p>
+        <h3>Where this leaves you</h3>
+        <p>
+          If remote is the constraint you are optimizing, read your options
+          in this order. Unlicensed, words-based, deliverable-shaped work
+          clears every gate: sales engineering, motion design, technical
+          and medical writing, SEO, translation, consulting. If you hold a
+          clinical license, check whether your profession’s compact exists
+          and whether your work can cross a screen; psychology is the
+          template, and the therapist route to it is one of the
+          best-trodden paths in our transition data. And if your work is
+          hands-on and licensed, the remote share is not low, it is zero
+          across thousands of postings, and the honest move is a pivot into
+          the words-shaped role adjacent to your field rather than a hunt
+          for a unicorn listing. The instrument prices those routes; run
+          your origin and filter for what actually ships remote.
+        </p>
+        <Sources>
+          <p>
+            Remote shares: PivotHop corpus, 77,443 mapped postings across
+            153 occupations, July 2026; fully-remote means the posting
+            carries an explicit remote flag; occupation cells floored at
+            100 postings (128 qualify); licensed/unlicensed means from our
+            taxonomy’s license layer (40 licensed occupations). External
+            calibration and trend: Robert Half remote-work statistics, Q1
+            2026; FlexJobs Remote Work Economy Index, 2025 growth by
+            category. Compacts: psypact.gov (42 jurisdictions, June 2026);
+            NCSBN Nurse Licensure Compact (41 states, 2026, Pennsylvania
+            July 2025, Connecticut October 2025). Directional claims about
+            2025 growth are the trackers’ counts, not ours.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
 ];
