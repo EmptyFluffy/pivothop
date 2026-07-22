@@ -1636,7 +1636,7 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          Seventy percent of the 74,470 postings in our corpus state a salary.
+          <strong>Seventy percent</strong> of the 74,470 postings in our corpus state a salary.
           The other thirty percent are not distributed randomly, and the shape
           of who hides pay turned out to be the most interesting ranking we
           have produced this year.
@@ -1671,6 +1671,40 @@ export const POSTS: Post[] = [
           pay is set by a schedule rather than a conversation. A police
           department cannot improvise your number, so it prints it.
         </p>
+        <h3>Even the boards disagree</h3>
+        <p>
+          Profession is not the only axis. The infrastructure itself has a
+          transparency gradient, and it is steep. Across our thirteen
+          sources, federal postings on USAJOBS state pay <strong>100
+          percent</strong> of the time, because the law requires it. The UK
+          board Reed runs at <strong>83 percent</strong>. General
+          aggregators sit near <strong>71 percent</strong>. Then come the
+          applicant-tracking systems the startup world runs on: Greenhouse
+          at <strong>55 percent</strong>, Ashby at <strong>50</strong>, and
+          Lever at <strong>7 percent</strong>.
+        </p>
+        <table className="post-table">
+          <caption>Share of postings stating pay, by source · PivotHop, July 2026</caption>
+          <thead><tr><th>Source</th><th className="num">States pay</th><th className="num">Postings</th></tr></thead>
+          <tbody>
+            <tr><td>USAJOBS (US federal)</td><td className="num"><strong>100%</strong></td><td className="num">3,238</td></tr>
+            <tr><td>Reed (UK)</td><td className="num">83%</td><td className="num">6,054</td></tr>
+            <tr><td>Adzuna (general)</td><td className="num">71%</td><td className="num">56,732</td></tr>
+            <tr><td>Greenhouse (startup ATS)</td><td className="num">55%</td><td className="num">4,921</td></tr>
+            <tr><td>Ashby (startup ATS)</td><td className="num">50%</td><td className="num">1,258</td></tr>
+            <tr><td>Lever (startup ATS)</td><td className="num"><strong>7%</strong></td><td className="num">1,025</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Seven percent. The companies most likely to describe themselves as
+          transparent, mission-driven, and disruptive publish salary at
+          one-fourteenth the rate of the federal government. Some of this is
+          the ATS defaults, since Lever's posting templates never pushed a
+          salary field the way compliance-driven boards do. Most of it is
+          choice. A venture-backed startup pricing equity-heavy offers wants
+          maximum room to vary the package per candidate, and an empty
+          salary line is how that room is kept.
+        </p>
         <h3>What opacity costs the candidate</h3>
         <p>
           A posting without a number moves the first offer to the end of the
@@ -1686,6 +1720,21 @@ export const POSTS: Post[] = [
           corpus reflects unevenly across sources. The professional pattern
           survives the legal one, though. Even where the law requires a
           band, sales postings publish wider bands than nursing postings do.
+        </p>
+        <h3>Playing a hidden-number game well</h3>
+        <p>
+          Since a third of postings will stay blank whatever the laws do,
+          the workable response is preparation rather than complaint. Three
+          habits cover most of it. Look the band up before the first
+          conversation, from blended sources rather than a single
+          self-reported site, so the recruiter's screening question meets a
+          researched range instead of a guess. Ask for the range early and
+          in writing, because in the transparency-law states the company
+          must produce one, and everywhere else the speed and width of the
+          answer is itself information. And treat a refusal to give any
+          number after a full interview loop as data about how the company
+          negotiates everything else, since with you they were still on
+          best behavior.
         </p>
         <h3>Where this leaves you</h3>
         <p>
@@ -1743,6 +1792,11 @@ export const POSTS: Post[] = [
             <tr><td>Product manager</td><td className="num">102</td><td className="num">873</td><td className="num">+99%</td></tr>
             <tr><td>Account executive</td><td className="num">165</td><td className="num">659</td><td className="num">+94%</td></tr>
             <tr><td>Software engineer</td><td className="num">409</td><td className="num">1,877</td><td className="num"><strong>+87%</strong></td></tr>
+            <tr><td>Marketing manager</td><td className="num">43</td><td className="num">884</td><td className="num">+93%</td></tr>
+            <tr><td>Management consultant</td><td className="num">42</td><td className="num">742</td><td className="num">+81%</td></tr>
+            <tr><td>Product designer</td><td className="num">32</td><td className="num">413</td><td className="num">+77%</td></tr>
+            <tr><td>Project manager</td><td className="num">72</td><td className="num">1,326</td><td className="num">+74%</td></tr>
+            <tr><td>Machine learning engineer</td><td className="num">51</td><td className="num">525</td><td className="num">+72%</td></tr>
             <tr><td>Data scientist</td><td className="num">55</td><td className="num">491</td><td className="num">+61%</td></tr>
           </tbody>
         </table>
@@ -1784,6 +1838,40 @@ export const POSTS: Post[] = [
           average person, and most published statistics cannot tell you
           which one you are.
         </div>
+        <h3>How to read any remote-pay claim, including this one</h3>
+        <p>
+          The composition trap has a three-question test, and it works on
+          every remote-salary article ever published. First, are the remote
+          and onsite numbers drawn from the <strong>same source</strong>, or
+          from a remote board compared against the general market? If the
+          article does not say, assume the worst, because same-source data
+          is rare and authors who have it brag about it. Second, is
+          seniority controlled in any way, even crudely, since remote-first
+          hiring skews senior and a seniority gap masquerades perfectly as
+          a location premium. Third, are the <strong>sample sizes
+          published</strong> next to the percentages? Our own table above
+          includes an n of 42 producing a 119 percent headline, which is
+          exactly the kind of number that evaporates when the sample
+          doubles.
+        </p>
+        <p>
+          Run those three questions against the remote-pay statistics you
+          have seen this year and most will fail all three. Ours fails the
+          first two and passes the third, which is why this piece exists.
+        </p>
+        <h3>What a defensible premium would probably look like</h3>
+        <p>
+          Bounded speculation, labeled as such: studies with employer-level
+          controls in adjacent literatures, and the few same-company
+          disclosures that exist, tend to land location-flexible pay
+          differences in the range of <strong>0 to 20 percent</strong>, not
+          60 to 120. Remote work reprices geography and widens the buyer
+          pool, and both effects are real, but nothing in labor economics
+          suggests the same worker doing the same job doubles in value by
+          leaving the building. When our within-source test becomes
+          possible, that is the range we expect it to confirm, and we will
+          publish whatever it says either way.
+        </p>
         <h3>Where this leaves you</h3>
         <p>
           If you are negotiating a remote offer, use occupation-level
@@ -1826,7 +1914,7 @@ export const POSTS: Post[] = [
         <p>
           Career advice treats every job as a destination. The graph
           disagrees. When we compute two-hop routes between occupations,
-          certain roles keep appearing in the middle, not because people
+          certain roles keep appearing <strong>in the middle</strong>, not because people
           want them forever but because holding one raises your reach
           toward places you could not go directly. We started calling them
           bridge roles, counted them, and the census surprised us.
@@ -1867,6 +1955,44 @@ export const POSTS: Post[] = [
           matters.
         </p>
         <div className="post-callout"><b>1</b><span>connection. That is the entire measured adjacency of <strong>photographer</strong> in our graph, the loneliest node we track. Hotel manager also sits at one. Some jobs are rooms with a single door.</span></div>
+        <h3>The bridge in action, with real routes</h3>
+        <p>
+          Abstract counts undersell what a bridge actually does, so here
+          are four routes from the graph with the readiness arithmetic
+          attached. In each case, the direct jump scores poorly and the
+          bridge roughly triples it.
+        </p>
+        <table className="post-table">
+          <caption>Two-hop routes and their readiness lift · PivotHop, July 2026</caption>
+          <thead><tr><th>Route</th><th className="num">Direct</th><th className="num">Via the bridge</th></tr></thead>
+          <tbody>
+            <tr><td>Plumber → Construction manager → <strong>Estimator</strong></td><td className="num">18%</td><td className="num"><strong>66%</strong></td></tr>
+            <tr><td>IT support → Construction manager → Estimator</td><td className="num">27%</td><td className="num">66%</td></tr>
+            <tr><td>Librarian → Project manager → <strong>Facilities manager</strong></td><td className="num">18%</td><td className="num">62%</td></tr>
+            <tr><td>HVAC technician → Mechanical engineer → Electrical engineer</td><td className="num">19%</td><td className="num">58%</td></tr>
+          </tbody>
+        </table>
+        <p>
+          A librarian is 18 percent of a facilities manager on paper.
+          A librarian who has run projects is 62 percent of one, and the
+          missing piece was never the books, it was the budget authority
+          and vendor wrangling that a project role documents. The bridge
+          does not teach you a secret. It converts work you could already
+          do into work you can prove.
+        </p>
+        <h3>Using a bridge on purpose</h3>
+        <p>
+          The deliberate version of this pattern takes about 18 months and
+          three decisions. Pick the destination first, because a bridge
+          chosen without one is just a detour with better branding. Then
+          pick the bridge from the middle column of your own two-hop map,
+          favoring roles that raise the specific skills the destination's
+          postings name. Then, and this is the part people skip, write the
+          destination's vocabulary into everything you produce during the
+          bridge year: the budget you ran, the contractors you managed,
+          the compliance signoffs you owned. The bridge only pays out if
+          the next application can see it.
+        </p>
         <h3>Islands, and what they mean</h3>
         <p>
           The opposite of a bridge is an island: an occupation whose skill
