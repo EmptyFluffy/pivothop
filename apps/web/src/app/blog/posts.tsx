@@ -2269,11 +2269,12 @@ export const POSTS: Post[] = [
     title: 'Who earns more, people with degrees or without? The trick question inside the obvious answer',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
-    dek: 'Degree holders out-earn non-graduates by about 60 percent, and that number hides the interesting part: the paper ceiling has moved out of job-ad language entirely, and postings that say no degree required now pay MORE than ones demanding one.',
+    dek: 'Degree holders out-earn non-graduates by about 60 percent on average, and the average hides two twists: postings that welcome non-graduates now pay more than ones demanding degrees, and a self-taught developer out-earns a veterinarian holding a doctorate.',
     minutes: 9,
     faq: [
       { q: 'How much more do college graduates earn than non-graduates?', a: 'Substantially: BLS data for early 2026 puts median weekly earnings at 1,763 dollars for bachelor\u2019s holders against 977 for high school graduates, roughly a 60 to 80 percent premium depending on the cut. College Board reporting puts the annual gap around 31,200 dollars for full-time workers.' },
       { q: 'Are companies really dropping degree requirements?', a: 'In announcements, yes; in hires, barely. The Harvard Business School and Burning Glass Institute study found fewer than 1 in 700 hires were actually affected by dropped degree requirements, and about 45 percent of companies that announced changes altered nothing in practice.' },
+      { q: 'Can a self-taught programmer earn more than degreed professionals?', a: 'By official medians, yes, comfortably. BLS OEWS puts software developers at 133,080 dollars, above veterinarians at 125,510 (a doctorate plus a license), architects at 96,690 (a five-year degree plus licensure), clinical psychologists at 95,830, and librarians at 64,320 despite the required master\u2019s. Field choice moves pay more than credential level does.' },
       { q: 'Do job postings without degree requirements pay less?', a: 'In our corpus, the opposite. Postings that explicitly say no degree required or equivalent experience accepted carry a posted median of about 140,000 dollars, against 105,000 for postings that explicitly demand a degree, because openness language became standard in high-paying tech ads while explicit demands survive in lower-paying traditional sectors.' },
     ],
     body: (
@@ -2336,6 +2337,47 @@ export const POSTS: Post[] = [
           most honestly, is also the sector dismantling the paper gate
           fastest. The pattern is consistent: rules-bound employers
           change when the rule changes. Discretionary employers announce.
+        </p>
+        <h3>When the field beats the diploma</h3>
+        <p>
+          The 60 percent premium is an average across everyone, and averages
+          are where the interesting cases go to hide. Hold the source
+          constant, official BLS medians, same year, and rank a few
+          professions against the schooling they demand:
+        </p>
+        <table className="post-table">
+          <caption>Official US medians vs required credentials · BLS OEWS, May 2024</caption>
+          <thead><tr><th>Profession</th><th>Paper the law or market demands</th><th className="num">Median</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Software developer</strong></td><td>None mandated, degree optional</td><td className="num"><strong>$133,080</strong></td></tr>
+            <tr><td>Veterinarian</td><td>Doctorate + state license</td><td className="num">$125,510</td></tr>
+            <tr><td>Systems administrator</td><td>Certifications, degree optional</td><td className="num">$96,800</td></tr>
+            <tr><td>Architect</td><td>5-year degree + licensure + internship years</td><td className="num">$96,690</td></tr>
+            <tr><td>Clinical psychologist</td><td>Doctorate + license</td><td className="num">$95,830</td></tr>
+            <tr><td>Dietitian</td><td>Degree + license in most states</td><td className="num">$73,850</td></tr>
+            <tr><td>Librarian</td><td><strong>Master's degree</strong></td><td className="num">$64,320</td></tr>
+            <tr><td>Teacher (median)</td><td>Degree + certification</td><td className="num">$62,340</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The person who learned to code from free videos and ships working
+          software sits at the top of that table. The veterinarian below
+          them spent the better part of a decade in school and passed a
+          licensing board. The architect and the systems administrator earn
+          within 110 dollars a year of each other, one after a five-year
+          degree and an internship ladder, the other after certifications
+          you can finish in months. And the librarian's required master's
+          buys a median under half the developer's.
+        </p>
+        <p>
+          None of this says degrees are worthless, and within a single
+          field the credential usually still pays. What it says is that
+          <strong> field choice moves earnings far more than credential
+          level does</strong>, and the fields where paper is optional
+          happen to include the best-paid large occupation in the country.
+          The degree premium is real. It is also, for a person choosing a
+          path rather than averaging a population, frequently the wrong
+          number to stare at.
         </p>
         <h3>The other title premium</h3>
         <p>
