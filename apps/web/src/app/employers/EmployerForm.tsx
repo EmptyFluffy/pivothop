@@ -100,6 +100,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [tried, setTried] = useState(false);   // show required-field errors after a failed attempt
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setF((p) => ({ ...p, [k]: e.target.value }));
 
   const suggestions = useMemo(() => {
@@ -161,8 +162,13 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
     fl: chosen.includes('4-day week') ? ['4d'] : undefined,
   };
 
-  const ok = f.role.trim().length > 1 && f.company.trim().length > 1 && /.+@.+\..+/.test(f.email) && (f.applyUrl.trim() !== '' || f.applyEmail.trim() !== '');
-  const missing = [!f.role.trim() && 'a role title', !f.company.trim() && 'the company', !/.+@.+\..+/.test(f.email) && 'a work email', !(f.applyUrl.trim() || f.applyEmail.trim()) && 'where to apply'].filter(Boolean);
+  const noRole = f.role.trim().length <= 1;
+  const noCompany = f.company.trim().length <= 1;
+  const noEmail = !/.+@.+\..+/.test(f.email);
+  const noApply = f.applyUrl.trim() === '' && f.applyEmail.trim() === '';
+  const ok = !noRole && !noCompany && !noEmail && !noApply;
+  const missing = [noRole && 'a role title', noCompany && 'the company name', noEmail && 'a work email', noApply && 'where to apply'].filter(Boolean);
+  const err = (bad: boolean) => (tried && bad ? ' ejf-err' : '');
 
   function buildPayload(): JobPayload {
     return {
@@ -192,6 +198,14 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
       '', `Tier: ${pricing[tier].name} (launch rate $${pricing[tier].launch}/30 days).`,
     ].filter((l) => l !== '').join('\n');
     window.location.href = `mailto:cvinocoura@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  function attemptSend() {
+    if (!ok) {
+      setTried(true);
+      setTimeout(() => document.querySelector('.ejf-err')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 40);
+      return;
+    }
+    send();
   }
   async function send() {
     setSubmitError(''); setSubmitting(true);
@@ -247,7 +261,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
         {/* 01 — The role */}
         <section className="ejf-sec">
           <div className="ejf-sec-h"><span className="ejf-num">01</span><h2>The role</h2></div>
-          <label className="ef-field"><span className="lbl">Role title</span>
+          <label className={`ef-field${err(noRole)}`}><span className="lbl">Role title <span className="ejf-req">Required</span></span>
             <input value={f.role} onChange={(e) => { set('role')(e); setOccSlug(''); }} placeholder="e.g. Senior Product Designer" autoFocus />
             <span className="ef-hint">One role, the way it reads on a listing. Posting several? One job per post.</span></label>
           {suggestions.length > 0 && (
@@ -326,8 +340,8 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
         <section className="ejf-sec">
           <div className="ejf-sec-h"><span className="ejf-num">04</span><h2>The company</h2></div>
           <div className="ef-row2">
-            <label className="ef-field"><span className="lbl">Company name</span><input value={f.company} onChange={set('company')} autoComplete="organization" placeholder="Your brand name, no Inc. / Ltd." /></label>
-            <label className="ef-field"><span className="lbl">Work email</span><input type="email" value={f.email} onChange={set('email')} autoComplete="email" placeholder="you@company.com" /><span className="ef-hint">Private. Used to reach you and send the edit link, never shown.</span></label>
+            <label className={`ef-field${err(noCompany)}`}><span className="lbl">Company name <span className="ejf-req">Required</span></span><input value={f.company} onChange={set('company')} autoComplete="organization" placeholder="Your brand name, no Inc. / Ltd." /></label>
+            <label className={`ef-field${err(noEmail)}`}><span className="lbl">Work email <span className="ejf-req">Required</span></span><input type="email" value={f.email} onChange={set('email')} autoComplete="email" placeholder="you@company.com" /><span className="ef-hint">Private. Used to reach you and send the edit link, never shown.</span></label>
           </div>
           <div className="ef-row2">
             <label className="ef-field"><span className="lbl">Logo URL (optional)</span><input value={f.logo} onChange={set('logo')} placeholder="https://…/logo.png" inputMode="url" /><span className="ef-hint">Shown on your listing&rsquo;s page. The board itself stays typographic.</span></label>
@@ -339,10 +353,10 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
         <section className="ejf-sec">
           <div className="ejf-sec-h"><span className="ejf-num">05</span><h2>How to apply</h2></div>
           <div className="ef-row2">
-            <label className="ef-field"><span className="lbl">Apply URL</span><input value={f.applyUrl} onChange={set('applyUrl')} placeholder="https://…" inputMode="url" /></label>
-            <label className="ef-field"><span className="lbl">or apply email</span><input type="email" value={f.applyEmail} onChange={set('applyEmail')} placeholder="jobs@company.com" /></label>
+            <label className={`ef-field${err(noApply)}`}><span className="lbl">Apply URL <span className="ejf-req">Required</span></span><input value={f.applyUrl} onChange={set('applyUrl')} placeholder="https://…" inputMode="url" /></label>
+            <label className={`ef-field${err(noApply)}`}><span className="lbl">or apply email</span><input type="email" value={f.applyEmail} onChange={set('applyEmail')} placeholder="jobs@company.com" /></label>
           </div>
-          <p className="ef-hint ejf-wide">Where candidates go to apply — every listing links out to you. A link to your own form pulls more, cleaner applicants than an email.</p>
+          <p className="ef-hint ejf-wide">Where candidates go to apply &mdash; every listing links out to you. One of these is required; a link to your own form pulls more, cleaner applicants than an email.</p>
         </section>
 
         <div className="ejf-submit">
@@ -351,12 +365,12 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
             <li>We review and post it by hand, within two days.</li>
             <li>Launch rate applied. No card charged until it is live.</li>
           </ol>
-          <button className="ef-send ejf-send" disabled={!ok || submitting} onClick={send}>
+          <button className="ef-send ejf-send" disabled={submitting} onClick={attemptSend}>
             <span>{submitting ? 'Sending…' : `Post the job — ${pricing[tier].name.toLowerCase()}, $${pricing[tier].launch} at launch`}</span>
             <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
           </button>
-          {!ok && missing.length > 0 && <p className="ejf-missing lbl">Still need {missing.join(', ')}.</p>}
-          {submitError && <p className="ejf-missing lbl">{submitError}</p>}
+          {tried && !ok && <p className="ejf-errbox">Before you can post, add {missing.join(', ')} &mdash; the fields marked Required above.</p>}
+          {submitError && <p className="ejf-errbox">{submitError}</p>}
           <p className="ef-note">No form backend, no CRM, no drip sequence. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post &mdash; and you will know the traffic before you pay. Prefer writing directly? <a href="mailto:cvinocoura@gmail.com">cvinocoura@gmail.com</a>.</p>
         </div>
       </div>
