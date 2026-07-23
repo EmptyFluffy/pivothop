@@ -38,6 +38,74 @@ const Sources = ({ children }: { children: ReactNode }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'fulfilling-careers-who-actually-stays',
+    title: 'Do people stay in the most fulfilling careers? The exit rates say it depends',
+    pillar: 'Career Half-Life',
+    date: 'July 2026',
+    dek: 'The satisfaction surveys measure a feeling. We measured whether people actually stay, and the two do not always agree. Some fulfilling jobs keep people for a career; others run on meaning because they cannot run on anything else.',
+    minutes: 6,
+    body: (
+      <>
+        <p>
+          The lists of most fulfilling careers all agree on the shape. Helping professions score highest on meaning: clergy at 98 percent saying their work makes the world a better place, surgeons at 96, nurses and teachers and social workers close behind, on a PayScale survey of more than two million workers. It is a real finding, and it has one blind spot. Meaning is a feeling reported by the people who are still in the job. It cannot tell you whether that meaning was enough to keep them.
+        </p>
+        <p>
+          We can measure the thing the surveys cannot. The <a className="gl" href="/glossary#bls">BLS</a> (US Bureau of Labor Statistics) publishes, for every occupation, the share of workers who move to a different one each year, the occupational transfer rate. Cross it with the satisfaction lists and the single word &ldquo;fulfilling&rdquo; splits into three very different careers.
+        </p>
+        <h2>The fulfilling jobs that keep people</h2>
+        <p>
+          The first group is healthcare, and it is the one the surveys get exactly right. The helping jobs that score highest on meaning also carry among the lowest exit rates we track.
+        </p>
+        <table className="post-table">
+          <caption>Fulfilling careers, and how many leave the occupation each year &middot; occupational transfer rate, BLS Employment Projections 2024&ndash;34</caption>
+          <thead><tr><th>Career</th><th className="num">Leave the occupation per year</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Pharmacist</strong></td><td className="num">1.3%</td></tr>
+            <tr><td>Physical therapist</td><td className="num">1.5%</td></tr>
+            <tr><td>Registered nurse</td><td className="num">2.1%</td></tr>
+            <tr><td>Nurse practitioner</td><td className="num">2.1%</td></tr>
+            <tr><td>Psychologist</td><td className="num">2.2%</td></tr>
+            <tr><td>Dietitian</td><td className="num">2.8%</td></tr>
+            <tr><td>Teacher</td><td className="num">3.3%</td></tr>
+            <tr><td>Social worker</td><td className="num">4.5%</td></tr>
+            <tr><td><strong>Tutor</strong></td><td className="num">8.1%</td></tr>
+          </tbody>
+        </table>
+        <p>
+          A physical therapist has a 1.5 percent chance of leaving the occupation in a given year; a registered nurse, 2.1 percent. These are people who found the work meaningful and stayed in it. When a survey says healthcare is fulfilling, the retention data agrees without an asterisk: the meaning is real, and it is durable.
+        </p>
+        <h2>The fulfilling jobs people flee</h2>
+        <p>
+          Then there is teaching, which tells the opposite story with the same word. It scores near the top of every meaning survey and near the bottom of every retention one. In our data a tutor carries an 8.1 percent annual transfer rate, the highest of any fulfilling career, and a classroom teacher 3.3 percent, roughly half again a nurse&rsquo;s. The outside numbers are worse than ours: <strong>16 percent of teachers said they intended to leave in 2025</strong>, and projections put teacher departures near 270,000 a year. Social work sits in the same bracket at 4.5 percent.
+        </p>
+        <div className="post-callout"><b>8.1%</b><span>of tutors and <strong>3.3%</strong> of teachers switch occupations every year, against <strong>1.5%</strong> of physical therapists. Same &ldquo;fulfilling&rdquo; label, very different staying power.</span></div>
+        <p>
+          This is the gap the meaning surveys hide. A job can be genuinely fulfilling and still shed people, because meaning is not the only thing a career has to provide. When a role scores high on purpose and high on exit at the same time, the honest reading is not &ldquo;rewarding.&rdquo; It is rewarding enough that people try it, and depleting enough that they leave. Teaching runs on meaning because, for too many, it cannot run on pay or conditions. That combination is a warning label, not a recommendation.
+        </p>
+        <div className="post-pullq">A job that scores high on meaning and high on exit is not a calling. It is a role asking people to take meaning in place of the things it does not pay.</div>
+        <h2>The trap: staying is not always fulfillment</h2>
+        <p>
+          One more group complicates the picture. Lawyers leave their occupation at 1.4 percent a year and pharmacists at 1.3, rates that match or beat the happiest healthcare roles. But the cause is different, and the difference matters. When the entry price is a doctorate or a bar exam, people stay partly because leaving forfeits the investment. Retention has two engines: a job people do not want to leave, and a job people cannot afford to. The transfer rate alone cannot tell them apart, which is why a low exit number is a question, not an answer.
+        </p>
+        <h2>How to read a most-fulfilling list</h2>
+        <p>
+          Cross the satisfaction survey with the exit rate and three careers fall out of the one label. Fulfilling and sticky, which is most of healthcare: the meaning is real and people stay, so trust it if you can clear the training. Fulfilling but fleeing, which is teaching, tutoring, and social work: the meaning is real and the conditions are not, so go in with the burnout budgeted rather than assumed away. And sticky but not necessarily fulfilling, which is law and pharmacy: durable for reasons closer to sunk cost than to joy. Before you pivot toward a career because a list called it fulfilling, work out which of the three it is, because the list will not. The retention side of that question is the whole subject of our piece on the <a className="gl" href="/blog/careers-people-never-leave">careers people never leave</a>; the <a className="gl" href="/">instrument</a> prices the move itself, and the <a className="gl" href="/salary">salary pages</a> carry the pay each one actually offers.
+        </p>
+        <Sources>
+          <p>
+            Retention figures are the BLS Employment Projections 2024&ndash;34 occupational separations, the transfer rate being the share of an occupation&rsquo;s workers who move to a different occupation in a year, across 135 occupations in our data. Meaning and satisfaction figures are from PayScale&rsquo;s survey of over two million workers, US News career rankings, and the 2025 Gallup and RAND State of the American Teacher surveys for the teacher intent-to-leave and burnout numbers. Pay for each career is on its salary page. Run a specific move on the front-page instrument.
+          </p>
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'What are the most fulfilling careers?', a: 'Satisfaction surveys consistently rank helping professions highest: clergy (98 percent say their work makes the world better), healthcare including surgeons, nurses, and physical therapists, plus teaching and social work. But high meaning does not guarantee that people stay.' },
+      { q: 'Do people actually stay in fulfilling jobs?', a: 'It depends on the job. Healthcare fulfilling careers have very low exit rates, with physical therapists at 1.5 percent and registered nurses at 2.1 percent leaving the occupation per year, so people stay. Teaching and tutoring score high on meaning but have high exit (teacher 3.3 percent, tutor 8.1 percent), so people leave despite the meaning.' },
+      { q: 'Is teaching a good career?', a: 'It is one of the most meaningful and one of the least retained. About 16 percent of teachers intended to leave in 2025, and our data shows a classroom teacher is roughly 50 percent more likely to switch occupations than a nurse. The meaning is real; the pay and conditions are the problem.' },
+      { q: 'Why do lawyers and pharmacists rarely leave their jobs?', a: 'Partly the credential. When entry requires a doctorate or a bar exam, leaving forfeits a large investment, so a low exit rate can reflect sunk cost rather than fulfillment. Retention alone does not distinguish a job people love from one they cannot afford to leave.' },
+    ],
+  },
+  {
     slug: 'jobs-disappearing-versus-created',
     title: 'Jobs disappearing versus jobs created: the only number that is actually yours',
     pillar: 'What Carried Over',
