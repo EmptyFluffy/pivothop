@@ -100,8 +100,7 @@ export const POSTS: Post[] = [
           every route and flags the third on every licensed profession. A 70
           percent match into a plus 20 percent unlicensed role is often a better
           bet than a 55 percent match into a plus 100 percent licensed one,
-          because the second bet includes years and tuition that the salary line
-          does not show.
+          because the second bet includes years and tuition that the salary line does not show. The <a className="gl" href="/salary">salary pages</a> carry the full distribution behind each of these figures, and <a className="gl" href="/fairelephant">FairElephant</a> prices a specific offer.
         </p>
         <Sources>
           <p>
@@ -1891,9 +1890,7 @@ export const POSTS: Post[] = [
         <h3>Where this leaves you</h3>
         <p>
           If you are negotiating a remote offer, use occupation-level
-          anchors rather than remote-market headlines: the blended bands on
-          our salary pages start from official statistics and declare their
-          posting bias. If you are choosing remote work expecting an
+          anchors rather than remote-market headlines: the blended bands on <a className="gl" href="/salary">our salary pages</a> start from official statistics and declare their posting bias, and <a className="gl" href="/fairelephant">FairElephant</a> will weigh a specific number against your location and remote rates. If you are choosing remote work expecting an
           automatic 87 percent raise, expect instead a wider set of
           employers competing for you, which is worth plenty and is not the
           same thing. We will rerun the within-source test as general
@@ -2426,7 +2423,7 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          Our graph has always been built from live postings: it reads what
+          PivotHop’s graph has always been built from live postings: it reads what
           employers ask for and scores how much of a destination role you
           already cover. That number is useful and it has a blind spot you
           could drive a truck through. It knows what the market wants. It
@@ -2717,9 +2714,7 @@ export const POSTS: Post[] = [
           leads to interior design). A paralegal’s 7.2 percent means the
           door is already revolving, and the question is not whether people
           leave but where they land best. The instrument now carries the
-          rate for every origin we track. Check your base rate before you
-          decide you are stuck, because in several of these occupations,
-          statistically, nobody is.
+          rate for every origin we track. Check your base rate before you decide you are stuck, because in several of these occupations, statistically, nobody is. Each occupation’s full pay distribution, and the trend behind it, now lives on its <a className="gl" href="/salary">salary page</a>.
         </p>
         <Sources>
           <p>
@@ -2753,7 +2748,7 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          Across the 77,443 postings our scrapers currently hold,{' '}
+          Across the 77,443 postings PivotHop’s scrapers currently hold,{' '}
           <strong>5.3 percent</strong> are explicitly fully remote. That
           headline number is almost useless, because the distribution
           underneath it is savage: the most remote-friendly occupation we
