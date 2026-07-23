@@ -107,9 +107,10 @@ export function EmployerForm({ occs, fan }: { occs: Occ[]; fan: Record<string, F
             <div className="ef-row2">
               <label className="ef-field"><span className="lbl">{remote ? 'Hiring region (optional)' : 'Location'}</span>
                 <input value={f.location} onChange={set('location')} placeholder={remote ? 'e.g. US time zones' : 'e.g. Austin, TX'} /></label>
-              <label className="ef-field"><span className="lbl">Salary band (listings with pay rank higher)</span>
+              <label className="ef-field"><span className="lbl">Salary band</span>
                 <input value={f.salary} onChange={set('salary')} placeholder="e.g. $95k–$130k" /></label>
             </div>
+            <p className="ew-hint lbl">Listings that state pay rank higher on the board.</p>
             <button className="ef-send" disabled={!step1ok} onClick={() => setStep(2)}><span>Next: the posting</span></button>
           </div>
         )}
@@ -120,7 +121,7 @@ export function EmployerForm({ occs, fan }: { occs: Occ[]; fan: Record<string, F
               <textarea rows={3} value={f.about} onChange={set('about')} placeholder="What the role is and why it exists." /></label>
             <label className="ef-field"><span className="lbl">Responsibilities, one per line</span>
               <textarea rows={4} value={f.resp} onChange={set('resp')} placeholder={'Own the reporting pipeline\nRun the weekly planning'} /></label>
-            <label className="ef-field"><span className="lbl">Qualifications, one per line (required and preferred)</span>
+            <label className="ef-field"><span className="lbl">Qualifications, one per line</span>
               <textarea rows={4} value={f.quals} onChange={set('quals')} placeholder={'3+ years with SQL\nNice to have: dbt'} /></label>
             <label className="ef-field"><span className="lbl">Benefits (optional)</span>
               <textarea rows={2} value={f.benefits} onChange={set('benefits')} /></label>
