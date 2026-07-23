@@ -435,6 +435,24 @@ input:focus-visible{outline:none}
 .ejf-tier-desc{font-size:13.5px;line-height:1.55;color:var(--ink-2);margin:0}
 .ejf-launch-note{font-size:13px;color:var(--ink-3);line-height:1.6;margin:14px 0 0;max-width:72ch}
 @media (max-width:640px){.ejf-pricing{grid-template-columns:1fr}}
+/* clickable/selectable tiers (top of the form) */
+.ejf-tiers{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:34px 0 0}
+.ejf-tier-pick{display:flex;flex-direction:column;text-align:left;font-family:inherit;color:inherit;background:var(--card);border:1px solid var(--rule);padding:20px 22px 16px;cursor:pointer;transition:border-color .14s,box-shadow .14s;position:relative}
+.ejf-tier-pick:hover{border-color:var(--ink-2)}
+.ejf-tier-pick.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.ejf-tier-pick.ejf-tier-feat{border-top:3px solid var(--accent)}
+.ejf-tier-pick .ejf-tier-desc{flex:1;margin-bottom:12px}
+.ejf-tier-select{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);transition:color .14s}
+.ejf-tier-pick.on .ejf-tier-select{color:var(--accent)}
+.ejf-tier-pick.on::after{content:"";position:absolute;top:12px;right:14px;width:9px;height:9px;background:var(--accent);border-radius:50%}
+@media (max-width:640px){.ejf-tiers{grid-template-columns:1fr}}
+/* success state */
+.ejf-done{max-width:56ch;padding:40px 0 30px}
+.ejf-done-mark{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;background:var(--accent);color:#fff;font-size:22px;font-weight:700;margin-bottom:22px}
+.ejf-done h2{font-weight:700;font-size:clamp(26px,4vw,36px);letter-spacing:-.02em;margin:0 0 14px}
+.ejf-done p{font-size:15.5px;line-height:1.65;color:var(--ink-2);margin:0 0 26px}
+.ejf-done-card{border:1px solid var(--rule);background:var(--card);padding:4px 16px;margin-bottom:26px}
+.ejf-done-card .job-card{border-bottom:none;pointer-events:none}
 /* paste-a-JD shortcut */
 .ejf-paste{border:1px solid var(--rule);border-left:3px solid var(--accent);background:var(--card);padding:16px 18px 15px;margin:34px 0 8px}
 .ejf-paste-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:11px}

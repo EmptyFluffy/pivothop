@@ -68,22 +68,6 @@ export default function Employers() {
           </p>
         </header>
 
-        <div className="ejf-pricing" aria-label="Pricing">
-          <div className="ejf-tier">
-            <span className="ejf-tier-name">{PRICING.std.name}</span>
-            <span className="ejf-tier-price"><s>${PRICING.std.full}</s>${PRICING.std.launch}</span>
-            <span className="ejf-tier-per">per 30-day post &middot; launch rate</span>
-            <p className="ejf-tier-desc">Your role, posted and tagged to the skill graph, matched to adjacent candidates, listed 30 days, linking out to apply.</p>
-          </div>
-          <div className="ejf-tier ejf-tier-feat">
-            <span className="ejf-tier-name">{PRICING.feat.name} <span className="ejf-tier-badge">Most pick this</span></span>
-            <span className="ejf-tier-price"><s>${PRICING.feat.full}</s>${PRICING.feat.launch}</span>
-            <span className="ejf-tier-per">per 30-day post &middot; launch rate</span>
-            <p className="ejf-tier-desc">Everything in Standard, shown first: top of the board, the adjacency spotlight on route and salary pages, and priority in matching.</p>
-          </div>
-        </div>
-        <p className="ejf-launch-note">Launch pricing, half off for every employer while the board fills and the traffic proves out. No card is charged until we review and post your role &mdash; you will see the numbers before it moves to full price.</p>
-
         <EmployerForm occs={occs} fan={fan} skills={skillBank()} salaryHints={salaryHints} pricing={PRICING} />
       </div>
     </PageShell>

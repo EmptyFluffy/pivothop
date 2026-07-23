@@ -1,6 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { JobCard, type Job } from '../jobs/JobCard';
+import { submitJob, type JobPayload } from './actions';
 
 /* Post a job — third pass, friction-first. People hate forms, so:
    - Paste an existing job description and we parse out the title, salary, and
@@ -95,6 +96,10 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   const [salaryPick, setSalaryPick] = useState('');   // '' | '0'..'7' | 'custom'
   const [jd, setJd] = useState('');
   const [filled, setFilled] = useState('');
+  const [tier, setTier] = useState<'std' | 'feat'>('feat');
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setF((p) => ({ ...p, [k]: e.target.value }));
 
   const suggestions = useMemo(() => {
@@ -159,7 +164,20 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   const ok = f.role.trim().length > 1 && f.company.trim().length > 1 && /.+@.+\..+/.test(f.email) && (f.applyUrl.trim() !== '' || f.applyEmail.trim() !== '');
   const missing = [!f.role.trim() && 'a role title', !f.company.trim() && 'the company', !/.+@.+\..+/.test(f.email) && 'a work email', !(f.applyUrl.trim() || f.applyEmail.trim()) && 'where to apply'].filter(Boolean);
 
-  function send() {
+  function buildPayload(): JobPayload {
+    return {
+      tier: tier === 'feat' ? 'featured' : 'standard',
+      role: f.role.trim(), occupation_slug: occSlug || null,
+      employment_type: etype, workplace: mode, region: f.region.trim(),
+      salary_min: sv.min, salary_max: sv.max,
+      about: f.about.trim(), responsibilities: f.resp.trim(), qualifications: f.quals.trim(),
+      skills: skillList, benefits: chosen,
+      company: f.company.trim(), logo_url: f.logo.trim(),
+      contact_email: f.email.trim(), contact_name: f.name.trim(),
+      apply_url: f.applyUrl.trim(), apply_email: f.applyEmail.trim(),
+    };
+  }
+  function mailto() {
     const modeLabel = MODES.find((m) => m.key === mode)!.label;
     const salTxt = sv.min && sv.max ? `${fmtK(sv.min)}–${fmtK(sv.max)}` : sv.min ? `${fmtK(sv.min)}+` : sv.max ? `up to ${fmtK(sv.max)}` : '';
     const subject = `Post a job: ${f.role} at ${f.company}`;
@@ -171,14 +189,51 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
       skillList.length ? `Required skills: ${skillList.join(', ')}` : '', chosen.length ? `Benefits: ${chosen.join(', ')}` : '',
       f.applyUrl ? `Apply URL: ${f.applyUrl}` : '', f.applyEmail ? `Apply email: ${f.applyEmail}` : '',
       f.about ? `\nAbout the role:\n${f.about}` : '', f.resp ? `\nResponsibilities:\n${f.resp}` : '', f.quals ? `\nQualifications:\n${f.quals}` : '',
-      '', `Tier: Featured (launch rate $${pricing.feat.launch}/30 days).`,
+      '', `Tier: ${pricing[tier].name} (launch rate $${pricing[tier].launch}/30 days).`,
     ].filter((l) => l !== '').join('\n');
     window.location.href = `mailto:cvinocoura@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  async function send() {
+    setSubmitError(''); setSubmitting(true);
+    const result = await submitJob(buildPayload());
+    setSubmitting(false);
+    if (result.ok) { setSubmitted(true); if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    else if (result.error === 'not-configured') { mailto(); }               // local dev / no backend
+    else { setSubmitError('Could not reach the server just now — opening email as a fallback.'); mailto(); }
+  }
+
+  if (submitted) {
+    return (
+      <div className="ejf-done">
+        <span className="ejf-done-mark" aria-hidden="true">&#10003;</span>
+        <h2>Sent. Your role is in the queue.</h2>
+        <p>We review and post by hand, within two days &mdash; {pricing[tier].name.toLowerCase()} placement at the launch rate (${pricing[tier].launch}/30 days). A real person replies to {f.email.trim() || 'your email'}. No card is charged until it is live.</p>
+        <div className="ejf-done-card"><ul className="job-list"><JobCard j={previewJob} /></ul></div>
+        <a className="lbl acc" href="/jobs">See the board &rarr;</a>
+      </div>
+    );
   }
 
   return (
     <>
       <div className="ejf-form">
+        {/* Choose placement — the two tiers, selectable */}
+        <div className="ejf-tiers" role="radiogroup" aria-label="Placement">
+          {(['std', 'feat'] as const).map((t) => {
+            const tp = pricing[t]; const on = tier === t;
+            return (
+              <button key={t} type="button" role="radio" aria-checked={on} className={`ejf-tier ejf-tier-pick${t === 'feat' ? ' ejf-tier-feat' : ''}${on ? ' on' : ''}`} onClick={() => setTier(t)}>
+                <span className="ejf-tier-name">{tp.name}{t === 'feat' && <span className="ejf-tier-badge">Most pick this</span>}</span>
+                <span className="ejf-tier-price"><s>${tp.full}</s>${tp.launch}</span>
+                <span className="ejf-tier-per">per 30-day post &middot; launch rate</span>
+                <p className="ejf-tier-desc">{t === 'feat' ? 'Everything in Standard, shown first: top of the board, the adjacency spotlight on route and salary pages, and priority in matching.' : 'Your role, posted and tagged to the skill graph, matched to adjacent candidates, listed 30 days, linking out to apply.'}</p>
+                <span className="ejf-tier-select" aria-hidden="true">{on ? '✓ Selected' : 'Select'}</span>
+              </button>
+            );
+          })}
+        </div>
+        <p className="ejf-launch-note">Launch pricing, half off for every employer while the board fills and the traffic proves out. No card is charged until we review and post your role &mdash; you will see the numbers before it moves to full price.</p>
+
         {/* Shortcut: paste an existing JD */}
         <div className="ejf-paste">
           <div className="ejf-paste-head"><span className="lbl acc">Shortcut</span><span>Already wrote the job post? Paste it and we fill in what we can.</span></div>
@@ -296,11 +351,12 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
             <li>We review and post it by hand, within two days.</li>
             <li>Launch rate applied. No card charged until it is live.</li>
           </ol>
-          <button className="ef-send ejf-send" disabled={!ok} onClick={send}>
-            <span>Post the job &mdash; featured, ${pricing.feat.launch} at launch</span>
+          <button className="ef-send ejf-send" disabled={!ok || submitting} onClick={send}>
+            <span>{submitting ? 'Sending…' : `Post the job — ${pricing[tier].name.toLowerCase()}, $${pricing[tier].launch} at launch`}</span>
             <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
           </button>
           {!ok && missing.length > 0 && <p className="ejf-missing lbl">Still need {missing.join(', ')}.</p>}
+          {submitError && <p className="ejf-missing lbl">{submitError}</p>}
           <p className="ef-note">No form backend, no CRM, no drip sequence. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post &mdash; and you will know the traffic before you pay. Prefer writing directly? <a href="mailto:cvinocoura@gmail.com">cvinocoura@gmail.com</a>.</p>
         </div>
       </div>
