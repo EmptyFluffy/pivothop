@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/glossary`, changeFrequency: 'monthly', priority: 0.6 },
     ...ROUTE_SLUGS.map((s) => ({ url: `${BASE}/routes/${s}`, changeFrequency: 'weekly' as const, priority: 0.8 })),
     { url: `${BASE}/salary`, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/salary/by-country`, changeFrequency: 'weekly', priority: 0.7 },
     ...SALARY_SLUGS.map((s) => ({ url: `${BASE}/salary/${s}`, changeFrequency: 'weekly' as const, priority: 0.8 })),
   ];
 }

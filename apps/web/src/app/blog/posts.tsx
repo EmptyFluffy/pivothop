@@ -38,6 +38,77 @@ const Sources = ({ children }: { children: ReactNode }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'the-weird-jobs-priced',
+    title: 'The weird jobs, priced: what an ethical hacker, a brewmaster, and a perfusionist actually make',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'We pointed the scraper at the strange edges of the job market and asked what they pay. The ones it could see price against every intuition. The weirdest ones it could barely see at all.',
+    minutes: 6,
+    body: (
+      <>
+        <p>
+          We spend most of our time measuring the ordinary middle of the labor market: software engineers, nurses, accountants, the jobs that post by the thousand. This month we pointed the scraper at the strange edges instead, sommeliers and foley artists and people who fly drones for a living, and asked the only question a salary instrument knows how to ask. What does it pay?
+        </p>
+        <p>
+          Two things came back, and both were surprising. The first is how little the weird jobs resemble their reputations once a real number is attached. The second is how many of them a corpus of 79,257 live postings can barely see at all.
+        </p>
+        <div className="post-callout"><b>3</b><span>sommelier postings in 79,257. Six brewmasters. Fourteen ethical hackers. <strong>Zero</strong> perfusionists. The rarer the job, the blinder the data.</span></div>
+        <h2>The ones we could price</h2>
+        <p>The visible edge of the weird first, with the count attached so you know how much to trust each line:</p>
+        <table className="post-table">
+          <caption>Posted medians for offbeat occupations &middot; PivotHop, July 2026. Counts under 30 are thin; read them as signals, not settled figures.</caption>
+          <thead><tr><th>Job</th><th className="num">Posted median</th><th className="num">Postings</th><th>The part that surprises</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ethical hacker</strong> (penetration tester)</td><td className="num">$182,000</td><td className="num">14</td><td>Paid like a senior engineer to break in on purpose</td></tr>
+            <tr><td>Paramedic</td><td className="num">$104,000</td><td className="num">71</td><td>Higher than the reputation, lifted by flight medics</td></tr>
+            <tr><td>Data annotator (AI trainer)</td><td className="num">$63,000</td><td className="num">61</td><td>The humans who label what trains the models</td></tr>
+            <tr><td>Sommelier</td><td className="num">$68,000</td><td className="num">3</td><td>A real figure from three postings, so read it as a rumor</td></tr>
+            <tr><td>Flight attendant</td><td className="num">$60,000</td><td className="num">101</td><td>The one weird job our data sees clearly</td></tr>
+            <tr><td>Foley artist (sound designer)</td><td className="num">$52,000</td><td className="num">7</td><td>Makes celery sound like breaking bone</td></tr>
+            <tr><td>Medical scribe</td><td className="num">$46,000</td><td className="num">23</td><td>The pre-med grind, priced accordingly</td></tr>
+            <tr><td><strong>Brewmaster</strong></td><td className="num">$36,000</td><td className="num">6</td><td>The Friday fantasy, priced like the tasting room</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The ethical hacker number is the one that stops you. Breaking into systems, with permission, posts a median near <strong>$182,000</strong> in our data, and the open market runs higher still. The bug-bounty platform HackerOne has paid ethical hackers over $300 million all told; thirty of them have cleared a million dollars each, one has passed four, and the single largest bounty on record was $100,050, paid by a crypto firm for one flaw. The nearest ordinary job to it, security engineer, is a short skills hop away, which is the whole point of the <a className="gl" href="/">instrument</a>.
+        </p>
+        <p>
+          At the other end sits the brewmaster. The job every desk worker fantasizes about on a Friday afternoon posts a median near <strong>$36,000</strong>. Passion is not free. Someone has to charge you for the privilege of loving your work, and when the queue of people who want the job is long, that someone is usually you.
+        </p>
+        <div className="post-pullq">The ethical hacker out-earns the sommelier, who out-earns the brewer. Reputation is a terrible salary guide.</div>
+        <p>
+          The middle of the table is where the trivia lives. Flight attendants, the one offbeat job our data prices cleanly at about $60,000, sleep in bunks most passengers never learn about: most Boeing 787s hide a staircase behind a passcode-locked door, leading to a windowless crew-rest cabin above the seats, and the <a className="gl" href="/glossary#faa">FAA</a> (the Federal Aviation Administration) mandates that rest on the longest routes. Foley artists, at $52,000 from seven postings, are the people who make a snapping stalk of celery sound like a breaking spine, two coconut halves sound like a galloping horse, and, in Titanic, frozen lettuce peeled apart sound like a woman&rsquo;s hair. Sommeliers post a tidy $68,000, but only 269 people have ever passed the Master Sommelier exam, fewer than have been to space, so the three postings we found describe the floor of that world and nothing near its ceiling.
+        </p>
+        <h2>The ones the data cannot see</h2>
+        <p>
+          The most interesting occupations in this batch produced no salary at all, because they produced almost no postings. A <strong>perfusionist</strong>, the person who runs the heart-lung machine during open-heart surgery and, in the literal job description, delivers the drug that stops your heart so a surgeon can work on it, appears zero times in our corpus. The open market pays them a median around $165,000. It is one of the best-paid jobs almost no job board carries, because only a few thousand exist in the country and hospitals hire them by name, not by advertisement.
+        </p>
+        <p>
+          Wind turbine technician is the opposite kind of invisible. By the <a className="gl" href="/glossary#bls">BLS</a> (US Bureau of Labor Statistics) count it is the single fastest-growing occupation in the United States, projected to grow around fifty percent this decade, and it pays a median of $61,770 with no degree required and top earners past $90,000, for the modest inconvenience of doing the work three hundred feet in the air. It also appears zero times in our corpus, because the boards we read skew toward desks, and this is a job you reach through a trade program, not a careers page.
+        </p>
+        <div className="post-callout"><b>0</b><span>postings, in 79,257, for a $165,000 perfusionist or the fastest-growing job in America. A posting scrape is a census of the ordinary.</span></div>
+        <h2>What the weird edges are telling you</h2>
+        <p>
+          The pattern under the trivia is the useful part. Job-board data is a map of the salaried, desk-shaped, advertised middle of the economy. It sees flight attendants and paramedics because airlines and hospitals post at scale. It cannot see perfusionists, too rare, or wind techs, hired through trades, and it sees sommeliers and foley artists as a rumor of three or seven postings. If a career you are weighing is barely visible in a corpus this size, that is itself information: the way in is a relationship or a credential, not an application.
+        </p>
+        <p>
+          It also means the pay reputations you carry are mostly wrong. The hacker out-earns the sommelier. The paramedic out-earns the medical scribe by more than double. The dream job pays the least. When you can attach a real number, the number usually argues with the story, which is what the <a className="gl" href="/salary">salary board</a> does for the ordinary jobs at scale. For the weird ones, the lesson is smaller and sharper: distrust the reputation, go find the number, and where the number is invisible, so, usually, is the front door.
+        </p>
+        <Sources>
+          <p>
+            PivotHop pipeline, July 2026 run: 79,257 mapped postings across 174 occupations. Posted medians are the raw median of postings with stated pay for each occupation; counts are the mapped postings we found, and any figure under 30 postings is thin by our own confidence floor and shown with its count for that reason. Off-corpus figures, cited because our data could not produce them: perfusionist median from industry salary trackers (ZipRecruiter and peers, roughly $163,000 to $165,000); wind turbine technician median, growth, and outlook from the BLS Occupational Outlook Handbook; ethical-hacker bounty totals from HackerOne; Master Sommelier scarcity from the Court of Master Sommeliers; foley techniques from Mental Floss and Atlas Obscura reporting; flight-attendant crew rest from FAA rest rules and reporting. Run an ordinary job, or a weird one, on the front-page instrument.
+          </p>
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'What is the highest-paid weird job?', a: 'In our posting data, ethical hacking (penetration testing) at a posted median near $182,000, though from only 14 postings. Off our board, perfusionists, who run the heart-lung machine in cardiac surgery, earn around $165,000 and appear in almost no job ads at all.' },
+      { q: 'Why do some jobs barely show up in job-posting data?', a: 'Because they are hired through relationships or credentials rather than advertised at scale (a perfusionist), or reached through trade programs rather than careers pages (a wind turbine technician). A job that is nearly invisible in a large posting corpus usually has a non-obvious front door, which is worth knowing before you plan a move toward it.' },
+      { q: 'What weird job pays the most for the least schooling?', a: 'Wind turbine technician: a BLS median of $61,770, top earners past $90,000, no degree required, and the fastest projected growth of any US occupation this decade, in exchange for working hundreds of feet in the air.' },
+      { q: 'Does a brewmaster really pay that little?', a: 'In our corpus, a posted median near $36,000, from a handful of postings. Craft and passion careers tend to price low because the supply of people who want them is large, so the enjoyment is treated as part of the compensation.' },
+    ],
+  },
+  {
     slug: 'the-broken-bottom-rung',
     title: 'The broken bottom rung: the entry-level job is vanishing, and the way in went sideways',
     pillar: 'Career Half-Life',

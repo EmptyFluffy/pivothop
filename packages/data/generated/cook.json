@@ -1,0 +1,197 @@
+{
+  "version": 2,
+  "origin": {
+    "slug": "cook",
+    "title": "Cook",
+    "field": "Hospitality",
+    "cluster": "Hospitality",
+    "postings": 175,
+    "salary": "$35k–$45k",
+    "salary_band": [
+      36939,
+      42642
+    ],
+    "remote": "0%",
+    "separations": {
+      "transfer": 7.9,
+      "exit": 6.7,
+      "total": 14.6,
+      "openings": 250.7
+    }
+  },
+  "roles": [
+    {
+      "id": "chef",
+      "title": "Chef",
+      "field": "Hospitality",
+      "cluster": "Service",
+      "kind": "pivot",
+      "license": {
+        "req": "partial",
+        "label": "Food-safety certification (ServSafe) typically required"
+      },
+      "desc": "",
+      "match": 34,
+      "fit": 34,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$45k–$65k",
+      "salary_band": [
+        44878,
+        62568
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Food Service",
+        "Customer Service",
+        "Spark"
+      ],
+      "learn": [
+        "Lean / Six Sigma",
+        "Quality Control",
+        "Scheduling",
+        "Safety / OSHA"
+      ],
+      "waterfall": [
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 61.4,
+          "earned": 30.4
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 6,
+          "earned": 2.2
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "observability",
+          "name": "Observability",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 1.7,
+          "earned": 0
+        },
+        {
+          "skill": "spec-writing",
+          "name": "Spec Writing",
+          "pts": 1.3,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 1.3,
+          "earned": 0
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 1.3,
+          "earned": 0
+        },
+        {
+          "skill": "market-research",
+          "name": "Market Research",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "vue",
+          "name": "Vue",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "spark",
+          "name": "Spark",
+          "pts": 1,
+          "earned": 1
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 0.7,
+          "earned": 0
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 0.7,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 593,
+        "salaried": 408
+      }
+    }
+  ],
+  "next": {
+    "chef": []
+  },
+  "direct": [],
+  "cross": [],
+  "bridges": [],
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
+}

@@ -5,13 +5,13 @@
     "title": "Teacher",
     "field": "Education",
     "cluster": "Education",
-    "postings": 1388,
+    "postings": 1392,
     "salary": "$55k–$75k",
     "salary_band": [
       55118,
       73877
     ],
-    "remote": "0%",
+    "remote": "1%",
     "separations": {
       "transfer": 3.3,
       "exit": 3.4,
@@ -63,7 +63,7 @@
           "skill": "teaching",
           "name": "Teaching",
           "pts": 57,
-          "earned": 21.8
+          "earned": 21.9
         },
         {
           "skill": "scheduling",
@@ -75,7 +75,7 @@
           "skill": "classroom-management",
           "name": "Classroom Management",
           "pts": 8.7,
-          "earned": 8.4
+          "earned": 8.5
         },
         {
           "skill": "observability",
@@ -160,7 +160,7 @@
         83887
       ],
       "demand": "High",
-      "remote": "1%",
+      "remote": "2%",
       "time": "12–24 mo",
       "have": [
         "Teaching",
@@ -178,7 +178,7 @@
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 77.3,
+          "pts": 77.1,
           "earned": 27
         },
         {
@@ -264,12 +264,18 @@
           "name": "Translation",
           "pts": 0.2,
           "earned": 0.2
+        },
+        {
+          "skill": "space-planning",
+          "name": "Space Planning",
+          "pts": 0.2,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 475,
+        "postings": 476,
         "salaried": 302
       }
     },
@@ -290,8 +296,8 @@
       "mobility_tier": null,
       "salary": "$50k–$100k",
       "salary_band": [
-        52279,
-        98340
+        52247,
+        97838
       ],
       "demand": "High",
       "remote": "2%",
@@ -312,13 +318,13 @@
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 47.7,
+          "pts": 47.6,
           "earned": 31.9
         },
         {
           "skill": "curriculum",
           "name": "Curriculum Development",
-          "pts": 8.3,
+          "pts": 8.2,
           "earned": 4.3
         },
         {
@@ -336,20 +342,20 @@
         {
           "skill": "assessment",
           "name": "Assessment",
-          "pts": 4.6,
+          "pts": 4.8,
           "earned": 0
         },
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 4.4,
+          "pts": 4.3,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3.9,
-          "earned": 1.3
+          "pts": 4.1,
+          "earned": 1.4
         },
         {
           "skill": "accounting",
@@ -366,14 +372,14 @@
         {
           "skill": "photography",
           "name": "Photography",
-          "pts": 2.1,
-          "earned": 2.1
+          "pts": 2,
+          "earned": 2
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
           "pts": 1.8,
-          "earned": 1
+          "earned": 0.9
         },
         {
           "skill": "illustration",
@@ -434,7 +440,7 @@
       "observed": null,
       "provenance": {
         "postings": 526,
-        "salaried": 376
+        "salaried": 375
       }
     },
     {
@@ -653,7 +659,7 @@
           "skill": "training",
           "name": "Training & Facilitation",
           "pts": 7.9,
-          "earned": 1.5
+          "earned": 1.6
         },
         {
           "skill": "teaching",
@@ -856,7 +862,7 @@
           "skill": "training",
           "name": "Training & Facilitation",
           "pts": 3,
-          "earned": 2.2
+          "earned": 2.3
         },
         {
           "skill": "qa-testing",
@@ -880,7 +886,7 @@
           "skill": "translation",
           "name": "Translation",
           "pts": 1.7,
-          "earned": 1.2
+          "earned": 1.1
         },
         {
           "skill": "statistics",
@@ -938,7 +944,35 @@
     "tutor": [],
     "professor": [],
     "librarian": [],
-    "instructional-designer": [],
+    "instructional-designer": [
+      {
+        "t": "Corporate Trainer",
+        "m": 10,
+        "slug": "corporate-trainer",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "lateral",
+        "gap": [
+          "Instructional Design",
+          "Customer Service",
+          "HR Operations",
+          "Accessibility"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 54,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "instructional-designer",
+          "readiness_after": 30,
+          "gain": 20
+        }
+      }
+    ],
     "physical-therapist": [
       {
         "t": "Therapist / Counselor",
@@ -950,8 +984,8 @@
         "gap": [
           "Patient Care",
           "Clinical Skills",
-          "Rendering",
-          "EHR / EMR"
+          "EHR / EMR",
+          "Rendering"
         ],
         "observed": null,
         "fit": 27,
@@ -963,35 +997,8 @@
         "reach": "bridged",
         "via": {
           "parent": "physical-therapist",
-          "readiness_after": 44,
-          "gain": 34
-        }
-      },
-      {
-        "t": "Nurse Practitioner",
-        "m": 10,
-        "slug": "nurse-practitioner",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Patient Care",
-          "Clinical Skills",
-          "EHR / EMR",
-          "QA / Testing"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": 48,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 3,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "physical-therapist",
-          "readiness_after": 49,
-          "gain": 39
+          "readiness_after": 43,
+          "gain": 33
         }
       }
     ]
@@ -1027,13 +1034,13 @@
   "bridges": [
     [
       "teaching-assistant",
-      "physical-therapist_1",
-      0.29
-    ],
-    [
-      "teaching-assistant",
       "physical-therapist_0",
       0.23
+    ],
+    [
+      "librarian",
+      "instructional-designer_0",
+      0.2
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

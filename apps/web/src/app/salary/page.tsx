@@ -23,6 +23,9 @@ export default function SalaryIndex() {
           the split by seniority and country. Not one scraped number, the whole distribution and where it is heading.
           Starting with the most-searched roles; more added as their data firms up.
         </p>
+        <p className="rt-dek" style={{ marginTop: '-8px' }}>
+          Comparing one job across markets? See <Link className="gl" href="/salary/by-country">the same job, priced across countries</Link>, nominal and adjusted for cost of living.
+        </p>
         <ul className="rt-index">
           {rows.map(({ slug, f }) => {
             const b = usBand(f!);

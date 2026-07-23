@@ -68,14 +68,14 @@
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 14.5,
+          "pts": 14.4,
           "earned": 2
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 5.9,
-          "earned": 5.9
+          "pts": 5.8,
+          "earned": 5.8
         },
         {
           "skill": "spec-writing",
@@ -116,7 +116,7 @@
         {
           "skill": "etabs",
           "name": "ETABS / SAP2000",
-          "pts": 3.3,
+          "pts": 3.2,
           "earned": 0
         },
         {
@@ -128,13 +128,13 @@
         {
           "skill": "building-codes",
           "name": "Building Codes",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "construction-documents",
           "name": "Construction Documentation",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
@@ -158,7 +158,7 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 1.8,
+          "pts": 1.9,
           "earned": 0
         },
         {
@@ -183,7 +183,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 921,
+        "postings": 922,
         "salaried": 631
       }
     },
@@ -1039,21 +1039,21 @@
       "learn": [
         "Spec Writing",
         "Construction Documentation",
-        "Urban Design",
-        "BIM"
+        "BIM",
+        "Urban Design"
       ],
       "waterfall": [
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 16,
-          "earned": 5.7
+          "pts": 15.9,
+          "earned": 5.6
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 11.7,
-          "earned": 11.7
+          "pts": 11.5,
+          "earned": 11.5
         },
         {
           "skill": "project-management",
@@ -1070,18 +1070,18 @@
         {
           "skill": "construction-documents",
           "name": "Construction Documentation",
-          "pts": 5.4,
-          "earned": 0
-        },
-        {
-          "skill": "urban-design",
-          "name": "Urban Design",
-          "pts": 4.7,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "bim",
           "name": "BIM",
+          "pts": 4.6,
+          "earned": 0
+        },
+        {
+          "skill": "urban-design",
+          "name": "Urban Design",
           "pts": 4.6,
           "earned": 0
         },
@@ -1100,25 +1100,25 @@
         {
           "skill": "bluebeam",
           "name": "Bluebeam",
-          "pts": 3.9,
+          "pts": 4,
           "earned": 0
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 3.7,
+          "pts": 3.9,
           "earned": 0
         },
         {
           "skill": "detailing",
           "name": "Detailing",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0
         },
         {
           "skill": "cad-drafting",
           "name": "Drafting",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0
         },
         {
@@ -1130,7 +1130,7 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 3,
+          "pts": 3.1,
           "earned": 0
         },
         {
@@ -1154,20 +1154,20 @@
         {
           "skill": "rendering",
           "name": "Rendering",
-          "pts": 1.6,
+          "pts": 1.7,
           "earned": 0
         },
         {
           "skill": "sketchup",
           "name": "SketchUp",
-          "pts": 1.3,
+          "pts": 1.5,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1290,
+        "postings": 1292,
         "salaried": 1004
       }
     }
@@ -1316,33 +1316,6 @@
     ],
     "civil-engineer": [
       {
-        "t": "Management Consultant",
-        "m": 14,
-        "slug": "management-consultant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Presentation",
-          "Account Management",
-          "SAP",
-          "SQL"
-        ],
-        "observed": null,
-        "fit": 33,
-        "capability": 60,
-        "mobility": 54,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "civil-engineer",
-          "readiness_after": 31,
-          "gain": 17
-        }
-      },
-      {
         "t": "Civil Engineer",
         "m": 14,
         "slug": "civil-engineer",
@@ -1368,36 +1341,36 @@
           "readiness_after": 100,
           "gain": 86
         }
-      }
-    ],
-    "aerospace-engineer": [
+      },
       {
-        "t": "Compliance Officer",
-        "m": 15,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
+        "t": "Management Consultant",
+        "m": 13,
+        "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Compliance",
-          "Observability",
-          "Risk Management",
-          "Law Enforcement"
+          "Presentation",
+          "SAP",
+          "Account Management",
+          "SQL"
         ],
         "observed": null,
-        "fit": 14,
-        "capability": 8,
-        "mobility": 15,
+        "fit": 33,
+        "capability": 60,
+        "mobility": 54,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "aerospace-engineer",
-          "readiness_after": 28,
-          "gain": 13
+          "parent": "civil-engineer",
+          "readiness_after": 31,
+          "gain": 18
         }
-      },
+      }
+    ],
+    "aerospace-engineer": [
       {
         "t": "Aerospace Engineer",
         "m": 14,
@@ -1423,6 +1396,33 @@
           "parent": "aerospace-engineer",
           "readiness_after": 100,
           "gain": 86
+        }
+      },
+      {
+        "t": "Compliance Officer",
+        "m": 14,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Risk Management",
+          "Observability",
+          "Law Enforcement"
+        ],
+        "observed": null,
+        "fit": 13,
+        "capability": 8,
+        "mobility": 15,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "aerospace-engineer",
+          "readiness_after": 27,
+          "gain": 13
         }
       }
     ],
@@ -1478,8 +1478,8 @@
         "reach": "bridged",
         "via": {
           "parent": "robotics-engineer",
-          "readiness_after": 28,
-          "gain": 13
+          "readiness_after": 31,
+          "gain": 16
         }
       }
     ],
@@ -1564,30 +1564,8 @@
       "reach": "direct"
     },
     {
-      "t": "Executive Assistant",
-      "m": 14,
-      "slug": "executive-assistant",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "gap": [
-        "Salesforce",
-        "Scheduling",
-        "Supply Chain",
-        "Presentation"
-      ],
-      "observed": null,
-      "fit": 12,
-      "capability": 7,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Auditor",
-      "m": 12,
+      "m": 13,
       "slug": "auditor",
       "field": "Finance",
       "cluster": "Finance",
@@ -1606,13 +1584,35 @@
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
+    },
+    {
+      "t": "Executive Assistant",
+      "m": 13,
+      "slug": "executive-assistant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Salesforce",
+        "Scheduling",
+        "Supply Chain",
+        "Presentation"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": 7,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
     }
   ],
   "cross": [
     [
       "structural-engineer",
       "architect",
-      0.52
+      0.53
     ],
     [
       "structural-engineer",
@@ -1653,7 +1653,7 @@
     ],
     [
       "structural-engineer",
-      "civil-engineer_1",
+      "civil-engineer_0",
       0.52
     ]
   ],

@@ -84,3 +84,12 @@ Fourteen candidate topics judged against the five pillars, the 27 published post
 - Two hazards this slate keeps hitting: the listicle red ocean (jobs-AI-replaces, highest-paying-countries, and fulfilling-careers all SERP as spam listicles) and redundancy (titles-vs-skills, the pivot index). Both are dodged the same way, by leading with a number from our corpus the listicles cannot produce.
 - Two ideas are pages, not posts. "Best-paying countries" and, arguably, the remote-salary comparison are salary-board and FairElephant surfaces where our per-occupation per-country bands already live. Keep them off the blog as listicles; build them as comparison pages.
 - Every build ships under the same gate as the rest: real numbers from the corpus or it does not ship (docs/07).
+
+## July 2026 — Added to queue: the weird-jobs pay post
+
+Logged after the offbeat-occupation scrape batch (cook, physician, paramedic added alongside sommelier, perfusionist, brewmaster, foley/sound designer, drone pilot, patent agent, genetic counselor, penetration tester, and the rest). Build after queue posts 4 and 5.
+
+- **Working title:** what a sommelier, a perfusionist, and a foley artist actually make.
+- **The trap to dodge:** this is the exact shape of the listicle the strategy bans ("top 10 weirdest jobs"). It only earns a slot because we can do the one thing the listicles cannot: attach a real posted pay band to each offbeat role from the corpus, plus the skills-adjacency hook (even a weird job is a measurable hop from somewhere ordinary). Lead with a number and an actual insight, not a ranking.
+- **Ownable angle:** real bands for the offbeat occupations the scrape now prices, the surprising ones (which weird jobs pay far more or less than the gut says), and one or two genuine "cool facts" per role that are true and checkable, not trivia filler. Close on the adjacency: the nearest ordinary field to each, so the post funnels to the instrument.
+- **Honesty note:** several of these will land thin or `insufficient` after the scrape (perfusionist, sommelier, foley are inherently low-volume on job boards). Feature only the ones with a real band; name the empty ones as empty rather than inventing a number. Pillar likely Shape of Work or What Carried Over; decide by which framing the data supports.
