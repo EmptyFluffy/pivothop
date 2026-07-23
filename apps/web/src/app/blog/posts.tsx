@@ -38,6 +38,190 @@ const Sources = ({ children }: { children: ReactNode }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'the-broken-bottom-rung',
+    title: 'The broken bottom rung: the entry-level job is vanishing, and the way in went sideways',
+    pillar: 'Career Half-Life',
+    date: 'July 2026',
+    dek: 'Entry-level postings are down about a third since 2023, and the word junior has nearly disappeared from our corpus. When the front door closes, the way in is adjacency.',
+    minutes: 6,
+    body: (
+      <>
+        <p>
+          The bottom rung of the career ladder is being sawn off, and the numbers are not subtle. Entry-level job postings are down about <strong>35 percent since 2023</strong>, and in some technology and data roles closer to 67 percent. Recent graduates are underemployed at roughly <strong>43 percent</strong> as of December 2025, the highest since the pandemic, and their unemployment rate, 5.6 percent, now sits above the national rate of 4.3 percent. The class of 2026 faces projected hiring growth of 1.6 percent, which is not growth once you count the larger graduating class.
+        </p>
+        <p>
+          The usual telling blames one thing, AI, and moves on. The more useful question is what a person does about it, because a ladder that is losing its first rung is not going to grow the rung back. We went looking for the entry rung in our own data to see how thin it has become.
+        </p>
+        <div className="post-callout"><b>0.13%</b><span>of the seniority-labeled postings in our corpus say <strong>junior</strong>. Of 50,660 postings that carry any rank in the title, 65 use the word. Only two of 154 occupations post enough junior roles to form a band.</span></div>
+        <p>
+          A caveat we will make before anyone else does: postings undercount entry work, because an entry role often just prints the job title with no rank attached. Our seniority read is the explicit signal, the words junior, senior, and lead, so the true entry share is higher than 0.13 percent. But the direction is unmistakable and it agrees with the national figures. The labeled bottom rung is thin to the point of absence, and the market that used to hire people to learn on the job is hiring people who already learned somewhere else.
+        </p>
+        <h2>What breaks when the rung breaks</h2>
+        <p>
+          Entry-level work was never really about the work. It was where a person learned what good looks like: how to notice when something does not add up, how to push back without blowing up the meeting, how to see what their output does three desks downstream. Automate the straightforward tasks that juniors used to cut their teeth on, and you do not just remove a job. You remove the training that turned that job into the next one. That is the part the displacement statistics miss. The <a className="gl" href="/glossary#bls">BLS</a> (US Bureau of Labor Statistics) can count the vanished postings; it cannot count the vanished apprenticeship.
+        </p>
+        <p>
+          This is a Career Half-Life problem, not a young-person problem. A ladder with no first rung does not only trap graduates. It removes the normal way anyone crossed into a new field, which was to enter at the bottom and climb. If the bottom is gone, the only way in is sideways.
+        </p>
+        <h2>The way in went sideways</h2>
+        <p>
+          Here is the move the panic articles miss. When you cannot enter a field at the bottom, you enter an adjacent field where your skills already reach, and you pivot on coverage rather than seniority. Our whole instrument measures exactly this: how much of one occupation&rsquo;s demanded skills another occupation&rsquo;s people already hold. Where that coverage is high, the crossing does not need a junior rung, because you are not starting over. You are arriving with most of the job already done.
+        </p>
+        <table className="post-table">
+          <caption>High-coverage crossings that do not require a junior rung &middot; PivotHop, July 2026</caption>
+          <thead><tr><th>Side door</th><th className="num">Skill coverage</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td>Accountant &rarr; <strong>Financial controller</strong></td><td className="num">81%</td><td>Almost the whole skill set already carries</td></tr>
+            <tr><td>Accountant &rarr; Bookkeeper</td><td className="num">77%</td><td>An open lane while junior-accountant roles thin out</td></tr>
+            <tr><td>Software engineer &rarr; <strong>Backend developer</strong></td><td className="num">63%</td><td>Same tools, a narrower title with its own openings</td></tr>
+            <tr><td>Data analyst &rarr; Business-intelligence developer</td><td className="num">51%</td><td>The reporting stack, one seat over</td></tr>
+            <tr><td>Data analyst &rarr; Product analyst</td><td className="num">47%</td><td>Analyst skills, pointed at a product team</td></tr>
+          </tbody>
+        </table>
+        <p>
+          None of these is a fantasy leap. They are the crossings where our corpus says the skills mostly transfer already, so the move is a matter of naming and evidence, not of starting at the bottom of a ladder that no longer has a bottom. The <a className="gl" href="/routes">route pages</a> lay out the exact gap for the most-searched crossings, and the graph on the <a className="gl" href="/">front page</a> runs it for any starting point you give it.
+        </p>
+        <div className="post-pullq">The ladder is being replaced by a lattice. Vertical entry is breaking; lateral entry is measurable, and it still works.</div>
+        <h2>What to do if the front door is closed</h2>
+        <p>
+          Stop applying to the vanishing rung. Four hundred applications to entry-level roles that increasingly do not exist is a strategy optimized for the market of 2019. Instead, inventory the fields adjacent to the one you want, the ones where your current skills already cover half or more of what the postings ask, and enter there. Then pivot from inside, where you can see the target job and hold the evidence that you can do it. The BLS and the World Economic Forum agree there will be work: the Forum projects 92 million roles displaced and 170 million created by 2030, a net gain. The catch is that the created jobs will not be entered the old way. They will be entered sideways, on skills, which is the door that is still open.
+        </p>
+        <Sources>
+          <p>
+            PivotHop pipeline, July 2026 run: 77,443 live job postings across 153 occupations. Seniority is read from explicit title signals (junior, senior, lead), which undercounts unlabeled entry roles; 65 of 50,660 seniority-tagged postings carry a junior signal, and two of 154 occupations reach a junior band. Skill coverage is the destination&rsquo;s demanded-skill coverage by the origin&rsquo;s profile, top 20 skills per occupation from posting text. External figures: entry-level decline and recent-graduate underemployment and unemployment from 2025 to 2026 reporting (Fast Company, CNBC, Washington Monthly, NACE outcomes); displacement and creation projections from the World Economic Forum Future of Jobs. Run your own starting point on the front-page instrument.
+          </p>
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'Are entry-level jobs really disappearing because of AI?', a: 'Entry-level postings are down roughly 35 percent since 2023, and recent-graduate underemployment reached about 43 percent by late 2025. AI is a major cause, since it automates the routine tasks junior roles were built around, but the effect is broader than any one field. In our own corpus the word junior appears in only 0.13 percent of seniority-labeled postings.' },
+      { q: 'If I cannot get an entry-level job, what should I do instead?', a: 'Enter an adjacent field where your existing skills already cover half or more of what the postings ask, then pivot from inside. Lateral, skills-based entry does not depend on the junior rung that is disappearing. The PivotHop instrument measures which adjacent fields your skills already reach.' },
+      { q: 'Which fields still hire people without experience?', a: 'Fewer than in 2019, and the labeled junior rung is thin across almost every occupation we track. The more reliable path is coverage: adjacent roles where your skills transfer at 50 percent or more, which the route pages map for the most-searched crossings.' },
+      { q: 'Will AI create new jobs to replace the entry-level ones?', a: 'The World Economic Forum projects 170 million new roles against 92 million displaced by 2030, a net gain. But the new jobs are unlikely to be entered the traditional way, at the bottom of a ladder. They will be entered laterally, on transferable skills.' },
+    ],
+  },
+  {
+    slug: 'the-gravity-wells',
+    title: 'The gravity wells: the careers the most skill sets can reach, and what they share',
+    pillar: 'What Carried Over',
+    date: 'July 2026',
+    dek: 'We counted, for every occupation, how many others can reach it on skills alone. The destinations the most skill sets pull toward are, without exception, high-demand. They are not the best paid.',
+    minutes: 6,
+    body: (
+      <>
+        <p>
+          Careers have gravity. Some occupations sit at the center of the skill map, reachable from dozens of starting points, and some sit at the edge, reachable from almost none. We measured it directly. For each of the 153 occupations in our July 2026 corpus, we counted how many other occupations cover at least 40 percent of its demanded skills, its in-degree: the number of fields whose people could cross into it without starting over.
+        </p>
+        <p>
+          The fields with the most gravity are not the ones you would guess from a salary table.
+        </p>
+        <table className="post-table">
+          <caption>Highest skill-gravity destinations, by number of fields that can reach them at 40 percent coverage or more &middot; PivotHop, July 2026</caption>
+          <thead><tr><th>Destination</th><th className="num">Reachable from</th><th>Demand</th><th className="num">Posted band</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Construction manager</strong></td><td className="num">12 fields</td><td>High</td><td className="num">$80k&ndash;$120k</td></tr>
+            <tr><td>Dietitian</td><td className="num">10 fields</td><td>High</td><td className="num">$55k&ndash;$75k</td></tr>
+            <tr><td>Project manager</td><td className="num">9 fields</td><td>High</td><td className="num">$75k&ndash;$130k</td></tr>
+            <tr><td>Pharmacist</td><td className="num">8 fields</td><td>High</td><td className="num">$75k&ndash;$160k</td></tr>
+            <tr><td>Nurse practitioner</td><td className="num">8 fields</td><td>High</td><td className="num">$40k&ndash;$125k</td></tr>
+            <tr><td>Database administrator</td><td className="num">8 fields</td><td>High</td><td className="num">$70k&ndash;$110k</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Every one of the top fifteen is rated high demand. Not most of them. All of them. So we split the map in two and compared: the strong absorbers, the eighteen occupations reachable from six or more fields, against the weak ones reachable from two or fewer.
+        </p>
+        <div className="post-callout"><b>18 of 18</b><span>of the strongest skill-gravity destinations are high-demand, against about half of the weak ones. But the strong absorbers pay <strong>less</strong>, an $89k midpoint against $97k.</span></div>
+        <h2>Gravity follows the shortage, not the salary</h2>
+        <p>
+          This is the finding, and it is worth sitting with. The careers that the most skill sets can reach are the ones the market is short of, not the ones that pay the most. Construction manager, dietitian, project manager, database administrator, nurse practitioner: high demand, widely reachable, and clustered in the middle of the pay range rather than the top. The strong absorbers average an $89,000 posted midpoint and 4 percent fully remote. The hard-to-reach fields average $97,000 and 6 percent remote. Reachability tracks demand, and demand is a measure of what is missing, not of what is prized.
+        </p>
+        <p>
+          The mechanism is not mysterious. A field becomes reachable from many directions when its demanded skills are common ones: project coordination, clinical fundamentals, systems administration, the widely-held competencies. Common skills are common because many people have them, which is exactly why those fields can hire broadly, and also why they do not have to pay a scarcity premium. The best-paid fields are rare-skilled and therefore reachable from almost nowhere. The pay and the accessibility trade off against each other, and the trade is legible in the data.
+        </p>
+        <div className="post-pullq">The reachable field is the employable field. It is not automatically the raise. Those are two questions, and the postings answer them separately.</div>
+        <h2>What this changes about a pivot</h2>
+        <p>
+          If your aim is to get hired, aim at gravity. The high-in-degree fields are where a broad skill set converts into an offer fastest, because the demand is real and the coverage bar is one many profiles clear. If your aim is to get paid, gravity can mislead you, because the most reachable destinations are mid-band by construction. The two goals are not the same move, and the honest version of career advice keeps them apart.
+        </p>
+        <p>
+          We built the tools to answer them separately. The <a className="gl" href="/">instrument</a> shows which fields your own skills can reach; the <a className="gl" href="/salary">salary pages</a> show what each one actually pays across the distribution; and the earlier piece on <a className="gl" href="/blog/the-adjacency-premium">the adjacency premium</a> covers the third of crossings that do point to a raise. Reachable and better-paid is a shorter list than reachable. Know which one you are optimizing before you retrain.
+        </p>
+        <Sources>
+          <p>
+            PivotHop pipeline, July 2026 run: 77,443 live job postings across 153 occupations. Skill gravity, or in-degree, is the number of occupations whose skill profile covers at least 40 percent of a destination&rsquo;s demanded skills, computed over the top 20 skills per occupation from posting text. Demand ratings and posted salary bands from the same corpus, occupations with at least 20 salaried postings. Strong absorbers, in-degree of 6 or more, n=18; weak absorbers, in-degree of 2 or fewer, n=35. Salary midpoints are the middle of each posted band. Run your own field on the front-page instrument.
+          </p>
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'What does it mean for a career to have high skill gravity?', a: 'It means many other occupations can cover most of its required skills, so people can cross into it without starting over. We measure it as in-degree: the number of fields whose skill profile covers at least 40 percent of the destination’s demanded skills. Construction manager, project manager, and nurse practitioner sit near the top.' },
+      { q: 'Do the most reachable careers pay the most?', a: 'No, and this is the counterintuitive part. In our corpus the strongest skill-gravity destinations are unanimously high-demand but pay a lower midpoint, about $89,000, than the hard-to-reach fields at about $97,000. Reachability tracks shortage, not salary.' },
+      { q: 'Should I pivot toward a high-demand field or a high-paying one?', a: 'Decide which you are optimizing first, because they are usually different moves. High-gravity fields convert a broad skill set into an offer fastest; the biggest raises tend to sit in less-reachable, more-credentialed fields. The instrument and the salary pages answer the two questions separately.' },
+      { q: 'Why are common skills tied to lower pay?', a: 'A field is reachable from many directions when its demanded skills are widely held. Widely-held skills do not command a scarcity premium, so those fields hire broadly but pay mid-band. The best-paid fields are rare-skilled, and therefore reachable from almost nowhere.' },
+    ],
+  },
+  {
+    slug: 'generalist-vs-specialist-measured',
+    title: 'Generalist versus specialist, measured: breadth is a number, and it is handed out unevenly',
+    pillar: 'Unbundle the Job',
+    date: 'July 2026',
+    dek: 'The AI-era advice is to be a generalist, or a specialist, or a hybrid, always without a number. We put one on it. Sixty of 153 occupations cannot reach a single adjacent field on skills; twenty-nine can reach five or more.',
+    minutes: 6,
+    body: (
+      <>
+        <p>
+          Every few weeks the internet re-litigates whether the future belongs to generalists or specialists, and the argument always ends in the same shrug: be a hybrid, stay adaptable, it depends. It is true and it is useless, because nobody attaches a number to breadth. Breadth is measurable. We measure it on every occupation we track.
+        </p>
+        <p>
+          Here is the measure. For each occupation, count how many other fields its people could cross into at 40 percent skill coverage or better, its out-degree: the number of doors its current skill set already opens. That count is what &ldquo;generalist&rdquo; means once you stop using it as a personality type. It is optionality, and it is not evenly distributed.
+        </p>
+        <div className="post-callout"><b>60 of 153</b><span>occupations cannot reach a <strong>single</strong> adjacent field at 40 percent skill coverage. Twenty-nine can reach five or more. The median profession reaches exactly one.</span></div>
+        <p>
+          Read that again, because it is the whole argument. Optionality is bimodal. A large group of professions, 60 of 153, is boxed in at the strict coverage bar we set: their skill bundle does not cover 40 percent of any other single occupation&rsquo;s demands. A smaller group ranges across the map. Most people sit in the middle, one door open. The generalist advantage is real, but it is a minority position, and it is a property of your skills, not your temperament.
+        </p>
+        <h2>Who is wide, and who is boxed in</h2>
+        <table className="post-table">
+          <caption>Widest and narrowest skill reach, doors open at 40 percent coverage &middot; PivotHop, July 2026</caption>
+          <thead><tr><th>Occupation</th><th className="num">Fields reachable</th><th>Shape</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Operations manager</strong></td><td className="num">15</td><td>Generalist bundle</td></tr>
+            <tr><td><strong>Business analyst</strong></td><td className="num">15</td><td>Generalist bundle</td></tr>
+            <tr><td>Sales engineer</td><td className="num">14</td><td>Bridge role, technical plus commercial</td></tr>
+            <tr><td>Data scientist</td><td className="num">11</td><td>Portable analytical core</td></tr>
+            <tr><td>Software engineer</td><td className="num">9</td><td>Portable technical core</td></tr>
+            <tr><td>Copywriter, paralegal, creative director</td><td className="num">0</td><td>Deep, specific, boxed in</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The wide occupations share a shape. Operations manager, business analyst, sales engineer, project manager: these are bundles of coordination, analysis, and communication, the skills that recur across the most fields. The narrow ones, copywriter, paralegal, creative director, are deep and specific, and their depth is exactly what does not cover another occupation&rsquo;s demand list. This is the <a className="gl" href="/blog/most-transferable-skills">transferable-skills</a> finding seen from the other direction: the skills that travel are the general ones, so the people who hold more of them travel further.
+        </p>
+        <div className="post-pullq">Generalist is not a personality. It is a measurable shape of your skill set, and right now it buys optionality that most professions do not have.</div>
+        <h2>Why breadth is winning this particular decade</h2>
+        <p>
+          The reason the generalist question feels urgent now is AI, and here the data and the discourse agree. As automated tools absorb narrow, well-defined execution, the value that stays human is the part that connects things: judgment across domains, the decision about what to build, the translation between a model&rsquo;s output and a business&rsquo;s need. Those are breadth skills by definition. A wide out-degree is not only more exits in a crisis; it is a hedge against your specific deep skill being the next one commoditized.
+        </p>
+        <p>
+          That does not make specialization a mistake. Depth is what lets a person guide the tools rather than compete with them, and the highest pay still concentrates in scarce, deep, often licensed skills, as our piece on <a className="gl" href="/blog/the-adjacency-premium">the adjacency premium</a> showed. The honest synthesis is the one the think-pieces gesture at without evidence: hold a deep core so you are worth hiring, and enough general range that your core is not your only door. The difference is that now you can measure the range instead of guessing at it.
+        </p>
+        <h2>How to read your own number</h2>
+        <p>
+          Count your doors before you assume you have options, and before you assume you have none. A specialist reading a zero on the strict bar is not doomed; it means the nearest crossings sit below 40 percent coverage and will take real skill-building, which is worth knowing precisely rather than vaguely. A generalist reading a twelve is not safe; it means the market can route you many places, none of which is guaranteed to pay more, per the gravity finding. The <a className="gl" href="/">instrument</a> on the front page draws your doors from your own skills, and the <a className="gl" href="/routes">route pages</a> price the specific ones. Breadth stops being a debate the moment it becomes a count.
+        </p>
+        <Sources>
+          <p>
+            PivotHop pipeline, July 2026 run: 77,443 live job postings across 153 occupations. Breadth, or out-degree, is the number of occupations whose demanded skills the origin&rsquo;s profile covers at 40 percent or more, computed over the top 20 skills per occupation from posting text. Distribution across the 153: 60 occupations reach zero fields at that bar, 27 reach one, 37 reach two to four, 29 reach five or more; median one, mean 2.3. The 40 percent bar is deliberately strict; lower it and every count rises, but the shape, a wide floor of boxed-in fields and a thin ceiling of broad ones, holds. Run your own count on the front-page instrument.
+          </p>
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'Is it better to be a generalist or a specialist in the age of AI?', a: 'The measurable answer is that breadth buys optionality and depth buys pay, and they are not the same asset. In our corpus 60 of 153 occupations cannot reach a single adjacent field at 40 percent skill coverage while 29 reach five or more, so breadth is real but unevenly held. The durable position is a deep core plus enough general range that your core is not your only door.' },
+      { q: 'How do you measure whether a job is a generalist or specialist role?', a: 'By out-degree: the number of other occupations whose demanded skills your current skill set already covers at 40 percent or more. Operations manager and business analyst reach 15 fields; copywriter, paralegal, and creative director reach zero at that bar. Breadth is a property of the skill bundle, not the person.' },
+      { q: 'Does being a generalist pay more?', a: 'Not by itself. The most reachable, high-optionality fields tend to sit mid-band, while the biggest pay concentrates in scarce, deep, often licensed skills. Breadth is insurance and access; depth is the premium. Optimize for the one you actually need.' },
+      { q: 'Why does AI favor generalists?', a: 'AI absorbs narrow, well-defined execution fastest, so the value that stays human is the connecting work: judgment across domains, deciding what to build, translating between tools and needs. Those are breadth skills, which is why a wide skill set is a hedge against any single deep skill being commoditized next.' },
+    ],
+  },
+  {
     slug: 'the-adjacency-premium',
     title: 'The adjacency premium: what 148 strong career connections pay',
     pillar: 'Run It 10,000 Times',
