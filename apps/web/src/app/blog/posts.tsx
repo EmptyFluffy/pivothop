@@ -83,6 +83,31 @@ export const POSTS: Post[] = [
           This is the gap the meaning surveys hide. A job can be genuinely fulfilling and still shed people, because meaning is not the only thing a career has to provide. When a role scores high on purpose and high on exit at the same time, the honest reading is not &ldquo;rewarding.&rdquo; It is rewarding enough that people try it, and depleting enough that they leave. Teaching runs on meaning because, for too many, it cannot run on pay or conditions. That combination is a warning label, not a recommendation.
         </p>
         <div className="post-pullq">A job that scores high on meaning and high on exit is not a calling. It is a role asking people to take meaning in place of the things it does not pay.</div>
+        <h2>The pay underneath the flight</h2>
+        <p>
+          Line the exit rates up against pay and the pattern sharpens. The careers people leave fastest are, with two telling exceptions, the ones that ask for the most meaning and return the least money.
+        </p>
+        <table className="post-table">
+          <caption>Exit rate against pay &middot; transfer rate from BLS Employment Projections, median from live US postings &middot; PivotHop, July 2026</caption>
+          <thead><tr><th>Career</th><th className="num">Leave per year</th><th className="num">Median pay</th></tr></thead>
+          <tbody>
+            <tr><td>Chef</td><td className="num">7.8%</td><td className="num">$65,000</td></tr>
+            <tr><td><strong>Medical assistant</strong></td><td className="num">7.4%</td><td className="num">$52,000</td></tr>
+            <tr><td>Customer support</td><td className="num">7.4%</td><td className="num">$50,000</td></tr>
+            <tr><td>Flight attendant</td><td className="num">7.1%</td><td className="num">$62,000</td></tr>
+            <tr><td>Account executive</td><td className="num">6.6%</td><td className="num">$116,000</td></tr>
+            <tr><td>Registered nurse</td><td className="num">2.1%</td><td className="num">$97,000</td></tr>
+            <tr><td>Physical therapist</td><td className="num">1.5%</td><td className="num">$104,000</td></tr>
+            <tr><td>Lawyer</td><td className="num">1.4%</td><td className="num">$166,000</td></tr>
+            <tr><td><strong>Pharmacist</strong></td><td className="num">1.3%</td><td className="num">$153,000</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The high-flight roles at the top sit between 50,000 and 65,000 dollars. The sticky ones at the bottom run from 97,000 past 166,000. Meaning is not handed out by pay, but staying largely is: when a career asks people to accept purpose in place of money, enough of them eventually decline. The sharpest case is the medical assistant, leaving at 7.4 percent a year on 52,000 dollars, many of them climbing the exact healthcare ladder that keeps nurses in place, because the nurse&rsquo;s pay sits on the far side of it.
+        </p>
+        <p>
+          Two exceptions show the limit of the pay story. Pilots and account executives both flee at high rates, 7.2 and 6.6 percent, on six-figure pay. Neither leaves for money. Pilots leave for the schedule and the medical certifications that end careers early; account executives leave for the churn built into a job re-measured every quarter. Pay explains most of the flight. Where it does not, the conditions do, which is only the same lesson from the other side: a number for how people feel is worth less than a number for what they do.
+        </p>
         <h2>The trap: staying is not always fulfillment</h2>
         <p>
           One more group complicates the picture. Lawyers leave their occupation at 1.4 percent a year and pharmacists at 1.3, rates that match or beat the happiest healthcare roles. But the cause is different, and the difference matters. When the entry price is a doctorate or a bar exam, people stay partly because leaving forfeits the investment. Retention has two engines: a job people do not want to leave, and a job people cannot afford to. The transfer rate alone cannot tell them apart, which is why a low exit number is a question, not an answer.
@@ -103,6 +128,8 @@ export const POSTS: Post[] = [
       { q: 'Do people actually stay in fulfilling jobs?', a: 'It depends on the job. Healthcare fulfilling careers have very low exit rates, with physical therapists at 1.5 percent and registered nurses at 2.1 percent leaving the occupation per year, so people stay. Teaching and tutoring score high on meaning but have high exit (teacher 3.3 percent, tutor 8.1 percent), so people leave despite the meaning.' },
       { q: 'Is teaching a good career?', a: 'It is one of the most meaningful and one of the least retained. About 16 percent of teachers intended to leave in 2025, and our data shows a classroom teacher is roughly 50 percent more likely to switch occupations than a nurse. The meaning is real; the pay and conditions are the problem.' },
       { q: 'Why do lawyers and pharmacists rarely leave their jobs?', a: 'Partly the credential. When entry requires a doctorate or a bar exam, leaving forfeits a large investment, so a low exit rate can reflect sunk cost rather than fulfillment. Retention alone does not distinguish a job people love from one they cannot afford to leave.' },
+      { q: 'Do the most meaningful jobs pay the least?', a: 'Often, but not always. PayScale, surveying over two million workers, found clergy carry the highest meaning score at 98 percent on some of the lowest pay, around 46,600 dollars, while a few medical roles such as surgeons score high on both. Very few jobs pair high meaning with high pay, and most that do are in medicine.' },
+      { q: 'Which fulfilling career has the best mix of meaning, pay, and retention?', a: 'Healthcare, physical therapy in particular: high on every meaning survey, a median near 104,000 dollars, and one of the lowest exit rates we track at 1.5 percent a year. The catch is the doctorate the field now requires, which is the price of that stability.' },
     ],
   },
   {
@@ -122,8 +149,22 @@ export const POSTS: Post[] = [
         </p>
         <h2>The created jobs are real, but not the famous one</h2>
         <p>
-          Start with what AI made. The new roles are in our corpus now, and they sort into two piles. The substantial ones:
-          <strong> AI engineer at 973 postings</strong>, a median near $100,000 and high demand; machine-learning engineer at 754 postings and $126,000; <a className="gl" href="/glossary#mlops">MLOps</a> (machine-learning operations) engineer at 176. Then the meme: <strong>prompt engineer, 74 postings, and already rated low demand.</strong>
+          Start with what AI made. The new roles are in our corpus now, and they sort into two piles: the builders, well-paid and growing, and the support-and-hype layer, thin and already fading.
+        </p>
+        <table className="post-table">
+          <caption>AI-era occupations in our corpus, by volume and posted median &middot; PivotHop, July 2026</caption>
+          <thead><tr><th>Role</th><th className="num">Postings</th><th className="num">Median</th><th>Demand</th></tr></thead>
+          <tbody>
+            <tr><td><strong>AI engineer</strong></td><td className="num">973</td><td className="num">$100,000</td><td>High</td></tr>
+            <tr><td>Machine-learning engineer</td><td className="num">754</td><td className="num">$126,000</td><td>High</td></tr>
+            <tr><td>Computer vision engineer</td><td className="num">154</td><td className="num">$149,000</td><td>Moderate</td></tr>
+            <tr><td><a className="gl" href="/glossary#mlops">MLOps</a> (machine-learning operations) engineer</td><td className="num">176</td><td className="num">$117,000</td><td>Moderate</td></tr>
+            <tr><td>Prompt engineer</td><td className="num">74</td><td className="num">$110,000</td><td>Low</td></tr>
+            <tr><td>Data annotator</td><td className="num">61</td><td className="num">$63,000</td><td>Low</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The split is the finding. The builders, AI engineer and machine-learning engineer and computer vision engineer, are real software-engineering jobs with an AI specialty, and they pay for it: computer vision clears 149,000 dollars. The bottom two are the ones the headlines named. Prompt engineer and data annotator are both low-demand, and the annotator, the human who labels the data that trains the models, sits at 63,000 dollars, the price the market puts on feeding AI rather than building it.
         </p>
         <div className="post-callout"><b>74</b><span>prompt-engineer postings, already low-demand. The face of the AI-jobs boom is being reabsorbed into AI engineering (<strong>973</strong> postings) before most people finished retraining for it.</span></div>
         <p>
@@ -137,16 +178,24 @@ export const POSTS: Post[] = [
           <caption>Highest-coverage adjacent move into a high-demand role &middot; PivotHop, July 2026</caption>
           <thead><tr><th>Automation-exposed role</th><th>The nearest durable move</th><th className="num">Coverage</th></tr></thead>
           <tbody>
-            <tr><td>Bookkeeper</td><td><strong>Financial controller</strong> (high demand)</td><td className="num">55%</td></tr>
+            <tr><td>Medical assistant</td><td><strong>Nurse practitioner</strong> (high demand)</td><td className="num">76%</td></tr>
             <tr><td>Customer support</td><td><strong>Executive assistant</strong> (high demand)</td><td className="num">65%</td></tr>
+            <tr><td>Bookkeeper</td><td>Financial controller (high demand)</td><td className="num">55%</td></tr>
+            <tr><td>IT support</td><td>Network engineer (high demand)</td><td className="num">54%</td></tr>
+            <tr><td>Market researcher</td><td>Executive assistant (high demand)</td><td className="num">51%</td></tr>
+            <tr><td>Graphic designer</td><td>Brand designer (moderate)</td><td className="num">48%</td></tr>
             <tr><td>Recruiter</td><td>HR manager (high demand)</td><td className="num">35%</td></tr>
-            <tr><td>Data annotator</td><td>AI engineer (high demand)</td><td className="num">27%</td></tr>
+            <tr><td>Paralegal</td><td>Lawyer (licensed)</td><td className="num">33%</td></tr>
           </tbody>
         </table>
         <p>
-          These are not consolation prizes. A bookkeeper whose work is automating already covers 55 percent of what a financial controller is asked for. The customer-support specialist covers 65 percent of an executive-assistant posting. The move is up and sideways at once, and it is measurable today, before the decline forces it. Even the data annotator, one of the jobs created to feed AI, has its strongest reach toward building AI rather than labeling for it.
+          These are not consolation prizes. A medical assistant, in one of the fastest-churning jobs in the country, already covers 76 percent of what a nurse-practitioner posting asks for, the exact ladder that turns an automation-exposed role into one of the stickiest careers there is. An IT-support worker covers 54 percent of a network engineer; a bookkeeper, 55 percent of a financial controller. The move is up and sideways at once, and it is measurable today, before any decline forces it. Notice the shape: the strongest escapes stay inside the same world, healthcare into healthcare, tech support into tech, because that is where the skills already overlap.
         </p>
         <div className="post-pullq">A job disappearing is not the same as your skills expiring. The first is a headline. The second is almost never true.</div>
+        <h2>Which skills carry you across</h2>
+        <p>
+          The bridge is not luck; it is a specific set of skills that appear on both sides of the shrink-to-grow gap. When we counted the skills that show up in the most different occupations, the winners were not any field&rsquo;s headline tools. They were the portable ones: project coordination, data analysis, writing, and the handling of people under pressure, the competencies that travel because no single job owns them. A bookkeeper reaches a financial controller on ledger fluency and process discipline; a customer-support specialist reaches an executive assistant on judgment and scheduling. The skill that automates is the narrow, repeatable one; the skill that carries you is the general one, which is the same reason it was never the thing AI came for first. The full ranking is in our piece on the <a className="gl" href="/blog/most-transferable-skills">most transferable skills of 2026</a>.
+        </p>
         <h2>Why the net number is a trap</h2>
         <p>
           The 78-million-net figure hides the only thing an individual needs to know. Net creation can be strongly positive while your specific occupation halves, because the created jobs and the destroyed ones are different jobs, held by different people, often in different places. The macro number reassures the economy and abandons the worker. The micro number, the coverage between where you are and where the hiring is, does the opposite. It ignores the economy and tells you your next move.
@@ -166,6 +215,8 @@ export const POSTS: Post[] = [
       { q: 'Which jobs is AI destroying?', a: 'Our data mostly shows current hiring, not future decline. For the shrinking roles, the BLS Employment Projections name cashiers, data-entry keyers, telemarketers, and similar routine work. The more useful question is where those skills can move next.' },
       { q: 'If my job is being automated, what should I do?', a: 'Find the adjacent role your skills already cover at 40 percent or more and move before the decline forces it. A bookkeeper covers 55 percent of a financial controller; a customer-support specialist covers 65 percent of an executive assistant. The instrument maps yours.' },
       { q: 'Will AI create more jobs than it destroys?', a: 'Forecasters like the World Economic Forum project a net gain, 170 million created against 92 million destroyed by 2030. But the net is close to meaningless at the individual level, because the created and destroyed jobs are different jobs, held by different people, often in different places.' },
+      { q: 'What are the highest-paying AI jobs?', a: 'In our corpus, the builders rather than the prompt-writers: computer vision engineer near 149,000 dollars, machine-learning engineer at 126,000, and MLOps engineer at 117,000. The much-hyped prompt engineer sits lower at 110,000 and is already low-demand.' },
+      { q: 'How do I know if my job is safe from AI?', a: 'No one can answer that honestly, and our data cannot see future automation. The more useful question is which growing roles your current skills already reach. If your job is exposed, the adjacent higher-demand move is usually within your own field, and the instrument maps it.' },
     ],
   },
   {
