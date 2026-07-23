@@ -93,7 +93,7 @@ export default function JobsHub() {
               <div><b>{routeCount}</b><span className="lbl">measured routes in</span></div>
             </div>
           </div>
-          <Link className="eb-cta" href="/employers">Post a job<span className="eb-sub">First month featured, free</span></Link>
+          <Link className="eb-cta" href="/employers">Post a job<span className="eb-sub">Launch pricing, half off</span></Link>
         </section>
 
         <section className="rt-sec jb-byocc">
@@ -111,7 +111,7 @@ export default function JobsHub() {
         </section>
 
         <p className="rt-method lbl">
-          Listings are backfilled from company career pages, remote-job boards, and public-sector sources, refreshed with the nightly scrape, and link out to apply at the origin. Hiring for adjacent-friendly roles? <Link className="gl" href="/employers">Post a job</Link>, the first month featured is free while the board fills.
+          Listings are backfilled from company career pages, remote-job boards, and public-sector sources, refreshed with the nightly scrape, and link out to apply at the origin. Hiring for adjacent-friendly roles? <Link className="gl" href="/employers">Post a job</Link>, at half-off launch pricing while the board fills.
         </p>
       </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

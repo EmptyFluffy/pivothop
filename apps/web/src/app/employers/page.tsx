@@ -8,8 +8,11 @@ import { jobsIndex, occList } from '../jobs/jobs-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../routes/routes-data';
 import { getSalary, usBand } from '../salary/salary-data';
 
-// Featured price after the free launch month. Change here to reprice everywhere.
-const PRICE = 149;
+// Two per-post tiers, half off at launch while the board fills. One place to reprice.
+const PRICING = {
+  std: { name: 'Standard', full: 99, launch: 49 },
+  feat: { name: 'Featured', full: 199, launch: 99 },
+};
 
 export const metadata: Metadata = {
   title: 'Post a job — PivotHop',
@@ -61,24 +64,27 @@ export default function Employers() {
           <h1>Post a job.</h1>
           <p>
             Every listing is matched to the candidates whose skills already reach it, from adjacent
-            professions no title-based board surfaces. The first month of featured placement is free.
+            professions no title-based board surfaces. Launch pricing is half off while the board fills.
           </p>
         </header>
 
         <div className="ejf-pricing" aria-label="Pricing">
-          <div className="ejf-price-item">
-            <span className="ejf-price-amt">Free</span>
-            <span className="ejf-price-name">Standard listing</span>
-            <span className="ejf-price-desc">Tagged to the skill graph, matched to candidates, links out to apply. Always free.</span>
+          <div className="ejf-tier">
+            <span className="ejf-tier-name">{PRICING.std.name}</span>
+            <span className="ejf-tier-price"><s>${PRICING.std.full}</s>${PRICING.std.launch}</span>
+            <span className="ejf-tier-per">per 30-day post &middot; launch rate</span>
+            <p className="ejf-tier-desc">Your role, posted and tagged to the skill graph, matched to adjacent candidates, listed 30 days, linking out to apply.</p>
           </div>
-          <div className="ejf-price-item feat">
-            <span className="ejf-price-amt">Free <span className="ejf-price-then">first month, then ${PRICE} / 30 days</span></span>
-            <span className="ejf-price-name">Featured placement</span>
-            <span className="ejf-price-desc">Shown first to the candidates whose skills already clear the bar. Free for every employer while the board fills.</span>
+          <div className="ejf-tier ejf-tier-feat">
+            <span className="ejf-tier-name">{PRICING.feat.name} <span className="ejf-tier-badge">Most pick this</span></span>
+            <span className="ejf-tier-price"><s>${PRICING.feat.full}</s>${PRICING.feat.launch}</span>
+            <span className="ejf-tier-per">per 30-day post &middot; launch rate</span>
+            <p className="ejf-tier-desc">Everything in Standard, shown first: top of the board, the adjacency spotlight on route and salary pages, and priority in matching.</p>
           </div>
         </div>
+        <p className="ejf-launch-note">Launch pricing, half off for every employer while the board fills and the traffic proves out. No card is charged until we review and post your role &mdash; you will see the numbers before it moves to full price.</p>
 
-        <EmployerForm occs={occs} fan={fan} skills={skillBank()} salaryHints={salaryHints} price={PRICE} />
+        <EmployerForm occs={occs} fan={fan} skills={skillBank()} salaryHints={salaryHints} pricing={PRICING} />
       </div>
     </PageShell>
   );

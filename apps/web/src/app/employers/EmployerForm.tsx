@@ -77,8 +77,9 @@ function parseJD(text: string, bank: string[]) {
   return res;
 }
 
-export function EmployerForm({ occs, fan, skills, salaryHints, price }: {
-  occs: Occ[]; fan: Record<string, FanIn>; skills: string[]; salaryHints: Record<string, { lo: number; hi: number }>; price: number;
+type Tier = { name: string; full: number; launch: number };
+export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
+  occs: Occ[]; fan: Record<string, FanIn>; skills: string[]; salaryHints: Record<string, { lo: number; hi: number }>; pricing: { std: Tier; feat: Tier };
 }) {
   const [f, setF] = useState({
     role: '', region: '', smin: '', smax: '',
@@ -170,7 +171,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, price }: {
       skillList.length ? `Required skills: ${skillList.join(', ')}` : '', chosen.length ? `Benefits: ${chosen.join(', ')}` : '',
       f.applyUrl ? `Apply URL: ${f.applyUrl}` : '', f.applyEmail ? `Apply email: ${f.applyEmail}` : '',
       f.about ? `\nAbout the role:\n${f.about}` : '', f.resp ? `\nResponsibilities:\n${f.resp}` : '', f.quals ? `\nQualifications:\n${f.quals}` : '',
-      '', 'Requesting the free first featured month.',
+      '', `Tier: Featured (launch rate $${pricing.feat.launch}/30 days).`,
     ].filter((l) => l !== '').join('\n');
     window.location.href = `mailto:cvinocoura@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
@@ -293,14 +294,14 @@ export function EmployerForm({ occs, fan, skills, salaryHints, price }: {
           <ol className="ejf-nextrow" aria-label="What happens next">
             <li>You send one prefilled email.</li>
             <li>We review and post it by hand, within two days.</li>
-            <li>First month featured, free. No card, no contract.</li>
+            <li>Launch rate applied. No card charged until it is live.</li>
           </ol>
           <button className="ef-send ejf-send" disabled={!ok} onClick={send}>
-            <span>Post the job &mdash; first month featured, free</span>
+            <span>Post the job &mdash; featured, ${pricing.feat.launch} at launch</span>
             <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
           </button>
           {!ok && missing.length > 0 && <p className="ejf-missing lbl">Still need {missing.join(', ')}.</p>}
-          <p className="ef-note">No form backend, no CRM, no drip sequence. After the free month, featured placement is ${price}/30 days &mdash; you will know the traffic numbers before you pay. Prefer writing directly? <a href="mailto:cvinocoura@gmail.com">cvinocoura@gmail.com</a>.</p>
+          <p className="ef-note">No form backend, no CRM, no drip sequence. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post &mdash; and you will know the traffic before you pay. Prefer writing directly? <a href="mailto:cvinocoura@gmail.com">cvinocoura@gmail.com</a>.</p>
         </div>
       </div>
 
