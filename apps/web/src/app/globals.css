@@ -119,6 +119,9 @@
   .tags{display:flex;flex-wrap:wrap;gap:6px}
   .tag{font-family:var(--mono);font-size:11px;padding:5px 9px;border:0.5px solid var(--rule-2);color:var(--ink-2);background:var(--card)}
   .tag.have{background:var(--accent-tint);border-color:transparent;color:var(--accent-press)}
+  a.tag{text-decoration:none;cursor:pointer;transition:border-color .12s,color .12s,background .12s}
+  a.tag:hover{border-color:var(--accent);color:var(--accent)}
+  a.tag.have:hover{background:var(--accent);color:#fff}
   /* the export CTA lives OUTSIDE the scrollable detail, as the rail's bottom module:
      full-bleed to the rail cell's true edges regardless of scrollbar or breakpoint */
   #railExport{display:none;flex:none;margin:0 0 -26px -30px}
@@ -783,6 +786,21 @@ input:focus-visible{outline:none}
 .gloss-src{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 .gloss-src:hover{color:var(--ink)}
 .gloss-item:target .gt{color:var(--accent)}
+/* skill bank (part three) */
+.gloss-az{display:flex;flex-wrap:wrap;gap:6px 12px;margin:16px 0 6px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.gloss-az a{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-2);text-decoration:none;transition:color .12s}
+.gloss-az a:hover{color:var(--accent)}
+.gloss-letter{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--accent);margin:34px 0 4px;scroll-margin-top:80px}
+.gloss-letter-group:first-of-type .gloss-letter{margin-top:20px}
+.gloss-skill .gf{text-transform:none;letter-spacing:.02em}
+.gloss-unlocks{margin-top:14px}
+.gloss-unlocks .lbl{display:block;margin-bottom:9px;color:var(--ink-3)}
+.gu-list{display:flex;flex-wrap:wrap;gap:7px}
+.gu-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);border:0.5px solid var(--rule-2);background:var(--card);padding:5px 10px;text-decoration:none;transition:border-color .12s,color .12s}
+.gu-link:hover{border-color:var(--accent);color:var(--accent)}
+.gu-n{font-size:10px;color:var(--ink-3);transition:color .12s}
+.gu-link:hover .gu-n{color:var(--accent)}
+@media (max-width:640px){.gloss-item{grid-template-columns:1fr;gap:10px}}
 .gloss-item:target{background:linear-gradient(90deg,var(--accent-tint),transparent);margin:0 -16px;padding-left:16px;padding-right:16px}
 .gloss-foot{display:flex;justify-content:space-between;align-items:center;margin-top:44px;padding-top:24px;border-top:1px solid var(--ink)}
 /* glossary links inside blog posts and route pages */

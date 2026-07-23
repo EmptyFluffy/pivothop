@@ -25,5 +25,6 @@ npm run --silent scrape -- status >> "$LOG" 2>&1
 # keep the web app's public data in sync with the fresh emit
 python3 "$REPO/apps/scraper/scripts/export-web-data.py" >> "$LOG" 2>&1 || echo "export-web-data failed (non-fatal)" >> "$LOG"
 python3 "$REPO/apps/scraper/scripts/build-jobs.py" >> "$LOG" 2>&1 || echo "build-jobs failed (non-fatal)" >> "$LOG"
+python3 "$REPO/apps/scraper/scripts/build-skill-glossary.py" >> "$LOG" 2>&1 || echo "build-skill-glossary failed (non-fatal)" >> "$LOG"
 echo "----- exit $STATUS -----" >> "$LOG"
 exit $STATUS

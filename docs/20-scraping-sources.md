@@ -56,4 +56,6 @@ Government hosts (bls.gov, dol.gov) block scripted clients at the TLS level; the
 
 ## Growing the catalog
 
+The skill glossary (`build-skill-glossary.py`) runs last, after export and build-jobs: it inverts the skill profiles into per-skill entries (definition + the board roles each skill unlocks) at `apps/web/public/data/skills-glossary.json`, consumed by /glossary.
+
 New company boards: append to the config lists (unknown boards skip gracefully — casting wide is safe). New source *types*: clone a module (`lever.js` is the cleanest pattern), register in `cli.js` `SOURCES`, decide board eligibility against its terms, and add a row here. The nightly run (`scripts/daily-run.sh`) picks everything up automatically.

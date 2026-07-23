@@ -32,6 +32,9 @@ export function mountInstrument(DATA,HOOKS){
   // "open roles" stat and the search-bar CTA; fetched once, looked up by slug.
   var boardCounts=null;
   fetch('/data/jobs-index.json').then(function(r){return r.json();}).then(function(j){boardCounts=j||{};updateRolesCTA();}).catch(function(){boardCounts={};});
+  // Skill display-name -> slug, so detail-panel chips can link to the glossary.
+  var skillSlugs={};
+  fetch('/data/skills-meta.json').then(function(r){return r.json();}).then(function(m){var n=(m&&m.names)||{};for(var k in n)skillSlugs[(''+n[k]).toLowerCase()]=k;}).catch(function(){});
   function updateRolesCTA(){
     if(!boardCounts)return;                       // wait for the fetch; no false flash
     var slug=DATA.originSlug,n=(slug&&boardCounts[slug])||0;
@@ -604,7 +607,7 @@ export function mountInstrument(DATA,HOOKS){
     clickedNode=null;commitStateChange();closePanel();updateTrail(null);highlightRail(null);
   });
 
-  function pills(a,c){return a.map(function(x){return '<span class="tag '+c+'">'+x+'</span>';}).join('');}
+  function pills(a,c){return a.map(function(x){var slug=skillSlugs[(''+x).toLowerCase()];return slug?('<a class="tag '+c+'" href="/glossary#skill-'+slug+'">'+x+'</a>'):('<span class="tag '+c+'">'+x+'</span>');}).join('');}
 
   function detailSignals(o){
     var rows='';
