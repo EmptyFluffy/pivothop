@@ -38,6 +38,69 @@ const Sources = ({ children }: { children: ReactNode }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'jobs-disappearing-versus-created',
+    title: 'Jobs disappearing versus jobs created: the only number that is actually yours',
+    pillar: 'What Carried Over',
+    date: 'July 2026',
+    dek: 'The AI-jobs debate argues about totals, 92 million gone, 170 million made. That number cannot help you. The one that can is which growing job your skills already reach.',
+    minutes: 6,
+    body: (
+      <>
+        <p>
+          Every forecast about AI and work reports the same shape of number. The World Economic Forum projects 92 million jobs displaced and 170 million created by 2030, a net gain of 78 million. It is a real figure and it is useless to you, because you do not hold 78 million jobs. You hold one, and the only question that matters at your scale is whether the one you hold is on the shrinking side, and if it is, which growing job your skills already reach.
+        </p>
+        <p>
+          We can answer part of that from our own data, and we have to be honest about the part we cannot. Our corpus is a snapshot of who is being hired now, not a time-lapse of who will be automated later, so it does not see jobs disappearing. For that, the government projections are the source. What our data does see, better than any projection, is the bridge: where one occupation&rsquo;s skills already reach another.
+        </p>
+        <h2>The created jobs are real, but not the famous one</h2>
+        <p>
+          Start with what AI made. The new roles are in our corpus now, and they sort into two piles. The substantial ones:
+          <strong> AI engineer at 973 postings</strong>, a median near $100,000 and high demand; machine-learning engineer at 754 postings and $126,000; <a className="gl" href="/glossary#mlops">MLOps</a> (machine-learning operations) engineer at 176. Then the meme: <strong>prompt engineer, 74 postings, and already rated low demand.</strong>
+        </p>
+        <div className="post-callout"><b>74</b><span>prompt-engineer postings, already low-demand. The face of the AI-jobs boom is being reabsorbed into AI engineering (<strong>973</strong> postings) before most people finished retraining for it.</span></div>
+        <p>
+          The lesson in that contrast is worth more than the totals. Prompt engineer was the job every 2023 headline named as the face of AI work. Two years on it is 74 postings in our corpus and fading, its tasks folded back into the broader AI-engineer role that actually grew. The created jobs are real; the ones named first are usually wrong. Betting a pivot on the meme job is how you arrive a year late to a role that no longer exists.
+        </p>
+        <h2>The disappearing jobs, and the bridge out of them</h2>
+        <p>
+          For the shrinking side we defer to the <a className="gl" href="/glossary#bls">BLS</a> (US Bureau of Labor Statistics) Employment Projections, which have named the decliners for years: cashiers, data-entry keyers, telemarketers, word processors, the routine roles automation reaches first. Our corpus mostly cannot see them, because the roles it carries are the ones still hiring. But for the occupations everyone calls automation-exposed, our adjacency graph shows something the decline projections never do: where the skills already go.
+        </p>
+        <table className="post-table">
+          <caption>Highest-coverage adjacent move into a high-demand role &middot; PivotHop, July 2026</caption>
+          <thead><tr><th>Automation-exposed role</th><th>The nearest durable move</th><th className="num">Coverage</th></tr></thead>
+          <tbody>
+            <tr><td>Bookkeeper</td><td><strong>Financial controller</strong> (high demand)</td><td className="num">55%</td></tr>
+            <tr><td>Customer support</td><td><strong>Executive assistant</strong> (high demand)</td><td className="num">65%</td></tr>
+            <tr><td>Recruiter</td><td>HR manager (high demand)</td><td className="num">35%</td></tr>
+            <tr><td>Data annotator</td><td>AI engineer (high demand)</td><td className="num">27%</td></tr>
+          </tbody>
+        </table>
+        <p>
+          These are not consolation prizes. A bookkeeper whose work is automating already covers 55 percent of what a financial controller is asked for. The customer-support specialist covers 65 percent of an executive-assistant posting. The move is up and sideways at once, and it is measurable today, before the decline forces it. Even the data annotator, one of the jobs created to feed AI, has its strongest reach toward building AI rather than labeling for it.
+        </p>
+        <div className="post-pullq">A job disappearing is not the same as your skills expiring. The first is a headline. The second is almost never true.</div>
+        <h2>Why the net number is a trap</h2>
+        <p>
+          The 78-million-net figure hides the only thing an individual needs to know. Net creation can be strongly positive while your specific occupation halves, because the created jobs and the destroyed ones are different jobs, held by different people, often in different places. The macro number reassures the economy and abandons the worker. The micro number, the coverage between where you are and where the hiring is, does the opposite. It ignores the economy and tells you your next move.
+        </p>
+        <p>
+          That is the entire design of the <a className="gl" href="/">instrument</a>: it does not forecast whether AI will take your job, a question no one can answer honestly. It measures which growing jobs your current skills already reach, which our data can answer for any starting point. The <a className="gl" href="/blog/job-titles-born-since-2023">new job titles</a> are one half of the picture and the <a className="gl" href="/blog/the-gravity-wells">gravity wells</a> are the other. Run your own. The net number is not yours. The bridge is.
+        </p>
+        <Sources>
+          <p>
+            PivotHop pipeline, July 2026 run: 79,257 mapped postings across 174 occupations. Role counts and posted medians are from the corpus; coverage is the destination&rsquo;s demanded-skill coverage by the origin&rsquo;s profile, over the top 20 skills per occupation. Our data measures current hiring, not future automation, so the decline framing is cited, not ours: the disappearing-occupation list is the BLS Employment Projections, and the 92-million-displaced, 170-million-created figures are the World Economic Forum Future of Jobs. Run your own starting point on the front-page instrument.
+          </p>
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'Which jobs is AI creating?', a: 'In our corpus, AI engineering (973 postings, a median near $100,000) and machine-learning engineering (754 postings, about $126,000) are the substantial ones, both high-demand. The famous prompt engineer is small, 74 postings, and already low-demand, its work absorbed into broader AI roles.' },
+      { q: 'Which jobs is AI destroying?', a: 'Our data mostly shows current hiring, not future decline. For the shrinking roles, the BLS Employment Projections name cashiers, data-entry keyers, telemarketers, and similar routine work. The more useful question is where those skills can move next.' },
+      { q: 'If my job is being automated, what should I do?', a: 'Find the adjacent role your skills already cover at 40 percent or more and move before the decline forces it. A bookkeeper covers 55 percent of a financial controller; a customer-support specialist covers 65 percent of an executive assistant. The instrument maps yours.' },
+      { q: 'Will AI create more jobs than it destroys?', a: 'Forecasters like the World Economic Forum project a net gain, 170 million created against 92 million destroyed by 2030. But the net is close to meaningless at the individual level, because the created and destroyed jobs are different jobs, held by different people, often in different places.' },
+    ],
+  },
+  {
     slug: 'the-weird-jobs-priced',
     title: 'The weird jobs, priced: what an ethical hacker, a brewmaster, and a perfusionist actually make',
     pillar: 'Shape of Work',

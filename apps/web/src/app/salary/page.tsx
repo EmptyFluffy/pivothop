@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
-import { SALARY_SLUGS, getSalary, usBand, fmt } from './salary-data';
+import { coverableSlugs, getSalary, usBand, fmt } from './salary-data';
 
 export const metadata: Metadata = {
   title: 'Salaries by occupation, measured from live postings — PivotHop',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function SalaryIndex() {
-  const rows = SALARY_SLUGS.map((s) => ({ slug: s, f: getSalary(s) })).filter((r) => r.f);
+  const rows = coverableSlugs().map((s) => ({ slug: s, f: getSalary(s) })).filter((r) => r.f).sort((a, b) => (usBand(b.f!)?.p50 ?? 0) - (usBand(a.f!)?.p50 ?? 0));
   return (
     <PageShell>
       <div className="rtp">

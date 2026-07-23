@@ -948,3 +948,89 @@ export const SALARY: Record<string, SalaryDef> = {
 };
 
 export const SALARY_SLUGS = Object.keys(SALARY);
+
+/* Auto-coverage: every occupation with solid data gets a page. The curated
+   entries above carry a hand-written editorial; the rest get a summary
+   generated from their own numbers (a real, occupation-specific read, drafted
+   for a later hand pass), plus a data-driven FAQ and adjacency-derived related
+   links. Gated by a data floor so nothing thin ships. */
+const OBS_FLOOR = 50;
+export function isCoverable(f: SalaryFile | null): f is SalaryFile {
+  return !!f && (usBand(f)?.p50 ?? 0) > 0 && (f.observations ?? 0) >= OBS_FLOOR;
+}
+let _cover: string[] | null = null;
+const _coverSet = new Set<string>();
+function loadCover() {
+  if (_cover) return;
+  _cover = [];
+  try {
+    const dir = path.join(process.cwd(), 'public', 'data', 'salaries');
+    for (const file of fs.readdirSync(dir)) {
+      if (!file.endsWith('.json')) continue;
+      const slug = file.replace(/\.json$/, '');
+      if (isCoverable(getSalary(slug))) { _cover.push(slug); _coverSet.add(slug); }
+    }
+    _cover.sort();
+  } catch { /* no dir at build edge */ }
+}
+export function coverableSlugs(): string[] { loadCover(); return _cover!; }
+function coverable(slug: string): boolean { loadCover(); return _coverSet.has(slug); }
+
+let _metaCache: Record<string, { field?: string; demand?: string; remote?: string }> | null = null;
+function getMeta(occ: string) {
+  if (!_metaCache) _metaCache = read<{ meta: typeof _metaCache }>('occ-meta.json')?.meta ?? {};
+  return _metaCache![occ] ?? null;
+}
+function topAdjacent(occ: string): { title: string; match: number } | null {
+  const o = read<{ roles?: { id: string; title: string; match: number }[] }>(`${occ}.json`);
+  const r = o?.roles?.[0];
+  return r ? { title: r.title, match: r.match } : null;
+}
+const dollars = (v?: number | null) => (v == null ? '—' : Math.round(v).toLocaleString() + ' dollars');
+
+function defaultDef(occ: string, f: SalaryFile): SalaryDef {
+  const b = usBand(f);
+  const anchor = f.by_country?.US?.anchor;
+  const meta = getMeta(occ);
+  const hist = getHistory(occ);
+  const trend = hist.length >= 2 ? Math.round(((hist[hist.length - 1].p50 - hist[0].p50) / hist[0].p50) * 100) : null;
+  const adj = topAdjacent(occ);
+  const t = f.title.toLowerCase();
+  const art = /^[aeiou]/i.test(t) ? 'an' : 'a';
+  const Art = art === 'an' ? 'An' : 'A';
+  const sen = f.seniority || {};
+  const lo = sen.entry?.p50 ?? sen.mid?.p50 ?? null;
+  const hi = sen.lead?.p50 ?? sen.senior?.p50 ?? null;
+  const overUnder = anchor?.p50 != null && b?.p50 != null
+    ? anchor.p50 > b.p50
+      ? `The official OEWS median is higher, ${dollars(anchor.p50)}, because job ads skew toward the roles that pay below the occupation-wide average. `
+      : `The official OEWS median is ${dollars(anchor.p50)}, under the posted figure, because the advertised roles skew senior or well-funded. `
+    : '';
+  const editorial = (
+    <>
+      <p>
+        {`${Art} ${t} earns a blended US median near ${dollars(b?.p50)}, with the typical middle running from ${dollars(b?.p25)} to ${dollars(b?.p75)}. `}
+        {overUnder}
+        {trend != null ? `The official trend has moved ${trend >= 0 ? 'up' : 'down'} about ${Math.abs(trend)} percent since ${hist[0].year}. ` : ''}
+        {lo != null && hi != null && hi > lo ? `By seniority, posted pay runs from roughly ${dollars(lo)} to ${dollars(hi)}. ` : ''}
+        {meta?.demand ? `Demand is rated ${meta.demand.toLowerCase()}${meta.remote ? `, and ${meta.remote} of postings are fully remote` : ''}. ` : ''}
+        {adj ? `The nearest adjacent move on our skill graph is ${adj.title.toLowerCase()}, at ${adj.match} percent coverage; the instrument maps the rest.` : ''}
+      </p>
+    </>
+  );
+  const faq = [
+    { q: `How much does ${art} ${t} make?`, a: `The blended US median is about ${dollars(b?.p50)}, with a typical range from ${dollars(b?.p25)} to ${dollars(b?.p75)}${anchor?.p50 != null ? `, against an official OEWS median of ${dollars(anchor.p50)}` : ''}.` },
+    meta?.demand ? { q: `Is ${t} a good career in 2026?`, a: `Demand for the role is rated ${meta.demand.toLowerCase()} in our July 2026 corpus${meta.remote ? `, with ${meta.remote} of postings fully remote` : ''}. The pay is shown above by seniority and by country.` } : null,
+    adj ? { q: `What can ${art} ${t} move into?`, a: `The nearest adjacent role on our skill graph is ${adj.title.toLowerCase()}, at ${adj.match} percent skill coverage. Run the instrument for the full set of reachable moves.` } : null,
+  ].filter((x): x is { q: string; a: string } => x != null);
+  const o = read<{ roles?: { id: string }[] }>(`${occ}.json`);
+  const also = (o?.roles || []).map((r) => r.id).filter((s) => s !== occ && coverable(s)).slice(0, 3);
+  return { editorial, faq, routes: [], also };
+}
+
+/** Curated def if we have one, else a generated one, else null (below the floor). */
+export function getSalaryDef(occ: string): SalaryDef | null {
+  if (SALARY[occ]) return SALARY[occ];
+  const f = getSalary(occ);
+  return isCoverable(f) ? defaultDef(occ, f) : null;
+}

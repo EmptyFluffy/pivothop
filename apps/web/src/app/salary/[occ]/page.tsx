@@ -2,17 +2,17 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { SALARY, SALARY_SLUGS, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
+import { coverableSlugs, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
 import SalaryChart from '../SalaryChart';
 import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
 
 export function generateStaticParams() {
-  return SALARY_SLUGS.map((occ) => ({ occ }));
+  return coverableSlugs().map((occ) => ({ occ }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ occ: string }> }): Promise<Metadata> {
   const { occ } = await params;
-  const f = SALARY[occ] && getSalary(occ);
+  const f = getSalaryDef(occ) ? getSalary(occ) : null;
   if (!f) return {};
   const b = usBand(f);
   return {
@@ -26,7 +26,7 @@ const LEVELS = [['entry', 'Entry'], ['mid', 'Mid'], ['senior', 'Senior'], ['lead
 
 export default async function SalaryPage({ params }: { params: Promise<{ occ: string }> }) {
   const { occ } = await params;
-  const def = SALARY[occ];
+  const def = getSalaryDef(occ);
   if (!def) notFound();
   const f = getSalary(occ);
   if (!f) notFound();
