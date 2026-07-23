@@ -45,20 +45,30 @@ export default function JobsHub() {
         {featuredJobs().length >= 3 && (
           <section className="feat" aria-label="Featured roles">
             <div className="feat-head">
-              <span className="lbl acc">Featured roles</span>
-              <span className="lbl">Shown first to the candidates whose skills reach them</span>
+              <span className="lbl feat-cap">Featured roles</span>
+              <span className="lbl feat-sub">Shown first to the candidates whose skills reach them</span>
             </div>
-            <ul className="feat-grid">
-              {featuredJobs().map((j) => (
+            <ul className="feat-ledger">
+              {/* one role per company first, so the ledger reads as a roster of distinct names */}
+              {(() => {
+                const all = featuredJobs();
+                const seen = new Set<string>();
+                const firsts = all.filter((j) => !seen.has(j.company) && seen.add(j.company) !== undefined);
+                const rest = all.filter((j) => !firsts.includes(j));
+                return [...firsts, ...rest].slice(0, 6);
+              })().map((j, i) => (
                 <li key={j.id}>
-                  <Link href={`/jobs/${j.occ}/${j.id}`} className="feat-card">
-                    <span className="feat-co">{j.company}</span>
-                    <span className="feat-t">{j.title}</span>
-                    <span className="feat-m lbl">
-                      {salaryLabel(j.smin, j.smax) && <b>{salaryLabel(j.smin, j.smax)}</b>}
-                      {j.remote && <span>Remote</span>}
-                      <span>{titles[j.occ]}</span>
+                  <Link href={`/jobs/${j.occ}/${j.id}`} className="feat-row">
+                    <span className="feat-i">0{i + 1}</span>
+                    <span className="feat-main">
+                      <span className="feat-co">{j.company}</span>
+                      <span className="feat-t">{j.title}</span>
                     </span>
+                    <span className="feat-side">
+                      {salaryLabel(j.smin, j.smax) && <b className="feat-pay">{salaryLabel(j.smin, j.smax)}</b>}
+                      <span className="feat-meta lbl">{j.remote ? 'Remote · ' : ''}{titles[j.occ]}</span>
+                    </span>
+                    <span className="feat-arrow" aria-hidden="true">&rarr;</span>
                   </Link>
                 </li>
               ))}
