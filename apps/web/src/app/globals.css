@@ -502,6 +502,15 @@ input:focus-visible{outline:none}
 .rt-facts>div:last-child{border-right:none}
 .rt-facts .v{display:block;font-weight:700;font-size:27px;letter-spacing:-.02em;line-height:1.1;white-space:nowrap}
 .rt-facts .k{display:block;margin-top:8px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+/* salary country switcher */
+.sal-facts-wrap{margin:0}
+.sal-cty-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:0 0 14px}
+.sal-cty-sel{position:relative;display:inline-block}
+.sal-cty{appearance:none;-webkit-appearance:none;background:transparent;border:none;border-bottom:2px solid var(--acc);color:var(--ink);font-family:inherit;font-weight:600;font-size:19px;letter-spacing:-.01em;line-height:1.25;padding:0 22px 2px 2px;margin:0;cursor:pointer}
+.sal-cty:focus{outline:none;background:rgba(0,47,166,.05)}
+.sal-cty-sel::after{content:'▾';position:absolute;right:5px;top:2px;font-size:11px;color:var(--acc);pointer-events:none}
+.sal-cty-n{color:var(--ink-3)}
+.sal-cty-note{margin:16px 0 0;max-width:40rem}
 .rt-sallink{display:inline-block;margin:18px 0 0;color:var(--acc);border-bottom:1px solid transparent;transition:border-color .15s}
 .rt-sallink:hover{border-bottom-color:var(--acc)}
 /* graph: full-bleed band, exactly like the landing instrument */

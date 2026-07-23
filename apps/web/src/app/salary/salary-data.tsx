@@ -685,6 +685,266 @@ export const SALARY: Record<string, SalaryDef> = {
     also: ['software-engineer', 'data-engineer', 'data-scientist'],
   },
 
+  'physician': {
+    editorial: (
+      <>
+        <p>
+          Physicians sit at the top of our salary board, a blended US median near 185,000 dollars, and the figure still
+          understates the ceiling, because the specialties that pay most, surgery and anesthesiology and cardiology, post
+          least. The floor is set by primary care and by the training pipeline: a physician clears roughly a decade of
+          school and residency before the first attending paycheck, and carries the debt to match. Read the median as a
+          mid-career number, not a starting one. The pay is real and durable, bought with the longest runway of any career
+          we track.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do physicians make?', a: 'The blended US median is about 185,000 dollars, with the typical middle running from roughly 124,000 to 294,000. Surgical and procedural specialties run well above that; primary care sits below.' },
+      { q: 'Why is the physician salary range so wide?', a: 'Because the title spans primary care to neurosurgery. Specialty, not seniority, drives most of the spread, and the highest-paid specialties advertise the least.' },
+      { q: 'Is becoming a doctor worth it financially?', a: 'The pay is high and stable, but it arrives after about a decade of training and heavy debt. The lifetime math favors it; the early-career math does not.' },
+    ],
+    routes: [],
+    also: ['nurse-practitioner', 'registered-nurse', 'pharmacist'],
+  },
+
+  'pharmacist': {
+    editorial: (
+      <>
+        <p>
+          Pharmacist pay is high and unusually flat: a blended US median near 153,000 dollars in a tight band, because the
+          doctorate and license set a firm floor and the retail-versus-hospital split sets a modest ceiling. It is one of
+          the best-paid careers that does not require a residency. But the market has tightened as chains consolidate and
+          automation absorbs dispensing, so the growth is in clinical, hospital, and specialty roles now, not behind the
+          counter. If you are weighing the doctorate, weigh the softening demand alongside the salary.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do pharmacists make?', a: 'The blended US median is about 153,000 dollars, a high floor set by the doctorate and license, with a relatively narrow range.' },
+      { q: 'Is pharmacy still a good career?', a: 'The pay holds, but retail demand has softened with consolidation and automation. The growth is in clinical, hospital, and specialty roles.' },
+      { q: 'Do pharmacists earn more than nurses?', a: 'At the median, usually yes, though nurse practitioners close the gap and physicians clear it.' },
+    ],
+    routes: [],
+    also: ['physician', 'registered-nurse', 'nurse-practitioner'],
+  },
+
+  'physical-therapist': {
+    editorial: (
+      <>
+        <p>
+          Physical therapy pays a blended US median near 104,000 dollars, and the number comes with a warning the salary
+          line does not show: the field now requires a doctorate, and the debt-to-income ratio is among the worst in
+          healthcare. The work is durable, hands-on, and nearly automation-proof, which is the real case for it. But the pay
+          has been roughly flat for a decade while the required schooling climbed. Read this as a vocation with a
+          comfortable ceiling, not a wealth path.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do physical therapists make?', a: 'The blended US median is about 104,000 dollars, in a fairly tight range that has been close to flat over the past decade.' },
+      { q: 'Is a physical therapy doctorate worth it?', a: 'The job is stable and rewarding, but the required doctorate carries debt that the flat salary services slowly. Run the numbers before enrolling.' },
+      { q: 'Is physical therapy safe from AI?', a: 'Among the safest careers we track: it is hands-on, judgment-heavy, and physically present, which automation does not replace.' },
+    ],
+    routes: [],
+    also: ['registered-nurse', 'nurse-practitioner', 'physician'],
+  },
+
+  'social-worker': {
+    editorial: (
+      <>
+        <p>
+          Social work is the clearest case on the board of a career priced below its social value. A blended US median near
+          101,000 dollars looks healthy until you see it is carried by clinical and management roles; front-line case work
+          sits well under it, often below a teacher&rsquo;s pay for a heavier caseload. The credential ladder is real: a
+          master&rsquo;s degree and clinical licensure lift the number materially, so the honest advice is to treat the
+          license as the pay lever it is. Demand is high and stable. The compensation is a policy choice, not a market
+          failure.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do social workers make?', a: 'The blended US median is about 101,000 dollars, but that is lifted by clinical and supervisory roles; front-line case work pays well below it.' },
+      { q: 'How can a social worker earn more?', a: 'The master of social work and clinical licensure are the main levers, moving pay from case work into clinical and management bands.' },
+      { q: 'Is social work in demand?', a: 'Yes, high and stable demand, though the pay lags the need across most of the field.' },
+    ],
+    routes: [],
+    also: ['teacher', 'registered-nurse', 'nurse-practitioner'],
+  },
+
+  'management-consultant': {
+    editorial: (
+      <>
+        <p>
+          Management consulting posts a blended US median near 101,000 dollars, which sounds modest until you realize it is
+          dragged down by the enormous analyst base beneath the &ldquo;up or out&rdquo; pyramid. The spread is the story: a
+          first-year analyst and a partner both wear the title, and the partner earns several times the median. It is the
+          widest-reaching career on our board, measured in five markets, because the firms hire globally on the same
+          profile. Read the median as the entry, not the destination, and note that the exits, into strategy, operations,
+          and product, are often where the real money is.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do management consultants make?', a: 'The blended US median is about 101,000 dollars, but the range is enormous: analysts start below it and partners earn multiples of it.' },
+      { q: 'Why is the consulting salary range so wide?', a: 'The up-or-out pyramid means one title spans a first-year analyst to a partner. Level, not the median, tells you the pay.' },
+      { q: 'Is consulting worth it for the money?', a: 'The salary is good and the exit options are better. Many consultants earn most over their careers after they leave, in strategy and operations roles.' },
+    ],
+    routes: [],
+    also: ['business-analyst', 'project-manager', 'financial-analyst'],
+  },
+
+  'business-analyst': {
+    editorial: (
+      <>
+        <p>
+          Business analyst pay, a blended US median near 108,000 dollars, sits at a useful crossroads: the seat where
+          analytical skill meets delivery, feeding several higher-paid roles. The title is broad, from reporting-heavy work
+          near the floor to product- and strategy-facing roles well above, so the median hides a real spread by industry.
+          The most valuable thing about the seat is not its pay but its optionality: it is one skills-hop from project
+          manager, product manager, and data analyst, each of which our routes price. Treat it as a hub, not a destination.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do business analysts make?', a: 'The blended US median is about 108,000 dollars, with a wide spread by industry and by how technical the role is.' },
+      { q: 'What can a business analyst move into?', a: 'Project manager, product manager, and data roles are the common next steps, each a short skills-hop. The route pages price them.' },
+      { q: 'Is business analyst a good career?', a: 'Yes, largely for its optionality: it sits one move from several better-paid roles.' },
+    ],
+    routes: ['business-analyst-to-project-manager'],
+    also: ['project-manager', 'data-analyst', 'management-consultant'],
+  },
+
+  'hr-manager': {
+    editorial: (
+      <>
+        <p>
+          Human-resources management posts a blended US median near 105,000 dollars, a number that has quietly climbed as
+          the function moved from administration to strategy. The spread tracks scope: a generalist running policy sits near
+          the floor, while heads of talent and total-rewards leaders at scaled companies clear it comfortably. The role is
+          less automatable than its reputation, because the hard part is judgment about people under conflicting incentives,
+          not the paperwork that software now handles. The pay lever is specialization, into compensation, talent, or
+          organizational design, not tenure.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do HR managers make?', a: 'The blended US median is about 105,000 dollars, rising with scope from generalist to head-of-function roles.' },
+      { q: 'How does an HR manager earn more?', a: 'By specializing, into compensation, talent acquisition, or organizational design, rather than staying a generalist.' },
+      { q: 'Is HR a safe career from automation?', a: 'The administrative half is automating; the judgment half, handling people under conflicting incentives, is not.' },
+    ],
+    routes: [],
+    also: ['management-consultant', 'business-analyst', 'project-manager'],
+  },
+
+  'product-designer': {
+    editorial: (
+      <>
+        <p>
+          Product designer posts a blended US median near 126,000 dollars, well above the graphic- and UX-designer bands,
+          because the title now means someone who owns a product surface end to end, from research to shipped interface,
+          rather than someone who makes screens pretty. The premium is for the ownership, and it is real: the gap to graphic
+          design runs to tens of thousands of dollars for work that shares most of its tools. If you are a designer weighing
+          the move, the pay is the argument, and the route from graphic and UX design is a matter of evidence, not new
+          software.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do product designers make?', a: 'The blended US median is about 126,000 dollars, above UX and graphic design, reflecting end-to-end product ownership.' },
+      { q: 'What is the difference between a product designer and a UX designer?', a: 'Increasingly little in title, but product designers are expected to own outcomes and metrics, not only interfaces, and the pay reflects it.' },
+      { q: 'How do you become a product designer?', a: 'Usually from UX or graphic design, on evidence of shipped, owned work rather than a new toolset.' },
+    ],
+    routes: ['graphic-designer-to-ux-designer'],
+    also: ['ux-designer', 'graphic-designer', 'software-engineer'],
+  },
+
+  'security-engineer': {
+    editorial: (
+      <>
+        <p>
+          Security engineering posts a blended US median near 145,000 dollars, among the highest of the engineering tracks,
+          and the premium is a scarcity story: the supply of people who can both build and break is thin, and the cost of
+          getting it wrong is unbounded. The band widens fast toward offensive and cloud-security roles, where the
+          ethical-hacking market pushes pay past the median. The seat is a short hop from software and DevOps engineering for
+          anyone who has run production systems, and the demand is structural rather than cyclical. Security is where
+          &ldquo;senior engineer plus a specialty&rdquo; pays the most reliably.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do security engineers make?', a: 'The blended US median is about 145,000 dollars, among the top engineering tracks, rising toward offensive and cloud-security specialties.' },
+      { q: 'Why do security engineers earn so much?', a: 'Scarcity: few people can both build and break systems, and the downside of failure is unbounded, so the market pays up.' },
+      { q: 'How do you become a security engineer?', a: 'Commonly from software or DevOps engineering, adding a security specialty on top of production experience.' },
+    ],
+    routes: ['software-engineer-to-solutions-architect'],
+    also: ['software-engineer', 'devops-engineer', 'solutions-architect'],
+  },
+
+  'backend-developer': {
+    editorial: (
+      <>
+        <p>
+          Backend developer posts a blended US median near 132,000 dollars, a touch above the general software-engineer
+          band, because the title concentrates the higher-paid, systems-heavy end of the work: databases, services, scale,
+          the parts that do not show on a screen. The spread tracks the stack and the scale, from small-company generalists
+          near the floor to distributed-systems specialists well above. It is the most portable seat in software, one hop
+          from data engineering, DevOps, and solutions architecture, and the demand has held even as front-end hiring
+          softened. Depth in one backend domain is the pay lever.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do backend developers make?', a: 'The blended US median is about 132,000 dollars, slightly above general software engineering, reflecting the systems-heavy end of the work.' },
+      { q: 'Do backend developers earn more than frontend developers?', a: 'Usually a modest premium, because backend work skews toward scale and systems, which pay more.' },
+      { q: 'What can a backend developer move into?', a: 'Data engineering, DevOps, and solutions architecture are the common, well-paid next steps.' },
+    ],
+    routes: ['software-engineer-to-solutions-architect'],
+    also: ['software-engineer', 'data-engineer', 'solutions-architect'],
+  },
+
+  'devops-engineer': {
+    editorial: (
+      <>
+        <p>
+          DevOps and platform engineering posts a blended US median near 134,000 dollars, and the pay reflects a role on the
+          critical path: the person who owns deployment, reliability, and the infrastructure a hundred other engineers
+          depend on. The premium is for the pager as much as the skill, because owning production means owning the failure
+          at three in the morning. The band runs high toward site-reliability and cloud-platform specialties. It is a
+          natural step up from software engineering or systems administration, and the demand is durable, because every
+          company that ships software needs someone to keep it shipped.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do DevOps engineers make?', a: 'The blended US median is about 134,000 dollars, rising toward site-reliability and cloud-platform roles.' },
+      { q: 'Why do DevOps engineers earn a premium?', a: 'They own production reliability and the infrastructure many other engineers depend on, including the on-call failures.' },
+      { q: 'How do you become a DevOps engineer?', a: 'Commonly from software engineering or systems administration, adding infrastructure and reliability ownership.' },
+    ],
+    routes: ['software-engineer-to-solutions-architect'],
+    also: ['software-engineer', 'backend-developer', 'solutions-architect'],
+  },
+
+  'qa-engineer': {
+    editorial: (
+      <>
+        <p>
+          Quality-assurance engineering posts a blended US median near 111,000 dollars, and the number is quietly rising as
+          the role shifts from manual testing to automation and tooling. That shift is also the risk: the manual-testing
+          floor is exactly what automated tooling and AI absorb first, while the automation-engineering ceiling holds and
+          climbs. The spread between the two is wide and widening. If you are in quality assurance, the pay advice and the
+          job-security advice are the same one: move from running tests to writing the systems that run them.
+        </p>
+      </>
+    ),
+    faq: [
+      { q: 'How much do QA engineers make?', a: 'The blended US median is about 111,000 dollars, with a wide gap between manual testing at the floor and automation engineering above.' },
+      { q: 'Is QA a dying field?', a: 'Manual testing is shrinking under automation and AI; automation and quality-engineering roles are growing and pay more.' },
+      { q: 'How does a QA engineer earn more?', a: 'By moving from manual testing into test automation and tooling, which is also the more secure side of the role.' },
+    ],
+    routes: [],
+    also: ['software-engineer', 'backend-developer', 'data-engineer'],
+  },
+
 };
 
 export const SALARY_SLUGS = Object.keys(SALARY);

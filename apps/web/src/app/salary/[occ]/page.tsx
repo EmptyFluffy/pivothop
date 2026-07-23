@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { SALARY, SALARY_SLUGS, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
 import SalaryChart from '../SalaryChart';
+import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
 
 export function generateStaticParams() {
   return SALARY_SLUGS.map((occ) => ({ occ }));
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const b = usBand(f);
   return {
     title: `${f.title} salary (2026): what ${f.title.toLowerCase()}s actually make — PivotHop`,
-    description: `${f.title} pay from ${f.observations.toLocaleString()} live US postings and official BLS OEWS data: median ${fmt(b?.p50)}, typical range ${fmt(b?.p25)} to ${fmt(b?.p75)}, plus the wage trend over recent years and how it compares by seniority and country.`,
+    description: `${f.title} pay from ${f.observations.toLocaleString()} live job postings and official US BLS OEWS data: median ${fmt(b?.p50)}, typical range ${fmt(b?.p25)} to ${fmt(b?.p75)}, with a per-country switcher, the wage trend over recent years, and how it splits by seniority.`,
     alternates: { canonical: `/salary/${occ}` },
   };
 }
@@ -43,6 +44,22 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
     .filter((x) => x.band);
   const seniority = LEVELS.map(([k, label]) => ({ label, band: f.seniority?.[k] })).filter((x) => x.band && x.band.p50);
   const states = Object.entries(us?.states || {}).map(([code, v]) => ({ code, band: v.blended })).filter((x) => x.band?.p50).sort((a, b2) => (b2.band!.p50) - (a.band!.p50)).slice(0, 6);
+  // Per-country facts for the country switcher: US first (richest data), then by pay.
+  const countryData: CountryDatum[] = Object.entries(f.by_country || {})
+    .map(([code, v]) => {
+      const band = v.blended || v.posted || v.anchor;
+      if (!band?.p50) return null;
+      return {
+        code, name: COUNTRY_NAMES[code] || code,
+        p25: band.p25, p50: band.p50, p75: band.p75,
+        priceLevel: v.price_level ?? null,
+        isUS: code === 'US',
+        oews: code === 'US' ? (us?.anchor?.p50 ?? null) : null,
+        employed: code === 'US' ? (us?.anchor?.emp ?? null) : null,
+      };
+    })
+    .filter((x): x is CountryDatum => x != null)
+    .sort((a, b2) => (a.isUS ? -1 : b2.isUS ? 1 : b2.p50 - a.p50));
 
   return (
     <PageShell>
@@ -52,23 +69,27 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         </nav>
         <h1 className="rt-h1">{f.title} salary</h1>
         <p className="rt-dek">
-          {`What a ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live US postings blended with official `}
+          {`What a ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live job postings blended with the official US `}
           <a className="gl" href="/glossary#oews">OEWS</a>
-          {` (Occupational Employment and Wage Statistics) wage data. Median, range, the official trend${history.length >= 2 ? ` since ${history[0].year}` : ''}, and how it splits by seniority and country. Updated ${f.updated}.`}
+          {` (Occupational Employment and Wage Statistics) wage anchor. Pick a market for its median and range, then read the seniority split, the trend, and the country comparison below. Updated ${f.updated}.`}
         </p>
 
-        <div className="rt-facts">
-          <div><span className="v">{fmt(b?.p50)}</span><span className="k">Median (blended)</span></div>
-          <div><span className="v">{fmt(b?.p25)}&ndash;{fmt(b?.p75)}</span><span className="k">Typical range (25th&ndash;75th)</span></div>
-          <div><span className="v">{fmt(anchor?.p50)}</span><span className="k">Official OEWS median</span></div>
-          {f.unemployment && <div><span className="v">{f.unemployment.rate}%</span><span className="k">Unemployment 2025</span></div>}
-          {trend != null && <div><span className="v">{trend > 0 ? '+' : ''}{trend}%</span><span className="k">OEWS since {history[0].year}</span></div>}
-          {anchor?.emp && <div><span className="v">{Math.round(anchor.emp / 1000)}k</span><span className="k">US employed</span></div>}
-        </div>
+        <SalaryFacts
+          countries={countryData}
+          usMedian={b?.p50 ?? null}
+          unemployment={f.unemployment ?? null}
+          trendPct={trend}
+          trendFrom={history[0]?.year ?? null}
+        />
+        {countryData.length > 1 && (
+          <p className="rt-note sal-cty-note">
+            {`Switch the market above to see ${f.title.toLowerCase()} pay in the ${countryData.length} countries our sources cover, each with its own cost of living. The trend, seniority, and state detail below are United States data, where the official record runs deepest.`}
+          </p>
+        )}
 
         <section className="sal-chartwrap">
           <div className="sal-chart-head">
-            <span className="lbl">Median pay over time &middot; 25th&ndash;75th band &middot; official OEWS with the live 2026 read</span>
+            <span className="lbl">United States pay over time &middot; 25th&ndash;75th band &middot; official OEWS with the live 2026 read</span>
           </div>
           {history.length >= 2
             ? <SalaryChart data={cd} />
