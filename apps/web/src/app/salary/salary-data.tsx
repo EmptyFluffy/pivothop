@@ -17,6 +17,7 @@ type SalaryFile = {
   by_country: Record<string, { posted?: Band | null; anchor?: Band | null; blended?: Band | null; price_level?: number; states?: Record<string, { blended?: Band }> }>;
   seniority?: Record<string, Band | null>;
   anchor_source?: string;
+  unemployment?: { rate: number; label: string };
 };
 type HistPoint = { year: number; p25: number; p50: number; p75: number };
 

@@ -61,6 +61,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           <div><span className="v">{fmt(b?.p50)}</span><span className="k">Median (blended)</span></div>
           <div><span className="v">{fmt(b?.p25)}&ndash;{fmt(b?.p75)}</span><span className="k">Typical range (25th&ndash;75th)</span></div>
           <div><span className="v">{fmt(anchor?.p50)}</span><span className="k">Official OEWS median</span></div>
+          {f.unemployment && <div><span className="v">{f.unemployment.rate}%</span><span className="k">Unemployment 2025</span></div>}
           {trend != null && <div><span className="v">{trend > 0 ? '+' : ''}{trend}%</span><span className="k">OEWS since {history[0].year}</span></div>}
           {anchor?.emp && <div><span className="v">{Math.round(anchor.emp / 1000)}k</span><span className="k">US employed</span></div>}
         </div>
@@ -166,7 +167,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           <a className="gl" href="/glossary#oews">OEWS</a>
           {` anchor by sample size (the “blended” figure). Trend is the OEWS annual median for `}
           <a className="gl" href="/glossary#soc">SOC</a>
-          {` ${f.soc}. Live corpus ${f.observations.toLocaleString()} observations, ${f.updated}. Definitions in the `}
+          {` ${f.soc}.${f.unemployment ? ` Unemployment is the 2025 BLS CPS annual-average rate for “${f.unemployment.label}.”` : ''} Live corpus ${f.observations.toLocaleString()} observations, ${f.updated}. Definitions in the `}
           <Link className="gl" href="/glossary">glossary</Link>.
         </p>
       </div>

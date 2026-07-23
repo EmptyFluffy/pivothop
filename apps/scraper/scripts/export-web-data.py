@@ -97,11 +97,22 @@ def main():
 
     # FairElephant: salary bands + price levels
     sal_src = os.path.join(GEN, 'salaries')
+    unemp = {}
+    up = os.path.join(ROOT, 'packages/data/vendor/cps-unemployment/rates.json')
+    if os.path.exists(up):
+        unemp = json.load(open(up)).get('slugs', {})
     if os.path.isdir(sal_src):
         sal_out = os.path.join(OUT, 'salaries')
         os.makedirs(sal_out, exist_ok=True)
+        nu = 0
         for f in os.listdir(sal_src):
-            shutil.copy(os.path.join(sal_src, f), os.path.join(sal_out, f))
+            d = json.load(open(os.path.join(sal_src, f)))
+            slug = d.get('slug')
+            if slug and slug in unemp:
+                d['unemployment'] = unemp[slug]  # BLS CPS 2025 annual-average rate
+                nu += 1
+            json.dump(d, open(os.path.join(sal_out, f), 'w'))
+        print(f'salaries: {nu} occupations carry an unemployment rate')
     pl = os.path.join(ROOT, 'packages/data/vendor/worldbank/price-levels.json')
     if os.path.exists(pl):
         shutil.copy(pl, os.path.join(OUT, 'price-levels.json'))
