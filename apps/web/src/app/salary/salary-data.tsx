@@ -81,7 +81,7 @@ export const SALARY: Record<string, SalaryDef> = {
     editorial: (
       <>
         <p>
-          UX design pay is unusually wide, and the width is the whole story.
+          <a className="gl" href="/glossary#ux">UX</a> design pay is unusually wide, and the width is the whole story.
           The 25th-to-75th-percentile band on live US postings runs from about
           95,000 to 191,000 dollars, a spread of nearly 100,000, because the
           title covers everyone from a junior wireframer to a staff designer
@@ -233,7 +233,7 @@ export const SALARY: Record<string, SalaryDef> = {
           the first, which is how to break out of the band, and the data has a
           clear answer. The move into financial analysis, forecasting and
           strategy rather than recording and compliance, lifts the ceiling by
-          roughly a fifth at entry and more with a CFA. Accounting is the floor
+          roughly a fifth at entry and more with a <a className="gl" href="/glossary#cfa">CFA</a> (the Chartered Financial Analyst credential). Accounting is the floor
           you can always stand on; financial analysis is the door out of the
           band, and it opens with the skills an accountant already holds.
         </p>
@@ -261,7 +261,7 @@ export const SALARY: Record<string, SalaryDef> = {
           rather than spiking, which is why the trend since 2021 is a modest
           7 percent while newer tech roles ran double that. The lever that
           actually moves a project manager’s number is scope, not certification,
-          though a PMP is the signal that unlocks the interview. If your pay has
+          though a <a className="gl" href="/glossary#pmp">PMP</a> (the Project Management Professional certification) is the signal that unlocks the interview. If your pay has
           stalled, the question is whether you are managing tasks or owning
           outcomes; the band above pays for the second.
         </p>
@@ -283,13 +283,13 @@ export const SALARY: Record<string, SalaryDef> = {
           Financial analysis is the rare role where the official number sits
           above the advertised one. Live US postings put the median near
           82,000 dollars, but the OEWS median is 101,350, because job ads skew
-          toward entry-level FP&amp;A seats while OEWS counts the senior and
+          toward entry-level <a className="gl" href="/glossary#fpa">FP&amp;A</a> (financial planning and analysis) seats while OEWS counts the senior and
           buy-side analysts who rarely advertise. Read the OEWS line as the
           career, the posted band as the door. The stability is the real
           story: unemployment for financial and investment analysts is 1.7
           percent, among the lowest of any desk job we track, because every
           company needs someone to forecast and defend the budget. The ceiling
-          opens with the CFA, which separates corporate analysts from the
+          opens with the <a className="gl" href="/glossary#cfa">CFA</a> (the Chartered Financial Analyst credential), which separates corporate analysts from the
           investment side where compensation stops being a salary and starts
           being a bonus. For an accountant weighing the move, this is the door
           out of the tight accounting band, and it opens with skills you
@@ -321,7 +321,7 @@ export const SALARY: Record<string, SalaryDef> = {
           learn the engineering and modeling stack become data engineers or
           scientists and leave the crowd behind. If you are early in this
           field, treat the analyst title as a launch pad, not a destination;
-          the SQL and Python you already use are the down payment on the move.
+          the <a className="gl" href="/glossary#sql">SQL</a> (Structured Query Language) and Python you already use are the down payment on the move.
         </p>
       </>
     ),
@@ -373,7 +373,7 @@ export const SALARY: Record<string, SalaryDef> = {
           median is about 67,000 dollars with an OEWS median of 61,300, and
           unemployment runs 4.8 percent, a reflection of a crowded field where
           supply outpaces the openings. Pay did rise 18 percent since 2019, but
-          from a low base, and the ceiling is real. The reason graphic-to-UX is
+          from a low base, and the ceiling is real. The reason graphic-to-<a className="gl" href="/glossary#ux">UX</a> (user-experience design) is
           one of the most searched career changes on the internet is visible in
           the numbers: UX designers earn tens of thousands more for adjacent
           work, and the tools overlap far more than the pay does. If you are a
@@ -435,7 +435,7 @@ export const SALARY: Record<string, SalaryDef> = {
           structural and growing as primary care shortages widen. The lift over
           a registered nurse is large, roughly 35,000 dollars at the median,
           which is exactly why it is the single most common move nurses make.
-          The catch is the credential: a graduate degree and an APRN license,
+          The catch is the credential: a graduate degree and an <a className="gl" href="/glossary#aprn">APRN</a> (advanced practice registered nurse) license,
           two to four years, not a skill gap. The pay is real and so is the
           school; plan the second before you count the first.
         </p>
@@ -463,7 +463,7 @@ export const SALARY: Record<string, SalaryDef> = {
           real gain driven less by any single boom than by the breadth of
           industries that need the skill. The spread inside the band is mostly
           about sector and sign-off: product and manufacturing roles cluster in
-          the middle, while the PE license and senior responsible-charge seats
+          the middle, while the <a className="gl" href="/glossary#pe-license">PE</a> license and senior responsible-charge seats
           pull the top. If your pay has flattened, the two levers are the
           license, which gates the higher-responsibility roles, and the
           industry, which moves the baseline more than the title does.
@@ -490,7 +490,7 @@ export const SALARY: Record<string, SalaryDef> = {
           infrastructure does not follow the private construction cycle that
           whipsaws other building careers. Pay rose 14 percent since 2019,
           supported by sustained infrastructure spending. The number that moves
-          a civil engineer’s pay is the PE license, which is not optional for
+          a civil engineer’s pay is the <a className="gl" href="/glossary#pe-license">PE</a> license, which is not optional for
           responsible charge, the point at which an engineer can sign and seal
           work and take on the roles that pay the top of the band. For anyone
           weighing engineering disciplines for stability, civil is the answer:
@@ -583,7 +583,7 @@ export const SALARY: Record<string, SalaryDef> = {
           skills, spatial reasoning, project coordination, visualization, and
           the discipline of shipping a complex thing with a team, transfer to
           adjacent fields that pay more, from interior design to industrial
-          design to product and UX. The routes below price each of those moves
+          design to product and <a className="gl" href="/glossary#ux">UX</a> (user-experience design). The routes below price each of those moves
           from an architect’s actual skill profile.
         </p>
       </>
@@ -611,7 +611,7 @@ export const SALARY: Record<string, SalaryDef> = {
           percent since 2021 as every company that hired analysts discovered it
           also needed the infrastructure to feed them. For a data analyst, this
           is the most common and best-paid step up, and it starts from a
-          position of strength, because the SQL and Python are already in hand.
+          position of strength, because the <a className="gl" href="/glossary#sql">SQL</a> (Structured Query Language) and Python are already in hand.
           What separates the bands is orchestration and the on-call ownership of
           data other teams depend on, which is exactly the gap worth closing.
         </p>

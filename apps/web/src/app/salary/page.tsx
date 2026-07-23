@@ -17,9 +17,11 @@ export default function SalaryIndex() {
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Salaries</span></nav>
         <h1 className="rt-h1">Salaries, measured.</h1>
         <p className="rt-dek">
-          What each occupation actually pays, from live US postings blended with official BLS OEWS wage data, with the
-          trend over time and the split by seniority and country. Not one scraped number, the whole distribution and where
-          it is heading. Starting with the most-searched roles; more added as their data firms up.
+          What each occupation actually pays, from live US postings blended with official{' '}
+          <a className="gl" href="/glossary#oews">OEWS</a> (Occupational Employment and Wage Statistics) wage data from
+          the US <a className="gl" href="/glossary#bls">BLS</a> (Bureau of Labor Statistics), with the trend over time and
+          the split by seniority and country. Not one scraped number, the whole distribution and where it is heading.
+          Starting with the most-searched roles; more added as their data firms up.
         </p>
         <ul className="rt-index">
           {rows.map(({ slug, f }) => {

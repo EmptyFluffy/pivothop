@@ -66,23 +66,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'interior-designer',
     editorial: (
       <>
-        <p>
-          This is the single most common exit from architecture in the federal
-          transition data, and it is not close. It is also the move architects
-          underrate most, because it looks like a demotion in scale: rooms
-          instead of buildings. What actually changes is the client
-          relationship. Interior work bills faster, revises faster, and puts
-          you nearer the decisions that get built. The readiness gap is not
-          design ability; it is the commercial half of the job. FF&amp;E
-          schedules, procurement, vendor relationships, and the discipline of
-          space planning to a program are their own trade with their own
-          rhythm, and postings ask for them by name. An architect who has run
-          construction administration already has the hard part: keeping a
-          project honest between drawing and site. Concrete first step: take
-          one interiors-heavy project at your current firm, own the FF&amp;E
-          package end to end, and put it at the top of the portfolio. That
-          single package answers the question every interiors studio will ask.
-        </p>
+        <p>This is the single most common exit from architecture in the federal transition data, and it is not close. It is also the move architects underrate most, because it looks like a demotion in scale: rooms instead of buildings.</p>
+        <p>What actually changes is the client relationship. Interior work bills faster, revises faster, and puts you nearer the decisions that get built. The readiness gap is not design ability; it is the commercial half of the job. <a className="gl" href="/glossary#ffe">FF&amp;E</a> (furniture, fixtures, and equipment) schedules, procurement, vendor relationships, and the discipline of space planning to a program are their own trade with their own rhythm, and postings ask for them by name.</p>
+        <p>An architect who has run construction administration already has the hard part: keeping a project honest between drawing and site. <strong>Concrete first step:</strong> take one interiors-heavy project at your current firm, own the FF&amp;E package end to end, and put it at the top of the portfolio. That single package answers the question every interiors studio will ask.</p>
       </>
     ),
     evidence: [
@@ -105,23 +91,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'landscape-architect',
     editorial: (
       <>
-        <p>
-          On paper this is the gentlest move on the list: same drawing sets,
-          same consultants, same municipal reviews, a design language you
-          already half speak. The catch is that it is a second licensed
-          profession, not a specialization of the first. Most states want the
-          LARE exam and its documented experience hours, and reciprocity
-          between architecture and landscape licensure is thinner than the
-          overlap deserves. That makes this a deliberate, credentialed pivot
-          dressed up as a lateral one. The technical gap is real but narrow:
-          grading, planting, stormwater, and the zoning rhythms of site work.
-          The cultural gap is smaller than in any other route here, and the
-          observed corroboration is strong; the two professions have traded
-          people for decades. If you are early-career, the efficient path is a
-          firm that holds both practices under one roof and will count your
-          hours toward the second license while you keep earning under the
-          first stamp. Ask that question in the interview, specifically.
-        </p>
+        <p>On paper this is the gentlest move on the list: same drawing sets, same consultants, same municipal reviews, a design language you already half speak. The catch is that it is a second licensed profession, not a specialization of the first. Most states want the <a className="gl" href="/glossary#lare">LARE</a> (the Landscape Architect Registration Examination) and its documented experience hours, and reciprocity between architecture and landscape licensure is thinner than the overlap deserves. That makes this a deliberate, credentialed pivot dressed up as a lateral one.</p>
+        <p>The technical gap is real but narrow: grading, planting, stormwater, and the zoning rhythms of site work. The cultural gap is smaller than in any other route here, and the observed corroboration is strong; the two professions have traded people for decades.</p>
+        <p>If you are early-career, the efficient path is a firm that holds both practices under one roof and will count your hours toward the second license while you keep earning under the first stamp. Ask that question in the interview, specifically.</p>
       </>
     ),
     evidence: [
@@ -144,24 +116,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'structural-engineer',
     editorial: (
       <>
-        <p>
-          Architects and structural engineers already share a table, which is
-          exactly why this route is misread. Familiarity with structural
-          drawings is not the same as producing the calculations behind them,
-          and the readiness number on this page is carried by project skills,
-          not analysis. The honest core of the gap is mathematical tooling:
-          FEA, ETABS or SAP2000, steel and concrete design to code. That is
-          teachable, but it is a degree-shaped amount of teaching in most
-          markets, and responsible charge requires the PE, a different exam
-          track than the ARE you may already hold. The realistic versions of
-          this move are two: the long one through a structural master&rsquo;s
-          for people who genuinely want the math, and the short one into
-          structures-adjacent roles (facade engineering, building envelope,
-          forensic assessment) where an architect&rsquo;s documentation
-          fluency is the scarce skill and the analysis burden is shared. Most
-          people who think they want this route want the second version.
-          Decide which one you are before you spend on coursework.
-        </p>
+        <p>Architects and <strong>structural engineers</strong> already share a table, which is exactly why this route is misread. Familiarity with structural drawings is not the same as producing the calculations behind them, and the readiness number on this page is carried by project skills, not analysis.</p>
+        <p>The honest core of the gap is mathematical tooling: <a className="gl" href="/glossary#fea">FEA</a> (finite element analysis), ETABS or SAP2000, steel and concrete design to code. That is teachable, but it is a degree-shaped amount of teaching in most markets, and responsible charge requires the <a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license), a different exam track than the <a className="gl" href="/glossary#are-exam">ARE</a> (the Architect Registration Examination) you may already hold.</p>
+        <p>The realistic versions of this move are two: the long one through a structural master&rsquo;s for people who genuinely want the math, and the short one into structures-adjacent roles (facade engineering, building envelope, forensic assessment) where an architect&rsquo;s documentation fluency is the scarce skill and the analysis burden is shared. Most people who think they want this route want the second version. Decide which one you are before you spend on coursework.</p>
       </>
     ),
     evidence: [
@@ -184,23 +141,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'civil-engineer',
     editorial: (
       <>
-        <p>
-          The pull here is usually stability: civil work is public-money work,
-          and the backlog of roads, water, and site packages does not care
-          about the private construction cycle that whipsaws architecture.
-          The transfer is real at the site scale. An architect who has
-          shepherded a project through entitlements already understands half
-          the civil reviewer&rsquo;s checklist from the other side of the
-          counter. The tooling gap is specific and unglamorous: Civil 3D
-          rather than Revit, corridors and grading rather than plans and
-          sections, and a reporting culture built around agency submittals.
-          As with structures, the PE gates responsible charge, and the exam
-          assumes engineering coursework. The pragmatic entry is land
-          development: site design teams inside civil firms hire people who
-          can coordinate architecture, landscape, and utilities on one
-          grading plan, and they will tolerate a Civil 3D learning curve for
-          someone who can run a consultant table. Aim there, not at bridges.
-        </p>
+        <p>The pull here is usually stability: civil work is public-money work, and the backlog of roads, water, and site packages does not care about the private construction cycle that whipsaws architecture.</p>
+        <p>The transfer is real at the site scale. An architect who has shepherded a project through entitlements already understands half the civil reviewer&rsquo;s checklist from the other side of the counter. The tooling gap is specific and unglamorous: Civil 3D rather than Revit, corridors and grading rather than plans and sections, and a reporting culture built around agency submittals. As with structures, the <a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) gates responsible charge, and the exam assumes engineering coursework.</p>
+        <p>The pragmatic entry is <strong>land development</strong>: site design teams inside civil firms hire people who can coordinate architecture, landscape, and utilities on one grading plan, and they will tolerate a Civil 3D learning curve for someone who can run a consultant table. Aim there, not at bridges.</p>
       </>
     ),
     evidence: [
@@ -223,25 +166,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'electrical-engineer',
     editorial: (
       <>
-        <p>
-          This looks like the least likely row on the page, and the observed
-          data agrees: architects rarely become electrical engineers. It
-          stays on the graph because the posting-skill overlap is real and
-          because the version of this move that works is narrower than the
-          job title. Architects who have run MEP coordination know building
-          electrical systems as a consumer: loads, panels, lighting design,
-          code clearances. The working pivot is into building-systems roles,
-          lighting design, low-voltage and controls coordination,
-          commissioning, where that consumer knowledge plus documentation
-          discipline is the actual job, and where the PE is only required at
-          the sign-off seat. The version that does not work without going
-          back to school is product and power engineering; PLCs and circuit
-          design are a different profession. If lighting is the part of
-          buildings you already care about most, this route is quietly one of
-          the best-paid design-adjacent seats in the industry. Start by
-          taking the lighting package on your next project instead of
-          delegating it.
-        </p>
+        <p>This looks like the least likely row on the page, and the observed data agrees: architects rarely become <strong>electrical engineers</strong>. It stays on the graph because the posting-skill overlap is real and because the version of this move that works is narrower than the job title.</p>
+        <p>Architects who have run <a className="gl" href="/glossary#mep">MEP</a> (mechanical, electrical, and plumbing) coordination know building electrical systems as a consumer: loads, panels, lighting design, code clearances. The working pivot is into building-systems roles, lighting design, low-voltage and controls coordination, commissioning, where that consumer knowledge plus documentation discipline is the actual job, and where the <a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) is only required at the sign-off seat.</p>
+        <p>The version that does not work without going back to school is product and power engineering; <a className="gl" href="/glossary#plc">PLCs</a> (programmable logic controllers) and circuit design are a different profession. If lighting is the part of buildings you already care about most, this route is quietly one of the best-paid design-adjacent seats in the industry. Start by taking the lighting package on your next project instead of delegating it.</p>
       </>
     ),
     evidence: [
@@ -264,25 +191,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'industrial-designer',
     editorial: (
       <>
-        <p>
-          The strangest number on this page is the honest one: posted-skill
-          readiness of 15 percent, and yet industrial design is one of the
-          strongest observed destinations for people leaving architecture in
-          the federal survey data. The postings ask for Rhino, prototyping,
-          mechanical CAD, KeyShot; architecture postings mention almost none
-          of it, so the overlap math collapses. The humans move anyway,
-          because the underlying craft, form, materials, tolerances,
-          iteration under constraint, is the same discipline at a different
-          scale, and studios know it. Two things close the gap faster than
-          the number suggests. First, many architects already hold Rhino from
-          school even though their job postings never said so; the tool gap
-          is smaller than the corpus can see. Second, industrial design hires
-          on portfolio, not resume, which means the pivot is buildable
-          nights-and-weekends: three finished objects, photographed and
-          dimensioned like products, outweigh a decade of building sections.
-          If your favorite part of architecture was the detail drawing, this
-          is your route. Start with one object you can actually fabricate.
-        </p>
+        <p>The strangest number on this page is the honest one: posted-skill readiness of 15 percent, and yet <strong>industrial design</strong> is one of the strongest observed destinations for people leaving architecture in the federal survey data. The postings ask for Rhino, prototyping, mechanical CAD, KeyShot; architecture postings mention almost none of it, so the overlap math collapses. The humans move anyway, because the underlying craft, form, materials, tolerances, iteration under constraint, is the same discipline at a different scale, and studios know it.</p>
+        <p>Two things close the gap faster than the number suggests. First, many architects already hold Rhino from school even though their job postings never said so; the tool gap is smaller than the corpus can see. Second, industrial design hires on portfolio, not resume, which means the pivot is buildable nights-and-weekends: three finished objects, photographed and dimensioned like products, outweigh a decade of building sections.</p>
+        <p>If your favorite part of architecture was the detail drawing, this is your route. Start with one object you can actually fabricate.</p>
       </>
     ),
     evidence: [
@@ -305,25 +216,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'mechanical-engineer',
     editorial: (
       <>
-        <p>
-          There are two mechanical engineerings, and the route only works
-          toward one of them. Product and manufacturing mechanical
-          engineering, FEA, mechanism design, GD&amp;T, is a separate
-          education; observed transitions from architecture are effectively
-          zero and the postings&rsquo; skill lists explain why. Building
-          mechanical, though, is the HVAC half of the MEP table you have
-          coordinated for years, and it behaves like the electrical route:
-          your consumer-side knowledge of systems, clearances, and
-          coordination is genuinely scarce on the engineering side of the
-          table. The pragmatic versions are energy modeling, commissioning,
-          and mechanical BIM coordination, seats where Revit MEP fluency plus
-          construction literacy beat a junior engineer&rsquo;s coursework,
-          and where the PE lives with the engineer of record. If what you
-          want is the word &ldquo;engineer&rdquo; on a product team, plan for
-          school. If what you want is buildings from the systems side, you
-          can be useful in month one. Be precise about which, because the
-          two paths share a job title and nothing else.
-        </p>
+        <p>There are two mechanical engineerings, and the route only works toward one of them. Product and manufacturing mechanical engineering, <a className="gl" href="/glossary#fea">FEA</a> (finite element analysis), mechanism design, <a className="gl" href="/glossary#gdt">GD&amp;T</a> (geometric dimensioning and tolerancing), is a separate education; observed transitions from architecture are effectively zero and the postings&rsquo; skill lists explain why.</p>
+        <p><strong>Building mechanical</strong>, though, is the <a className="gl" href="/glossary#hvac">HVAC</a> (heating, ventilation, and air conditioning) half of the <a className="gl" href="/glossary#mep">MEP</a> (mechanical, electrical, and plumbing) table you have coordinated for years, and it behaves like the electrical route: your consumer-side knowledge of systems, clearances, and coordination is genuinely scarce on the engineering side of the table. The pragmatic versions are energy modeling, commissioning, and mechanical <a className="gl" href="/glossary#bim">BIM</a> (building information modeling) coordination, seats where Revit MEP fluency plus construction literacy beat a junior engineer&rsquo;s coursework, and where the <a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) lives with the engineer of record.</p>
+        <p>If what you want is the word &ldquo;engineer&rdquo; on a product team, plan for school. If what you want is buildings from the systems side, you can be useful in month one. Be precise about which, because the two paths share a job title and nothing else.</p>
       </>
     ),
     evidence: [
@@ -346,24 +241,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'mep-engineer',
     editorial: (
       <>
-        <p>
-          This is the shortest walk on the page: same buildings, same Revit
-          models, same meetings, one seat over. MEP engineering runs on
-          exactly the coordination discipline architecture already drilled
-          into you, and the destination&rsquo;s posting language, BIM,
-          clash detection, documentation, project management, reads like an
-          architect&rsquo;s resume with two words changed. What changes is
-          allegiance: you stop defending the design against the systems and
-          start making the systems defensible. The technical gap is honest
-          but bounded, sizing logic, equipment schedules, code paths for
-          each trade, and firms teach it, because MEP has been
-          under-staffed for a decade and coordination-literate hires are the
-          bottleneck. The PE gates sign-off, not employment. The subtle risk
-          is career shape, not entry: MEP coordination can become a
-          permanent middle seat if you let it. Go in with the intention to
-          own a trade (mechanical or electrical) within two years, not to
-          remain the person who runs clash reports between them.
-        </p>
+        <p>This is the shortest walk on the page: same buildings, same Revit models, same meetings, one seat over. <a className="gl" href="/glossary#mep">MEP</a> (mechanical, electrical, and plumbing) engineering runs on exactly the coordination discipline architecture already drilled into you, and the destination&rsquo;s posting language, <a className="gl" href="/glossary#bim">BIM</a> (building information modeling), clash detection, documentation, project management, reads like an architect&rsquo;s resume with two words changed. What changes is <strong>allegiance</strong>: you stop defending the design against the systems and start making the systems defensible.</p>
+        <p>The technical gap is honest but bounded, sizing logic, equipment schedules, code paths for each trade, and firms teach it, because MEP has been under-staffed for a decade and coordination-literate hires are the bottleneck. The <a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) gates sign-off, not employment.</p>
+        <p>The subtle risk is career shape, not entry: MEP coordination can become a permanent middle seat if you let it. Go in with the intention to own a trade (mechanical or electrical) within two years, not to remain the person who runs clash reports between them.</p>
       </>
     ),
     evidence: [
@@ -385,26 +265,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'ux-designer',
     editorial: (
       <>
-        <p>
-          The 19 percent readiness on this page is the most misleading number
-          in the set, and worth explaining before you believe it. UX postings
-          ask for a stack of words, user research, interaction design, design
-          systems, that graphic-design postings simply do not print, so the
-          overlap math reads low. But look at what the corpus already credits
-          graphic designers with: Figma, prototyping, wireframing,
-          accessibility. The tools are mostly shared. What is not shared is a
-          way of working. Graphic design defends a final artifact; UX defends
-          a decision, and has to show the research and the failed variants
-          that led there. The gap most graphic designers underestimate is not
-          skill, it is evidence: a portfolio of beautiful screens reads as
-          graphic design no matter how it is labeled. The move is won or lost
-          on one case study that shows a problem, the research, three
-          rejected directions, and a measured outcome. The pay makes the work
-          worth it, UX medians run tens of thousands above graphic design,
-          and BLS projects the two fields moving in opposite directions.
-          Concrete first step: take one project you already shipped and
-          rewrite it as a process story, not a gallery.
-        </p>
+        <p>The 19 percent readiness on this page is the most misleading number in the set, and worth explaining before you believe it. <a className="gl" href="/glossary#ux">UX</a> (user-experience design) postings ask for a stack of words, user research, interaction design, design systems, that graphic-design postings simply do not print, so the overlap math reads low. But look at what the corpus already credits graphic designers with: Figma, prototyping, wireframing, accessibility. The tools are mostly shared. What is not shared is a way of working. Graphic design defends a final artifact; UX defends a decision, and has to show the research and the failed variants that led there.</p>
+        <p>The gap most graphic designers underestimate is not skill, it is <strong>evidence</strong>: a portfolio of beautiful screens reads as graphic design no matter how it is labeled. The move is won or lost on one case study that shows a problem, the research, three rejected directions, and a measured outcome.</p>
+        <p>The pay makes the work worth it, UX medians run tens of thousands above graphic design, and <a className="gl" href="/glossary#bls">BLS</a> (the US Bureau of Labor Statistics) projects the two fields moving in opposite directions. <strong>Concrete first step:</strong> take one project you already shipped and rewrite it as a process story, not a gallery.</p>
       </>
     ),
     evidence: [
@@ -428,26 +291,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'instructional-designer',
     editorial: (
       <>
-        <p>
-          This is the exit teachers search for most, and the 12 percent
-          readiness badly undersells it, because a classroom teacher already
-          does the core of the job under a different name. Curriculum
-          development, facilitation, assessment design, differentiating for
-          an audience that is not following: that is instructional design
-          with children in the room. What the corpus cannot see is that the
-          skill is there; what it correctly sees is that the tooling and the
-          vocabulary are not. Instructional design runs on authoring software
-          (Storyline, Captivate, Rise), an LMS, and a shared language of
-          ADDIE, learning objectives, and stakeholder sign-off that corporate
-          hiring managers screen for by keyword. The other quiet advantage is
-          on this page: 11 percent of instructional-design postings in our
-          corpus are fully remote, unusually high, against a classroom that
-          is remote essentially never. The move is real but it is not free,
-          you are trading a credential you already hold for a portfolio you
-          do not yet have. Concrete first step: rebuild one unit you have
-          taught a hundred times as a self-paced e-learning module in a free
-          trial of an authoring tool, and let that be the whole interview.
-        </p>
+        <p>This is the exit teachers search for most, and the 12 percent readiness badly undersells it, because a classroom teacher already does the core of the job under a different name. Curriculum development, facilitation, assessment design, differentiating for an audience that is not following: that is <strong>instructional design</strong> with children in the room.</p>
+        <p>What the corpus cannot see is that the skill is there; what it correctly sees is that the tooling and the vocabulary are not. Instructional design runs on authoring software (Storyline, Captivate, Rise), an <a className="gl" href="/glossary#lms">LMS</a> (learning management system), and a shared language of <a className="gl" href="/glossary#addie">ADDIE</a> (analysis, design, development, implementation, evaluation), learning objectives, and stakeholder sign-off that corporate hiring managers screen for by keyword. The other quiet advantage is on this page: 11 percent of instructional-design postings in our corpus are fully remote, unusually high, against a classroom that is remote essentially never.</p>
+        <p>The move is real but it is not free, you are trading a credential you already hold for a portfolio you do not yet have. <strong>Concrete first step:</strong> rebuild one unit you have taught a hundred times as a self-paced e-learning module in a free trial of an authoring tool, and let that be the whole interview.</p>
       </>
     ),
     evidence: [
@@ -471,27 +317,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'nurse-practitioner',
     editorial: (
       <>
-        <p>
-          This is the highest-readiness route we publish, 78 percent, and the
-          observed data agrees emphatically: it is the single most common
-          destination for registered nurses who move, and the flow score
-          pins at 100. Everything about the clinical skill transfers, because
-          it is the same profession one credential up. So read the readiness
-          number carefully, because it measures skills, not the wall. The
-          wall is a graduate degree, an MSN or increasingly a DNP, plus a
-          national certification and a state APRN license, and that is
-          typically two to four years of school layered on top of the
-          bedside job, not the six-to-twelve-month skill-closing estimate
-          this page shows. Those two numbers answer different questions. The
-          skills say you are ready; the credential says you are not yet
-          allowed. That is not a discouragement, it is the whole planning
-          problem: this is a school decision and a specialty decision more
-          than a skills decision. The nurses who navigate it well pick the
-          population focus, family, acute care, psychiatric, before they
-          enroll, because switching tracks mid-program is expensive.
-          Concrete first step: shadow an NP in the specialty you think you
-          want for a week before you apply anywhere.
-        </p>
+        <p>This is the highest-readiness route we publish, 78 percent, and the observed data agrees emphatically: it is the single most common destination for registered nurses who move, and the flow score pins at 100. Everything about the clinical skill transfers, because it is the same profession one credential up.</p>
+        <p>So read the readiness number carefully, because it measures skills, not <strong>the wall</strong>. The wall is a graduate degree, an <a className="gl" href="/glossary#msn-dnp">MSN</a> (a Master of Science in Nursing) or increasingly a DNP (Doctor of Nursing Practice), plus a national certification and a state <a className="gl" href="/glossary#aprn">APRN</a> (advanced practice registered nurse) license, and that is typically two to four years of school layered on top of the bedside job, not the six-to-twelve-month skill-closing estimate this page shows. Those two numbers answer different questions. The skills say you are ready; the credential says you are not yet allowed. That is not a discouragement, it is the whole planning problem: this is a school decision and a specialty decision more than a skills decision.</p>
+        <p>The nurses who navigate it well pick the population focus, family, acute care, psychiatric, before they enroll, because switching tracks mid-program is expensive. <strong>Concrete first step:</strong> shadow a nurse practitioner in the specialty you think you want for a week before you apply anywhere.</p>
       </>
     ),
     evidence: [
@@ -515,27 +343,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'financial-analyst',
     editorial: (
       <>
-        <p>
-          Accountants and financial analysts share a spreadsheet and disagree
-          about which direction time runs. Accounting is the record of what
-          happened, closed, reconciled, compliant. Analysis is the argument
-          about what happens next, forecasts, variance, the model behind a
-          budget request. The 43 percent readiness reflects that the raw
-          financial fluency transfers, forecasting, modeling, and budgeting
-          are already in the accountant&rsquo;s HAVE list, while the
-          forward-looking framing and the presentation layer are not. The
-          real gap is rarely technical. It is that analysts have to sell a
-          conclusion to people who will not read the workbook, so data
-          visualization and the one-slide narrative matter more than another
-          reconciliation ever did. For securities-facing roles a FINRA
-          license enters the picture, and the CFA is common though not
-          required for corporate FP&amp;A, which is the usual landing spot.
-          The pay premium is real but modest at the entry, around a fifth
-          more per external benchmarks, and widens with the CFA. Concrete
-          first step: take last quarter&rsquo;s actuals from your own
-          employer, build a variance-and-forecast model on top, and turn it
-          into a single slide a non-finance manager would act on.
-        </p>
+        <p>Accountants and <strong>financial analysts</strong> share a spreadsheet and disagree about which direction time runs. Accounting is the record of what happened, closed, reconciled, compliant. Analysis is the argument about what happens next, forecasts, variance, the model behind a budget request.</p>
+        <p>The 43 percent readiness reflects that the raw financial fluency transfers, forecasting, modeling, and budgeting are already in the accountant&rsquo;s HAVE list, while the forward-looking framing and the presentation layer are not. The real gap is rarely technical. It is that analysts have to sell a conclusion to people who will not read the workbook, so data visualization and the one-slide narrative matter more than another reconciliation ever did.</p>
+        <p>For securities-facing roles a <a className="gl" href="/glossary#finra">FINRA</a> (the Financial Industry Regulatory Authority) license enters the picture, and the <a className="gl" href="/glossary#cfa">CFA</a> (the Chartered Financial Analyst credential) is common though not required for corporate <a className="gl" href="/glossary#fpa">FP&amp;A</a> (financial planning and analysis), which is the usual landing spot. The pay premium is real but modest at the entry, around a fifth more per external benchmarks, and widens with the CFA. <strong>Concrete first step:</strong> take last quarter&rsquo;s actuals from your own employer, build a variance-and-forecast model on top, and turn it into a single slide a non-finance manager would act on.</p>
       </>
     ),
     evidence: [
@@ -559,27 +369,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'solutions-architect',
     editorial: (
       <>
-        <p>
-          This is the cleanest senior move a software engineer can make on
-          our graph, 60 percent readiness, and the observed data confirms
-          engineers actually walk it. The cloud fluency is already there,
-          AWS, Azure, Python sit in the HAVE list, so the role is less a
-          retraining than a change in altitude. A software engineer is
-          measured by the code they ship; a solutions architect is measured
-          by the systems they let other people ship, and by whether the
-          business bought the design. That shift is where the real work is.
-          The gap is not technical depth, engineers usually have too much of
-          it, it is breadth and translation: sketching a system across
-          services you will never personally write, sizing tradeoffs for a
-          budget conversation, and explaining the whole thing to a room that
-          cannot read a stack trace. Pre-sales and stakeholder framing feel
-          foreign to a lot of strong engineers, and they are exactly the
-          differentiator. The pay band, 95,000 to 160,000 in our corpus,
-          reflects the seniority. Concrete first step: volunteer to own the
-          design document for the next cross-team system, then present it to
-          the least technical stakeholder you can find and rewrite whatever
-          they did not follow.
-        </p>
+        <p>This is the cleanest senior move a software engineer can make on our graph, 60 percent readiness, and the observed data confirms engineers actually walk it. The cloud fluency is already there, AWS, Azure, Python sit in the HAVE list, so the role is less a retraining than a change in altitude. A software engineer is measured by the code they ship; a <strong>solutions architect</strong> is measured by the systems they let other people ship, and by whether the business bought the design. That shift is where the real work is.</p>
+        <p>The gap is not technical depth, engineers usually have too much of it, it is breadth and translation: sketching a system across services you will never personally write, sizing tradeoffs for a budget conversation, and explaining the whole thing to a room that cannot read a stack trace. Pre-sales and stakeholder framing feel foreign to a lot of strong engineers, and they are exactly the differentiator.</p>
+        <p>The pay band, 95,000 to 160,000 in our corpus, reflects the seniority. <strong>Concrete first step:</strong> volunteer to own the design document for the next cross-team system, then present it to the least technical stakeholder you can find and rewrite whatever they did not follow.</p>
       </>
     ),
     evidence: [
@@ -603,26 +395,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'machine-learning-engineer',
     editorial: (
       <>
-        <p>
-          These two roles are close enough, 51 percent readiness and a matching
-          observed-flow score, that companies routinely blur them, which is
-          exactly why the distinction is worth naming before you pivot. A data
-          scientist proves a model works. A machine-learning engineer makes it
-          run at three in the morning without waking anyone. The modeling half
-          transfers wholesale, machine learning, deep learning, LLMs, and
-          Python are all in the HAVE list, so nobody doubts you understand the
-          model. What the corpus flags as missing is the production stack:
-          MLOps, serving, monitoring, the discipline of turning a notebook into
-          a service with tests and rollback. That is real software engineering,
-          and it is the part a lot of data scientists have avoided precisely
-          because it is not modeling. The LLM wave has widened the seat, RAG,
-          vector search, and fine-tuning now sit inside the job, and demand is
-          concentrated there. The pay band tops out around 165,000 in our
-          corpus, slightly above the pure data-science band, and the gap is
-          the engineering. Concrete first step: take one model you have
-          already trained and stand it up as a monitored endpoint with a test
-          suite, then treat everything that broke as your syllabus.
-        </p>
+        <p>These two roles are close enough, 51 percent readiness and a matching observed-flow score, that companies routinely blur them, which is exactly why the distinction is worth naming before you pivot. A data scientist proves a model works. A <strong>machine-learning engineer</strong> makes it run at three in the morning without waking anyone.</p>
+        <p>The modeling half transfers wholesale, machine learning, deep learning, <a className="gl" href="/glossary#llm">LLMs</a> (large language models), and Python are all in the HAVE list, so nobody doubts you understand the model. What the corpus flags as missing is the production stack: <a className="gl" href="/glossary#mlops">MLOps</a> (machine-learning operations), serving, monitoring, the discipline of turning a notebook into a service with tests and rollback. That is real software engineering, and it is the part a lot of data scientists have avoided precisely because it is not modeling.</p>
+        <p>The LLM wave has widened the seat, <a className="gl" href="/glossary#rag">RAG</a> (retrieval-augmented generation), vector search, and fine-tuning now sit inside the job, and demand is concentrated there. The pay band tops out around 165,000 in our corpus, slightly above the pure data-science band, and the gap is the engineering. <strong>Concrete first step:</strong> take one model you have already trained and stand it up as a monitored endpoint with a test suite, then treat everything that broke as your syllabus.</p>
       </>
     ),
     evidence: [
@@ -646,26 +421,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'product-manager',
     editorial: (
       <>
-        <p>
-          The 19 percent readiness here hides one of the most reliable pivots
-          in tech, and the observed-flow score of 41 is the tell: marketers
-          become product managers constantly, whatever the skill math says.
-          The reason the match reads low is that product-manager postings are
-          written in an engineering-adjacent dialect, APIs, agile, observability,
-          that marketing postings do not use, even though a good marketing
-          manager already runs experiments, reads funnels, and owns a number.
-          A/B testing and data analysis are in the HAVE list for a reason.
-          What a marketer genuinely lacks is technical fluency with the build
-          side: enough understanding of how the thing is made to write a spec
-          engineers respect and to say no to scope with a real reason. Product
-          management is customer empathy plus prioritization plus technical
-          credibility, and marketers arrive with the first two and have to
-          earn the third. The pay ceiling is high, up to 175,000 in our corpus,
-          and remote availability is unusually good at 15 percent. Concrete
-          first step: attach yourself to one feature end to end, write its
-          spec, sit in the standups, and ship it, so your resume has a product
-          shipped rather than a campaign run.
-        </p>
+        <p>The 19 percent readiness here hides one of the most reliable pivots in tech, and the observed-flow score of 41 is the tell: marketers become <strong>product managers</strong> constantly, whatever the skill math says. The reason the match reads low is that product-manager postings are written in an engineering-adjacent dialect, APIs, agile, observability, that marketing postings do not use, even though a good marketing manager already runs experiments, reads funnels, and owns a number. A/B testing and data analysis are in the HAVE list for a reason.</p>
+        <p>What a marketer genuinely lacks is technical fluency with the build side: enough understanding of how the thing is made to write a spec engineers respect and to say no to scope with a real reason. Product management is customer empathy plus prioritization plus technical credibility, and marketers arrive with the first two and have to earn the third.</p>
+        <p>The pay ceiling is high, up to 175,000 in our corpus, and remote availability is unusually good at 15 percent. <strong>Concrete first step:</strong> attach yourself to one feature end to end, write its spec, sit in the standups, and ship it, so your resume has a product shipped rather than a campaign run.</p>
       </>
     ),
     evidence: [
@@ -689,28 +447,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'lawyer',
     editorial: (
       <>
-        <p>
-          This is the search everyone types and the move almost nobody makes
-          directly, and the honest version of this page has to say why. The
-          35 percent readiness looks encouraging, and the substantive
-          knowledge is genuinely there, paralegals live in contracts,
-          compliance, and negotiation, but readiness measures skills and the
-          barrier here is a credential that skills cannot shortcut. Becoming a
-          lawyer means law school and bar admission, three years and an exam,
-          and no amount of paralegal experience reduces the legal requirement
-          by a day. Paralegals also have the clearest possible view of what
-          the job actually is, which is why many who consider it choose one of
-          the adjacent seats instead: compliance officer, contract manager,
-          and legal operations all reward the exact knowledge a paralegal
-          already holds and none of them require the bar. So the real decision
-          is binary and worth being honest with yourself about. If you want to
-          practice law, the paralegal years are excellent preparation and zero
-          shortcut, budget the JD. If you want the pay and the seniority
-          without the courtroom, the compliance route is adjacent, uncredentialed,
-          and faster. Concrete first step: sit in on the work of both a junior
-          associate and a compliance officer before you spend a dollar on the
-          LSAT.
-        </p>
+        <p>This is the search everyone types and the move almost nobody makes directly, and the honest version of this page has to say why. The 35 percent readiness looks encouraging, and the substantive knowledge is genuinely there, paralegals live in contracts, compliance, and negotiation, but readiness measures skills and the barrier here is a credential that skills cannot shortcut. Becoming a lawyer means law school and bar admission, three years and an exam, and no amount of paralegal experience reduces the legal requirement by a day.</p>
+        <p>Paralegals also have the clearest possible view of what the job actually is, which is why many who consider it choose one of the adjacent seats instead: compliance officer, contract manager, and legal operations all reward the exact knowledge a paralegal already holds and none of them require the bar. So the real decision is <strong>binary</strong>, and worth being honest with yourself about. If you want to practice law, the paralegal years are excellent preparation and zero shortcut, budget the JD (the three-year law degree). If you want the pay and the seniority without the courtroom, the compliance route is adjacent, uncredentialed, and faster.</p>
+        <p><strong>Concrete first step:</strong> sit in on the work of both a junior associate and a compliance officer before you spend a dollar on the LSAT (the law-school admission test).</p>
       </>
     ),
     evidence: [
@@ -734,27 +473,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'data-engineer',
     editorial: (
       <>
-        <p>
-          Of every route in this batch, this one has the strongest human
-          signal: an observed-flow score of 100, meaning data engineer is the
-          single most common place data analysts actually go. The 42 percent
-          readiness understates a move the market clearly rewards. Analysts
-          already hold the load-bearing skills, SQL, Python, and ETL are all
-          in the HAVE list, so the pivot is less a new profession than a
-          change in what you are responsible for. An analyst queries the data
-          and answers the question. An engineer builds and owns the pipes that
-          deliver the data reliably, on schedule, at scale, so that a hundred
-          analysts can answer their questions without noticing the plumbing.
-          The gap is orchestration and infrastructure: dbt, Airflow, warehouse
-          modeling, and the on-call mindset that comes with owning a pipeline
-          other people depend on. That last part is the real adjustment,
-          analysts ship insights, engineers ship systems that must not break.
-          The pay rewards it, 75,000 to 130,000 in our corpus, above the
-          typical analyst band. Concrete first step: take one report you
-          currently refresh by hand and rebuild it as an automated pipeline
-          with dbt and a scheduler, then keep it running for a month and fix
-          whatever fails.
-        </p>
+        <p>Of every route in this batch, this one has the strongest human signal: an observed-flow score of 100, meaning <strong>data engineer</strong> is the single most common place data analysts actually go. The 42 percent readiness understates a move the market clearly rewards. Analysts already hold the load-bearing skills, <a className="gl" href="/glossary#sql">SQL</a> (Structured Query Language), Python, and <a className="gl" href="/glossary#etl">ETL</a> (extract, transform, load) are all in the HAVE list, so the pivot is less a new profession than a change in what you are responsible for.</p>
+        <p>An analyst queries the data and answers the question. An engineer builds and owns the pipes that deliver the data reliably, on schedule, at scale, so that a hundred analysts can answer their questions without noticing the plumbing. The gap is orchestration and infrastructure: dbt, Airflow, warehouse modeling, and the on-call mindset that comes with owning a pipeline other people depend on. That last part is the real adjustment, analysts ship insights, engineers ship systems that must not break.</p>
+        <p>The pay rewards it, 75,000 to 130,000 in our corpus, above the typical analyst band. <strong>Concrete first step:</strong> take one report you currently refresh by hand and rebuild it as an automated pipeline with dbt and a scheduler, then keep it running for a month and fix whatever fails.</p>
       </>
     ),
     evidence: [
@@ -778,27 +499,9 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'project-manager',
     editorial: (
       <>
-        <p>
-          At 66 percent readiness this is one of the smoother transitions we
-          track, and it is smooth for a specific reason: business analysts
-          already sit in the meetings project managers run. Requirements,
-          stakeholder wrangling, and data analysis are shared ground, and
-          project management already appears in the analyst&rsquo;s own skill
-          list. The distinction is one of ownership. A business analyst
-          defines what should be built and why; a project manager owns getting
-          it delivered, on a schedule, within a budget, past the risks. That
-          sounds like a small step and is actually the whole job, because
-          delivery accountability changes how you spend every hour. The gaps
-          the corpus flags are the formal apparatus of that accountability:
-          risk management, schedule and budget ownership, and the stakeholder
-          management that is less about gathering requirements and more about
-          holding people to commitments. A PMP or CAPM certification is the
-          common signal here, and unlike the licensed routes on this site it
-          is measured in months, not years. Concrete first step: on your
-          current project, volunteer to own the schedule and the risk log
-          yourself rather than feeding them to the PM, and run them for one
-          full delivery cycle.
-        </p>
+        <p>At 66 percent readiness this is one of the smoother transitions we track, and it is smooth for a specific reason: business analysts already sit in the meetings project managers run. Requirements, stakeholder wrangling, and data analysis are shared ground, and project management already appears in the analyst&rsquo;s own skill list. The distinction is one of <strong>ownership</strong>. A business analyst defines what should be built and why; a project manager owns getting it delivered, on a schedule, within a budget, past the risks. That sounds like a small step and is actually the whole job, because delivery accountability changes how you spend every hour.</p>
+        <p>The gaps the corpus flags are the formal apparatus of that accountability: risk management, schedule and budget ownership, and the stakeholder management that is less about gathering requirements and more about holding people to commitments. A <a className="gl" href="/glossary#pmp">PMP</a> (the Project Management Professional certification) or entry-level CAPM is the common signal here, and unlike the licensed routes on this site it is measured in months, not years.</p>
+        <p><strong>Concrete first step:</strong> on your current project, volunteer to own the schedule and the risk log yourself rather than feeding them to the PM, and run them for one full delivery cycle.</p>
       </>
     ),
     evidence: [

@@ -77,6 +77,18 @@ export const GLOSSARY: GlossaryEntry[] = [
     def: 'The building-systems engineering disciplines that sit alongside architecture on every project. Because architects coordinate MEP work for years, MEP engineering is the closest lateral move on our graph for many of them.',
   },
   {
+    id: 'fea', term: 'FEA', full: 'Finite Element Analysis', cat: 'term',
+    def: 'The numerical method engineers use to simulate how a structure or part behaves under load, by breaking it into a mesh of small elements. FEA fluency is the degree-shaped core of the architect-to-structural-engineer gap: reading structural drawings is not the same as producing the analysis behind them.',
+  },
+  {
+    id: 'gdt', term: 'GD&T', full: 'Geometric Dimensioning and Tolerancing', cat: 'term',
+    def: 'The symbolic language that specifies the allowable variation on a manufactured part, standard on product and mechanical drawings. It belongs to product-side mechanical engineering, one reason that half of the field is a separate education from building mechanical.',
+  },
+  {
+    id: 'plc', term: 'PLC', full: 'Programmable Logic Controller', cat: 'term',
+    def: 'The ruggedized industrial computer that runs machinery and process automation. PLC and circuit design mark the boundary between the building-electrical work an architect can pivot into and the power-and-product electrical engineering that requires going back to school.',
+  },
+  {
     id: 'pe-license', term: 'PE', full: 'Professional Engineer license', cat: 'term',
     def: 'The state license that lets an engineer take legal responsibility for work, “sign and seal” drawings, in civil, structural, mechanical, and electrical practice. It gates responsible-charge roles but not every product or coordination seat, a distinction that matters for architects eyeing an engineering pivot.',
   },

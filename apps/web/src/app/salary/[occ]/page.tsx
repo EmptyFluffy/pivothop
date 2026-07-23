@@ -53,8 +53,8 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         <h1 className="rt-h1">{f.title} salary</h1>
         <p className="rt-dek">
           {`What a ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live US postings blended with official `}
-          <a className="gl" href="/glossary#oews">BLS OEWS</a>
-          {` wage data. Median, range, the official trend${history.length >= 2 ? ` since ${history[0].year}` : ''}, and how it splits by seniority and country. Updated ${f.updated}.`}
+          <a className="gl" href="/glossary#oews">OEWS</a>
+          {` (Occupational Employment and Wage Statistics) wage data. Median, range, the official trend${history.length >= 2 ? ` since ${history[0].year}` : ''}, and how it splits by seniority and country. Updated ${f.updated}.`}
         </p>
 
         <div className="rt-facts">
@@ -163,11 +163,13 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         </div>
 
         <p className="rt-method lbl">
-          {`Method: bands are the 25th, 50th, and 75th percentiles of live US postings with stated pay, shrunk toward the official `}
-          <a className="gl" href="/glossary#oews">OEWS</a>
-          {` anchor by sample size (the “blended” figure). Trend is the OEWS annual median for `}
+          {`Method: bands are the 25th, 50th, and 75th percentiles of live US postings with stated pay, shrunk toward the official OEWS anchor by sample size (the “blended” figure). Trend is the OEWS annual median for `}
           <a className="gl" href="/glossary#soc">SOC</a>
-          {` ${f.soc}.${f.unemployment ? ` Unemployment is the 2025 BLS CPS annual-average rate for “${f.unemployment.label}.”` : ''} Live corpus ${f.observations.toLocaleString()} observations, ${f.updated}. Definitions in the `}
+          {` (Standard Occupational Classification) code ${f.soc}.`}
+          {f.unemployment ? (
+            <>{` Unemployment is the 2025 `}<a className="gl" href="/glossary#bls">BLS</a>{` (Bureau of Labor Statistics) `}<a className="gl" href="/glossary#cps">CPS</a>{` (Current Population Survey) annual-average rate for “${f.unemployment.label}.”`}</>
+          ) : ''}
+          {` Live corpus ${f.observations.toLocaleString()} observations, ${f.updated}. Definitions in the `}
           <Link className="gl" href="/glossary">glossary</Link>.
         </p>
       </div>

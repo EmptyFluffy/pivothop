@@ -129,7 +129,12 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
         )}
 
         <p className="rt-method lbl">
-          {`Method: skill readiness is coverage of the destination’s posting-skill weight by a typical ${originLc} profile; salary bands are posted 25th–75th percentiles; observed flow is CPS-derived worker-transition data (see the method section on the instrument). July 2026 corpus.`}{om.separations?.transfer != null ? ` In a typical year ${om.separations.transfer}% of ${originLc} workers move to a different occupation (BLS EP 2024–34).` : ''}
+          {`Method: skill readiness is coverage of the destination’s posting-skill weight by a typical ${originLc} profile; salary bands are posted 25th–75th percentiles; observed flow is worker-transition data derived from the `}
+          <a className="gl" href="/glossary#cps">CPS</a>
+          {` (Current Population Survey; see the method section on the instrument). July 2026 corpus.`}
+          {om.separations?.transfer != null ? (
+            <>{` In a typical year ${om.separations.transfer}% of ${originLc} workers move to a different occupation (`}<a className="gl" href="/glossary#bls">BLS</a>{` Employment Projections, 2024–34).`}</>
+          ) : ''}
         </p>
       </div>
 

@@ -299,6 +299,35 @@ Numbered row, terse title, one flat sentence. Verb-first titles for the user's a
 
 **The signature line:** "Just the numbers." Once per major surface, maximum.
 
+### Acronyms and the glossary — the first-mention rule
+
+We assume the reader knows their own field, not ours. So every acronym, credential, and dataset name is spelled out the first time it appears on a page, and the acronym itself links to its glossary entry. This is not optional. A reader who hits "OEWS" or "FF&E" cold and gets no expansion and no link is a reader we lost.
+
+The pattern, everywhere prose is rendered:
+
+```jsx
+<a className="gl" href="/glossary#oews">OEWS</a> (Occupational Employment and Wage Statistics)
+```
+
+The linked short form, then the spelled-out form in parentheses. The glossary is the single source of truth: every term there has an `id`, and that `id` is the anchor. If a term is not in `apps/web/src/app/glossary/glossary-data.ts`, add it there first, then link it.
+
+Rules that keep it consistent:
+
+- **First mention is per rendered page, not per file.** On the generated salary and route pages, the template introduces the shared data acronyms (OEWS, BLS, SOC, CPS) in the facts strip and method note, which render *above* the editorial. So those are linked once, in the template. A per-occupation or per-route editorial links only the profession acronyms it introduces (PE, MEP, CFA, PMP, ADDIE, APRN, and so on) — it does not re-link OEWS, because the template already did, higher up the page.
+- **One link per acronym per page.** The first occurrence carries the link and the expansion. Later occurrences on the same page are bare text. Re-linking every instance is noise.
+- **Plain-text strings cannot carry a link.** FAQ answers are string values, not JSX, so they render as text. There, spell the acronym out in prose instead of linking it.
+- **The expansion is lowercase unless it is a proper noun.** "(certified public accountant)" but "(the Federal Aviation Administration)". Pull the exact wording from the glossary entry's `full` field and adjust the case to read as a sentence.
+
+Applies to blog posts, salary pages, route pages, and any new surface. When you add a page or a post, the acceptance check is: no acronym renders without its first-mention expansion and link.
+
+### Bold, in body prose
+
+The no-inline-bolding law above governs *emphasis*. It does not forbid bold as a *structural label*. In the route and blog editorials, `<strong>` marks the thing being named — a destination role, a specific skill, the "Concrete first step:" lead-in — not an ordinary word we want to shout. One or two per paragraph, on nouns that are the subject of the sentence. If the bolded phrase is an adjective or a verb, it is emphasis, and it comes out.
+
+### Route editorials — the shape
+
+The judgment-call block under each route graph is prose, and prose breathes in paragraphs. One wall of text is a draft, not a finished block. Break each editorial into three or four short paragraphs along its natural seams: the claim, what actually changes, where the gap really is, and the concrete first step. Bold the destination role and the named skills on first use per the rule above. Link every profession acronym on first mention. Same voice as everywhere else: deadpan, numbers over adjectives, no em dashes.
+
 ---
 
 ## Photography and imagery
