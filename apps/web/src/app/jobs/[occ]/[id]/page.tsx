@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
-import { getJob, getJobs, getJobDesc, jobOccupations, occTitle } from '../../jobs-data';
+import { getJob, getJobs, getJobSections, jobOccupations, occTitle, type JobSection } from '../../jobs-data';
 import { salaryLabel, postedLabel, sourceName } from '../../JobCard';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
@@ -24,14 +24,36 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   };
 }
 
+// One description section: paragraphs, with consecutive "· " lines grouped into lists.
+function SectionBody({ t }: { t: string }) {
+  const blocks: ({ ul: string[] } | { p: string })[] = [];
+  let ul: string[] | null = null;
+  let para: string[] = [];
+  const flushP = () => { if (para.length) { blocks.push({ p: para.join('\n') }); para = []; } };
+  const flushU = () => { if (ul?.length) blocks.push({ ul }); ul = null; };
+  for (const raw of t.split('\n')) {
+    const line = raw.trim();
+    if (line.startsWith('· ')) { flushP(); (ul ??= []).push(line.slice(2)); }
+    else if (line === '') { flushP(); flushU(); }
+    else { flushU(); para.push(line); }
+  }
+  flushP(); flushU();
+  return (
+    <>
+      {blocks.map((b, i) => 'ul' in b
+        ? <ul key={i} className="jd-ul">{b.ul.map((li, k) => <li key={k}>{li}</li>)}</ul>
+        : <p key={i}>{b.p}</p>)}
+    </>
+  );
+}
+
 export default async function JobDetailPage({ params }: { params: Promise<{ occ: string; id: string }> }) {
   const { occ, id } = await params;
   const j = getJob(occ, id);
   if (!j) notFound();
   const title = occTitle(occ);
   const tl = title.toLowerCase();
-  const desc = getJobDesc(occ, id);
-  const paras = desc.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean).slice(0, 40);
+  const sections: JobSection[] = getJobSections(occ, id);
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   const hasSalary = coverableSlugs().includes(occ);
@@ -64,10 +86,15 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <span className="lbl">Opens the original posting. PivotHop does not host applications.</span>
         </div>
 
-        {paras.length > 0 && (
+        {sections.length > 0 && (
           <section className="rt-sec jd-desc">
             <h2>The posting</h2>
-            {paras.map((p, i) => <p key={i}>{p}</p>)}
+            {sections.map((s, i) => (
+              <div key={i} className="jd-sec">
+                {s.h && <h3 className="jd-h3">{s.h}</h3>}
+                <SectionBody t={s.t} />
+              </div>
+            ))}
             <p className="rt-note">Excerpt from the original listing. The full, current text lives at the source. <a className="gl" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Read and apply there &rarr;</a></p>
           </section>
         )}

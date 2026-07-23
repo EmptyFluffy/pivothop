@@ -6,7 +6,8 @@ export type Job = {
   id: string; occ: string;
   title: string; company: string; location: string; remote: boolean;
   smin: number | null; smax: number | null; source: string; posted: string;
-  url?: string; // outbound apply link; present in per-occupation files, stripped from the global browse file
+  url?: string;        // outbound apply link; present in per-occupation files, stripped from the global browse file
+  featured?: boolean;  // launch featured strip
 };
 
 const k = (v: number) => '$' + Math.round(v / 1000) + 'k';
@@ -45,6 +46,7 @@ export function JobCard({ j }: { j: Job }) {
         <span className="job-side">
           {pay && <span className="job-pay">{pay}</span>}
           <span className="job-m lbl">
+            {j.featured && <span className="job-tag">Featured</span>}
             {j.remote && <span className="job-tag">Remote</span>}
             {date && <span>{date}</span>}
           </span>

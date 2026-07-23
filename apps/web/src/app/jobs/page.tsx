@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
-import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs } from './jobs-data';
+import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs, featuredJobs } from './jobs-data';
+import { salaryLabel } from './JobCard';
 import { routableSlugs } from '../routes/routes-data';
 import JobsBrowse from './JobsBrowse';
 
@@ -40,6 +41,30 @@ export default function JobsHub() {
             </p>
           </div>
         </div>
+
+        {featuredJobs().length >= 3 && (
+          <section className="feat" aria-label="Featured roles">
+            <div className="feat-head">
+              <span className="lbl acc">Featured roles</span>
+              <span className="lbl">Shown first to the candidates whose skills reach them</span>
+            </div>
+            <ul className="feat-grid">
+              {featuredJobs().map((j) => (
+                <li key={j.id}>
+                  <Link href={`/jobs/${j.occ}/${j.id}`} className="feat-card">
+                    <span className="feat-co">{j.company}</span>
+                    <span className="feat-t">{j.title}</span>
+                    <span className="feat-m lbl">
+                      {salaryLabel(j.smin, j.smax) && <b>{salaryLabel(j.smin, j.smax)}</b>}
+                      {j.remote && <span>Remote</span>}
+                      <span>{titles[j.occ]}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <JobsBrowse fields={fields} titles={titles} search={search} />
 

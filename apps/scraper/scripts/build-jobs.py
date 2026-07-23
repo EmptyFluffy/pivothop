@@ -66,6 +66,47 @@ def clean_desc(text):
     t = re.sub(r'\n{3,}', '\n\n', t)
     return t.strip()
 
+# Industry-standard job-description sections (summary / responsibilities /
+# qualifications / benefits and their common aliases). A short line matching one
+# of these stems, or any short line ending in a colon, is treated as a heading.
+_HEAD_STEMS = re.compile(
+    r'\b(responsibilit|what you.?ll do|what you will do|your (role|mission|impact|day)|the role\b|'
+    r'about (the role|this role|you|us|the (team|position|company|job))|qualification|requirement|'
+    r'who you are|what (we.?re|we are) looking|looking for|must have|nice to have|bonus point|'
+    r'preferred|what you.?ll bring|what you bring|skills? (and|&) experience|your experience|'
+    r'benefit|perk|what we offer|we offer|why (join|you.?ll love|work)|compensation|salary|pay range|'
+    r'duties|overview|summary|our (culture|values|mission)|the team\b|interview process|how to apply|'
+    r'education|experience required)', re.I)
+def to_sections(text, cap):
+    """Split cleaned text into [{h, t}] sections on detected headings."""
+    sections, cur_h, cur = [], None, []
+    def flush():
+        t = '\n'.join(cur).strip()
+        if t:
+            sections.append({'h': cur_h, 't': t})
+    used = 0
+    for line in text.split('\n'):
+        s = line.strip()
+        if used >= cap:
+            break
+        is_head = (0 < len(s) <= 64 and not s.startswith('·')
+                   and (_HEAD_STEMS.search(s) or s.endswith(':')))
+        if is_head:
+            flush()
+            cur_h, cur = s.rstrip(':').strip(), []
+        else:
+            cur.append(line)
+            used += len(line)
+    flush()
+    return sections[:12] if sections else ([{'h': None, 't': text[:cap]}] if text else [])
+
+# Recognizable employers for the launch featured strip (only those actually in
+# the corpus are used; salary-stated and freshest preferred, max two roles each).
+FEATURED_COMPANIES = {'coinbase', 'airbnb', 'databricks', 'cloudflare', 'datadog', 'mongodb',
+                      'pinterest', 'reddit', 'robinhood', 'vercel', 'stripe', 'figma', 'notion',
+                      'webflow', 'airtable', 'gusto', 'anthropic', 'duolingo', 'affirm', 'plaid'}
+FEATURED_CAP = 8
+
 # 1. Raw index by (source, external_id) for company / location / description.
 raw = {}
 for line in open(RAW):
@@ -117,7 +158,7 @@ for line in open(NORM):
     })
     desc = clean_desc(r.get('description_text') or '')
     if desc:
-        desc_byocc[role][_id] = desc[:DESC_CAP]
+        desc_byocc[role][_id] = to_sections(desc, DESC_CAP)
 
 # 3. Freshest-first, capped, floored.
 for d in (OUT, DETAIL):
@@ -125,15 +166,35 @@ for d in (OUT, DETAIL):
     for f in os.listdir(d):
         if f.endswith('.json'):
             os.remove(os.path.join(d, f))
-index, all_rows = {}, []
+# Trim and cap first; flag featured on the originals; then write everything,
+# so the per-occupation files, the global file, and the strip all agree.
+kept_byocc = {}
 for role, jobs in byocc.items():
     jobs.sort(key=lambda j: j['posted'] or '', reverse=True)
     jobs = jobs[:CAP]
-    if len(jobs) < FLOOR:
+    if len(jobs) >= FLOOR:
+        kept_byocc[role] = jobs
+
+# Featured strip: recognizable employers, salary-stated first, freshest,
+# max two per company. Flag the original rows and emit the strip.
+featured, per_co = [], collections.Counter()
+candidates = [j for jobs in kept_byocc.values() for j in jobs if j['company'].lower() in FEATURED_COMPANIES]
+candidates.sort(key=lambda j: (bool(j['smin'] or j['smax']), j['posted'] or ''), reverse=True)
+for j in candidates:
+    co = j['company'].lower()
+    if per_co[co] >= 2 or len(featured) >= FEATURED_CAP:
         continue
+    per_co[co] += 1
+    j['featured'] = True
+    featured.append(j)
+json.dump([{k: v for k, v in j.items() if k != 'url'} for j in featured],
+          open('apps/web/public/data/featured-jobs.json', 'w'), ensure_ascii=False)
+
+index, all_rows = {}, []
+for role, jobs in kept_byocc.items():
     json.dump(jobs, open(f'{OUT}/{role}.json', 'w'), ensure_ascii=False)
     kept = {j['id'] for j in jobs}
-    details = {i: {'desc': t} for i, t in desc_byocc[role].items() if i in kept}
+    details = {i: secs for i, secs in desc_byocc[role].items() if i in kept}
     json.dump(details, open(f'{DETAIL}/{role}.json', 'w'), ensure_ascii=False)
     index[role] = len(jobs)
     # global search rows: drop the outbound URL (only detail pages need it; it is

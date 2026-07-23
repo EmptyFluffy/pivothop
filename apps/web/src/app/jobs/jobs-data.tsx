@@ -24,8 +24,12 @@ export function getJobs(occ: string): Job[] { return read<Job[]>(`jobs/${occ}.js
 export function getJob(occ: string, id: string): Job | null {
   return getJobs(occ).find((j) => j.id === id) ?? null;
 }
-export function getJobDesc(occ: string, id: string): string {
-  return read<Record<string, { desc: string }>>(`jobs-detail/${occ}.json`)?.[id]?.desc ?? '';
+export type JobSection = { h: string | null; t: string };
+export function getJobSections(occ: string, id: string): JobSection[] {
+  return read<Record<string, JobSection[]>>(`jobs-detail/${occ}.json`)?.[id] ?? [];
+}
+export function featuredJobs(): Job[] {
+  return read<Job[]>('featured-jobs.json') ?? [];
 }
 
 let _meta: Record<string, { title?: string; field?: string }> | null = null;
