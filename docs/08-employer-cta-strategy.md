@@ -332,3 +332,16 @@ The employer journey on the site, designed to conversion research (progressive d
 5. **The right rail is the differentiator**, visible through all three steps: a live preview of the listing card exactly as candidates will see it (with the Featured tag), and, once the occupation resolves, the **adjacency fan-in panel** — how many measured routes lead into the role, the top origins with their readiness percentages, and how many live listings it joins. Real numbers from the graph; the "who will see this" evidence no other job board can render.
 
 The search bar on `/jobs` also matches occupation synonyms and word prefixes in both directions ("architecture" finds architect roles), so employer-side and candidate-side vocabulary both land.
+
+
+## Addendum: the full-page posting flow (RemoteOK study)
+
+/employers is now the post-a-job page, full stop — the marketing prose was removed. A single Swiss-brutalist flow in five numbered sections with a sticky live-preview + adjacency rail:
+
+1. The role — title (live occupation match), employment type, remote, where-from.
+2. Compensation — salary min/max USD/yr, pushed with the "Google indexes salary, ranks higher" framing borrowed from RemoteOK.
+3. The posting — about / responsibilities / qualifications, a **skills picker** against our own skill bank (our answer to RemoteOK's tags/stack), and a **benefits chip picker** whose first entries (equity, 4-day week, visa) map to the board's derived filter tags.
+4. The company — name, **logo URL** (previews live), private work email, contact.
+5. How to apply — apply URL or email, with the "a form beats an email" guidance.
+
+Taken from RemoteOK: the dedicated full page, the logo, salary prominence, benefits chips, apply-URL guidance, the live preview. Dropped as off-model: all à-la-carte upsells (sticky/highlight/blast/QR/geolock/brand-color), invoice/VAT/PO/pay-later billing, Twitter, feedback box, AI writer. Submit still composes one structured email (no backend); fields map 1:1 to the future Supabase table.
