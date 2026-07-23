@@ -17,11 +17,12 @@ export default function FairElephant() {
         <div className="main">
           <header className="nav">
             <a className="brand" href="/fairelephant"><span className="mark"><svg viewBox="0 0 100 87.8"><use href="#elephant" /></svg></span><span className="wm">FairElephant</span></a>
-            <a className="navlink" href="#method">Method</a>
             <a className="navlink" href="/">PivotHop <svg style={{ width: '.72em', height: '.72em', verticalAlign: '-.02em' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></a>
+            <a className="navlink" href="#method">Method</a>
+            <a className="navlink" href="/jobs">Jobs</a>
             <a className="navlink" href="/blog">Blog</a>
             <a className="navlink" href="/about">About</a>
-            <a className="cta" href="/employers">For employers</a>
+            <a className="cta" href="/employers">Post a job</a>
           </header>
 
           <section className="hero">

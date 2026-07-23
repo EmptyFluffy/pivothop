@@ -25,7 +25,7 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
       <Link className="navlink" href="/jobs">Jobs</Link>
       <Link className="navlink" href="/blog">Blog</Link>
       <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
-      <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">For employers</Link>
+      <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Post a job</Link>
     </header>
   );
 }
