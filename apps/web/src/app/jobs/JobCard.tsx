@@ -1,8 +1,12 @@
+import Link from 'next/link';
+
 /* Pure presentation: no fs, importable from both server and client components. */
 
 export type Job = {
+  id: string; occ: string;
   title: string; company: string; location: string; remote: boolean;
-  smin: number | null; smax: number | null; url: string; source: string; posted: string;
+  smin: number | null; smax: number | null; source: string; posted: string;
+  url?: string; // outbound apply link; present in per-occupation files, stripped from the global browse file
 };
 
 const k = (v: number) => '$' + Math.round(v / 1000) + 'k';
@@ -33,7 +37,7 @@ export function JobCard({ j }: { j: Job }) {
   const date = postedLabel(j.posted);
   return (
     <li>
-      <a href={j.url} target="_blank" rel="nofollow noopener noreferrer" className="job-card">
+      <Link href={`/jobs/${j.occ}/${j.id}`} className="job-card">
         <span className="job-main">
           <span className="job-t">{j.title}</span>
           <span className="job-co">{j.company}{j.location ? <span className="job-loc"> · {j.location}</span> : null}</span>
@@ -43,10 +47,9 @@ export function JobCard({ j }: { j: Job }) {
           <span className="job-m lbl">
             {j.remote && <span className="job-tag">Remote</span>}
             {date && <span>{date}</span>}
-            <span className="job-src">via {sourceName(j.source)}</span>
           </span>
         </span>
-      </a>
+      </Link>
     </li>
   );
 }

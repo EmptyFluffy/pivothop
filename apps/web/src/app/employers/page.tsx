@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import fs from 'node:fs';
 import path from 'node:path';
 import { PageShell } from '../components/SiteChrome';
 import { EmployerForm } from './EmployerForm';
 
 export const metadata: Metadata = {
-  title: 'For employers — PivotHop',
+  title: 'Post a job — PivotHop for employers',
   description:
-    'The adjacent-talent job board is being built in the open. Founding employers get hand-matched candidates free during the pilot, founding pricing locked, and their roles seeded on day one.',
+    'Post a role on the adjacent-talent job board, or claim your listing if it is already there. Roles get matched to the candidates whose skills already cover them. First month of featured placement free while the board fills.',
+  alternates: { canonical: '/employers' },
 };
 
 function stats() {
@@ -19,9 +21,16 @@ function stats() {
     return { occupations: 145, postings: 66403, connections: 2874 };
   }
 }
+function boardCount() {
+  try {
+    const idx = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/data/jobs-index.json'), 'utf8')) as Record<string, number>;
+    return Object.values(idx).reduce((a, b) => a + b, 0);
+  } catch { return 0; }
+}
 
 export default function Employers() {
   const s = stats();
+  const live = boardCount();
   return (
     <PageShell active="employers">
       <div className="about-page">
@@ -30,57 +39,35 @@ export default function Employers() {
           <h1 className="ab-h1">Adjacent talent, measured.</h1>
 
           <p className="emp-lead">
-            The best candidate for your role might not hold your role's title today.
-            PivotHop measures how far each profession's skills reach into yours, so
+            The best candidate for your role might not hold your role&rsquo;s title today.
+            PivotHop measures how far each profession&rsquo;s skills reach into yours, so
             you can hire the motivated eighty percent instead of bidding on the
             exhausted hundred.
           </p>
 
           <div className="emp-stats">
-            <div><b>{s.postings.toLocaleString()}</b><span className="lbl">postings read</span></div>
+            <div><b>{live.toLocaleString()}</b><span className="lbl">live roles on the board</span></div>
+            <div><b>{s.postings.toLocaleString()}</b><span className="lbl">postings read nightly</span></div>
             <div><b>{s.occupations}</b><span className="lbl">occupations mapped</span></div>
-            <div><b>{s.connections.toLocaleString()}</b><span className="lbl">measured connections</span></div>
           </div>
 
           <section className="ab-sec">
-            <h2>Where this is honestly at</h2>
+            <h2>How the board works</h2>
             <p>
-              There is no job board here yet. The candidate side is live and free,
-              and the numbers above grow with every daily run. The board opens when
-              enough candidates are exporting route reports toward real roles that
-              matches stop being a favor and start being a market. We would rather
-              tell you that than collect your job specs into a drawer.
+              <b>The board is live and full.</b> <Link className="gl" href="/jobs">{live.toLocaleString()} open roles</Link>,
+              each tagged to an occupation in the skill graph. Candidates do not just browse it: the instrument tells them
+              which of these roles their current skills already cover, and the route and salary pages surface your opening
+              to exactly the people measuring a move toward it.
             </p>
             <p>
-              What exists today is a waiting list with a shape: twenty founding
-              spots, for companies that already believe adjacent hiring works and
-              want the first crack at the board that proves it.
-            </p>
-          </section>
-
-          <section className="ab-sec">
-            <h2>What founding employers get</h2>
-            <p>
-              <b>An adjacency map for one role, now.</b> Join the list and, if you
-              want it, name a role. We run it through the model and send back which
-              professions clear seventy percent skill coverage toward it, with the
-              overlap itemized. Free, no call required, useful even if you never
-              hire through us.
+              <b>Post a role, or claim one.</b> If your opening is already listed from your careers page, claim it. If not,
+              post it with the form below. Either way it stays tagged to the graph, and a featured role is shown first to
+              the candidates whose skills clear the bar for it, people who arrive with the gap already itemized.
             </p>
             <p>
-              <b>Hand-matched candidates during the pilot, free.</b> Before the
-              board exists as software, it exists as Carlos reading the graph and
-              making introductions. Founding employers get those introductions at
-              no charge while the pilot runs.
-            </p>
-            <p>
-              <b>Founding pricing, locked.</b> When the board opens, founding
-              members keep whatever rate we agree the product was worth during the
-              pilot. You help set the price by being there while we discover it.
-            </p>
-            <p>
-              <b>Day-one seeding.</b> The board launches with founding roles
-              already posted and matched, not an empty room.
+              <b>The launch offer: the first month of featured placement is free.</b> No card, no contract. It is temporary,
+              while the board fills and the traffic proves itself, and it applies to every employer, not a chosen twenty.
+              When featured placement becomes paid, you will know the numbers before you pay them.
             </p>
           </section>
 
@@ -91,7 +78,7 @@ export default function Employers() {
               already covers most of what you need. Those people rarely apply,
               because job boards match on titles and their title is different.
               Nobody is in their inbox. Their salary expectations were not set by
-              your competitors. PivotHop's users are the exception: they arrive
+              your competitors. PivotHop&rsquo;s users are the exception: they arrive
               having measured the move, with the skill gap itemized before you ever
               talk to them.
             </p>
@@ -101,13 +88,14 @@ export default function Employers() {
             <h2>What we will not do</h2>
             <p>
               Your email starts a conversation, not a drip campaign. No newsletter,
-              no automated sequences, no reselling your contact to recruiters. One
-              email when the board opens. That is the whole funnel.
+              no automated sequences, no reselling your contact to recruiters.
+              Submissions are reviewed by hand within two days, and the reply comes
+              from a person. That is the whole funnel.
             </p>
           </section>
 
-          <section className="ab-sec ab-contact">
-            <h2>Claim one of the twenty</h2>
+          <section className="ab-sec ab-contact" id="post">
+            <h2>Post a role</h2>
             <EmployerForm />
           </section>
         </main>

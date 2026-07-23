@@ -119,3 +119,15 @@ The acceptance checks that held after the build: canonical tags resolve to `www`
 ## The rule going forward
 
 Any new absolute URL, in any file, uses `https://www.pivothop.com`. Any new page that wants a canonical sets `alternates.canonical` to a root-relative path and lets `metadataBase` resolve it; do not hardcode the host in a canonical. Any new leaf page carries a `BreadcrumbList` and starts its sections at `h2`. New content links to the hubs with descriptive anchors, not bare URLs, and links both ways when a sibling page exists.
+
+---
+
+## Addendum · the job board's index boundary (July 2026)
+
+The board has three layers with deliberately different index treatment:
+
+- `/jobs` (hub, search-first) and `/jobs/{occupation}` (122 boards) — **indexed**, in the sitemap, breadcrumbed. These pages are our own content: counts, adjacency context, occupation framing.
+- `/jobs/{occupation}/{id}` (~2,750 detail pages) — **noindexed** (`robots: noindex, follow`), not in the sitemap. The description body is the source's words; indexing re-displayed text would read as duplicate content and dilute the site's quality signal. The pages exist for users, not for Google.
+- No `JobPosting` structured data on backfilled listings, for the same reason. That schema is reserved for direct, claimed employer posts, which is also the paid product's carrot: claimed roles become first-party content that CAN be indexed and marked up for Google Jobs.
+
+Do not "fix" the noindex without revisiting this reasoning.
