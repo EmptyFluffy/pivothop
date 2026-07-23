@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
-import { jobsIndex, jobOccupations, occTitle, occField, getJobs } from './jobs-data';
+import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs } from './jobs-data';
+import { routableSlugs } from '../routes/routes-data';
 import JobsBrowse from './JobsBrowse';
 
 export const metadata: Metadata = {
@@ -18,10 +19,12 @@ export default function JobsHub() {
   const remoteN = occs.reduce((s, o) => s + getJobs(o).filter((j) => j.remote).length, 0);
   const fields: Record<string, string> = {};
   const titles: Record<string, string> = {};
-  for (const o of occs) { fields[o] = occField(o); titles[o] = occTitle(o); }
+  const search: Record<string, string> = {};
+  for (const o of occs) { fields[o] = occField(o); titles[o] = occTitle(o); search[o] = occSearchText(o); }
   const byField = new Map<string, string[]>();
   for (const o of occs) (byField.get(fields[o]) ?? byField.set(fields[o], []).get(fields[o])!).push(o);
   const fieldGroups = [...byField.entries()].sort((a, b) => b[1].length - a[1].length);
+  const routeCount = routableSlugs().length;
 
   return (
     <PageShell>
@@ -36,10 +39,27 @@ export default function JobsHub() {
               {` and it will tell you which of these roles your skills already cover.`}
             </p>
           </div>
-          <Link className="rt-go jb-post" href="/employers#post">Post a job &rarr;</Link>
         </div>
 
-        <JobsBrowse fields={fields} titles={titles} />
+        <JobsBrowse fields={fields} titles={titles} search={search} />
+
+        <section className="empband" aria-label="For employers">
+          <div className="eb-copy">
+            <span className="lbl eb-eyebrow">For employers</span>
+            <h2>The applicants you never see<br />are already measuring your role.</h2>
+            <p>
+              Every listing here sits on the skill graph. Candidates arrive from adjacent professions with the
+              gap itemized before you ever talk to them. Post a role and it is shown first to the people whose
+              skills already cover it.
+            </p>
+            <div className="eb-stats">
+              <div><b>{total.toLocaleString()}</b><span className="lbl">live roles</span></div>
+              <div><b>{occs.length}</b><span className="lbl">occupations</span></div>
+              <div><b>{routeCount}</b><span className="lbl">measured routes in</span></div>
+            </div>
+          </div>
+          <Link className="eb-cta" href="/employers#post">Post a role<span className="eb-sub">First month featured, free</span></Link>
+        </section>
 
         <section className="rt-sec jb-byocc">
           <h2>Browse by occupation</h2>

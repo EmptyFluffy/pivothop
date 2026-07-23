@@ -318,3 +318,17 @@ If open rate is high but reply rate is low, the subject line is fine but the bod
 ## The one rule for all employer email
 
 **Every email Carlos sends to an employer should be one an employer would forward internally to their VP of Talent as a good example of professional outreach.** If it wouldn't survive that forward, it doesn't get sent.
+
+---
+
+## Addendum · the post-a-role funnel, as built (July 2026)
+
+The employer journey on the site, designed to conversion research (progressive disclosure: three short steps outperform one long form; pay and work model asked up front; trust copy at the moment of commitment):
+
+1. **Entry**: the cobalt employer band on `/jobs` ("The applicants you never see are already measuring your role", live stats, one CTA), the nav CTA, and the claim link on every backfilled detail page.
+2. **Step 1 · The role**: title, salary band ("listings with pay rank higher"), remote, apply link. As the employer types, the title is matched live against the occupation taxonomy (title + synonyms) and offered as chips.
+3. **Step 2 · The company**: company, work email, name, two-sentence pitch.
+4. **Step 3 · Review and send**: summary rows, one primary button carrying the offer ("Post the role, first month featured free"), hand-review-within-two-days trust note. Transport is a structured mailto until Supabase lands; the fields map 1:1 to the future table.
+5. **The right rail is the differentiator**, visible through all three steps: a live preview of the listing card exactly as candidates will see it (with the Featured tag), and, once the occupation resolves, the **adjacency fan-in panel** — how many measured routes lead into the role, the top origins with their readiness percentages, and how many live listings it joins. Real numbers from the graph; the "who will see this" evidence no other job board can render.
+
+The search bar on `/jobs` also matches occupation synonyms and word prefixes in both directions ("architecture" finds architect roles), so employer-side and candidate-side vocabulary both land.

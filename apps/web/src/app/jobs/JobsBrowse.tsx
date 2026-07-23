@@ -8,9 +8,10 @@ import { JobCard, type Job } from './JobCard';
 
 const PAGE = 60;
 
-export default function JobsBrowse({ fields, titles }: {
+export default function JobsBrowse({ fields, titles, search }: {
   fields: Record<string, string>;   // occ slug -> field
   titles: Record<string, string>;   // occ slug -> display title
+  search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
 }) {
   const [all, setAll] = useState<Job[] | null>(null);
   const [q, setQ] = useState('');
@@ -51,6 +52,27 @@ export default function JobsBrowse({ fields, titles }: {
   }, [needle, field, remoteOnly, withPay, sort, all]);
 
   const fieldNames = useMemo(() => [...new Set(Object.values(fields))].sort(), [fields]);
+
+  // Precompute each job's haystack once: its own text plus the occupation's
+  // expansion (title, field, taxonomy synonyms). Words kept for prefix matching.
+  const hays = useMemo(() => {
+    if (!all) return new Map<string, { text: string; words: string[] }>();
+    const m = new Map<string, { text: string; words: string[] }>();
+    for (const j of all) {
+      const text = `${j.title} ${j.company} ${j.location} ${search[j.occ] ?? titles[j.occ] ?? ''}`.toLowerCase();
+      m.set(j.id, { text, words: text.split(/[^a-z0-9+#]+/).filter((w) => w.length >= 4) });
+    }
+    return m;
+  }, [all, search, titles]);
+
+  // A token matches on substring, or on a word-prefix in either direction, so
+  // "architecture" finds architect, "designer" finds design, and vice versa.
+  const tokenHit = (h: { text: string; words: string[] }, tok: string) => {
+    if (h.text.includes(tok)) return true;
+    if (tok.length < 4) return false;
+    return h.words.some((w) => w.startsWith(tok) || tok.startsWith(w));
+  };
+
   const results = useMemo(() => {
     if (!all) return [];
     let r = all;
@@ -58,11 +80,15 @@ export default function JobsBrowse({ fields, titles }: {
     if (remoteOnly) r = r.filter((j) => j.remote);
     if (withPay) r = r.filter((j) => j.smin || j.smax);
     if (needle) {
-      r = r.filter((j) => `${j.title} ${j.company} ${j.location} ${titles[j.occ] ?? ''}`.toLowerCase().includes(needle));
+      const toks = needle.split(/\s+/).filter(Boolean);
+      r = r.filter((j) => {
+        const h = hays.get(j.id);
+        return h ? toks.every((t) => tokenHit(h, t)) : false;
+      });
     }
     if (sort === 'pay') r = [...r].sort((a, b) => (b.smax ?? b.smin ?? 0) - (a.smax ?? a.smin ?? 0));
     return r;
-  }, [all, needle, field, remoteOnly, withPay, sort, fields, titles]);
+  }, [all, needle, field, remoteOnly, withPay, sort, fields, hays]);
 
   return (
     <div className="jb">

@@ -3,7 +3,9 @@ import Link from 'next/link';
 import fs from 'node:fs';
 import path from 'node:path';
 import { PageShell } from '../components/SiteChrome';
-import { EmployerForm } from './EmployerForm';
+import { EmployerForm, type FanIn } from './EmployerForm';
+import { jobsIndex, occList } from '../jobs/jobs-data';
+import { routableSlugs, routePair, destRole, originMeta } from '../routes/routes-data';
 
 export const metadata: Metadata = {
   title: 'Post a job — PivotHop for employers',
@@ -31,6 +33,20 @@ function boardCount() {
 export default function Employers() {
   const s = stats();
   const live = boardCount();
+  // Adjacency fan-in per occupation: how many measured routes lead into it,
+  // and from where — the "who will see this role" panel's data.
+  const fan: Record<string, FanIn> = {};
+  const idx = jobsIndex();
+  for (const slug of routableSlugs()) {
+    const p = routePair(slug);
+    if (!p) continue;
+    const r = destRole(p.origin, p.dest);
+    if (!r) continue;
+    const e = (fan[p.dest] ??= { n: 0, top: [], live: idx[p.dest] ?? 0 });
+    e.n += 1;
+    e.top.push({ t: originMeta(p.origin).title, m: r.match });
+  }
+  for (const k of Object.keys(fan)) fan[k].top = fan[k].top.sort((a, b) => b.m - a.m).slice(0, 3);
   return (
     <PageShell active="employers">
       <div className="about-page">
@@ -96,7 +112,7 @@ export default function Employers() {
 
           <section className="ab-sec ab-contact" id="post">
             <h2>Post a role</h2>
-            <EmployerForm />
+            <EmployerForm occs={occList()} fan={fan} />
           </section>
         </main>
       </div>

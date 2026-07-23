@@ -36,14 +36,29 @@ function meta(occ: string) {
 export function occTitle(occ: string): string {
   return meta(occ).title ?? occ.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
-// origins.json carries a field for every occupation (occ-meta covers only a subset).
+// origins.json carries a field + synonym list for every occupation (occ-meta covers only a subset).
+type OriginRow = { slug: string; field?: string; syn?: string[] };
+let _origins: OriginRow[] | null = null;
+function origins(): OriginRow[] {
+  if (!_origins) _origins = read<{ origins: OriginRow[] }>('origins.json')?.origins ?? [];
+  return _origins;
+}
 let _fieldMap: Record<string, string> | null = null;
 export function occField(occ: string): string {
   if (!_fieldMap) {
     _fieldMap = {};
-    const o = read<{ origins: { slug: string; field?: string }[] }>('origins.json');
-    for (const r of o?.origins ?? []) if (r.field) _fieldMap[r.slug] = r.field;
+    for (const r of origins()) if (r.field) _fieldMap[r.slug] = r.field;
   }
   return _fieldMap[occ] ?? meta(occ).field ?? 'Other';
+}
+/** Search-expansion text per occupation: title + field + taxonomy synonyms.
+    Lets "architecture" find architect listings, "frontend" find front-end, etc. */
+export function occSearchText(occ: string): string {
+  const syn = origins().find((r) => r.slug === occ)?.syn ?? [];
+  return [occTitle(occ), occField(occ), ...syn].join(' ').toLowerCase();
+}
+/** Every occupation with its synonyms, for role-to-occupation matching (employer wizard). */
+export function occList(): { slug: string; title: string; syn: string[] }[] {
+  return origins().map((r) => ({ slug: r.slug, title: occTitle(r.slug), syn: r.syn ?? [] }));
 }
 
