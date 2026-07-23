@@ -106,6 +106,26 @@ def main():
     if os.path.exists(pl):
         shutil.copy(pl, os.path.join(OUT, 'price-levels.json'))
 
+    # Salary-board trend: per-occupation OEWS annual history (the time-series
+    # chart), keyed by SOC from packages/data/vendor/oews-history/national.json.
+    hist_path = os.path.join(ROOT, 'packages/data/vendor/oews-history/national.json')
+    if os.path.exists(hist_path):
+        hist = json.load(open(hist_path))['socs']
+        hist_out = os.path.join(OUT, 'salary-history')
+        os.makedirs(hist_out, exist_ok=True)
+        nh = 0
+        for o in occ:
+            soc = (o.get('soc') or '').split('.')[0]
+            rec = hist.get(soc)
+            if not rec:
+                continue
+            series = [{'year': int(y), 'p25': c['p25'], 'p50': c['p50'], 'p75': c['p75']}
+                      for y, c in sorted(rec.items()) if c.get('p50') and c.get('p25') and c.get('p75')]
+            if len(series) >= 2:
+                json.dump({'soc': soc, 'series': series}, open(os.path.join(hist_out, o['slug'] + '.json'), 'w'))
+                nh += 1
+        print(f'salary-history: {nh} occupations with an OEWS trend line')
+
     # The adjacency field (landing cloud): whole-network nodes/edges + live stats.
     # Positions persist across rebuilds keyed by title — dots must not jump from
     # one night to the next. Only new occupations get seeded (at their neighbors'
