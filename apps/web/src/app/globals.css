@@ -551,6 +551,14 @@ input:focus-visible{outline:none}
 .rt-cta{max-width:880px}
 .rt-method{display:block;color:var(--ink-3);margin-top:40px;max-width:880px;line-height:1.9}
 .rt-index{list-style:none;padding:0;border-top:1px solid var(--ink)}
+/* search bar over an index list (salary, routes); sticks below the nav */
+.ix-search{position:sticky;top:59px;z-index:40;display:flex;align-items:center;gap:14px;background:var(--paper);border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:16px 2px;margin:22px 0 0}
+.ix-search>svg{width:20px;height:20px;color:var(--ink-3);flex:none}
+.ix-search input{flex:1;min-width:0;background:transparent;border:none;font-family:inherit;font-weight:600;font-size:19px;letter-spacing:-.01em;color:var(--ink);outline:none}
+.ix-search input::placeholder{color:var(--ink-3);font-weight:500}
+.ix-count{color:var(--ink-3);white-space:nowrap}
+.ix-search+.rt-index{border-top:none}
+.ix-empty{margin-top:26px}
 /* job board */
 .job-list{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid var(--ink)}
 .job-list-full{margin-top:0}
@@ -573,7 +581,9 @@ input:focus-visible{outline:none}
 /* global board: search-first */
 .jb-head{display:flex;justify-content:space-between;align-items:flex-start;gap:26px;flex-wrap:wrap}
 .jb-post{flex:0 0 auto;margin-top:6px}
-.jb-searchband{display:flex;align-items:center;gap:16px;margin:26px -30px 0;padding:24px 30px;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);background:var(--card)}
+/* the search + filters + chips ride together, stuck below the nav while the list scrolls */
+.jb-stick{position:sticky;top:59px;z-index:40;background:var(--paper);margin-top:26px}
+.jb-searchband{display:flex;align-items:center;gap:16px;margin:0 -30px 0;padding:24px 30px;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);background:var(--card)}
 .jb-ico{width:19px;height:19px;color:var(--ink-3);flex:0 0 auto}
 .jb-search{flex:1;background:transparent;border:none;font-family:inherit;font-weight:600;font-size:22px;letter-spacing:-.015em;color:var(--ink);padding:4px 0}
 .jb-search:focus{outline:none}

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
+import { IndexSearch, type IxRow } from '../components/IndexSearch';
 import { coverableSlugs, getSalary, usBand, fmt } from './salary-data';
 
 export const metadata: Metadata = {
@@ -10,7 +11,21 @@ export const metadata: Metadata = {
 };
 
 export default function SalaryIndex() {
-  const rows = coverableSlugs().map((s) => ({ slug: s, f: getSalary(s) })).filter((r) => r.f).sort((a, b) => (usBand(b.f!)?.p50 ?? 0) - (usBand(a.f!)?.p50 ?? 0));
+  const rows: IxRow[] = coverableSlugs()
+    .map((s) => ({ slug: s, f: getSalary(s) }))
+    .filter((r) => r.f)
+    .sort((a, b) => (usBand(b.f!)?.p50 ?? 0) - (usBand(a.f!)?.p50 ?? 0))
+    .map(({ slug, f }) => {
+      const b = usBand(f!);
+      return {
+        slug,
+        href: `/salary/${slug}`,
+        t: `${f!.title} salary`,
+        m: fmt(b?.p50),
+        s: `${fmt(b?.p25)}–${fmt(b?.p75)} typical · ${f!.observations.toLocaleString()} postings`,
+        hay: f!.title.toLowerCase(),
+      };
+    });
   return (
     <PageShell>
       <div className="rtp">
@@ -26,20 +41,7 @@ export default function SalaryIndex() {
         <p className="rt-dek" style={{ marginTop: '-8px' }}>
           Comparing one job across markets? See <Link className="gl" href="/salary/by-country">the same job, priced across countries</Link>, nominal and adjusted for cost of living.
         </p>
-        <ul className="rt-index">
-          {rows.map(({ slug, f }) => {
-            const b = usBand(f!);
-            return (
-              <li key={slug}>
-                <Link href={`/salary/${slug}`}>
-                  <span className="t">{f!.title} salary</span>
-                  <span className="m">{fmt(b?.p50)}</span>
-                  <span className="s lbl">{fmt(b?.p25)}&ndash;{fmt(b?.p75)} typical &middot; {f!.observations.toLocaleString()} postings</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <IndexSearch rows={rows} placeholder="Search a job title" unit="occupations" />
         <p className="rt-method lbl">Every page blends live postings with the official OEWS anchor for the occupation. Numbers refresh with the nightly scrape.</p>
       </div>
     </PageShell>

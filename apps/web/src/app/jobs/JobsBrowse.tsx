@@ -139,6 +139,7 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
 
   return (
     <div className="jb">
+      <div className="jb-stick">
       <div className="jb-searchband">
         <svg className="jb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
         <input
@@ -198,6 +199,7 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
             {t.label}{all !== null && <span className="jb-chip-n">{tagCount[t.code]}</span>}
           </button>
         ))}
+      </div>
       </div>
 
       {pristine && featured}
