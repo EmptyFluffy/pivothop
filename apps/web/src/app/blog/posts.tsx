@@ -71,10 +71,10 @@ export const POSTS: Post[] = [
           <thead><tr><th>Move</th><th>Skill match</th><th className="num">Pay delta</th><th>The gate</th></tr></thead>
           <tbody>
             <tr><td>Medical assistant → <strong>Pharmacist</strong></td><td>58%</td><td className="num"><strong>+125%</strong></td><td>Doctorate + state license</td></tr>
-            <tr><td>Bookkeeper → <strong>Financial controller</strong></td><td>55%</td><td className="num"><strong>+108%</strong></td><td>CPA for some roles only</td></tr>
+            <tr><td>Bookkeeper → <strong>Financial controller</strong></td><td>55%</td><td className="num"><strong>+108%</strong></td><td><a className="gl" href="/glossary#cpa">CPA</a> (certified public accountant) for some roles only</td></tr>
             <tr><td>Medical assistant → Physical therapist</td><td>68%</td><td className="num">+92%</td><td>Licensure exam</td></tr>
-            <tr><td>Customer support → Flight attendant</td><td>71%</td><td className="num">+69%</td><td>FAA certification</td></tr>
-            <tr><td>Architect → <strong>Electrical engineer</strong></td><td>58%</td><td className="num">+67%</td><td>PE for sign-off roles only</td></tr>
+            <tr><td>Customer support → Flight attendant</td><td>71%</td><td className="num">+69%</td><td><a className="gl" href="/glossary#faa">FAA</a> (the Federal Aviation Administration) certification</td></tr>
+            <tr><td>Architect → <strong>Electrical engineer</strong></td><td>58%</td><td className="num">+67%</td><td><a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) for sign-off roles only</td></tr>
           </tbody>
         </table>
         <p>
@@ -132,8 +132,8 @@ export const POSTS: Post[] = [
           architect posting in our corpus and counted which skills employers
           actually name. The top ten, by share of postings that mention them:
           <strong>Revit at 11.6 percent</strong>, <strong>sustainability at 9.2</strong>, project management at 6.6, specification writing at 4.3, construction documentation at 4.0,
-          urban design at 3.6, BIM at 3.3, construction administration at 2.8,
-          quality control at 2.8, and LEED at 2.7.
+          urban design at 3.6, <a className="gl" href="/glossary#bim">BIM</a> (building information modeling) at 3.3, construction administration at 2.8,
+          quality control at 2.8, and <a className="gl" href="/glossary#leed">LEED</a> (the green-building certification) at 2.7.
         </p>
         <div className="post-bars">
           {[['Revit', 11.6], ['Sustainability', 9.2], ['Project management', 6.6], ['Spec writing', 4.3], ['Construction docs', 4.0], ['Urban design', 3.6], ['BIM', 3.3], ['Construction admin', 2.8], ['Quality control', 2.8], ['LEED', 2.7]].map(([k, v]) => (
@@ -306,9 +306,9 @@ export const POSTS: Post[] = [
           The coordinator inside you is a construction manager or project
           manager. This is the strongest single thread in the data: project management appears in <strong>6.6 percent</strong> of architect postings, and the
           management cluster is the biggest overlap in most architect routes.
-          The modeler inside you is a BIM manager or architectural drafter,
+          The modeler inside you is a <a className="gl" href="/glossary#bim">BIM</a> (building information modeling) manager or architectural drafter,
           the two most Revit-weighted destinations we track. The environmental
-          conscience is a sustainability consultant, a route our model scores <strong>in the nineties</strong> for architects who list energy modeling and LEED.
+          conscience is a sustainability consultant, a route our model scores <strong>in the nineties</strong> for architects who list energy modeling and <a className="gl" href="/glossary#leed">LEED</a> (the green-building certification).
           The specifier, the person who knows what a spec section is for, maps
           toward construction estimating and technical writing. The urbanist
           goes to urban planning, license required in some states. The
@@ -386,7 +386,7 @@ export const POSTS: Post[] = [
           therapist, pharmacist, therapist. Healthcare does not have adjacent
           careers so much as adjacent credentials. An architect's ring is
           mixed: interior design is open in most states, structural and civil
-          engineering need a PE for responsible charge, construction
+          engineering need a <a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) for responsible charge, construction
           management needs nothing but scars. A software engineer's ring is
           almost entirely open, which is one unglamorous reason technology
           careers move faster: the exits have no tollbooths.
@@ -471,7 +471,7 @@ export const POSTS: Post[] = [
           each appearing meaningfully in the demand of <strong>40 occupations</strong>.
         </p>
         <div className="post-bars">
-          {[['Data analysis', 40], ['Systems monitoring', 40], ['Project management', 33], ['Supply chain', 30], ['Training & facilitation', 28], ['Customer service', 22], ['Process improvement', 21], ['Python', 20], ['SQL', 19], ['Professional writing', 19]].map(([k, v]) => (
+          {[['Data analysis', 40], ['Systems monitoring', 40], ['Project management', 33], ['Supply chain', 30], ['Training & facilitation', 28], ['Customer service', 22], ['Process improvement', 21], ['Python', 20], ['<a className="gl" href="/glossary#sql">SQL</a> (the standard database query language)', 19], ['Professional writing', 19]].map(([k, v]) => (
             <div key={String(k)} className="pb-row"><span className="k">{k}</span><span className="t"><span className="f" style={{ width: `${(Number(v) / 40) * 100}%` }}></span></span><span className="v">{v}</span></div>
           ))}
         </div>
@@ -582,7 +582,7 @@ export const POSTS: Post[] = [
           other way and kept only license-free destinations. The best
           well-matched, no-new-degree raises right now: bookkeeper to financial controller at <strong>plus 111 percent</strong>, sales representative to customer
           success manager at plus 68, accountant to financial controller at
-          plus 52, architectural drafter to MEP engineering at plus 52,
+          plus 52, architectural drafter to <a className="gl" href="/glossary#mep">MEP</a> (mechanical, electrical, and plumbing engineering) engineering at plus 52,
           architect to electrical engineering at plus 50, customer support to
           executive assistant at plus 47. Some employers will want a
           certification. None requires going back to school.
@@ -690,7 +690,7 @@ export const POSTS: Post[] = [
             PivotHop July 2026 run: 1,698 postings mapped to registered
             nursing; overlap computed over each destination's top-20 posting
             skills; salary is the blended US median (postings shrunk toward the
-            BLS OEWS anchor). Licensing annotations hand-reviewed. Telehealth
+            <a className="gl" href="/glossary#bls">BLS</a> <a className="gl" href="/glossary#oews">OEWS</a> (the Bureau of Labor Statistics wage survey) anchor). Licensing annotations hand-reviewed. Telehealth
             demand read from remote-flagged postings in nursing-adjacent
             occupations.
           </p>
@@ -775,7 +775,7 @@ export const POSTS: Post[] = [
         <p>
           If you are in one of the doorway professions, the gap between you and
           the title is smaller than the mythology says and it is made of
-          specific, learnable things: LLM application work, retrieval, and
+          specific, learnable things: <a className="gl" href="/glossary#llm">LLM</a> (large language model) application work, retrieval, and
           evaluation, stacked on skills you already use. Build two working
           systems you can show, learn to talk about their failure modes
           honestly, and you look like the postings. If you are not in a doorway
@@ -786,8 +786,8 @@ export const POSTS: Post[] = [
         <Sources>
           <p>
             PivotHop July 2026 run: 943 AI engineer postings, 670 with stated
-            pay; blended median shrinks posting percentiles toward the BLS
-            OEWS anchor for the occupation family (empirical Bayes, K=40).
+            pay; blended median shrinks posting percentiles toward the <a className="gl" href="/glossary#bls">Bureau of Labor Statistics</a> (BLS)
+            <a className="gl" href="/glossary#oews">Occupational Employment and Wage Statistics survey</a> (OEWS) anchor for the occupation family (empirical Bayes, K=40).
             Reach percentages are destination-demand coverage over top-20
             posting skills. Reconciliation deviations published in our salary
             method notes.
@@ -842,7 +842,7 @@ export const POSTS: Post[] = [
           Now the pay, which the threads never quantify. The blended US median for architects in our data is about <strong>83,700 dollars</strong>. Structural engineers: about <strong>107,000</strong>. That is a <strong>28 percent gap</strong> between two
           professions that share half their skill demand and often the same
           hallway. Electrical engineering prices similarly. Part of the gap is
-          the PE license and the liability it carries. Part of it is that
+          the <a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) license and the liability it carries. Part of it is that
           engineering fees never got culturally negotiated down the way design
           fees did. Either way, the gap is real, durable across our runs, and
           it flows toward people willing to carry calculations instead of
@@ -873,10 +873,10 @@ export const POSTS: Post[] = [
           <p>
             PivotHop July 2026 run: 1,178 architect postings; route matches
             are destination-demand coverage over top-20 posting skills;
-            salaries are blended US medians (postings shrunk toward BLS OEWS
+            salaries are blended US medians (postings shrunk toward <a className="gl" href="/glossary#bls">BLS</a> <a className="gl" href="/glossary#oews">OEWS</a> (the Bureau of Labor Statistics wage survey)
             anchors; architect n=433 posted observations, structural engineer
             similar). Sustainability route score from the personalized model
-            with energy modeling and LEED added. The founder's bias is
+            with energy modeling and <a className="gl" href="/glossary#leed">LEED</a> (the green-building certification) added. The founder's bias is
             disclosed and the method is public on the About page.
           </p>
         </Sources>
@@ -1036,7 +1036,7 @@ export const POSTS: Post[] = [
             Title counts from the PivotHop raw corpus, July 2026 (99,000
             postings across thirteen sources; regex on titles). Salary bands
             are blended US medians from our salary engine (postings shrunk
-            toward BLS OEWS anchors). The sales-engineer reach figure is
+            toward <a className="gl" href="/glossary#bls">BLS</a> <a className="gl" href="/glossary#oews">OEWS</a> (the Bureau of Labor Statistics wage survey) anchors). The sales-engineer reach figure is
             destination-demand coverage from the adjacency model.
           </p>
         </Sources>
@@ -1118,7 +1118,7 @@ export const POSTS: Post[] = [
           <p>
             Title counts: regex over titles in the PivotHop raw corpus, July
             2026, roughly 99,000 postings across thirteen sources. Salary
-            medians from our blended engine (BLS OEWS anchored). Counts are
+            medians from our blended engine (<a className="gl" href="/glossary#bls">BLS</a> <a className="gl" href="/glossary#oews">OEWS</a> (the Bureau of Labor Statistics wage survey) anchored). Counts are
             floors, not totals: our sources undersample some markets, and a
             title can exist in the wild before it reaches a board we read.
           </p>
@@ -1241,7 +1241,7 @@ export const POSTS: Post[] = [
             the views metric, 2025. TikTok: joint-venture reporting (Oracle,
             Silver Lake, MGX, January 2026) and creator-analytics data on
             completion thresholds. Google: AI Overview trigger rates and
-            zero-click ranges from Semrush and independent SEO telemetry,
+            zero-click ranges from Semrush and independent <a className="gl" href="/glossary#seo">SEO</a> (search engine optimization) telemetry,
             2025 to 2026. Figures are the platforms' and analysts' claims,
             dated in text; feeds change faster than citations.
           </p>
@@ -1264,7 +1264,7 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          SEO has died more times than rock and roll. This particular death,
+          <a className="gl" href="/glossary#seo">SEO</a> (search engine optimization) has died more times than rock and roll. This particular death,
           though, has numbers attached. AI Overviews, the Gemini-written
           answers at the top of Google, appeared on about 6.5 percent of
           queries in January 2025 and appear on roughly <strong>48 percent of searches</strong> now. Between <strong>58 and 68 percent</strong> of searches end with no click to any website. When an AI summary is present, clicks on
@@ -1353,7 +1353,7 @@ export const POSTS: Post[] = [
       <>
         <p>
           There is a whole profession built on being findable, and right now
-          it is having the strangest year of its existence. We track <strong>178 SEO specialist postings</strong> in our corpus, 120 of them with stated pay.
+          it is having the strangest year of its existence. We track <strong>178 <a className="gl" href="/glossary#seo">SEO</a> (search engine optimization) specialist postings</strong> in our corpus, 120 of them with stated pay.
           The blended US median: about <strong>79,700 dollars</strong>. That number, and the
           numbers around it, tell a sharper career story than the discourse
           does.
@@ -1420,7 +1420,7 @@ export const POSTS: Post[] = [
             SEO specialist counts, salaries, skill-demand shares, and
             transition overlaps: PivotHop July 2026 run (178 postings, 120
             with stated pay; blended US medians shrink posting percentiles
-            toward BLS OEWS anchors; overlaps computed over top-20 posting
+            toward <a className="gl" href="/glossary#bls">BLS</a> <a className="gl" href="/glossary#oews">OEWS</a> (the Bureau of Labor Statistics wage survey) anchors; overlaps computed over top-20 posting
             skills). Search-landscape figures: Semrush and independent
             telemetry as reported 2025 to 2026, detailed in our companion
             piece on the 2026 search reset.
@@ -1487,7 +1487,7 @@ export const POSTS: Post[] = [
           reasoning, systems coordination, visual communication, and staged
           sequencing, and those threads score high toward design and
           technical-creative fields in our adjacency graph. The capability
-          layer, the O*NET abilities architecture shares with creative
+          layer, the <a className="gl" href="/glossary#onet">Occupational Information Network</a> (O*NET) abilities architecture shares with creative
           production, is the quiet reason an architecture dropout keeps
           turning up behind famous work: the training transfers even when
           the title does not.
@@ -1667,8 +1667,8 @@ export const POSTS: Post[] = [
             <tr><td>Police officer</td><td className="num"><strong>98%</strong></td></tr>
             <tr><td>Teaching assistant</td><td className="num">96%</td></tr>
             <tr><td>Medical writer</td><td className="num">95%</td></tr>
-            <tr><td>MEP engineer</td><td className="num">94%</td></tr>
-            <tr><td>UX researcher</td><td className="num">92%</td></tr>
+            <tr><td><a className="gl" href="/glossary#mep">MEP</a> (mechanical, electrical, and plumbing engineering) engineer</td><td className="num">94%</td></tr>
+            <tr><td><a className="gl" href="/glossary#ux">UX</a> (user-experience design) researcher</td><td className="num">92%</td></tr>
             <tr><td>Therapist / counselor</td><td className="num">90%</td></tr>
           </tbody>
         </table>
@@ -1708,7 +1708,7 @@ export const POSTS: Post[] = [
             <tr><td>USAJOBS (US federal)</td><td className="num"><strong>100%</strong></td><td className="num">3,238</td></tr>
             <tr><td>Reed (UK)</td><td className="num">83%</td><td className="num">6,054</td></tr>
             <tr><td>Adzuna (general)</td><td className="num">71%</td><td className="num">56,732</td></tr>
-            <tr><td>Greenhouse (startup ATS)</td><td className="num">55%</td><td className="num">4,921</td></tr>
+            <tr><td>Greenhouse (startup <a className="gl" href="/glossary#ats">ATS</a> (applicant tracking system))</td><td className="num">55%</td><td className="num">4,921</td></tr>
             <tr><td>Ashby (startup ATS)</td><td className="num">50%</td><td className="num">1,258</td></tr>
             <tr><td>Lever (startup ATS)</td><td className="num"><strong>7%</strong></td><td className="num">1,025</td></tr>
           </tbody>
@@ -1842,7 +1842,7 @@ export const POSTS: Post[] = [
           do post high salaries; whatever the cause, those jobs exist and
           are real money. The official anchor gives scale: the US all-worker
           median for software engineering sits near <strong>133,000
-          dollars</strong> (BLS OEWS), and remote-board postings cluster
+          dollars</strong> (<a className="gl" href="/glossary#bls">BLS</a> <a className="gl" href="/glossary#oews">OEWS</a> (the Bureau of Labor Statistics wage survey)), and remote-board postings cluster
           well above it, so the population posting remotely is simply not
           the median population. And the direction of the bias is knowable
           even where its size is not, which means any remote-pay figure you
@@ -1905,7 +1905,7 @@ export const POSTS: Post[] = [
             Apparent premiums: posted salary medians, remote-flagged versus
             not, minimum 30 observations per side, PivotHop July 2026 run.
             Within-source test: Adzuna-only split, reported counts above.
-            Official anchor: BLS OEWS May 2024, SOC 15-1252 family. This
+            Official anchor: BLS OEWS May 2024, <a className="gl" href="/glossary#soc">Standard Occupational Classification</a> (SOC) 15-1252 family. This
             piece supersedes any earlier internal use of the raw premium
             figures.
           </p>
@@ -1985,7 +1985,7 @@ export const POSTS: Post[] = [
             <tr><td>Plumber → Construction manager → <strong>Estimator</strong></td><td className="num">18%</td><td className="num"><strong>66%</strong></td></tr>
             <tr><td>IT support → Construction manager → Estimator</td><td className="num">27%</td><td className="num">66%</td></tr>
             <tr><td>Librarian → Project manager → <strong>Facilities manager</strong></td><td className="num">18%</td><td className="num">62%</td></tr>
-            <tr><td>HVAC technician → Mechanical engineer → Electrical engineer</td><td className="num">19%</td><td className="num">58%</td></tr>
+            <tr><td><a className="gl" href="/glossary#hvac">HVAC</a> (heating, ventilation, and air conditioning) technician → Mechanical engineer → Electrical engineer</td><td className="num">19%</td><td className="num">58%</td></tr>
           </tbody>
         </table>
         <p>
@@ -2177,7 +2177,7 @@ export const POSTS: Post[] = [
         <p>
           The five-day list reads like a stock index: Amazon, JPMorgan
           Chase, AT&T, Goldman Sachs, Dell, Fidelity, plus the US federal
-          workforce. The velocity is the striking part. Per JLL's office
+          workforce. The velocity is the striking part. Per <a className="gl" href="/glossary#jll">JLL</a> (Jones Lang LaSalle)'s office
           market data, <strong>54 percent of Fortune 100 employees</strong>
           were under full five-day requirements by mid-2025, against
           <strong> 11 percent a year earlier</strong>. Whatever executives
@@ -2242,7 +2242,7 @@ export const POSTS: Post[] = [
         <Sources>
           <p>
             Mandate list and Fortune 100 shares: JLL Q2 2025 office
-            market data and RTO trackers, as reported through mid-2026.
+            market data and <a className="gl" href="/glossary#rto">RTO</a> (return-to-office) trackers, as reported through mid-2026.
             Amazon policy: company announcement, effective January 2025.
             Tokyo: Metropolitan Government policy, April 2025. UK:
             Employment Rights Act 2025, staged provisions. Hybrid and
@@ -2271,10 +2271,10 @@ export const POSTS: Post[] = [
       <>
         <p>
           The obvious answer first, because it is true. People with degrees
-          earn more. BLS puts median weekly earnings for bachelor's holders
+          earn more. <a className="gl" href="/glossary#bls">Bureau of Labor Statistics</a> (BLS) puts median weekly earnings for bachelor's holders
           at <strong>1,763 dollars against 977</strong> for high school
           graduates in early 2026, a gap that has held around 60 percent
-          for decades. Opportunity@Work counts <strong>70 million American
+          for decades. <a className="gl" href="/glossary#opportunity-at-work">Opportunity@Work</a> counts <strong>70 million American
           workers</strong> skilled through alternative routes, half the
           workforce, and finds their wage gap against degree holders has
           doubled over 30 years. By one of their estimates it takes a
@@ -2309,7 +2309,7 @@ export const POSTS: Post[] = [
           If 98 percent of ads are silent and the explicit language is
           decorative, the degree filter has to live somewhere else, and
           the research says it lives in the resume screen. The Harvard
-          Business School and Burning Glass Institute study of
+          Business School and <a className="gl" href="/glossary#lightcast">Burning Glass</a> Institute study of
           skills-based hiring found that among companies that removed
           degree requirements from postings, <strong>fewer than 1 in 700
           hires</strong> actually changed as a result. About 45 percent
@@ -2336,7 +2336,7 @@ export const POSTS: Post[] = [
           professions against the schooling they demand:
         </p>
         <table className="post-table">
-          <caption>Official US medians vs required credentials · BLS OEWS, May 2024</caption>
+          <caption>Official US medians vs required credentials · BLS <a className="gl" href="/glossary#oews">Occupational Employment and Wage Statistics survey</a> (OEWS), May 2024</caption>
           <thead><tr><th>Profession</th><th>Paper the law or market demands</th><th className="num">Median</th></tr></thead>
           <tbody>
             <tr><td><strong>Software developer</strong></td><td>None mandated, degree optional</td><td className="num"><strong>$133,080</strong></td></tr>
@@ -2437,11 +2437,11 @@ export const POSTS: Post[] = [
           <strong>observed career transitions</strong>, actual humans counted
           moving from one occupation to another. An Oxford-built mobility
           network derived from the Current Population Survey
-          (<strong>2010–2017, 464 occupations</strong>, published CC BY 4.0),
+          (<strong>2010–2017, 464 occupations</strong>, published <a className="gl" href="/glossary#cc-by">CC BY</a> (an open license permitting commercial reuse) 4.0),
           a Department of Labor public-use file of{' '}
-          <strong>43,350 survey-weighted person transitions</strong> from CPS
-          and SIPP, and, for finer European resolution, 355,315 anonymized
-          career trajectories from the JobHop resume dataset. Career-tech is
+          <strong>43,350 survey-weighted person transitions</strong> from <a className="gl" href="/glossary#cps">Current Population Survey</a> (CPS)
+          and <a className="gl" href="/glossary#sipp">Survey of Income and Program Participation</a> (SIPP), and, for finer European resolution, 355,315 anonymized
+          career trajectories from the <a className="gl" href="/glossary#jobhop">JobHop</a> resume dataset. Career-tech is
           full of similarity models dressed up as mobility data. These three
           are the real thing: someone was an electrician in one interview
           and something else in the next.
@@ -2459,7 +2459,7 @@ export const POSTS: Post[] = [
           <tbody>
             <tr><td>Electrician → <strong>Construction manager</strong></td><td className="num">13%</td><td className="num"><strong>100</strong></td></tr>
             <tr><td>Paralegal → <strong>Executive assistant</strong></td><td className="num">14%</td><td className="num"><strong>100</strong></td></tr>
-            <tr><td>Marketing manager → SEO specialist</td><td className="num">14%</td><td className="num">100</td></tr>
+            <tr><td>Marketing manager → <a className="gl" href="/glossary#seo">SEO</a> (search engine optimization) specialist</td><td className="num">14%</td><td className="num">100</td></tr>
             <tr><td>Real estate agent → Real estate developer</td><td className="num">13%</td><td className="num">100</td></tr>
             <tr><td>Architect → <strong>Industrial designer</strong></td><td className="num">15%</td><td className="num"><strong>100</strong></td></tr>
             <tr><td>Motion designer → Game designer</td><td className="num">12%</td><td className="num">100</td></tr>
@@ -2513,13 +2513,13 @@ export const POSTS: Post[] = [
           Each dataset fails somewhere specific, which is the reason we run
           them together. The census occupation codes behind the Oxford
           network throw every designer, interior, graphic, industrial,
-          UX, into one bucket, so “architects become designers” is as
+          <a className="gl" href="/glossary#ux">UX</a> (user-experience design), into one bucket, so “architects become designers” is as
           precise as that source can get. The European resume data is coded
-          at ESCO leaf level, roughly 3,000 occupations, which separates a
+          at <a className="gl" href="/glossary#esco">European occupation classification</a> (ESCO) leaf level, roughly 3,000 occupations, which separates a
           product designer from a signage designer, but it describes the
           Belgian labor market, so we display it as its own labeled signal
-          and never blend it into US magnitudes. The DOL file is
-          SOC-coded and fresher (roughly 2020) but covers only mid-level
+          and never blend it into US magnitudes. The <a className="gl" href="/glossary#dol">Department of Labor</a> (DOL) file is
+          <a className="gl" href="/glossary#soc">Standard Occupational Classification</a> (SOC)-coded and fresher (roughly 2020) but covers only mid-level
           origin occupations. Where a pair falls into one source’s blind
           spot, the chain falls through to the next, and when none can
           resolve it, the route says so instead of inventing a number.
@@ -2539,7 +2539,7 @@ export const POSTS: Post[] = [
           Ranking on the graph now blends three signals, each shown
           separately in the route panel: skill readiness (weight 0.55, still
           the number printed on every node), shared work abilities from
-          O*NET (0.2), and observed mobility (0.25). For an architect, that
+          <a className="gl" href="/glossary#onet">Occupational Information Network</a> (O*NET) (0.2), and observed mobility (0.25). For an architect, that
           pulled industrial designer onto the first ring at an unglamorous
           15 percent readiness, with the panel stating why: people who
           leave architecture demonstrably go there. Structural engineer
@@ -2606,7 +2606,7 @@ export const POSTS: Post[] = [
           In an average year, <strong>5.9 percent</strong> of American
           workers move to a different occupation, and another{' '}
           <strong>4.7 percent</strong> leave the labor force. That is the
-          all-occupation baseline from the BLS 2024–34 Employment
+          all-occupation baseline from the <a className="gl" href="/glossary#bls">Bureau of Labor Statistics</a> (BLS) 2024–34 Employment
           Projections, the same dataset agencies use to forecast openings.
           One worker in seventeen changes what they do. The interesting part
           is how unevenly that churn is distributed.
@@ -2726,7 +2726,7 @@ export const POSTS: Post[] = [
             Transfer and exit rates: BLS Employment Projections, Table 1.10,
             2024–34 vintage, annual averages, 832 detailed occupations,
             public domain, joined to 147 of our 153 tracked occupations by
-            SOC code. Posted medians: PivotHop corpus, 77,443 mapped
+            <a className="gl" href="/glossary#soc">Standard Occupational Classification</a> (SOC) code. Posted medians: PivotHop corpus, 77,443 mapped
             postings, July 2026, cells floored at 100 postings. The
             salary-transfer correlation is Pearson’s r over the 123
             occupations clearing that floor. Observed destination flows:
@@ -2759,7 +2759,7 @@ export const POSTS: Post[] = [
           underneath it is savage: the most remote-friendly occupation we
           track posts remote jobs at roughly <strong>300 times</strong> the
           rate of the least. External counts bracket ours, for calibration:
-          Robert Half’s Q1 2026 read puts 4 percent of new postings fully
+          <a className="gl" href="/glossary#roberthalf">Robert Half</a>’s Q1 2026 read puts 4 percent of new postings fully
           remote (19 percent hybrid), while boards that lean professional
           report closer to 12.
         </p>
@@ -2776,7 +2776,7 @@ export const POSTS: Post[] = [
             <tr><td>Account executive</td><td className="num">19.6%</td><td className="num">1,764</td></tr>
             <tr><td>Software engineer</td><td className="num">15.6%</td><td className="num">4,041</td></tr>
             <tr><td>Translator</td><td className="num">14.1%</td><td className="num">213</td></tr>
-            <tr><td>SEO specialist</td><td className="num">13.9%</td><td className="num">180</td></tr>
+            <tr><td><a className="gl" href="/glossary#seo">SEO</a> (search engine optimization) specialist</td><td className="num">13.9%</td><td className="num">180</td></tr>
             <tr><td>Medical writer</td><td className="num">12.2%</td><td className="num">238</td></tr>
             <tr><td>Recruiter</td><td className="num">9.4%</td><td className="num">520</td></tr>
             <tr><td>Lawyer</td><td className="num">8.6%</td><td className="num">408</td></tr>
@@ -2788,7 +2788,7 @@ export const POSTS: Post[] = [
           credibility delivered over video calls, and employers apparently
           concluded the territory model beat the office years ago. Second,
           the design profession split down the middle: motion designers post
-          25 percent remote while UX designers post 1.5 and graphic
+          25 percent remote while <a className="gl" href="/glossary#ux">UX</a> (user-experience design) designers post 1.5 and graphic
           designers 1.8. Motion work ships as files. Product design work,
           post-RTO, apparently ships as meetings.
         </p>
@@ -2803,7 +2803,7 @@ export const POSTS: Post[] = [
           state, valid in that state. An employer hiring a remote dietitian
           or teacher inherits a compliance matrix across every state its
           people might sit in, so it writes “on-site” instead. The floor
-          of our ranking is wall-to-wall licensed and physical: HVAC
+          of our ranking is wall-to-wall licensed and physical: <a className="gl" href="/glossary#hvac">HVAC</a> (heating, ventilation, and air conditioning)
           technicians (435 postings, zero remote), landscape architects
           (359, zero), teaching assistants, clinical research coordinators,
           flight attendants, school administrators. All at exactly 0.0
@@ -2812,7 +2812,7 @@ export const POSTS: Post[] = [
         <p>
           The exceptions prove the rule with unusual precision, because the
           exceptions are legislation. Psychology built itself an interstate
-          compact, PSYPACT, now spanning <strong>42 jurisdictions</strong>{' '}
+          compact, <a className="gl" href="/glossary#psypact">PSYPACT</a> (the interstate psychology practice compact), now spanning <strong>42 jurisdictions</strong>{' '}
           as of June 2026 (Montana joined in October 2025). One
           authorization, forty-plus states of legal telepractice. In our
           corpus psychologists post <strong>5.7 percent</strong> remote,
@@ -2862,7 +2862,7 @@ export const POSTS: Post[] = [
         <h3>Moving toward remote, and away</h3>
         <p>
           Our corpus is a snapshot, so for direction we lean on dated
-          external tracking. FlexJobs’ year-over-year index found legal,
+          external tracking. <a className="gl" href="/glossary#flexjobs">FlexJobs</a>’ year-over-year index found legal,
           insurance, social media, and account management postings each
           grew their fully-remote counts <strong>30 percent or more
           during 2025</strong>, with engineering, administrative, and sales
@@ -2871,7 +2871,7 @@ export const POSTS: Post[] = [
           writers (12.2 percent remote in our corpus) ride healthcare’s
           remote wave without touching a patient, and remote paralegal
           roles are growing from a low base while lawyers above them
-          already work from home. Meanwhile the RTO mandates we counted in
+          already work from home. Meanwhile the <a className="gl" href="/glossary#rto">RTO</a> (return-to-office) mandates we counted in
           “The giants disagree” keep pulling the big-company end of
           product and design work back on-site, which is likely part of why
           UX sits at 1.5 percent while freelance-shaped creative work sits
@@ -2903,7 +2903,7 @@ export const POSTS: Post[] = [
             calibration and trend: Robert Half remote-work statistics, Q1
             2026; FlexJobs Remote Work Economy Index, 2025 growth by
             category. Compacts: psypact.gov (42 jurisdictions, June 2026);
-            NCSBN Nurse Licensure Compact (41 states, 2026, Pennsylvania
+            <a className="gl" href="/glossary#ncsbn">NCSBN</a> Nurse Licensure Compact (41 states, 2026, Pennsylvania
             July 2025, Connecticut October 2025). Directional claims about
             2025 growth are the trackers’ counts, not ours.
           </p>
