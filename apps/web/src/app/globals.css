@@ -612,3 +612,11 @@ input:focus-visible{outline:none}
 .sal-bars .sv{font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink)}
 .sal-countries li span:first-child{font-weight:600;font-size:15px}
 @media (max-width:760px){.sal-chartwrap{margin-left:-22px;margin-right:-22px;padding:16px 22px}.sal-canvas{height:280px}}
+
+/* salary pages: text and in-flow graphics (bars, lists) share ONE readable
+   column so their left AND right edges align; the chart + facts stay full-bleed
+   bands above. Editorial is justified for a clean right edge matching the bars;
+   notes stay left (short lines justify badly). */
+.salp .rt-sec{max-width:40rem}
+.salp .rt-sec p{max-width:none;text-align:justify;text-justify:inter-word;hyphens:auto}
+.salp .rt-note{text-align:left;hyphens:manual}

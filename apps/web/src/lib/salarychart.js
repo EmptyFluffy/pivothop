@@ -116,6 +116,15 @@ export function initSalaryChart(canvas, data) {
     // current live point (ink, distinct) — drawn after clip so it always shows
     if (current && k >= 0.98) {
       const x = X(current.year), y = Y(current.p50);
+      // Bridge the official series (ends at the last OEWS year) to the live
+      // posting read with a faint dashed connector — signals "official through
+      // then, live now" so the stretch reads as intentional, not a broken line.
+      if (series.length) {
+        const last = series[series.length - 1];
+        ctx.strokeStyle = 'rgba(0,47,166,0.38)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+        ctx.beginPath(); ctx.moveTo(X(last.year), Y(last.p50)); ctx.lineTo(x, y); ctx.stroke();
+        ctx.setLineDash([]);
+      }
       ctx.strokeStyle = PAL.ink; ctx.lineWidth = 1; ctx.setLineDash([2, 2]);
       ctx.beginPath(); ctx.moveTo(x, Y(current.p25)); ctx.lineTo(x, Y(current.p75)); ctx.stroke();
       ctx.setLineDash([]);

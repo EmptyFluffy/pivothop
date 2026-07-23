@@ -90,6 +90,10 @@ export function FEClient() {
     fetch('/data/salaries/index.json').then((r) => r.json()).then((d) => {
       const occ = d.occupations || [];
       setIndex(occ);
+      // Preload an occupation handed over from a salary page (?role=slug), so
+      // clicking "check an offer" lands here with that occupation already loaded.
+      const role = new URLSearchParams(window.location.search).get('role');
+      if (role && occ.some((o: { slug: string }) => o.slug === role)) { setSlug(role); return; }
       const viable = occ.filter((o: { fe_viable?: boolean; observations: number }) => o.fe_viable && o.observations >= 50);
       if (!viable.some((o: { slug: string }) => o.slug === 'ux-designer') && viable[0]) setSlug(viable[0].slug);
     });
@@ -177,7 +181,9 @@ export function FEClient() {
   const countryOpts = Object.entries(ISO2NAME).sort((a, b) => a[1].localeCompare(b[1]));
   // the remote-compensation instrument lists only occupations whose remote market
   // is measurable here — desk work with real remote observations, never police officers
-  const occOpts = index.filter((o) => o.fe_viable && o.observations >= 50)
+  // Always include the currently-selected occupation, even if it isn't in the
+  // remote-viable set (a salary page can preload any occupation via ?role).
+  const occOpts = index.filter((o) => (o.fe_viable && o.observations >= 50) || o.slug === slug)
     .sort((a, b) => a.title.localeCompare(b.title));
 
   return (
