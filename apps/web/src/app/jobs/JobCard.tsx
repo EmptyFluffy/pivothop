@@ -35,6 +35,15 @@ export function postedLabel(posted: string): string {
   return mo ? `${mo} ${parseInt(m[2], 10)}` : '';
 }
 
+/** The house 45-degree arrow (the FairElephant export glyph), stroke follows text color. */
+export function Arrow45({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M7 7h10v10" /><path d="M7 17 17 7" />
+    </svg>
+  );
+}
+
 export function JobCard({ j }: { j: Job }) {
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
@@ -54,6 +63,7 @@ export function JobCard({ j }: { j: Job }) {
             {date && <span>{date}</span>}
           </span>
         </span>
+        <span className="job-arrow"><Arrow45 size={22} /></span>
       </Link>
     </li>
   );

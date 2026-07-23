@@ -141,12 +141,24 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
         />
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
       </div>
-      {pristine && (
+      {pristine ? (
         <div className="jb-try lbl" aria-label="Example searches">
           <span>Try</span>
           {['AI engineer', 'Registered nurse', 'Product design', 'Remote data'].map((ex) => (
             <button key={ex} type="button" onClick={() => { setQ(ex); setNeedle(ex.toLowerCase()); }}>{ex}</button>
           ))}
+        </div>
+      ) : (
+        <div className="jb-active" aria-label="Active filters">
+          {needle && <button type="button" className="jb-pill" onClick={() => { setQ(''); setNeedle(''); }}>&ldquo;{needle}&rdquo;<span className="jb-x">&times;</span></button>}
+          {field && <button type="button" className="jb-pill" onClick={() => setField('')}>{field}<span className="jb-x">&times;</span></button>}
+          {minPay > 0 && <button type="button" className="jb-pill" onClick={() => setMinPay(0)}>${minPay}k and up<span className="jb-x">&times;</span></button>}
+          {remoteOnly && <button type="button" className="jb-pill" onClick={() => setRemoteOnly(false)}>Remote<span className="jb-x">&times;</span></button>}
+          {TAGS.filter((t) => tags.has(t.code)).map((t) => (
+            <button key={t.code} type="button" className="jb-pill" onClick={() => toggleTag(t.code)}>{t.label}<span className="jb-x">&times;</span></button>
+          ))}
+          {sort === 'pay' && <button type="button" className="jb-pill" onClick={() => setSort('new')}>Highest pay<span className="jb-x">&times;</span></button>}
+          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setField(''); setMinPay(0); setRemoteOnly(false); setTags(new Set()); setSort('new'); }}>Clear all</button>
         </div>
       )}
       <div className="jb-filters">

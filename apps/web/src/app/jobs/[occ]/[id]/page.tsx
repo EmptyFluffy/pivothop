@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, type JobSection } from '../../jobs-data';
-import { salaryLabel, postedLabel, sourceName } from '../../JobCard';
+import { salaryLabel, postedLabel, sourceName, Arrow45 } from '../../JobCard';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
 
@@ -82,7 +82,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         </div>
 
         <div className="jd-applyrow">
-          <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply at {j.company} &rarr;</a>
+          <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply at {j.company} <Arrow45 size={24} /></a>
           <span className="lbl">Opens the original posting. PivotHop does not host applications.</span>
         </div>
 

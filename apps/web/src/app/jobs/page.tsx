@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs, featuredJobs } from './jobs-data';
-import { salaryLabel } from './JobCard';
+import { salaryLabel, Arrow45 } from './JobCard';
 import { routableSlugs } from '../routes/routes-data';
 import JobsBrowse from './JobsBrowse';
 
@@ -69,7 +69,7 @@ export default function JobsHub() {
                         {salaryLabel(j.smin, j.smax) && <b className="feat-pay">{salaryLabel(j.smin, j.smax)}</b>}
                         <span className="feat-meta lbl">{j.remote ? 'Remote · ' : ''}{titles[j.occ]}</span>
                       </span>
-                      <span className="feat-arrow" aria-hidden="true">&rarr;</span>
+                      <span className="feat-arrow"><Arrow45 size={26} /></span>
                     </Link>
                   </li>
                 ))}
