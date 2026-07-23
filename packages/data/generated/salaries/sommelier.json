@@ -5,11 +5,68 @@
   "fe_viable": false,
   "remote_obs": 0,
   "updated": "2026-07-23",
-  "observations": 3,
-  "global": null,
-  "by_country": {},
+  "observations": 205,
+  "global": {
+    "n": 205,
+    "p10": 36687,
+    "p25": 41702,
+    "p50": 48880,
+    "p75": 56160,
+    "p90": 67217
+  },
+  "by_country": {
+    "US": {
+      "posted": {
+        "n": 96,
+        "p10": 34322,
+        "p25": 39950,
+        "p50": 48934,
+        "p75": 60000,
+        "p90": 70585
+      },
+      "price_level": 1,
+      "blended": {
+        "n": 96,
+        "p10": 34322,
+        "p25": 39950,
+        "p50": 48934,
+        "p75": 60000,
+        "p90": 70585,
+        "basis": "postings"
+      }
+    },
+    "GB": {
+      "posted": {
+        "n": 104,
+        "p10": 39026,
+        "p25": 42497,
+        "p50": 48177,
+        "p75": 53650,
+        "p90": 61546
+      },
+      "price_level": 0.8212,
+      "blended": {
+        "n": 104,
+        "p10": 39026,
+        "p25": 42497,
+        "p50": 48177,
+        "p75": 53650,
+        "p90": 61546,
+        "basis": "postings"
+      }
+    }
+  },
   "remote": null,
-  "seniority": null,
+  "seniority": {
+    "mid": {
+      "n": 180,
+      "p10": 37376,
+      "p25": 41976,
+      "p50": 48828,
+      "p75": 55855,
+      "p90": 67217
+    }
+  },
   "anchor_source": null,
   "price_level_source": "World Bank ICP 2023"
 }

@@ -18,7 +18,7 @@ Writes:
   apps/web/public/data/jobs-detail/{role_id}.json  id -> {desc} (detail pages, build-time read)
   apps/web/public/data/jobs-index.json             role_id -> count
 """
-import json, os, collections, hashlib
+import json, os, collections, hashlib, html, re
 
 RAW = 'apps/scraper/data/postings_raw.ndjson'
 NORM = 'apps/scraper/data/postings.ndjson'
@@ -48,6 +48,23 @@ def display_company(name):
 
 def jid(url):
     return hashlib.sha1(url.encode()).hexdigest()[:10]
+
+_BLOCK_END = re.compile(r'</(p|div|ul|ol|h[1-6]|section|table|tr)>|<br\s*/?>', re.I)
+_LI = re.compile(r'<li[^>]*>', re.I)
+_TAG = re.compile(r'<[^>]+>')
+def clean_desc(text):
+    """Some sources (Greenhouse) ship the description as entity-escaped HTML.
+    Unescape, turn block ends into newlines and list items into bullets, strip
+    the rest of the tags, and tidy the whitespace into readable paragraphs."""
+    t = html.unescape(html.unescape(text))          # twice: &amp;nbsp; style double-escapes
+    t = _BLOCK_END.sub('\n\n', t)
+    t = _LI.sub('\n· ', t)
+    t = _TAG.sub(' ', t)
+    t = t.replace(' ', ' ').replace('\r', '')
+    t = re.sub(r'[ \t]+', ' ', t)
+    t = re.sub(r' *\n *', '\n', t)
+    t = re.sub(r'\n{3,}', '\n\n', t)
+    return t.strip()
 
 # 1. Raw index by (source, external_id) for company / location / description.
 raw = {}
@@ -98,7 +115,7 @@ for line in open(NORM):
         'source': s,
         'posted': (str(d.get('posted_at') or ''))[:10],
     })
-    desc = (r.get('description_text') or '').strip()
+    desc = clean_desc(r.get('description_text') or '')
     if desc:
         desc_byocc[role][_id] = desc[:DESC_CAP]
 
