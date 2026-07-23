@@ -1265,33 +1265,6 @@
     "paramedic": [],
     "nurse-practitioner": [
       {
-        "t": "Executive Assistant",
-        "m": 11,
-        "slug": "executive-assistant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Salesforce",
-          "Market Research",
-          "Scheduling",
-          "Supply Chain"
-        ],
-        "observed": null,
-        "fit": 36,
-        "capability": 23,
-        "mobility": 100,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 47,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "nurse-practitioner",
-          "readiness_after": 31,
-          "gain": 20
-        }
-      },
-      {
         "t": "Environmental Engineer",
         "m": 11,
         "slug": "environmental-engineer",
@@ -1316,6 +1289,33 @@
           "parent": "nurse-practitioner",
           "readiness_after": 22,
           "gain": 11
+        }
+      },
+      {
+        "t": "Grant Writer",
+        "m": 11,
+        "slug": "grant-writer",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Grant Writing",
+          "Sales",
+          "Public Safety",
+          "Sustainability"
+        ],
+        "observed": null,
+        "fit": 12,
+        "capability": 24,
+        "mobility": 3,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 3,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "nurse-practitioner",
+          "readiness_after": 21,
+          "gain": 10
         }
       }
     ],
@@ -1635,7 +1635,7 @@
         "Writing & Editing",
         "Design Systems",
         "Figma",
-        "Service Design"
+        "Branding"
       ],
       "observed": null,
       "fit": 23,
@@ -1648,7 +1648,7 @@
     },
     {
       "t": "Systems Administrator",
-      "m": 14,
+      "m": 13,
       "slug": "systems-administrator",
       "field": "Technology",
       "cluster": "Technology",
@@ -1660,7 +1660,7 @@
         "Networking"
       ],
       "observed": null,
-      "fit": 24,
+      "fit": 23,
       "capability": 22,
       "mobility": 47,
       "mobility_source": "observed-flow-eu",

@@ -480,7 +480,7 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 2.2,
+          "pts": 2.1,
           "earned": 0
         },
         {
@@ -490,15 +490,15 @@
           "earned": 1.9
         },
         {
-          "skill": "cad-drafting",
-          "name": "Drafting",
+          "skill": "training",
+          "name": "Training & Facilitation",
           "pts": 1.7,
           "earned": 0
         },
         {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.6,
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 1.7,
           "earned": 0
         },
         {
@@ -511,7 +511,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1389,
+        "postings": 1390,
         "salaried": 949
       }
     },
@@ -526,8 +526,8 @@
         "label": "PE required for sign-off roles; not for most product/manufacturing roles"
       },
       "desc": "",
-      "match": 32,
-      "fit": 42,
+      "match": 33,
+      "fit": 43,
       "capability": 80,
       "mobility": 35,
       "mobility_source": "observed-flow-us",
@@ -569,7 +569,7 @@
         {
           "skill": "spec-writing",
           "name": "Spec Writing",
-          "pts": 9.1,
+          "pts": 9,
           "earned": 4.9
         },
         {
@@ -581,14 +581,14 @@
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 7.6,
+          "pts": 7.8,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 6.5,
-          "earned": 6.5
+          "pts": 6.6,
+          "earned": 6.6
         },
         {
           "skill": "structural-analysis",
@@ -617,7 +617,7 @@
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0
         },
         {
@@ -653,13 +653,13 @@
         {
           "skill": "gd-t",
           "name": "GD&T",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "3d-modeling",
           "name": "3D Modeling",
-          "pts": 2.7,
+          "pts": 2.6,
           "earned": 0
         },
         {
@@ -678,7 +678,7 @@
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 2005,
+        "postings": 2007,
         "salaried": 1434
       }
     },
@@ -1370,13 +1370,13 @@
         "reach": "bridged",
         "via": {
           "parent": "industrial-engineer",
-          "readiness_after": 36,
-          "gain": 13
+          "readiness_after": 35,
+          "gain": 12
         }
       },
       {
         "t": "Executive Assistant",
-        "m": 21,
+        "m": 20,
         "slug": "executive-assistant",
         "field": "Business",
         "cluster": "Business",
@@ -1388,7 +1388,7 @@
           "Accounting"
         ],
         "observed": null,
-        "fit": 14,
+        "fit": 13,
         "capability": 10,
         "mobility": 1,
         "mobility_source": "observed-flow-us",
@@ -1397,7 +1397,7 @@
         "reach": "bridged",
         "via": {
           "parent": "industrial-engineer",
-          "readiness_after": 31,
+          "readiness_after": 30,
           "gain": 10
         }
       }
@@ -1487,30 +1487,30 @@
         }
       },
       {
-        "t": "Structural Engineer",
-        "m": 19,
-        "slug": "structural-engineer",
-        "field": "Engineering",
-        "cluster": "Built Environment",
+        "t": "Management Consultant",
+        "m": 18,
+        "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Structural Analysis",
-          "Revit",
-          "Training & Facilitation",
-          "Construction Administration"
+          "Presentation",
+          "SAP",
+          "Account Management",
+          "SQL"
         ],
         "observed": null,
-        "fit": 35,
-        "capability": 75,
-        "mobility": 38,
+        "fit": 26,
+        "capability": 48,
+        "mobility": 26,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 25,
+        "mobility_eu": 17,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "electrical-engineer",
-          "readiness_after": 46,
-          "gain": 27
+          "readiness_after": 26,
+          "gain": 8
         }
       }
     ],
@@ -1543,7 +1543,35 @@
         }
       }
     ],
-    "robotics-engineer": [],
+    "robotics-engineer": [
+      {
+        "t": "Systems Administrator",
+        "m": 20,
+        "slug": "systems-administrator",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Linux",
+          "Cybersecurity",
+          "HR Operations",
+          "Docker"
+        ],
+        "observed": null,
+        "fit": 22,
+        "capability": 50,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "robotics-engineer",
+          "readiness_after": 30,
+          "gain": 10
+        }
+      }
+    ],
     "robotics-technician": [
       {
         "t": "Warehouse Manager",
@@ -1624,35 +1652,35 @@
         "reach": "bridged",
         "via": {
           "parent": "structural-engineer",
-          "readiness_after": 29,
-          "gain": 10
+          "readiness_after": 28,
+          "gain": 9
         }
       },
       {
-        "t": "Management Consultant",
+        "t": "Structural Engineer",
         "m": 19,
-        "slug": "management-consultant",
-        "field": "Business",
-        "cluster": "Business",
+        "slug": "structural-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
         "kind": "pivot",
         "gap": [
-          "Presentation",
-          "SAP",
-          "Account Management",
-          "SQL"
+          "Structural Analysis",
+          "Revit",
+          "Training & Facilitation",
+          "Construction Administration"
         ],
         "observed": null,
-        "fit": 27,
-        "capability": 48,
-        "mobility": 26,
+        "fit": 35,
+        "capability": 75,
+        "mobility": 38,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 17,
+        "mobility_eu": 25,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "structural-engineer",
-          "readiness_after": 30,
-          "gain": 11
+          "readiness_after": 100,
+          "gain": 81
         }
       }
     ],
@@ -1716,7 +1744,7 @@
   "direct": [
     {
       "t": "HR Manager",
-      "m": 21,
+      "m": 20,
       "slug": "hr-manager",
       "field": "Business",
       "cluster": "Business",
@@ -1728,32 +1756,10 @@
         "Jira"
       ],
       "observed": null,
-      "fit": 25,
+      "fit": 24,
       "capability": 35,
       "mobility": null,
       "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Systems Administrator",
-      "m": 21,
-      "slug": "systems-administrator",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
-      "gap": [
-        "Linux",
-        "Cybersecurity",
-        "HR Operations",
-        "Docker"
-      ],
-      "observed": null,
-      "fit": 22,
-      "capability": 50,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
@@ -1815,11 +1821,6 @@
   ],
   "bridges": [
     [
-      "structural-engineer",
-      "electrical-engineer_1",
-      1
-    ],
-    [
       "electrical-engineer",
       "construction-manager_0",
       0.54
@@ -1833,6 +1834,11 @@
       "robotics-technician",
       "electrical-engineer_0",
       0.49
+    ],
+    [
+      "electrical-engineer",
+      "structural-engineer_1",
+      0.46
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

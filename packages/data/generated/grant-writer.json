@@ -700,7 +700,7 @@
       "salary": "$60k–$110k",
       "salary_band": [
         60495,
-        107546
+        108073
       ],
       "demand": "High",
       "remote": "1%",
@@ -721,109 +721,115 @@
         {
           "skill": "linux",
           "name": "Linux",
-          "pts": 24.3,
+          "pts": 24.4,
           "earned": 0
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 11.7,
-          "earned": 3.6
+          "pts": 12.2,
+          "earned": 3.5
         },
         {
           "skill": "cybersecurity",
           "name": "Cybersecurity",
-          "pts": 9.7,
+          "pts": 9.3,
           "earned": 1.2
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 5.2,
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 5.2,
+          "pts": 5,
           "earned": 1.2
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 5.2,
-          "earned": 3.6
+          "pts": 5,
+          "earned": 3.5
         },
         {
           "skill": "docker",
           "name": "Docker",
-          "pts": 5,
+          "pts": 4.8,
           "earned": 0
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 4.2,
+          "pts": 4.1,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 4,
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "networking",
           "name": "Networking",
-          "pts": 3.7,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "azure",
           "name": "Azure",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "jira",
-          "name": "Jira",
-          "pts": 2.2,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "aws",
           "name": "AWS",
-          "pts": 2.2,
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "jira",
+          "name": "Jira",
+          "pts": 2.1,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 2.2,
+          "pts": 2.1,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 2,
+          "pts": 1.9,
           "earned": 0
         },
         {
           "skill": "agile",
           "name": "Agile",
-          "pts": 2,
+          "pts": 1.9,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 2,
+          "pts": 1.9,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 2,
+          "pts": 1.9,
           "earned": 1.2
         },
         {
@@ -831,19 +837,13 @@
           "name": "LangChain / Agents",
           "pts": 1.7,
           "earned": 1.2
-        },
-        {
-          "skill": "kubernetes",
-          "name": "Kubernetes",
-          "pts": 1.7,
-          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 646,
-        "salaried": 387
+        "postings": 650,
+        "salaried": 388
       }
     },
     {
@@ -888,7 +888,7 @@
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 23.4,
+          "pts": 23.3,
           "earned": 3
         },
         {
@@ -906,7 +906,7 @@
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 5.1,
+          "pts": 5.3,
           "earned": 4.5
         },
         {
@@ -954,7 +954,7 @@
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 1.5,
+          "pts": 1.7,
           "earned": 0
         },
         {
@@ -994,14 +994,14 @@
           "earned": 0
         },
         {
-          "skill": "safety",
-          "name": "Safety / OSHA",
+          "skill": "operations",
+          "name": "Operations",
           "pts": 0.6,
           "earned": 0
         },
         {
-          "skill": "zoning",
-          "name": "Zoning",
+          "skill": "safety",
+          "name": "Safety / OSHA",
           "pts": 0.6,
           "earned": 0
         }
@@ -1009,7 +1009,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 942,
+        "postings": 943,
         "salaried": 830
       }
     },
@@ -1428,8 +1428,8 @@
         "reach": "bridged",
         "via": {
           "parent": "pharmacist",
-          "readiness_after": 21,
-          "gain": 10
+          "readiness_after": 20,
+          "gain": 9
         }
       },
       {
@@ -1460,35 +1460,7 @@
         }
       }
     ],
-    "systems-administrator": [
-      {
-        "t": "Compliance Officer",
-        "m": 10,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Risk Management",
-          "Quality Control",
-          "Data Analysis",
-          "Supply Chain"
-        ],
-        "observed": null,
-        "fit": 11,
-        "capability": 26,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "systems-administrator",
-          "readiness_after": 33,
-          "gain": 23
-        }
-      }
-    ],
+    "systems-administrator": [],
     "physical-therapist": [],
     "nurse-practitioner": [
       {
@@ -1534,13 +1506,13 @@
       0.66
     ],
     [
+      "pharmacist",
       "physical-therapist",
-      "nurse-practitioner",
       0.61
     ],
     [
-      "pharmacist",
       "physical-therapist",
+      "nurse-practitioner",
       0.6
     ],
     [
@@ -1551,7 +1523,7 @@
     [
       "dietitian",
       "physical-therapist",
-      0.42
+      0.43
     ]
   ],
   "bridges": [
@@ -1571,9 +1543,9 @@
       0.36
     ],
     [
-      "pharmacist",
-      "systems-administrator_0",
-      0.31
+      "dietitian",
+      "pharmacist_1",
+      0.26
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

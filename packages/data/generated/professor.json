@@ -62,8 +62,8 @@
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 50.1,
-          "earned": 50.1
+          "pts": 50.2,
+          "earned": 50.2
         },
         {
           "skill": "classroom-management",
@@ -183,7 +183,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1654,
+        "postings": 1655,
         "salaried": 1281
       }
     },
@@ -1290,8 +1290,91 @@
     "tutor": [],
     "teaching-assistant": [
       {
+        "t": "Pharmacist",
+        "m": 13,
+        "slug": "pharmacist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Health Education",
+          "Patient Care",
+          "Translation",
+          "Customer Service"
+        ],
+        "observed": null,
+        "fit": 11,
+        "capability": null,
+        "mobility": 5,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 7,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "teaching-assistant",
+          "readiness_after": 32,
+          "gain": 19
+        }
+      },
+      {
+        "t": "Systems Administrator",
+        "m": 13,
+        "slug": "systems-administrator",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "Linux",
+          "Operations",
+          "Procurement",
+          "Docker"
+        ],
+        "observed": null,
+        "fit": 10,
+        "capability": null,
+        "mobility": 2,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "teaching-assistant",
+          "readiness_after": 23,
+          "gain": 10
+        }
+      }
+    ],
+    "librarian": [
+      {
+        "t": "Creative Director",
+        "m": 15,
+        "slug": "creative-director",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Project Management",
+          "Presentation",
+          "Design Systems"
+        ],
+        "observed": null,
+        "fit": 12,
+        "capability": null,
+        "mobility": 5,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 3,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "librarian",
+          "readiness_after": 27,
+          "gain": 12
+        }
+      },
+      {
         "t": "Executive Assistant",
-        "m": 14,
+        "m": 13,
         "slug": "executive-assistant",
         "field": "Business",
         "cluster": "Business",
@@ -1311,123 +1394,13 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "teaching-assistant",
-          "readiness_after": 29,
+          "parent": "librarian",
+          "readiness_after": 28,
           "gain": 15
-        }
-      },
-      {
-        "t": "Recruiter",
-        "m": 13,
-        "slug": "recruiter",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Recruiting",
-          "Procurement",
-          "LangChain / Agents",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": null,
-        "mobility": 4,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 13,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "teaching-assistant",
-          "readiness_after": 21,
-          "gain": 8
-        }
-      }
-    ],
-    "librarian": [
-      {
-        "t": "Real Estate Agent",
-        "m": 13,
-        "slug": "real-estate-agent",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Sales",
-          "Account Management",
-          "Negotiation",
-          "Customer Service"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": null,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 2,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "librarian",
-          "readiness_after": 24,
-          "gain": 11
-        }
-      },
-      {
-        "t": "Project Manager",
-        "m": 12,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Project Management",
-          "Lean / Six Sigma",
-          "Operations",
-          "Agile"
-        ],
-        "observed": null,
-        "fit": 9,
-        "capability": null,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 17,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "librarian",
-          "readiness_after": 24,
-          "gain": 12
         }
       }
     ],
     "automotive-technician": [
-      {
-        "t": "Compliance Officer",
-        "m": 15,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Compliance",
-          "Risk Management",
-          "Quality Control",
-          "Contracts"
-        ],
-        "observed": null,
-        "fit": 11,
-        "capability": null,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 4,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "automotive-technician",
-          "readiness_after": 26,
-          "gain": 11
-        }
-      },
       {
         "t": "Flight Attendant",
         "m": 15,
@@ -1453,6 +1426,33 @@
           "parent": "automotive-technician",
           "readiness_after": 28,
           "gain": 13
+        }
+      },
+      {
+        "t": "Compliance Officer",
+        "m": 14,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Risk Management",
+          "Quality Control",
+          "Contracts"
+        ],
+        "observed": null,
+        "fit": 10,
+        "capability": null,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 4,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "automotive-technician",
+          "readiness_after": 25,
+          "gain": 11
         }
       }
     ],
@@ -1514,30 +1514,30 @@
         }
       },
       {
-        "t": "Creative Director",
+        "t": "Recruiter",
         "m": 15,
-        "slug": "creative-director",
-        "field": "Design",
-        "cluster": "Design",
+        "slug": "recruiter",
+        "field": "Business",
+        "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Writing & Editing",
-          "Project Management",
-          "Presentation",
-          "Design Systems"
+          "Recruiting",
+          "Procurement",
+          "LangChain / Agents",
+          "Lean / Six Sigma"
         ],
         "observed": null,
         "fit": 12,
         "capability": null,
-        "mobility": 5,
+        "mobility": 4,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 3,
+        "mobility_eu": 13,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "game-designer",
-          "readiness_after": 32,
-          "gain": 17
+          "readiness_after": 23,
+          "gain": 8
         }
       }
     ],
@@ -1571,7 +1571,7 @@
       },
       {
         "t": "Corporate Trainer",
-        "m": 14,
+        "m": 13,
         "slug": "corporate-trainer",
         "field": "Education",
         "cluster": "Education",
@@ -1583,7 +1583,7 @@
           "Presentation"
         ],
         "observed": null,
-        "fit": 11,
+        "fit": 10,
         "capability": null,
         "mobility": 3,
         "mobility_source": "observed-flow-us",
@@ -1593,7 +1593,7 @@
         "via": {
           "parent": "physician",
           "readiness_after": 29,
-          "gain": 15
+          "gain": 16
         }
       }
     ]
@@ -1622,28 +1622,6 @@
       "reach": "direct"
     },
     {
-      "t": "Pharmacist",
-      "m": 13,
-      "slug": "pharmacist",
-      "field": "Healthcare",
-      "cluster": "Healthcare",
-      "kind": "pivot",
-      "gap": [
-        "Health Education",
-        "Patient Care",
-        "Translation",
-        "Customer Service"
-      ],
-      "observed": null,
-      "fit": 11,
-      "capability": null,
-      "mobility": 5,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 7,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Financial Controller",
       "m": 13,
       "slug": "controller",
@@ -1653,8 +1631,8 @@
       "gap": [
         "Forecasting",
         "Budgeting",
-        "Audit",
-        "Lean / Six Sigma"
+        "Lean / Six Sigma",
+        "Audit"
       ],
       "observed": null,
       "fit": 11,
@@ -1666,24 +1644,46 @@
       "reach": "direct"
     },
     {
-      "t": "Systems Administrator",
+      "t": "Real Estate Agent",
       "m": 13,
-      "slug": "systems-administrator",
-      "field": "Technology",
-      "cluster": "Technology",
+      "slug": "real-estate-agent",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "gap": [
-        "Linux",
-        "Operations",
-        "Procurement",
-        "Docker"
+        "Sales",
+        "Account Management",
+        "Negotiation",
+        "Customer Service"
       ],
       "observed": null,
       "fit": 10,
       "capability": null,
       "mobility": 2,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
+      "mobility_eu": 2,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Project Manager",
+      "m": 12,
+      "slug": "project-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Lean / Six Sigma",
+        "Operations",
+        "Agile"
+      ],
+      "observed": null,
+      "fit": 9,
+      "capability": null,
+      "mobility": 2,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 17,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1746,7 +1746,12 @@
     [
       "physician",
       "teaching-assistant_0",
-      0.37
+      0.66
+    ],
+    [
+      "physician",
+      "librarian_1",
+      0.35
     ],
     [
       "game-designer",
@@ -1757,11 +1762,6 @@
       "physician",
       "game-designer_0",
       0.31
-    ],
-    [
-      "librarian",
-      "game-designer_1",
-      0.27
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

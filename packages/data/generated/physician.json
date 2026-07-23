@@ -524,8 +524,8 @@
         "label": "State PT license (NPTE) required"
       },
       "desc": "",
-      "match": 65,
-      "fit": 65,
+      "match": 66,
+      "fit": 66,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -555,8 +555,8 @@
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 23.4,
-          "earned": 23.4
+          "pts": 23.3,
+          "earned": 23.3
         },
         {
           "skill": "clinical",
@@ -573,8 +573,8 @@
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 5.1,
-          "earned": 5.1
+          "pts": 5.3,
+          "earned": 5.3
         },
         {
           "skill": "teaching",
@@ -621,8 +621,8 @@
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 1.5,
-          "earned": 1.5
+          "pts": 1.7,
+          "earned": 1.7
         },
         {
           "skill": "translation",
@@ -661,14 +661,14 @@
           "earned": 0.8
         },
         {
-          "skill": "safety",
-          "name": "Safety / OSHA",
+          "skill": "operations",
+          "name": "Operations",
           "pts": 0.6,
-          "earned": 0
+          "earned": 0.6
         },
         {
-          "skill": "zoning",
-          "name": "Zoning",
+          "skill": "safety",
+          "name": "Safety / OSHA",
           "pts": 0.6,
           "earned": 0
         }
@@ -676,7 +676,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 942,
+        "postings": 943,
         "salaried": 830
       }
     },
@@ -1348,33 +1348,6 @@
     ],
     "pharmacist": [
       {
-        "t": "Executive Assistant",
-        "m": 27,
-        "slug": "executive-assistant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Salesforce",
-          "Market Research",
-          "Project Management",
-          "Accounting"
-        ],
-        "observed": null,
-        "fit": 27,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "pharmacist",
-          "readiness_after": 40,
-          "gain": 13
-        }
-      },
-      {
         "t": "Biomedical Engineer",
         "m": 26,
         "slug": "biomedical-engineer",
@@ -1399,6 +1372,33 @@
           "parent": "pharmacist",
           "readiness_after": 35,
           "gain": 9
+        }
+      },
+      {
+        "t": "Paralegal",
+        "m": 26,
+        "slug": "paralegal",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Criminal Investigation",
+          "Procurement",
+          "Excel"
+        ],
+        "observed": null,
+        "fit": 26,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "pharmacist",
+          "readiness_after": 34,
+          "gain": 8
         }
       }
     ],
@@ -1537,20 +1537,20 @@
       "reach": "direct"
     },
     {
-      "t": "Paralegal",
-      "m": 26,
-      "slug": "paralegal",
-      "field": "Legal",
-      "cluster": "Legal",
+      "t": "Executive Assistant",
+      "m": 25,
+      "slug": "executive-assistant",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "gap": [
-        "Contracts",
-        "Criminal Investigation",
-        "Procurement",
-        "Excel"
+        "Salesforce",
+        "Market Research",
+        "Project Management",
+        "Accounting"
       ],
       "observed": null,
-      "fit": 26,
+      "fit": 25,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1613,7 +1613,7 @@
         "Instructional Design",
         "LangChain / Agents",
         "Project Management",
-        "Curriculum Development"
+        "Stakeholder Management"
       ],
       "observed": null,
       "fit": 23,

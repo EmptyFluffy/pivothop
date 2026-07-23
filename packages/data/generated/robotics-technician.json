@@ -1505,19 +1505,19 @@
     "industrial-engineer": [
       {
         "t": "Project Manager",
-        "m": 16,
+        "m": 17,
         "slug": "project-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
           "Data Analysis",
-          "Observability",
           "Operations",
-          "Agile"
+          "Agile",
+          "Observability"
         ],
         "observed": null,
-        "fit": 16,
+        "fit": 17,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1526,8 +1526,8 @@
         "reach": "bridged",
         "via": {
           "parent": "industrial-engineer",
-          "readiness_after": 33,
-          "gain": 17
+          "readiness_after": 32,
+          "gain": 15
         }
       },
       {
@@ -1697,6 +1697,33 @@
           "readiness_after": 42,
           "gain": 25
         }
+      },
+      {
+        "t": "Management Consultant",
+        "m": 14,
+        "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "Presentation",
+          "Sustainability",
+          "SAP"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "facilities-manager",
+          "readiness_after": 23,
+          "gain": 9
+        }
       }
     ],
     "robotics-engineer": []
@@ -1739,28 +1766,6 @@
       ],
       "observed": null,
       "fit": 15,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Instructional Designer",
-      "m": 14,
-      "slug": "instructional-designer",
-      "field": "Education",
-      "cluster": "Education",
-      "kind": "pivot",
-      "gap": [
-        "Instructional Design",
-        "Agile",
-        "Teaching",
-        "Curriculum Development"
-      ],
-      "observed": null,
-      "fit": 14,
       "capability": null,
       "mobility": null,
       "mobility_source": null,

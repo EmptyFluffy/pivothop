@@ -1181,55 +1181,55 @@
         {
           "skill": "salesforce",
           "name": "Salesforce",
-          "pts": 16.3,
+          "pts": 16,
           "earned": 0
         },
         {
           "skill": "market-research",
           "name": "Market Research",
-          "pts": 15.8,
+          "pts": 15.4,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 11.9,
+          "pts": 11.8,
           "earned": 2.8
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 8.4,
+          "pts": 8.5,
           "earned": 3.5
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 5.5,
+          "pts": 6,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 5.5,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 5,
+          "pts": 4.9,
           "earned": 0.7
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 4.1,
+          "pts": 4.5,
           "earned": 0
         },
         {
           "skill": "event-planning",
           "name": "Event Planning",
-          "pts": 4,
+          "pts": 3.9,
           "earned": 1.4
         },
         {
@@ -1241,26 +1241,32 @@
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 2.9,
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0.7
         },
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 2.4,
+          "pts": 2.3,
           "earned": 0.7
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 2.1,
-          "earned": 2.1
+          "pts": 2.3,
+          "earned": 2.3
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 1.9,
+          "earned": 0
         },
         {
           "skill": "jira",
@@ -1269,14 +1275,20 @@
           "earned": 0.7
         },
         {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 1.8,
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 1.5,
           "earned": 0
         },
         {
-          "skill": "account-management",
-          "name": "Account Management",
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 1.5,
+          "earned": 0
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
           "pts": 1.5,
           "earned": 0
         },
@@ -1285,24 +1297,12 @@
           "name": "Community Engagement",
           "pts": 1.5,
           "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 1.4,
-          "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 1.4,
-          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1166,
+        "postings": 1171,
         "salaried": 748
       }
     }
@@ -1377,6 +1377,33 @@
           "Sustainability",
           "Maintenance",
           "Social Media"
+        ],
+        "observed": null,
+        "fit": 10,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "chef",
+          "readiness_after": 18,
+          "gain": 8
+        }
+      },
+      {
+        "t": "Paralegal",
+        "m": 10,
+        "slug": "paralegal",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Case Management",
+          "Criminal Investigation",
+          "Excel"
         ],
         "observed": null,
         "fit": 10,
@@ -1529,8 +1556,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 27,
-          "gain": 16
+          "readiness_after": 26,
+          "gain": 15
         }
       }
     ],
@@ -1590,63 +1617,8 @@
         }
       }
     ],
-    "librarian": [
-      {
-        "t": "Real Estate Developer",
-        "m": 10,
-        "slug": "real-estate-developer",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Product Management",
-          "AWS",
-          "Project Management",
-          "Data Analysis"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "librarian",
-          "readiness_after": 20,
-          "gain": 10
-        }
-      }
-    ],
+    "librarian": [],
     "executive-assistant": [
-      {
-        "t": "Project Manager",
-        "m": 12,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Project Management",
-          "Data Analysis",
-          "Observability",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 12,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "executive-assistant",
-          "readiness_after": 32,
-          "gain": 20
-        }
-      },
       {
         "t": "Financial Controller",
         "m": 12,
@@ -1658,7 +1630,7 @@
           "Lean / Six Sigma",
           "Excel",
           "Maintenance",
-          "Sustainability"
+          "Data Analysis"
         ],
         "observed": null,
         "fit": 12,
@@ -1673,35 +1645,40 @@
           "readiness_after": 25,
           "gain": 13
         }
+      },
+      {
+        "t": "Project Manager",
+        "m": 11,
+        "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Data Analysis",
+          "Lean / Six Sigma",
+          "Agile"
+        ],
+        "observed": null,
+        "fit": 11,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "executive-assistant",
+          "readiness_after": 31,
+          "gain": 20
+        }
       }
     ]
   },
   "direct": [
     {
-      "t": "Compliance Officer",
-      "m": 11,
-      "slug": "compliance-officer",
-      "field": "Finance",
-      "cluster": "Finance",
-      "kind": "pivot",
-      "gap": [
-        "Observability",
-        "Risk Management",
-        "Quality Control",
-        "Data Analysis"
-      ],
-      "observed": null,
-      "fit": 11,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Recruiter",
-      "m": 10,
+      "m": 11,
       "slug": "recruiter",
       "field": "Business",
       "cluster": "Business",
@@ -1713,7 +1690,7 @@
         "Stakeholder Management"
       ],
       "observed": null,
-      "fit": 10,
+      "fit": 11,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1742,6 +1719,28 @@
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
+    },
+    {
+      "t": "Compliance Officer",
+      "m": 10,
+      "slug": "compliance-officer",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Observability",
+        "Risk Management",
+        "Quality Control",
+        "Data Analysis"
+      ],
+      "observed": null,
+      "fit": 10,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
     }
   ],
   "cross": [
@@ -1756,13 +1755,13 @@
       0.36
     ],
     [
-      "construction-manager",
-      "executive-assistant",
-      0.35
-    ],
-    [
       "hotel-manager",
       "chef",
+      0.34
+    ],
+    [
+      "construction-manager",
+      "executive-assistant",
       0.34
     ],
     [
@@ -1773,7 +1772,7 @@
     [
       "hotel-manager",
       "executive-assistant",
-      0.3
+      0.32
     ]
   ],
   "bridges": [
@@ -1789,13 +1788,13 @@
     ],
     [
       "executive-assistant",
-      "cook_0",
+      "facilities-manager_1",
       0.34
     ],
     [
       "executive-assistant",
-      "facilities-manager_1",
-      0.33
+      "cook_0",
+      0.34
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

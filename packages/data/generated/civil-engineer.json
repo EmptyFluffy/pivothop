@@ -486,8 +486,8 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 2.2,
-          "earned": 2.2
+          "pts": 2.1,
+          "earned": 2.1
         },
         {
           "skill": "observability",
@@ -496,16 +496,16 @@
           "earned": 0
         },
         {
-          "skill": "cad-drafting",
-          "name": "Drafting",
+          "skill": "training",
+          "name": "Training & Facilitation",
           "pts": 1.7,
           "earned": 1.7
         },
         {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.6,
-          "earned": 1.6
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 1.7,
+          "earned": 1.7
         },
         {
           "skill": "python",
@@ -517,7 +517,7 @@
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 1389,
+        "postings": 1390,
         "salaried": 949
       }
     },
@@ -739,8 +739,8 @@
         {
           "skill": "spec-writing",
           "name": "Spec Writing",
-          "pts": 9.1,
-          "earned": 9.1
+          "pts": 9,
+          "earned": 9
         },
         {
           "skill": "project-management",
@@ -751,13 +751,13 @@
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 7.6,
+          "pts": 7.8,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 6.5,
+          "pts": 6.6,
           "earned": 4.4
         },
         {
@@ -787,8 +787,8 @@
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3.6,
-          "earned": 3.6
+          "pts": 3.5,
+          "earned": 3.5
         },
         {
           "skill": "lean-six-sigma",
@@ -823,13 +823,13 @@
         {
           "skill": "gd-t",
           "name": "GD&T",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "3d-modeling",
           "name": "3D Modeling",
-          "pts": 2.7,
+          "pts": 2.6,
           "earned": 0
         },
         {
@@ -848,7 +848,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2005,
+        "postings": 2007,
         "salaried": 1434
       }
     },
@@ -1352,7 +1352,35 @@
     }
   ],
   "next": {
-    "structural-engineer": [],
+    "structural-engineer": [
+      {
+        "t": "Chemical Engineer",
+        "m": 17,
+        "slug": "chemical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Lean / Six Sigma",
+          "Operations",
+          "Supply Chain",
+          "Compliance"
+        ],
+        "observed": null,
+        "fit": 25,
+        "capability": 73,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 10,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "structural-engineer",
+          "readiness_after": 28,
+          "gain": 11
+        }
+      }
+    ],
     "architect": [
       {
         "t": "Environmental Engineer",
@@ -1411,6 +1439,33 @@
     ],
     "electrical-engineer": [
       {
+        "t": "Management Consultant",
+        "m": 21,
+        "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "SAP",
+          "SQL",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "fit": 23,
+        "capability": 42,
+        "mobility": 12,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "electrical-engineer",
+          "readiness_after": 29,
+          "gain": 8
+        }
+      },
+      {
         "t": "Automotive Technician",
         "m": 21,
         "slug": "automotive-technician",
@@ -1436,6 +1491,36 @@
           "readiness_after": 34,
           "gain": 13
         }
+      }
+    ],
+    "interior-designer": [],
+    "mechanical-engineer": [
+      {
+        "t": "Creative Director",
+        "m": 18,
+        "slug": "creative-director",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Writing & Editing",
+          "Design Systems",
+          "Figma",
+          "Branding"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 35,
+        "mobility": 0,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "mechanical-engineer",
+          "readiness_after": 27,
+          "gain": 9
+        }
       },
       {
         "t": "VDC Manager",
@@ -1459,94 +1544,9 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "electrical-engineer",
-          "readiness_after": 27,
-          "gain": 10
-        }
-      }
-    ],
-    "interior-designer": [
-      {
-        "t": "Carpenter",
-        "m": 18,
-        "slug": "carpenter",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Scheduling",
-          "Building Codes",
-          "Customer Service"
-        ],
-        "observed": null,
-        "fit": 14,
-        "capability": 20,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "interior-designer",
-          "readiness_after": 46,
-          "gain": 28
-        }
-      }
-    ],
-    "mechanical-engineer": [
-      {
-        "t": "Creative Director",
-        "m": 18,
-        "slug": "creative-director",
-        "field": "Design",
-        "cluster": "Design",
-        "kind": "pivot",
-        "gap": [
-          "Writing & Editing",
-          "Design Systems",
-          "Figma",
-          "Service Design"
-        ],
-        "observed": null,
-        "fit": 17,
-        "capability": 35,
-        "mobility": 0,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
           "parent": "mechanical-engineer",
-          "readiness_after": 28,
-          "gain": 10
-        }
-      },
-      {
-        "t": "Chemical Engineer",
-        "m": 17,
-        "slug": "chemical-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Lean / Six Sigma",
-          "Operations",
-          "Supply Chain",
-          "Compliance"
-        ],
-        "observed": null,
-        "fit": 25,
-        "capability": 73,
-        "mobility": 3,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 10,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mechanical-engineer",
-          "readiness_after": 42,
-          "gain": 25
+          "readiness_after": 26,
+          "gain": 9
         }
       }
     ],
@@ -1608,35 +1608,6 @@
         }
       },
       {
-        "t": "Management Consultant",
-        "m": 24,
-        "slug": "management-consultant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Data Analysis",
-          "SAP",
-          "SQL",
-          "Accounting"
-        ],
-        "observed": null,
-        "fit": 25,
-        "capability": 42,
-        "mobility": 12,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "construction-manager",
-          "readiness_after": 38,
-          "gain": 14
-        }
-      }
-    ],
-    "construction-estimator": [
-      {
         "t": "Librarian",
         "m": 22,
         "slug": "librarian",
@@ -1658,11 +1629,13 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 34,
-          "gain": 12
+          "parent": "construction-manager",
+          "readiness_after": 36,
+          "gain": 14
         }
-      },
+      }
+    ],
+    "construction-estimator": [
       {
         "t": "Project Manager",
         "m": 18,
@@ -1673,8 +1646,8 @@
         "gap": [
           "Supply Chain",
           "Data Analysis",
-          "Observability",
-          "Lean / Six Sigma"
+          "Lean / Six Sigma",
+          "Operations"
         ],
         "observed": null,
         "fit": 14,
@@ -1686,8 +1659,35 @@
         "reach": "bridged",
         "via": {
           "parent": "construction-estimator",
-          "readiness_after": 30,
-          "gain": 12
+          "readiness_after": 29,
+          "gain": 11
+        }
+      },
+      {
+        "t": "Carpenter",
+        "m": 18,
+        "slug": "carpenter",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Scheduling",
+          "Building Codes",
+          "Customer Service"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": 20,
+        "mobility": 2,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "construction-estimator",
+          "readiness_after": 51,
+          "gain": 33
         }
       }
     ]
@@ -1715,7 +1715,7 @@
     },
     {
       "t": "Real Estate Developer",
-      "m": 16,
+      "m": 17,
       "slug": "real-estate-developer",
       "field": "Business",
       "cluster": "Business",
@@ -1723,11 +1723,11 @@
       "gap": [
         "Product Management",
         "AWS",
-        "Data Analysis",
-        "Negotiation"
+        "Negotiation",
+        "Data Analysis"
       ],
       "observed": null,
-      "fit": 11,
+      "fit": 12,
       "capability": null,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
@@ -1820,17 +1820,17 @@
     ],
     [
       "construction-estimator",
-      "interior-designer_0",
-      0.51
-    ],
-    [
-      "construction-estimator",
       "construction-manager_0",
       0.5
     ],
     [
       "construction-manager",
-      "mechanical-engineer_1",
+      "construction-estimator_1",
+      0.47
+    ],
+    [
+      "construction-manager",
+      "structural-engineer_0",
       0.44
     ]
   ],

@@ -1142,7 +1142,7 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 2.2,
+          "pts": 2.1,
           "earned": 0
         },
         {
@@ -1152,16 +1152,16 @@
           "earned": 1.1
         },
         {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 1.7,
+          "earned": 0
+        },
+        {
           "skill": "cad-drafting",
           "name": "Drafting",
           "pts": 1.7,
           "earned": 1.7
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.6,
-          "earned": 0
         },
         {
           "skill": "python",
@@ -1173,7 +1173,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1389,
+        "postings": 1390,
         "salaried": 949
       }
     },
@@ -1458,35 +1458,7 @@
         }
       }
     ],
-    "facilities-manager": [
-      {
-        "t": "Executive Assistant",
-        "m": 12,
-        "slug": "executive-assistant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Salesforce",
-          "Market Research",
-          "Scheduling",
-          "Presentation"
-        ],
-        "observed": null,
-        "fit": 12,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 21,
-          "gain": 9
-        }
-      }
-    ],
+    "facilities-manager": [],
     "automotive-technician": [
       {
         "t": "HVAC Technician",
@@ -1679,8 +1651,8 @@
         "reach": "bridged",
         "via": {
           "parent": "electrical-engineer",
-          "readiness_after": 48,
-          "gain": 33
+          "readiness_after": 49,
+          "gain": 34
         }
       }
     ],
@@ -1785,6 +1757,28 @@
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
+    },
+    {
+      "t": "Warehouse Manager",
+      "m": 11,
+      "slug": "warehouse-manager",
+      "field": "Transport",
+      "cluster": "Service",
+      "kind": "pivot",
+      "gap": [
+        "HR Operations",
+        "Training & Facilitation",
+        "Procurement",
+        "Scheduling"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
     }
   ],
   "cross": [
@@ -1833,7 +1827,7 @@
     [
       "electrical-engineer",
       "construction-estimator_0",
-      0.48
+      0.49
     ],
     [
       "facilities-manager",

@@ -21,6 +21,8 @@ npm run scrape -- fx:update         # refresh the monthly FX snapshot
 
 ## Sources — legal by construction
 
+*(The complete catalog with geography, board-eligibility, and reference datasets lives in .)*
+
 No LinkedIn, no Indeed, no ToS-violating sources.
 
 | Source | Auth | Notes |

@@ -1482,36 +1482,64 @@
           "readiness_after": 36,
           "gain": 15
         }
-      },
+      }
+    ],
+    "plumber": [
       {
-        "t": "Project Manager",
+        "t": "Industrial Engineer",
         "m": 17,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
+        "slug": "industrial-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
         "gap": [
-          "Agile",
-          "Stakeholder Management",
-          "Risk Management",
-          "Jira"
+          "FEA / Simulation",
+          "Quality Control",
+          "Welding / Fabrication",
+          "AWS"
         ],
         "observed": "Supplemental",
-        "fit": 16,
-        "capability": null,
-        "mobility": 14,
+        "fit": 20,
+        "capability": 51,
+        "mobility": 1,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
+        "mobility_eu": 11,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "hotel-manager",
+          "parent": "plumber",
+          "readiness_after": 25,
+          "gain": 8
+        }
+      },
+      {
+        "t": "Interior Designer",
+        "m": 17,
+        "slug": "interior-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Presentation",
+          "Construction Documentation",
+          "Construction Administration"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": 40,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 10,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "plumber",
           "readiness_after": 25,
           "gain": 8
         }
       }
     ],
-    "plumber": [],
     "hvac-technician": [
       {
         "t": "Environmental Engineer",
@@ -1659,7 +1687,7 @@
   "direct": [
     {
       "t": "Systems Administrator",
-      "m": 21,
+      "m": 20,
       "slug": "systems-administrator",
       "field": "Technology",
       "cluster": "Technology",
@@ -1671,7 +1699,7 @@
         "Docker"
       ],
       "observed": null,
-      "fit": 19,
+      "fit": 18,
       "capability": 37,
       "mobility": 0,
       "mobility_source": "observed-flow-us",
@@ -1724,46 +1752,24 @@
       "reach": "direct"
     },
     {
-      "t": "Management Consultant",
+      "t": "Event Planner",
       "m": 17,
-      "slug": "management-consultant",
+      "slug": "event-planner",
       "field": "Business",
       "cluster": "Business",
       "kind": "lateral",
       "gap": [
-        "Presentation",
-        "SAP",
-        "SQL",
-        "Accounting"
-      ],
-      "observed": "Supplemental",
-      "fit": 15,
-      "capability": 20,
-      "mobility": 6,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 17,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Financial Controller",
-      "m": 17,
-      "slug": "controller",
-      "field": "Finance",
-      "cluster": "Finance",
-      "kind": "pivot",
-      "gap": [
-        "Accounting",
-        "Forecasting",
-        "Audit",
-        "Excel"
+        "Event Planning",
+        "Scheduling",
+        "Excel",
+        "Data Visualization"
       ],
       "observed": null,
-      "fit": 14,
-      "capability": 16,
-      "mobility": 6,
+      "fit": 25,
+      "capability": 76,
+      "mobility": 0,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 4,
+      "mobility_eu": 12,
       "mobility_tier": null,
       "reach": "direct"
     }

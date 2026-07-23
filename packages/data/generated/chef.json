@@ -824,7 +824,7 @@
         "label": "State PT license (NPTE) required"
       },
       "desc": "",
-      "match": 14,
+      "match": 15,
       "fit": 31,
       "capability": 76,
       "mobility": null,
@@ -855,7 +855,7 @@
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 23.4,
+          "pts": 23.3,
           "earned": 0
         },
         {
@@ -873,7 +873,7 @@
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 5.1,
+          "pts": 5.3,
           "earned": 1.9
         },
         {
@@ -921,8 +921,8 @@
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 1.5,
-          "earned": 1.5
+          "pts": 1.7,
+          "earned": 1.7
         },
         {
           "skill": "translation",
@@ -961,22 +961,22 @@
           "earned": 0.5
         },
         {
-          "skill": "safety",
-          "name": "Safety / OSHA",
+          "skill": "operations",
+          "name": "Operations",
           "pts": 0.6,
           "earned": 0.6
         },
         {
-          "skill": "zoning",
-          "name": "Zoning",
+          "skill": "safety",
+          "name": "Safety / OSHA",
           "pts": 0.6,
-          "earned": 0
+          "earned": 0.6
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 942,
+        "postings": 943,
         "salaried": 830
       }
     },
@@ -1313,6 +1313,33 @@
     "cook": [],
     "hotel-manager": [
       {
+        "t": "Dental Hygienist",
+        "m": 15,
+        "slug": "dental-hygienist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Health Education",
+          "Translation",
+          "EHR / EMR"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "hotel-manager",
+          "readiness_after": 30,
+          "gain": 15
+        }
+      },
+      {
         "t": "Pharmacist",
         "m": 14,
         "slug": "pharmacist",
@@ -1337,33 +1364,6 @@
           "parent": "hotel-manager",
           "readiness_after": 25,
           "gain": 11
-        }
-      },
-      {
-        "t": "Physical Therapist",
-        "m": 14,
-        "slug": "physical-therapist",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Patient Care",
-          "Clinical Skills",
-          "Teaching",
-          "Case Management"
-        ],
-        "observed": null,
-        "fit": 31,
-        "capability": 76,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "hotel-manager",
-          "readiness_after": 26,
-          "gain": 12
         }
       }
     ],
@@ -1396,37 +1396,8 @@
         }
       },
       {
-        "t": "Warehouse Manager",
-        "m": 13,
-        "slug": "warehouse-manager",
-        "field": "Transport",
-        "cluster": "Service",
-        "kind": "lateral",
-        "gap": [
-          "HR Operations",
-          "Statistics",
-          "SAP",
-          "Translation"
-        ],
-        "observed": null,
-        "fit": 24,
-        "capability": 64,
-        "mobility": 18,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 18,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 21,
-          "gain": 8
-        }
-      }
-    ],
-    "event-planner": [
-      {
         "t": "Executive Assistant",
-        "m": 15,
+        "m": 13,
         "slug": "executive-assistant",
         "field": "Business",
         "cluster": "Business",
@@ -1438,7 +1409,7 @@
           "Event Planning"
         ],
         "observed": null,
-        "fit": 28,
+        "fit": 27,
         "capability": 25,
         "mobility": 58,
         "mobility_source": "observed-flow-us",
@@ -1446,11 +1417,13 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "event-planner",
-          "readiness_after": 39,
-          "gain": 24
+          "parent": "facilities-manager",
+          "readiness_after": 27,
+          "gain": 14
         }
-      },
+      }
+    ],
+    "event-planner": [
       {
         "t": "Event Planner",
         "m": 14,
@@ -1476,6 +1449,33 @@
           "parent": "event-planner",
           "readiness_after": 100,
           "gain": 86
+        }
+      },
+      {
+        "t": "Mobility Planner",
+        "m": 14,
+        "slug": "mobility-planner",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Transportation Planning",
+          "Salesforce",
+          "Accounting",
+          "Statistics"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 26,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "event-planner",
+          "readiness_after": 39,
+          "gain": 25
         }
       }
     ],
@@ -1508,30 +1508,30 @@
         }
       },
       {
-        "t": "Mobility Planner",
-        "m": 14,
-        "slug": "mobility-planner",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "pivot",
+        "t": "Warehouse Manager",
+        "m": 13,
+        "slug": "warehouse-manager",
+        "field": "Transport",
+        "cluster": "Service",
+        "kind": "lateral",
         "gap": [
-          "Transportation Planning",
-          "Salesforce",
-          "Accounting",
-          "Statistics"
+          "HR Operations",
+          "Statistics",
+          "SAP",
+          "Translation"
         ],
         "observed": null,
-        "fit": 17,
-        "capability": 26,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
+        "fit": 24,
+        "capability": 64,
+        "mobility": 18,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 18,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "construction-manager",
-          "readiness_after": 30,
-          "gain": 16
+          "readiness_after": 28,
+          "gain": 15
         }
       }
     ],
@@ -1564,21 +1564,21 @@
         }
       },
       {
-        "t": "Dental Hygienist",
+        "t": "Physical Therapist",
         "m": 15,
-        "slug": "dental-hygienist",
+        "slug": "physical-therapist",
         "field": "Healthcare",
         "cluster": "Healthcare",
         "kind": "pivot",
         "gap": [
           "Patient Care",
-          "Health Education",
-          "Translation",
-          "EHR / EMR"
+          "Clinical Skills",
+          "Teaching",
+          "Case Management"
         ],
         "observed": null,
-        "fit": 15,
-        "capability": null,
+        "fit": 31,
+        "capability": 76,
         "mobility": null,
         "mobility_source": null,
         "mobility_eu": null,
@@ -1586,8 +1586,8 @@
         "reach": "bridged",
         "via": {
           "parent": "physical-therapist",
-          "readiness_after": 51,
-          "gain": 36
+          "readiness_after": 100,
+          "gain": 85
         }
       }
     ],
@@ -1717,24 +1717,24 @@
       "reach": "direct"
     },
     {
-      "t": "Social Media Manager",
+      "t": "Interior Designer",
       "m": 13,
-      "slug": "social-media-manager",
-      "field": "Business",
-      "cluster": "Business",
+      "slug": "interior-designer",
+      "field": "Design",
+      "cluster": "Design",
       "kind": "pivot",
       "gap": [
-        "Social Media",
-        "Content Marketing",
-        "Writing & Editing",
-        "Community Engagement"
+        "Revit",
+        "Space Planning",
+        "Project Management",
+        "Construction Documentation"
       ],
       "observed": null,
-      "fit": 11,
-      "capability": 11,
-      "mobility": 6,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 6,
+      "fit": 26,
+      "capability": 40,
+      "mobility": 44,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 11,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1773,11 +1773,6 @@
   ],
   "bridges": [
     [
-      "physical-therapist",
-      "hotel-manager_1",
-      1
-    ],
-    [
       "maintenance-technician",
       "facilities-manager_0",
       0.54
@@ -1785,12 +1780,17 @@
     [
       "physical-therapist",
       "hotel-manager_0",
+      0.51
+    ],
+    [
+      "physical-therapist",
+      "hotel-manager_1",
       0.44
     ],
     [
-      "event-planner",
-      "construction-manager_1",
-      0.39
+      "facilities-manager",
+      "construction-manager_0",
+      0.37
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

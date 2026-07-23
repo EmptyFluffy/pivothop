@@ -69,7 +69,7 @@
         {
           "skill": "spec-writing",
           "name": "Spec Writing",
-          "pts": 9.1,
+          "pts": 9,
           "earned": 0
         },
         {
@@ -81,13 +81,13 @@
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 7.6,
+          "pts": 7.8,
           "earned": 4.2
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 6.5,
+          "pts": 6.6,
           "earned": 0
         },
         {
@@ -117,7 +117,7 @@
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0
         },
         {
@@ -153,13 +153,13 @@
         {
           "skill": "gd-t",
           "name": "GD&T",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "3d-modeling",
           "name": "3D Modeling",
-          "pts": 2.7,
+          "pts": 2.6,
           "earned": 0
         },
         {
@@ -178,7 +178,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2005,
+        "postings": 2007,
         "salaried": 1434
       }
     },
@@ -314,7 +314,7 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 2.2,
+          "pts": 2.1,
           "earned": 0
         },
         {
@@ -324,15 +324,15 @@
           "earned": 0
         },
         {
-          "skill": "cad-drafting",
-          "name": "Drafting",
+          "skill": "training",
+          "name": "Training & Facilitation",
           "pts": 1.7,
           "earned": 0
         },
         {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.6,
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 1.7,
           "earned": 0
         },
         {
@@ -345,7 +345,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1389,
+        "postings": 1390,
         "salaried": 949
       }
     },
@@ -1186,8 +1186,8 @@
       "mobility_tier": null,
       "salary": "$75k–$150k",
       "salary_band": [
-        73018,
-        152013
+        73022,
+        152333
       ],
       "demand": "High",
       "remote": "3%",
@@ -1208,13 +1208,13 @@
         {
           "skill": "deep-learning",
           "name": "Deep Learning",
-          "pts": 14.4,
+          "pts": 14.5,
           "earned": 0
         },
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 11.8,
+          "pts": 11.9,
           "earned": 1.2
         },
         {
@@ -1232,13 +1232,13 @@
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 5.6,
-          "earned": 2.5
+          "pts": 5.5,
+          "earned": 2.4
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 5.4,
+          "pts": 5.5,
           "earned": 2.9
         },
         {
@@ -1262,13 +1262,13 @@
         {
           "skill": "statistics",
           "name": "Statistics",
-          "pts": 4,
+          "pts": 3.9,
           "earned": 0
         },
         {
           "skill": "market-research",
           "name": "Market Research",
-          "pts": 4,
+          "pts": 3.9,
           "earned": 0
         },
         {
@@ -1286,7 +1286,7 @@
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 3.1,
+          "pts": 3.2,
           "earned": 2
         },
         {
@@ -1329,41 +1329,13 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 918,
-        "salaried": 686
+        "postings": 920,
+        "salaried": 687
       }
     }
   ],
   "next": {
-    "mechanical-engineer": [
-      {
-        "t": "Marketing Manager",
-        "m": 12,
-        "slug": "marketing-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Product Management",
-          "Email Marketing",
-          "Market Research",
-          "CRM"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": null,
-        "mobility": 6,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 19,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mechanical-engineer",
-          "readiness_after": 20,
-          "gain": 8
-        }
-      }
-    ],
+    "mechanical-engineer": [],
     "electrical-engineer": [
       {
         "t": "Building Performance Analyst",
@@ -1415,8 +1387,8 @@
         "reach": "bridged",
         "via": {
           "parent": "electrical-engineer",
-          "readiness_after": 28,
-          "gain": 17
+          "readiness_after": 27,
+          "gain": 16
         }
       }
     ],
@@ -1705,7 +1677,7 @@
   "direct": [
     {
       "t": "Market Researcher",
-      "m": 12,
+      "m": 13,
       "slug": "market-researcher",
       "field": "Business",
       "cluster": "Business",
@@ -1726,24 +1698,46 @@
       "reach": "direct"
     },
     {
-      "t": "Creative Technologist",
-      "m": 11,
-      "slug": "creative-technologist",
+      "t": "Systems Administrator",
+      "m": 13,
+      "slug": "systems-administrator",
       "field": "Technology",
       "cluster": "Technology",
       "kind": "pivot",
       "gap": [
-        "LangChain / Agents",
-        "Writing & Editing",
-        "Design Systems",
-        "Service Design"
+        "Observability",
+        "Cybersecurity",
+        "Operations",
+        "HR Operations"
       ],
       "observed": null,
-      "fit": 22,
+      "fit": 9,
       "capability": null,
-      "mobility": 45,
+      "mobility": 1,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 17,
+      "mobility_eu": 10,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Marketing Manager",
+      "m": 12,
+      "slug": "marketing-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Product Management",
+        "Email Marketing",
+        "Market Research",
+        "CRM"
+      ],
+      "observed": null,
+      "fit": 10,
+      "capability": null,
+      "mobility": 6,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 19,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1784,7 +1778,7 @@
     [
       "computer-vision-engineer",
       "research-scientist",
-      0.42
+      0.41
     ],
     [
       "mechanical-engineer",
@@ -1819,8 +1813,8 @@
       0.35
     ],
     [
-      "industrial-engineer",
-      "research-scientist_1",
+      "research-scientist",
+      "aerospace-engineer_1",
       0.31
     ]
   ],

@@ -1145,8 +1145,8 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 2.2,
-          "earned": 2.2
+          "pts": 2.1,
+          "earned": 2.1
         },
         {
           "skill": "observability",
@@ -1155,16 +1155,16 @@
           "earned": 0.4
         },
         {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 1.7,
+          "earned": 1.7
+        },
+        {
           "skill": "cad-drafting",
           "name": "Drafting",
           "pts": 1.7,
           "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.6,
-          "earned": 1.6
         },
         {
           "skill": "python",
@@ -1176,7 +1176,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1389,
+        "postings": 1390,
         "salaried": 949
       }
     },
@@ -1351,6 +1351,33 @@
   "next": {
     "interior-designer": [
       {
+        "t": "Management Consultant",
+        "m": 12,
+        "slug": "management-consultant",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "Presentation",
+          "SAP",
+          "SQL"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 39,
+        "mobility": 9,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "interior-designer",
+          "readiness_after": 25,
+          "gain": 13
+        }
+      },
+      {
         "t": "Creative Director",
         "m": 11,
         "slug": "creative-director",
@@ -1464,30 +1491,30 @@
         }
       },
       {
-        "t": "Management Consultant",
-        "m": 13,
-        "slug": "management-consultant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
+        "t": "Building Envelope Consultant",
+        "m": 10,
+        "slug": "building-envelope-consultant",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "lateral",
         "gap": [
-          "Data Analysis",
-          "Presentation",
-          "SAP",
-          "SQL"
+          "Criminal Investigation",
+          "Energy Modeling",
+          "Maintenance",
+          "QA / Testing"
         ],
         "observed": null,
-        "fit": 17,
-        "capability": 39,
-        "mobility": 9,
+        "fit": 11,
+        "capability": null,
+        "mobility": 13,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
-          "readiness_after": 28,
-          "gain": 15
+          "readiness_after": 34,
+          "gain": 24
         }
       }
     ],
@@ -1517,33 +1544,6 @@
           "parent": "structural-engineer",
           "readiness_after": 29,
           "gain": 17
-        }
-      },
-      {
-        "t": "Building Envelope Consultant",
-        "m": 10,
-        "slug": "building-envelope-consultant",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "lateral",
-        "gap": [
-          "Criminal Investigation",
-          "Energy Modeling",
-          "Maintenance",
-          "QA / Testing"
-        ],
-        "observed": null,
-        "fit": 11,
-        "capability": null,
-        "mobility": 13,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "structural-engineer",
-          "readiness_after": 25,
-          "gain": 15
         }
       }
     ],

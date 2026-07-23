@@ -40,8 +40,8 @@
       "mobility_tier": null,
       "salary": "$55k–$105k",
       "salary_band": [
-        52720,
-        104527
+        52877,
+        104596
       ],
       "demand": "High",
       "remote": "3%",
@@ -56,20 +56,20 @@
         "Compliance",
         "Data Analysis",
         "Supply Chain",
-        "Lean / Six Sigma"
+        "Audit"
       ],
       "waterfall": [
         {
           "skill": "compliance",
           "name": "Compliance",
-          "pts": 18,
+          "pts": 18.2,
           "earned": 0
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 12.1,
-          "earned": 0.5
+          "pts": 11.6,
+          "earned": 0.4
         },
         {
           "skill": "risk-management",
@@ -80,43 +80,43 @@
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 6.4,
-          "earned": 4.2
+          "pts": 6,
+          "earned": 4
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4.5,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "contracts",
           "name": "Contracts",
+          "pts": 4.8,
+          "earned": 2.2
+        },
+        {
+          "skill": "criminal-investigation",
+          "name": "Criminal Investigation",
+          "pts": 4.5,
+          "earned": 4.5
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
           "pts": 4.3,
-          "earned": 2.4
+          "earned": 0
+        },
+        {
+          "skill": "audit",
+          "name": "Audit",
+          "pts": 4.1,
+          "earned": 0
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
           "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 4.1,
-          "earned": 4.1
-        },
-        {
-          "skill": "audit",
-          "name": "Audit",
-          "pts": 3.7,
           "earned": 0
         },
         {
@@ -128,18 +128,12 @@
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 3.5,
+          "pts": 3.3,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 3.1,
-          "earned": 0
-        },
-        {
-          "skill": "cybersecurity",
-          "name": "Cybersecurity",
           "pts": 3.1,
           "earned": 0
         },
@@ -150,41 +144,47 @@
           "earned": 0
         },
         {
+          "skill": "cybersecurity",
+          "name": "Cybersecurity",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
           "skill": "excel",
           "name": "Excel",
-          "pts": 2.9,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "financial-modeling",
           "name": "Financial Modeling",
-          "pts": 2.3,
-          "earned": 0.5
+          "pts": 2.1,
+          "earned": 0.4
         },
         {
           "skill": "sql",
           "name": "SQL",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.3,
+          "pts": 2.1,
           "earned": 0
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 2,
-          "earned": 2
+          "pts": 2.1,
+          "earned": 2.1
+        },
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 2.1,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 718,
-        "salaried": 476
+        "postings": 726,
+        "salaried": 478
       }
     },
     {
@@ -1295,7 +1295,7 @@
           "Compliance",
           "Data Analysis",
           "Supply Chain",
-          "Lean / Six Sigma"
+          "Audit"
         ],
         "observed": null,
         "fit": 48,
@@ -1342,30 +1342,30 @@
         }
       },
       {
-        "t": "Management Consultant",
+        "t": "Industrial Engineer",
         "m": 14,
-        "slug": "management-consultant",
-        "field": "Business",
-        "cluster": "Business",
+        "slug": "industrial-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
         "kind": "pivot",
         "gap": [
+          "Lean / Six Sigma",
+          "Supply Chain",
           "Data Analysis",
-          "Presentation",
-          "SAP",
-          "SQL"
+          "Operations"
         ],
-        "observed": null,
-        "fit": 16,
-        "capability": 0,
-        "mobility": 34,
+        "observed": "Supplemental",
+        "fit": 18,
+        "capability": 31,
+        "mobility": 17,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 12,
+        "mobility_eu": 17,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "construction-manager",
-          "readiness_after": 29,
-          "gain": 15
+          "readiness_after": 30,
+          "gain": 16
         }
       }
     ],
@@ -1398,29 +1398,29 @@
         }
       },
       {
-        "t": "Project Manager",
-        "m": 12,
-        "slug": "project-manager",
+        "t": "Management Consultant",
+        "m": 13,
+        "slug": "management-consultant",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Supply Chain",
           "Data Analysis",
-          "Lean / Six Sigma",
-          "Operations"
+          "Presentation",
+          "SAP",
+          "SQL"
         ],
         "observed": null,
-        "fit": 13,
-        "capability": null,
-        "mobility": 16,
+        "fit": 16,
+        "capability": 0,
+        "mobility": 34,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 37,
+        "mobility_eu": 12,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
-          "readiness_after": 22,
+          "readiness_after": 23,
           "gain": 10
         }
       }
@@ -1652,28 +1652,6 @@
   },
   "direct": [
     {
-      "t": "Industrial Engineer",
-      "m": 14,
-      "slug": "industrial-engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "gap": [
-        "Lean / Six Sigma",
-        "Supply Chain",
-        "Data Analysis",
-        "Operations"
-      ],
-      "observed": "Supplemental",
-      "fit": 18,
-      "capability": 31,
-      "mobility": 17,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 17,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Paralegal",
       "m": 13,
       "slug": "paralegal",
@@ -1692,6 +1670,28 @@
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Project Manager",
+      "m": 12,
+      "slug": "project-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Supply Chain",
+        "Data Analysis",
+        "Lean / Six Sigma",
+        "Operations"
+      ],
+      "observed": null,
+      "fit": 13,
+      "capability": null,
+      "mobility": 16,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 37,
       "mobility_tier": null,
       "reach": "direct"
     }

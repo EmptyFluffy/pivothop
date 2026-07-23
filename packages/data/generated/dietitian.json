@@ -1203,8 +1203,8 @@
       "mobility_tier": null,
       "salary": "$80k–$120k",
       "salary_band": [
-        80857,
-        118973
+        80948,
+        119535
       ],
       "demand": "High",
       "remote": "0%",
@@ -1225,20 +1225,26 @@
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 42.3,
+          "pts": 41.5,
           "earned": 0
         },
         {
           "skill": "forecasting",
           "name": "Forecasting",
-          "pts": 9.2,
+          "pts": 9.3,
           "earned": 0
         },
         {
           "skill": "budgeting",
           "name": "Budgeting",
-          "pts": 8.9,
+          "pts": 8.8,
           "earned": 2.4
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 5.8,
+          "earned": 4.1
         },
         {
           "skill": "audit",
@@ -1247,15 +1253,9 @@
           "earned": 0
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 5.4,
-          "earned": 4.2
-        },
-        {
           "skill": "excel",
           "name": "Excel",
-          "pts": 3.6,
+          "pts": 3.7,
           "earned": 0
         },
         {
@@ -1268,18 +1268,18 @@
           "skill": "scheduling",
           "name": "Scheduling",
           "pts": 2.6,
-          "earned": 2.2
+          "earned": 2.1
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 2.3,
+          "pts": 2.2,
           "earned": 0
         },
         {
@@ -1291,8 +1291,14 @@
         {
           "skill": "compliance",
           "name": "Compliance",
-          "pts": 2,
+          "pts": 1.9,
           "earned": 1.1
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 1.8,
+          "earned": 0
         },
         {
           "skill": "sustainability",
@@ -1307,47 +1313,41 @@
           "earned": 0
         },
         {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 1.5,
-          "earned": 0
-        },
-        {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 1.3,
+          "pts": 1.4,
           "earned": 0
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 1.2,
-          "earned": 1.2
+          "pts": 1.1,
+          "earned": 1.1
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 1.2,
+          "pts": 1.1,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 0.8,
+          "pts": 1,
           "earned": 0
         },
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 0.8,
-          "earned": 0.8
+          "pts": 1,
+          "earned": 0.9
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 761,
-        "salaried": 523
+        "postings": 764,
+        "salaried": 524
       }
     }
   ],
@@ -1606,33 +1606,6 @@
     "social-worker": [],
     "psychologist": [
       {
-        "t": "Compliance Officer",
-        "m": 21,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Risk Management",
-          "Quality Control",
-          "Data Analysis",
-          "Supply Chain"
-        ],
-        "observed": null,
-        "fit": 25,
-        "capability": 37,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "psychologist",
-          "readiness_after": 35,
-          "gain": 14
-        }
-      },
-      {
         "t": "Psychologist",
         "m": 20,
         "slug": "psychologist",
@@ -1657,6 +1630,33 @@
           "parent": "psychologist",
           "readiness_after": 100,
           "gain": 80
+        }
+      },
+      {
+        "t": "Compliance Officer",
+        "m": 20,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Risk Management",
+          "Quality Control",
+          "Data Analysis",
+          "Contracts"
+        ],
+        "observed": null,
+        "fit": 25,
+        "capability": 37,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "psychologist",
+          "readiness_after": 34,
+          "gain": 14
         }
       }
     ],
@@ -1711,8 +1711,8 @@
         "reach": "bridged",
         "via": {
           "parent": "controller",
-          "readiness_after": 42,
-          "gain": 19
+          "readiness_after": 43,
+          "gain": 20
         }
       }
     ]
@@ -1835,7 +1835,7 @@
     ],
     [
       "therapist",
-      "psychologist_1",
+      "psychologist_0",
       0.52
     ]
   ],

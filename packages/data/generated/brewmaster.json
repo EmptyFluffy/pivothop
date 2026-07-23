@@ -1425,7 +1425,7 @@
     "construction-manager": [
       {
         "t": "Systems Administrator",
-        "m": 15,
+        "m": 14,
         "slug": "systems-administrator",
         "field": "Technology",
         "cluster": "Technology",
@@ -1437,7 +1437,7 @@
           "Procurement"
         ],
         "observed": null,
-        "fit": 15,
+        "fit": 14,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1446,7 +1446,7 @@
         "reach": "bridged",
         "via": {
           "parent": "construction-manager",
-          "readiness_after": 27,
+          "readiness_after": 26,
           "gain": 12
         }
       },
@@ -1576,7 +1576,7 @@
           "Compliance",
           "Risk Management",
           "Data Analysis",
-          "Supply Chain"
+          "Contracts"
         ],
         "observed": null,
         "fit": 13,
@@ -1588,8 +1588,8 @@
         "reach": "bridged",
         "via": {
           "parent": "environmental-engineer",
-          "readiness_after": 31,
-          "gain": 18
+          "readiness_after": 30,
+          "gain": 17
         }
       },
       {
@@ -1622,6 +1622,33 @@
     ],
     "hotel-manager": [
       {
+        "t": "Physical Therapist",
+        "m": 14,
+        "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Scheduling",
+          "Teaching"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "hotel-manager",
+          "readiness_after": 32,
+          "gain": 18
+        }
+      },
+      {
         "t": "Pharmacist",
         "m": 14,
         "slug": "pharmacist",
@@ -1647,59 +1674,10 @@
           "readiness_after": 28,
           "gain": 14
         }
-      },
-      {
-        "t": "Physical Therapist",
-        "m": 13,
-        "slug": "physical-therapist",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Patient Care",
-          "Clinical Skills",
-          "Scheduling",
-          "Teaching"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "hotel-manager",
-          "readiness_after": 31,
-          "gain": 18
-        }
       }
     ]
   },
   "direct": [
-    {
-      "t": "Mobile Developer",
-      "m": 13,
-      "slug": "mobile-developer",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
-      "gap": [
-        "React",
-        "Java",
-        "Swift",
-        "REST APIs"
-      ],
-      "observed": null,
-      "fit": 13,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
     {
       "t": "Registered Nurse",
       "m": 12,
@@ -1724,7 +1702,7 @@
     },
     {
       "t": "HR Manager",
-      "m": 12,
+      "m": 11,
       "slug": "hr-manager",
       "field": "Business",
       "cluster": "Business",
@@ -1736,7 +1714,29 @@
         "Translation"
       ],
       "observed": null,
-      "fit": 12,
+      "fit": 11,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Project Manager",
+      "m": 11,
+      "slug": "project-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Project Management",
+        "Supply Chain",
+        "Data Analysis",
+        "Stakeholder Management"
+      ],
+      "observed": null,
+      "fit": 11,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1796,7 +1796,7 @@
     [
       "chemical-engineer",
       "maintenance-technician_1",
-      0.36
+      0.37
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

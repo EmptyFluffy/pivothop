@@ -264,12 +264,31 @@ for d in (OUT, DETAIL):
             os.remove(os.path.join(d, f))
 # Trim and cap first; flag featured on the originals; then write everything,
 # so the per-occupation files, the global file, and the strip all agree.
+US_SHARE = 0.65  # per-occupation ceiling on US listings when non-US supply exists
 kept_byocc = {}
 for role, jobs in byocc.items():
     jobs.sort(key=lambda j: j['posted'] or '', reverse=True)
-    jobs = jobs[:CAP]
-    if len(jobs) >= FLOOR:
-        kept_byocc[role] = jobs
+    # freshest-first with a diversity ceiling: US rows stop at 65% of the cap
+    # while non-US rows remain, so one country cannot crowd out the world.
+    us_cap = int(CAP * US_SHARE)
+    picked, spill, us_n = [], [], 0
+    for j in jobs:
+        if len(picked) >= CAP:
+            break
+        if j.get('c') == 'US':
+            if us_n < us_cap:
+                picked.append(j); us_n += 1
+            else:
+                spill.append(j)
+        else:
+            picked.append(j)
+    for j in spill:                     # backfill with US only if slots remain
+        if len(picked) >= CAP:
+            break
+        picked.append(j)
+    picked.sort(key=lambda j: j['posted'] or '', reverse=True)
+    if len(picked) >= FLOOR:
+        kept_byocc[role] = picked
 
 # Featured strip: recognizable employers, salary-stated first, freshest,
 # max two per company. Flag the original rows and emit the strip.
