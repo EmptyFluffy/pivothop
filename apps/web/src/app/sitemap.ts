@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { POSTS } from './blog/posts';
-import { ROUTE_SLUGS } from './routes/routes-data';
+import { routableSlugs } from './routes/routes-data';
 import { coverableSlugs } from './salary/salary-data';
 
 const BASE = 'https://www.pivothop.com';
@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...POSTS.map((p) => ({ url: `${BASE}/blog/${p.slug}`, changeFrequency: 'monthly' as const, priority: 0.7 })),
     { url: `${BASE}/routes`, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/glossary`, changeFrequency: 'monthly', priority: 0.6 },
-    ...ROUTE_SLUGS.map((s) => ({ url: `${BASE}/routes/${s}`, changeFrequency: 'weekly' as const, priority: 0.8 })),
+    ...routableSlugs().map((s) => ({ url: `${BASE}/routes/${s}`, changeFrequency: 'weekly' as const, priority: 0.8 })),
     { url: `${BASE}/salary`, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/salary/by-country`, changeFrequency: 'weekly', priority: 0.7 },
     ...coverableSlugs().map((s) => ({ url: `${BASE}/salary/${s}`, changeFrequency: 'weekly' as const, priority: 0.8 })),

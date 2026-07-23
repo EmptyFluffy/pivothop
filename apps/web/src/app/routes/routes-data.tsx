@@ -523,3 +523,77 @@ export const ROUTES: Record<string, RouteDef> = {
 };
 
 export const ROUTE_SLUGS = Object.keys(ROUTES);
+
+/* Auto-coverage: any origin with confident data carries routes to its strongest
+   adjacencies, so the surface spans every field, not just architecture. Curated
+   routes above keep their hand editorial; generated ones draft a read from the
+   numbers (match, the carried and missing skills, salary, demand, time, observed
+   flow), an evidence checklist selected from the extracted skills, and a
+   data-driven FAQ. Gated by a match and posting floor so nothing thin ships. */
+const MATCH_FLOOR = 45, ORIGIN_POST_FLOOR = 60, DEST_CAP = 2;
+const NON_OCC = new Set(['occ-meta', 'origins', 'skill-profiles', 'skills-meta', 'skill-cooccur', 'cloud', 'price-levels', 'data']);
+let _routable: Map<string, { origin: string; dest: string }> | null = null;
+function loadRoutable(): Map<string, { origin: string; dest: string }> {
+  if (_routable) return _routable;
+  _routable = new Map();
+  for (const s of ROUTE_SLUGS) _routable.set(s, { origin: ROUTES[s].origin, dest: ROUTES[s].dest });
+  try {
+    const dir = path.join(process.cwd(), 'public', 'data');
+    for (const file of fs.readdirSync(dir)) {
+      if (!file.endsWith('.json')) continue;
+      const slug = file.replace(/\.json$/, '');
+      if (NON_OCC.has(slug) || slug === 'architect') continue;
+      const o = getOrigin(slug);
+      if (!o || !Array.isArray(o.roles) || (o.postings ?? 0) < ORIGIN_POST_FLOOR) continue;
+      for (const r of o.roles.filter((x) => (x.match ?? 0) >= MATCH_FLOOR).slice(0, DEST_CAP)) {
+        const rslug = `${slug}-to-${r.id}`;
+        if (!_routable.has(rslug)) _routable.set(rslug, { origin: slug, dest: r.id });
+      }
+    }
+  } catch { /* build edge */ }
+  return _routable;
+}
+export function routableSlugs(): string[] { return [...loadRoutable().keys()]; }
+export function routePair(slug: string): { origin: string; dest: string } | null { return loadRoutable().get(slug) ?? null; }
+
+let _fieldCache: Record<string, { field?: string }> | null = null;
+export function occField(slug: string): string {
+  if (!_fieldCache) { try { _fieldCache = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'occ-meta.json'), 'utf8')).meta; } catch { _fieldCache = {}; } }
+  return _fieldCache![slug]?.field ?? 'Other';
+}
+
+function genRouteDef(origin: string, dest: string): RouteDef | null {
+  const r = destRole(origin, dest); if (!r) return null;
+  const om = originMeta(origin);
+  const o = om.title.toLowerCase(), dl = r.title.toLowerCase();
+  const observed = r.mobility != null && (r.mobility_source ?? '').startsWith('observed');
+  const have = (r.have || []).slice(0, 4), learn = (r.learn || []).slice(0, 4);
+  const shape = r.match >= 60 ? 'a genuinely close move' : r.match >= 40 ? 'a real move with a real gap' : 'a stretch the shared skills still make legible';
+  const artO = /^[aeiou]/i.test(o) ? 'an' : 'a', ArtO = /^[aeiou]/i.test(o) ? 'An' : 'A';
+  const artD = /^[aeiou]/i.test(dl) ? 'an' : 'a';
+  const editorial = (
+    <>
+      <p>{`${ArtO} ${o} reaches ${dl} at ${r.match} percent skill readiness, measured from ${om.postings.toLocaleString()} live ${o} postings against what ${dl} postings ask for. At that number it is ${shape}.`}{observed ? ' Observed US worker transitions corroborate that people actually make it.' : ''}</p>
+      {have.length ? <p>{`What carries over: ${have.join(', ')}.`}{learn.length ? ` The gap is the rest of the destination demand, chiefly ${learn.join(', ')}, the skills a typical ${o} profile does not yet show.` : ''}</p> : null}
+      <p>{`${r.license ? r.license.label + '. ' : ''}Posted pay for ${dl} runs ${r.salary}, demand is rated ${r.demand.toLowerCase()}, and the estimated time to close the gap is ${r.time}. This read is drafted from the numbers; the graph above is the full skill map behind them.`}</p>
+    </>
+  );
+  const evidence: Evidence[] = [
+    ...have.map((s) => ({ label: s, state: 'have' as const, note: `In the typical ${o} profile` })),
+    ...learn.slice(0, 3).map((s) => ({ label: s, state: 'gap' as const, note: `Asked for by ${dl} postings, not yet shown` })),
+  ];
+  const faq = [
+    { q: `Can ${artO} ${o} become ${artD} ${dl}?`, a: `Posted-skill readiness is ${r.match} percent in our corpus${observed ? ', and observed US transition data shows people making the move' : ''}. The skills that carry are ${have.slice(0, 3).join(', ') || 'the shared fundamentals'}; the gap is ${learn.slice(0, 3).join(', ') || 'narrow'}.` },
+    { q: `How long does the ${o} to ${dl} move take?`, a: `Our estimate from the skill gap is ${r.time}, shorter for anyone who already holds part of the destination skill set.` },
+    { q: `What does ${artD} ${dl} earn?`, a: `Posted pay is ${r.salary}, with demand rated ${r.demand.toLowerCase()}. The salary page for ${dl} carries the full distribution.` },
+  ];
+  const related = [...loadRoutable().keys()].filter((s) => s.startsWith(`${origin}-to-`) && s !== `${origin}-to-${dest}`).slice(0, 3);
+  return { origin, dest, editorial, evidence, faq, related };
+}
+
+/** Curated def if we have one, else a generated one from the adjacency data, else null. */
+export function getRouteDef(slug: string): RouteDef | null {
+  if (ROUTES[slug]) return ROUTES[slug];
+  const rt = loadRoutable().get(slug);
+  return rt ? genRouteDef(rt.origin, rt.dest) : null;
+}

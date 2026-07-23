@@ -2,17 +2,17 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { ROUTES, ROUTE_SLUGS, originMeta, destRole, unlocks } from '../routes-data';
+import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks } from '../routes-data';
 import { SALARY_SLUGS } from '../../salary/salary-data';
 import RouteInstrument from '../RouteInstrument';
 
 export function generateStaticParams() {
-  return ROUTE_SLUGS.map((route) => ({ route }));
+  return routableSlugs().map((route) => ({ route }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ route: string }> }): Promise<Metadata> {
   const { route } = await params;
-  const def = ROUTES[route];
+  const def = getRouteDef(route);
   const r = def && destRole(def.origin, def.dest);
   if (!def || !r) return {};
   const om = originMeta(def.origin);
@@ -27,7 +27,7 @@ const EV = { have: { mark: '✓', word: 'Covered' }, partial: { mark: '◑', wor
 
 export default async function RoutePage({ params }: { params: Promise<{ route: string }> }) {
   const { route } = await params;
-  const def = ROUTES[route];
+  const def = getRouteDef(route);
   if (!def) notFound();
   const r = destRole(def.origin, def.dest);
   if (!r) notFound();
@@ -103,7 +103,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           <h2>Related routes</h2>
           <ul className="rt-rel">
             {def.related.map((slug) => {
-              const rd = ROUTES[slug];
+              const rd = routePair(slug);
               const rr = rd && destRole(rd.origin, rd.dest);
               const rom = rd && originMeta(rd.origin);
               return rr && rom ? <li key={slug}><Link href={`/routes/${slug}`}>{rom.title} &rarr; {rr.title}</Link><span className="lbl">{rr.match}% readiness</span></li> : null;
