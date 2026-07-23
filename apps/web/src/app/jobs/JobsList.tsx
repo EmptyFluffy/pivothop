@@ -1,20 +1,8 @@
 import Link from 'next/link';
-import { getJobs, jobCount, occTitle, salaryLabel, sourceName, type Job } from './jobs-data';
+import { getJobs, jobCount, occTitle } from './jobs-data';
+import { JobCard } from './JobCard';
 
-export function JobCard({ j }: { j: Job }) {
-  const meta = [salaryLabel(j.smin, j.smax), j.remote ? 'Remote' : '', `via ${sourceName(j.source)}`].filter(Boolean).join(' · ');
-  return (
-    <li>
-      <a href={j.url} target="_blank" rel="nofollow noopener noreferrer" className="job-card">
-        <span className="job-t">{j.title}</span>
-        <span className="job-co">{j.company}{j.location ? ` · ${j.location}` : ''}</span>
-        <span className="job-m lbl">{meta}</span>
-      </a>
-    </li>
-  );
-}
-
-/** Embeddable teaser of open roles for one occupation, for salary and route pages. */
+/** Embeddable teaser of open roles for one occupation, for salary and route pages. Server-only. */
 export default function JobsList({ occ, limit = 6, heading }: { occ: string; limit?: number; heading?: string }) {
   const jobs = getJobs(occ).slice(0, limit);
   if (jobs.length === 0) return null;

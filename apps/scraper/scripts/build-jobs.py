@@ -32,6 +32,13 @@ def num(v):
     except (ValueError, TypeError):
         return None
 
+def display_company(name):
+    """ATS slugs often arrive all-lowercase ('coinbase'); title-case those.
+    Mixed-case names (IBM, McKinsey & Company) pass through untouched."""
+    if name == name.lower():
+        return ' '.join(w.capitalize() for w in name.split())
+    return name
+
 # 1. Raw index by (source, external_id) for company / location.
 raw = {}
 for line in open(RAW):
@@ -68,7 +75,7 @@ for line in open(NORM):
     remote = str(d.get('remote_flag')) == 'True'
     byocc[role].append({
         'title': title[:120],
-        'company': company[:80],
+        'company': display_company(company)[:80],
         'location': (r.get('location') or '').strip()[:60] or ('Remote' if remote else ''),
         'remote': remote,
         'smin': num(d.get('salary_usd_min')),

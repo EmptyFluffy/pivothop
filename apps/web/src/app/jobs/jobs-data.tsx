@@ -5,10 +5,8 @@ import path from 'node:path';
    occupation under public/data/jobs/. Re-displayable sources only, each listing
    links out to apply at the source. Server-only (fs). */
 
-export type Job = {
-  title: string; company: string; location: string; remote: boolean;
-  smin: number | null; smax: number | null; url: string; source: string; posted: string;
-};
+import type { Job } from './JobCard';
+export type { Job };
 
 function read<T>(rel: string): T | null {
   try { return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', rel), 'utf8')); }
@@ -43,16 +41,3 @@ export function occField(occ: string): string {
   return _fieldMap[occ] ?? meta(occ).field ?? 'Other';
 }
 
-const k = (v: number) => '$' + Math.round(v / 1000) + 'k';
-export function salaryLabel(smin: number | null, smax: number | null): string {
-  if (smin && smax && smax > smin) return `${k(smin)}–${k(smax)}`;
-  const v = smin || smax;
-  return v ? k(v) : '';
-}
-
-const SOURCE_NAMES: Record<string, string> = {
-  greenhouse: 'Greenhouse', usajobs: 'USAJOBS', ashby: 'Ashby', lever: 'Lever',
-  himalayas: 'Himalayas', arbeitnow: 'Arbeitnow', themuse: 'The Muse',
-  smartrecruiters: 'SmartRecruiters', jobicy: 'Jobicy', remoteok: 'RemoteOK', remotive: 'Remotive',
-};
-export const sourceName = (s: string) => SOURCE_NAMES[s] ?? s;
