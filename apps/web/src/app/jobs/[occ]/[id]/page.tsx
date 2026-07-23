@@ -24,20 +24,20 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   };
 }
 
-// One description section: paragraphs, with consecutive "· " lines grouped into lists.
+// One description section: every text line is its own paragraph (flattened
+// sources ship sentence-lines; merging them back rebuilds the wall), and
+// consecutive "· " lines group into real lists.
 function SectionBody({ t }: { t: string }) {
   const blocks: ({ ul: string[] } | { p: string })[] = [];
   let ul: string[] | null = null;
-  let para: string[] = [];
-  const flushP = () => { if (para.length) { blocks.push({ p: para.join('\n') }); para = []; } };
   const flushU = () => { if (ul?.length) blocks.push({ ul }); ul = null; };
   for (const raw of t.split('\n')) {
     const line = raw.trim();
-    if (line.startsWith('· ')) { flushP(); (ul ??= []).push(line.slice(2)); }
-    else if (line === '') { flushP(); flushU(); }
-    else { flushU(); para.push(line); }
+    if (line.startsWith('· ')) (ul ??= []).push(line.slice(2));
+    else if (line === '') flushU();
+    else { flushU(); blocks.push({ p: line }); }
   }
-  flushP(); flushU();
+  flushU();
   return (
     <>
       {blocks.map((b, i) => 'ul' in b

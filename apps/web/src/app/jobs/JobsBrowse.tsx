@@ -141,6 +141,14 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
         />
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
       </div>
+      {pristine && (
+        <div className="jb-try lbl" aria-label="Example searches">
+          <span>Try</span>
+          {['AI engineer', 'Registered nurse', 'Product design', 'Remote data'].map((ex) => (
+            <button key={ex} type="button" onClick={() => { setQ(ex); setNeedle(ex.toLowerCase()); }}>{ex}</button>
+          ))}
+        </div>
+      )}
       <div className="jb-filters">
         <select aria-label="Field" value={field} onChange={(e) => setField(e.target.value)}>
           <option value="">All fields</option>

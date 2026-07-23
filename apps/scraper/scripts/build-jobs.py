@@ -68,6 +68,8 @@ def clean_desc(text):
     t = html.unescape(html.unescape(text))          # twice: &amp;nbsp; style double-escapes
     t = _BLOCK_END.sub('\n\n', t)
     t = _LI.sub('\n· ', t)
+    t = re.sub(r'[•●▪‣∙]\s*', '\n· ', t)            # inline bullet chars -> list items
+    t = re.sub(r'(?m)^\s*[-–]\s+', '· ', t)          # line-start dashes -> list items
     t = _TAG.sub(' ', t)
     t = t.replace(' ', ' ').replace('\r', '')
     t = re.sub(r'[ \t]+', ' ', t)
@@ -86,11 +88,31 @@ _HEAD_STEMS = re.compile(
     r'benefit|perk|what we offer|we offer|why (join|you.?ll love|work)|compensation|salary|pay range|'
     r'duties|overview|summary|our (culture|values|mission)|the team\b|interview process|how to apply|'
     r'education|experience required)', re.I)
+_SENT = re.compile(r'(?<=[.!?])\s+(?=[A-Z“"(])')
+def _breathe(line):
+    """A single line over ~500 chars is a wall (flattened sources ship these).
+    Split it at sentence boundaries into short paragraphs of ~350 chars."""
+    if len(line) <= 500 or line.startswith('·'):
+        return [line]
+    parts, cur = [], ''
+    for sent in _SENT.split(line):
+        if cur and len(cur) + len(sent) > 350:
+            parts.append(cur.strip()); cur = sent
+        else:
+            cur = f'{cur} {sent}'.strip()
+    if cur:
+        parts.append(cur.strip())
+    out = []
+    for p in parts:
+        out.extend([p, ''])
+    return out[:-1] if out else [line]
+
 def to_sections(text, cap):
     """Split cleaned text into [{h, t}] sections on detected headings."""
     sections, cur_h, cur = [], None, []
     def flush():
-        t = '\n'.join(cur).strip()
+        t = '\n'.join(x for line in cur for x in _breathe(line)).strip()
+        t = re.sub(r'\n{3,}', '\n\n', t)
         if t:
             sections.append({'h': cur_h, 't': t})
     used = 0
@@ -99,7 +121,8 @@ def to_sections(text, cap):
         if used >= cap:
             break
         is_head = (0 < len(s) <= 64 and not s.startswith('·')
-                   and (_HEAD_STEMS.search(s) or s.endswith(':')))
+                   and (_HEAD_STEMS.search(s) or s.endswith(':')
+                        or (s.isupper() and any(c.isalpha() for c in s) and len(s) >= 4)))
         if is_head:
             flush()
             cur_h, cur = s.rstrip(':').strip(), []
