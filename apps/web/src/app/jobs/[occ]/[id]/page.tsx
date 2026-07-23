@@ -6,6 +6,7 @@ import { getJob, getJobs, getJobSections, jobOccupations, occTitle, type JobSect
 import { salaryLabel, postedLabel, sourceName, Arrow45 } from '../../JobCard';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
+import { SITE_EMAIL } from '../../../../lib/site';
 
 export function generateStaticParams() {
   return jobOccupations().flatMap((occ) => getJobs(occ).map((j) => ({ occ, id: j.id })));
@@ -63,7 +64,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
     .filter((x) => x.r)
     .sort((a, b) => b.r!.match - a.r!.match)
     .slice(0, 3);
-  const claim = `mailto:cvinocoura@gmail.com?subject=${encodeURIComponent(`Claim listing: ${j.title} at ${j.company}`)}&body=${encodeURIComponent(`We are the employer behind "${j.title}" (${j.company}) listed on PivotHop. We want to claim it and hear about featured placement.\n\nWork email:\nName:`)}`;
+  const claim = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(`Claim listing: ${j.title} at ${j.company}`)}&body=${encodeURIComponent(`We are the employer behind "${j.title}" (${j.company}) listed on PivotHop. We want to claim it and hear about featured placement.\n\nWork email:\nName:`)}`;
 
   return (
     <PageShell>

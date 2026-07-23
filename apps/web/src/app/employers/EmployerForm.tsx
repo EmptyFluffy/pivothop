@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react';
 import { JobCard, type Job } from '../jobs/JobCard';
 import { submitJob, type JobPayload } from './actions';
+import { SITE_EMAIL } from '../../lib/site';
 
 /* Post a job — third pass, friction-first. People hate forms, so:
    - Paste an existing job description and we parse out the title, salary, and
@@ -197,7 +198,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
       f.about ? `\nAbout the role:\n${f.about}` : '', f.resp ? `\nResponsibilities:\n${f.resp}` : '', f.quals ? `\nQualifications:\n${f.quals}` : '',
       '', `Tier: ${pricing[tier].name} (launch rate $${pricing[tier].launch}/30 days).`,
     ].filter((l) => l !== '').join('\n');
-    window.location.href = `mailto:cvinocoura@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
   function attemptSend() {
     if (!ok) {
@@ -371,7 +372,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
           </button>
           {tried && !ok && <p className="ejf-errbox">Before you can post, add {missing.join(', ')} &mdash; the fields marked Required above.</p>}
           {submitError && <p className="ejf-errbox">{submitError}</p>}
-          <p className="ef-note">No form backend, no CRM, no drip sequence. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post &mdash; and you will know the traffic before you pay. Prefer writing directly? <a href="mailto:cvinocoura@gmail.com">cvinocoura@gmail.com</a>.</p>
+          <p className="ef-note">No form backend, no CRM, no drip sequence. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post &mdash; and you will know the traffic before you pay. Prefer writing directly? <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.</p>
         </div>
       </div>
 

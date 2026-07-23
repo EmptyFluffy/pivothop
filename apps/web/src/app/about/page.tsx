@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
+import { SITE_EMAIL } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'About — PivotHop',
@@ -126,7 +127,7 @@ export default function About() {
         <section className="ab-sec ab-contact">
           <h2><IconMail /> Contact</h2>
           <p>
-            Write to <a href="mailto:cvinocoura@gmail.com">cvinocoura@gmail.com</a>.
+            Write to <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
             If you are thinking about a pivot and want a human opinion next to the
             numbers, say so in the subject line. Carlos reads these himself and
             replies when he can, usually within a few days.

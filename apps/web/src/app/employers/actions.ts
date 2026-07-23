@@ -1,4 +1,5 @@
 'use server';
+import { SITE_EMAIL } from '../../lib/site';
 
 /* Server action: persist a job submission to Supabase, then (best-effort)
    notify by email. Runs on the server only — the SUPABASE_SERVICE_KEY never
@@ -78,7 +79,7 @@ export async function submitJob(p: JobPayload): Promise<{ ok: boolean; error?: s
 async function notify(p: JobPayload): Promise<void> {
   const token = process.env.POSTMARK_SERVER_TOKEN;
   const from = process.env.POSTMARK_FROM;
-  const to = process.env.POSTMARK_NOTIFY_TO || 'cvinocoura@gmail.com';
+  const to = process.env.POSTMARK_NOTIFY_TO || SITE_EMAIL;
   if (!token || !from) return;
   await fetch('https://api.postmarkapp.com/email', {
     method: 'POST',
