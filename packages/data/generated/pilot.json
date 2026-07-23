@@ -934,6 +934,170 @@
       }
     },
     {
+      "id": "maintenance-technician",
+      "title": "Maintenance Technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
+      "match": 18,
+      "fit": 29,
+      "capability": 76,
+      "mobility": 15,
+      "mobility_source": "observed-flow-eu",
+      "mobility_eu": 15,
+      "mobility_tier": null,
+      "salary": "$45k–$60k",
+      "salary_band": [
+        43691,
+        62422
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Maintenance",
+        "Supply Chain",
+        "Welding / Fabrication",
+        "Sustainability"
+      ],
+      "learn": [
+        "Customer Service",
+        "Lean / Six Sigma",
+        "HVAC Systems",
+        "PLC / Controls"
+      ],
+      "waterfall": [
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 42.9,
+          "earned": 1.9
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 7.9,
+          "earned": 1.4
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 7.2,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 4.6,
+          "earned": 1.9
+        },
+        {
+          "skill": "plc",
+          "name": "PLC / Controls",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 3.6,
+          "earned": 3.6
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 2.8,
+          "earned": 2.8
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "observability",
+          "name": "Observability",
+          "pts": 2,
+          "earned": 2
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 1.6,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 1.6,
+          "earned": 0.9
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 1.3,
+          "earned": 1.3
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 1.1,
+          "earned": 1.1
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 1,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 1,
+          "earned": 0.9
+        },
+        {
+          "skill": "react",
+          "name": "React",
+          "pts": 0.8,
+          "earned": 0
+        },
+        {
+          "skill": "spec-writing",
+          "name": "Spec Writing",
+          "pts": 0.8,
+          "earned": 0
+        },
+        {
+          "skill": "social-media",
+          "name": "Social Media",
+          "pts": 0.8,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1221,
+        "salaried": 818
+      }
+    },
+    {
       "id": "plumber",
       "title": "Plumber",
       "field": "Trades",
@@ -1099,202 +1263,11 @@
         "postings": 739,
         "salaried": 527
       }
-    },
-    {
-      "id": "maintenance-technician",
-      "title": "Maintenance Technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
-      "match": 17,
-      "fit": 28,
-      "capability": 76,
-      "mobility": 15,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 15,
-      "mobility_tier": null,
-      "salary": "$45k–$60k",
-      "salary_band": [
-        43691,
-        62422
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Maintenance",
-        "Supply Chain",
-        "Welding / Fabrication",
-        "Sustainability"
-      ],
-      "learn": [
-        "Customer Service",
-        "Lean / Six Sigma",
-        "HVAC Systems",
-        "PLC / Controls"
-      ],
-      "waterfall": [
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 42.7,
-          "earned": 1.9
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 7.9,
-          "earned": 1.4
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 7.2,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 5.3,
-          "earned": 0
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 4.6,
-          "earned": 1.9
-        },
-        {
-          "skill": "plc",
-          "name": "PLC / Controls",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 3.6,
-          "earned": 3.6
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 2.6,
-          "earned": 2.6
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 2,
-          "earned": 2
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 1.6,
-          "earned": 0.9
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 1.1,
-          "earned": 1.1
-        },
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 1.1,
-          "earned": 1.1
-        },
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 1,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 0.8,
-          "earned": 0.8
-        },
-        {
-          "skill": "react",
-          "name": "React",
-          "pts": 0.8,
-          "earned": 0
-        },
-        {
-          "skill": "spec-writing",
-          "name": "Spec Writing",
-          "pts": 0.8,
-          "earned": 0
-        },
-        {
-          "skill": "social-media",
-          "name": "Social Media",
-          "pts": 0.8,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1219,
-        "salaried": 818
-      }
     }
   ],
   "next": {
     "human-factors-engineer": [],
     "professor": [
-      {
-        "t": "Compliance Officer",
-        "m": 14,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Compliance",
-          "Data Analysis",
-          "Contracts",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 20,
-        "capability": 59,
-        "mobility": 3,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "professor",
-          "readiness_after": 24,
-          "gain": 10
-        }
-      },
       {
         "t": "Professor / Lecturer",
         "m": 13,
@@ -1320,6 +1293,33 @@
           "parent": "professor",
           "readiness_after": 100,
           "gain": 87
+        }
+      },
+      {
+        "t": "Compliance Officer",
+        "m": 13,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Compliance",
+          "Data Analysis",
+          "Contracts",
+          "Criminal Investigation"
+        ],
+        "observed": null,
+        "fit": 20,
+        "capability": 59,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "professor",
+          "readiness_after": 26,
+          "gain": 13
         }
       }
     ],
@@ -1353,7 +1353,7 @@
       },
       {
         "t": "Mechanical Engineer",
-        "m": 15,
+        "m": 14,
         "slug": "mechanical-engineer",
         "field": "Engineering",
         "cluster": "Engineering & Manufacturing",
@@ -1361,8 +1361,8 @@
         "gap": [
           "Mechanical CAD",
           "Spec Writing",
-          "Project Management",
-          "FEA / Simulation"
+          "FEA / Simulation",
+          "Project Management"
         ],
         "observed": null,
         "fit": 20,
@@ -1374,27 +1374,27 @@
         "reach": "bridged",
         "via": {
           "parent": "aerospace-engineer",
-          "readiness_after": 39,
-          "gain": 24
+          "readiness_after": 40,
+          "gain": 26
         }
       }
     ],
     "hvac-technician": [
       {
         "t": "Facilities Manager",
-        "m": 13,
+        "m": 14,
         "slug": "facilities-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Procurement",
           "Customer Service",
-          "Project Management",
-          "Lean / Six Sigma"
+          "Procurement",
+          "Lean / Six Sigma",
+          "Project Management"
         ],
         "observed": null,
-        "fit": 22,
+        "fit": 23,
         "capability": 64,
         "mobility": 10,
         "mobility_source": "observed-flow-us",
@@ -1403,35 +1403,8 @@
         "reach": "bridged",
         "via": {
           "parent": "hvac-technician",
-          "readiness_after": 59,
-          "gain": 46
-        }
-      },
-      {
-        "t": "Plumber",
-        "m": 12,
-        "slug": "plumber",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Drafting",
-          "Customer Service",
-          "Spec Writing",
-          "Building Codes"
-        ],
-        "observed": null,
-        "fit": 29,
-        "capability": 75,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "hvac-technician",
-          "readiness_after": 39,
-          "gain": 27
+          "readiness_after": 58,
+          "gain": 44
         }
       }
     ],
@@ -1520,6 +1493,62 @@
         }
       }
     ],
+    "maintenance-technician": [
+      {
+        "t": "Maintenance Technician",
+        "m": 18,
+        "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Lean / Six Sigma",
+          "HVAC Systems",
+          "PLC / Controls"
+        ],
+        "observed": null,
+        "fit": 29,
+        "capability": 76,
+        "mobility": 15,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 15,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "maintenance-technician",
+          "readiness_after": 100,
+          "gain": 82
+        }
+      },
+      {
+        "t": "Automotive Technician",
+        "m": 17,
+        "slug": "automotive-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Spec Writing",
+          "Electrical Systems",
+          "Customer Service",
+          "Drafting"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "maintenance-technician",
+          "readiness_after": 55,
+          "gain": 38
+        }
+      }
+    ],
     "plumber": [
       {
         "t": "Civil Engineer",
@@ -1549,86 +1578,30 @@
         }
       },
       {
-        "t": "Industrial Engineer",
+        "t": "Plumber",
         "m": 12,
-        "slug": "industrial-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Lean / Six Sigma",
-          "Data Analysis",
-          "FEA / Simulation",
-          "Spec Writing"
-        ],
-        "observed": null,
-        "fit": 21,
-        "capability": 51,
-        "mobility": 18,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "plumber",
-          "readiness_after": 20,
-          "gain": 8
-        }
-      }
-    ],
-    "maintenance-technician": [
-      {
-        "t": "Automotive Technician",
-        "m": 17,
-        "slug": "automotive-technician",
+        "slug": "plumber",
         "field": "Trades",
         "cluster": "Trades",
         "kind": "pivot",
         "gap": [
-          "Spec Writing",
-          "Electrical Systems",
+          "Drafting",
           "Customer Service",
-          "Drafting"
+          "Spec Writing",
+          "Building Codes"
         ],
         "observed": null,
-        "fit": 17,
-        "capability": null,
+        "fit": 29,
+        "capability": 75,
         "mobility": null,
         "mobility_source": null,
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "maintenance-technician",
-          "readiness_after": 54,
-          "gain": 37
-        }
-      },
-      {
-        "t": "Maintenance Technician",
-        "m": 17,
-        "slug": "maintenance-technician",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Customer Service",
-          "Lean / Six Sigma",
-          "HVAC Systems",
-          "PLC / Controls"
-        ],
-        "observed": null,
-        "fit": 28,
-        "capability": 76,
-        "mobility": 15,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 15,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "maintenance-technician",
+          "parent": "plumber",
           "readiness_after": 100,
-          "gain": 83
+          "gain": 88
         }
       }
     ]
@@ -1657,22 +1630,22 @@
       "reach": "direct"
     },
     {
-      "t": "Management Consultant",
-      "m": 12,
-      "slug": "management-consultant",
-      "field": "Business",
-      "cluster": "Business",
+      "t": "Industrial Engineer",
+      "m": 11,
+      "slug": "industrial-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
       "kind": "pivot",
       "gap": [
-        "Project Management",
+        "Lean / Six Sigma",
         "Data Analysis",
-        "Presentation",
-        "SAP"
+        "FEA / Simulation",
+        "Spec Writing"
       ],
       "observed": null,
-      "fit": 25,
-      "capability": 0,
-      "mobility": 75,
+      "fit": 21,
+      "capability": 51,
+      "mobility": 18,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
@@ -1699,12 +1672,34 @@
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
+    },
+    {
+      "t": "Structural Engineer",
+      "m": 10,
+      "slug": "structural-engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Structural Analysis",
+        "Project Management",
+        "Spec Writing",
+        "Revit"
+      ],
+      "observed": null,
+      "fit": 18,
+      "capability": 27,
+      "mobility": 27,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
     }
   ],
   "cross": [
     [
-      "plumber",
       "maintenance-technician",
+      "plumber",
       0.51
     ],
     [
@@ -1730,19 +1725,19 @@
       1
     ],
     [
-      "plumber",
-      "hvac-technician_1",
-      1
-    ],
-    [
       "maintenance-technician",
       "hvac-technician_0",
       0.62
     ],
     [
       "plumber",
-      "maintenance-technician_1",
+      "maintenance-technician_0",
       0.6
+    ],
+    [
+      "maintenance-technician",
+      "plumber_1",
+      0.52
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

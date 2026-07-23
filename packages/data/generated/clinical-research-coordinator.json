@@ -696,8 +696,8 @@
       "mobility_tier": null,
       "salary": "$40k–$75k",
       "salary_band": [
-        38698,
-        73717
+        38843,
+        73774
       ],
       "demand": "High",
       "remote": "1%",
@@ -718,13 +718,13 @@
         {
           "skill": "contracts",
           "name": "Contracts",
-          "pts": 50.7,
+          "pts": 50.2,
           "earned": 0
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 9.9,
+          "pts": 10,
           "earned": 0
         },
         {
@@ -736,7 +736,7 @@
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 3.2,
+          "pts": 3.6,
           "earned": 0
         },
         {
@@ -748,8 +748,8 @@
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 2.9,
-          "earned": 2.9
+          "pts": 2.8,
+          "earned": 2.8
         },
         {
           "skill": "customer-service",
@@ -758,9 +758,15 @@
           "earned": 0
         },
         {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 0
         },
         {
@@ -770,21 +776,15 @@
           "earned": 2.3
         },
         {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
           "skill": "negotiation",
           "name": "Negotiation",
-          "pts": 2.2,
+          "pts": 2.1,
           "earned": 1.6
         },
         {
           "skill": "law-enforcement",
           "name": "Law Enforcement",
-          "pts": 2.2,
+          "pts": 2.1,
           "earned": 0
         },
         {
@@ -800,6 +800,12 @@
           "earned": 1.6
         },
         {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 1.6,
+          "earned": 0
+        },
+        {
           "skill": "quality-control",
           "name": "Quality Control",
           "pts": 1.6,
@@ -808,12 +814,6 @@
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 1.4,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
           "pts": 1.4,
           "earned": 0
         },
@@ -839,8 +839,8 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1300,
-        "salaried": 1032
+        "postings": 1304,
+        "salaried": 1035
       }
     },
     {
@@ -1346,7 +1346,7 @@
     "data-annotator": [
       {
         "t": "Developer Advocate",
-        "m": 17,
+        "m": 18,
         "slug": "developer-advocate",
         "field": "Technology",
         "cluster": "Technology",
@@ -1358,7 +1358,7 @@
           "AWS"
         ],
         "observed": null,
-        "fit": 17,
+        "fit": 18,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1367,28 +1367,28 @@
         "reach": "bridged",
         "via": {
           "parent": "data-annotator",
-          "readiness_after": 25,
+          "readiness_after": 26,
           "gain": 8
         }
       }
     ],
     "dietitian": [
       {
-        "t": "HR Manager",
+        "t": "Medical Scribe",
         "m": 22,
-        "slug": "hr-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
+        "slug": "medical-scribe",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "lateral",
         "gap": [
-          "HR Operations",
-          "Recruiting",
-          "Lean / Six Sigma",
-          "Customer Service"
+          "EHR / EMR",
+          "Teaching",
+          "Customer Service",
+          "Epic EHR"
         ],
         "observed": null,
-        "fit": 20,
-        "capability": 14,
+        "fit": 22,
+        "capability": null,
         "mobility": null,
         "mobility_source": null,
         "mobility_eu": null,
@@ -1396,8 +1396,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 33,
-          "gain": 11
+          "readiness_after": 46,
+          "gain": 24
         }
       },
       {
@@ -1460,7 +1460,7 @@
     "statistician": [
       {
         "t": "Industrial Engineer",
-        "m": 23,
+        "m": 22,
         "slug": "industrial-engineer",
         "field": "Engineering",
         "cluster": "Engineering & Manufacturing",
@@ -1472,7 +1472,7 @@
           "Spec Writing"
         ],
         "observed": null,
-        "fit": 20,
+        "fit": 19,
         "capability": 30,
         "mobility": 4,
         "mobility_source": "observed-flow-eu",
@@ -1481,7 +1481,7 @@
         "reach": "bridged",
         "via": {
           "parent": "statistician",
-          "readiness_after": 35,
+          "readiness_after": 34,
           "gain": 12
         }
       }
@@ -1625,33 +1625,6 @@
           "readiness_after": 100,
           "gain": 78
         }
-      },
-      {
-        "t": "Executive Assistant",
-        "m": 16,
-        "slug": "executive-assistant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Salesforce",
-          "Market Research",
-          "Supply Chain",
-          "Accounting"
-        ],
-        "observed": null,
-        "fit": 23,
-        "capability": 63,
-        "mobility": 8,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 38,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "environmental-engineer",
-          "readiness_after": 24,
-          "gain": 8
-        }
       }
     ],
     "psychologist": [
@@ -1683,21 +1656,21 @@
         }
       },
       {
-        "t": "Medical Scribe",
+        "t": "HR Manager",
         "m": 22,
-        "slug": "medical-scribe",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "lateral",
+        "slug": "hr-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
         "gap": [
-          "EHR / EMR",
-          "Teaching",
-          "Customer Service",
-          "Epic EHR"
+          "HR Operations",
+          "Recruiting",
+          "Lean / Six Sigma",
+          "Customer Service"
         ],
         "observed": null,
-        "fit": 22,
-        "capability": null,
+        "fit": 20,
+        "capability": 14,
         "mobility": null,
         "mobility_source": null,
         "mobility_eu": null,
@@ -1705,8 +1678,8 @@
         "reach": "bridged",
         "via": {
           "parent": "psychologist",
-          "readiness_after": 76,
-          "gain": 54
+          "readiness_after": 33,
+          "gain": 11
         }
       }
     ]
@@ -1757,24 +1730,46 @@
       "reach": "direct"
     },
     {
-      "t": "Project Manager",
+      "t": "Auditor",
       "m": 16,
-      "slug": "project-manager",
+      "slug": "auditor",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Audit",
+        "Accounting",
+        "Risk Management",
+        "QA / Testing"
+      ],
+      "observed": null,
+      "fit": 23,
+      "capability": 50,
+      "mobility": 15,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 2,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Executive Assistant",
+      "m": 16,
+      "slug": "executive-assistant",
       "field": "Business",
       "cluster": "Business",
       "kind": "pivot",
       "gap": [
+        "Salesforce",
+        "Market Research",
         "Supply Chain",
-        "Lean / Six Sigma",
-        "Agile",
-        "Procurement"
+        "Accounting"
       ],
       "observed": null,
-      "fit": 12,
-      "capability": null,
-      "mobility": 3,
+      "fit": 23,
+      "capability": 63,
+      "mobility": 8,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 11,
+      "mobility_eu": 38,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1819,13 +1814,13 @@
     ],
     [
       "psychologist",
-      "paralegal_0",
-      0.73
+      "dietitian_0",
+      0.76
     ],
     [
-      "therapist",
-      "psychologist_1",
-      0.64
+      "psychologist",
+      "paralegal_0",
+      0.73
     ],
     [
       "therapist",

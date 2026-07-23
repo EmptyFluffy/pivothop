@@ -633,7 +633,7 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 12,
+      "match": 13,
       "fit": 20,
       "capability": 62,
       "mobility": 3,
@@ -664,49 +664,55 @@
         {
           "skill": "instructional-design",
           "name": "Instructional Design",
-          "pts": 43.6,
+          "pts": 42.7,
           "earned": 0
         },
         {
           "skill": "agile",
           "name": "Agile",
-          "pts": 15.6,
+          "pts": 15,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 9.9,
+          "pts": 9.5,
           "earned": 1.4
         },
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 4.5,
-          "earned": 4.5
+          "pts": 5.1,
+          "earned": 5.1
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 3.7,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 3.3,
+          "pts": 3.2,
           "earned": 0.2
         },
         {
           "skill": "curriculum",
           "name": "Curriculum Development",
-          "pts": 2.5,
-          "earned": 2.5
+          "pts": 2.8,
+          "earned": 2.8
         },
         {
           "skill": "illustration",
           "name": "Illustration",
-          "pts": 1.6,
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 2,
           "earned": 0
         },
         {
@@ -746,12 +752,6 @@
           "earned": 0
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 1.2,
-          "earned": 0
-        },
-        {
           "skill": "translation",
           "name": "Translation",
           "pts": 1.2,
@@ -760,6 +760,12 @@
         {
           "skill": "community-engagement",
           "name": "Community Engagement",
+          "pts": 1.2,
+          "earned": 0
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
           "pts": 1.2,
           "earned": 0
         },
@@ -774,18 +780,12 @@
           "name": "Quality Control",
           "pts": 0.8,
           "earned": 0
-        },
-        {
-          "skill": "cybersecurity",
-          "name": "Cybersecurity",
-          "pts": 0.8,
-          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 323,
+        "postings": 325,
         "salaried": 272
       }
     },
@@ -960,35 +960,7 @@
     "professor": [],
     "librarian": [],
     "instructional-designer": [],
-    "physician": [
-      {
-        "t": "Therapist / Counselor",
-        "m": 10,
-        "slug": "therapist",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Patient Care",
-          "Clinical Skills",
-          "EHR / EMR",
-          "Rendering"
-        ],
-        "observed": null,
-        "fit": 27,
-        "capability": 75,
-        "mobility": 26,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 11,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "physician",
-          "readiness_after": 69,
-          "gain": 59
-        }
-      }
-    ]
+    "physician": []
   },
   "direct": [],
   "cross": [
@@ -1023,12 +995,6 @@
       0.33
     ]
   ],
-  "bridges": [
-    [
-      "teaching-assistant",
-      "physician_0",
-      0.23
-    ]
-  ],
+  "bridges": [],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

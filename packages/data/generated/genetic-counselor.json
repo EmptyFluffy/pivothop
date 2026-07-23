@@ -1371,17 +1371,17 @@
         }
       },
       {
-        "t": "Research Scientist",
+        "t": "Auditor",
         "m": 11,
-        "slug": "research-scientist",
-        "field": "Science",
-        "cluster": "Science",
+        "slug": "auditor",
+        "field": "Finance",
+        "cluster": "Finance",
         "kind": "pivot",
         "gap": [
-          "Deep Learning",
-          "Machine Learning",
-          "LLMs / Generative AI",
-          "Quality Control"
+          "Audit",
+          "Accounting",
+          "QA / Testing",
+          "Lean / Six Sigma"
         ],
         "observed": null,
         "fit": 11,
@@ -1393,8 +1393,8 @@
         "reach": "bridged",
         "via": {
           "parent": "therapist",
-          "readiness_after": 21,
-          "gain": 10
+          "readiness_after": 20,
+          "gain": 9
         }
       }
     ],
@@ -1457,7 +1457,7 @@
     "dietitian": [
       {
         "t": "Paralegal",
-        "m": 21,
+        "m": 22,
         "slug": "paralegal",
         "field": "Legal",
         "cluster": "Legal",
@@ -1469,7 +1469,7 @@
           "Customer Service"
         ],
         "observed": null,
-        "fit": 21,
+        "fit": 22,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1478,7 +1478,7 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 30,
+          "readiness_after": 31,
           "gain": 9
         }
       },
@@ -1505,8 +1505,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 37,
-          "gain": 23
+          "readiness_after": 35,
+          "gain": 21
         }
       }
     ],
@@ -1632,8 +1632,8 @@
         "kind": "pivot",
         "gap": [
           "Grant Writing",
-          "Observability",
           "Procurement",
+          "Observability",
           "Project Management"
         ],
         "observed": null,
@@ -1646,8 +1646,8 @@
         "reach": "bridged",
         "via": {
           "parent": "physical-therapist",
-          "readiness_after": 21,
-          "gain": 9
+          "readiness_after": 20,
+          "gain": 8
         }
       }
     ],
@@ -1705,20 +1705,20 @@
       "reach": "direct"
     },
     {
-      "t": "Auditor",
-      "m": 11,
-      "slug": "auditor",
-      "field": "Finance",
-      "cluster": "Finance",
-      "kind": "pivot",
+      "t": "Clinical Research Coordinator",
+      "m": 10,
+      "slug": "clinical-research-coordinator",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
       "gap": [
-        "Audit",
-        "Accounting",
-        "QA / Testing",
-        "Lean / Six Sigma"
+        "GCP",
+        "Observability",
+        "Compliance",
+        "Data Analysis"
       ],
       "observed": null,
-      "fit": 11,
+      "fit": 10,
       "capability": null,
       "mobility": null,
       "mobility_source": null,

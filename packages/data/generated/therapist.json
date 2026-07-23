@@ -1223,7 +1223,7 @@
     "social-worker": [
       {
         "t": "HR Manager",
-        "m": 18,
+        "m": 16,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1235,7 +1235,7 @@
           "Lean / Six Sigma"
         ],
         "observed": null,
-        "fit": 20,
+        "fit": 19,
         "capability": 50,
         "mobility": 2,
         "mobility_source": "observed-flow-us",
@@ -1244,7 +1244,7 @@
         "reach": "bridged",
         "via": {
           "parent": "social-worker",
-          "readiness_after": 28,
+          "readiness_after": 26,
           "gain": 10
         }
       }
@@ -1275,33 +1275,6 @@
           "parent": "psychologist",
           "readiness_after": 35,
           "gain": 16
-        }
-      },
-      {
-        "t": "Project Manager",
-        "m": 15,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Project Management",
-          "Supply Chain",
-          "Operations",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 12,
-        "capability": null,
-        "mobility": 6,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 12,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "psychologist",
-          "readiness_after": 27,
-          "gain": 12
         }
       }
     ],
@@ -1342,9 +1315,9 @@
         "kind": "pivot",
         "gap": [
           "Compliance",
+          "Contracts",
           "Supply Chain",
-          "Law Enforcement",
-          "Contracts"
+          "Criminal Investigation"
         ],
         "observed": null,
         "fit": 20,
@@ -1356,8 +1329,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 34,
-          "gain": 14
+          "readiness_after": 33,
+          "gain": 13
         }
       }
     ],
@@ -1387,6 +1360,33 @@
           "parent": "medical-scribe",
           "readiness_after": 29,
           "gain": 9
+        }
+      },
+      {
+        "t": "Game Designer",
+        "m": 15,
+        "slug": "game-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Unreal Engine",
+          "Prototyping",
+          "React",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": 34,
+        "mobility": 2,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 9,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "medical-scribe",
+          "readiness_after": 23,
+          "gain": 8
         }
       }
     ],
@@ -1585,7 +1585,7 @@
     },
     {
       "t": "Research Scientist",
-      "m": 19,
+      "m": 18,
       "slug": "research-scientist",
       "field": "Science",
       "cluster": "Science",
@@ -1594,10 +1594,10 @@
         "Deep Learning",
         "Machine Learning",
         "LLMs / Generative AI",
-        "Market Research"
+        "Python"
       ],
       "observed": null,
-      "fit": 16,
+      "fit": 15,
       "capability": 23,
       "mobility": 2,
       "mobility_source": "observed-flow-us",

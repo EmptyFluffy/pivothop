@@ -509,7 +509,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1982,
+        "postings": 1983,
         "salaried": 1516
       }
     },
@@ -1396,6 +1396,33 @@
     "medical-scribe": [],
     "dietitian": [
       {
+        "t": "Hotel Manager",
+        "m": 38,
+        "slug": "hotel-manager",
+        "field": "Hospitality",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Food Service",
+          "Maintenance",
+          "Budgeting",
+          "Account Management"
+        ],
+        "observed": null,
+        "fit": 38,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "dietitian",
+          "readiness_after": 48,
+          "gain": 10
+        }
+      },
+      {
         "t": "Librarian",
         "m": 36,
         "slug": "librarian",
@@ -1426,7 +1453,7 @@
     "pharmacist": [
       {
         "t": "HR Manager",
-        "m": 28,
+        "m": 27,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1434,11 +1461,11 @@
         "gap": [
           "HR Operations",
           "Recruiting",
-          "Compliance",
-          "Quality Control"
+          "Data Analysis",
+          "Compliance"
         ],
         "observed": null,
-        "fit": 28,
+        "fit": 27,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1447,8 +1474,8 @@
         "reach": "bridged",
         "via": {
           "parent": "pharmacist",
-          "readiness_after": 37,
-          "gain": 9
+          "readiness_after": 35,
+          "gain": 8
         }
       },
       {
@@ -1548,19 +1575,19 @@
     },
     {
       "t": "Corporate Trainer",
-      "m": 28,
+      "m": 27,
       "slug": "corporate-trainer",
       "field": "Education",
       "cluster": "Education",
       "kind": "pivot",
       "gap": [
         "Instructional Design",
-        "Curriculum Development",
-        "HR Operations",
-        "Accessibility"
+        "LangChain / Agents",
+        "Project Management",
+        "Curriculum Development"
       ],
       "observed": null,
-      "fit": 28,
+      "fit": 27,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1591,6 +1618,28 @@
       "reach": "direct"
     },
     {
+      "t": "Instructional Designer",
+      "m": 25,
+      "slug": "instructional-designer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Instructional Design",
+        "Agile",
+        "Curriculum Development",
+        "Illustration"
+      ],
+      "observed": null,
+      "fit": 25,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
       "t": "Executive Assistant",
       "m": 25,
       "slug": "executive-assistant",
@@ -1613,28 +1662,6 @@
       "reach": "direct"
     },
     {
-      "t": "Research Scientist",
-      "m": 23,
-      "slug": "research-scientist",
-      "field": "Science",
-      "cluster": "Science",
-      "kind": "pivot",
-      "gap": [
-        "Deep Learning",
-        "Machine Learning",
-        "LLMs / Generative AI",
-        "Quality Control"
-      ],
-      "observed": null,
-      "fit": 23,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Professor / Lecturer",
       "m": 23,
       "slug": "professor",
@@ -1646,28 +1673,6 @@
         "Aviation Operations",
         "Motion Design",
         "HR Operations"
-      ],
-      "observed": null,
-      "fit": 23,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Instructional Designer",
-      "m": 23,
-      "slug": "instructional-designer",
-      "field": "Education",
-      "cluster": "Education",
-      "kind": "pivot",
-      "gap": [
-        "Instructional Design",
-        "Agile",
-        "Curriculum Development",
-        "Illustration"
       ],
       "observed": null,
       "fit": 23,
@@ -1713,8 +1718,13 @@
   ],
   "bridges": [
     [
-      "pharmacist",
+      "dental-hygienist",
       "dietitian_0",
+      0.46
+    ],
+    [
+      "pharmacist",
+      "dietitian_1",
       0.44
     ]
   ],

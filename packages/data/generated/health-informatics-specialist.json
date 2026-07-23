@@ -758,7 +758,7 @@
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 1982,
+        "postings": 1983,
         "salaried": 1516
       }
     },
@@ -1266,7 +1266,7 @@
     "nurse-practitioner": [
       {
         "t": "HR Manager",
-        "m": 14,
+        "m": 13,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1278,7 +1278,7 @@
           "Customer Service"
         ],
         "observed": null,
-        "fit": 23,
+        "fit": 22,
         "capability": 72,
         "mobility": 3,
         "mobility_source": "observed-flow-us",
@@ -1287,7 +1287,7 @@
         "reach": "bridged",
         "via": {
           "parent": "nurse-practitioner",
-          "readiness_after": 27,
+          "readiness_after": 26,
           "gain": 13
         }
       },
@@ -1323,7 +1323,7 @@
     "dental-hygienist": [
       {
         "t": "Facilities Manager",
-        "m": 12,
+        "m": 13,
         "slug": "facilities-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1335,7 +1335,7 @@
           "Supply Chain"
         ],
         "observed": null,
-        "fit": 13,
+        "fit": 14,
         "capability": 30,
         "mobility": 2,
         "mobility_source": "observed-flow-us",
@@ -1344,8 +1344,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dental-hygienist",
-          "readiness_after": 34,
-          "gain": 22
+          "readiness_after": 31,
+          "gain": 18
         }
       }
     ],
@@ -1598,6 +1598,28 @@
       "reach": "direct"
     },
     {
+      "t": "Creative Director",
+      "m": 15,
+      "slug": "creative-director",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Figma",
+        "Design Systems",
+        "Service Design"
+      ],
+      "observed": null,
+      "fit": 23,
+      "capability": 45,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
       "t": "Systems Administrator",
       "m": 15,
       "slug": "systems-administrator",
@@ -1620,68 +1642,46 @@
       "reach": "direct"
     },
     {
-      "t": "Creative Director",
-      "m": 14,
-      "slug": "creative-director",
-      "field": "Design",
-      "cluster": "Design",
+      "t": "Compliance Officer",
+      "m": 12,
+      "slug": "compliance-officer",
+      "field": "Finance",
+      "cluster": "Finance",
       "kind": "pivot",
       "gap": [
-        "Writing & Editing",
-        "Figma",
-        "Service Design",
-        "Design Systems"
+        "Compliance",
+        "Risk Management",
+        "Quality Control",
+        "Contracts"
       ],
       "observed": null,
-      "fit": 22,
-      "capability": 45,
+      "fit": 9,
+      "capability": 6,
+      "mobility": 3,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 17,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Chemical Engineer",
+      "m": 11,
+      "slug": "chemical-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "Sustainability",
+        "Spec Writing",
+        "Supply Chain",
+        "Compliance"
+      ],
+      "observed": null,
+      "fit": 25,
+      "capability": 64,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Project Manager",
-      "m": 12,
-      "slug": "project-manager",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "gap": [
-        "Supply Chain",
-        "Agile",
-        "Customer Service",
-        "Risk Management"
-      ],
-      "observed": null,
-      "fit": 16,
-      "capability": null,
-      "mobility": 24,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 24,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Social Media Manager",
-      "m": 11,
-      "slug": "social-media-manager",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "gap": [
-        "Social Media",
-        "Content Marketing",
-        "Writing & Editing",
-        "Scheduling"
-      ],
-      "observed": null,
-      "fit": 28,
-      "capability": 65,
-      "mobility": 35,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 35,
       "mobility_tier": null,
       "reach": "direct"
     }

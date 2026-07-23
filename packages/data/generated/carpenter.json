@@ -200,7 +200,7 @@
       "desc": "",
       "match": 12,
       "fit": 41,
-      "capability": 45,
+      "capability": 47,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 19,
@@ -366,8 +366,8 @@
       },
       "desc": "",
       "match": 31,
-      "fit": 39,
-      "capability": 93,
+      "fit": 40,
+      "capability": 94,
       "mobility": 15,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 74,
@@ -530,8 +530,8 @@
       "license": null,
       "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
       "match": 29,
-      "fit": 38,
-      "capability": 93,
+      "fit": 39,
+      "capability": 94,
       "mobility": 15,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 70,
@@ -560,7 +560,7 @@
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 42.7,
+          "pts": 42.9,
           "earned": 19.2
         },
         {
@@ -578,7 +578,7 @@
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 5.3,
+          "pts": 5.2,
           "earned": 0.5
         },
         {
@@ -596,7 +596,7 @@
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 3.9,
+          "pts": 4.1,
           "earned": 0
         },
         {
@@ -608,7 +608,7 @@
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 2.6,
+          "pts": 2.8,
           "earned": 0
         },
         {
@@ -638,8 +638,8 @@
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 1.1,
-          "earned": 1.1
+          "pts": 1.3,
+          "earned": 1.3
         },
         {
           "skill": "aviation-ops",
@@ -656,7 +656,7 @@
         {
           "skill": "safety",
           "name": "Safety / OSHA",
-          "pts": 0.8,
+          "pts": 1,
           "earned": 0.5
         },
         {
@@ -681,8 +681,172 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1219,
+        "postings": 1221,
         "salaried": 818
+      }
+    },
+    {
+      "id": "facilities-manager",
+      "title": "Facilities Manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 24,
+      "fit": 32,
+      "capability": 83,
+      "mobility": 7,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 19,
+      "mobility_tier": null,
+      "salary": "$55k–$90k",
+      "salary_band": [
+        55712,
+        92440
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Maintenance",
+        "Operations",
+        "Customer Service",
+        "Sustainability"
+      ],
+      "learn": [
+        "Procurement",
+        "Supply Chain",
+        "Observability",
+        "Compliance"
+      ],
+      "waterfall": [
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 14.8,
+          "earned": 14.8
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 7.7,
+          "earned": 0.5
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 4.7,
+          "earned": 1.6
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.7,
+          "earned": 2.1
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 3.7,
+          "earned": 0.5
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 2.9,
+          "earned": 0.5
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 2.9,
+          "earned": 0.7
+        },
+        {
+          "skill": "observability",
+          "name": "Observability",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "compliance",
+          "name": "Compliance",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 2.1,
+          "earned": 0.5
+        },
+        {
+          "skill": "space-planning",
+          "name": "Space Planning",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 1.6,
+          "earned": 0.5
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 1.6,
+          "earned": 0.9
+        },
+        {
+          "skill": "community-engagement",
+          "name": "Community Engagement",
+          "pts": 1.3,
+          "earned": 0
+        },
+        {
+          "skill": "spec-writing",
+          "name": "Spec Writing",
+          "pts": 1.3,
+          "earned": 1.3
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 1.1,
+          "earned": 0
+        },
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 1.1,
+          "earned": 0
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 1.1,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 758,
+        "salaried": 559
       }
     },
     {
@@ -850,170 +1014,6 @@
       "provenance": {
         "postings": 574,
         "salaried": 354
-      }
-    },
-    {
-      "id": "facilities-manager",
-      "title": "Facilities Manager",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 21,
-      "fit": 30,
-      "capability": 82,
-      "mobility": 7,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 19,
-      "mobility_tier": null,
-      "salary": "$55k–$90k",
-      "salary_band": [
-        55673,
-        92210
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Maintenance",
-        "Operations",
-        "Customer Service",
-        "Sustainability"
-      ],
-      "learn": [
-        "Procurement",
-        "Supply Chain",
-        "Observability",
-        "Compliance"
-      ],
-      "waterfall": [
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 13.6,
-          "earned": 13.6
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 6.9,
-          "earned": 0.5
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 4,
-          "earned": 1.6
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 3.7,
-          "earned": 2.1
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 2.9,
-          "earned": 0.5
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 2.9,
-          "earned": 0.7
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 2.9,
-          "earned": 0.5
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 2.1,
-          "earned": 0.5
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 1.6,
-          "earned": 0.5
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.6,
-          "earned": 0.9
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "space-planning",
-          "name": "Space Planning",
-          "pts": 1.3,
-          "earned": 0
-        },
-        {
-          "skill": "community-engagement",
-          "name": "Community Engagement",
-          "pts": 1.3,
-          "earned": 0
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 1.1,
-          "earned": 0
-        },
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 1.1,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 0.8,
-          "earned": 0
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 0.8,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 751,
-        "salaried": 558
       }
     },
     {
@@ -1351,6 +1351,33 @@
   "next": {
     "plumber": [
       {
+        "t": "Chemical Engineer",
+        "m": 12,
+        "slug": "chemical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Supply Chain",
+          "Compliance",
+          "Observability",
+          "Procurement"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": 27,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "plumber",
+          "readiness_after": 24,
+          "gain": 12
+        }
+      },
+      {
         "t": "Construction Manager",
         "m": 12,
         "slug": "construction-manager",
@@ -1365,7 +1392,7 @@
         ],
         "observed": null,
         "fit": 41,
-        "capability": 45,
+        "capability": 47,
         "mobility": 100,
         "mobility_source": "observed-flow-us",
         "mobility_eu": 19,
@@ -1380,33 +1407,6 @@
     ],
     "construction-manager": [
       {
-        "t": "Mechanical Engineer",
-        "m": 17,
-        "slug": "mechanical-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Mechanical CAD",
-          "FEA / Simulation",
-          "Prototyping",
-          "Structural Analysis"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": 41,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "construction-manager",
-          "readiness_after": 43,
-          "gain": 26
-        }
-      },
-      {
         "t": "Architect",
         "m": 15,
         "slug": "architect",
@@ -1420,6 +1420,33 @@
           "BIM"
         ],
         "observed": null,
+        "fit": 15,
+        "capability": 31,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "construction-manager",
+          "readiness_after": 33,
+          "gain": 18
+        }
+      },
+      {
+        "t": "Civil Engineer",
+        "m": 14,
+        "slug": "civil-engineer",
+        "field": "Engineering",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Civil 3D",
+          "Assessment",
+          "AutoCAD",
+          "Quality Control"
+        ],
+        "observed": null,
         "fit": 14,
         "capability": 28,
         "mobility": 1,
@@ -1430,7 +1457,7 @@
         "via": {
           "parent": "construction-manager",
           "readiness_after": 33,
-          "gain": 18
+          "gain": 19
         }
       }
     ],
@@ -1445,12 +1472,12 @@
         "gap": [
           "Electrical Systems",
           "Revit",
-          "Quality Control",
-          "PLC / Controls"
+          "FEA / Simulation",
+          "QA / Testing"
         ],
         "observed": null,
-        "fit": 14,
-        "capability": 31,
+        "fit": 15,
+        "capability": 33,
         "mobility": 0,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
@@ -1478,8 +1505,8 @@
           "QA / Testing"
         ],
         "observed": null,
-        "fit": 18,
-        "capability": 34,
+        "fit": 19,
+        "capability": 36,
         "mobility": 15,
         "mobility_source": "observed-flow-eu",
         "mobility_eu": 15,
@@ -1487,91 +1514,35 @@
         "reach": "bridged",
         "via": {
           "parent": "maintenance-technician",
-          "readiness_after": 30,
-          "gain": 16
+          "readiness_after": 31,
+          "gain": 17
         }
       },
       {
-        "t": "Chemical Engineer",
-        "m": 12,
-        "slug": "chemical-engineer",
+        "t": "Mechanical Engineer",
+        "m": 14,
+        "slug": "mechanical-engineer",
         "field": "Engineering",
         "cluster": "Engineering & Manufacturing",
         "kind": "pivot",
         "gap": [
-          "Supply Chain",
-          "Compliance",
-          "Observability",
-          "Procurement"
+          "Mechanical CAD",
+          "FEA / Simulation",
+          "Prototyping",
+          "Structural Analysis"
         ],
         "observed": null,
-        "fit": 15,
-        "capability": 24,
-        "mobility": null,
-        "mobility_source": null,
+        "fit": 17,
+        "capability": 43,
+        "mobility": 2,
+        "mobility_source": "observed-flow-us",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "maintenance-technician",
-          "readiness_after": 36,
-          "gain": 24
-        }
-      }
-    ],
-    "hvac-technician": [
-      {
-        "t": "HVAC Technician",
-        "m": 19,
-        "slug": "hvac-technician",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "lateral",
-        "gap": [
-          "HVAC Systems",
-          "Procurement",
-          "Supply Chain",
-          "Social Media"
-        ],
-        "observed": null,
-        "fit": 31,
-        "capability": 96,
-        "mobility": 4,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 19,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "hvac-technician",
-          "readiness_after": 100,
-          "gain": 81
-        }
-      },
-      {
-        "t": "Interior Designer",
-        "m": 12,
-        "slug": "interior-designer",
-        "field": "Design",
-        "cluster": "Design",
-        "kind": "pivot",
-        "gap": [
-          "Revit",
-          "Space Planning",
-          "Presentation",
-          "Construction Documentation"
-        ],
-        "observed": null,
-        "fit": 12,
-        "capability": 22,
-        "mobility": 5,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 100,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "hvac-technician",
-          "readiness_after": 21,
-          "gain": 9
+          "readiness_after": 35,
+          "gain": 21
         }
       }
     ],
@@ -1617,8 +1588,8 @@
           "QA / Testing"
         ],
         "observed": null,
-        "fit": 20,
-        "capability": 68,
+        "fit": 21,
+        "capability": 69,
         "mobility": 1,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
@@ -1626,12 +1597,96 @@
         "reach": "bridged",
         "via": {
           "parent": "facilities-manager",
-          "readiness_after": 27,
-          "gain": 15
+          "readiness_after": 26,
+          "gain": 14
         }
       }
     ],
-    "welder": [],
+    "hvac-technician": [
+      {
+        "t": "HVAC Technician",
+        "m": 19,
+        "slug": "hvac-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "lateral",
+        "gap": [
+          "HVAC Systems",
+          "Procurement",
+          "Supply Chain",
+          "Social Media"
+        ],
+        "observed": null,
+        "fit": 31,
+        "capability": 96,
+        "mobility": 4,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 19,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "hvac-technician",
+          "readiness_after": 100,
+          "gain": 81
+        }
+      },
+      {
+        "t": "Interior Designer",
+        "m": 12,
+        "slug": "interior-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Revit",
+          "Space Planning",
+          "Presentation",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "fit": 13,
+        "capability": 25,
+        "mobility": 5,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 100,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "hvac-technician",
+          "readiness_after": 21,
+          "gain": 9
+        }
+      }
+    ],
+    "welder": [
+      {
+        "t": "Welder",
+        "m": 20,
+        "slug": "welder",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "lateral",
+        "gap": [
+          "Quality Control",
+          "AWS",
+          "HVAC Systems",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "fit": 30,
+        "capability": 82,
+        "mobility": 11,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 85,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "welder",
+          "readiness_after": 100,
+          "gain": 80
+        }
+      }
+    ],
     "automotive-technician": [
       {
         "t": "MEP Engineer",
@@ -1648,7 +1703,7 @@
         ],
         "observed": null,
         "fit": 20,
-        "capability": 41,
+        "capability": 43,
         "mobility": 2,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
@@ -1691,28 +1746,6 @@
   },
   "direct": [
     {
-      "t": "Civil Engineer",
-      "m": 14,
-      "slug": "civil-engineer",
-      "field": "Engineering",
-      "cluster": "Built Environment",
-      "kind": "pivot",
-      "gap": [
-        "Civil 3D",
-        "Assessment",
-        "AutoCAD",
-        "Quality Control"
-      ],
-      "observed": null,
-      "fit": 13,
-      "capability": 25,
-      "mobility": 1,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Structural Engineer",
       "m": 13,
       "slug": "structural-engineer",
@@ -1726,8 +1759,8 @@
         "Quality Control"
       ],
       "observed": null,
-      "fit": 12,
-      "capability": 25,
+      "fit": 13,
+      "capability": 28,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
@@ -1770,13 +1803,13 @@
   "bridges": [
     [
       "construction-manager",
-      "plumber_0",
+      "plumber_1",
       1
     ],
     [
       "maintenance-technician",
       "automotive-technician_1",
-      0.67
+      0.68
     ],
     [
       "construction-manager",
@@ -1785,7 +1818,7 @@
     ],
     [
       "construction-manager",
-      "maintenance-technician_1",
+      "plumber_0",
       0.45
     ]
   ],

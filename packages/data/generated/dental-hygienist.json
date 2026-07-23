@@ -947,7 +947,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1982,
+        "postings": 1983,
         "salaried": 1516
       }
     },
@@ -1344,28 +1344,28 @@
         "reach": "bridged",
         "via": {
           "parent": "physical-therapist",
-          "readiness_after": 29,
-          "gain": 16
+          "readiness_after": 26,
+          "gain": 13
         }
       }
     ],
     "medical-scribe": [],
     "dietitian": [
       {
-        "t": "HR Manager",
-        "m": 17,
-        "slug": "hr-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
+        "t": "Genetic Counselor",
+        "m": 25,
+        "slug": "genetic-counselor",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "lateral",
         "gap": [
-          "HR Operations",
-          "Recruiting",
-          "Supply Chain",
-          "Compliance"
+          "Clinical Research",
+          "Risk Management",
+          "AWS",
+          "HR Operations"
         ],
         "observed": null,
-        "fit": 17,
+        "fit": 25,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1374,8 +1374,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 28,
-          "gain": 11
+          "readiness_after": 34,
+          "gain": 9
         }
       },
       {
@@ -1520,6 +1520,33 @@
     ],
     "physician": [
       {
+        "t": "Hotel Manager",
+        "m": 27,
+        "slug": "hotel-manager",
+        "field": "Hospitality",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Food Service",
+          "Event Planning",
+          "Budgeting",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "fit": 27,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "physician",
+          "readiness_after": 46,
+          "gain": 19
+        }
+      },
+      {
         "t": "Social Worker",
         "m": 25,
         "slug": "social-worker",
@@ -1545,33 +1572,6 @@
           "readiness_after": 50,
           "gain": 25
         }
-      },
-      {
-        "t": "Genetic Counselor",
-        "m": 25,
-        "slug": "genetic-counselor",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "lateral",
-        "gap": [
-          "Clinical Research",
-          "Risk Management",
-          "AWS",
-          "HR Operations"
-        ],
-        "observed": null,
-        "fit": 25,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "physician",
-          "readiness_after": 42,
-          "gain": 17
-        }
       }
     ]
   },
@@ -1591,6 +1591,28 @@
       ],
       "observed": null,
       "fit": 16,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "HR Manager",
+      "m": 15,
+      "slug": "hr-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "HR Operations",
+        "Recruiting",
+        "Data Analysis",
+        "Compliance"
+      ],
+      "observed": null,
+      "fit": 15,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1643,42 +1665,20 @@
       "reach": "direct"
     },
     {
-      "t": "Research Scientist",
+      "t": "Maintenance Technician",
       "m": 13,
-      "slug": "research-scientist",
-      "field": "Science",
-      "cluster": "Science",
+      "slug": "maintenance-technician",
+      "field": "Trades",
+      "cluster": "Trades",
       "kind": "pivot",
       "gap": [
-        "Deep Learning",
-        "Machine Learning",
-        "LLMs / Generative AI",
-        "Data Analysis"
+        "Supply Chain",
+        "HVAC Systems",
+        "Welding / Fabrication",
+        "PLC / Controls"
       ],
       "observed": null,
       "fit": 13,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Teaching Assistant",
-      "m": 12,
-      "slug": "teaching-assistant",
-      "field": "Education",
-      "cluster": "Education",
-      "kind": "pivot",
-      "gap": [
-        "Classroom Management",
-        "Event Planning",
-        "Assessment",
-        "Budgeting"
-      ],
-      "observed": null,
-      "fit": 12,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1732,7 +1732,7 @@
     ],
     [
       "registered-nurse",
-      "physician_0",
+      "physician_1",
       0.49
     ],
     [

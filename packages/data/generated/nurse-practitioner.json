@@ -347,7 +347,7 @@
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 1982,
+        "postings": 1983,
         "salaried": 1516
       }
     },
@@ -1321,6 +1321,33 @@
     "medical-scribe": [],
     "pharmacist": [
       {
+        "t": "Hotel Manager",
+        "m": 22,
+        "slug": "hotel-manager",
+        "field": "Hospitality",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Operations",
+          "Food Service",
+          "Maintenance",
+          "Event Planning"
+        ],
+        "observed": null,
+        "fit": 31,
+        "capability": 57,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "pharmacist",
+          "readiness_after": 35,
+          "gain": 13
+        }
+      },
+      {
         "t": "Executive Assistant",
         "m": 21,
         "slug": "executive-assistant",
@@ -1345,33 +1372,6 @@
           "parent": "pharmacist",
           "readiness_after": 36,
           "gain": 15
-        }
-      },
-      {
-        "t": "Biomedical Engineer",
-        "m": 19,
-        "slug": "biomedical-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Salesforce",
-          "Compliance",
-          "Prototyping"
-        ],
-        "observed": null,
-        "fit": 16,
-        "capability": 22,
-        "mobility": 4,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 4,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "pharmacist",
-          "readiness_after": 31,
-          "gain": 12
         }
       }
     ],
@@ -1399,13 +1399,13 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 29,
-          "gain": 10
+          "readiness_after": 30,
+          "gain": 11
         }
       },
       {
         "t": "HR Manager",
-        "m": 18,
+        "m": 16,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1414,10 +1414,10 @@
           "HR Operations",
           "Recruiting",
           "Operations",
-          "Supply Chain"
+          "Data Analysis"
         ],
         "observed": null,
-        "fit": 19,
+        "fit": 18,
         "capability": 36,
         "mobility": 8,
         "mobility_source": "observed-flow-eu",
@@ -1426,7 +1426,7 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 28,
+          "readiness_after": 26,
           "gain": 10
         }
       }
@@ -1546,6 +1546,28 @@
   },
   "direct": [
     {
+      "t": "Biomedical Engineer",
+      "m": 19,
+      "slug": "biomedical-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "Maintenance",
+        "Salesforce",
+        "Compliance",
+        "Prototyping"
+      ],
+      "observed": null,
+      "fit": 16,
+      "capability": 22,
+      "mobility": 4,
+      "mobility_source": "observed-flow-eu",
+      "mobility_eu": 4,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
       "t": "Mobility Planner",
       "m": 17,
       "slug": "mobility-planner",
@@ -1652,28 +1674,6 @@
       "mobility": 11,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 11,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Automotive Technician",
-      "m": 14,
-      "slug": "automotive-technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "pivot",
-      "gap": [
-        "Maintenance",
-        "Spec Writing",
-        "Quality Control",
-        "Electrical Systems"
-      ],
-      "observed": null,
-      "fit": 14,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     }

@@ -517,7 +517,7 @@
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 1982,
+        "postings": 1983,
         "salaried": 1516
       }
     },
@@ -1203,8 +1203,8 @@
       "mobility_tier": null,
       "salary": "$80k–$120k",
       "salary_band": [
-        80674,
-        118567
+        80857,
+        118973
       ],
       "demand": "High",
       "remote": "0%",
@@ -1225,13 +1225,13 @@
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 43.4,
+          "pts": 43,
           "earned": 0
         },
         {
           "skill": "forecasting",
           "name": "Forecasting",
-          "pts": 9.2,
+          "pts": 9.1,
           "earned": 0
         },
         {
@@ -1243,37 +1243,37 @@
         {
           "skill": "audit",
           "name": "Audit",
-          "pts": 5.5,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 5,
+          "pts": 5.1,
           "earned": 4.3
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 3.3,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 3.3,
+          "pts": 3.4,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 2.8,
-          "earned": 2.3
+          "pts": 2.7,
+          "earned": 2.2
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 2.6,
+          "pts": 2.5,
           "earned": 0
         },
         {
@@ -1291,7 +1291,7 @@
         {
           "skill": "compliance",
           "name": "Compliance",
-          "pts": 2.1,
+          "pts": 2,
           "earned": 1.1
         },
         {
@@ -1303,18 +1303,18 @@
         {
           "skill": "financial-modeling",
           "name": "Financial Modeling",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.2,
+          "pts": 1.7,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
+          "pts": 1.4,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
           "pts": 1.2,
           "earned": 0
         },
@@ -1327,27 +1327,27 @@
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 0.9,
+          "pts": 0.8,
           "earned": 0
         },
         {
           "skill": "quickbooks",
           "name": "QuickBooks",
-          "pts": 0.9,
+          "pts": 0.8,
           "earned": 0
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 0.9,
+          "pts": 0.8,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 755,
-        "salaried": 521
+        "postings": 758,
+        "salaried": 523
       }
     }
   ],
@@ -1379,37 +1379,36 @@
           "readiness_after": 36,
           "gain": 18
         }
-      }
-    ],
-    "therapist": [
+      },
       {
-        "t": "HR Manager",
-        "m": 19,
-        "slug": "hr-manager",
-        "field": "Business",
-        "cluster": "Business",
+        "t": "Hotel Manager",
+        "m": 17,
+        "slug": "hotel-manager",
+        "field": "Hospitality",
+        "cluster": "Service",
         "kind": "pivot",
         "gap": [
-          "Recruiting",
           "Training & Facilitation",
+          "Maintenance",
           "Supply Chain",
-          "Quality Control"
+          "Account Management"
         ],
         "observed": null,
-        "fit": 28,
-        "capability": 61,
-        "mobility": 20,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 20,
+        "fit": 21,
+        "capability": 31,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "therapist",
-          "readiness_after": 30,
-          "gain": 11
+          "parent": "nurse-practitioner",
+          "readiness_after": 34,
+          "gain": 17
         }
       }
     ],
+    "therapist": [],
     "registered-nurse": [
       {
         "t": "Physician",
@@ -1468,6 +1467,33 @@
     ],
     "dental-hygienist": [
       {
+        "t": "Facilities Manager",
+        "m": 20,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Sustainability",
+          "Supply Chain",
+          "Safety / OSHA"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": 3,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "dental-hygienist",
+          "readiness_after": 40,
+          "gain": 20
+        }
+      },
+      {
         "t": "Paramedic",
         "m": 20,
         "slug": "paramedic",
@@ -1492,33 +1518,6 @@
           "parent": "dental-hygienist",
           "readiness_after": 38,
           "gain": 18
-        }
-      },
-      {
-        "t": "Facilities Manager",
-        "m": 19,
-        "slug": "facilities-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Sustainability",
-          "Supply Chain",
-          "Safety / OSHA"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": 3,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "dental-hygienist",
-          "readiness_after": 43,
-          "gain": 24
         }
       }
     ],
@@ -1607,30 +1606,30 @@
         }
       },
       {
-        "t": "Project Manager",
+        "t": "HR Manager",
         "m": 17,
-        "slug": "project-manager",
+        "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Project Management",
-          "Supply Chain",
+          "Training & Facilitation",
+          "Recruiting",
           "Data Analysis",
-          "Agile"
+          "Supply Chain"
         ],
         "observed": null,
-        "fit": 12,
-        "capability": null,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
+        "fit": 27,
+        "capability": 61,
+        "mobility": 20,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 20,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "social-worker",
-          "readiness_after": 26,
-          "gain": 9
+          "readiness_after": 28,
+          "gain": 11
         }
       }
     ],
@@ -1661,6 +1660,62 @@
         }
       },
       {
+        "t": "Compliance Officer",
+        "m": 22,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Risk Management",
+          "Quality Control",
+          "Data Analysis",
+          "Contracts"
+        ],
+        "observed": null,
+        "fit": 26,
+        "capability": 37,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "psychologist",
+          "readiness_after": 38,
+          "gain": 16
+        }
+      }
+    ],
+    "controller": [
+      {
+        "t": "Paralegal",
+        "m": 26,
+        "slug": "paralegal",
+        "field": "Legal",
+        "cluster": "Legal",
+        "kind": "pivot",
+        "gap": [
+          "Contracts",
+          "Criminal Investigation",
+          "Excel",
+          "Negotiation"
+        ],
+        "observed": null,
+        "fit": 29,
+        "capability": 61,
+        "mobility": 11,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "controller",
+          "readiness_after": 34,
+          "gain": 8
+        }
+      },
+      {
         "t": "Chemical Engineer",
         "m": 23,
         "slug": "chemical-engineer",
@@ -1682,65 +1737,9 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "psychologist",
-          "readiness_after": 36,
-          "gain": 13
-        }
-      }
-    ],
-    "controller": [
-      {
-        "t": "Paralegal",
-        "m": 25,
-        "slug": "paralegal",
-        "field": "Legal",
-        "cluster": "Legal",
-        "kind": "pivot",
-        "gap": [
-          "Contracts",
-          "Criminal Investigation",
-          "Excel",
-          "Negotiation"
-        ],
-        "observed": null,
-        "fit": 29,
-        "capability": 61,
-        "mobility": 11,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "controller",
-          "readiness_after": 33,
-          "gain": 8
-        }
-      },
-      {
-        "t": "Compliance Officer",
-        "m": 24,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Risk Management",
-          "Quality Control",
-          "Data Analysis",
-          "Supply Chain"
-        ],
-        "observed": null,
-        "fit": 27,
-        "capability": 37,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
           "parent": "controller",
           "readiness_after": 41,
-          "gain": 17
+          "gain": 18
         }
       }
     ]
@@ -1770,7 +1769,7 @@
     },
     {
       "t": "Grant Writer",
-      "m": 21,
+      "m": 22,
       "slug": "grant-writer",
       "field": "Writing",
       "cluster": "Media & Writing",
@@ -1782,7 +1781,7 @@
         "Public Safety"
       ],
       "observed": null,
-      "fit": 30,
+      "fit": 31,
       "capability": 55,
       "mobility": null,
       "mobility_source": null,
@@ -1831,7 +1830,7 @@
     ],
     [
       "registered-nurse",
-      "dental-hygienist_0",
+      "dental-hygienist_1",
       0.7
     ],
     [

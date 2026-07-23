@@ -627,7 +627,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1982,
+        "postings": 1983,
         "salaried": 1516
       }
     },
@@ -1302,8 +1302,35 @@
     "genetic-counselor": [],
     "dietitian": [
       {
+        "t": "Hotel Manager",
+        "m": 21,
+        "slug": "hotel-manager",
+        "field": "Hospitality",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Food Service",
+          "Maintenance",
+          "Customer Service",
+          "Budgeting"
+        ],
+        "observed": null,
+        "fit": 25,
+        "capability": 67,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 2,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "dietitian",
+          "readiness_after": 31,
+          "gain": 10
+        }
+      },
+      {
         "t": "HR Manager",
-        "m": 20,
+        "m": 19,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1324,35 +1351,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dietitian",
-          "readiness_after": 29,
+          "readiness_after": 28,
           "gain": 9
-        }
-      },
-      {
-        "t": "Chemical Engineer",
-        "m": 18,
-        "slug": "chemical-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Sustainability",
-          "Spec Writing",
-          "Project Management",
-          "Compliance"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": 6,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "dietitian",
-          "readiness_after": 33,
-          "gain": 15
         }
       }
     ],
@@ -1415,7 +1415,7 @@
     "pharmacist": [
       {
         "t": "Compliance Officer",
-        "m": 24,
+        "m": 22,
         "slug": "compliance-officer",
         "field": "Finance",
         "cluster": "Finance",
@@ -1424,10 +1424,10 @@
           "Compliance",
           "Quality Control",
           "Data Analysis",
-          "Law Enforcement"
+          "Contracts"
         ],
         "observed": null,
-        "fit": 26,
+        "fit": 25,
         "capability": 60,
         "mobility": 3,
         "mobility_source": "observed-flow-us",
@@ -1436,8 +1436,8 @@
         "reach": "bridged",
         "via": {
           "parent": "pharmacist",
-          "readiness_after": 40,
-          "gain": 16
+          "readiness_after": 36,
+          "gain": 14
         }
       },
       {
@@ -1463,8 +1463,8 @@
         "reach": "bridged",
         "via": {
           "parent": "pharmacist",
-          "readiness_after": 34,
-          "gain": 12
+          "readiness_after": 35,
+          "gain": 13
         }
       }
     ],
@@ -1606,38 +1606,16 @@
       "reach": "direct"
     },
     {
-      "t": "Project Manager",
-      "m": 19,
-      "slug": "project-manager",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "gap": [
-        "Project Management",
-        "Data Analysis",
-        "Agile",
-        "Procurement"
-      ],
-      "observed": null,
-      "fit": 15,
-      "capability": null,
-      "mobility": 5,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 12,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Lawyer",
-      "m": 17,
+      "m": 18,
       "slug": "lawyer",
       "field": "Legal",
       "cluster": "Legal",
       "kind": "pivot",
       "gap": [
         "Contracts",
-        "HR Operations",
         "Compliance",
+        "HR Operations",
         "Procurement"
       ],
       "observed": null,
@@ -1650,24 +1628,68 @@
       "reach": "direct"
     },
     {
-      "t": "Instructional Designer",
-      "m": 17,
-      "slug": "instructional-designer",
-      "field": "Education",
-      "cluster": "Education",
+      "t": "Project Manager",
+      "m": 18,
+      "slug": "project-manager",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "gap": [
-        "Instructional Design",
+        "Project Management",
+        "Data Analysis",
         "Agile",
-        "Customer Service",
-        "Curriculum Development"
+        "Procurement"
       ],
       "observed": null,
-      "fit": 21,
-      "capability": 52,
-      "mobility": 4,
+      "fit": 14,
+      "capability": null,
+      "mobility": 5,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 12,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Creative Director",
+      "m": 18,
+      "slug": "creative-director",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Project Management",
+        "Presentation",
+        "Figma"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": 26,
+      "mobility": 0,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 2,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Chemical Engineer",
+      "m": 18,
+      "slug": "chemical-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "Sustainability",
+        "Spec Writing",
+        "Project Management",
+        "Compliance"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": 6,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1690,28 +1712,6 @@
       "mobility": 2,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 2,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Robotics Technician",
-      "m": 17,
-      "slug": "robotics-technician",
-      "field": "Engineering",
-      "cluster": "Engineering",
-      "kind": "pivot",
-      "gap": [
-        "Maintenance",
-        "PLC / Controls",
-        "Electrical Systems",
-        "Welding / Fabrication"
-      ],
-      "observed": null,
-      "fit": 17,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     }

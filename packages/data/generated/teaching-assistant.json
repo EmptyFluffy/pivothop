@@ -1170,8 +1170,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 17,
-      "fit": 19,
+      "match": 18,
+      "fit": 20,
       "capability": null,
       "mobility": 24,
       "mobility_source": "observed-flow-us",
@@ -1180,7 +1180,7 @@
       "salary": "$40k–$80k",
       "salary_band": [
         40141,
-        77848
+        78221
       ],
       "demand": "High",
       "remote": "2%",
@@ -1201,25 +1201,25 @@
         {
           "skill": "salesforce",
           "name": "Salesforce",
-          "pts": 17.7,
+          "pts": 17,
           "earned": 0
         },
         {
           "skill": "market-research",
           "name": "Market Research",
-          "pts": 17.1,
+          "pts": 16.4,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 11.5,
-          "earned": 11.5
+          "pts": 11.7,
+          "earned": 11.7
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 7.2,
+          "pts": 8.1,
           "earned": 0.6
         },
         {
@@ -1231,49 +1231,55 @@
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 5.2,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 5,
+          "pts": 4.9,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 4,
+          "pts": 4.3,
           "earned": 0
         },
         {
           "skill": "event-planning",
           "name": "Event Planning",
-          "pts": 3.9,
-          "earned": 3.9
+          "pts": 4,
+          "earned": 4
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 3.7,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 3.1,
+          "pts": 3,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 2.7,
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 2.2,
           "earned": 0
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 2.1,
+          "pts": 2,
           "earned": 0.6
         },
         {
@@ -1283,27 +1289,21 @@
           "earned": 0
         },
         {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 1.7,
+          "pts": 1.6,
           "earned": 0
         },
         {
           "skill": "jira",
           "name": "Jira",
-          "pts": 1.7,
+          "pts": 1.6,
           "earned": 0
         },
         {
           "skill": "community-engagement",
           "name": "Community Engagement",
-          "pts": 1.7,
+          "pts": 1.6,
           "earned": 0
         },
         {
@@ -1322,28 +1322,30 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1147,
-        "salaried": 745
+        "postings": 1157,
+        "salaried": 747
       }
     }
   ],
   "next": {
-    "teacher": [
+    "teacher": [],
+    "tutor": [],
+    "professor": [
       {
-        "t": "Environmental Engineer",
-        "m": 12,
-        "slug": "environmental-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
+        "t": "Compliance Officer",
+        "m": 15,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
         "kind": "pivot",
         "gap": [
-          "Sustainability",
-          "Safety / OSHA",
           "Compliance",
-          "Criminal Investigation"
+          "Risk Management",
+          "Quality Control",
+          "Data Analysis"
         ],
         "observed": null,
-        "fit": 8,
+        "fit": 10,
         "capability": null,
         "mobility": 0,
         "mobility_source": "observed-flow-us",
@@ -1351,14 +1353,11 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "teacher",
-          "readiness_after": 20,
-          "gain": 8
+          "parent": "professor",
+          "readiness_after": 27,
+          "gain": 12
         }
-      }
-    ],
-    "tutor": [],
-    "professor": [
+      },
       {
         "t": "Systems Administrator",
         "m": 13,
@@ -1385,36 +1384,36 @@
           "readiness_after": 24,
           "gain": 11
         }
-      },
-      {
-        "t": "Automotive Technician",
-        "m": 12,
-        "slug": "automotive-technician",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Spec Writing",
-          "Quality Control",
-          "Electrical Systems"
-        ],
-        "observed": null,
-        "fit": 12,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "professor",
-          "readiness_after": 21,
-          "gain": 9
-        }
       }
     ],
     "dental-hygienist": [
+      {
+        "t": "Registered Nurse",
+        "m": 18,
+        "slug": "registered-nurse",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "Customer Service",
+          "Case Management"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": null,
+        "mobility": 5,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 4,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "dental-hygienist",
+          "readiness_after": 48,
+          "gain": 30
+        }
+      },
       {
         "t": "Medical Assistant",
         "m": 17,
@@ -1441,48 +1440,21 @@
           "readiness_after": 37,
           "gain": 20
         }
-      },
-      {
-        "t": "Social Worker",
-        "m": 16,
-        "slug": "social-worker",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Case Management",
-          "Patient Care",
-          "Design Systems",
-          "Health Education"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": null,
-        "mobility": 5,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 29,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "dental-hygienist",
-          "readiness_after": 37,
-          "gain": 21
-        }
       }
     ],
     "librarian": [
       {
         "t": "Corporate Trainer",
-        "m": 12,
+        "m": 13,
         "slug": "corporate-trainer",
         "field": "Education",
         "cluster": "Education",
         "kind": "lateral",
         "gap": [
+          "LangChain / Agents",
           "Customer Service",
-          "HR Operations",
           "Presentation",
-          "Accessibility"
+          "Project Management"
         ],
         "observed": null,
         "fit": 9,
@@ -1495,7 +1467,7 @@
         "via": {
           "parent": "librarian",
           "readiness_after": 22,
-          "gain": 10
+          "gain": 9
         }
       },
       {
@@ -1528,6 +1500,33 @@
     ],
     "physician": [
       {
+        "t": "Physician",
+        "m": 22,
+        "slug": "physician",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Clinical Skills",
+          "EHR / EMR",
+          "Case Management"
+        ],
+        "observed": null,
+        "fit": 22,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "physician",
+          "readiness_after": 100,
+          "gain": 78
+        }
+      },
+      {
         "t": "Dietitian",
         "m": 22,
         "slug": "dietitian",
@@ -1553,7 +1552,9 @@
           "readiness_after": 76,
           "gain": 54
         }
-      },
+      }
+    ],
+    "nurse-practitioner": [
       {
         "t": "Therapist / Counselor",
         "m": 21,
@@ -1576,13 +1577,11 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "physician",
-          "readiness_after": 73,
-          "gain": 52
+          "parent": "nurse-practitioner",
+          "readiness_after": 57,
+          "gain": 36
         }
-      }
-    ],
-    "nurse-practitioner": [
+      },
       {
         "t": "Physical Therapist",
         "m": 19,
@@ -1608,33 +1607,6 @@
           "parent": "nurse-practitioner",
           "readiness_after": 92,
           "gain": 73
-        }
-      },
-      {
-        "t": "Registered Nurse",
-        "m": 18,
-        "slug": "registered-nurse",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Patient Care",
-          "Clinical Skills",
-          "Customer Service",
-          "Case Management"
-        ],
-        "observed": null,
-        "fit": 14,
-        "capability": null,
-        "mobility": 5,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 4,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "nurse-practitioner",
-          "readiness_after": 56,
-          "gain": 38
         }
       }
     ],
@@ -1668,7 +1640,7 @@
       },
       {
         "t": "Executive Assistant",
-        "m": 17,
+        "m": 18,
         "slug": "executive-assistant",
         "field": "Business",
         "cluster": "Business",
@@ -1680,7 +1652,7 @@
           "Presentation"
         ],
         "observed": null,
-        "fit": 19,
+        "fit": 20,
         "capability": null,
         "mobility": 24,
         "mobility_source": "observed-flow-us",
@@ -1690,12 +1662,34 @@
         "via": {
           "parent": "executive-assistant",
           "readiness_after": 100,
-          "gain": 83
+          "gain": 82
         }
       }
     ]
   },
   "direct": [
+    {
+      "t": "Social Worker",
+      "m": 16,
+      "slug": "social-worker",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Case Management",
+        "Patient Care",
+        "Design Systems",
+        "Health Education"
+      ],
+      "observed": null,
+      "fit": 13,
+      "capability": null,
+      "mobility": 5,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 29,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
     {
       "t": "Psychologist",
       "m": 15,
@@ -1719,28 +1713,6 @@
       "reach": "direct"
     },
     {
-      "t": "Network Engineer",
-      "m": 13,
-      "slug": "network-engineer",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
-      "gap": [
-        "Networking",
-        "Azure",
-        "Cybersecurity",
-        "AWS"
-      ],
-      "observed": null,
-      "fit": 9,
-      "capability": null,
-      "mobility": 0,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 1,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Biomedical Engineer",
       "m": 12,
       "slug": "biomedical-engineer",
@@ -1759,6 +1731,28 @@
       "mobility": 4,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 4,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Automotive Technician",
+      "m": 12,
+      "slug": "automotive-technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "gap": [
+        "Maintenance",
+        "Spec Writing",
+        "Quality Control",
+        "Electrical Systems"
+      ],
+      "observed": null,
+      "fit": 12,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1798,23 +1792,23 @@
   "bridges": [
     [
       "physician",
-      "nurse-practitioner_0",
+      "nurse-practitioner_1",
       0.93
     ],
     [
       "physician",
-      "nurse-practitioner_1",
+      "dental-hygienist_0",
       0.79
     ],
     [
-      "nurse-practitioner",
-      "physician_0",
-      0.65
+      "physician",
+      "nurse-practitioner_0",
+      0.73
     ],
     [
       "nurse-practitioner",
       "physician_1",
-      0.57
+      0.65
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

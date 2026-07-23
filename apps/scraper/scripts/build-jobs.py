@@ -29,7 +29,7 @@ INDEX = 'apps/web/public/data/jobs-index.json'
 # Sources whose terms allow re-display with attribution + link-back.
 OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
       'themuse', 'smartrecruiters', 'jobicy', 'remoteok', 'remotive'}
-CAP = 40         # freshest N per occupation
+CAP = 60         # freshest N per occupation
 FLOOR = 3        # skip occupations with fewer than this (no board)
 DESC_CAP = 7000  # chars of description on the detail page
 
@@ -39,9 +39,18 @@ def num(v):
     except (ValueError, TypeError):
         return None
 
+# Brands whose casing simple title-casing gets wrong.
+BRAND_CASE = {'openai': 'OpenAI', 'elevenlabs': 'ElevenLabs', 'gitlab': 'GitLab',
+              'mongodb': 'MongoDB', 'doordash': 'DoorDash', 'sofi': 'SoFi',
+              'clickhouse': 'ClickHouse', 'posthog': 'PostHog', 'duckduckgo': 'DuckDuckGo',
+              'hashicorp': 'HashiCorp', 'digitalocean': 'DigitalOcean', 'nerdwallet': 'NerdWallet',
+              'betterup': 'BetterUp', 'pagerduty': 'PagerDuty', 'wework': 'WeWork',
+              'cockroachlabs': 'Cockroach Labs', 'jobandtalent': 'Job&Talent'}
 def display_company(name):
-    """ATS slugs often arrive all-lowercase ('coinbase'); title-case those.
-    Mixed-case names (IBM, McKinsey & Company) pass through untouched."""
+    """ATS slugs often arrive all-lowercase ('coinbase'); title-case those,
+    with a map for brands whose casing title-casing gets wrong (OpenAI)."""
+    if name.lower() in BRAND_CASE:
+        return BRAND_CASE[name.lower()]
     if name == name.lower():
         return ' '.join(w.capitalize() for w in name.split())
     return name
@@ -104,8 +113,11 @@ def to_sections(text, cap):
 # the corpus are used; salary-stated and freshest preferred, max two roles each).
 FEATURED_COMPANIES = {'coinbase', 'airbnb', 'databricks', 'cloudflare', 'datadog', 'mongodb',
                       'pinterest', 'reddit', 'robinhood', 'vercel', 'stripe', 'figma', 'notion',
-                      'webflow', 'airtable', 'gusto', 'anthropic', 'duolingo', 'affirm', 'plaid'}
-FEATURED_CAP = 8
+                      'webflow', 'airtable', 'gusto', 'anthropic', 'duolingo', 'affirm', 'plaid',
+                      'openai', 'palantir', 'spotify', 'canva', 'discord', 'peloton', 'rivian',
+                      'instacart', 'doordash', 'lyft', 'elevenlabs', 'linear', 'ramp', 'mercury',
+                      'supabase', 'retool', 'grammarly', 'gitlab', 'dropbox', 'asana'}
+FEATURED_CAP = 12
 
 # 1. Raw index by (source, external_id) for company / location / description.
 raw = {}
