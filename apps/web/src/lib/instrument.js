@@ -28,6 +28,22 @@ export function mountInstrument(DATA,HOOKS){
     });
   }
   derive();
+  // Real board counts (re-displayable open roles per occupation) drive the
+  // "open roles" stat and the search-bar CTA; fetched once, looked up by slug.
+  var boardCounts=null;
+  fetch('/data/jobs-index.json').then(function(r){return r.json();}).then(function(j){boardCounts=j||{};updateRolesCTA();}).catch(function(){boardCounts={};});
+  function updateRolesCTA(){
+    if(!boardCounts)return;                       // wait for the fetch; no false flash
+    var slug=DATA.originSlug,n=(slug&&boardCounts[slug])||0;
+    var goSpan=document.querySelector('#goBtn span');
+    if(goSpan)goSpan.textContent=n>0?('View '+n.toLocaleString()+' open roles'):'View the job board';
+    var stat=document.getElementById('openRolesStat');
+    if(stat){
+      var v=stat.querySelector('.v'),l=stat.querySelector('.l');
+      if(n>0){if(v)v.textContent=n.toLocaleString();if(l)l.textContent='Open roles';stat.setAttribute('href','/jobs/'+slug);}
+      else{if(v)v.textContent=DATA.postings?DATA.postings.toLocaleString():'—';if(l)l.textContent='Live postings';stat.setAttribute('href','/jobs');}
+    }
+  }
   function hydrateStatic(){
     var q=function(x){return document.querySelector(x);};
     var lbl=q('.band-head .lbl'); if(lbl)lbl.innerHTML=DATA.personalized?('Career graph · '+DATA.originLabel+' · personalized from '+DATA.skillCount+' skills'):('Career graph · '+DATA.originLabel);
@@ -37,7 +53,7 @@ export function mountInstrument(DATA,HOOKS){
     var sk=q('.proof .sk'); if(sk){sk.innerHTML='<span class="cap">In demand across your routes</span>'+top.join(' · ');}
     var stats=document.querySelectorAll('.proof .fstat .v');
     if(stats[0])stats[0].textContent=ROLES.length;
-    if(stats[1])stats[1].textContent=DATA.postings?DATA.postings.toLocaleString():'\u2014';
+    updateRolesCTA();   // stat[1] = real board count for this occupation (clickable)
     var role=document.getElementById('qRole'); if(role)role.placeholder=DATA.originLabel;
     var qs=document.getElementById('qSkills');
     if(qs&&document.activeElement!==qs){
@@ -842,17 +858,12 @@ export function mountInstrument(DATA,HOOKS){
     highlightRail(null);
   });
   var goBtn=document.getElementById('goBtn');
+  // "View N open roles" takes you to this occupation's board (or the global
+  // board if it has none yet). The graph already computes live, so the button
+  // is a destination, not a trigger.
   if(goBtn)goBtn.addEventListener('click',function(){
-    runUnfold();
-    var band=document.getElementById('bandEl');
-    var navH=document.querySelector('.nav').getBoundingClientRect().height;
-    var searchH=document.querySelector('.searchbar').getBoundingClientRect().height;
-    var stickyStack=navH+searchH-1;   /* -1: the shared border pixel row */
-    var bandAbsY=band.getBoundingClientRect().top+window.scrollY;
-    var target=bandAbsY-stickyStack;
-    if(Math.abs(window.scrollY-target)>2){
-      window.scrollTo({top:target,behavior:'smooth'});
-    }
+    var slug=DATA.originSlug,n=(slug&&boardCounts&&boardCounts[slug])||0;
+    window.location.href=n>0?('/jobs/'+slug):'/jobs';
   });
   var cb=document.getElementById('capBtn');
   if(cb){cb.addEventListener('click',function(){cb.textContent='Sent \u2014 check your inbox';});}

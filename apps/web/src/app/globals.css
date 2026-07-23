@@ -137,6 +137,10 @@
   .proof .sk b{color:var(--ink);font-weight:500}
   .proof .stats{display:flex;gap:44px}
   .proof .fstat .v{font-weight:700;font-size:40px;letter-spacing:-.03em;line-height:1}
+  a.fstat{text-decoration:none;color:inherit;cursor:pointer}
+  a.fstat .v,a.fstat .l{transition:color .15s}
+  a.fstat:hover .v{color:var(--accent)}
+  a.fstat:hover .l{color:var(--ink)}
   .proof .fstat .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
 
   /* ── how: numbered rows ── */
