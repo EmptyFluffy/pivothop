@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { POSTS } from './blog/posts';
 import { routableSlugs } from './routes/routes-data';
 import { coverableSlugs } from './salary/salary-data';
+import { jobOccupations } from './jobs/jobs-data';
 
 const BASE = 'https://www.pivothop.com';
 
@@ -19,5 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/salary`, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/salary/by-country`, changeFrequency: 'weekly', priority: 0.7 },
     ...coverableSlugs().map((s) => ({ url: `${BASE}/salary/${s}`, changeFrequency: 'weekly' as const, priority: 0.8 })),
+    { url: `${BASE}/jobs`, changeFrequency: 'daily', priority: 0.8 },
+    ...jobOccupations().map((s) => ({ url: `${BASE}/jobs/${s}`, changeFrequency: 'daily' as const, priority: 0.7 })),
   ];
 }

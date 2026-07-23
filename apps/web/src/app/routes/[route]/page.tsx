@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks } from '../routes-data';
 import { SALARY_SLUGS } from '../../salary/salary-data';
+import JobsList from '../../jobs/JobsList';
 import RouteInstrument from '../RouteInstrument';
 
 export function generateStaticParams() {
@@ -98,6 +99,8 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
             </p>
           </section>
         )}
+
+        <JobsList occ={def.dest} heading={`Open ${r.title.toLowerCase()} roles you could move into`} />
 
         <section className="rt-sec">
           <h2>Related routes</h2>

@@ -1,18 +1,44 @@
 # PivotHop — Employer CTA Strategy
 
-*How employers get captured, sequenced, and moved toward the adjacent-talent relationship. The destination is the **adjacent-talent job board** (see `00`, `02`) — employers flag roles open to adjacent candidates and pay to post and match. The V0 concierge introduction is that board's manual prototype: same transaction, done by hand while liquidity builds. Includes the actual drafted emails to send.*
+*How the adjacent-talent job board launches and monetizes. Revised July 2026: the concierge model was broken — it needed a candidate pool we do not have, it does not scale for one person, and a high-volume board cannot be run by hand. The model below supersedes it. The drafted emails further down remain useful, repurposed for claim-and-upgrade outreach.*
 
 ---
 
-## The employer capture funnel (V0)
+## The model: aggregate, own demand, monetize the match
 
-Employers reach PivotHop through three channels:
+The board faces the classic two-sided **cold-start problem**: candidates will not come without jobs, employers will not pay without candidates. The documented way to break it (Indeed, 2004; every niche board since) is **aggregation** — backfill the board with real listings from other sources so it is full from day one, build job-seeker traffic on that density, then convert the employers whose listings are already getting views. We can run this playbook because we already operate a compliant scraper, the single hardest part for everyone else.
 
-1. **The pillar article** — "The Business Case for Hiring Adjacent Talent" (ships V1, but Carlos manually distributes it to hand-picked employer contacts before then)
-2. **Direct cold email from Carlos** — to a small hand-selected list of hiring leads: launch-vertical firms (AEC, design) first, plus any adjacent-hire-friendly company regardless of industry
-3. **Nav CTA on the candidate site** — "For employers" link that lands on the minimal employer contact page
+Three moves, in order:
 
-There is no self-serve employer signup in V0. Every employer relationship is a conversation Carlos personally has.
+1. **Seed supply from the scrape (backfill).** The board launches full: real open roles from our re-displayable sources (company-direct ATS boards — Greenhouse, Lever, Ashby, SmartRecruiters — plus remote APIs and USAJOBS public-domain data), each tagged to its occupation and linked back to the original posting. About 13,000 live listings across ~148 occupations at launch, no candidate pool and no manual matching required. Aggregator sources whose terms restrict re-display (Adzuna, Reed) feed the salary aggregates only, never the board.
+2. **Own the demand with the tools (come for the tool, stay for the network).** The instrument, salary board, routes, and blog are the single-player tool that builds candidate traffic through SEO, the audience employers pay to reach. Already the launch strategy; the board is the network layer on top. The differentiator no one else has: we surface jobs by **adjacency**, the open roles your current skills can actually pivot into, shown on the route and salary pages.
+3. **Monetize the match.** Employers whose backfilled roles are getting adjacent-candidate views convert on a claim-and-upgrade offer: your role is already on PivotHop and getting views, claim it and get featured placement to the candidates whose skills match. Pricing follows traffic — pay-per-post scaling from roughly $200 at 10k monthly visitors toward RemoteOK-style rates as traffic grows, featured upgrades, subscriptions once 20+ employers pay. The truth to respect: employers pay for **applicants, not listings**, so candidate traffic must be live first, which is why the SEO surface ships before the paid tier.
+
+### The launch promo (supersedes "free for the first twenty")
+
+Not free-for-the-first-20 (too scarce, and it wrongly assumes we must beg employers to fill an empty board; the scrape already fills it). Instead: **a free first month of featured placement, offered to every employer, temporary while the board fills and traffic proves out**, framed as claim-your-already-listed-role, with the paid featured tier as its destination. Free-to-claim off a backfilled board converts far better than free-to-seed an empty one.
+
+### Automated vs. by hand
+
+The board is **self-serve and automated**: backfill, occupation tagging, and adjacency matching all run off the existing pipeline, no person in the loop, which is the only way one person runs volume. What stays personal is the *first* employer outreach (the claim emails below), because a warm, specific first contact converts best. One manual touch, a choice not a bottleneck.
+
+### The ToS line
+
+Re-displaying a listing is a different permission than analyzing it. The board backfills only from sources whose terms allow indexing with attribution and a link back, and every listing links out to apply at the source. Adzuna and Reed terms do not allow re-display; they feed the salary data only.
+
+## Employer capture (revised)
+
+The `/employers` page keeps its intent-qualified form (below): work email, company, the role, the challenge. No passive newsletter waitlist — curious employers do not need capturing, ready ones fill the form. When Supabase is wired, the form stores the lead and notifies Carlos to send a personal first reply, with a simple confirmation to the employer. Captured emails are never auto-added to a marketing list.
+
+*(The funnel, form spec, and email drafts below predate the revision. The drafts remain the templates for claim-and-upgrade outreach; their concierge framing is superseded by the backfill model above.)*
+
+## The employer capture funnel (superseded framing, drafts reusable)
+
+Employers reach PivotHop through:
+
+1. **The board itself** — their role is already backfilled and getting views; the claim CTA on the listing is the primary capture.
+2. **The `/employers` page** — the intent-qualified form for employers who want to post or feature directly.
+3. **Direct outreach from Carlos** — to hand-picked leads whose roles are already on the board, using the claim emails below.
 
 ## The capture form (V0 employer landing)
 

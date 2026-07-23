@@ -544,6 +544,16 @@ input:focus-visible{outline:none}
 .rt-cta{max-width:880px}
 .rt-method{display:block;color:var(--ink-3);margin-top:40px;max-width:880px;line-height:1.9}
 .rt-index{list-style:none;padding:0;border-top:1px solid var(--ink)}
+/* job board */
+.job-list{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid var(--rule)}
+.job-card{display:block;padding:15px 4px;border-bottom:1px solid var(--rule);transition:background .12s}
+.job-card:hover{background:rgba(0,47,166,.035)}
+.job-t{display:block;font-weight:600;font-size:16px;letter-spacing:-.01em;color:var(--ink);line-height:1.3}
+.job-co{display:block;margin-top:3px;font-size:13.5px;color:var(--ink-2)}
+.job-m{display:block;margin-top:6px;color:var(--ink-3)}
+.jobs-all{display:inline-block;margin:16px 0 0;color:var(--acc);border-bottom:1px solid transparent;transition:border-color .15s}
+.jobs-all:hover{border-bottom-color:var(--acc)}
+.jobs-cross{display:flex;gap:22px;flex-wrap:wrap;margin:16px 0 6px}
 .rt-index li{border-bottom:0.5px solid var(--rule)}
 .rt-index a{display:grid;grid-template-columns:1fr auto;grid-template-areas:"t m" "s m";gap:2px 20px;align-items:center;padding:17px 2px;text-decoration:none;color:var(--ink)}
 .rt-index a:hover .t{color:var(--accent)}

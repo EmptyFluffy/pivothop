@@ -22,6 +22,7 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
       <Link href="/" className="brand"><RabbitMark /><span className="wm">PIVOTHOP</span></Link>
       <a className="navlink" href="/fairelephant">FairElephant <ArrowIco /></a>
       <Link className="navlink" href="/#how">Method</Link>
+      <Link className="navlink" href="/jobs">Jobs</Link>
       <Link className="navlink" href="/blog">Blog</Link>
       <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
       <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">For employers</Link>
@@ -42,6 +43,7 @@ export function SiteFooter() {
           <h5>Product</h5>
           <ul>
             <li><Link href="/#how">Method</Link></li>
+            <li><Link href="/jobs">Job board</Link></li>
             <li><Link href="/routes">Career routes</Link></li>
             <li><Link href="/salary">Salaries</Link></li>
             <li><a href="/fairelephant">FairElephant <ArrowIco /></a></li>

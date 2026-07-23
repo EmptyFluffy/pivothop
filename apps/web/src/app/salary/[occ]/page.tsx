@@ -5,6 +5,7 @@ import { PageShell } from '../../components/SiteChrome';
 import { coverableSlugs, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
 import SalaryChart from '../SalaryChart';
 import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
+import JobsList from '../../jobs/JobsList';
 
 export function generateStaticParams() {
   return coverableSlugs().map((occ) => ({ occ }));
@@ -100,6 +101,8 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           <h2>What the number means</h2>
           {def.editorial}
         </section>
+
+        <JobsList occ={occ} />
 
         {seniority.length >= 2 && (
           <section className="rt-sec">
