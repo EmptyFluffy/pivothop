@@ -191,13 +191,13 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
           <option value="new">Newest first</option>
           <option value="pay">Highest pay</option>
         </select>
-        <span className="jb-chips" role="group" aria-label="Filter tags">
-          {TAGS.map((t) => (
-            <button key={t.code} type="button" className={`jb-chip${tags.has(t.code) ? ' on' : ''}`} aria-pressed={tags.has(t.code)} onClick={() => toggleTag(t.code)}>
-              {t.label}{all !== null && <span className="jb-chip-n">{tagCount[t.code]}</span>}
-            </button>
-          ))}
-        </span>
+      </div>
+      <div className="jb-chiprow" role="group" aria-label="Filter tags">
+        {TAGS.map((t) => (
+          <button key={t.code} type="button" className={`jb-chip${tags.has(t.code) ? ' on' : ''}`} aria-pressed={tags.has(t.code)} onClick={() => toggleTag(t.code)}>
+            {t.label}{all !== null && <span className="jb-chip-n">{tagCount[t.code]}</span>}
+          </button>
+        ))}
       </div>
 
       {pristine && featured}

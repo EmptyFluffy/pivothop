@@ -572,7 +572,8 @@ input:focus-visible{outline:none}
 .jb-search:focus{outline:none}
 .jb-search::placeholder{color:var(--ink-3);font-weight:400}
 .jb-count{flex:0 0 auto;color:var(--ink-2);white-space:nowrap}
-.jb-filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 -30px;padding:12px 30px;border-bottom:1px solid var(--ink);background:var(--card)}
+.jb-filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 -30px;padding:12px 30px 8px;background:var(--card)}
+.jb-chiprow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 -30px;padding:2px 30px 14px;border-bottom:1px solid var(--ink);background:var(--card)}
 .jb-filters select{appearance:none;-webkit-appearance:none;background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:7px 26px 6px 12px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 11px) 55%;background-size:4px 4px;background-repeat:no-repeat}
 .jb-filters select:focus{outline:none;border-color:var(--accent)}
 .jb-toggle{background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:7px 12px 6px;cursor:pointer;transition:all .12s}
@@ -586,7 +587,6 @@ input:focus-visible{outline:none}
 .jb-x{font-size:13px;line-height:1;opacity:.75}
 .jb-clear{background:transparent;border:none;color:var(--ink-2);border-bottom:1px solid var(--rule);padding:0 0 2px;cursor:pointer;margin-left:6px;transition:all .12s}
 .jb-clear:hover{color:var(--accent);border-bottom-color:var(--accent)}
-.jb-chips{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
 .jb-chip{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:7px 11px 6px;cursor:pointer;transition:all .12s}
 .jb-chip:hover{border-color:var(--ink-2)}
 .jb-chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -711,7 +711,7 @@ input:focus-visible{outline:none}
 .ef-check .jb-toggle{margin-top:6px}
 .ef-field select{width:100%;appearance:none;-webkit-appearance:none;background:none;border:none;border-bottom:1px solid var(--ink);font-family:var(--sans);font-size:15px;padding:6px 0 8px;color:var(--ink);outline:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 12px) 55%,calc(100% - 8px) 55%;background-size:4px 4px;background-repeat:no-repeat}
 .ef-field select:focus{border-bottom-color:var(--accent)}
-@media (max-width:760px){.jb-searchband,.jb-filters{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}.jb-occfield{flex-basis:90px}}
+@media (max-width:760px){.jb-searchband,.jb-filters,.jb-chiprow{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}.jb-occfield{flex-basis:90px}}
 .job-filter{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:22px 0 0;padding:0 0 14px;border-bottom:1px solid var(--ink)}
 .job-filter input{flex:1 1 220px;background:transparent;border:none;border-bottom:1px solid var(--rule);font-family:inherit;font-size:14.5px;color:var(--ink);padding:6px 2px}
 .job-filter input:focus{outline:none;border-bottom-color:var(--accent)}
