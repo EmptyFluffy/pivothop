@@ -28,7 +28,8 @@ ALL = 'apps/web/public/data/all-jobs.json'
 INDEX = 'apps/web/public/data/jobs-index.json'
 # Sources whose terms allow re-display with attribution + link-back.
 OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
-      'themuse', 'smartrecruiters', 'jobicy', 'remoteok', 'remotive'}
+      'themuse', 'smartrecruiters', 'jobicy', 'remoteok', 'remotive',
+      'workable', 'recruitee'}
 CAP = 60         # freshest N per occupation
 FLOOR = 3        # skip occupations with fewer than this (no board)
 DESC_CAP = 7000  # chars of description on the detail page
@@ -132,6 +133,44 @@ def to_sections(text, cap):
     flush()
     return sections[:12] if sections else ([{'h': None, 't': text[:cap]}] if text else [])
 
+
+# Country resolution: normalize's code when present, else inferred from the raw
+# location string (country names, ", XX" suffixes, US states, major cities).
+_C_NAMES = {'united states':'US','usa':'US','u.s.':'US','america':'US','united kingdom':'GB','uk':'GB','england':'GB','scotland':'GB','germany':'DE','deutschland':'DE','canada':'CA','india':'IN','ireland':'IE','australia':'AU','japan':'JP','singapore':'SG','spain':'ES','españa':'ES','mexico':'MX','méxico':'MX','brazil':'BR','brasil':'BR','france':'FR','poland':'PL','polska':'PL','netherlands':'NL','portugal':'PT','italy':'IT','italia':'IT','sweden':'SE','switzerland':'CH','austria':'AT','belgium':'BE','denmark':'DK','norway':'NO','finland':'FI','estonia':'EE','lithuania':'LT','latvia':'LV','czech':'CZ','czechia':'CZ','romania':'RO','hungary':'HU','greece':'GR','israel':'IL','united arab emirates':'AE','uae':'AE','dubai':'AE','saudi':'SA','turkey':'TR','türkiye':'TR','argentina':'AR','colombia':'CO','chile':'CL','peru':'PE','philippines':'PH','indonesia':'ID','malaysia':'MY','thailand':'TH','vietnam':'VN','south korea':'KR','korea':'KR','china':'CN','hong kong':'HK','taiwan':'TW','new zealand':'NZ','south africa':'ZA','nigeria':'NG','kenya':'KE','egypt':'EG','ukraine':'UA','serbia':'RS','croatia':'HR','bulgaria':'BG','slovakia':'SK','slovenia':'SI','luxembourg':'LU','iceland':'IS'}
+_C_CITIES = {'london':'GB','manchester':'GB','edinburgh':'GB','berlin':'DE','munich':'DE','münchen':'DE','hamburg':'DE','frankfurt':'DE','cologne':'DE','paris':'FR','lyon':'FR','amsterdam':'NL','rotterdam':'NL','utrecht':'NL','eindhoven':'NL','dublin':'IE','toronto':'CA','vancouver':'CA','montreal':'CA','ottawa':'CA','calgary':'CA','sydney':'AU','melbourne':'AU','brisbane':'AU','tokyo':'JP','osaka':'JP','bangalore':'IN','bengaluru':'IN','mumbai':'IN','hyderabad':'IN','pune':'IN','chennai':'IN','delhi':'IN','gurgaon':'IN','gurugram':'IN','noida':'IN','zurich':'CH','zürich':'CH','geneva':'CH','stockholm':'SE','madrid':'ES','barcelona':'ES','warsaw':'PL','krakow':'PL','kraków':'PL','lisbon':'PT','porto':'PT','milan':'IT','rome':'IT','vienna':'AT','brussels':'BE','copenhagen':'DK','oslo':'NO','helsinki':'FI','tallinn':'EE','vilnius':'LT','prague':'CZ','bucharest':'RO','budapest':'HU','athens':'GR','tel aviv':'IL','mexico city':'MX','sao paulo':'BR','são paulo':'BR','buenos aires':'AR','bogota':'CO','bogotá':'CO','santiago':'CL','manila':'PH','jakarta':'ID','kuala lumpur':'MY','cyberjaya':'MY','bangkok':'TH','ho chi minh':'VN','seoul':'KR','shanghai':'CN','beijing':'CN','taipei':'TW','auckland':'NZ','cape town':'ZA','johannesburg':'ZA','nairobi':'KE','cairo':'EG','kyiv':'UA','belgrade':'RS','zagreb':'HR','sofia':'BG','bratislava':'SK','ljubljana':'SI','amman':'JO','riyadh':'SA','doha':'QA','abu dhabi':'AE'}
+_US_STATES = {'al','ak','az','ar','ca','co','ct','de','fl','ga','hi','id','il','in','ia','ks','ky','la','me','md','ma','mi','mn','ms','mo','mt','ne','nv','nh','nj','nm','ny','nc','nd','oh','ok','or','pa','ri','sc','sd','tn','tx','ut','vt','va','wa','wv','wi','wy','dc'}
+_ISO2 = set(_C_NAMES.values()) | set(_C_CITIES.values()) | {'US'}
+def resolve_country(norm_c, location):
+    if norm_c:
+        return norm_c
+    loc = (location or '').lower()
+    if not loc:
+        return None
+    for name, code in _C_NAMES.items():
+        if name in loc:
+            return code
+    for city, code in _C_CITIES.items():
+        if city in loc:
+            return code
+    for st in ('alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia','hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts','michigan','minnesota','mississippi','missouri','montana','nebraska','nevada','new hampshire','new jersey','new mexico','new york','north carolina','north dakota','ohio','oklahoma','oregon','pennsylvania','rhode island','south carolina','south dakota','tennessee','texas','utah','vermont','virginia','washington','wisconsin','wyoming','district of columbia','puerto rico'):
+        if st in loc:
+            return 'US'
+    for city in ('san francisco','new york','seattle','boston','chicago','denver','atlanta','los angeles','san diego','san jose','portland','philadelphia','houston','dallas','miami','austin','nashville','phoenix','minneapolis','salt lake','brooklyn'):
+        if city in loc:
+            return 'US'
+    if re.search(r'\b(us|u\.s\.|usa)\b', loc):
+        return 'US'
+    m = re.search(r',\s*([a-z]{2})\b\s*$', loc)
+    if m:
+        suf = m.group(1)
+        if suf in _US_STATES:
+            return 'US'
+        if suf.upper() in _ISO2:
+            return suf.upper()
+    if re.search(r',\s*(' + '|'.join(_US_STATES) + r')\b', loc):
+        return 'US'
+    return None
+
 # Derived filter tags — computed from the posting text, never self-reported
 # (the documented weakness of tag boards is employers mis-tagging; ours are read
 # from the description itself). Short codes keep the browse payload light:
@@ -197,6 +236,7 @@ for line in open(NORM):
     _id = jid(url)
     desc = clean_desc(r.get('description_text') or '')
     fl, lv = derive_flags(title, desc)
+    cty = resolve_country(d.get('country'), r.get('location') or '')
     byocc[role].append({
         'id': _id,
         'occ': role,
@@ -211,6 +251,7 @@ for line in open(NORM):
         'posted': (str(d.get('posted_at') or ''))[:10],
         **({'fl': fl} if fl else {}),
         **({'lv': lv} if lv else {}),
+        **({'c': cty} if cty else {}),
     })
     if desc:
         desc_byocc[role][_id] = to_sections(desc, DESC_CAP)

@@ -539,7 +539,7 @@
         127118
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "3%",
       "time": "12–24 mo",
       "have": [
         "Patient Care",
@@ -557,31 +557,31 @@
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 26.5,
-          "earned": 26.5
+          "pts": 26.6,
+          "earned": 26.6
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 18.7,
+          "pts": 18.5,
           "earned": 0.9
         },
         {
           "skill": "health-education",
           "name": "Health Education",
-          "pts": 12.4,
+          "pts": 12.2,
           "earned": 2
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 9.9,
-          "earned": 5
+          "pts": 9.8,
+          "earned": 4.9
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 5.9,
+          "pts": 6.2,
           "earned": 0.6
         },
         {
@@ -593,26 +593,26 @@
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 3.4,
+          "pts": 3.3,
           "earned": 0.3
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 2.1,
+          "earned": 0
         },
         {
           "skill": "presentation",
           "name": "Presentation",
           "pts": 1.9,
           "earned": 0.6
-        },
-        {
-          "skill": "ehr",
-          "name": "EHR / EMR",
-          "pts": 1.7,
-          "earned": 0
         },
         {
           "skill": "qa-testing",
@@ -647,7 +647,13 @@
         {
           "skill": "audit",
           "name": "Audit",
-          "pts": 1.3,
+          "pts": 1.2,
+          "earned": 0
+        },
+        {
+          "skill": "php",
+          "name": "PHP",
+          "pts": 0.8,
           "earned": 0
         },
         {
@@ -667,18 +673,12 @@
           "name": "Account Management",
           "pts": 0.6,
           "earned": 0
-        },
-        {
-          "skill": "zoning",
-          "name": "Zoning",
-          "pts": 0.6,
-          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 779,
+        "postings": 781,
         "salaried": 605
       }
     },
@@ -1304,8 +1304,8 @@
         "reach": "bridged",
         "via": {
           "parent": "dental-hygienist",
-          "readiness_after": 18,
-          "gain": 8
+          "readiness_after": 19,
+          "gain": 9
         }
       }
     ],
@@ -1365,35 +1365,7 @@
         }
       }
     ],
-    "health-informatics-specialist": [
-      {
-        "t": "Construction Manager",
-        "m": 15,
-        "slug": "construction-manager",
-        "field": "Construction",
-        "cluster": "Built Environment",
-        "kind": "pivot",
-        "gap": [
-          "Construction Administration",
-          "Supply Chain",
-          "Sustainability",
-          "Procurement"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "health-informatics-specialist",
-          "readiness_after": 25,
-          "gain": 10
-        }
-      }
-    ],
+    "health-informatics-specialist": [],
     "nurse-practitioner": [
       {
         "t": "Flight Attendant",
@@ -1451,6 +1423,33 @@
     ],
     "physical-therapist": [
       {
+        "t": "Construction Manager",
+        "m": 15,
+        "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Construction Administration",
+          "Supply Chain",
+          "Sustainability",
+          "Procurement"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "physical-therapist",
+          "readiness_after": 25,
+          "gain": 10
+        }
+      },
+      {
         "t": "Mobility Planner",
         "m": 13,
         "slug": "mobility-planner",
@@ -1475,33 +1474,6 @@
           "parent": "physical-therapist",
           "readiness_after": 24,
           "gain": 11
-        }
-      },
-      {
-        "t": "Police Officer",
-        "m": 10,
-        "slug": "police-officer",
-        "field": "Public Safety",
-        "cluster": "Service",
-        "kind": "pivot",
-        "gap": [
-          "Law Enforcement",
-          "Criminal Investigation",
-          "Firearms Proficiency",
-          "Teaching"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "physical-therapist",
-          "readiness_after": 18,
-          "gain": 8
         }
       }
     ],
@@ -1564,33 +1536,6 @@
     ],
     "physician": [
       {
-        "t": "Therapist / Counselor",
-        "m": 24,
-        "slug": "therapist",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "lateral",
-        "gap": [
-          "Teaching",
-          "EHR / EMR",
-          "Rendering",
-          "QA / Testing"
-        ],
-        "observed": null,
-        "fit": 24,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "physician",
-          "readiness_after": 69,
-          "gain": 45
-        }
-      },
-      {
         "t": "Genetic Counselor",
         "m": 19,
         "slug": "genetic-counselor",
@@ -1615,6 +1560,33 @@
           "parent": "physician",
           "readiness_after": 42,
           "gain": 23
+        }
+      },
+      {
+        "t": "Therapist / Counselor",
+        "m": 15,
+        "slug": "therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "lateral",
+        "gap": [
+          "EHR / EMR",
+          "dbt",
+          "HR Operations",
+          "Teaching"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "physician",
+          "readiness_after": 56,
+          "gain": 41
         }
       }
     ]
@@ -1666,19 +1638,41 @@
     },
     {
       "t": "Maintenance Technician",
-      "m": 11,
+      "m": 12,
       "slug": "maintenance-technician",
       "field": "Trades",
       "cluster": "Trades",
       "kind": "pivot",
       "gap": [
         "Supply Chain",
-        "Lean / Six Sigma",
         "HVAC Systems",
-        "Welding / Fabrication"
+        "Lean / Six Sigma",
+        "PLC / Controls"
       ],
       "observed": null,
-      "fit": 11,
+      "fit": 12,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Police Officer",
+      "m": 10,
+      "slug": "police-officer",
+      "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "pivot",
+      "gap": [
+        "Law Enforcement",
+        "Criminal Investigation",
+        "Firearms Proficiency",
+        "Teaching"
+      ],
+      "observed": null,
+      "fit": 10,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1718,7 +1712,7 @@
     [
       "dental-hygienist",
       "nurse-practitioner",
-      0.8
+      0.81
     ],
     [
       "nurse-practitioner",
@@ -1748,12 +1742,7 @@
       0.67
     ],
     [
-      "registered-nurse",
-      "physician_0",
-      0.67
-    ],
-    [
-      "physician",
+      "nurse-practitioner",
       "medical-assistant_0",
       0.64
     ],
@@ -1761,6 +1750,11 @@
       "medical-assistant",
       "nurse-practitioner_0",
       0.5
+    ],
+    [
+      "physician",
+      "registered-nurse_1",
+      0.49
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

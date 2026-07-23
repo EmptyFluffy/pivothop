@@ -31,6 +31,8 @@ No LinkedIn, no Indeed, no ToS-violating sources.
 | Lever boards | none | public JSON per company; full descriptions, salaryRange when published |
 | Ashby boards | none | public JSON per org; full descriptions + compensation tiers |
 | SmartRecruiters | none | enterprise boards (AEC lives here); full text via capped, cached detail calls |
+| Workable | none | public widget JSON per account; EU/SMB-heavy, diversifies the company mix |
+| Recruitee | none | public offers JSON per tenant ({company}.recruitee.com/api/offers) |
 | Arbeitnow | none | EU-weighted board, full descriptions |
 | Jobicy | none | remote board, annual salary fields |
 | Adzuna | `ADZUNA_APP_ID` + `ADZUNA_APP_KEY` | free at developer.adzuna.com — primary breadth + salary source |

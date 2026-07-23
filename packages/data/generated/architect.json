@@ -988,17 +988,17 @@
         "label": "PE required for public-facing/utility sign-off; not for product roles"
       },
       "desc": "",
-      "match": 48,
-      "fit": 41,
+      "match": 47,
+      "fit": 40,
       "capability": 68,
       "mobility": 3,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$65k–$130k",
+      "salary": "$70k–$130k",
       "salary_band": [
-        67217,
-        128955
+        67693,
+        130973
       ],
       "demand": "High",
       "remote": "2%",
@@ -1012,14 +1012,14 @@
       "learn": [
         "Electrical Systems",
         "FEA / Simulation",
-        "QA / Testing",
-        "Prototyping"
+        "Aviation Operations",
+        "QA / Testing"
       ],
       "waterfall": [
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 25.5,
+          "pts": 25.6,
           "earned": 0
         },
         {
@@ -1031,62 +1031,62 @@
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 9.1,
-          "earned": 9.1
+          "pts": 8.7,
+          "earned": 8.7
         },
         {
           "skill": "spec-writing",
           "name": "Spec Writing",
-          "pts": 8.8,
-          "earned": 7.4
+          "pts": 8.4,
+          "earned": 7.2
         },
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 6.2,
-          "earned": 6.2
+          "pts": 5.9,
+          "earned": 5.9
         },
         {
           "skill": "fea",
           "name": "FEA / Simulation",
+          "pts": 4.6,
+          "earned": 0
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
           "pts": 4.3,
           "earned": 0
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 3.7,
+          "pts": 3.9,
           "earned": 0
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 3.5,
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 3.5,
-          "earned": 3.5
-        },
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 3.5,
-          "earned": 0
+          "pts": 3.3,
+          "earned": 3.3
         },
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 3.4,
+          "pts": 3.2,
           "earned": 0
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 2.8,
-          "earned": 2.8
+          "pts": 2.7,
+          "earned": 2.7
         },
         {
           "skill": "lean-six-sigma",
@@ -1095,10 +1095,16 @@
           "earned": 0
         },
         {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 2.5,
+          "earned": 2.1
+        },
+        {
           "skill": "construction-documents",
           "name": "Construction Documentation",
-          "pts": 2.4,
-          "earned": 2.4
+          "pts": 2.3,
+          "earned": 2.3
         },
         {
           "skill": "autocad",
@@ -1107,41 +1113,35 @@
           "earned": 2.2
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 2.1,
-          "earned": 2.1
-        },
-        {
           "skill": "observability",
           "name": "Observability",
-          "pts": 2,
+          "pts": 1.9,
           "earned": 0
         },
         {
           "skill": "cad-drafting",
           "name": "Drafting",
-          "pts": 1.8,
-          "earned": 1.8
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
           "pts": 1.7,
           "earned": 1.7
         },
         {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 1.7,
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 1.6,
+          "earned": 1.6
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 1.6,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1376,
-        "salaried": 936
+        "postings": 1389,
+        "salaried": 949
       }
     },
     {
@@ -1315,33 +1315,6 @@
   "next": {
     "interior-designer": [
       {
-        "t": "Management Consultant",
-        "m": 22,
-        "slug": "management-consultant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Data Analysis",
-          "SAP",
-          "Account Management",
-          "Accounting"
-        ],
-        "observed": null,
-        "fit": 22,
-        "capability": 40,
-        "mobility": 9,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "interior-designer",
-          "readiness_after": 30,
-          "gain": 8
-        }
-      },
-      {
         "t": "Carpenter",
         "m": 20,
         "slug": "carpenter",
@@ -1366,6 +1339,33 @@
           "parent": "interior-designer",
           "readiness_after": 46,
           "gain": 26
+        }
+      },
+      {
+        "t": "Solar Installer",
+        "m": 18,
+        "slug": "solar-installer",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "Safety / OSHA",
+          "Customer Service",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "interior-designer",
+          "readiness_after": 37,
+          "gain": 19
         }
       }
     ],
@@ -1396,40 +1396,13 @@
           "readiness_after": 47,
           "gain": 25
         }
-      },
-      {
-        "t": "Solar Installer",
-        "m": 18,
-        "slug": "solar-installer",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Electrical Systems",
-          "Safety / OSHA",
-          "Customer Service",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "landscape-architect",
-          "readiness_after": 37,
-          "gain": 19
-        }
       }
     ],
     "structural-engineer": [],
     "civil-engineer": [
       {
         "t": "Environmental Engineer",
-        "m": 29,
+        "m": 30,
         "slug": "environmental-engineer",
         "field": "Engineering",
         "cluster": "Engineering & Manufacturing",
@@ -1451,7 +1424,7 @@
         "via": {
           "parent": "civil-engineer",
           "readiness_after": 54,
-          "gain": 25
+          "gain": 24
         }
       },
       {
@@ -1486,7 +1459,7 @@
     "exhibit-designer": [
       {
         "t": "Construction Manager",
-        "m": 30,
+        "m": 31,
         "slug": "construction-manager",
         "field": "Construction",
         "cluster": "Built Environment",
@@ -1508,7 +1481,7 @@
         "via": {
           "parent": "exhibit-designer",
           "readiness_after": 53,
-          "gain": 23
+          "gain": 22
         }
       },
       {
@@ -1654,6 +1627,28 @@
   },
   "direct": [
     {
+      "t": "Management Consultant",
+      "m": 22,
+      "slug": "management-consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Data Analysis",
+        "SAP",
+        "Account Management",
+        "SQL"
+      ],
+      "observed": null,
+      "fit": 22,
+      "capability": 40,
+      "mobility": 9,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
       "t": "BIM Manager",
       "m": 21,
       "slug": "bim-manager",
@@ -1708,7 +1703,7 @@
         "Aviation Operations",
         "Observability",
         "Law Enforcement",
-        "Maintenance"
+        "Social Media"
       ],
       "observed": null,
       "fit": 16,
@@ -1777,23 +1772,23 @@
   "bridges": [
     [
       "mep-engineer",
-      "interior-designer_1",
+      "interior-designer_0",
       0.76
     ],
     [
       "electrical-engineer",
-      "landscape-architect_1",
-      0.61
-    ],
-    [
-      "electrical-engineer",
-      "civil-engineer_1",
-      0.49
+      "interior-designer_1",
+      0.59
     ],
     [
       "electrical-engineer",
       "civil-engineer_0",
       0.47
+    ],
+    [
+      "interior-designer",
+      "civil-engineer_1",
+      0.46
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

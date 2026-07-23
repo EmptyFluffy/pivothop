@@ -10,6 +10,7 @@ export type Job = {
   featured?: boolean;  // launch featured strip
   fl?: string[];       // derived tags: 4d four-day week, eq equity, vi visa sponsorship
   lv?: 's' | 'e';      // level from the title: senior / entry
+  c?: string;          // resolved ISO country code
 };
 
 const k = (v: number) => '$' + Math.round(v / 1000) + 'k';

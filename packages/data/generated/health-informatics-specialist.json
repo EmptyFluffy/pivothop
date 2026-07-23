@@ -190,7 +190,7 @@
         127118
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "3%",
       "time": "12–24 mo",
       "have": [
         "Patient Care",
@@ -208,31 +208,31 @@
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 26.5,
-          "earned": 26.5
+          "pts": 26.6,
+          "earned": 26.6
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 18.7,
+          "pts": 18.5,
           "earned": 0
         },
         {
           "skill": "health-education",
           "name": "Health Education",
-          "pts": 12.4,
+          "pts": 12.2,
           "earned": 1
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 9.9,
+          "pts": 9.8,
           "earned": 0
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 5.9,
+          "pts": 6.2,
           "earned": 1
         },
         {
@@ -244,26 +244,26 @@
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 3.4,
+          "pts": 3.3,
           "earned": 1
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 2.1,
+          "earned": 2.1
         },
         {
           "skill": "presentation",
           "name": "Presentation",
           "pts": 1.9,
           "earned": 1
-        },
-        {
-          "skill": "ehr",
-          "name": "EHR / EMR",
-          "pts": 1.7,
-          "earned": 1.7
         },
         {
           "skill": "qa-testing",
@@ -298,7 +298,13 @@
         {
           "skill": "audit",
           "name": "Audit",
-          "pts": 1.3,
+          "pts": 1.2,
+          "earned": 0
+        },
+        {
+          "skill": "php",
+          "name": "PHP",
+          "pts": 0.8,
           "earned": 0
         },
         {
@@ -318,18 +324,12 @@
           "name": "Account Management",
           "pts": 0.6,
           "earned": 0
-        },
-        {
-          "skill": "zoning",
-          "name": "Zoning",
-          "pts": 0.6,
-          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 779,
+        "postings": 781,
         "salaried": 605
       }
     },
@@ -1265,30 +1265,30 @@
     "paramedic": [],
     "nurse-practitioner": [
       {
-        "t": "HR Manager",
-        "m": 13,
-        "slug": "hr-manager",
+        "t": "Executive Assistant",
+        "m": 11,
+        "slug": "executive-assistant",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Recruiting",
-          "Translation",
+          "Salesforce",
+          "Market Research",
           "Scheduling",
-          "Customer Service"
+          "Supply Chain"
         ],
         "observed": null,
-        "fit": 22,
-        "capability": 72,
-        "mobility": 3,
+        "fit": 36,
+        "capability": 23,
+        "mobility": 100,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 4,
+        "mobility_eu": 47,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "nurse-practitioner",
-          "readiness_after": 26,
-          "gain": 13
+          "readiness_after": 31,
+          "gain": 20
         }
       },
       {
@@ -1346,6 +1346,33 @@
           "parent": "dental-hygienist",
           "readiness_after": 31,
           "gain": 18
+        }
+      },
+      {
+        "t": "HR Manager",
+        "m": 11,
+        "slug": "hr-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Customer Service",
+          "Recruiting",
+          "Jira",
+          "Translation"
+        ],
+        "observed": null,
+        "fit": 21,
+        "capability": 72,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 4,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "dental-hygienist",
+          "readiness_after": 20,
+          "gain": 9
         }
       }
     ],
@@ -1408,19 +1435,19 @@
     "physician": [
       {
         "t": "Therapist / Counselor",
-        "m": 26,
+        "m": 24,
         "slug": "therapist",
         "field": "Healthcare",
         "cluster": "Healthcare",
         "kind": "lateral",
         "gap": [
           "Clinical Skills",
-          "Teaching",
-          "Rendering",
-          "QA / Testing"
+          "dbt",
+          "Scheduling",
+          "Translation"
         ],
         "observed": null,
-        "fit": 22,
+        "fit": 21,
         "capability": 34,
         "mobility": 4,
         "mobility_source": "observed-flow-us",
@@ -1429,8 +1456,8 @@
         "reach": "bridged",
         "via": {
           "parent": "physician",
-          "readiness_after": 70,
-          "gain": 44
+          "readiness_after": 59,
+          "gain": 35
         }
       },
       {
@@ -1606,8 +1633,8 @@
       "kind": "pivot",
       "gap": [
         "Writing & Editing",
-        "Figma",
         "Design Systems",
+        "Figma",
         "Service Design"
       ],
       "observed": null,
@@ -1621,7 +1648,7 @@
     },
     {
       "t": "Systems Administrator",
-      "m": 15,
+      "m": 14,
       "slug": "systems-administrator",
       "field": "Technology",
       "cluster": "Technology",
@@ -1638,28 +1665,6 @@
       "mobility": 47,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 47,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Compliance Officer",
-      "m": 12,
-      "slug": "compliance-officer",
-      "field": "Finance",
-      "cluster": "Finance",
-      "kind": "pivot",
-      "gap": [
-        "Compliance",
-        "Risk Management",
-        "Quality Control",
-        "Contracts"
-      ],
-      "observed": null,
-      "fit": 9,
-      "capability": 6,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 17,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1695,7 +1700,7 @@
     [
       "nurse-practitioner",
       "dental-hygienist",
-      0.8
+      0.81
     ],
     [
       "nurse-practitioner",
@@ -1725,14 +1730,14 @@
       0.78
     ],
     [
-      "registered-nurse",
-      "physician_0",
-      0.68
-    ],
-    [
       "nurse-practitioner",
       "medical-assistant_0",
       0.64
+    ],
+    [
+      "registered-nurse",
+      "physician_0",
+      0.56
     ],
     [
       "physician",

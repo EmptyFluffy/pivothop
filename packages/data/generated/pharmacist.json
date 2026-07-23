@@ -195,8 +195,8 @@
         "label": "State APRN license + national certification required"
       },
       "desc": "",
-      "match": 79,
-      "fit": 61,
+      "match": 78,
+      "fit": 60,
       "capability": 69,
       "mobility": 13,
       "mobility_source": "observed-flow-us",
@@ -208,7 +208,7 @@
         127118
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "3%",
       "time": "6–12 mo",
       "have": [
         "Patient Care",
@@ -220,37 +220,37 @@
         "Presentation",
         "Emergency Response",
         "Audit",
-        "Community Engagement"
+        "PHP"
       ],
       "waterfall": [
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 26.5,
-          "earned": 19.3
+          "pts": 26.6,
+          "earned": 19.1
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 18.7,
-          "earned": 18.7
+          "pts": 18.5,
+          "earned": 18.5
         },
         {
           "skill": "health-education",
           "name": "Health Education",
-          "pts": 12.4,
-          "earned": 12.4
+          "pts": 12.2,
+          "earned": 12.2
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 9.9,
-          "earned": 4.7
+          "pts": 9.8,
+          "earned": 4.6
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 5.9,
+          "pts": 6.2,
           "earned": 5.7
         },
         {
@@ -262,26 +262,26 @@
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 1.7
         },
         {
           "skill": "observability",
           "name": "Observability",
-          "pts": 3.4,
-          "earned": 3.4
+          "pts": 3.3,
+          "earned": 3.3
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 2.1,
+          "earned": 2.1
         },
         {
           "skill": "presentation",
           "name": "Presentation",
           "pts": 1.9,
           "earned": 0
-        },
-        {
-          "skill": "ehr",
-          "name": "EHR / EMR",
-          "pts": 1.7,
-          "earned": 1.7
         },
         {
           "skill": "qa-testing",
@@ -316,7 +316,13 @@
         {
           "skill": "audit",
           "name": "Audit",
-          "pts": 1.3,
+          "pts": 1.2,
+          "earned": 0
+        },
+        {
+          "skill": "php",
+          "name": "PHP",
+          "pts": 0.8,
           "earned": 0
         },
         {
@@ -336,18 +342,12 @@
           "name": "Account Management",
           "pts": 0.6,
           "earned": 0
-        },
-        {
-          "skill": "zoning",
-          "name": "Zoning",
-          "pts": 0.6,
-          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 779,
+        "postings": 781,
         "salaried": 605
       }
     },
@@ -1131,8 +1131,8 @@
       "mobility_tier": null,
       "salary": "$75k–$150k",
       "salary_band": [
-        72872,
-        150304
+        73018,
+        152013
       ],
       "demand": "High",
       "remote": "3%",
@@ -1153,50 +1153,50 @@
         {
           "skill": "deep-learning",
           "name": "Deep Learning",
-          "pts": 14.9,
+          "pts": 14.4,
           "earned": 0
         },
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 11.7,
+          "pts": 11.8,
           "earned": 0
         },
         {
           "skill": "llm",
           "name": "LLMs / Generative AI",
-          "pts": 9.2,
+          "pts": 9.4,
           "earned": 0
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 6.3,
-          "earned": 1.4
+          "pts": 6.1,
+          "earned": 1.3
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 5.4,
+          "pts": 5.6,
           "earned": 0
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 4.9,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 4.6,
-          "earned": 2.2
+          "pts": 4.4,
+          "earned": 2.1
         },
         {
           "skill": "translation",
           "name": "Translation",
           "pts": 4.4,
-          "earned": 4.1
+          "earned": 4
         },
         {
           "skill": "observability",
@@ -1205,64 +1205,64 @@
           "earned": 4.1
         },
         {
-          "skill": "market-research",
-          "name": "Market Research",
-          "pts": 4.1,
+          "skill": "statistics",
+          "name": "Statistics",
+          "pts": 4,
           "earned": 0
         },
         {
-          "skill": "statistics",
-          "name": "Statistics",
-          "pts": 3.6,
+          "skill": "market-research",
+          "name": "Market Research",
+          "pts": 4,
           "earned": 0
         },
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0.9
         },
         {
           "skill": "fea",
           "name": "FEA / Simulation",
-          "pts": 3.5,
+          "pts": 3.4,
           "earned": 0
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 3,
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "langchain",
+          "name": "LangChain / Agents",
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "computer-vision",
           "name": "Computer Vision",
-          "pts": 2.9,
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 2.9,
-          "earned": 2.9
+          "pts": 2.8,
+          "earned": 2.8
         },
         {
           "skill": "health-education",
           "name": "Health Education",
-          "pts": 2.8,
-          "earned": 2.8
+          "pts": 2.7,
+          "earned": 2.7
         },
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 2.8,
-          "earned": 2.8
-        },
-        {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
           "pts": 2.7,
-          "earned": 0
+          "earned": 2.7
         },
         {
           "skill": "preventive-maintenance",
@@ -1274,8 +1274,8 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 909,
-        "salaried": 680
+        "postings": 918,
+        "salaried": 686
       }
     }
   ],
@@ -1312,30 +1312,30 @@
     "nurse-practitioner": [],
     "registered-nurse": [
       {
-        "t": "Physician",
+        "t": "Therapist / Counselor",
         "m": 41,
-        "slug": "physician",
+        "slug": "therapist",
         "field": "Healthcare",
         "cluster": "Healthcare",
         "kind": "lateral",
         "gap": [
-          "Event Planning",
-          "SEM / Paid Media",
-          "Presentation",
-          "Risk Management"
+          "dbt",
+          "HR Operations",
+          "Account Management",
+          "Rendering"
         ],
         "observed": null,
-        "fit": 41,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
+        "fit": 34,
+        "capability": 31,
+        "mobility": 21,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 23,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "registered-nurse",
-          "readiness_after": 69,
-          "gain": 28
+          "readiness_after": 55,
+          "gain": 14
         }
       },
       {
@@ -1482,8 +1482,35 @@
     ],
     "research-scientist": [
       {
+        "t": "Biomedical Engineer",
+        "m": 31,
+        "slug": "biomedical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Salesforce",
+          "Prototyping",
+          "Community Engagement"
+        ],
+        "observed": null,
+        "fit": 40,
+        "capability": 34,
+        "mobility": 63,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 63,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "research-scientist",
+          "readiness_after": 43,
+          "gain": 12
+        }
+      },
+      {
         "t": "Compliance Officer",
-        "m": 32,
+        "m": 29,
         "slug": "compliance-officer",
         "field": "Finance",
         "cluster": "Finance",
@@ -1495,7 +1522,7 @@
           "Criminal Investigation"
         ],
         "observed": null,
-        "fit": 27,
+        "fit": 26,
         "capability": 40,
         "mobility": 7,
         "mobility_source": "observed-flow-us",
@@ -1504,34 +1531,7 @@
         "reach": "bridged",
         "via": {
           "parent": "research-scientist",
-          "readiness_after": 41,
-          "gain": 9
-        }
-      },
-      {
-        "t": "Executive Assistant",
-        "m": 32,
-        "slug": "executive-assistant",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Salesforce",
-          "Market Research",
-          "Project Management",
-          "Presentation"
-        ],
-        "observed": null,
-        "fit": 29,
-        "capability": 39,
-        "mobility": 15,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 94,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "research-scientist",
-          "readiness_after": 41,
+          "readiness_after": 38,
           "gain": 9
         }
       }
@@ -1539,46 +1539,24 @@
   },
   "direct": [
     {
-      "t": "Biomedical Engineer",
-      "m": 31,
-      "slug": "biomedical-engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "gap": [
-        "Maintenance",
-        "Salesforce",
-        "Prototyping",
-        "Community Engagement"
-      ],
-      "observed": null,
-      "fit": 40,
-      "capability": 34,
-      "mobility": 63,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 63,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "HR Manager",
-      "m": 30,
-      "slug": "hr-manager",
+      "t": "Executive Assistant",
+      "m": 35,
+      "slug": "executive-assistant",
       "field": "Business",
       "cluster": "Business",
       "kind": "pivot",
       "gap": [
-        "HR Operations",
-        "Recruiting",
-        "Data Analysis",
-        "Criminal Investigation"
+        "Salesforce",
+        "Market Research",
+        "Presentation",
+        "Project Management"
       ],
       "observed": null,
-      "fit": 27,
-      "capability": 21,
-      "mobility": 24,
+      "fit": 31,
+      "capability": 39,
+      "mobility": 15,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 9,
+      "mobility_eu": 94,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1691,6 +1669,28 @@
       "mobility_eu": 11,
       "mobility_tier": null,
       "reach": "direct"
+    },
+    {
+      "t": "Maintenance Technician",
+      "m": 24,
+      "slug": "maintenance-technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "gap": [
+        "Maintenance",
+        "HVAC Systems",
+        "PLC / Controls",
+        "Welding / Fabrication"
+      ],
+      "observed": null,
+      "fit": 31,
+      "capability": 51,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
     }
   ],
   "cross": [
@@ -1702,7 +1702,7 @@
     [
       "dental-hygienist",
       "nurse-practitioner",
-      0.8
+      0.81
     ],
     [
       "nurse-practitioner",
@@ -1732,14 +1732,14 @@
       0.7
     ],
     [
-      "medical-assistant",
-      "registered-nurse_0",
-      0.65
-    ],
-    [
       "registered-nurse",
       "medical-assistant_0",
       0.53
+    ],
+    [
+      "medical-assistant",
+      "registered-nurse_0",
+      0.51
     ],
     [
       "medical-assistant",
