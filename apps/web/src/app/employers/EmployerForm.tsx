@@ -1,22 +1,29 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { JobCard, type Job } from '../jobs/JobCard';
 
-/* Post a job — the full page. A single Swiss-brutalist flow in five numbered
-   sections (the role, compensation, the posting, the company, how to apply),
-   with a sticky rail that renders the listing live and the adjacency fan-in for
-   the matched occupation. Fields chosen from what actually helps the listing and
-   our matching: occupation match, salary min/max, a benefits picker that maps to
-   the board's filter tags, a skills picker against our own skill bank, and a
-   company logo. No upsells, no billing — the launch offer is one free featured
-   month. No backend yet: submit composes one structured email, reviewed by hand
-   within two days. When Supabase lands, the same fields post to a table. */
+/* Post a job — the full page, second pass. One calm centered column in five
+   numbered sections; the adjacency fan-in appears inline the moment the role
+   matches an occupation (context where the action is, not in a far rail); and
+   the preview is docked to the bottom of the viewport, rendered by the actual
+   JobCard component the board uses — real by construction, updating as you
+   type. Workplace is a three-way (on-site / hybrid / remote), employment type
+   is a chip row, and the skills picker accepts custom skills our bank lacks.
+   No backend yet: submit composes one structured email, reviewed by hand
+   within two days. Fields map 1:1 to the future Supabase table. */
 
 export type FanIn = { n: number; top: { t: string; m: number }[]; live: number };
 type Occ = { slug: string; title: string; syn: string[] };
+type Mode = 'onsite' | 'hybrid' | 'remote';
 
 const TYPES = ['Full-time', 'Part-time', 'Contract', 'Internship'];
-// Benefits worth surfacing. The first four map to the board's derived filter
-// tags (a candidate can filter on them); the rest render on the listing.
+const MODES: { key: Mode; label: string }[] = [
+  { key: 'onsite', label: 'On-site' },
+  { key: 'hybrid', label: 'Hybrid' },
+  { key: 'remote', label: 'Remote' },
+];
+// Benefits worth surfacing. The first three map to the board's derived filter
+// tags (candidates can filter on them); the rest render on the listing.
 const BENEFITS = [
   'Equity', '4-day week', 'Visa sponsorship', 'Unlimited PTO',
   'Health insurance', '401(k) / pension', 'Learning budget', 'Home-office budget',
@@ -24,32 +31,24 @@ const BENEFITS = [
   'Parental leave', 'Equipment provided', 'No whiteboard interview',
 ];
 
-const kfmt = (n: number) => '$' + Math.round(n / 1000) + 'k';
-function salaryLabel(smin: string, smax: string): string {
-  const a = parseInt(smin.replace(/[^0-9]/g, ''), 10);
-  const b = parseInt(smax.replace(/[^0-9]/g, ''), 10);
-  if (a && b) return `${kfmt(a)}–${kfmt(b)}`;
-  if (a) return `${kfmt(a)}+`;
-  if (b) return `up to ${kfmt(b)}`;
-  return '';
-}
+const num = (v: string) => { const n = parseInt(v.replace(/[^0-9]/g, ''), 10); return Number.isFinite(n) && n > 0 ? n : null; };
 
 export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<string, FanIn>; skills: string[] }) {
   const [f, setF] = useState({
-    role: '', etype: 'Full-time', region: '', smin: '', smax: '',
+    role: '', region: '', smin: '', smax: '',
     about: '', resp: '', quals: '',
     company: '', logo: '', email: '', name: '', applyUrl: '', applyEmail: '',
   });
-  const [remote, setRemote] = useState(true);
+  const [etype, setEtype] = useState('Full-time');
+  const [mode, setMode] = useState<Mode>('remote');
   const [occSlug, setOccSlug] = useState('');
   const [chosen, setChosen] = useState<string[]>([]);        // benefits
-  const [skillList, setSkillList] = useState<string[]>([]);  // required skills
+  const [skillList, setSkillList] = useState<string[]>([]);  // required skills (bank + custom)
   const [skillQ, setSkillQ] = useState('');
-  const [logoOk, setLogoOk] = useState(true);
-  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setF((p) => ({ ...p, [k]: e.target.value }));
 
-  // Live occupation match (title + synonyms) — drives the fan-in panel.
+  // Live occupation match (title + synonyms) — drives the inline fan-in panel.
   const suggestions = useMemo(() => {
     const q = f.role.trim().toLowerCase();
     if (q.length < 3) return [];
@@ -67,17 +66,33 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
   const occ = occs.find((o) => o.slug === occSlug) ?? null;
   const info = occSlug ? fan[occSlug] : undefined;
 
+  // Skills: bank matches first; a custom entry is always offered when the
+  // query isn't an exact bank skill, so no real requirement gets blocked.
+  const q = skillQ.trim();
   const skillMatches = useMemo(() => {
-    const q = skillQ.trim().toLowerCase();
     if (!q) return [];
-    return skills.filter((s) => s.toLowerCase().includes(q) && !skillList.includes(s)).slice(0, 6);
-  }, [skillQ, skills, skillList]);
+    const ql = q.toLowerCase();
+    return skills.filter((s) => s.toLowerCase().includes(ql) && !skillList.includes(s)).slice(0, 5);
+  }, [q, skills, skillList]);
+  const exactInBank = skillMatches.some((s) => s.toLowerCase() === q.toLowerCase());
+  const canCustom = q.length > 1 && !exactInBank && !skillList.some((s) => s.toLowerCase() === q.toLowerCase());
   const addSkill = (s: string) => { const v = s.trim(); if (v && !skillList.includes(v)) setSkillList((p) => [...p, v]); setSkillQ(''); };
   const toggleBenefit = (b: string) => setChosen((p) => (p.includes(b) ? p.filter((x) => x !== b) : [...p, b]));
 
-  const salLabel = salaryLabel(f.smin, f.smax);
-  const loc = remote ? (f.region ? `Remote · ${f.region}` : 'Remote') : (f.region || 'On-site');
-  const previewTags = [...chosen, ...skillList].slice(0, 4);
+  // The preview job, fed to the board's real JobCard component.
+  const location = mode === 'remote' ? (f.region.trim() || 'Remote')
+    : mode === 'hybrid' ? (f.region.trim() ? `${f.region.trim()} · Hybrid` : 'Hybrid')
+    : (f.region.trim() || '');
+  const previewJob: Job = {
+    id: 'preview', occ: occSlug || 'preview',
+    title: f.role.trim() || 'Your role title',
+    company: f.company.trim() || 'Your company',
+    location, remote: mode === 'remote',
+    smin: num(f.smin), smax: num(f.smax),
+    source: 'employer', posted: '', featured: true,
+    fl: chosen.includes('4-day week') ? ['4d'] : undefined,
+  };
+
   const ok = f.role.trim().length > 1 && f.company.trim().length > 1 && /.+@.+\..+/.test(f.email) && (f.applyUrl.trim() !== '' || f.applyEmail.trim() !== '');
   const missing = [
     !f.role.trim() && 'a role title',
@@ -87,6 +102,7 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
   ].filter(Boolean);
 
   function send() {
+    const modeLabel = MODES.find((m) => m.key === mode)!.label;
     const subject = `Post a job: ${f.role} at ${f.company}`;
     const body = [
       `Company: ${f.company}`,
@@ -96,9 +112,9 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
       '',
       `Role: ${f.role}`,
       occ ? `Occupation match: ${occ.title} (${occ.slug})` : 'Occupation match: (unmatched)',
-      `Type: ${f.etype}`,
-      `Location: ${loc}`,
-      salLabel ? `Salary: ${salLabel} /yr (min ${f.smin || '—'}, max ${f.smax || '—'})` : 'Salary: (not stated)',
+      `Type: ${etype}`,
+      `Workplace: ${modeLabel}${f.region ? ` — ${f.region}` : ''}`,
+      (num(f.smin) || num(f.smax)) ? `Salary: ${f.smin || '—'} to ${f.smax || '—'} USD/yr` : 'Salary: (not stated)',
       skillList.length ? `Required skills: ${skillList.join(', ')}` : '',
       chosen.length ? `Benefits: ${chosen.join(', ')}` : '',
       f.applyUrl ? `Apply URL: ${f.applyUrl}` : '',
@@ -113,14 +129,14 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
   }
 
   return (
-    <div className="ejf">
-      <div className="ejf-main">
+    <>
+      <div className="ejf-form">
         {/* 01 — The role */}
         <section className="ejf-sec">
           <div className="ejf-sec-h"><span className="ejf-num">01</span><h2>The role</h2></div>
           <label className="ef-field"><span className="lbl">Role title</span>
             <input value={f.role} onChange={(e) => { set('role')(e); setOccSlug(''); }} placeholder="e.g. Senior Product Designer" autoFocus />
-            <span className="ef-hint">One role, the way it would read on a listing. Not a sentence, not ALL CAPS. Posting several? One job per post.</span>
+            <span className="ef-hint">One role, the way it reads on a listing. Posting several? One job per post.</span>
           </label>
           {suggestions.length > 0 && (
             <div className="ejf-suggest">
@@ -132,15 +148,43 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
               </div>
             </div>
           )}
-          <div className="ef-row2">
-            <label className="ef-field"><span className="lbl">Employment type</span>
-              <select value={f.etype} onChange={set('etype')}>{TYPES.map((t) => <option key={t}>{t}</option>)}</select></label>
-            <label className="ef-field ef-check"><span className="lbl">Fully remote</span>
-              <button type="button" className={`jb-toggle${remote ? ' on' : ''}`} aria-pressed={remote} onClick={() => setRemote((v) => !v)}>{remote ? 'Yes' : 'No'}</button></label>
+          {occ && (
+            <aside className="ejf-fanbox">
+              {info && info.n > 0 ? (
+                <>
+                  <p className="ew-fan-lead">{`${occ.title} sits on ${info.n} measured route${info.n === 1 ? '' : 's'} in our skill graph. Your listing shows on each, to candidates arriving with the gap already itemized:`}</p>
+                  <ul className="ew-fan-list">
+                    {info.top.map((x) => (
+                      <li key={x.t}><span>{x.t} &rarr; {occ.title}</span><span className="lbl">{x.m}% ready</span></li>
+                    ))}
+                  </ul>
+                  {info.live > 0 && <p className="ew-fan-note lbl">{`Joins ${info.live} live ${occ.title.toLowerCase()} listings, featured above all of them.`}</p>}
+                </>
+              ) : (
+                <p className="ew-fan-lead">{`${occ.title} listings appear on its board, its salary page, and everywhere the instrument ranks it for a candidate's skills.`}</p>
+              )}
+            </aside>
+          )}
+          <div className="ejf-block">
+            <span className="lbl">Employment type</span>
+            <div className="ejf-chips">
+              {TYPES.map((t) => (
+                <button key={t} type="button" className={`ejf-chip${etype === t ? ' on' : ''}`} onClick={() => setEtype(t)}>{t}</button>
+              ))}
+            </div>
           </div>
-          <label className="ef-field"><span className="lbl">{remote ? 'Where can they work from?' : 'Location'}</span>
-            <input value={f.region} onChange={set('region')} placeholder={remote ? 'e.g. Worldwide, or US time zones' : 'e.g. Austin, TX'} />
-            <span className="ef-hint">{remote ? 'Worldwide reaches the most candidates and ranks higher. Narrow it only if you must.' : 'City or region the role sits in.'}</span>
+          <div className="ejf-block">
+            <span className="lbl">Workplace</span>
+            <div className="ejf-chips">
+              {MODES.map((m) => (
+                <button key={m.key} type="button" className={`ejf-chip${mode === m.key ? ' on' : ''}`} onClick={() => setMode(m.key)}>{m.label}</button>
+              ))}
+            </div>
+          </div>
+          <label className="ef-field"><span className="lbl">
+            {mode === 'remote' ? 'Where can they work from?' : mode === 'hybrid' ? 'Where is the office?' : 'Location'}</span>
+            <input value={f.region} onChange={set('region')} placeholder={mode === 'remote' ? 'e.g. Worldwide, or US time zones' : 'e.g. Austin, TX'} />
+            <span className="ef-hint">{mode === 'remote' ? 'Worldwide reaches the most candidates and ranks higher. Narrow it only if you must.' : mode === 'hybrid' ? 'City the hybrid role reports to, and days on-site if fixed.' : 'City or region the role sits in.'}</span>
           </label>
         </section>
 
@@ -169,7 +213,7 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
 
           <div className="ejf-block">
             <span className="lbl">Required skills</span>
-            <span className="ef-hint">The skills a candidate needs. We match your role to people who already hold them, from adjacent professions.</span>
+            <span className="ef-hint">We match your role to people who already hold these, from adjacent professions. Type to search our skill bank, or add your own.</span>
             {skillList.length > 0 && (
               <div className="ejf-chips ejf-skill-tags">
                 {skillList.map((s) => (
@@ -179,10 +223,11 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
             )}
             <div className="ejf-skillbox">
               <input value={skillQ} onChange={(e) => setSkillQ(e.target.value)} placeholder="Type a skill, e.g. Figma, Python, Revit"
-                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addSkill(skillMatches[0] || skillQ); } }} />
-              {skillMatches.length > 0 && (
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); if (skillMatches[0]) addSkill(skillMatches[0]); else if (canCustom) addSkill(q); } }} />
+              {(skillMatches.length > 0 || canCustom) && (
                 <div className="ejf-skill-dd">
                   {skillMatches.map((s) => <button key={s} type="button" onClick={() => addSkill(s)}>{s}</button>)}
+                  {canCustom && <button type="button" className="ejf-skill-add" onClick={() => addSkill(q)}>Add &ldquo;{q}&rdquo; as a new skill</button>}
                 </div>
               )}
             </div>
@@ -211,8 +256,8 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
           </div>
           <div className="ef-row2">
             <label className="ef-field"><span className="lbl">Logo URL (optional)</span>
-              <input value={f.logo} onChange={(e) => { set('logo')(e); setLogoOk(true); }} placeholder="https://…/logo.png" inputMode="url" />
-              <span className="ef-hint">A square logo makes the listing yours. Paste a link; we handle the rest.</span></label>
+              <input value={f.logo} onChange={set('logo')} placeholder="https://…/logo.png" inputMode="url" />
+              <span className="ef-hint">Shown on your listing&rsquo;s page. The board itself stays typographic.</span></label>
             <label className="ef-field"><span className="lbl">Your name (optional)</span>
               <input value={f.name} onChange={set('name')} autoComplete="name" /></label>
           </div>
@@ -231,64 +276,33 @@ export function EmployerForm({ occs, fan, skills }: { occs: Occ[]; fan: Record<s
         </section>
 
         <div className="ejf-submit">
+          <ol className="ejf-nextrow" aria-label="What happens next">
+            <li>You send one prefilled email.</li>
+            <li>We review and post it by hand, within two days.</li>
+            <li>First month featured, free. No card, no contract.</li>
+          </ol>
           <button className="ef-send ejf-send" disabled={!ok} onClick={send}>
-            <span>Post the job — first month featured, free</span>
+            <span>Post the job &mdash; first month featured, free</span>
             <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
           </button>
           {!ok && missing.length > 0 && <p className="ejf-missing lbl">Still need {missing.join(', ')}.</p>}
           <p className="ef-note">
-            This opens one prefilled email in your own mail app; reviewed by hand and listed within two days.
             No form backend, no CRM, no drip sequence. Already listed from your careers page? Say so and we mark it
             claimed. Prefer writing directly? <a href="mailto:cvinocoura@gmail.com">cvinocoura@gmail.com</a>.
           </p>
         </div>
       </div>
 
-      <aside className="ejf-rail" aria-label="Listing preview">
-        <div>
-          <span className="lbl ew-rail-cap">How it will look</span>
-          <div className="job-card ejf-preview">
-            {f.logo && logoOk && <img className="ejf-logo" src={f.logo} alt="" onError={() => setLogoOk(false)} />}
-            <span className="job-main">
-              <span className="job-t">{f.role.trim() || 'Your role title'}</span>
-              <span className="job-co">{f.company.trim() || 'Your company'}<span className="job-loc"> · {loc}</span></span>
-              {previewTags.length > 0 && <span className="ejf-ptags">{previewTags.map((t) => <span key={t} className="ejf-ptag">{t}</span>)}</span>}
-            </span>
-            <span className="job-side">
-              {salLabel && <span className="job-pay">{salLabel}</span>}
-              <span className="job-m lbl"><span className="job-tag">Featured</span>{remote && <span className="job-tag">Remote</span>}</span>
-            </span>
-          </div>
+      {/* The preview, docked: the board's actual card component, live. */}
+      <div className="ejf-dock" aria-label="Listing preview">
+        <div className="ejf-dock-cap">
+          <span className="lbl">Preview &mdash; your card on the board</span>
+          <span className="lbl ejf-dock-note">Updates as you type</span>
         </div>
-
-        <div className="ew-fan">
-          <span className="lbl ew-rail-cap">Who will see it</span>
-          {occ && info && info.n > 0 ? (
-            <>
-              <p className="ew-fan-lead">{`${occ.title} sits on ${info.n} measured route${info.n === 1 ? '' : 's'} in our skill graph. Your listing shows on each, to candidates arriving with the gap already itemized:`}</p>
-              <ul className="ew-fan-list">
-                {info.top.map((x) => (
-                  <li key={x.t}><span>{x.t} &rarr; {occ.title}</span><span className="lbl">{x.m}% ready</span></li>
-                ))}
-              </ul>
-              {info.live > 0 && <p className="ew-fan-note lbl">{`Joins ${info.live} live ${occ.title.toLowerCase()} listings, featured above all of them.`}</p>}
-            </>
-          ) : occ ? (
-            <p className="ew-fan-lead">{`${occ.title} listings appear on its board, its salary page, and everywhere the instrument ranks it for a candidate's skills.`}</p>
-          ) : (
-            <p className="ew-fan-note lbl">Name the role above and pick the closest occupation to see exactly who it reaches.</p>
-          )}
-        </div>
-
-        <div className="ejf-next">
-          <span className="lbl ew-rail-cap">What happens next</span>
-          <ol className="ejf-steps">
-            <li>You send one prefilled email.</li>
-            <li>We review and post it by hand, within two days.</li>
-            <li>First month featured is free. No card, no contract.</li>
-          </ol>
-        </div>
-      </aside>
-    </div>
+        <ul className="ejf-dock-list">
+          <JobCard j={previewJob} />
+        </ul>
+      </div>
+    </>
   );
 }

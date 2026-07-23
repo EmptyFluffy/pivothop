@@ -345,3 +345,13 @@ The search bar on `/jobs` also matches occupation synonyms and word prefixes in 
 5. How to apply — apply URL or email, with the "a form beats an email" guidance.
 
 Taken from RemoteOK: the dedicated full page, the logo, salary prominence, benefits chips, apply-URL guidance, the live preview. Dropped as off-model: all à-la-carte upsells (sticky/highlight/blast/QR/geolock/brand-color), invoice/VAT/PO/pay-later billing, Twitter, feedback box, AI writer. Submit still composes one structured email (no backend); fields map 1:1 to the future Supabase table.
+
+
+### Second pass (flow questioned and rebuilt)
+
+- One calm centered column (~860px), five numbered sections; the two-column rail is gone.
+- The adjacency fan-in now appears **inline in section 01** the moment the role matches an occupation — context where the action is, not in a far rail.
+- The preview is **docked to the bottom of the viewport** (the RemoteOK pattern) and rendered by the **actual JobCard component the board uses** — real by construction, updating live, arrow and tags included.
+- Workplace is a three-way segmented choice (On-site / Hybrid / Remote) with mode-aware location labels; employment type is a chip row.
+- The skills picker accepts **custom skills** ("Add X as a new skill") when the bank lacks one, so no real requirement is blocked.
+- Logo hint made honest: it shows on the listing page; the board card stays typographic.
