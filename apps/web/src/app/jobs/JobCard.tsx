@@ -8,6 +8,8 @@ export type Job = {
   smin: number | null; smax: number | null; source: string; posted: string;
   url?: string;        // outbound apply link; present in per-occupation files, stripped from the global browse file
   featured?: boolean;  // launch featured strip
+  fl?: string[];       // derived tags: 4d four-day week, eq equity, vi visa sponsorship
+  lv?: 's' | 'e';      // level from the title: senior / entry
 };
 
 const k = (v: number) => '$' + Math.round(v / 1000) + 'k';
@@ -47,6 +49,7 @@ export function JobCard({ j }: { j: Job }) {
           {pay && <span className="job-pay">{pay}</span>}
           <span className="job-m lbl">
             {j.featured && <span className="job-tag">Featured</span>}
+            {j.fl?.includes('4d') && <span className="job-tag">4-day week</span>}
             {j.remote && <span className="job-tag">Remote</span>}
             {date && <span>{date}</span>}
           </span>

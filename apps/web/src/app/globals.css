@@ -575,6 +575,13 @@ input:focus-visible{outline:none}
 .jb-filters select:focus{outline:none;border-color:var(--accent)}
 .jb-toggle{background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:7px 12px 6px;cursor:pointer;transition:all .12s}
 .jb-toggle.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.jb-chips{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.jb-chip{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:7px 11px 6px;cursor:pointer;transition:all .12s}
+.jb-chip:hover{border-color:var(--ink-2)}
+.jb-chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.jb-chip-n{font-size:9px;color:var(--ink-3);transition:color .12s}
+.jb-chip.on .jb-chip-n{color:rgba(255,255,255,.7)}
+.jb .feat{margin-top:0;border-top:none}
 .jb-loading{margin-top:26px}
 .jb-more{display:block;width:100%;margin:0;background:transparent;border:none;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:16px 0;cursor:pointer;transition:background .12s}
 .jb-more:hover{background:rgba(0,47,166,.035)}

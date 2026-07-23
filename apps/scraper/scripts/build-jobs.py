@@ -109,6 +109,23 @@ def to_sections(text, cap):
     flush()
     return sections[:12] if sections else ([{'h': None, 't': text[:cap]}] if text else [])
 
+# Derived filter tags — computed from the posting text, never self-reported
+# (the documented weakness of tag boards is employers mis-tagging; ours are read
+# from the description itself). Short codes keep the browse payload light:
+# 4d four-day week · eq equity · vi visa sponsorship. Level from the title.
+_F_4DAY = re.compile(r'\b(four|4)[- ]day( work)?[- ]?week|\b4x10\b|9[- ]day fortnight|32[- ]hour( work)?[- ]?week', re.I)
+_F_EQUITY = re.compile(r'\bequity\b|stock options?|\brsus?\b|employee stock', re.I)
+_F_VISA = re.compile(r'visa sponsorship|sponsor(ship)? (a |your |work )?visa|h-?1b sponsor|sponsorship (is )?available', re.I)
+_L_SENIOR = re.compile(r'\b(senior|staff|principal|lead|sr\.?)\b', re.I)
+_L_ENTRY = re.compile(r'\b(junior|entry[- ]level|graduate|intern(ship)?|jr\.?|trainee|apprentice)\b', re.I)
+def derive_flags(title, desc):
+    fl = []
+    if _F_4DAY.search(desc): fl.append('4d')
+    if _F_EQUITY.search(desc): fl.append('eq')
+    if _F_VISA.search(desc): fl.append('vi')
+    lv = 's' if _L_SENIOR.search(title) else 'e' if _L_ENTRY.search(title) else None
+    return fl, lv
+
 # Recognizable employers for the launch featured strip (only those actually in
 # the corpus are used; salary-stated and freshest preferred, max two roles each).
 FEATURED_COMPANIES = {'coinbase', 'airbnb', 'databricks', 'cloudflare', 'datadog', 'mongodb',
@@ -155,6 +172,8 @@ for line in open(NORM):
     seen_url.add(url); seen_ct.add(ct)
     remote = str(d.get('remote_flag')) == 'True'
     _id = jid(url)
+    desc = clean_desc(r.get('description_text') or '')
+    fl, lv = derive_flags(title, desc)
     byocc[role].append({
         'id': _id,
         'occ': role,
@@ -167,8 +186,9 @@ for line in open(NORM):
         'url': url,
         'source': s,
         'posted': (str(d.get('posted_at') or ''))[:10],
+        **({'fl': fl} if fl else {}),
+        **({'lv': lv} if lv else {}),
     })
-    desc = clean_desc(r.get('description_text') or '')
     if desc:
         desc_byocc[role][_id] = to_sections(desc, DESC_CAP)
 
