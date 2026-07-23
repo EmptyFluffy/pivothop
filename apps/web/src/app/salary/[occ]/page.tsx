@@ -156,6 +156,11 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           </div>
         )}
 
+        <div className="post-foot">
+          <Link href="/salary" className="lbl">&larr; All salaries</Link>
+          <Link href="/" className="lbl acc">Run your own numbers &rarr;</Link>
+        </div>
+
         <p className="rt-method lbl">
           {`Method: bands are the 25th, 50th, and 75th percentiles of live US postings with stated pay, shrunk toward the official `}
           <a className="gl" href="/glossary#oews">OEWS</a>
