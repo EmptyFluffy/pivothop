@@ -135,9 +135,21 @@ export function initSalaryChart(canvas, data) {
       // posting read with a faint dashed connector — signals "official through
       // then, live now" so the stretch reads as intentional, not a broken line.
       if (series.length) {
-        const last = series[series.length - 1];
-        ctx.strokeStyle = 'rgba(0,47,166,0.38)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
-        ctx.beginPath(); ctx.moveTo(X(last.year), Y(last.p50)); ctx.lineTo(x, y); ctx.stroke();
+        const last = series[series.length - 1], lx = X(last.year);
+        // the whole band bridges to the live read, faded and dashed — signals
+        // "official annual data through here, current posting read at the end",
+        // so all three edges continue, not just the median.
+        ctx.fillStyle = 'rgba(0,47,166,0.045)';
+        ctx.beginPath();
+        ctx.moveTo(lx, Y(last.p75)); ctx.lineTo(x, Y(current.p75));
+        ctx.lineTo(x, Y(current.p25)); ctx.lineTo(lx, Y(last.p25));
+        ctx.closePath(); ctx.fill();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = 'rgba(0,47,166,0.20)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(lx, Y(last.p25)); ctx.lineTo(x, Y(current.p25)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(lx, Y(last.p75)); ctx.lineTo(x, Y(current.p75)); ctx.stroke();
+        ctx.strokeStyle = 'rgba(0,47,166,0.38)'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(lx, Y(last.p50)); ctx.lineTo(x, y); ctx.stroke();
         ctx.setLineDash([]);
       }
       ctx.strokeStyle = PAL.ink; ctx.lineWidth = 1; ctx.setLineDash([2, 2]);

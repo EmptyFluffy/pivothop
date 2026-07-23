@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { SALARY, SALARY_SLUGS, getSalary, getHistory, usBand, chartData, fmt } from '../salary-data';
+import { SALARY, SALARY_SLUGS, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
 import SalaryChart from '../SalaryChart';
 
 export function generateStaticParams() {
@@ -104,7 +104,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
             <h3>By country</h3>
             <ul className="rt-rel sal-countries">
               {countries.map((c) => (
-                <li key={c.code}><span>{c.code}</span><span className="lbl">{fmt(c.band!.p25)} &ndash; {fmt(c.band!.p75)} &middot; median {fmt(c.band!.p50)}</span></li>
+                <li key={c.code}><span>{COUNTRY_NAMES[c.code] || c.code}</span><span className="lbl">{fmt(c.band!.p25)} &ndash; {fmt(c.band!.p75)} &middot; median {fmt(c.band!.p50)}</span></li>
               ))}
             </ul>
           </section>
@@ -116,7 +116,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
             <p className="rt-note">OEWS median by state, highest first.</p>
             <ul className="rt-rel sal-countries">
               {states.map((s) => (
-                <li key={s.code}><span>{s.code}</span><span className="lbl">median {fmt(s.band!.p50)}</span></li>
+                <li key={s.code}><span>{US_STATE_NAMES[s.code] || s.code}</span><span className="lbl">median {fmt(s.band!.p50)}</span></li>
               ))}
             </ul>
           </section>
