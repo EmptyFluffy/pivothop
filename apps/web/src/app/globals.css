@@ -427,7 +427,7 @@ input:focus-visible{outline:none}
 .post-h1{font-family:var(--sans);font-weight:600;font-size:clamp(28px,4.2vw,42px);letter-spacing:-.02em;line-height:1.08;max-width:22ch;margin-bottom:16px}
 .post-dek{font-size:17px;line-height:1.55;color:var(--ink-2);border-bottom:0.5px solid var(--rule);padding-bottom:22px;margin-bottom:30px}
 .post-body p{font-size:15.5px;line-height:1.7;color:var(--ink-2);margin-bottom:16px;text-align:justify;text-align-last:left;text-justify:inter-word;hyphens:none}
-.post-body h3{font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:30px 0 10px}
+.post-body h2{font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:30px 0 10px}
 .post-sources{border:1px solid var(--ink);padding:16px 18px;margin-top:34px}
 .post-sources .lbl{display:block;margin-bottom:8px}
 .post-sources p{font-size:12.5px;line-height:1.6;color:var(--ink-3);margin:0;max-width:none}
@@ -442,7 +442,7 @@ input:focus-visible{outline:none}
 
 /* post FAQ: quick answers, quotable */
 .post-faq{margin-top:36px;border-top:1px solid var(--ink);padding-top:18px}
-.post-faq h3{font-family:var(--sans);font-weight:600;font-size:17px;margin-bottom:10px}
+.post-faq h2{font-family:var(--sans);font-weight:600;font-size:17px;margin-bottom:10px}
 .post-faq details{border-bottom:0.5px solid var(--rule)}
 .post-faq summary{cursor:pointer;font-size:14.5px;font-weight:500;padding:12px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
 .post-faq summary::after{content:"+";font-family:var(--mono);color:var(--ink-3)}
@@ -502,12 +502,14 @@ input:focus-visible{outline:none}
 .rt-facts>div:last-child{border-right:none}
 .rt-facts .v{display:block;font-weight:700;font-size:27px;letter-spacing:-.02em;line-height:1.1;white-space:nowrap}
 .rt-facts .k{display:block;margin-top:8px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.rt-sallink{display:inline-block;margin:18px 0 0;color:var(--acc);border-bottom:1px solid transparent;transition:border-color .15s}
+.rt-sallink:hover{border-bottom-color:var(--acc)}
 /* graph: full-bleed band, exactly like the landing instrument */
 .route-instrument{margin:0 -30px 20px}
 .route-instrument .instr{border-bottom:1px solid var(--ink)}
 .rt-hint{display:block;color:var(--ink-3);margin:0 0 56px}
 .rt-sec{margin:0 0 46px;max-width:880px}
-.rt-sec h3{font-weight:600;font-size:23px;letter-spacing:-.015em;margin-bottom:14px}
+.rt-sec h2{font-weight:600;font-size:23px;letter-spacing:-.015em;margin-bottom:14px}
 .rt-sec p{font-size:15.5px;line-height:1.7;color:var(--ink-2);max-width:72ch;text-align:justify;text-align-last:left;text-justify:inter-word;hyphens:none}
 .rt-note{text-align:left !important}
 .rt-sec p+p{margin-top:12px}
@@ -525,7 +527,7 @@ input:focus-visible{outline:none}
 .rt-rel a{font-size:15.5px;font-weight:500;color:var(--ink);text-decoration:none}
 .rt-rel a:hover{color:var(--accent)}
 .rt-cta{display:flex;justify-content:space-between;align-items:center;gap:28px;border:1px solid var(--ink);padding:30px 32px;margin:0 0 52px;flex-wrap:wrap}
-.rt-cta h3{font-weight:600;font-size:21px;letter-spacing:-.01em;margin-bottom:6px}
+.rt-cta h2{font-weight:600;font-size:21px;letter-spacing:-.01em;margin-bottom:6px}
 .rt-cta p{font-size:14.5px;color:var(--ink-2);max-width:48ch}
 .rt-go{display:inline-block;background:var(--accent);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:15px 22px;text-decoration:none;white-space:nowrap}
 .rt-go:hover{background:var(--ink)}

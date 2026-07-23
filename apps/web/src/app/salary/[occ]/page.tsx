@@ -76,13 +76,13 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         </section>
 
         <section className="rt-sec">
-          <h3>What the number means</h3>
+          <h2>What the number means</h2>
           {def.editorial}
         </section>
 
         {seniority.length >= 2 && (
           <section className="rt-sec">
-            <h3>By seniority</h3>
+            <h2>By seniority</h2>
             <p className="rt-note">Posted-median pay by seniority signal in the title, from our corpus. Noisy at the edges where sample sizes are small.</p>
             <ul className="sal-bars">
               {seniority.map((s) => {
@@ -101,7 +101,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
 
         {countries.length >= 2 && (
           <section className="rt-sec">
-            <h3>By country</h3>
+            <h2>By country</h2>
             <ul className="rt-rel sal-countries">
               {countries.map((c) => (
                 <li key={c.code}><span>{COUNTRY_NAMES[c.code] || c.code}</span><span className="lbl">{fmt(c.band!.p25)} &ndash; {fmt(c.band!.p75)} &middot; median {fmt(c.band!.p50)}</span></li>
@@ -112,7 +112,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
 
         {states.length >= 3 && (
           <section className="rt-sec">
-            <h3>Top-paying US states</h3>
+            <h2>Top-paying US states</h2>
             <p className="rt-note">OEWS median by state, highest first.</p>
             <ul className="rt-rel sal-countries">
               {states.map((s) => (
@@ -124,7 +124,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
 
         <section className="rt-cta">
           <div>
-            <h3>Is your offer fair?</h3>
+            <h2>Is your offer fair?</h2>
             <p>Run a specific number through FairElephant, which weighs it against this data, your location, and remote market rates.</p>
           </div>
           <Link className="rt-go" href={`/fairelephant?role=${occ}`}>Check an offer &rarr;</Link>
@@ -132,7 +132,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
 
         {def.routes.length > 0 && (
           <section className="rt-sec">
-            <h3>Move into or out of {f.title.toLowerCase()}</h3>
+            <h2>Move into or out of {f.title.toLowerCase()}</h2>
             <ul className="rt-rel">
               {def.routes.map((r) => (
                 <li key={r}><Link href={`/routes/${r}`}>{r.split('-to-').map((s) => s.replace(/-/g, ' ')).join(' → ')}</Link><span className="lbl">measured route</span></li>
@@ -143,7 +143,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
 
         {def.also.length > 0 && (
           <section className="rt-sec">
-            <h3>Related salaries</h3>
+            <h2>Related salaries</h2>
             <ul className="rt-rel">
               {def.also.map((s) => { const sf = getSalary(s); return sf ? <li key={s}><Link href={`/salary/${s}`}>{sf.title} salary</Link><span className="lbl">{fmt(usBand(sf)?.p50)} median</span></li> : null; })}
             </ul>
@@ -152,7 +152,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
 
         {def.faq.length > 0 && (
           <div className="post-faq rt-faq">
-            <h3>Quick answers</h3>
+            <h2>Quick answers</h2>
             {def.faq.map((q) => (<details key={q.q}><summary>{q.q}</summary><p>{q.a}</p></details>))}
           </div>
         )}
@@ -185,6 +185,14 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'FAQPage',
         mainEntity: def.faq.map((q) => ({ '@type': 'Question', name: q.q, acceptedAnswer: { '@type': 'Answer', text: q.a } })),
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'PivotHop', item: 'https://www.pivothop.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Salaries', item: 'https://www.pivothop.com/salary' },
+          { '@type': 'ListItem', position: 3, name: `${f.title} salary`, item: `https://www.pivothop.com/salary/${occ}` },
+        ],
       }) }} />
     </PageShell>
   );

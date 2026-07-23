@@ -62,7 +62,7 @@ export const POSTS: Post[] = [
           main thing between you and it is that nobody told you it was adjacent.
         </p>
         <div className="post-callout"><b>36%</b><span>of the 148 strong career adjacencies we measured point to a destination that posts a <strong>higher</strong> salary midpoint than the origin.</span></div>
-        <h3>The biggest premiums, and the catch</h3>
+        <h2>The biggest premiums, and the catch</h2>
         <p>
           The top of the table, with the licensing reality attached:
         </p>
@@ -93,7 +93,7 @@ export const POSTS: Post[] = [
           There is real money in adjacency that does not require going back to
           school. It just is not the very top of the table.
         </p>
-        <h3>How to read this if you are considering a move</h3>
+        <h2>How to read this if you are considering a move</h2>
         <p>
           Treat a pivot as a bet with three numbers: your skill coverage today,
           the pay delta, and the gate. Our instrument shows the first two on
@@ -139,7 +139,7 @@ export const POSTS: Post[] = [
             <div key={String(k)} className="pb-row"><span className="k">{k}</span><span className="t"><span className="f" style={{ width: `${(Number(v) / 11.6) * 100}%` }}></span></span><span className="v">{v}%</span></div>
           ))}
         </div>
-        <h3>Three things worth noticing</h3>
+        <h2>Three things worth noticing</h2>
         <p>
           First, <strong>sustainability is the number two skill in architecture hiring</strong>.
           Not a specialization, not a nice-to-have: nearly one posting in ten
@@ -163,7 +163,7 @@ export const POSTS: Post[] = [
           and the habit of coordinating people who disagree, which every one of
           those destinations pays for.
         </p>
-        <h3>What this means if you are leaving, and if you are staying</h3>
+        <h2>What this means if you are leaving, and if you are staying</h2>
         <p>
           If you are considering an exit, inventory yourself against the demand
           list, not the curriculum. The market credits you for the unglamorous
@@ -172,7 +172,7 @@ export const POSTS: Post[] = [
           two cheapest ways to move up the demand curve without leaving the
           profession.
         </p>
-        <h3>Using the list on a resume, this week</h3>
+        <h2>Using the list on a resume, this week</h2>
         <p>
           One practical conversion. Take your last three projects and rewrite
           each bullet so it leads with a term from the demand list rather
@@ -223,7 +223,7 @@ export const POSTS: Post[] = [
           Kubernetes. Career sites do this constantly. It is one reason their
           numbers feel plausible and useless at the same time.
         </p>
-        <h3>How we split the word</h3>
+        <h2>How we split the word</h2>
         <p>
           Our pipeline treats the bare word architect as claimable <strong>only by an exact match</strong>. A posting titled just Architect maps to the building
           profession. Anything in the pattern of something architect, where the
@@ -259,7 +259,7 @@ export const POSTS: Post[] = [
           buildings. An unsplit average over that pile would miss every
           number that matters by double digits.
         </p>
-        <h3>Why you should care even if you are not an architect</h3>
+        <h2>Why you should care even if you are not an architect</h2>
         <p>
           Because whatever your title is, some other profession is probably
           squatting on part of it. Producers exist in film, in music, and in
@@ -333,7 +333,7 @@ export const POSTS: Post[] = [
           *Personalized score with energy modeling and LEED added to the
           skill vector; the seed profile alone scores lower.
         </p>
-        <h3>Why unbundling beats reinvention</h3>
+        <h2>Why unbundling beats reinvention</h2>
         <p>
           The standard career-change fantasy is reinvention: become someone new.
           The data suggests something less cinematic and more achievable: pick
@@ -378,7 +378,7 @@ export const POSTS: Post[] = [
           just start doing? The result: <strong>64 percent are license-free</strong>, <strong>18 percent require a license outright</strong>, and the rest need one for some roles or
           some states.
         </p>
-        <h3>The pattern</h3>
+        <h2>The pattern</h2>
         <p>
           Licensing clusters by field, and it clusters hard. A nurse's entire
           top ring is licensed: nurse practitioner, dietitian, physical
@@ -418,7 +418,7 @@ export const POSTS: Post[] = [
           carries a plain label, licensed profession, with the specific gate
           named. A route through a license is not worse, just financed differently: you repay it in years instead of applications.
         </p>
-        <h3>Half-life arithmetic</h3>
+        <h2>Half-life arithmetic</h2>
         <p>
           The calculation that matters is a short one. Suppose the move you want pays
           40 percent more but needs a two-year credential. If you are ten
@@ -485,7 +485,7 @@ export const POSTS: Post[] = [
           that did not exist as a hiring term three years ago now travels better
           than most things taught in a four-year degree.
         </p>
-        <h3>What the top of the list has in common</h3>
+        <h2>What the top of the list has in common</h2>
         <p>
           Look at the winners again. Almost none of them are tools. Data
           analysis is a habit of asking what the numbers say before deciding.
@@ -501,7 +501,7 @@ export const POSTS: Post[] = [
           because anyone loves the syntax. Nobody ever kept a job by knowing
           semicolons.
         </p>
-        <h3>The practical read</h3>
+        <h2>The practical read</h2>
         <p>
           If you are mid-career and worried your experience is too specific,
           this list is both the antidote and the assignment. Go through a normal week
@@ -516,7 +516,7 @@ export const POSTS: Post[] = [
           destinations that light up are the ones already paying for the hours
           you have been giving away under a different name.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Transferable skills are real, but they are not the vague virtues on a
           resume template. They are specific, countable, and unevenly
@@ -555,7 +555,7 @@ export const POSTS: Post[] = [
         <p>
           Career change at 40 gets discussed as a feelings problem. It is mostly an arithmetic problem, and the arithmetic is friendlier than the forums suggest. The whole calculation fits in four short sections, with numbers attached.
         </p>
-        <h3>The time horizon is the variable that matters</h3>
+        <h2>The time horizon is the variable that matters</h2>
         <p>
           At 40 you have, give or take, <strong>25 working years left</strong>. That is more
           career remaining than a 22-year-old has spent in school, total, since
@@ -566,7 +566,7 @@ export const POSTS: Post[] = [
           directions: it tells 40-year-olds they are too old and 58-year-olds to
           follow their passion into a five-year licensure path.
         </p>
-        <h3>The pay cut is a risk, not a rule</h3>
+        <h2>The pay cut is a risk, not a rule</h2>
         <p>
           The standard assumption is that changing fields means starting over on
           salary. We measured it. Across <strong>148 strong adjacencies</strong> in our graph,
@@ -574,7 +574,7 @@ export const POSTS: Post[] = [
           advertised: nobody recruits you into them, because recruiters search
           titles and your title is wrong.
         </p>
-        <h3>The license question, answered with a table</h3>
+        <h2>The license question, answered with a table</h2>
         <p>
           The biggest raises in our data hide behind licenses, which is exactly
           the wrong shape for a 40-year-old in a hurry. So we cut the table the
@@ -586,7 +586,7 @@ export const POSTS: Post[] = [
           executive assistant at plus 47. Some employers will want a
           certification. None requires going back to school.
         </p>
-        <h3>What 40 actually changes</h3>
+        <h2>What 40 actually changes</h2>
         <p>
           Two things, honestly. First, you have less patience for prestige
           ladders, which is an advantage: the moves above are unglamorous and
@@ -597,7 +597,7 @@ export const POSTS: Post[] = [
           analysis, training, writing. The things juniors are worst at are the
           things you have been doing on autopilot for a decade.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Run the numbers before the feelings. Your remaining years, the overlap between your week and the destination's postings,
           the pay delta, and the gate. If the move clears that arithmetic, the
@@ -639,7 +639,7 @@ export const POSTS: Post[] = [
           shift. We wanted destination data instead of discourse, so we mapped <strong>1,698 live nursing postings</strong> against every other profession we track. What comes back is coherent, a little sobering, and more
           useful than the listicles.
         </p>
-        <h3>The five best exits are all licensed</h3>
+        <h2>The five best exits are all licensed</h2>
         <p>
           By skill overlap, the destinations that best match what nursing
           postings already ask for: <strong>nurse practitioner at 77 percent</strong>, dietitian at 74, physical therapist at 68, therapist or counselor at 67,
@@ -654,7 +654,7 @@ export const POSTS: Post[] = [
           state board stands at the door of each destination asking for two to
           six more years. None of that argues for staying put. It argues for treating a nursing exit as a time-horizon decision rather than a skills decision. The skills were never the problem.
         </p>
-        <h3>The un-glamorous middle path</h3>
+        <h2>The un-glamorous middle path</h2>
         <p>
           Below the licensed tier sits a quieter set of moves the forums rarely
           mention: case management, clinical research coordination, utilization
@@ -665,7 +665,7 @@ export const POSTS: Post[] = [
           without losing anything in translation. The pay is usually a lateral
           step from the blended US nursing median of about <strong>96,500 dollars</strong> in our data, sometimes a small raise with seniority.
         </p>
-        <h3>About remote work, honestly</h3>
+        <h2>About remote work, honestly</h2>
         <p>
           Remote nursing-adjacent work exists, telehealth triage and remote
           case review appear in our corpus, but it is a thin slice of demand,
@@ -673,7 +673,7 @@ export const POSTS: Post[] = [
           country has the same idea at 3 a.m. Treat remote as a bonus feature
           of a destination you would want anyway, not as the destination.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If you are a nurse running the exit math, the data says three things.
           Your skills are not the obstacle; they cover two thirds of several
@@ -718,7 +718,7 @@ export const POSTS: Post[] = [
           reach table shows is less expected, and more useful if you are
           standing outside the field wondering about the door.
         </p>
-        <h3>The doorway professions, counted</h3>
+        <h2>The doorway professions, counted</h2>
         <p>
           We compute, for every occupation, how much of an AI engineer's posted
           skill demand it already covers. Machine learning engineer leads, no
@@ -749,7 +749,7 @@ export const POSTS: Post[] = [
           bosses, and it needs them as much as it needs another fine-tuning
           script.
         </p>
-        <h3>What the postings ask for, in order</h3>
+        <h2>What the postings ask for, in order</h2>
         <p>
           Across the AI engineer corpus, the recurring demands are working with
           large language models and their APIs, Python, retrieval systems and
@@ -760,7 +760,7 @@ export const POSTS: Post[] = [
           the requirements, in the nice-to-haves, in the interview
           descriptions.
         </p>
-        <h3>An honest note on the salary number</h3>
+        <h2>An honest note on the salary number</h2>
         <p>
           Posted AI salaries run hot relative to official statistics; our
           reconciliation layer flags the gap at over 100 percent against the
@@ -770,7 +770,7 @@ export const POSTS: Post[] = [
           blends toward the official anchor. Treat glossier numbers you see
           elsewhere accordingly.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If you are in one of the doorway professions, the gap between you and
           the title is smaller than the mythology says and it is made of
@@ -818,7 +818,7 @@ export const POSTS: Post[] = [
           drew construction sets for years before writing a line of this
           pipeline.
         </p>
-        <h3>What the market says architecture is</h3>
+        <h2>What the market says architecture is</h2>
         <p>
           The demand profile first, because it explains the itch. The top
           skills employers name when hiring architects: Revit, sustainability,
@@ -829,7 +829,7 @@ export const POSTS: Post[] = [
           is that the job is not what the studio promised, the data agrees
           with you. That is not burnout. That is accurate perception.
         </p>
-        <h3>The exits, priced</h3>
+        <h2>The exits, priced</h2>
         <p>
           The routes out, scored: <strong>interior design at 66 percent</strong> skill match, electrical engineering at 57, structural at 52, landscape at 51,
           mechanical at 49. Construction management and estimating sit just
@@ -847,7 +847,7 @@ export const POSTS: Post[] = [
           it flows toward people willing to carry calculations instead of
           drawings.
         </p>
-        <h3>The part the forums get wrong in both directions</h3>
+        <h2>The part the forums get wrong in both directions</h2>
         <p>
           The doom caucus is wrong: 1,178 live postings is not a dying
           profession, and the sustainability wave is creating architect demand
@@ -857,7 +857,7 @@ export const POSTS: Post[] = [
           their employer. The honest frame is neither. Architecture is a viable profession with a visible discount attached, surrounded by
           well-matched exits that mostly price higher. Staying is defensible, and so is leaving. The one position the data refuses to support is staying while believing you have no options.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Separate two questions the threads always merge. First: can you leave? On the numbers, yes, in several directions, often at a raise, and
           the gaps are specific skills, not new degrees. Second: should you?
@@ -907,7 +907,7 @@ export const POSTS: Post[] = [
           interview came about, which TechCrunch also documented. You could
           not write a cleaner parable if you tried.
         </p>
-        <h3>The uncomfortable part: it worked</h3>
+        <h2>The uncomfortable part: it worked</h2>
         <p>
           The honest analysis has to start here. The attention strategy did
           exactly what it was designed to do. It converted outrage into
@@ -918,7 +918,7 @@ export const POSTS: Post[] = [
           the careers we track, the growth and marketing roles increasingly
           ask for exactly this: the ability to manufacture a moment. It pays.
         </p>
-        <h3>The part they leave out of the playbook</h3>
+        <h2>The part they leave out of the playbook</h2>
         <p>
           Attention is a loan, and the collateral is credibility. The revenue
           confession is what a margin call looks like. Once your numbers have
@@ -929,7 +929,7 @@ export const POSTS: Post[] = [
           the one where the loan comes due at the exact moment you need to be
           taken literally.
         </p>
-        <h3>What this means if you work in tech</h3>
+        <h2>What this means if you work in tech</h2>
         <p>
           Two practical readings. If you are considering joining a
           high-attention startup, do the diligence the founders are daring
@@ -946,7 +946,7 @@ export const POSTS: Post[] = [
           the same half-life as the outrage it borrowed. Recruiters remember
           both kinds. So do juries, occasionally.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           We run a product whose entire bet is the opposite of Cluely's: that
           numbers people can check beat stories people want to believe,
@@ -989,7 +989,7 @@ export const POSTS: Post[] = [
           writes thinkpieces about forward-deployed engineers. Companies just
           keep hiring them, which is usually the better signal.
         </p>
-        <h3>What the job actually is</h3>
+        <h2>What the job actually is</h2>
         <p>
           The title is Palantir lineage: engineers embedded with the customer,
           in their systems and their meetings, making an ambitious product
@@ -1000,7 +1000,7 @@ export const POSTS: Post[] = [
           plumbing, and organizational translation. Someone has to live in
           that canyon. The labs named the someone.
         </p>
-        <h3>Who the role fits, according to the postings</h3>
+        <h2>Who the role fits, according to the postings</h2>
         <p>
           Read a batch of these postings and a profile emerges: writes real
           code, runs real meetings, tolerates ambiguity, can tell a customer
@@ -1010,7 +1010,7 @@ export const POSTS: Post[] = [
           engineers. The industry needs translators with commit access, and
           it has needed them for a while.
         </p>
-        <h3>The money and the trade</h3>
+        <h2>The money and the trade</h2>
         <p>
           Salary data rarely breaks out the exact title, but the neighboring roles bracket it well: solutions architects at about <strong>146,000 dollars</strong> US blended median in our data, sales engineers around 140,000, AI engineers about <strong>150,500</strong>. The trade is travel, customer
           hours, and the particular exhaustion of being permanently between
@@ -1020,7 +1020,7 @@ export const POSTS: Post[] = [
           leadership roles unusually well. It is the apprenticeship the AI
           industry accidentally rebuilt.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If you are technical but energized by people, or customer-facing
           but underestimated technically, this title is the market catching
@@ -1062,7 +1062,7 @@ export const POSTS: Post[] = [
           first time. Because we read the boards daily, we get to watch the
           nursery. The July 2026 census of titles that were not a thing in 2023, then.
         </p>
-        <h3>The census</h3>
+        <h2>The census</h2>
         <p>
           <strong>Forward-deployed engineer: 337 postings</strong>, the clear leader, covered
           at length in its own piece. Agentic roles, engineers and product people building AI agents: <strong>188 postings</strong> and climbing fast, the
@@ -1073,7 +1073,7 @@ export const POSTS: Post[] = [
           suggests the attention economy generates more discourse than
           headcount.
         </p>
-        <h3>Which ones consolidate, which ones vanish</h3>
+        <h2>Which ones consolidate, which ones vanish</h2>
         <p>
           New titles follow one of two paths. Some consolidate into a broader
           role once the skill stops being exotic. Prompt engineering is
@@ -1093,7 +1093,7 @@ export const POSTS: Post[] = [
           with a moat, that corner is worth a look before the certification
           industry finds it.
         </p>
-        <h3>How to read a newborn title</h3>
+        <h2>How to read a newborn title</h2>
         <p>
           Three questions separate a career from a costume. Does the title
           describe work someone was already doing under an older name, or
@@ -1104,7 +1104,7 @@ export const POSTS: Post[] = [
           The agentic cluster passes the first two and is still arguing with
           the third. Check again next quarter; the nursery updates daily.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Chasing new titles is a bad strategy, and ignoring them is a
           slightly worse one. The winning move is to watch which newborn
@@ -1156,7 +1156,7 @@ export const POSTS: Post[] = [
           friend, not click away from the answer. Rank by that prediction.
           Repeat billions of times a day.
         </p>
-        <h3>The receipts, platform by platform</h3>
+        <h2>The receipts, platform by platform</h2>
         <p>
           X made the loudest move: in January 2026 it discarded its legacy
           ranking stack entirely for a Grok-based transformer that reads every
@@ -1194,7 +1194,7 @@ export const POSTS: Post[] = [
           reaches 93 percent. Google still reads the web. Increasingly, it
           reads it so you do not have to.
         </p>
-        <h3>Why they all converged</h3>
+        <h2>Why they all converged</h2>
         <p>
           Not conspiracy. Economics plus capability. Every one of these
           companies sells attention to advertisers, so every one of them is
@@ -1207,7 +1207,7 @@ export const POSTS: Post[] = [
           same conclusion because each was solving the same equation with the
           same new tool.
         </p>
-        <h3>What it means if you publish anything</h3>
+        <h2>What it means if you publish anything</h2>
         <p>
           First, audiences are rented by the piece now. A follower count is a
           mailing list the platform charges you to use; every post starts
@@ -1222,7 +1222,7 @@ export const POSTS: Post[] = [
           clicks, which favors pages with verifiable, unusual substance over
           pages with volume.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           The convergence is bad news for tactics and good news for material.
           Every trick tuned to one platform's quirks depreciates, because
@@ -1271,7 +1271,7 @@ export const POSTS: Post[] = [
           conversational AI Mode, <strong>93 percent</strong> of sessions end without a click. If your business model was ranking pages and harvesting the
           clicks, that model has been repossessed.
         </p>
-        <h3>The part that did not die</h3>
+        <h2>The part that did not die</h2>
         <p>
           Read the same telemetry from the other side. Brands cited inside AI Overviews see around <strong>35 percent higher organic clickthrough</strong> than uncited brands. The model still needs sources; it just stopped
           needing ten of them per query. Search traffic did not evaporate so
@@ -1280,7 +1280,7 @@ export const POSTS: Post[] = [
           longer to rank among many answers. It is to be the source the one
           answer is built from.
         </p>
-        <h3>What the survivors do differently</h3>
+        <h2>What the survivors do differently</h2>
         <p>
           Watching what still earns visibility in 2026, four patterns repeat.
           The survivors publish numbers nobody else has: original datasets,
@@ -1302,7 +1302,7 @@ export const POSTS: Post[] = [
           rather than to say something. None of that earns a citation,
           because none of it is a source.
         </p>
-        <h3>A small disclosure</h3>
+        <h2>A small disclosure</h2>
         <p>
           We are not neutral observers here. This site publishes career data
           from our own pipeline precisely because original numbers are the
@@ -1312,7 +1312,7 @@ export const POSTS: Post[] = [
           If the strategy is wrong, you will be able to watch it fail in
           public, which is more than most SEO advice offers.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Stop asking how to rank and start asking a colder question: if a
           careful machine read everything on this topic, would it have any
@@ -1357,7 +1357,7 @@ export const POSTS: Post[] = [
           numbers around it, tell a sharper career story than the discourse
           does.
         </p>
-        <h3>Where the role sits in the pay landscape</h3>
+        <h2>Where the role sits in the pay landscape</h2>
         <p>
           Eighty thousand puts the SEO specialist in respectable but
           revealing company. Copywriters in our data sit near 81,700.
@@ -1367,7 +1367,7 @@ export const POSTS: Post[] = [
           strategy the craft serves. SEO is a fine place to stand and an
           expensive place to stop.
         </p>
-        <h3>What the demand data says about the skill</h3>
+        <h2>What the demand data says about the skill</h2>
         <p>
           Beyond the specialist role itself, SEO as a skill appears
           meaningfully in the posting demand of copywriters at <strong>8.2 percent</strong>, content strategists at 5.5, and marketing managers at 3.2. Read
@@ -1380,7 +1380,7 @@ export const POSTS: Post[] = [
           copywriter at 31, content strategist at 30, social media manager
           at 26.
         </p>
-        <h3>The rewrite happening inside the job</h3>
+        <h2>The rewrite happening inside the job</h2>
         <p>
           Meanwhile the work itself is mutating. With AI answers on roughly
           half of Google results and most searches ending clickless, the
@@ -1394,7 +1394,7 @@ export const POSTS: Post[] = [
           nobody has twenty years of experience getting cited by a language
           model. On the new subskill, everyone started in 2024.
         </p>
-        <h3>An honest word on the floor and the ceiling</h3>
+        <h2>An honest word on the floor and the ceiling</h2>
         <p>
           The floor: the low end of SEO, the tooling-and-checklists end, is
           exactly the work AI systems are best at absorbing, and postings
@@ -1403,7 +1403,7 @@ export const POSTS: Post[] = [
           commanding marketing-leadership pay. The variable that decides which side you land on is whether you can prove impact with numbers. The specialists who do well in our data read like analysts who happen to work on visibility,
           not like content workers who happen to know meta tags.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If you are considering the field: enter through the new door,
           citations and AI visibility, and build the measurement habit from
@@ -1464,7 +1464,7 @@ export const POSTS: Post[] = [
             <tr><td><strong>Ice Cube</strong></td><td>Architectural drafting certificate, Phoenix Institute of Technology</td><td>N.W.A, then Hollywood</td></tr>
           </tbody>
         </table>
-        <h3>Coincidence, or a legible transfer</h3>
+        <h2>Coincidence, or a legible transfer</h2>
         <p>
           The lazy reading is that art schools of every kind leak musicians.
           True, but architecture school leaks a particular kind. Listen to
@@ -1491,7 +1491,7 @@ export const POSTS: Post[] = [
           turning up behind famous work: the training transfers even when
           the title does not.
         </p>
-        <h3>What the dropouts kept</h3>
+        <h2>What the dropouts kept</h2>
         <p>
           Weird Al kept the structural discipline; parody is form-perfect reconstruction, a survey of an existing building redrawn with new cladding. Chris Lowe kept the restraint; Pet Shop Boys records are
           famously engineered, minimal, load-calculated pop. Ice Cube has
@@ -1501,7 +1501,7 @@ export const POSTS: Post[] = [
           story. <strong>None of them wasted the training. They relocated
           it.</strong>
         </p>
-        <h3>The uncomfortable question for the profession</h3>
+        <h2>The uncomfortable question for the profession</h2>
         <p>
           Why does architecture, specifically, produce so many spectacular
           leavers? Our demand data offers a hypothesis: the profession
@@ -1512,7 +1512,7 @@ export const POSTS: Post[] = [
           trained to notice structural problems. Some of them notice the
           one they are standing in.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           You are probably not going to found Pink Floyd. The transferable
           lesson is smaller and more useful: the skills a demanding
@@ -1558,7 +1558,7 @@ export const POSTS: Post[] = [
           documented reality of two very famous pivots looks different: it
           looks like a day job, kept deliberately, for years.
         </p>
-        <h3>The carpenter</h3>
+        <h2>The carpenter</h2>
         <p>
           By 1970 Harrison Ford was a full-time professional carpenter in
           Los Angeles. Not as a cover story: cabinets, studios, doorways,
@@ -1569,7 +1569,7 @@ export const POSTS: Post[] = [
           not the obstacle to the acting career. It was the negotiating
           position.
         </p>
-        <h3>The doctor</h3>
+        <h2>The doctor</h2>
         <p>
           Ken Jeong finished internal medicine training at the University
           of North Carolina and practiced for years, New Orleans, then Los
@@ -1578,7 +1578,7 @@ export const POSTS: Post[] = [
           income, not when the frustration peaked.
         </p>
         <div className="post-callout"><b>2</b><span>famous pivots, one structure: <strong>keep the income, test the destination, convert when the evidence arrives.</strong> The boats were never burned. They were rented out.</span></div>
-        <h3>Why the parallel pivot is the rational one</h3>
+        <h2>Why the parallel pivot is the rational one</h2>
         <p>
           Strip the fame away and the structure is just good decision
           theory. A career change is a bet with an uncertain payoff and a
@@ -1601,7 +1601,7 @@ export const POSTS: Post[] = [
           stories and, we suspect, a far better median outcome. Medians do
           not give interviews.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If your pivot can be run in parallel, run it in parallel: the
           data on transition time, the arithmetic of skill-gap financing,
@@ -1671,7 +1671,7 @@ export const POSTS: Post[] = [
             <tr><td>Therapist / counselor</td><td className="num">90%</td></tr>
           </tbody>
         </table>
-        <h3>The pattern is negotiation, not money</h3>
+        <h2>The pattern is negotiation, not money</h2>
         <p>
           A first guess would be that high salaries hide and low salaries
           show. The table does not support it. Security engineers earn well
@@ -1688,7 +1688,7 @@ export const POSTS: Post[] = [
           pay is set by a schedule rather than a conversation. A police
           department cannot improvise your number, so it prints it.
         </p>
-        <h3>Even the boards disagree</h3>
+        <h2>Even the boards disagree</h2>
         <p>
           Profession is not the only axis. The infrastructure itself has a
           transparency gradient, and it is steep. Across our thirteen
@@ -1722,7 +1722,7 @@ export const POSTS: Post[] = [
           maximum room to vary the package per candidate, and an empty
           salary line is how that room is kept.
         </p>
-        <h3>What opacity costs the candidate</h3>
+        <h2>What opacity costs the candidate</h2>
         <p>
           A posting without a number moves the first offer to the end of the
           process, after you have spent interview hours and started wanting
@@ -1738,7 +1738,7 @@ export const POSTS: Post[] = [
           survives the legal one, though. Even where the law requires a
           band, sales postings publish wider bands than nursing postings do.
         </p>
-        <h3>Playing a hidden-number game well</h3>
+        <h2>Playing a hidden-number game well</h2>
         <p>
           Since a third of postings will stay blank whatever the laws do,
           the workable response is preparation rather than complaint. Three
@@ -1753,7 +1753,7 @@ export const POSTS: Post[] = [
           negotiates everything else, since with you they were still on
           best behavior.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If you work in a secretive field, assume the missing number is a
           strategy and prepare accordingly. Look up the band before the
@@ -1817,7 +1817,7 @@ export const POSTS: Post[] = [
             <tr><td>Data scientist</td><td className="num">55</td><td className="num">491</td><td className="num">+61%</td></tr>
           </tbody>
         </table>
-        <h3>The break attempt</h3>
+        <h2>The break attempt</h2>
         <p>
           The problem hiding in that table is where each column comes from.
           Our remote observations arrive mostly through remote-first boards,
@@ -1835,7 +1835,7 @@ export const POSTS: Post[] = [
           either direction, so we are publishing the failure instead of the
           headline.
         </p>
-        <h3>What survives scrutiny</h3>
+        <h2>What survives scrutiny</h2>
         <p>
           Three things, more modest than the table. Remote-first employers
           do post high salaries; whatever the cause, those jobs exist and
@@ -1853,7 +1853,7 @@ export const POSTS: Post[] = [
           average person, and most published statistics cannot tell you
           which one you are.
         </div>
-        <h3>How to read any remote-pay claim, including this one</h3>
+        <h2>How to read any remote-pay claim, including this one</h2>
         <p>
           The composition trap has a three-question test, and it works on
           every remote-salary article ever published. First, are the remote
@@ -1874,7 +1874,7 @@ export const POSTS: Post[] = [
           have seen this year and most will fail all three. Ours fails the
           first two and passes the third, which is why this piece exists.
         </p>
-        <h3>What a defensible premium would probably look like</h3>
+        <h2>What a defensible premium would probably look like</h2>
         <p>
           Bounded speculation, labeled as such: studies with employer-level
           controls in adjacent literatures, and the few same-company
@@ -1887,7 +1887,7 @@ export const POSTS: Post[] = [
           possible, that is the range we expect it to confirm, and we will
           publish whatever it says either way.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If you are negotiating a remote offer, use occupation-level
           anchors rather than remote-market headlines: the blended bands on <a className="gl" href="/salary">our salary pages</a> start from official statistics and declare their posting bias, and <a className="gl" href="/fairelephant">FairElephant</a> will weigh a specific number against your location and remote rates. If you are choosing remote work expecting an
@@ -1946,7 +1946,7 @@ export const POSTS: Post[] = [
             <tr><td>Dietitian</td><td className="num">33</td></tr>
           </tbody>
         </table>
-        <h3>Why coordination roles dominate</h3>
+        <h2>Why coordination roles dominate</h2>
         <p>
           Construction management enabling 79 onward routes was not the
           result we expected, and then it was obvious. The job is a
@@ -1968,7 +1968,7 @@ export const POSTS: Post[] = [
           matters.
         </p>
         <div className="post-callout"><b>1</b><span>connection. That is the entire adjacency footprint of <strong>photographer</strong> in our graph, the loneliest node we track. Hotel manager also sits at one. Some jobs are rooms with a single door.</span></div>
-        <h3>The bridge in action, with real routes</h3>
+        <h2>The bridge in action, with real routes</h2>
         <p>
           Abstract counts undersell what a bridge actually does, so here
           are four routes from the graph with the readiness arithmetic
@@ -1993,7 +1993,7 @@ export const POSTS: Post[] = [
           does not teach you a secret. It converts work you could already
           do into work you can prove.
         </p>
-        <h3>Using a bridge on purpose</h3>
+        <h2>Using a bridge on purpose</h2>
         <p>
           The deliberate version of this pattern takes about 18 months and
           three decisions. Pick the destination first, because a bridge
@@ -2006,7 +2006,7 @@ export const POSTS: Post[] = [
           the compliance signoffs you owned. The bridge only pays out if
           the next application can see it.
         </p>
-        <h3>Islands, and what they mean</h3>
+        <h2>Islands, and what they mean</h2>
         <p>
           The opposite of a bridge is an island: an occupation whose skill profile connects to almost nothing above our scoring floor.
           Photography and hotel management sit there in our current data,
@@ -2017,7 +2017,7 @@ export const POSTS: Post[] = [
           the coordination and client work your title hides before you
           apply outward.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Use bridge frequency as a tiebreaker. When two offers pay
           similarly, the one that appears more often as other people's
@@ -2067,7 +2067,7 @@ export const POSTS: Post[] = [
           One in eleven hundred. Whatever the four-day week is right now, it
           is not yet a thing employers commit to in the job ad.
         </p>
-        <h3>The four species, because they are not one thing</h3>
+        <h2>The four species, because they are not one thing</h2>
         <table className="post-table">
           <caption>Four-day formats and what an hour earns · definitions per UK pilot and scheduling literature</caption>
           <thead><tr><th>Format</th><th>Hours</th><th>Pay</th><th>Your hourly rate</th></tr></thead>
@@ -2087,7 +2087,7 @@ export const POSTS: Post[] = [
           ten hours, it does not remove them. Two offers can both say
           four-day week and differ by a quarter of your effective wage.
         </p>
-        <h3>Who actually offers it, in writing</h3>
+        <h2>Who actually offers it, in writing</h2>
         <p>
           Now our 102. By format: 57 say four-day week without specifying,
           <strong> 38 offer a 9-day fortnight</strong>, four name reduced
@@ -2112,7 +2112,7 @@ export const POSTS: Post[] = [
           Firms that already run it just say so in the ad, which is exactly
           why it outnumbers the headline model in real postings.
         </p>
-        <h3>Reading an offer without getting fooled</h3>
+        <h2>Reading an offer without getting fooled</h2>
         <p>
           Three questions sort any four-day claim in under a minute. Are
           the hours reduced or rearranged, since 32 at full pay is a raise
@@ -2124,7 +2124,7 @@ export const POSTS: Post[] = [
           A startup putting it in a careers-page banner has made a softer
           promise.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If a four-day week matters to you, the data suggests looking in
           unexpected places: UK engineering and construction firms are
@@ -2170,7 +2170,7 @@ export const POSTS: Post[] = [
           collapsing birth rate. The biggest names in world employment are
           running opposite experiments on the same species.
         </p>
-        <h3>The mandate camp</h3>
+        <h2>The mandate camp</h2>
         <p>
           The five-day list reads like a stock index: Amazon, JPMorgan
           Chase, AT&T, Goldman Sachs, Dell, Fidelity, plus the US federal
@@ -2182,7 +2182,7 @@ export const POSTS: Post[] = [
           a default that leadership never stopped preferring, timed for a
           labor market where employers hold the cards.
         </p>
-        <h3>The flexibility camp</h3>
+        <h2>The flexibility camp</h2>
         <p>
           The other experiment is quieter and more institutional. Tokyo
           put its four-day option into government policy. The UK's
@@ -2206,7 +2206,7 @@ export const POSTS: Post[] = [
             <tr><td>Share of market</td><td>Loud minority</td><td>Quiet majority (hybrid ~67%)</td></tr>
           </tbody>
         </table>
-        <h3>What it does to the job landscape</h3>
+        <h2>What it does to the job landscape</h2>
         <p>
           For candidates, the divergence converts location policy into a
           compensation term, whether anyone prices it or not. A five-day
@@ -2225,7 +2225,7 @@ export const POSTS: Post[] = [
           that sounds like an arbitrage, it is, and mid-sized firms are
           the ones collecting it.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Treat workplace policy as a term sheet item, not a vibe. Ask
           where the arrangement is written down, what happened to it
@@ -2282,7 +2282,7 @@ export const POSTS: Post[] = [
           So the ranking is settled. What is not settled, and what our own
           data complicates in a useful way, is the mechanism.
         </p>
-        <h3>What 51,696 salaried postings say about degree language</h3>
+        <h2>What 51,696 salaried postings say about degree language</h2>
         <p>
           We classified every salaried posting in our corpus by its degree
           language. Postings that explicitly require a degree: 126, or
@@ -2301,7 +2301,7 @@ export const POSTS: Post[] = [
           lower-paying corners of the market. The language stopped
           tracking the actual gate years ago.
         </p>
-        <h3>Where the gate actually lives now</h3>
+        <h2>Where the gate actually lives now</h2>
         <p>
           If 98 percent of ads are silent and the explicit language is
           decorative, the degree filter has to live somewhere else, and
@@ -2325,7 +2325,7 @@ export const POSTS: Post[] = [
           fastest. The pattern is consistent: rules-bound employers
           change when the rule changes. Discretionary employers announce.
         </p>
-        <h3>When the field beats the diploma</h3>
+        <h2>When the field beats the diploma</h2>
         <p>
           The 60 percent premium is an average across everyone, and averages
           are where the interesting cases go to hide. Hold the source
@@ -2366,7 +2366,7 @@ export const POSTS: Post[] = [
           path rather than averaging a population, frequently the wrong
           number to stare at.
         </p>
-        <h3>The other title premium</h3>
+        <h2>The other title premium</h2>
         <p>
           One more wrinkle from our own graph. The title that reliably
           pays is not academic but legal: the biggest pay premiums in our
@@ -2377,7 +2377,7 @@ export const POSTS: Post[] = [
           without it is illegal rather than merely unconventional. Paper
           you can enforce beats paper you can imply.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           For the 70 million without the degree: the ad text is no longer
           the obstacle and never tells you the truth anyway. Target the
@@ -2443,7 +2443,7 @@ export const POSTS: Post[] = [
           are the real thing: someone was an electrician in one interview
           and something else in the next.
         </p>
-        <h3>Skills say no. People go anyway.</h3>
+        <h2>Skills say no. People go anyway.</h2>
         <p>
           Across the 888 routes on our graph that now carry an observed
           signal, <strong>224</strong> are moves the skill math would have
@@ -2478,7 +2478,7 @@ export const POSTS: Post[] = [
           A skill profile describes what a job asks for on day one. A flow
           count describes what careers survive contact with.
         </div>
-        <h3>Skills say yes. People stay home.</h3>
+        <h2>Skills say yes. People stay home.</h2>
         <p>
           The reverse list is shorter and sharper: routes with 55 percent
           overlap or better where the observed flow is close to zero.
@@ -2505,7 +2505,7 @@ export const POSTS: Post[] = [
           will keep recommending these routes. The data on actual behavior
           prices them properly.
         </p>
-        <h3>Why three sources, not one</h3>
+        <h2>Why three sources, not one</h2>
         <p>
           Each dataset fails somewhere specific, which is the reason we run
           them together. The census occupation codes behind the Oxford
@@ -2531,7 +2531,7 @@ export const POSTS: Post[] = [
           for exactly this, and the flow scores inherit the same
           skepticism in ranking.
         </p>
-        <h3>What changed on the instrument</h3>
+        <h2>What changed on the instrument</h2>
         <p>
           Ranking on the graph now blends three signals, each shown
           separately in the route panel: skill readiness (weight 0.55, still
@@ -2552,7 +2552,7 @@ export const POSTS: Post[] = [
           and verified them against the study documentation. Public data has
           a shelf life. Mirror what you rely on.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           When you evaluate a move, ask two questions instead of one. What
           share of the destination’s asks do I already cover, and do people
@@ -2614,7 +2614,7 @@ export const POSTS: Post[] = [
           a year to tutors at 8.1. Same economy, six-fold difference in the
           odds that a given colleague is gone next year.
         </p>
-        <h3>The stickiest careers in our set</h3>
+        <h2>The stickiest careers in our set</h2>
         <table className="post-table">
           <caption>Lowest annual occupational-transfer rates · BLS EP 2024–34 × PivotHop corpus medians, July 2026</caption>
           <thead><tr><th>Occupation</th><th className="num">Transfer /yr</th><th className="num">Exit /yr</th><th className="num">Posted median</th></tr></thead>
@@ -2637,7 +2637,7 @@ export const POSTS: Post[] = [
           nurses, with no license at all. Whatever is holding people, it is
           not only the credential.
         </p>
-        <h3>The revolving doors</h3>
+        <h2>The revolving doors</h2>
         <table className="post-table">
           <caption>Highest annual occupational-transfer rates · same sources</caption>
           <thead><tr><th>Occupation</th><th className="num">Transfer /yr</th><th className="num">Exit /yr</th></tr></thead>
@@ -2661,7 +2661,7 @@ export const POSTS: Post[] = [
           (crop dusting, charters, instruction) with the airline majors;
           the instability lives at the commercial end.
         </p>
-        <h3>Two different ways to leave</h3>
+        <h2>Two different ways to leave</h2>
         <p>
           The table separates transfers (moved to a different occupation)
           from exits (left the labor force), and the two tell different
@@ -2705,7 +2705,7 @@ export const POSTS: Post[] = [
           One rung at a time, license by license. We wrote up that
           full pattern in “Where people actually go.”
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           Your occupation’s transfer rate is your base odds, the prior
           before anything about you. An architect’s 3.3 percent means
@@ -2758,7 +2758,7 @@ export const POSTS: Post[] = [
           remote (19 percent hybrid), while boards that lean professional
           report closer to 12.
         </p>
-        <h3>The ranking</h3>
+        <h2>The ranking</h2>
         <table className="post-table">
           <caption>Share of postings fully remote, by occupation · PivotHop corpus, July 2026, occupations with 100+ postings</caption>
           <thead><tr><th>Occupation</th><th className="num">Remote share</th><th className="num">Postings</th></tr></thead>
@@ -2787,7 +2787,7 @@ export const POSTS: Post[] = [
           designers 1.8. Motion work ships as files. Product design work,
           post-RTO, apparently ships as meetings.
         </p>
-        <h3>The license is the dividing line</h3>
+        <h2>The license is the dividing line</h2>
         <p>
           Sort the whole corpus by one bit, does the occupation require a
           state license, and the remote market splits open.
@@ -2831,7 +2831,7 @@ export const POSTS: Post[] = [
           helps travel staffing, not remote (nursing). No and no, see you
           at the office (HVAC, forever).
         </p>
-        <h3>What a zero is worth</h3>
+        <h2>What a zero is worth</h2>
         <p>
           A note on the floor of the ranking, because zero is a stronger
           claim than a small number. HVAC technician’s 0.0 percent is
@@ -2854,7 +2854,7 @@ export const POSTS: Post[] = [
           and design-flavored consulting, appear in the top third of the
           ranking above.
         </p>
-        <h3>Moving toward remote, and away</h3>
+        <h2>Moving toward remote, and away</h2>
         <p>
           Our corpus is a snapshot, so for direction we lean on dated
           external tracking. <a className="gl" href="/glossary#flexjobs">FlexJobs</a>’ year-over-year index found legal,
@@ -2872,7 +2872,7 @@ export const POSTS: Post[] = [
           UX sits at 1.5 percent while freelance-shaped creative work sits
           at 25.
         </p>
-        <h3>Where this leaves you</h3>
+        <h2>Where this leaves you</h2>
         <p>
           If remote is the constraint you are optimizing, read your options
           in this order. Unlicensed, words-based, deliverable-shaped work

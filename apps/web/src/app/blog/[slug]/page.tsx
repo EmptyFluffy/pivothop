@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = POSTS.find((p) => p.slug === slug);
   if (!post) return {};
-  return { title: `${post.title} — PivotHop`, description: post.dek };
+  return { title: `${post.title} — PivotHop`, description: post.dek, alternates: { canonical: `/blog/${slug}` } };
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -37,7 +37,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <article className="post-body">{post.body}</article>
           {post.faq && (
             <div className="post-faq">
-              <h3>Quick answers</h3>
+              <h2>Quick answers</h2>
               {post.faq.map((f) => (
                 <details key={f.q}>
                   <summary>{f.q}</summary>
@@ -58,8 +58,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         headline: post.title,
         description: post.dek,
         datePublished: '2026-07-22',
-        author: { '@type': 'Person', name: 'Carlos', url: 'https://pivothop.com/about' },
+        author: { '@type': 'Person', name: 'Carlos', url: 'https://www.pivothop.com/about' },
         publisher: { '@type': 'Organization', name: 'PivotHop' },
+        mainEntityOfPage: `https://www.pivothop.com/blog/${slug}`,
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'PivotHop', item: 'https://www.pivothop.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.pivothop.com/blog' },
+          { '@type': 'ListItem', position: 3, name: post.title, item: `https://www.pivothop.com/blog/${slug}` },
+        ],
       }) }} />
       {post.faq && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

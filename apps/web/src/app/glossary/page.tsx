@@ -64,10 +64,10 @@ export default function GlossaryPage() {
         '@type': 'DefinedTermSet',
         name: 'PivotHop Glossary and Sources',
         description: 'Definitions of the career-data terms, acronyms, and datasets used by PivotHop.',
-        url: 'https://pivothop.com/glossary',
+        url: 'https://www.pivothop.com/glossary',
         hasDefinedTerm: GLOSSARY.map((e) => ({
           '@type': 'DefinedTerm',
-          '@id': `https://pivothop.com/glossary#${e.id}`,
+          '@id': `https://www.pivothop.com/glossary#${e.id}`,
           name: `${e.term} (${e.full})`,
           description: e.def,
         })),

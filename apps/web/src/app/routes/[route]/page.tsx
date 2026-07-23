@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { ROUTES, ROUTE_SLUGS, originMeta, destRole, unlocks } from '../routes-data';
+import { SALARY_SLUGS } from '../../salary/salary-data';
 import RouteInstrument from '../RouteInstrument';
 
 export function generateStaticParams() {
@@ -57,16 +58,22 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           {r.mobility != null && <div><span className="v">{r.mobility}</span><span className="k">{observed ? 'Observed flow (0–100)' : 'Relatedness (0–100)'}</span></div>}
         </div>
 
+        {SALARY_SLUGS.includes(def.dest) && (
+          <Link className="rt-sallink lbl" href={`/salary/${def.dest}`}>
+            {`Full ${r.title.toLowerCase()} pay data: median, seniority curve, by country and US state `}&rarr;
+          </Link>
+        )}
+
         <RouteInstrument origin={def.origin} focus={def.dest} />
         <p className="rt-hint lbl">The full instrument, preloaded to this route &middot; click any node to compare &middot; double-click to recenter</p>
 
         <section className="rt-sec">
-          <h3>The judgment call</h3>
+          <h2>The judgment call</h2>
           {def.editorial}
         </section>
 
         <section className="rt-sec">
-          <h3>Evidence checklist</h3>
+          <h2>Evidence checklist</h2>
           <p className="rt-note">{`What ${r.title.toLowerCase()} postings ask for, against what a typical ${originLc} already demonstrates. Drawn from the skill-overlap data, curated by hand.`}</p>
           <ul className="rt-ev">
             {def.evidence.map((e) => (
@@ -82,7 +89,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
 
         {kids.length > 0 && (
           <section className="rt-sec">
-            <h3>What this seat unlocks next</h3>
+            <h2>What this seat unlocks next</h2>
             <p className="rt-note">
               {`Second-ring routes that open once you hold the ${r.title.toLowerCase()} skill set: `}
               {kids.map((k, i) => (
@@ -93,7 +100,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
         )}
 
         <section className="rt-sec">
-          <h3>Related routes</h3>
+          <h2>Related routes</h2>
           <ul className="rt-rel">
             {def.related.map((slug) => {
               const rd = ROUTES[slug];
@@ -106,7 +113,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
 
         <section className="rt-cta">
           <div>
-            <h3>Take this route with you.</h3>
+            <h2>Take this route with you.</h2>
             <p>Run the graph with your own skills, then export the six-page report for this route. Free, no account.</p>
           </div>
           <Link className="rt-go" href={`/?from=${def.origin}`}>Run your own numbers &rarr;</Link>
@@ -114,7 +121,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
 
         {def.faq.length > 0 && (
           <div className="post-faq rt-faq">
-            <h3>Quick answers</h3>
+            <h2>Quick answers</h2>
             {def.faq.map((f) => (
               <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>
             ))}
@@ -132,16 +139,16 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
         headline: `${om.title} to ${r.title}: the measured route`,
         description: `Skill readiness ${r.match}%, posted band ${r.salary}, transition estimate ${r.time}.`,
         datePublished: '2026-07-22',
-        author: { '@type': 'Person', name: 'Carlos', url: 'https://pivothop.com/about' },
+        author: { '@type': 'Person', name: 'Carlos', url: 'https://www.pivothop.com/about' },
         publisher: { '@type': 'Organization', name: 'PivotHop' },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'PivotHop', item: 'https://pivothop.com/' },
-          { '@type': 'ListItem', position: 2, name: 'Routes', item: 'https://pivothop.com/routes' },
-          { '@type': 'ListItem', position: 3, name: `${om.title} to ${r.title}`, item: `https://pivothop.com/routes/${route}` },
+          { '@type': 'ListItem', position: 1, name: 'PivotHop', item: 'https://www.pivothop.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Routes', item: 'https://www.pivothop.com/routes' },
+          { '@type': 'ListItem', position: 3, name: `${om.title} to ${r.title}`, item: `https://www.pivothop.com/routes/${route}` },
         ],
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

@@ -3,7 +3,7 @@ import { POSTS } from './blog/posts';
 import { ROUTE_SLUGS } from './routes/routes-data';
 import { SALARY_SLUGS } from './salary/salary-data';
 
-const BASE = 'https://pivothop.com';
+const BASE = 'https://www.pivothop.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
