@@ -46,6 +46,21 @@ export function initSalaryChart(canvas, data) {
   }
   const X = (yr) => M.l + ((yr - yMin) / (yMax - yMin || 1)) * (W - M.l - M.r);
   const Y = (v) => M.t + (1 - (v - lo) / (hi - lo || 1)) * (H - M.t - M.b);
+  const clampN = (v, a, b) => Math.max(a, Math.min(b, v));
+  const yearAtX = (px) => clampN(yMin + ((px - M.l) / (W - M.l - M.r || 1)) * (yMax - yMin), yMin, yMax);
+  // linear interpolation of the band at any (fractional) year, so the readout
+  // follows the mouse continuously between the annual data points.
+  function bandAt(yr) {
+    if (yr <= pts[0].year) return pts[0];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const a = pts[i], b = pts[i + 1];
+      if (yr >= a.year && yr <= b.year) {
+        const t = (yr - a.year) / (b.year - a.year || 1);
+        return { p25: a.p25 + (b.p25 - a.p25) * t, p50: a.p50 + (b.p50 - a.p50) * t, p75: a.p75 + (b.p75 - a.p75) * t };
+      }
+    }
+    return pts[pts.length - 1];
+  }
 
   function draw(k, hover) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -136,14 +151,18 @@ export function initSalaryChart(canvas, data) {
       ctx.fillText('LIVE ' + money(current.p50), x - 7, y);
     }
 
-    // hover readout: a vertical guide at the nearest year and three value tags
-    // pinned to the band — 75th on top, median in the middle, 25th at the bottom.
-    if (hover && k >= 1) {
-      const hx = X(hover.year);
+    // hover readout: a vertical guide that glides along the line with the mouse,
+    // three value tags pinned to the band (75th top, median, 25th bottom). Values
+    // interpolate continuously between the annual points and magnetize to them;
+    // the whole thing fades in and out (hover.alpha).
+    if (hover && k >= 1 && hover.alpha > 0.01) {
+      const hx = hover.x;
+      const b = bandAt(yearAtX(hx));
+      ctx.globalAlpha = hover.alpha;
       ctx.strokeStyle = 'rgba(21,21,26,0.30)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
       ctx.beginPath(); ctx.moveTo(hx, M.t); ctx.lineTo(hx, H - M.b); ctx.stroke();
       ctx.setLineDash([]);
-      const items = [{ v: hover.p75, y: Y(hover.p75) }, { v: hover.p50, y: Y(hover.p50) }, { v: hover.p25, y: Y(hover.p25) }];
+      const items = [{ v: b.p75, y: Y(b.p75) }, { v: b.p50, y: Y(b.p50) }, { v: b.p25, y: Y(b.p25) }];
       for (const it of items) { ctx.fillStyle = PAL.accent; ctx.beginPath(); ctx.arc(hx, it.y, 3, 0, 6.29); ctx.fill(); }
       ctx.font = '10px "Space Mono", ui-monospace, monospace';
       let prevBot = -1e9;
@@ -157,6 +176,7 @@ export function initSalaryChart(canvas, data) {
         ctx.fillText(label, px + pad, ty);
       }
       ctx.textBaseline = 'middle';
+      ctx.globalAlpha = 1;
     }
 
     ctx.restore();
@@ -164,15 +184,31 @@ export function initSalaryChart(canvas, data) {
 
   size();
   window.addEventListener('resize', () => { size(); draw(1); });
-  // hover: snap to the nearest year and show the three band values there.
+  // hover: the guide follows the mouse continuously along the line, magnetizing
+  // to a data point when within MAG px, and eases toward its target with a fade —
+  // a subtle glide rather than a hard snap.
   canvas.style.cursor = 'crosshair';
+  const MAG = 16;
+  let hoverOn = false, targetX = 0, dispX = 0, alpha = 0, raf2 = null;
+  function hoverTick() {
+    dispX += (targetX - dispX) * 0.28;
+    const ta = hoverOn ? 1 : 0;
+    alpha += (ta - alpha) * 0.2;
+    const settled = Math.abs(targetX - dispX) < 0.4 && Math.abs(ta - alpha) < 0.01;
+    if (settled) { dispX = targetX; alpha = ta; }
+    draw(1, alpha > 0.01 ? { x: dispX, alpha } : null);
+    raf2 = settled ? null : requestAnimationFrame(hoverTick);
+  }
   canvas.addEventListener('mousemove', (e) => {
     const mx = e.offsetX;
-    let best = null, bd = Infinity;
-    for (const pt of pts) { const d = Math.abs(X(pt.year) - mx); if (d < bd) { bd = d; best = pt; } }
-    draw(1, best);
+    let tx = clampN(mx, M.l, W - M.r), bd = Infinity, nearX = 0;
+    for (const pt of pts) { const px = X(pt.year); const d = Math.abs(px - mx); if (d < bd) { bd = d; nearX = px; } }
+    if (bd < MAG) tx = nearX;                 // magnetize to the dot
+    targetX = tx;
+    if (!hoverOn) { hoverOn = true; dispX = tx; }
+    if (!raf2) raf2 = requestAnimationFrame(hoverTick);
   });
-  canvas.addEventListener('mouseleave', () => draw(1, null));
+  canvas.addEventListener('mouseleave', () => { hoverOn = false; if (!raf2) raf2 = requestAnimationFrame(hoverTick); });
   if (reduce) { draw(1); return; }
   let start = null;
   function anim(ts) {
