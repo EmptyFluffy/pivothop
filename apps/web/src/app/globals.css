@@ -601,7 +601,7 @@ input:focus-visible{outline:none}
 
 /* ── salary board ── */
 .salp .rt-facts .v{font-size:24px}
-.sal-chartwrap{margin:8px -30px 44px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--card);padding:20px 30px 24px}
+.sal-chartwrap{margin:0 -30px 44px;border-bottom:1px solid var(--ink);background:var(--card);padding:22px 30px 24px}
 .sal-chart-head{margin-bottom:10px}
 .sal-canvas{display:block;width:100%;height:340px}
 .sal-chart-pending{display:block;color:var(--ink-3);padding:40px 0;text-align:center}
@@ -618,6 +618,6 @@ input:focus-visible{outline:none}
    column so their left AND right edges align; the chart + facts stay full-bleed
    bands above. Editorial is justified for a clean right edge matching the bars;
    notes stay left (short lines justify badly). */
-.salp .rt-sec{max-width:40rem}
+.salp .rt-sec,.salp .rt-cta,.salp .rt-faq,.salp .rt-method,.salp .post-foot{max-width:40rem}
 .salp .rt-sec p{max-width:none;text-align:justify;text-align-last:left;text-justify:inter-word;hyphens:none}
 .salp .rt-note{text-align:left;hyphens:manual}

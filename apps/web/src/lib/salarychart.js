@@ -47,7 +47,7 @@ export function initSalaryChart(canvas, data) {
   const X = (yr) => M.l + ((yr - yMin) / (yMax - yMin || 1)) * (W - M.l - M.r);
   const Y = (v) => M.t + (1 - (v - lo) / (hi - lo || 1)) * (H - M.t - M.b);
 
-  function draw(k) {
+  function draw(k, hover) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.scale(dpr, dpr);
@@ -136,11 +136,43 @@ export function initSalaryChart(canvas, data) {
       ctx.fillText('LIVE ' + money(current.p50), x - 7, y);
     }
 
+    // hover readout: a vertical guide at the nearest year and three value tags
+    // pinned to the band — 75th on top, median in the middle, 25th at the bottom.
+    if (hover && k >= 1) {
+      const hx = X(hover.year);
+      ctx.strokeStyle = 'rgba(21,21,26,0.30)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(hx, M.t); ctx.lineTo(hx, H - M.b); ctx.stroke();
+      ctx.setLineDash([]);
+      const items = [{ v: hover.p75, y: Y(hover.p75) }, { v: hover.p50, y: Y(hover.p50) }, { v: hover.p25, y: Y(hover.p25) }];
+      for (const it of items) { ctx.fillStyle = PAL.accent; ctx.beginPath(); ctx.arc(hx, it.y, 3, 0, 6.29); ctx.fill(); }
+      ctx.font = '10px "Space Mono", ui-monospace, monospace';
+      let prevBot = -1e9;
+      for (const it of items) {
+        let ty = it.y; if (ty - 8 < prevBot) ty = prevBot + 10; prevBot = ty + 8;
+        const label = money(it.v);
+        const tw = ctx.measureText(label).width, pad = 6, pw = tw + pad * 2, ph = 16;
+        let px = hx + 9; if (px + pw > W - M.r) px = hx - 9 - pw;
+        ctx.fillStyle = PAL.ink; roundRect(ctx, px, ty - ph / 2, pw, ph, 2); ctx.fill();
+        ctx.fillStyle = PAL.paper; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        ctx.fillText(label, px + pad, ty);
+      }
+      ctx.textBaseline = 'middle';
+    }
+
     ctx.restore();
   }
 
   size();
   window.addEventListener('resize', () => { size(); draw(1); });
+  // hover: snap to the nearest year and show the three band values there.
+  canvas.style.cursor = 'crosshair';
+  canvas.addEventListener('mousemove', (e) => {
+    const mx = e.offsetX;
+    let best = null, bd = Infinity;
+    for (const pt of pts) { const d = Math.abs(X(pt.year) - mx); if (d < bd) { bd = d; best = pt; } }
+    draw(1, best);
+  });
+  canvas.addEventListener('mouseleave', () => draw(1, null));
   if (reduce) { draw(1); return; }
   let start = null;
   function anim(ts) {
@@ -150,6 +182,16 @@ export function initSalaryChart(canvas, data) {
     if (k < 1) requestAnimationFrame(anim);
   }
   requestAnimationFrame(anim);
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
 }
 
 function niceStep(raw) {
