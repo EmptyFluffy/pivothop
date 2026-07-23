@@ -166,7 +166,7 @@ export function EmployerForm({ occs, fan }: { occs: Occ[]; fan: Record<string, F
             <div className="ew-nav">
               <button type="button" className="ew-back" onClick={() => setStep(3)}>&larr; Back</button>
               <button className="ef-send" onClick={send}>
-                <span>Post the role, first month featured free</span>
+                <span>Post the job, first month featured free</span>
                 <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
               </button>
             </div>

@@ -23,7 +23,7 @@
   .main{min-width:0}
 
   /* ── nav ── */
-  .nav{display:grid;grid-template-columns:250px repeat(4,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
+  .nav{display:grid;grid-template-columns:250px repeat(5,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
   .nav .brand{position:relative;display:flex;align-items:center;gap:12px;padding:0 26px}
   .nav .brand .mark{width:30px;height:25px;color:var(--ink)}
   .nav .brand .wm{font-weight:700;font-size:15px;letter-spacing:.12em}
@@ -637,18 +637,20 @@ input:focus-visible{outline:none}
 }
 /* employer band on the board (ink; the CTA is a full-height panel) */
 .empband{display:flex;align-items:stretch;gap:0;margin:64px -30px 0;background:var(--ink);color:#fff}
-.eb-copy{flex:1;padding:46px 34px 46px 30px}
+.eb-copy{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 40px 40px 30px}
 .eb-eyebrow{color:rgba(255,255,255,.65)}
 .eb-copy h2{font-weight:600;font-size:clamp(22px,3.2vw,30px);letter-spacing:-.02em;line-height:1.15;margin:10px 0 12px;color:#fff}
 .eb-copy p{max-width:34rem;color:rgba(255,255,255,.82);font-size:14.5px;line-height:1.55}
 .eb-stats{display:flex;gap:34px;margin-top:20px}
 .eb-stats b{display:block;font-family:var(--mono);font-weight:700;font-size:22px}
 .eb-stats .lbl{color:rgba(255,255,255,.6)}
-.eb-cta{flex:0 0 auto;aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;background:#fff;color:var(--accent);font-weight:700;font-size:clamp(20px,2.2vw,26px);letter-spacing:-.02em;padding:0 26px;transition:background .15s,color .15s}
+/* perfect square: a definite width, height derived from it by aspect-ratio,
+   and align-self:center so the band's stretch can't pull it into a rectangle */
+.eb-cta{flex:0 0 auto;align-self:center;width:clamp(260px,26vw,340px);aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:12px;background:#fff;color:var(--accent);font-weight:700;font-size:clamp(20px,2.2vw,26px);letter-spacing:-.02em;padding:26px;transition:background .15s,color .15s}
 .eb-cta:hover{background:var(--accent);color:#fff}
 .eb-cta:hover .eb-sub{color:rgba(255,255,255,.6)}
 .eb-sub{font-family:var(--mono);font-weight:400;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);transition:color .15s}
-@media (max-width:760px){.empband{margin-left:-22px;margin-right:-22px;flex-direction:column}.eb-copy{padding:34px 22px}.eb-cta{padding:22px;width:100%;aspect-ratio:auto}}
+@media (max-width:760px){.empband{margin-left:-22px;margin-right:-22px;flex-direction:column}.eb-copy{padding:34px 22px}.eb-cta{align-self:auto;padding:28px 22px;width:100%;aspect-ratio:auto}}
 /* post-a-role wizard */
 /* the wizard escapes the 624px article measure: a wide, centered panel */
 #post{width:min(1060px,94vw);margin-left:calc((100% - min(1060px,94vw))/2);padding:38px 42px 42px}

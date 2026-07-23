@@ -111,7 +111,7 @@ export default function Employers() {
           </section>
 
           <section className="ab-sec ab-contact" id="post">
-            <h2>Post a role</h2>
+            <h2>Post a job</h2>
             <EmployerForm occs={occList()} fan={fan} />
           </section>
         </main>

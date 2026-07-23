@@ -93,7 +93,7 @@ export default function JobsHub() {
               <div><b>{routeCount}</b><span className="lbl">measured routes in</span></div>
             </div>
           </div>
-          <Link className="eb-cta" href="/employers#post">Post a role<span className="eb-sub">First month featured, free</span></Link>
+          <Link className="eb-cta" href="/employers#post">Post a job<span className="eb-sub">First month featured, free</span></Link>
         </section>
 
         <section className="rt-sec jb-byocc">
