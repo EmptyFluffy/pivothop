@@ -6,6 +6,10 @@ import { PageShell } from '../components/SiteChrome';
 import { EmployerForm, type FanIn } from './EmployerForm';
 import { jobsIndex, occList } from '../jobs/jobs-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../routes/routes-data';
+import { getSalary, usBand } from '../salary/salary-data';
+
+// Featured price after the free launch month. Change here to reprice everywhere.
+const PRICE = 149;
 
 export const metadata: Metadata = {
   title: 'Post a job — PivotHop',
@@ -22,6 +26,7 @@ function skillBank(): string[] {
 }
 
 export default function Employers() {
+  const occs = occList();
   // Adjacency fan-in per occupation: how many measured routes lead into it, and
   // from where — the "who will see this role" panel's data.
   const fan: Record<string, FanIn> = {};
@@ -37,6 +42,16 @@ export default function Employers() {
   }
   for (const k of Object.keys(fan)) fan[k].top = fan[k].top.sort((a, b) => b.m - a.m).slice(0, 3);
 
+  // Real typical band per occupation (p25–p75), so the form can offer a
+  // one-click salary prefill for the matched role.
+  const salaryHints: Record<string, { lo: number; hi: number }> = {};
+  for (const o of occs) {
+    const sal = getSalary(o.slug);
+    if (!sal) continue;
+    const b = usBand(sal);
+    if (b?.p25 && b?.p75) salaryHints[o.slug] = { lo: b.p25, hi: b.p75 };
+  }
+
   return (
     <PageShell active="employers">
       <div className="emp-post">
@@ -49,7 +64,21 @@ export default function Employers() {
             professions no title-based board surfaces. The first month of featured placement is free.
           </p>
         </header>
-        <EmployerForm occs={occList()} fan={fan} skills={skillBank()} />
+
+        <div className="ejf-pricing" aria-label="Pricing">
+          <div className="ejf-price-item">
+            <span className="ejf-price-amt">Free</span>
+            <span className="ejf-price-name">Standard listing</span>
+            <span className="ejf-price-desc">Tagged to the skill graph, matched to candidates, links out to apply. Always free.</span>
+          </div>
+          <div className="ejf-price-item feat">
+            <span className="ejf-price-amt">Free <span className="ejf-price-then">first month, then ${PRICE} / 30 days</span></span>
+            <span className="ejf-price-name">Featured placement</span>
+            <span className="ejf-price-desc">Shown first to the candidates whose skills already clear the bar. Free for every employer while the board fills.</span>
+          </div>
+        </div>
+
+        <EmployerForm occs={occs} fan={fan} skills={skillBank()} salaryHints={salaryHints} price={PRICE} />
       </div>
     </PageShell>
   );
