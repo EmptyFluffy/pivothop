@@ -267,7 +267,9 @@
     .nav.open .nav-menu .navlink.on{color:var(--accent)}
     .nav.open .nav-menu .cta{justify-content:flex-start;padding:18px 24px;height:auto;gap:10px}
     .hero{padding:64px 22px 44px}
-    .searchwrap{padding:0}
+    /* nav is 56px here; stickies keep sharing its border row (56 - 1).
+       ix-search/jb-stick offsets live next to their base rules (cascade order). */
+    .searchwrap{padding:0;top:55px}
     .searchbar{grid-template-columns:1fr;height:auto}
     .sdiv{display:none}
     .sfield{padding:16px 20px;border-bottom:0.5px solid var(--rule)}
@@ -295,6 +297,21 @@
 
   @media (max-width:560px){
     .nav{height:52px}
+    .searchwrap{top:51px}
+  }
+
+  /* phones: the graph canvas gives way to the rail — same data as a list.
+     The physics still mounts (loop settles once and stops); only the canvas
+     is hidden, so rail clicks, detail, and the trail all keep working. */
+  @media (max-width:760px){
+    .graph-stage{display:none}
+    .rail{border-bottom:none}
+    /* pristine landing: the prompt renders as a normal block and the (hidden,
+       pre-mounted) rail stays out of sight until the first role loads */
+    /* pristine: every pre-mounted band child (head, trail, grid) stays out of
+       sight behind the prompt until the first role load dismisses it */
+    .band:has(.graph-empty) > :not(.graph-empty){display:none}
+    .graph-empty{position:static;padding:54px 22px 58px}
   }
 
   .ico{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
@@ -730,6 +747,7 @@ input:focus-visible{outline:none}
 .ix-count{color:var(--ink-3);white-space:nowrap}
 .ix-search+.rt-index{border-top:none}
 .ix-empty{margin-top:26px}
+@media (max-width:760px){.ix-search{padding:12px 2px}.ix-search input{font-size:16.5px}}
 /* job board */
 .job-list{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid var(--ink)}
 .job-list-full{margin-top:0}
@@ -767,9 +785,13 @@ input:focus-visible{outline:none}
 /* full-bleed so the paper background covers the side gutters too (the inset
    Try/active row is transparent; without this the ledger shows through it) */
 .jb-stick{position:sticky;top:59px;z-index:40;background:var(--paper);margin:26px -30px 0;padding:0 30px}
+/* mobile nav is 56/52px — the stickies keep sharing its border row (n − 1).
+   Placed after the base rules above and for .ix-search so the cascade holds. */
+@media (max-width:980px){.ix-search,.jb-stick{top:55px}}
+@media (max-width:560px){.ix-search,.jb-stick{top:51px}}
 .jb-searchband{display:flex;align-items:center;gap:16px;margin:0 -30px 0;padding:24px 30px;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);background:var(--card)}
 .jb-ico{width:19px;height:19px;color:var(--ink-3);flex:0 0 auto}
-.jb-search{flex:1;background:transparent;border:none;font-family:inherit;font-weight:600;font-size:22px;letter-spacing:-.015em;color:var(--ink);padding:4px 0}
+.jb-search{flex:1;min-width:0;background:transparent;border:none;font-family:inherit;font-weight:600;font-size:22px;letter-spacing:-.015em;color:var(--ink);padding:4px 0}
 .jb-search:focus{outline:none}
 .jb-search::placeholder{color:var(--ink-3);font-weight:400}
 .jb-count{flex:0 0 auto;color:var(--ink-2);white-space:nowrap}
@@ -785,13 +807,11 @@ input:focus-visible{outline:none}
 .jb-showall{flex:0 0 auto;display:inline-flex;align-items:center;background:var(--accent);border:1px solid var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px 7px;white-space:nowrap;transition:background .12s,border-color .12s}
 .jb-showall:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .jb-mtoggle{display:none}
+.jb-mcount{display:none}
 .jb-filters select{appearance:none;-webkit-appearance:none;background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:7px 26px 6px 12px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 11px) 55%;background-size:4px 4px;background-repeat:no-repeat}
 .jb-filters select:focus{outline:none;border-color:var(--accent)}
 .jb-toggle{background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:7px 12px 6px;cursor:pointer;transition:all .12s}
 .jb-toggle.on{background:var(--accent);border-color:var(--accent);color:#fff}
-.jb-try{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin:12px 0 0;color:var(--ink-3)}
-.jb-try button{background:transparent;border:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule);padding:0 0 2px;cursor:pointer;transition:all .12s}
-.jb-try button:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .jb-active{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 0}
 .jb-pill{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:1px solid var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:7px 11px 6px;cursor:pointer;transition:background .12s,border-color .12s}
 .jb-pill:hover{background:var(--ink);border-color:var(--ink)}
@@ -824,6 +844,10 @@ input:focus-visible{outline:none}
 .feat-ledger{list-style:none;margin:0;padding:0}
 .feat-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:26px;padding:15px 30px;border-top:1px solid rgba(255,255,255,.22);transition:background .15s}
 .feat-i{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.42);transition:color .15s}
+/* featured company logo: native mark in a white chip, so the colour is contained
+   and the cobalt ledger stays two-tone. Soft shadow reads on blue and on paper. */
+.feat-logo{width:42px;height:42px;flex:none;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 1px 3px rgba(20,18,15,.16)}
+.feat-logo img{width:27px;height:27px;object-fit:contain;display:block}
 .feat-main{min-width:0}
 .feat-co{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62);transition:color .15s}
 .feat-t{display:block;font-weight:600;font-size:clamp(17px,2.2vw,22px);letter-spacing:-.015em;line-height:1.22;color:#fff;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .15s}
@@ -845,6 +869,8 @@ input:focus-visible{outline:none}
   .feat-side{grid-column:2;text-align:left;display:flex;gap:12px;align-items:baseline}
   .feat-pay{font-size:14px}
   .feat-arrow{display:none}
+  .feat-logo{width:36px;height:36px;border-radius:9px}
+  .feat-logo img{width:23px;height:23px}
 }
 /* employer band on the board (ink; the CTA is a full-height panel) */
 .empband{display:flex;align-items:stretch;gap:0;margin:64px -30px 0;background:var(--ink);color:#fff}
@@ -906,6 +932,15 @@ input:focus-visible{outline:none}
   .ew .ef-field .lbl{white-space:normal}
 }
 /* job detail */
+/* company mark: the real logo in a white chip when we have it, an initial
+   monogram otherwise, so every posting gets a clean, consistent header */
+.jd-head{display:flex;align-items:center;gap:20px;margin-bottom:8px}
+.jd-mark{width:60px;height:60px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;border:1px solid var(--rule)}
+.jd-mark img{width:40px;height:40px;object-fit:contain;display:block}
+.jd-mono{background:var(--card);font-family:var(--sans);font-weight:700;font-size:27px;color:var(--ink);letter-spacing:-.02em}
+.jd-headtext{min-width:0}
+.jd-headtext .jd-h1{margin-bottom:4px}
+@media (max-width:640px){.jd-head{gap:14px;align-items:flex-start}.jd-mark{width:46px;height:46px;border-radius:11px;margin-top:4px}.jd-mark img{width:30px;height:30px}.jd-mono{font-size:21px}}
 .jd-h1{margin-bottom:6px}
 .jd-co{font-size:16px;color:var(--ink-2);margin:0}
 .jd-applyrow{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:26px 0 10px}
@@ -925,10 +960,17 @@ input:focus-visible{outline:none}
 @media (max-width:760px){
   .jb-stick,.jb-searchband,.jb-filters,.jb-mtoggle{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}
   .jb-occfield{flex-basis:90px}
+  /* compact sticky sheet: one slim search row (16.5px+ dodges iOS focus zoom);
+     the live count moves into the Filters row so nothing clips off-screen */
+  .jb-searchband{padding-top:13px;padding-bottom:13px;gap:11px}
+  .jb-search{font-size:16.5px}
+  .jb-ico{width:16px;height:16px}
+  .jb-count{display:none}
+  .jb-mcount{display:inline;margin-left:auto;color:var(--ink-3);letter-spacing:.08em;text-transform:none}
   /* filters collapse behind a toggle so they don't eat the mobile screen */
   .jb-mtoggle{display:flex;align-items:center;gap:11px;width:calc(100% + 44px);background:var(--card);border:none;border-bottom:1px solid var(--rule);padding-top:14px;padding-bottom:14px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);cursor:pointer}
   .jb-mtoggle svg{width:19px;height:19px;color:var(--ink-2);flex:none}
-  .jb-mtoggle .jb-mchev{margin-left:auto;transition:transform .2s}
+  .jb-mtoggle .jb-mchev{margin-left:12px;transition:transform .2s}
   .jb.filters-open .jb-mtoggle .jb-mchev{transform:rotate(180deg)}
   .jb-filters{display:none}
   .jb.filters-open .jb-filters{display:flex;padding-top:14px;flex-direction:column;align-items:stretch;gap:12px}
@@ -939,7 +981,15 @@ input:focus-visible{outline:none}
   .jb-scoped .jb-searchband{flex-wrap:wrap}
   .jb-scoped .jb-showall{width:100%;justify-content:center;margin-top:10px}
 }
-@media (max-width:640px){.job-card{flex-direction:column;gap:6px}.job-side{text-align:left}.job-m{justify-content:flex-start}.job-arrow{display:none}}
+/* phones: the card stacks — title/company, then one left-aligned meta line
+   (pay · tags · date). align-items:stretch kills the stray centering the
+   desktop row's align-items:center caused once the card went column. */
+@media (max-width:640px){
+  .job-card{flex-direction:column;align-items:stretch;gap:7px;padding:15px 2px 14px}
+  .job-side{display:flex;align-items:baseline;gap:12px;text-align:left}
+  .job-m{justify-content:flex-start;margin-top:0;flex-wrap:wrap;white-space:normal}
+  .job-arrow{display:none}
+}
 .rt-index li{border-bottom:0.5px solid var(--rule)}
 .rt-index a{display:grid;grid-template-columns:1fr auto;grid-template-areas:"t m" "s m";gap:2px 20px;align-items:center;padding:17px 2px;text-decoration:none;color:var(--ink)}
 .rt-index a:hover .t{color:var(--accent)}
