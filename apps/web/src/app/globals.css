@@ -487,6 +487,40 @@ input:focus-visible{outline:none}
 .ejf-err input,.ejf-err textarea,.ejf-err select{border-bottom-color:#c0392b}
 .ejf-err .ejf-req{color:#c0392b}
 .ejf-errbox{margin-top:16px;padding:14px 16px;border:1px solid #c0392b;border-left:3px solid #c0392b;background:rgba(192,57,45,.055);color:#8f2019;font-size:14px;line-height:1.55}
+/* ── /admin: job-submissions review console ── */
+.adm{width:min(920px,94vw);margin:0 auto;padding:44px 0 90px}
+.adm-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:26px}
+.adm-head h1{font-weight:700;font-size:32px;letter-spacing:-.025em;margin:0}
+.adm-note{color:var(--ink-2);font-size:15px;line-height:1.6}
+.adm-list{display:flex;flex-direction:column;gap:16px}
+.adm-card{border:1px solid var(--rule);border-left:3px solid var(--rule-2);background:var(--card);padding:20px 22px}
+.adm-card.status-new{border-left-color:var(--accent)}
+.adm-card.status-posted{border-left-color:#2e7d32}
+.adm-card.status-declined{border-left-color:#c0392b;opacity:.65}
+.adm-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.adm-tier{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.adm-card-id h2{font-weight:600;font-size:18px;letter-spacing:-.01em;margin:4px 0 3px}
+.adm-co{font-size:14px;color:var(--ink-2)}
+.adm-card-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none}
+.adm-date{color:var(--ink-3)}
+.adm-status select{appearance:none;-webkit-appearance:none;background:var(--paper);border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding:6px 24px 6px 10px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 12px) 55%,calc(100% - 8px) 55%;background-size:4px 4px;background-repeat:no-repeat}
+.adm-saving{font-family:var(--mono);font-size:9px;color:var(--ink-3);margin-left:8px}
+.adm-meta{display:grid;grid-template-columns:1fr 1fr;gap:9px 24px;margin:0 0 14px}
+.adm-meta>div{display:flex;gap:12px;font-size:13.5px}
+.adm-meta dt{color:var(--ink-3);flex:0 0 78px;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding-top:3px}
+.adm-meta dd{margin:0;color:var(--ink);min-width:0;word-break:break-word}
+.adm-meta a{color:var(--accent-press)}
+.adm-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+.adm-tags .lbl{margin-right:4px}
+.adm-tags span:not(.lbl){font-family:var(--mono);font-size:10.5px;border:0.5px solid var(--rule-2);padding:3px 8px;color:var(--ink-2)}
+.adm-desc{margin:8px 0 2px}
+.adm-desc summary{cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.adm-desc p{margin:12px 0;line-height:1.6;color:var(--ink-2);white-space:pre-line}
+.adm-desc b{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.adm-card-foot{margin-top:16px;padding-top:13px;border-top:0.5px solid var(--rule)}
+.adm-reply{display:inline-block;background:var(--ink);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:10px 16px;text-decoration:none;transition:background .15s}
+.adm-reply:hover{background:var(--accent)}
+@media (max-width:640px){.adm-meta{grid-template-columns:1fr}.adm-card-top{flex-direction:column}.adm-card-actions{align-items:flex-start;flex-direction:row}}
 /* paste-a-JD shortcut */
 .ejf-paste{border:1px solid var(--rule);border-left:3px solid var(--accent);background:var(--card);padding:16px 18px 15px;margin:34px 0 8px}
 .ejf-paste-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:11px}

@@ -34,6 +34,14 @@ Local testing of the real insert (optional): put the same vars in `apps/web/.env
 
 They land in `job_submissions` with `status = 'new'`. Review by hand, post to the board (or the future admin path), and move `status` to `reviewing` / `posted` / `declined`. This is the concierge step that stays manual by design at hobbyist scale.
 
+
+
+## Reviewing submissions: /admin
+
+A password-gated console at `/admin` lists everything in `job_submissions` (newest first): company, role, tier, contact, salary, skills, benefits, the full description, and the apply destination. Each card has a status dropdown (new / reviewing / posted / declined, written straight back to Supabase) and a one-click prefilled "Reply to {company}" mailto.
+
+Gate: HTTP Basic Auth via `apps/web/src/middleware.ts`. Set **ADMIN_PASSWORD** (and optionally ADMIN_USER, default `admin`) in the Vercel env. The page is noindexed and disallowed in robots. Without the Supabase env it shows a "not connected" note.
+
 ## Still to do for launch (unrelated to this wiring)
 
 - The host-level **301**: apex → www and http → https (see memory `canonical-host-www`). Add `www.pivothop.com` as the primary domain in Vercel and redirect the apex.
