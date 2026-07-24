@@ -1,0 +1,243 @@
+/* The prose layer of the route report — everything the mechanical numbers can't
+   write on their own: the verdict, the sequenced 90-day plan, the evidence
+   checklist, the timeline copy. Two producers, one shape:
+
+     buildProse(d)              deterministic, templated from the numbers. Works
+                                with no API key; it is the graceful fallback and
+                                the exemplar the AI imitates.
+     buildProseAI(d, apiKey)    one Anthropic call for the bespoke, per-person
+                                version; falls back to buildProse on any failure.
+
+   Voice mirrors the approved draft: deadpan, numbers over adjectives, no
+   exclamation points, <b> only on figures. Fields are inserted raw into the
+   template, so light HTML (<b>) is allowed; punctuation is plain unicode.      */
+
+const b = (s) => `<b>${s}</b>`;
+const money = (n) => '$' + Math.round(n / 1000) + 'k';
+const oneOf = (arr, i) => arr[i % arr.length];
+
+/* ── helpers over the mechanical data ─────────────────────────────────── */
+function analyze(d) {
+  const wf = d.waterfall || [];
+  const have = wf.filter((w) => w.earned > 0);
+  const gaps = wf.filter((w) => w.earned === 0).sort((a, z) => z.pts - a.pts);
+  const partials = wf.filter((w) => w.earned > 0 && w.earned < w.pts - 0.05).sort((a, z) => z.pts - a.pts);
+  const earned = Math.round(have.reduce((s, w) => s + w.earned, 0) * 10) / 10;
+  const top3 = gaps.slice(0, 3);
+  const top3pts = Math.round(top3.reduce((s, w) => s + w.pts, 0) * 10) / 10;
+  const after3 = Math.min(99, Math.round(earned + top3pts));
+  return { have, gaps, partials, earned, top3, top3pts, after3 };
+}
+// origin band vs dest band, as a plain verdict fragment
+function payDelta(d) {
+  const [olo, ohi] = d.origin.salary_band || [0, 0];
+  const [dlo, dhi] = d.dest.salary_band || [0, 0];
+  const om = (olo + ohi) / 2, dm = (dlo + dhi) / 2;
+  if (!om || !dm) return { word: 'holds', line: 'The posted bands are close.' };
+  const r = dm / om;
+  if (r >= 1.08) return { word: 'rises', line: 'The destination posts higher.' };
+  if (r <= 0.92) return { word: 'dips', line: 'Expect a trim in posted pay for the move.' };
+  return { word: 'holds', line: 'The bands sit on top of each other.' };
+}
+
+/* ── the deterministic fallback ───────────────────────────────────────── */
+export function buildProse(d) {
+  const A = analyze(d);
+  const dest = d.dest.title;
+  const destL = dest.toLowerCase();
+  const origin = d.origin.title;
+  const g = A.top3.map((w) => w.name);
+  const pay = payDelta(d);
+  const rank = d.dest.rank;
+  const routeCount = d.routeCount;
+  const rankPhrase = rank === 1 ? 'the nearest of the routes your skills already reach'
+    : rank && routeCount ? `route number ${rank} of the ${routeCount} your skills reach`
+    : 'one of the routes your skills already reach';
+  const gapPhrase = A.top3.length >= 3 ? 'three named skills rather than a degree'
+    : A.top3.length ? `${g.join(' and ')} rather than a degree` : 'narrow';
+  const licensePhrase = d.dest.license
+    ? `A credential does gate this one, so plan for the license as well as the skills.`
+    : `No license stands at the door, which is not a given for a move out of ${origin.toLowerCase()}.`;
+  const flowPhrase = (d.dest.mobility != null && d.dest.mobility >= 50 && /observed/.test(d.dest.mobilitySource || ''))
+    ? ' In the worker-flow data this is a move people actually make.' : '';
+
+  const verdict = `This is ${rankPhrase}. You already hold ${b(`${A.earned} of the 100 points`)} that ${destL} postings ask for, and the gap is ${gapPhrase}. ${licensePhrase}${flowPhrase} On pay, the move ${pay.word}.`;
+
+  const decodedNote = A.partials.length
+    ? `Partial rows (${A.partials.slice(0, 4).map((w) => w.name).join(', ')}) mean the postings want a deeper or ${destL}-specific version of a skill you already carry — the fastest points on the board after the named gap.`
+    : `Every point you hold is a skill the ${destL} postings name outright; the gap is a short, specific list, not a rebuild.`;
+
+  // 90-day plan — the top three gaps, in value order, then applications
+  const artifact = (w) => `a portfolio artifact that puts ${w.name} to work in the format ${destL} employers review`;
+  const phases = [];
+  if (A.top3[0]) phases.push({
+    weeks: 'WK 01–04', title: `${A.top3[0].name}, done in public`, worth: `+${A.top3[0].pts.toFixed(1)} pts`,
+    steps: [
+      `Close the single most valuable gap first: ${A.top3[0].name} is worth ${b(`+${A.top3[0].pts.toFixed(1)} points`)}, more than any other missing skill. Produce ${artifact(A.top3[0])}.`,
+      `Reframe two projects you have already done through ${A.top3[0].name}; the work exists, the lens is new.`,
+      `Adopt the vocabulary the postings use for it — the words are half of what a screener matches on.`,
+    ],
+    proof: `Two artifacts that demonstrate ${A.top3[0].name}, in the exact form an employer would receive.`,
+  });
+  const p2 = A.top3.slice(1);
+  if (p2.length) phases.push({
+    weeks: 'WK 05–08', title: `${p2.map((w) => w.name).join(' + ')}, on paper`, worth: `+${p2.reduce((s, w) => s + w.pts, 0).toFixed(1)} pts`,
+    steps: [
+      `Build the deliverable that proves ${p2[0].name} (${b(`+${p2[0].pts.toFixed(1)}`)})${p2[1] ? ` and, alongside it, ${p2[1].name} (${b(`+${p2[1].pts.toFixed(1)}`)})` : ''}.`,
+      A.have[0] ? `Lean on ${A.have[0].name}, which you already hold, as the bridge into it — same muscle, different paperwork.` : `Keep each piece small and finished; a shipped artifact beats a polished intention.`,
+      `Package everything as documents, not descriptions — the artifact is the argument.`,
+    ],
+    proof: `One finished deliverable per skill, exported as the document that reads as competence.`,
+  });
+  phases.push({
+    weeks: 'WK 09–12', title: 'Applications, positioned as proof', worth: `→ ${A.after3}%`,
+    steps: [
+      `Re-narrate three ${origin.toLowerCase()} projects as ${destL} stories: same work, new camera.`,
+      d.board.open ? `Apply against the live board — ${b(`${d.board.open} ${destL} role${d.board.open > 1 ? 's are' : ' is'} open today`)}${d.board.companies[0] ? `, several at ${d.board.companies[0][0]}` : ''}. Lead with the artifacts.` : `Apply where the postings are freshest, and lead with the artifacts, not the title.`,
+      `Name the number in every conversation: your skills cover ${b(`${A.after3}%`)} of what the postings ask once the three gaps close, and the evidence is attached.`,
+    ],
+    proof: `Three applications sent with the re-cut portfolio, each cover note citing the readiness number and an artifact.`,
+  });
+
+  const firstMove = A.top3[0]
+    ? `This week, produce one small artifact that puts ${A.top3[0].name} to work — the highest-value gap on the board. That single piece seeds Phase 1 and becomes the first page of the new portfolio.`
+    : `This week, re-narrate one project you are proud of in the language of ${destL} postings. It is the cheapest way to start reading as ${destL}, not ${origin.toLowerCase()}.`;
+
+  const longArc = `The ${d.dest.time} figure is the full arc to hired-and-settled, estimated from how long this gap typically closes alongside a day job. The 90-day plan is its first quarter — the part that makes you interview-able. First conversations tend to open a few months in; matching your current seniority takes the rest.`;
+
+  // evidence — the gaps as artifacts, plus positioning
+  const evItems = A.top3.map((w) => ({
+    item: `An artifact that proves ${w.name}`,
+    why: `${w.name} is ${w.pts.toFixed(1)} points and unprovable by assertion; the artifact proves it in the format employers actually review.`,
+    covers: `+${w.pts.toFixed(1)} pts`,
+  }));
+  if (A.partials[0]) evItems.push({
+    item: `A piece that deepens ${A.partials[0].name}`,
+    why: `You hold the base already; showing the ${destL} depth of it converts a partial row into a full one.`,
+    covers: `+${(A.partials[0].pts - A.partials[0].earned).toFixed(1)} pts`,
+  });
+  evItems.push({
+    item: `${origin} projects re-narrated as ${destL}`,
+    why: `Same work, ${destL} camera. Costs nothing but the reframing, and it is what makes the transferable skills legible.`,
+    covers: 'positioning',
+  });
+  const evidence = {
+    intro: `${dest} hiring runs on artifacts, not certificates. Each item below is checkable, fits in a portfolio, and maps to points in the gap. The right-hand column is what the artifact evidences.`,
+    items: evItems.slice(0, 6),
+    checkpoints: [
+      `By week 4 you can produce a defensible ${A.top3[0] ? A.top3[0].name.toLowerCase() : 'first'} artifact in under a day — the speed itself is the signal.`,
+      `By week 8 the portfolio holds pieces a ${origin.toLowerCase()} portfolio does not, aimed squarely at ${destL}.`,
+      `By week 12 you apply with a ${A.after3}% readiness claim you can itemize${d.board.open ? `, on a board with ${d.board.open} open seat${d.board.open > 1 ? 's' : ''}` : ''}.`,
+    ],
+  };
+
+  // timeline — the plan's three phases plus the hiring window from the time band
+  const [lo, hi] = parseTime(d.dest.time);
+  const timeline = {
+    intro: `Ninety days makes you interview-able; the hiring window opens around month ${lo}. Every milestone below is a deliverable you can check the week it lands, not an intention.`,
+    weekly: `Pacing assumes six to eight focused hours a week alongside your current job — the cadence the ${lo}–${hi} month figure is measured from, not a sabbatical. Miss a week and the window shifts a week; it does not close.`,
+    phases: [
+      { title: 'The 90-day plan', span: 'Weeks 1–12', stones: [
+        { when: 'Week 4', label: `${A.top3[0] ? A.top3[0].name : 'First artifacts'} proven`, detail: phases[0].proof },
+        A.top3.length > 1 ? { when: 'Week 8', label: `${A.top3.slice(1).map((w) => w.name).join(' + ')} documented`, detail: 'The deliverables no origin-field portfolio carries.' } : { when: 'Week 8', label: 'Depth added', detail: 'The partial skills deepened into full points.' },
+        { when: 'Week 12', label: 'First applications out', detail: `Three roles, portfolio re-cut, each cover note citing the ${A.after3}% readiness claim.` },
+      ] },
+      { title: 'Compounding', span: `Months 4–${Math.max(4, lo - 1)}`, stones: [
+        { when: 'Month 4–5', label: 'First conversations begin', detail: 'The readiness number is what gets you into the room this early.' },
+        { when: `Month ${Math.max(5, lo - 3)}`, label: 'Portfolio v2 · review point', detail: 'Re-run the graph. If two checkpoints have slipped, adjust the plan — not the goal.' },
+      ] },
+      { title: 'Hiring window', span: `Months ${lo}–${hi}`, hot: true, stones: [
+        { when: `Month ${lo}`, label: 'Hiring window opens', detail: `Where this pivot typically lands — the point the ${lo}–${hi} month figure is measured to.`, hot: true },
+        { when: `Month ${Math.round((lo + hi) / 2)}–${hi}`, label: 'Seniority-match offers', detail: 'Matching your current level, rather than restarting junior, takes the back half of the arc.', hot: true },
+      ] },
+    ],
+  };
+
+  const altsLicensed = (d.alternates || []).filter((a) => /licens|pe /i.test(a.gate || '')).length;
+  const alternatesNote = (d.alternates && d.alternates.length)
+    ? `Ranked by the same 100-point read.${altsLicensed >= (d.alternates.length) ? ` All ${d.alternates.length} run through licensure — which is why ${destL}, gated nowhere, is the route this report prices.` : d.dest.license ? '' : ` ${dest} clears without one, which is part of why it prices first.`}`
+    : `No other route your skills reach clears the confidence bar yet; ${destL} is the one the numbers support.`;
+
+  const salaryVerdict = `${origin} posts ${b(`${money(d.origin.salary_band[0])}–${money(d.origin.salary_band[1])}`)}; ${destL} posts ${b(`${money(d.dest.salary_band[0])}–${money(d.dest.salary_band[1])}`)}. ${pay.line} Read from ${d.dest.provenance.salaried.toLocaleString()} postings that state pay.`;
+
+  return { verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
+}
+
+function planIntro(A, destL) {
+  if (!A.top3.length) return `The plan below turns a small, specific gap into hiring readiness for ${destL}, one checkable artifact at a time.`;
+  return `The sequence below is ordered by what each missing skill is worth, not by what is easiest. ${A.top3[0].name} alone carries ${b(`${A.top3[0].pts.toFixed(1)} of the ${(100 - A.earned).toFixed(1)} missing points`)}, so it goes first. Every phase produces an artifact; nothing here is a course for its own sake.`;
+}
+
+export function parseTime(time) {
+  const m = String(time || '').match(/(\d+)\s*[–\-—]\s*(\d+)/);
+  if (m) return [Number(m[1]), Number(m[2])];
+  const one = String(time || '').match(/(\d+)/);
+  const n = one ? Number(one[1]) : 12;
+  return [Math.max(3, Math.round(n * 0.7)), n];
+}
+
+/* ── the AI version ───────────────────────────────────────────────────── */
+export async function buildProseAI(d, apiKey) {
+  const fallback = buildProse(d);
+  if (!apiKey) return fallback;
+  const A = analyze(d);
+  const facts = {
+    origin: d.origin.title, dest: d.dest.title,
+    readiness: A.earned, gapTotal: Math.round((100 - A.earned) * 10) / 10,
+    topGaps: A.top3.map((w) => ({ skill: w.name, points: w.pts })),
+    partialSkills: A.partials.slice(0, 5).map((w) => ({ skill: w.name, have: w.earned, of: w.pts })),
+    heldSkills: A.have.slice(0, 8).map((w) => w.name),
+    afterTop3: A.after3, time: d.dest.time, licensed: !!d.dest.license,
+    salary: { origin: d.origin.salary_band, dest: d.dest.salary_band },
+    demand: d.dest.demand, remote: d.dest.remote,
+    board: { open: d.board.open, companies: d.board.companies },
+    mobility: d.dest.mobility, mobilitySource: d.dest.mobilitySource,
+  };
+  const sys = `You write one section of a career-transition report for PivotHop. Voice: deadpan, precise, numbers over adjectives, no exclamation points, no motivational filler, second person ("you"). Wrap key figures in <b></b>. Use plain unicode punctuation. Every claim must be grounded in the FACTS provided; invent no numbers. The reader is moving from ${d.origin.title} to ${d.dest.title}. Return ONLY valid JSON matching the SHAPE exactly, no prose around it.`;
+  const shape = `SHAPE = {
+ "verdict": "2-4 sentences: where this route ranks, points already held, the nature of the gap (skills vs credential), whether people actually make the move, and the pay direction.",
+ "decodedNote": "1 sentence about partial-credit skills (a deeper/role-specific version of something held).",
+ "plan": {
+   "intro": "1-2 sentences: the plan is sequenced by what each gap skill is worth.",
+   "phases": [ {"weeks":"WK 01–04","title":"short","worth":"+X.X pts","steps":["3 concrete steps, each tied to a real skill from FACTS"],"proof":"the artifact this phase yields"}, (exactly 3 phases: weeks 1-4, 5-8, 9-12; phase 3 titled around applications with worth like "→ NN%") ],
+   "firstMove": "1-2 sentences: the single artifact to make THIS week.",
+   "longArc": "2-3 sentences framing the full ${d.dest.time} arc vs the 90-day quarter."
+ },
+ "evidence": { "intro":"1-2 sentences","items":[{"item":"artifact","why":"1 sentence","covers":"+X.X pts | positioning"} x5-6],"checkpoints":["3 measurable week-N checks"] },
+ "timeline": {
+   "intro":"1-2 sentences","weekly":"1-2 sentences on pacing (6-8 hrs/week)",
+   "phases":[ {"title":"The 90-day plan","span":"Weeks 1–12","stones":[{"when":"Week 4","label":"deliverable","detail":"1 sentence"} x3]}, {"title":"Compounding","span":"Months 4–8","stones":[{when,label,detail} x2]}, {"title":"Hiring window","span":"Months L–H","hot":true,"stones":[{when,label,detail,"hot":true} x2]} ]
+ },
+ "alternatesNote": "1 sentence about the fallback routes.",
+ "salaryVerdict": "1-2 sentences comparing the two posted bands."
+}`;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5', max_tokens: 3000, system: sys,
+        messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\n${shape}\n\nReturn the JSON now.` }],
+      }),
+    });
+    if (!res.ok) return fallback;
+    const j = await res.json();
+    let text = (j.content || []).map((c) => c.text || '').join('').trim();
+    text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
+    const start = text.indexOf('{'), end = text.lastIndexOf('}');
+    if (start < 0 || end < 0) return fallback;
+    const out = JSON.parse(text.slice(start, end + 1));
+    // shape-guard: any missing branch falls back to the templated field
+    return {
+      verdict: out.verdict || fallback.verdict,
+      decodedNote: out.decodedNote || fallback.decodedNote,
+      plan: out.plan?.phases?.length ? { intro: out.plan.intro || fallback.plan.intro, phases: out.plan.phases, firstMove: out.plan.firstMove || fallback.plan.firstMove, longArc: out.plan.longArc || fallback.plan.longArc } : fallback.plan,
+      evidence: out.evidence?.items?.length ? { intro: out.evidence.intro || fallback.evidence.intro, items: out.evidence.items, checkpoints: out.evidence.checkpoints || fallback.evidence.checkpoints } : fallback.evidence,
+      timeline: out.timeline?.phases?.length ? { intro: out.timeline.intro || fallback.timeline.intro, weekly: out.timeline.weekly || fallback.timeline.weekly, phases: out.timeline.phases } : fallback.timeline,
+      alternatesNote: out.alternatesNote || fallback.alternatesNote,
+      salaryVerdict: out.salaryVerdict || fallback.salaryVerdict,
+    };
+  } catch {
+    return fallback;
+  }
+}

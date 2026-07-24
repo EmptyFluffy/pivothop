@@ -964,16 +964,43 @@ export function mountInstrument(DATA,HOOKS){
   document.getElementById('xclose').addEventListener('click',closeX);
   document.getElementById('xveil').addEventListener('click',closeX);
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeX();});
+  // The report request goes to /api/roadmap, which builds the six-page PDF and
+  // emails it. destId is the selected route (a role's id, or a bridged kid's
+  // slug); the current origin's top route is the default when nothing is picked.
+  function currentDestId(){
+    if(xsel&&xsel.kind==='kid'&&xsel.kid) return xsel.kid.slug;
+    if(xsel&&xsel.kind==='role'&&xsel.role) return xsel.role.id;
+    return ROLES[0]&&ROLES[0].id;
+  }
+  function showNote(em,msg){
+    var note=em.parentNode.querySelector('.send-note');
+    if(!note){note=document.createElement('div');note.className='fnote send-note';note.style.color='var(--ink)';em.parentNode.insertBefore(note,em.nextSibling);}
+    note.textContent=msg;
+  }
+  function clearNote(em){var n=em.parentNode.querySelector('.send-note');if(n)n.remove();}
+  function sendReport(em,btn,label,source,notify){
+    if(!em||!em.value||!em.checkValidity()){showNote(em,'Enter a valid email first.');em.focus();return;}
+    clearNote(em);
+    var span=btn.querySelector('span')||btn;
+    var was=span.textContent; span.textContent='Sending\u2026'; btn.disabled=true;
+    fetch('/api/roadmap',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({
+      email:em.value.trim(), originSlug:DATA.originSlug, destId:currentDestId(),
+      notify:!!notify, personalized:!!DATA.personalized, source:source
+    })}).then(function(r){return r.json().catch(function(){return{};});}).then(function(j){
+      if(j&&j.ok){ span.textContent=j.delivered?'Sent \u2014 check your inbox':'You\u2019re on the list \u2014 report on its way'; }
+      else { btn.disabled=false; span.textContent=was; showNote(em, (j&&j.error==='invalid-email')?'Enter a valid email first.':'Something went wrong. Try again.'); }
+    }).catch(function(){ btn.disabled=false; span.textContent=was; showNote(em,'Network hiccup \u2014 try again.'); });
+  }
   var xsend=document.getElementById('xsend');
   if(xsend){xsend.addEventListener('click',function(){
-    var em=document.getElementById('xemail');
-    var note=document.getElementById('xemailNote');
-    if(em&&(!em.value||!em.checkValidity())){
-      if(!note){note=document.createElement('div');note.id='xemailNote';note.className='fnote';note.style.color='var(--ink)';note.textContent='Enter a valid email first.';em.parentNode.insertBefore(note,em.nextSibling);}
-      em.focus();return;
-    }
-    if(note)note.remove();
-    xsend.querySelector('span').textContent='Sent \u2014 check your inbox';
+    sendReport(document.getElementById('xemail'),xsend,'Send my report','graph-export',false);
+  });}
+  var capBtn=document.getElementById('capBtn');
+  if(capBtn){capBtn.addEventListener('click',function(){
+    var wrap=capBtn.closest('.capture')||document;
+    var em=wrap.querySelector('input[type="email"]');
+    var chk=wrap.querySelector('input[type="checkbox"]');
+    sendReport(em,capBtn,'Send my roadmap','capture-band',chk&&chk.checked);
   });}
 
   function loadOrigin(nd){ DATA=nd; derive(); seedCompressed(); initLabels(); buildDOM(); buildRail(); hydrateStatic(); runUnfold(); }
