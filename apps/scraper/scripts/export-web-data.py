@@ -45,6 +45,27 @@ def to_data(g):
             'separations': o.get('separations'), 'roles': roles, 'next': nxt,
             'cross': g.get('cross', []), 'bridges': g.get('bridges', [])}
 
+# The rich, authoritative per-origin payload for the route report (PDF export):
+# the real skill waterfall, provenance counts, and salary bands the graph payload
+# above trims out. Served at /data/report/{slug}.json, read server-side only.
+def to_report(g):
+    def role(r):
+        return {'id': r['id'], 'title': r['title'], 'match': r['match'],
+                'salary': r.get('salary') or '—', 'salary_band': r.get('salary_band'),
+                'demand': r.get('demand', ''), 'remote': r.get('remote', ''),
+                'time': r.get('time', ''), 'license': r.get('license'),
+                'capability': r.get('capability'), 'mobility': r.get('mobility'),
+                'mobility_source': r.get('mobility_source'),
+                'have': r.get('have', []), 'learn': r.get('learn', []),
+                'waterfall': r.get('waterfall', []), 'provenance': r.get('provenance')}
+    o = g['origin']
+    return {'origin': {'title': o['title'], 'slug': o['slug'], 'postings': o.get('postings', 0),
+                       'salary': o.get('salary'), 'salary_band': o.get('salary_band')},
+            'roles': [role(r) for r in g['roles']],
+            'next': {r['id']: [{'t': k['t'], 'm': k['m'], 'slug': k.get('slug'), 'gap': k.get('gap', []),
+                                'have': k.get('have', []), 'learn': k.get('gap', [])}
+                               for k in g.get('next', {}).get(r['id'], [])] for r in g['roles']}}
+
 def fmt_sal(p25, p75):
     if not p25 or not p75: return None
     k = lambda v: f'${round(v / 5000) * 5}k'
@@ -55,6 +76,7 @@ def demand(c):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
+    REP = os.path.join(OUT, 'report'); os.makedirs(REP, exist_ok=True)
     occ = json.load(open(os.path.join(TAX, 'occupations.json')))['occupations']
     skills = {s['id']: s['name'] for s in json.load(open(os.path.join(TAX, 'skills.json')))['skills']}
     agg = json.load(open(AGG))['roles']
@@ -67,6 +89,7 @@ def main():
         if g.get('insufficient') or not g.get('roles'): continue
         d = to_data(g)
         json.dump(d, open(os.path.join(OUT, f"{d['originSlug']}.json"), 'w'), ensure_ascii=False)
+        json.dump(to_report(g), open(os.path.join(REP, f"{d['originSlug']}.json"), 'w'), ensure_ascii=False)
         n += 1
 
     index = []
