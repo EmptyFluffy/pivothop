@@ -38,6 +38,149 @@ const Sources = ({ children }: { children: ReactNode }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'what-is-career-adjacency',
+    title: 'What is career adjacency? The full method, the acronyms, and the numbers',
+    pillar: 'What Carried Over',
+    date: 'July 2026',
+    dek: 'Career adjacency is the distance between two occupations measured in shared skills, not job titles. Here is exactly how we compute it from 151,369 live postings, what the three signals are, what every acronym means, and why 63 percent of the routes we score are dead ends.',
+    minutes: 12,
+    faq: [
+      { q: 'What is career adjacency?', a: 'Career adjacency is the measurable distance between two occupations, set by the skills they share rather than the titles they carry. Two jobs are adjacent when the skills one of them demands already cover most of what the other demands. PivotHop computes it as a readiness score, the percentage of a destination role’s most common skills that an origin role already requires, read from live job postings.' },
+      { q: 'How is career adjacency measured?', a: 'From live job postings. For every occupation we extract the skills its postings actually demand, then for each origin-to-destination pair we compute coverage: the share of the destination’s top 20 skills the origin already has. That coverage, rounded to a percentage, is the readiness score. Pairs are ranked by coverage and broken by weighted Jaccard overlap, and any pair sharing fewer than three skills is left unscored.' },
+      { q: 'What is a good readiness score for a career change?', a: 'In our July 2026 data, most occupation pairs are far apart: 63 percent score under 20 percent readiness. A route above 50 percent is genuinely close, and only 93 of 7,946 measured routes reach 60 percent or higher. Above 60 percent the skill gap is a matter of months, not years, though a license can still stand in the way regardless of the score.' },
+      { q: 'Does a high readiness score mean I will get hired?', a: 'No. Readiness measures skill overlap, not eligibility or luck. A licensed destination like nurse practitioner or dental hygienist can score high on skills and still require a credential that takes years, which is why we flag the license separately. Readiness tells you how far the skills are, not whether a gate stands between you and the role.' },
+      { q: 'How is this different from O*NET related occupations?', a: 'O*NET (the US Department of Labor’s Occupational Information Network) publishes curated relatedness: expert judgment about which jobs are similar. It misses non-obvious moves, like architect to UX designer, that never show up in a taxonomy but happen constantly in the market. We measure adjacency from live demand and corroborate it with where people actually moved, so the non-obvious routes surface on their own.' },
+    ],
+    body: (
+      <>
+        <p>
+          Career adjacency is the measurable distance between two occupations, set by the skills they share rather than the titles they carry. Two jobs are adjacent when the skills one of them demands already cover most of what the other demands. It is not a metaphor and it is not a personality quiz. It is a number, it is read from live job postings, and this piece is the whole method: the formula, the three signals behind it, every acronym spelled out, and what the numbers actually say.
+        </p>
+        <h2>Why titles are the wrong unit</h2>
+        <p>
+          A job title is a marketing decision. The same work is a &ldquo;product designer&rdquo; at one company and a &ldquo;UX designer&rdquo; at the next, a &ldquo;financial analyst&rdquo; here and a &ldquo;finance business partner&rdquo; there. Titles also hide the opposite case: two roles that sound identical and share almost no daily work. Search by title and you inherit every one of those distortions.
+        </p>
+        <p>
+          Skills do not have that problem. A posting for a role lists what the role requires, and those requirements are comparable across titles, companies, and countries. So we throw the titles away as a matching key and keep them only as labels. Adjacency is computed on the skill vectors underneath.
+        </p>
+        <div className="post-callout"><b>151,369</b><span>live postings across <strong>180 occupations</strong> in the July 2026 run. Every readiness number below is read from that corpus, not from a survey and not from expert opinion.</span></div>
+        <h2>Signal one: skills coverage, the readiness score</h2>
+        <p>
+          The core number is coverage. For every occupation we take the skills its postings most often demand and keep the top 20. Then, for a given origin and destination, we ask a single question: what share of the destination&rsquo;s top 20 skills does the origin already require? That share, times 100 and rounded, is the readiness score.
+        </p>
+        <div className="post-callout"><b>match = round(100 &times; coverage)</b><span>coverage is the fraction of the destination&rsquo;s top-20 posting skills the origin already demands. Ranked by coverage, then broken by weighted <a className="gl" href="/glossary#jaccard">Jaccard</a> overlap. Pairs sharing fewer than three skills are left unscored.</span></div>
+        <p>
+          A worked example. A software engineer moving to backend developer scores <strong>73 percent</strong>: of the fifteen skills that define a backend developer in the postings, a software engineer already brings all fifteen, and the two roles overlap enough that the move is a lateral step, not a leap. The <a className="gl" href="/glossary#jaccard">Jaccard</a> figure, 0.54, is the tiebreaker: shared skills divided by all distinct skills across both roles, so it rewards pairs that are close in both directions, not just one.
+        </p>
+        <p>
+          The three-skill floor matters. Two occupations that share only a word like &ldquo;communication&rdquo; are not adjacent, they are unrelated, and scoring them would manufacture a route that does not exist. Below three shared skills we return nothing rather than a small, false number.
+        </p>
+        <h2>Signal two: who employers say they welcome</h2>
+        <p>
+          Coverage is forward-looking demand, but it cannot see intent. So we read the postings a second way, for the sentences where a destination explicitly welcomes an origin background: &ldquo;architecture or industrial-design background a plus,&rdquo; &ldquo;former teachers encouraged to apply.&rdquo; This is employer-attested adjacency, and it catches the non-obvious human moves that a skills model alone would rank too low.
+        </p>
+        <div className="post-callout"><b>28,553</b><span>postings scanned for a welcomed background; <strong>1,749</strong> of them name an adjacent origin outright. These are the routes employers are telling you they will take, in their own words.</span></div>
+        <h2>Signal three: where people actually went</h2>
+        <p>
+          Demand is what employers want next. It is not the same as what workers actually did. The third signal is observed mobility: real occupation-to-occupation transitions, from government and resume data. We use three sources, chained by strength.
+        </p>
+        <table className="post-table">
+          <caption>The observed-flow layer &middot; all Creative-Commons-licensed, so a product that charges can legally use them</caption>
+          <thead><tr><th>Source</th><th>What it is</th><th>Signal</th></tr></thead>
+          <tbody>
+            <tr><td>US mobility network</td><td>Occupational transitions derived from the <a className="gl" href="/glossary#cps">CPS</a>, 2010&ndash;2017</td><td>Real worker flows</td></tr>
+            <tr><td>EU resume trajectories</td><td>JobHop career paths, finer on design and creative roles</td><td>Real worker flows</td></tr>
+            <tr><td><a className="gl" href="/glossary#onet">O*NET</a> related occupations</td><td>Curated expert relatedness, US Dept of Labor</td><td>Baseline, last resort</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The rule for this layer is fixed: <strong>corroboration, never ranking.</strong> Postings measure where demand is going; flow measures where people already went; when the two disagree, that disagreement is the interesting part, not an error to average away. A route the skills model loves but nobody has ever walked is a different animal from one that is both skill-close and well-trodden, and we keep them distinct.
+        </p>
+        <h2>The acronyms, spelled out</h2>
+        <p>
+          The method leans on public datasets, and the field is thick with initials. Here is every one this instrument touches, in plain language.
+        </p>
+        <table className="post-table">
+          <caption>Every acronym in the method</caption>
+          <thead><tr><th>Term</th><th>Full name</th><th>What it does here</th></tr></thead>
+          <tbody>
+            <tr><td><strong><a className="gl" href="/glossary#bls">BLS</a></strong></td><td>US Bureau of Labor Statistics</td><td>Public-domain wage and occupational-transfer figures. Anchors the salary bands and the odds.</td></tr>
+            <tr><td><strong><a className="gl" href="/glossary#soc">SOC</a></strong></td><td>Standard Occupational Classification</td><td>The code system that joins a messy job title to official wage and mobility data.</td></tr>
+            <tr><td><strong><a className="gl" href="/glossary#onet">O*NET</a></strong></td><td>Occupational Information Network</td><td>The US Labor Department&rsquo;s skills-and-tasks database. The curated baseline we try to beat.</td></tr>
+            <tr><td><strong><a className="gl" href="/glossary#esco">ESCO</a></strong></td><td>European Skills, Competences, Qualifications and Occupations</td><td>The EU counterpart to O*NET, for cross-border coverage.</td></tr>
+            <tr><td><strong><a className="gl" href="/glossary#cps">CPS</a></strong></td><td>Current Population Survey</td><td>The US household survey behind the observed occupation-to-occupation flow data.</td></tr>
+            <tr><td><strong><a className="gl" href="/glossary#jaccard">Jaccard</a></strong></td><td>Jaccard index</td><td>Shared skills divided by all distinct skills across two roles. The tiebreaker after coverage.</td></tr>
+            <tr><td><strong>CC BY</strong></td><td>Creative Commons Attribution</td><td>The license that lets a product which charges money legally reuse the mobility datasets.</td></tr>
+          </tbody>
+        </table>
+        <h2>What the numbers say: adjacency is rare</h2>
+        <p>
+          Run the coverage score across every pair in the taxonomy and the shape is stark. We scored <strong>7,946 origin-to-destination routes</strong> in the July run. Sorted into readiness bands, as a share of all routes:
+        </p>
+        <div className="post-bars">
+          {[['0–20%', 63.2], ['20–40%', 30.5], ['40–60%', 5.1], ['60–80%', 1.1], ['80–100%', 0.1]].map(([k, v]) => (
+            <div key={String(k)} className="pb-row"><span className="k">{k}</span><span className="t"><span className="f" style={{ width: `${(Number(v) / 63.2) * 100}%` }}></span></span><span className="v">{v}%</span></div>
+          ))}
+        </div>
+        <p>
+          Nearly two-thirds of all occupation pairs score under 20 percent. The vast majority of careers are simply far from each other in skill space, which is the honest and slightly deflating truth the motivational literature skips. Only <strong>93 routes out of 7,946</strong> reach 60 percent readiness or higher. Adjacency is not everywhere. It is a thin, specific set of connections, and the entire point of measuring it is to find the few that are real for you.
+        </p>
+        <div className="post-pullq">
+          The value is not that everything connects to everything. It is that a handful of things connect to what you already do, and until you measure the skills you cannot see which handful.
+        </div>
+        <h2>The routes that clear the bar</h2>
+        <p>
+          At the top of the distribution, the strong non-licensed moves, the ones where the skills genuinely carry and no credential stands in the way:
+        </p>
+        <table className="post-table">
+          <caption>High-readiness routes without a licensing gate &middot; PivotHop July 2026 run</caption>
+          <thead><tr><th>From</th><th>To</th><th className="num">Readiness</th><th className="num">Shared skills</th></tr></thead>
+          <tbody>
+            <tr><td>Product designer</td><td>UX designer</td><td className="num"><strong>87%</strong></td><td className="num">16</td></tr>
+            <tr><td>Account executive</td><td>Sales representative</td><td className="num">86%</td><td className="num">15</td></tr>
+            <tr><td>Accountant</td><td>Financial controller</td><td className="num">80%</td><td className="num">14</td></tr>
+            <tr><td>Accountant</td><td>Bookkeeper</td><td className="num">75%</td><td className="num">15</td></tr>
+            <tr><td>Software engineer</td><td>Backend developer</td><td className="num">73%</td><td className="num">15</td></tr>
+          </tbody>
+        </table>
+        <h2>The rules that keep the number honest</h2>
+        <p>
+          A readiness score is easy to fake and easy to misread, so the method is fenced by a few non-negotiable rules.
+        </p>
+        <p>
+          <strong>Skills over titles, always.</strong> The matching key is the skill vector read from postings, never the job title. Titles are labels on the output, nothing more.
+        </p>
+        <p>
+          <strong>Read demand, do not trust self-report.</strong> The skills come from what postings require, not from a candidate&rsquo;s self-assessment or an employer&rsquo;s tag. The documented weakness of tag-based boards is that the tags are wishful; ours are read from the description text.
+        </p>
+        <p>
+          <strong>Readiness is not eligibility.</strong> Coverage measures skills, and skills are not the only barrier. Medical assistant to dental hygienist scores 90 percent on skills and is still gated by a license that takes years. So the license is flagged separately, on its own axis, and never folded into the readiness number. A high score with a legal gate is a real finding, not a mistake, and we show both.
+        </p>
+        <p>
+          <strong>No manufactured adjacency.</strong> The three-shared-skill floor means a pair either clears the bar or returns nothing. We would rather show fewer routes than invent a connection out of one generic overlap.
+        </p>
+        <p>
+          <strong>Corroborate, keep disagreement.</strong> Demand, employer intent, and observed flow are three separate readings. Where they agree, confidence is high. Where they disagree, we surface it rather than blend it into a single reassuring average.
+        </p>
+        <p>
+          <strong>Only licensable data.</strong> Every external dataset in the stack, the <a className="gl" href="/glossary#cps">CPS</a> mobility network and the resume trajectories among them, is public domain or Creative Commons, which is what makes it legal to build a paid product on. Nothing is scraped against its terms.
+        </p>
+        <h2>What it is for</h2>
+        <p>
+          Career adjacency is the measurement under a single practical question: given the skills you already have, which roles are actually within reach, and how far. The <a className="gl" href="/">instrument</a> takes an origin occupation, reads your skill vector, and returns the reachable destinations ranked by readiness, each with the salary band, the specific skill gap, and the honest odds attached. A <a className="gl" href="/routes/architect-to-interior-designer">measured route</a> is one row of that answer, opened up. The <a className="gl" href="/glossary">glossary</a> defines every term and links every source.
+        </p>
+        <p>
+          The number is not a promise. It is a map of the skill distance between where you are and where you are thinking of going, built from what the market is actually asking for this week. Start from your skills, read the distance, and the few real routes separate themselves from the many that were never close.
+        </p>
+        <Sources>
+          <p>
+            Readiness scores are computed from the PivotHop posting corpus, July 2026 run (151,369 postings across 180 occupations, from company career pages, remote-job boards, and public-sector sources). Coverage is the share of a destination occupation&rsquo;s 20 most frequent posting skills that the origin occupation also demands; pairs are ranked by coverage and broken by weighted Jaccard overlap; pairs sharing fewer than three skills are unscored. Employer attestation is read from posting text (28,553 scanned, 1,749 attesting). Observed mobility is drawn from a <a className="gl" href="/glossary#cps">CPS</a>-derived US occupational-mobility network (2010&ndash;2017), EU resume trajectories, and <a className="gl" href="/glossary#onet">O*NET</a> related occupations, all Creative-Commons-licensed and used for corroboration only. Wage and occupational-transfer figures are <a className="gl" href="/glossary#bls">BLS</a>, public domain. Licensing gates are flagged separately and never folded into readiness.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
     slug: 'visa-sponsorship-counted',
     title: 'Visa sponsorship, counted: a coin flip, and 36 real offers',
     pillar: 'Shape of Work',

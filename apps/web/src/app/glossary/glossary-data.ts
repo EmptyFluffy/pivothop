@@ -17,6 +17,10 @@ export type GlossaryEntry = {
 export const GLOSSARY: GlossaryEntry[] = [
   // ── Terms and acronyms ──
   {
+    id: 'jaccard', term: 'Jaccard', full: 'Jaccard index', cat: 'term',
+    def: 'A measure of how similar two sets are: the number of items they share divided by the total number of distinct items across both. For two occupations it is the skills they have in common divided by every skill either one demands, so it runs from 0 (no overlap) to 1 (identical). PivotHop ranks career routes first by coverage, the share of the destination’s skills the origin already has, and uses the Jaccard index as the tiebreaker, because it rewards pairs that are close in both directions rather than one role simply being a superset of the other.',
+  },
+  {
     id: 'soc', term: 'SOC', full: 'Standard Occupational Classification', cat: 'term',
     def: 'The federal coding system that assigns every job in the United States a number, so a “software developer” in one dataset can be matched to a “software developer” in another. The Bureau of Labor Statistics maintains it and revises it every few years, and most US labor data (wages, projections, mobility) is keyed to it. PivotHop uses SOC codes to join live postings to official wage and separation figures.',
   },
