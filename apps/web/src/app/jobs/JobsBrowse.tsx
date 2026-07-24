@@ -35,6 +35,7 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
   const [minPay, setMinPay] = useState(0);
   const [tags, setTags] = useState<Set<string>>(new Set());
   const [sort, setSort] = useState<'new' | 'pay'>('new');
+  const [filtersOpen, setFiltersOpen] = useState(false); // mobile: collapse filters behind a toggle
   const [shown, setShown] = useState(PAGE);
   const [now] = useState(() => Date.now());
 
@@ -137,8 +138,9 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
     return next;
   });
 
+  const activeCount = (field ? 1 : 0) + (cty ? 1 : 0) + (minPay ? 1 : 0) + (remoteOnly ? 1 : 0) + tags.size + (sort === 'pay' ? 1 : 0);
   return (
-    <div className="jb">
+    <div className={`jb${filtersOpen ? ' filters-open' : ''}`}>
       <div className="jb-stick">
       <div className="jb-searchband">
         <svg className="jb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
@@ -174,6 +176,11 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
           <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setField(''); setCty(''); setMinPay(0); setRemoteOnly(false); setTags(new Set()); setSort('new'); }}>Clear all</button>
         </div>
       )}
+      <button type="button" className="jb-mtoggle" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((v) => !v)}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
+        <span>Filters &amp; sort{activeCount > 0 ? ` · ${activeCount} on` : ''}</span>
+        <svg className="jb-mchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+      </button>
       <div className="jb-filters">
         <select aria-label="Field" value={field} onChange={(e) => setField(e.target.value)}>
           <option value="">All fields</option>
