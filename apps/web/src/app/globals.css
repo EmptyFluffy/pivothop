@@ -751,6 +751,16 @@ input:focus-visible{outline:none}
 .jobs-all:hover{border-bottom-color:var(--accent)}
 .jobs-cross{display:flex;gap:22px;flex-wrap:wrap;margin:16px 0 6px}
 /* global board: search-first */
+/* pre-mount boot state on the landing: crawlable brand + links in the initial
+   HTML, replaced by the graph SHELL the moment it mounts (also the no-JS view) */
+.home-boot{max-width:720px;margin:0 auto;padding:14vh 24px 40px;text-align:center}
+.home-boot-mark{display:inline-block;width:60px;color:var(--accent)}
+.home-boot-mark svg{display:block;width:100%;height:auto}
+.home-boot h1{font-weight:700;font-size:clamp(27px,4.6vw,42px);letter-spacing:-.02em;line-height:1.08;color:var(--ink);margin:22px 0 0}
+.home-boot p{max-width:560px;margin:16px auto 0;color:var(--ink-2);font-size:16.5px;line-height:1.5}
+.home-boot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 22px;margin:28px 0 0}
+.home-boot-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule);padding-bottom:2px;transition:color .12s,border-color .12s}
+.home-boot-nav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .jb-head{display:flex;justify-content:space-between;align-items:flex-start;gap:26px;flex-wrap:wrap}
 .jb-post{flex:0 0 auto;margin-top:6px}
 /* the search + filters + chips ride together, stuck below the nav while the list scrolls */

@@ -39,7 +39,28 @@ export default function Home() {
 
   return (
     <>
-      <div ref={ref} suppressHydrationWarning />
+      <div ref={ref} suppressHydrationWarning>
+        {/* Server-rendered boot state: real brand copy + links to the key pages,
+            so the initial HTML is crawlable and the homepage passes structure to
+            Google (the graph replaces this on mount; it also serves as the no-JS
+            fallback). Rendered once, then wiped by ref.innerHTML = SHELL. */}
+        <div className="home-boot">
+          <span className="home-boot-mark" aria-hidden="true">
+            <svg viewBox="-8 -12 139 124"><g fill="currentColor"><path d="M31.9 0 A25.3 15 0 0 0 82.5 0 Z" /><path fillRule="evenodd" d="M83.3 0 L92 0 C104 0 116 8 121 20 C124 27 123 34 119 38 C112 41 100 40 90 40 L83.3 40 Z M103.3 20 a3.7 3.7 0 1 0 0.01 0 Z" /><path d="M83.1 40 L83.1 76 C91 76 99 82 102 90 C103.5 94 103 98 101.5 99.7 L24 99.7 C23.5 92 25 84 28.6 75 C32 64 40 53 58.9 45 C67 41 73 40 78.6 40 Z" /><circle cx="10" cy="89.5" r="10" /></g></svg>
+          </span>
+          <h1>PivotHop — Career moves, measured.</h1>
+          <p>A career-navigation instrument. It reads live job postings and returns the routes your skills can actually reach — with the salary, the skill gap, and the honest odds attached.</p>
+          <nav className="home-boot-nav" aria-label="PivotHop">
+            <a href="/jobs">Job board</a>
+            <a href="/routes">Career routes</a>
+            <a href="/salary">Salaries</a>
+            <a href="/employers">Post a job</a>
+            <a href="/blog">Blog</a>
+            <a href="/glossary">Glossary</a>
+            <a href="/about">About</a>
+          </nav>
+        </div>
+      </div>
       {/* Server-rendered FAQ schema (the visible FAQ mounts client-side with the
           rest of SHELL; this keeps the structured data in the initial HTML for
           reliable rich-result eligibility). Text mirrors the SHELL FAQ. */}
