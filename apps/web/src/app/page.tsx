@@ -60,6 +60,18 @@ const LANDING_FAQ = [
   { q: 'How do I find my transferable skills?', a: 'Look at what your work requires, not what your title says. PivotHop seeds a skill profile from your occupation’s typical postings, then lets you edit it to match what you actually do and re-derives every route from it. The skills that open the most doors are usually the general ones, like communication, analysis, and project management, that you stopped noticing you had.' },
 ];
 
+// The canvas starts empty: a prompt, not a pre-loaded graph. The visitor names
+// a role (or taps an example) and the graph draws from there.
+const EMPTY_HTML =
+  '<span class="ge-mark"><svg viewBox="0 0 123.3 100" aria-hidden="true"><use href="#rabbit"/></svg></span>' +
+  '<h3>Map your next move.</h3>' +
+  '<p>Name your current role in the search above. The graph draws every career your skills can already reach — with the salary, the gap, and the odds attached.</p>' +
+  '<div class="ge-eg"><span class="lbl">Or start from</span>' +
+  '<button data-slug="architect" data-title="Architect">Architect</button>' +
+  '<button data-slug="software-engineer" data-title="Software Engineer">Software Engineer</button>' +
+  '<button data-slug="registered-nurse" data-title="Registered Nurse">Registered Nurse</button>' +
+  '<button data-slug="accountant" data-title="Accountant">Accountant</button></div>';
+
 function el(tag: string, css: Partial<CSSStyleDeclaration>, html?: string) {
   const e = document.createElement(tag);
   Object.assign(e.style, css);
@@ -81,6 +93,21 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     onTrailJump: (i) => { const h = hops[i]; if (!h) return; hops = hops.slice(0, i + 1); hopTo(h.slug, h.title, false, 'replace'); },
   };
   const controller = mount(DATA, hooks);
+
+  // Empty state: the default graph mounts hidden behind a prompt; the
+  // role-specific proof stats stay hidden; the first role load dismisses both.
+  const proofEl = document.querySelector('.proof');
+  proofEl?.classList.add('pre-role');
+  const bandEl0 = document.getElementById('bandEl');
+  let emptyEl: HTMLElement | null = el('div', {}, EMPTY_HTML);
+  emptyEl.className = 'graph-empty';
+  if (bandEl0) { bandEl0.style.position = 'relative'; bandEl0.appendChild(emptyEl); }
+  emptyEl.querySelectorAll('button[data-slug]').forEach((b) =>
+    b.addEventListener('click', () => loadOriginBySlug((b as HTMLElement).dataset.slug!, (b as HTMLElement).dataset.title!)));
+  function dismissEmpty() {
+    if (emptyEl) { emptyEl.remove(); emptyEl = null; }
+    proofEl?.classList.remove('pre-role');
+  }
 
   function setStatus(msg: string | null) {
     const lbl = document.querySelector('.band-head .lbl');
@@ -107,6 +134,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
       refreshSummary();
       controller.loadOrigin(standardData);
     }
+    dismissEmpty();
     if (nav === 'push') history.pushState({ hops }, '', `?from=${slug}`);
     else if (nav === 'replace') history.replaceState({ hops }, '', `?from=${slug}`);
   }
@@ -133,7 +161,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     fetch('/data/skill-profiles.json').then((r) => r.json()).then((d) => (profiles = d.profiles)),
     fetch('/data/occ-meta.json').then((r) => r.json()).then((d) => (occMeta = d.meta)),
     fetch('/data/skills-meta.json').then((r) => r.json()).then((d) => (skillNames = d.names)),
-  ]).then(() => { chips = seedChips(profiles, current.slug); refreshSummary(); });
+  ]).then(() => { if (!emptyEl) { chips = seedChips(profiles, current.slug); refreshSummary(); } });
   fetch('/data/skill-cooccur.json').then((r) => r.json()).then((d) => (cooccur = d.skills || {}));
 
   // ---------- role typeahead ----------
@@ -170,6 +198,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     chips = seedChips(profiles, slug);
     refreshSummary();
     controller.loadOrigin(standardData);
+    dismissEmpty();
     document.getElementById('bandEl')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 

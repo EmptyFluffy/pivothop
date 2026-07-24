@@ -156,12 +156,15 @@ export function FEClient() {
     svg.querySelectorAll('path').forEach((p) => {
       const m = M49[p.getAttribute('data-c') || ''];
       const v = m ? atlas[m[0]]?.[mode] : null;
-      if (v == null || !isFinite(lo)) { p.classList.add('nodata'); p.setAttribute('fill', '#f1eee6'); return; }
+      // NB: set fill via inline style, not setAttribute — a CSS rule
+      // (#worldmap path{fill:...}) overrides the fill *attribute*, but not
+      // inline style. Attribute-based fills silently render beige.
+      if (v == null || !isFinite(lo)) { p.classList.add('nodata'); p.style.fill = '#f1eee6'; return; }
       p.classList.remove('nodata');
       const t = hiV > lo ? (v - lo) / (hiV - lo) : 0.5;
       // oxblood ramp on paper
-      const a = 0.06 + t * 0.82;
-      p.setAttribute('fill', `rgba(138,47,30,${a.toFixed(3)})`);
+      const a = 0.08 + t * 0.80;
+      p.style.fill = `rgba(138,47,30,${a.toFixed(3)})`;
       p.classList.toggle('pinned', !!m && pinned === m[0]);
     });
   }, [atlas, mode, pinned]);

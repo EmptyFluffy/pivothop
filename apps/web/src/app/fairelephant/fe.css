@@ -20,7 +20,7 @@
   .fe-root .shell{max-width:1280px;margin:0 auto;background:var(--paper);position:relative;border-left:0.5px solid var(--rule);border-right:0.5px solid var(--rule)}
 
   
-  .fe-root .nav{display:grid;grid-template-columns:270px repeat(4,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
+  .fe-root .nav{display:grid;grid-template-columns:270px repeat(5,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
   .fe-root .nav .brand{display:flex;align-items:center;gap:12px;padding:0 26px}
   .fe-root .nav .brand .mark{width:30px;height:26px;color:var(--ink)}
   .fe-root .nav .brand .wm{font-weight:700;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
@@ -112,10 +112,11 @@
   .fe-root .modebar .mode.on{background:var(--ink);color:var(--paper)}
   .fe-root .mapwrap{position:relative}
   .fe-root #worldmap{width:100%;height:auto;display:block}
-  .fe-root #worldmap path{fill:#f1eee6;stroke:var(--paper);stroke-width:0.6;transition:fill 260ms ease-out;cursor:pointer}
+  .fe-root #worldmap{shape-rendering:geometricPrecision}
+  .fe-root #worldmap path{fill:#f1eee6;stroke:var(--paper);stroke-width:0.9;vector-effect:non-scaling-stroke;stroke-linejoin:round;transition:fill 260ms ease-out;cursor:pointer}
   .fe-root #worldmap path.nodata{cursor:default}
-  .fe-root #worldmap path:hover{stroke:var(--ink);stroke-width:0.9}
-  .fe-root #worldmap path.pinned{stroke:var(--ink);stroke-width:1.1}
+  .fe-root #worldmap path:hover{stroke:var(--ink);stroke-width:1.4}
+  .fe-root #worldmap path.pinned{stroke:var(--ink);stroke-width:1.6}
   @media (prefers-reduced-motion:reduce){.fe-root #worldmap path{transition:none}}
   .fe-root .maptip{position:absolute;pointer-events:none;background:var(--paper);border:0.5px solid var(--ink);padding:9px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;line-height:1.7;white-space:nowrap;z-index:5;font-variant-numeric:tabular-nums}
   .fe-root .maptip b{display:block;font-family:var(--sans);font-weight:600;font-size:12.5px;letter-spacing:0;margin-bottom:2px}
