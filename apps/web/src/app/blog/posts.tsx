@@ -182,15 +182,15 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'visa-sponsorship-counted',
-    title: 'Visa sponsorship, counted: a coin flip, and 36 real offers',
+    title: 'Visa sponsorship, counted: a coin flip, and 43 real offers',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'We added a visa-sponsor filter to the board, then read the postings behind it. Nearly half the listings that mention the phrase were declining sponsorship, not offering it. Here is the honest count of jobs that will actually move you across a border.',
     minutes: 7,
     faq: [
-      { q: 'Do most job postings offer visa sponsorship?', a: 'No, and almost none do. In our July 2026 corpus of 151,369 postings, 1,046 mention visa sponsorship at all, which is 0.7 percent. Of the live, re-displayable listings on the board, 36 out of 4,229 genuinely offer it, fewer than one in a hundred.' },
+      { q: 'Do most job postings offer visa sponsorship?', a: 'No, and almost none do. In our July 2026 corpus of 151,369 postings, 1,046 mention visa sponsorship at all, which is 0.7 percent. Of the live, re-displayable listings on the board, 43 out of 4,196 genuinely offer it, about one in a hundred.' },
       { q: 'Does "visa sponsorship" in a job posting mean they will sponsor?', a: 'It is close to a coin flip. The same phrase appears in offers ("we are able to offer visa sponsorship") and in refusals ("this role is not eligible for visa sponsorship"). Nearly half of the postings that use the phrase, 48 percent, are declining. The sentence around the words decides it, not the words.' },
-      { q: 'Which fields are most likely to sponsor a work visa?', a: 'On our board the genuine offers cluster in technology, business, and science roles. The signal is noisy: 29 of the 36 offers sit in US postings, because American employers are required to state H-1B status, while employers in countries with routine work-permit processes often say nothing at all.' },
+      { q: 'Which fields are most likely to sponsor a work visa?', a: 'On our board the genuine offers cluster in science, technology, and business roles. The signal is noisy: 34 of the 43 offers sit in US postings, because American employers are required to state H-1B status, while employers in countries with routine work-permit processes often say nothing at all.' },
       { q: 'Why do US jobs mention visa sponsorship more than others?', a: 'Because US immigration law forces the question into the posting. Employers screen for H-1B eligibility explicitly, so the phrase appears constantly, in both offers and refusals. In many other countries the work-permit process is routine and goes unmentioned, so the absence of the phrase is not a no.' },
     ],
     body: (
@@ -220,33 +220,33 @@ export const POSTS: Post[] = [
         </p>
         <h2>The honest count</h2>
         <p>
-          So we changed how the flag works. A listing counts as an offer only when the phrase appears with no refusal beside it, before or after: no &ldquo;not eligible,&rdquo; no &ldquo;unable to offer,&rdquo; no &ldquo;is not available.&rdquo; One decline anywhere disqualifies the listing, because we would rather miss a real offer than send someone toward a wall. On that rule, the live board of 4,229 re-displayable listings holds <strong>36 that genuinely offer visa sponsorship</strong>, or 0.85 percent.
+          So we changed how the flag works. A listing counts as an offer only when the phrase appears with no refusal beside it, before or after: no &ldquo;not eligible,&rdquo; no &ldquo;unable to offer,&rdquo; no &ldquo;is not available.&rdquo; One decline anywhere disqualifies the listing, because we would rather miss a real offer than send someone toward a wall. On that rule, the live board of 4,196 re-displayable listings holds <strong>43 that genuinely offer visa sponsorship</strong>, or 1 percent.
         </p>
         <p>
-          36 out of 4,229. Fewer than one in a hundred. Sponsorship is not a filter you apply to a job search. It is a property of a small, specific set of employers, and the open board is the wrong place to go looking for it.
+          43 out of 4,196. About one in a hundred. Sponsorship is not a filter you apply to a job search. It is a property of a small, specific set of employers, and the open board is the wrong place to go looking for it.
         </p>
         <h2>Where the offers actually are</h2>
         <table className="post-table">
           <caption>Live listings that genuinely offer visa sponsorship, by field &middot; PivotHop board, July 2026</caption>
           <thead><tr><th>Field</th><th className="num">Sponsor-offering listings</th></tr></thead>
           <tbody>
-            <tr><td><strong>Technology</strong></td><td className="num">11</td></tr>
-            <tr><td>Business</td><td className="num">9</td></tr>
-            <tr><td>Science</td><td className="num">6</td></tr>
+            <tr><td><strong>Science</strong></td><td className="num">15</td></tr>
+            <tr><td>Technology</td><td className="num">11</td></tr>
+            <tr><td>Business</td><td className="num">8</td></tr>
             <tr><td>Legal</td><td className="num">3</td></tr>
             <tr><td>Finance</td><td className="num">2</td></tr>
             <tr><td>Engineering</td><td className="num">2</td></tr>
           </tbody>
         </table>
         <p>
-          There is a geography twist the raw count hides. The offers skew hard to the United States: <strong>29 of the 36 sit in US postings</strong>, and not because American employers sponsor more. They are legally required to address it. A US posting names H-1B status to screen applicants; a German or Singaporean posting for the same role often says nothing, because the local work-permit process is routine and unstated. The phrase tracks how loud a country&rsquo;s immigration paperwork is, not how open its employers are. Read the absence of the words as ambiguity, not a no.
+          There is a geography twist the raw count hides. The offers skew hard to the United States: <strong>34 of the 43 sit in US postings</strong>, and not because American employers sponsor more. They are legally required to address it. A US posting names H-1B status to screen applicants; a German or Singaporean posting for the same role often says nothing, because the local work-permit process is routine and unstated. The phrase tracks how loud a country&rsquo;s immigration paperwork is, not how open its employers are. Read the absence of the words as ambiguity, not a no.
         </p>
         <div className="post-pullq">
           Visa sponsorship is not a checkbox on a job board. It is a short list of employers who do it as policy, and the postings that use the phrase are about as likely to be ruling it out as offering it.
         </div>
         <h2>What to do with a border in the way</h2>
         <p>
-          If a pivot means a move across one, three habits beat filtering for the word. Target employers, not listings, because the companies that sponsor do it repeatedly and by policy: find the 36 on this board that offer it and start from their names. Read for the refusal, not the phrase, since the disqualifying sentence is the one that matters and it is almost always explicit. And treat a remote role as the other door, because 6 of the sponsor-offering listings are remote, where the visa question can dissolve entirely. The skills that get you the role are the same across a border; the <a className="gl" href="/">instrument</a> measures which roles your skills reach, and the sponsorship question comes after that, not before it. When you are ready, the <a className="gl" href="/jobs">board</a> now filters on the honest version of the flag.
+          If a pivot means a move across one, three habits beat filtering for the word. Target employers, not listings, because the companies that sponsor do it repeatedly and by policy: find the 43 on this board that offer it and start from their names. Read for the refusal, not the phrase, since the disqualifying sentence is the one that matters and it is almost always explicit. And treat a remote role as the other door, because 5 of the sponsor-offering listings are remote, where the visa question can dissolve entirely. The skills that get you the role are the same across a border; the <a className="gl" href="/">instrument</a> measures which roles your skills reach, and the sponsorship question comes after that, not before it. When you are ready, the <a className="gl" href="/jobs">board</a> now filters on the honest version of the flag.
         </p>
         <Sources>
           <p>

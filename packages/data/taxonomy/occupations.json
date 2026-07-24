@@ -1220,12 +1220,14 @@
         "staff writer",
         "news writer",
         "correspondent",
-        "editor",
         "news editor",
         "associate editor",
         "managing editor"
       ],
-      "cluster": "Media & Writing"
+      "cluster": "Media & Writing",
+      "exactOnly": [
+        "editor"
+      ]
     },
     {
       "slug": "ux-writer",
@@ -1516,11 +1518,13 @@
         "management consultant",
         "strategy consultant",
         "business consultant",
-        "consultant",
         "engagement manager",
         "strategy analyst"
       ],
-      "cluster": "Business"
+      "cluster": "Business",
+      "exactOnly": [
+        "consultant"
+      ]
     },
     {
       "slug": "event-planner",
@@ -1608,12 +1612,14 @@
       "soc": "11-3031.00",
       "field": "Finance",
       "synonyms": [
-        "controller",
         "financial controller",
         "assistant controller",
         "director of accounting"
       ],
-      "cluster": "Finance"
+      "cluster": "Finance",
+      "exactOnly": [
+        "controller"
+      ]
     },
     {
       "slug": "auditor",
@@ -2079,7 +2085,6 @@
         "design engineer mechanical",
         "manufacturing design engineer",
         "product design engineer",
-        "design engineer",
         "mechanical project engineer"
       ],
       "cluster": "Engineering & Manufacturing",
@@ -2191,7 +2196,6 @@
       "field": "Science",
       "synonyms": [
         "research scientist",
-        "scientist",
         "research associate",
         "lab scientist",
         "laboratory technician",
@@ -2200,7 +2204,10 @@
         "research fellow",
         "r&d scientist"
       ],
-      "cluster": "Science"
+      "cluster": "Science",
+      "exactOnly": [
+        "scientist"
+      ]
     },
     {
       "slug": "statistician",
