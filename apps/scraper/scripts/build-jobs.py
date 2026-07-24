@@ -327,6 +327,10 @@ for j in candidates:
         continue
     per_co[co] += 1
     j['featured'] = True
+    # attach a locally-served company logo when we have one (public/data/logos/<slug>.png)
+    slug = re.sub(r'[^a-z0-9]', '', co)
+    if os.path.exists(f'apps/web/public/data/logos/{slug}.png'):
+        j['logo'] = f'/data/logos/{slug}.png'
     featured.append(j)
 json.dump([{k: v for k, v in j.items() if k != 'url'} for j in featured],
           open('apps/web/public/data/featured-jobs.json', 'w'), ensure_ascii=False)
