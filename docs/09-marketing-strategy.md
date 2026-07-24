@@ -13,7 +13,7 @@
 - Distribution partnerships (per-vertical educators — AEC first, each expansion vertical has its own equivalents) count as organic and are the most underused channel available.
 - Every dollar spent on paid before the scrape produces defensible signals is a dollar buying the feeling of momentum, not growth.
 
-The full channel portfolio and reasoning is in §13 of the Notion bible. This document is the operational plan per channel.
+The full channel portfolio and reasoning is in §13 of the Notion bible. This document is the operational plan per channel. The concrete platform-by-platform list of *where to post* (launch sites, communities, directories, with the emerging/less-saturated ones flagged) lives in `docs/22-launch-channels.md`.
 
 ---
 
