@@ -42,6 +42,21 @@ A password-gated console at `/admin` lists everything in `job_submissions` (newe
 
 Gate: HTTP Basic Auth via `apps/web/src/middleware.ts`. Set **ADMIN_PASSWORD** (and optionally ADMIN_USER, default `admin`) in the Vercel env. The page is noindexed and disallowed in robots. Without the Supabase env it shows a "not connected" note.
 
+
+
+## Stripe: automated employer payments
+
+The post-a-job form is pay-to-publish, no concierge. Flow: form submit -> `startCheckout` inserts the row as `pending_payment` and creates a Stripe Checkout session -> employer pays on Stripe's hosted page -> `/api/stripe/webhook` (checkout.session.completed, signature-verified) flips the row to `paid` -> the board's `/api/employer-jobs` returns paid rows and JobsBrowse merges them in, so the listing appears instantly. Amounts come from `apps/web/src/app/employers/pricing.ts` server-side (never the client). Employer cards link straight to the apply URL; `/admin` can set status to `declined` to pull a post.
+
+Dashboard setup (once):
+1. Create a Stripe account. Start in **Test mode** to try it end to end.
+2. Developers -> API keys: copy the **Secret key** (`sk_...`).
+3. Developers -> Webhooks -> Add endpoint: URL `https://www.pivothop.com/api/stripe/webhook`, event **checkout.session.completed**. Copy the **Signing secret** (`whsec_...`).
+4. In Vercel env set **STRIPE_SECRET_KEY** and **STRIPE_WEBHOOK_SECRET**, redeploy.
+5. Test with card 4242 4242 4242 4242 (any future date / CVC), confirm the row goes `paid` and the job shows on /jobs. Then swap to live keys.
+
+Without the Stripe env the form degrades to concierge (saves the lead as `new`, shows the queue message).
+
 ## Still to do for launch (unrelated to this wiring)
 
 - The host-level **301**: apex → www and http → https (see memory `canonical-host-www`). Add `www.pivothop.com` as the primary domain in Vercel and redirect the apex.

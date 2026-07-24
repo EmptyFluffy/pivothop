@@ -1,7 +1,7 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { JobCard, type Job } from '../jobs/JobCard';
-import { submitJob, type JobPayload } from './actions';
+import { startCheckout, type JobPayload } from './actions';
 import { SITE_EMAIL } from '../../lib/site';
 
 /* Post a job — third pass, friction-first. People hate forms, so:
@@ -99,9 +99,15 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   const [filled, setFilled] = useState('');
   const [tier, setTier] = useState<'std' | 'feat'>('feat');
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [done, setDone] = useState<'' | 'paid' | 'queued'>('');   // '' none | paid (Stripe) | queued (concierge)
   const [submitError, setSubmitError] = useState('');
   const [tried, setTried] = useState(false);   // show required-field errors after a failed attempt
+  // Returning from Stripe Checkout: ?paid=1 shows the live confirmation, ?canceled=1 a gentle note.
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (p.get('paid') === '1') { setDone('paid'); window.history.replaceState(null, '', '/employers'); }
+    else if (p.get('canceled') === '1') { setSubmitError('Payment was canceled — nothing charged. Your details are still here; submit again when ready.'); window.history.replaceState(null, '', '/employers'); }
+  }, []);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setF((p) => ({ ...p, [k]: e.target.value }));
 
   const suggestions = useMemo(() => {
@@ -210,19 +216,29 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   }
   async function send() {
     setSubmitError(''); setSubmitting(true);
-    const result = await submitJob(buildPayload());
+    const r = await startCheckout(buildPayload());
+    if (r.url) { window.location.href = r.url; return; }                     // -> Stripe Checkout
     setSubmitting(false);
-    if (result.ok) { setSubmitted(true); if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    else if (result.error === 'not-configured') { mailto(); }               // local dev / no backend
-    else { setSubmitError('Could not reach the server just now — opening email as a fallback.'); mailto(); }
+    if (r.error === 'stripe-not-configured') { setDone('queued'); window.scrollTo({ top: 0, behavior: 'smooth' }); } // saved; concierge
+    else if (r.error === 'not-configured') { mailto(); }                     // local dev / no backend
+    else { setSubmitError('Could not start checkout just now — opening email as a fallback.'); mailto(); }
   }
 
-  if (submitted) {
+  if (done) {
     return (
       <div className="ejf-done">
         <span className="ejf-done-mark" aria-hidden="true">&#10003;</span>
-        <h2>Sent. Your role is in the queue.</h2>
-        <p>We review and post by hand, within two days &mdash; {pricing[tier].name.toLowerCase()} placement at the launch rate (${pricing[tier].launch}/30 days). A real person replies to {f.email.trim() || 'your email'}. No card is charged until it is live.</p>
+        {done === 'paid' ? (
+          <>
+            <h2>Paid. Your job is live.</h2>
+            <p>Your listing is on the board now &mdash; featured to the candidates whose skills already reach it. A receipt is on its way to your email. Edit or take it down any time by replying to that email.</p>
+          </>
+        ) : (
+          <>
+            <h2>Sent. Your role is in the queue.</h2>
+            <p>We&rsquo;ll review and post it within two days, then send a payment link. A real person replies to {f.email.trim() || 'your email'}.</p>
+          </>
+        )}
         <div className="ejf-done-card"><ul className="job-list"><JobCard j={previewJob} /></ul></div>
         <a className="lbl acc" href="/jobs">See the board &rarr;</a>
       </div>
@@ -362,17 +378,17 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
 
         <div className="ejf-submit">
           <ol className="ejf-nextrow" aria-label="What happens next">
-            <li>You send one prefilled email.</li>
-            <li>We review and post it by hand, within two days.</li>
-            <li>Launch rate applied. No card charged until it is live.</li>
+            <li>Pay securely with Stripe.</li>
+            <li>Your listing goes live on the board immediately.</li>
+            <li>Featured to the candidates whose skills already reach it.</li>
           </ol>
           <button className="ef-send ejf-send" disabled={submitting} onClick={attemptSend}>
-            <span>{submitting ? 'Sending…' : `Post the job — ${pricing[tier].name.toLowerCase()}, $${pricing[tier].launch} at launch`}</span>
+            <span>{submitting ? 'Starting checkout…' : `Post the job — pay $${pricing[tier].launch} (${pricing[tier].name.toLowerCase()})`}</span>
             <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
           </button>
           {tried && !ok && <p className="ejf-errbox">Before you can post, add {missing.join(', ')} &mdash; the fields marked Required above.</p>}
           {submitError && <p className="ejf-errbox">{submitError}</p>}
-          <p className="ef-note">No form backend, no CRM, no drip sequence. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post &mdash; and you will know the traffic before you pay. Prefer writing directly? <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.</p>
+          <p className="ef-note">Secure payment by Stripe; you go straight to a hosted checkout. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post. Questions first? <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.</p>
         </div>
       </div>
 

@@ -7,12 +7,8 @@ import { EmployerForm, type FanIn } from './EmployerForm';
 import { jobsIndex, occList } from '../jobs/jobs-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../routes/routes-data';
 import { getSalary, usBand } from '../salary/salary-data';
+import { PRICING } from './pricing';
 
-// Two per-post tiers, half off at launch while the board fills. One place to reprice.
-const PRICING = {
-  std: { name: 'Standard', full: 99, launch: 49 },
-  feat: { name: 'Featured', full: 199, launch: 99 },
-};
 
 export const metadata: Metadata = {
   title: 'Post a job — PivotHop',

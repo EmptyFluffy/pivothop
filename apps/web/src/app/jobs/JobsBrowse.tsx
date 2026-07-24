@@ -49,7 +49,11 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
     setMinPay(Number(p.get('pay')) || 0);
     setTags(new Set((p.get('t') ?? '').split(',').filter(Boolean)));
     if (p.get('sort') === 'pay') setSort('pay');
-    fetch('/data/all-jobs.json').then((r) => r.json()).then(setAll).catch(() => setAll([]));
+    // static scraped jobs + the live layer of paid employer posts (pinned first)
+    Promise.all([
+      fetch('/data/all-jobs.json').then((r) => r.json()).catch(() => []),
+      fetch('/api/employer-jobs').then((r) => r.json()).catch(() => []),
+    ]).then(([scraped, employer]: [Job[], Job[]]) => setAll([...(employer || []), ...(scraped || [])]));
   }, []);
 
   // Debounce the text search; keep the URL shareable.

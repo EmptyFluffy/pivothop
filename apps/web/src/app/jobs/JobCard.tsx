@@ -48,24 +48,33 @@ export function Arrow45({ size = 20 }: { size?: number }) {
 export function JobCard({ j }: { j: Job }) {
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
+  // Paid employer posts aren't statically generated, so they link straight out
+  // to the employer's apply destination rather than an internal detail page.
+  const employer = j.source === 'employer' && !!j.url;
+  const inner = (
+    <>
+      <span className="job-main">
+        <span className="job-t">{j.title}</span>
+        <span className="job-co">{j.company}{j.location ? <span className="job-loc"> · {j.location}</span> : null}</span>
+      </span>
+      <span className="job-side">
+        {pay && <span className="job-pay">{pay}</span>}
+        <span className="job-m lbl">
+          {employer && <span className="job-tag job-tag-hire">Hiring</span>}
+          {j.featured && <span className="job-tag">Featured</span>}
+          {j.fl?.includes('4d') && <span className="job-tag">4-day week</span>}
+          {j.remote && <span className="job-tag">Remote</span>}
+          {date && <span>{date}</span>}
+        </span>
+      </span>
+      <span className="job-arrow"><Arrow45 size={22} /></span>
+    </>
+  );
   return (
     <li>
-      <Link href={`/jobs/${j.occ}/${j.id}`} className="job-card">
-        <span className="job-main">
-          <span className="job-t">{j.title}</span>
-          <span className="job-co">{j.company}{j.location ? <span className="job-loc"> · {j.location}</span> : null}</span>
-        </span>
-        <span className="job-side">
-          {pay && <span className="job-pay">{pay}</span>}
-          <span className="job-m lbl">
-            {j.featured && <span className="job-tag">Featured</span>}
-            {j.fl?.includes('4d') && <span className="job-tag">4-day week</span>}
-            {j.remote && <span className="job-tag">Remote</span>}
-            {date && <span>{date}</span>}
-          </span>
-        </span>
-        <span className="job-arrow"><Arrow45 size={22} /></span>
-      </Link>
+      {employer
+        ? <a href={j.url} target="_blank" rel="nofollow noopener noreferrer" className="job-card">{inner}</a>
+        : <Link href={`/jobs/${j.occ}/${j.id}`} className="job-card">{inner}</Link>}
     </li>
   );
 }
