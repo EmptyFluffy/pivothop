@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MobileNav, NavBurger } from './MobileNav';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
    footer inside the landing's exact .shell frame. One source, so the pages can
@@ -20,12 +21,15 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
   return (
     <header className="nav">
       <Link href="/" className="brand"><RabbitMark /><span className="wm">PIVOTHOP</span></Link>
-      <a className="navlink" href="/fairelephant">FairElephant <ArrowIco /></a>
-      <Link className="navlink" href="/#how">Method</Link>
-      <Link className="navlink" href="/jobs">Jobs</Link>
-      <Link className="navlink" href="/blog">Blog</Link>
-      <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
-      <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Post a job</Link>
+      <NavBurger controls="site-navmenu" />
+      <div className="nav-menu" id="site-navmenu">
+        <a className="navlink" href="/fairelephant">FairElephant <ArrowIco /></a>
+        <Link className="navlink" href="/#how">Method</Link>
+        <Link className="navlink" href="/jobs">Jobs</Link>
+        <Link className="navlink" href="/blog">Blog</Link>
+        <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
+        <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Post a job</Link>
+      </div>
     </header>
   );
 }
@@ -77,6 +81,7 @@ export function PageShell({ children, active }: { children: React.ReactNode; act
     <div className="shell">
       <div className="main">
         <SiteNav active={active} />
+        <MobileNav />
         {children}
         <SiteFooter />
       </div>

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { SHELL } from '@/lib/shell';
 import { DATA } from '@/lib/data';
 import { seedChips, rankPersonalized } from '@/lib/personalize';
+import { wireMobileNav } from '@/lib/mobilenav';
 
 type Origin = { slug: string; title: string; field: string; postings: number; ok: boolean; syn: string[] };
 type Controller = { loadOrigin: (d: unknown) => void };
@@ -22,6 +23,7 @@ export default function Home() {
     if (mounted.current || !ref.current) return;
     mounted.current = true;
     ref.current.innerHTML = SHELL;
+    wireMobileNav();
     import('@/lib/cloud.js').then((m) => {
       const c = document.getElementById('cloudCanvas') as HTMLCanvasElement | null;
       if (c) (m as { initCloud: (c: HTMLCanvasElement, cap: HTMLElement | null) => void }).initCloud(c, document.getElementById('cloudCap'));
