@@ -763,8 +763,17 @@ input:focus-visible{outline:none}
 .jb-search:focus{outline:none}
 .jb-search::placeholder{color:var(--ink-3);font-weight:400}
 .jb-count{flex:0 0 auto;color:var(--ink-2);white-space:nowrap}
-.jb-filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 -30px;padding:12px 30px 8px;background:var(--card)}
-.jb-chiprow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 -30px;padding:2px 30px 14px;border-bottom:1px solid var(--ink);background:var(--card)}
+/* one filter line: the five controls plus a Tags dropdown, so the sticky sheet
+   stays shallow while the list scrolls */
+.jb-filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 -30px;padding:12px 30px 14px;border-bottom:1px solid var(--ink);background:var(--card)}
+.jb-tagdd{position:relative;display:inline-flex}
+.jb-tagbtn{display:inline-flex;align-items:center;gap:7px}
+.jb-tagchev{width:11px;height:11px;flex:none;transition:transform .18s}
+.jb-tagbtn[aria-expanded="true"] .jb-tagchev{transform:rotate(180deg)}
+.jb-tagmenu{position:absolute;top:calc(100% + 9px);left:0;z-index:60;display:flex;flex-wrap:wrap;gap:8px;width:max-content;max-width:min(80vw,430px);background:var(--card);border:1px solid var(--ink);padding:14px;box-shadow:0 14px 34px rgba(20,18,15,.16)}
+/* scoped (occupation) board: the button back to the full board */
+.jb-showall{flex:0 0 auto;display:inline-flex;align-items:center;background:var(--accent);border:1px solid var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px 7px;white-space:nowrap;transition:background .12s,border-color .12s}
+.jb-showall:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .jb-mtoggle{display:none}
 .jb-filters select{appearance:none;-webkit-appearance:none;background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:7px 26px 6px 12px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 11px) 55%;background-size:4px 4px;background-repeat:no-repeat}
 .jb-filters select:focus{outline:none;border-color:var(--accent)}
@@ -904,24 +913,22 @@ input:focus-visible{outline:none}
 .ef-field select{width:100%;appearance:none;-webkit-appearance:none;background:none;border:none;border-bottom:1px solid var(--ink);font-family:var(--sans);font-size:15px;padding:6px 0 8px;color:var(--ink);outline:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 12px) 55%,calc(100% - 8px) 55%;background-size:4px 4px;background-repeat:no-repeat}
 .ef-field select:focus{border-bottom-color:var(--accent)}
 @media (max-width:760px){
-  .jb-stick,.jb-searchband,.jb-filters,.jb-chiprow,.jb-mtoggle{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}
+  .jb-stick,.jb-searchband,.jb-filters,.jb-mtoggle{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}
   .jb-occfield{flex-basis:90px}
   /* filters collapse behind a toggle so they don't eat the mobile screen */
   .jb-mtoggle{display:flex;align-items:center;gap:11px;width:calc(100% + 44px);background:var(--card);border:none;border-bottom:1px solid var(--rule);padding-top:14px;padding-bottom:14px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);cursor:pointer}
   .jb-mtoggle svg{width:19px;height:19px;color:var(--ink-2);flex:none}
   .jb-mtoggle .jb-mchev{margin-left:auto;transition:transform .2s}
   .jb.filters-open .jb-mtoggle .jb-mchev{transform:rotate(180deg)}
-  .jb-filters,.jb-chiprow{display:none}
-  .jb.filters-open .jb-filters,.jb.filters-open .jb-chiprow{display:flex}
-  .jb.filters-open .jb-filters{padding-top:14px;flex-direction:column;align-items:stretch;gap:12px}
-  .jb.filters-open .jb-filters select,.jb.filters-open .jb-filters .jb-toggle{width:100%}
+  .jb-filters{display:none}
+  .jb.filters-open .jb-filters{display:flex;padding-top:14px;flex-direction:column;align-items:stretch;gap:12px}
+  .jb.filters-open .jb-filters select,.jb.filters-open .jb-filters .jb-toggle,.jb.filters-open .jb-tagdd{width:100%}
+  .jb.filters-open .jb-tagbtn{justify-content:space-between}
+  .jb.filters-open .jb-tagmenu{position:static;width:auto;max-width:none;box-shadow:none;border:none;padding:12px 0 2px}
+  /* scoped board: Show-all drops to its own full-width row under the search */
+  .jb-scoped .jb-searchband{flex-wrap:wrap}
+  .jb-scoped .jb-showall{width:100%;justify-content:center;margin-top:10px}
 }
-.job-filter{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:22px 0 0;padding:0 0 14px;border-bottom:1px solid var(--ink)}
-.job-filter input{flex:1 1 220px;background:transparent;border:none;border-bottom:1px solid var(--rule);font-family:inherit;font-size:14.5px;color:var(--ink);padding:6px 2px}
-.job-filter input:focus{outline:none;border-bottom-color:var(--accent)}
-.job-remote-toggle{background:transparent;border:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:7px 12px 6px;cursor:pointer;transition:all .12s}
-.job-remote-toggle.on{background:var(--accent);border-color:var(--accent);color:#fff}
-.job-count{color:var(--ink-3)}
 @media (max-width:640px){.job-card{flex-direction:column;gap:6px}.job-side{text-align:left}.job-m{justify-content:flex-start}.job-arrow{display:none}}
 .rt-index li{border-bottom:0.5px solid var(--rule)}
 .rt-index a{display:grid;grid-template-columns:1fr auto;grid-template-areas:"t m" "s m";gap:2px 20px;align-items:center;padding:17px 2px;text-decoration:none;color:var(--ink)}

@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
 import { countryName } from './countries';
 
@@ -7,7 +8,11 @@ import { countryName } from './countries';
    that work (top filter bar, instant counts, shareable URL state) plus the
    piece the tag boards get wrong: our tags are derived from the posting text,
    never employer-self-reported. Featured rows render between the filters and
-   the results, and step aside the moment the user searches or filters. */
+   the results, and step aside the moment the user searches or filters.
+
+   Scoped mode (an occupation page, e.g. /jobs/architect): the same bar, seeded
+   with that occupation's SSR'd listings (so the HTML is crawlable) and the live
+   employer layer for that occupation, plus a "Show all jobs" link back here. */
 
 const PAGE = 60;
 const PAY_STOPS = [50, 100, 150, 200] as const;
@@ -20,13 +25,15 @@ const TAGS: { code: string; label: string; hit: (j: Job, now: number) => boolean
   { code: 'new', label: 'New this week', hit: (j, now) => !!j.posted && now - new Date(j.posted).getTime() < 7 * 864e5 },
 ];
 
-export default function JobsBrowse({ fields, titles, search, featured }: {
+export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope }: {
   fields: Record<string, string>;   // occ slug -> field
   titles: Record<string, string>;   // occ slug -> display title
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
+  initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
+  scope?: { occ: string; title: string }; // set on an occupation page -> single-occupation board
 }) {
-  const [all, setAll] = useState<Job[] | null>(null);
+  const [all, setAll] = useState<Job[] | null>(initialJobs ?? null);
   const [q, setQ] = useState('');
   const [needle, setNeedle] = useState('');
   const [field, setField] = useState('');
@@ -36,8 +43,10 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
   const [tags, setTags] = useState<Set<string>>(new Set());
   const [sort, setSort] = useState<'new' | 'pay'>('new');
   const [filtersOpen, setFiltersOpen] = useState(false); // mobile: collapse filters behind a toggle
+  const [tagsOpen, setTagsOpen] = useState(false);        // the Tags dropdown (keeps the bar to one line)
   const [shown, setShown] = useState(PAGE);
   const [now] = useState(() => Date.now());
+  const tagRef = useRef<HTMLDivElement>(null);
 
   // Load the corpus once, and read any shared filter state from the URL.
   useEffect(() => {
@@ -49,12 +58,33 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
     setMinPay(Number(p.get('pay')) || 0);
     setTags(new Set((p.get('t') ?? '').split(',').filter(Boolean)));
     if (p.get('sort') === 'pay') setSort('pay');
-    // static scraped jobs + the live layer of paid employer posts (pinned first)
-    Promise.all([
-      fetch('/data/all-jobs.json').then((r) => r.json()).catch(() => []),
-      fetch('/api/employer-jobs').then((r) => r.json()).catch(() => []),
-    ]).then(([scraped, employer]: [Job[], Job[]]) => setAll([...(employer || []), ...(scraped || [])]));
+    if (scope) {
+      // scoped: the SSR'd listings are already in state; fold in the live layer
+      // of paid employer posts for this occupation, pinned first.
+      fetch('/api/employer-jobs').then((r) => r.json()).catch(() => [])
+        .then((employer: Job[]) => {
+          const mine = (employer || []).filter((j) => j.occ === scope.occ);
+          if (mine.length) setAll((prev) => [...mine, ...(prev ?? initialJobs ?? [])]);
+        });
+    } else {
+      // global: static scraped jobs + the live layer of paid employer posts (pinned first)
+      Promise.all([
+        fetch('/data/all-jobs.json').then((r) => r.json()).catch(() => []),
+        fetch('/api/employer-jobs').then((r) => r.json()).catch(() => []),
+      ]).then(([scraped, employer]: [Job[], Job[]]) => setAll([...(employer || []), ...(scraped || [])]));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Close the Tags dropdown on an outside click or Escape.
+  useEffect(() => {
+    if (!tagsOpen) return;
+    const onDoc = (e: MouseEvent) => { if (tagRef.current && !tagRef.current.contains(e.target as Node)) setTagsOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setTagsOpen(false); };
+    document.addEventListener('mousedown', onDoc);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('mousedown', onDoc); document.removeEventListener('keydown', onKey); };
+  }, [tagsOpen]);
 
   // Debounce the text search; keep the URL shareable.
   useEffect(() => {
@@ -144,7 +174,7 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
 
   const activeCount = (field ? 1 : 0) + (cty ? 1 : 0) + (minPay ? 1 : 0) + (remoteOnly ? 1 : 0) + tags.size + (sort === 'pay' ? 1 : 0);
   return (
-    <div className={`jb${filtersOpen ? ' filters-open' : ''}`}>
+    <div className={`jb${filtersOpen ? ' filters-open' : ''}${scope ? ' jb-scoped' : ''}`}>
       <div className="jb-stick">
       <div className="jb-searchband">
         <svg className="jb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
@@ -153,19 +183,22 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Role, company, place, or skillset"
-          aria-label="Search all listings"
+          placeholder={scope ? `Search ${scope.title.toLowerCase()} roles` : 'Role, company, place, or skillset'}
+          aria-label={scope ? `Search ${scope.title} listings` : 'Search all listings'}
           autoComplete="off"
         />
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
+        {scope && <Link href="/jobs" className="jb-showall">Show all jobs</Link>}
       </div>
       {pristine ? (
+        scope ? null : (
         <div className="jb-try lbl" aria-label="Example searches">
           <span>Try</span>
           {['AI engineer', 'Registered nurse', 'Product design', 'Remote data'].map((ex) => (
             <button key={ex} type="button" onClick={() => { setQ(ex); setNeedle(ex.toLowerCase()); }}>{ex}</button>
           ))}
         </div>
+        )
       ) : (
         <div className="jb-active" aria-label="Active filters">
           {needle && <button type="button" className="jb-pill" onClick={() => { setQ(''); setNeedle(''); }}>&ldquo;{needle}&rdquo;<span className="jb-x">&times;</span></button>}
@@ -186,10 +219,12 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
         <svg className="jb-mchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
       </button>
       <div className="jb-filters">
-        <select aria-label="Field" value={field} onChange={(e) => setField(e.target.value)}>
-          <option value="">All fields</option>
-          {fieldNames.map((f) => <option key={f} value={f}>{f}</option>)}
-        </select>
+        {!scope && (
+          <select aria-label="Field" value={field} onChange={(e) => setField(e.target.value)}>
+            <option value="">All fields</option>
+            {fieldNames.map((f) => <option key={f} value={f}>{f}</option>)}
+          </select>
+        )}
         <select aria-label="Country" value={cty} onChange={(e) => setCty(e.target.value)}>
           <option value="">All countries</option>
           {countries.map((x) => <option key={x.code} value={x.code}>{countryName(x.code)} ({x.n})</option>)}
@@ -203,13 +238,21 @@ export default function JobsBrowse({ fields, titles, search, featured }: {
           <option value="new">Newest first</option>
           <option value="pay">Highest pay</option>
         </select>
-      </div>
-      <div className="jb-chiprow" role="group" aria-label="Filter tags">
-        {TAGS.map((t) => (
-          <button key={t.code} type="button" className={`jb-chip${tags.has(t.code) ? ' on' : ''}`} aria-pressed={tags.has(t.code)} onClick={() => toggleTag(t.code)}>
-            {t.label}{all !== null && <span className="jb-chip-n">{tagCount[t.code]}</span>}
+        <div className="jb-tagdd" ref={tagRef}>
+          <button type="button" className={`jb-toggle jb-tagbtn${tags.size ? ' on' : ''}`} aria-expanded={tagsOpen} aria-haspopup="true" onClick={() => setTagsOpen((v) => !v)}>
+            Tags{tags.size > 0 ? ` · ${tags.size}` : ''}
+            <svg className="jb-tagchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
           </button>
-        ))}
+          {tagsOpen && (
+            <div className="jb-tagmenu" role="group" aria-label="Filter tags">
+              {TAGS.map((t) => (
+                <button key={t.code} type="button" className={`jb-chip${tags.has(t.code) ? ' on' : ''}`} aria-pressed={tags.has(t.code)} onClick={() => toggleTag(t.code)}>
+                  {t.label}{all !== null && <span className="jb-chip-n">{tagCount[t.code]}</span>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       </div>
 

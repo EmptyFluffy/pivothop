@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { getJobs, jobOccupations, jobCount, occTitle } from '../jobs-data';
-import JobsBoard from '../JobsBoard';
+import { getJobs, jobOccupations, jobCount, occTitle, occField, occSearchText } from '../jobs-data';
+import JobsBrowse from '../JobsBrowse';
 import { coverableSlugs } from '../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../routes/routes-data';
 
@@ -50,7 +50,13 @@ export default async function OccJobsPage({ params }: { params: Promise<{ occ: s
           {hasSalary && <>{' '}What the role pays, across markets and seniority: <Link className="gl" href={`/salary/${occ}`}>{tl} salary</Link>.</>}
         </p>
 
-        <JobsBoard jobs={jobs} />
+        <JobsBrowse
+          fields={{ [occ]: occField(occ) }}
+          titles={{ [occ]: title }}
+          search={{ [occ]: occSearchText(occ) }}
+          initialJobs={jobs}
+          scope={{ occ, title }}
+        />
 
         {waysIn.length > 0 && (
           <section className="rt-sec">
