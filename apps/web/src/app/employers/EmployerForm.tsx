@@ -99,10 +99,10 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   const [filled, setFilled] = useState('');
   const [tier, setTier] = useState<'std' | 'feat'>('feat');
   const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState<'' | 'paid' | 'queued'>('');   // '' none | paid (Stripe) | queued (concierge)
+  const [done, setDone] = useState<'' | 'paid' | 'queued'>('');   // '' none, paid (checkout), queued (concierge)
   const [submitError, setSubmitError] = useState('');
   const [tried, setTried] = useState(false);   // show required-field errors after a failed attempt
-  // Returning from Stripe Checkout: ?paid=1 shows the live confirmation, ?canceled=1 a gentle note.
+  // Returning from checkout: ?paid=1 shows the live confirmation, ?canceled=1 a gentle note.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     if (p.get('paid') === '1') { setDone('paid'); window.history.replaceState(null, '', '/employers'); }
@@ -219,7 +219,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
     const r = await startCheckout(buildPayload());
     if (r.url) { window.location.href = r.url; return; }                     // -> Stripe Checkout
     setSubmitting(false);
-    if (r.error === 'stripe-not-configured') { setDone('queued'); window.scrollTo({ top: 0, behavior: 'smooth' }); } // saved; concierge
+    if (r.error === 'ls-not-configured') { setDone('queued'); window.scrollTo({ top: 0, behavior: 'smooth' }); } // saved; concierge
     else if (r.error === 'not-configured') { mailto(); }                     // local dev / no backend
     else { setSubmitError('Could not start checkout just now — opening email as a fallback.'); mailto(); }
   }

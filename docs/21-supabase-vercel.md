@@ -36,6 +36,20 @@ They land in `job_submissions` with `status = 'new'`. Review by hand, post to th
 
 
 
+## Lemon Squeezy: automated employer payments (Merchant of Record)
+
+Pay-to-publish, no concierge, and MoR means Lemon Squeezy is the legal seller and handles worldwide tax — so it works from anywhere (chosen because Stripe does not support Costa Rica). Flow: form submit -> `startCheckout` inserts the row `pending_payment` and creates a Lemon Squeezy checkout for the tier's variant -> employer pays on the hosted page -> `/api/lemonsqueezy/webhook` (order_created, HMAC-verified) flips the row to `paid` -> `/api/employer-jobs` returns paid rows and the board merges them in live. Employer cards link straight to the apply URL; `/admin` can set status to `declined` to pull a post.
+
+Dashboard setup (once):
+1. Create a Lemon Squeezy account + a **Store**.
+2. Create two products/variants: **Standard $49** and **Featured $99**. Note each **Variant ID**.
+3. Settings -> API: create an **API key**. Note the **Store ID**.
+4. Settings -> Webhooks -> add: URL `https://www.pivothop.com/api/lemonsqueezy/webhook`, event **order_created**. Note the **signing secret**.
+5. Settings -> Payouts: connect PayPal (works for Costa Rica) or a supported bank/Wise.
+6. Vercel env: **LEMONSQUEEZY_API_KEY, LEMONSQUEEZY_STORE_ID, LEMONSQUEEZY_VARIANT_STD, LEMONSQUEEZY_VARIANT_FEAT, LEMONSQUEEZY_WEBHOOK_SECRET**; run migration 0004; redeploy. Test in the store's test mode.
+
+Without the LS env the form degrades to concierge (saves the lead as `new`).
+
 ## Reviewing submissions: /admin
 
 A password-gated console at `/admin` lists everything in `job_submissions` (newest first): company, role, tier, contact, salary, skills, benefits, the full description, and the apply destination. Each card has a status dropdown (new / reviewing / posted / declined, written straight back to Supabase) and a one-click prefilled "Reply to {company}" mailto.
@@ -44,18 +58,6 @@ Gate: HTTP Basic Auth via `apps/web/src/middleware.ts`. Set **ADMIN_PASSWORD** (
 
 
 
-## Stripe: automated employer payments
-
-The post-a-job form is pay-to-publish, no concierge. Flow: form submit -> `startCheckout` inserts the row as `pending_payment` and creates a Stripe Checkout session -> employer pays on Stripe's hosted page -> `/api/stripe/webhook` (checkout.session.completed, signature-verified) flips the row to `paid` -> the board's `/api/employer-jobs` returns paid rows and JobsBrowse merges them in, so the listing appears instantly. Amounts come from `apps/web/src/app/employers/pricing.ts` server-side (never the client). Employer cards link straight to the apply URL; `/admin` can set status to `declined` to pull a post.
-
-Dashboard setup (once):
-1. Create a Stripe account. Start in **Test mode** to try it end to end.
-2. Developers -> API keys: copy the **Secret key** (`sk_...`).
-3. Developers -> Webhooks -> Add endpoint: URL `https://www.pivothop.com/api/stripe/webhook`, event **checkout.session.completed**. Copy the **Signing secret** (`whsec_...`).
-4. In Vercel env set **STRIPE_SECRET_KEY** and **STRIPE_WEBHOOK_SECRET**, redeploy.
-5. Test with card 4242 4242 4242 4242 (any future date / CVC), confirm the row goes `paid` and the job shows on /jobs. Then swap to live keys.
-
-Without the Stripe env the form degrades to concierge (saves the lead as `new`, shows the queue message).
 
 ## Still to do for launch (unrelated to this wiring)
 
