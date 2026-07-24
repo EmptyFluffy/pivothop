@@ -190,16 +190,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
         {scope && <Link href="/jobs" className="jb-showall">Show all jobs</Link>}
       </div>
-      {pristine ? (
-        scope ? null : (
-        <div className="jb-try lbl" aria-label="Example searches">
-          <span>Try</span>
-          {['AI engineer', 'Registered nurse', 'Product design', 'Remote data'].map((ex) => (
-            <button key={ex} type="button" onClick={() => { setQ(ex); setNeedle(ex.toLowerCase()); }}>{ex}</button>
-          ))}
-        </div>
-        )
-      ) : (
+      {!pristine && (
         <div className="jb-active" aria-label="Active filters">
           {needle && <button type="button" className="jb-pill" onClick={() => { setQ(''); setNeedle(''); }}>&ldquo;{needle}&rdquo;<span className="jb-x">&times;</span></button>}
           {field && <button type="button" className="jb-pill" onClick={() => setField('')}>{field}<span className="jb-x">&times;</span></button>}
@@ -216,6 +207,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       <button type="button" className="jb-mtoggle" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((v) => !v)}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
         <span>Filters &amp; sort{activeCount > 0 ? ` · ${activeCount} on` : ''}</span>
+        <span className="jb-mcount">{all === null ? '' : `${results.length.toLocaleString()} roles`}</span>
         <svg className="jb-mchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
       </button>
       <div className="jb-filters">

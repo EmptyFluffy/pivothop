@@ -8,6 +8,7 @@ export type Job = {
   smin: number | null; smax: number | null; source: string; posted: string;
   url?: string;        // outbound apply link; present in per-occupation files, stripped from the global browse file
   featured?: boolean;  // launch featured strip
+  logo?: string;       // locally-served company logo path, featured strip only
   fl?: string[];       // derived tags: 4d four-day week, eq equity, vi visa sponsorship
   lv?: 's' | 'e';      // level from the title: senior / entry
   c?: string;          // resolved ISO country code

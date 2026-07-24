@@ -24,6 +24,16 @@ export function getJobs(occ: string): Job[] { return read<Job[]>(`jobs/${occ}.js
 export function getJob(occ: string, id: string): Job | null {
   return getJobs(occ).find((j) => j.id === id) ?? null;
 }
+let _logoSet: Set<string> | null = null;
+/** Locally-served company logo when we have one (public/data/logos/<slug>.png), else null. */
+export function companyLogo(company: string): string | null {
+  if (!_logoSet) {
+    try { _logoSet = new Set(fs.readdirSync(path.join(process.cwd(), 'public', 'data', 'logos')).filter((f) => f.endsWith('.png')).map((f) => f.slice(0, -4))); }
+    catch { _logoSet = new Set(); }
+  }
+  const slug = company.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return slug && _logoSet.has(slug) ? `/data/logos/${slug}.png` : null;
+}
 export type JobSection = { h: string | null; t: string };
 export function getJobSections(occ: string, id: string): JobSection[] {
   return read<Record<string, JobSection[]>>(`jobs-detail/${occ}.json`)?.[id] ?? [];

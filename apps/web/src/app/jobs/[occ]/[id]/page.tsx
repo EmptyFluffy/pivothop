@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
-import { getJob, getJobs, getJobSections, jobOccupations, occTitle, type JobSection } from '../../jobs-data';
+import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection } from '../../jobs-data';
 import { salaryLabel, postedLabel, sourceName, Arrow45 } from '../../JobCard';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
@@ -58,6 +58,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   const hasSalary = coverableSlugs().includes(occ);
+  const logo = companyLogo(j.company);
+  const initial = (j.company.match(/[a-z0-9]/i)?.[0] ?? '?').toUpperCase();
   const waysIn = routableSlugs()
     .filter((s) => routePair(s)?.dest === occ)
     .map((s) => { const p = routePair(s)!; return { slug: s, r: destRole(p.origin, p.dest), om: originMeta(p.origin) }; })
@@ -72,8 +74,15 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><Link href={`/jobs/${occ}`}>{title}</Link><span>/</span><span>{j.company}</span>
         </nav>
-        <h1 className="rt-h1 jd-h1">{j.title}</h1>
-        <p className="jd-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
+        <div className="jd-head">
+          {logo
+            ? <span className="jd-mark"><img src={logo} alt="" width={40} height={40} /></span>
+            : <span className="jd-mark jd-mono">{initial}</span>}
+          <div className="jd-headtext">
+            <h1 className="rt-h1 jd-h1">{j.title}</h1>
+            <p className="jd-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
+          </div>
+        </div>
 
         <div className="rt-facts">
           {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}

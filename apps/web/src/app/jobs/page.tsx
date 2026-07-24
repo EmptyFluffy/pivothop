@@ -44,7 +44,7 @@ export default function JobsHub() {
 
         <JobsBrowse fields={fields} titles={titles} search={search} featured={
           featuredJobs().length >= 3 ? (
-            <section className="feat" aria-label="Featured roles">
+            <section key="featured" className="feat" aria-label="Featured roles">
               <div className="feat-head">
                 <span className="lbl feat-cap">Featured roles</span>
                 <span className="lbl feat-sub">Shown first to the candidates whose skills reach them</span>
@@ -60,7 +60,9 @@ export default function JobsHub() {
                 })().map((j, i) => (
                   <li key={j.id}>
                     <Link href={`/jobs/${j.occ}/${j.id}`} className="feat-row">
-                      <span className="feat-i">0{i + 1}</span>
+                      {j.logo
+                        ? <span className="feat-logo"><img src={j.logo} alt="" width={30} height={30} loading="lazy" /></span>
+                        : <span className="feat-i">0{i + 1}</span>}
                       <span className="feat-main">
                         <span className="feat-co">{j.company}</span>
                         <span className="feat-t">{j.title}</span>
