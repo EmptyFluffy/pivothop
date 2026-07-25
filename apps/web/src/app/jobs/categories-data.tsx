@@ -176,6 +176,39 @@ export function categoryJobs(c: Category): Job[] {
 /** The deep-link to the full filtered board for a category. */
 export function categoryShowAll(c: Category): string { return `${c.showAllBase ?? '/jobs'}?${c.query}`; }
 
+/** Slugify a display name the same way category slugs were minted (NFKD, bare). */
+export const slugifyName = slugify;
+
+export type CategoryStats = {
+  salaried: number;                 // matched jobs stating a salary
+  p25: number | null; p75: number | null; // posted mid-band quartiles, $k
+  topCountries: [string, number][];
+  topFields: [string, number][];
+  topOccs: [string, number][];
+  newest: string;                   // most recent posted date in the set
+};
+/** Computed per-category facts for the FAQ block — every number is this filter's own. */
+export function categoryStats(c: Category): CategoryStats {
+  const m = allJobs().filter(c.match);
+  const mids = m.filter((j) => j.smin || j.smax)
+    .map((j) => ((j.smin ?? j.smax ?? 0) + (j.smax ?? j.smin ?? 0)) / 2)
+    .sort((a, b) => a - b);
+  const q = (p: number) => (mids.length >= 5 ? Math.round(mids[Math.floor((mids.length - 1) * p)] / 1000) : null);
+  const top = (key: (j: Job) => string | undefined) => {
+    const t = new Map<string, number>();
+    for (const j of m) { const k = key(j); if (k) t.set(k, (t.get(k) ?? 0) + 1); }
+    return [...t.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3) as [string, number][];
+  };
+  return {
+    salaried: mids.length,
+    p25: q(0.25), p75: q(0.75),
+    topCountries: top((j) => j.c),
+    topFields: top((j) => { const f = occField(j.occ); return f === 'Other' ? undefined : f; }),
+    topOccs: top((j) => j.occ),
+    newest: m.reduce((s, j) => (j.posted > s ? j.posted : s), ''),
+  };
+}
+
 /** A distinct, count-bearing intro per category — never boilerplate. */
 export function categoryBlurb(c: Category): string {
   const n = c.count.toLocaleString();

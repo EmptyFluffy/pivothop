@@ -5,8 +5,10 @@ import { PageShell } from '../../components/SiteChrome';
 import { getJobs, jobOccupations, jobCount, occTitle, occField, occSearchText, occMaps } from '../jobs-data';
 import JobsBrowse from '../JobsBrowse';
 import { coverableSlugs } from '../../salary/salary-data';
-import { routableSlugs, routePair, destRole, originMeta } from '../../routes/routes-data';
-import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShowAll, allCategories, type Category } from '../categories-data';
+import { routableSlugs, routePair, destRole, originMeta, routeOrigins } from '../../routes/routes-data';
+import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShowAll, categoryStats, slugifyName, allCategories, type Category } from '../categories-data';
+import { countryName } from '../countries';
+import { postedLabel } from '../JobCard';
 
 /* One slug space, two kinds of page:
    - an occupation (in jobs-index)      -> the single-occupation board + routes in
@@ -137,6 +139,95 @@ function OccupationBoard({ occ }: { occ: string }) {
   );
 }
 
+// Data-driven FAQ per category page: every answer carries this filter's own
+// numbers and at least one internal link toward the surface that answers it
+// deeper (salary, routes, sibling categories, the instrument). Question intent
+// + FAQPage schema + link mesh in one block; nothing writable-prose about it.
+type FaqItem = { q: string; text: string; jsx: React.ReactNode };
+function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqItem[] {
+  const s = categoryStats(cat);
+  // Decapitalize only the first letter: "Jobs in Germany" -> "jobs in Germany"
+  // (a full toLowerCase() would strip the proper nouns).
+  const tl = cat.title.charAt(0).toLowerCase() + cat.title.slice(1);
+  const catSet = new Set(categorySlugs());
+  const qs = new URLSearchParams(cat.query);
+  const ccode = qs.get('c');
+  const out: FaqItem[] = [];
+
+  // 1. The count, honestly framed.
+  const fresh = s.newest ? `; the newest was posted ${postedLabel(s.newest)}` : '';
+  out.push({
+    q: `How many ${tl} are open right now?`,
+    text: `${cat.count.toLocaleString()} live openings, refreshed with the nightly scrape${fresh}. A page like this only exists while it clears a minimum of live listings, so the count is real inventory, never padding.`,
+    jsx: <>{cat.count.toLocaleString()} live openings, refreshed with the nightly scrape{fresh}. A page like this only exists while it clears a minimum of live listings, so the count is real inventory, never padding. Every preloaded search: <Link className="gl" href="/jobs/browse">browse the board</Link>.</>,
+  });
+
+  // 2. Pay, from this filter's own postings.
+  if (s.p25 != null && s.p75 != null) {
+    const band = `$${s.p25}k–$${s.p75}k`;
+    const salLink = cat.destOcc && coverableSlugs().includes(cat.destOcc)
+      ? <> Full {occTitle(cat.destOcc).toLowerCase()} pay data, by seniority and country: <Link className="gl" href={`/salary/${cat.destOcc}`}>{occTitle(cat.destOcc).toLowerCase()} salary</Link>.</>
+      : <> Posted pay across every occupation: <Link className="gl" href="/salary">the salary index</Link>.</>;
+    out.push({
+      q: `How much do ${tl} pay?`,
+      text: `Of the ${cat.count.toLocaleString()} openings, ${s.salaried.toLocaleString()} state a salary. The posted middle band runs ${band} a year. Only postings that state pay are counted; nothing is inferred.`,
+      jsx: <>Of the {cat.count.toLocaleString()} openings, {s.salaried.toLocaleString()} state a salary. The posted middle band runs {band} a year. Only postings that state pay are counted; nothing is inferred.{salLink}</>,
+    });
+  }
+
+  // 3. The kind-specific question.
+  if (cat.destOcc && waysIn.length > 0) {
+    const occTl = occTitle(cat.destOcc).toLowerCase();
+    const tops = waysIn.slice(0, 3);
+    const originPage = routeOrigins().includes(cat.destOcc);
+    out.push({
+      q: `Can I get a ${occTl} job from an adjacent career?`,
+      text: `Measurably, yes. The closest measured pivots in: ${tops.map(({ r, om }) => `${om.title.toLowerCase()} (${r!.match}% skill readiness)`).join(', ')}. Each route page lists exactly which skills carry over and which are missing, read from live postings.`,
+      jsx: <>Measurably, yes. The closest measured pivots in: {tops.map(({ slug, r, om }, i) => (<span key={slug}>{i > 0 ? ', ' : ''}<Link className="gl" href={`/routes/${slug}`}>{om.title.toLowerCase()}</Link> ({r!.match}% skill readiness)</span>))}. Each route page lists exactly which skills carry over and which are missing.{originPage && <>{' '}Moving out instead: <Link className="gl" href={`/routes/${cat.destOcc}`}>alternative careers for {occTl}s</Link>.</>}</>,
+    });
+  } else if (cat.destOcc && routeOrigins().includes(cat.destOcc)) {
+    const occTl = occTitle(cat.destOcc).toLowerCase();
+    out.push({
+      q: `What careers can a ${occTl} move into?`,
+      text: `Every measured route out of ${occTl}, ranked by skill readiness with the salary and license gate for each, lives on one page: pivothop.com/routes/${cat.destOcc}.`,
+      jsx: <>Every measured route out of {occTl}, ranked by skill readiness with the salary and license gate for each: <Link className="gl" href={`/routes/${cat.destOcc}`}>alternative careers for {occTl}s</Link>.</>,
+    });
+  } else if (qs.get('t') === 'vi') {
+    out.push({
+      q: 'Are these visa-sponsorship offers verified?',
+      text: 'The flag is read from the posting text with negation checks, so a line like "no visa sponsorship" never counts as an offer. Boards change fast, though — confirm on the original posting before you plan around it. Every card here links to the source.',
+      jsx: <>The flag is read from the posting text with negation checks, so a line like &ldquo;no visa sponsorship&rdquo; never counts as an offer. Boards change fast, though &mdash; confirm on the original posting before you plan around it. Every card links to the source.</>,
+    });
+  } else if (ccode && s.topFields.length > 0) {
+    const name = countryName(ccode);
+    const link = (f: string) => {
+      const combo = `${slugifyName(f)}-in-${slugifyName(name)}`;
+      const single = slugifyName(f);
+      return catSet.has(combo) ? `/jobs/${combo}` : catSet.has(single) ? `/jobs/${single}` : null;
+    };
+    out.push({
+      q: `Which fields hire the most in ${name}?`,
+      text: `In this set: ${s.topFields.map(([f, n]) => `${f} (${n})`).join(', ')}.`,
+      jsx: <>In this set: {s.topFields.map(([f, n], i) => { const h = link(f); return (<span key={f}>{i > 0 ? ', ' : ''}{h ? <Link className="gl" href={h}>{f}</Link> : f} ({n})</span>); })}.</>,
+    });
+  } else if (s.topOccs.length > 1) {
+    out.push({
+      q: 'Which roles have the most openings here?',
+      text: `${s.topOccs.map(([o, n]) => `${occTitle(o)} (${n})`).join(', ')}.`,
+      jsx: <>{s.topOccs.map(([o, n], i) => (<span key={o}>{i > 0 ? ', ' : ''}<Link className="gl" href={`/jobs/${o}`}>{occTitle(o)}</Link> ({n})</span>))}.</>,
+    });
+  }
+
+  // 4. The funnel into the instrument.
+  out.push({
+    q: 'Which of these jobs do my skills already reach?',
+    text: 'Run the instrument with your current role and it measures your readiness for every occupation on this board from live postings — the same data these listings are tagged with. Free, no account.',
+    jsx: <>Run <Link className="gl" href="/">the instrument</Link> with your current role and it measures your readiness for every occupation on this board from live postings &mdash; the same data these listings are tagged with. Free, no account.</>,
+  });
+
+  return out;
+}
+
 function CategoryBoard({ cat }: { cat: Category }) {
   const jobs = categoryJobs(cat);
   const maps = occMaps();
@@ -145,6 +236,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
   const destTitle = cat.destOcc ? occTitle(cat.destOcc) : '';
   const waysIn = cat.destOcc ? routesInto(cat.destOcc) : [];
   const destHasSalary = cat.destOcc ? coverableSlugs().includes(cat.destOcc) : false;
+  const faq = categoryFaq(cat, waysIn);
   // Same-kind siblings first, then the top pages of other kinds.
   const rest = allCategories().filter((c) => c.slug !== cat.slug);
   const related = [...rest.filter((c) => c.kind === cat.kind).slice(0, 8), ...rest.filter((c) => c.kind !== cat.kind).slice(0, 8)];
@@ -202,6 +294,13 @@ function CategoryBoard({ cat }: { cat: Category }) {
           <Link className="rt-go" href="/employers">Feature a role &rarr;</Link>
         </section>
 
+        <div className="post-faq rt-faq">
+          <h2>Quick answers</h2>
+          {faq.map((f) => (
+            <details key={f.q}><summary>{f.q}</summary><p>{f.jsx}</p></details>
+          ))}
+        </div>
+
         <p className="rt-method lbl">
           Listings backfilled from re-displayable sources (company career pages, remote-job boards, and public-sector postings), freshest first, refreshed with the nightly scrape. A sample is shown here; <Link className="gl" href={showAll}>see the full filtered board</Link>. Each links out to apply at the original posting; salary shown where the posting states it.
         </p>
@@ -226,6 +325,11 @@ function CategoryBoard({ cat }: { cat: Category }) {
           name: `${j.title} — ${j.company}`,
           url: `https://www.pivothop.com/jobs/${j.occ}/${j.id}`,
         })),
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.text } })),
       }) }} />
     </PageShell>
   );
