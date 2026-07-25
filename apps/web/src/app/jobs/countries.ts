@@ -13,5 +13,9 @@ export const COUNTRY_NAMES: Record<string, string> = {
   NG: 'Nigeria', KE: 'Kenya', EG: 'Egypt', UA: 'Ukraine', RS: 'Serbia', HR: 'Croatia',
   BG: 'Bulgaria', SK: 'Slovakia', SI: 'Slovenia', LU: 'Luxembourg', IS: 'Iceland',
   JO: 'Jordan', QA: 'Qatar', CR: 'Costa Rica', UY: 'Uruguay', EC: 'Ecuador',
+  PK: 'Pakistan', BD: 'Bangladesh', LK: 'Sri Lanka', NP: 'Nepal', GH: 'Ghana',
+  MA: 'Morocco', TN: 'Tunisia', VE: 'Venezuela', DO: 'Dominican Republic',
+  PA: 'Panama', GT: 'Guatemala', BO: 'Bolivia', PY: 'Paraguay', PR: 'Puerto Rico',
+  MT: 'Malta', CY: 'Cyprus', KW: 'Kuwait', BH: 'Bahrain', OM: 'Oman',
 };
 export const countryName = (c: string) => COUNTRY_NAMES[c] ?? c;

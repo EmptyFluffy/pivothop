@@ -76,3 +76,15 @@ export function occList(): { slug: string; title: string; syn: string[] }[] {
   return origins().map((r) => ({ slug: r.slug, title: occTitle(r.slug), syn: r.syn ?? [] }));
 }
 
+/** Full occ->field/title/search maps for JobsBrowse. Category pages span every
+    occupation, so they need the complete maps (not a single occupation's). */
+let _maps: { fields: Record<string, string>; titles: Record<string, string>; search: Record<string, string> } | null = null;
+export function occMaps() {
+  if (!_maps) {
+    const fields: Record<string, string> = {}, titles: Record<string, string> = {}, search: Record<string, string> = {};
+    for (const o of jobOccupations()) { fields[o] = occField(o); titles[o] = occTitle(o); search[o] = occSearchText(o); }
+    _maps = { fields, titles, search };
+  }
+  return _maps;
+}
+

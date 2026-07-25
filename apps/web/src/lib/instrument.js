@@ -31,7 +31,7 @@ export function mountInstrument(DATA,HOOKS){
   // Real board counts (re-displayable open roles per occupation) drive the
   // "open roles" stat and the search-bar CTA; fetched once, looked up by slug.
   var boardCounts=null;
-  fetch('/data/jobs-index.json').then(function(r){return r.json();}).then(function(j){boardCounts=j||{};updateRolesCTA();}).catch(function(){boardCounts={};});
+  fetch('/data/jobs-index.json').then(function(r){return r.json();}).then(function(j){boardCounts=j||{};updateRolesCTA();paintJobsCTA();}).catch(function(){boardCounts={};});
   // Skill display-name -> slug, so detail-panel chips can link to the glossary.
   var skillSlugs={};
   fetch('/data/skills-meta.json').then(function(r){return r.json();}).then(function(m){var n=(m&&m.names)||{};for(var k in n)skillSlugs[(''+n[k]).toLowerCase()]=k;}).catch(function(){});
@@ -637,6 +637,17 @@ export function mountInstrument(DATA,HOOKS){
     return '<span class="lbl">'+txt+'</span>';
   }
   function setExportCTA(){var re=document.getElementById('railExport');if(re)re.innerHTML='<div class="d-export" onclick="openExport()"><div class="in"><span class="tx"><span class="a">Export this route</span><span class="b">Free PDF &middot; no account</span></span><svg viewBox="0 0 24 24"><use href="#i-export45"/></svg></div></div>';}
+  // The destination's live board, from the currently-selected role/kid. Gated on
+  // a real count (>0), so a route with no open roles shows nothing rather than a
+  // dead 404. Re-paints when jobs-index arrives, in case a detail rendered first.
+  function paintJobsCTA(){
+    var slot=document.getElementById('djobs'); if(!slot)return;
+    var slug=(xsel&&xsel.kind==='kid'&&xsel.kid)?xsel.kid.slug:(xsel&&xsel.kind==='role'&&xsel.role)?xsel.role.id:null;
+    var title=(xsel&&xsel.kind==='kid'&&xsel.kid)?xsel.kid.t:(xsel&&xsel.kind==='role'&&xsel.role)?xsel.role.title:'';
+    var n=(slug&&boardCounts&&boardCounts[slug])||0;
+    if(!n){slot.innerHTML='';return;}
+    slot.innerHTML='<a class="d-jobs" href="/jobs/'+slug+'"><span class="tx">View '+n.toLocaleString()+' open '+title.toLowerCase()+' role'+(n===1?'':'s')+'</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>';
+  }
   function renderRoleDetail(rl){
     xsel={kind:'role',role:rl};
     setExportCTA();
@@ -651,9 +662,11 @@ export function mountInstrument(DATA,HOOKS){
       '<div class="drow"><span class="k">Job demand</span><span class="v">'+rl.demand+'</span></div>'+
       '<div class="drow"><span class="k">Remote</span><span class="v">'+rl.remote+'</span></div>'+
       '<div class="drow"><span class="k">Transition</span><span class="v">'+rl.time+'</span></div>'+
+      '<div class="d-jobs-slot" id="djobs"></div>'+
       '<div class="dsk"><div class="cap">Skills you have</div><div class="tags">'+pills(rl.have,"have")+'</div></div>'+
       '<div class="dsk"><div class="cap">Skills to build</div><div class="tags">'+pills(rl.learn,"")+'</div></div>'+
       (rl.next.length?'<div class="dsk"><div class="cap">Opens paths to</div><div class="tags">'+pills(rl.next.map(function(x){return x.t;}),"")+'</div></div>':'');
+    paintJobsCTA();
   }
   function kidStory(kid,parent){
     var out='Your skills cover '+kid.m+'% of what '+kid.t+' postings ask for today.';
@@ -673,7 +686,9 @@ export function mountInstrument(DATA,HOOKS){
       hopButton(kid.slug||'',kid.t)+
       '<div class="drow"><span class="k">Path</span><span class="v">'+DATA.originLabel+' &rarr; '+parent.title+' &rarr; '+kid.t+'</span></div>'+
       '<div class="drow"><span class="k">Bridge role</span><span class="v">'+parent.title+'</span></div>'+
+      '<div class="d-jobs-slot" id="djobs"></div>'+
       '<div class="dsk"><div class="cap">The gap, measured</div><p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-top:4px">'+kidStory(kid,parent)+'</p></div>';
+    paintJobsCTA();
   }
   function updateTrail(id){
     var tc=document.getElementById('trailCrumbs');if(!tc)return;

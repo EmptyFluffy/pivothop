@@ -31,7 +31,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
-  scope?: { occ: string; title: string }; // set on an occupation page -> single-occupation board
+  scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string }; // occupation page (occ set) or category page (occ absent)
 }) {
   const [all, setAll] = useState<Job[] | null>(initialJobs ?? null);
   const [q, setQ] = useState('');
@@ -58,14 +58,17 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     setMinPay(Number(p.get('pay')) || 0);
     setTags(new Set((p.get('t') ?? '').split(',').filter(Boolean)));
     if (p.get('sort') === 'pay') setSort('pay');
-    if (scope) {
-      // scoped: the SSR'd listings are already in state; fold in the live layer
-      // of paid employer posts for this occupation, pinned first.
+    if (scope?.occ) {
+      // occupation page: the SSR'd listings are already in state; fold in the
+      // live layer of paid employer posts for this occupation, pinned first.
       fetch('/api/employer-jobs').then((r) => r.json()).catch(() => [])
         .then((employer: Job[]) => {
           const mine = (employer || []).filter((j) => j.occ === scope.occ);
           if (mine.length) setAll((prev) => [...mine, ...(prev ?? initialJobs ?? [])]);
         });
+    } else if (scope) {
+      // category page: the capped SSR sample is the corpus; the full filtered
+      // set is one click away on /jobs, so no client fetch here.
     } else {
       // global: static scraped jobs + the live layer of paid employer posts (pinned first)
       Promise.all([
@@ -188,7 +191,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           autoComplete="off"
         />
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
-        {scope && <Link href="/jobs" className="jb-showall">Show all jobs</Link>}
+        {scope && <Link href={scope.showAllHref ?? '/jobs'} className="jb-showall">{scope.showAllLabel ?? 'Show all jobs'}</Link>}
       </div>
       {!pristine && (
         <div className="jb-active" aria-label="Active filters">
@@ -211,7 +214,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         <svg className="jb-mchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
       </button>
       <div className="jb-filters">
-        {!scope && (
+        {!scope?.occ && (
           <select aria-label="Field" value={field} onChange={(e) => setField(e.target.value)}>
             <option value="">All fields</option>
             {fieldNames.map((f) => <option key={f} value={f}>{f}</option>)}

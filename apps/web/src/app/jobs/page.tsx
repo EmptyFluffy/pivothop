@@ -100,6 +100,7 @@ export default function JobsHub() {
 
         <section className="rt-sec jb-byocc">
           <h2>Browse by occupation</h2>
+          <p className="rt-note">Or browse by filter — remote, location, seniority, pay, and combinations: <Link className="gl" href="/jobs/browse">all preloaded searches</Link>.</p>
           {fieldGroups.map(([field, list]) => (
             <div key={field} className="jb-occrow">
               <span className="lbl jb-occfield">{field}</span>
