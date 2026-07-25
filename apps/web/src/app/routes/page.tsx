@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { IndexSearch, type IxRow, type IxGroup } from '../components/IndexSearch';
-import { routableSlugs, routePair, occField, originMeta, destRole } from './routes-data';
+import { routableSlugs, routePair, occField, originMeta, destRole, routeOrigins, originRoles } from './routes-data';
 
 export const metadata: Metadata = {
   title: 'Career pivots, measured from live job postings — PivotHop',
@@ -49,6 +49,18 @@ export default function RoutesIndex() {
           {`${total} routes across every field our data covers, each a saved state of the working instrument: the readiness number, the posted salary band, the exact skill gap, and the observed-transition data behind it. Not advice in the abstract, the specific places a specific starting point can reach.`}
         </p>
         <IndexSearch rows={rows} groups={groups} placeholder="Search a role or a pivot" unit="routes" />
+
+        <section className="rt-sec jb-byocc">
+          <h2>By starting point</h2>
+          <p className="rt-note">Every measured route out of one profession, ranked on a single page.</p>
+          <span className="jb-occlinks">
+            {routeOrigins().map((o) => {
+              const om = originMeta(o);
+              return <Link key={o} href={`/routes/${o}`}>Alternative careers for {om.title.toLowerCase()}s <span className="lbl">{originRoles(o).length}</span></Link>;
+            })}
+          </span>
+        </section>
+
         <p className="rt-method lbl">Every route has confident scrape data behind both its origin and destination. Curated routes carry a hand-written judgment layer; the rest draft a read from the numbers, refined over time.</p>
       </div>
     </PageShell>

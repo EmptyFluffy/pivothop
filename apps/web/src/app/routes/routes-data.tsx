@@ -556,6 +556,30 @@ function loadRoutable(): Map<string, { origin: string; dest: string }> {
 export function routableSlugs(): string[] { return [...loadRoutable().keys()]; }
 export function routePair(slug: string): { origin: string; dest: string } | null { return loadRoutable().get(slug) ?? null; }
 
+/** Origins that earn a per-origin page ("Alternative careers for architects"):
+    enough measured roles in the payload to be a real ranked list. Route PAGES
+    are capped at the best two per origin (DEST_CAP); the origin page lists the
+    full measured set and links the ones that have pages. */
+export function routeOrigins(): string[] {
+  const out: string[] = [];
+  try {
+    const dir = path.join(process.cwd(), 'public', 'data');
+    for (const file of fs.readdirSync(dir)) {
+      if (!file.endsWith('.json')) continue;
+      const slug = file.replace(/\.json$/, '');
+      if (NON_OCC.has(slug)) continue;
+      const o = getOrigin(slug);
+      if (!o || !Array.isArray(o.roles) || o.roles.length < 5 || (o.postings ?? 0) < ORIGIN_POST_FLOOR) continue;
+      out.push(slug);
+    }
+  } catch { /* build edge */ }
+  return out.sort();
+}
+/** Every measured role out of one origin, readiness-ranked (the full list, not just the ones with route pages). */
+export function originRoles(origin: string): RouteRole[] {
+  return [...(getOrigin(origin)?.roles ?? [])].sort((a, b) => (b.match ?? 0) - (a.match ?? 0));
+}
+
 let _fieldCache: Record<string, { field?: string }> | null = null;
 export function occField(slug: string): string {
   if (!_fieldCache) { try { _fieldCache = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'occ-meta.json'), 'utf8')).meta; } catch { _fieldCache = {}; } }

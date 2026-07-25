@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { POSTS } from './blog/posts';
-import { routableSlugs } from './routes/routes-data';
+import { routableSlugs, routeOrigins } from './routes/routes-data';
 import { coverableSlugs } from './salary/salary-data';
 import { jobOccupations } from './jobs/jobs-data';
 import { categorySlugs } from './jobs/categories-data';
@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/routes`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/glossary`, changeFrequency: 'monthly', priority: 0.6 },
     ...routableSlugs().map((s) => ({ url: `${BASE}/routes/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 })),
+    ...routeOrigins().map((s) => ({ url: `${BASE}/routes/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 })),
     { url: `${BASE}/salary`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/salary/by-country`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
     ...coverableSlugs().map((s) => ({ url: `${BASE}/salary/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 })),
