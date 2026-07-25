@@ -40,6 +40,10 @@ fi
 
 # ── Green: refresh the web surfaces ──────────────────────────────────────────
 python3 "$REPO/apps/scraper/scripts/export-web-data.py" >> "$LOG" 2>&1 || { echo "export-web-data FAILED — aborting publish" >> "$LOG"; date > "$MARKER"; exit 2; }
+# Company logos: reads the existing board (yesterday's jobs/*.json) and fetches
+# any missing ones, so build-jobs below attaches them the same run. Incremental,
+# cached, non-fatal — new companies show a monogram for a day, then a logo.
+node "$REPO/apps/scraper/scripts/fetch-logos.mjs" >> "$LOG" 2>&1 || echo "fetch-logos failed (non-fatal)" >> "$LOG"
 python3 "$REPO/apps/scraper/scripts/build-jobs.py" >> "$LOG" 2>&1 || { echo "build-jobs FAILED (purity canary?) — aborting publish" >> "$LOG"; date > "$MARKER"; exit 2; }
 python3 "$REPO/apps/scraper/scripts/build-skill-glossary.py" >> "$LOG" 2>&1 || echo "build-skill-glossary failed (non-fatal)" >> "$LOG"
 

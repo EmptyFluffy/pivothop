@@ -235,6 +235,12 @@ for line in open(RAW):
         raw[(d['source'], str(d.get('external_id')))] = d
 
 # 2. Build listings from the normalized rows (they carry role_id + USD salary).
+# Company logos, fetched by fetch-logos.mjs into public/data/logos/<slug>.png;
+# every listing that has one carries a logo path, the rest fall back to a monogram.
+try:
+    LOGOS = {f[:-4] for f in os.listdir('apps/web/public/data/logos') if f.endswith('.png')}
+except FileNotFoundError:
+    LOGOS = set()
 byocc = collections.defaultdict(list)
 desc_byocc = collections.defaultdict(dict)
 seen_url, seen_ct = set(), set()
@@ -270,11 +276,13 @@ for line in open(NORM):
         smin = smax = None
     if smin and smax and (smin < 1000 or smax / smin > 5):
         smin = None
+    disp_co = display_company(company)[:80]
+    logo_slug = re.sub(r'[^a-z0-9]', '', disp_co.lower())
     byocc[role].append({
         'id': _id,
         'occ': role,
         'title': title[:120],
-        'company': display_company(company)[:80],
+        'company': disp_co,
         'location': (r.get('location') or '').strip()[:60] or ('Remote' if remote else ''),
         'remote': remote,
         'smin': smin,
@@ -282,6 +290,7 @@ for line in open(NORM):
         'url': url,
         'source': s,
         'posted': (str(d.get('posted_at') or ''))[:10],
+        **({'logo': f'/data/logos/{logo_slug}.png'} if logo_slug in LOGOS else {}),
         **({'fl': fl} if fl else {}),
         **({'lv': lv} if lv else {}),
         **({'c': cty} if cty else {}),

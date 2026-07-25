@@ -8,7 +8,7 @@ export type Job = {
   smin: number | null; smax: number | null; source: string; posted: string;
   url?: string;        // outbound apply link; present in per-occupation files, stripped from the global browse file
   featured?: boolean;  // launch featured strip
-  logo?: string;       // locally-served company logo path, featured strip only
+  logo?: string;       // locally-served company logo path when one resolved (else a monogram)
   fl?: string[];       // derived tags: 4d four-day week, eq equity, vi visa sponsorship
   lv?: 's' | 'e';      // level from the title: senior / entry
   c?: string;          // resolved ISO country code
@@ -46,6 +46,12 @@ export function Arrow45({ size = 20 }: { size?: number }) {
   );
 }
 
+/** First letter of the company, for the monogram fallback when no logo resolved. */
+export function companyInitial(company: string): string {
+  const m = String(company).match(/[a-z0-9]/i);
+  return m ? m[0].toUpperCase() : '·';
+}
+
 export function JobCard({ j }: { j: Job }) {
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
@@ -54,21 +60,28 @@ export function JobCard({ j }: { j: Job }) {
   const employer = j.source === 'employer' && !!j.url;
   const inner = (
     <>
-      <span className="job-main">
-        <span className="job-t">{j.title}</span>
-        <span className="job-co">{j.company}{j.location ? <span className="job-loc"> · {j.location}</span> : null}</span>
+      <span className="job-logo">
+        {j.logo
+          ? <img src={j.logo} alt="" width={38} height={38} loading="lazy" />
+          : <span className="job-mono" aria-hidden="true">{companyInitial(j.company)}</span>}
       </span>
-      <span className="job-side">
-        {pay && <span className="job-pay">{pay}</span>}
-        <span className="job-m lbl">
-          {employer && <span className="job-tag job-tag-hire">Hiring</span>}
-          {j.featured && <span className="job-tag">Featured</span>}
-          {j.fl?.includes('4d') && <span className="job-tag">4-day week</span>}
-          {j.remote && <span className="job-tag">Remote</span>}
-          {date && <span>{date}</span>}
+      <span className="job-body">
+        <span className="job-main">
+          <span className="job-t">{j.title}</span>
+          <span className="job-co">{j.company}{j.location ? <span className="job-loc"> · {j.location}</span> : null}</span>
         </span>
+        <span className="job-side">
+          {pay && <span className="job-pay">{pay}</span>}
+          <span className="job-m lbl">
+            {employer && <span className="job-tag job-tag-hire">Hiring</span>}
+            {j.featured && <span className="job-tag">Featured</span>}
+            {j.fl?.includes('4d') && <span className="job-tag">4-day week</span>}
+            {j.remote && <span className="job-tag">Remote</span>}
+            {date && <span>{date}</span>}
+          </span>
+        </span>
+        <span className="job-arrow"><Arrow45 size={22} /></span>
       </span>
-      <span className="job-arrow"><Arrow45 size={22} /></span>
     </>
   );
   return (

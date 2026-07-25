@@ -755,9 +755,16 @@ input:focus-visible{outline:none}
 /* job board */
 .job-list{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid var(--ink)}
 .job-list-full{margin-top:0}
-.job-card{display:flex;align-items:center;gap:22px;padding:16px 4px 15px;border-bottom:1px solid var(--rule);transition:background .12s}
+.job-card{display:flex;align-items:center;gap:14px;padding:15px 4px 14px;border-bottom:1px solid var(--rule);transition:background .12s}
 .job-card:hover{background:rgba(0,47,166,.035)}
 .job-card:hover .job-t{color:var(--accent)}
+/* company mark: retrieved favicon on a white chip, else a neutral monogram.
+   No hue — the accent belongs to the data, so the fallback stays paper-toned. */
+.job-logo{width:38px;height:38px;flex:none;border-radius:9px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,18,15,.13)}
+.job-logo img{width:24px;height:24px;object-fit:contain;display:block}
+.job-logo:has(.job-mono){background:none;box-shadow:none}
+.job-mono{width:100%;height:100%;border-radius:9px;background:var(--card);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:700;font-size:16px;color:var(--ink-3)}
+.job-body{flex:1;min-width:0;display:flex;align-items:center;gap:22px}
 .job-main{flex:1;min-width:0}
 .job-t{display:block;font-weight:600;font-size:16px;letter-spacing:-.01em;color:var(--ink);line-height:1.32;transition:color .12s}
 .job-co{display:block;margin-top:3px;font-size:13.5px;color:var(--ink-2)}
@@ -989,7 +996,11 @@ input:focus-visible{outline:none}
    (pay · tags · date). align-items:stretch kills the stray centering the
    desktop row's align-items:center caused once the card went column. */
 @media (max-width:640px){
-  .job-card{flex-direction:column;align-items:stretch;gap:7px;padding:15px 2px 14px}
+  .job-card{align-items:flex-start;gap:11px;padding:14px 2px 13px}
+  .job-logo{width:34px;height:34px}
+  .job-logo img{width:22px;height:22px}
+  .job-mono{font-size:14px}
+  .job-body{flex-direction:column;align-items:stretch;gap:6px;padding-top:1px}
   .job-side{display:flex;align-items:baseline;gap:12px;text-align:left}
   .job-m{justify-content:flex-start;margin-top:0;flex-wrap:wrap;white-space:normal}
   .job-arrow{display:none}
