@@ -63,6 +63,9 @@ function OccupationBoard({ occ }: { occ: string }) {
   const hasSalary = coverableSlugs().includes(occ);
   const remoteN = jobs.filter((j) => j.remote).length;
   const waysIn = routesInto(occ);
+  // This occupation's preloaded searches (remote, by country, by level, by pay) —
+  // the internal-link mesh that surfaces the category long tail.
+  const variants = allCategories().filter((c) => c.destOcc === occ);
 
   return (
     <PageShell>
@@ -93,6 +96,18 @@ function OccupationBoard({ occ }: { occ: string }) {
                 <li key={slug}><Link href={`/routes/${slug}`}>{om.title} &rarr; {title}</Link><span className="lbl">{r!.match}% readiness</span></li>
               ))}
             </ul>
+          </section>
+        )}
+
+        {variants.length > 0 && (
+          <section className="rt-sec jb-byocc">
+            <h2>More {tl} searches</h2>
+            <p className="rt-note">Preloaded filters over this board, refreshed with the nightly scrape. <Link className="gl" href="/jobs/browse">All preloaded searches</Link>.</p>
+            <span className="jb-occlinks">
+              {variants.map((c) => (
+                <Link key={c.slug} href={`/jobs/${c.slug}`}>{c.title} <span className="lbl">{c.count.toLocaleString()}</span></Link>
+              ))}
+            </span>
           </section>
         )}
 
@@ -200,6 +215,17 @@ function CategoryBoard({ cat }: { cat: Category }) {
           { '@type': 'ListItem', position: 2, name: 'Jobs', item: 'https://www.pivothop.com/jobs' },
           { '@type': 'ListItem', position: 3, name: cat.title, item: `https://www.pivothop.com/jobs/${cat.slug}` },
         ],
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: cat.title,
+        numberOfItems: cat.count,
+        itemListElement: jobs.slice(0, 20).map((j, i) => ({
+          '@type': 'ListItem', position: i + 1,
+          name: `${j.title} — ${j.company}`,
+          url: `https://www.pivothop.com/jobs/${j.occ}/${j.id}`,
+        })),
       }) }} />
     </PageShell>
   );

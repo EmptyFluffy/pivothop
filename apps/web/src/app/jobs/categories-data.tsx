@@ -29,7 +29,10 @@ function allJobs(): Job[] {
 
 export type CategoryKind =
   | 'remote' | 'field' | 'country' | 'level' | 'flag' | 'pay'                    // single dimension
-  | 'remote-field' | 'remote-occ' | 'level-occ' | 'level-field' | 'field-country'; // combos
+  | 'remote-field' | 'remote-occ' | 'level-occ' | 'level-field' | 'field-country' // 2-dim combos
+  | 'remote-country' | 'remote-field-country' | 'level-field-country' | 'pay-field' // 3-dim long tail
+  | 'occ-country' | 'pay-occ' | 'remote-occ-country' | 'level-occ-country'       // occupation-level long tail
+  | 'flag-field' | 'flag-country' | 'pay-country';                               // benefits/pay long tail
 export type Category = {
   slug: string;          // /jobs/<slug>
   kind: CategoryKind;
@@ -47,6 +50,12 @@ export type Category = {
 // NFKD + diacritic strip so "Türkiye" -> "turkiye", not "t-rkiye".
 const slugify = (s: string) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+// "Jobs in the United States", not "Jobs in United States" — display name takes
+// a definite article for the countries English gives one; slugs stay bare.
+const THE = new Set(['US', 'GB', 'NL', 'AE', 'PH']);
+const inName = (c: string) => (THE.has(c) ? `the ${countryName(c)}` : countryName(c));
+
+
 // Candidate specs, before the threshold cut.
 function candidates(): Omit<Category, 'count' | 'remoteN'>[] {
   const jobs = allJobs();
@@ -61,8 +70,8 @@ function candidates(): Omit<Category, 'count' | 'remoteN'>[] {
   for (const f of fields)
     out.push({ slug: slugify(f), kind: 'field', title: `${f} jobs`, searchTitle: f.toLowerCase(), query: `f=${encodeURIComponent(f)}`, match: (j) => occField(j.occ) === f });
   for (const c of codes) {
-    const name = countryName(c);
-    out.push({ slug: `in-${slugify(name)}`, kind: 'country', title: `Jobs in ${name}`, searchTitle: name, query: `c=${c}`, match: (j) => j.c === c });
+    const name = countryName(c); const disp = inName(c);
+    out.push({ slug: `in-${slugify(name)}`, kind: 'country', title: `Jobs in ${disp}`, searchTitle: name, query: `c=${c}`, match: (j) => j.c === c });
   }
   out.push({ slug: 'senior', kind: 'level', title: 'Senior jobs', searchTitle: 'senior', query: 't=s', match: (j) => j.lv === 's' });
   out.push({ slug: 'entry-level', kind: 'level', title: 'Entry-level jobs', searchTitle: 'entry-level', query: 't=e', match: (j) => j.lv === 'e' });
@@ -86,8 +95,52 @@ function candidates(): Omit<Category, 'count' | 'remoteN'>[] {
   for (const lv of levels) for (const f of fields)
     out.push({ slug: `${lv.slug}-${slugify(f)}`, kind: 'level-field', title: `${lv.label} ${f} jobs`, searchTitle: `${lv.label.toLowerCase()} ${f.toLowerCase()}`, noun: `${lv.label.toLowerCase()} ${f.toLowerCase()} roles`, query: `f=${encodeURIComponent(f)}&t=${lv.code}`, match: (j) => j.lv === lv.code && occField(j.occ) === f });
   for (const f of fields) for (const c of codes) {
-    const name = countryName(c);
-    out.push({ slug: `${slugify(f)}-in-${slugify(name)}`, kind: 'field-country', title: `${f} jobs in ${name}`, searchTitle: `${f.toLowerCase()} in ${name}`, noun: `${f.toLowerCase()} roles in ${name}`, query: `f=${encodeURIComponent(f)}&c=${c}`, match: (j) => occField(j.occ) === f && j.c === c });
+    const name = countryName(c); const disp = inName(c);
+    out.push({ slug: `${slugify(f)}-in-${slugify(name)}`, kind: 'field-country', title: `${f} jobs in ${disp}`, searchTitle: `${f.toLowerCase()} in ${disp}`, noun: `${f.toLowerCase()} roles in ${disp}`, query: `f=${encodeURIComponent(f)}&c=${c}`, match: (j) => occField(j.occ) === f && j.c === c });
+  }
+
+  // ── 3-dimension long tail ("remote business jobs in the united states") ──
+  for (const c of codes) {
+    const name = countryName(c); const disp = inName(c);
+    out.push({ slug: `remote-in-${slugify(name)}`, kind: 'remote-country', title: `Remote jobs in ${disp}`, searchTitle: `remote in ${disp}`, noun: `fully-remote roles hiring in ${disp}`, query: `r=1&c=${c}`, match: (j) => !!j.remote && j.c === c });
+  }
+  for (const f of fields) for (const c of codes) {
+    const name = countryName(c); const disp = inName(c);
+    out.push({ slug: `remote-${slugify(f)}-in-${slugify(name)}`, kind: 'remote-field-country', title: `Remote ${f} jobs in ${disp}`, searchTitle: `remote ${f.toLowerCase()} in ${disp}`, noun: `fully-remote ${f.toLowerCase()} roles hiring in ${disp}`, query: `r=1&f=${encodeURIComponent(f)}&c=${c}`, match: (j) => !!j.remote && occField(j.occ) === f && j.c === c });
+  }
+  for (const lv of levels) for (const f of fields) for (const c of codes) {
+    const name = countryName(c); const disp = inName(c);
+    out.push({ slug: `${lv.slug}-${slugify(f)}-in-${slugify(name)}`, kind: 'level-field-country', title: `${lv.label} ${f} jobs in ${disp}`, searchTitle: `${lv.label.toLowerCase()} ${f.toLowerCase()} in ${disp}`, noun: `${lv.label.toLowerCase()} ${f.toLowerCase()} roles in ${disp}`, query: `f=${encodeURIComponent(f)}&t=${lv.code}&c=${c}`, match: (j) => j.lv === lv.code && occField(j.occ) === f && j.c === c });
+  }
+  for (const p of [100, 150]) for (const f of fields)
+    out.push({ slug: `${slugify(f)}-over-${p}k`, kind: 'pay-field', title: `${f} jobs paying over $${p}k`, searchTitle: `${f.toLowerCase()} $${p}k+`, noun: `${f.toLowerCase()} roles posting $${p}k or more`, query: `f=${encodeURIComponent(f)}&pay=${p}`, match: (j) => occField(j.occ) === f && (j.smax ?? j.smin ?? 0) >= p * 1000 });
+
+  // ── occupation-level long tail — the highest-intent searches of all ──
+  // "software engineer jobs in germany", "data analyst jobs over $100k",
+  // "remote software engineer jobs in the united states". Occupation-scoped, so
+  // each page carries the Routes-into adjacency block and a /jobs/<occ> deep-link.
+  for (const o of occs) {
+    const t = occTitle(o);
+    for (const c of codes) {
+      const name = countryName(c); const disp = inName(c);
+      out.push({ slug: `${o}-in-${slugify(name)}`, kind: 'occ-country', title: `${t} jobs in ${disp}`, searchTitle: `${t.toLowerCase()} in ${disp}`, noun: `${t.toLowerCase()} roles in ${disp}`, query: `c=${c}`, showAllBase: `/jobs/${o}`, destOcc: o, match: (j) => j.occ === o && j.c === c });
+      out.push({ slug: `remote-${o}-in-${slugify(name)}`, kind: 'remote-occ-country', title: `Remote ${t} jobs in ${disp}`, searchTitle: `remote ${t.toLowerCase()} in ${disp}`, noun: `fully-remote ${t.toLowerCase()} roles hiring in ${disp}`, query: `r=1&c=${c}`, showAllBase: `/jobs/${o}`, destOcc: o, match: (j) => !!j.remote && j.occ === o && j.c === c });
+      for (const lv of levels)
+        out.push({ slug: `${lv.slug}-${o}-in-${slugify(name)}`, kind: 'level-occ-country', title: `${lv.label} ${t} jobs in ${disp}`, searchTitle: `${lv.label.toLowerCase()} ${t.toLowerCase()} in ${disp}`, noun: `${lv.label.toLowerCase()} ${t.toLowerCase()} roles in ${disp}`, query: `t=${lv.code}&c=${c}`, showAllBase: `/jobs/${o}`, destOcc: o, match: (j) => j.lv === lv.code && j.occ === o && j.c === c });
+    }
+    for (const p of [100, 150])
+      out.push({ slug: `${o}-over-${p}k`, kind: 'pay-occ', title: `${t} jobs paying over $${p}k`, searchTitle: `${t.toLowerCase()} $${p}k+`, noun: `${t.toLowerCase()} roles posting $${p}k or more`, query: `pay=${p}`, showAllBase: `/jobs/${o}`, destOcc: o, match: (j) => j.occ === o && (j.smax ?? j.smin ?? 0) >= p * 1000 });
+  }
+
+  // ── benefits and pay long tail ──
+  for (const f of fields) {
+    out.push({ slug: `${slugify(f)}-with-equity`, kind: 'flag-field', title: `${f} jobs with equity`, searchTitle: `${f.toLowerCase()} with equity`, noun: `${f.toLowerCase()} roles that include equity`, query: `f=${encodeURIComponent(f)}&t=eq`, match: (j) => occField(j.occ) === f && !!j.fl?.includes('eq') });
+    out.push({ slug: `${slugify(f)}-visa-sponsorship`, kind: 'flag-field', title: `${f} jobs with visa sponsorship`, searchTitle: `${f.toLowerCase()} visa-sponsor`, noun: `${f.toLowerCase()} roles that state visa sponsorship`, query: `f=${encodeURIComponent(f)}&t=vi`, match: (j) => occField(j.occ) === f && !!j.fl?.includes('vi') });
+  }
+  for (const c of codes) {
+    const name = countryName(c); const disp = inName(c);
+    out.push({ slug: `visa-sponsorship-in-${slugify(name)}`, kind: 'flag-country', title: `Visa sponsorship jobs in ${disp}`, searchTitle: `visa-sponsor in ${disp}`, noun: `roles in ${disp} that state visa sponsorship`, query: `c=${c}&t=vi`, match: (j) => j.c === c && !!j.fl?.includes('vi') });
+    out.push({ slug: `over-100k-in-${slugify(name)}`, kind: 'pay-country', title: `Jobs paying over $100k in ${disp}`, searchTitle: `$100k+ in ${disp}`, noun: `roles in ${disp} posting $100k or more`, query: `c=${c}&pay=100`, match: (j) => j.c === c && (j.smax ?? j.smin ?? 0) >= 100000 });
   }
 
   return out;

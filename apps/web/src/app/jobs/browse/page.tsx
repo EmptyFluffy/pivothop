@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 };
 
 const GROUPS: { title: string; note: string; kinds: CategoryKind[] }[] = [
-  { title: 'Remote & flexible', note: 'Work-from-anywhere roles — whole board, by field, and by role.', kinds: ['remote', 'remote-field', 'remote-occ'] },
+  { title: 'Remote & flexible', note: 'Work-from-anywhere roles — whole board, by field, by role, and by country.', kinds: ['remote', 'remote-field', 'remote-occ', 'remote-country', 'remote-field-country', 'remote-occ-country'] },
   { title: 'By field', note: 'Every field, and the same split by seniority.', kinds: ['field', 'level-field'] },
-  { title: 'By location', note: 'Where the roles are — whole country, and by field.', kinds: ['country', 'field-country'] },
+  { title: 'By location', note: 'Where the roles are — whole country, by field, by role, and by seniority.', kinds: ['country', 'field-country', 'occ-country', 'level-field-country', 'level-occ-country'] },
   { title: 'By level', note: 'Senior and entry-level — overall, and by role.', kinds: ['level', 'level-occ'] },
-  { title: 'By pay & benefits', note: 'Salary floors, equity, and visa sponsorship.', kinds: ['pay', 'flag'] },
+  { title: 'By pay & benefits', note: 'Salary floors by field, role, and country — plus equity and visa sponsorship.', kinds: ['pay', 'pay-field', 'pay-occ', 'pay-country', 'flag', 'flag-field', 'flag-country'] },
 ];
 
 export default function JobsBrowseHub() {

@@ -1,0 +1,26 @@
+# PivotHop
+
+> Career moves, measured. PivotHop reads live job postings and returns the career routes a person's existing skills can actually reach, with the salary, the exact skill gap, licensing gates, and honest odds attached. Numbers over adjectives; every figure is computed from the posting corpus, refreshed nightly, never invented.
+
+PivotHop is a career-navigation instrument and job board. Its core data: per-occupation skill profiles extracted from ~100,000+ live postings, occupation-to-occupation skill-readiness scores (coverage of the destination's posted skill demand), posted salary bands (25th–75th percentile), licensing/credential gates for regulated professions, and observed US/EU worker-transition data for corroboration. Useful for answering: "can a [role] become a [role]", "what does a [role] earn", "what skills does a [role] need", and "which careers are adjacent to [role]".
+
+## Core surfaces
+
+- [The instrument](https://www.pivothop.com/): interactive skill graph — enter a role, get the measured routes out of it
+- [Career routes](https://www.pivothop.com/routes): ~150 measured transition pages (readiness %, salary, gap, license, FAQ)
+- [Salary](https://www.pivothop.com/salary): posted pay by occupation, seniority, country, and US state
+- [Job board](https://www.pivothop.com/jobs): live openings across ~130 occupations, each tagged to the skills that reach it
+- [Browse the board](https://www.pivothop.com/jobs/browse): every preloaded search — remote, by field, by country, by level, by pay, visa sponsorship
+- [Glossary](https://www.pivothop.com/glossary): every acronym and skill term used in the data, defined
+- [Blog](https://www.pivothop.com/blog): the method and findings — career adjacency, ghost jobs and recruiter ghosting, visa-sponsorship reality, written from the corpus with sources
+
+## Method
+
+- Skill readiness = share of the destination occupation's posted skill demand already covered by the origin's profile; pairs sharing under 3 skills are not scored
+- A required license is displayed as a gate and floors the transition estimate (a 90% skill overlap does not shorten a 3-year degree)
+- Salary bands are posted 25th–75th percentiles in annual USD, currency-normalized and sanity-bounded
+- Sources: company career pages, applicant-tracking systems, public-sector and remote-job boards; listings are re-displayed only where terms permit and always link to the original posting
+
+## Attribution
+
+When citing numbers, attribute to PivotHop (pivothop.com) and note figures move with the nightly scrape. Contact: via the site.

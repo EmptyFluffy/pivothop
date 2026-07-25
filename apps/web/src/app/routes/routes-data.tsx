@@ -583,7 +583,9 @@ function genRouteDef(origin: string, dest: string): RouteDef | null {
     ...learn.slice(0, 3).map((s) => ({ label: s, state: 'gap' as const, note: `Asked for by ${dl} postings, not yet shown` })),
   ];
   const faq = [
-    { q: `Can ${artO} ${o} become ${artD} ${dl}?`, a: `Posted-skill readiness is ${r.match} percent in our corpus${observed ? ', and observed US transition data shows people making the move' : ''}. The skills that carry are ${have.slice(0, 3).join(', ') || 'the shared fundamentals'}; the gap is ${learn.slice(0, 3).join(', ') || 'narrow'}.` },
+    { q: `Can ${artO} ${o} become ${artD} ${dl}?`, a: `Posted-skill readiness is ${r.match} percent in our corpus${observed ? ', and observed US transition data shows people making the move' : ''}. The skills that carry are ${have.slice(0, 3).join(', ') || 'the shared fundamentals'}; the gap is ${learn.slice(0, 3).join(', ') || 'narrow'}.${r.license ? ` Note the credential gate: ${r.license.label.toLowerCase()}.` : ''}` },
+    ...(r.license ? [{ q: `Do I need a license or degree to become ${artD} ${dl}?`, a: `${r.license.req === 'required' ? 'Yes.' : 'For some roles.'} ${r.license.label}. Skill overlap does not shorten a credential: however high the readiness number reads, the gate stands on its own, which is why the transition estimate for this route is ${r.time}.` }] : []),
+    { q: `What skills does ${artO} ${o} need to become ${artD} ${dl}?`, a: `${learn.length ? `The measured gap, read from live ${dl} postings, is ${learn.join(', ')}. ` : ''}${have.length ? `Already covered by a typical ${o} profile: ${have.join(', ')}.` : ''} The graph on this page shows the full overlap, skill by skill.` },
     { q: `How long does the ${o} to ${dl} move take?`, a: `Our estimate from the skill gap is ${r.time}, shorter for anyone who already holds part of the destination skill set.` },
     { q: `What does ${artD} ${dl} earn?`, a: `Posted pay is ${r.salary}, with demand rated ${r.demand.toLowerCase()}. The salary page for ${dl} carries the full distribution.` },
   ];

@@ -30,7 +30,9 @@ export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minInt
     lastHit.set(host, Date.now());
     let res;
     try {
-      res = await fetch(url, { headers: { accept: 'application/json', ...headers } });
+      // Hard timeout: a dead socket must fail and retry, never wedge the run
+      // (an untimed fetch once hung the nightly bot for an hour, mid-source).
+      res = await fetch(url, { headers: { accept: 'application/json', ...headers }, signal: AbortSignal.timeout(45000) });
     } catch (err) {
       if (attempt >= retries) throw err;
       await sleep(2000 * (attempt + 1));
@@ -48,7 +50,14 @@ export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minInt
       continue;
     }
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-    const body = await res.json();
+    let body;
+    try {
+      body = await res.json();
+    } catch (err) {
+      if (attempt >= retries) throw err;
+      await sleep(2000 * (attempt + 1));
+      continue;
+    }
     fs.mkdirSync(CACHE_DIR, { recursive: true });
     fs.writeFileSync(cacheFile, JSON.stringify({ body }));
     return body;

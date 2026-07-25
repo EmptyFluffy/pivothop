@@ -167,6 +167,9 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
     company: f.company.trim() || 'Your company', location, remote: mode === 'remote',
     smin: sv.min, smax: sv.max, source: 'employer', posted: '', featured: true,
     fl: chosen.includes('4-day week') ? ['4d'] : undefined,
+    // url makes JobCard render the employer outbound link, not an internal
+    // /jobs/preview/preview route that doesn't exist (the link-integrity gate).
+    url: f.applyUrl.trim() || 'https://www.pivothop.com/employers',
   };
 
   const noRole = f.role.trim().length <= 1;

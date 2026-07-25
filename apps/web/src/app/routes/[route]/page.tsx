@@ -159,11 +159,13 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           { '@type': 'ListItem', position: 3, name: `${om.title} to ${r.title}`, item: `https://www.pivothop.com/routes/${route}` },
         ],
       }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: def.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-      }) }} />
+      {def.faq.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: def.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+        }) }} />
+      )}
     </PageShell>
   );
 }
