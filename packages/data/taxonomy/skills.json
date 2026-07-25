@@ -193,9 +193,9 @@
       "id": "spec-writing",
       "name": "Spec Writing",
       "aliases": [
-        "specifications",
         "spec writing",
         "specification writing",
+        "construction specifications",
         "csi masterformat",
         "masterformat"
       ]
@@ -237,7 +237,8 @@
         "leed ap",
         "breeam",
         "well building"
-      ]
+      ],
+      "unless_near": "certified (building|facility|office|campus)|our (building|office|clinic|practice|facility)"
     },
     {
       "id": "sustainability",
@@ -746,7 +747,8 @@
         "react.js",
         "next.js",
         "nextjs"
-      ]
+      ],
+      "unless_near": "react (quickly|fast|calmly|swiftly|appropriately|effectively|accordingly|professionally|well|to |in )"
     },
     {
       "id": "vue",
@@ -971,10 +973,11 @@
       "name": "Airflow",
       "aliases": [
         "airflow",
+        "apache airflow",
         "dagster",
-        "prefect",
-        "luigi"
-      ]
+        "prefect"
+      ],
+      "unless_near": "dental|cavitron|prophy|polish|hygien|clinic|surgery"
     },
     {
       "id": "etl",
@@ -1230,7 +1233,8 @@
       "name": "Observability",
       "aliases": [
         "observability",
-        "monitoring",
+        "application monitoring",
+        "infrastructure monitoring",
         "datadog",
         "grafana",
         "prometheus",
@@ -1434,7 +1438,9 @@
         "ifrs",
         "general ledger",
         "month-end close",
-        "reconciliation",
+        "account reconciliation",
+        "bank reconciliation",
+        "balance sheet reconciliation",
         "journal entries",
         "accounts payable",
         "accounts receivable",
@@ -1747,7 +1753,8 @@
       "name": "HR Operations",
       "aliases": [
         "hris",
-        "workday",
+        "workday hcm",
+        "workday hris",
         "bamboohr",
         "employee relations",
         "performance management",
@@ -1871,7 +1878,7 @@
         "bilingual",
         "multilingual",
         "spanish fluency",
-        "interpretation"
+        "language interpretation"
       ]
     },
     {
@@ -2200,7 +2207,6 @@
         "quality control",
         "quality inspection",
         "qc",
-        "inspection",
         "iso 9001",
         "quality management systems",
         "qms",
@@ -2697,6 +2703,172 @@
         "prompt design",
         "few-shot prompting",
         "system prompts"
+      ]
+    },
+    {
+      "id": "radiography",
+      "name": "Radiography",
+      "aliases": [
+        "radiograph",
+        "radiographs",
+        "radiography",
+        "x-ray",
+        "x-rays",
+        "dental imaging",
+        "diagnostic imaging"
+      ]
+    },
+    {
+      "id": "periodontal-care",
+      "name": "Periodontal Care",
+      "aliases": [
+        "periodontal",
+        "perio charting",
+        "scaling and root planing",
+        "prophylaxis",
+        "oral prophylaxis",
+        "dental cleanings"
+      ]
+    },
+    {
+      "id": "infection-control",
+      "name": "Infection Control",
+      "aliases": [
+        "infection control",
+        "infection prevention",
+        "sterilization",
+        "aseptic technique",
+        "universal precautions"
+      ]
+    },
+    {
+      "id": "local-anesthesia",
+      "name": "Local Anesthesia",
+      "aliases": [
+        "local anesthesia",
+        "local anaesthesia",
+        "nitrous oxide",
+        "anesthesia administration"
+      ]
+    },
+    {
+      "id": "treatment-planning",
+      "name": "Treatment Planning",
+      "aliases": [
+        "treatment plan",
+        "treatment plans",
+        "treatment planning",
+        "care plan",
+        "care plans",
+        "care planning"
+      ]
+    },
+    {
+      "id": "medication-administration",
+      "name": "Medication Administration",
+      "aliases": [
+        "medication administration",
+        "administering medications",
+        "medication management",
+        "medication reconciliation"
+      ]
+    },
+    {
+      "id": "vital-signs",
+      "name": "Vital Signs",
+      "aliases": [
+        "vital signs",
+        "taking vitals",
+        "blood pressure monitoring"
+      ]
+    },
+    {
+      "id": "phlebotomy",
+      "name": "Phlebotomy",
+      "aliases": [
+        "phlebotomy",
+        "venipuncture",
+        "blood draw",
+        "blood draws"
+      ]
+    },
+    {
+      "id": "iv-therapy",
+      "name": "IV Therapy",
+      "aliases": [
+        "iv therapy",
+        "iv insertion",
+        "intravenous therapy",
+        "iv medication"
+      ]
+    },
+    {
+      "id": "wound-care",
+      "name": "Wound Care",
+      "aliases": [
+        "wound care",
+        "wound dressing",
+        "wound management"
+      ]
+    },
+    {
+      "id": "cpr-bls",
+      "name": "CPR / BLS",
+      "aliases": [
+        "cpr",
+        "bls",
+        "acls",
+        "basic life support",
+        "advanced cardiac life support",
+        "first aid"
+      ]
+    },
+    {
+      "id": "hipaa",
+      "name": "HIPAA",
+      "aliases": [
+        "hipaa",
+        "patient confidentiality",
+        "patient privacy"
+      ]
+    },
+    {
+      "id": "triage",
+      "name": "Triage",
+      "aliases": [
+        "triage",
+        "patient assessment",
+        "patient triage"
+      ]
+    },
+    {
+      "id": "clinical-documentation",
+      "name": "Clinical Documentation",
+      "aliases": [
+        "clinical documentation",
+        "patient charting",
+        "progress notes",
+        "soap notes"
+      ]
+    },
+    {
+      "id": "blueprint-reading",
+      "name": "Blueprint Reading",
+      "aliases": [
+        "blueprint reading",
+        "read blueprints",
+        "reading blueprints",
+        "blueprints",
+        "schematics"
+      ]
+    },
+    {
+      "id": "hand-power-tools",
+      "name": "Hand & Power Tools",
+      "aliases": [
+        "hand tools",
+        "power tools",
+        "hand and power tools"
       ]
     }
   ]

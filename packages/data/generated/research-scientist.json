@@ -21,6 +21,70 @@
   },
   "roles": [
     {
+      "id": "conversation-designer",
+      "title": "Conversation Designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Designs how people talk to software: chatbots, voice assistants, and the scripts and flows behind conversational AI.",
+      "match": 38,
+      "fit": 38,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$80k–$140k",
+      "salary_band": [
+        79028,
+        139500
+      ],
+      "demand": "Low",
+      "remote": "5%",
+      "time": "12–24 mo",
+      "have": [
+        "LangChain / Agents",
+        "LLMs / Generative AI",
+        "Machine Learning"
+      ],
+      "learn": [
+        "Product Management"
+      ],
+      "waterfall": [
+        {
+          "skill": "langchain",
+          "name": "LangChain / Agents",
+          "pts": 30,
+          "earned": 7.7
+        },
+        {
+          "skill": "llm",
+          "name": "LLMs / Generative AI",
+          "pts": 15,
+          "earned": 15
+        },
+        {
+          "skill": "product-management",
+          "name": "Product Management",
+          "pts": 15,
+          "earned": 0
+        },
+        {
+          "skill": "machine-learning",
+          "name": "Machine Learning",
+          "pts": 15,
+          "earned": 15
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 40,
+        "salaried": 33
+      }
+    },
+    {
       "id": "robotics-engineer",
       "title": "Robotics Engineer",
       "field": "Engineering",
@@ -28,8 +92,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Designs and programs robots — kinematics, control systems, perception, and the integration of hardware with autonomy software.",
-      "match": 45,
-      "fit": 33,
+      "match": 44,
+      "fit": 32,
       "capability": null,
       "mobility": 6,
       "mobility_source": "observed-flow-us",
@@ -59,122 +123,68 @@
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 14.6,
+          "pts": 17,
           "earned": 0
         },
         {
           "skill": "fea",
           "name": "FEA / Simulation",
-          "pts": 10.6,
-          "earned": 7.1
+          "pts": 12.3,
+          "earned": 8.3
         },
         {
           "skill": "cpp",
           "name": "C++",
-          "pts": 8.1,
+          "pts": 9.4,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 8.1,
-          "earned": 4.8
+          "pts": 9.4,
+          "earned": 5.6
         },
         {
           "skill": "event-planning",
           "name": "Event Planning",
-          "pts": 7.3,
-          "earned": 5.6
+          "pts": 8.5,
+          "earned": 6.5
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 6.5,
-          "earned": 6.5
+          "pts": 7.5,
+          "earned": 7.5
         },
         {
           "skill": "computer-vision",
           "name": "Computer Vision",
-          "pts": 5.7,
-          "earned": 5.1
+          "pts": 6.6,
+          "earned": 5.9
         },
         {
           "skill": "linux",
           "name": "Linux",
-          "pts": 4.9,
+          "pts": 5.7,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 4.9,
-          "earned": 4.9
+          "pts": 5.7,
+          "earned": 5.7
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 4.1,
-          "earned": 4.1
+          "pts": 4.7,
+          "earned": 4.7
         },
         {
           "skill": "welding-fabrication",
           "name": "Welding / Fabrication",
-          "pts": 4.1,
+          "pts": 4.7,
           "earned": 0
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 3.3,
-          "earned": 0
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 3.3,
-          "earned": 3.3
-        },
-        {
-          "skill": "point-cloud",
-          "name": "Point Cloud / Scanning",
-          "pts": 3.3,
-          "earned": 0
-        },
-        {
-          "skill": "design-thinking",
-          "name": "Design Thinking",
-          "pts": 2.4,
-          "earned": 0
-        },
-        {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 2.4,
-          "earned": 2.4
-        },
-        {
-          "skill": "rust",
-          "name": "Rust",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "cad-mechanical",
-          "name": "Mechanical CAD",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "health-education",
-          "name": "Health Education",
-          "pts": 1.6,
-          "earned": 1.6
         }
       ],
       "low_confidence": false,
@@ -210,135 +220,62 @@
       "have": [
         "Clinical Research",
         "LLMs / Generative AI",
-        "Translation",
-        "Data Analysis"
+        "Data Analysis",
+        "Machine Learning"
       ],
       "learn": [
+        "Translation",
         "QA / Testing",
-        "Writing & Editing",
-        "GIS",
-        "RAG / Vector Search"
+        "Writing & Editing"
       ],
       "waterfall": [
         {
           "skill": "clinical-research",
           "name": "Clinical Research",
-          "pts": 34.7,
-          "earned": 2.9
+          "pts": 41.3,
+          "earned": 3.4
         },
         {
           "skill": "llm",
           "name": "LLMs / Generative AI",
-          "pts": 26.4,
-          "earned": 13.3
+          "pts": 31.4,
+          "earned": 15.8
         },
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 6.3,
-          "earned": 4.2
+          "pts": 7.4,
+          "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 4.2,
-          "earned": 4.2
+          "pts": 5,
+          "earned": 5
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 4.2,
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "writing",
           "name": "Writing & Editing",
-          "pts": 2.8,
+          "pts": 3.3,
           "earned": 0
         },
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 2.8,
-          "earned": 2.8
+          "pts": 3.3,
+          "earned": 3.3
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 2.8,
-          "earned": 2.8
-        },
-        {
-          "skill": "gis",
-          "name": "GIS",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "rag",
-          "name": "RAG / Vector Search",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "financial-modeling",
-          "name": "Financial Modeling",
-          "pts": 1.4,
-          "earned": 0
-        },
-        {
-          "skill": "bim",
-          "name": "BIM",
-          "pts": 1.4,
-          "earned": 0
-        },
-        {
-          "skill": "video-editing",
-          "name": "Video Editing",
-          "pts": 1.4,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 1.4,
-          "earned": 0
-        },
-        {
-          "skill": "point-cloud",
-          "name": "Point Cloud / Scanning",
-          "pts": 1.4,
-          "earned": 0
-        },
-        {
-          "skill": "arcgis",
-          "name": "ArcGIS",
-          "pts": 0.7,
-          "earned": 0
-        },
-        {
-          "skill": "illustration",
-          "name": "Illustration",
-          "pts": 0.7,
-          "earned": 0
-        },
-        {
-          "skill": "teaching",
-          "name": "Teaching",
-          "pts": 0.7,
-          "earned": 0
-        },
-        {
-          "skill": "market-research",
-          "name": "Market Research",
-          "pts": 0.7,
-          "earned": 0.7
+          "pts": 3.3,
+          "earned": 3.3
         }
       ],
       "low_confidence": false,
@@ -349,498 +286,6 @@
       }
     },
     {
-      "id": "conversation-designer",
-      "title": "Conversation Designer",
-      "field": "Design",
-      "cluster": "Design",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Designs how people talk to software: chatbots, voice assistants, and the scripts and flows behind conversational AI.",
-      "match": 31,
-      "fit": 31,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$80k–$140k",
-      "salary_band": [
-        79028,
-        139500
-      ],
-      "demand": "Low",
-      "remote": "5%",
-      "time": "12–24 mo",
-      "have": [
-        "LangChain / Agents",
-        "LLMs / Generative AI",
-        "Machine Learning",
-        "Data Analysis"
-      ],
-      "learn": [
-        "Product Management",
-        "Spec Writing",
-        "Tax",
-        "Customer Service"
-      ],
-      "waterfall": [
-        {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
-          "pts": 17.6,
-          "earned": 4.5
-        },
-        {
-          "skill": "llm",
-          "name": "LLMs / Generative AI",
-          "pts": 8.8,
-          "earned": 8.8
-        },
-        {
-          "skill": "product-management",
-          "name": "Product Management",
-          "pts": 8.8,
-          "earned": 0
-        },
-        {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 8.8,
-          "earned": 8.8
-        },
-        {
-          "skill": "spec-writing",
-          "name": "Spec Writing",
-          "pts": 5.9,
-          "earned": 0
-        },
-        {
-          "skill": "tax",
-          "name": "Tax",
-          "pts": 5.9,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 5.9,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 2.9,
-          "earned": 2.9
-        },
-        {
-          "skill": "data-visualization",
-          "name": "Data Visualization",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "nlp",
-          "name": "NLP",
-          "pts": 2.9,
-          "earned": 2.6
-        },
-        {
-          "skill": "prompt-engineering",
-          "name": "Prompt Engineering",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "service-design",
-          "name": "Service Design",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "design-systems",
-          "name": "Design Systems",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "figma",
-          "name": "Figma",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "ab-testing",
-          "name": "A/B Testing",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "accessibility",
-          "name": "Accessibility",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "interaction-design",
-          "name": "Interaction Design",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 2.9,
-          "earned": 2.9
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 40,
-        "salaried": 33
-      }
-    },
-    {
-      "id": "economist",
-      "title": "Economist",
-      "field": "Science",
-      "cluster": "Science",
-      "kind": "lateral",
-      "license": null,
-      "desc": "",
-      "match": 32,
-      "fit": 27,
-      "capability": 42,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$110k–$265k",
-      "salary_band": [
-        110092,
-        267402
-      ],
-      "demand": "Moderate",
-      "remote": "1%",
-      "time": "12–24 mo",
-      "have": [
-        "Data Analysis",
-        "Translation",
-        "Market Research",
-        "Supply Chain"
-      ],
-      "learn": [
-        "AWS",
-        "Forecasting",
-        "Statistics",
-        "Accounting"
-      ],
-      "waterfall": [
-        {
-          "skill": "aws",
-          "name": "AWS",
-          "pts": 18.6,
-          "earned": 0
-        },
-        {
-          "skill": "forecasting",
-          "name": "Forecasting",
-          "pts": 10.1,
-          "earned": 0
-        },
-        {
-          "skill": "statistics",
-          "name": "Statistics",
-          "pts": 8.5,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 6.4,
-          "earned": 5.5
-        },
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 5.9,
-          "earned": 0
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 5.3,
-          "earned": 3.9
-        },
-        {
-          "skill": "market-research",
-          "name": "Market Research",
-          "pts": 4.8,
-          "earned": 4.8
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4.3,
-          "earned": 3
-        },
-        {
-          "skill": "policy-analysis",
-          "name": "Policy Analysis",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 3.7,
-          "earned": 3.7
-        },
-        {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 3.2,
-          "earned": 3.2
-        },
-        {
-          "skill": "sql",
-          "name": "SQL",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 3.2,
-          "earned": 3
-        },
-        {
-          "skill": "llm",
-          "name": "LLMs / Generative AI",
-          "pts": 3.2,
-          "earned": 3.2
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "clio",
-          "name": "Clio / Relativity",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 2.1,
-          "earned": 2.1
-        },
-        {
-          "skill": "law-enforcement",
-          "name": "Law Enforcement",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "financial-modeling",
-          "name": "Financial Modeling",
-          "pts": 2.1,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 200,
-        "salaried": 170
-      }
-    },
-    {
-      "id": "aerospace-engineer",
-      "title": "Aerospace Engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 21,
-      "fit": 25,
-      "capability": 61,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 32,
-      "mobility_tier": null,
-      "salary": "$105k–$150k",
-      "salary_band": [
-        104504,
-        150402
-      ],
-      "demand": "Moderate",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "FEA / Simulation",
-        "Prototyping",
-        "Supply Chain",
-        "Data Analysis"
-      ],
-      "learn": [
-        "Aviation Operations",
-        "QA / Testing",
-        "Criminal Investigation",
-        "Teaching"
-      ],
-      "waterfall": [
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 25.7,
-          "earned": 0
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 21.1,
-          "earned": 5.5
-        },
-        {
-          "skill": "qa-testing",
-          "name": "QA / Testing",
-          "pts": 8.3,
-          "earned": 0
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 6.4,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 6.4,
-          "earned": 4.5
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4.6,
-          "earned": 3.7
-        },
-        {
-          "skill": "teaching",
-          "name": "Teaching",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 2.8,
-          "earned": 2.8
-        },
-        {
-          "skill": "social-media",
-          "name": "Social Media",
-          "pts": 2.8,
-          "earned": 0
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 1.8,
-          "earned": 1.8
-        },
-        {
-          "skill": "risk-management",
-          "name": "Risk Management",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 1.8,
-          "earned": 1.8
-        },
-        {
-          "skill": "statistics",
-          "name": "Statistics",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
-          "pts": 0.9,
-          "earned": 0.9
-        },
-        {
-          "skill": "matlab",
-          "name": "MATLAB",
-          "pts": 0.9,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 145,
-        "salaried": 138
-      }
-    },
-    {
       "id": "solutions-architect",
       "title": "Solutions Architect",
       "field": "Technology",
@@ -848,9 +293,9 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 15,
-      "fit": 25,
-      "capability": 52,
+      "match": 17,
+      "fit": 27,
+      "capability": 55,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
@@ -879,13 +324,13 @@
         {
           "skill": "aws",
           "name": "AWS",
-          "pts": 8.4,
+          "pts": 8.5,
           "earned": 0
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 7.9,
+          "pts": 8,
           "earned": 2.7
         },
         {
@@ -927,7 +372,7 @@
         {
           "skill": "langchain",
           "name": "LangChain / Agents",
-          "pts": 4.5,
+          "pts": 4.4,
           "earned": 1.8
         },
         {
@@ -945,7 +390,7 @@
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 4.2,
+          "pts": 4.3,
           "earned": 0
         },
         {
@@ -985,16 +430,16 @@
           "earned": 0
         },
         {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 3.1,
-          "earned": 0.9
-        },
-        {
           "skill": "microservices",
           "name": "Microservices",
           "pts": 3,
           "earned": 0
+        },
+        {
+          "skill": "machine-learning",
+          "name": "Machine Learning",
+          "pts": 2.9,
+          "earned": 2.9
         }
       ],
       "low_confidence": false,
@@ -1002,6 +447,353 @@
       "provenance": {
         "postings": 1753,
         "salaried": 810
+      }
+    },
+    {
+      "id": "economist",
+      "title": "Economist",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "lateral",
+      "license": null,
+      "desc": "",
+      "match": 29,
+      "fit": 26,
+      "capability": 45,
+      "mobility": 3,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$110k–$265k",
+      "salary_band": [
+        110092,
+        267402
+      ],
+      "demand": "Moderate",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Data Analysis",
+        "Market Research",
+        "Supply Chain",
+        "Python"
+      ],
+      "learn": [
+        "AWS",
+        "Forecasting",
+        "Statistics",
+        "Accounting"
+      ],
+      "waterfall": [
+        {
+          "skill": "aws",
+          "name": "AWS",
+          "pts": 19.2,
+          "earned": 0
+        },
+        {
+          "skill": "forecasting",
+          "name": "Forecasting",
+          "pts": 10.4,
+          "earned": 0
+        },
+        {
+          "skill": "statistics",
+          "name": "Statistics",
+          "pts": 8.8,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 6.6,
+          "earned": 5.7
+        },
+        {
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "market-research",
+          "name": "Market Research",
+          "pts": 4.9,
+          "earned": 4.9
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 4.4,
+          "earned": 3.1
+        },
+        {
+          "skill": "policy-analysis",
+          "name": "Policy Analysis",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "machine-learning",
+          "name": "Machine Learning",
+          "pts": 3.3,
+          "earned": 3.3
+        },
+        {
+          "skill": "sql",
+          "name": "SQL",
+          "pts": 3.3,
+          "earned": 0
+        },
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 3.3,
+          "earned": 2.8
+        },
+        {
+          "skill": "llm",
+          "name": "LLMs / Generative AI",
+          "pts": 3.3,
+          "earned": 3.3
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "clio",
+          "name": "Clio / Relativity",
+          "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 2.2,
+          "earned": 2.2
+        },
+        {
+          "skill": "law-enforcement",
+          "name": "Law Enforcement",
+          "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "financial-modeling",
+          "name": "Financial Modeling",
+          "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 2.2,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 200,
+        "salaried": 170
+      }
+    },
+    {
+      "id": "prompt-engineer",
+      "title": "Prompt Engineer",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Designs, tests, and versions the instructions that steer large language models — prompt systems, evaluation suites, and guardrails for AI products.",
+      "match": 35,
+      "fit": 25,
+      "capability": null,
+      "mobility": 4,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 3,
+      "mobility_tier": null,
+      "salary": "$80k–$120k",
+      "salary_band": [
+        78338,
+        119346
+      ],
+      "demand": "Moderate",
+      "remote": "4%",
+      "time": "12–24 mo",
+      "have": [
+        "LLMs / Generative AI",
+        "Python",
+        "LangChain / Agents",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Prompt Engineering",
+        "RAG / Vector Search",
+        "REST APIs"
+      ],
+      "waterfall": [
+        {
+          "skill": "llm",
+          "name": "LLMs / Generative AI",
+          "pts": 46.7,
+          "earned": 16.5
+        },
+        {
+          "skill": "prompt-engineering",
+          "name": "Prompt Engineering",
+          "pts": 20,
+          "earned": 0
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 8.3,
+          "earned": 7.9
+        },
+        {
+          "skill": "langchain",
+          "name": "LangChain / Agents",
+          "pts": 8.3,
+          "earned": 5.4
+        },
+        {
+          "skill": "rag",
+          "name": "RAG / Vector Search",
+          "pts": 6.7,
+          "earned": 0
+        },
+        {
+          "skill": "rest-apis",
+          "name": "REST APIs",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 5,
+          "earned": 5
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 85,
+        "salaried": 81
+      }
+    },
+    {
+      "id": "aerospace-engineer",
+      "title": "Aerospace Engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 20,
+      "fit": 25,
+      "capability": 64,
+      "mobility": 3,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 32,
+      "mobility_tier": null,
+      "salary": "$105k–$150k",
+      "salary_band": [
+        104504,
+        150402
+      ],
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "FEA / Simulation",
+        "Prototyping",
+        "Supply Chain",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Aviation Operations",
+        "QA / Testing",
+        "Criminal Investigation",
+        "Teaching"
+      ],
+      "waterfall": [
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 31.5,
+          "earned": 0
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 25.8,
+          "earned": 6.7
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 10.1,
+          "earned": 0
+        },
+        {
+          "skill": "criminal-investigation",
+          "name": "Criminal Investigation",
+          "pts": 7.9,
+          "earned": 0
+        },
+        {
+          "skill": "prototyping",
+          "name": "Prototyping",
+          "pts": 7.9,
+          "earned": 5.5
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 5.6,
+          "earned": 4.6
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 4.5,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 3.4,
+          "earned": 3.4
+        },
+        {
+          "skill": "social-media",
+          "name": "Social Media",
+          "pts": 3.4,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 145,
+        "salaried": 138
       }
     },
     {
@@ -1013,8 +805,8 @@
       "license": null,
       "desc": "",
       "match": 13,
-      "fit": 24,
-      "capability": 54,
+      "fit": 25,
+      "capability": 57,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
@@ -1029,9 +821,9 @@
       "time": "12–24 mo",
       "have": [
         "Python",
-        "Observability",
         "LangChain / Agents",
-        "Clinical Research"
+        "Clinical Research",
+        "LLMs / Generative AI"
       ],
       "learn": [
         "Cybersecurity",
@@ -1043,85 +835,85 @@
         {
           "skill": "cybersecurity",
           "name": "Cybersecurity",
-          "pts": 19.4,
+          "pts": 19.8,
           "earned": 0
         },
         {
           "skill": "aws",
           "name": "AWS",
-          "pts": 8.6,
+          "pts": 8.8,
           "earned": 0
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 7.3,
-          "earned": 3.2
+          "pts": 7.4,
+          "earned": 3.3
         },
         {
           "skill": "networking",
           "name": "Networking",
-          "pts": 6.5,
+          "pts": 6.6,
           "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 5.7,
-          "earned": 1.1
         },
         {
           "skill": "azure",
           "name": "Azure",
-          "pts": 5.3,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "gcp",
           "name": "GCP",
-          "pts": 5.1,
+          "pts": 5.2,
           "earned": 0
         },
         {
           "skill": "langchain",
           "name": "LangChain / Agents",
           "pts": 4.7,
-          "earned": 2.2
+          "earned": 2.3
         },
         {
           "skill": "clinical-research",
           "name": "Clinical Research",
-          "pts": 4.3,
-          "earned": 1.4
+          "pts": 4.4,
+          "earned": 1.5
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "triage",
+          "name": "Triage",
           "pts": 4,
           "earned": 0
         },
         {
           "skill": "llm",
           "name": "LLMs / Generative AI",
-          "pts": 3.8,
-          "earned": 3.8
+          "pts": 3.9,
+          "earned": 3.9
         },
         {
           "skill": "kubernetes",
           "name": "Kubernetes",
-          "pts": 3.7,
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "linux",
           "name": "Linux",
-          "pts": 3.6,
+          "pts": 3.7,
           "earned": 0
         },
         {
           "skill": "terraform",
           "name": "Terraform",
-          "pts": 3.3,
+          "pts": 3.4,
           "earned": 0
         },
         {
@@ -1133,14 +925,14 @@
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 2.9,
+          "pts": 3,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
           "pts": 2.4,
-          "earned": 1.6
+          "earned": 1.7
         },
         {
           "skill": "rest-apis",
@@ -1167,207 +959,13 @@
         "postings": 1141,
         "salaried": 661
       }
-    },
-    {
-      "id": "prompt-engineer",
-      "title": "Prompt Engineer",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Designs, tests, and versions the instructions that steer large language models — prompt systems, evaluation suites, and guardrails for AI products.",
-      "match": 31,
-      "fit": 23,
-      "capability": null,
-      "mobility": 4,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 3,
-      "mobility_tier": null,
-      "salary": "$80k–$120k",
-      "salary_band": [
-        78338,
-        119346
-      ],
-      "demand": "Moderate",
-      "remote": "4%",
-      "time": "12–24 mo",
-      "have": [
-        "LLMs / Generative AI",
-        "Python",
-        "LangChain / Agents",
-        "Data Analysis"
-      ],
-      "learn": [
-        "Prompt Engineering",
-        "RAG / Vector Search",
-        "REST APIs",
-        "A/B Testing"
-      ],
-      "waterfall": [
-        {
-          "skill": "llm",
-          "name": "LLMs / Generative AI",
-          "pts": 34.6,
-          "earned": 12.2
-        },
-        {
-          "skill": "prompt-engineering",
-          "name": "Prompt Engineering",
-          "pts": 14.8,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 6.2,
-          "earned": 5.9
-        },
-        {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
-          "pts": 6.2,
-          "earned": 4
-        },
-        {
-          "skill": "rag",
-          "name": "RAG / Vector Search",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "rest-apis",
-          "name": "REST APIs",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 3.7,
-          "earned": 3.7
-        },
-        {
-          "skill": "ab-testing",
-          "name": "A/B Testing",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "nlp",
-          "name": "NLP",
-          "pts": 2.5,
-          "earned": 2.3
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "fine-tuning",
-          "name": "Model Fine-tuning",
-          "pts": 2.5,
-          "earned": 2.5
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "gcp",
-          "name": "GCP",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "interaction-design",
-          "name": "Interaction Design",
-          "pts": 1.2,
-          "earned": 0
-        },
-        {
-          "skill": "azure",
-          "name": "Azure",
-          "pts": 1.2,
-          "earned": 0
-        },
-        {
-          "skill": "sql",
-          "name": "SQL",
-          "pts": 1.2,
-          "earned": 0
-        },
-        {
-          "skill": "qa-testing",
-          "name": "QA / Testing",
-          "pts": 1.2,
-          "earned": 0
-        },
-        {
-          "skill": "toast-pos",
-          "name": "POS Systems",
-          "pts": 1.2,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 85,
-        "salaried": 81
-      }
     }
   ],
   "next": {
-    "robotics-engineer": [],
-    "data-annotator": [
-      {
-        "t": "Statistician",
-        "m": 20,
-        "slug": "statistician",
-        "field": "Science",
-        "cluster": "Science",
-        "kind": "lateral",
-        "gap": [
-          "Statistics",
-          "Criminal Investigation",
-          "Research",
-          "Quality Control"
-        ],
-        "observed": null,
-        "fit": 22,
-        "capability": 52,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 6,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "data-annotator",
-          "readiness_after": 46,
-          "gain": 26
-        }
-      }
-    ],
     "conversation-designer": [
       {
         "t": "UX Researcher",
-        "m": 23,
+        "m": 20,
         "slug": "ux-researcher",
         "field": "Design",
         "cluster": "Design",
@@ -1380,7 +978,7 @@
         ],
         "observed": null,
         "fit": 19,
-        "capability": 30,
+        "capability": 34,
         "mobility": 3,
         "mobility_source": "observed-flow-eu",
         "mobility_eu": 3,
@@ -1388,66 +986,97 @@
         "reach": "bridged",
         "via": {
           "parent": "conversation-designer",
-          "readiness_after": 42,
-          "gain": 19
+          "readiness_after": 30,
+          "gain": 10
         }
       },
       {
-        "t": "Design Technologist",
-        "m": 20,
-        "slug": "design-technologist",
+        "t": "Developer Advocate",
+        "m": 19,
+        "slug": "developer-advocate",
         "field": "Technology",
         "cluster": "Technology",
         "kind": "pivot",
         "gap": [
-          "Design Systems",
-          "Email Marketing",
-          "Accessibility",
-          "AWS"
+          "Training & Facilitation",
+          "GCP",
+          "REST APIs",
+          "Presentation"
         ],
         "observed": null,
-        "fit": 15,
+        "fit": 19,
         "capability": null,
-        "mobility": 3,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 3,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "conversation-designer",
-          "readiness_after": 36,
-          "gain": 16
+          "readiness_after": 30,
+          "gain": 11
         }
       }
     ],
-    "economist": [
+    "robotics-engineer": [],
+    "data-annotator": [],
+    "solutions-architect": [
       {
-        "t": "Executive Assistant",
-        "m": 23,
-        "slug": "executive-assistant",
+        "t": "Product Manager",
+        "m": 22,
+        "slug": "product-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Salesforce",
-          "Scheduling",
-          "Presentation",
-          "Excel"
+          "Product Management",
+          "REST APIs",
+          "Agile",
+          "A/B Testing"
         ],
         "observed": null,
         "fit": 18,
-        "capability": 22,
-        "mobility": 5,
+        "capability": 25,
+        "mobility": 4,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 38,
+        "mobility_eu": 11,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "economist",
-          "readiness_after": 40,
-          "gain": 17
+          "parent": "solutions-architect",
+          "readiness_after": 45,
+          "gain": 23
         }
       },
+      {
+        "t": "Marketing Manager",
+        "m": 22,
+        "slug": "marketing-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Email Marketing",
+          "Product Management",
+          "CRM",
+          "Project Management"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 25,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 2,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "solutions-architect",
+          "readiness_after": 35,
+          "gain": 13
+        }
+      }
+    ],
+    "economist": [
       {
         "t": "Data Scientist",
         "m": 21,
@@ -1474,65 +1103,37 @@
           "readiness_after": 30,
           "gain": 9
         }
-      }
-    ],
-    "aerospace-engineer": [],
-    "solutions-architect": [
+      },
       {
-        "t": "Product Manager",
-        "m": 23,
-        "slug": "product-manager",
+        "t": "Executive Assistant",
+        "m": 21,
+        "slug": "executive-assistant",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Product Management",
-          "REST APIs",
-          "Agile",
-          "A/B Testing"
+          "Salesforce",
+          "Scheduling",
+          "Presentation",
+          "Excel"
         ],
         "observed": null,
         "fit": 18,
-        "capability": 20,
-        "mobility": 4,
+        "capability": 27,
+        "mobility": 5,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 11,
+        "mobility_eu": 38,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "solutions-architect",
-          "readiness_after": 46,
-          "gain": 23
-        }
-      },
-      {
-        "t": "Marketing Manager",
-        "m": 23,
-        "slug": "marketing-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Email Marketing",
-          "Product Management",
-          "CRM",
-          "Project Management"
-        ],
-        "observed": null,
-        "fit": 17,
-        "capability": 20,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 2,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "solutions-architect",
-          "readiness_after": 38,
-          "gain": 15
+          "parent": "economist",
+          "readiness_after": 42,
+          "gain": 21
         }
       }
     ],
+    "prompt-engineer": [],
+    "aerospace-engineer": [],
     "security-engineer": [
       {
         "t": "Industrial Engineer",
@@ -1543,13 +1144,13 @@
         "kind": "pivot",
         "gap": [
           "Lean / Six Sigma",
-          "Quality Control",
           "Operations",
-          "Welding / Fabrication"
+          "Welding / Fabrication",
+          "Criminal Investigation"
         ],
         "observed": null,
-        "fit": 22,
-        "capability": 46,
+        "fit": 23,
+        "capability": 50,
         "mobility": 4,
         "mobility_source": "observed-flow-eu",
         "mobility_eu": 4,
@@ -1557,137 +1158,59 @@
         "reach": "bridged",
         "via": {
           "parent": "security-engineer",
-          "readiness_after": 35,
-          "gain": 13
-        }
-      },
-      {
-        "t": "Developer Advocate",
-        "m": 21,
-        "slug": "developer-advocate",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "pivot",
-        "gap": [
-          "Training & Facilitation",
-          "GCP",
-          "REST APIs",
-          "Presentation"
-        ],
-        "observed": null,
-        "fit": 21,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "security-engineer",
-          "readiness_after": 46,
-          "gain": 25
-        }
-      }
-    ],
-    "prompt-engineer": [
-      {
-        "t": "QA Engineer",
-        "m": 19,
-        "slug": "qa-engineer",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "pivot",
-        "gap": [
-          "QA / Testing",
-          "Excel",
-          "Agile",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 23,
-        "capability": 58,
-        "mobility": 4,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 5,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "prompt-engineer",
-          "readiness_after": 29,
+          "readiness_after": 32,
           "gain": 10
         }
       },
       {
-        "t": "Penetration Tester",
-        "m": 19,
-        "slug": "penetration-tester",
+        "t": "Design Technologist",
+        "m": 21,
+        "slug": "design-technologist",
         "field": "Technology",
         "cluster": "Technology",
         "kind": "pivot",
         "gap": [
-          "Cybersecurity",
-          "REST APIs",
-          "AWS",
-          "Model Evaluation"
+          "Design Systems",
+          "Email Marketing",
+          "Accessibility",
+          "AWS"
         ],
         "observed": null,
-        "fit": 19,
+        "fit": 15,
         "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
+        "mobility": 3,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 3,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "prompt-engineer",
-          "readiness_after": 27,
-          "gain": 8
+          "parent": "security-engineer",
+          "readiness_after": 33,
+          "gain": 12
         }
       }
     ]
   },
   "direct": [
     {
-      "t": "Market Researcher",
-      "m": 20,
-      "slug": "market-researcher",
-      "field": "Business",
-      "cluster": "Business",
+      "t": "Game Designer",
+      "m": 21,
+      "slug": "game-designer",
+      "field": "Design",
+      "cluster": "Design",
       "kind": "pivot",
       "gap": [
-        "Statistics",
-        "Research",
-        "Account Management",
-        "Excel"
+        "EHR / EMR",
+        "Unreal Engine",
+        "Lean / Six Sigma",
+        "Training & Facilitation"
       ],
       "observed": null,
-      "fit": 18,
-      "capability": 33,
-      "mobility": 2,
+      "fit": 23,
+      "capability": 54,
+      "mobility": 3,
       "mobility_source": "observed-flow-eu",
-      "mobility_eu": 2,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Content Strategist",
-      "m": 20,
-      "slug": "content-strategist",
-      "field": "Writing",
-      "cluster": "Media & Writing",
-      "kind": "pivot",
-      "gap": [
-        "Content Marketing",
-        "Writing & Editing",
-        "SEO",
-        "Social Media"
-      ],
-      "observed": null,
-      "fit": 12,
-      "capability": 1,
-      "mobility": 2,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 2,
+      "mobility_eu": 3,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1714,102 +1237,190 @@
       "reach": "direct"
     },
     {
-      "t": "Game Designer",
-      "m": 19,
-      "slug": "game-designer",
-      "field": "Design",
-      "cluster": "Design",
+      "t": "QA Engineer",
+      "m": 18,
+      "slug": "qa-engineer",
+      "field": "Technology",
+      "cluster": "Technology",
       "kind": "pivot",
       "gap": [
-        "EHR / EMR",
-        "Unreal Engine",
-        "React",
+        "QA / Testing",
+        "Excel",
+        "Agile",
         "Lean / Six Sigma"
       ],
       "observed": null,
+      "fit": 23,
+      "capability": 60,
+      "mobility": 4,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 5,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Penetration Tester",
+      "m": 17,
+      "slug": "penetration-tester",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "Cybersecurity",
+        "REST APIs",
+        "AWS",
+        "Model Evaluation"
+      ],
+      "observed": null,
+      "fit": 17,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Game Developer",
+      "m": 16,
+      "slug": "game-developer",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "C++",
+        "Unreal Engine",
+        "EHR / EMR",
+        "REST APIs"
+      ],
+      "observed": null,
       "fit": 21,
-      "capability": 51,
-      "mobility": 3,
-      "mobility_source": "observed-flow-eu",
+      "capability": 54,
+      "mobility": 4,
+      "mobility_source": "observed-flow-us",
       "mobility_eu": 3,
       "mobility_tier": null,
       "reach": "direct"
     },
     {
-      "t": "Systems Administrator",
-      "m": 17,
-      "slug": "systems-administrator",
-      "field": "Technology",
-      "cluster": "Technology",
+      "t": "Market Researcher",
+      "m": 15,
+      "slug": "market-researcher",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "gap": [
-        "Linux",
-        "Cybersecurity",
-        "Operations",
-        "Procurement"
+        "Statistics",
+        "Research",
+        "Account Management",
+        "Excel"
       ],
       "observed": null,
-      "fit": 20,
-      "capability": 52,
+      "fit": 16,
+      "capability": 37,
       "mobility": 2,
+      "mobility_source": "observed-flow-eu",
+      "mobility_eu": 2,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Recruiter",
+      "m": 15,
+      "slug": "recruiter",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Recruiting",
+        "Procurement",
+        "Scheduling",
+        "Stakeholder Management"
+      ],
+      "observed": null,
+      "fit": 12,
+      "capability": 15,
+      "mobility": 1,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
+      "mobility_eu": 5,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Customer Success Manager",
+      "m": 13,
+      "slug": "customer-success-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Account Management",
+        "Customer Service",
+        "Product Management",
+        "Salesforce"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": 30,
+      "mobility": 6,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 2,
       "mobility_tier": null,
       "reach": "direct"
     }
   ],
   "cross": [
     [
+      "conversation-designer",
       "solutions-architect",
-      "security-engineer",
-      0.47
-    ],
-    [
-      "economist",
-      "solutions-architect",
-      0.4
-    ],
-    [
-      "solutions-architect",
-      "prompt-engineer",
-      0.38
-    ],
-    [
-      "data-annotator",
-      "prompt-engineer",
-      0.37
-    ],
-    [
-      "robotics-engineer",
-      "aerospace-engineer",
-      0.31
-    ],
-    [
-      "data-annotator",
-      "solutions-architect",
-      0.31
-    ]
-  ],
-  "bridges": [
-    [
-      "security-engineer",
-      "prompt-engineer_1",
-      0.78
-    ],
-    [
-      "solutions-architect",
-      "security-engineer_1",
       0.6
     ],
     [
       "solutions-architect",
-      "economist_1",
-      0.48
+      "economist",
+      0.45
     ],
     [
       "solutions-architect",
-      "prompt-engineer_0",
-      0.43
+      "prompt-engineer",
+      0.44
+    ],
+    [
+      "solutions-architect",
+      "security-engineer",
+      0.44
+    ],
+    [
+      "data-annotator",
+      "prompt-engineer",
+      0.41
+    ],
+    [
+      "data-annotator",
+      "solutions-architect",
+      0.4
+    ]
+  ],
+  "bridges": [
+    [
+      "solutions-architect",
+      "conversation-designer_1",
+      0.55
+    ],
+    [
+      "solutions-architect",
+      "economist_0",
+      0.46
+    ],
+    [
+      "solutions-architect",
+      "economist_1",
+      0.36
+    ],
+    [
+      "solutions-architect",
+      "security-engineer_1",
+      0.33
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

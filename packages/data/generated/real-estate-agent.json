@@ -31,8 +31,8 @@
         "label": "Brokerage/contractor licenses depending on activity"
       },
       "desc": "",
-      "match": 16,
-      "fit": 42,
+      "match": 13,
+      "fit": 40,
       "capability": null,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
@@ -48,15 +48,14 @@
       "time": "12–24 mo",
       "have": [
         "Sales",
-        "Negotiation",
-        "Presentation",
-        "Procurement"
+        "Account Management",
+        "Training & Facilitation"
       ],
       "learn": [
+        "Negotiation",
         "Data Analysis",
         "Product Management",
-        "AWS",
-        "Salesforce"
+        "AWS"
       ],
       "waterfall": [
         {
@@ -69,7 +68,7 @@
           "skill": "negotiation",
           "name": "Negotiation",
           "pts": 7.5,
-          "earned": 0.7
+          "earned": 0
         },
         {
           "skill": "data-analysis",
@@ -93,7 +92,7 @@
           "skill": "presentation",
           "name": "Presentation",
           "pts": 5.8,
-          "earned": 0.7
+          "earned": 0
         },
         {
           "skill": "salesforce",
@@ -111,7 +110,7 @@
           "skill": "procurement",
           "name": "Procurement",
           "pts": 5,
-          "earned": 0.2
+          "earned": 0
         },
         {
           "skill": "crm",
@@ -159,13 +158,13 @@
           "skill": "stakeholder-management",
           "name": "Stakeholder Management",
           "pts": 3.3,
-          "earned": 0.5
+          "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
           "pts": 2.9,
-          "earned": 0.5
+          "earned": 0
         },
         {
           "skill": "supply-chain",
@@ -188,170 +187,6 @@
       }
     },
     {
-      "id": "facilities-manager",
-      "title": "Facilities Manager",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "lateral",
-      "license": null,
-      "desc": "",
-      "match": 12,
-      "fit": 40,
-      "capability": 43,
-      "mobility": 100,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 17,
-      "mobility_tier": null,
-      "salary": "$55k–$90k",
-      "salary_band": [
-        55634,
-        92412
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Operations",
-        "Procurement",
-        "Sustainability",
-        "Customer Service"
-      ],
-      "learn": [
-        "Maintenance",
-        "Supply Chain",
-        "Lean / Six Sigma",
-        "Safety / OSHA"
-      ],
-      "waterfall": [
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 14.9,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 7.6,
-          "earned": 1.2
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 5,
-          "earned": 0.6
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 5,
-          "earned": 0.6
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 4.7,
-          "earned": 2.5
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 2.4,
-          "earned": 0
-        },
-        {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 2.1,
-          "earned": 2.1
-        },
-        {
-          "skill": "space-planning",
-          "name": "Space Planning",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 1.8,
-          "earned": 1.8
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 1.8,
-          "earned": 1.8
-        },
-        {
-          "skill": "community-engagement",
-          "name": "Community Engagement",
-          "pts": 1.3,
-          "earned": 1.2
-        },
-        {
-          "skill": "spec-writing",
-          "name": "Spec Writing",
-          "pts": 1.3,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 1,
-          "earned": 0
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 1,
-          "earned": 0
-        },
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 1,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 763,
-        "salaried": 561
-      }
-    },
-    {
       "id": "sales-representative",
       "title": "Sales Representative",
       "field": "Business",
@@ -359,9 +194,9 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 19,
-      "fit": 25,
-      "capability": 64,
+      "match": 17,
+      "fit": 21,
+      "capability": 50,
       "mobility": 6,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 48,
@@ -378,80 +213,74 @@
         "Sales",
         "Account Management",
         "Training & Facilitation",
-        "Presentation"
+        "Excel"
       ],
       "learn": [
         "Salesforce",
         "CRM",
-        "Observability",
-        "LangChain / Agents"
+        "Presentation",
+        "Customer Service"
       ],
       "waterfall": [
         {
           "skill": "sales",
           "name": "Sales",
-          "pts": 20.7,
-          "earned": 11.8
+          "pts": 21.2,
+          "earned": 12
         },
         {
           "skill": "salesforce",
           "name": "Salesforce",
-          "pts": 11.8,
+          "pts": 12,
           "earned": 0
         },
         {
           "skill": "crm",
           "name": "CRM",
-          "pts": 10.1,
+          "pts": 10.3,
           "earned": 0
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 6,
+          "pts": 6.2,
           "earned": 1.5
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 6,
+          "pts": 6.1,
           "earned": 1.7
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 5.7,
-          "earned": 0.5
+          "pts": 5.8,
+          "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
           "pts": 5.2,
-          "earned": 0.7
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 3.7,
           "earned": 0
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 3.3,
-          "earned": 0.2
-        },
-        {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
-          "pts": 3.2,
+          "pts": 3.4,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 3.1,
-          "earned": 1.3
+          "pts": 3.2,
+          "earned": 1.4
+        },
+        {
+          "skill": "social-media",
+          "name": "Social Media",
+          "pts": 3.2,
+          "earned": 0
         },
         {
           "skill": "accessibility",
@@ -460,9 +289,15 @@
           "earned": 0
         },
         {
-          "skill": "social-media",
-          "name": "Social Media",
-          "pts": 3.1,
+          "skill": "observability",
+          "name": "Observability",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "langchain",
+          "name": "LangChain / Agents",
+          "pts": 2.8,
           "earned": 0
         },
         {
@@ -472,40 +307,40 @@
           "earned": 0
         },
         {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 2.2,
-          "earned": 0
-        },
-        {
-          "skill": "jira",
-          "name": "Jira",
-          "pts": 2.2,
+          "pts": 2.3,
           "earned": 0
         },
         {
           "skill": "forecasting",
           "name": "Forecasting",
           "pts": 2.1,
-          "earned": 0.2
+          "earned": 0
+        },
+        {
+          "skill": "jira",
+          "name": "Jira",
+          "pts": 2,
+          "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 1.9,
-          "earned": 0.3
+          "pts": 2,
+          "earned": 0
         },
         {
           "skill": "negotiation",
           "name": "Negotiation",
+          "pts": 2,
+          "earned": 0
+        },
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
           "pts": 1.9,
-          "earned": 0.5
+          "earned": 0
         }
       ],
       "low_confidence": false,
@@ -514,1161 +349,20 @@
         "postings": 886,
         "salaried": 370
       }
-    },
-    {
-      "id": "hotel-manager",
-      "title": "Hotel Manager",
-      "field": "Hospitality",
-      "cluster": "Service",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 15,
-      "fit": 21,
-      "capability": 64,
-      "mobility": 1,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 4,
-      "mobility_tier": null,
-      "salary": "$50k–$75k",
-      "salary_band": [
-        52283,
-        73997
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Operations",
-        "Scheduling",
-        "Training & Facilitation",
-        "Customer Service"
-      ],
-      "learn": [
-        "Food Service",
-        "Maintenance",
-        "Event Planning",
-        "Supply Chain"
-      ],
-      "waterfall": [
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 17.2,
-          "earned": 1.2
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 16.7,
-          "earned": 1.2
-        },
-        {
-          "skill": "food-service",
-          "name": "Food Service",
-          "pts": 16.7,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 14,
-          "earned": 6.2
-        },
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 14,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 4.8,
-          "earned": 2.5
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 2.2,
-          "earned": 1.8
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 0.5,
-          "earned": 0.5
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "law-enforcement",
-          "name": "Law Enforcement",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "jira",
-          "name": "Jira",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 0.5,
-          "earned": 0.5
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "quickbooks",
-          "name": "QuickBooks",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "kubernetes",
-          "name": "Kubernetes",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "stakeholder-management",
-          "name": "Stakeholder Management",
-          "pts": 0.5,
-          "earned": 0.5
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 372,
-        "salaried": 252
-      }
-    },
-    {
-      "id": "executive-assistant",
-      "title": "Executive Assistant",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "lateral",
-      "license": null,
-      "desc": "",
-      "match": 14,
-      "fit": 19,
-      "capability": 32,
-      "mobility": 21,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 100,
-      "mobility_tier": null,
-      "salary": "$40k–$80k",
-      "salary_band": [
-        40330,
-        78790
-      ],
-      "demand": "High",
-      "remote": "3%",
-      "time": "12–24 mo",
-      "have": [
-        "Scheduling",
-        "Presentation",
-        "Excel",
-        "Accounting"
-      ],
-      "learn": [
-        "Salesforce",
-        "Market Research",
-        "Supply Chain",
-        "Project Management"
-      ],
-      "waterfall": [
-        {
-          "skill": "salesforce",
-          "name": "Salesforce",
-          "pts": 15.1,
-          "earned": 0
-        },
-        {
-          "skill": "market-research",
-          "name": "Market Research",
-          "pts": 14.6,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 12.2,
-          "earned": 0.9
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 8.8,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 6.3,
-          "earned": 1.4
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 5.3,
-          "earned": 3.7
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 5,
-          "earned": 2.3
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 4.1,
-          "earned": 0.9
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 2.8,
-          "earned": 1.9
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.6,
-          "earned": 0
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 2.3,
-          "earned": 0.5
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 1.8,
-          "earned": 0.5
-        },
-        {
-          "skill": "jira",
-          "name": "Jira",
-          "pts": 1.7,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 1.5,
-          "earned": 0
-        },
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 1.5,
-          "earned": 0
-        },
-        {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 1.4,
-          "earned": 1.4
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 1.4,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1189,
-        "salaried": 751
-      }
-    },
-    {
-      "id": "librarian",
-      "title": "Librarian",
-      "field": "Education",
-      "cluster": "Education",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 12,
-      "fit": 19,
-      "capability": 38,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$45k–$85k",
-      "salary_band": [
-        45268,
-        82664
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Teaching",
-        "Community Engagement",
-        "Procurement",
-        "Training & Facilitation"
-      ],
-      "learn": [
-        "Accessibility",
-        "Project Management",
-        "Health Education",
-        "Event Planning"
-      ],
-      "waterfall": [
-        {
-          "skill": "teaching",
-          "name": "Teaching",
-          "pts": 26.4,
-          "earned": 0.6
-        },
-        {
-          "skill": "accessibility",
-          "name": "Accessibility",
-          "pts": 20.3,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 17.6,
-          "earned": 0
-        },
-        {
-          "skill": "health-education",
-          "name": "Health Education",
-          "pts": 3.3,
-          "earned": 0
-        },
-        {
-          "skill": "community-engagement",
-          "name": "Community Engagement",
-          "pts": 2.7,
-          "earned": 1.2
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 2.2,
-          "earned": 0.6
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 2.2,
-          "earned": 2.2
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 2.2,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 1.6,
-          "earned": 1.6
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 1.6,
-          "earned": 1.2
-        },
-        {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 1.6,
-          "earned": 1.6
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 1.6,
-          "earned": 0.6
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 1.1,
-          "earned": 1.1
-        },
-        {
-          "skill": "contracts",
-          "name": "Contracts",
-          "pts": 1.1,
-          "earned": 0
-        },
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 1.1,
-          "earned": 1.1
-        },
-        {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "materials",
-          "name": "Materials",
-          "pts": 0.5,
-          "earned": 0
-        },
-        {
-          "skill": "arcgis",
-          "name": "ArcGIS",
-          "pts": 0.5,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 364,
-        "salaried": 298
-      }
-    },
-    {
-      "id": "chef",
-      "title": "Chef",
-      "field": "Hospitality",
-      "cluster": "Service",
-      "kind": "pivot",
-      "license": {
-        "req": "partial",
-        "label": "Food-safety certification (ServSafe) typically required"
-      },
-      "desc": "",
-      "match": 14,
-      "fit": 17,
-      "capability": 44,
-      "mobility": 0,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$40k–$60k",
-      "salary_band": [
-        40118,
-        58991
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Customer Service",
-        "Training & Facilitation",
-        "Scheduling",
-        "Excel"
-      ],
-      "learn": [
-        "Food Service",
-        "Lean / Six Sigma",
-        "Quality Control",
-        "Observability"
-      ],
-      "waterfall": [
-        {
-          "skill": "food-service",
-          "name": "Food Service",
-          "pts": 56.4,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 5.1,
-          "earned": 2.5
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 4.7,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4.3,
-          "earned": 4.3
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 3.8,
-          "earned": 1.2
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 3.4,
-          "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 2.6,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 2.4,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 1.9,
-          "earned": 1.9
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 1.9,
-          "earned": 1.2
-        },
-        {
-          "skill": "spec-writing",
-          "name": "Spec Writing",
-          "pts": 1.3,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 1.1,
-          "earned": 1.1
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 1.1,
-          "earned": 0.6
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 0.9,
-          "earned": 0.6
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 0.9,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 0.6,
-          "earned": 0.6
-        },
-        {
-          "skill": "market-research",
-          "name": "Market Research",
-          "pts": 0.6,
-          "earned": 0
-        },
-        {
-          "skill": "qa-testing",
-          "name": "QA / Testing",
-          "pts": 0.6,
-          "earned": 0
-        },
-        {
-          "skill": "vue",
-          "name": "Vue",
-          "pts": 0.6,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 936,
-        "salaried": 700
-      }
-    },
-    {
-      "id": "bookkeeper",
-      "title": "Bookkeeper",
-      "field": "Finance",
-      "cluster": "Finance",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 13,
-      "fit": 12,
-      "capability": 19,
-      "mobility": 6,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 13,
-      "mobility_tier": null,
-      "salary": "$40k–$55k",
-      "salary_band": [
-        40330,
-        55789
-      ],
-      "demand": "High",
-      "remote": "4%",
-      "time": "12–24 mo",
-      "have": [
-        "Accounting",
-        "Excel",
-        "Customer Service",
-        "SAP"
-      ],
-      "learn": [
-        "QuickBooks",
-        "Jira",
-        "Lean / Six Sigma",
-        "HR Operations"
-      ],
-      "waterfall": [
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 52.1,
-          "earned": 1.8
-        },
-        {
-          "skill": "quickbooks",
-          "name": "QuickBooks",
-          "pts": 18.8,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 5.2,
-          "earned": 2.9
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 3,
-          "earned": 1.5
-        },
-        {
-          "skill": "jira",
-          "name": "Jira",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 1.9,
-          "earned": 0
-        },
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 1.9,
-          "earned": 0.4
-        },
-        {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 1.6,
-          "earned": 1.6
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 1.3,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 1.3,
-          "earned": 0
-        },
-        {
-          "skill": "observability",
-          "name": "Observability",
-          "pts": 1.3,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 1.3,
-          "earned": 0.7
-        },
-        {
-          "skill": "tax",
-          "name": "Tax",
-          "pts": 1.2,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 1.1,
-          "earned": 1.1
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 1,
-          "earned": 0.4
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 1,
-          "earned": 0.7
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 0.8,
-          "earned": 0
-        },
-        {
-          "skill": "audit",
-          "name": "Audit",
-          "pts": 0.7,
-          "earned": 0
-        },
-        {
-          "skill": "stakeholder-management",
-          "name": "Stakeholder Management",
-          "pts": 0.7,
-          "earned": 0.7
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 0.7,
-          "earned": 0.7
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 983,
-        "salaried": 736
-      }
     }
   ],
   "next": {
-    "real-estate-developer": [
-      {
-        "t": "Project Manager",
-        "m": 11,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Project Management",
-          "Data Analysis",
-          "Supply Chain",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 9,
-        "capability": null,
-        "mobility": 4,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 17,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "real-estate-developer",
-          "readiness_after": 45,
-          "gain": 34
-        }
-      },
-      {
-        "t": "Paralegal",
-        "m": 11,
-        "slug": "paralegal",
-        "field": "Legal",
-        "cluster": "Legal",
-        "kind": "pivot",
-        "gap": [
-          "Contracts",
-          "Case Management",
-          "Criminal Investigation",
-          "Translation"
-        ],
-        "observed": null,
-        "fit": 11,
-        "capability": 23,
-        "mobility": 3,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 10,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "real-estate-developer",
-          "readiness_after": 26,
-          "gain": 15
-        }
-      }
-    ],
-    "facilities-manager": [
-      {
-        "t": "Compliance Officer",
-        "m": 10,
-        "slug": "compliance-officer",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Compliance",
-          "Observability",
-          "Risk Management",
-          "Data Analysis"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": 48,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 4,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 24,
-          "gain": 14
-        }
-      }
-    ],
-    "sales-representative": [
-      {
-        "t": "Customer Success Manager",
-        "m": 11,
-        "slug": "customer-success-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Data Analysis",
-          "Observability",
-          "Product Management",
-          "LangChain / Agents"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": 37,
-        "mobility": 8,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 48,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "sales-representative",
-          "readiness_after": 57,
-          "gain": 46
-        }
-      },
-      {
-        "t": "Instructional Designer",
-        "m": 11,
-        "slug": "instructional-designer",
-        "field": "Education",
-        "cluster": "Education",
-        "kind": "pivot",
-        "gap": [
-          "Instructional Design",
-          "Agile",
-          "Supply Chain",
-          "Curriculum Development"
-        ],
-        "observed": null,
-        "fit": 17,
-        "capability": 32,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "sales-representative",
-          "readiness_after": 24,
-          "gain": 13
-        }
-      }
-    ],
-    "hotel-manager": [],
-    "executive-assistant": [
-      {
-        "t": "Pharmacist",
-        "m": 11,
-        "slug": "pharmacist",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Health Education",
-          "Patient Care",
-          "Observability",
-          "Translation"
-        ],
-        "observed": null,
-        "fit": 11,
-        "capability": 11,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "executive-assistant",
-          "readiness_after": 30,
-          "gain": 19
-        }
-      }
-    ],
-    "librarian": [
-      {
-        "t": "Professor / Lecturer",
-        "m": 10,
-        "slug": "professor",
-        "field": "Education",
-        "cluster": "Education",
-        "kind": "pivot",
-        "gap": [
-          "Curriculum Development",
-          "Aviation Operations",
-          "Motion Design",
-          "HR Operations"
-        ],
-        "observed": null,
-        "fit": 8,
-        "capability": null,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 5,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "librarian",
-          "readiness_after": 27,
-          "gain": 17
-        }
-      },
-      {
-        "t": "Civil Engineer",
-        "m": 10,
-        "slug": "civil-engineer",
-        "field": "Engineering",
-        "cluster": "Built Environment",
-        "kind": "pivot",
-        "gap": [
-          "Project Management",
-          "Civil 3D",
-          "Spec Writing",
-          "Assessment"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": 21,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "librarian",
-          "readiness_after": 25,
-          "gain": 15
-        }
-      }
-    ],
-    "chef": [
-      {
-        "t": "Sommelier",
-        "m": 12,
-        "slug": "sommelier",
-        "field": "Hospitality",
-        "cluster": "Hospitality",
-        "kind": "pivot",
-        "gap": [
-          "Food Service",
-          "Supply Chain",
-          "POS Systems",
-          "Event Planning"
-        ],
-        "observed": null,
-        "fit": 12,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "chef",
-          "readiness_after": 63,
-          "gain": 51
-        }
-      }
-    ],
-    "bookkeeper": []
+    "real-estate-developer": [],
+    "sales-representative": []
   },
-  "direct": [
-    {
-      "t": "Underwriter",
-      "m": 10,
-      "slug": "underwriter",
-      "field": "Finance",
-      "cluster": "Finance",
-      "kind": "pivot",
-      "gap": [
-        "Financial Modeling",
-        "Risk Management",
-        "Data Analysis",
-        "Observability"
-      ],
-      "observed": null,
-      "fit": 11,
-      "capability": 28,
-      "mobility": 0,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 7,
-      "mobility_tier": null,
-      "reach": "direct"
-    }
-  ],
+  "direct": [],
   "cross": [
     [
-      "sales-representative",
-      "executive-assistant",
-      0.54
-    ],
-    [
       "real-estate-developer",
       "sales-representative",
       0.47
-    ],
-    [
-      "real-estate-developer",
-      "executive-assistant",
-      0.47
-    ],
-    [
-      "hotel-manager",
-      "chef",
-      0.35
-    ],
-    [
-      "hotel-manager",
-      "executive-assistant",
-      0.34
-    ],
-    [
-      "facilities-manager",
-      "hotel-manager",
-      0.33
     ]
   ],
-  "bridges": [
-    [
-      "hotel-manager",
-      "chef_0",
-      0.61
-    ],
-    [
-      "real-estate-developer",
-      "sales-representative_0",
-      0.42
-    ],
-    [
-      "sales-representative",
-      "real-estate-developer_0",
-      0.4
-    ],
-    [
-      "real-estate-developer",
-      "facilities-manager_0",
-      0.32
-    ]
-  ],
+  "bridges": [],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

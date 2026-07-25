@@ -2,7 +2,7 @@ import { readNdjson, writeNdjson, writeJson, supabaseUpsert } from '../lib/store
 import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE } from '../lib/paths.js';
 import { mapTitle } from './titles.js';
 import { toAnnualUsd } from './salary.js';
-import { extractSkills } from './skills.js';
+import { extractSkills, zoneText } from './skills.js';
 import { inferCountry } from './country.js';
 
 /**
@@ -26,7 +26,7 @@ export async function normalize({ log }) {
     }
     const country = inferCountry(r.location);
     const sal = toAnnualUsd({ ...r, country }); // country drives the currency-mismatch check
-    const skills = extractSkills(`${r.title}\n${r.description_text}`);
+    const skills = extractSkills(`${r.title}\n${zoneText(r.description_text)}`);
     if (sal.min) withSalary++;
     if (skills.length >= 3) withSkills3++;
     out.push({

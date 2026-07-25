@@ -3,7 +3,8 @@ import path from 'node:path';
 import { readJson, writeJson } from '../lib/store.js';
 import { GENERATED_DIR, DATA_DIR } from '../lib/paths.js';
 import { listOrigins, loadOrigin } from '../../../../packages/data/src/index.js';
-import { getTaxonomy } from '../normalize/titles.js';
+import { getTaxonomy, mapTitle } from '../normalize/titles.js';
+import { extractSkills, zoneText } from '../normalize/skills.js';
 
 const SNAPSHOT = path.join(DATA_DIR, 'emit-snapshot.json');
 
@@ -38,6 +39,30 @@ function fingerprint() {
 export function verify({ log, snapshot = false } = {}) {
   const problems = [];
   let waterfalls = 0, checkedSalary = 0;
+
+  // 0. Gold-set regression — every fixed classification/extraction bug, frozen
+  //    as a test row. A failure here means a fixed bug has quietly returned.
+  {
+    const gold = readJson(path.join(DATA_DIR, '..', 'test', 'gold.json'));
+    if (gold) {
+      let pass = 0, total = 0;
+      for (const c of gold.titles ?? []) {
+        total++;
+        const got = mapTitle(c.title)?.slug ?? null;
+        if (got === c.expect) pass++;
+        else problems.push(`gold/title: "${c.title}" → ${got ?? 'unmapped'}, expected ${c.expect ?? 'unmapped'}`);
+      }
+      for (const c of [...(gold.skills ?? []), ...(gold.zoning ?? [])]) {
+        total++;
+        const got = new Set(extractSkills(zoneText(c.text)));
+        const missing = (c.present ?? []).filter((s) => !got.has(s));
+        const leaked = (c.absent ?? []).filter((s) => got.has(s));
+        if (!missing.length && !leaked.length) pass++;
+        else problems.push(`gold/skills: "${c.text.slice(0, 50)}…" missing=[${missing}] leaked=[${leaked}]`);
+      }
+      log(`verify/gold: ${pass}/${total} cases pass`);
+    }
+  }
 
   for (const idx of listOrigins()) {
     if (idx.insufficient) continue;

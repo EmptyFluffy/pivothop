@@ -30,7 +30,12 @@ export async function aggregate({ log }) {
       .sort((a, b) => a - b);
     const skillCounts = new Map();
     for (const r of rows) for (const s of r.skills) skillCounts.set(s, (skillCounts.get(s) ?? 0) + 1);
+    // Support floor (the dental-hygienist lesson): a skill enters a role's
+    // profile only with real evidence — ≥3 postings AND ≥2% share. Without it,
+    // a 2-in-390 fluke ("Airflow" the dental polishing device) ranks in the
+    // top-20 of a skill-poor occupation and poisons every route into it.
     const topSkills = [...skillCounts.entries()]
+      .filter(([, n]) => n >= 3 && n / rows.length >= 0.02)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 20)
       .map(([id, n]) => ({ id, share: +(n / rows.length).toFixed(4) }));
