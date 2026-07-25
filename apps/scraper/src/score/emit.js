@@ -45,8 +45,15 @@ function demandTier(count) {
   return count >= 300 ? 'High' : count >= 75 ? 'Moderate' : 'Low';
 }
 
-function timeEstimate(match) {
-  return match >= 85 ? '3–8 mo' : match >= 70 ? '6–12 mo' : match >= 60 ? '9–16 mo' : '12–24 mo';
+// Skill-gap months from match — floored by the credential when the destination is
+// a licensed profession. A 90% skill overlap does not shorten a 3-year degree
+// (the dental-hygienist lesson): a required license with a known program length
+// dominates the display; one without a stated length is appended honestly.
+function timeEstimate(match, license) {
+  const base = match >= 85 ? '3–8 mo' : match >= 70 ? '6–12 mo' : match >= 60 ? '9–16 mo' : '12–24 mo';
+  if (license?.req !== 'required') return base;
+  if (license.years) return `${license.years}+ yr incl. license`;
+  return `${base} + license`;
 }
 
 function occInfo(slug) {
@@ -196,7 +203,7 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
         salary_band: d.salaried_count >= 5 ? [d.salary_p25, d.salary_p75] : null,
         demand: demandTier(d.count),
         remote: `${Math.round(d.remote_share * 100)}%`,
-        time: timeEstimate(h.match),
+        time: timeEstimate(h.match, info.license),
         have: wf.filter((s) => s.earned > 0).slice(0, 4).map((s) => s.name),
         learn: wf.filter((s) => s.earned === 0).slice(0, 4).map((s) => s.name),
         waterfall: wf,
@@ -219,9 +226,13 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     const bridges = [];
     let kidCount = 0;
 
+    const hopSet = new Set(hops.map((h) => h.dest));
     for (const k of (adj[origin] ?? []).slice(FIRST_HOPS)) {
       if (kidCount >= KIDS_TOTAL_MAX) break;
       if (k.match < KID_MIN_READINESS) continue;
+      // A ring-2 kid must be a NEW destination — never the origin, and never a
+      // first-hop re-listed (which produced degenerate self-bridges at 100%).
+      if (k.dest === origin || hopSet.has(k.dest)) continue;
       const kMap = skillMap(agg[k.dest]);
       const info = occInfo(k.dest);
       const gap = waterfall(oMap, kMap).filter((s) => s.earned === 0).slice(0, 4).map((s) => s.name);

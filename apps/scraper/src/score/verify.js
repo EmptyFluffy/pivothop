@@ -3,6 +3,7 @@ import path from 'node:path';
 import { readJson, writeJson } from '../lib/store.js';
 import { GENERATED_DIR, DATA_DIR } from '../lib/paths.js';
 import { listOrigins, loadOrigin } from '../../../../packages/data/src/index.js';
+import { getTaxonomy } from '../normalize/titles.js';
 
 const SNAPSHOT = path.join(DATA_DIR, 'emit-snapshot.json');
 
@@ -55,6 +56,32 @@ export function verify({ log, snapshot = false } = {}) {
         if (!(lo > 0 && hi >= lo)) problems.push(`${idx.slug}→${r.id}: bad salary band [${lo}, ${hi}]`);
       }
       if (r.match < 0 || r.match > 100) problems.push(`${idx.slug}→${r.id}: match ${r.match} out of range`);
+      // The dental-hygienist lesson: a licensed profession must never display a
+      // months-scale transition, and its gate must actually be attached.
+      if (r.license?.req === 'required' && /mo$/.test(r.time ?? '')) {
+        problems.push(`${idx.slug}→${r.id}: licensed profession showing months-scale time "${r.time}"`);
+      }
+      if (r.salary_band) {
+        const [lo, hi] = r.salary_band;
+        if (hi > 900000) problems.push(`${idx.slug}→${r.id}: salary band max $${hi} exceeds sanity cap`);
+        if (lo > 0 && lo < 5000) problems.push(`${idx.slug}→${r.id}: salary band min $${lo} below sanity floor`);
+      }
+    }
+  }
+  // Cross-check the taxonomy itself: any emitted destination whose taxonomy entry
+  // requires a license must carry that license in the emit (a null here is how
+  // "90% ready in 3–8 months" shipped for a 3-year degree).
+  {
+    const tax = getTaxonomy().occupations;
+    const reqSet = new Set(tax.filter((o) => o.license?.req === 'required').map((o) => o.slug));
+    for (const idx of listOrigins()) {
+      if (idx.insufficient) continue;
+      const o = loadOrigin(idx.slug);
+      for (const r of o?.roles ?? []) {
+        if (reqSet.has(r.id) && r.license?.req !== 'required') {
+          problems.push(`${idx.slug}→${r.id}: taxonomy requires a license but the emit carries none`);
+        }
+      }
     }
   }
 

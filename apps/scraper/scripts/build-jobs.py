@@ -263,6 +263,13 @@ for line in open(NORM):
     desc = clean_desc(r.get('description_text') or '')
     fl, lv = derive_flags(title, desc)
     cty = resolve_country(d.get('country'), r.get('location') or '')
+    # Belt-and-braces salary guard (normalize already sanitizes; this catches
+    # regressions): nothing above $900k ships, degenerate mins are dropped.
+    smin, smax = num(d.get('salary_usd_min')), num(d.get('salary_usd_max'))
+    if smax and smax > 900000:
+        smin = smax = None
+    if smin and smax and (smin < 1000 or smax / smin > 5):
+        smin = None
     byocc[role].append({
         'id': _id,
         'occ': role,
@@ -270,8 +277,8 @@ for line in open(NORM):
         'company': display_company(company)[:80],
         'location': (r.get('location') or '').strip()[:60] or ('Remote' if remote else ''),
         'remote': remote,
-        'smin': num(d.get('salary_usd_min')),
-        'smax': num(d.get('salary_usd_max')),
+        'smin': smin,
+        'smax': smax,
         'url': url,
         'source': s,
         'posted': (str(d.get('posted_at') or ''))[:10],
@@ -334,6 +341,32 @@ for j in candidates:
     featured.append(j)
 json.dump([{k: v for k, v in j.items() if k != 'url'} for j in featured],
           open('apps/web/public/data/featured-jobs.json', 'w'), ensure_ascii=False)
+
+# Purity canary — the dental-hygienist lesson. On boards for licensed professions,
+# titles whose FINAL word is a tier noun (assistant, technician, aide...) are a
+# different job wearing the profession's name. The matcher's head-noun guard should
+# keep them out; this canary fails the build loudly if they ever creep back.
+TIER_TAIL = {'assistant', 'aide', 'technician', 'tech', 'orderly', 'liaison',
+             'recruiter', 'scheduler', 'biller', 'coder', 'clerk', 'receptionist', 'secretary'}
+tax = json.load(open('packages/data/taxonomy/occupations.json'))['occupations']
+licensed = {o['slug'] for o in tax if (o.get('license') or {}).get('req') == 'required'}
+canary_fail = False
+for role, jobs in kept_byocc.items():
+    if role not in licensed or any(w in role for w in ('assistant', 'technician', 'aide')):
+        continue
+    def _tail(t):
+        words = re.sub(r'\(.*?\)', ' ', t.lower()).split(' - ')[0].split('/')[-1].split()
+        return words[-1] if words else ''
+    sus = [j for j in jobs if _tail(j['title']) in TIER_TAIL]
+    share = len(sus) / len(jobs) if jobs else 0
+    if share >= 0.10:
+        lvl = 'FAIL' if share > 0.30 else 'WARN'
+        print(f"purity {lvl}: {role} board is {share:.0%} tier-suffix titles "
+              f"(e.g. {', '.join(repr(j['title'][:40]) for j in sus[:3])})")
+        if share > 0.30:
+            canary_fail = True
+if canary_fail:
+    raise SystemExit('purity canary failed: a licensed board is >30% cross-tier titles')
 
 index, all_rows = {}, []
 for role, jobs in kept_byocc.items():

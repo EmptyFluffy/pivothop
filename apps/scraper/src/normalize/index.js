@@ -24,7 +24,8 @@ export async function normalize({ log }) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);
       continue;
     }
-    const sal = toAnnualUsd(r);
+    const country = inferCountry(r.location);
+    const sal = toAnnualUsd({ ...r, country }); // country drives the currency-mismatch check
     const skills = extractSkills(`${r.title}\n${r.description_text}`);
     if (sal.min) withSalary++;
     if (skills.length >= 3) withSkills3++;
@@ -38,7 +39,7 @@ export async function normalize({ log }) {
       salary_usd_max: sal.max,
       salary_confidence: sal.confidence,
       remote_flag: Boolean(r.remote_flag),
-      country: inferCountry(r.location),
+      country,
       posted_at: r.posted_at,
       url: r.url,
     });

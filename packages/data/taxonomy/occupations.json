@@ -13,7 +13,6 @@
         "registered architect",
         "architectural project manager",
         "job captain",
-        "architectural technologist",
         "architecture designer",
         "architect building",
         "architect buildings",
@@ -102,8 +101,7 @@
         "reporting analyst",
         "insights analyst",
         "data analytics specialist",
-        "marketing analyst",
-        "operations analyst"
+        "marketing analyst"
       ],
       "desc": "Turns messy business data into decisions. Runs the queries, builds the dashboards, and translates what patterns actually mean for the people making the calls.",
       "cluster": "Technology"
@@ -809,7 +807,6 @@
         "security analyst",
         "application security engineer",
         "soc analyst",
-        "penetration tester",
         "cybersecurity analyst"
       ],
       "cluster": "Technology"
@@ -926,7 +923,6 @@
         "technical architect",
         "aws architect",
         "azure architect",
-        "data architect",
         "security architect",
         "platform architect",
         "infrastructure architect",
@@ -1043,7 +1039,6 @@
         "management analyst",
         "program analyst",
         "management and program analyst",
-        "management and program assistant",
         "management and program specialist"
       ],
       "cluster": "Business"
@@ -1280,8 +1275,6 @@
         "marketing manager",
         "digital marketing manager",
         "brand manager",
-        "growth marketer",
-        "growth manager",
         "marketing specialist",
         "digital marketer",
         "performance marketing manager",
@@ -1747,12 +1740,17 @@
         "or nurse",
         "telemetry nurse",
         "med surg nurse",
+        "nurse manager",
+        "assistant nurse manager"
+      ],
+      "exactOnly": [
         "nurse"
       ],
       "cluster": "Healthcare",
       "license": {
         "req": "required",
-        "label": "State RN license (NCLEX) required"
+        "label": "State RN license (NCLEX) required",
+        "years": 2
       }
     },
     {
@@ -1810,14 +1808,13 @@
         "physical therapist",
         "physiotherapist",
         "pt",
-        "physical therapy assistant",
-        "occupational therapist",
         "rehab therapist"
       ],
       "cluster": "Healthcare",
       "license": {
         "req": "required",
-        "label": "State PT license (NPTE) required"
+        "label": "DPT degree + state PT license (NPTE) required",
+        "years": 3
       }
     },
     {
@@ -1828,13 +1825,13 @@
       "synonyms": [
         "pharmacist",
         "clinical pharmacist",
-        "pharmacy manager",
-        "pharmacy technician"
+        "pharmacy manager"
       ],
       "cluster": "Healthcare",
       "license": {
         "req": "required",
-        "label": "State pharmacist license (NAPLEX) required"
+        "label": "PharmD + state pharmacist license (NAPLEX) required",
+        "years": 4
       }
     },
     {
@@ -1911,19 +1908,23 @@
       "soc": "21-1014.00",
       "field": "Healthcare",
       "synonyms": [
-        "therapist",
-        "counselor",
         "mental health counselor",
+        "mental health therapist",
         "lcsw",
         "lmft",
         "psychotherapist",
         "behavioral therapist",
         "clinical social worker"
       ],
+      "exactOnly": [
+        "therapist",
+        "counselor"
+      ],
       "cluster": "Healthcare",
       "license": {
         "req": "required",
-        "label": "State clinical license (LPC/LMFT/LCSW) required"
+        "label": "State clinical license (LPC/LMFT/LCSW) required",
+        "years": 3
       }
     },
     {
@@ -2063,7 +2064,6 @@
       "field": "Education",
       "synonyms": [
         "librarian",
-        "library technician",
         "archivist",
         "records manager",
         "knowledge manager",
@@ -2198,7 +2198,6 @@
         "research scientist",
         "research associate",
         "lab scientist",
-        "laboratory technician",
         "lab manager",
         "postdoctoral researcher",
         "research fellow",
@@ -2328,7 +2327,6 @@
         "chef",
         "sous chef",
         "executive chef",
-        "line cook",
         "head chef",
         "pastry chef",
         "kitchen manager"
@@ -2427,6 +2425,7 @@
       "field": "Architecture",
       "synonyms": [
         "cad technician",
+        "architectural technologist",
         "revit technician",
         "revit drafter",
         "revit designer",
@@ -2578,7 +2577,6 @@
         "prompt engineer",
         "prompt designer",
         "ai prompt engineer",
-        "conversation designer",
         "prompt engineers",
         "prompt engineering"
       ]
@@ -2620,7 +2618,6 @@
       "synonyms": [
         "robotics engineer",
         "robotics software engineer",
-        "automation engineer",
         "robot programmer",
         "autonomy engineer"
       ]
@@ -2706,6 +2703,11 @@
         "gp",
         "internal medicine physician"
       ],
+      "license": {
+        "req": "required",
+        "label": "MD/DO, residency, and state medical license (7+ yrs of training)",
+        "years": 7
+      },
       "desc": "Diagnoses and treats illness across a specialty, from primary care to surgery. Long training and licensure gate the role."
     },
     {
@@ -2716,14 +2718,17 @@
       "cluster": "Healthcare",
       "synonyms": [
         "paramedic",
-        "emt",
-        "emergency medical technician",
         "flight paramedic",
         "ambulance paramedic",
         "emergency response paramedic",
         "critical care paramedic"
       ],
-      "desc": "Delivers emergency medical care in the field and in transit, from ambulances to air rescue. Licensed, high-stakes, and shift-based."
+      "license": {
+        "req": "required",
+        "label": "State paramedic license (NREMT); 1–2 yr accredited program",
+        "years": 2
+      },
+      "desc": "Delivers emergency medical care in the field and in transit, from ambulances to air rescue. Licensed, high-stakes, and shift-based. EMT is the tier below, not a synonym."
     },
     {
       "slug": "dental-hygienist",
@@ -2733,12 +2738,16 @@
       "cluster": "Healthcare",
       "synonyms": [
         "dental hygienist",
-        "dental assistant",
-        "dental nurse",
-        "hygienist",
-        "oral hygienist"
+        "registered dental hygienist",
+        "oral hygienist",
+        "rdh"
       ],
-      "desc": "Cleans teeth, takes radiographs, and screens for oral disease alongside a dentist. Includes dental assistants and nurses."
+      "license": {
+        "req": "required",
+        "label": "State RDH license; accredited dental-hygiene associate degree (~3 yrs)",
+        "years": 3
+      },
+      "desc": "Cleans teeth, takes radiographs, and screens for oral disease alongside a dentist. A licensed clinical profession, one tier above dental assisting."
     },
     {
       "slug": "medical-scribe",
@@ -2854,6 +2863,11 @@
         "genomics counselor",
         "genetic counseling"
       ],
+      "license": {
+        "req": "required",
+        "label": "Master's in genetic counseling + ABGC board certification; state licensure in most states",
+        "years": 2
+      },
       "desc": "Interprets genetic test results and guides patients through the risks and decisions that follow. Master's-level and licensed."
     },
     {

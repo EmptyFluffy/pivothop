@@ -66,15 +66,36 @@ export function getTaxonomy() {
   return matcher;
 }
 
+// Tier-noun tails. English job titles are head-final: the last noun IS the job.
+// "Physician Assistant" is an assistant, "Pharmacy Technician" is a technician —
+// neither is the professional whose name they contain. A containment match that
+// does not cover a tail from this set is a cross-tier trap and is rejected
+// (prefix ranks like "Assistant General Counsel" are unaffected — their tail is
+// the profession). Exact synonym matches bypass the guard by construction.
+const TIER_TAIL = new Set([
+  'assistant', 'aide', 'technician', 'tech', 'orderly', 'liaison', 'recruiter',
+  'scheduler', 'biller', 'coder', 'clerk', 'receptionist', 'secretary',
+  'transporter', 'courier',
+]);
+
 function matchOne(m, cleaned) {
   if (!cleaned) return null;
   const hitExact = m.exact.get(cleaned);
   if (hitExact) return { slug: hitExact, method: 'exact' };
   // containment on word boundaries — longest synonym wins
   const padded = ` ${cleaned} `;
+  const tail = cleaned.slice(cleaned.lastIndexOf(' ') + 1);
+  const guarded = TIER_TAIL.has(tail);
   for (const { phrase, slug } of m.phrases) {
     if (phrase.length < 4) continue;
-    if (padded.includes(` ${phrase} `)) return { slug, method: 'phrase' };
+    const at = padded.indexOf(` ${phrase} `);
+    if (at === -1) continue;
+    if (guarded && !` ${phrase} `.includes(` ${tail} `)) continue; // head-noun guard
+    // Next-token guard: "Physician Assistant Primary Care" — the tier noun sits
+    // right after the matched phrase, not at the end. Same trap, same rejection.
+    const next = padded.slice(at + phrase.length + 2).trim().split(/[^a-z0-9+#]+/)[0] || '';
+    if (TIER_TAIL.has(next) && !` ${phrase} `.includes(` ${next} `)) continue;
+    return { slug, method: 'phrase' };
   }
   return null;
 }
