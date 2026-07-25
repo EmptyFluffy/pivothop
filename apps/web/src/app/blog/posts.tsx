@@ -38,6 +38,117 @@ const Sources = ({ children }: { children: ReactNode }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'why-recruiters-ghost',
+    title: 'Why recruiters ghost you, and why more applications is the wrong answer',
+    pillar: 'Run It 10,000 Times',
+    date: 'July 2026',
+    dek: 'Sixty-one percent of job seekers get ghosted after an interview, and the silence is mostly structural: jobs that were never real, roles filled before you applied, software that rejects you before a person reads a word. Here is why it happens, why sending more applications makes it worse, and the numbers behind each claim.',
+    minutes: 10,
+    faq: [
+      { q: 'Why do recruiters ghost candidates?', a: 'Mostly for structural reasons that have little to do with the individual candidate. The role may be a ghost job that was never meant to be filled; it may have been frozen or filled internally while the listing stayed up; an applicant tracking system may have rejected the application before any person read it; and a recruiter handling hundreds of applicants per opening has neither the time nor any incentive to reply to the ones they pass on. In one Harvard Business School and Accenture study, 88 percent of employers agreed that qualified candidates are screened out by their own automated systems, and in a separate 2024 survey about 40 percent of companies admitted to posting a job they were not trying to fill.' },
+      { q: 'What is a ghost job?', a: 'A job posting a company is not actively trying to fill. It may be up to collect resumes for later, to look like the company is growing, to keep a presence on job boards, or because the role was frozen and no one took the listing down. In a 2024 survey, about 40 percent of hiring managers said their company had posted one in the past year, and on one large hiring platform between 18 and 22 percent of postings in a given quarter were classified as ghost jobs. A listing that has been open for months and states no salary is a common tell.' },
+      { q: 'Does getting ghosted mean I was rejected?', a: 'Not necessarily, and treating it as a definite rejection is usually a mistake. Silence can mean the role was filled, frozen, or never real; it can mean an automated filter dropped the application before a person saw it; or it can mean a busy recruiter simply never replied. It can also mean your skills were not a close fit for the role, which is the one cause you can act on. What silence almost never is, is a considered verdict on your worth as a professional.' },
+      { q: 'How many job applications should I expect to send?', a: 'Fewer than the spray-and-pray advice implies, if you aim them well. The reflex when ghosting piles up is to increase volume, but volume without fit multiplies the silence rather than the offers, and mass applications feed the same overloaded pipelines that produce ghosting in the first place. A smaller number of applications to roles where your existing skills already cover most of what the posting demands will outperform a large number sprayed across roles you do not fit, on both response rate and morale.' },
+      { q: 'Should I follow up after being ghosted?', a: 'Once. A single follow-up a week or so after applying or interviewing is reasonable and occasionally works. A second and third rarely change the outcome and mostly cost you energy, because the silence is usually structural rather than personal. After one follow-up, the better use of your time is the next role that fits, not waiting on the one that went quiet.' },
+    ],
+    body: (
+      <>
+        <p>
+          Sixty-one percent of job seekers have been ghosted after a job interview, and almost one in ten have been ghosted after receiving a written offer. Both figures are from Greenhouse&rsquo;s 2024 State of Job Hunting report, and the first has risen nine points in eight months. You already know the shape of it, because it has happened to you: you send the application, or you sit through four rounds, and then nothing. No rejection, no feedback, no reply to the follow-up. Just silence.
+        </p>
+        <p>
+          The silence reads as a verdict. It is almost never a verdict. Ghosting is a structural feature of how hiring works now, not a message about your worth, and the difference between those two readings is the difference between a bad week and a bad year. This piece is the structure, with a source on every number, and the one change that actually moves your odds. That change is not sending more applications. Sending more applications is the reflex, and it is close to the worst thing you can do.
+        </p>
+        <div className="post-callout"><b>61%</b><span>of job seekers have been ghosted after an interview, up nine points in eight months. Almost <strong>one in ten</strong> were ghosted after a written offer (Greenhouse, 2024).</span></div>
+
+        <h2>The silence is near-universal</h2>
+        <p>
+          Start with the scale, because it is the first thing that makes the experience survivable. Being ghosted is not a rare misfortune that finds only weak candidates. It is the median experience of applying for work in 2026, and it is getting more common, not less.
+        </p>
+        <p>
+          The toll is measured too. In a 2024 survey of a thousand US job seekers, 72 percent said the search had harmed their mental health, and 44 percent named being ghosted as one of their worst frustrations. So the silence is not a minor annoyance filed under the cost of doing business. It is the part of the process people single out as most corrosive, which is exactly why it deserves a clear-eyed explanation rather than a motivational one.
+        </p>
+
+        <h2>Most of the silence is not about you</h2>
+        <p>
+          Four mechanisms produce the bulk of it. None is a judgment on the applicant, and three of them are invisible from the outside, which is why the silence feels so personal when it is anything but.
+        </p>
+        <p>
+          <strong>The job may not be real.</strong> In a 2024 survey of hiring managers, 40 percent said their company had posted a job it was not actually trying to fill in the past year, and roughly three in ten had one live at that moment. On one large hiring platform, between 18 and 22 percent of all postings in any given quarter are classed as ghost jobs, and an independent academic analysis of fifteen years of listings put the ceiling near 21 percent. The reasons managers give are less sinister than indifferent: to look like the company is growing, to keep a presence on the job boards, to collect resumes for later. Seventy percent of them called the practice morally acceptable. When you apply into that, there is no one on the other end to answer you, because there was never a role.
+        </p>
+        <div className="post-callout"><b>40%</b><span>of companies posted a job they were not trying to fill in the past year, and 70 percent of hiring managers called the practice morally acceptable (ResumeBuilder, 2024).</span></div>
+        <p>
+          <strong>The role was filled or frozen before you.</strong> Requisitions get cancelled, budgets freeze mid-process, an internal candidate wins a race you did not know you had entered. The listing stays up because taking it down is nobody&rsquo;s job. Across the whole US labor market, close to a third of job openings never result in a hire, by one analysis of federal openings-and-hires data. A posting outliving the role it described is not a conspiracy. It is entropy.
+        </p>
+        <p>
+          <strong>A machine rejected you before a person read a word.</strong> Most applications now pass through an <a className="gl" href="/glossary#ats">ATS</a> (applicant tracking system) before any human sees them, and the filter is blunter than its buyers admit. In a joint Harvard Business School and Accenture study, 88 percent of employers agreed that qualified, high-skilled candidates are screened out of hiring by their own automated systems; for middle-skilled roles the figure was 94 percent. The study put 27 million people in the US alone in that gap, capable and filtered. When the software rejects you, there is often no human who ever saw your name, and so no human to send the note you are waiting for.
+        </p>
+        <p>
+          <strong>No one is paid to close the loop.</strong> A recruiter working two hundred applicants against one opening has no time and no incentive to write back to the ones they pass on, and often a legal-caution convention that advises against giving reasons at all. Silence carries no penalty. Your follow-up lands in an inbox that no metric rewards anyone for reading. This is not malice. It is the absence of a reason to reply, which produces the same result as malice and is far more common.
+        </p>
+
+        <h2>The part that is about you</h2>
+        <p>
+          Here is the part the ghosting conversation tends to skip, because it is less comforting than the four mechanisms above. Some of the silence is a signal, and the signal is fit.
+        </p>
+        <p>
+          Most applications go to roles the applicant is not close to. We can put a number on how far apart jobs usually are, because measuring that is the entire point of this instrument: across the routes we score from one occupation to another, 63 percent sit under 20 percent skill readiness. Most pairs of jobs share almost none of the skills their postings actually demand. The full method is in a <a className="gl" href="/blog/what-is-career-adjacency">separate piece on career adjacency</a>, but the headline is that real skill overlap between two fields is rare, and applying as though it were common is how you become the weakest resume in the stack.
+        </p>
+        <div className="post-callout"><b>63%</b><span>of the career routes we score sit under 20 percent skill readiness. Most pairs of jobs share almost none of the skills their postings demand (PivotHop, July 2026).</span></div>
+        <p>
+          When you apply into that 63 percent, into roles your skills do not cover, the silence is not a mystery. It is the system working as designed. And this, unlike the ghost jobs and the frozen requisitions and the filtering software, is the one part of the machine you control. Not whether they answer. Which roles you ask.
+        </p>
+
+        <h2>Why more applications is the wrong answer</h2>
+        <p>
+          The reflex, when the silence piles up, is volume. Apply to more. Thirty-eight percent of job seekers are now mass-applying, and the logic is easy to follow: if two hundred applications produced four replies, surely four hundred produce eight. The arithmetic does not hold, for two reasons.
+        </p>
+        <p>
+          The first is that volume without fit multiplies the silence, not the offers. If most of your applications land in the 63 percent where your skills do not reach, doubling their number doubles the ghosting and leaves the offer count near zero, because the constraint was never how many you sent. It was how many you fit.
+        </p>
+        <p>
+          The second is that mass-applying feeds the machine that ghosts you. Every sprayed application is one more resume in a stack of two hundred, one more reason a recruiter cannot write back, one more input training the filter to reject faster. The behavior that feels like fighting the silence is manufacturing it, at scale, for everyone including yourself.
+        </p>
+        <p>
+          The cure for two hundred ghosted applications is not two hundred more. It is twenty applications to roles where your existing skills already clear the bar. Four applications that matter beat four hundred that do not, and the four are the ones that write back.
+        </p>
+
+        <h2>How to be ghosted less</h2>
+        <p>
+          You cannot make an employer close the loop. You can stop volunteering for the silence. Six moves, in rough order of leverage.
+        </p>
+        <p>
+          <strong>Measure fit before you apply.</strong> The highest-leverage change is to apply only where your current skills cover most of what the posting demands. That is what the <a className="gl" href="/">instrument at the top of this site</a> is for: enter your role and it returns the occupations your existing skills already reach, ranked, with the gap and the salary attached. Applying to a role you are 70 percent ready for and applying to one you are 15 percent ready for feel identical when you hit submit. They are not the same bet, and only one of them writes back.
+        </p>
+        <p>
+          <strong>Read the posting for ghost-job tells.</strong> A listing that has been open for months, names no salary, and reads in vague boilerplate is often not a live role. On the <a className="gl" href="/jobs">PivotHop board</a> right now, 15 percent of postings have been open more than sixty days, and half state no salary at all. Those are not automatically ghost jobs, but a posting that has sat open for a quarter and will not tell you what it pays has told you enough. Spend your applications on the ones that are specific, recent, and priced.
+        </p>
+        <p>
+          <strong>Apply to fewer, adjacent roles.</strong> Twenty applications to roles where you are 60 percent ready or better will outperform two hundred sprayed across everything, on response rate and on your own morale both. Adjacent is the operative word: the roles one skill-step from where you are, not the aspirational leap across the 63 percent gap.
+        </p>
+        <p>
+          <strong>Go around the front door.</strong> The public portal and the recruiter are the single most ghost-prone path into a company, because that is where the volume and the filtering software live. A direct message to the hiring manager, a warm introduction from someone inside, an application that arrives with a name attached: all of them skip the part of the pipeline that produces most of the silence.
+        </p>
+        <p>
+          <strong>Follow up once, then let it go.</strong> One follow-up a week after you apply or interview is worth sending. A second and a third are not; they land in the same unread inbox and cost you energy you need elsewhere. After the first, treat the silence as weather. It is not a verdict on you, and waiting on it is time not spent on the next role that fits.
+        </p>
+        <p>
+          <strong>Track it as a portfolio of bets, not a referendum.</strong> Ten applications to well-fit roles is a portfolio, and a portfolio is read in aggregate, not one heartbreak at a time. Expect most to go quiet. Price that in from the start and a ghosted application becomes a closed position, not a personal rejection. Measuring fit first is what makes this framing honest: when the bets are good, you do not need many of them to land.
+        </p>
+
+        <p>
+          Being ghosted is not evidence that you are unemployable. It is evidence that hiring is a black box with the loop left open on purpose, and that most applications are aimed at roles that were never a fit or never real. You cannot fix the box. You can aim better. Before the next batch, run your current role through the <a className="gl" href="/">instrument</a>, read which occupations your skills already reach, and send your applications there. Four that fit beat four hundred that do not.
+        </p>
+
+        <Sources>
+          <p>
+            Ghosting rates and mass-applying share: Greenhouse, 2024 State of Job Hunting (2,500 workers in the US, UK, and Germany), <a className="gl" href="https://www.greenhouse.com/blog/greenhouse-2024-state-of-job-hunting-report">greenhouse.com</a>. Job-search mental-health toll: Resume Genius, 2024 (1,000 US job seekers), reported by Forbes. Ghost jobs: ResumeBuilder.com, May 2024 (1,641 hiring managers); Greenhouse platform data, 2024 (18&ndash;22 percent of postings per quarter); Hunter Ng, &ldquo;Why is it so hard to find a job now? Enter Ghost Jobs,&rdquo; arXiv:2410.21771, 2024 (up to 21 percent). Openings that never hire: MyPerfectResume analysis of <a className="gl" href="/glossary#bls">BLS</a> (Bureau of Labor Statistics) Job Openings and Labor Turnover data, 2025, which is the analyst&rsquo;s reading of the openings-versus-hires gap and not a federal label. Automated screening: Joseph Fuller and Manjari Raman (Harvard Business School) with Accenture, &ldquo;Hidden Workers: Untapped Talent,&rdquo; 2021 (8,000+ workers, 2,250+ executives). Readiness scores are computed from the PivotHop posting corpus; the method is in <a className="gl" href="/blog/what-is-career-adjacency">What is career adjacency</a>. Board figures, the share of postings open more than sixty days and the share stating no salary, are measured from the live <a className="gl" href="/jobs">PivotHop board</a> as of July 2026 and move with the nightly scrape.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
     slug: 'what-is-career-adjacency',
     title: 'What is career adjacency? The full method, the acronyms, and the numbers',
     pillar: 'What Carried Over',
