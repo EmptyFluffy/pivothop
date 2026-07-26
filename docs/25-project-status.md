@@ -16,7 +16,7 @@
 - **Guardrails**: `verify` gold-set (67 cases, every fixed bug frozen as a test) + sanity invariants + licensed-route checks; build-jobs purity canary; `check:links` internal link-integrity gate; 45s fetch timeout.
 
 ### Automation (docs/23)
-- **Nightly bot ARMED** — launchd `com.pivothop.scraper.daily`, 07:15. `daily-run.sh` is fully gated: verify → exports → web build → link gate → auto-commit + push (Vercel deploy) → IndexNow ping. Red gate keeps yesterday's data + drops a `LAST-RUN-FAILED` marker. Implausible-diff tripwire.
+- **Nightly bot — two homes, both gated.** Laptop: launchd `com.pivothop.scraper.daily` 07:15 (`daily-run.sh`). **Cloud: GitHub Actions `nightly-scrape.yml` 08:00 UTC (`ci-run.sh`) — laptop-independent (Phase B, ✅).** Both: verify (gold 67 + sanity) → exports → web build → link gate → auto-commit + push (Vercel deploy) → IndexNow ping. Red gate = no publish. Implausible-diff tripwire. (Retire the laptop one once Actions proves out — see §B.)
 
 ### SEO surfaces
 - **~800 job category pages** (`/jobs/<tag>`): single-dim + 2-dim + 3-dim + occupation-level combos ("software engineer jobs in germany", "remote design jobs in the united states", pay×occ, visa×country…), all ≥6-listing gated, unique per-page copy, `/jobs/browse` hub.
@@ -85,15 +85,15 @@ Day 2: `/jobs/remote` · `/jobs/remote-in-germany` · `/jobs/software-engineer-i
 
 **A5. What to watch (weekly, not daily).** GSC → Indexing → Pages: the "Crawled – currently not indexed" line is the health metric (normal to be large at first, should shrink over weeks). GSC → Performance: real clicks/queries. Trust GSC numbers only — Semrush-type tools undercount our long tail ~7× (docs/24).
 
-## B. Nightly bot → GitHub Actions (Phase B — founder: 5 min, then Claude builds)
+## B. Nightly bot → GitHub Actions (Phase B — ✅ BUILT 2026-07-26)
 
-Today the bot runs on the laptop (launchd 07:15, fully gated). Laptop off = no data refresh (site stays up). To make it laptop-independent:
+Laptop-independent nightly scrape is live. **7 repo secrets set** (ADZUNA_APP_ID/KEY, REED_API_KEY, USAJOBS_API_KEY/EMAIL, SUPABASE_URL/SERVICE_KEY). **`.github/workflows/nightly-scrape.yml`** runs `apps/scraper/scripts/ci-run.sh`: nightly cron (08:00 UTC = 02:00 local) + manual dispatch; persists first-seen ledger + logo-tried via actions/cache (not the 1.5GB HTTP cache); same gates as the laptop bot (gold 67 + sanity + purity canary + link gate); commit + push on green → Vercel deploys → IndexNow ping. Its own push can't re-trigger it (schedule/dispatch only). First manual test run: setup + `npm ci` + gates verified.
 
-**Founder step — add the API keys as repo secrets:** GitHub → EmptyFluffy/pivothop → Settings → Secrets and variables → **Actions** → New repository secret, one per row (values are in the local `apps/scraper/.env` — copy each, never commit the file):
-- `ADZUNA_APP_ID` · `ADZUNA_APP_KEY` · `REED_API_KEY` · `USAJOBS_API_KEY` · `USAJOBS_EMAIL`
-- Optional (Supabase mirror): `SUPABASE_URL` · `SUPABASE_SERVICE_KEY`
-
-**Then Claude builds:** `.github/workflows/nightly-scrape.yml` — nightly schedule, full gated chain (same gates as daily-run.sh: gold 67 + sanity + purity + link gate), commit + push on green (which deploys via Vercel), IndexNow ping, red-gate = no publish. The laptop launchd agent then gets unloaded.
+**One remaining founder step (do after the first Actions run goes green):** retire the laptop bot so it doesn't double-run —
+```
+launchctl unload ~/Library/LaunchAgents/com.pivothop.scraper.daily.plist
+```
+Until then both run harmlessly (Actions at 02:00 local, laptop at 07:15 local; the second just finds little/no diff). To watch or re-run Actions: GitHub → repo → **Actions** tab → nightly-scrape → "Run workflow".
 
 ## C. PDF route-report export — go fully live (founder: ~20 min, then Claude finishes)
 
