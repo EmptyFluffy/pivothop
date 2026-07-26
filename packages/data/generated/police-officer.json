@@ -5,11 +5,11 @@
     "title": "Police Officer",
     "field": "Public Safety",
     "cluster": "Service",
-    "postings": 494,
+    "postings": 516,
     "salary": "$35k–$60k",
     "salary_band": [
-      33385,
-      59020
+      33494,
+      62462
     ],
     "remote": "0%",
     "separations": {
@@ -19,8 +19,117 @@
       "openings": 53.7
     }
   },
-  "roles": [],
-  "next": {},
+  "roles": [
+    {
+      "id": "nurse-practitioner",
+      "title": "Nurse Practitioner",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "State APRN license + national certification required"
+      },
+      "desc": "",
+      "match": 12,
+      "fit": 27,
+      "capability": 69,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$40k–$135k",
+      "salary_band": [
+        41191,
+        135468
+      ],
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Case Management",
+        "Teaching",
+        "CPR / BLS"
+      ],
+      "learn": [
+        "Patient Care",
+        "Health Education",
+        "Clinical Skills",
+        "Scheduling"
+      ],
+      "waterfall": [
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 30.9,
+          "earned": 0
+        },
+        {
+          "skill": "health-education",
+          "name": "Health Education",
+          "pts": 14.1,
+          "earned": 0
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 12,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 10.6,
+          "earned": 0
+        },
+        {
+          "skill": "case-management",
+          "name": "Case Management",
+          "pts": 9,
+          "earned": 3.4
+        },
+        {
+          "skill": "treatment-planning",
+          "name": "Treatment Planning",
+          "pts": 6.7,
+          "earned": 0
+        },
+        {
+          "skill": "medication-administration",
+          "name": "Medication Administration",
+          "pts": 5.1,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 4.6,
+          "earned": 4.6
+        },
+        {
+          "skill": "cpr-bls",
+          "name": "CPR / BLS",
+          "pts": 3.7,
+          "earned": 3.7
+        },
+        {
+          "skill": "triage",
+          "name": "Triage",
+          "pts": 3.5,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 638,
+        "salaried": 495
+      }
+    }
+  ],
+  "next": {
+    "nurse-practitioner": []
+  },
   "direct": [],
   "cross": [],
   "bridges": [],

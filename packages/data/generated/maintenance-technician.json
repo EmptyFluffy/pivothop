@@ -5,11 +5,11 @@
     "title": "Maintenance Technician",
     "field": "Trades",
     "cluster": "Trades",
-    "postings": 1099,
+    "postings": 1150,
     "salary": "$45k–$65k",
     "salary_band": [
       44507,
-      62566
+      62531
     ],
     "remote": "0%",
     "separations": {
@@ -21,109 +21,6 @@
   },
   "roles": [
     {
-      "id": "automotive-technician",
-      "title": "Automotive Technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "lateral",
-      "license": null,
-      "desc": "Diagnoses and repairs vehicles, from brakes and diagnostics to full engine work. Includes auto, diesel, and heavy-equipment technicians.",
-      "match": 43,
-      "fit": 61,
-      "capability": null,
-      "mobility": 100,
-      "mobility_source": "observed-flow-ctot",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$50k–$70k",
-      "salary_band": [
-        49128,
-        71854
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Maintenance",
-        "Customer Service",
-        "Supply Chain"
-      ],
-      "learn": [
-        "Hand & Power Tools",
-        "Electrical Systems",
-        "Blueprint Reading",
-        "Scheduling"
-      ],
-      "waterfall": [
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 40.1,
-          "earned": 32.8
-        },
-        {
-          "skill": "hand-power-tools",
-          "name": "Hand & Power Tools",
-          "pts": 9.9,
-          "earned": 0
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 9.4,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 8.9,
-          "earned": 6.3
-        },
-        {
-          "skill": "blueprint-reading",
-          "name": "Blueprint Reading",
-          "pts": 8.3,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 6.3,
-          "earned": 0
-        },
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 5,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4.4,
-          "earned": 4.4
-        },
-        {
-          "skill": "teaching",
-          "name": "Teaching",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 3.6,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 982,
-        "salaried": 727
-      }
-    },
-    {
       "id": "plumber",
       "title": "Plumber",
       "field": "Trades",
@@ -134,8 +31,8 @@
         "label": "State/journeyman plumbing license required"
       },
       "desc": "",
-      "match": 29,
-      "fit": 60,
+      "match": 32,
+      "fit": 61,
       "capability": 94,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
@@ -143,8 +40,8 @@
       "mobility_tier": null,
       "salary": "$50k–$80k",
       "salary_band": [
-        52430,
-        80392
+        52340,
+        80280
       ],
       "demand": "High",
       "remote": "0%",
@@ -163,45 +60,148 @@
         {
           "skill": "cad-drafting",
           "name": "Drafting",
-          "pts": 29.7,
+          "pts": 29.1,
           "earned": 0
         },
         {
           "skill": "blueprint-reading",
           "name": "Blueprint Reading",
-          "pts": 29.1,
+          "pts": 28.1,
           "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 16,
-          "earned": 16
+          "pts": 18.9,
+          "earned": 18.9
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 15.4,
+          "pts": 14.4,
           "earned": 7.6
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 5.8,
-          "earned": 5.8
+          "pts": 5.3,
+          "earned": 5.3
         },
         {
           "skill": "building-codes",
           "name": "Building Codes",
-          "pts": 4.1,
+          "pts": 4.2,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 636,
-        "salaried": 465
+        "postings": 690,
+        "salaried": 488
+      }
+    },
+    {
+      "id": "automotive-technician",
+      "title": "Automotive Technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "lateral",
+      "license": null,
+      "desc": "Diagnoses and repairs vehicles, from brakes and diagnostics to full engine work. Includes auto, diesel, and heavy-equipment technicians.",
+      "match": 40,
+      "fit": 59,
+      "capability": null,
+      "mobility": 100,
+      "mobility_source": "observed-flow-ctot",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$50k–$75k",
+      "salary_band": [
+        49315,
+        72686
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Maintenance",
+        "Customer Service",
+        "Supply Chain"
+      ],
+      "learn": [
+        "Hand & Power Tools",
+        "Blueprint Reading",
+        "Electrical Systems",
+        "Scheduling"
+      ],
+      "waterfall": [
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 38.9,
+          "earned": 29.6
+        },
+        {
+          "skill": "hand-power-tools",
+          "name": "Hand & Power Tools",
+          "pts": 10,
+          "earned": 0
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 9.7,
+          "earned": 0
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 9.6,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 8.1,
+          "earned": 6
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 5.8,
+          "earned": 0
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 5.1,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 4.5,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 4.1,
+          "earned": 4.1
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1050,
+        "salaried": 774
       }
     },
     {
@@ -244,7 +244,7 @@
           "skill": "hvac-systems",
           "name": "HVAC Systems",
           "pts": 37.9,
-          "earned": 4.8
+          "earned": 4.9
         },
         {
           "skill": "sustainability",
@@ -268,7 +268,7 @@
           "skill": "customer-service",
           "name": "Customer Service",
           "pts": 8,
-          "earned": 7.5
+          "earned": 7.6
         }
       ],
       "low_confidence": false,
@@ -286,8 +286,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Builds, calibrates, and maintains robots and automated lines on the floor. The hands-on complement to the robotics engineer.",
-      "match": 44,
-      "fit": 44,
+      "match": 40,
+      "fit": 40,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -310,38 +310,39 @@
       "learn": [
         "Training & Facilitation",
         "Blueprint Reading",
-        "Electrical Systems"
+        "Electrical Systems",
+        "Welding / Fabrication"
       ],
       "waterfall": [
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 31,
-          "earned": 5.3
+          "pts": 32.2,
+          "earned": 5.4
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 19.7,
-          "earned": 19.7
+          "pts": 19.6,
+          "earned": 19.6
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 15.5,
-          "earned": 9.8
+          "pts": 15.4,
+          "earned": 9.6
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 11.3,
+          "pts": 11.2,
           "earned": 0
         },
         {
           "skill": "plc",
           "name": "PLC / Controls",
           "pts": 7,
-          "earned": 5.3
+          "earned": 5.7
         },
         {
           "skill": "blueprint-reading",
@@ -359,123 +360,14 @@
           "skill": "welding-fabrication",
           "name": "Welding / Fabrication",
           "pts": 4.2,
-          "earned": 4
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 142,
+        "postings": 143,
         "salaried": 134
-      }
-    },
-    {
-      "id": "industrial-engineer",
-      "title": "Industrial Engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 17,
-      "fit": 22,
-      "capability": 59,
-      "mobility": 2,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 16,
-      "mobility_tier": null,
-      "salary": "$70k–$120k",
-      "salary_band": [
-        72252,
-        119136
-      ],
-      "demand": "High",
-      "remote": "1%",
-      "time": "12–24 mo",
-      "have": [
-        "Lean / Six Sigma",
-        "Supply Chain",
-        "Welding / Fabrication"
-      ],
-      "learn": [
-        "Operations",
-        "Data Analysis",
-        "FEA / Simulation",
-        "Quality Control"
-      ],
-      "waterfall": [
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 32.2,
-          "earned": 4.6
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 12.6,
-          "earned": 8.6
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 9,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 7.5,
-          "earned": 0
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 7.5,
-          "earned": 0
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 7,
-          "earned": 3.5
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 6.5,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 6,
-          "earned": 0
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "gd-t",
-          "name": "GD&T",
-          "pts": 3.5,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 349,
-        "salaried": 281
       }
     },
     {
@@ -488,15 +380,15 @@
       "desc": "",
       "match": 17,
       "fit": 19,
-      "capability": 43,
+      "capability": 42,
       "mobility": 3,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 37,
       "mobility_tier": null,
       "salary": "$55k–$70k",
       "salary_band": [
-        53553,
-        71350
+        53417,
+        71326
       ],
       "demand": "High",
       "remote": "0%",
@@ -514,205 +406,55 @@
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 68.5,
-          "earned": 7.1
+          "pts": 68.1,
+          "earned": 6.9
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 10.4,
-          "earned": 5.9
+          "pts": 10.3,
+          "earned": 6
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 9.5,
+          "pts": 9.7,
           "earned": 0
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 7.1,
-          "earned": 3.8
+          "pts": 7.4,
+          "earned": 3.9
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 4.5,
+          "pts": 4.4,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 486,
-        "salaried": 324
-      }
-    },
-    {
-      "id": "robotics-engineer",
-      "title": "Robotics Engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Designs and programs robots — kinematics, control systems, perception, and the integration of hardware with autonomy software.",
-      "match": 19,
-      "fit": 16,
-      "capability": null,
-      "mobility": 9,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 30,
-      "mobility_tier": null,
-      "salary": "$85k–$145k",
-      "salary_band": [
-        86879,
-        146252
-      ],
-      "demand": "Moderate",
-      "remote": "1%",
-      "time": "12–24 mo",
-      "have": [
-        "PLC / Controls",
-        "Supply Chain",
-        "Welding / Fabrication"
-      ],
-      "learn": [
-        "FEA / Simulation",
-        "Event Planning",
-        "C++",
-        "Computer Vision"
-      ],
-      "waterfall": [
-        {
-          "skill": "plc",
-          "name": "PLC / Controls",
-          "pts": 15.6,
-          "earned": 5.3
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 14.5,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 10.1,
-          "earned": 9.8
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 10.1,
-          "earned": 0
-        },
-        {
-          "skill": "cpp",
-          "name": "C++",
-          "pts": 8.9,
-          "earned": 0
-        },
-        {
-          "skill": "computer-vision",
-          "name": "Computer Vision",
-          "pts": 7.8,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 7.8,
-          "earned": 0
-        },
-        {
-          "skill": "linux",
-          "name": "Linux",
-          "pts": 5.6,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 4.5,
-          "earned": 4
-        },
-        {
-          "skill": "point-cloud",
-          "name": "Point Cloud / Scanning",
-          "pts": 4.5,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 179,
-        "salaried": 164
+        "postings": 489,
+        "salaried": 325
       }
     }
   ],
   "next": {
-    "automotive-technician": [],
     "plumber": [],
+    "automotive-technician": [],
     "hvac-technician": [],
     "robotics-technician": [],
-    "industrial-engineer": [
-      {
-        "t": "Auditor",
-        "m": 11,
-        "slug": "auditor",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Audit",
-          "Accounting",
-          "Risk Management",
-          "QA / Testing"
-        ],
-        "observed": null,
-        "fit": 7,
-        "capability": 0,
-        "mobility": 4,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "industrial-engineer",
-          "readiness_after": 22,
-          "gain": 11
-        }
-      }
-    ],
-    "warehouse-manager": [],
-    "robotics-engineer": []
+    "warehouse-manager": []
   },
   "direct": [],
   "cross": [
     [
-      "robotics-technician",
-      "industrial-engineer",
-      0.5
-    ],
-    [
-      "automotive-technician",
       "plumber",
-      0.46
+      "automotive-technician",
+      0.52
     ],
     [
       "automotive-technician",
@@ -725,13 +467,13 @@
       0.32
     ],
     [
-      "automotive-technician",
-      "hvac-technician",
+      "plumber",
+      "robotics-technician",
       0.3
     ],
     [
-      "industrial-engineer",
-      "warehouse-manager",
+      "automotive-technician",
+      "hvac-technician",
       0.3
     ]
   ],
