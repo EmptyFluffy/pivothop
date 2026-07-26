@@ -85,15 +85,17 @@ Day 2: `/jobs/remote` · `/jobs/remote-in-germany` · `/jobs/software-engineer-i
 
 **A5. What to watch (weekly, not daily).** GSC → Indexing → Pages: the "Crawled – currently not indexed" line is the health metric (normal to be large at first, should shrink over weeks). GSC → Performance: real clicks/queries. Trust GSC numbers only — Semrush-type tools undercount our long tail ~7× (docs/24).
 
-## B. Nightly bot → GitHub Actions (Phase B — ✅ BUILT 2026-07-26)
+## B. Nightly bot → GitHub Actions (Phase B — ✅ PROVEN GREEN END-TO-END 2026-07-26)
 
-Laptop-independent nightly scrape is live. **7 repo secrets set** (ADZUNA_APP_ID/KEY, REED_API_KEY, USAJOBS_API_KEY/EMAIL, SUPABASE_URL/SERVICE_KEY). **`.github/workflows/nightly-scrape.yml`** runs `apps/scraper/scripts/ci-run.sh`: nightly cron (08:00 UTC = 02:00 local) + manual dispatch; persists first-seen ledger + logo-tried via actions/cache (not the 1.5GB HTTP cache); same gates as the laptop bot (gold 67 + sanity + purity canary + link gate); commit + push on green → Vercel deploys → IndexNow ping. Its own push can't re-trigger it (schedule/dispatch only). First manual test run: setup + `npm ci` + gates verified.
+**First autonomous publish: commit `e90c8da` — "data: nightly scrape 2026-07-26 (4305 board listings)", authored by pivothop-bot, deployed by Vercel.** Full chain verified in CI: 15 sources in parallel (~2 min warm) → 182,773-row accumulated corpus → dedup −19,141 → gold 67/67 → sanity clean → purity canary → 5,688 pages built, 194,961 internal links all resolve → publish → IndexNow 200. Runs nightly at 08:00 UTC (02:00 local), cron + manual dispatch.
 
-**One remaining founder step (do after the first Actions run goes green):** retire the laptop bot so it doesn't double-run —
+What it took (the debugging record, for posterity): parallel source ingest (sequential was 5+ h; Adzuna alone 310 min) · Adzuna ÷4 nightly term rotation at 2 pages · corpus + HTTP cache persisted in Actions cache and seeded once from the laptop · salary links re-gated on the generator's own predicate (the link gate caught the divergence) · 8GB Node heap (normalize OOM'd at the default). Secrets: 7 set, write-only. Seed release + workflow deleted after green.
+
+**One remaining founder step:** retire the laptop bot so the two don't double-run —
 ```
 launchctl unload ~/Library/LaunchAgents/com.pivothop.scraper.daily.plist
 ```
-Until then both run harmlessly (Actions at 02:00 local, laptop at 07:15 local; the second just finds little/no diff). To watch or re-run Actions: GitHub → repo → **Actions** tab → nightly-scrape → "Run workflow".
+To watch or re-run: GitHub → repo → **Actions** → nightly-scrape.
 
 ## C. PDF route-report export — go fully live (founder: ~20 min, then Claude finishes)
 
