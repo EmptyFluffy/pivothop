@@ -1,0 +1,58 @@
+name: nightly-scrape
+
+# The nightly bot, laptop-independent (docs/23 Phase B). Scrapes, runs every gate,
+# and only on green commits the regenerated data + pushes — which Vercel deploys.
+# schedule + manual only, so its own push never re-triggers it (no loop).
+on:
+  schedule:
+    - cron: '0 8 * * *'        # 08:00 UTC = 02:00 America/Costa_Rica (overnight local)
+  workflow_dispatch: {}         # manual "Run workflow" button, for testing
+
+# allow the job to push the data commit back to main
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Persist ONLY the small state files across runs: the first-seen ledger
+      # (so posting ages survive reposts) and the logo-tried cache (so we don't
+      # re-hammer failed favicon lookups). The 1.5 GB HTTP cache is deliberately
+      # NOT persisted — a fresh nightly fetch is correct and keeps the cache lean.
+      - uses: actions/cache@v4
+        with:
+          path: |
+            apps/scraper/data/first-seen.json
+            apps/scraper/data/logo-tried.json
+          key: scraper-state-${{ github.run_id }}
+          restore-keys: |
+            scraper-state-
+
+      - run: npm ci
+
+      - name: Scrape, gate, publish
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+          REED_API_KEY: ${{ secrets.REED_API_KEY }}
+          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
+          USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: bash apps/scraper/scripts/ci-run.sh
