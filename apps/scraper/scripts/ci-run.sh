@@ -33,8 +33,11 @@ python3 apps/scraper/scripts/build-skill-glossary.py || echo "::warning::build-s
 ( cd apps/web && npm run build && npm run --silent check:links ) || { echo "::error::web build or link gate failed"; exit 2; }
 
 # ── publish: commit the regenerated data, push (Vercel deploys) ──────────────────
-git config user.name  "pivothop-bot"
-git config user.email "pivothop-bot@users.noreply.github.com"
+# Vercel (Hobby) only auto-deploys commits AUTHORED by the account owner —
+# a bot identity gets "Deployment was blocked". So the nightly commit carries
+# the owner identity; bot commits are identified by their "data:" message.
+git config user.name  "Carlos Vinocour"
+git config user.email "vinocouralvarez@gmail.com"
 git add apps/web/public/data packages/data/generated apps/web/src/lib/data.js
 CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
 if [ "$CHANGED" = "0" ]; then echo "no data changes — nothing to publish"; exit 0; fi
