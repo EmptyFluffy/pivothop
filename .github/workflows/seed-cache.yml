@@ -17,16 +17,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download and unpack the seed
+      - name: Download and unpack the seeds
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release download cache-seed --repo "$GITHUB_REPOSITORY" --pattern 'scraper-cache.tar.zst' --dir /tmp
-          mkdir -p apps/scraper/cache
+          mkdir -p apps/scraper/cache apps/scraper/data
           tar --zstd -xf /tmp/scraper-cache.tar.zst -C apps/scraper/cache
-          echo "cache entries: $(ls apps/scraper/cache | wc -l)"
+          echo "http-cache entries: $(ls apps/scraper/cache | wc -l)"
+          gh release download cache-seed --repo "$GITHUB_REPOSITORY" --pattern 'scraper-state.tar.zst' --dir /tmp
+          tar --zstd -xf /tmp/scraper-state.tar.zst -C apps/scraper/data
+          echo "state files: $(ls apps/scraper/data)"
 
       - uses: actions/cache/save@v4
         with:
           path: apps/scraper/cache
           key: scraper-http-seed-${{ github.run_id }}
+
+      - uses: actions/cache/save@v4
+        with:
+          path: |
+            apps/scraper/data/postings_raw.ndjson
+            apps/scraper/data/first-seen.json
+            apps/scraper/data/logo-tried.json
+          key: scraper-state-seed-${{ github.run_id }}

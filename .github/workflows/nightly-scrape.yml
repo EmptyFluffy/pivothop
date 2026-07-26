@@ -34,12 +34,15 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Persist the small state files: the first-seen ledger (posting ages
-      # survive reposts) and the logo-tried cache (failed favicon lookups
-      # aren't re-hammered).
+      # Persist the scraper's accumulated state: the RAW CORPUS (postings
+      # accumulate across nights exactly like the local pipeline — without it a
+      # runner rebuilds from one night's fetch and boards flap below their data
+      # floors), the first-seen ledger (posting ages survive reposts), and the
+      # logo-tried cache (failed favicon lookups aren't re-hammered).
       - uses: actions/cache@v4
         with:
           path: |
+            apps/scraper/data/postings_raw.ndjson
             apps/scraper/data/first-seen.json
             apps/scraper/data/logo-tried.json
           key: scraper-state-${{ github.run_id }}

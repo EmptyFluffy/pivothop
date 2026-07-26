@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks, routeOrigins, originRoles } from '../routes-data';
-import { SALARY_SLUGS } from '../../salary/salary-data';
+// coverableSlugs is the SAME predicate the salary generator uses — linking on
+// anything else (e.g. the curated SALARY_SLUGS list) can point at pages the
+// data floor didn't generate. The CI link gate caught exactly that.
+import { coverableSlugs } from '../../salary/salary-data';
 import { jobCount } from '../../jobs/jobs-data';
 import JobsList from '../../jobs/JobsList';
 import RouteInstrument from '../RouteInstrument';
@@ -83,7 +86,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           {r.mobility != null && <div><span className="v">{r.mobility}</span><span className="k">{observed ? 'Observed flow (0–100)' : 'Relatedness (0–100)'}</span></div>}
         </div>
 
-        {SALARY_SLUGS.includes(def.dest) && (
+        {coverableSlugs().includes(def.dest) && (
           <Link className="rt-sallink lbl" href={`/salary/${def.dest}`}>
             {`Full ${r.title.toLowerCase()} pay data: median, seniority curve, by country and US state `}&rarr;
           </Link>
@@ -203,7 +206,7 @@ function OriginPage({ origin }: { origin: string }) {
   });
   const top = rows[0]?.r;
   const gated = rows.filter((x) => x.r.license?.req === 'required').length;
-  const hasSalary = SALARY_SLUGS.includes(origin);
+  const hasSalary = coverableSlugs().includes(origin);
   const boardN = jobCount(origin);
 
   const faq = [
