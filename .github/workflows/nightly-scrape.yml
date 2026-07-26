@@ -63,6 +63,9 @@ jobs:
 
       - name: Scrape, gate, publish
         env:
+          # normalize holds the parsed 150k-row corpus in memory; the runner's
+          # default Node heap OOM'd on it. Give it real headroom.
+          NODE_OPTIONS: --max-old-space-size=8192
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
           REED_API_KEY: ${{ secrets.REED_API_KEY }}
