@@ -1,0 +1,32 @@
+name: seed-cache
+
+# One-time helper: loads the warmed scraper HTTP cache (uploaded as the
+# `cache-seed` release asset) into the Actions cache, so nightly-scrape runs
+# warm from its first night instead of paying a multi-hour cold crawl.
+# Safe to delete this file and the release once a nightly run has gone green.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download and unpack the seed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download cache-seed --repo "$GITHUB_REPOSITORY" --pattern 'scraper-cache.tar.zst' --dir /tmp
+          mkdir -p apps/scraper/cache
+          tar --zstd -xf /tmp/scraper-cache.tar.zst -C apps/scraper/cache
+          echo "cache entries: $(ls apps/scraper/cache | wc -l)"
+
+      - uses: actions/cache/save@v4
+        with:
+          path: apps/scraper/cache
+          key: scraper-http-seed-${{ github.run_id }}
