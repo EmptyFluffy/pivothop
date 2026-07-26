@@ -91,11 +91,10 @@ Day 2: `/jobs/remote` · `/jobs/remote-in-germany` · `/jobs/software-engineer-i
 
 What it took (the debugging record, for posterity): parallel source ingest (sequential was 5+ h; Adzuna alone 310 min) · Adzuna ÷4 nightly term rotation at 2 pages · corpus + HTTP cache persisted in Actions cache and seeded once from the laptop · salary links re-gated on the generator's own predicate (the link gate caught the divergence) · 8GB Node heap (normalize OOM'd at the default). Secrets: 7 set, write-only. Seed release + workflow deleted after green.
 
-**One remaining founder step:** retire the laptop bot so the two don't double-run —
-```
-launchctl unload ~/Library/LaunchAgents/com.pivothop.scraper.daily.plist
-```
-To watch or re-run: GitHub → repo → **Actions** → nightly-scrape.
+**Post-green incidents, both closed (2026-07-26):**
+- **Cron proven:** the first scheduled run (GitHub delayed it ~09:49 UTC — normal cron lag) ran green and published `bf4bd61` autonomously.
+- **Vercel "Deployment was blocked"** on both bot publishes: Vercel Hobby only auto-deploys commits **authored by the account owner** — the `pivothop-bot` identity was rejected. Fix: the nightly commit now carries the owner identity (`ci-run.sh`); bot publishes stay identifiable by their `data: nightly scrape` message. (If the project ever moves to a Vercel team, team-member authors work too.)
+- **Laptop bot retired** (`launchctl unload` done) — GitHub Actions is the only bot. To watch or re-run: GitHub → repo → **Actions** → nightly-scrape. Re-arm the laptop anytime with `launchctl load ~/Library/LaunchAgents/com.pivothop.scraper.daily.plist`.
 
 ## C. PDF route-report export — go fully live (founder: ~20 min, then Claude finishes)
 
