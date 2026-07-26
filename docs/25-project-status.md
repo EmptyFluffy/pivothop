@@ -28,7 +28,7 @@
 - **Category-page FAQ enrichment** (2026-07-25): every category page carries a data-driven Quick-answers block (live count + freshness, this filter's own posted pay band, a kind-specific question — routes-in for occupations, top fields per country, top roles per field, visa honesty — and the instrument funnel) with FAQPage schema and 2–5 internal links per block into salary/routes/sibling pages.
 
 ### Content
-- Blog: career-adjacency method post, **recruiter-ghosting post** (~2k words, sourced), **confused-career-pairs post** (launches the compare surface; first use of the Pull/Go editorial furniture). Voice + method in docs/01, docs/07.
+- Blog: career-adjacency method post, **recruiter-ghosting post** (~2k words, sourced), **confused-career-pairs post** (launches the compare surface; first use of the Pull/Go editorial furniture), **skills-over-titles thesis post** ('Job titles, deprecated' — the units-switch argument with the widest-exit / most-open / bridge-skills rankings). Voice + method in docs/01, docs/07.
 
 ### Comparison surface (2026-07-26)
 - **554 `/compare/[a]-vs-[b]` pages + `/compare` hub** — posted bands from each occupation's own corpus, skill readiness both directions, shared-skill waterfall, license gates, board counts, asymmetry callouts, FAQ + schemas. Pair qualification: mutual measurement, one-way ≥45%, or high-search seeds with ≥1 measured direction. Cross-linked from routes hub, blog posts; in sitemap (~1,937 URLs total).
