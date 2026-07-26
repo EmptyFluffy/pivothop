@@ -41,6 +41,10 @@ if [ "$CHANGED" = "0" ]; then echo "no data changes — nothing to publish"; exi
 if [ "$CHANGED" -gt 3000 ]; then echo "::error::implausible diff ($CHANGED files) — aborting, inspect manually"; git reset -q; exit 2; fi
 N=$(node -e 'try{console.log(require("./apps/web/public/data/all-jobs.json").length)}catch{console.log("?")}')
 git commit -q -m "data: nightly scrape $(date +%F) (${N} board listings)"
+# Rebase onto any commits that landed during the run (docs pushes, the laptop bot)
+# before pushing, so the publish never fails on a moved remote. A real conflict
+# (both bots regenerating the same files) exits red rather than force-anything.
+git pull --rebase origin main || { echo "::error::rebase before push failed — not publishing"; exit 2; }
 git push
 echo "published $CHANGED files (${N} listings) — Vercel deploying"
 
