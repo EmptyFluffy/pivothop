@@ -36,7 +36,119 @@ const Sources = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
+/* Editorial furniture (docs/01: flush left, scale over decoration, accent stays
+   on the data). Pull = the oversized statement between hairlines. Go = the
+   go-deeper row that turns a post into navigation, not a dead end. */
+const Pull = ({ children }: { children: ReactNode }) => (
+  <div className="post-pull"><p>{children}</p></div>
+);
+const A45 = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M7 7h10v10" /><path d="M7 17 17 7" />
+  </svg>
+);
+const Go = ({ links }: { links: { href: string; label: string }[] }) => (
+  <div className="post-go">
+    <span className="lbl">Go deeper</span>
+    {links.map((l) => <a key={l.href} href={l.href}>{l.label}<A45 /></a>)}
+  </div>
+);
+
 export const POSTS: Post[] = [
+  {
+    slug: 'confused-career-pairs',
+    title: 'Same family, different jobs: eight career pairs everyone confuses, measured',
+    pillar: 'Unbundle the Job',
+    date: 'July 2026',
+    dek: 'Product manager and project manager share 24 percent of a skill set. Graphic designers and UX designers share 13 percent and a doubled salary band. We measured the eight most-confused title pairs from each occupation’s own live postings: the overlap, the pay gap, and which direction the switch actually runs.',
+    minutes: 6,
+    faq: [
+      { q: 'Is a product manager the same as a project manager?', a: 'No, and the data is blunt about it: a typical project manager’s skills cover only 24 percent of what product-manager postings demand, and the reverse direction shares too few skills to score at all. The pay reflects it: posted mid-bands run $86k–$170k for product managers against $75k–$130k for project managers. Same first word, different jobs.' },
+      { q: 'Is UX design the same as graphic design?', a: 'They are the most expensively confused pair we measure. Graphic-designer skills cover 13 percent of UX-designer posting demand, and the reverse is 12 percent — near-strangers professionally — while the posted bands run $42k–$73k for graphic design against $74k–$151k for UX. The shared core is essentially Figma and motion design; the actual work diverges from there.' },
+      { q: 'Can a data analyst become a data scientist?', a: 'This pair runs one way. A data scientist’s skills cover 65 percent of data-analyst demand, but an analyst covers only 31 percent of data-science demand — the gap is machine learning, generative AI, deep learning, and NLP. The shared core (SQL, Python, statistics, visualization) is real, which is why the analyst-to-scientist route is popular; the missing third is why it takes 9–16 months, not a title change.' },
+      { q: 'What is the difference between a lawyer and a paralegal?', a: 'A license, mostly — and the market prices it. A lawyer’s skills cover 74 percent of paralegal posting demand, but a paralegal covers only 24 percent of lawyer demand, and the gate between them is a law degree and the bar, not a skill gap. Posted bands: $94k–$189k for lawyers, $40k–$74k for paralegals.' },
+      { q: 'How is career overlap measured?', a: 'From live postings. For each occupation we extract the skills its postings demand; the overlap number is the share of one occupation’s posted skill demand that a typical profile from the other already covers. It is directional — A covering B does not mean B covers A — which is exactly what the confused pairs show. Full method on the comparison pages and in the career-adjacency piece.' },
+    ],
+    body: (
+      <>
+        <p>
+          A job title is a marketing decision, and the market makes the same handful of confusions every day: product and project manager treated as one job, UX hired as if it were graphic design with better tools, data analyst and data scientist used interchangeably in the same paragraph. We measure skill overlap between occupations from live postings, in both directions, so these arguments can end with a number. We ran the eight most-confused pairs. Half of them share a family name and almost nothing else.
+        </p>
+        <Go links={[
+          { href: '/compare', label: 'All 554 comparisons' },
+          { href: '/blog/what-is-career-adjacency', label: 'How overlap is measured' },
+          { href: '/', label: 'Run your own numbers' },
+        ]} />
+
+        <h2>Product manager vs project manager</h2>
+        <div className="post-callout"><b>24%</b><span>of what product-manager postings demand, a typical project manager already covers. The reverse direction shares too few skills to score at all.</span></div>
+        <p>
+          The most-argued pair in tech, settled: mostly different jobs. The project manager&rsquo;s missing quarter is telling: today&rsquo;s product-manager postings ask for prototyping, REST APIs, and generative-AI tooling, none of which appear in project-management demand. The pay agrees: posted mid-bands run <strong>$86k&ndash;$170k</strong> for product against <strong>$75k&ndash;$130k</strong> for project. The <a className="gl" href="/compare/product-manager-vs-project-manager">full comparison</a> has both sides; the boards have <a className="gl" href="/jobs/product-manager">product</a> and <a className="gl" href="/jobs/project-manager">project</a> roles live.
+        </p>
+
+        <h2>Graphic designer vs UX designer</h2>
+        <div className="post-callout"><b>13% / 12%</b><span>mutual overlap &mdash; near-strangers professionally &mdash; while the posted bands run $42k&ndash;$73k against $74k&ndash;$151k.</span></div>
+        <p>
+          The most expensive confusion on the list. The shared core is essentially <strong>Figma</strong> and motion design; from there the jobs diverge into branding and production on one side, interaction design, prototyping, and user research on the other. Treating UX as &ldquo;graphic design, newer&rdquo; is how a doubled salary band gets left on the table. <a className="gl" href="/compare/graphic-designer-vs-ux-designer">The measured pair</a> shows the exact gap lists.
+        </p>
+
+        <Pull>Half of these pairs share a family name and almost nothing else.</Pull>
+
+        <h2>Data analyst vs data scientist</h2>
+        <div className="post-callout"><b>65% &darr; / 31% &uarr;</b><span>a scientist mostly covers an analyst&rsquo;s demand; an analyst covers a third of a scientist&rsquo;s. The ladder runs one way.</span></div>
+        <p>
+          The closest pair here, and still directional. The shared core is real &mdash; SQL, Python, statistics, visualization, ETL &mdash; which is why this is one of the most-walked routes on the instrument. The missing two-thirds is machine learning, generative AI, deep learning, and NLP, and it prices in: <strong>$56k&ndash;$95k</strong> posted for analysts against <strong>$84k&ndash;$163k</strong> for scientists. Estimated transition, 9&ndash;16 months of deliberate work, not a resume rewrite. <a className="gl" href="/compare/data-analyst-vs-data-scientist">Compare them</a>, or start from the <a className="gl" href="/routes/data-analyst">full data-analyst route map</a>.
+        </p>
+
+        <h2>Product designer vs UX designer</h2>
+        <div className="post-callout"><b>91% / 40%</b><span>a product designer nearly IS a UX designer; the reverse is a real move.</span></div>
+        <p>
+          The asymmetry pair. Product-designer skills cover 91 percent of UX posting demand: the transition estimate reads 3&ndash;8 months, effectively a retitle. Going the other way, a UX designer covers 40 percent of product-design demand, and the gap is the breadth: writing, systems, the commercial edges of the role. Two titles, one of which contains the other. <a className="gl" href="/compare/product-designer-vs-ux-designer">The pair, measured</a>.
+        </p>
+
+        <h2>Backend vs frontend developer</h2>
+        <div className="post-callout"><b>21% / 13%</b><span>&ldquo;full-stack&rdquo; is a hiring word for two jobs that share REST, Java, AWS, CI/CD &mdash; and little else.</span></div>
+        <p>
+          The shared core is the plumbing every developer touches. The divergence is everything that fills a working week: JavaScript, TypeScript, and the browser on one side; microservices, Python, SQL, and Kubernetes on the other. Posted bands: <strong>$87k&ndash;$146k</strong> backend, <strong>$57k&ndash;$127k</strong> frontend. <a className="gl" href="/compare/backend-developer-vs-frontend-developer">Side by side</a>.
+        </p>
+
+        <h2>Registered nurse vs nurse practitioner</h2>
+        <div className="post-callout"><b>94% + a license</b><span>an RN&rsquo;s skills nearly cover NP posting demand &mdash; and none of that shortens the graduate degree and state licensure between the titles.</span></div>
+        <p>
+          The pair that shows why we display credential gates separately from skill readiness. On skills alone an RN reads 94 percent ready for nurse-practitioner work; the honest transition line still says &ldquo;+ license,&rdquo; because an APRN license and the degree behind it stand regardless. The reward for the years: posted NP bands reach <strong>$135k</strong> against an RN&rsquo;s <strong>$59k&ndash;$109k</strong>. <a className="gl" href="/compare/nurse-practitioner-vs-registered-nurse">The comparison</a> carries both gates.
+        </p>
+
+        <h2>Lawyer vs paralegal</h2>
+        <div className="post-callout"><b>74% / 24%</b><span>a lawyer mostly covers paralegal demand; a paralegal covers a quarter of lawyer demand &mdash; and the bar exam is the wall between the bands.</span></div>
+        <p>
+          Shared vocabulary (contracts, case management, procurement) and a licensing wall. The posted bands tell the rest: <strong>$94k&ndash;$189k</strong> against <strong>$40k&ndash;$74k</strong>. This is the cleanest example of a pair where the skill number is not the story; the credential is. <a className="gl" href="/compare/lawyer-vs-paralegal">Measured here</a>.
+        </p>
+
+        <h2>Architect vs interior designer</h2>
+        <div className="post-callout"><b>58% / 58%</b><span>the rare symmetric pair: each covers the same share of the other&rsquo;s demand.</span></div>
+        <p>
+          The house classic, and the only pair on this list that is genuinely mutual. Shared: Revit, project management, construction documentation, presentation. Each side&rsquo;s gap is the other&rsquo;s trade: space planning, procurement, and <a className="gl" href="/glossary#ffe">FF&amp;E</a> (furniture, fixtures, and equipment) going one way; BIM and building codes coming back, plus the architecture license. <a className="gl" href="/compare/architect-vs-interior-designer">The pair</a>, and the <a className="gl" href="/routes/architect-to-interior-designer">full route with the judgment call</a>.
+        </p>
+
+        <Pull>The overlap number is directional. Which way you travel matters.</Pull>
+
+        <p>
+          The pattern across all eight: titles cluster into families, and families hide asymmetries. One title contains the other (product designer and UX), one is gated by a credential the other lacks (NP and RN, lawyer and paralegal), or the two simply share a word and a floor plan (product and project). A comparison settles which case you are in, and then the question becomes personal: not whether a typical profile covers the gap, but whether yours does.
+        </p>
+        <Go links={[
+          { href: '/compare', label: 'Browse every comparison' },
+          { href: '/jobs/browse', label: 'The job board, every cut' },
+          { href: '/', label: 'Measure your own overlap' },
+        ]} />
+
+        <Sources>
+          <p>
+            All figures are read from the PivotHop posting corpus (July 2026 run; each occupation&rsquo;s own live postings; salary bands are posted 25th&ndash;75th percentiles, stated salaries only). Overlap is directional coverage: the share of one occupation&rsquo;s posted skill demand that a typical profile from the other already covers; pairs sharing too few skills are left unscored rather than guessed. The full method, including the three signals behind readiness, is in <a className="gl" href="/blog/what-is-career-adjacency">What is career adjacency</a>. Every pair here links its live comparison page, which recomputes with the nightly scrape.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
   {
     slug: 'why-recruiters-ghost',
     title: 'Why recruiters ghost you, and why more applications is the wrong answer',
@@ -140,6 +252,10 @@ export const POSTS: Post[] = [
           Being ghosted is not evidence that you are unemployable. It is evidence that hiring is a black box with the loop left open on purpose, and that most applications are aimed at roles that were never a fit or never real. You cannot fix the box. You can aim better. Before the next batch, run your current role through the <a className="gl" href="/">instrument</a>, read which occupations your skills already reach, and send your applications there. Four that fit beat four hundred that do not.
         </p>
 
+        <Go links={[
+          { href: '/blog/confused-career-pairs', label: 'Eight confused career pairs, measured' },
+          { href: '/jobs/browse', label: 'The board, every preloaded cut' },
+        ]} />
         <Sources>
           <p>
             Ghosting rates and mass-applying share: Greenhouse, 2024 State of Job Hunting (2,500 workers in the US, UK, and Germany), <a className="gl" href="https://www.greenhouse.com/blog/greenhouse-2024-state-of-job-hunting-report">greenhouse.com</a>. Job-search mental-health toll: Resume Genius, 2024 (1,000 US job seekers), reported by Forbes. Ghost jobs: ResumeBuilder.com, May 2024 (1,641 hiring managers); Greenhouse platform data, 2024 (18&ndash;22 percent of postings per quarter); Hunter Ng, &ldquo;Why is it so hard to find a job now? Enter Ghost Jobs,&rdquo; arXiv:2410.21771, 2024 (up to 21 percent). Openings that never hire: MyPerfectResume analysis of <a className="gl" href="/glossary#bls">BLS</a> (Bureau of Labor Statistics) Job Openings and Labor Turnover data, 2025, which is the analyst&rsquo;s reading of the openings-versus-hires gap and not a federal label. Automated screening: Joseph Fuller and Manjari Raman (Harvard Business School) with Accenture, &ldquo;Hidden Workers: Untapped Talent,&rdquo; 2021 (8,000+ workers, 2,250+ executives). Readiness scores are computed from the PivotHop posting corpus; the method is in <a className="gl" href="/blog/what-is-career-adjacency">What is career adjacency</a>. Board figures, the share of postings open more than sixty days and the share stating no salary, are measured from the live <a className="gl" href="/jobs">PivotHop board</a> as of July 2026 and move with the nightly scrape.
@@ -283,6 +399,10 @@ export const POSTS: Post[] = [
         <p>
           The number is not a promise. It is a map of the skill distance between where you are and where you are thinking of going, built from what the market is actually asking for this week. Start from your skills, read the distance, and the few real routes separate themselves from the many that were never close.
         </p>
+        <Go links={[
+          { href: '/compare', label: 'Careers compared, both directions' },
+          { href: '/blog/confused-career-pairs', label: 'The eight most-confused pairs' },
+        ]} />
         <Sources>
           <p>
             Readiness scores are computed from the PivotHop posting corpus, July 2026 run (151,369 postings across 180 occupations, from company career pages, remote-job boards, and public-sector sources). Coverage is the share of a destination occupation&rsquo;s 20 most frequent posting skills that the origin occupation also demands; pairs are ranked by coverage and broken by weighted Jaccard overlap; pairs sharing fewer than three skills are unscored. Employer attestation is read from posting text (28,553 scanned, 1,749 attesting). Observed mobility is drawn from a <a className="gl" href="/glossary#cps">CPS</a>-derived US occupational-mobility network (2010&ndash;2017), EU resume trajectories, and <a className="gl" href="/glossary#onet">O*NET</a> related occupations, all Creative-Commons-licensed and used for corroboration only. Wage and occupational-transfer figures are <a className="gl" href="/glossary#bls">BLS</a>, public domain. Licensing gates are flagged separately and never folded into readiness.

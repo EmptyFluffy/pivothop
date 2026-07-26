@@ -52,7 +52,7 @@ export default function RoutesIndex() {
 
         <section className="rt-sec jb-byocc">
           <h2>By starting point</h2>
-          <p className="rt-note">Every measured route out of one profession, ranked on a single page.</p>
+          <p className="rt-note">Every measured route out of one profession, ranked on a single page. Weighing two specific titles instead? <Link className="gl" href="/compare">Careers, compared</Link>.</p>
           <span className="jb-occlinks">
             {routeOrigins().map((o) => {
               const om = originMeta(o);

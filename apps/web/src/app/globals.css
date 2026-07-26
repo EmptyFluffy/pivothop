@@ -401,6 +401,23 @@
 .d-hop.off{border-color:var(--rule-2);color:var(--ink-3);cursor:default;justify-content:space-between}
 .d-hop.off:hover{background:none;color:var(--ink-3)}
 .d-hop .nd{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+/* blog editorial furniture: pull quotes and go-deeper link rows. Flush left,
+   ink on paper, scale does the work — the accent stays on the data. */
+.post-pull{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:26px 2px;margin:40px 0}
+.post-pull p{font-size:clamp(24px,3.6vw,38px);font-weight:500;letter-spacing:-.025em;line-height:1.14;max-width:24ch;color:var(--ink)}
+.post-go{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;border-top:0.5px solid var(--rule);border-bottom:0.5px solid var(--rule);padding:13px 2px;margin:30px 0}
+.post-go .lbl{color:var(--ink-3)}
+.post-go a{display:inline-flex;align-items:center;gap:5px;font-weight:600;font-size:13.5px;color:var(--ink);text-decoration:none;transition:color .12s}
+.post-go a:hover{color:var(--accent)}
+.post-go a svg{width:14px;height:14px;flex:none}
+
+/* comparison pages: two flush-left fact columns, then two direction blocks */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:26px}
+.cmp-col h2,.cmp-dir h3{font-size:21px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
+.cmp-dir .d-match{margin:6px 0 10px}
+.cmp-links{margin-top:10px}
+@media (max-width:640px){.cmp-grid{grid-template-columns:1fr;gap:22px}}
+
 .d-jobs{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:12px 0 3px;margin-top:2px;border-top:0.5px solid var(--rule);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13.5px;text-decoration:none;transition:color .15s}
 .d-jobs:hover{color:var(--accent)}
 .d-jobs .tx{line-height:1.3}
