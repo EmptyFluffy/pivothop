@@ -56,6 +56,116 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'skills-over-titles',
+    title: 'Job titles, deprecated: what 100,000 postings say about the skills-based market',
+    pillar: 'Unbundle the Job',
+    date: 'July 2026',
+    dek: 'The labor market is quietly switching units, from job titles to skill sets. Our corpus shows the seams: 42,254 title strings that map to nothing, a handful of skills that appear in a third of all occupations, and a measurable split between careers whose skills travel and careers that lock you in. Here is the thesis, with the rankings.',
+    minutes: 7,
+    faq: [
+      { q: 'What is skills-based hiring?', a: 'Hiring that screens for the specific skills a role demands instead of proxy credentials like titles or degrees. In posting text it shows up as skill lists getting longer and more specific while titles fragment: our July 2026 corpus holds 119,356 postings that map cleanly onto 177 occupations, alongside 42,254 distinct title strings that map to nothing at all. Employers increasingly describe the work; the title is decoration.' },
+      { q: 'Which careers have the most transferable skills?', a: 'Measured by routes out at 45 percent readiness or better: sales engineer and operations manager (13 routes each), data scientist (12), account executive and business analyst (9 each), psychologist (7), then data analyst and medical assistant (6 each). The pattern: careers built on a data core or on cross-functional coordination travel; careers built on one craft vocabulary or one credential do not.' },
+      { q: 'Which jobs are easiest to switch into from another field?', a: 'By count of origins reaching them at 45 percent readiness or better: solutions architect and conversation designer (8 origins each), then database administrator, prompt engineer, executive assistant, and customer success manager (6 each). Notably, the newest AI-era titles are the most open, because they are young enough to have no credential wall. Nurse practitioner also scores 8, but a required license stands between the skills and the job.' },
+      { q: 'Are job titles going away?', a: 'No, and this piece does not claim they are. Titles remain the interface: how roles are posted, searched, and paid. What is changing is the unit of value underneath. Postings specify skill bundles, employers state which adjacent backgrounds they welcome, and the same skill set is repriced under different titles. The title is the label; the skill set is the asset.' },
+      { q: 'What are bridge skills?', a: 'Skills that appear in the posted demand of many different occupations, so learning one raises your readiness across whole regions of the market at once. In our corpus, data analysis leads (in the top-20 demand of 62 of 177 occupations), followed by supply chain, training, project management, and customer service. The 2026 entrants: LLM and agent tooling already sit in the top-20 demand of roughly a third of occupations.' },
+    ],
+    body: (
+      <>
+        <p>
+          Every instrument we run rests on one thesis, so it should be stated plainly and then tested against the data: the labor market is switching units. For a century the unit was the title, a guild word that bundled skills, status, and pay into one string. The bundle is coming apart. Postings now describe work as skill lists; employers state outright which adjacent backgrounds they welcome; the same skill set gets repriced under three different names. The title is becoming what the filename is to the file: still useful, no longer the thing itself.
+        </p>
+        <div className="post-callout"><b>42,254</b><span>distinct job-title strings in this month&rsquo;s corpus map to no occupation at all, while 119,356 postings collapse onto just <strong>177</strong>. Titles fragment; the underlying skill demand clusters.</span></div>
+        <p>
+          That number is our own pipeline showing the seam. We read 182,773 raw postings in the July run (100,215 after cross-board dedup), and the single hardest engineering problem is not extracting skills, it is surviving the titles: the same job arrives as five spellings, and tens of thousands of title strings are pure invention. The skills underneath, by contrast, cluster hard enough to measure. That asymmetry, chaotic labels over stable skill demand, is the whole case in one dataset.
+        </p>
+        <Go links={[
+          { href: '/blog/what-is-career-adjacency', label: 'The measurement method' },
+          { href: '/compare', label: 'Careers compared, both directions' },
+          { href: '/', label: 'Run your own skill set' },
+        ]} />
+
+        <h2>Skills are specific. That is the discipline.</h2>
+        <p>
+          The skills-based market is routinely oversold as &ldquo;your skills can take you anywhere.&rdquo; The data says nearly the opposite: across the 3,521 occupation-to-occupation pairs we score, <strong>55 percent sit under 20 percent readiness</strong>, and only 60 pairs anywhere in the matrix reach 60 percent. Skills are not a universal solvent; they are a specific inventory with a specific reach. That specificity is exactly why they carry value, and why measuring the reach beats asserting it.
+        </p>
+        <Pull>Skills are specific. That is why they are worth money.</Pull>
+
+        <h2>The careers whose skills travel</h2>
+        <p>
+          Count each occupation&rsquo;s routes out at 45 percent readiness or better and the market sorts itself. The wide-exit careers share a shape: either a <strong>data core</strong> (analysis, SQL, statistics travel almost everywhere) or a <strong>coordination core</strong> (the operations-and-stakeholders bundle that every industry buys).
+        </p>
+        <table className="post-table">
+          <caption>Routes out at &ge;45% readiness &middot; occupations with 100+ postings &middot; July 2026</caption>
+          <thead><tr><th>Career</th><th>Routes out</th><th>The portable core</th></tr></thead>
+          <tbody>
+            <tr><td><a className="gl" href="/routes/sales-engineer">Sales engineer</a></td><td>13</td><td>Technical depth + commercial motion</td></tr>
+            <tr><td><a className="gl" href="/routes/operations-manager">Operations manager</a></td><td>13</td><td>Coordination, process, P&amp;L adjacency</td></tr>
+            <tr><td><a className="gl" href="/routes/data-scientist">Data scientist</a></td><td>12</td><td>The full data stack</td></tr>
+            <tr><td><a className="gl" href="/routes/account-executive">Account executive</a></td><td>9</td><td>Pipeline, negotiation, CRM</td></tr>
+            <tr><td><a className="gl" href="/routes/business-analyst">Business analyst</a></td><td>9</td><td>Requirements, analysis, process</td></tr>
+            <tr><td><a className="gl" href="/routes/psychologist">Psychologist</a></td><td>7</td><td>Assessment, research, casework</td></tr>
+            <tr><td><a className="gl" href="/routes/data-analyst">Data analyst</a></td><td>6</td><td>SQL, visualization, statistics</td></tr>
+            <tr><td><a className="gl" href="/routes/medical-assistant">Medical assistant</a></td><td>6</td><td>Clinical floor skills, patient ops</td></tr>
+          </tbody>
+        </table>
+        <p>
+          At the other end, a set of large occupations show <strong>zero</strong> routes out at 45 percent in our matrix: copywriter, creative director, social media manager, executive assistant, recruiter, translator, paralegal, UX writer. Two honest readings, and both matter. First, craft careers run on deep, narrow vocabularies the wider market does not post for by name, so their exits really are harder at full readiness. Second, our instrument reads posted skill demand, and postings under-specify craft depth; a copywriter&rsquo;s judgment shows up in postings as a thin skill list. The lock is real, and it is also partly a measurement shadow. We say so rather than pretend the number is complete.
+        </p>
+
+        <h2>The careers most open to outsiders</h2>
+        <p>
+          Reverse the lens and count how many origins reach each destination at 45 percent or better. The most skill-open doors in the market right now, measured: <strong>solutions architect</strong> and <strong>conversation designer</strong> (8 origins each), then <strong>database administrator</strong>, <strong>prompt engineer</strong>, <a className="gl" href="/jobs/executive-assistant">executive assistant</a>, and <a className="gl" href="/jobs/customer-success-manager">customer success manager</a> (6 each). Notice what tops the list: the AI-era titles. They are young enough to have no guild, no credential wall, and no settled pedigree, so they hire on demonstrated skills because there is nothing else to hire on. New titles are the skills-based market in its purest form.
+        </p>
+        <p>
+          Notice also the asymmetry hiding in the two lists: executive assistant and customer success manager are among the easiest doors <strong>in</strong> (6 origins each) and among the hardest doors <strong>out</strong> (zero routes at 45 percent). A career can be skill-friendly to enter and skill-locked to leave. If you are choosing a landing spot for a pivot, that difference is worth more than the title on the door.
+        </p>
+        <div className="post-callout"><b>8 origins</b><span>can reach <strong>nurse practitioner</strong> at &ge;45% skill readiness &mdash; and every one of them still faces the APRN license. Skills open the door; credentials own the lock. The two axes are not the same, and we display them separately on purpose.</span></div>
+
+        <h2>The passports: skills that cross the most borders</h2>
+        <p>
+          If the market&rsquo;s unit is the skill, the highest-leverage question becomes: which skills appear in the most occupations&rsquo; demand? From the top-20 posted-demand profiles of all 177 occupations:
+        </p>
+        <table className="post-table">
+          <caption>Occupations (of 177) whose top-20 posted demand includes the skill &middot; July 2026</caption>
+          <thead><tr><th>Skill</th><th>Occupations</th></tr></thead>
+          <tbody>
+            <tr><td>Data analysis</td><td>62</td></tr>
+            <tr><td>Supply chain</td><td>47</td></tr>
+            <tr><td>Training &amp; facilitation</td><td>46</td></tr>
+            <tr><td>Project management</td><td>44</td></tr>
+            <tr><td>Customer service</td><td>42</td></tr>
+            <tr><td>Lean / Six Sigma</td><td>41</td></tr>
+            <tr><td>LangChain / agents</td><td>33</td></tr>
+            <tr><td>LLMs / generative AI</td><td>31</td></tr>
+            <tr><td>Python</td><td>29</td></tr>
+            <tr><td>SQL</td><td>26</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Two things stand out. Data analysis is the market&rsquo;s reserve currency, demanded in a third of everything. And the 2026 story is already in the table: <strong>agent and LLM tooling sits in the top-20 demand of roughly a third of occupations</strong>, two years after those phrases barely existed in postings. A bridge skill is leverage precisely because one investment moves your readiness across dozens of destinations at once; the instrument prices that for your specific starting point.
+        </p>
+        <Pull>The title is the label. The skill set is the asset.</Pull>
+
+        <h2>What to do with the thesis</h2>
+        <p>
+          Three moves follow from the data, none of them motivational. <strong>Choose destinations by measured overlap, not title glamour</strong>: a 60 percent route you can close in months beats a 15 percent route with a better-sounding name. <strong>Learn bridge skills before niche skills</strong> when you are undecided; data analysis and the LLM toolchain buy readiness across whole regions of the market. And <strong>respect the second axis</strong>: where a license stands, no skill overlap shortens it, which is why every gated route on this site says so in plain text.
+        </p>
+        <Go links={[
+          { href: '/', label: 'Measure your own reach' },
+          { href: '/routes', label: 'Every measured route' },
+          { href: '/blog/confused-career-pairs', label: 'Eight confused pairs, measured' },
+          { href: '/jobs/browse', label: 'The board, every cut' },
+        ]} />
+
+        <Sources>
+          <p>
+            All figures are computed from the PivotHop July 2026 corpus: 182,773 raw postings, 100,215 after cross-board dedup, mapped onto 177 occupations; 42,254 distinct unmapped title strings from the same run&rsquo;s pipeline counters. Route counts use the full adjacency matrix (3,521 scored directed pairs; pairs sharing too few skills are unscored); &ldquo;routes out/in&rdquo; count pairs at &ge;45% readiness; bridge-skill counts are occupations whose top-20 posted-demand profile (&ge;3 postings and &ge;2% share) includes the skill. Readiness methodology, including its limits, is in <a className="gl" href="/blog/what-is-career-adjacency">What is career adjacency</a>; the craft-vocabulary measurement caveat above is a real limit of posted-demand data and we state it rather than smooth it.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
     slug: 'confused-career-pairs',
     title: 'Same family, different jobs: eight career pairs everyone confuses, measured',
     pillar: 'Unbundle the Job',
@@ -137,7 +247,7 @@ export const POSTS: Post[] = [
         </p>
         <Go links={[
           { href: '/compare', label: 'Browse every comparison' },
-          { href: '/jobs/browse', label: 'The job board, every cut' },
+          { href: '/blog/skills-over-titles', label: 'The thesis: skills over titles' },
           { href: '/', label: 'Measure your own overlap' },
         ]} />
 
@@ -402,6 +512,7 @@ export const POSTS: Post[] = [
         <Go links={[
           { href: '/compare', label: 'Careers compared, both directions' },
           { href: '/blog/confused-career-pairs', label: 'The eight most-confused pairs' },
+          { href: '/blog/skills-over-titles', label: 'The thesis: skills over titles' },
         ]} />
         <Sources>
           <p>
