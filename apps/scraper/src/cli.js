@@ -28,30 +28,48 @@ const SOURCES = ['remotive', 'remoteok', 'greenhouse', 'lever', 'ashby', 'smartr
 
 // Fault-isolated ingest: each source runs in its own try/catch so one dead API,
 // timeout, or schema change can't sink the run — the failure is logged and the
-// remaining sources still contribute. Returns a per-source outcome summary.
+// remaining sources still contribute. Sources fetch IN PARALLEL: politeness is
+// enforced per host inside fetchJson and each source owns its own hosts, so
+// concurrency across sources violates nothing and wall time collapses from the
+// sum of sources to the slowest one (sequential, the nightly run was hours —
+// Adzuna alone is ~50 min at its 2.5s spacing). RAW_FILE upserts are
+// read-modify-write, so they serialize through a promise chain.
 async function ingest(which) {
   const names = which && which !== 'all' ? [which] : SOURCES;
-  const results = [];
   for (const n of names) {
     if (!SOURCES.includes(n)) { log(`unknown source "${n}" — one of: ${SOURCES.join(', ')}`); process.exit(1); }
+  }
+  const results = [];
+  let upserts = Promise.resolve();
+  await Promise.all(names.map(async (n) => {
+    const t0 = Date.now();
     try {
       const mod = await import(`./sources/${n}.js`);
       const rows = await mod.fetchRaw({ log });
-      if (!rows.length) { results.push({ source: n, ok: true, added: 0, updated: 0 }); continue; }
-      const { added, updated, total } = upsertNdjson(RAW_FILE, rows, (r) => `${r.source} ${r.external_id}`);
-      log(`${n}: +${added} new, ${updated} refreshed (raw total ${total})`);
-      try {
-        const { mirrored } = await supabaseUpsert('postings_raw', rows, 'source,external_id');
-        if (mirrored) log(`${n}: mirrored ${mirrored} rows to Supabase`);
-      } catch (err) {
-        log(`${n}: Supabase mirror failed (local write kept) — ${err.message}`);
-      }
-      results.push({ source: n, ok: true, added, updated });
+      const min = ((Date.now() - t0) / 60000).toFixed(1);
+      if (!rows.length) { results.push({ source: n, ok: true, added: 0, updated: 0 }); return; }
+      upserts = upserts.then(async () => {
+        try {
+          const { added, updated, total } = upsertNdjson(RAW_FILE, rows, (r) => `${r.source} ${r.external_id}`);
+          log(`${n}: +${added} new, ${updated} refreshed (raw total ${total}) · ${min} min`);
+          try {
+            const { mirrored } = await supabaseUpsert('postings_raw', rows, 'source,external_id');
+            if (mirrored) log(`${n}: mirrored ${mirrored} rows to Supabase`);
+          } catch (err) {
+            log(`${n}: Supabase mirror failed (local write kept) — ${err.message}`);
+          }
+          results.push({ source: n, ok: true, added, updated });
+        } catch (err) {
+          log(`${n}: upsert FAILED — ${err.message}`);
+          results.push({ source: n, ok: false, error: err.message });
+        }
+      });
+      await upserts;
     } catch (err) {
       log(`${n}: FAILED — ${err.message} (skipped, other sources unaffected)`);
       results.push({ source: n, ok: false, error: err.message });
     }
-  }
+  }));
   const failed = results.filter((r) => !r.ok);
   const added = results.reduce((s, r) => s + (r.added ?? 0), 0);
   log(`ingest: ${results.length - failed.length}/${results.length} sources ok, +${added} new postings${failed.length ? ` · failed: ${failed.map((f) => f.source).join(', ')}` : ''}`);

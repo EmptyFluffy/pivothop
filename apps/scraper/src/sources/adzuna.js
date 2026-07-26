@@ -13,9 +13,17 @@ export async function fetchRaw({ log }) {
   const id = process.env.ADZUNA_APP_ID, key = process.env.ADZUNA_APP_KEY;
   if (!id || !key) { log('adzuna: skipped — set ADZUNA_APP_ID and ADZUNA_APP_KEY in .env (free at developer.adzuna.com)'); return []; }
   const cfg = readJson(path.join(CONFIG_DIR, 'queries.json'));
+  // Nightly term rotation: a quarter of the terms per night, deterministic by
+  // day-of-year, so every term refreshes every 4 days at a quarter of the
+  // request volume. Adzuna is data-only (never displayed on the board) and
+  // posting lifetimes dwarf the rotation — this is what keeps the nightly run
+  // inside its time and request budgets at 2.5s politeness.
+  const day = Math.floor(Date.now() / 864e5);
+  const terms = cfg.terms.filter((_, i) => i % 4 === day % 4);
+  log(`adzuna: term slice ${(day % 4) + 1}/4 — ${terms.length} of ${cfg.terms.length} terms tonight`);
   const rows = [];
   for (const country of cfg.adzunaCountries) {
-    for (const term of cfg.terms) {
+    for (const term of terms) {
       for (let page = 1; page <= cfg.adzunaPagesPerQuery; page++) {
         const url = `https://api.adzuna.com/v1/api/jobs/${country}/search/${page}?app_id=${id}&app_key=${key}&results_per_page=50&what=${encodeURIComponent(term)}&content-type=application/json`;
         let body;
