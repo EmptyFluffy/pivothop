@@ -19,7 +19,10 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    # Cold-cache runs are long (every board fetch hits the network at polite
+    # spacing); warm runs are ~20-30 min. The first 50-min cap cancelled a cold
+    # run mid-ingest — hence the headroom.
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
 
@@ -31,10 +34,9 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Persist ONLY the small state files across runs: the first-seen ledger
-      # (so posting ages survive reposts) and the logo-tried cache (so we don't
-      # re-hammer failed favicon lookups). The 1.5 GB HTTP cache is deliberately
-      # NOT persisted — a fresh nightly fetch is correct and keeps the cache lean.
+      # Persist the small state files: the first-seen ledger (posting ages
+      # survive reposts) and the logo-tried cache (failed favicon lookups
+      # aren't re-hammered).
       - uses: actions/cache@v4
         with:
           path: |
@@ -43,6 +45,16 @@ jobs:
           key: scraper-state-${{ github.run_id }}
           restore-keys: |
             scraper-state-
+
+      # Persist the polite HTTP cache too (20h TTL, matches the nightly cadence).
+      # This is what keeps runs short AND inside the free Actions tier: warm runs
+      # only re-fetch entries that expired since yesterday.
+      - uses: actions/cache@v4
+        with:
+          path: apps/scraper/cache
+          key: scraper-http-${{ github.run_id }}
+          restore-keys: |
+            scraper-http-
 
       - run: npm ci
 
