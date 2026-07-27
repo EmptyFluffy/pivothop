@@ -145,7 +145,7 @@ export default function About() {
             mainEntity: {
               '@type': 'Person',
               '@id': 'https://www.pivothop.com/about#person',
-              name: 'Carlos Vinocour',
+              name: 'Carlos Alvarez',
               jobTitle: 'Architect and founder',
               description: 'Architect who made the career pivot himself and built PivotHop to measure the moves — the working expertise behind the instrument and its writing.',
               url: 'https://www.pivothop.com/about',

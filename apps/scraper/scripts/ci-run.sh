@@ -36,7 +36,7 @@ python3 apps/scraper/scripts/build-skill-glossary.py || echo "::warning::build-s
 # Vercel (Hobby) only auto-deploys commits AUTHORED by the account owner —
 # a bot identity gets "Deployment was blocked". So the nightly commit carries
 # the owner identity; bot commits are identified by their "data:" message.
-git config user.name  "Carlos Vinocour"
+git config user.name  "Carlos Alvarez"
 git config user.email "vinocouralvarez@gmail.com"
 # packages/data/fx holds the weekly FX snapshot (fx:update, Mondays) — a tracked
 # file outside the data dirs; without it the Monday rebase aborts on a dirty tree.

@@ -6,7 +6,7 @@ import { POSTS, PillarIcons } from '../posts';
 
 // E-E-A-T + freshness signals for answer engines: a named author, per-post
 // publish dates, and a modified date that tracks the nightly data refresh.
-const AUTHOR = { name: 'Carlos Vinocour', url: 'https://www.pivothop.com/about' };
+const AUTHOR = { name: 'Carlos Alvarez', url: 'https://www.pivothop.com/about' };
 const DATA_UPDATED = '2026-07-27'; // the corpus date the posts' numbers recompute against
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 function pubISO(date: string): string {
@@ -42,7 +42,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <span className="lbl bc-dot">·</span>
             <span className="lbl">{post.date}</span>
             <span className="lbl bc-dot">·</span>
-            <span className="lbl">By Carlos Vinocour</span>
+            <span className="lbl">By Carlos Alvarez</span>
             <span className="lbl bc-dot">·</span>
             <span className="lbl">{post.minutes} min read</span>
           </div>
