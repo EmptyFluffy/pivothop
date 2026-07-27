@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fairelephant`, changeFrequency: 'daily', priority: 0.8 },
     { url: `${BASE}/blog`, changeFrequency: 'weekly', priority: 0.8 },
     ...POSTS.map((p) => ({ url: `${BASE}/blog/${p.slug}`, changeFrequency: 'monthly' as const, priority: 0.7 })),
+    { url: `${BASE}/adjacency-index`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/routes`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/glossary`, changeFrequency: 'monthly', priority: 0.6 },
     ...routableSlugs().map((s) => ({ url: `${BASE}/routes/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 })),

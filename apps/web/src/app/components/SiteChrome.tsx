@@ -50,6 +50,7 @@ export function SiteFooter() {
             <li><Link href="/jobs">Job board</Link></li>
             <li><Link href="/routes">Career routes</Link></li>
             <li><Link href="/compare">Compare careers</Link></li>
+            <li><Link href="/adjacency-index">Adjacency Index</Link></li>
             <li><Link href="/salary">Salaries</Link></li>
             <li><a href="/fairelephant">FairElephant <ArrowIco /></a></li>
             <li><a href="#">API (soon)</a></li>

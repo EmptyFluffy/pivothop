@@ -1141,3 +1141,22 @@ input:focus-visible{outline:none}
 .salp .rt-sec,.salp .rt-cta,.salp .rt-faq,.salp .rt-method,.salp .post-foot{max-width:40rem}
 .salp .rt-sec p{max-width:none;text-align:justify;text-align-last:left;text-justify:inter-word;hyphens:none}
 .salp .rt-note{text-align:left;hyphens:manual}
+
+/* Adjacency Index — the citable stats hub */
+.axi{width:min(980px,94vw);margin:0 auto;padding:8px 0 40px}
+.axi-head{padding:14px 0 20px;border-bottom:1px solid var(--ink);margin-bottom:8px}
+.axi-head .lbl.acc{display:block;margin-bottom:14px}
+.axi-head .rt-dek{max-width:64ch}
+.axi-sec{padding:26px 0;border-bottom:1px solid var(--rule)}
+.axi-h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:600;margin:0 0 20px}
+.axi-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
+.axi-stat{display:flex;flex-direction:column}
+.axi-big{font-family:var(--mono);font-size:clamp(30px,4.4vw,46px);font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--accent)}
+.axi-unit{margin-top:8px;color:var(--ink-3)}
+.axi-sentence{margin-top:12px;font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:52ch}
+.axi-src{margin-top:10px;font-size:13px;font-family:var(--mono)}
+.axi-method p{font-size:15.5px;line-height:1.6;color:var(--ink-2);max-width:70ch}
+.axi-cite{margin-top:14px;color:var(--ink-3)}
+.axi-links{display:flex;flex-direction:column;gap:12px}
+.axi-links a{font-family:var(--mono);font-size:14px}
+@media (max-width:640px){.axi-grid{grid-template-columns:1fr;gap:24px}}
