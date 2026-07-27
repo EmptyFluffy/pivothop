@@ -12,6 +12,7 @@ import { verify } from './score/verify.js';
 import { salaryBands } from './analyze/salary-bands.js';
 import { bridgeSkills } from './analyze/bridge-skills.js';
 import { cooccur } from './analyze/cooccur.js';
+import { unmatchedSkills } from './analyze/unmatched-skills.js';
 import { fetchCapabilities } from './taxonomy/onet-capabilities.js';
 import { analyzeCapability } from './analyze/capability.js';
 import { analyzeFit } from './analyze/fit.js';
@@ -125,6 +126,7 @@ switch (cmd) {
   case 'verify': verify({ log, snapshot: process.argv.includes('--snapshot') }); break;
   case 'analyze:bridge': bridgeSkills({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'analyze:cooccur': cooccur({ log }); break;
+  case 'analyze:unmatched': await unmatchedSkills({ log }); break;
   case 'preview': preview({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'fx:update': await fxUpdate(); break;
   case 'taxonomy:onet': await fetchOnetRelated({ log }); break;
