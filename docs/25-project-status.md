@@ -52,6 +52,11 @@
 - **Engineering-story blog posts** as link bait: "one word, two professions" (architect disambiguation), the dental-hygienist forensics.
 - **Blog cadence**: one data post/month, each with one uncopyable number.
 
+### LATAM sources (2026-07-27)
+- **GetOnBoard** (keyless): ADDED as data-only (511 LATAM tech jobs, enriches adjacency). To DISPLAY: email GetOnBoard for re-display + backlink permission, then add 'getonbrd' to build-jobs.py OK set.
+- **Careerjet v4** (display-permitted): adapter BUILT, key-gated on `CAREERJET_API_KEY` (repo secret). **BLOCKED on infra**: Careerjet mandates a server-IP allow-list (≤8 IPs); the GitHub Actions nightly egresses from ~7,300 rotating CIDR ranges, so it can't be satisfied from Actions. Careerjet only fires from a declared static IP (a VPS). Hold until a static-IP host exists; key can sit in secrets meanwhile.
+- Adzuna br+mx already on (data-only).
+
 ### Later (this quarter — ceiling-raisers)
 - **The Adjacency Index** — annual data report at a stable URL (docs/07 spec); the backlink magnet everything compounds on.
 - **Automation Phase B**: move the nightly bot to GitHub Actions (laptop-independent). Needs repo secrets (Adzuna/Reed/USAJOBS keys).
