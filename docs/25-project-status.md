@@ -35,6 +35,7 @@
 
 ### Product
 - The instrument (force-directed skill graph), route/salary/jobs surfaces, FairElephant companion, employer post form ($49/$99 launch), graph → jobs destination CTA.
+- **Employer waitlist gate (2026-07-26)**: /employers now shows a concierge waitlist card (email + optional company/role) instead of the un-wired checkout journey. `joinWaitlist` → Supabase `employer_waitlist` (migration 0006) → Postmark heads-up to hello@ once §C lands → mailto fallback. The full EmployerForm stays built behind the one-line `WAITLIST` flag in employers/page.tsx — flip to `false` when Lemon Squeezy is wired. **[USER] run migration 0006 (with 0005) in the Supabase SQL editor, and confirm SUPABASE_URL + SUPABASE_SERVICE_KEY exist in Vercel env, so signups persist instead of falling back to mailto.**
 - **Route-report PDF export** (6-page) built; the send-loop degrades gracefully (lead captured without keys).
 
 ---
