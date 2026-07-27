@@ -56,6 +56,84 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'ai-jobs-three-ledgers',
+    title: 'AI and jobs: the claim, the chart, and the count',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'Sam Altman now says he was wrong about AI eliminating entry-level jobs. His neighbor at Anthropic predicted half of them would go. Anthropic’s own index charts where AI is actually used; payroll studies measure who is actually hurting. We keep a fourth ledger — live posting demand — and it says the reallocation is already visible: 4.9 percent of postings now demand AI-agent skills, across 43 occupations including lawyers and recruiters.',
+    minutes: 7,
+    faq: [
+      { q: 'Did Sam Altman say AI created more jobs than it destroyed?', a: 'Very nearly, and in his own words. On July 11, 2026 he posted on X: "so far at least, i\'m pretty sure AI has been net job-creating. this was not what i expected." Six weeks earlier, at a Commonwealth Bank event in Sydney (May 26, 2026), he said: "I\'m delighted to be wrong about this. I thought there would have been more impact on entry-level white-collar jobs being eliminated by now than has actually happened." Note the hedges doing real work: "so far at least," "pretty sure." He cited no dataset either time.' },
+      { q: 'What does the Anthropic Economic Index actually show?', a: 'Where one AI assistant gets used, mapped to occupational tasks. In its first report (February 2025): 37.2 percent of Claude conversations mapped to computer and mathematical work, about 36 percent of jobs showed AI use on at least a quarter of their tasks, only about 4 percent on three-quarters or more, and the split ran 57 percent augmentation to 43 percent automation, with usage peaking in mid-to-high-wage technical work. Later editions report the mix tilting toward automation. It measures usage — which is not the same thing as job loss.' },
+      { q: 'Is AI actually taking entry-level jobs?', a: 'The best payroll evidence says: narrowly, yes; economy-wide, not visibly yet. Stanford researchers using ADP payroll data found a 16 percent relative employment decline for workers aged 22–25 in the most AI-exposed occupations, concentrated where AI automates rather than augments — while experienced workers held steady, and Yale’s Budget Lab found no discernible economy-wide disruption in the first three years. Both can be true: a specific rung is burning while the aggregate stays quiet.' },
+      { q: 'Which jobs is AI creating right now?', a: 'The ones you can count in postings. The PivotHop corpus currently holds roughly 2,350 live postings across nine AI-native occupations that barely existed three years ago — AI engineer (932), machine learning engineer (741), MLOps engineer (220), computer vision engineer (180), data annotator (134), prompt engineer (75), conversation designer (38), and smaller others. And demand for AI skills has spread far beyond them: 43 of our 177 occupations now carry LLM or agent tooling in their top-20 posted demand, including lawyer, recruiter, corporate trainer, and motion designer.' },
+      { q: 'What should a job seeker do with all this?', a: 'Ignore the forecasts and read the demand. AI tooling is already a bridge skill — present in the posted demand of roughly a third of occupations — so learning it raises readiness across whole regions of the market at once. And the AI-era titles are measurably the most open doors: they are young enough to have no credential wall, so they hire on demonstrated skills. The instrument measures your specific overlap for free.' },
+    ],
+    body: (
+      <>
+        <p>
+          On July 11, 2026, Sam Altman posted eighteen words that would have been unthinkable from him a year earlier: &ldquo;so far at least, i&rsquo;m pretty sure AI has been net job-creating. this was not what i expected.&rdquo; Six weeks before that, at a Commonwealth Bank event in Sydney, he had already said the quiet part: &ldquo;I&rsquo;m delighted to be wrong about this. I thought there would have been more impact on entry-level white-collar jobs being eliminated by now than has actually happened.&rdquo; No dataset attached, either time. The AI-and-jobs argument is mostly people trading forecasts; underneath it sit ledgers, and the ledgers measure different things.
+        </p>
+        <p>
+          The whiplash deserves its timeline. February 2025: Altman writes that AI agents will &ldquo;eventually feel like virtual co-workers.&rdquo; May 2025: Anthropic&rsquo;s Dario Amodei tells Axios that AI could eliminate <strong>half of all entry-level white-collar jobs</strong> and push unemployment to 10&ndash;20 percent within one to five years, telling the industry to stop &ldquo;sugarcoating&rdquo; it. June 2025: asked on Hard Fork whether he agrees with that halving prediction, Altman answers, &ldquo;No, I don&rsquo;t.&rdquo; July 2025, on stage at a Federal Reserve conference: &ldquo;there are cases where entire classes of jobs will go away,&rdquo; immediately followed by &ldquo;there are entirely new classes of jobs that will come&rdquo; &mdash; customer support being the class he called effectively gone. June 2026, on CNBC: &ldquo;The companies that I know that have adopted AI the most are also the ones hiring the most,&rdquo; and blaming AI for layoffs is &ldquo;a convenient way&rdquo; to explain them. Then the July post. Same industry, same data access, forecasts pointing everywhere. So put the forecasts down and read the ledgers.
+        </p>
+        <Pull>Forecasts are free. Payrolls and postings pay rent.</Pull>
+        <Go links={[
+          { href: '/blog/skills-over-titles', label: 'The thesis: skills over titles' },
+          { href: '/compare', label: 'Careers compared' },
+          { href: '/', label: 'Run your own numbers' },
+        ]} />
+
+        <h2>Ledger one: where AI is used</h2>
+        <p>
+          The chart everyone shares is the <strong>Anthropic Economic Index</strong>, which maps Claude conversations onto occupational tasks. Its first report (February 2025) is precise about what it found: <strong>37.2 percent</strong> of usage mapped to computer and mathematical work, with arts and media at 10.3 percent and education at 9.3. About <strong>36 percent of jobs</strong> showed AI use on at least a quarter of their tasks; only about <strong>4 percent</strong> on three-quarters or more. The split ran 57 percent augmentation to 43 percent automation, and usage peaked in mid-to-high-wage technical work while barely touching both extremes of the pay scale. Later editions report the mix tilting toward automation.
+        </p>
+        <p>
+          Read the axis label before drawing conclusions: this is a <strong>usage</strong> ledger, from one assistant&rsquo;s consumer traffic. Heavy usage in software work tells you where adoption is, not whose paycheck stopped. Anthropic says as much in its methodology notes. Usage is the leading indicator everyone quotes as if it were the lagging one.
+        </p>
+
+        <h2>Ledger two: who is measurably hurting</h2>
+        <div className="post-callout"><b>&minus;16%</b><span>relative employment decline for workers aged 22&ndash;25 in the most AI-exposed occupations, in Stanford&rsquo;s analysis of ADP payroll data &mdash; concentrated where AI automates rather than augments. Experienced workers in the same fields: stable or growing.</span></div>
+        <p>
+          The displacement ledger is payroll data, and the sharpest entry is the Stanford &ldquo;canaries in the coal mine&rdquo; work on ADP records: the figure was 13 percent in the August 2025 draft and grew to 16 as data extended, with software developers aged 22&ndash;25 down nearly 20 percent from their late-2022 peak. The adjustment shows up as <strong>headcount, not wages</strong>, concentrated where AI automates rather than augments, and it is genuinely contested: Google economists argue the timing tracks interest rates, not AI; the authors published a rebuttal; that argument is what real findings look like. Meanwhile Yale&rsquo;s Budget Lab, looking economy-wide, keeps finding no discernible aggregate disruption (&ldquo;AI is probably not yet the reason for labor-market weakening,&rdquo; May 2026), and of the 1.21 million US job cuts announced in 2025, employers explicitly attributed about <strong>5 percent</strong> to AI (Challenger, Gray &amp; Christmas). Both readings are honest: a specific rung is burning while the aggregate stays quiet. Altman&rsquo;s &ldquo;delighted to be wrong&rdquo; and a 22-year-old&rsquo;s rescinded offer are both in the data.
+        </p>
+
+        <h2>Ledger three: what employers are asking for</h2>
+        <p>
+          This is the ledger we keep. PivotHop reads live job postings nightly and extracts the skills they demand, so the question &ldquo;is AI creating jobs?&rdquo; has a countable answer on the demand side: right now, <strong>4.9 percent of all postings in our corpus demand LLM (large language model) or agent-tooling skills by name</strong>, and those skills sit in the top-20 posted demand of <strong>43 of our 177 occupations</strong>, spanning seven fields. The list is the story: alongside the engineers, it includes <strong>lawyer, recruiter, corporate trainer, sales representative, and motion designer</strong>. The tooling crossed the technical border already; the postings prove it.
+        </p>
+        <div className="post-callout"><b>~2,350</b><span>live postings in the corpus belong to nine AI-native occupations that barely existed three years ago: <a className="gl" href="/jobs/ai-engineer">AI engineer</a> (932), <a className="gl" href="/jobs/machine-learning-engineer">machine learning engineer</a> (741), MLOps engineer (220), computer vision engineer (180), <a className="gl" href="/jobs/data-annotator">data annotator</a> (134), prompt engineer (75), <a className="gl" href="/jobs/conversation-designer">conversation designer</a> (38), and smaller others.</span></div>
+        <p>
+          Independent posting data now points the same direction: Indeed&rsquo;s Hiring Lab found the exposure gradient <strong>flipped</strong> between 2025 and 2026: the most AI-exposed occupations went from declining fastest to rebounding fastest, US software postings rose about 15 percent from early 2025 while overall postings fell, and 37 percent of the net new software postings carried AI in the title. Demand is not leaving the exposed occupations; it is being rewritten inside them.
+        </p>
+        <p>
+          Two things about those created jobs are measurable and worth more than the headline fight. First, they are real volume but not yet mass employment: 2,350 postings is a visible new wing of the market, not a replacement for what the canaries lost. Honesty cuts both ways. Second, and better: <strong>the AI-era titles are the most skill-open doors we measure</strong>. Conversation designer and solutions architect are each reachable at 45 percent readiness from 8 different origins, prompt engineer from 6 &mdash; the widest openness scores in the matrix, because titles this young have no guild and no credential wall. The market&rsquo;s newest jobs are also its most meritocratic on skills, for now. That window is the actionable part.
+        </p>
+        <Pull>Usage is not displacement, and displacement is not demand.</Pull>
+
+        <h2>Reconciling the ledgers</h2>
+        <p>
+          Hold all three up and the contradiction dissolves. Anthropic&rsquo;s index says adoption is deep in technical work and spreading. Payroll data says the burn is real but narrow: the youngest workers in the most automatable seats. Posting data says demand is reallocating &mdash; toward AI-skilled versions of existing jobs and a small, fast-growing set of new ones. Altman&rsquo;s &ldquo;net job-creating&rdquo; (a claim about the aggregate, so far, with his own hedges attached) and Amodei&rsquo;s warning (a claim about one rung&rsquo;s exposure) are rows in different ledgers, and both rows currently check out. What does not check out is the compressed headline version on either side.
+        </p>
+        <p>
+          For one person deciding what to do on a Tuesday, the ledgers agree on the move: <strong>learn the bridge skill before the argument resolves</strong>. LLM and agent tooling already sits in the posted demand of roughly a third of occupations, which makes it the highest-leverage single investment our data can see, whatever the macro turns out to be. Where your own skills land against all of it is measurable in about a minute, free, on the <a className="gl" href="/">instrument</a>.
+        </p>
+        <Go links={[
+          { href: '/', label: 'Measure your reach' },
+          { href: '/jobs/browse', label: 'AI-era boards, every cut' },
+          { href: '/blog/confused-career-pairs', label: 'Eight confused pairs, measured' },
+          { href: '/blog/why-recruiters-ghost', label: 'Why recruiters ghost' },
+        ]} />
+
+        <Sources>
+          <p>
+            Altman: <a className="gl" href="https://x.com/sama/status/2076036901824532530">X post, July 11, 2026</a> (&ldquo;net job-creating&rdquo;); Commonwealth Bank event, Sydney, May 26, 2026, per <a className="gl" href="https://www.euronews.com/next/2026/05/26/no-ai-jobs-apocalypse-so-far-says-openais-sam-altman">Euronews</a> and <a className="gl" href="https://time.com/article/2026/05/26/sam-altman-ai-job-losses-openAI-/">Time</a>; <a className="gl" href="https://www.cnbc.com/2026/06/01/cnbc-exclusive-transcript-openai-ceo-sam-altman-speaks-with-cnbcs-david-faber-on-power-lunch-today.html">CNBC Power Lunch, June 1, 2026</a>; Hard Fork (June 2025) for the &ldquo;No, I don&rsquo;t&rdquo;; the Federal Reserve capital-framework conference, July 22, 2025 (C-SPAN recording; spoken renderings vary by outlet); &ldquo;virtual co-workers&rdquo; from <a className="gl" href="https://blog.samaltman.com/three-observations">Three Observations</a> (Feb 2025). Amodei: interview with Axios, <a className="gl" href="https://www.axios.com/2025/05/28/ai-jobs-white-collar-unemployment-anthropic">May 28, 2025</a>. Anthropic Economic Index: <a className="gl" href="https://www.anthropic.com/news/the-anthropic-economic-index">February 2025 report</a>; later editions at anthropic.com/economic-index. Stanford: Brynjolfsson, Chandar &amp; Chen, <a className="gl" href="https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/">Canaries in the Coal Mine</a> (Aug 2025 draft: 13%; Nov 2025 revision: 16%; Feb 2026 rebuttal to the interest-rate critique). Yale Budget Lab: <a className="gl" href="https://budgetlab.yale.edu/research/evaluating-impact-ai-labor-market-current-state-affairs">Oct 2025</a> and the May 2026 update. Challenger, Gray &amp; Christmas <a className="gl" href="https://www.challengergray.com/blog/2025-year-end-challenger-report-highest-q4-layoffs-since-2008-lowest-ytd-hiring-since-2010/">2025 year-end report</a> (1,206,374 cuts; 54,836 AI-attributed). Indeed Hiring Lab: <a className="gl" href="https://www.hiringlab.org/2026/07/08/ai-and-job-postings-from-destruction-to-creation/">From Destruction to Creation?</a> (July 8, 2026). PivotHop figures computed from the July 2026 corpus (method in <a className="gl" href="/blog/skills-over-titles">Job titles, deprecated</a>); they regenerate with the nightly scrape.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
     slug: 'skills-over-titles',
     title: 'Job titles, deprecated: what 100,000 postings say about the skills-based market',
     pillar: 'Unbundle the Job',
@@ -153,7 +231,7 @@ export const POSTS: Post[] = [
         <Go links={[
           { href: '/', label: 'Measure your own reach' },
           { href: '/routes', label: 'Every measured route' },
-          { href: '/blog/confused-career-pairs', label: 'Eight confused pairs, measured' },
+          { href: '/blog/ai-jobs-three-ledgers', label: 'AI and jobs: the three ledgers' },
           { href: '/jobs/browse', label: 'The board, every cut' },
         ]} />
 

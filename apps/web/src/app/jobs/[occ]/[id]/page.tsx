@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection } from '../../jobs-data';
-import { salaryLabel, postedLabel, sourceName, Arrow45 } from '../../JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
 import { SITE_EMAIL } from '../../../../lib/site';
@@ -87,7 +87,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         <div className="rt-facts">
           {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
           <div><span className="v">{j.remote ? 'Yes' : 'On-site'}</span><span className="k">Fully remote</span></div>
-          {date && <div><span className="v">{date}</span><span className="k">Posted</span></div>}
+          {date && <div><span className="v" suppressHydrationWarning>{agoLabel(j.posted)}</span><span className="k">Posted · {date}</span></div>}
           <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
         </div>
 
