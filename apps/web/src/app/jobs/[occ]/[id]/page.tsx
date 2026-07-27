@@ -104,12 +104,12 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
             <p className="lbl jd-skills-cap">Extracted from the posting text by the instrument &mdash; the demand side, read literally.</p>
             <div className="jd-skillgrid">
               {skills.map((s) => (
-                <span key={s} className="jd-skill">
+                <Link key={s} className="jd-skill" href={`/glossary#skill-${s}`}>
                   {SKILL_ICON_PATHS[s] && (
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d={SKILL_ICON_PATHS[s]} fill="currentColor" /></svg>
                   )}
                   {skillDisplayName(s)}
-                </span>
+                </Link>
               ))}
             </div>
           </section>

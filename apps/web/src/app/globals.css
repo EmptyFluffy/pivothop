@@ -1173,3 +1173,6 @@ input:focus-visible{outline:none}
 .jd-skillgrid{display:flex;flex-wrap:wrap;gap:10px}
 .jd-skill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);background:var(--card);padding:8px 14px;font-family:var(--mono);font-size:13px;color:var(--ink);line-height:1}
 .jd-skill svg{width:16px;height:16px;flex:none;color:var(--ink-2)}
+a.jd-skill{text-decoration:none;transition:border-color .12s,color .12s}
+a.jd-skill:hover{border-color:var(--accent);color:var(--accent)}
+a.jd-skill:hover svg{color:var(--accent)}

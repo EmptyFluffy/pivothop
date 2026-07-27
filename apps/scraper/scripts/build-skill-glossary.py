@@ -108,6 +108,21 @@ def main():
             'unlocks': unlocks,
         })
 
+    # Every lexicon skill gets an entry — job-detail chips link here, so no
+    # skill may dangle. Un-profiled ones (below the top-20 share floor, or in
+    # occupations the profile export skips) get the curated def when one exists,
+    # else an honest below-the-floor line. No unlock list without data.
+    for sk, term in NAMES.items():
+        if sk in inv:
+            continue
+        key = term.lower()
+        if key in CURATED:
+            used_curated.add(key)
+        d = CURATED.get(key) or (
+            f'Tracked in the PivotHop skill bank and extracted from live postings when named. '
+            f'It currently sits below the share floor where any occupation\'s top-20 profile weights it, so no unlock list yet.')
+        entries.append({'slug': sk, 'term': term, 'field': '', 'def': d, 'unlocks': []})
+
     entries.sort(key=lambda e: e['term'].lower())
     out = 'apps/web/public/data/skills-glossary.json'
     json.dump(entries, open(out, 'w'), ensure_ascii=False)
