@@ -4,10 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { PageShell } from '../components/SiteChrome';
 import { EmployerForm, type FanIn } from './EmployerForm';
+import { Waitlist } from './Waitlist';
 import { jobsIndex, occList } from '../jobs/jobs-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../routes/routes-data';
 import { getSalary, usBand } from '../salary/salary-data';
 import { PRICING } from './pricing';
+
+// Checkout isn't wired yet (docs/25 §C): gate the page with the waitlist and
+// keep the full form built behind this flag. Flip to false when payment lands.
+const WAITLIST = true;
 
 
 export const metadata: Metadata = {
@@ -64,7 +69,9 @@ export default function Employers() {
           </p>
         </header>
 
-        <EmployerForm occs={occs} fan={fan} skills={skillBank()} salaryHints={salaryHints} pricing={PRICING} />
+        {WAITLIST
+          ? <Waitlist pricing={{ std: PRICING.std.launch, feat: PRICING.feat.launch }} />
+          : <EmployerForm occs={occs} fan={fan} skills={skillBank()} salaryHints={salaryHints} pricing={PRICING} />}
       </div>
     </PageShell>
   );

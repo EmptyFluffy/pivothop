@@ -103,6 +103,42 @@ export async function startCheckout(p: JobPayload): Promise<{ url?: string; ok?:
   }
 }
 
+/* Waitlist gate (checkout not wired yet — docs/25 §C): capture the employer's
+   intent honestly instead of walking them through a form that can't take
+   payment. Same graceful ladder as everything else: Supabase insert when
+   configured, Postmark heads-up to hello@ when configured, and the client
+   falls back to a plain mailto when neither is. */
+export async function joinWaitlist(input: { email: string; company?: string; role?: string }): Promise<{ ok?: boolean; error?: string }> {
+  const email = String(input.email || '').trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: 'invalid-email' };
+  const sb = SB();
+  if (!sb) return { error: 'not-configured' };            // client falls back to mailto
+  const ua = (await headers()).get('user-agent')?.slice(0, 300) || null;
+  const res = await fetch(`${sb.base}/rest/v1/employer_waitlist`, {
+    method: 'POST', headers: { ...sb.h, Prefer: 'return=minimal' },
+    body: JSON.stringify({
+      email, company: input.company?.trim().slice(0, 120) || null,
+      role_title: input.role?.trim().slice(0, 160) || null, user_agent: ua,
+    }),
+  }).catch(() => null);
+  if (!res?.ok) return { error: 'db' };
+  // Heads-up to hello@ — silent no-op until Postmark env lands (docs/25 §C).
+  const token = process.env.POSTMARK_SERVER_TOKEN, from = process.env.POSTMARK_FROM;
+  if (token && from) {
+    await fetch('https://api.postmarkapp.com/email', {
+      method: 'POST',
+      headers: { 'X-Postmark-Server-Token': token, 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        From: from, To: process.env.POSTMARK_NOTIFY_TO || SITE_EMAIL,
+        Subject: `Employer waitlist: ${input.company?.trim() || email}`,
+        TextBody: `${email}${input.company ? ` · ${input.company.trim()}` : ''}${input.role ? `\nHiring: ${input.role.trim()}` : ''}\n\nRows live in the Supabase employer_waitlist table.`,
+        MessageStream: 'outbound',
+      }),
+    }).catch(() => {});
+  }
+  return { ok: true };
+}
+
 async function notify(p: JobPayload): Promise<void> {
   const token = process.env.POSTMARK_SERVER_TOKEN;
   const from = process.env.POSTMARK_FROM;
