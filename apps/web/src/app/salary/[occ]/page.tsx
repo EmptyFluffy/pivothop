@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { routableSlugs } from '../../routes/routes-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
@@ -154,11 +155,11 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           <Link className="rt-go" href={`/fairelephant?role=${occ}`}>Check an offer &rarr;</Link>
         </section>
 
-        {def.routes.length > 0 && (
+        {def.routes.filter((r) => routableSlugs().includes(r)).length > 0 && (
           <section className="rt-sec">
             <h2>Move into or out of {f.title.toLowerCase()}</h2>
             <ul className="rt-rel">
-              {def.routes.map((r) => (
+              {def.routes.filter((r) => routableSlugs().includes(r)).map((r) => (
                 <li key={r}><Link href={`/routes/${r}`}>{r.split('-to-').map((s) => s.replace(/-/g, ' ')).join(' → ')}</Link><span className="lbl">measured route</span></li>
               ))}
             </ul>

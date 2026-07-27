@@ -22,8 +22,26 @@ const pages = new Set(['/']);
   }
 })(APP, '');
 
+// 1b. Sitemap coverage: every URL the sitemap advertises must exist as a built
+// page — a sitemap entry with no page is a crawlable 404 (the curated-route
+// class: generateStaticParams minted the param but the render notFound()'d).
+try {
+  const sm = fs.readFileSync(path.join(APP, 'sitemap.xml.body'), 'utf8');
+  const missing = [];
+  for (const m of sm.matchAll(/<loc>https:\/\/www\.pivothop\.com([^<]*)<\/loc>/g)) {
+    const p = m[1] === '' ? '/' : m[1].replace(/\/$/, '');
+    if (p === '/' || pages.has(p)) continue;
+    missing.push(p);
+  }
+  if (missing.length) {
+    console.error(`check-links: ${missing.length} sitemap URL(s) have no built page:`);
+    missing.slice(0, 20).forEach((p) => console.error('  ' + p));
+    process.exit(1);
+  }
+} catch { /* no sitemap in this build */ }
+
 // 2. Non-HTML targets that are legitimately linkable.
-const PASS = [/^\/api\//, /^\/data\//, /^\/_next\//, /^\/feed\.xml$/, /^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/llms\.txt$/, /^\/[0-9a-f]{32}\.txt$/, /\.(png|svg|ico|pdf|jpg|webp)(\?|$)/];
+const PASS = [/^\/api\//, /^\/data\//, /^\/_next\//, /^\/feed\.xml$/, /^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/llms\.txt$/, /^\/llms-full\.txt$/, /^\/[0-9a-f]{32}\.txt$/, /\.(png|svg|ico|pdf|jpg|webp)(\?|$)/];
 
 // 3. Scan every page's hrefs.
 const broken = new Map();

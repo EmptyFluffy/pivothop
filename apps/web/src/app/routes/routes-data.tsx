@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import fs from 'node:fs';
+import { getSalary, usBand } from '../salary/salary-data';
 import path from 'node:path';
 
 /* Preloaded route pages (docs/05): saved states of the instrument, one per
@@ -19,10 +20,12 @@ export type RouteRole = {
   have: string[]; learn: string[]; mobility?: number | null; mobility_source?: string | null;
   kind?: string | null; license?: { req: string; label: string } | null;
 };
+type KidRow = { t: string; m: number; slug?: string; gap?: string[]; after?: number };
 type OriginPayload = {
   originLabel: string; originSlug: string; postings: number;
   separations?: { transfer: number; exit: number };
-  roles: RouteRole[]; next: Record<string, { t: string; m: number; after?: number }[]>;
+  roles: RouteRole[]; next: Record<string, KidRow[]>;
+  direct?: KidRow[];
 };
 
 type Evidence = { label: string; state: 'have' | 'partial' | 'gap'; note: string };
@@ -49,8 +52,56 @@ function getOrigin(slug: string): OriginPayload | null {
   return data;
 }
 
+// Occupation-level facts for the kid fallback (same numbers the emitter uses).
+let _occMeta: Record<string, { title?: string; salary?: string; demand?: string; remote?: string; license?: { req: string; label: string; years?: number } | null }> | null = null;
+function occMetaOf(slug: string) {
+  if (!_occMeta) {
+    try { _occMeta = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'occ-meta.json'), 'utf8')).meta ?? {}; }
+    catch { _occMeta = {}; }
+  }
+  return _occMeta![slug];
+}
+// Mirror of the emitter's timeEstimate — keep the buckets in sync with emit.js.
+function timeEstimate(match: number, license?: { req: string; years?: number } | null): string {
+  const base = match >= 85 ? '3–8 mo' : match >= 70 ? '6–12 mo' : match >= 60 ? '9–16 mo' : '12–24 mo';
+  if (license?.req !== 'required') return base;
+  if (license.years) return `${license.years}+ yr incl. license`;
+  return `${base} + license`;
+}
+
 export function destRole(originSlug: string, destSlug: string): RouteRole | undefined {
-  return getOrigin(originSlug)?.roles.find((r) => r.id === destSlug);
+  const o = getOrigin(originSlug);
+  const ring1 = o?.roles.find((r) => r.id === destSlug);
+  if (ring1) return ring1;
+  // Fallback: the destination fell out of ring-1 on a re-emit but is still
+  // measured as a kid row. Synthesize the display fields from the kid's own
+  // numbers plus occupation-level facts, so curated routes (hand editorial)
+  // keep rendering honestly instead of 404ing when the top-8 reshuffles.
+  const kids = o ? [...Object.values(o.next ?? {}), o.direct ?? []].flat() : [];
+  const kid = kids.find((k) => k.slug === destSlug);
+  if (!kid || typeof kid.m !== 'number') return undefined;
+  // occ-meta covers the profiled set; below that floor, pull the salary band
+  // from the salary surface and state the rest honestly.
+  const meta = occMetaOf(destSlug);
+  let salary = meta?.salary;
+  if (!salary) {
+    try {
+      const sf = getSalary(destSlug);
+      const band = sf && usBand(sf);
+      if (band) salary = `$${Math.round(band.p25 / 1000)}k–$${Math.round(band.p75 / 1000)}k`;
+    } catch { /* no salary surface */ }
+  }
+  return {
+    id: destSlug,
+    title: kid.t ?? meta?.title ?? destSlug,
+    match: kid.m,
+    salary: salary ?? 'n/a',
+    demand: meta?.demand ?? 'n/a',
+    remote: meta?.remote,
+    time: timeEstimate(kid.m, meta?.license),
+    license: meta?.license ?? null,
+    learn: kid.gap,
+  } as RouteRole;
 }
 export function unlocks(originSlug: string, destSlug: string): { t: string; m: number; after?: number }[] {
   return getOrigin(originSlug)?.next[destSlug] ?? [];
@@ -265,7 +316,7 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'ux-designer',
     editorial: (
       <>
-        <p>The 19 percent readiness on this page is the most misleading number in the set, and worth explaining before you believe it. <a className="gl" href="/glossary#ux">UX</a> (user-experience design) postings ask for a stack of words, user research, interaction design, design systems, that graphic-design postings simply do not print, so the overlap math reads low. But look at what the corpus already credits graphic designers with: Figma, prototyping, wireframing, accessibility. The tools are mostly shared. What is not shared is a way of working. Graphic design defends a final artifact; UX defends a decision, and has to show the research and the failed variants that led there.</p>
+        <p>The readiness number on this page is the most misleading number in the set, and worth explaining before you believe it. <a className="gl" href="/glossary#ux">UX</a> (user-experience design) postings ask for a stack of words, user research, interaction design, design systems, that graphic-design postings simply do not print, so the overlap math reads low. But look at what the corpus already credits graphic designers with: Figma, prototyping, wireframing, accessibility. The tools are mostly shared. What is not shared is a way of working. Graphic design defends a final artifact; UX defends a decision, and has to show the research and the failed variants that led there.</p>
         <p>The gap most graphic designers underestimate is not skill, it is <strong>evidence</strong>: a portfolio of beautiful screens reads as graphic design no matter how it is labeled. The move is won or lost on one case study that shows a problem, the research, three rejected directions, and a measured outcome.</p>
         <p>The pay makes the work worth it, UX medians run tens of thousands above graphic design, and <a className="gl" href="/glossary#bls">BLS</a> (the US Bureau of Labor Statistics) projects the two fields moving in opposite directions. <strong>Concrete first step:</strong> take one project you already shipped and rewrite it as a process story, not a gallery.</p>
       </>
@@ -278,7 +329,7 @@ export const ROUTES: Record<string, RouteDef> = {
       { label: 'Design systems and interaction patterns', state: 'partial', note: 'Some digital designers have this; many do not' },
     ],
     faq: [
-      { q: 'Can a graphic designer become a UX designer?', a: 'It is one of the most common creative pivots, and the tools overlap more than the posted-skill match suggests. Our corpus reads 19 percent readiness because UX postings demand research and systems vocabulary that graphic-design postings omit, not because the work is unrelated. The real gap is user research and process evidence.' },
+      { q: 'Can a graphic designer become a UX designer?', a: 'It is one of the most common creative pivots, and the tools overlap more than the posted-skill match suggests. The posted-skill readiness reads low because UX postings demand research and systems vocabulary that graphic-design postings omit, not because the work is unrelated. The real gap is user research and process evidence.' },
       { q: 'Does UX design pay more than graphic design?', a: 'Substantially. UX roles in our current corpus post a 70,000 to 150,000 dollar band against far lower graphic-design medians, and BLS projects web and digital interface design growing while graphic design is roughly flat.' },
       { q: 'What is the biggest obstacle switching from graphic to UX design?', a: 'The portfolio, not the software. A book of polished visuals reads as graphic design; UX hiring wants to see a problem, the research, discarded directions, and an outcome. One genuine case study outweighs ten finished comps.' },
       { q: 'How long does the graphic designer to UX transition take?', a: 'Our skill-gap estimate is 12 to 24 months to full readiness, shorter for designers already working in digital product who hold Figma and prototyping day to day.' },
@@ -291,7 +342,7 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'instructional-designer',
     editorial: (
       <>
-        <p>This is the exit teachers search for most, and the 12 percent readiness badly undersells it, because a classroom teacher already does the core of the job under a different name. Curriculum development, facilitation, assessment design, differentiating for an audience that is not following: that is <strong>instructional design</strong> with children in the room.</p>
+        <p>This is the exit teachers search for most, and the readiness number badly undersells it, because a classroom teacher already does the core of the job under a different name. Curriculum development, facilitation, assessment design, differentiating for an audience that is not following: that is <strong>instructional design</strong> with children in the room.</p>
         <p>What the corpus cannot see is that the skill is there; what it correctly sees is that the tooling and the vocabulary are not. Instructional design runs on authoring software (Storyline, Captivate, Rise), an <a className="gl" href="/glossary#lms">LMS</a> (learning management system), and a shared language of <a className="gl" href="/glossary#addie">ADDIE</a> (analysis, design, development, implementation, evaluation), learning objectives, and stakeholder sign-off that corporate hiring managers screen for by keyword. The other quiet advantage is on this page: 11 percent of instructional-design postings in our corpus are fully remote, unusually high, against a classroom that is remote essentially never.</p>
         <p>The move is real but it is not free, you are trading a credential you already hold for a portfolio you do not yet have. <strong>Concrete first step:</strong> rebuild one unit you have taught a hundred times as a self-paced e-learning module in a free trial of an authoring tool, and let that be the whole interview.</p>
       </>
@@ -344,7 +395,7 @@ export const ROUTES: Record<string, RouteDef> = {
     editorial: (
       <>
         <p>Accountants and <strong>financial analysts</strong> share a spreadsheet and disagree about which direction time runs. Accounting is the record of what happened, closed, reconciled, compliant. Analysis is the argument about what happens next, forecasts, variance, the model behind a budget request.</p>
-        <p>The 43 percent readiness reflects that the raw financial fluency transfers, forecasting, modeling, and budgeting are already in the accountant&rsquo;s HAVE list, while the forward-looking framing and the presentation layer are not. The real gap is rarely technical. It is that analysts have to sell a conclusion to people who will not read the workbook, so data visualization and the one-slide narrative matter more than another reconciliation ever did.</p>
+        <p>The readiness number reflects that the raw financial fluency transfers, forecasting, modeling, and budgeting are already in the accountant&rsquo;s HAVE list, while the forward-looking framing and the presentation layer are not. The real gap is rarely technical. It is that analysts have to sell a conclusion to people who will not read the workbook, so data visualization and the one-slide narrative matter more than another reconciliation ever did.</p>
         <p>For securities-facing roles a <a className="gl" href="/glossary#finra">FINRA</a> (the Financial Industry Regulatory Authority) license enters the picture, and the <a className="gl" href="/glossary#cfa">CFA</a> (the Chartered Financial Analyst credential) is common though not required for corporate <a className="gl" href="/glossary#fpa">FP&amp;A</a> (financial planning and analysis), which is the usual landing spot. The pay premium is real but modest at the entry, around a fifth more per external benchmarks, and widens with the CFA. <strong>Concrete first step:</strong> take last quarter&rsquo;s actuals from your own employer, build a variance-and-forecast model on top, and turn it into a single slide a non-finance manager would act on.</p>
       </>
     ),
@@ -369,7 +420,7 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'solutions-architect',
     editorial: (
       <>
-        <p>This is the cleanest senior move a software engineer can make on our graph, 60 percent readiness, and the observed data confirms engineers actually walk it. The cloud fluency is already there, AWS, Azure, Python sit in the HAVE list, so the role is less a retraining than a change in altitude. A software engineer is measured by the code they ship; a <strong>solutions architect</strong> is measured by the systems they let other people ship, and by whether the business bought the design. That shift is where the real work is.</p>
+        <p>This is the cleanest senior move a software engineer can make on our graph, and the observed data confirms engineers actually walk it. The cloud fluency is already there, AWS, Azure, Python sit in the HAVE list, so the role is less a retraining than a change in altitude. A software engineer is measured by the code they ship; a <strong>solutions architect</strong> is measured by the systems they let other people ship, and by whether the business bought the design. That shift is where the real work is.</p>
         <p>The gap is not technical depth, engineers usually have too much of it, it is breadth and translation: sketching a system across services you will never personally write, sizing tradeoffs for a budget conversation, and explaining the whole thing to a room that cannot read a stack trace. Pre-sales and stakeholder framing feel foreign to a lot of strong engineers, and they are exactly the differentiator.</p>
         <p>The pay band, 95,000 to 160,000 in our corpus, reflects the seniority. <strong>Concrete first step:</strong> volunteer to own the design document for the next cross-team system, then present it to the least technical stakeholder you can find and rewrite whatever they did not follow.</p>
       </>
@@ -395,7 +446,7 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'machine-learning-engineer',
     editorial: (
       <>
-        <p>These two roles are close enough, 51 percent readiness and a matching observed-flow score, that companies routinely blur them, which is exactly why the distinction is worth naming before you pivot. A data scientist proves a model works. A <strong>machine-learning engineer</strong> makes it run at three in the morning without waking anyone.</p>
+        <p>These two roles are close enough, with matching readiness and observed-flow scores, that companies routinely blur them, which is exactly why the distinction is worth naming before you pivot. A data scientist proves a model works. A <strong>machine-learning engineer</strong> makes it run at three in the morning without waking anyone.</p>
         <p>The modeling half transfers wholesale, machine learning, deep learning, <a className="gl" href="/glossary#llm">LLMs</a> (large language models), and Python are all in the HAVE list, so nobody doubts you understand the model. What the corpus flags as missing is the production stack: <a className="gl" href="/glossary#mlops">MLOps</a> (machine-learning operations), serving, monitoring, the discipline of turning a notebook into a service with tests and rollback. That is real software engineering, and it is the part a lot of data scientists have avoided precisely because it is not modeling.</p>
         <p>The LLM wave has widened the seat, <a className="gl" href="/glossary#rag">RAG</a> (retrieval-augmented generation), vector search, and fine-tuning now sit inside the job, and demand is concentrated there. The pay band tops out around 165,000 in our corpus, slightly above the pure data-science band, and the gap is the engineering. <strong>Concrete first step:</strong> take one model you have already trained and stand it up as a monitored endpoint with a test suite, then treat everything that broke as your syllabus.</p>
       </>
@@ -408,7 +459,7 @@ export const ROUTES: Record<string, RouteDef> = {
       { label: 'Monitoring, testing, deployment', state: 'gap', note: 'Turning a notebook into a reliable service' },
     ],
     faq: [
-      { q: 'What is the difference between a data scientist and a machine learning engineer?', a: 'A data scientist proves a model works; a machine-learning engineer makes it run reliably in production. The modeling overlaps heavily, our corpus reads 51 percent readiness, but the engineer owns serving, monitoring, and deployment.' },
+      { q: 'What is the difference between a data scientist and a machine learning engineer?', a: 'A data scientist proves a model works; a machine-learning engineer makes it run reliably in production. The modeling overlap is heavy in our corpus, but the engineer owns serving, monitoring, and deployment.' },
       { q: 'Can a data scientist become a machine learning engineer?', a: 'Commonly, and the observed transition data supports it. The modeling skills transfer directly; the work is closing the production-engineering gap, MLOps, testing, and deployment, which is real software engineering rather than more modeling.' },
       { q: 'Does an ML engineer earn more than a data scientist?', a: 'Slightly, on our numbers: ML-engineer roles post up to about 165,000 dollars, a touch above the data-science band, with the premium concentrated in production and LLM-serving skills.' },
       { q: 'What should a data scientist learn to become an ML engineer?', a: 'The production stack: MLOps tooling, model serving, monitoring, and the testing and rollback discipline of shipping software. Standing up one trained model as a monitored endpoint surfaces the whole syllabus.' },
@@ -421,7 +472,7 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'product-manager',
     editorial: (
       <>
-        <p>The 19 percent readiness here hides one of the most reliable pivots in tech, and the observed-flow score of 41 is the tell: marketers become <strong>product managers</strong> constantly, whatever the skill math says. The reason the match reads low is that product-manager postings are written in an engineering-adjacent dialect, APIs, agile, observability, that marketing postings do not use, even though a good marketing manager already runs experiments, reads funnels, and owns a number. A/B testing and data analysis are in the HAVE list for a reason.</p>
+        <p>The readiness number here hides one of the most reliable pivots in tech, and the observed-flow score of 41 is the tell: marketers become <strong>product managers</strong> constantly, whatever the skill math says. The reason the match reads low is that product-manager postings are written in an engineering-adjacent dialect, APIs, agile, observability, that marketing postings do not use, even though a good marketing manager already runs experiments, reads funnels, and owns a number. A/B testing and data analysis are in the HAVE list for a reason.</p>
         <p>What a marketer genuinely lacks is technical fluency with the build side: enough understanding of how the thing is made to write a spec engineers respect and to say no to scope with a real reason. Product management is customer empathy plus prioritization plus technical credibility, and marketers arrive with the first two and have to earn the third.</p>
         <p>The pay ceiling is high, up to 175,000 in our corpus, and remote availability is unusually good at 15 percent. <strong>Concrete first step:</strong> attach yourself to one feature end to end, write its spec, sit in the standups, and ship it, so your resume has a product shipped rather than a campaign run.</p>
       </>
@@ -447,7 +498,7 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'lawyer',
     editorial: (
       <>
-        <p>This is the search everyone types and the move almost nobody makes directly, and the honest version of this page has to say why. The 35 percent readiness looks encouraging, and the substantive knowledge is genuinely there, paralegals live in contracts, compliance, and negotiation, but readiness measures skills and the barrier here is a credential that skills cannot shortcut. Becoming a lawyer means law school and bar admission, three years and an exam, and no amount of paralegal experience reduces the legal requirement by a day.</p>
+        <p>This is the search everyone types and the move almost nobody makes directly, and the honest version of this page has to say why. The readiness number looks encouraging, and the substantive knowledge is genuinely there, paralegals live in contracts, compliance, and negotiation, but readiness measures skills and the barrier here is a credential that skills cannot shortcut. Becoming a lawyer means law school and bar admission, three years and an exam, and no amount of paralegal experience reduces the legal requirement by a day.</p>
         <p>Paralegals also have the clearest possible view of what the job actually is, which is why many who consider it choose one of the adjacent seats instead: compliance officer, contract manager, and legal operations all reward the exact knowledge a paralegal already holds and none of them require the bar. So the real decision is <strong>binary</strong>, and worth being honest with yourself about. If you want to practice law, the paralegal years are excellent preparation and zero shortcut, budget the JD (the three-year law degree). If you want the pay and the seniority without the courtroom, the compliance route is adjacent, uncredentialed, and faster.</p>
         <p><strong>Concrete first step:</strong> sit in on the work of both a junior associate and a compliance officer before you spend a dollar on the LSAT (the law-school admission test).</p>
       </>
@@ -460,7 +511,7 @@ export const ROUTES: Record<string, RouteDef> = {
       { label: 'Bar admission', state: 'gap', note: 'The legal gate to practice, jurisdiction by jurisdiction' },
     ],
     faq: [
-      { q: 'Can a paralegal become a lawyer?', a: 'Yes, but only through the same door as anyone else: law school and bar admission. Paralegal experience is strong preparation and legally shortens nothing. Our 35 percent readiness reflects real substantive knowledge, but the barrier is a credential, not a skill gap.' },
+      { q: 'Can a paralegal become a lawyer?', a: 'Yes, but only through the same door as anyone else: law school and bar admission. Paralegal experience is strong preparation and legally shortens nothing. The readiness number reflects real substantive knowledge, but the barrier is a credential, not a skill gap.' },
       { q: 'Is it worth going from paralegal to lawyer?', a: 'It depends on whether you want to practice. If yes, the paralegal background is excellent preparation for a JD. If you mainly want higher pay and seniority, adjacent roles, compliance officer, contract manager, legal operations, reward the same knowledge without the bar.' },
       { q: 'What can a paralegal do without going to law school?', a: 'Move sideways into compliance, contract management, or legal operations. All three value a paralegal&rsquo;s substantive knowledge, pay above many paralegal roles, and require no bar admission.' },
       { q: 'How long does it take to become a lawyer from paralegal?', a: 'The credential path is the binding constraint: roughly three years of law school plus bar preparation and admission. The skill-readiness estimate on this page does not include that, because skills are not what the gate measures.' },
@@ -473,7 +524,7 @@ export const ROUTES: Record<string, RouteDef> = {
     dest: 'data-engineer',
     editorial: (
       <>
-        <p>Of every route in this batch, this one has the strongest human signal: an observed-flow score of 100, meaning <strong>data engineer</strong> is the single most common place data analysts actually go. The 42 percent readiness understates a move the market clearly rewards. Analysts already hold the load-bearing skills, <a className="gl" href="/glossary#sql">SQL</a> (Structured Query Language), Python, and <a className="gl" href="/glossary#etl">ETL</a> (extract, transform, load) are all in the HAVE list, so the pivot is less a new profession than a change in what you are responsible for.</p>
+        <p>Of every route in this batch, this one has the strongest human signal: an observed-flow score of 100, meaning <strong>data engineer</strong> is the single most common place data analysts actually go. The readiness number understates a move the market clearly rewards. Analysts already hold the load-bearing skills, <a className="gl" href="/glossary#sql">SQL</a> (Structured Query Language), Python, and <a className="gl" href="/glossary#etl">ETL</a> (extract, transform, load) are all in the HAVE list, so the pivot is less a new profession than a change in what you are responsible for.</p>
         <p>An analyst queries the data and answers the question. An engineer builds and owns the pipes that deliver the data reliably, on schedule, at scale, so that a hundred analysts can answer their questions without noticing the plumbing. The gap is orchestration and infrastructure: dbt, Airflow, warehouse modeling, and the on-call mindset that comes with owning a pipeline other people depend on. That last part is the real adjustment, analysts ship insights, engineers ship systems that must not break.</p>
         <p>The pay rewards it, 75,000 to 130,000 in our corpus, above the typical analyst band. <strong>Concrete first step:</strong> take one report you currently refresh by hand and rebuild it as an automated pipeline with dbt and a scheduler, then keep it running for a month and fix whatever fails.</p>
       </>
@@ -536,7 +587,14 @@ let _routable: Map<string, { origin: string; dest: string }> | null = null;
 function loadRoutable(): Map<string, { origin: string; dest: string }> {
   if (_routable) return _routable;
   _routable = new Map();
-  for (const s of ROUTE_SLUGS) _routable.set(s, { origin: ROUTES[s].origin, dest: ROUTES[s].dest });
+  // Curated routes qualify only while the data can still render them: the dest
+  // must sit in the origin's ring-1 roles OR its kid rows (destRole's fallback).
+  // The emitter reshuffles ring-1 as the corpus moves — a curated slug whose
+  // measured direction vanished entirely must drop out here, or the sitemap and
+  // salary pages keep pointing at a notFound() (the graphic-designer→ux 404).
+  for (const s of ROUTE_SLUGS) {
+    if (destRole(ROUTES[s].origin, ROUTES[s].dest)) _routable.set(s, { origin: ROUTES[s].origin, dest: ROUTES[s].dest });
+  }
   try {
     const dir = path.join(process.cwd(), 'public', 'data');
     for (const file of fs.readdirSync(dir)) {
