@@ -65,7 +65,7 @@ export default function Employers() {
           <h1>Post a job.</h1>
           <p>
             Every listing is matched to the candidates whose skills already reach it, from adjacent
-            professions no title-based board surfaces. Launch pricing is half off while the board fills.
+            professions no title-based board surfaces.
           </p>
         </header>
 

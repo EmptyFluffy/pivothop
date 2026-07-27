@@ -401,19 +401,21 @@
 .d-hop.off{border-color:var(--rule-2);color:var(--ink-3);cursor:default;justify-content:space-between}
 .d-hop.off:hover{background:none;color:var(--ink-3)}
 .d-hop .nd{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
-/* employer waitlist card: one calm column, ink underline inputs, one accent CTA */
-.wl-card{max-width:560px;margin-top:34px;border-top:1px solid var(--ink);padding-top:26px}
-.wl-card h2{font-size:clamp(24px,3.2vw,34px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
-.wl-p{margin-top:12px;font-size:15px;line-height:1.6;color:var(--ink-2);max-width:52ch}
-.wl-form{display:flex;flex-direction:column;gap:14px;margin-top:24px}
-.wl-form input{border:none;border-bottom:1px solid var(--ink);background:none;font-family:var(--sans);font-size:16px;padding:9px 2px;color:var(--ink);border-radius:0}
-.wl-form input:focus{outline:none;border-bottom-color:var(--accent)}
-.wl-form input::placeholder{color:var(--ink-3)}
-.wl-go{margin-top:8px;background:var(--accent);border:1px solid var(--accent);color:#fff;font-family:var(--sans);font-weight:600;font-size:15px;padding:13px 18px;cursor:pointer;transition:background .15s,border-color .15s;text-align:left}
+/* employer waitlist: one status line, one field + button row, one footer line.
+   No border of its own — the header's full-width rule above is the divider. */
+.wl{max-width:640px;margin-top:30px;padding-bottom:26px}
+.wl-status{color:var(--ink-3)}
+.wl-row{display:flex;gap:16px;margin-top:16px}
+.wl-row input{flex:1;min-width:0;border:none;border-bottom:1px solid var(--ink);background:none;font-family:var(--sans);font-size:17px;padding:10px 2px;color:var(--ink);border-radius:0}
+.wl-row input:focus{outline:none;border-bottom-color:var(--accent)}
+.wl-row input::placeholder{color:var(--ink-3)}
+.wl-go{flex:none;background:var(--accent);border:1px solid var(--accent);color:#fff;font-family:var(--sans);font-weight:600;font-size:15px;padding:12px 24px;cursor:pointer;transition:background .15s,border-color .15s}
 .wl-go:hover{background:var(--accent-press);border-color:var(--accent-press)}
 .wl-go:disabled{opacity:.6;cursor:default}
+.wl-done{font-size:clamp(24px,3.4vw,36px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
 .wl-note{margin-top:12px}
-.wl-alt{margin-top:20px;color:var(--ink-3)}
+.wl-alt{margin-top:18px;color:var(--ink-3)}
+@media (max-width:560px){.wl-row{flex-direction:column;gap:14px}.wl-go{width:100%;text-align:center}}
 
 /* blog editorial furniture: pull quotes and go-deeper link rows. Flush left,
    ink on paper, scale does the work — the accent stays on the data. */
