@@ -102,6 +102,19 @@ Every voice rule from `01-style-direction.md` applies, plus specifics for long-f
 - No "In this post, we'll cover..." opening. Get in and get to the point.
 - No "Conclusion" heading. End with the actual ending.
 
+### Titles (added 2026-07 — the glance test)
+
+A reader scrolling a feed gives a title one glance. If the main substance is not IN the title, they keep scrolling, correctly. Rules:
+
+- **The substance leads.** The named subject — the person, the number, the finding — appears in the title itself, not after the click. "AI and jobs: the claim, the chart, and the count" hid that the post was about Sam Altman's reversal; that title failed the glance test and was retitled.
+- **Front-load.** The first three words carry the hook. Nobody reads word nine of a title they didn't stop for.
+- **Shorter.** Aim ≤ 12 words. Kill the colon-stacked abstraction ("X: the Y, the Z, and the W" is a house tic) unless each element is itself concrete.
+- **A real hook, never clickbait.** The hook is the finding stated plainly ("24% the same job"), not withheld ("you won't believe…"). Deadpan curiosity: state the surprising true thing, stop.
+- **Numbers beat adjectives in titles too.** "42,254 title strings map to nothing" outpulls "the skills-based market is here."
+- **Named people say the quotable thing.** If the post hangs on Altman, Altman is in the title, with the claim.
+- **The "X, past-participle." pattern** (Career moves, measured.) belongs to heroes and section heads; in titles use it only as a short second clause that carries real substance ("The data, checked.").
+- Retitling a live post is allowed and encouraged when a title fails these rules — the slug never changes, only the display title and metadata.
+
 ## SEO structural requirements per post
 
 - Original H1 (never the same as an existing post)

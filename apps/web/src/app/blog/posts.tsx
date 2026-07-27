@@ -56,8 +56,86 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'claude-chats-google',
+    title: 'Claude chats appeared in Google search. Blocking Google is why.',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'Over the last weekend of July, a site: search surfaced strangers’ shared Claude conversations in Google, resumes and API keys included. It was purged within about 48 hours, and the mechanism is the interesting part: the pages were blocked from crawling, which is precisely why they could be indexed. The fourth AI product this happens to, the career stakes, and how to check yours.',
+    minutes: 8,
+    faq: [
+      { q: 'Are Claude conversations public?', a: 'Not unless you share them. A Claude chat becomes a public web page only when you press Share, which mints a claude.ai/share link; anyone holding that link can read the snapshot. The July 2026 incident involved those deliberately shared links surfacing in Google results, where strangers could find them without being handed the link. Regular, unshared chats were never involved.' },
+      { q: 'How do I check whether my AI chats are in Google?', a: 'Search site:claude.ai/share, site:chatgpt.com/share, or site:grok.com/share together with your name or a distinctive phrase from the conversation, and repeat on Bing and Brave, which cleared more slowly than Google in the Claude case. If a link of yours appears: unshare at the source first, then use Google’s Refresh Outdated Content tool to clear the result.' },
+      { q: 'How do I remove a shared Claude or ChatGPT link?', a: 'In Claude: Settings, then Privacy, then Shared chats, then Unshare (or flip the chat’s visibility from Public to Private). In ChatGPT: Settings, then Data Controls, then Shared Links, then delete — note that deleting the chat from your history does not delete the shared copy. Revoking the link kills public access immediately; the search listing takes longer to fall out.' },
+      { q: 'Is the Claude indexing issue fixed?', a: 'For Google chat results, effectively yes: listings were purged between Saturday night and Monday, July 25–27, 2026, and the site: query then returned nothing. Three caveats reported at the time: some Artifact pages were still findable on Monday, Bing and Brave lagged Google, and Anthropic had made no public statement, so the exact fix is unconfirmed. The structural quirk that produced the incident — share pages hidden from crawlers, so their noindex is invisible — remained in place.' },
+      { q: 'Can a deleted AI chat still be found somewhere?', a: 'Yes. De-indexed is not deleted: after the ChatGPT episode, roughly 110,000 shared conversations remained readable in the Internet Archive, and researchers later counted 143,000 archived chats across Claude, ChatGPT, Grok, and others. Third-party scrapes exist too. Treat a share link as publishing, because that is what it is.' },
+    ],
+    body: (
+      <>
+        <p>
+          On Saturday, July 25, a Reddit user showed that typing <code>site:claude.ai/share</code> into Google returned strangers&rsquo; shared Claude conversations. By Sunday it was trending on X; by Monday the listings were gone and the query returned nothing. Reporters who clicked through in the meantime found, among the exposed pages: resumes with real names and phone numbers, API keys and login credentials, crypto wallet keys, a lawyer&rsquo;s notes on a potential ethics case, a patient&rsquo;s medical report, and employee performance reviews.
+        </p>
+        <div className="post-callout"><b>~48 hours</b><span>from the first Reddit post (Saturday 18:11 UTC) to a clean Google result set. Scale was never pinned down: outlets reported &ldquo;hundreds&rdquo; to &ldquo;thousands.&rdquo; Anthropic, as of the Monday, had made no public statement.</span></div>
+        <p>
+          We run a job site, which means indexing control is not abstract to us; it is a config file we touch every week. So here is the part of this story most coverage got wrong, and the reason it keeps happening to the entire industry.
+        </p>
+        <Go links={[
+          { href: '/blog/ai-jobs-three-ledgers', label: 'Altman&rsquo;s jobs claim, checked' },
+          { href: '/blog/why-recruiters-ghost', label: 'Why recruiters ghost' },
+          { href: '/', label: 'The instrument (no account, nothing stored)' },
+        ]} />
+
+        <h2>The mechanism: blocked from crawling, therefore indexable</h2>
+        <p>
+          The obvious diagnosis, a missing noindex tag, is wrong, and the truth is stranger. Claude&rsquo;s <code>robots.txt</code> has told crawlers to stay out of <code>/share/</code> since August 2025. That sounds like protection. It is actually the hole: because Google is forbidden from <em>fetching</em> those pages, it can never see the noindex instruction they carry. So when someone posts their share link anywhere public (a forum, a group chat that leaks, a blog), Google indexes the bare URL without ever reading the page. The listings even said &ldquo;No information is available for this page.&rdquo; The chat text was never in Google&rsquo;s index; the link was, and the link was enough, because anyone clicking it got the full conversation.
+        </p>
+        <Pull>Robots.txt is a do-not-enter sign, not a do-not-mention sign.</Pull>
+        <p>
+          The correct pattern is the counterintuitive one: <strong>let the crawler in, and let it read &ldquo;do not index me.&rdquo;</strong> ChatGPT&rsquo;s share pages do exactly that: explicitly crawlable, carrying a noindex tag, which is why they stay out of results the boring way. PivotHop&rsquo;s job detail pages use the same pattern for the same reason. It is standard webmaster craft, and in July 2026 one of the most sophisticated AI companies on earth was still learning it in public.
+        </p>
+
+        <h2>The fourth time, not the first</h2>
+        <p>
+          Every major chatbot has now had a version of this incident, and the ledger is worth reading in order. <strong>Google Bard, September 2023</strong>: shared chats indexed; Google&rsquo;s own search liaison conceded &ldquo;we don&rsquo;t intend for these shared chats to be indexed&rdquo; and blocked them within a day. <strong>ChatGPT, July 2025</strong>: a share-dialog checkbox labeled &ldquo;make this chat discoverable&rdquo; put nearly 4,500 conversations into Google before Fast Company noticed; OpenAI&rsquo;s security chief killed the feature within two days, calling it &ldquo;a short-lived experiment,&rdquo; and a researcher later counted roughly <strong>100,000</strong> indexed conversations: NDAs, contract drafts, and a resume-rewrite chat a reporter traced to a real person&rsquo;s LinkedIn. <strong>Grok, August 2025</strong>: over <strong>370,000</strong> conversations indexed by Google&rsquo;s estimate. <strong>Claude</strong> has now had it twice: just under 600 conversations in September 2025 by Google&rsquo;s count, and this weekend&rsquo;s rerun.
+        </p>
+        <table className="post-table">
+          <caption>Share-page indexing posture, checked directly, July 27, 2026</caption>
+          <thead><tr><th>Product</th><th>Crawler access</th><th>Page instruction</th><th>Net effect</th></tr></thead>
+          <tbody>
+            <tr><td>ChatGPT</td><td>Allowed</td><td>noindex</td><td>Correct: Google reads the no</td></tr>
+            <tr><td>Gemini</td><td>Allowed</td><td>noindex</td><td>Correct (fixed after Bard, 2023)</td></tr>
+            <tr><td>Claude</td><td>Blocked</td><td>noindex, invisible to crawlers</td><td>URL-only indexing stays possible</td></tr>
+            <tr><td>Grok</td><td>Allowed</td><td><strong>index, follow</strong></td><td>Shared chats remain indexable today</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Why this is a careers story</h2>
+        <p>
+          Look at what actually leaked, across all four platforms: resumes, performance reviews, staff names and emails in work transcripts, NDA texts, LinkedIn drafts. People do their <em>work</em> in these tools, and the numbers say so: Harmonic Security&rsquo;s analysis of 22 million enterprise prompts found sensitive data in roughly one prompt in forty, with employee records among the top categories, and a 2025 National Cybersecurity Alliance survey found <strong>43 percent of workers admit sharing sensitive workplace information with AI tools</strong> without their employer knowing. A job search runs on exactly this material: the resume with your address on it, the negotiation strategy, the honest assessment of why you left. A share link mints a public URL for all of it.
+        </p>
+        <Pull>A share link is a publish button wearing a different label.</Pull>
+        <div className="post-callout"><b>De-indexed &ne; deleted</b><span>After the ChatGPT purge, ~110,000 shared conversations remained readable in the Internet Archive &mdash; which honored no bulk removal request, its director confirmed &mdash; and researchers later counted <strong>143,000</strong> archived chats across Claude, ChatGPT, Grok and others. Third-party scrapes exist besides.</span></div>
+
+        <h2>What to actually do</h2>
+        <p>
+          Three moves, none dramatic. <strong>Check yourself</strong>: run <code>site:claude.ai/share</code>, <code>site:chatgpt.com/share</code>, and <code>site:grok.com/share</code> with your name or a phrase you remember, on Google and on Bing, which cleared slower. <strong>Revoke at the source</strong>: Claude keeps the list under Settings &rarr; Privacy &rarr; Shared chats; ChatGPT under Settings &rarr; Data Controls &rarr; Shared Links, and deleting a chat from history does not delete its shared copy; then Google&rsquo;s Refresh Outdated Content tool for a listing that lingers. <strong>Change the mental model</strong>: a share link is publishing, so anything you would not put on a public profile &mdash; career material above all &mdash; should not travel through one. The instrument on this site runs without an account and stores nothing, which is not a flex; after a weekend like that one, it is just the obvious design.
+        </p>
+        <Go links={[
+          { href: '/', label: 'Run your numbers, nothing stored' },
+          { href: '/blog/skills-over-titles', label: 'The thesis: skills over titles' },
+          { href: '/jobs/browse', label: 'The board, every cut' },
+        ]} />
+
+        <Sources>
+          <p>
+            Timeline and leaked-content reporting: 404 Media (Joseph Cox, July 27, 2026), VentureBeat, Futurism, IBTimes UK, Hackread, The Decoder, and the syndicated BeInCrypto report, all July 26&ndash;27, 2026; the originating r/ClaudeAI post is dated July 25, 2026, 18:11 UTC. The robots.txt history (the /share/ block appearing August 1&ndash;2, 2025) is from Wayback Machine snapshots; the four-product posture table reflects direct header checks on live share pages, July 27, 2026. Precedents: Search Engine Land on Bard (Sept 26, 2023); Fast Company (July 30, 2025), TechCrunch, and OpenAI CISO Dane Stuckey&rsquo;s statement (Aug 1, 2025) on ChatGPT; 404 Media&rsquo;s ~100,000-conversation count (Aug 5, 2025); Forbes on Grok&rsquo;s 370,000+ (Aug 20, 2025) and on Claude&rsquo;s ~600 with Anthropic&rsquo;s statement (Sept 8, 2025). Archive figures: Digital Digging / Henk van Ess (Aug 1, 2025), 404 Media (Aug 7, 2025), Obsidian Security&rsquo;s 143k analysis. Behavior data: Harmonic Security&rsquo;s 2025 full-year prompt analysis (22.4M prompts); National Cybersecurity Alliance &ldquo;Oh, Behave!&rdquo; (Sept 30, 2025). Where outlets disagreed (&ldquo;hundreds&rdquo; vs &ldquo;thousands&rdquo; indexed in 2026) or Anthropic stayed silent, the text says so rather than picking a number.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
     slug: 'ai-jobs-three-ledgers',
-    title: 'AI and jobs: the claim, the chart, and the count',
+    title: 'Sam Altman says AI created more jobs than it took. The data, checked.',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'Sam Altman now says he was wrong about AI eliminating entry-level jobs. His neighbor at Anthropic predicted half of them would go. Anthropic’s own index charts where AI is actually used; payroll studies measure who is actually hurting. We keep a fourth ledger — live posting demand — and it says the reallocation is already visible: 4.9 percent of postings now demand AI-agent skills, across 43 occupations including lawyers and recruiters.',
@@ -121,7 +199,7 @@ export const POSTS: Post[] = [
         <Go links={[
           { href: '/', label: 'Measure your reach' },
           { href: '/jobs/browse', label: 'AI-era boards, every cut' },
-          { href: '/blog/confused-career-pairs', label: 'Eight confused pairs, measured' },
+          { href: '/blog/claude-chats-google', label: 'Claude chats hit Google: the anatomy' },
           { href: '/blog/why-recruiters-ghost', label: 'Why recruiters ghost' },
         ]} />
 
@@ -135,7 +213,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'skills-over-titles',
-    title: 'Job titles, deprecated: what 100,000 postings say about the skills-based market',
+    title: 'Job titles, deprecated: 42,254 title strings now map to no job at all',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'The labor market is quietly switching units, from job titles to skill sets. Our corpus shows the seams: 42,254 title strings that map to nothing, a handful of skills that appear in a third of all occupations, and a measurable split between careers whose skills travel and careers that lock you in. Here is the thesis, with the rankings.',
@@ -245,7 +323,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'confused-career-pairs',
-    title: 'Same family, different jobs: eight career pairs everyone confuses, measured',
+    title: 'Product manager vs project manager: 24% the same job. Eight confused pairs, measured.',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'Product manager and project manager share 24 percent of a skill set. Graphic designers and UX designers share 13 percent and a doubled salary band. We measured the eight most-confused title pairs from each occupation’s own live postings: the overlap, the pay gap, and which direction the switch actually runs.',
@@ -442,6 +520,7 @@ export const POSTS: Post[] = [
 
         <Go links={[
           { href: '/blog/confused-career-pairs', label: 'Eight confused career pairs, measured' },
+          { href: '/blog/claude-chats-google', label: 'Your AI chats and Google: check yourself' },
           { href: '/jobs/browse', label: 'The board, every preloaded cut' },
         ]} />
         <Sources>
