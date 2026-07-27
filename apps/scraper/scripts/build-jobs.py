@@ -29,7 +29,8 @@ INDEX = 'apps/web/public/data/jobs-index.json'
 # Sources whose terms allow re-display with attribution + link-back.
 OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
       'themuse', 'smartrecruiters', 'jobicy', 'remoteok', 'remotive',
-      'workable', 'recruitee'}
+      'workable', 'recruitee', 'careerjet'}
+# getonbrd is intentionally NOT here: data-only until GetOnBoard grants re-display.
 CAP = 60         # freshest N per occupation
 FLOOR = 3        # skip occupations with fewer than this (no board)
 DESC_CAP = 7000  # chars of description on the detail page
