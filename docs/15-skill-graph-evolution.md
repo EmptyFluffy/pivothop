@@ -156,6 +156,15 @@ Decision: **do not run the Reddit miner without RFR (or commercial) approval.** 
 5. Drop into the fit where the O*NET mobility prior `M` sits now — the architecture already supports it.
 Recommendation: prefer Reddit testimony + the usage flywheel first; IPUMS only if the coarse-code payoff proves worth the dig.
 
+## Skill-bank growth — tooling built (2026-07-26)
+
+The lexicon (262 skills) is the thin bank; readiness `R` is only as good as it. Two tools now feed its growth:
+
+- **`analyze:unmatched` (the corpus miner) — the engine.** Streams the 352MB raw store, zones out benefits/EEO/about, strips HTML, and surfaces 1–3-grams NOT already in the lexicon, ranked by document frequency. Precision layers: a term in >60% of occupations is dropped as a wash-out generic (skills discriminate between occupations; boilerplate doesn't), occupation titles/role-heads are filtered against the taxonomy, and a stoplist removes function words + soft-skill adjectives. First run: 4,882 candidates from 153,452 postings → `data/unmatched-skills.json` (top 600) for human review. Zero external data, zero license risk — it only surfaces vocabulary already in real demand.
+- **`taxonomy:esco-skills` (ESCO alias resolver, CC BY 4.0) — an on-demand aid, not a pipeline source.** Resolves a term list against the ESCO API for canonical English label + alt-labels. **Finding (important):** ESCO is a *competences* taxonomy — verbose phrasing ("execute ICT user research activities"), no modern tools (figma/kubernetes/saas/llm absent), noun-form queries rarely match; single-word matches false-positive via alt-label collisions ("board" is an alt of "scaffolding components"). Auto-match rate on the miner's top 400 was ~1% (2 strong). **Verdict:** use ESCO only for clean multi-word competences with human review; for the tools/tech tier, hand-curate obvious aliases or pull **O*NET Technology Skills / Hot Technologies** (CC BY 4.0, per-occupation actual tool names — we already run the O*NET pipeline). The corpus miner + light curation is the real path.
+
+Next: curate a first batch (~40–60) of real skills from the miner (tools + competences), add to `skills.json` with aliases, re-run the pipeline so readiness reflects them.
+
 ## Sources
 
 - Management Science, lateral vs vertical mobility · BLS SOC job families & career clusters · O*NET-SOC taxonomy
