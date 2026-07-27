@@ -38,7 +38,13 @@ python3 apps/scraper/scripts/build-skill-glossary.py || echo "::warning::build-s
 # the owner identity; bot commits are identified by their "data:" message.
 git config user.name  "Carlos Vinocour"
 git config user.email "vinocouralvarez@gmail.com"
-git add apps/web/public/data packages/data/generated apps/web/src/lib/data.js
+# packages/data/fx holds the weekly FX snapshot (fx:update, Mondays) — a tracked
+# file outside the data dirs; without it the Monday rebase aborts on a dirty tree.
+git add apps/web/public/data packages/data/generated packages/data/fx apps/web/src/lib/data.js
+# Belt-and-suspenders: stage any OTHER tracked modification (future writers) so the
+# rebase never fails on a dirty tree. -u touches tracked files only — never the
+# stray untracked ones (__pycache__, scratch) we must not commit.
+git add -u
 CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
 if [ "$CHANGED" = "0" ]; then echo "no data changes — nothing to publish"; exit 0; fi
 if [ "$CHANGED" -gt 3000 ]; then echo "::error::implausible diff ($CHANGED files) — aborting, inspect manually"; git reset -q; exit 2; fi

@@ -53,7 +53,8 @@ python3 "$REPO/apps/scraper/scripts/build-skill-glossary.py" >> "$LOG" 2>&1 || e
 
 # ── Publish: auto-commit the regenerated data, push -> Vercel deploys ────────
 cd "$REPO"
-git add apps/web/public/data packages/data/generated apps/web/src/lib/data.js apps/scraper/data/first-seen.json 2>> "$LOG"
+git add apps/web/public/data packages/data/generated packages/data/fx apps/web/src/lib/data.js apps/scraper/data/first-seen.json 2>> "$LOG"
+git add -u 2>> "$LOG"   # stage any other tracked mod (weekly FX, future writers) so the rebase never aborts on a dirty tree
 CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
 if [ "$CHANGED" = "0" ]; then
   echo "publish: no data changes — nothing to deploy" >> "$LOG"
