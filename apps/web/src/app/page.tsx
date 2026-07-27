@@ -84,16 +84,56 @@ const LANDING_FAQ = [
 ];
 
 // The canvas starts empty: a prompt, not a pre-loaded graph. The visitor names
-// a role (or taps an example) and the graph draws from there.
-const EMPTY_HTML =
-  '<span class="ge-mark"><svg viewBox="0 0 123.3 100" aria-hidden="true"><use href="#rabbit"/></svg></span>' +
-  '<h3>Map your next move.</h3>' +
-  '<p>Name your current role in the search above. The graph draws every career your skills can already reach — with the salary, the gap, and the odds attached.</p>' +
-  '<div class="ge-eg"><span class="lbl">Or start from</span>' +
-  '<button data-slug="architect" data-title="Architect">Architect</button>' +
-  '<button data-slug="software-engineer" data-title="Software Engineer">Software Engineer</button>' +
-  '<button data-slug="registered-nurse" data-title="Registered Nurse">Registered Nurse</button>' +
-  '<button data-slug="accountant" data-title="Accountant">Accountant</button></div>';
+// a role (or taps an example) and the graph draws from there. The example set
+// rotates each load — a fresh "Or start from" combo, drawn from distinct fields
+// where possible, so the instrument feels alive rather than canned. All are
+// ok-data origins; the graph itself is untouched. Client-side only (the prompt
+// is injected after mount), so there is no hydration concern.
+const DEMO_POOL: { slug: string; title: string; field: string; skills: string }[] = [
+  { slug: 'architect', title: 'Architect', field: 'Architecture', skills: 'Rhino, Revit, AutoCAD…' },
+  { slug: 'software-engineer', title: 'Software Engineer', field: 'Technology', skills: 'Python, React, AWS…' },
+  { slug: 'data-scientist', title: 'Data Scientist', field: 'Technology', skills: 'Python, SQL, machine learning…' },
+  { slug: 'ux-designer', title: 'UX Designer', field: 'Design', skills: 'Figma, prototyping, user research…' },
+  { slug: 'product-manager', title: 'Product Manager', field: 'Business', skills: 'roadmaps, analytics, Agile…' },
+  { slug: 'registered-nurse', title: 'Registered Nurse', field: 'Healthcare', skills: 'patient care, EHR, triage…' },
+  { slug: 'accountant', title: 'Accountant', field: 'Finance', skills: 'Excel, QuickBooks, tax…' },
+  { slug: 'marketing-manager', title: 'Marketing Manager', field: 'Business', skills: 'SEO, content marketing, analytics…' },
+  { slug: 'mechanical-engineer', title: 'Mechanical Engineer', field: 'Engineering', skills: 'SolidWorks, CAD, FEA…' },
+  { slug: 'graphic-designer', title: 'Graphic Designer', field: 'Design', skills: 'Photoshop, Illustrator, branding…' },
+  { slug: 'financial-analyst', title: 'Financial Analyst', field: 'Finance', skills: 'Excel, financial modeling, forecasting…' },
+  { slug: 'project-manager', title: 'Project Manager', field: 'Business', skills: 'Agile, stakeholder management, budgeting…' },
+  { slug: 'data-analyst', title: 'Data Analyst', field: 'Technology', skills: 'SQL, Excel, Tableau…' },
+  { slug: 'civil-engineer', title: 'Civil Engineer', field: 'Engineering', skills: 'AutoCAD, structural analysis, project management…' },
+  { slug: 'teacher', title: 'Teacher', field: 'Education', skills: 'curriculum, classroom management, assessment…' },
+  { slug: 'lawyer', title: 'Lawyer', field: 'Legal', skills: 'contracts, legal research, litigation…' },
+  { slug: 'devops-engineer', title: 'DevOps Engineer', field: 'Technology', skills: 'Docker, Kubernetes, Terraform…' },
+  { slug: 'copywriter', title: 'Copywriter', field: 'Writing', skills: 'copywriting, SEO, content strategy…' },
+  { slug: 'pharmacist', title: 'Pharmacist', field: 'Healthcare', skills: 'clinical, medication, compliance…' },
+  { slug: 'electrician', title: 'Electrician', field: 'Trades', skills: 'electrical systems, blueprint reading, safety…' },
+  { slug: 'product-designer', title: 'Product Designer', field: 'Design', skills: 'Figma, design systems, prototyping…' },
+  { slug: 'sales-representative', title: 'Sales Representative', field: 'Business', skills: 'CRM, negotiation, pipeline…' },
+  { slug: 'ai-engineer', title: 'AI Engineer', field: 'Technology', skills: 'Python, LLMs, PyTorch…' },
+  { slug: 'research-scientist', title: 'Research Scientist', field: 'Science', skills: 'research, statistics, Python…' },
+];
+
+function shuffle<T>(a: T[]): T[] { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+// Pick n demos, preferring distinct fields (so a draw isn't four tech roles),
+// then top up from the remainder if a run of same-field entries falls short.
+function pickDemos(n: number): typeof DEMO_POOL {
+  const shuffled = shuffle([...DEMO_POOL]);
+  const out: typeof DEMO_POOL = []; const fields = new Set<string>();
+  for (const d of shuffled) { if (!fields.has(d.field)) { out.push(d); fields.add(d.field); if (out.length >= n) break; } }
+  for (const d of shuffled) { if (out.length >= n) break; if (!out.includes(d)) out.push(d); }
+  return out;
+}
+function emptyHtml(picks: typeof DEMO_POOL): string {
+  return '<span class="ge-mark"><svg viewBox="0 0 123.3 100" aria-hidden="true"><use href="#rabbit"/></svg></span>' +
+    '<h3>Map your next move.</h3>' +
+    '<p>Name your current role in the search above. The graph draws every career your skills can already reach — with the salary, the gap, and the odds attached.</p>' +
+    '<div class="ge-eg"><span class="lbl">Or start from</span>' +
+    picks.map((p) => `<button data-slug="${p.slug}" data-title="${p.title}">${p.title}</button>`).join('') +
+    '</div>';
+}
 
 function el(tag: string, css: Partial<CSSStyleDeclaration>, html?: string) {
   const e = document.createElement(tag);
@@ -106,6 +146,11 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   const roleInput = document.getElementById('qRole') as HTMLInputElement | null;
   const skillInput = document.getElementById('qSkills') as HTMLInputElement | null;
   if (!roleInput || !skillInput) return;
+
+  // Fresh example combo every load; the first pick also seeds the placeholders.
+  const demos = pickDemos(4);
+  roleInput.placeholder = demos[0].title;
+  skillInput.placeholder = demos[0].skills;
 
   // ---------- hop navigation state (the trail) ----------
   let hops: { slug: string; title: string }[] = [{ slug: 'architect', title: 'Architect' }];
@@ -122,7 +167,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   const proofEl = document.querySelector('.proof');
   proofEl?.classList.add('pre-role');
   const bandEl0 = document.getElementById('bandEl');
-  let emptyEl: HTMLElement | null = el('div', {}, EMPTY_HTML);
+  let emptyEl: HTMLElement | null = el('div', {}, emptyHtml(demos));
   emptyEl.className = 'graph-empty';
   if (bandEl0) { bandEl0.style.position = 'relative'; bandEl0.appendChild(emptyEl); }
   emptyEl.querySelectorAll('button[data-slug]').forEach((b) =>
