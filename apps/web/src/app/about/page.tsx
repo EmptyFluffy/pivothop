@@ -144,9 +144,15 @@ export default function About() {
             '@type': 'AboutPage',
             mainEntity: {
               '@type': 'Person',
-              name: 'Carlos',
+              '@id': 'https://www.pivothop.com/about#person',
+              name: 'Carlos Vinocour',
               jobTitle: 'Architect and founder',
-              worksFor: { '@type': 'Organization', name: 'PivotHop' },
+              description: 'Architect who made the career pivot himself and built PivotHop to measure the moves — the working expertise behind the instrument and its writing.',
+              url: 'https://www.pivothop.com/about',
+              worksFor: { '@type': 'Organization', name: 'PivotHop', url: 'https://www.pivothop.com' },
+              knowsAbout: ['career mobility', 'skills-based hiring', 'labor-market data', 'architecture', 'occupational adjacency'],
+              /* sameAs: add Carlos's LinkedIn / X once provided — the entity link
+                 that connects the author across the web for knowledge graphs. */
             },
           }),
         }}

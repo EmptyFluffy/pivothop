@@ -4,6 +4,18 @@ import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { POSTS, PillarIcons } from '../posts';
 
+// E-E-A-T + freshness signals for answer engines: a named author, per-post
+// publish dates, and a modified date that tracks the nightly data refresh.
+const AUTHOR = { name: 'Carlos Vinocour', url: 'https://www.pivothop.com/about' };
+const DATA_UPDATED = '2026-07-27'; // the corpus date the posts' numbers recompute against
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+function pubISO(date: string): string {
+  const m = /([A-Za-z]+)\s+(\d{4})/.exec(date || '');
+  if (!m) return DATA_UPDATED;
+  const mi = MONTHS.indexOf(m[1].toLowerCase());
+  return mi >= 0 ? `${m[2]}-${String(mi + 1).padStart(2, '0')}-01` : DATA_UPDATED;
+}
+
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
 }
@@ -29,6 +41,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <span className="lbl acc">{post.pillar}</span>
             <span className="lbl bc-dot">·</span>
             <span className="lbl">{post.date}</span>
+            <span className="lbl bc-dot">·</span>
+            <span className="lbl">By Carlos Vinocour</span>
             <span className="lbl bc-dot">·</span>
             <span className="lbl">{post.minutes} min read</span>
           </div>
@@ -57,9 +71,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         '@type': 'Article',
         headline: post.title,
         description: post.dek,
-        datePublished: '2026-07-22',
-        author: { '@type': 'Person', name: 'Carlos', url: 'https://www.pivothop.com/about' },
-        publisher: { '@type': 'Organization', name: 'PivotHop' },
+        datePublished: pubISO(post.date),
+        dateModified: DATA_UPDATED,
+        author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
+        publisher: { '@type': 'Organization', name: 'PivotHop', logo: { '@type': 'ImageObject', url: 'https://www.pivothop.com/icon.svg' } },
         mainEntityOfPage: `https://www.pivothop.com/blog/${slug}`,
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
