@@ -86,7 +86,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
 
         <div className="rt-facts">
           {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
-          <div><span className="v">{j.remote ? 'Yes' : 'On-site'}</span><span className="k">Fully remote</span></div>
+          <div><span className="v">{j.remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
           {date && <div><span className="v" suppressHydrationWarning>{agoLabel(j.posted)}</span><span className="k">Posted · {date}</span></div>}
           <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
         </div>

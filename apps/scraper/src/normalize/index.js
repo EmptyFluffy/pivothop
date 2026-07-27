@@ -4,13 +4,14 @@ import { mapTitle, cleanTitle } from './titles.js';
 import { toAnnualUsd } from './salary.js';
 import { extractSkills, zoneText } from './skills.js';
 import { inferCountry } from './country.js';
+import { fixMojibake } from '../lib/text.js';
 
 // Light company normalization for the dedup key: lowercase, legal suffixes off,
 // non-alphanumerics out. "Aspen Dental Group, LLC" == "aspen dental group".
 function normCompany(name) {
   return String(name ?? '')
     .toLowerCase()
-    .replace(/\b(incorporated|inc|llc|llp|ltd|limited|gmbh|corp|corporation|co|plc|sa|ag|group|holdings)\b\.?/g, ' ')
+    .replace(/\b(incorporated|inc|llc|llp|ltd|limited|gmbh|corp|corporation|co|plc|sa|ag|group|holdings|hire|hiring|hr|recruiting|recruitment|staffing)\b\.?/g, ' ')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
 }
@@ -42,6 +43,7 @@ export async function normalize({ log }) {
   const candidates = [];
 
   for (const r of raw) {
+    r.title = fixMojibake(r.title); r.company = fixMojibake(r.company); r.location = fixMojibake(r.location);
     const mapped = mapTitle(r.title);
     if (!mapped) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);

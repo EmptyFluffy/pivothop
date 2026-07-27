@@ -20,6 +20,26 @@ Writes:
 """
 import json, os, collections, hashlib, html, re
 
+# Mojibake repair (mirror of lib/text.js fixMojibake): UTF-8 bytes decoded as
+# Latin-1 give "EspaÃ±a" for "España". The tell is two adjacent high-Latin-1
+# chars, which real accented text never produces, so clean strings pass through.
+_MOJIBAKE = re.compile('[\u00c2-\u00ef][\u0080-\u00bf]')
+def fix_mojibake(s):
+    if not isinstance(s, str) or not s or not _MOJIBAKE.search(s):
+        return s
+    out = s
+    for _ in range(3):
+        if not _MOJIBAKE.search(out):
+            break
+        try:
+            fixed = out.encode('latin-1').decode('utf-8')
+        except (UnicodeEncodeError, UnicodeDecodeError):
+            break
+        if '�' in fixed or fixed == out:
+            break
+        out = fixed
+    return out
+
 RAW = 'apps/scraper/data/postings_raw.ndjson'
 NORM = 'apps/scraper/data/postings.ndjson'
 OUT = 'apps/web/public/data/jobs'
@@ -257,19 +277,20 @@ for line in open(NORM):
     if not role or not url or url in seen_url:
         continue
     r = raw.get((s, str(d.get('external_id'))), {})
-    company = (r.get('company') or '').strip()
+    company = fix_mojibake((r.get('company') or '')).strip()
     if not company or company.lower() in ('none', 'n/a', 'confidential'):
         continue  # a board card needs a named employer
-    title = (r.get('title') or d.get('title_raw') or '').strip()
+    title = fix_mojibake((r.get('title') or d.get('title_raw') or '')).strip()
     ct = (company.lower(), title.lower())
     if not title or ct in seen_ct:
         continue
     seen_url.add(url); seen_ct.add(ct)
     remote = str(d.get('remote_flag')) == 'True'
     _id = jid(url)
-    desc = clean_desc(r.get('description_text') or '')
+    desc = clean_desc(fix_mojibake(r.get('description_text') or ''))
     fl, lv = derive_flags(title, desc)
-    cty = resolve_country(d.get('country'), r.get('location') or '')
+    loc = fix_mojibake((r.get('location') or '')).strip()
+    cty = resolve_country(d.get('country'), loc)
     # Belt-and-braces salary guard (normalize already sanitizes; this catches
     # regressions): nothing above $900k ships, degenerate mins are dropped.
     smin, smax = num(d.get('salary_usd_min')), num(d.get('salary_usd_max'))
@@ -284,7 +305,7 @@ for line in open(NORM):
         'occ': role,
         'title': title[:120],
         'company': disp_co,
-        'location': (r.get('location') or '').strip()[:60] or ('Remote' if remote else ''),
+        'location': loc[:60] or ('Remote' if remote else ''),
         'remote': remote,
         'smin': smin,
         'smax': smax,
@@ -389,6 +410,15 @@ for role, jobs in kept_byocc.items():
     # the heaviest field) — browse links internally via occ + id.
     all_rows.extend({k: v for k, v in j.items() if k != 'url'} for j in jobs)
 all_rows.sort(key=lambda j: j['posted'] or '', reverse=True)
+
+# Mojibake canary: no displayed field may ship the two-high-byte corruption
+# signature (fix_mojibake runs on every read; this fails loudly on a regression).
+moji = [j for j in all_rows if _MOJIBAKE.search(f"{j['title']} {j['company']} {j['location']}")]
+if moji:
+    for j in moji[:5]:
+        print(f"mojibake canary: {j['company']!r} · {j['location']!r} · {j['title']!r}")
+    raise SystemExit(f'mojibake canary failed: {len(moji)} displayed listings still corrupted')
+
 json.dump(all_rows, open(ALL, 'w'), ensure_ascii=False)
 json.dump(index, open(INDEX, 'w'), ensure_ascii=False)
 size_kb = os.path.getsize(ALL) // 1024

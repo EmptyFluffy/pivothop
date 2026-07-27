@@ -21,8 +21,6 @@ export default function RoutesIndex() {
     (byField.get(f) ?? byField.set(f, []).get(f)!).push(slug);
   }
   const fields = [...byField.entries()].sort((a, b) => b[1].length - a[1].length);
-  const total = routableSlugs().length;
-
   const groups: IxGroup[] = fields.map(([field]) => ({ key: field, label: field, unit: 'routes' }));
   const rows: IxRow[] = fields.flatMap(([field, slugs]) =>
     slugs
@@ -39,6 +37,9 @@ export default function RoutesIndex() {
         hay: `${om.title} ${r!.title}`.toLowerCase(),
       })),
   );
+  // Header total = the actually-rendered/searchable count (a few routable slugs
+  // lack a destRole and drop out of rows), so the dek and the search control agree.
+  const total = rows.length;
 
   return (
     <PageShell>

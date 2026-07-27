@@ -32,6 +32,25 @@ export function parseSalaryString(s) {
   return { min, max, currency: cur ?? 'USD' };
 }
 
+// Mojibake repair: UTF-8 bytes decoded as Latin-1 give "EspaÃ±a" for "España",
+// "MÃ©xico", "Ø§ÙÙ..." for Arabic, "â€™" for a curly quote. The universal tell is
+// two adjacent high-Latin-1 chars (a UTF-8 lead byte + a continuation byte),
+// which real accented text never produces — "São"/"Zürich"/"Núñez" have one
+// accent between ASCII, so they're left untouched. Re-decode up to 3× for
+// double-encoding; bail if a pass yields the replacement char or no change.
+const MOJIBAKE = /[\u00C2-\u00EF][\u0080-\u00BF]/;
+export function fixMojibake(s) {
+  if (typeof s !== 'string' || !s || !MOJIBAKE.test(s)) return s;
+  let out = s;
+  for (let i = 0; i < 3 && MOJIBAKE.test(out); i++) {
+    let fixed;
+    try { fixed = Buffer.from(out, 'latin1').toString('utf8'); } catch { break; }
+    if (fixed.includes('�') || fixed === out) break;
+    out = fixed;
+  }
+  return out;
+}
+
 export function slugify(s) {
   return s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
