@@ -27,6 +27,21 @@
 - **Company logos on every job card** (2026-07-25): retrieved favicon (ATS-slug → domain → Google favicon, globe-filtered) or neutral monogram fallback; `fetch-logos.mjs` grows the library nightly.
 - **Category-page FAQ enrichment** (2026-07-25): every category page carries a data-driven Quick-answers block (live count + freshness, this filter's own posted pay band, a kind-specific question — routes-in for occupations, top fields per country, top roles per field, visa honesty — and the instrument funnel) with FAQPage schema and 2–5 internal links per block into salary/routes/sibling pages.
 
+### AEO / AI-search surface (2026-07-27 — all LIVE)
+- **The Adjacency Index** (`/adjacency-index`): citable stats hub — headline numbers as extractable sentences with proof links, Dataset+Article JSON-LD, live board scale + data-as-of date, "Cite as" line. Footers + sitemap (0.9, daily) + llms.txt.
+- **llms-full.txt**: the full corpus in one fetch (Index numbers, method, 45 strongest routes, 35 comparisons, glossary, all findings). Regenerates each build. NOTE: 404s under local `next start` (hyphenated-route quirk) but serves 200 in prod — don't chase the local 404.
+- **E-E-A-T**: named author on every Article (blog/routes/compare), visible byline, per-post datePublished, dateModified tracking the nightly corpus date, About-page Person entity (@id, knowsAbout).
+- **AI-crawler robots**: explicit allow for GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended, CCBot et al.
+- **TL;DR boxes** ("The short version") on the 5 top data posts — self-contained quotable facts, the block answer engines extract first.
+- **PRIVACY RULE (standing)**: the founder's unique surname must never appear in site content, schema, or bot commit names — author is "Carlos Alvarez" everywhere. Zero-occurrence verified in built output.
+
+### Pending (AEO + misc, needs founder)
+- **[USER] sameAs entity links**: provide safe LinkedIn/X (and Crunchbase) URLs → wire into Organization + Person schema (the last on-page AEO piece).
+- **[USER later] scraper contact email**: swap personal address in source User-Agents for hello@pivothop.com (deferred, not urgent).
+- **[USER] GetOnBoard reply**: on a re-display "yes", add 'getonbrd' to build-jobs OK set → 511 LATAM jobs onto the board (mints the occ×region pages).
+- **Careerjet**: adapter ready (CAREERJET_API_KEY secret), blocked on static-IP allow-list — revisit if/when a VPS exists (pairs with PDF-export render env).
+- **Off-page AEO (the ceiling)**: get the Adjacency Index cited (Reddit/HN/newsletter) + create a Wikidata entity for PivotHop.
+
 ### Content
 - Blog: career-adjacency method post, **recruiter-ghosting post** (~2k words, sourced), **confused-career-pairs post** (launches the compare surface; first use of the Pull/Go editorial furniture), **skills-over-titles thesis post** ('Job titles, deprecated'), **ai-jobs-three-ledgers post** (Altman's verified arc incl. the July 11, 2026 'net job-creating' X post, the Anthropic Economic Index, the Stanford-canaries/Yale displacement record, and our demand ledger), **claude-chats-google post** (the July 25–27, 2026 indexing incident; the robots-block-hides-noindex mechanism; trend-term SEO play). Title discipline: docs/07 'glance test' rule added 2026-07-27; three posts retitled (slugs unchanged). Voice + method in docs/01, docs/07. Job cards + detail pages carry honest relative freshness ('3d ago', repost-proof via the first-seen ledger).
 
