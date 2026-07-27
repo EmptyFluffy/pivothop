@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "npm run build --workspaces --if-present",
-    "scrape": "npm run --workspace apps/scraper cli --"
+    "scrape": "npm run --workspace apps/scraper cli --",
+    "draft": "node apps/scraper/scripts/draft-reply.mjs"
   },
   "devDependencies": {
     "playwright": "^1.61.1"
