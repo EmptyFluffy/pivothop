@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { Job } from './JobCard';
 import { occField, occTitle, jobOccupations } from './jobs-data';
 import { countryName } from './countries';
+import { regionOf, regionInName, regionName, regionSlug, type RegionKey } from './regions';
 
 /* Programmatic category pages — the filter/tag axis of the board (the RemoteOK
    move: every tag, and every sensible tag pair, becomes a preloaded, indexed
@@ -32,7 +33,8 @@ export type CategoryKind =
   | 'remote-field' | 'remote-occ' | 'level-occ' | 'level-field' | 'field-country' // 2-dim combos
   | 'remote-country' | 'remote-field-country' | 'level-field-country' | 'pay-field' // 3-dim long tail
   | 'occ-country' | 'pay-occ' | 'remote-occ-country' | 'level-occ-country'       // occupation-level long tail
-  | 'flag-field' | 'flag-country' | 'pay-country';                               // benefits/pay long tail
+  | 'flag-field' | 'flag-country' | 'pay-country'                                // benefits/pay long tail
+  | 'region' | 'field-region' | 'remote-region' | 'occ-region';                  // macro-region axis (LATAM, Europe…)
 export type Category = {
   slug: string;          // /jobs/<slug>
   kind: CategoryKind;
@@ -132,6 +134,27 @@ function candidates(): Omit<Category, 'count' | 'remoteN'>[] {
       out.push({ slug: `${o}-over-${p}k`, kind: 'pay-occ', title: `${t} jobs paying over $${p}k`, searchTitle: `${t.toLowerCase()} $${p}k+`, noun: `${t.toLowerCase()} roles posting $${p}k or more`, query: `pay=${p}`, showAllBase: `/jobs/${o}`, destOcc: o, match: (j) => j.occ === o && (j.smax ?? j.smin ?? 0) >= p * 1000 });
   }
 
+  // ── macro-region axis (LATAM, Europe, Asia…) — "design jobs in Latin America" ──
+  // The searched cut between a single country and "remote" / global. Region
+  // slugs ("latin-america") never collide with country slugs.
+  const regionKeys = [...new Set(jobs.map((j) => regionOf(j.c)).filter(Boolean))] as RegionKey[];
+  for (const rk of regionKeys) {
+    const disp = regionInName(rk);
+    out.push({ slug: `in-${regionSlug(rk)}`, kind: 'region', title: `Jobs in ${disp}`, searchTitle: regionName(rk), query: `region=${rk}`, match: (j) => regionOf(j.c) === rk });
+  }
+  for (const f of fields) for (const rk of regionKeys) {
+    const disp = regionInName(rk);
+    out.push({ slug: `${slugify(f)}-in-${regionSlug(rk)}`, kind: 'field-region', title: `${f} jobs in ${disp}`, searchTitle: `${f.toLowerCase()} in ${disp}`, noun: `${f.toLowerCase()} roles in ${disp}`, query: `f=${encodeURIComponent(f)}&region=${rk}`, match: (j) => occField(j.occ) === f && regionOf(j.c) === rk });
+  }
+  for (const rk of regionKeys) {
+    const disp = regionInName(rk);
+    out.push({ slug: `remote-in-${regionSlug(rk)}`, kind: 'remote-region', title: `Remote jobs in ${disp}`, searchTitle: `remote in ${disp}`, noun: `fully-remote roles hiring in ${disp}`, query: `r=1&region=${rk}`, match: (j) => !!j.remote && regionOf(j.c) === rk });
+  }
+  for (const o of occs) for (const rk of regionKeys) {
+    const t = occTitle(o); const disp = regionInName(rk);
+    out.push({ slug: `${o}-in-${regionSlug(rk)}`, kind: 'occ-region', title: `${t} jobs in ${disp}`, searchTitle: `${t.toLowerCase()} in ${disp}`, noun: `${t.toLowerCase()} roles in ${disp}`, query: `region=${rk}`, showAllBase: `/jobs/${o}`, destOcc: o, match: (j) => j.occ === o && regionOf(j.c) === rk });
+  }
+
   // ── benefits and pay long tail ──
   for (const f of fields) {
     out.push({ slug: `${slugify(f)}-with-equity`, kind: 'flag-field', title: `${f} jobs with equity`, searchTitle: `${f.toLowerCase()} with equity`, noun: `${f.toLowerCase()} roles that include equity`, query: `f=${encodeURIComponent(f)}&t=eq`, match: (j) => occField(j.occ) === f && !!j.fl?.includes('eq') });
@@ -220,6 +243,8 @@ export function categoryBlurb(c: Category): string {
       return `${n} live ${c.searchTitle} openings from company career pages and public boards, freshest first${rem}. The roles a ${c.searchTitle} background reaches — each links out to apply at the origin.`;
     case 'country':
       return `${n} live openings in ${c.searchTitle}, from company career pages and public-sector boards, freshest first${rem}. Apply at the original posting.`;
+    case 'region':
+      return `${n} live openings across ${c.searchTitle}, aggregated from company career pages, remote-first boards and public-sector feeds, freshest first${rem}. One region, every country we track in it — apply at the source.`;
     case 'level':
       return c.slug === 'senior'
         ? `${n} live senior and lead roles, freshest first${rem}. Openings that ask for depth, each tagged to the skills that reach it.`

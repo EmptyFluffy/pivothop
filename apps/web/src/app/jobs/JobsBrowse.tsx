@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
 import { countryName } from './countries';
+import { regionOf, REGION_META, type RegionKey } from './regions';
 
 /* The global board: one search over every listing. Patterns from the boards
    that work (top filter bar, instant counts, shareable URL state) plus the
@@ -38,6 +39,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [needle, setNeedle] = useState('');
   const [field, setField] = useState('');
   const [cty, setCty] = useState('');
+  const [region, setRegion] = useState('');
   const [remoteOnly, setRemoteOnly] = useState(false);
   const [minPay, setMinPay] = useState(0);
   const [tags, setTags] = useState<Set<string>>(new Set());
@@ -54,6 +56,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     setQ(p.get('q') ?? ''); setNeedle((p.get('q') ?? '').toLowerCase());
     setField(p.get('f') ?? '');
     setCty(p.get('c') ?? '');
+    setRegion(p.get('region') ?? '');
     setRemoteOnly(p.get('r') === '1');
     setMinPay(Number(p.get('pay')) || 0);
     setTags(new Set((p.get('t') ?? '').split(',').filter(Boolean)));
@@ -100,6 +103,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (needle) p.set('q', needle);
     if (field) p.set('f', field);
     if (cty) p.set('c', cty);
+    if (region) p.set('region', region);
     if (remoteOnly) p.set('r', '1');
     if (minPay) p.set('pay', String(minPay));
     if (tags.size) p.set('t', [...tags].join(','));
@@ -107,7 +111,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     const qs = p.toString();
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     setShown(PAGE);
-  }, [needle, field, cty, remoteOnly, minPay, tags, sort, all]);
+  }, [needle, field, cty, region, remoteOnly, minPay, tags, sort, all]);
 
   const fieldNames = useMemo(() => [...new Set(Object.values(fields))].sort(), [fields]);
   const countries = useMemo(() => {
@@ -115,6 +119,12 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     const m = new Map<string, number>();
     for (const j of all) if (j.c) m.set(j.c, (m.get(j.c) ?? 0) + 1);
     return [...m.entries()].map(([code, n]) => ({ code, n })).sort((a, b) => b.n - a.n);
+  }, [all]);
+  const regionsList = useMemo(() => {
+    if (!all) return [] as { key: RegionKey; n: number }[];
+    const m = new Map<RegionKey, number>();
+    for (const j of all) { const rk = regionOf(j.c); if (rk) m.set(rk, (m.get(rk) ?? 0) + 1); }
+    return [...m.entries()].map(([key, n]) => ({ key, n })).sort((a, b) => b.n - a.n);
   }, [all]);
 
   // Precompute each job's haystack once: its own text plus the occupation's
@@ -143,6 +153,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     let r = all;
     if (field) r = r.filter((j) => fields[j.occ] === field);
     if (cty) r = r.filter((j) => j.c === cty);
+    if (region) r = r.filter((j) => regionOf(j.c) === region);
     if (remoteOnly) r = r.filter((j) => j.remote);
     if (minPay) r = r.filter((j) => (j.smax ?? j.smin ?? 0) >= minPay * 1000);
     if (needle) {
@@ -153,7 +164,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       });
     }
     return r;
-  }, [all, needle, field, cty, remoteOnly, minPay, fields, hays]);
+  }, [all, needle, field, cty, region, remoteOnly, minPay, fields, hays]);
 
   const tagCount = useMemo(() => {
     const m: Record<string, number> = {};
@@ -168,14 +179,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return r;
   }, [preTag, tags, sort, now]);
 
-  const pristine = !needle && !field && !cty && !remoteOnly && !minPay && tags.size === 0 && sort === 'new';
+  const pristine = !needle && !field && !cty && !region && !remoteOnly && !minPay && tags.size === 0 && sort === 'new';
   const toggleTag = (code: string) => setTags((prev) => {
     const next = new Set(prev);
     if (next.has(code)) next.delete(code); else next.add(code);
     return next;
   });
 
-  const activeCount = (field ? 1 : 0) + (cty ? 1 : 0) + (minPay ? 1 : 0) + (remoteOnly ? 1 : 0) + tags.size + (sort === 'pay' ? 1 : 0);
+  const activeCount = (field ? 1 : 0) + (cty ? 1 : 0) + (region ? 1 : 0) + (minPay ? 1 : 0) + (remoteOnly ? 1 : 0) + tags.size + (sort === 'pay' ? 1 : 0);
   return (
     <div className={`jb${filtersOpen ? ' filters-open' : ''}${scope ? ' jb-scoped' : ''}`}>
       <div className="jb-stick">
@@ -197,6 +208,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         <div className="jb-active" aria-label="Active filters">
           {needle && <button type="button" className="jb-pill" onClick={() => { setQ(''); setNeedle(''); }}>&ldquo;{needle}&rdquo;<span className="jb-x">&times;</span></button>}
           {field && <button type="button" className="jb-pill" onClick={() => setField('')}>{field}<span className="jb-x">&times;</span></button>}
+          {region && <button type="button" className="jb-pill" onClick={() => setRegion('')}>{REGION_META[region as RegionKey]?.name.replace(/^the /, '')}<span className="jb-x">&times;</span></button>}
           {cty && <button type="button" className="jb-pill" onClick={() => setCty('')}>{countryName(cty)}<span className="jb-x">&times;</span></button>}
           {minPay > 0 && <button type="button" className="jb-pill" onClick={() => setMinPay(0)}>${minPay}k and up<span className="jb-x">&times;</span></button>}
           {remoteOnly && <button type="button" className="jb-pill" onClick={() => setRemoteOnly(false)}>Remote<span className="jb-x">&times;</span></button>}
@@ -204,7 +216,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             <button key={t.code} type="button" className="jb-pill" onClick={() => toggleTag(t.code)}>{t.label}<span className="jb-x">&times;</span></button>
           ))}
           {sort === 'pay' && <button type="button" className="jb-pill" onClick={() => setSort('new')}>Highest pay<span className="jb-x">&times;</span></button>}
-          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setField(''); setCty(''); setMinPay(0); setRemoteOnly(false); setTags(new Set()); setSort('new'); }}>Clear all</button>
+          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setField(''); setCty(''); setRegion(''); setMinPay(0); setRemoteOnly(false); setTags(new Set()); setSort('new'); }}>Clear all</button>
         </div>
       )}
       <button type="button" className="jb-mtoggle" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((v) => !v)}>
@@ -220,7 +232,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             {fieldNames.map((f) => <option key={f} value={f}>{f}</option>)}
           </select>
         )}
-        <select aria-label="Country" value={cty} onChange={(e) => setCty(e.target.value)}>
+        <select aria-label="Region" value={region} onChange={(e) => { const v = e.target.value; setRegion(v); if (v) setCty(''); }}>
+          <option value="">All regions</option>
+          {regionsList.map((x) => <option key={x.key} value={x.key}>{REGION_META[x.key].name.replace(/^the /, '')} ({x.n})</option>)}
+        </select>
+        <select aria-label="Country" value={cty} onChange={(e) => { const v = e.target.value; setCty(v); if (v) setRegion(''); }}>
           <option value="">All countries</option>
           {countries.map((x) => <option key={x.code} value={x.code}>{countryName(x.code)} ({x.n})</option>)}
         </select>

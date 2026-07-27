@@ -8,6 +8,7 @@ import { coverableSlugs } from '../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, routeOrigins } from '../../routes/routes-data';
 import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShowAll, categoryStats, slugifyName, allCategories, type Category } from '../categories-data';
 import { countryName } from '../countries';
+import { REGION_META, type RegionKey } from '../regions';
 import { postedLabel } from '../JobCard';
 
 /* One slug space, two kinds of page:
@@ -209,6 +210,15 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
       q: `Which fields hire the most in ${name}?`,
       text: `In this set: ${s.topFields.map(([f, n]) => `${f} (${n})`).join(', ')}.`,
       jsx: <>In this set: {s.topFields.map(([f, n], i) => { const h = link(f); return (<span key={f}>{i > 0 ? ', ' : ''}{h ? <Link className="gl" href={h}>{f}</Link> : f} ({n})</span>); })}.</>,
+    });
+  } else if (qs.get('region') && s.topCountries.length > 1) {
+    const rk = qs.get('region') as RegionKey;
+    const rname = REGION_META[rk]?.name ?? 'this region';
+    const clink = (cc: string) => { const slug = `in-${slugifyName(countryName(cc))}`; return catSet.has(slug) ? `/jobs/${slug}` : null; };
+    out.push({
+      q: `Which countries in ${rname} have the most openings?`,
+      text: `In this set: ${s.topCountries.map(([cc, n]) => `${countryName(cc)} (${n})`).join(', ')}. Each country has its own board.`,
+      jsx: <>In this set: {s.topCountries.map(([cc, n], i) => { const h = clink(cc); return (<span key={cc}>{i > 0 ? ', ' : ''}{h ? <Link className="gl" href={h}>{countryName(cc)}</Link> : countryName(cc)} ({n})</span>); })}.</>,
     });
   } else if (s.topOccs.length > 1) {
     out.push({
