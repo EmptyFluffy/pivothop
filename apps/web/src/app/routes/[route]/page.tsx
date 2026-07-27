@@ -174,7 +174,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
         headline: `${om.title} to ${r.title}: the measured route`,
         description: `Skill readiness ${r.match}%, posted band ${r.salary}, transition estimate ${r.time}.`,
         datePublished: '2026-07-22',
-        author: { '@type': 'Person', name: 'Carlos', url: 'https://www.pivothop.com/about' },
+        author: { '@type': 'Person', name: 'Carlos Alvarez', url: 'https://www.pivothop.com/about' },
         publisher: { '@type': 'Organization', name: 'PivotHop' },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -279,7 +279,7 @@ function OriginPage({ origin }: { origin: string }) {
         headline: `Alternative careers for ${ol}s: ${rows.length} measured routes`,
         description: `Career changes from ${ol}, ranked by skill readiness from ${om.postings.toLocaleString()} live postings.`,
         datePublished: '2026-07-25',
-        author: { '@type': 'Person', name: 'Carlos', url: 'https://www.pivothop.com/about' },
+        author: { '@type': 'Person', name: 'Carlos Alvarez', url: 'https://www.pivothop.com/about' },
         publisher: { '@type': 'Organization', name: 'PivotHop' },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

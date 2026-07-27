@@ -27,6 +27,7 @@ export type Post = {
   minutes: number;
   body: ReactNode;
   faq?: { q: string; a: string }[];
+  takeaways?: string[];   // the short version — scannable, each a self-contained quotable fact (LLM extraction + reader)
 };
 
 const Sources = ({ children }: { children: ReactNode }) => (
@@ -62,6 +63,11 @@ export const POSTS: Post[] = [
     date: 'July 2026',
     dek: 'Palantir’s CEO says two groups have a future as AI accelerates: people with vocational training, and the neurodivergent. One of those claims we can check against 100,000 job postings, and it holds hard — every hands-on field shows zero demand for AI skills, while technology shows the most. The other is a thesis with a fellowship attached. Both land on the same two things a machine still can’t do.',
     minutes: 9,
+    takeaways: [
+      "Palantir CEO Alex Karp says two kinds of worker have a future as AI accelerates: those with vocational training, and the neurodivergent.",
+      "Every hands-on field in our corpus — Trades, Healthcare, Construction, Transport — shows zero AI-skill demand; in Technology, only 37% do.",
+      "The AI data-center build-out is projected to need 300,000+ new electricians this decade — the machine rewriting knowledge work can’t wire its own buildings.",
+    ],
     faq: [
       { q: 'What did Alex Karp say about AI-proof jobs?', a: 'On the tech show TBPN (March 2026), Palantir CEO Alex Karp said: "There are basically two ways to know you have a future. One, you have some vocational training, or two, you\'re neurodivergent. And when I say neurodivergent, I mean broadly defined." Karp, who is dyslexic, means people with hands-on trade skills and people who think differently. "Non-linear thinkers" and "ADHD" are how commentators paraphrased the second group; his own word was neurodivergent.' },
       { q: 'Which jobs are safest from AI automation?', a: 'By what postings actually demand: hands-on work. In the PivotHop corpus, every occupation in Trades, Healthcare, Construction, Hospitality, and Transport shows zero demand for AI skills in its top-20 — 100% "AI-free" — while only 37% of Technology occupations are. The safest are the ones that combine manual work with a license: electrician, plumber, HVAC technician, registered nurse, physical therapist, paramedic all pair no AI-skill demand with a required credential — two moats, not one.' },
@@ -155,6 +161,11 @@ export const POSTS: Post[] = [
     date: 'July 2026',
     dek: 'Over the last weekend of July, a site: search surfaced strangers’ shared Claude conversations in Google, resumes and API keys included. It was purged within about 48 hours, and the mechanism is the interesting part: the pages were blocked from crawling, which is precisely why they could be indexed. The fourth AI product this happens to, the career stakes, and how to check yours.',
     minutes: 8,
+    takeaways: [
+      "Shared Claude conversations surfaced in Google search over the July 25–27, 2026 weekend and were purged within about 48 hours.",
+      "The cause is counterintuitive: the pages were blocked from crawling, so Google never saw their noindex and indexed the links anyway.",
+      "It is the fourth AI product this has happened to, after Google Bard (2023), ChatGPT, and Grok (2025).",
+    ],
     faq: [
       { q: 'Are Claude conversations public?', a: 'Not unless you share them. A Claude chat becomes a public web page only when you press Share, which mints a claude.ai/share link; anyone holding that link can read the snapshot. The July 2026 incident involved those deliberately shared links surfacing in Google results, where strangers could find them without being handed the link. Regular, unshared chats were never involved.' },
       { q: 'How do I check whether my AI chats are in Google?', a: 'Search site:claude.ai/share, site:chatgpt.com/share, or site:grok.com/share together with your name or a distinctive phrase from the conversation, and repeat on Bing and Brave, which cleared more slowly than Google in the Claude case. If a link of yours appears: unshare at the source first, then use Google’s Refresh Outdated Content tool to clear the result.' },
@@ -233,6 +244,11 @@ export const POSTS: Post[] = [
     date: 'July 2026',
     dek: 'Sam Altman now says he was wrong about AI eliminating entry-level jobs. His neighbor at Anthropic predicted half of them would go. Anthropic’s own index charts where AI is actually used; payroll studies measure who is actually hurting. We keep a fourth ledger — live posting demand — and it says the reallocation is already visible: 4.9 percent of postings now demand AI-agent skills, across 43 occupations including lawyers and recruiters.',
     minutes: 7,
+    takeaways: [
+      "Sam Altman posted in July 2026 that he is “pretty sure AI has been net job-creating” — a reversal from his 2025 warnings.",
+      "4.9% of all job postings now demand LLM or agent skills, across 43 of 177 occupations including lawyer, recruiter, and motion designer.",
+      "Stanford found a 16% relative employment drop for workers aged 22–25 in the most AI-exposed jobs, while Yale finds no economy-wide disruption yet.",
+    ],
     faq: [
       { q: 'Did Sam Altman say AI created more jobs than it destroyed?', a: 'Very nearly, and in his own words. On July 11, 2026 he posted on X: "so far at least, i\'m pretty sure AI has been net job-creating. this was not what i expected." Six weeks earlier, at a Commonwealth Bank event in Sydney (May 26, 2026), he said: "I\'m delighted to be wrong about this. I thought there would have been more impact on entry-level white-collar jobs being eliminated by now than has actually happened." Note the hedges doing real work: "so far at least," "pretty sure." He cited no dataset either time.' },
       { q: 'What does the Anthropic Economic Index actually show?', a: 'Where one AI assistant gets used, mapped to occupational tasks. In its first report (February 2025): 37.2 percent of Claude conversations mapped to computer and mathematical work, about 36 percent of jobs showed AI use on at least a quarter of their tasks, only about 4 percent on three-quarters or more, and the split ran 57 percent augmentation to 43 percent automation, with usage peaking in mid-to-high-wage technical work. Later editions report the mix tilting toward automation. It measures usage — which is not the same thing as job loss.' },
@@ -311,6 +327,11 @@ export const POSTS: Post[] = [
     date: 'July 2026',
     dek: 'The labor market is quietly switching units, from job titles to skill sets. Our corpus shows the seams: 42,254 title strings that map to nothing, a handful of skills that appear in a third of all occupations, and a measurable split between careers whose skills travel and careers that lock you in. Here is the thesis, with the rankings.',
     minutes: 7,
+    takeaways: [
+      "In one month, 42,254 distinct job-title strings mapped to no standard occupation, while 100,000+ postings collapsed onto just 177.",
+      "55% of the 3,521 scored career pairs share under 20% of a skill set — skills are specific, not a universal solvent.",
+      "The most skill-open careers are the AI-era titles; the widest exits are sales engineer and operations manager, each reaching 13 destinations.",
+    ],
     faq: [
       { q: 'What is skills-based hiring?', a: 'Hiring that screens for the specific skills a role demands instead of proxy credentials like titles or degrees. In posting text it shows up as skill lists getting longer and more specific while titles fragment: our July 2026 corpus holds 119,356 postings that map cleanly onto 177 occupations, alongside 42,254 distinct title strings that map to nothing at all. Employers increasingly describe the work; the title is decoration.' },
       { q: 'Which careers have the most transferable skills?', a: 'Measured by routes out at 45 percent readiness or better: sales engineer and operations manager (13 routes each), data scientist (12), account executive and business analyst (9 each), psychologist (7), then data analyst and medical assistant (6 each). The pattern: careers built on a data core or on cross-functional coordination travel; careers built on one craft vocabulary or one credential do not.' },
@@ -421,6 +442,11 @@ export const POSTS: Post[] = [
     date: 'July 2026',
     dek: 'Product manager and project manager share 24 percent of a skill set. Graphic designers and UX designers share 13 percent and a doubled salary band. We measured the eight most-confused title pairs from each occupation’s own live postings: the overlap, the pay gap, and which direction the switch actually runs.',
     minutes: 6,
+    takeaways: [
+      "A typical project manager’s skills cover only 24% of what product-manager postings demand — and the reverse shares too few skills to score.",
+      "Graphic and UX designers share 13% and 12% of a skill set, against posted bands of $42k–$73k versus $74k–$151k.",
+      "Product designer to UX reads 91% ready; the reverse only 40% — one title contains the other.",
+    ],
     faq: [
       { q: 'Is a product manager the same as a project manager?', a: 'No, and the data is blunt about it: a typical project manager’s skills cover only 24 percent of what product-manager postings demand, and the reverse direction shares too few skills to score at all. The pay reflects it: posted mid-bands run $86k–$170k for product managers against $75k–$130k for project managers. Same first word, different jobs.' },
       { q: 'Is UX design the same as graphic design?', a: 'They are the most expensively confused pair we measure. Graphic-designer skills cover 13 percent of UX-designer posting demand, and the reverse is 12 percent — near-strangers professionally — while the posted bands run $42k–$73k for graphic design against $74k–$151k for UX. The shared core is essentially Figma and motion design; the actual work diverges from there.' },

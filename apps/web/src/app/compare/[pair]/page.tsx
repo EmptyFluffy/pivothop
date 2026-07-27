@@ -180,7 +180,7 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
         headline: `${tA} vs ${tB}: the measured comparison`,
         description: pairVerdict(p),
         datePublished: '2026-07-26',
-        author: { '@type': 'Person', name: 'Carlos', url: 'https://www.pivothop.com/about' },
+        author: { '@type': 'Person', name: 'Carlos Alvarez', url: 'https://www.pivothop.com/about' },
         publisher: { '@type': 'Organization', name: 'PivotHop' },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

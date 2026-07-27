@@ -48,6 +48,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
           <h1 className="post-h1">{post.title}</h1>
           <p className="post-dek">{post.dek}</p>
+          {post.takeaways && post.takeaways.length > 0 && (
+            <aside className="post-tldr" aria-label="The short version">
+              <div className="lbl">The short version</div>
+              <ul>{post.takeaways.map((t, i) => <li key={i}>{t}</li>)}</ul>
+            </aside>
+          )}
           <article className="post-body">{post.body}</article>
           {post.faq && (
             <div className="post-faq">
