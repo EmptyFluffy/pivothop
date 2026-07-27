@@ -1,8 +1,9 @@
 -- Route-report requests from the graph export (the "Send my report" flow).
 -- One row per PDF request: who, which route, whether they opted into board
--- alerts, and whether the email actually went out. Service-key only (no RLS
--- policies -> no anonymous read/write); the /api/roadmap route inserts with the
--- service key, nothing client-side touches it.
+-- alerts, and whether the email actually went out. Server-only: RLS is enabled
+-- with no policies, so the anon/authenticated roles are denied all access, while
+-- the /api/roadmap route (service_role key) bypasses RLS. Same convention as
+-- job_submissions (0002).
 
 create table if not exists roadmap_leads (
   id            bigint generated always as identity primary key,
@@ -24,3 +25,6 @@ create table if not exists roadmap_leads (
 
 create index if not exists roadmap_leads_created_idx on roadmap_leads (created_at desc);
 create index if not exists roadmap_leads_notify_idx  on roadmap_leads (dest_slug) where notify = true;
+
+alter table roadmap_leads enable row level security;
+-- no policies on purpose: only the service key (server-side) may read or write.
