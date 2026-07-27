@@ -21,6 +21,7 @@ export async function fetchRaw({ log }) {
         external_id: String(j.guid ?? j.applicationLink),
         title: j.title ?? '',
         company: j.companyName ?? null,
+        company_logo_url: j.companyLogo ?? null,
         location: (j.locationRestrictions ?? []).join('; ') || 'Remote',
         remote_flag: true,
         salary_min: j.minSalary || null,

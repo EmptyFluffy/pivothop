@@ -13,6 +13,7 @@ export async function fetchRaw({ log }) {
     external_id: String(j.id),
     title: j.jobTitle ?? '',
     company: j.companyName ?? null,
+    company_logo_url: j.companyLogo ?? null,
     location: j.jobGeo || 'Remote',
     remote_flag: true,
     salary_min: j.annualSalaryMin || null,
