@@ -8,6 +8,7 @@ import { adjacency } from './score/adjacency.js';
 import { emit } from './score/emit.js';
 import { preview } from './preview.js';
 import { fetchOnetRelated } from './taxonomy/onet.js';
+import { fetchEscoSkills } from './taxonomy/esco-skills.js';
 import { verify } from './score/verify.js';
 import { salaryBands } from './analyze/salary-bands.js';
 import { bridgeSkills } from './analyze/bridge-skills.js';
@@ -130,6 +131,7 @@ switch (cmd) {
   case 'preview': preview({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'fx:update': await fxUpdate(); break;
   case 'taxonomy:onet': await fetchOnetRelated({ log }); break;
+  case 'taxonomy:esco-skills': await fetchEscoSkills({ log, terms: process.argv.find((a) => a.startsWith('--terms='))?.split('=')[1]?.split(',') }); break;
   case 'taxonomy:capabilities': await fetchCapabilities({ log }); break;
   case 'analyze:capability': analyzeCapability({ log, origin: originFlag ?? arg ?? 'architect' }); break;
   case 'analyze:fit': analyzeFit({ log, origin: originFlag ?? arg ?? 'architect' }); break;
