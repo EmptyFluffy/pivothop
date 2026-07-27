@@ -35,8 +35,21 @@ export function companyLogo(company: string): string | null {
   return slug && _logoSet.has(slug) ? `/data/logos/${slug}.png` : null;
 }
 export type JobSection = { h: string | null; t: string };
+// Detail rows are {s: sections, k: skill ids}; the bare-array form is the
+// pre-skills shape, still readable so a half-regenerated dataset never breaks.
+type DetailRow = JobSection[] | { s: JobSection[]; k?: string[] };
 export function getJobSections(occ: string, id: string): JobSection[] {
-  return read<Record<string, JobSection[]>>(`jobs-detail/${occ}.json`)?.[id] ?? [];
+  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+  return Array.isArray(v) ? v : v?.s ?? [];
+}
+export function getJobSkills(occ: string, id: string): string[] {
+  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+  return Array.isArray(v) ? [] : v?.k ?? [];
+}
+let _skillNames: Record<string, string> | null = null;
+export function skillDisplayName(id: string): string {
+  if (!_skillNames) _skillNames = read<{ names: Record<string, string> }>('skills-meta.json')?.names ?? {};
+  return _skillNames![id] ?? id;
 }
 export function featuredJobs(): Job[] {
   return read<Job[]>('featured-jobs.json') ?? [];

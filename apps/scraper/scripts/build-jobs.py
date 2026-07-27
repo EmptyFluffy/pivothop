@@ -318,7 +318,7 @@ for line in open(NORM):
         **({'c': cty} if cty else {}),
     })
     if desc:
-        desc_byocc[role][_id] = to_sections(desc, DESC_CAP)
+        desc_byocc[role][_id] = {'s': to_sections(desc, DESC_CAP), 'k': list(d.get('skills') or [])}
 
 # 3. Freshest-first, capped, floored.
 for d in (OUT, DETAIL):
@@ -403,7 +403,7 @@ index, all_rows = {}, []
 for role, jobs in kept_byocc.items():
     json.dump(jobs, open(f'{OUT}/{role}.json', 'w'), ensure_ascii=False)
     kept = {j['id'] for j in jobs}
-    details = {i: secs for i, secs in desc_byocc[role].items() if i in kept}
+    details = {i: v for i, v in desc_byocc[role].items() if i in kept}
     json.dump(details, open(f'{DETAIL}/{role}.json', 'w'), ensure_ascii=False)
     index[role] = len(jobs)
     # global search rows: drop the outbound URL (only detail pages need it; it is

@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
-import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection } from '../../jobs-data';
+import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, skillDisplayName } from '../../jobs-data';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
+import { SKILL_ICON_PATHS } from '../../skill-icons';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
 import { SITE_EMAIL } from '../../../../lib/site';
@@ -55,6 +56,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const title = occTitle(occ);
   const tl = title.toLowerCase();
   const sections: JobSection[] = getJobSections(occ, id);
+  const skills = getJobSkills(occ, id);
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   const hasSalary = coverableSlugs().includes(occ);
@@ -95,6 +97,23 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply at {j.company} <Arrow45 size={24} /></a>
           <span className="lbl">Opens the original posting. PivotHop does not host applications.</span>
         </div>
+
+        {skills.length > 0 && (
+          <section className="rt-sec jd-skills">
+            <h2>Skills in this posting</h2>
+            <p className="lbl jd-skills-cap">Extracted from the posting text by the instrument &mdash; the demand side, read literally.</p>
+            <div className="jd-skillgrid">
+              {skills.map((s) => (
+                <span key={s} className="jd-skill">
+                  {SKILL_ICON_PATHS[s] && (
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d={SKILL_ICON_PATHS[s]} fill="currentColor" /></svg>
+                  )}
+                  {skillDisplayName(s)}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
 
         {sections.length > 0 && (
           <section className="rt-sec jd-desc">

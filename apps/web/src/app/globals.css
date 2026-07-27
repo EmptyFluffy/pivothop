@@ -1167,3 +1167,9 @@ input:focus-visible{outline:none}
 .post-tldr ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
 .post-tldr li{font-size:16px;line-height:1.5;color:var(--ink);padding-left:18px;position:relative;max-width:66ch}
 .post-tldr li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--accent)}
+
+/* job-detail skills strip: extracted skills as chips, single-color marks in ink */
+.jd-skills-cap{margin:-6px 0 16px;color:var(--ink-3)}
+.jd-skillgrid{display:flex;flex-wrap:wrap;gap:10px}
+.jd-skill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);background:var(--card);padding:8px 14px;font-family:var(--mono);font-size:13px;color:var(--ink);line-height:1}
+.jd-skill svg{width:16px;height:16px;flex:none;color:var(--ink-2)}
