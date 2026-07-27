@@ -56,6 +56,99 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'karp-two-safe-workers',
+    title: 'Alex Karp says two workers are AI-proof: the trades and the neurodivergent',
+    pillar: 'Shape of Work',
+    date: 'July 2026',
+    dek: 'Palantir’s CEO says two groups have a future as AI accelerates: people with vocational training, and the neurodivergent. One of those claims we can check against 100,000 job postings, and it holds hard — every hands-on field shows zero demand for AI skills, while technology shows the most. The other is a thesis with a fellowship attached. Both land on the same two things a machine still can’t do.',
+    minutes: 9,
+    faq: [
+      { q: 'What did Alex Karp say about AI-proof jobs?', a: 'On the tech show TBPN (March 2026), Palantir CEO Alex Karp said: "There are basically two ways to know you have a future. One, you have some vocational training, or two, you\'re neurodivergent. And when I say neurodivergent, I mean broadly defined." Karp, who is dyslexic, means people with hands-on trade skills and people who think differently. "Non-linear thinkers" and "ADHD" are how commentators paraphrased the second group; his own word was neurodivergent.' },
+      { q: 'Which jobs are safest from AI automation?', a: 'By what postings actually demand: hands-on work. In the PivotHop corpus, every occupation in Trades, Healthcare, Construction, Hospitality, and Transport shows zero demand for AI skills in its top-20 — 100% "AI-free" — while only 37% of Technology occupations are. The safest are the ones that combine manual work with a license: electrician, plumber, HVAC technician, registered nurse, physical therapist, paramedic all pair no AI-skill demand with a required credential — two moats, not one.' },
+      { q: 'Are the skilled trades a good career in the AI era?', a: 'The demand data is blunt. The US Bureau of Labor Statistics projects roughly 80,000 new electrician openings a year, and electrician employment is set to grow 9% (about 820,000 to 896,000 by 2034) against 3% for all jobs. The driver is the AI build-out itself: data-center construction, where electrical work is 45–70% of the cost, needs an estimated 300,000+ new electricians this decade. The machine rewriting knowledge work cannot wire its own buildings.' },
+      { q: 'Is ADHD or neurodivergence actually an advantage at work?', a: 'The honest answer is "for some things, and it is double-edged." Peer-reviewed work (Wiklund and colleagues, Journal of Business Venturing, 2016–2017) finds ADHD traits — impulsivity, hyperfocus, action-over-planning, risk tolerance — align with entrepreneurship, and adults with ADHD are over-represented in self-employment. That is a real fit for specific roles, not a blanket superpower; ADHD is a recognized disability with real costs. Karp’s claim that the neurodivergent "will disproportionately shape America’s future" is a thesis he is betting on, not an established fact.' },
+      { q: 'Why can’t AI do skilled trades?', a: 'The 2013 Frey-Osborne study named three barriers to automation: perception and manipulation (physical dexterity), creativity, and social intelligence. Skilled trades sit on the first — non-routine physical work in unpredictable spaces (Moravec’s paradox: the things easiest for humans are hardest for machines). Notably, Karp’s two groups map onto two of those three barriers: vocational training is the dexterity moat, neurodivergence the creativity one.' },
+    ],
+    body: (
+      <>
+        <p>
+          On the tech show TBPN this spring, Palantir CEO Alex Karp gave the bluntest piece of career advice a billionaire has offered the AI generation: &ldquo;Everybody&rsquo;s worried about their future, but there are basically two ways to know you have a future. One, you have some vocational training. Or two, you&rsquo;re neurodivergent. And when I say neurodivergent, I mean broadly defined.&rdquo; It went viral as a claim about &ldquo;non-linear thinkers&rdquo; and ADHD, but that is the paraphrase. Karp&rsquo;s own word was <em>neurodivergent</em>, and he was talking partly about himself: he is dyslexic, and in December his company launched a <strong>Neurodivergent Fellowship</strong> paying $110,000 to $200,000, after a clip of him unable to sit still through a New York Times interview went viral.
+        </p>
+        <p>
+          Two groups, then: people who work with their hands, and people who think differently. One of those claims is measurable, so we measured it.
+        </p>
+        <Go links={[
+          { href: '/blog/ai-jobs-three-ledgers', label: 'Altman’s jobs claim, checked' },
+          { href: '/blog/skills-over-titles', label: 'The skills-over-titles thesis' },
+          { href: '/', label: 'Measure your own reach' },
+        ]} />
+
+        <h2>Group one holds: the hands-on fields show zero AI demand</h2>
+        <p>
+          Our data can&rsquo;t tell you whether a robot will ever swing a hammer. But it can tell you something adjacent and concrete: whether employers are rewriting a job <em>around</em> AI, by whether their postings now ask for AI skills. Across 100,000-plus live postings, we tagged which occupations name LLM or agent tooling in their top-20 skill demand. The split is stark.
+        </p>
+        <div className="post-callout"><b>100% vs 37%</b><span>Every occupation we track in <strong>Trades, Healthcare, Construction, Hospitality, and Transport</strong> shows zero AI-skill demand. In <strong>Technology</strong>, only 37% are AI-free. The hands-on economy isn&rsquo;t being rewritten around AI; the knowledge economy is.</span></div>
+        <table className="post-table">
+          <caption>Share of a field&rsquo;s occupations with no AI-skill demand in their top-20 &middot; July 2026</caption>
+          <thead><tr><th>Field</th><th>AI-free</th></tr></thead>
+          <tbody>
+            <tr><td>Trades, Healthcare, Construction, Transport, Engineering, Finance</td><td>100%</td></tr>
+            <tr><td>Writing</td><td>86%</td></tr>
+            <tr><td>Design</td><td>78%</td></tr>
+            <tr><td>Legal</td><td>67%</td></tr>
+            <tr><td>Business</td><td>56%</td></tr>
+            <tr><td>Technology</td><td>37%</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Say the honest limit out loud: &ldquo;no AI-skill demand&rdquo; means employers aren&rsquo;t asking electricians to prompt a model, not that a machine could never rewire a panel. It&rsquo;s a demand-side signal, not a robotics forecast. But it points the same way Karp does, and it stacks with a second moat. The safest occupations we track pair the manual work with a <strong>license</strong>: <a className="gl" href="/jobs/electrician">electrician</a>, <a className="gl" href="/jobs/plumber">plumber</a>, HVAC technician, <a className="gl" href="/jobs/registered-nurse">registered nurse</a>, physical therapist, paramedic: every one shows no AI-skill demand <em>and</em> a required credential. A model can&rsquo;t pass the licensing board, and it can&rsquo;t crawl the crawlspace.
+        </p>
+        <Pull>A model can’t pass the licensing board, and it can’t crawl the crawlspace.</Pull>
+
+        <h2>The irony the trades are living: AI is causing their shortage</h2>
+        <p>
+          The 2013 Oxford study by Frey and Osborne, the one that put &ldquo;47% of jobs at risk&rdquo; into the culture, named exactly three things that resist automation: physical dexterity, creativity, and social intelligence. The trades sit squarely on the first: non-routine physical work in cramped, unpredictable spaces, which is <em>Moravec&rsquo;s paradox</em> in a tool belt: the tasks easiest for a human are the hardest to automate.
+        </p>
+        <p>
+          And here is the part that should end the &ldquo;learn to code, not to weld&rdquo; era for good. The US Bureau of Labor Statistics projects roughly <strong>80,000 new electrician openings a year</strong>, with electrician employment growing <strong>9%</strong> against 3% for all jobs. The engine of that demand is the AI build-out itself: data-center construction, where electrical work runs <strong>45 to 70 percent</strong> of the cost, is projected to need <strong>300,000+ new electricians</strong> this decade, and a journeyman license takes three to five years and 8,000 hours to earn, so the shortage can&rsquo;t be closed on demand. Fortune called the wider skilled-trades gap a &ldquo;$1 trillion crisis.&rdquo;
+        </p>
+        <Pull>The machine rewriting knowledge work can’t wire its own buildings.</Pull>
+        <p>
+          So the same technology hollowing out the entry rung of white-collar work is, physically, creating a historic shortage of the workers it can&rsquo;t replace. Karp&rsquo;s group one isn&rsquo;t just safe. It&rsquo;s where the money is moving.
+        </p>
+
+        <h2>Group two: a thesis, a fellowship, and a caveat</h2>
+        <p>
+          The second claim is harder, and it deserves more care than the viral version gave it. Karp&rsquo;s wager is that <strong>neurodivergence</strong> &mdash; dyslexia, ADHD, autism, &ldquo;broadly defined&rdquo;, becomes an edge precisely as AI commoditizes the linear, in-distribution thinking it does best. Palantir put money on it: the Neurodivergent Fellowship drew over a thousand applications, and Karp framed it flatly &mdash; &ldquo;the neurally divergent (like myself) will disproportionately shape America&rsquo;s future.&rdquo;
+        </p>
+        <p>
+          There is real research under the mindset half of this, and it is specific, not a superpower story. Johan Wiklund and colleagues, across the <em>Journal of Business Venturing</em> (2016&ndash;2017), find that ADHD traits &mdash; impulsivity, hyperfocus, a bias toward action over planning, tolerance for risk, align unusually well with <strong>entrepreneurship</strong>, and that adults with ADHD are over-represented in self-employment. Which maps onto Frey and Osborne&rsquo;s second moat, creativity: divergent, cross-domain thinking is the thing generative models, trained to complete the most probable next token, are structurally weakest at.
+        </p>
+        <p>
+          The caveat is non-negotiable and the honest brands say it: ADHD is a recognized disability with real daily costs, not a hack. The research shows fit for <em>particular</em> roles (founder, creative, high-stimulation, crisis-response), not blanket immunity to automation. Karp is stating a bet, not a finding. But it&rsquo;s a bet pointed at the same target as the trades: the two human capacities, the hands and the leap, that the current machines don&rsquo;t have.
+        </p>
+        <Pull>The hands and the leap: the two things the current machines don’t have.</Pull>
+
+        <h2>What to do with two AI-proof groups</h2>
+        <p>
+          Neither group is a place you simply are or aren&rsquo;t. Vocational training is a route &mdash; often a short, well-paid, license-gated one, that a surprising range of backgrounds can reach, and the instrument on this site measures which trades your current skills already sit closest to. The neurodivergent edge is a working style you can lean into by choosing roles that reward it: founder over functionary, the job with novelty and stakes over the one with a checklist. Both of Karp&rsquo;s answers reduce to the same instruction the rest of our data keeps giving: stop optimizing for the roles a model is quietly learning to do, and move toward the two things it still can&rsquo;t: dexterity and genuine divergence.
+        </p>
+        <Go links={[
+          { href: '/jobs/trades', label: 'The trades board, live' },
+          { href: '/', label: 'Which trades your skills reach' },
+          { href: '/blog/ai-jobs-three-ledgers', label: 'AI and jobs: the four ledgers' },
+          { href: '/jobs/browse', label: 'The board, every cut' },
+        ]} />
+
+        <Sources>
+          <p>
+            Karp&rsquo;s quote: TBPN, via <a className="gl" href="https://x.com/tbpn/status/2032208844622033294">TBPN&rsquo;s own clip</a> and <a className="gl" href="https://fortune.com/2026/03/24/palantir-ceo-alex-karp-two-people-successful-in-ai-era-vocational-skills-neurodivergence-gen-z-career-advice">Fortune</a> (March 24, 2026). The <a className="gl" href="https://x.com/PalantirTech/status/1997720487187636260">Palantir Neurodivergent Fellowship</a> (launched Dec 7, 2025; $110k&ndash;$200k; 1,000+ applications) and Karp&rsquo;s &ldquo;neurally divergent&rdquo; statement from Palantir&rsquo;s own posts. Automation barriers: Frey &amp; Osborne, &ldquo;The Future of Employment&rdquo; (Oxford, 2013) &mdash; perception/manipulation, creativity, social intelligence. Trades demand: US Bureau of Labor Statistics electrician projections; data-center electrical-labor estimates and the &ldquo;$1 trillion&rdquo; framing via Fortune (April 2026). ADHD and entrepreneurship: Wiklund, Patzelt &amp; Dimov, &ldquo;how ADHD can be productively harnessed&rdquo; (J. Business Venturing Insights, 2016) and Wiklund et al., &ldquo;ADHD, impulsivity, and entrepreneurship&rdquo; (J. Business Venturing, 2017); adult ADHD prevalence ~4.4% (NIMH). PivotHop figures &mdash; the share of each field&rsquo;s occupations with no AI-skill demand, and the licensed-trade overlap &mdash; are computed from the July 2026 corpus (method in <a className="gl" href="/blog/skills-over-titles">Job titles, deprecated</a>) and recompute with the nightly scrape. Where Karp states a bet rather than a finding, the text says so.
+          </p>
+        </Sources>
+      </>
+    ),
+  },
+  {
     slug: 'claude-chats-google',
     title: 'Claude chats appeared in Google search. Blocking Google is why.',
     pillar: 'Shape of Work',
@@ -199,8 +292,8 @@ export const POSTS: Post[] = [
         <Go links={[
           { href: '/', label: 'Measure your reach' },
           { href: '/jobs/browse', label: 'AI-era boards, every cut' },
+          { href: '/blog/karp-two-safe-workers', label: 'The two AI-proof workers, checked' },
           { href: '/blog/claude-chats-google', label: 'Claude chats hit Google: the anatomy' },
-          { href: '/blog/why-recruiters-ghost', label: 'Why recruiters ghost' },
         ]} />
 
         <Sources>
