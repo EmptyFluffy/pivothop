@@ -64,12 +64,29 @@
 - **IndexNow submits only changed URLs** (was: the whole sitemap, nightly). `--all` retained for structural changes.
 - **Pipeline gap closed**: `build-jobs.py` is not part of `scrape -- run`, so running the scrape by hand refreshes the graph and leaves the board a day stale — this is what made a posting listing TypeScript show no skill chips. `build-skill-icons.mjs` was likewise never in `daily-run.sh`. Both wired. **Correct order: `scrape -- run` → export-web-data → fetch-logos → build-jobs → build-skill-icons → build-skill-glossary → build-lastmod → next build.**
 
+### Internal linking + funnel (2026-07-28 — SHIPPED)
+*Measured the link graph across all 6,355 built pages before touching anything. The 125 `/routes/<origin>` pages were reachable from 831 pages and from none of the obvious ones: zero links from the 4,477 job pages, zero from 157 salary pages, zero from 126 route pairs (a pair page did not link its own origin hub), zero between sibling origins. Meanwhile every page fired 11 sitewide footer links at hubs already one click from everywhere.*
+- **Pages linking to origin pages: 831 → 5,080.** Job pages (noindex,follow — they cannot rank, so they are pure link equity), salary pages, and route-pair breadcrumbs now all point at them. `hasOriginPage()` guards every one, since the origin set is threshold-gated.
+- **Job pages**: related-jobs module (5 siblings, the industry standard — WWR runs the same) *plus* an adjacent-occupation module that no competitor can build: "9 open interior designer roles · 53% readiness from architect", pointing at indexable board pages rather than deeper into the noindex pool.
+- **Salary pages**: "Roles that pay more, that these skills already reach" — median from each destination's own postings, the delta, the readiness, a link to live listings. The FairElephant offer-checker was the primary CTA, sending the warmest traffic on the page to a side product; now demoted below it.
+- **CTAs follow landing intent**, not one template. Route pair (destination already chosen) → count-gated board CTA. Origin page (still exploring) → the instrument, but the promise is the outcome: "180 of these roles are open right now." No-board routes fall back rather than promising an empty page.
+- **Anchor variation**: five phrasings per origin page, stable per page id. Corpus went from effectively one phrase to 584 distinct phrasings over 5,387 links, exact-match at 22% (the research band is 15–25%).
+
+### Scaled-content exposure audit + fixes (2026-07-28 — LIVE)
+*Measured what a scaled-content detector sees, rather than guessing. Google's March 2026 enforcement targets "data-template pages that swap a name into an identical structure"; pages built on unique structured data are explicitly fine.*
+- **Clean**: zero duplicate titles and zero duplicate descriptions across 6,346 pages — the most common pSEO failure, and we do not have it. Word counts healthy (528–1,197 avg per surface).
+- **The exposure — word-for-word overlap between two sibling pages**: `routes-origin` **72%** (477 words, only ~130 differ between two unrelated occupations), `compare-pair` **69%**, `salary-occ` 48%, `jobs-category` 26%. The two most template-similar surfaces are the ones we most want to rank.
+- **SHIPPED — origin pages 72% → 56%** (min 44%, words 477 → 549). A "What the ranking shows" section computed from data we emitted and never displayed: field split, what each ranking rests on (`mobility_source`), pay direction vs the origin median, and which skills carry across most destinations.
+  - **The lesson worth keeping**: the first pass added 156 words of real facts and moved similarity only 2 points. Diffing the longest shared runs showed the *boilerplate*, not the data, was the problem — every finding carried an identical explanatory tail, and the dek/CTA/section notes were fixed copy. Cutting tails and rotating phrasing (three variants each, keyed off the origin slug) is what actually moved it. **Measure the shared runs, not the word count.**
+- **SHIPPED — Core Web Vitals**: `/jobs/<occ>` was failing at **CLS 0.379** (poor threshold 0.25) across 1,212 pages. Cause was not the component: fonts loaded from fonts.googleapis.com with `display=swap`, so every page painted in a fallback and reflowed ~1.4s in. `next/font/google` self-hosts both faces with metric-matched fallbacks. **CLS 0.379 → 0**, zero third-party font requests, typography identical, graph still 0.00px stable.
+- LCP and page weight were already excellent everywhere (616–900ms, 32–74KB) — no action needed.
+
 ---
 
 ## Pending
 
 ### Near-term (do now / this week)
-- **[USER] Search Console**: resubmit sitemap (~1,370 URLs), Request Indexing on ~20 best new pages (origin pages, visa-sponsorship-in-the-united-states, top occ×country). **Bing Webmaster Tools**: verify once (pairs with IndexNow).
+- **[USER] Search Console — the gate on nearly everything else.** Resubmit the sitemap (**1,867 URLs**, now with honest per-page `lastmod`), Request Indexing on ~20 best pages (origin pages first — they went from near-orphaned to 5,080 inbound links, so they are the most likely to move). **Bing Webmaster Tools**: verify once (pairs with IndexNow, which Google does not support — it reaches Bing/Yandex and, through Bing's index, ChatGPT search). Read three things and report back: indexed count, the "crawled – currently not indexed" trend, and which queries already draw impressions. Until then every prioritisation below is a guess.
 - **[USER] Export loop wiring**: Postmark domain verify + Anthropic API key + pick render env (Vercel Pro vs VPS) — then the PDF send-loop goes fully live.
 - Let the ~800 board pages + 124 origin pages **index for 4–6 weeks** before minting more board combos (the Teal entity-flip warning, docs/24).
 
@@ -91,22 +108,24 @@
   - Pairs with the Adjacency Index ("passports" section, expanded page-by-page). Interlink with /jobs/<tag> pages, don't duplicate: tag pages = listings intent, skill pages = career-value intent.
   - **Gate to start**: GSC shows the July surfaces (compare/regions/AEO posts) substantially indexed — recheck discovered-not-indexed trend before minting.
 
-### Internal linking + funnel (2026-07-28 — SHIPPED)
-*Measured the link graph across all 6,355 built pages before touching anything. The 125 `/routes/<origin>` pages were reachable from 831 pages and from none of the obvious ones: zero links from the 4,477 job pages, zero from 157 salary pages, zero from 126 route pairs (a pair page did not link its own origin hub), zero between sibling origins. Meanwhile every page fired 11 sitewide footer links at hubs already one click from everywhere.*
-- **Pages linking to origin pages: 831 → 5,080.** Job pages (noindex,follow — they cannot rank, so they are pure link equity), salary pages, and route-pair breadcrumbs now all point at them. `hasOriginPage()` guards every one, since the origin set is threshold-gated.
-- **Job pages**: related-jobs module (5 siblings, the industry standard — WWR runs the same) *plus* an adjacent-occupation module that no competitor can build: "9 open interior designer roles · 53% readiness from architect", pointing at indexable board pages rather than deeper into the noindex pool.
-- **Salary pages**: "Roles that pay more, that these skills already reach" — median from each destination's own postings, the delta, the readiness, a link to live listings. The FairElephant offer-checker was the primary CTA, sending the warmest traffic on the page to a side product; now demoted below it.
-- **CTAs follow landing intent**, not one template. Route pair (destination already chosen) → count-gated board CTA. Origin page (still exploring) → the instrument, but the promise is the outcome: "180 of these roles are open right now." No-board routes fall back rather than promising an empty page.
-- **Anchor variation**: five phrasings per origin page, stable per page id. Corpus went from effectively one phrase to 584 distinct phrasings over 5,387 links, exact-match at 22% (the research band is 15–25%).
-- **Still open from this pass**: sibling-origin cross-links (architect ↔ interior designer origin pages), and the footer's 11 sitewide links are still diluting — worth pruning to the few that earn their place.
+### The optimisation queue (2026-07-28 — pick off little by little)
+*Everything found while working and deliberately not done yet, cheapest first. Each is self-contained; none blocks another.*
 
-### Scaled-content exposure audit (2026-07-28)
-*Measured what a scaled-content detector sees, rather than guessing. Google's March 2026 enforcement targets "data-template pages that swap a name into an identical structure"; pages built on unique structured data are explicitly fine.*
-- **Clean**: zero duplicate titles and zero duplicate descriptions across 6,346 pages — the most common pSEO failure, and we do not have it. Word counts healthy (528–1,197 avg per surface).
-- **The exposure — word-for-word overlap between two sibling pages**: `routes-origin` **72%** (477 words, only ~130 differ between two unrelated occupations), `compare-pair` **69%**, `salary-occ` 48%, `jobs-category` 26%. The two most template-similar surfaces are the ones we most want to rank.
-- **Fix (does not conflict with the "Never" list — that forbids *creating* templated prose pages, not adding computed data to existing ones)**: four per-page blocks on `/routes/<origin>`, all computed so both numbers and sentences vary — where the routes cluster (from `cluster`/`kind`), how the evidence is sourced (`mobility_source`, never surfaced), pay direction vs the origin (logic already built for salary pages), and the skills doing the work (from the `have` arrays). Same treatment for `/compare/<pair>`. Should take origin pages under 40% similarity.
-- **SHIPPED — Core Web Vitals**: `/jobs/<occ>` was failing at **CLS 0.379** (poor threshold 0.25) across 1,212 pages. Cause was not the component: fonts loaded from fonts.googleapis.com with `display=swap`, so every page painted in a fallback and reflowed ~1.4s in. `next/font/google` self-hosts both faces with metric-matched fallbacks. **CLS 0.379 → 0**, zero third-party font requests, typography identical, graph still 0.00px stable.
-- LCP and page weight were already excellent everywhere (616–900ms, 32–74KB) — no action needed.
+**Site hygiene — small, mechanical**
+- **`/compare/<pair>` at 69% sibling similarity** — the same problem the origin pages had, and the pattern is now established, so it's the faster second pass. Compare pages already hold the shared-skill waterfall and both salary bands; the findings should write themselves.
+- **Sibling-origin cross-links** — architect ↔ interior designer ↔ BIM manager origin pages don't link each other. Closes the silo, and the adjacency data is an honest reason to link.
+- **Prune the footer's 11 sitewide links.** Every one of 6,355 pages fires all 11 at hubs already one click from everywhere. That's the dilution half of the link problem; only the starvation half was fixed. A navigation call as much as an SEO one.
+- **The 60-listing display cap.** `build-jobs.py` caps each occupation at 60, which is why so many unlock counts and board numbers read exactly "60" — a busy occupation looks identical to a quiet one. Either raise it or label it honestly.
+- **Anchor variation on `/compare`** — the 195 compare pages share one phrasing ("careers for Xs"). Same `originAnchors`/`pickAnchor` helper.
+
+**Data quality — the long tail**
+- **~21 origins still emit zero routes** (journalist, tutor, paramedic, pilot, librarian, chemical-engineer, brewmaster, grant-writer…). Their skills reach only their own small cluster. The next lever is **transferable/soft-skill extraction for non-tech postings**, not more domain nouns — see [[thin-origins]] reasoning in docs and memory.
+- **Niche design roles are a sourcing problem, not a vocabulary one**: computational-designer (20 postings), visualization-artist (15), set-designer (19), 3d-modeler (53) sit under the 50-posting floor. Fix is more AEC/design-studio/VFX/game companies in `apps/scraper/config/*-companies.json` — speculative tokens are safe, unknown ones 404 and skip.
+- **Board UX (docs/26)** — five items from the HiringCafe read, cheapest first: say the provenance out loud on cards (we have `first-seen.json` and drop ~20k dupes a run, and a visitor sees none of it), readiness as a filter, triage-able cards, finish the saved search (the capture-band checkbox is half built), group by company.
+
+**Waiting on the founder / on time**
+- **Search Console** is still the gate on almost everything above. Until the indexed count and the "crawled – currently not indexed" trend are visible, every prioritisation here is a guess.
+- **Google favicon**: our side is provably correct (48/32/16 ICO, 200 to Googlebot, robots clean, apex 308s to www). It's Google's cache. A Request Indexing on the homepage is the only lever.
 
 ### The graph, made smarter (designed 2026-07-28 — ordered by value per hour)
 *Finding: the instrument is the least informed surface in the product. Every route emits 26 fields; the detail panel renders about nine. The PDF report and the route pages already know more about a route than the graph does. Most of this is showing what we compute, not computing more.*
