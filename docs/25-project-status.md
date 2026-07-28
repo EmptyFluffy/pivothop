@@ -100,6 +100,14 @@
 - **Anchor variation**: five phrasings per origin page, stable per page id. Corpus went from effectively one phrase to 584 distinct phrasings over 5,387 links, exact-match at 22% (the research band is 15–25%).
 - **Still open from this pass**: sibling-origin cross-links (architect ↔ interior designer origin pages), and the footer's 11 sitewide links are still diluting — worth pruning to the few that earn their place.
 
+### Scaled-content exposure audit (2026-07-28)
+*Measured what a scaled-content detector sees, rather than guessing. Google's March 2026 enforcement targets "data-template pages that swap a name into an identical structure"; pages built on unique structured data are explicitly fine.*
+- **Clean**: zero duplicate titles and zero duplicate descriptions across 6,346 pages — the most common pSEO failure, and we do not have it. Word counts healthy (528–1,197 avg per surface).
+- **The exposure — word-for-word overlap between two sibling pages**: `routes-origin` **72%** (477 words, only ~130 differ between two unrelated occupations), `compare-pair` **69%**, `salary-occ` 48%, `jobs-category` 26%. The two most template-similar surfaces are the ones we most want to rank.
+- **Fix (does not conflict with the "Never" list — that forbids *creating* templated prose pages, not adding computed data to existing ones)**: four per-page blocks on `/routes/<origin>`, all computed so both numbers and sentences vary — where the routes cluster (from `cluster`/`kind`), how the evidence is sourced (`mobility_source`, never surfaced), pay direction vs the origin (logic already built for salary pages), and the skills doing the work (from the `have` arrays). Same treatment for `/compare/<pair>`. Should take origin pages under 40% similarity.
+- **SHIPPED — Core Web Vitals**: `/jobs/<occ>` was failing at **CLS 0.379** (poor threshold 0.25) across 1,212 pages. Cause was not the component: fonts loaded from fonts.googleapis.com with `display=swap`, so every page painted in a fallback and reflowed ~1.4s in. `next/font/google` self-hosts both faces with metric-matched fallbacks. **CLS 0.379 → 0**, zero third-party font requests, typography identical, graph still 0.00px stable.
+- LCP and page weight were already excellent everywhere (616–900ms, 32–74KB) — no action needed.
+
 ### The graph, made smarter (designed 2026-07-28 — ordered by value per hour)
 *Finding: the instrument is the least informed surface in the product. Every route emits 26 fields; the detail panel renders about nine. The PDF report and the route pages already know more about a route than the graph does. Most of this is showing what we compute, not computing more.*
 
