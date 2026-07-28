@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import posthog from 'posthog-js';
 import { joinWaitlist } from './actions';
 import { SITE_EMAIL } from '../../lib/site';
 
@@ -17,8 +18,10 @@ export function Waitlist({ pricing }: { pricing: { std: number; feat: number } }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setState('err'); return; }
     setState('busy');
     const r = await joinWaitlist({ email }).catch(() => ({ error: 'network' as const }));
-    if ('ok' in r && r.ok) setState('done');
-    else if (r.error === 'invalid-email') setState('err');
+    if ('ok' in r && r.ok) {
+      posthog.capture('waitlist_joined', { waitlist: 'employer_job_post' });
+      setState('done');
+    } else if (r.error === 'invalid-email') setState('err');
     else setState('mail'); // no backend right now -> hand them the inbox
   }
 

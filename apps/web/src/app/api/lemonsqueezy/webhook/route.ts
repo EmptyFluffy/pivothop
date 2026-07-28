@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { getPostHogClient } from '@/lib/posthog-server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -29,6 +30,15 @@ export async function POST(req: Request) {
       headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify({ status: 'paid', paid_at: new Date().toISOString(), ls_order_id: String(payload.data?.id ?? '') }),
     }).catch(() => {});
+    try {
+      const ph = getPostHogClient();
+      ph.capture({
+        distinctId: `ls_order_${payload.data?.id ?? id}`,
+        event: 'job_post_paid',
+        properties: { submission_id: id, ls_order_id: String(payload.data?.id ?? '') },
+      });
+      await ph.shutdown();
+    } catch { /* PostHog not configured — no-op */ }
   }
   return new Response('ok', { status: 200 });
 }
