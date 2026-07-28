@@ -1183,30 +1183,30 @@
         }
       },
       {
-        "t": "Economist",
-        "m": 18,
-        "slug": "economist",
-        "field": "Science",
-        "cluster": "Science",
+        "t": "Aerospace Engineer",
+        "m": 20,
+        "slug": "aerospace-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
         "kind": "pivot",
         "gap": [
-          "Statistics",
-          "Data Analysis",
-          "Policy Analysis",
-          "Accounting"
+          "FEA / Simulation",
+          "Aviation Operations",
+          "QA / Testing",
+          "System Design"
         ],
         "observed": null,
-        "fit": 22,
-        "capability": 61,
-        "mobility": 1,
+        "fit": 20,
+        "capability": 30,
+        "mobility": 12,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "auditor",
-          "readiness_after": 31,
-          "gain": 13
+          "readiness_after": 28,
+          "gain": 8
         }
       }
     ],
@@ -1367,22 +1367,22 @@
       "reach": "direct"
     },
     {
-      "t": "Aerospace Engineer",
+      "t": "Economist",
       "m": 18,
-      "slug": "aerospace-engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
+      "slug": "economist",
+      "field": "Science",
+      "cluster": "Science",
       "kind": "pivot",
       "gap": [
-        "Aviation Operations",
-        "FEA / Simulation",
-        "QA / Testing",
-        "System Design"
+        "Statistics",
+        "Data Analysis",
+        "Policy Analysis",
+        "Accounting"
       ],
       "observed": null,
-      "fit": 19,
-      "capability": 30,
-      "mobility": 12,
+      "fit": 22,
+      "capability": 61,
+      "mobility": 1,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
@@ -1480,11 +1480,6 @@
     ],
     [
       "management-consultant",
-      "auditor_1",
-      0.51
-    ],
-    [
-      "management-consultant",
       "hr-manager_1",
       0.46
     ],
@@ -1492,6 +1487,11 @@
       "management-consultant",
       "product-manager_0",
       0.44
+    ],
+    [
+      "management-consultant",
+      "hr-manager_0",
+      0.4
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

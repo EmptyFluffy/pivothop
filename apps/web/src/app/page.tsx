@@ -40,6 +40,14 @@ export default function Home() {
 
   return (
     <>
+      {/* The homepage is a client component, so it cannot export `metadata` and
+          therefore cannot declare its canonical the normal way. React 19 hoists
+          a rendered <link> into <head>, which gets us the tag without splitting
+          this file — the graph must keep mounting exactly as it does. Kept a
+          sibling of the ref'd div on purpose: that div's innerHTML is wiped on
+          mount, and anything inside it would go with it. Absolute URL because
+          hoisting does not resolve against metadataBase. */}
+      <link rel="canonical" href="https://www.pivothop.com/" />
       <div ref={ref} suppressHydrationWarning>
         {/* Server-rendered boot state: real brand copy + links to the key pages,
             so the initial HTML is crawlable and the homepage passes structure to

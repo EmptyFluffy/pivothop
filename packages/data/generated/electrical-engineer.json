@@ -31,7 +31,7 @@
         "label": "PE required for sign-off roles; not for most product/manufacturing roles"
       },
       "desc": "",
-      "match": 44,
+      "match": 43,
       "fit": 44,
       "capability": 65,
       "mobility": 29,
@@ -69,7 +69,7 @@
           "skill": "fea",
           "name": "FEA / Simulation",
           "pts": 11.3,
-          "earned": 6.7
+          "earned": 6.5
         },
         {
           "skill": "project-management",
@@ -466,8 +466,8 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 21,
-      "fit": 28,
+      "match": 19,
+      "fit": 27,
       "capability": 62,
       "mobility": 15,
       "mobility_source": "observed-flow-us",
@@ -482,100 +482,100 @@
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
-        "Aviation Operations",
         "FEA / Simulation",
         "QA / Testing",
-        "System Design"
+        "System Design",
+        "Prototyping"
       ],
       "learn": [
+        "Aviation Operations",
         "Criminal Investigation",
         "Flight Operations",
-        "Supply Chain",
-        "Teaching"
+        "Supply Chain"
       ],
       "waterfall": [
         {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 24.3,
-          "earned": 3.2
-        },
-        {
           "skill": "fea",
           "name": "FEA / Simulation",
-          "pts": 17.5,
-          "earned": 3.8
+          "pts": 19.2,
+          "earned": 4.1
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 17,
+          "earned": 0
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 9.7,
-          "earned": 2.9
+          "pts": 10.6,
+          "earned": 3.1
         },
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 8.7,
+          "pts": 9.6,
           "earned": 0
         },
         {
           "skill": "system-design",
           "name": "System Design",
-          "pts": 5.8,
-          "earned": 2.9
+          "pts": 6.4,
+          "earned": 3.2
         },
         {
           "skill": "flight-operations",
           "name": "Flight Operations",
-          "pts": 5.8,
+          "pts": 6.4,
           "earned": 0
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 4.9,
-          "earned": 3.8
+          "pts": 5.3,
+          "earned": 4.1
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 4.9,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 3.9,
-          "earned": 3.9
+          "pts": 4.3,
+          "earned": 4.3
         },
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 2.9,
+          "pts": 3.2,
           "earned": 0
         },
         {
           "skill": "risk-management",
           "name": "Risk Management",
-          "pts": 2.9,
+          "pts": 3.2,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 2.9,
+          "pts": 3.2,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 2.9,
+          "pts": 3.2,
           "earned": 0
         },
         {
           "skill": "social-media",
           "name": "Social Media",
-          "pts": 2.9,
+          "pts": 3.2,
           "earned": 0
         }
       ],
@@ -896,7 +896,7 @@
           "skill": "fea",
           "name": "FEA / Simulation",
           "pts": 5.7,
-          "earned": 3.4
+          "earned": 3.3
         }
       ],
       "low_confidence": false,
@@ -908,7 +908,11 @@
     }
   ],
   "next": {
-    "mechanical-engineer": [
+    "mechanical-engineer": [],
+    "structural-engineer": [],
+    "civil-engineer": [],
+    "architect": [],
+    "aerospace-engineer": [
       {
         "t": "Game Designer",
         "m": 17,
@@ -931,41 +935,9 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "mechanical-engineer",
-          "readiness_after": 25,
-          "gain": 8
-        }
-      }
-    ],
-    "structural-engineer": [],
-    "civil-engineer": [],
-    "architect": [],
-    "aerospace-engineer": [
-      {
-        "t": "VDC Manager",
-        "m": 17,
-        "slug": "vdc-manager",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "pivot",
-        "gap": [
-          "BIM",
-          "Construction Administration",
-          "Social Media",
-          "Account Management"
-        ],
-        "observed": null,
-        "fit": 19,
-        "capability": 26,
-        "mobility": 16,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 67,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
           "parent": "aerospace-engineer",
-          "readiness_after": 34,
-          "gain": 17
+          "readiness_after": 33,
+          "gain": 16
         }
       },
       {
@@ -998,33 +970,6 @@
     ],
     "mep-engineer": [
       {
-        "t": "Automotive Technician",
-        "m": 18,
-        "slug": "automotive-technician",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Hand & Power Tools",
-          "Customer Service",
-          "Scheduling"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mep-engineer",
-          "readiness_after": 34,
-          "gain": 16
-        }
-      },
-      {
         "t": "Biomedical Engineer",
         "m": 15,
         "slug": "biomedical-engineer",
@@ -1049,6 +994,33 @@
           "parent": "mep-engineer",
           "readiness_after": 30,
           "gain": 15
+        }
+      },
+      {
+        "t": "BIM Manager",
+        "m": 12,
+        "slug": "bim-manager",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "BIM",
+          "Plumbing",
+          "Clash Detection",
+          "3D Modeling"
+        ],
+        "observed": null,
+        "fit": 21,
+        "capability": 54,
+        "mobility": 16,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 67,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "mep-engineer",
+          "readiness_after": 31,
+          "gain": 19
         }
       }
     ],
@@ -1075,28 +1047,6 @@
       "mobility": 1,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "BIM Manager",
-      "m": 12,
-      "slug": "bim-manager",
-      "field": "Architecture",
-      "cluster": "Built Environment",
-      "kind": "pivot",
-      "gap": [
-        "BIM",
-        "Plumbing",
-        "Clash Detection",
-        "3D Modeling"
-      ],
-      "observed": null,
-      "fit": 21,
-      "capability": 54,
-      "mobility": 16,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 67,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1135,24 +1085,19 @@
   ],
   "bridges": [
     [
-      "mep-engineer",
+      "mechanical-engineer",
       "aerospace-engineer_0",
-      0.34
-    ],
-    [
-      "aerospace-engineer",
-      "mechanical-engineer_0",
-      0.33
-    ],
-    [
-      "aerospace-engineer",
-      "mep-engineer_0",
-      0.26
+      0.25
     ],
     [
       "civil-engineer",
       "aerospace-engineer_1",
       0.25
+    ],
+    [
+      "aerospace-engineer",
+      "mep-engineer_0",
+      0.24
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

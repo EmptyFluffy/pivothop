@@ -1217,7 +1217,35 @@
         }
       }
     ],
-    "construction-manager": [],
+    "construction-manager": [
+      {
+        "t": "VDC Manager",
+        "m": 13,
+        "slug": "vdc-manager",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "BIM",
+          "Construction Administration",
+          "MEP",
+          "Social Media"
+        ],
+        "observed": null,
+        "fit": 28,
+        "capability": 70,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "construction-manager",
+          "readiness_after": 25,
+          "gain": 12
+        }
+      }
+    ],
     "project-manager": [
       {
         "t": "Developer Advocate",
@@ -1276,6 +1304,33 @@
     ],
     "customer-support": [
       {
+        "t": "Automotive Technician",
+        "m": 16,
+        "slug": "automotive-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Hand & Power Tools",
+          "Electrical Systems",
+          "Blueprint Reading"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "customer-support",
+          "readiness_after": 24,
+          "gain": 8
+        }
+      },
+      {
         "t": "Sales Representative",
         "m": 15,
         "slug": "sales-representative",
@@ -1300,33 +1355,6 @@
           "parent": "customer-support",
           "readiness_after": 31,
           "gain": 16
-        }
-      },
-      {
-        "t": "Urban Planner",
-        "m": 14,
-        "slug": "urban-planner",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "pivot",
-        "gap": [
-          "Urban Design",
-          "Zoning",
-          "Sustainability",
-          "Community Engagement"
-        ],
-        "observed": null,
-        "fit": 21,
-        "capability": 42,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "customer-support",
-          "readiness_after": 23,
-          "gain": 9
         }
       }
     ],
@@ -1390,21 +1418,21 @@
   },
   "direct": [
     {
-      "t": "Automotive Technician",
-      "m": 16,
-      "slug": "automotive-technician",
-      "field": "Trades",
-      "cluster": "Trades",
+      "t": "Urban Planner",
+      "m": 14,
+      "slug": "urban-planner",
+      "field": "Architecture",
+      "cluster": "Built Environment",
       "kind": "pivot",
       "gap": [
-        "Maintenance",
-        "Hand & Power Tools",
-        "Electrical Systems",
-        "Blueprint Reading"
+        "Urban Design",
+        "Zoning",
+        "Sustainability",
+        "Community Engagement"
       ],
       "observed": null,
-      "fit": 16,
-      "capability": null,
+      "fit": 21,
+      "capability": 42,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
@@ -1520,26 +1548,6 @@
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
-    },
-    {
-      "t": "Underwriter",
-      "m": 11,
-      "slug": "underwriter",
-      "field": "Finance",
-      "cluster": "Finance",
-      "kind": "pivot",
-      "gap": [
-        "Underwriting",
-        "Risk Management"
-      ],
-      "observed": null,
-      "fit": 8,
-      "capability": 7,
-      "mobility": 2,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 2,
-      "mobility_tier": null,
-      "reach": "direct"
     }
   ],
   "cross": [
@@ -1587,7 +1595,7 @@
     ],
     [
       "operations-manager",
-      "customer-support_0",
+      "customer-support_1",
       0.43
     ],
     [

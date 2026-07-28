@@ -1096,19 +1096,19 @@
       },
       {
         "t": "Aerospace Engineer",
-        "m": 11,
+        "m": 13,
         "slug": "aerospace-engineer",
         "field": "Engineering",
         "cluster": "Engineering & Manufacturing",
         "kind": "pivot",
         "gap": [
-          "Aviation Operations",
           "FEA / Simulation",
+          "Aviation Operations",
           "QA / Testing",
           "Criminal Investigation"
         ],
         "observed": null,
-        "fit": 6,
+        "fit": 7,
         "capability": 0,
         "mobility": 1,
         "mobility_source": "observed-flow-us",
@@ -1117,7 +1117,7 @@
         "reach": "bridged",
         "via": {
           "parent": "psychologist",
-          "readiness_after": 19,
+          "readiness_after": 21,
           "gain": 8
         }
       }
@@ -1182,6 +1182,33 @@
     "nurse-practitioner": [],
     "physician": [
       {
+        "t": "Professor / Lecturer",
+        "m": 15,
+        "slug": "professor",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Curriculum Development",
+          "Motion Design",
+          "Accounting",
+          "Aviation Operations"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": null,
+        "mobility": 11,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 23,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "physician",
+          "readiness_after": 35,
+          "gain": 20
+        }
+      },
+      {
         "t": "Teaching Assistant",
         "m": 14,
         "slug": "teaching-assistant",
@@ -1206,33 +1233,6 @@
           "parent": "physician",
           "readiness_after": 27,
           "gain": 13
-        }
-      },
-      {
-        "t": "Professor / Lecturer",
-        "m": 14,
-        "slug": "professor",
-        "field": "Education",
-        "cluster": "Education",
-        "kind": "pivot",
-        "gap": [
-          "Aviation Operations",
-          "Curriculum Development",
-          "Motion Design",
-          "Accounting"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": null,
-        "mobility": 11,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 23,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "physician",
-          "readiness_after": 33,
-          "gain": 19
         }
       }
     ]
@@ -1465,8 +1465,8 @@
     ],
     [
       "psychologist",
-      "physician_1",
-      0.22
+      "physician_0",
+      0.24
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

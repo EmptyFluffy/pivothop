@@ -1278,6 +1278,33 @@
     ],
     "market-researcher": [
       {
+        "t": "Aerospace Engineer",
+        "m": 19,
+        "slug": "aerospace-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "FEA / Simulation",
+          "Aviation Operations",
+          "QA / Testing",
+          "Criminal Investigation"
+        ],
+        "observed": null,
+        "fit": 27,
+        "capability": 55,
+        "mobility": 21,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 21,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "market-researcher",
+          "readiness_after": 27,
+          "gain": 8
+        }
+      },
+      {
         "t": "Project Manager",
         "m": 17,
         "slug": "project-manager",
@@ -1302,33 +1329,6 @@
           "parent": "market-researcher",
           "readiness_after": 27,
           "gain": 10
-        }
-      },
-      {
-        "t": "Aerospace Engineer",
-        "m": 17,
-        "slug": "aerospace-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Aviation Operations",
-          "FEA / Simulation",
-          "QA / Testing",
-          "Criminal Investigation"
-        ],
-        "observed": null,
-        "fit": 26,
-        "capability": 55,
-        "mobility": 21,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 21,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "market-researcher",
-          "readiness_after": 25,
-          "gain": 8
         }
       }
     ],
@@ -1560,7 +1560,7 @@
   "bridges": [
     [
       "management-consultant",
-      "market-researcher_0",
+      "market-researcher_1",
       0.63
     ],
     [

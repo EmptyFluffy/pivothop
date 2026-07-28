@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Blog — PivotHop',
   description:
     'Career moves, written up with the numbers attached. Every article runs on the same live posting data as the instrument.',
+  alternates: { canonical: '/blog' },
 };
 
 export default function Blog() {

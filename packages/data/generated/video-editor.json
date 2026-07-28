@@ -240,6 +240,116 @@
       }
     },
     {
+      "id": "drone-pilot",
+      "title": "Drone Pilot",
+      "field": "Transport",
+      "cluster": "Transport",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Flies uncrewed aircraft for survey, inspection, film, and delivery. Commercial work requires a remote-pilot certificate.",
+      "match": 41,
+      "fit": 41,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$80k–$115k",
+      "salary_band": [
+        78990,
+        113044
+      ],
+      "demand": "Moderate",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Video Editing",
+        "Videography",
+        "Photography",
+        "Writing & Editing"
+      ],
+      "learn": [
+        "Aviation Operations",
+        "Flight Operations",
+        "Point Cloud / Scanning",
+        "GIS"
+      ],
+      "waterfall": [
+        {
+          "skill": "video-editing",
+          "name": "Video Editing",
+          "pts": 20.8,
+          "earned": 20.8
+        },
+        {
+          "skill": "videography",
+          "name": "Videography",
+          "pts": 19.8,
+          "earned": 7.4
+        },
+        {
+          "skill": "photography",
+          "name": "Photography",
+          "pts": 17.8,
+          "earned": 9.4
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 9.9,
+          "earned": 0
+        },
+        {
+          "skill": "flight-operations",
+          "name": "Flight Operations",
+          "pts": 8.9,
+          "earned": 0
+        },
+        {
+          "skill": "point-cloud",
+          "name": "Point Cloud / Scanning",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "gis",
+          "name": "GIS",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "emergency-response",
+          "name": "Emergency Response",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "computer-vision",
+          "name": "Computer Vision",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 3,
+          "earned": 3
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 111,
+        "salaried": 73
+      }
+    },
+    {
       "id": "motion-designer",
       "title": "Motion Designer",
       "field": "Design",
@@ -377,116 +487,6 @@
       "provenance": {
         "postings": 267,
         "salaried": 213
-      }
-    },
-    {
-      "id": "drone-pilot",
-      "title": "Drone Pilot",
-      "field": "Transport",
-      "cluster": "Transport",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Flies uncrewed aircraft for survey, inspection, film, and delivery. Commercial work requires a remote-pilot certificate.",
-      "match": 40,
-      "fit": 40,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$80k–$115k",
-      "salary_band": [
-        78990,
-        113044
-      ],
-      "demand": "Moderate",
-      "remote": "3%",
-      "time": "12–24 mo",
-      "have": [
-        "Video Editing",
-        "Videography",
-        "Photography",
-        "Writing & Editing"
-      ],
-      "learn": [
-        "Aviation Operations",
-        "Flight Operations",
-        "Point Cloud / Scanning",
-        "GIS"
-      ],
-      "waterfall": [
-        {
-          "skill": "video-editing",
-          "name": "Video Editing",
-          "pts": 20.6,
-          "earned": 20.6
-        },
-        {
-          "skill": "videography",
-          "name": "Videography",
-          "pts": 19.6,
-          "earned": 7.3
-        },
-        {
-          "skill": "photography",
-          "name": "Photography",
-          "pts": 17.7,
-          "earned": 9.3
-        },
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 10.8,
-          "earned": 0
-        },
-        {
-          "skill": "flight-operations",
-          "name": "Flight Operations",
-          "pts": 8.8,
-          "earned": 0
-        },
-        {
-          "skill": "point-cloud",
-          "name": "Point Cloud / Scanning",
-          "pts": 6.9,
-          "earned": 0
-        },
-        {
-          "skill": "gis",
-          "name": "GIS",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "emergency-response",
-          "name": "Emergency Response",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "computer-vision",
-          "name": "Computer Vision",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 2.9,
-          "earned": 2.9
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 111,
-        "salaried": 73
       }
     },
     {
@@ -1026,6 +1026,7 @@
   "next": {
     "graphic-designer": [],
     "photographer": [],
+    "drone-pilot": [],
     "motion-designer": [
       {
         "t": "Technical Artist",
@@ -1055,7 +1056,6 @@
         }
       }
     ],
-    "drone-pilot": [],
     "brand-designer": [],
     "creative-director": [
       {

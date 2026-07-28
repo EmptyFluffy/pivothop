@@ -998,35 +998,7 @@
         }
       }
     ],
-    "instructional-designer": [
-      {
-        "t": "Corporate Trainer",
-        "m": 13,
-        "slug": "corporate-trainer",
-        "field": "Education",
-        "cluster": "Education",
-        "kind": "pivot",
-        "gap": [
-          "SaaS",
-          "Instructional Design",
-          "Go-to-Market",
-          "LangChain / Agents"
-        ],
-        "observed": "Supplemental",
-        "fit": 23,
-        "capability": 78,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 17,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "instructional-designer",
-          "readiness_after": 23,
-          "gain": 10
-        }
-      }
-    ],
+    "instructional-designer": [],
     "operations-manager": [
       {
         "t": "Executive Assistant",
@@ -1170,6 +1142,33 @@
       }
     ],
     "auditor": [
+      {
+        "t": "Aerospace Engineer",
+        "m": 15,
+        "slug": "aerospace-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "FEA / Simulation",
+          "Aviation Operations",
+          "QA / Testing",
+          "System Design"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": 30,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 2,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "auditor",
+          "readiness_after": 23,
+          "gain": 8
+        }
+      },
       {
         "t": "Financial Analyst",
         "m": 14,
@@ -1383,11 +1382,6 @@
       0.52
     ],
     [
-      "operations-manager",
-      "instructional-designer_0",
-      0.4
-    ],
-    [
       "customer-success-manager",
       "operations-manager_1",
       0.32
@@ -1396,6 +1390,11 @@
       "operations-manager",
       "construction-manager_0",
       0.32
+    ],
+    [
+      "operations-manager",
+      "recruiter_0",
+      0.31
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

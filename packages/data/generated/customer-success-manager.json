@@ -1465,6 +1465,33 @@
           "readiness_after": 32,
           "gain": 9
         }
+      },
+      {
+        "t": "VDC Manager",
+        "m": 23,
+        "slug": "vdc-manager",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "BIM",
+          "Construction Administration",
+          "MEP",
+          "Social Media"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": 24,
+        "mobility": 1,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 1,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "corporate-trainer",
+          "readiness_after": 31,
+          "gain": 8
+        }
       }
     ]
   },
@@ -1532,28 +1559,6 @@
       "mobility": 2,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Product Designer",
-      "m": 21,
-      "slug": "product-designer",
-      "field": "Design",
-      "cluster": "Design",
-      "kind": "pivot",
-      "gap": [
-        "Prototyping",
-        "Design Systems",
-        "Figma",
-        "Interaction Design"
-      ],
-      "observed": null,
-      "fit": 21,
-      "capability": null,
-      "mobility": 22,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 5,
       "mobility_tier": null,
       "reach": "direct"
     }

@@ -755,8 +755,8 @@
         "label": "PE required for public-facing/utility sign-off; not for product roles"
       },
       "desc": "",
-      "match": 26,
-      "fit": 26,
+      "match": 28,
+      "fit": 28,
       "capability": 57,
       "mobility": 3,
       "mobility_source": "observed-flow-us",
@@ -779,79 +779,73 @@
         "Electrical Systems",
         "MEP",
         "Blueprint Reading",
-        "FEA / Simulation"
+        "Prototyping"
       ],
       "waterfall": [
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 30.4,
+          "pts": 32,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 11.2,
-          "earned": 11.2
+          "pts": 11.7,
+          "earned": 11.7
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 8.9,
-          "earned": 8.9
+          "pts": 9.4,
+          "earned": 9.4
         },
         {
           "skill": "mep",
           "name": "MEP",
-          "pts": 8.5,
+          "pts": 8.9,
           "earned": 0
         },
         {
           "skill": "blueprint-reading",
           "name": "Blueprint Reading",
-          "pts": 6.2,
+          "pts": 6.6,
           "earned": 0
         },
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 6.2,
-          "earned": 6.2
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 5.7,
-          "earned": 0
+          "pts": 6.6,
+          "earned": 6.6
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 5.6,
+          "pts": 5.9,
           "earned": 0
         },
         {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 4.8,
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 5.9,
           "earned": 0
         },
         {
           "skill": "system-design",
           "name": "System Design",
-          "pts": 4.4,
+          "pts": 4.6,
           "earned": 0
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 4.3,
+          "pts": 4.5,
           "earned": 0
         },
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 3.8,
+          "pts": 4,
           "earned": 0
         }
       ],
@@ -900,6 +894,33 @@
     "architectural-drafter": [],
     "bim-manager": [
       {
+        "t": "VDC Manager",
+        "m": 19,
+        "slug": "vdc-manager",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "MEP",
+          "Social Media",
+          "Account Management",
+          "Business Development"
+        ],
+        "observed": "Primary-Short",
+        "fit": 21,
+        "capability": 53,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 96,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "bim-manager",
+          "readiness_after": 73,
+          "gain": 54
+        }
+      },
+      {
         "t": "MEP Engineer",
         "m": 16,
         "slug": "mep-engineer",
@@ -924,33 +945,6 @@
           "parent": "bim-manager",
           "readiness_after": 31,
           "gain": 15
-        }
-      },
-      {
-        "t": "VDC Manager",
-        "m": 16,
-        "slug": "vdc-manager",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "lateral",
-        "gap": [
-          "Aviation Operations",
-          "MEP",
-          "Social Media",
-          "Account Management"
-        ],
-        "observed": "Primary-Short",
-        "fit": 20,
-        "capability": 53,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 96,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "bim-manager",
-          "readiness_after": 60,
-          "gain": 44
         }
       }
     ],
@@ -1064,7 +1058,7 @@
     [
       "bim-manager",
       "electrical-engineer",
-      0.32
+      0.33
     ]
   ],
   "bridges": [
@@ -1075,12 +1069,12 @@
     ],
     [
       "architectural-drafter",
-      "bim-manager_1",
-      0.33
+      "bim-manager_0",
+      0.4
     ],
     [
       "architectural-drafter",
-      "bim-manager_0",
+      "bim-manager_1",
       0.27
     ]
   ],
