@@ -72,6 +72,14 @@
 - **Careerjet v4** (display-permitted): adapter BUILT, key-gated on `CAREERJET_API_KEY` (repo secret). **BLOCKED on infra**: Careerjet mandates a server-IP allow-list (≤8 IPs); the GitHub Actions nightly egresses from ~7,300 rotating CIDR ranges, so it can't be satisfied from Actions. Careerjet only fires from a declared static IP (a VPS). Hold until a static-IP host exists; key can sit in secrets meanwhile.
 - Adzuna br+mx already on (data-only).
 
+### Parked, designed, ship when current pages index (~2–4 weeks from 2026-07-28)
+- **The skill surface (/skills/<id>, ~283 pages)** — the skill-first inversion of title-based IA; the structural proof of the skills-over-titles thesis. Per-skill page: unlock list (occupations weighted by demand share, LIVE job counts), the matrix graphic, co-occurring skills (skill-cooccur), bridge score, links into boards/routes/glossary. ALL DATA EXISTS (skills-glossary unlocks + profiles + cooccur + bridge analysis) — the build is presentation only. Threshold-gate like every surface; skills below the data floor get no page.
+  - **OG graphics**: per-skill generated card (Next ImageResponse; Swiss, mono numbers: skill → top unlocks → counts). The "graphic combos" done as og-images attached to real pages, NOT standalone image pages.
+  - **Skill-combo pages: NO** (283² = the thin-content trap we pruned from compare). The instrument handles arbitrary combos live. Exception: ≤20 curated iconic "stacks" later, only if search data asks.
+  - **PDF section** "Beyond this route: what your skills unlock" — bundle with the §C export wiring (Postmark + Anthropic key), not before.
+  - Pairs with the Adjacency Index ("passports" section, expanded page-by-page). Interlink with /jobs/<tag> pages, don't duplicate: tag pages = listings intent, skill pages = career-value intent.
+  - **Gate to start**: GSC shows the July surfaces (compare/regions/AEO posts) substantially indexed — recheck discovered-not-indexed trend before minting.
+
 ### Later (this quarter — ceiling-raisers)
 - **The Adjacency Index** — annual data report at a stable URL (docs/07 spec); the backlink magnet everything compounds on.
 - **Automation Phase B**: move the nightly bot to GitHub Actions (laptop-independent). Needs repo secrets (Adzuna/Reed/USAJOBS keys).
