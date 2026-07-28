@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import posthog from 'posthog-js';
 import { JobCard, type Job } from '../jobs/JobCard';
 import { startCheckout, type JobPayload } from './actions';
 import { SITE_EMAIL } from '../../lib/site';
@@ -219,11 +220,17 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   }
   async function send() {
     setSubmitError(''); setSubmitting(true);
-    const r = await startCheckout(buildPayload());
-    if (r.url) { window.location.href = r.url; return; }                     // -> Stripe Checkout
+    const payload = buildPayload();
+    const r = await startCheckout(payload);
+    if (r.url) {
+      posthog.capture('employer_checkout_started', { tier: payload.tier, occupation_slug: payload.occupation_slug });
+      window.location.href = r.url; return;
+    }
     setSubmitting(false);
-    if (r.error === 'ls-not-configured') { setDone('queued'); window.scrollTo({ top: 0, behavior: 'smooth' }); } // saved; concierge
-    else if (r.error === 'not-configured') { mailto(); }                     // local dev / no backend
+    if (r.error === 'ls-not-configured') {
+      posthog.capture('employer_job_queued', { tier: payload.tier, occupation_slug: payload.occupation_slug });
+      setDone('queued'); window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (r.error === 'not-configured') { mailto(); }
     else { setSubmitError('Could not start checkout just now — opening email as a fallback.'); mailto(); }
   }
 

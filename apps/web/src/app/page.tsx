@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import posthog from 'posthog-js';
 import { SHELL } from '@/lib/shell';
 import { DATA } from '@/lib/data';
 import { seedChips, rankPersonalized } from '@/lib/personalize';
@@ -267,6 +268,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     refreshSummary();
     controller.loadOrigin(standardData);
     dismissEmpty();
+    posthog.capture('instrument_origin_selected', { origin_slug: slug, origin_title: title });
     document.getElementById('bandEl')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
