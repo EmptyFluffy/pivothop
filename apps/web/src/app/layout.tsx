@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
+import { PostHogInit } from './components/PostHogInit';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             crawlable file URLs — a data: URI here was uncrawlable for Google. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_LD) }} />
       </head>
-      <body>{children}<Analytics /></body>
+      <body>{children}<Analytics /><PostHogInit /></body>
     </html>
   );
 }
