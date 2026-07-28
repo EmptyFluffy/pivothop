@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks, routeOrigins, originRoles } from '../routes-data';
+import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks, routeOrigins, originRoles, hasOriginPage } from '../routes-data';
 // coverableSlugs is the SAME predicate the salary generator uses — linking on
 // anything else (e.g. the curated SALARY_SLUGS list) can point at pages the
 // data floor didn't generate. The CI link gate caught exactly that.
@@ -68,7 +68,14 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
     <PageShell>
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/routes">Routes</Link><span>/</span><span>{om.title} to {r.title}</span>
+          <Link href="/">Instrument</Link><span>/</span><Link href="/routes">Routes</Link><span>/</span>
+          {/* The origin hub belongs in the trail: a pair page is a child of
+              "alternative careers for X", and this was the only surface that
+              never linked back to it. Guarded — the origin set is gated. */}
+          {hasOriginPage(def.origin)
+            ? <><Link href={`/routes/${def.origin}`}>{om.title}</Link><span>/</span></>
+            : null}
+          <span>{om.title} to {r.title}</span>
         </nav>
         <h1 className="rt-h1">{om.title} &rarr; {r.title}</h1>
         <p className="rt-dek">
@@ -183,7 +190,11 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'PivotHop', item: 'https://www.pivothop.com/' },
           { '@type': 'ListItem', position: 2, name: 'Routes', item: 'https://www.pivothop.com/routes' },
-          { '@type': 'ListItem', position: 3, name: `${om.title} to ${r.title}`, item: `https://www.pivothop.com/routes/${route}` },
+          // Mirrors the visible trail; the origin rung only exists when it does.
+          ...(hasOriginPage(def.origin)
+            ? [{ '@type': 'ListItem', position: 3, name: om.title, item: `https://www.pivothop.com/routes/${def.origin}` },
+               { '@type': 'ListItem', position: 4, name: `${om.title} to ${r.title}`, item: `https://www.pivothop.com/routes/${route}` }]
+            : [{ '@type': 'ListItem', position: 3, name: `${om.title} to ${r.title}`, item: `https://www.pivothop.com/routes/${route}` }]),
         ],
       }) }} />
       {def.faq.length > 0 && (

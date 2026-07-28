@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
-import { routableSlugs } from '../../routes/routes-data';
+import { routableSlugs, hasOriginPage, originRoles } from '../../routes/routes-data';
+import { jobCount } from '../../jobs/jobs-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { coverableSlugs, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
 import SalaryChart from '../SalaryChart';
+import { article } from '../../../lib/site';
 import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
 import JobsList from '../../jobs/JobsList';
 
@@ -40,6 +42,22 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
   // Trend is OEWS-to-OEWS (like for like); comparing the official line to the
   // posted live point would conflate a methodology gap with real wage growth.
   const trend = history.length >= 2 ? Math.round(((history[history.length - 1].p50 - history[0].p50) / history[0].p50) * 100) : null;
+
+  // Destinations this occupation measurably reaches that pay more, priced from
+  // each one's own postings rather than a national table. Board count decides
+  // whether we send them to live listings or to that role's pay page.
+  const myP50 = usBand(f)?.p50 ?? 0;
+  const payMore = (myP50
+    ? originRoles(occ)
+        .map((r) => {
+          const sf = getSalary(r.id);
+          const p50 = sf ? usBand(sf)?.p50 ?? 0 : 0;
+          return { id: r.id, title: r.title, match: r.match, p50, delta: p50 - myP50, n: jobCount(r.id) };
+        })
+        .filter((r) => r.delta > 0 && r.p50 > 0)
+        .sort((a, b) => b.delta - a.delta)
+        .slice(0, 4)
+    : []);
 
   const countries = Object.entries(f.by_country || {})
     .map(([code, v]) => ({ code, band: v.blended || v.posted || v.anchor }))
@@ -145,6 +163,34 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
               ))}
             </ul>
           </section>
+        )}
+
+        {/* Someone who just read what this role earns is one thought from "can I
+            earn more?" — and the adjacency data answers it with roles they can
+            actually reach, on boards that have openings today. That belongs
+            above the offer-checker, which sends warm traffic to a side product. */}
+        {payMore.length > 0 && (
+          <section className="rt-sec">
+            <h2>Roles that pay more, that these skills already reach</h2>
+            <p className="lbl">Median pay from each destination&rsquo;s own postings, with the readiness {article(f.title)} {f.title.toLowerCase()} profile already covers.</p>
+            <ul className="rt-rel">
+              {payMore.map((r) => (
+                <li key={r.id}>
+                  <Link href={r.n > 0 ? `/jobs/${r.id}` : `/salary/${r.id}`}>
+                    {r.n > 0 ? `${r.n} open ${r.title.toLowerCase()} role${r.n === 1 ? '' : 's'}` : `${r.title} pay`}
+                  </Link>
+                  <span className="lbl">{fmt(r.p50)} median &middot; +{fmt(r.delta)} &middot; {r.match}% readiness</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {hasOriginPage(occ) && (
+          <p className="rt-method lbl">
+            Every measured move out of this role, ranked by readiness:{' '}
+            <Link className="gl" href={`/routes/${occ}`}>alternative careers for {article(f.title)} {f.title.toLowerCase()}</Link>.
+          </p>
         )}
 
         <section className="rt-cta">

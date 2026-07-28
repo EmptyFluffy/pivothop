@@ -633,6 +633,17 @@ export function routeOrigins(): string[] {
   } catch { /* build edge */ }
   return out.sort();
 }
+/** Does this occupation have a per-origin page to link at? Callers on other
+    surfaces (job detail, salary, route pairs) use this to add the contextual
+    "alternative careers" link only where the target actually exists — the
+    origin set is threshold-gated, so linking blind would mint 404s. Memoised:
+    routeOrigins() walks the data dir, and this is called on 4,000+ pages. */
+let _originSet: Set<string> | null = null;
+export function hasOriginPage(slug: string): boolean {
+  if (!_originSet) _originSet = new Set(routeOrigins());
+  return _originSet.has(slug);
+}
+
 /** Every measured role out of one origin, readiness-ranked (the full list, not just the ones with route pages). */
 export function originRoles(origin: string): RouteRole[] {
   return [...(getOrigin(origin)?.roles ?? [])].sort((a, b) => (b.match ?? 0) - (a.match ?? 0));

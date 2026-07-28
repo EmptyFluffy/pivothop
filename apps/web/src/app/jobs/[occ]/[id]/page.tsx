@@ -7,8 +7,9 @@ import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../J
 import SkillStrip from '../../SkillStrip';
 import { skillEntries } from '../../skill-entries';
 import { coverableSlugs } from '../../../salary/salary-data';
-import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
-import { SITE_EMAIL } from '../../../../lib/site';
+import { routableSlugs, routePair, destRole, originMeta, hasOriginPage, originRoles } from '../../../routes/routes-data';
+import { jobCount } from '../../jobs-data';
+import { SITE_EMAIL, article } from '../../../../lib/site';
 
 export function generateStaticParams() {
   return jobOccupations().flatMap((occ) => getJobs(occ).map((j) => ({ occ, id: j.id })));
@@ -69,6 +70,25 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
     .filter((x) => x.r)
     .sort((a, b) => b.r!.match - a.r!.match)
     .slice(0, 3);
+  // More of the same role. The obvious next click on any board, and the moment
+  // of highest intent — one listing is rarely the right one.
+  const siblings = getJobs(occ).filter((s) => s.id !== id).slice(0, 5);
+  // Where these skills also reach. The differentiated half: every other board
+  // shows more of the same title, we can show adjacent occupations with the
+  // readiness attached. Gated on a live board so no one lands on an empty page.
+  const alsoReach = originRoles(occ)
+    .map((r) => ({ ...r, n: jobCount(r.id) }))
+    .filter((r) => r.n > 0 && r.id !== occ)
+    .slice(0, 4);
+  // Anchor variation: 4,477 pages pointing at 125 targets with one identical
+  // phrase reads as automated. Deterministic per page, so it stays stable.
+  const anchors = [
+    `Alternative careers for ${article(title)} ${tl}`,
+    `Where ${tl}s move next`,
+    `Careers ${article(title)} ${tl} can move into`,
+    `${title} career changes, measured`,
+  ];
+  const anchor = anchors[[...id].reduce((a, c) => a + c.charCodeAt(0), 0) % anchors.length];
   const claim = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(`Claim listing: ${j.title} at ${j.company}`)}&body=${encodeURIComponent(`We are the employer behind "${j.title}" (${j.company}) listed on PivotHop. We want to claim it and hear about featured placement.\n\nWork email:\nName:`)}`;
 
   return (
@@ -123,13 +143,45 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         <section className="rt-sec">
           <h2>The PivotHop read</h2>
           <ul className="rt-rel">
-            {hasSalary && <li><Link href={`/salary/${occ}`}>What a {tl} actually earns</Link><span className="lbl">median, seniority, by country</span></li>}
+            {hasSalary && <li><Link href={`/salary/${occ}`}>What {article(title)} {tl} actually earns</Link><span className="lbl">median, seniority, by country</span></li>}
+            {hasOriginPage(occ) && (
+              <li><Link href={`/routes/${occ}`}>{anchor}</Link><span className="lbl">every measured route out</span></li>
+            )}
             {waysIn.map(({ slug, r, om }) => (
               <li key={slug}><Link href={`/routes/${slug}`}>{om.title} &rarr; {title}</Link><span className="lbl">{r!.match}% readiness</span></li>
             ))}
             <li><Link href={`/jobs/${occ}`}>All open {tl} roles</Link><span className="lbl">the full board</span></li>
           </ul>
         </section>
+
+        {alsoReach.length > 0 && (
+          <section className="rt-sec">
+            <h2>Where these skills also reach</h2>
+            <p className="lbl jd-skills-cap">Adjacent occupations measured from the same postings &mdash; readiness is what {article(title)} {tl}&rsquo;s profile already covers.</p>
+            <ul className="rt-rel">
+              {alsoReach.map((r) => (
+                <li key={r.id}>
+                  <Link href={`/jobs/${r.id}`}>{r.n} open {r.title.toLowerCase()} role{r.n === 1 ? '' : 's'}</Link>
+                  <span className="lbl">{r.match}% readiness from {tl}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {siblings.length > 0 && (
+          <section className="rt-sec">
+            <h2>More {tl} roles</h2>
+            <ul className="rt-rel">
+              {siblings.map((s) => (
+                <li key={s.id}>
+                  <Link href={`/jobs/${occ}/${s.id}`}>{s.title}</Link>
+                  <span className="lbl">{s.company}{s.location ? ` · ${s.location}` : ''}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <p className="rt-method lbl">
           Backfilled listing, refreshed with the nightly scrape; the employer has not claimed it yet.
