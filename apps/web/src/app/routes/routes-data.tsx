@@ -22,7 +22,7 @@ export type RouteRole = {
 };
 type KidRow = { t: string; m: number; slug?: string; gap?: string[]; after?: number };
 type OriginPayload = {
-  originLabel: string; originSlug: string; postings: number;
+  originLabel: string; originSlug: string; postings: number; field?: string;
   separations?: { transfer: number; exit: number };
   roles: RouteRole[]; next: Record<string, KidRow[]>;
   direct?: KidRow[];
@@ -106,9 +106,9 @@ export function destRole(originSlug: string, destSlug: string): RouteRole | unde
 export function unlocks(originSlug: string, destSlug: string): { t: string; m: number; after?: number }[] {
   return getOrigin(originSlug)?.next[destSlug] ?? [];
 }
-export function originMeta(slug: string): { slug: string; title: string; postings: number; separations?: { transfer: number; exit: number } } {
+export function originMeta(slug: string): { slug: string; title: string; postings: number; field?: string; separations?: { transfer: number; exit: number } } {
   const o = getOrigin(slug);
-  return { slug, title: o?.originLabel ?? slug, postings: o?.postings ?? 0, separations: o?.separations };
+  return { slug, title: o?.originLabel ?? slug, postings: o?.postings ?? 0, field: o?.field, separations: o?.separations };
 }
 
 export const ROUTES: Record<string, RouteDef> = {

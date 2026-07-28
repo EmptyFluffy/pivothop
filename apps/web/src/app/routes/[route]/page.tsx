@@ -6,10 +6,11 @@ import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks, r
 // coverableSlugs is the SAME predicate the salary generator uses — linking on
 // anything else (e.g. the curated SALARY_SLUGS list) can point at pages the
 // data floor didn't generate. The CI link gate caught exactly that.
-import { coverableSlugs } from '../../salary/salary-data';
+import { coverableSlugs, getSalary, usBand, fmt } from '../../salary/salary-data';
 import { jobCount } from '../../jobs/jobs-data';
 import JobsList from '../../jobs/JobsList';
 import RouteInstrument from '../RouteInstrument';
+import { pickAnchor } from '../../../lib/site';
 
 /* One slug space, two kinds of page:
    - "architect-to-interior-designer" (has "-to-")  -> the route page
@@ -245,6 +246,86 @@ function OriginPage({ origin }: { origin: string }) {
   const reachTotal = reach.reduce((s, x) => s + x.n, 0);
   const reachBest = [...reach].sort((a, b) => b.n - a.n)[0];
 
+  // ── Per-page findings, computed ───────────────────────────────────────────
+  // Origin pages were 72% word-for-word identical to each other: a ranked table,
+  // a CTA, an FAQ, and the same prose around different numbers. These four read
+  // the payload we already emit and produce different sentences per occupation,
+  // which is the difference between structured data and a filled-in template.
+  const all = rows.map((x) => x.r);
+  const findings: string[] = [];
+  // Phrasing varies by origin so 125 pages do not share one connective tissue.
+  // The facts are computed; only the wording around them rotates.
+  const V = (opts: string[]) => pickAnchor(opts, origin);
+  const V2 = (opts: string[]) => pickAnchor(opts, origin, 1);
+
+  // 1. Where the routes actually go — same field, or out of it.
+  const sameField = all.filter((r) => (r.field || '').toLowerCase() === (om.field || '').toLowerCase()).length;
+  const outField = all.length - sameField;
+  const fieldNames = [...new Set(all.map((r) => r.field).filter(Boolean))];
+  if (all.length >= 3 && om.field) {
+    findings.push(
+      sameField === 0
+        ? `Every measured route leaves ${om.field.toLowerCase()}. There is no adjacent move that keeps a ${ol} inside the same field, which makes this a field change rather than a step sideways.`
+        : outField === 0
+          ? `All ${all.length} routes stay inside ${om.field.toLowerCase()}. The skills that transfer are the ones this field already trains, so none of these moves means starting over.`
+          : V([
+              `${sameField} of ${all.length} routes stay inside ${om.field.toLowerCase()}; ${outField} leave it, into ${fieldNames.filter((fx) => fx.toLowerCase() !== om.field!.toLowerCase()).slice(0, 3).map((fx) => fx.toLowerCase()).join(', ')}.`,
+              `The set splits ${sameField}/${outField}: ${sameField} destinations sit inside ${om.field.toLowerCase()}, ${outField} outside it (${fieldNames.filter((fx) => fx.toLowerCase() !== om.field!.toLowerCase()).slice(0, 3).map((fx) => fx.toLowerCase()).join(', ')}).`,
+              `Most of this list is not a field change: ${sameField} of ${all.length} destinations remain in ${om.field.toLowerCase()}, ${outField} reaching into ${fieldNames.filter((fx) => fx.toLowerCase() !== om.field!.toLowerCase()).slice(0, 2).map((fx) => fx.toLowerCase()).join(' and ')}.`,
+            ])
+    );
+  }
+
+  // 2. What the ranking rests on — observed worker flow, or skill overlap alone.
+  const obsUS = all.filter((r) => (r.mobility_source ?? '').startsWith('observed-flow-us')).length;
+  const obsEU = all.filter((r) => r.mobility_source === 'observed-flow-eu').length;
+  const rel = all.filter((r) => r.mobility_source === 'related').length;
+  const none = all.length - obsUS - obsEU - rel;
+  if (all.length >= 3) {
+    const parts: string[] = [];
+    if (obsUS) parts.push(`${obsUS} ${obsUS === 1 ? 'is' : 'are'} corroborated by observed US worker transitions`);
+    if (obsEU) parts.push(`${obsEU} by European résumé trajectories`);
+    if (rel) parts.push(`${rel} by the O*NET related-occupations list`);
+    if (parts.length) {
+      findings.push(V2([
+        `Of the ${all.length}, ${parts.join(', ')}${none ? `; ${none} rest${none === 1 ? 's' : ''} on skill overlap alone` : ''}.`,
+        `Evidence behind the ranking: ${parts.join(', ')}${none ? `, with ${none} on posted skills only` : ''}.`,
+        `${parts.join(', ')}${none ? `. The remaining ${none} ${none === 1 ? 'is' : 'are'} scored from posted skills alone` : ''}.`,
+      ]));
+    }
+  }
+
+  // 3. Which way the pay moves, priced from each destination's own corpus.
+  const originP50 = usBand(getSalary(origin) ?? ({} as never))?.p50 ?? 0;
+  const paid = all
+    .map((r) => ({ r, p50: usBand(getSalary(r.id) ?? ({} as never))?.p50 ?? 0 }))
+    .filter((x) => x.p50 > 0);
+  if (originP50 && paid.length >= 3) {
+    const up = paid.filter((x) => x.p50 > originP50);
+    const best = [...up].sort((a, b) => b.p50 - a.p50)[0];
+    findings.push(
+      up.length === 0
+        ? `None of the priced destinations pays more than ${ol} work at the median. A move from here buys a different kind of job, not a raise.`
+        : V([
+            `${up.length} of ${paid.length} priced destinations pay above the ${ol} median${best ? `, topping out at ${best.r.title.toLowerCase()} on ${fmt(best.p50)}` : ''}.`,
+            `Pay rises on ${up.length} of ${paid.length} priced routes${best ? `; ${best.r.title.toLowerCase()} is the highest at ${fmt(best.p50)}` : ''}.`,
+            `${up.length} destinations out of ${paid.length} priced pay more than ${ol} work does${best ? `, the furthest being ${best.r.title.toLowerCase()} at ${fmt(best.p50)}` : ''}.`,
+          ])
+    );
+  }
+
+  // 4. Which skills are doing the carrying across the whole set.
+  const skillFreq = new Map<string, number>();
+  for (const r of all) for (const s of new Set(r.have ?? [])) skillFreq.set(s, (skillFreq.get(s) ?? 0) + 1);
+  const carriers = [...skillFreq.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  if (carriers.length >= 2 && all.length >= 3) {
+    findings.push(V2([
+      `${carriers.map(([sk, n]) => `${sk} carries into ${n} of ${all.length}`).join(', ')}.`,
+      `The skills doing the work: ${carriers.map(([sk, n]) => `${sk} (${n}/${all.length})`).join(', ')}.`,
+      `${carriers[0][0]} appears in ${carriers[0][1]} of ${all.length} destinations, ${carriers.slice(1).map(([sk, n]) => `${sk} in ${n}`).join(', ')}.`,
+    ]));
+  }
+
   const faq = [
     { q: `What are the best alternative careers for ${ol}s?`, a: `Ranked by measured skill readiness from live postings, the closest moves are ${rows.slice(0, 3).map((x) => `${x.r.title.toLowerCase()} (${x.r.match}%)`).join(', ')}. Readiness is the share of the destination's posted skill demand a typical ${ol} profile already covers.` },
     { q: `How many careers can a ${ol} actually reach?`, a: `We measure ${rows.length} routes out of ${ol} with real skill overlap, from ${om.postings.toLocaleString()} live postings. Most occupation pairs share almost no skills, so a ranked list of ${rows.length} is the honest count, not a limitation.${gated ? ` ${gated} of them are licensed professions where a credential, not the skill gap, sets the timeline.` : ''}` },
@@ -259,7 +340,11 @@ function OriginPage({ origin }: { origin: string }) {
         </nav>
         <h1 className="rt-h1">Alternative careers for {ol}s</h1>
         <p className="rt-dek">
-          {`Every career change from ${ol} we can measure, ranked by skill readiness against ${om.postings.toLocaleString()} live postings. No quiz, no vibes: the salary, the transition estimate, and the license gate for each route.`}
+          {V([
+            `Every career change from ${ol} we can measure, ranked by skill readiness against ${om.postings.toLocaleString()} live postings. No quiz, no vibes: the salary, the transition estimate, and the license gate for each route.`,
+            `${rows.length} measured moves out of ${ol}, scored against ${om.postings.toLocaleString()} live postings and ranked by how much of each destination a typical profile already covers. Salary, timeline, and licence gate attached to every one.`,
+            `What a ${ol} can move into, measured rather than suggested: ${rows.length} destinations read from ${om.postings.toLocaleString()} live postings, each with its pay band, its realistic timeline, and whether a credential stands in the way.`,
+          ])}
           {om.separations?.transfer != null ? ` In a typical year ${om.separations.transfer}% of ${ol}s move to a different occupation.` : ''}
         </p>
 
@@ -273,7 +358,11 @@ function OriginPage({ origin }: { origin: string }) {
 
         <section className="rt-sec">
           <h2>The routes, ranked</h2>
-          <p className="rt-note">Readiness is the share of the destination&rsquo;s posted skill demand a typical {ol} profile already covers. Click through for the full skill map, the gap, and the evidence checklist.</p>
+          <p className="rt-note">{V2([
+            `Readiness is the share of the destination's posted skill demand a typical ${ol} profile already covers. Click through for the full skill map, the gap, and the evidence checklist.`,
+            `Each percentage is how much of that role's posted demand a ${ol} profile covers before retraining. The route pages break it down skill by skill.`,
+            `The number is coverage, not a guess: what share of the destination's own postings a ${ol} already answers. Open a route for the full gap.`,
+          ])}</p>
           <ul className="rt-rel">
             {rows.map(({ slug, r }) => (
               <li key={r.id}>
@@ -286,12 +375,26 @@ function OriginPage({ origin }: { origin: string }) {
           </ul>
         </section>
 
+        {findings.length >= 2 && (
+          <section className="rt-sec">
+            <h2>What the ranking shows</h2>
+            <p className="rt-note">{V([`Read off the ${rows.length} routes above and the corpus behind them. It changes when the data does.`, `Derived from the ${rows.length} routes above, recomputed each night.`, `What the ${rows.length} measured routes say when read together.`])}</p>
+            <ul className="rt-find">
+              {findings.map((t, i) => <li key={i}>{t}</li>)}
+            </ul>
+          </section>
+        )}
+
         <section className="rt-cta">
           <div>
             <h2>{reachTotal > 0 ? `${reachTotal.toLocaleString()} of these roles are open right now.` : 'Your skills are not the typical profile.'}</h2>
             <p>
               {reachTotal > 0
-                ? `Across the ${reach.length} ${reach.length === 1 ? 'career' : 'careers'} above with live listings. Run the instrument with your own skill set and the readiness recomputes for you, route by route. Free, no account.`
+                ? V2([
+                    `Across the ${reach.length} ${reach.length === 1 ? 'career' : 'careers'} above with live listings. Run the instrument with your own skill set and the readiness recomputes for you, route by route. Free, no account.`,
+                    `Spread over ${reach.length} of the destinations above. Put your own skills in and every number on this page recalculates against them. Free, no account.`,
+                    `Counted across ${reach.length} ${reach.length === 1 ? 'destination' : 'destinations'} hiring now. Your skill set is not the typical ${ol} profile, so run it and see where the ranking moves. Free, no account.`,
+                  ])
                 : 'Run the instrument with your own skill set and the readiness numbers recompute for you, route by route. Free, no account.'}
             </p>
           </div>
