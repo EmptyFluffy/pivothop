@@ -7,7 +7,10 @@
 # only publish what it can defend.
 
 set -u
-REPO="/Users/carlos/Desktop/PivotHop"
+# Repo root derived from this script's own location (apps/scraper/scripts/ -> ../../..),
+# so moving the repo never breaks the nightly job again. launchd passes an absolute
+# path in ProgramArguments, so BASH_SOURCE resolves correctly under the daemon too.
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 export PATH="/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:$PATH"
 LOG="$REPO/apps/scraper/data/daily-run.log"
 MARKER="$REPO/apps/scraper/data/LAST-RUN-FAILED"
