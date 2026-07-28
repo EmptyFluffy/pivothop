@@ -1,4 +1,6 @@
 import type { MetadataRoute } from 'next';
+import fs from 'node:fs';
+import path from 'node:path';
 import { POSTS } from './blog/posts';
 import { routableSlugs, routeOrigins } from './routes/routes-data';
 import { coverableSlugs } from './salary/salary-data';
@@ -8,31 +10,43 @@ import { compareSlugs } from './compare/compare-data';
 
 const BASE = 'https://www.pivothop.com';
 
+// Per-page change dates from scripts/build-lastmod.py, which advances a date
+// only when the data behind that page actually changed. Stamping every URL with
+// the build time — which this file used to do — makes every page claim to change
+// nightly, and Google discounts lastmod it cannot trust. A page that has not
+// moved keeps its old date so "changed today" carries information.
+// Missing entry means we cannot date it honestly, so we send no date at all.
+let LASTMOD: Record<string, string> = {};
+try {
+  LASTMOD = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'lastmod.json'), 'utf8')
+  );
+} catch {
+  LASTMOD = {};
+}
+const mod = (p: string) => (LASTMOD[p] ? { lastModified: new Date(`${LASTMOD[p]}T00:00:00Z`) } : {});
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Data-driven pages genuinely change with the nightly scrape, so the build
-  // date is an honest lastModified — a real crawl-prioritization signal, not
-  // a freshness costume. Editorial pages carry no date rather than a fake one.
-  const now = new Date();
   return [
-    { url: BASE, lastModified: now, changeFrequency: 'daily', priority: 1 },
+    { url: BASE, ...mod('/'), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE}/about`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE}/employers`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/fairelephant`, changeFrequency: 'daily', priority: 0.8 },
     { url: `${BASE}/blog`, changeFrequency: 'weekly', priority: 0.8 },
     ...POSTS.map((p) => ({ url: `${BASE}/blog/${p.slug}`, changeFrequency: 'monthly' as const, priority: 0.7 })),
-    { url: `${BASE}/adjacency-index`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
-    { url: `${BASE}/routes`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/glossary`, changeFrequency: 'monthly', priority: 0.6 },
-    ...routableSlugs().map((s) => ({ url: `${BASE}/routes/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 })),
-    ...routeOrigins().map((s) => ({ url: `${BASE}/routes/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 })),
-    { url: `${BASE}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    ...compareSlugs().map((s) => ({ url: `${BASE}/compare/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.7 })),
-    { url: `${BASE}/salary`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/salary/by-country`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    ...coverableSlugs().map((s) => ({ url: `${BASE}/salary/${s}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 })),
-    { url: `${BASE}/jobs`, lastModified: now, changeFrequency: 'daily', priority: 0.8 },
-    { url: `${BASE}/jobs/browse`, lastModified: now, changeFrequency: 'daily', priority: 0.7 },
-    ...jobOccupations().map((s) => ({ url: `${BASE}/jobs/${s}`, lastModified: now, changeFrequency: 'daily' as const, priority: 0.7 })),
-    ...categorySlugs().map((s) => ({ url: `${BASE}/jobs/${s}`, lastModified: now, changeFrequency: 'daily' as const, priority: 0.6 })),
+    { url: `${BASE}/adjacency-index`, ...mod('/adjacency-index'), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE}/routes`, ...mod('/routes'), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/glossary`, ...mod('/glossary'), changeFrequency: 'monthly', priority: 0.6 },
+    ...routableSlugs().map((s) => ({ url: `${BASE}/routes/${s}`, ...mod(`/routes/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
+    ...routeOrigins().map((s) => ({ url: `${BASE}/routes/${s}`, ...mod(`/routes/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
+    { url: `${BASE}/compare`, ...mod('/compare'), changeFrequency: 'weekly', priority: 0.7 },
+    ...compareSlugs().map((s) => ({ url: `${BASE}/compare/${s}`, ...mod('/compare'), changeFrequency: 'weekly' as const, priority: 0.7 })),
+    { url: `${BASE}/salary`, ...mod('/salary'), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/salary/by-country`, ...mod('/salary'), changeFrequency: 'weekly', priority: 0.7 },
+    ...coverableSlugs().map((s) => ({ url: `${BASE}/salary/${s}`, ...mod(`/salary/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
+    { url: `${BASE}/jobs`, ...mod('/jobs'), changeFrequency: 'daily', priority: 0.8 },
+    { url: `${BASE}/jobs/browse`, ...mod('/jobs/browse'), changeFrequency: 'daily', priority: 0.7 },
+    ...jobOccupations().map((s) => ({ url: `${BASE}/jobs/${s}`, ...mod(`/jobs/${s}`), changeFrequency: 'daily' as const, priority: 0.7 })),
+    ...categorySlugs().map((s) => ({ url: `${BASE}/jobs/${s}`, ...mod(`/jobs/${s}`), changeFrequency: 'daily' as const, priority: 0.6 })),
   ];
 }

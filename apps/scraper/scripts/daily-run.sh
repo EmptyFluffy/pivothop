@@ -52,6 +52,9 @@ python3 "$REPO/apps/scraper/scripts/build-jobs.py" >> "$LOG" 2>&1 || { echo "bui
 # its entries, so a lexicon addition that skips this step ships markless chips.
 node "$REPO/apps/scraper/scripts/build-skill-icons.mjs" >> "$LOG" 2>&1 || echo "build-skill-icons failed (non-fatal)" >> "$LOG"
 python3 "$REPO/apps/scraper/scripts/build-skill-glossary.py" >> "$LOG" 2>&1 || echo "build-skill-glossary failed (non-fatal)" >> "$LOG"
+# Per-page sitemap dates. Must run after the data above and before the build,
+# since sitemap.ts reads lastmod.json at build time.
+python3 "$REPO/apps/scraper/scripts/build-lastmod.py" >> "$LOG" 2>&1 || echo "build-lastmod failed (non-fatal)" >> "$LOG"
 
 # Web build + the link-integrity gate before anything is committed.
 ( cd "$REPO/apps/web" && npm run build >> "$LOG" 2>&1 && npm run --silent check:links >> "$LOG" 2>&1 ) || {
