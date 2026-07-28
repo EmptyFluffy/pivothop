@@ -1,6 +1,25 @@
 import type { Metadata } from 'next';
+import { Space_Grotesk, Space_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
+
+// Self-hosted at build time by next/font, which also generates a fallback with
+// matched metrics (size-adjust / ascent-override). That is the CLS fix: the
+// external Google stylesheet used display=swap, so every page rendered in a
+// fallback face and reflowed when the real font landed ~1.4s in, shifting
+// everything below the heading. Same two typefaces, nothing added.
+const sans = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+const mono = Space_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.pivothop.com'),
@@ -42,14 +61,8 @@ const SITE_LD = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
         {/* Favicons come from app/icon.svg (vector, for browser tabs + Google's
             SVG support) and app/favicon.ico (multi-size ICO fallback). Both are
             crawlable file URLs — a data: URI here was uncrawlable for Google. */}
