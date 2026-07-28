@@ -9,7 +9,7 @@ import { skillEntries } from '../../skill-entries';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, hasOriginPage, originRoles } from '../../../routes/routes-data';
 import { jobCount } from '../../jobs-data';
-import { SITE_EMAIL, article } from '../../../../lib/site';
+import { SITE_EMAIL, article, originAnchors, pickAnchor } from '../../../../lib/site';
 
 export function generateStaticParams() {
   return jobOccupations().flatMap((occ) => getJobs(occ).map((j) => ({ occ, id: j.id })));
@@ -82,13 +82,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
     .slice(0, 4);
   // Anchor variation: 4,477 pages pointing at 125 targets with one identical
   // phrase reads as automated. Deterministic per page, so it stays stable.
-  const anchors = [
-    `Alternative careers for ${article(title)} ${tl}`,
-    `Where ${tl}s move next`,
-    `Careers ${article(title)} ${tl} can move into`,
-    `${title} career changes, measured`,
-  ];
-  const anchor = anchors[[...id].reduce((a, c) => a + c.charCodeAt(0), 0) % anchors.length];
+  const anchor = pickAnchor(originAnchors(title), id);
   const claim = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(`Claim listing: ${j.title} at ${j.company}`)}&body=${encodeURIComponent(`We are the employer behind "${j.title}" (${j.company}) listed on PivotHop. We want to claim it and hear about featured placement.\n\nWork email:\nName:`)}`;
 
   return (

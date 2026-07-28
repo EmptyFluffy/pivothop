@@ -63,6 +63,8 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
   const kids = unlocks(def.origin, def.dest);
   const observed = r.mobility != null && (r.mobility_source ?? '').startsWith('observed');
   const originLc = om.title.toLowerCase();
+  const destBoard = jobCount(def.dest);
+  const destLc = r.title.toLowerCase();
 
   return (
     <PageShell>
@@ -148,13 +150,27 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           </ul>
         </section>
 
-        <section className="rt-cta">
-          <div>
-            <h2>Take this route with you.</h2>
-            <p>Run the graph with your own skills, then export the six-page report for this route. Free, no account.</p>
-          </div>
-          <Link className="rt-go" href={`/?from=${def.origin}`}>Run your own numbers &rarr;</Link>
-        </section>
+        {/* Intent is legible here: this reader has already chosen a destination,
+            so the board is the next step, not the instrument. Count-gated — a
+            route with no live listings falls back to the tool rather than
+            promising an empty page. */}
+        {destBoard > 0 ? (
+          <section className="rt-cta">
+            <div>
+              <h2>{r.title} roles are open now.</h2>
+              <p>{`${destBoard} live ${destLc} ${destBoard === 1 ? 'opening' : 'openings'} on the board, with the pay where it is posted. Your ${originLc} profile already covers ${r.match}% of what they ask.`}</p>
+            </div>
+            <Link className="rt-go" href={`/jobs/${def.dest}`}>View {destBoard} open {destLc} {destBoard === 1 ? 'role' : 'roles'} &rarr;</Link>
+          </section>
+        ) : (
+          <section className="rt-cta">
+            <div>
+              <h2>Take this route with you.</h2>
+              <p>Run the graph with your own skills, then export the six-page report for this route. Free, no account.</p>
+            </div>
+            <Link className="rt-go" href={`/?from=${def.origin}`}>Run your own numbers &rarr;</Link>
+          </section>
+        )}
 
         {def.faq.length > 0 && (
           <div className="post-faq rt-faq">
@@ -219,6 +235,15 @@ function OriginPage({ origin }: { origin: string }) {
   const gated = rows.filter((x) => x.r.license?.req === 'required').length;
   const hasSalary = coverableSlugs().includes(origin);
   const boardN = jobCount(origin);
+  // Openings across every destination this origin measurably reaches. The
+  // reader here has not picked a destination yet, so the instrument is still
+  // the honest next step — but the promise should be the outcome, and this is
+  // the number that states it.
+  const reach = rows
+    .map((x) => ({ title: x.r.title, id: x.r.id, match: x.r.match, n: jobCount(x.r.id) }))
+    .filter((x) => x.n > 0 && x.id !== origin);
+  const reachTotal = reach.reduce((s, x) => s + x.n, 0);
+  const reachBest = [...reach].sort((a, b) => b.n - a.n)[0];
 
   const faq = [
     { q: `What are the best alternative careers for ${ol}s?`, a: `Ranked by measured skill readiness from live postings, the closest moves are ${rows.slice(0, 3).map((x) => `${x.r.title.toLowerCase()} (${x.r.match}%)`).join(', ')}. Readiness is the share of the destination's posted skill demand a typical ${ol} profile already covers.` },
@@ -263,11 +288,25 @@ function OriginPage({ origin }: { origin: string }) {
 
         <section className="rt-cta">
           <div>
-            <h2>Your skills are not the typical profile.</h2>
-            <p>Run the instrument with your own skill set and the readiness numbers recompute for you, route by route. Free, no account.</p>
+            <h2>{reachTotal > 0 ? `${reachTotal.toLocaleString()} of these roles are open right now.` : 'Your skills are not the typical profile.'}</h2>
+            <p>
+              {reachTotal > 0
+                ? `Across the ${reach.length} ${reach.length === 1 ? 'career' : 'careers'} above with live listings. Run the instrument with your own skill set and the readiness recomputes for you, route by route. Free, no account.`
+                : 'Run the instrument with your own skill set and the readiness numbers recompute for you, route by route. Free, no account.'}
+            </p>
           </div>
-          <Link className="rt-go" href={`/?from=${origin}`}>Run your own numbers &rarr;</Link>
+          <Link className="rt-go" href={`/?from=${origin}`}>See which ones your skills reach &rarr;</Link>
         </section>
+
+        {reachBest && (
+          <p className="rt-method lbl">
+            Skipping ahead:{' '}
+            <Link className="gl" href={`/jobs/${reachBest.id}`}>
+              {reachBest.n} open {reachBest.title.toLowerCase()} {reachBest.n === 1 ? 'role' : 'roles'}
+            </Link>
+            {` — the largest live board among them, at ${reachBest.match}% readiness from ${ol}.`}
+          </p>
+        )}
 
         <div className="post-faq rt-faq">
           <h2>Quick answers</h2>
