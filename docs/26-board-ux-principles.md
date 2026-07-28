@@ -41,6 +41,8 @@ The capture band already offers "email me when the board adds roles my skills al
 
 ---
 
+*Backlog home: these five live in `docs/25-project-status.md`. This file is the reasoning behind them.*
+
 ## What we do not copy
 
 Reviewers consistently report HiringCafe as slow. Our statically generated pages are a real edge and are not worth trading for interactivity we do not need.

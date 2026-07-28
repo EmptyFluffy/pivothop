@@ -1,6 +1,6 @@
 # PivotHop — Project Status
 
-*Living checklist of what's shipped, in flight, and pending. Updated 2026-07-25. Companion to docs/23 (automation), docs/24 (competitor SEO research). "Shipped" = deployed to production and verified.*
+*Living checklist of what's shipped, in flight, and pending. Updated 2026-07-28. Companion to docs/23 (automation), docs/24 (competitor SEO research), docs/26 (board UX principles). "Shipped" = deployed to production and verified.*
 
 ---
 
@@ -53,6 +53,17 @@
 - **Employer waitlist gate (2026-07-26)**: /employers now shows a concierge waitlist card (email + optional company/role) instead of the un-wired checkout journey. `joinWaitlist` → Supabase `employer_waitlist` (migration 0006) → Postmark heads-up to hello@ once §C lands → mailto fallback. The full EmployerForm stays built behind the one-line `WAITLIST` flag in employers/page.tsx — flip to `false` when Lemon Squeezy is wired. **[USER] run migration 0006 (with 0005) in the Supabase SQL editor, and confirm SUPABASE_URL + SUPABASE_SERVICE_KEY exist in Vercel env, so signups persist instead of falling back to mailto.**
 - **Route-report PDF export** (6-page) built; the send-loop degrades gracefully (lead captured without keys).
 
+### Skill surface + crawl signals (2026-07-28 — all LIVE)
+- **351/351 skills carry a mark, a definition, and an unlock list.** The glossary builder used to emit "sits below the share floor, so no unlock list yet" for 66 skills (ZBrush, the whole AEC tool family) — publishing a skill while telling the reader it was unusable. Unlocks now fall through three evidence tiers (top-20 profiles → full posting corpus at ≥3 mentions → hand-map for noise-level collisions like Dynamo/DynamoDB). Definitions are slug-keyed in `scripts/skill_definitions.py`; the profile-derived fallback line is a bug signal, not a resting state.
+- **Skill marks**: simple-icons (83) → Font Awesome Free brands (5: AWS, Java, Salesforce, Microsoft — what simple-icons dropped at brand request) → 263 house glyphs in `scripts/skill-glyphs.mjs` for the concepts no logo exists for. Adobe, Tableau, MATLAB and most AEC tools are in neither library. Brand marks fill, house glyphs stroke. Rendered on job chips, the skill sheet, and every glossary entry.
+- **Skill definition sheet** replaces the jump-to-glossary on both the instrument and job pages: a Swiss card over the page with the definition, unlock links, and "show in glossary". Chips keep real hrefs (cmd-click / no-JS still work).
+- **Glossary is three tabs** (terms / sources / skill bank) instead of one 62,000px scroll; deep links land at the 80px sticky offset.
+- **Lexicon +68 domain terms** (education, culinary, legal, trades, clinical, finance, media, aviation, logistics, real estate, lab science, library, creative 3D). Teacher, chef, cook, welder, carpenter emit routes for the first time; 974 → 989. Seven greedy aliases cut after reach audits — "interpreting" matched *interpreting blueprints*, "aviation" matched construction firms listing market sectors. **Rule: audit alias reach after every lexicon change; a term in 10+ unrelated occupations is a false positive, not a popular skill.**
+- **Canonical tags** on the homepage, /about, /blog (were missing; every other page had one). The homepage is a client component so it cannot export `metadata` — React 19 hoists a rendered `<link>` into `<head>`, so no page split was needed.
+- **Per-page sitemap `lastmod`** (`scripts/build-lastmod.py`): hashes the data behind each URL, advances the date only when the hash moves. Previously every URL carried the build time, so all 1,821 pages claimed to change nightly — the textbook untrustworthy-lastmod pattern Google discounts. 741 of 1,867 URLs now carry an honest date; editorial pages carry none rather than a fake one.
+- **IndexNow submits only changed URLs** (was: the whole sitemap, nightly). `--all` retained for structural changes.
+- **Pipeline gap closed**: `build-jobs.py` is not part of `scrape -- run`, so running the scrape by hand refreshes the graph and leaves the board a day stale — this is what made a posting listing TypeScript show no skill chips. `build-skill-icons.mjs` was likewise never in `daily-run.sh`. Both wired. **Correct order: `scrape -- run` → export-web-data → fetch-logos → build-jobs → build-skill-icons → build-skill-glossary → build-lastmod → next build.**
+
 ---
 
 ## Pending
@@ -73,18 +84,32 @@
 - Adzuna br+mx already on (data-only).
 
 ### Parked, designed, ship when current pages index (~2–4 weeks from 2026-07-28)
-- **The skill surface (/skills/<id>, ~283 pages)** — the skill-first inversion of title-based IA; the structural proof of the skills-over-titles thesis. Per-skill page: unlock list (occupations weighted by demand share, LIVE job counts), the matrix graphic, co-occurring skills (skill-cooccur), bridge score, links into boards/routes/glossary. ALL DATA EXISTS (skills-glossary unlocks + profiles + cooccur + bridge analysis) — the build is presentation only. Threshold-gate like every surface; skills below the data floor get no page.
+- **The skill surface (/skills/<id>, ~351 pages — lexicon grew 283 → 351 on 2026-07-28)** — the skill-first inversion of title-based IA; the structural proof of the skills-over-titles thesis. Per-skill page: unlock list (occupations weighted by demand share, LIVE job counts), the matrix graphic, co-occurring skills (skill-cooccur), bridge score, links into boards/routes/glossary. ALL DATA EXISTS (skills-glossary unlocks + profiles + cooccur + bridge analysis) — the build is presentation only. Threshold-gate like every surface; skills below the data floor get no page.
   - **OG graphics**: per-skill generated card (Next ImageResponse; Swiss, mono numbers: skill → top unlocks → counts). The "graphic combos" done as og-images attached to real pages, NOT standalone image pages.
   - **Skill-combo pages: NO** (283² = the thin-content trap we pruned from compare). The instrument handles arbitrary combos live. Exception: ≤20 curated iconic "stacks" later, only if search data asks.
   - **PDF section** "Beyond this route: what your skills unlock" — bundle with the §C export wiring (Postmark + Anthropic key), not before.
   - Pairs with the Adjacency Index ("passports" section, expanded page-by-page). Interlink with /jobs/<tag> pages, don't duplicate: tag pages = listings intent, skill pages = career-value intent.
   - **Gate to start**: GSC shows the July surfaces (compare/regions/AEO posts) substantially indexed — recheck discovered-not-indexed trend before minting.
 
+### The graph, made smarter (designed 2026-07-28 — ordered by value per hour)
+*Finding: the instrument is the least informed surface in the product. Every route emits 26 fields; the detail panel renders about nine. The PDF report and the route pages already know more about a route than the graph does. Most of this is showing what we compute, not computing more.*
+
+- **The waterfall in the detail panel** *(start here)*. `waterfall` is emitted per route and used only by the PDF and compare pages. It decomposes the match point-by-point: Revit worth 17.4, earned 17.4; Space Planning worth 13.9, **earned 0**. Turns an opaque "53%" into an argument, and answers "what should I learn next" directly — the largest unearned row is the highest-leverage skill. Each row is a skill, so clicking one opens the skill sheet we shipped: connects two systems that currently don't know about each other. **Acceptance: earned points must sum to the displayed match** (a correctness test, not a visual one).
+- **Salary as a signed delta.** Both `salary_band`s are raw numbers; the panel shows two formatted strings and makes the reader do the arithmetic. "−$8k median" is the fact most likely to change a decision.
+- **Confidence made visible.** `provenance.postings` per route is emitted and used only by the PDF; `low_confidence` is emitted and **used nowhere at all**. A route backed by 460 postings currently looks identical to one backed by 30. For a product whose promise is honest numbers, uniform confidence is the wrong thing to hide.
+- **Separations on the origin node.** `origin.separations` (BLS annual transfer/exit) reaches route pages but not the graph. "About 1 in 30 architects changes occupation in a year — here's where they go" reframes the whole instrument honestly.
+- **US/EU disagreement as editorial signal.** `mobility_eu` is computed and never displayed. A move common in Flanders and rare in the US is interesting, and no competitor can say it. The scraper README already calls disagreement editorial signal.
+- **"What if I learned this?"** — the flagship. Tick a skill, watch matches recompute and ring-2 roles cross into ring 1. Match is deterministic from skill coverage and `rankPersonalized` already exists in `personalize.js`, so the machinery is largely there. This is what turns a chart into the instrument CLAUDE.md says it is, and it is the most screenshot-able thing on the site.
+- **Skill-first traversal** (cheaper cousin): click a skill → dim the graph to routes that need it. "Where does Revit actually take me?" reuses the sheet.
+- **Out of scope by design**: no new nodes (25/34 is tuned, label clearance is the hard part), no position transitions, no third typeface, no D3, accent stays on the data. None of the above needs any of them — it is detail-panel work plus one recompute path.
+
 ### Later (this quarter — ceiling-raisers)
 - **The Adjacency Index** — annual data report at a stable URL (docs/07 spec); the backlink magnet everything compounds on.
 - **Automation Phase B**: move the nightly bot to GitHub Actions (laptop-independent). Needs repo secrets (Adzuna/Reed/USAJOBS keys).
 - **Ghost-job / stale detection**: weekly liveness re-crawl (404/expired), >60d flags (first-seen ledger already in place).
-- **Employer-side surfaces** (when paid board has inventory): company pages (Himalayas/BuiltIn lattice), JobPosting schema + Google Indexing API on first-party listings (+94–182% per Google case studies), title×company salary pages.
+- **Employer-side surfaces** (when paid board has inventory): company pages (Himalayas/BuiltIn lattice), JobPosting schema on first-party listings, title×company salary pages.
+  - **Indexing API: assume it stays shut (checked 2026-07-28).** It only accepts JobPosting/BroadcastEvent, and Google **froze quota-increase approvals in October 2025** after spammers pushed fake/expired jobs and SERP redirects through it, multiplying quota across subdomains. The application form is still live with no reliable review behind it; legitimate boards wait months. Google's own line is that it discovered job postings fine before the API existed. Reopening, if it happens, likely favours large established boards — so this **grandfathers incumbents and is a structural barrier to new job boards**. Plan the first-party listing play on ordinary crawling; treat API access as upside, never as the mechanism.
+  - Note the same dynamic upstream: Google for Jobs sits above organic results (23 boards complained to the EU in 2019; Jobindex reported −20% search traffic), and AI Overviews cut position-one CTR 34–61%. **Conclusion: do not fight for the listing surface. The moat is the instrument** — which is what docs/24 already concluded independently.
 - **Lexicon depth** beyond healthcare: ESCO + O*NET gazetteer mining (human-reviewed).
 
 ### Never (the casualty list, docs/24)
