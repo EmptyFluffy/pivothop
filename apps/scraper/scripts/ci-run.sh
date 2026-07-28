@@ -27,8 +27,13 @@ fi
 python3 apps/scraper/scripts/export-web-data.py      || { echo "::error::export-web-data failed"; exit 2; }
 node    apps/scraper/scripts/fetch-logos.mjs          || echo "::warning::fetch-logos failed (non-fatal)"
 python3 apps/scraper/scripts/build-jobs.py           || { echo "::error::build-jobs failed (purity canary?)"; exit 2; }
-python3 apps/scraper/scripts/build-skill-glossary.py || echo "::warning::build-skill-glossary failed (non-fatal)"
+# Order matters: build-skill-icons writes skill-marks.json, which
+# build-skill-glossary folds into its entries. Reversed, a lexicon addition
+# ships markless chips for a day. build-lastmod must run last of the data
+# steps and before the web build, since sitemap.ts reads lastmod.json.
 node    apps/scraper/scripts/build-skill-icons.mjs    || echo "::warning::build-skill-icons failed (non-fatal)"
+python3 apps/scraper/scripts/build-skill-glossary.py || echo "::warning::build-skill-glossary failed (non-fatal)"
+python3 apps/scraper/scripts/build-lastmod.py        || echo "::warning::build-lastmod failed (non-fatal)"
 
 # web build + link-integrity gate before anything is committed
 ( cd apps/web && npm run build && npm run --silent check:links ) || { echo "::error::web build or link gate failed"; exit 2; }
