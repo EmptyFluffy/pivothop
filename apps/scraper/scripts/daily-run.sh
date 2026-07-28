@@ -48,6 +48,9 @@ python3 "$REPO/apps/scraper/scripts/export-web-data.py" >> "$LOG" 2>&1 || { echo
 # cached, non-fatal — new companies show a monogram for a day, then a logo.
 node "$REPO/apps/scraper/scripts/fetch-logos.mjs" >> "$LOG" 2>&1 || echo "fetch-logos failed (non-fatal)" >> "$LOG"
 python3 "$REPO/apps/scraper/scripts/build-jobs.py" >> "$LOG" 2>&1 || { echo "build-jobs FAILED (purity canary?) — aborting publish" >> "$LOG"; date > "$MARKER"; exit 2; }
+# Marks before the glossary: build-skill-glossary folds skill-marks.json into
+# its entries, so a lexicon addition that skips this step ships markless chips.
+node "$REPO/apps/scraper/scripts/build-skill-icons.mjs" >> "$LOG" 2>&1 || echo "build-skill-icons failed (non-fatal)" >> "$LOG"
 python3 "$REPO/apps/scraper/scripts/build-skill-glossary.py" >> "$LOG" 2>&1 || echo "build-skill-glossary failed (non-fatal)" >> "$LOG"
 
 # Web build + the link-integrity gate before anything is committed.

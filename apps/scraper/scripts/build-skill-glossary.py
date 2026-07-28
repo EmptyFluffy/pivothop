@@ -24,6 +24,10 @@ glossary page). Regenerable; run after the scrape's export step.
 """
 import json
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from skill_definitions import DEFS  # slug-keyed definitions
 
 NAMES = json.load(open('apps/web/public/data/skills-meta.json'))['names']
 # Marks from build-skill-icons.mjs (run it first). The client instrument reads
@@ -213,7 +217,9 @@ def corpus_counts():
             counts[sk][rid] = counts[sk].get(rid, 0) + 1
     return counts
 
-def describe(term, tops, n, fld):
+def describe(term, tops, n, fld, slug=None):
+    if slug and DEFS.get(slug):
+        return DEFS[slug]
     key = term.lower()
     if key in CURATED:
         return CURATED[key]
@@ -261,7 +267,7 @@ def main():
             'slug': sk,
             'term': term,
             'field': fld,
-            'def': describe(term, top_titles, len(occs), fld),
+            'def': describe(term, top_titles, len(occs), fld, sk),
             'unlocks': unlocks,
         })
 
@@ -277,9 +283,7 @@ def main():
         fld = max(set(fields), key=fields.count) if fields else ''
         if key in CURATED:
             used_curated.add(key)
-            d = CURATED[key]
-        else:
-            d = describe(term, [title(o) for o in occs[:3]], len(occs), fld)
+        d = describe(term, [title(o) for o in occs[:3]], len(occs), fld, sk)
         entries.append({'slug': sk, 'term': term, 'field': fld, 'def': d,
                         'unlocks': unlock_list(occs)})
 

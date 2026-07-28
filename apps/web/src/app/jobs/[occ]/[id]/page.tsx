@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, skillDisplayName } from '../../jobs-data';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
-import { SkillMarkSvg } from '../../SkillMark';
+import SkillStrip from '../../SkillStrip';
+import { skillEntries } from '../../skill-entries';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
 import { SITE_EMAIL } from '../../../../lib/site';
@@ -102,14 +103,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <section className="rt-sec jd-skills">
             <h2>Skills in this posting</h2>
             <p className="lbl jd-skills-cap">Extracted from the posting text by the instrument &mdash; the demand side, read literally.</p>
-            <div className="jd-skillgrid">
-              {skills.map((s) => (
-                <Link key={s} className="jd-skill" href={`/glossary#skill-${s}`}>
-                  <SkillMarkSvg id={s} />
-                  {skillDisplayName(s)}
-                </Link>
-              ))}
-            </div>
+            <SkillStrip skills={skillEntries(skills)} />
           </section>
         )}
 
