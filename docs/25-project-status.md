@@ -91,6 +91,15 @@
   - Pairs with the Adjacency Index ("passports" section, expanded page-by-page). Interlink with /jobs/<tag> pages, don't duplicate: tag pages = listings intent, skill pages = career-value intent.
   - **Gate to start**: GSC shows the July surfaces (compare/regions/AEO posts) substantially indexed — recheck discovered-not-indexed trend before minting.
 
+### Internal linking + funnel (2026-07-28 — SHIPPED)
+*Measured the link graph across all 6,355 built pages before touching anything. The 125 `/routes/<origin>` pages were reachable from 831 pages and from none of the obvious ones: zero links from the 4,477 job pages, zero from 157 salary pages, zero from 126 route pairs (a pair page did not link its own origin hub), zero between sibling origins. Meanwhile every page fired 11 sitewide footer links at hubs already one click from everywhere.*
+- **Pages linking to origin pages: 831 → 5,080.** Job pages (noindex,follow — they cannot rank, so they are pure link equity), salary pages, and route-pair breadcrumbs now all point at them. `hasOriginPage()` guards every one, since the origin set is threshold-gated.
+- **Job pages**: related-jobs module (5 siblings, the industry standard — WWR runs the same) *plus* an adjacent-occupation module that no competitor can build: "9 open interior designer roles · 53% readiness from architect", pointing at indexable board pages rather than deeper into the noindex pool.
+- **Salary pages**: "Roles that pay more, that these skills already reach" — median from each destination's own postings, the delta, the readiness, a link to live listings. The FairElephant offer-checker was the primary CTA, sending the warmest traffic on the page to a side product; now demoted below it.
+- **CTAs follow landing intent**, not one template. Route pair (destination already chosen) → count-gated board CTA. Origin page (still exploring) → the instrument, but the promise is the outcome: "180 of these roles are open right now." No-board routes fall back rather than promising an empty page.
+- **Anchor variation**: five phrasings per origin page, stable per page id. Corpus went from effectively one phrase to 584 distinct phrasings over 5,387 links, exact-match at 22% (the research band is 15–25%).
+- **Still open from this pass**: sibling-origin cross-links (architect ↔ interior designer origin pages), and the footer's 11 sitewide links are still diluting — worth pruning to the few that earn their place.
+
 ### The graph, made smarter (designed 2026-07-28 — ordered by value per hour)
 *Finding: the instrument is the least informed surface in the product. Every route emits 26 fields; the detail panel renders about nine. The PDF report and the route pages already know more about a route than the graph does. Most of this is showing what we compute, not computing more.*
 
