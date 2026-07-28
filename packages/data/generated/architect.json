@@ -52,7 +52,8 @@
       "learn": [
         "Space Planning",
         "Procurement",
-        "SketchUp"
+        "SketchUp",
+        "Finish Carpentry"
       ],
       "waterfall": [
         {
@@ -106,6 +107,12 @@
         {
           "skill": "sketchup",
           "name": "SketchUp",
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "finish-carpentry",
+          "name": "Finish Carpentry",
           "pts": 4.3,
           "earned": 0
         }
@@ -224,7 +231,7 @@
       "mobility_tier": null,
       "salary": "$65k–$115k",
       "salary_band": [
-        63859,
+        63817,
         116775
       ],
       "demand": "High",
@@ -553,8 +560,8 @@
         "Construction Documentation"
       ],
       "learn": [
-        "Drafting",
         "MEP",
+        "Drafting",
         "Mechanical CAD",
         "3D Modeling"
       ],
@@ -562,61 +569,67 @@
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 41.7,
-          "earned": 9.9
+          "pts": 40.6,
+          "earned": 9.7
         },
         {
           "skill": "bim",
           "name": "BIM",
-          "pts": 11.3,
+          "pts": 11,
           "earned": 2.6
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 10.2,
-          "earned": 2.8
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 7.7,
-          "earned": 0
+          "pts": 10,
+          "earned": 2.7
         },
         {
           "skill": "mep",
           "name": "MEP",
-          "pts": 7.6,
+          "pts": 7.5,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 7.5,
           "earned": 0
         },
         {
           "skill": "construction-documents",
           "name": "Construction Documentation",
-          "pts": 5.2,
-          "earned": 5.2
-        },
-        {
-          "skill": "cad-mechanical",
-          "name": "Mechanical CAD",
-          "pts": 4.6,
-          "earned": 0
+          "pts": 5.1,
+          "earned": 5.1
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 4.6,
-          "earned": 4.6
+          "pts": 4.5,
+          "earned": 4.5
+        },
+        {
+          "skill": "cad-mechanical",
+          "name": "Mechanical CAD",
+          "pts": 4.3,
+          "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 4.3,
-          "earned": 4.3
+          "pts": 4.1,
+          "earned": 4.1
         },
         {
           "skill": "3d-modeling",
           "name": "3D Modeling",
           "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "finish-carpentry",
+          "name": "Finish Carpentry",
+          "pts": 2.6,
           "earned": 0
         }
       ],
@@ -635,8 +648,8 @@
       "kind": "lateral",
       "license": null,
       "desc": "Owns the digital model across a project team. Sets standards, coordinates disciplines, and makes sure every drawing in the set comes from one source of truth.",
-      "match": 17,
-      "fit": 30,
+      "match": 16,
+      "fit": 29,
       "capability": 100,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
@@ -658,64 +671,70 @@
       ],
       "learn": [
         "MEP",
+        "Plumbing",
         "Clash Detection",
-        "3D Modeling",
-        "Navisworks"
+        "3D Modeling"
       ],
       "waterfall": [
         {
           "skill": "bim",
           "name": "BIM",
-          "pts": 68.2,
+          "pts": 66.5,
           "earned": 1.6
         },
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 9.9,
-          "earned": 6.1
+          "pts": 9.7,
+          "earned": 5.9
         },
         {
           "skill": "mep",
           "name": "MEP",
-          "pts": 6.3,
+          "pts": 6.1,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 4.9,
-          "earned": 4.9
+          "pts": 4.8,
+          "earned": 4.8
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 2.5,
+          "earned": 0
         },
         {
           "skill": "clash-detection",
           "name": "Clash Detection",
-          "pts": 2.4,
+          "pts": 2.3,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 2.3,
-          "earned": 2.3
+          "pts": 2.2,
+          "earned": 2.2
         },
         {
           "skill": "3d-modeling",
           "name": "3D Modeling",
-          "pts": 2.3,
+          "pts": 2.2,
           "earned": 0
         },
         {
           "skill": "navisworks",
           "name": "Navisworks",
-          "pts": 2.1,
+          "pts": 2,
           "earned": 0
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
           "pts": 1.7,
-          "earned": 1.7
+          "earned": 1.6
         }
       ],
       "low_confidence": false,
@@ -882,19 +901,19 @@
     "bim-manager": [
       {
         "t": "MEP Engineer",
-        "m": 20,
+        "m": 16,
         "slug": "mep-engineer",
         "field": "Engineering",
         "cluster": "Built Environment",
         "kind": "lateral",
         "gap": [
           "MEP",
+          "Plumbing",
           "Maintenance",
-          "Electrical Systems",
-          "HVAC Systems"
+          "Electrical Systems"
         ],
         "observed": null,
-        "fit": 20,
+        "fit": 18,
         "capability": 46,
         "mobility": 1,
         "mobility_source": "observed-flow-us",
@@ -903,7 +922,7 @@
         "reach": "bridged",
         "via": {
           "parent": "bim-manager",
-          "readiness_after": 35,
+          "readiness_after": 31,
           "gain": 15
         }
       },
@@ -930,8 +949,8 @@
         "reach": "bridged",
         "via": {
           "parent": "bim-manager",
-          "readiness_after": 58,
-          "gain": 42
+          "readiness_after": 60,
+          "gain": 44
         }
       }
     ],
@@ -959,8 +978,8 @@
         "reach": "bridged",
         "via": {
           "parent": "electrical-engineer",
-          "readiness_after": 61,
-          "gain": 38
+          "readiness_after": 57,
+          "gain": 34
         }
       },
       {
@@ -1020,17 +1039,17 @@
     [
       "architectural-drafter",
       "bim-manager",
-      0.49
+      0.48
+    ],
+    [
+      "interior-designer",
+      "architectural-drafter",
+      0.42
     ],
     [
       "structural-engineer",
       "civil-engineer",
       0.4
-    ],
-    [
-      "interior-designer",
-      "architectural-drafter",
-      0.38
     ],
     [
       "interior-designer",
@@ -1052,17 +1071,17 @@
     [
       "architectural-drafter",
       "electrical-engineer_0",
-      0.48
-    ],
-    [
-      "architectural-drafter",
-      "bim-manager_0",
-      0.34
+      0.45
     ],
     [
       "architectural-drafter",
       "bim-manager_1",
-      0.34
+      0.33
+    ],
+    [
+      "architectural-drafter",
+      "bim-manager_0",
+      0.27
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

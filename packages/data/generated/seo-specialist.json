@@ -283,8 +283,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 44,
-      "fit": 38,
+      "match": 42,
+      "fit": 37,
       "capability": 67,
       "mobility": 3,
       "mobility_source": "observed-flow-us",
@@ -305,10 +305,10 @@
         "SEO"
       ],
       "learn": [
+        "Copywriting",
         "Product Marketing",
         "Email Marketing",
-        "Social Media",
-        "Translation"
+        "Social Media"
       ],
       "waterfall": [
         {
@@ -345,7 +345,7 @@
           "skill": "copywriting",
           "name": "Copywriting",
           "pts": 3.6,
-          "earned": 1.9
+          "earned": 0
         },
         {
           "skill": "product-marketing",
@@ -715,8 +715,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 45,
-      "fit": 34,
+      "match": 41,
+      "fit": 32,
       "capability": 42,
       "mobility": 3,
       "mobility_source": "observed-flow-us",
@@ -731,23 +731,23 @@
       "remote": "5%",
       "time": "12–24 mo",
       "have": [
-        "Copywriting",
         "Writing & Editing",
         "SEO",
-        "B2B"
+        "B2B",
+        "Content Marketing"
       ],
       "learn": [
+        "Copywriting",
         "CRM",
         "Social Media",
-        "Email Marketing",
-        "Translation"
+        "Email Marketing"
       ],
       "waterfall": [
         {
           "skill": "copywriting",
           "name": "Copywriting",
           "pts": 18.3,
-          "earned": 4.1
+          "earned": 0
         },
         {
           "skill": "writing",
@@ -1232,7 +1232,62 @@
         }
       }
     ],
-    "content-strategist": [],
+    "content-strategist": [
+      {
+        "t": "UX Writer",
+        "m": 17,
+        "slug": "ux-writer",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "Design Systems",
+          "Visual Design",
+          "Interaction Design",
+          "Agile"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 39,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 3,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "content-strategist",
+          "readiness_after": 26,
+          "gain": 9
+        }
+      },
+      {
+        "t": "Creative Technologist",
+        "m": 15,
+        "slug": "creative-technologist",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
+        "gap": [
+          "LangChain / Agents",
+          "Design Systems",
+          "Motion Design",
+          "Prototyping"
+        ],
+        "observed": null,
+        "fit": 12,
+        "capability": null,
+        "mobility": 4,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 9,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "content-strategist",
+          "readiness_after": 30,
+          "gain": 15
+        }
+      }
+    ],
     "market-researcher": [
       {
         "t": "Game Designer",
@@ -1434,30 +1489,8 @@
   },
   "direct": [
     {
-      "t": "UX Writer",
-      "m": 19,
-      "slug": "ux-writer",
-      "field": "Writing",
-      "cluster": "Media & Writing",
-      "kind": "pivot",
-      "gap": [
-        "Design Systems",
-        "Visual Design",
-        "Interaction Design",
-        "Agile"
-      ],
-      "observed": null,
-      "fit": 19,
-      "capability": 39,
-      "mobility": 1,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 3,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Data Annotator",
-      "m": 19,
+      "m": 18,
       "slug": "data-annotator",
       "field": "Technology",
       "cluster": "Technology",
@@ -1469,7 +1502,7 @@
         "QA / Testing"
       ],
       "observed": null,
-      "fit": 19,
+      "fit": 18,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1538,28 +1571,6 @@
       "fit": 29,
       "capability": 81,
       "mobility": 22,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 7,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Data Analyst",
-      "m": 14,
-      "slug": "data-analyst",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
-      "gap": [
-        "SQL",
-        "Data Visualization",
-        "Python",
-        "ETL"
-      ],
-      "observed": "Primary-Long",
-      "fit": 12,
-      "capability": null,
-      "mobility": 8,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 7,
       "mobility_tier": null,

@@ -305,7 +305,7 @@
       "mobility_tier": null,
       "salary": "$75k–$130k",
       "salary_band": [
-        74695,
+        74626,
         131872
       ],
       "demand": "High",
@@ -417,8 +417,8 @@
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 3.2,
-          "earned": 3.2
+          "pts": 3.1,
+          "earned": 3.1
         },
         {
           "skill": "risk-management",
@@ -1325,15 +1325,15 @@
         "reach": "bridged",
         "via": {
           "parent": "project-manager",
-          "readiness_after": 42,
-          "gain": 13
+          "readiness_after": 41,
+          "gain": 12
         }
       }
     ],
     "sales-representative": [
       {
         "t": "Event Planner",
-        "m": 32,
+        "m": 31,
         "slug": "event-planner",
         "field": "Business",
         "cluster": "Business",
@@ -1345,7 +1345,7 @@
           "Scheduling"
         ],
         "observed": null,
-        "fit": 22,
+        "fit": 21,
         "capability": null,
         "mobility": 0,
         "mobility_source": "observed-flow-us",
@@ -1354,7 +1354,7 @@
         "reach": "bridged",
         "via": {
           "parent": "sales-representative",
-          "readiness_after": 45,
+          "readiness_after": 44,
           "gain": 13
         }
       },
@@ -1415,30 +1415,30 @@
         }
       },
       {
-        "t": "Product Manager",
-        "m": 26,
-        "slug": "product-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
+        "t": "Developer Advocate",
+        "m": 25,
+        "slug": "developer-advocate",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
         "gap": [
-          "Agile",
           "LangChain / Agents",
           "LLMs / Generative AI",
-          "REST APIs"
+          "REST APIs",
+          "Content Marketing"
         ],
         "observed": null,
-        "fit": 22,
+        "fit": 25,
         "capability": null,
-        "mobility": 14,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 17,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
-          "readiness_after": 45,
-          "gain": 19
+          "readiness_after": 38,
+          "gain": 13
         }
       }
     ],
@@ -1466,8 +1466,8 @@
         "reach": "bridged",
         "via": {
           "parent": "construction-manager",
-          "readiness_after": 47,
-          "gain": 20
+          "readiness_after": 45,
+          "gain": 18
         }
       }
     ],
@@ -1530,7 +1530,7 @@
     "management-consultant": [
       {
         "t": "Business Analyst",
-        "m": 31,
+        "m": 30,
         "slug": "business-analyst",
         "field": "Business",
         "cluster": "Business",
@@ -1539,7 +1539,7 @@
           "SQL",
           "Excel",
           "Data Visualization",
-          "Lean / Six Sigma"
+          "Underwriting"
         ],
         "observed": null,
         "fit": 23,
@@ -1551,25 +1551,25 @@
         "reach": "bridged",
         "via": {
           "parent": "management-consultant",
-          "readiness_after": 54,
-          "gain": 23
+          "readiness_after": 51,
+          "gain": 21
         }
       },
       {
         "t": "Lawyer",
-        "m": 26,
+        "m": 25,
         "slug": "lawyer",
         "field": "Legal",
         "cluster": "Legal",
         "kind": "pivot",
         "gap": [
           "Compliance",
-          "Case Management",
           "Risk Management",
-          "HR Operations"
+          "Case Management",
+          "IP & Patent Prosecution"
         ],
         "observed": null,
-        "fit": 19,
+        "fit": 18,
         "capability": null,
         "mobility": 3,
         "mobility_source": "observed-flow-us",
@@ -1578,35 +1578,13 @@
         "reach": "bridged",
         "via": {
           "parent": "management-consultant",
-          "readiness_after": 40,
-          "gain": 14
+          "readiness_after": 36,
+          "gain": 11
         }
       }
     ]
   },
   "direct": [
-    {
-      "t": "Developer Advocate",
-      "m": 25,
-      "slug": "developer-advocate",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
-      "gap": [
-        "LangChain / Agents",
-        "LLMs / Generative AI",
-        "REST APIs",
-        "Content Marketing"
-      ],
-      "observed": null,
-      "fit": 25,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
     {
       "t": "Brand Designer",
       "m": 25,
@@ -1626,6 +1604,28 @@
       "mobility": 3,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 2,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Product Manager",
+      "m": 24,
+      "slug": "product-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "Agile",
+        "LangChain / Agents",
+        "LLMs / Generative AI",
+        "REST APIs"
+      ],
+      "observed": null,
+      "fit": 21,
+      "capability": null,
+      "mobility": 14,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 17,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1696,14 +1696,14 @@
       0.5
     ],
     [
-      "project-manager",
-      "management-consultant_0",
-      0.46
-    ],
-    [
       "sales-representative",
       "account-executive_1",
       0.45
+    ],
+    [
+      "executive-assistant",
+      "customer-success-manager_0",
+      0.44
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

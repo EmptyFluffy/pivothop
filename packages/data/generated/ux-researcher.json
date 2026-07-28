@@ -795,7 +795,7 @@
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 26.3,
+          "pts": 26.2,
           "earned": 5.3
         },
         {
@@ -861,20 +861,20 @@
         {
           "skill": "ab-testing",
           "name": "A/B Testing",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "stakeholder-management",
-          "name": "Stakeholder Management",
-          "pts": 2.8,
+          "pts": 2.9,
           "earned": 0
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
-          "pts": 2.7,
+          "pts": 2.8,
           "earned": 1.6
+        },
+        {
+          "skill": "stakeholder-management",
+          "name": "Stakeholder Management",
+          "pts": 2.7,
+          "earned": 0
         },
         {
           "skill": "sql",
@@ -901,14 +901,14 @@
           "earned": 0
         },
         {
-          "skill": "customer-service",
-          "name": "Customer Service",
+          "skill": "machine-learning",
+          "name": "Machine Learning",
           "pts": 2.1,
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
+          "skill": "customer-service",
+          "name": "Customer Service",
           "pts": 2.1,
           "earned": 0
         }
@@ -1511,7 +1511,7 @@
     [
       "product-manager",
       "creative-director_1",
-      0.48
+      0.5
     ],
     [
       "customer-success-manager",
@@ -1519,14 +1519,14 @@
       0.44
     ],
     [
-      "product-manager",
-      "customer-success-manager_0",
-      0.38
-    ],
-    [
       "marketing-manager",
       "customer-success-manager_1",
       0.37
+    ],
+    [
+      "product-manager",
+      "customer-success-manager_0",
+      0.35
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

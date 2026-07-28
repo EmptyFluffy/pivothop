@@ -346,8 +346,8 @@
       "kind": "lateral",
       "license": null,
       "desc": "Labels and rates the data that trains and aligns machine-learning models, including the human feedback behind modern AI.",
-      "match": 44,
-      "fit": 44,
+      "match": 43,
+      "fit": 43,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -370,56 +370,62 @@
       "learn": [
         "Translation",
         "QA / Testing",
-        "Journalism",
-        "Writing & Editing"
+        "Fact-Checking",
+        "Journalism"
       ],
       "waterfall": [
         {
           "skill": "clinical-research",
           "name": "Clinical Research",
-          "pts": 39.7,
-          "earned": 7
+          "pts": 38.2,
+          "earned": 6.8
         },
         {
           "skill": "llm",
           "name": "LLMs / Generative AI",
-          "pts": 26.2,
-          "earned": 26.2
+          "pts": 25.2,
+          "earned": 25.2
         },
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 10.3,
+          "pts": 9.9,
           "earned": 0
         },
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 6.4,
-          "earned": 6.4
+          "pts": 6.1,
+          "earned": 6.1
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 5.6,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 4.8,
-          "earned": 4.8
+          "pts": 4.6,
+          "earned": 4.6
+        },
+        {
+          "skill": "fact-checking",
+          "name": "Fact-Checking",
+          "pts": 3.8,
+          "earned": 0
         },
         {
           "skill": "journalism",
           "name": "Journalism",
-          "pts": 4,
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "writing",
           "name": "Writing & Editing",
-          "pts": 3.2,
+          "pts": 3.1,
           "earned": 0
         }
       ],
@@ -1058,7 +1064,35 @@
   ],
   "next": {
     "prompt-engineer": [],
-    "conversation-designer": [],
+    "conversation-designer": [
+      {
+        "t": "Product Manager",
+        "m": 24,
+        "slug": "product-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Product Management",
+          "SaaS",
+          "Agile",
+          "Go-to-Market"
+        ],
+        "observed": null,
+        "fit": 19,
+        "capability": null,
+        "mobility": 9,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 11,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "conversation-designer",
+          "readiness_after": 37,
+          "gain": 13
+        }
+      }
+    ],
     "machine-learning-engineer": [
       {
         "t": "MLOps Engineer",
@@ -1098,7 +1132,7 @@
           "Computer Vision",
           "Deep Learning",
           "C++",
-          "Supply Chain"
+          "Localization"
         ],
         "observed": null,
         "fit": 25,
@@ -1110,15 +1144,15 @@
         "reach": "bridged",
         "via": {
           "parent": "machine-learning-engineer",
-          "readiness_after": 38,
-          "gain": 13
+          "readiness_after": 37,
+          "gain": 12
         }
       }
     ],
     "data-annotator": [
       {
         "t": "Creative Technologist",
-        "m": 32,
+        "m": 30,
         "slug": "creative-technologist",
         "field": "Technology",
         "cluster": "Technology",
@@ -1127,10 +1161,10 @@
           "Writing & Editing",
           "Design Systems",
           "Motion Design",
-          "Supply Chain"
+          "Localization"
         ],
         "observed": null,
-        "fit": 30,
+        "fit": 29,
         "capability": null,
         "mobility": 26,
         "mobility_source": "observed-flow-eu",
@@ -1139,8 +1173,8 @@
         "reach": "bridged",
         "via": {
           "parent": "data-annotator",
-          "readiness_after": 41,
-          "gain": 9
+          "readiness_after": 38,
+          "gain": 8
         }
       }
     ],
@@ -1226,33 +1260,6 @@
           "parent": "developer-advocate",
           "readiness_after": 33,
           "gain": 8
-        }
-      },
-      {
-        "t": "Economist",
-        "m": 24,
-        "slug": "economist",
-        "field": "Science",
-        "cluster": "Science",
-        "kind": "pivot",
-        "gap": [
-          "Statistics",
-          "Policy Analysis",
-          "Accounting",
-          "Presentation"
-        ],
-        "observed": null,
-        "fit": 17,
-        "capability": null,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "developer-advocate",
-          "readiness_after": 34,
-          "gain": 10
         }
       }
     ],
@@ -1525,14 +1532,14 @@
       0.57
     ],
     [
+      "product-analyst",
+      "conversation-designer_0",
+      0.57
+    ],
+    [
       "data-analyst",
       "bi-developer_1",
       0.5
-    ],
-    [
-      "product-analyst",
-      "data-analyst_1",
-      0.45
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

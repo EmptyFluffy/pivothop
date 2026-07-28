@@ -71,13 +71,13 @@
         {
           "skill": "microservices",
           "name": "Microservices",
-          "pts": 7.9,
+          "pts": 8,
           "earned": 6.8
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 7.4,
+          "pts": 7.3,
           "earned": 7.3
         },
         {
@@ -90,7 +90,7 @@
           "skill": "sql",
           "name": "SQL",
           "pts": 6.5,
-          "earned": 4.9
+          "earned": 5
         },
         {
           "skill": "cicd",
@@ -101,7 +101,7 @@
         {
           "skill": "kubernetes",
           "name": "Kubernetes",
-          "pts": 4.6,
+          "pts": 4.5,
           "earned": 4.2
         },
         {
@@ -141,16 +141,16 @@
           "earned": 3.2
         },
         {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 2.9,
-          "earned": 2.9
-        },
-        {
           "skill": "azure",
           "name": "Azure",
           "pts": 2.9,
           "earned": 0
+        },
+        {
+          "skill": "agile",
+          "name": "Agile",
+          "pts": 2.9,
+          "earned": 2.9
         },
         {
           "skill": "ruby",
@@ -376,7 +376,7 @@
           "skill": "product-management",
           "name": "Product Management",
           "pts": 19.9,
-          "earned": 6.6
+          "earned": 6.7
         },
         {
           "skill": "data-analysis",
@@ -828,6 +828,84 @@
       }
     },
     {
+      "id": "conversation-designer",
+      "title": "Conversation Designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Designs how people talk to software: chatbots, voice assistants, and the scripts and flows behind conversational AI.",
+      "match": 46,
+      "fit": 46,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$80k–$145k",
+      "salary_band": [
+        80062,
+        142509
+      ],
+      "demand": "Low",
+      "remote": "8%",
+      "time": "12–24 mo",
+      "have": [
+        "LangChain / Agents",
+        "Product Management",
+        "LLMs / Generative AI"
+      ],
+      "learn": [
+        "Machine Learning",
+        "Go-to-Market",
+        "Customer Service"
+      ],
+      "waterfall": [
+        {
+          "skill": "langchain",
+          "name": "LangChain / Agents",
+          "pts": 26.1,
+          "earned": 17.6
+        },
+        {
+          "skill": "product-management",
+          "name": "Product Management",
+          "pts": 17.4,
+          "earned": 14.9
+        },
+        {
+          "skill": "machine-learning",
+          "name": "Machine Learning",
+          "pts": 17.4,
+          "earned": 0
+        },
+        {
+          "skill": "llm",
+          "name": "LLMs / Generative AI",
+          "pts": 13,
+          "earned": 13
+        },
+        {
+          "skill": "go-to-market",
+          "name": "Go-to-Market",
+          "pts": 13,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 13,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 39,
+        "salaried": 31
+      }
+    },
+    {
       "id": "solutions-architect",
       "title": "Solutions Architect",
       "field": "Technology",
@@ -989,84 +1067,6 @@
       "provenance": {
         "postings": 1849,
         "salaried": 811
-      }
-    },
-    {
-      "id": "conversation-designer",
-      "title": "Conversation Designer",
-      "field": "Design",
-      "cluster": "Design",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Designs how people talk to software: chatbots, voice assistants, and the scripts and flows behind conversational AI.",
-      "match": 45,
-      "fit": 45,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$80k–$145k",
-      "salary_band": [
-        80062,
-        142509
-      ],
-      "demand": "Low",
-      "remote": "8%",
-      "time": "12–24 mo",
-      "have": [
-        "LangChain / Agents",
-        "Product Management",
-        "LLMs / Generative AI"
-      ],
-      "learn": [
-        "Machine Learning",
-        "Go-to-Market",
-        "Customer Service"
-      ],
-      "waterfall": [
-        {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
-          "pts": 26.1,
-          "earned": 17.6
-        },
-        {
-          "skill": "product-management",
-          "name": "Product Management",
-          "pts": 17.4,
-          "earned": 14.9
-        },
-        {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 17.4,
-          "earned": 0
-        },
-        {
-          "skill": "llm",
-          "name": "LLMs / Generative AI",
-          "pts": 13,
-          "earned": 13
-        },
-        {
-          "skill": "go-to-market",
-          "name": "Go-to-Market",
-          "pts": 13,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 13,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 39,
-        "salaried": 31
       }
     },
     {
@@ -1403,6 +1403,7 @@
         }
       }
     ],
+    "conversation-designer": [],
     "solutions-architect": [
       {
         "t": "Security Engineer",
@@ -1459,7 +1460,6 @@
         }
       }
     ],
-    "conversation-designer": [],
     "bi-developer": [
       {
         "t": "Database Administrator",

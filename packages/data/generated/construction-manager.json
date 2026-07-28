@@ -152,7 +152,7 @@
       "mobility_tier": null,
       "salary": "$65k–$115k",
       "salary_band": [
-        63859,
+        63817,
         116775
       ],
       "demand": "High",
@@ -433,6 +433,12 @@
           "name": "SketchUp",
           "pts": 4.3,
           "earned": 0
+        },
+        {
+          "skill": "finish-carpentry",
+          "name": "Finish Carpentry",
+          "pts": 4.3,
+          "earned": 0
         }
       ],
       "low_confidence": false,
@@ -450,7 +456,7 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 32,
+      "match": 31,
       "fit": 27,
       "capability": 36,
       "mobility": 10,
@@ -480,14 +486,14 @@
         {
           "skill": "cost-estimating",
           "name": "Cost Estimating",
-          "pts": 54.6,
+          "pts": 54.4,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 13.6,
-          "earned": 13.6
+          "pts": 13.4,
+          "earned": 13.4
         },
         {
           "skill": "construction-administration",
@@ -606,74 +612,81 @@
       }
     },
     {
-      "id": "warehouse-manager",
-      "title": "Warehouse Manager",
-      "field": "Transport",
-      "cluster": "Service",
+      "id": "facilities-manager",
+      "title": "Facilities Manager",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 16,
-      "fit": 24,
-      "capability": 73,
-      "mobility": 2,
+      "match": 20,
+      "fit": 26,
+      "capability": 66,
+      "mobility": 9,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 24,
+      "mobility_eu": 100,
       "mobility_tier": null,
-      "salary": "$55k–$70k",
+      "salary": "$55k–$90k",
       "salary_band": [
-        53312,
-        70996
+        54413,
+        91723
       ],
       "demand": "High",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
-        "Supply Chain",
+        "Operations",
         "Customer Service",
-        "Operations"
+        "Procurement",
+        "Sustainability"
       ],
       "learn": [
-        "Lean / Six Sigma",
-        "Training & Facilitation"
+        "Facilities Operations",
+        "Maintenance"
       ],
       "waterfall": [
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 68,
-          "earned": 6
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 36.3,
+          "earned": 0
         },
         {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 10.3,
-          "earned": 6.4
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 15.6,
+          "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 10,
-          "earned": 3.6
+          "pts": 8.5,
+          "earned": 5
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 7.3,
-          "earned": 0
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.5,
+          "earned": 5.5
         },
         {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4.4,
-          "earned": 0
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4.9,
+          "earned": 4.9
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.9,
+          "earned": 4.9
         }
       ],
       "low_confidence": false,
-      "observed": null,
+      "observed": "Primary-Long",
       "provenance": {
-        "postings": 491,
-        "salaried": 328
+        "postings": 655,
+        "salaried": 480
       }
     },
     {
@@ -766,122 +779,7 @@
     }
   ],
   "next": {
-    "civil-engineer": [],
-    "structural-engineer": [],
-    "architect": [],
-    "interior-designer": [],
-    "construction-estimator": [
-      {
-        "t": "Automotive Technician",
-        "m": 15,
-        "slug": "automotive-technician",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Hand & Power Tools",
-          "Electrical Systems",
-          "Blueprint Reading"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "construction-estimator",
-          "readiness_after": 23,
-          "gain": 8
-        }
-      }
-    ],
-    "mobility-planner": [
-      {
-        "t": "Event Planner",
-        "m": 16,
-        "slug": "event-planner",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Event Planning",
-          "Financial Modeling",
-          "Primavera P6",
-          "Presentation"
-        ],
-        "observed": null,
-        "fit": 23,
-        "capability": 68,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mobility-planner",
-          "readiness_after": 27,
-          "gain": 11
-        }
-      },
-      {
-        "t": "Supply Chain Analyst",
-        "m": 10,
-        "slug": "supply-chain-analyst",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Data Analysis",
-          "Forecasting",
-          "Excel",
-          "SEM / Paid Media"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": 61,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 24,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mobility-planner",
-          "readiness_after": 24,
-          "gain": 14
-        }
-      }
-    ],
-    "warehouse-manager": [
-      {
-        "t": "Medical Writer",
-        "m": 19,
-        "slug": "medical-writer",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "pivot",
-        "gap": [
-          "Clinical Research",
-          "PLC / Controls",
-          "Writing & Editing"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": 0,
-        "mobility": 0,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "warehouse-manager",
-          "readiness_after": 33,
-          "gain": 14
-        }
-      },
+    "civil-engineer": [
       {
         "t": "Industrial Engineer",
         "m": 19,
@@ -904,9 +802,124 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "warehouse-manager",
-          "readiness_after": 38,
-          "gain": 19
+          "parent": "civil-engineer",
+          "readiness_after": 27,
+          "gain": 8
+        }
+      }
+    ],
+    "structural-engineer": [],
+    "architect": [],
+    "interior-designer": [],
+    "construction-estimator": [],
+    "mobility-planner": [
+      {
+        "t": "Medical Writer",
+        "m": 19,
+        "slug": "medical-writer",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Clinical Research",
+          "PLC / Controls",
+          "Writing & Editing"
+        ],
+        "observed": null,
+        "fit": 10,
+        "capability": 0,
+        "mobility": 0,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "mobility-planner",
+          "readiness_after": 32,
+          "gain": 13
+        }
+      },
+      {
+        "t": "Event Planner",
+        "m": 15,
+        "slug": "event-planner",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Event Planning",
+          "Financial Modeling",
+          "Primavera P6",
+          "Presentation"
+        ],
+        "observed": null,
+        "fit": 22,
+        "capability": 68,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "mobility-planner",
+          "readiness_after": 26,
+          "gain": 11
+        }
+      }
+    ],
+    "facilities-manager": [
+      {
+        "t": "Maintenance Technician",
+        "m": 19,
+        "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Plumbing",
+          "PLC / Controls",
+          "Lean / Six Sigma"
+        ],
+        "observed": "Supplemental",
+        "fit": 19,
+        "capability": 40,
+        "mobility": 2,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "facilities-manager",
+          "readiness_after": 47,
+          "gain": 28
+        }
+      },
+      {
+        "t": "Automotive Technician",
+        "m": 14,
+        "slug": "automotive-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Hand & Power Tools",
+          "Electrical Systems",
+          "Blueprint Reading"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "facilities-manager",
+          "readiness_after": 30,
+          "gain": 16
         }
       }
     ],
@@ -932,26 +945,6 @@
       "mobility": 17,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 100,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "HVAC Technician",
-      "m": 15,
-      "slug": "hvac-technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "pivot",
-      "gap": [
-        "HVAC Systems",
-        "Maintenance"
-      ],
-      "observed": null,
-      "fit": 18,
-      "capability": 36,
-      "mobility": 9,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1000,24 +993,24 @@
       "reach": "direct"
     },
     {
-      "t": "Business Analyst",
-      "m": 11,
-      "slug": "business-analyst",
-      "field": "Business",
-      "cluster": "Business",
+      "t": "Warehouse Manager",
+      "m": 13,
+      "slug": "warehouse-manager",
+      "field": "Transport",
+      "cluster": "Service",
       "kind": "pivot",
       "gap": [
-        "SQL",
-        "Excel",
-        "Data Visualization",
-        "Data Analysis"
+        "Inventory Management",
+        "Shipping & Receiving",
+        "Lean / Six Sigma",
+        "Training & Facilitation"
       ],
       "observed": null,
-      "fit": 17,
-      "capability": 45,
-      "mobility": 8,
+      "fit": 22,
+      "capability": 73,
+      "mobility": 2,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
+      "mobility_eu": 24,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1044,22 +1037,44 @@
       "reach": "direct"
     },
     {
-      "t": "Financial Analyst",
-      "m": 10,
-      "slug": "financial-analyst",
-      "field": "Finance",
-      "cluster": "Finance",
+      "t": "Business Analyst",
+      "m": 11,
+      "slug": "business-analyst",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "gap": [
-        "Accounting",
-        "Forecasting",
-        "Agile",
-        "Financial Modeling"
+        "SQL",
+        "Excel",
+        "Data Visualization",
+        "Data Analysis"
       ],
       "observed": null,
-      "fit": 7,
-      "capability": null,
-      "mobility": 0,
+      "fit": 17,
+      "capability": 45,
+      "mobility": 8,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "HVAC Technician",
+      "m": 11,
+      "slug": "hvac-technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "gap": [
+        "HVAC Systems",
+        "Maintenance",
+        "Refrigeration",
+        "Facilities Operations"
+      ],
+      "observed": null,
+      "fit": 16,
+      "capability": 36,
+      "mobility": 9,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
@@ -1139,24 +1154,9 @@
   ],
   "bridges": [
     [
-      "warehouse-manager",
-      "mobility-planner_1",
-      0.39
-    ],
-    [
-      "mobility-planner",
-      "warehouse-manager_0",
-      0.32
-    ],
-    [
-      "civil-engineer",
-      "warehouse-manager_1",
-      0.27
-    ],
-    [
-      "warehouse-manager",
+      "facilities-manager",
       "mobility-planner_0",
-      0.25
+      0.27
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

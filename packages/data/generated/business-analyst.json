@@ -66,13 +66,13 @@
           "skill": "data-analysis",
           "name": "Data Analysis",
           "pts": 10.5,
-          "earned": 7.3
+          "earned": 7.2
         },
         {
           "skill": "project-management",
           "name": "Project Management",
           "pts": 8.9,
-          "earned": 3.8
+          "earned": 3.9
         },
         {
           "skill": "change-management",
@@ -224,7 +224,7 @@
           "skill": "data-analysis",
           "name": "Data Analysis",
           "pts": 23.1,
-          "earned": 8.6
+          "earned": 8.5
         },
         {
           "skill": "sql",
@@ -394,7 +394,7 @@
           "skill": "data-analysis",
           "name": "Data Analysis",
           "pts": 15.3,
-          "earned": 10.7
+          "earned": 10.6
         },
         {
           "skill": "sql",
@@ -564,7 +564,7 @@
           "skill": "data-analysis",
           "name": "Data Analysis",
           "pts": 14.3,
-          "earned": 7.9
+          "earned": 7.8
         },
         {
           "skill": "sql",
@@ -760,7 +760,7 @@
       "mobility_tier": null,
       "salary": "$75k–$130k",
       "salary_band": [
-        74695,
+        74626,
         131872
       ],
       "demand": "High",
@@ -783,13 +783,13 @@
           "skill": "project-management",
           "name": "Project Management",
           "pts": 19.9,
-          "earned": 6
+          "earned": 6.2
         },
         {
           "skill": "program-management",
           "name": "Program Management",
           "pts": 8.5,
-          "earned": 3.8
+          "earned": 3.9
         },
         {
           "skill": "data-analysis",
@@ -872,8 +872,8 @@
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 3.2,
-          "earned": 3.2
+          "pts": 3.1,
+          "earned": 3.1
         },
         {
           "skill": "risk-management",
@@ -1056,7 +1056,7 @@
           "skill": "data-analysis",
           "name": "Data Analysis",
           "pts": 8.3,
-          "earned": 6.5
+          "earned": 6.4
         },
         {
           "skill": "lean-six-sigma",
@@ -1234,30 +1234,30 @@
     ],
     "data-analyst": [
       {
-        "t": "Actuary",
-        "m": 40,
-        "slug": "actuary",
-        "field": "Finance",
-        "cluster": "Finance",
+        "t": "Economist",
+        "m": 39,
+        "slug": "economist",
+        "field": "Science",
+        "cluster": "Science",
         "kind": "pivot",
         "gap": [
-          "Forecasting",
-          "Risk Management",
           "Statistics",
-          "Python"
+          "Policy Analysis",
+          "Forecasting",
+          "Market Research"
         ],
         "observed": null,
-        "fit": 35,
-        "capability": 62,
-        "mobility": 1,
+        "fit": 36,
+        "capability": 70,
+        "mobility": 3,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 2,
+        "mobility_eu": 4,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "data-analyst",
-          "readiness_after": 65,
-          "gain": 25
+          "readiness_after": 52,
+          "gain": 13
         }
       },
       {
@@ -1319,7 +1319,7 @@
       },
       {
         "t": "Systems Administrator",
-        "m": 32,
+        "m": 26,
         "slug": "systems-administrator",
         "field": "Technology",
         "cluster": "Technology",
@@ -1327,11 +1327,11 @@
         "gap": [
           "Linux",
           "Cybersecurity",
-          "Networking",
-          "Azure"
+          "HR Operations",
+          "Networking"
         ],
         "observed": null,
-        "fit": 19,
+        "fit": 15,
         "capability": 0,
         "mobility": 4,
         "mobility_source": "observed-flow-us",
@@ -1340,7 +1340,7 @@
         "reach": "bridged",
         "via": {
           "parent": "bi-developer",
-          "readiness_after": 40,
+          "readiness_after": 34,
           "gain": 8
         }
       }
@@ -1349,19 +1349,19 @@
     "project-manager": [
       {
         "t": "HR Manager",
-        "m": 34,
+        "m": 29,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "lateral",
         "gap": [
+          "HR Operations",
           "Recruiting",
           "Customer Service",
-          "People Management",
-          "Change Management"
+          "People Management"
         ],
         "observed": null,
-        "fit": 38,
+        "fit": 35,
         "capability": 81,
         "mobility": 12,
         "mobility_source": "observed-flow-us",
@@ -1370,7 +1370,7 @@
         "reach": "bridged",
         "via": {
           "parent": "project-manager",
-          "readiness_after": 47,
+          "readiness_after": 42,
           "gain": 13
         }
       }
@@ -1434,7 +1434,7 @@
       },
       {
         "t": "Event Planner",
-        "m": 37,
+        "m": 35,
         "slug": "event-planner",
         "field": "Business",
         "cluster": "Business",
@@ -1443,10 +1443,10 @@
           "Event Planning",
           "Customer Service",
           "Primavera P6",
-          "People Management"
+          "Catering & Banquet"
         ],
         "observed": null,
-        "fit": 29,
+        "fit": 28,
         "capability": 37,
         "mobility": 4,
         "mobility_source": "observed-flow-us",
@@ -1455,7 +1455,7 @@
         "reach": "bridged",
         "via": {
           "parent": "operations-manager",
-          "readiness_after": 51,
+          "readiness_after": 49,
           "gain": 14
         }
       }
@@ -1485,65 +1485,24 @@
       "reach": "direct"
     },
     {
-      "t": "Warehouse Manager",
-      "m": 32,
-      "slug": "warehouse-manager",
-      "field": "Transport",
-      "cluster": "Service",
-      "kind": "pivot",
-      "gap": [
-        "Customer Service"
-      ],
-      "observed": null,
-      "fit": 28,
-      "capability": 49,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 20,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Supply Chain Analyst",
-      "m": 30,
+      "m": 28,
       "slug": "supply-chain-analyst",
       "field": "Business",
       "cluster": "Business",
       "kind": "lateral",
       "gap": [
         "Forecasting",
-        "SEM / Paid Media",
-        "SAP",
-        "Social Media"
+        "Inventory Management",
+        "Vendor Management",
+        "SEM / Paid Media"
       ],
       "observed": null,
-      "fit": 34,
+      "fit": 32,
       "capability": 80,
       "mobility": 4,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 20,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Robotics Technician",
-      "m": 30,
-      "slug": "robotics-technician",
-      "field": "Engineering",
-      "cluster": "Engineering",
-      "kind": "pivot",
-      "gap": [
-        "Maintenance",
-        "PLC / Controls",
-        "Blueprint Reading",
-        "Welding / Fabrication"
-      ],
-      "observed": null,
-      "fit": 30,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1588,6 +1547,50 @@
       "mobility": 34,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 35,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Warehouse Manager",
+      "m": 26,
+      "slug": "warehouse-manager",
+      "field": "Transport",
+      "cluster": "Service",
+      "kind": "pivot",
+      "gap": [
+        "Inventory Management",
+        "Customer Service",
+        "Shipping & Receiving",
+        "Rigging & Material Handling"
+      ],
+      "observed": null,
+      "fit": 25,
+      "capability": 49,
+      "mobility": 3,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 20,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Game Designer",
+      "m": 26,
+      "slug": "game-designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "EHR / EMR",
+        "Prototyping",
+        "Unreal Engine",
+        "System Design"
+      ],
+      "observed": null,
+      "fit": 26,
+      "capability": 39,
+      "mobility": 17,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 5,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1636,14 +1639,14 @@
       0.63
     ],
     [
-      "management-consultant",
-      "data-analyst_0",
-      0.61
-    ],
-    [
       "operations-manager",
       "management-consultant_0",
       0.55
+    ],
+    [
+      "management-consultant",
+      "data-analyst_0",
+      0.49
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

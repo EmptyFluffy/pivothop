@@ -28,8 +28,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 38,
-      "fit": 52,
+      "match": 42,
+      "fit": 54,
       "capability": 31,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
@@ -109,6 +109,12 @@
           "name": "SketchUp",
           "pts": 4.3,
           "earned": 0
+        },
+        {
+          "skill": "finish-carpentry",
+          "name": "Finish Carpentry",
+          "pts": 4.3,
+          "earned": 4.3
         }
       ],
       "low_confidence": false,
@@ -169,7 +175,7 @@
           "skill": "cad-mechanical",
           "name": "Mechanical CAD",
           "pts": 6.4,
-          "earned": 6.4
+          "earned": 6.3
         },
         {
           "skill": "keyshot",
@@ -377,113 +383,6 @@
       }
     },
     {
-      "id": "mep-engineer",
-      "title": "MEP Engineer",
-      "field": "Engineering",
-      "cluster": "Built Environment",
-      "kind": "lateral",
-      "license": {
-        "req": "partial",
-        "label": "PE license required for sign-off roles"
-      },
-      "desc": "",
-      "match": 31,
-      "fit": 44,
-      "capability": 63,
-      "mobility": 57,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 49,
-      "mobility_tier": null,
-      "salary": "$65k–$115k",
-      "salary_band": [
-        62707,
-        115353
-      ],
-      "demand": "Moderate",
-      "remote": "1%",
-      "time": "12–24 mo",
-      "have": [
-        "MEP",
-        "Revit",
-        "BIM",
-        "Sustainability"
-      ],
-      "learn": [
-        "Maintenance",
-        "Electrical Systems",
-        "Construction Administration",
-        "HVAC Systems"
-      ],
-      "waterfall": [
-        {
-          "skill": "mep",
-          "name": "MEP",
-          "pts": 57.1,
-          "earned": 5.6
-        },
-        {
-          "skill": "revit",
-          "name": "Revit",
-          "pts": 12,
-          "earned": 12
-        },
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 9.4,
-          "earned": 0
-        },
-        {
-          "skill": "bim",
-          "name": "BIM",
-          "pts": 5.2,
-          "earned": 5.2
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 3.1,
-          "earned": 3.1
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 3.1,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 2.6,
-          "earned": 2.6
-        },
-        {
-          "skill": "autocad",
-          "name": "AutoCAD",
-          "pts": 2.6,
-          "earned": 2.6
-        },
-        {
-          "skill": "construction-administration",
-          "name": "Construction Administration",
-          "pts": 2.6,
-          "earned": 0
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 2.1,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": "Supplemental",
-      "provenance": {
-        "postings": 158,
-        "salaried": 145
-      }
-    },
-    {
       "id": "mechanical-engineer",
       "title": "Mechanical Engineer",
       "field": "Engineering",
@@ -519,14 +418,14 @@
         "FEA / Simulation",
         "Prototyping",
         "Structural Analysis",
-        "Training & Facilitation"
+        "Plumbing"
       ],
       "waterfall": [
         {
           "skill": "cad-mechanical",
           "name": "Mechanical CAD",
           "pts": 12.5,
-          "earned": 8.1
+          "earned": 7.9
         },
         {
           "skill": "fea",
@@ -565,6 +464,12 @@
           "earned": 0
         },
         {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.7,
+          "earned": 0
+        },
+        {
           "skill": "training",
           "name": "Training & Facilitation",
           "pts": 5.1,
@@ -588,6 +493,119 @@
       "provenance": {
         "postings": 1360,
         "salaried": 942
+      }
+    },
+    {
+      "id": "mep-engineer",
+      "title": "MEP Engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "lateral",
+      "license": {
+        "req": "partial",
+        "label": "PE license required for sign-off roles"
+      },
+      "desc": "",
+      "match": 25,
+      "fit": 41,
+      "capability": 63,
+      "mobility": 57,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 49,
+      "mobility_tier": null,
+      "salary": "$65k–$115k",
+      "salary_band": [
+        62707,
+        115353
+      ],
+      "demand": "Moderate",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "MEP",
+        "Revit",
+        "BIM",
+        "Sustainability"
+      ],
+      "learn": [
+        "Plumbing",
+        "Maintenance",
+        "Electrical Systems",
+        "Construction Administration"
+      ],
+      "waterfall": [
+        {
+          "skill": "mep",
+          "name": "MEP",
+          "pts": 45.6,
+          "earned": 4.5
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 20.1,
+          "earned": 0
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 9.6,
+          "earned": 9.6
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 7.5,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 4.2,
+          "earned": 4.2
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 2.5,
+          "earned": 2.5
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 2.1,
+          "earned": 2.1
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 2.1,
+          "earned": 2.1
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 1.7,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Supplemental",
+      "provenance": {
+        "postings": 158,
+        "salaried": 145
       }
     },
     {
@@ -817,7 +835,7 @@
       "mobility_tier": null,
       "salary": "$65k–$115k",
       "salary_band": [
-        63859,
+        63817,
         116775
       ],
       "demand": "High",
@@ -902,8 +920,8 @@
     "interior-designer": [],
     "industrial-designer": [],
     "architect": [],
-    "mep-engineer": [],
     "mechanical-engineer": [],
+    "mep-engineer": [],
     "landscape-architect": [],
     "electrical-engineer": [],
     "structural-engineer": [

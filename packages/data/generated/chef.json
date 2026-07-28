@@ -19,8 +19,88 @@
       "openings": 24.4
     }
   },
-  "roles": [],
-  "next": {},
+  "roles": [
+    {
+      "id": "cook",
+      "title": "Cook",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Prepares and plates food to order on a working line, under time and consistency pressure. Distinct from the chef who runs the kitchen.",
+      "match": 47,
+      "fit": 64,
+      "capability": null,
+      "mobility": 100,
+      "mobility_source": "observed-flow-ctot",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$35k–$45k",
+      "salary_band": [
+        33277,
+        44980
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Food Service",
+        "Food Safety",
+        "Catering & Banquet",
+        "Customer Service"
+      ],
+      "learn": [
+        "Line Cooking"
+      ],
+      "waterfall": [
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 38,
+          "earned": 28.9
+        },
+        {
+          "skill": "line-cooking",
+          "name": "Line Cooking",
+          "pts": 26.9,
+          "earned": 0
+        },
+        {
+          "skill": "food-safety",
+          "name": "Food Safety",
+          "pts": 22.2,
+          "earned": 5.7
+        },
+        {
+          "skill": "catering",
+          "name": "Catering & Banquet",
+          "pts": 7,
+          "earned": 7
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 2.9,
+          "earned": 2.2
+        },
+        {
+          "skill": "kitchen-management",
+          "name": "Kitchen Management",
+          "pts": 2.9,
+          "earned": 2.9
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1179,
+        "salaried": 781
+      }
+    }
+  ],
+  "next": {
+    "cook": []
+  },
   "direct": [],
   "cross": [],
   "bridges": [],

@@ -356,7 +356,7 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 39,
+      "match": 38,
       "fit": 52,
       "capability": null,
       "mobility": 82,
@@ -380,129 +380,129 @@
       "learn": [
         "Account Management",
         "Financial Modeling",
-        "Agile",
-        "Project Management"
+        "Underwriting",
+        "Agile"
       ],
       "waterfall": [
         {
           "skill": "sql",
           "name": "SQL",
-          "pts": 10.2,
-          "earned": 10.2
+          "pts": 9.7,
+          "earned": 9.7
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 9.7,
-          "earned": 3.9
+          "pts": 9.3,
+          "earned": 3.7
         },
         {
           "skill": "data-visualization",
           "name": "Data Visualization",
-          "pts": 9.3,
-          "earned": 9.3
+          "pts": 8.9,
+          "earned": 8.9
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 7.9,
-          "earned": 7.9
+          "pts": 7.5,
+          "earned": 7.5
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 7.1,
+          "pts": 6.8,
           "earned": 0
         },
         {
           "skill": "financial-modeling",
           "name": "Financial Modeling",
-          "pts": 7,
+          "pts": 6.7,
+          "earned": 0
+        },
+        {
+          "skill": "underwriting",
+          "name": "Underwriting",
+          "pts": 6.4,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 5.2,
+          "pts": 5,
           "earned": 1.9
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 5.1,
-          "earned": 2
+          "pts": 4.9,
+          "earned": 1.9
         },
         {
           "skill": "agile",
           "name": "Agile",
-          "pts": 4.7,
+          "pts": 4.5,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 4.1,
+          "pts": 4,
           "earned": 0
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 3.9,
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 3.8,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 3.7,
+          "pts": 3.5,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3,
+          "pts": 2.9,
           "earned": 0
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 2.7,
+          "pts": 2.6,
           "earned": 0
         },
         {
           "skill": "power-bi",
           "name": "Power BI",
-          "pts": 2.7,
-          "earned": 2.7
+          "pts": 2.5,
+          "earned": 2.5
         },
         {
           "skill": "program-management",
           "name": "Program Management",
-          "pts": 2.6,
+          "pts": 2.5,
           "earned": 0
         },
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 2.3,
-          "earned": 1.5
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.3,
-          "earned": 0
+          "pts": 2.2,
+          "earned": 1.4
         }
       ],
       "low_confidence": false,
@@ -1305,7 +1305,7 @@
     "product-analyst": [
       {
         "t": "Financial Analyst",
-        "m": 26,
+        "m": 25,
         "slug": "financial-analyst",
         "field": "Finance",
         "cluster": "Finance",
@@ -1317,7 +1317,7 @@
           "Budgeting"
         ],
         "observed": null,
-        "fit": 25,
+        "fit": 24,
         "capability": null,
         "mobility": 22,
         "mobility_source": "observed-flow-us",
@@ -1326,13 +1326,13 @@
         "reach": "bridged",
         "via": {
           "parent": "product-analyst",
-          "readiness_after": 35,
+          "readiness_after": 34,
           "gain": 9
         }
       },
       {
         "t": "Product Manager",
-        "m": 19,
+        "m": 18,
         "slug": "product-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1344,7 +1344,7 @@
           "LangChain / Agents"
         ],
         "observed": null,
-        "fit": 15,
+        "fit": 14,
         "capability": null,
         "mobility": 5,
         "mobility_source": "observed-flow-us",
@@ -1353,7 +1353,7 @@
         "reach": "bridged",
         "via": {
           "parent": "product-analyst",
-          "readiness_after": 40,
+          "readiness_after": 39,
           "gain": 21
         }
       }
@@ -1411,8 +1411,8 @@
         "reach": "bridged",
         "via": {
           "parent": "business-analyst",
-          "readiness_after": 56,
-          "gain": 23
+          "readiness_after": 52,
+          "gain": 19
         }
       },
       {
@@ -1694,7 +1694,7 @@
     },
     {
       "t": "Supply Chain Analyst",
-      "m": 20,
+      "m": 19,
       "slug": "supply-chain-analyst",
       "field": "Business",
       "cluster": "Business",
@@ -1702,11 +1702,11 @@
       "gap": [
         "Procurement",
         "Forecasting",
-        "SEM / Paid Media",
-        "Operations"
+        "Inventory Management",
+        "Vendor Management"
       ],
       "observed": null,
-      "fit": 14,
+      "fit": 13,
       "capability": null,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
@@ -1715,24 +1715,24 @@
       "reach": "direct"
     },
     {
-      "t": "Accountant",
-      "m": 18,
-      "slug": "accountant",
-      "field": "Finance",
-      "cluster": "Finance",
+      "t": "Executive Assistant",
+      "m": 17,
+      "slug": "executive-assistant",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "gap": [
-        "Community Engagement",
-        "Audit",
-        "Forecasting",
-        "Financial Modeling"
+        "Scheduling",
+        "Salesforce",
+        "Market Research",
+        "Presentation"
       ],
       "observed": null,
-      "fit": 19,
+      "fit": 14,
       "capability": null,
-      "mobility": 22,
+      "mobility": 8,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 16,
+      "mobility_eu": 47,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1761,7 +1761,7 @@
     [
       "business-analyst",
       "management-consultant",
-      0.42
+      0.41
     ],
     [
       "qa-engineer",
@@ -1788,7 +1788,7 @@
     [
       "business-analyst",
       "product-analyst_0",
-      0.5
+      0.48
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

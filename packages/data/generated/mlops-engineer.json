@@ -969,95 +969,94 @@
       }
     },
     {
-      "id": "data-annotator",
-      "title": "Data Annotator",
+      "id": "network-engineer",
+      "title": "Network Engineer",
       "field": "Technology",
       "cluster": "Technology",
       "kind": "lateral",
       "license": null,
-      "desc": "Labels and rates the data that trains and aligns machine-learning models, including the human feedback behind modern AI.",
-      "match": 30,
-      "fit": 30,
+      "desc": "",
+      "match": 31,
+      "fit": 29,
       "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
+      "mobility": 26,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 5,
       "mobility_tier": null,
-      "salary": "$20k–$75k",
+      "salary": "$75k–$145k",
       "salary_band": [
-        18200,
-        76537
+        73381,
+        145000
       ],
-      "demand": "Moderate",
-      "remote": "10%",
+      "demand": "High",
+      "remote": "2%",
       "time": "12–24 mo",
       "have": [
-        "Clinical Research",
-        "LLMs / Generative AI",
-        "Machine Learning",
-        "Data Analysis"
+        "Azure",
+        "AWS",
+        "Terraform",
+        "Observability"
       ],
       "learn": [
-        "Translation",
-        "QA / Testing",
-        "Journalism",
-        "Writing & Editing"
+        "Networking",
+        "Cybersecurity",
+        "Lean / Six Sigma"
       ],
       "waterfall": [
         {
-          "skill": "clinical-research",
-          "name": "Clinical Research",
-          "pts": 39.7,
-          "earned": 5.1
-        },
-        {
-          "skill": "llm",
-          "name": "LLMs / Generative AI",
-          "pts": 26.2,
-          "earned": 14
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 10.3,
+          "skill": "networking",
+          "name": "Networking",
+          "pts": 55.1,
           "earned": 0
         },
         {
-          "skill": "machine-learning",
-          "name": "Machine Learning",
-          "pts": 6.4,
-          "earned": 6.4
+          "skill": "azure",
+          "name": "Azure",
+          "pts": 10.5,
+          "earned": 10.5
         },
         {
-          "skill": "qa-testing",
-          "name": "QA / Testing",
-          "pts": 5.6,
+          "skill": "cybersecurity",
+          "name": "Cybersecurity",
+          "pts": 9.2,
           "earned": 0
         },
         {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 4.8,
-          "earned": 4.8
+          "skill": "aws",
+          "name": "AWS",
+          "pts": 7.6,
+          "earned": 7.6
         },
         {
-          "skill": "journalism",
-          "name": "Journalism",
-          "pts": 4,
+          "skill": "terraform",
+          "name": "Terraform",
+          "pts": 5.4,
+          "earned": 5.4
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.5,
           "earned": 0
         },
         {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 3.2,
-          "earned": 0
+          "skill": "observability",
+          "name": "Observability",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 3.8,
+          "earned": 3.8
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 187,
-        "salaried": 96
+        "postings": 589,
+        "salaried": 407
       }
     }
   ],
@@ -1120,6 +1119,33 @@
     ],
     "ai-engineer": [
       {
+        "t": "Data Annotator",
+        "m": 29,
+        "slug": "data-annotator",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Translation",
+          "QA / Testing",
+          "Fact-Checking",
+          "Journalism"
+        ],
+        "observed": null,
+        "fit": 29,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "ai-engineer",
+          "readiness_after": 43,
+          "gain": 14
+        }
+      },
+      {
         "t": "Developer Advocate",
         "m": 24,
         "slug": "developer-advocate",
@@ -1144,33 +1170,6 @@
           "parent": "ai-engineer",
           "readiness_after": 44,
           "gain": 20
-        }
-      },
-      {
-        "t": "Backend Developer",
-        "m": 22,
-        "slug": "backend-developer",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
-        "gap": [
-          "REST APIs",
-          "Java",
-          "Microservices",
-          "SQL"
-        ],
-        "observed": null,
-        "fit": 22,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "ai-engineer",
-          "readiness_after": 32,
-          "gain": 10
         }
       }
     ],
@@ -1203,30 +1202,30 @@
         }
       },
       {
-        "t": "Economist",
-        "m": 21,
-        "slug": "economist",
-        "field": "Science",
-        "cluster": "Science",
-        "kind": "pivot",
+        "t": "Backend Developer",
+        "m": 22,
+        "slug": "backend-developer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
         "gap": [
-          "Statistics",
-          "Policy Analysis",
-          "Accounting",
-          "Presentation"
+          "REST APIs",
+          "Java",
+          "Microservices",
+          "SQL"
         ],
         "observed": null,
-        "fit": 15,
+        "fit": 22,
         "capability": null,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
+        "mobility": null,
+        "mobility_source": null,
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "bi-developer",
-          "readiness_after": 31,
-          "gain": 10
+          "readiness_after": 30,
+          "gain": 8
         }
       }
     ],
@@ -1271,7 +1270,7 @@
           "Computer Vision",
           "Prototyping",
           "C++",
-          "Supply Chain"
+          "Localization"
         ],
         "observed": null,
         "fit": 25,
@@ -1372,58 +1371,9 @@
       }
     ],
     "prompt-engineer": [],
-    "data-annotator": [
-      {
-        "t": "Statistician",
-        "m": 15,
-        "slug": "statistician",
-        "field": "Science",
-        "cluster": "Science",
-        "kind": "pivot",
-        "gap": [
-          "Statistics",
-          "Research",
-          "Criminal Investigation",
-          "Project Management"
-        ],
-        "observed": null,
-        "fit": 11,
-        "capability": null,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "data-annotator",
-          "readiness_after": 39,
-          "gain": 24
-        }
-      }
-    ]
+    "network-engineer": []
   },
   "direct": [
-    {
-      "t": "Network Engineer",
-      "m": 31,
-      "slug": "network-engineer",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "lateral",
-      "gap": [
-        "Networking",
-        "Cybersecurity",
-        "Lean / Six Sigma"
-      ],
-      "observed": null,
-      "fit": 29,
-      "capability": null,
-      "mobility": 26,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 5,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
     {
       "t": "Penetration Tester",
       "m": 21,
@@ -1442,6 +1392,28 @@
       "capability": null,
       "mobility": null,
       "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Economist",
+      "m": 21,
+      "slug": "economist",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
+      "gap": [
+        "Statistics",
+        "Policy Analysis",
+        "Accounting",
+        "Presentation"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": null,
+      "mobility": 1,
+      "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
@@ -1487,6 +1459,28 @@
       "mobility": 52,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 18,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Statistician",
+      "m": 15,
+      "slug": "statistician",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
+      "gap": [
+        "Statistics",
+        "Research",
+        "Criminal Investigation",
+        "Project Management"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": null,
+      "mobility": 2,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1541,7 +1535,7 @@
     ],
     [
       "solutions-architect",
-      "ai-engineer_0",
+      "ai-engineer_1",
       0.48
     ]
   ],

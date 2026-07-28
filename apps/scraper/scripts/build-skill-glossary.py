@@ -71,6 +71,15 @@ HAND_MAP = {
     'tekla': ['structural-engineer', 'architectural-drafter', 'bim-manager'],
     'vray': ['visualization-artist', 'architect', 'interior-designer', 'industrial-designer'],
     'zbrush': ['game-designer', 'game-developer', 'industrial-designer', 'motion-designer'],
+    # Domain vocabulary added 2026-07-28. Their strongest occupations
+    # (technical-artist, computational-designer) are off-board, so these point
+    # at the nearest on-board work the skill actually reaches.
+    'character-rigging': ['game-developer', 'motion-designer', 'game-designer'],
+    'texturing': ['game-developer', 'game-designer', 'motion-designer'],
+    'lookdev': ['motion-designer', 'game-developer', 'video-editor'],
+    'generative-design': ['architect', 'industrial-designer', 'design-technologist'],
+    'differentiated-instruction': ['teacher', 'teaching-assistant', 'instructional-designer'],
+    'real-estate-listing': ['real-estate-agent', 'real-estate-developer'],
 }
 
 # Curated definitions, keyed by the skill's display name (exact, lowercased).

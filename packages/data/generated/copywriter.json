@@ -1107,7 +1107,7 @@
     "marketing-manager": [
       {
         "t": "SEO Specialist",
-        "m": 11,
+        "m": 10,
         "slug": "seo-specialist",
         "field": "Business",
         "cluster": "Business",
@@ -1128,7 +1128,7 @@
         "reach": "bridged",
         "via": {
           "parent": "marketing-manager",
-          "readiness_after": 25,
+          "readiness_after": 24,
           "gain": 14
         }
       }
@@ -1176,7 +1176,7 @@
     [
       "content-strategist",
       "marketing-manager_0",
-      0.22
+      0.21
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

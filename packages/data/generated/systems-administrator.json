@@ -564,7 +564,7 @@
       "salary": "$50k–$100k",
       "salary_band": [
         51478,
-        101907
+        102219
       ],
       "demand": "High",
       "remote": "3%",
@@ -597,7 +597,7 @@
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 8,
+          "pts": 7.7,
           "earned": 3.7
         },
         {
@@ -615,7 +615,7 @@
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 6,
+          "pts": 6.1,
           "earned": 0
         },
         {
@@ -639,7 +639,7 @@
         {
           "skill": "law-enforcement",
           "name": "Law Enforcement",
-          "pts": 4.3,
+          "pts": 4.4,
           "earned": 0
         },
         {
@@ -949,43 +949,43 @@
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 28.2,
-          "earned": 3.1
+          "pts": 27.6,
+          "earned": 3
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 8.3,
+          "pts": 8.2,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 7.8,
-          "earned": 4
+          "pts": 7.6,
+          "earned": 3.9
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 6.6,
+          "pts": 6.5,
           "earned": 2.9
         },
         {
           "skill": "recruiting",
           "name": "Recruiting",
-          "pts": 6.4,
+          "pts": 6.3,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 5.1,
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "people-management",
           "name": "People Management",
-          "pts": 4.9,
+          "pts": 4.8,
           "earned": 0
         },
         {
@@ -997,7 +997,7 @@
         {
           "skill": "sales-enablement",
           "name": "Sales Enablement",
-          "pts": 3.4,
+          "pts": 3.3,
           "earned": 0
         },
         {
@@ -1021,43 +1021,49 @@
         {
           "skill": "business-development",
           "name": "Business Development",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 0
         },
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 0
         },
         {
           "skill": "mental-health",
           "name": "Mental Health",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 2.3,
+          "pts": 2.2,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 2.1,
+          "pts": 2,
           "earned": 0
         },
         {
           "skill": "agile",
           "name": "Agile",
-          "pts": 2.1,
+          "pts": 2,
+          "earned": 0
+        },
+        {
+          "skill": "payroll",
+          "name": "Payroll",
+          "pts": 2,
           "earned": 0
         },
         {
           "skill": "contracts",
           "name": "Contracts",
-          "pts": 2.1,
+          "pts": 2,
           "earned": 0
         }
       ],
@@ -1096,33 +1102,6 @@
           "parent": "it-support",
           "readiness_after": 36,
           "gain": 25
-        }
-      },
-      {
-        "t": "Customer Support Specialist",
-        "m": 10,
-        "slug": "customer-support",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Customer Service",
-          "Salesforce",
-          "Market Research",
-          "SaaS"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": 26,
-        "mobility": 9,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 3,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "it-support",
-          "readiness_after": 36,
-          "gain": 26
         }
       }
     ],
@@ -1237,11 +1216,6 @@
       "it-support",
       "devops-engineer_0",
       0.28
-    ],
-    [
-      "hr-manager",
-      "it-support_1",
-      0.19
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

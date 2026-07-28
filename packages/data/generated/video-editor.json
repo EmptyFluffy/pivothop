@@ -155,103 +155,6 @@
       }
     },
     {
-      "id": "drone-pilot",
-      "title": "Drone Pilot",
-      "field": "Transport",
-      "cluster": "Transport",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Flies uncrewed aircraft for survey, inspection, film, and delivery. Commercial work requires a remote-pilot certificate.",
-      "match": 46,
-      "fit": 46,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$80k–$115k",
-      "salary_band": [
-        78990,
-        113044
-      ],
-      "demand": "Moderate",
-      "remote": "3%",
-      "time": "12–24 mo",
-      "have": [
-        "Video Editing",
-        "Photography",
-        "Writing & Editing"
-      ],
-      "learn": [
-        "Aviation Operations",
-        "Point Cloud / Scanning",
-        "GIS",
-        "Emergency Response"
-      ],
-      "waterfall": [
-        {
-          "skill": "video-editing",
-          "name": "Video Editing",
-          "pts": 28.8,
-          "earned": 28.8
-        },
-        {
-          "skill": "photography",
-          "name": "Photography",
-          "pts": 24.7,
-          "earned": 13
-        },
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 15.1,
-          "earned": 0
-        },
-        {
-          "skill": "point-cloud",
-          "name": "Point Cloud / Scanning",
-          "pts": 9.6,
-          "earned": 0
-        },
-        {
-          "skill": "gis",
-          "name": "GIS",
-          "pts": 5.5,
-          "earned": 0
-        },
-        {
-          "skill": "emergency-response",
-          "name": "Emergency Response",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "computer-vision",
-          "name": "Computer Vision",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 4.1,
-          "earned": 4.1
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 111,
-        "salaried": 73
-      }
-    },
-    {
       "id": "photographer",
       "title": "Photographer",
       "field": "Design",
@@ -259,7 +162,7 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 22,
+      "match": 23,
       "fit": 45,
       "capability": 37,
       "mobility": 100,
@@ -277,9 +180,11 @@
       "have": [
         "Photography",
         "Writing & Editing",
-        "Video Editing"
+        "Video Editing",
+        "Videography"
       ],
       "learn": [
+        "Photo Editing",
         "Data Analysis",
         "Account Management"
       ],
@@ -287,31 +192,43 @@
         {
           "skill": "photography",
           "name": "Photography",
-          "pts": 78.4,
-          "earned": 8.4
+          "pts": 71.3,
+          "earned": 7.7
         },
         {
           "skill": "writing",
           "name": "Writing & Editing",
-          "pts": 8.6,
-          "earned": 8.6
+          "pts": 7.6,
+          "earned": 7.6
+        },
+        {
+          "skill": "photo-editing",
+          "name": "Photo Editing",
+          "pts": 5.8,
+          "earned": 0
         },
         {
           "skill": "video-editing",
           "name": "Video Editing",
-          "pts": 4.7,
-          "earned": 4.7
+          "pts": 4.3,
+          "earned": 4.3
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 4.7,
+          "pts": 4.3,
           "earned": 0
+        },
+        {
+          "skill": "videography",
+          "name": "Videography",
+          "pts": 3.5,
+          "earned": 3.5
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 3.6,
+          "pts": 3.3,
           "earned": 0
         }
       ],
@@ -460,6 +377,116 @@
       "provenance": {
         "postings": 267,
         "salaried": 213
+      }
+    },
+    {
+      "id": "drone-pilot",
+      "title": "Drone Pilot",
+      "field": "Transport",
+      "cluster": "Transport",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Flies uncrewed aircraft for survey, inspection, film, and delivery. Commercial work requires a remote-pilot certificate.",
+      "match": 40,
+      "fit": 40,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$80k–$115k",
+      "salary_band": [
+        78990,
+        113044
+      ],
+      "demand": "Moderate",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Video Editing",
+        "Videography",
+        "Photography",
+        "Writing & Editing"
+      ],
+      "learn": [
+        "Aviation Operations",
+        "Flight Operations",
+        "Point Cloud / Scanning",
+        "GIS"
+      ],
+      "waterfall": [
+        {
+          "skill": "video-editing",
+          "name": "Video Editing",
+          "pts": 20.6,
+          "earned": 20.6
+        },
+        {
+          "skill": "videography",
+          "name": "Videography",
+          "pts": 19.6,
+          "earned": 7.3
+        },
+        {
+          "skill": "photography",
+          "name": "Photography",
+          "pts": 17.7,
+          "earned": 9.3
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 10.8,
+          "earned": 0
+        },
+        {
+          "skill": "flight-operations",
+          "name": "Flight Operations",
+          "pts": 8.8,
+          "earned": 0
+        },
+        {
+          "skill": "point-cloud",
+          "name": "Point Cloud / Scanning",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "gis",
+          "name": "GIS",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "emergency-response",
+          "name": "Emergency Response",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "computer-vision",
+          "name": "Computer Vision",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 2.9,
+          "earned": 2.9
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 111,
+        "salaried": 73
       }
     },
     {
@@ -905,117 +932,104 @@
       }
     },
     {
-      "id": "creative-technologist",
-      "title": "Creative Technologist",
-      "field": "Technology",
-      "cluster": "Technology",
+      "id": "social-media-manager",
+      "title": "Social Media Manager",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "license": null,
-      "desc": "Sits between design and engineering. Builds prototypes and interactive experiences for brands, museums, and studios — making technical ideas physical and legible.",
-      "match": 32,
-      "fit": 26,
-      "capability": null,
-      "mobility": 14,
+      "desc": "",
+      "match": 45,
+      "fit": 25,
+      "capability": 0,
+      "mobility": 1,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 7,
+      "mobility_eu": 46,
       "mobility_tier": null,
-      "salary": "$70k–$150k",
+      "salary": "$45k–$85k",
       "salary_band": [
-        72309,
-        152016
+        46800,
+        83248
       ],
-      "demand": "Low",
-      "remote": "0%",
+      "demand": "High",
+      "remote": "7%",
       "time": "12–24 mo",
       "have": [
+        "Social Media",
+        "Content Marketing",
         "Writing & Editing",
-        "Motion Design",
-        "Branding"
+        "SEM / Paid Media"
       ],
       "learn": [
-        "LangChain / Agents",
-        "Design Systems",
-        "LLMs / Generative AI",
-        "Prototyping"
+        "Community Engagement",
+        "Data Analysis",
+        "B2B"
       ],
       "waterfall": [
         {
+          "skill": "social-media",
+          "name": "Social Media",
+          "pts": 29.6,
+          "earned": 13.9
+        },
+        {
+          "skill": "content-marketing",
+          "name": "Content Marketing",
+          "pts": 23.1,
+          "earned": 6.6
+        },
+        {
           "skill": "writing",
           "name": "Writing & Editing",
-          "pts": 15.2,
-          "earned": 15.2
+          "pts": 16.9,
+          "earned": 16.9
         },
         {
-          "skill": "langchain",
-          "name": "LangChain / Agents",
-          "pts": 13,
+          "skill": "community-engagement",
+          "name": "Community Engagement",
+          "pts": 11.1,
           "earned": 0
         },
         {
-          "skill": "design-systems",
-          "name": "Design Systems",
-          "pts": 13,
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 5.9,
           "earned": 0
         },
         {
-          "skill": "motion-design",
-          "name": "Motion Design",
-          "pts": 13,
-          "earned": 11
+          "skill": "sem",
+          "name": "SEM / Paid Media",
+          "pts": 4.6,
+          "earned": 3.1
         },
         {
-          "skill": "llm",
-          "name": "LLMs / Generative AI",
-          "pts": 10.9,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 8.7,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 6.5,
+          "skill": "b2b",
+          "name": "B2B",
+          "pts": 4.6,
           "earned": 0
         },
         {
           "skill": "branding",
           "name": "Branding",
-          "pts": 6.5,
-          "earned": 5.3
-        },
-        {
-          "skill": "service-design",
-          "name": "Service Design",
-          "pts": 6.5,
-          "earned": 0
-        },
-        {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 6.5,
-          "earned": 0
+          "pts": 4.2,
+          "earned": 4.2
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 56,
-        "salaried": 36
+        "postings": 459,
+        "salaried": 330
       }
     }
   ],
   "next": {
     "graphic-designer": [],
-    "drone-pilot": [],
     "photographer": [],
     "motion-designer": [
       {
         "t": "Technical Artist",
-        "m": 21,
+        "m": 20,
         "slug": "technical-artist",
         "field": "Technology",
         "cluster": "Technology",
@@ -1027,7 +1041,7 @@
           "Houdini"
         ],
         "observed": "Supplemental",
-        "fit": 26,
+        "fit": 25,
         "capability": 41,
         "mobility": 23,
         "mobility_source": "observed-flow-us",
@@ -1036,40 +1050,13 @@
         "reach": "bridged",
         "via": {
           "parent": "motion-designer",
-          "readiness_after": 35,
-          "gain": 14
-        }
-      }
-    ],
-    "brand-designer": [
-      {
-        "t": "Content Strategist",
-        "m": 19,
-        "slug": "content-strategist",
-        "field": "Writing",
-        "cluster": "Media & Writing",
-        "kind": "pivot",
-        "gap": [
-          "B2B",
-          "SEO",
-          "Data Analysis",
-          "Copywriting"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": 5,
-        "mobility": 13,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 46,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "brand-designer",
           "readiness_after": 33,
-          "gain": 14
+          "gain": 13
         }
       }
     ],
+    "drone-pilot": [],
+    "brand-designer": [],
     "creative-director": [
       {
         "t": "Marketing Manager",
@@ -1100,7 +1087,35 @@
       }
     ],
     "industrial-designer": [],
-    "creative-technologist": []
+    "social-media-manager": [
+      {
+        "t": "Content Strategist",
+        "m": 19,
+        "slug": "content-strategist",
+        "field": "Writing",
+        "cluster": "Media & Writing",
+        "kind": "pivot",
+        "gap": [
+          "B2B",
+          "SEO",
+          "Data Analysis",
+          "Copywriting"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": 5,
+        "mobility": 13,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 46,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "social-media-manager",
+          "readiness_after": 37,
+          "gain": 18
+        }
+      }
+    ]
   },
   "direct": [
     {
@@ -1143,31 +1158,31 @@
       0.45
     ],
     [
-      "creative-director",
-      "creative-technologist",
-      0.44
-    ],
-    [
       "graphic-designer",
       "motion-designer",
       0.4
     ],
     [
-      "drone-pilot",
+      "motion-designer",
+      "brand-designer",
+      0.36
+    ],
+    [
       "photographer",
-      0.4
+      "drone-pilot",
+      0.33
     ]
   ],
   "bridges": [
     [
-      "industrial-designer",
-      "motion-designer_0",
+      "brand-designer",
+      "social-media-manager_0",
       0.33
     ],
     [
-      "motion-designer",
-      "brand-designer_0",
-      0.29
+      "industrial-designer",
+      "motion-designer_0",
+      0.31
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -40,7 +40,7 @@
       "mobility_tier": null,
       "salary": "$65k–$115k",
       "salary_band": [
-        63859,
+        63817,
         116775
       ],
       "demand": "High",
@@ -422,6 +422,12 @@
           "earned": 6.1
         },
         {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.7,
+          "earned": 0
+        },
+        {
           "skill": "training",
           "name": "Training & Facilitation",
           "pts": 5.1,
@@ -533,6 +539,12 @@
         {
           "skill": "sketchup",
           "name": "SketchUp",
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "finish-carpentry",
+          "name": "Finish Carpentry",
           "pts": 4.3,
           "earned": 0
         }
@@ -838,8 +850,8 @@
         "gap": [
           "Revit",
           "BIM",
-          "Drafting",
-          "MEP"
+          "MEP",
+          "Drafting"
         ],
         "observed": "Primary-Long",
         "fit": 14,
@@ -851,8 +863,8 @@
         "reach": "bridged",
         "via": {
           "parent": "architect",
-          "readiness_after": 31,
-          "gain": 19
+          "readiness_after": 30,
+          "gain": 18
         }
       }
     ],
@@ -897,7 +909,7 @@
           "Aviation Operations",
           "FEA / Simulation",
           "System Design",
-          "Prototyping"
+          "Flight Operations"
         ],
         "observed": null,
         "fit": 20,
@@ -909,8 +921,8 @@
         "reach": "bridged",
         "via": {
           "parent": "mechanical-engineer",
-          "readiness_after": 28,
-          "gain": 16
+          "readiness_after": 26,
+          "gain": 14
         }
       }
     ],
@@ -940,40 +952,12 @@
         "reach": "bridged",
         "via": {
           "parent": "landscape-architect",
-          "readiness_after": 45,
-          "gain": 32
+          "readiness_after": 44,
+          "gain": 31
         }
       }
     ],
-    "electrical-engineer": [
-      {
-        "t": "MEP Engineer",
-        "m": 10,
-        "slug": "mep-engineer",
-        "field": "Engineering",
-        "cluster": "Built Environment",
-        "kind": "lateral",
-        "gap": [
-          "MEP",
-          "Revit",
-          "Maintenance",
-          "BIM"
-        ],
-        "observed": null,
-        "fit": 20,
-        "capability": 41,
-        "mobility": 25,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 31,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "electrical-engineer",
-          "readiness_after": 21,
-          "gain": 11
-        }
-      }
-    ]
+    "electrical-engineer": []
   },
   "direct": [],
   "cross": [
@@ -1010,6 +994,11 @@
   ],
   "bridges": [
     [
+      "interior-designer",
+      "architect_0",
+      0.28
+    ],
+    [
       "mechanical-engineer",
       "construction-manager_0",
       0.27
@@ -1017,11 +1006,6 @@
     [
       "electrical-engineer",
       "mechanical-engineer_0",
-      0.27
-    ],
-    [
-      "interior-designer",
-      "architect_0",
       0.26
     ],
     [

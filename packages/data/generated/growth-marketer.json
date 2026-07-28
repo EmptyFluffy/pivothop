@@ -497,7 +497,7 @@
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 26.3,
+          "pts": 26.2,
           "earned": 4
         },
         {
@@ -563,18 +563,18 @@
         {
           "skill": "ab-testing",
           "name": "A/B Testing",
-          "pts": 3,
-          "earned": 3
-        },
-        {
-          "skill": "stakeholder-management",
-          "name": "Stakeholder Management",
-          "pts": 2.8,
-          "earned": 0
+          "pts": 2.9,
+          "earned": 2.9
         },
         {
           "skill": "prototyping",
           "name": "Prototyping",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "stakeholder-management",
+          "name": "Stakeholder Management",
           "pts": 2.7,
           "earned": 0
         },
@@ -603,14 +603,14 @@
           "earned": 2.2
         },
         {
-          "skill": "customer-service",
-          "name": "Customer Service",
+          "skill": "machine-learning",
+          "name": "Machine Learning",
           "pts": 2.1,
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
+          "skill": "customer-service",
+          "name": "Customer Service",
           "pts": 2.1,
           "earned": 0
         }
@@ -1280,17 +1280,17 @@
         }
       },
       {
-        "t": "Business Analyst",
+        "t": "Data Architect",
         "m": 24,
-        "slug": "business-analyst",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
+        "slug": "data-architect",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "pivot",
         "gap": [
-          "Account Management",
-          "Financial Modeling",
-          "Supply Chain",
-          "Lean / Six Sigma"
+          "ETL",
+          "AWS",
+          "Azure",
+          "Spark"
         ],
         "observed": null,
         "fit": 24,
@@ -1302,8 +1302,8 @@
         "reach": "bridged",
         "via": {
           "parent": "product-analyst",
-          "readiness_after": 35,
-          "gain": 11
+          "readiness_after": 32,
+          "gain": 8
         }
       }
     ],
@@ -1331,8 +1331,8 @@
         "reach": "bridged",
         "via": {
           "parent": "product-manager",
-          "readiness_after": 54,
-          "gain": 24
+          "readiness_after": 56,
+          "gain": 26
         }
       },
       {
@@ -1364,33 +1364,6 @@
       }
     ],
     "content-strategist": [
-      {
-        "t": "SEO Specialist",
-        "m": 28,
-        "slug": "seo-specialist",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "SEMrush / Ahrefs",
-          "LLMs / Generative AI",
-          "Content Marketing",
-          "Project Management"
-        ],
-        "observed": null,
-        "fit": 28,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "content-strategist",
-          "readiness_after": 37,
-          "gain": 9
-        }
-      },
       {
         "t": "Social Media Manager",
         "m": 25,
@@ -1535,6 +1508,28 @@
   },
   "direct": [
     {
+      "t": "SEO Specialist",
+      "m": 28,
+      "slug": "seo-specialist",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "SEMrush / Ahrefs",
+        "LLMs / Generative AI",
+        "Content Marketing",
+        "Project Management"
+      ],
+      "observed": null,
+      "fit": 28,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
       "t": "Data Scientist",
       "m": 24,
       "slug": "data-scientist",
@@ -1579,20 +1574,20 @@
       "reach": "direct"
     },
     {
-      "t": "Data Architect",
-      "m": 24,
-      "slug": "data-architect",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "pivot",
+      "t": "Business Analyst",
+      "m": 23,
+      "slug": "business-analyst",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "gap": [
-        "ETL",
-        "AWS",
-        "Azure",
-        "Spark"
+        "Account Management",
+        "Financial Modeling",
+        "Underwriting",
+        "Supply Chain"
       ],
       "observed": null,
-      "fit": 24,
+      "fit": 23,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1632,7 +1627,7 @@
     [
       "product-manager",
       "conversation-designer",
-      0.65
+      0.7
     ],
     [
       "marketing-manager",
@@ -1662,11 +1657,6 @@
       0.53
     ],
     [
-      "operations-manager",
-      "product-analyst_1",
-      0.53
-    ],
-    [
       "customer-success-manager",
       "operations-manager_0",
       0.5
@@ -1675,6 +1665,11 @@
       "operations-manager",
       "marketing-manager_0",
       0.49
+    ],
+    [
+      "customer-success-manager",
+      "operations-manager_1",
+      0.47
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

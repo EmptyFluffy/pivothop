@@ -242,7 +242,7 @@
           "skill": "crm",
           "name": "CRM",
           "pts": 8.3,
-          "earned": 6.2
+          "earned": 6.1
         },
         {
           "skill": "saas",
@@ -877,7 +877,7 @@
           "skill": "data-analysis",
           "name": "Data Analysis",
           "pts": 10.5,
-          "earned": 6.6
+          "earned": 6.5
         },
         {
           "skill": "project-management",
@@ -1165,7 +1165,7 @@
     "sales-representative": [
       {
         "t": "Event Planner",
-        "m": 28,
+        "m": 27,
         "slug": "event-planner",
         "field": "Business",
         "cluster": "Business",
@@ -1177,7 +1177,7 @@
           "Scheduling"
         ],
         "observed": null,
-        "fit": 21,
+        "fit": 20,
         "capability": null,
         "mobility": 4,
         "mobility_source": "observed-flow-us",
@@ -1186,7 +1186,7 @@
         "reach": "bridged",
         "via": {
           "parent": "sales-representative",
-          "readiness_after": 37,
+          "readiness_after": 36,
           "gain": 9
         }
       }
@@ -1279,7 +1279,7 @@
     "real-estate-developer": [
       {
         "t": "Business Analyst",
-        "m": 36,
+        "m": 35,
         "slug": "business-analyst",
         "field": "Business",
         "cluster": "Business",
@@ -1287,11 +1287,11 @@
         "gap": [
           "SQL",
           "Data Visualization",
-          "Supply Chain",
-          "Lean / Six Sigma"
+          "Underwriting",
+          "Supply Chain"
         ],
         "observed": null,
-        "fit": 38,
+        "fit": 37,
         "capability": null,
         "mobility": 42,
         "mobility_source": "observed-flow-us",
@@ -1300,8 +1300,8 @@
         "reach": "bridged",
         "via": {
           "parent": "real-estate-developer",
-          "readiness_after": 46,
-          "gain": 10
+          "readiness_after": 44,
+          "gain": 9
         }
       },
       {
@@ -1335,33 +1335,6 @@
     "real-estate-agent": [],
     "management-consultant": [
       {
-        "t": "Operations Manager",
-        "m": 44,
-        "slug": "operations-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Operations",
-          "Lean / Six Sigma",
-          "Data Visualization",
-          "Supply Chain"
-        ],
-        "observed": null,
-        "fit": 35,
-        "capability": null,
-        "mobility": 16,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 26,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "management-consultant",
-          "readiness_after": 60,
-          "gain": 16
-        }
-      },
-      {
         "t": "Product Manager",
         "m": 43,
         "slug": "product-manager",
@@ -1386,6 +1359,33 @@
           "parent": "management-consultant",
           "readiness_after": 56,
           "gain": 13
+        }
+      },
+      {
+        "t": "Actuary",
+        "m": 40,
+        "slug": "actuary",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Underwriting",
+          "Risk Management",
+          "Accounting",
+          "Statistics"
+        ],
+        "observed": null,
+        "fit": 40,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "management-consultant",
+          "readiness_after": 51,
+          "gain": 11
         }
       }
     ],
@@ -1420,28 +1420,6 @@
     ]
   },
   "direct": [
-    {
-      "t": "Lawyer",
-      "m": 40,
-      "slug": "lawyer",
-      "field": "Legal",
-      "cluster": "Legal",
-      "kind": "pivot",
-      "gap": [
-        "Contracts",
-        "Compliance",
-        "Case Management",
-        "Risk Management"
-      ],
-      "observed": null,
-      "fit": 28,
-      "capability": null,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
     {
       "t": "Recruiter",
       "m": 40,
@@ -1483,6 +1461,28 @@
       "mobility": 2,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 4,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Lawyer",
+      "m": 36,
+      "slug": "lawyer",
+      "field": "Legal",
+      "cluster": "Legal",
+      "kind": "pivot",
+      "gap": [
+        "Contracts",
+        "Compliance",
+        "Risk Management",
+        "Case Management"
+      ],
+      "observed": null,
+      "fit": 26,
+      "capability": null,
+      "mobility": 3,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1615,18 +1615,18 @@
     ],
     [
       "management-consultant",
-      "real-estate-developer_0",
-      0.54
+      "growth-marketer_0",
+      0.52
     ],
     [
       "customer-success-manager",
       "management-consultant_0",
-      0.53
+      0.51
     ],
     [
-      "management-consultant",
-      "growth-marketer_0",
-      0.52
+      "growth-marketer",
+      "management-consultant_1",
+      0.51
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

@@ -32,8 +32,8 @@
       },
       "desc": "",
       "match": 61,
-      "fit": 69,
-      "capability": 53,
+      "fit": 71,
+      "capability": 62,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 17,
@@ -120,8 +120,8 @@
       },
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
       "match": 37,
-      "fit": 55,
-      "capability": 46,
+      "fit": 57,
+      "capability": 57,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 13,
@@ -230,8 +230,8 @@
       "license": null,
       "desc": "",
       "match": 23,
-      "fit": 32,
-      "capability": 55,
+      "fit": 34,
+      "capability": 64,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
@@ -309,6 +309,12 @@
           "name": "SketchUp",
           "pts": 4.3,
           "earned": 0
+        },
+        {
+          "skill": "finish-carpentry",
+          "name": "Finish Carpentry",
+          "pts": 4.3,
+          "earned": 0
         }
       ],
       "low_confidence": false,
@@ -330,15 +336,15 @@
       },
       "desc": "",
       "match": 22,
-      "fit": 25,
-      "capability": 48,
+      "fit": 27,
+      "capability": 59,
       "mobility": 13,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 22,
       "mobility_tier": null,
       "salary": "$65k–$115k",
       "salary_band": [
-        63859,
+        63817,
         116775
       ],
       "demand": "High",
@@ -430,8 +436,8 @@
       },
       "desc": "",
       "match": 20,
-      "fit": 24,
-      "capability": 48,
+      "fit": 26,
+      "capability": 59,
       "mobility": 13,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 22,
@@ -539,8 +545,8 @@
       "license": null,
       "desc": "",
       "match": 15,
-      "fit": 21,
-      "capability": 37,
+      "fit": 24,
+      "capability": 50,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
@@ -664,6 +670,118 @@
       }
     },
     {
+      "id": "mechanical-engineer",
+      "title": "Mechanical Engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "license": {
+        "req": "partial",
+        "label": "PE required for sign-off roles; not for most product/manufacturing roles"
+      },
+      "desc": "",
+      "match": 22,
+      "fit": 21,
+      "capability": 20,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$65k–$115k",
+      "salary_band": [
+        63460,
+        112860
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Sustainability",
+        "Training & Facilitation"
+      ],
+      "learn": [
+        "Mechanical CAD",
+        "FEA / Simulation",
+        "Prototyping",
+        "MEP"
+      ],
+      "waterfall": [
+        {
+          "skill": "cad-mechanical",
+          "name": "Mechanical CAD",
+          "pts": 12.5,
+          "earned": 0
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 11.3,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 10.6,
+          "earned": 9.9
+        },
+        {
+          "skill": "prototyping",
+          "name": "Prototyping",
+          "pts": 9.9,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 7.5,
+          "earned": 7.5
+        },
+        {
+          "skill": "mep",
+          "name": "MEP",
+          "pts": 7.5,
+          "earned": 0
+        },
+        {
+          "skill": "structural-analysis",
+          "name": "Structural Analysis",
+          "pts": 6.2,
+          "earned": 0
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.7,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 5.1,
+          "earned": 5
+        },
+        {
+          "skill": "system-design",
+          "name": "System Design",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 4.3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1360,
+        "salaried": 942
+      }
+    },
+    {
       "id": "executive-assistant",
       "title": "Executive Assistant",
       "field": "Business",
@@ -672,8 +790,8 @@
       "license": null,
       "desc": "",
       "match": 19,
-      "fit": 18,
-      "capability": 23,
+      "fit": 21,
+      "capability": 39,
       "mobility": 12,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 100,
@@ -765,118 +883,39 @@
         "postings": 1709,
         "salaried": 884
       }
-    },
-    {
-      "id": "mechanical-engineer",
-      "title": "Mechanical Engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "license": {
-        "req": "partial",
-        "label": "PE required for sign-off roles; not for most product/manufacturing roles"
-      },
-      "desc": "",
-      "match": 22,
-      "fit": 16,
-      "capability": 0,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$65k–$115k",
-      "salary_band": [
-        63460,
-        112860
-      ],
-      "demand": "High",
-      "remote": "1%",
-      "time": "12–24 mo",
-      "have": [
-        "Project Management",
-        "Sustainability",
-        "Training & Facilitation"
-      ],
-      "learn": [
-        "Mechanical CAD",
-        "FEA / Simulation",
-        "Prototyping",
-        "MEP"
-      ],
-      "waterfall": [
-        {
-          "skill": "cad-mechanical",
-          "name": "Mechanical CAD",
-          "pts": 12.5,
-          "earned": 0
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 11.3,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 10.6,
-          "earned": 9.9
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 9.9,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 7.5,
-          "earned": 7.5
-        },
-        {
-          "skill": "mep",
-          "name": "MEP",
-          "pts": 7.5,
-          "earned": 0
-        },
-        {
-          "skill": "structural-analysis",
-          "name": "Structural Analysis",
-          "pts": 6.2,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 5.1,
-          "earned": 5
-        },
-        {
-          "skill": "system-design",
-          "name": "System Design",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 4.3,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1360,
-        "salaried": 942
-      }
     }
   ],
   "next": {
     "landscape-architect": [],
     "architect": [],
-    "interior-designer": [],
+    "interior-designer": [
+      {
+        "t": "Facilities Manager",
+        "m": 15,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Operations",
+          "Customer Service",
+          "Procurement"
+        ],
+        "observed": "Supplemental",
+        "fit": 18,
+        "capability": 20,
+        "mobility": 24,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 22,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "interior-designer",
+          "readiness_after": 26,
+          "gain": 11
+        }
+      }
+    ],
     "structural-engineer": [],
     "civil-engineer": [],
     "creative-director": [
@@ -908,6 +947,35 @@
         }
       }
     ],
+    "mechanical-engineer": [
+      {
+        "t": "Maintenance Technician",
+        "m": 14,
+        "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Supply Chain",
+          "Customer Service",
+          "Plumbing",
+          "PLC / Controls"
+        ],
+        "observed": null,
+        "fit": 10,
+        "capability": 0,
+        "mobility": 9,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 9,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "mechanical-engineer",
+          "readiness_after": 29,
+          "gain": 15
+        }
+      }
+    ],
     "executive-assistant": [
       {
         "t": "Economist",
@@ -923,8 +991,8 @@
           "Accounting"
         ],
         "observed": null,
-        "fit": 19,
-        "capability": 58,
+        "fit": 21,
+        "capability": 66,
         "mobility": 7,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
@@ -950,8 +1018,8 @@
           "Primavera P6"
         ],
         "observed": null,
-        "fit": 14,
-        "capability": 28,
+        "fit": 17,
+        "capability": 43,
         "mobility": 13,
         "mobility_source": "observed-flow-eu",
         "mobility_eu": 13,
@@ -959,14 +1027,36 @@
         "reach": "bridged",
         "via": {
           "parent": "executive-assistant",
-          "readiness_after": 22,
-          "gain": 12
+          "readiness_after": 21,
+          "gain": 11
         }
       }
-    ],
-    "mechanical-engineer": []
+    ]
   },
-  "direct": [],
+  "direct": [
+    {
+      "t": "HVAC Technician",
+      "m": 12,
+      "slug": "hvac-technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "gap": [
+        "HVAC Systems",
+        "Refrigeration",
+        "Customer Service",
+        "Scheduling"
+      ],
+      "observed": null,
+      "fit": 9,
+      "capability": 1,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "architect",
@@ -999,6 +1089,17 @@
       0.35
     ]
   ],
-  "bridges": [],
+  "bridges": [
+    [
+      "executive-assistant",
+      "mechanical-engineer_0",
+      0.27
+    ],
+    [
+      "executive-assistant",
+      "interior-designer_0",
+      0.26
+    ]
+  ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

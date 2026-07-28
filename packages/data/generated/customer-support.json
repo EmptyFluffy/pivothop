@@ -673,7 +673,7 @@
       "salary": "$50k–$100k",
       "salary_band": [
         51478,
-        101907
+        102219
       ],
       "demand": "High",
       "remote": "3%",
@@ -706,7 +706,7 @@
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 8,
+          "pts": 7.7,
           "earned": 4.5
         },
         {
@@ -724,7 +724,7 @@
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 6,
+          "pts": 6.1,
           "earned": 0
         },
         {
@@ -748,7 +748,7 @@
         {
           "skill": "law-enforcement",
           "name": "Law Enforcement",
-          "pts": 4.3,
+          "pts": 4.4,
           "earned": 0
         },
         {
@@ -1082,51 +1082,24 @@
           "readiness_after": 37,
           "gain": 11
         }
-      },
-      {
-        "t": "Economist",
-        "m": 19,
-        "slug": "economist",
-        "field": "Science",
-        "cluster": "Science",
-        "kind": "pivot",
-        "gap": [
-          "Statistics",
-          "Policy Analysis",
-          "Accounting",
-          "Presentation"
-        ],
-        "observed": null,
-        "fit": 17,
-        "capability": 31,
-        "mobility": 0,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "executive-assistant",
-          "readiness_after": 30,
-          "gain": 11
-        }
       }
     ],
     "sales-representative": [
       {
         "t": "HR Manager",
-        "m": 25,
+        "m": 22,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "lateral",
         "gap": [
+          "HR Operations",
           "Recruiting",
           "People Management",
-          "Change Management",
-          "Sales Enablement"
+          "Change Management"
         ],
         "observed": null,
-        "fit": 21,
+        "fit": 20,
         "capability": 32,
         "mobility": 4,
         "mobility_source": "observed-flow-us",
@@ -1135,8 +1108,8 @@
         "reach": "bridged",
         "via": {
           "parent": "sales-representative",
-          "readiness_after": 38,
-          "gain": 13
+          "readiness_after": 36,
+          "gain": 14
         }
       },
       {
@@ -1162,8 +1135,8 @@
         "reach": "bridged",
         "via": {
           "parent": "sales-representative",
-          "readiness_after": 38,
-          "gain": 17
+          "readiness_after": 36,
+          "gain": 15
         }
       }
     ],
@@ -1196,84 +1169,55 @@
         }
       },
       {
-        "t": "UX Researcher",
-        "m": 22,
-        "slug": "ux-researcher",
-        "field": "Design",
-        "cluster": "Design",
-        "kind": "pivot",
+        "t": "Facilities Manager",
+        "m": 25,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "lateral",
         "gap": [
-          "Product Management",
-          "User Research",
-          "Research",
-          "Usability Testing"
+          "Sustainability"
         ],
         "observed": null,
-        "fit": 22,
-        "capability": 22,
-        "mobility": 22,
+        "fit": 20,
+        "capability": 18,
+        "mobility": 12,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 3,
+        "mobility_eu": 8,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "it-support",
-          "readiness_after": 30,
-          "gain": 8
+          "readiness_after": 38,
+          "gain": 13
         }
       }
     ],
     "mobility-planner": [
       {
-        "t": "Maintenance Technician",
-        "m": 25,
-        "slug": "maintenance-technician",
-        "field": "Trades",
-        "cluster": "Trades",
+        "t": "Warehouse Manager",
+        "m": 26,
+        "slug": "warehouse-manager",
+        "field": "Transport",
+        "cluster": "Service",
         "kind": "pivot",
         "gap": [
-          "PLC / Controls",
-          "Sustainability",
-          "HVAC Systems"
+          "Inventory Management",
+          "Shipping & Receiving",
+          "Rigging & Material Handling"
         ],
         "observed": null,
         "fit": 20,
-        "capability": 17,
-        "mobility": 13,
+        "capability": 16,
+        "mobility": 8,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
+        "mobility_eu": 3,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "mobility-planner",
-          "readiness_after": 40,
-          "gain": 15
-        }
-      },
-      {
-        "t": "Robotics Technician",
-        "m": 21,
-        "slug": "robotics-technician",
-        "field": "Engineering",
-        "cluster": "Engineering",
-        "kind": "pivot",
-        "gap": [
-          "PLC / Controls",
-          "Blueprint Reading",
-          "Welding / Fabrication"
-        ],
-        "observed": null,
-        "fit": 21,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mobility-planner",
-          "readiness_after": 36,
-          "gain": 15
+          "readiness_after": 53,
+          "gain": 27
         }
       }
     ],
@@ -1310,7 +1254,7 @@
     "auditor": [
       {
         "t": "Financial Analyst",
-        "m": 19,
+        "m": 17,
         "slug": "financial-analyst",
         "field": "Finance",
         "cluster": "Finance",
@@ -1322,7 +1266,7 @@
           "Financial Modeling"
         ],
         "observed": null,
-        "fit": 15,
+        "fit": 13,
         "capability": null,
         "mobility": 5,
         "mobility_source": "observed-flow-us",
@@ -1331,7 +1275,7 @@
         "reach": "bridged",
         "via": {
           "parent": "auditor",
-          "readiness_after": 31,
+          "readiness_after": 29,
           "gain": 12
         }
       }
@@ -1395,22 +1339,45 @@
   },
   "direct": [
     {
-      "t": "Plumber",
-      "m": 26,
-      "slug": "plumber",
+      "t": "UX Researcher",
+      "m": 22,
+      "slug": "ux-researcher",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Product Management",
+        "User Research",
+        "Research",
+        "Usability Testing"
+      ],
+      "observed": null,
+      "fit": 22,
+      "capability": 22,
+      "mobility": 22,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 3,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Automotive Technician",
+      "m": 21,
+      "slug": "automotive-technician",
       "field": "Trades",
       "cluster": "Trades",
       "kind": "pivot",
       "gap": [
-        "Drafting",
+        "Hand & Power Tools",
+        "Electrical Systems",
         "Blueprint Reading",
-        "Building Codes"
+        "Aviation Operations"
       ],
       "observed": null,
-      "fit": 18,
-      "capability": 14,
-      "mobility": 3,
-      "mobility_source": "observed-flow-us",
+      "fit": 21,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
@@ -1438,28 +1405,6 @@
       "reach": "direct"
     },
     {
-      "t": "Automotive Technician",
-      "m": 20,
-      "slug": "automotive-technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "pivot",
-      "gap": [
-        "Hand & Power Tools",
-        "Electrical Systems",
-        "Blueprint Reading",
-        "Aviation Operations"
-      ],
-      "observed": null,
-      "fit": 20,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
       "t": "Copywriter",
       "m": 20,
       "slug": "copywriter",
@@ -1478,6 +1423,50 @@
       "mobility": 3,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 1,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Management Consultant",
+      "m": 17,
+      "slug": "management-consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "Project Management",
+        "Change Management",
+        "Business Development",
+        "SQL"
+      ],
+      "observed": "Supplemental",
+      "fit": 21,
+      "capability": 32,
+      "mobility": 19,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 1,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Content Strategist",
+      "m": 17,
+      "slug": "content-strategist",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "gap": [
+        "Content Marketing",
+        "Writing & Editing",
+        "B2B",
+        "SEO"
+      ],
+      "observed": null,
+      "fit": 20,
+      "capability": 48,
+      "mobility": 3,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 26,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1501,7 +1490,7 @@
     [
       "compliance-officer",
       "auditor",
-      0.39
+      0.4
     ],
     [
       "sales-representative",
@@ -1517,18 +1506,18 @@
     ],
     [
       "account-executive",
-      "it-support_1",
-      0.46
-    ],
-    [
-      "account-executive",
       "auditor_0",
-      0.46
+      0.44
     ],
     [
       "sales-representative",
       "account-executive_1",
       0.43
+    ],
+    [
+      "it-support",
+      "account-executive_0",
+      0.4
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

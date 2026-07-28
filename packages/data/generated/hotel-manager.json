@@ -21,6 +21,84 @@
   },
   "roles": [
     {
+      "id": "facilities-manager",
+      "title": "Facilities Manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 17,
+      "fit": 38,
+      "capability": 73,
+      "mobility": 58,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 28,
+      "mobility_tier": null,
+      "salary": "$55k–$90k",
+      "salary_band": [
+        54413,
+        91723
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Maintenance",
+        "Operations",
+        "Customer Service"
+      ],
+      "learn": [
+        "Facilities Operations",
+        "Procurement",
+        "Sustainability"
+      ],
+      "waterfall": [
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 36.3,
+          "earned": 0
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 15.6,
+          "earned": 4.1
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 8.5,
+          "earned": 7.6
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.5,
+          "earned": 5.2
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.9,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Primary-Short",
+      "provenance": {
+        "postings": 655,
+        "salaried": 480
+      }
+    },
+    {
       "id": "construction-manager",
       "title": "Construction Manager",
       "field": "Construction",
@@ -128,309 +206,6 @@
       }
     },
     {
-      "id": "hvac-technician",
-      "title": "HVAC Technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "pivot",
-      "license": {
-        "req": "required",
-        "label": "State license + EPA 608 certification required"
-      },
-      "desc": "",
-      "match": 14,
-      "fit": 21,
-      "capability": 61,
-      "mobility": 4,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$55k–$85k",
-      "salary_band": [
-        57000,
-        84771
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo + license",
-      "have": [
-        "Maintenance",
-        "Customer Service",
-        "Scheduling"
-      ],
-      "learn": [
-        "HVAC Systems",
-        "Sustainability"
-      ],
-      "waterfall": [
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 33,
-          "earned": 0
-        },
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 30.4,
-          "earned": 3.4
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 23.8,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 6.4,
-          "earned": 4.3
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 6.4,
-          "earned": 5.8
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 649,
-        "salaried": 424
-      }
-    },
-    {
-      "id": "warehouse-manager",
-      "title": "Warehouse Manager",
-      "field": "Transport",
-      "cluster": "Service",
-      "kind": "lateral",
-      "license": null,
-      "desc": "",
-      "match": 12,
-      "fit": 21,
-      "capability": 68,
-      "mobility": 4,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 5,
-      "mobility_tier": null,
-      "salary": "$55k–$70k",
-      "salary_band": [
-        53312,
-        70996
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Customer Service",
-        "Operations",
-        "Training & Facilitation"
-      ],
-      "learn": [
-        "Supply Chain",
-        "Lean / Six Sigma"
-      ],
-      "waterfall": [
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 68,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 10.3,
-          "earned": 3.8
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 10,
-          "earned": 5.4
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 7.3,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4.4,
-          "earned": 2.9
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 491,
-        "salaried": 328
-      }
-    },
-    {
-      "id": "hr-manager",
-      "title": "HR Manager",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 12,
-      "fit": 18,
-      "capability": 58,
-      "mobility": 0,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 16,
-      "mobility_tier": null,
-      "salary": "$65k–$110k",
-      "salary_band": [
-        64829,
-        109438
-      ],
-      "demand": "High",
-      "remote": "5%",
-      "time": "12–24 mo",
-      "have": [
-        "Training & Facilitation",
-        "Operations",
-        "Customer Service",
-        "Scheduling"
-      ],
-      "learn": [
-        "HR Operations",
-        "Lean / Six Sigma",
-        "Recruiting",
-        "People Management"
-      ],
-      "waterfall": [
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 28.2,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 8.3,
-          "earned": 2.1
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 7.8,
-          "earned": 3.9
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 6.6,
-          "earned": 0
-        },
-        {
-          "skill": "recruiting",
-          "name": "Recruiting",
-          "pts": 6.4,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 5.1,
-          "earned": 2.7
-        },
-        {
-          "skill": "people-management",
-          "name": "People Management",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "change-management",
-          "name": "Change Management",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "sales-enablement",
-          "name": "Sales Enablement",
-          "pts": 3.4,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "jira",
-          "name": "Jira",
-          "pts": 2.8,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 2.8,
-          "earned": 2.8
-        },
-        {
-          "skill": "business-development",
-          "name": "Business Development",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "mental-health",
-          "name": "Mental Health",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "contracts",
-          "name": "Contracts",
-          "pts": 2.1,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 549,
-        "salaried": 354
-      }
-    },
-    {
       "id": "medical-writer",
       "title": "Medical Writer",
       "field": "Healthcare",
@@ -507,132 +282,15 @@
         "postings": 297,
         "salaried": 224
       }
-    },
-    {
-      "id": "automotive-technician",
-      "title": "Automotive Technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Diagnoses and repairs vehicles, from brakes and diagnostics to full engine work. Includes auto, diesel, and heavy-equipment technicians.",
-      "match": 12,
-      "fit": 12,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$50k–$70k",
-      "salary_band": [
-        48698,
-        71927
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Maintenance",
-        "Customer Service",
-        "Scheduling"
-      ],
-      "learn": [
-        "Hand & Power Tools",
-        "Electrical Systems",
-        "Blueprint Reading",
-        "Aviation Operations"
-      ],
-      "waterfall": [
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 39.9,
-          "earned": 3.1
-        },
-        {
-          "skill": "hand-power-tools",
-          "name": "Hand & Power Tools",
-          "pts": 9.8,
-          "earned": 0
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 9.5,
-          "earned": 0
-        },
-        {
-          "skill": "blueprint-reading",
-          "name": "Blueprint Reading",
-          "pts": 9.3,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 7.7,
-          "earned": 4
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 5.9,
-          "earned": 5.3
-        },
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 5.4,
-          "earned": 0
-        },
-        {
-          "skill": "teaching",
-          "name": "Teaching",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1196,
-        "salaried": 870
-      }
     }
   ],
   "next": {
+    "facilities-manager": [],
     "construction-manager": [],
-    "hvac-technician": [],
-    "warehouse-manager": [],
-    "hr-manager": [],
-    "medical-writer": [],
-    "automotive-technician": []
+    "medical-writer": []
   },
   "direct": [],
-  "cross": [
-    [
-      "hvac-technician",
-      "automotive-technician",
-      0.43
-    ],
-    [
-      "warehouse-manager",
-      "hr-manager",
-      0.32
-    ]
-  ],
+  "cross": [],
   "bridges": [],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

@@ -1041,7 +1041,7 @@
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 26.3,
+          "pts": 26.2,
           "earned": 3.9
         },
         {
@@ -1107,20 +1107,20 @@
         {
           "skill": "ab-testing",
           "name": "A/B Testing",
-          "pts": 3,
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "prototyping",
+          "name": "Prototyping",
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "stakeholder-management",
           "name": "Stakeholder Management",
-          "pts": 2.8,
-          "earned": 2.8
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
           "pts": 2.7,
-          "earned": 0
+          "earned": 2.7
         },
         {
           "skill": "sql",
@@ -1147,16 +1147,16 @@
           "earned": 2.2
         },
         {
+          "skill": "machine-learning",
+          "name": "Machine Learning",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
           "skill": "customer-service",
           "name": "Customer Service",
           "pts": 2.1,
           "earned": 2.1
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 2.1,
-          "earned": 0
         }
       ],
       "low_confidence": false,
@@ -1199,7 +1199,7 @@
       },
       {
         "t": "HR Manager",
-        "m": 33,
+        "m": 32,
         "slug": "hr-manager",
         "field": "Business",
         "cluster": "Business",
@@ -1220,7 +1220,7 @@
         "reach": "bridged",
         "via": {
           "parent": "customer-success-manager",
-          "readiness_after": 44,
+          "readiness_after": 43,
           "gain": 11
         }
       }
@@ -1338,35 +1338,7 @@
         }
       }
     ],
-    "developer-advocate": [
-      {
-        "t": "IT Support Specialist",
-        "m": 23,
-        "slug": "it-support",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "pivot",
-        "gap": [
-          "Cybersecurity",
-          "Linux",
-          "Python",
-          "SQL"
-        ],
-        "observed": null,
-        "fit": 14,
-        "capability": 0,
-        "mobility": 6,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 6,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "developer-advocate",
-          "readiness_after": 34,
-          "gain": 11
-        }
-      }
-    ],
+    "developer-advocate": [],
     "marketing-manager": [
       {
         "t": "Growth Marketer",
@@ -1393,6 +1365,33 @@
           "parent": "marketing-manager",
           "readiness_after": 59,
           "gain": 25
+        }
+      },
+      {
+        "t": "Brand Designer",
+        "m": 23,
+        "slug": "brand-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Figma",
+          "Writing & Editing",
+          "Typography",
+          "Branding"
+        ],
+        "observed": null,
+        "fit": 21,
+        "capability": 38,
+        "mobility": 4,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 4,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "marketing-manager",
+          "readiness_after": 32,
+          "gain": 9
         }
       }
     ],
@@ -1425,30 +1424,30 @@
         }
       },
       {
-        "t": "Lawyer",
+        "t": "IT Support Specialist",
         "m": 23,
-        "slug": "lawyer",
-        "field": "Legal",
-        "cluster": "Legal",
+        "slug": "it-support",
+        "field": "Technology",
+        "cluster": "Technology",
         "kind": "pivot",
         "gap": [
-          "Contracts",
-          "Negotiation",
-          "Compliance",
-          "Case Management"
+          "Cybersecurity",
+          "Linux",
+          "Python",
+          "SQL"
         ],
         "observed": null,
-        "fit": 28,
-        "capability": 71,
-        "mobility": 3,
+        "fit": 14,
+        "capability": 0,
+        "mobility": 6,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
+        "mobility_eu": 6,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "product-manager",
-          "readiness_after": 31,
-          "gain": 8
+          "readiness_after": 36,
+          "gain": 13
         }
       }
     ]
@@ -1478,7 +1477,7 @@
     },
     {
       "t": "VDC Manager",
-      "m": 27,
+      "m": 26,
       "slug": "vdc-manager",
       "field": "Architecture",
       "cluster": "Built Environment",
@@ -1500,7 +1499,7 @@
     },
     {
       "t": "Event Planner",
-      "m": 26,
+      "m": 25,
       "slug": "event-planner",
       "field": "Business",
       "cluster": "Business",
@@ -1565,24 +1564,24 @@
       "reach": "direct"
     },
     {
-      "t": "Business Analyst",
+      "t": "UX Researcher",
       "m": 23,
-      "slug": "business-analyst",
-      "field": "Business",
-      "cluster": "Business",
+      "slug": "ux-researcher",
+      "field": "Design",
+      "cluster": "Design",
       "kind": "pivot",
       "gap": [
-        "SQL",
-        "Excel",
-        "Data Visualization",
+        "User Research",
+        "Research",
+        "Usability Testing",
         "Data Analysis"
       ],
       "observed": "Primary-Short",
-      "fit": 34,
-      "capability": 82,
-      "mobility": 18,
+      "fit": 30,
+      "capability": 80,
+      "mobility": 4,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 10,
+      "mobility_eu": 4,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1591,7 +1590,7 @@
     [
       "conversation-designer",
       "product-manager",
-      0.65
+      0.7
     ],
     [
       "customer-success-manager",

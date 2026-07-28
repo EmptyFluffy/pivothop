@@ -96,8 +96,8 @@
       },
       "desc": "",
       "match": 41,
-      "fit": 36,
-      "capability": 60,
+      "fit": 37,
+      "capability": 61,
       "mobility": 7,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
@@ -214,9 +214,9 @@
         "label": "PE required for sign-off roles; not for most product/manufacturing roles"
       },
       "desc": "",
-      "match": 30,
-      "fit": 31,
-      "capability": 54,
+      "match": 36,
+      "fit": 34,
+      "capability": 56,
       "mobility": 13,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 33,
@@ -233,7 +233,7 @@
         "FEA / Simulation",
         "Sustainability",
         "MEP",
-        "HVAC Systems"
+        "Plumbing"
       ],
       "learn": [
         "Mechanical CAD",
@@ -285,6 +285,12 @@
           "earned": 0
         },
         {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.7,
+          "earned": 5.7
+        },
+        {
           "skill": "training",
           "name": "Training & Facilitation",
           "pts": 5.1,
@@ -321,9 +327,9 @@
         "label": "PE license required for sign-off roles"
       },
       "desc": "",
-      "match": 14,
-      "fit": 22,
-      "capability": 54,
+      "match": 18,
+      "fit": 24,
+      "capability": 56,
       "mobility": 13,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 33,
@@ -338,9 +344,9 @@
       "time": "12–24 mo",
       "have": [
         "MEP",
+        "Plumbing",
         "Sustainability",
-        "Electrical Systems",
-        "HVAC Systems"
+        "Electrical Systems"
       ],
       "learn": [
         "Revit",
@@ -352,62 +358,68 @@
         {
           "skill": "mep",
           "name": "MEP",
-          "pts": 57.1,
-          "earned": 5.7
+          "pts": 45.6,
+          "earned": 4.6
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 20.1,
+          "earned": 6.4
         },
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 12,
+          "pts": 9.6,
           "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 9.4,
+          "pts": 7.5,
           "earned": 0
         },
         {
           "skill": "bim",
           "name": "BIM",
-          "pts": 5.2,
+          "pts": 4.2,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 3.1,
-          "earned": 3.1
+          "pts": 2.5,
+          "earned": 2.5
         },
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 3.1,
-          "earned": 3.1
+          "pts": 2.5,
+          "earned": 2.5
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 2.6,
+          "pts": 2.1,
           "earned": 0
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 2.6,
+          "pts": 2.1,
           "earned": 0
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 2.6,
+          "pts": 2.1,
           "earned": 0
         },
         {
           "skill": "hvac-systems",
           "name": "HVAC Systems",
-          "pts": 2.1,
-          "earned": 2.1
+          "pts": 1.7,
+          "earned": 1.7
         }
       ],
       "low_confidence": false,
@@ -418,6 +430,100 @@
       }
     },
     {
+      "id": "hvac-technician",
+      "title": "HVAC Technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "State license + EPA 608 certification required"
+      },
+      "desc": "",
+      "match": 29,
+      "fit": 16,
+      "capability": 0,
+      "mobility": 1,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$55k–$85k",
+      "salary_band": [
+        57000,
+        84771
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo + license",
+      "have": [
+        "HVAC Systems",
+        "Sustainability",
+        "Plumbing"
+      ],
+      "learn": [
+        "Maintenance",
+        "Refrigeration",
+        "Customer Service",
+        "Scheduling"
+      ],
+      "waterfall": [
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 24.5,
+          "earned": 8.6
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 22.6,
+          "earned": 0
+        },
+        {
+          "skill": "refrigeration",
+          "name": "Refrigeration",
+          "pts": 18.4,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 17.7,
+          "earned": 17.7
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 3.2,
+          "earned": 3.2
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Supplemental",
+      "provenance": {
+        "postings": 649,
+        "salaried": 424
+      }
+    },
+    {
       "id": "maintenance-technician",
       "title": "Maintenance Technician",
       "field": "Trades",
@@ -425,22 +531,23 @@
       "kind": "pivot",
       "license": null,
       "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
-      "match": 14,
-      "fit": 8,
-      "capability": 0,
+      "match": 20,
+      "fit": 12,
+      "capability": 3,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
       "salary": "$45k–$60k",
       "salary_band": [
-        43851,
+        43883,
         62040
       ],
       "demand": "High",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
+        "Plumbing",
         "PLC / Controls",
         "Sustainability",
         "HVAC Systems"
@@ -471,6 +578,12 @@
           "earned": 0
         },
         {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.8,
+          "earned": 5.8
+        },
+        {
           "skill": "plc",
           "name": "PLC / Controls",
           "pts": 5.4,
@@ -485,6 +598,12 @@
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
           "pts": 4.4,
           "earned": 0
         },
@@ -508,14 +627,25 @@
     "electrical-engineer": [],
     "mechanical-engineer": [],
     "mep-engineer": [],
+    "hvac-technician": [],
     "maintenance-technician": []
   },
   "direct": [],
   "cross": [
     [
+      "hvac-technician",
+      "maintenance-technician",
+      0.62
+    ],
+    [
       "electrical-engineer",
       "mechanical-engineer",
       0.44
+    ],
+    [
+      "mep-engineer",
+      "maintenance-technician",
+      0.38
     ],
     [
       "electrical-engineer",
@@ -523,9 +653,9 @@
       0.33
     ],
     [
+      "mechanical-engineer",
       "mep-engineer",
-      "maintenance-technician",
-      0.32
+      0.31
     ]
   ],
   "bridges": [],

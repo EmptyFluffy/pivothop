@@ -28,8 +28,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Labels and rates the data that trains and aligns machine-learning models, including the human feedback behind modern AI.",
-      "match": 48,
-      "fit": 48,
+      "match": 46,
+      "fit": 46,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -52,55 +52,61 @@
         "LLMs / Generative AI",
         "Machine Learning",
         "QA / Testing",
-        "Journalism"
+        "Fact-Checking"
       ],
       "waterfall": [
         {
           "skill": "clinical-research",
           "name": "Clinical Research",
-          "pts": 39.7,
-          "earned": 39.7
+          "pts": 38.2,
+          "earned": 38.2
         },
         {
           "skill": "llm",
           "name": "LLMs / Generative AI",
-          "pts": 26.2,
+          "pts": 25.2,
           "earned": 0
         },
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 10.3,
-          "earned": 3.8
+          "pts": 9.9,
+          "earned": 3.7
         },
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 6.4,
+          "pts": 6.1,
           "earned": 0
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 5.6,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 4.8,
-          "earned": 4.6
+          "pts": 4.6,
+          "earned": 4.4
+        },
+        {
+          "skill": "fact-checking",
+          "name": "Fact-Checking",
+          "pts": 3.8,
+          "earned": 0
         },
         {
           "skill": "journalism",
           "name": "Journalism",
-          "pts": 4,
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "writing",
           "name": "Writing & Editing",
-          "pts": 3.2,
+          "pts": 3.1,
           "earned": 0
         }
       ],
@@ -575,7 +581,7 @@
         {
           "skill": "treatment-planning",
           "name": "Treatment Planning",
-          "pts": 11.4,
+          "pts": 11.5,
           "earned": 0
         },
         {
@@ -617,7 +623,7 @@
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 1.4
         },
         {
@@ -647,7 +653,7 @@
         {
           "skill": "risk-management",
           "name": "Risk Management",
-          "pts": 1.7,
+          "pts": 1.8,
           "earned": 0
         },
         {
@@ -800,7 +806,7 @@
       "salary": "$50k–$100k",
       "salary_band": [
         51478,
-        101907
+        102219
       ],
       "demand": "High",
       "remote": "3%",
@@ -832,7 +838,7 @@
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 8,
+          "pts": 7.7,
           "earned": 5.4
         },
         {
@@ -850,7 +856,7 @@
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 6,
+          "pts": 6.1,
           "earned": 0
         },
         {
@@ -874,7 +880,7 @@
         {
           "skill": "law-enforcement",
           "name": "Law Enforcement",
-          "pts": 4.3,
+          "pts": 4.4,
           "earned": 0
         },
         {
@@ -947,7 +953,7 @@
     "psychologist": [
       {
         "t": "Registered Nurse",
-        "m": 14,
+        "m": 13,
         "slug": "registered-nurse",
         "field": "Healthcare",
         "cluster": "Healthcare",
@@ -968,13 +974,13 @@
         "reach": "bridged",
         "via": {
           "parent": "psychologist",
-          "readiness_after": 53,
-          "gain": 39
+          "readiness_after": 50,
+          "gain": 37
         }
       },
       {
         "t": "Nurse Practitioner",
-        "m": 13,
+        "m": 12,
         "slug": "nurse-practitioner",
         "field": "Healthcare",
         "cluster": "Healthcare",
@@ -982,11 +988,11 @@
         "gap": [
           "Health Education",
           "Clinical Skills",
-          "Case Management",
-          "Telehealth"
+          "Rehabilitation",
+          "Case Management"
         ],
         "observed": null,
-        "fit": 9,
+        "fit": 8,
         "capability": 0,
         "mobility": 6,
         "mobility_source": "observed-flow-us",
@@ -995,8 +1001,8 @@
         "reach": "bridged",
         "via": {
           "parent": "psychologist",
-          "readiness_after": 65,
-          "gain": 52
+          "readiness_after": 58,
+          "gain": 46
         }
       }
     ],
@@ -1031,24 +1037,24 @@
     [
       "pharmacist",
       "psychologist",
-      0.57
+      0.56
     ],
     [
       "data-annotator",
       "statistician",
-      0.41
+      0.4
     ]
   ],
   "bridges": [
     [
       "pharmacist",
       "psychologist_1",
-      0.58
+      0.51
     ],
     [
       "pharmacist",
       "psychologist_0",
-      0.45
+      0.43
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

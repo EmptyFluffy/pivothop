@@ -28,16 +28,16 @@
       "kind": "pivot",
       "license": null,
       "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
-      "match": 26,
-      "fit": 32,
-      "capability": 79,
+      "match": 30,
+      "fit": 34,
+      "capability": 81,
       "mobility": 7,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 3,
       "mobility_tier": null,
       "salary": "$45k–$60k",
       "salary_band": [
-        43851,
+        43883,
         62040
       ],
       "demand": "High",
@@ -46,13 +46,14 @@
       "have": [
         "Maintenance",
         "Customer Service",
-        "Sustainability"
+        "Sustainability",
+        "Facilities Operations"
       ],
       "learn": [
         "Supply Chain",
+        "Plumbing",
         "PLC / Controls",
-        "Lean / Six Sigma",
-        "HVAC Systems"
+        "Lean / Six Sigma"
       ],
       "waterfall": [
         {
@@ -74,6 +75,12 @@
           "earned": 5.5
         },
         {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.8,
+          "earned": 0
+        },
+        {
           "skill": "plc",
           "name": "PLC / Controls",
           "pts": 5.4,
@@ -90,6 +97,12 @@
           "name": "Lean / Six Sigma",
           "pts": 4.4,
           "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 4.4,
+          "earned": 4.4
         },
         {
           "skill": "hvac-systems",
@@ -116,9 +129,9 @@
         "label": "State license + EPA 608 certification required"
       },
       "desc": "",
-      "match": 22,
+      "match": 20,
       "fit": 27,
-      "capability": 74,
+      "capability": 77,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 2,
@@ -134,41 +147,62 @@
       "have": [
         "Maintenance",
         "Sustainability",
-        "Customer Service"
+        "Customer Service",
+        "Facilities Operations"
       ],
       "learn": [
         "HVAC Systems",
-        "Scheduling"
+        "Refrigeration",
+        "Scheduling",
+        "Plumbing"
       ],
       "waterfall": [
         {
           "skill": "hvac-systems",
           "name": "HVAC Systems",
-          "pts": 33,
+          "pts": 24.5,
           "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 30.4,
-          "earned": 12.9
+          "pts": 22.6,
+          "earned": 9.6
+        },
+        {
+          "skill": "refrigeration",
+          "name": "Refrigeration",
+          "pts": 18.4,
+          "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 23.8,
-          "earned": 4
+          "pts": 17.7,
+          "earned": 3
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 6.4,
-          "earned": 4.6
+          "pts": 4.7,
+          "earned": 3.4
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 6.4,
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 4,
+          "earned": 4
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 3.2,
           "earned": 0
         }
       ],
@@ -191,8 +225,8 @@
       },
       "desc": "",
       "match": 20,
-      "fit": 25,
-      "capability": 57,
+      "fit": 26,
+      "capability": 61,
       "mobility": 11,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 12,
@@ -285,19 +319,145 @@
         "postings": 833,
         "salaried": 572
       }
+    },
+    {
+      "id": "automotive-technician",
+      "title": "Automotive Technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Diagnoses and repairs vehicles, from brakes and diagnostics to full engine work. Includes auto, diesel, and heavy-equipment technicians.",
+      "match": 20,
+      "fit": 20,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$50k–$70k",
+      "salary_band": [
+        48698,
+        71927
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Maintenance",
+        "Customer Service",
+        "Facilities Operations"
+      ],
+      "learn": [
+        "Hand & Power Tools",
+        "Electrical Systems",
+        "Blueprint Reading",
+        "Scheduling"
+      ],
+      "waterfall": [
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 36.6,
+          "earned": 10.9
+        },
+        {
+          "skill": "hand-power-tools",
+          "name": "Hand & Power Tools",
+          "pts": 9,
+          "earned": 0
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 8.7,
+          "earned": 0
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 8.6,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 7,
+          "earned": 3.9
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 5.4,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 5.3,
+          "earned": 5.3
+        },
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "refrigeration",
+          "name": "Refrigeration",
+          "pts": 3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1196,
+        "salaried": 870
+      }
     }
   ],
   "next": {
     "maintenance-technician": [],
     "hvac-technician": [],
-    "construction-manager": []
+    "construction-manager": [],
+    "automotive-technician": []
   },
   "direct": [],
   "cross": [
     [
       "maintenance-technician",
       "hvac-technician",
-      0.52
+      0.62
+    ],
+    [
+      "maintenance-technician",
+      "automotive-technician",
+      0.56
+    ],
+    [
+      "hvac-technician",
+      "automotive-technician",
+      0.44
     ]
   ],
   "bridges": [],

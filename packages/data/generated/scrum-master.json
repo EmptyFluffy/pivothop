@@ -192,8 +192,8 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 19,
-      "fit": 37,
+      "match": 18,
+      "fit": 36,
       "capability": null,
       "mobility": 77,
       "mobility_source": "observed-flow-eu",
@@ -223,121 +223,121 @@
         {
           "skill": "sql",
           "name": "SQL",
-          "pts": 10.2,
+          "pts": 9.7,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 9.7,
+          "pts": 9.3,
           "earned": 0
         },
         {
           "skill": "data-visualization",
           "name": "Data Visualization",
-          "pts": 9.3,
+          "pts": 8.9,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 7.9,
-          "earned": 2.2
+          "pts": 7.5,
+          "earned": 2.1
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 7.1,
+          "pts": 6.8,
           "earned": 0
         },
         {
           "skill": "financial-modeling",
           "name": "Financial Modeling",
-          "pts": 7,
+          "pts": 6.7,
+          "earned": 0
+        },
+        {
+          "skill": "underwriting",
+          "name": "Underwriting",
+          "pts": 6.4,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 5.2,
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 5.1,
-          "earned": 4.8
+          "pts": 4.9,
+          "earned": 4.6
         },
         {
           "skill": "agile",
           "name": "Agile",
-          "pts": 4.7,
-          "earned": 4.7
+          "pts": 4.5,
+          "earned": 4.5
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 4.1,
-          "earned": 3.1
+          "pts": 4,
+          "earned": 3
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 3.9,
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 3.8,
-          "earned": 1.5
+          "pts": 3.6,
+          "earned": 1.4
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 3.7,
+          "pts": 3.5,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3,
-          "earned": 3
+          "pts": 2.9,
+          "earned": 2.9
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 2.7,
+          "pts": 2.6,
           "earned": 0
         },
         {
           "skill": "power-bi",
           "name": "Power BI",
-          "pts": 2.7,
+          "pts": 2.5,
           "earned": 0
         },
         {
           "skill": "program-management",
           "name": "Program Management",
-          "pts": 2.6,
+          "pts": 2.5,
           "earned": 0
         },
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.3,
+          "pts": 2.2,
           "earned": 0
         }
       ],
@@ -356,8 +356,8 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 27,
-      "fit": 26,
+      "match": 28,
+      "fit": 27,
       "capability": null,
       "mobility": 24,
       "mobility_source": "observed-flow-us",
@@ -365,7 +365,7 @@
       "mobility_tier": null,
       "salary": "$75k–$130k",
       "salary_band": [
-        74695,
+        74626,
         131872
       ],
       "demand": "High",
@@ -477,7 +477,7 @@
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 3.2,
+          "pts": 3.1,
           "earned": 0
         },
         {
@@ -1287,8 +1287,8 @@
         "reach": "bridged",
         "via": {
           "parent": "business-analyst",
-          "readiness_after": 40,
-          "gain": 25
+          "readiness_after": 34,
+          "gain": 19
         }
       },
       {
@@ -1487,35 +1487,7 @@
         }
       }
     ],
-    "game-designer": [
-      {
-        "t": "Aerospace Engineer",
-        "m": 10,
-        "slug": "aerospace-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Aviation Operations",
-          "FEA / Simulation",
-          "QA / Testing",
-          "Criminal Investigation"
-        ],
-        "observed": null,
-        "fit": 8,
-        "capability": null,
-        "mobility": 5,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 46,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "game-designer",
-          "readiness_after": 27,
-          "gain": 17
-        }
-      }
-    ],
+    "game-designer": [],
     "mobile-developer": [
       {
         "t": "Software Engineer",
@@ -1545,7 +1517,35 @@
         }
       }
     ],
-    "industrial-engineer": []
+    "industrial-engineer": [
+      {
+        "t": "Aerospace Engineer",
+        "m": 10,
+        "slug": "aerospace-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Aviation Operations",
+          "FEA / Simulation",
+          "QA / Testing",
+          "Criminal Investigation"
+        ],
+        "observed": null,
+        "fit": 8,
+        "capability": null,
+        "mobility": 5,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 46,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "industrial-engineer",
+          "readiness_after": 25,
+          "gain": 15
+        }
+      }
+    ]
   },
   "direct": [
     {
@@ -1605,14 +1605,14 @@
   ],
   "bridges": [
     [
-      "business-analyst",
-      "qa-engineer_0",
-      0.43
-    ],
-    [
       "management-consultant",
       "business-analyst_1",
       0.41
+    ],
+    [
+      "business-analyst",
+      "qa-engineer_0",
+      0.39
     ],
     [
       "management-consultant",

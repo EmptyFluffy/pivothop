@@ -21,6 +21,106 @@
   },
   "roles": [
     {
+      "id": "electrician",
+      "title": "Electrician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "lateral",
+      "license": {
+        "req": "required",
+        "label": "State/journeyman electrician license required"
+      },
+      "desc": "",
+      "match": 19,
+      "fit": 19,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$55k–$70k",
+      "salary_band": [
+        54648,
+        71409
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Electrical Systems",
+        "Solar PV",
+        "Customer Service"
+      ],
+      "learn": [
+        "Maintenance",
+        "Blueprint Reading",
+        "Drafting",
+        "Electrical Wiring"
+      ],
+      "waterfall": [
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 29.8,
+          "earned": 7.2
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 27.3,
+          "earned": 0
+        },
+        {
+          "skill": "solar-pv",
+          "name": "Solar PV",
+          "pts": 8.8,
+          "earned": 8.8
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 8.2,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 7.3,
+          "earned": 0
+        },
+        {
+          "skill": "electrical-wiring",
+          "name": "Electrical Wiring",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "hand-power-tools",
+          "name": "Hand & Power Tools",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 3.5,
+          "earned": 3.5
+        },
+        {
+          "skill": "deep-learning",
+          "name": "Deep Learning",
+          "pts": 3.1,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 991,
+        "salaried": 658
+      }
+    },
+    {
       "id": "maintenance-technician",
       "title": "Maintenance Technician",
       "field": "Trades",
@@ -37,7 +137,7 @@
       "mobility_tier": null,
       "salary": "$45k–$60k",
       "salary_band": [
-        43851,
+        43883,
         62040
       ],
       "demand": "High",
@@ -51,8 +151,8 @@
       "learn": [
         "Maintenance",
         "Supply Chain",
-        "PLC / Controls",
-        "Sustainability"
+        "Plumbing",
+        "PLC / Controls"
       ],
       "waterfall": [
         {
@@ -74,6 +174,12 @@
           "earned": 6.2
         },
         {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.8,
+          "earned": 0
+        },
+        {
           "skill": "plc",
           "name": "PLC / Controls",
           "pts": 5.4,
@@ -92,6 +198,12 @@
           "earned": 4.4
         },
         {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
           "skill": "hvac-systems",
           "name": "HVAC Systems",
           "pts": 4.3,
@@ -107,6 +219,7 @@
     }
   ],
   "next": {
+    "electrician": [],
     "maintenance-technician": []
   },
   "direct": [],

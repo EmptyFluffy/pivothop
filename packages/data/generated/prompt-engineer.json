@@ -1348,8 +1348,8 @@
         "reach": "bridged",
         "via": {
           "parent": "ai-product-manager",
-          "readiness_after": 53,
-          "gain": 39
+          "readiness_after": 55,
+          "gain": 41
         }
       }
     ],
@@ -1436,33 +1436,6 @@
           "readiness_after": 32,
           "gain": 20
         }
-      },
-      {
-        "t": "Computer Vision Engineer",
-        "m": 10,
-        "slug": "computer-vision-engineer",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
-        "gap": [
-          "Computer Vision",
-          "Machine Learning",
-          "Deep Learning",
-          "Prototyping"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "research-scientist",
-          "readiness_after": 29,
-          "gain": 19
-        }
       }
     ],
     "developer-advocate": []
@@ -1517,9 +1490,9 @@
       0.37
     ],
     [
-      "machine-learning-engineer",
-      "research-scientist_1",
-      0.37
+      "solutions-architect",
+      "ai-product-manager_0",
+      0.31
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

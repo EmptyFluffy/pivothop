@@ -691,13 +691,13 @@
         {
           "skill": "microservices",
           "name": "Microservices",
-          "pts": 7.9,
+          "pts": 8,
           "earned": 0
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 7.4,
+          "pts": 7.3,
           "earned": 0
         },
         {
@@ -721,7 +721,7 @@
         {
           "skill": "kubernetes",
           "name": "Kubernetes",
-          "pts": 4.6,
+          "pts": 4.5,
           "earned": 0
         },
         {
@@ -761,16 +761,16 @@
           "earned": 1.9
         },
         {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 2.9,
-          "earned": 2.9
-        },
-        {
           "skill": "azure",
           "name": "Azure",
           "pts": 2.9,
           "earned": 0
+        },
+        {
+          "skill": "agile",
+          "name": "Agile",
+          "pts": 2.9,
+          "earned": 2.9
         },
         {
           "skill": "ruby",
@@ -1211,33 +1211,6 @@
     "mobile-developer": [],
     "qa-engineer": [
       {
-        "t": "Financial Analyst",
-        "m": 12,
-        "slug": "financial-analyst",
-        "field": "Finance",
-        "cluster": "Finance",
-        "kind": "pivot",
-        "gap": [
-          "Accounting",
-          "Forecasting",
-          "Financial Modeling",
-          "Budgeting"
-        ],
-        "observed": null,
-        "fit": 9,
-        "capability": null,
-        "mobility": 2,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 8,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "qa-engineer",
-          "readiness_after": 25,
-          "gain": 13
-        }
-      },
-      {
         "t": "Project Manager",
         "m": 12,
         "slug": "project-manager",
@@ -1262,6 +1235,33 @@
           "parent": "qa-engineer",
           "readiness_after": 24,
           "gain": 12
+        }
+      },
+      {
+        "t": "IT Support Specialist",
+        "m": 11,
+        "slug": "it-support",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Customer Service",
+          "Presentation",
+          "Cybersecurity",
+          "Linux"
+        ],
+        "observed": "Supplemental",
+        "fit": 15,
+        "capability": 12,
+        "mobility": 25,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 34,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "qa-engineer",
+          "readiness_after": 29,
+          "gain": 18
         }
       }
     ],
@@ -1410,33 +1410,6 @@
     "design-technologist": [],
     "ai-engineer": [
       {
-        "t": "IT Support Specialist",
-        "m": 11,
-        "slug": "it-support",
-        "field": "Technology",
-        "cluster": "Technology",
-        "kind": "lateral",
-        "gap": [
-          "Customer Service",
-          "Presentation",
-          "Cybersecurity",
-          "Linux"
-        ],
-        "observed": "Supplemental",
-        "fit": 15,
-        "capability": 12,
-        "mobility": 25,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 34,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "ai-engineer",
-          "readiness_after": 25,
-          "gain": 14
-        }
-      },
-      {
         "t": "MLOps Engineer",
         "m": 10,
         "slug": "mlops-engineer",
@@ -1462,10 +1435,59 @@
           "readiness_after": 40,
           "gain": 30
         }
+      },
+      {
+        "t": "Security Engineer",
+        "m": 10,
+        "slug": "security-engineer",
+        "field": "Technology",
+        "cluster": "Technology",
+        "kind": "lateral",
+        "gap": [
+          "Cybersecurity",
+          "Python",
+          "Networking",
+          "GCP"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 57,
+        "mobility": 0,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "ai-engineer",
+          "readiness_after": 36,
+          "gain": 26
+        }
       }
     ]
   },
   "direct": [
+    {
+      "t": "Financial Analyst",
+      "m": 11,
+      "slug": "financial-analyst",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "pivot",
+      "gap": [
+        "Accounting",
+        "Forecasting",
+        "Financial Modeling",
+        "Budgeting"
+      ],
+      "observed": null,
+      "fit": 8,
+      "capability": null,
+      "mobility": 2,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 8,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
     {
       "t": "SEO Specialist",
       "m": 10,
@@ -1485,28 +1507,6 @@
       "mobility": 25,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 96,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Security Engineer",
-      "m": 10,
-      "slug": "security-engineer",
-      "field": "Technology",
-      "cluster": "Technology",
-      "kind": "lateral",
-      "gap": [
-        "Cybersecurity",
-        "Python",
-        "Networking",
-        "GCP"
-      ],
-      "observed": null,
-      "fit": 17,
-      "capability": 57,
-      "mobility": 0,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
       "mobility_tier": null,
       "reach": "direct"
     },
@@ -1572,6 +1572,11 @@
       0.4
     ],
     [
+      "backend-developer",
+      "ai-engineer_1",
+      0.39
+    ],
+    [
       "design-technologist",
       "design-systems-lead_0",
       0.35
@@ -1580,11 +1585,6 @@
       "software-engineer",
       "backend-developer_0",
       0.34
-    ],
-    [
-      "qa-engineer",
-      "software-engineer_1",
-      0.31
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

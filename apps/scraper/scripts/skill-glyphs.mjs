@@ -98,7 +98,41 @@ const BY_GLYPH = {
   grid: ['excel'],
 };
 
+// Domain vocabulary added 2026-07-28 to unstarve the non-tech origins. Kept as
+// a separate map and merged below: a second literal with the same glyph keys
+// would silently overwrite the lists above.
+const BY_GLYPH_DOMAIN = {
+  people: ['special-education', 'behavior-management', 'early-childhood', 'tutoring'],
+  cup: ['menu-development', 'line-cooking', 'baking-pastry', 'wine-service', 'brewing',
+        'kitchen-management', 'catering'],
+  shield: ['food-safety', 'osha-safety', 'process-safety', 'cabin-safety'],
+  coin: ['food-cost', 'accounts-payable', 'reconciliation', 'payroll', 'underwriting',
+         'claims-handling', 'escrow-closing'],
+  scales: ['legal-research', 'litigation-support', 'ip-prosecution'],
+  doc: ['docketing', 'contract-review'],
+  blueprint: ['carpentry-framing', 'finish-carpentry'],
+  wrench: ['refrigeration', 'electrical-wiring', 'plumbing', 'rigging-materials',
+           'facilities-operations', 'process-engineering'],
+  leaf: ['solar-pv'],
+  pulse: ['rehabilitation', 'manual-therapy', 'emergency-care', 'perfusion'],
+  medcross: ['medical-terminology'],
+  camera: ['photo-editing', 'videography'],
+  motion: ['lighting-design', 'previs'],
+  audio: ['audio-mixing'],
+  search: ['fact-checking', 'lab-techniques'],
+  globe: ['localization'],
+  plane: ['flight-operations'],
+  flow: ['inventory-management', 'shipping-receiving', 'vendor-management', 'gmp'],
+  trend: ['real-estate-listing'],
+  cube3d: ['generative-design', 'texturing', 'character-rigging', 'lookdev'],
+  interior: ['set-design', 'exhibit-design', 'furniture-design'],
+  book: ['lesson-planning', 'differentiated-instruction', 'literacy-instruction', 'esl-teaching',
+         'cataloging', 'information-literacy'],
+};
+
 export const SKILL_GLYPH = {};
-for (const [glyph, ids] of Object.entries(BY_GLYPH)) {
-  for (const id of ids) SKILL_GLYPH[id] = glyph;
+for (const map of [BY_GLYPH, BY_GLYPH_DOMAIN]) {
+  for (const [glyph, ids] of Object.entries(map)) {
+    for (const id of ids) SKILL_GLYPH[id] = glyph;
+  }
 }
