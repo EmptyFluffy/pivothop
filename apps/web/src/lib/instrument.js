@@ -979,6 +979,86 @@ export function mountInstrument(DATA,HOOKS){
   document.getElementById('xclose').addEventListener('click',closeX);
   document.getElementById('xveil').addEventListener('click',closeX);
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeX();});
+
+  /* ══ skill sheet ══
+     Detail-panel chips keep their /glossary#skill-<id> href (SEO, new-tab,
+     no-JS), but a plain left-click opens a card over the graph instead of
+     leaving the instrument. Definitions come from the same file the glossary
+     renders, fetched once on first hover and cached. */
+  var skGloss=null,skGlossP=null;
+  function fetchSkillGloss(){
+    if(skGloss)return Promise.resolve(skGloss);
+    if(!skGlossP)skGlossP=fetch('/data/skills-glossary.json').then(function(r){return r.json();}).then(function(j){
+      skGloss={};(j||[]).forEach(function(e){skGloss[e.slug]=e;});return skGloss;
+    }).catch(function(){skGlossP=null;return null;});
+    return skGlossP;
+  }
+  function skillSheetEl(){
+    var el=document.getElementById('skmodal');
+    if(el)return el;
+    el=document.createElement('div');
+    el.className='skmodal';el.id='skmodal';
+    el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label','Skill definition');
+    el.innerHTML='<div class="veil" id="skveil"></div>'+
+      '<div class="sksheet" id="sksheet" tabindex="-1">'+
+        '<button class="xclose sk-close" id="skclose" aria-label="Close">&times;</button>'+
+        '<span class="lbl" id="skfield"></span>'+
+        '<div class="sk-term"><span class="sk-mark" id="skmark"></span><span id="skterm"></span></div>'+
+        '<p class="sk-def" id="skdef"></p>'+
+        '<div class="gloss-unlocks" id="skunlocks" hidden><span class="lbl">Open roles it unlocks</span><span class="gu-list" id="skulist"></span></div>'+
+        '<a class="lbl sk-gloss" id="skgloss" href="/glossary">Show in glossary →</a>'+
+      '</div>';
+    document.body.appendChild(el);
+    function close(){el.classList.remove('open');}
+    el.querySelector('#skveil').addEventListener('click',close);
+    el.querySelector('#skclose').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    return el;
+  }
+  function openSkillSheet(slug,fallbackName){
+    var el=skillSheetEl();
+    fetchSkillGloss().then(function(g){
+      var e=g&&g[slug];
+      if(!e){window.location.href='/glossary#skill-'+slug;return;}
+      el.querySelector('#skfield').textContent=e.field||'Skill bank';
+      el.querySelector('#skterm').textContent=e.term||fallbackName||'';
+      // Brand marks paint filled, house glyphs stroked — same rule as the
+      // server-rendered chips in jobs/SkillMark.tsx.
+      var mk=el.querySelector('#skmark'),m=e.mark;
+      mk.innerHTML=m?('<svg viewBox="'+m.v+'" aria-hidden="true"'+
+        (m.s?' fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"':'')+
+        '><path d="'+m.d+'"'+(m.s?'':' fill="currentColor"')+'/></svg>'):'';
+      el.querySelector('#skdef').textContent=e.def||'';
+      var un=el.querySelector('#skunlocks'),ul=el.querySelector('#skulist');
+      ul.innerHTML='';
+      var us=e.unlocks||[];
+      un.hidden=!us.length;
+      us.forEach(function(u){
+        var a=document.createElement('a');a.className='gu-link';a.href='/jobs/'+u.slug;
+        a.appendChild(document.createTextNode(u.title));
+        var n=document.createElement('span');n.className='gu-n';n.textContent=u.count;a.appendChild(n);
+        ul.appendChild(a);
+      });
+      el.querySelector('#skgloss').setAttribute('href','/glossary#skill-'+slug);
+      el.classList.add('open');
+      // Focus the sheet, not the close button: a programmatic focus ring on a
+      // button paints accent, and the accent belongs to the data.
+      var s=el.querySelector('#sksheet');if(s)s.focus();
+    });
+  }
+  if(!window.__skillSheetWired){
+    window.__skillSheetWired=true;
+    document.addEventListener('mouseover',function(ev){
+      if(ev.target&&ev.target.closest&&ev.target.closest('a.tag[href^="/glossary#skill-"]'))fetchSkillGloss();
+    });
+    document.addEventListener('click',function(ev){
+      if(ev.defaultPrevented||ev.button!==0||ev.metaKey||ev.ctrlKey||ev.shiftKey||ev.altKey)return;
+      var a=ev.target&&ev.target.closest?ev.target.closest('a.tag[href^="/glossary#skill-"]'):null;
+      if(!a)return;
+      ev.preventDefault();
+      openSkillSheet(a.getAttribute('href').split('#skill-')[1],a.textContent);
+    });
+  }
   // The report request goes to /api/roadmap, which builds the six-page PDF and
   // emails it. destId is the selected route (a role's id, or a bridged kid's
   // slug); the current origin's top route is the default when nothing is picked.

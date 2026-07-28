@@ -5,11 +5,11 @@
     "title": "HVAC Technician",
     "field": "Trades",
     "cluster": "Trades",
-    "postings": 527,
-    "salary": "$55k–$95k",
+    "postings": 649,
+    "salary": "$55k–$85k",
     "salary_band": [
       57000,
-      92643
+      84771
     ],
     "remote": "0%",
     "separations": {
@@ -28,8 +28,8 @@
       "kind": "lateral",
       "license": null,
       "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
-      "match": 30,
-      "fit": 59,
+      "match": 52,
+      "fit": 72,
       "capability": 96,
       "mobility": 95,
       "mobility_source": "observed-flow-us",
@@ -37,8 +37,8 @@
       "mobility_tier": null,
       "salary": "$45k–$60k",
       "salary_band": [
-        44295,
-        62302
+        43851,
+        62040
       ],
       "demand": "High",
       "remote": "0%",
@@ -46,6 +46,7 @@
       "have": [
         "Maintenance",
         "Customer Service",
+        "Sustainability",
         "HVAC Systems"
       ],
       "learn": [
@@ -57,45 +58,51 @@
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 40.9,
-          "earned": 16.3
+          "pts": 39.9,
+          "earned": 36.7
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 9.3,
+          "pts": 8.9,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 7.9,
-          "earned": 7.9
+          "pts": 6.3,
+          "earned": 6.3
         },
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 5.7,
+          "pts": 5.4,
           "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.8,
+          "earned": 4.8
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 5.2,
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "hvac-systems",
           "name": "HVAC Systems",
-          "pts": 5.2,
-          "earned": 5.2
+          "pts": 4.3,
+          "earned": 4.3
         }
       ],
       "low_confidence": false,
       "observed": "Primary-Long",
       "provenance": {
-        "postings": 1183,
-        "salaried": 758
+        "postings": 1552,
+        "salaried": 865
       }
     },
     {
@@ -106,17 +113,17 @@
       "kind": "lateral",
       "license": null,
       "desc": "Diagnoses and repairs vehicles, from brakes and diagnostics to full engine work. Includes auto, diesel, and heavy-equipment technicians.",
-      "match": 24,
-      "fit": 25,
+      "match": 40,
+      "fit": 36,
       "capability": null,
       "mobility": 27,
       "mobility_source": "observed-flow-ctot",
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$50k–$75k",
+      "salary": "$50k–$70k",
       "salary_band": [
-        49218,
-        72620
+        48698,
+        71927
       ],
       "demand": "High",
       "remote": "0%",
@@ -128,63 +135,63 @@
       ],
       "learn": [
         "Hand & Power Tools",
-        "Blueprint Reading",
         "Electrical Systems",
+        "Blueprint Reading",
         "Aviation Operations"
       ],
       "waterfall": [
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 38.8,
-          "earned": 11.6
+          "pts": 39.9,
+          "earned": 28
         },
         {
           "skill": "hand-power-tools",
           "name": "Hand & Power Tools",
-          "pts": 10,
-          "earned": 0
-        },
-        {
-          "skill": "blueprint-reading",
-          "name": "Blueprint Reading",
-          "pts": 9.9,
+          "pts": 9.8,
           "earned": 0
         },
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 9.7,
+          "pts": 9.5,
+          "earned": 0
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 9.3,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 8,
-          "earned": 6.2
+          "pts": 7.7,
+          "earned": 5.9
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 5.7,
-          "earned": 5.7
+          "pts": 5.9,
+          "earned": 5.9
         },
         {
           "skill": "aviation-ops",
           "name": "Aviation Operations",
-          "pts": 5,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 4.5,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 4.5,
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 4.2,
           "earned": 0
         },
         {
@@ -197,8 +204,220 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1055,
-        "salaried": 778
+        "postings": 1196,
+        "salaried": 870
+      }
+    },
+    {
+      "id": "construction-manager",
+      "title": "Construction Manager",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "license": {
+        "req": "partial",
+        "label": "Contractor licensing varies by state; certifications (CCM) common"
+      },
+      "desc": "",
+      "match": 18,
+      "fit": 29,
+      "capability": 41,
+      "mobility": 45,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 6,
+      "mobility_tier": null,
+      "salary": "$80k–$125k",
+      "salary_band": [
+        80052,
+        126276
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Customer Service",
+        "Scheduling",
+        "Sustainability"
+      ],
+      "learn": [
+        "Project Management",
+        "Construction Administration",
+        "Supply Chain",
+        "Budgeting"
+      ],
+      "waterfall": [
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 15.6,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 12,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 8.9,
+          "earned": 7.7
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 8.4,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 5.8,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 5.8,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 5.3,
+          "earned": 5.3
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 5,
+          "earned": 5
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 4.6,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 833,
+        "salaried": 572
+      }
+    },
+    {
+      "id": "mep-engineer",
+      "title": "MEP Engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "license": {
+        "req": "partial",
+        "label": "PE license required for sign-off roles"
+      },
+      "desc": "",
+      "match": 15,
+      "fit": 19,
+      "capability": 40,
+      "mobility": 12,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 10,
+      "mobility_tier": null,
+      "salary": "$65k–$115k",
+      "salary_band": [
+        62707,
+        115353
+      ],
+      "demand": "Moderate",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Maintenance",
+        "Sustainability",
+        "HVAC Systems"
+      ],
+      "learn": [
+        "MEP",
+        "Revit",
+        "BIM",
+        "Electrical Systems"
+      ],
+      "waterfall": [
+        {
+          "skill": "mep",
+          "name": "MEP",
+          "pts": 57.1,
+          "earned": 0
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 12,
+          "earned": 0
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 9.4,
+          "earned": 9.4
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 3.1,
+          "earned": 3.1
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 2.1,
+          "earned": 2.1
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Supplemental",
+      "provenance": {
+        "postings": 158,
+        "salaried": 145
       }
     },
     {
@@ -209,8 +428,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 22,
-      "fit": 16,
+      "match": 19,
+      "fit": 14,
       "capability": 0,
       "mobility": null,
       "mobility_source": null,
@@ -218,10 +437,10 @@
       "mobility_tier": null,
       "salary": "$45k–$85k",
       "salary_band": [
-        45822,
-        83367
+        45850,
+        84040
       ],
-      "demand": "High",
+      "demand": "Moderate",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
@@ -238,51 +457,53 @@
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 52.5,
-          "earned": 0
-        },
-        {
-          "skill": "transportation-planning",
-          "name": "Transportation Planning",
-          "pts": 13.7,
+          "pts": 55,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 12.5,
-          "earned": 8.7
+          "pts": 12.7,
+          "earned": 7.5
+        },
+        {
+          "skill": "transportation-planning",
+          "name": "Transportation Planning",
+          "pts": 12.7,
+          "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 9.6,
-          "earned": 9.5
+          "pts": 9.4,
+          "earned": 7.5
         },
         {
           "skill": "salesforce",
           "name": "Salesforce",
-          "pts": 5.4,
+          "pts": 6,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 4.2,
-          "earned": 4.2
+          "pts": 4,
+          "earned": 4
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 335,
-        "salaried": 282
+        "postings": 289,
+        "salaried": 262
       }
     }
   ],
   "next": {
     "maintenance-technician": [],
     "automotive-technician": [],
+    "construction-manager": [],
+    "mep-engineer": [],
     "mobility-planner": []
   },
   "direct": [],
@@ -290,7 +511,12 @@
     [
       "maintenance-technician",
       "automotive-technician",
-      0.55
+      0.51
+    ],
+    [
+      "maintenance-technician",
+      "mep-engineer",
+      0.32
     ]
   ],
   "bridges": [],

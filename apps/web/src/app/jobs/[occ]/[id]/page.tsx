@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, skillDisplayName } from '../../jobs-data';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
-import { SKILL_ICON_PATHS } from '../../skill-icons';
+import { SkillMarkSvg } from '../../SkillMark';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../../../routes/routes-data';
 import { SITE_EMAIL } from '../../../../lib/site';
@@ -105,9 +105,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
             <div className="jd-skillgrid">
               {skills.map((s) => (
                 <Link key={s} className="jd-skill" href={`/glossary#skill-${s}`}>
-                  {SKILL_ICON_PATHS[s] && (
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d={SKILL_ICON_PATHS[s]} fill="currentColor" /></svg>
-                  )}
+                  <SkillMarkSvg id={s} />
                   {skillDisplayName(s)}
                 </Link>
               ))}

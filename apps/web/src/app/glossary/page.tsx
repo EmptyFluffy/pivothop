@@ -4,6 +4,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { PageShell } from '../components/SiteChrome';
 import { GLOSSARY } from './glossary-data';
+import GlossaryTabs from './GlossaryTabs';
+import { SkillMarkSvg } from '../jobs/SkillMark';
 
 export const metadata: Metadata = {
   title: 'Glossary and sources: the career-data terms and skills, defined — PivotHop',
@@ -32,72 +34,85 @@ export default function GlossaryPage() {
         <h1 className="gloss-h1">Glossary &amp; sources</h1>
         <p className="gloss-dek">
           Every acronym, credential, dataset, and skill the writing and the instrument lean on, defined once and in plain language.
-          We assume you know your own field, not ours. Terms first, then the datasets behind the numbers, then the skill bank &mdash;
-          each skill linked to the open roles it unlocks.
+          We assume you know your own field, not ours. Three registers: the terms, the datasets behind the numbers, and the skill
+          bank &mdash; every skill linked to the open roles it unlocks.
         </p>
 
-        <section className="gloss-sec" id="terms" aria-label="Terms and acronyms">
-          <h2 className="gloss-cat"><span className="lbl">Part one</span>Terms &amp; acronyms</h2>
-          <dl className="gloss-list">
-            {TERMS.map((e) => (
-              <div className="gloss-item" id={e.id} key={e.id}>
-                <dt><span className="gt">{e.term}</span><span className="gf">{e.full}</span></dt>
-                <dd>{e.def}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        <section className="gloss-sec" id="sources" aria-label="Sources and data">
-          <h2 className="gloss-cat"><span className="lbl">Part two</span>Sources &amp; data</h2>
-          <p className="gloss-note">The datasets under the numbers. Every figure on PivotHop and FairElephant traces to one of these, and every one is either public domain or openly licensed for reuse.</p>
-          <dl className="gloss-list">
-            {SOURCES.map((e) => (
-              <div className="gloss-item" id={e.id} key={e.id}>
-                <dt><span className="gt">{e.term}</span><span className="gf">{e.full}</span></dt>
-                <dd>
-                  {e.def}
-                  {e.url && <> <a className="gloss-src" href={e.url} target="_blank" rel="noopener noreferrer">Visit source &rarr;</a></>}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        {SKILLS.length > 0 && (
-          <section className="gloss-sec" id="skills" aria-label="The skill bank">
-            <h2 className="gloss-cat"><span className="lbl">Part three</span>The skill bank</h2>
-            <p className="gloss-note">Every skill the instrument reads from live postings, with the occupations that weight it most heavily. Each links to the roles it unlocks that have openings on the board right now. This is what a skill chip on the graph points to.</p>
-            <div className="gloss-az" aria-label="Jump to letter">
-              {LETTERS.map((l) => <a key={l} href={`#skill-letter-${l}`}>{l}</a>)}
-            </div>
-            <dl className="gloss-list">
-              {LETTERS.map((letter) => (
-                <div key={letter} className="gloss-letter-group">
-                  <h3 className="gloss-letter" id={`skill-letter-${letter}`}>{letter}</h3>
-                  {SKILLS.filter((s) => firstLetter(s.term) === letter).map((s) => (
-                    <div className="gloss-item gloss-skill" id={`skill-${s.slug}`} key={s.slug}>
-                      <dt><span className="gt">{s.term}</span>{s.field && <span className="gf">{s.field}</span>}</dt>
-                      <dd>
-                        {s.def}
-                        {s.unlocks.length > 0 && (
-                          <div className="gloss-unlocks">
-                            <span className="lbl">Open roles it unlocks</span>
-                            <span className="gu-list">
-                              {s.unlocks.map((u) => (
-                                <Link key={u.slug} href={`/jobs/${u.slug}`} className="gu-link">{u.title}<span className="gu-n">{u.count}</span></Link>
-                              ))}
-                            </span>
+        <GlossaryTabs
+          sourceIds={SOURCES.map((e) => e.id)}
+          tabs={[
+            {
+              key: 'terms', label: 'Terms & acronyms', count: TERMS.length,
+              panel: (
+                <section className="gloss-sec" id="terms" aria-label="Terms and acronyms">
+                  <dl className="gloss-list">
+                    {TERMS.map((e) => (
+                      <div className="gloss-item" id={e.id} key={e.id}>
+                        <dt><span className="gt">{e.term}</span><span className="gf">{e.full}</span></dt>
+                        <dd>{e.def}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              ),
+            },
+            {
+              key: 'sources', label: 'Sources & data', count: SOURCES.length,
+              panel: (
+                <section className="gloss-sec" id="sources" aria-label="Sources and data">
+                  <p className="gloss-note">The datasets under the numbers. Every figure on PivotHop and FairElephant traces to one of these, and every one is either public domain or openly licensed for reuse.</p>
+                  <dl className="gloss-list">
+                    {SOURCES.map((e) => (
+                      <div className="gloss-item" id={e.id} key={e.id}>
+                        <dt><span className="gt">{e.term}</span><span className="gf">{e.full}</span></dt>
+                        <dd>
+                          {e.def}
+                          {e.url && <> <a className="gloss-src" href={e.url} target="_blank" rel="noopener noreferrer">Visit source &rarr;</a></>}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              ),
+            },
+            {
+              key: 'skills', label: 'The skill bank', count: SKILLS.length,
+              panel: (
+                <section className="gloss-sec" id="skills" aria-label="The skill bank">
+                  <p className="gloss-note">Every skill the instrument reads from live postings, with the occupations that weight it most heavily. Each links to the roles it unlocks that have openings on the board right now. This is what a skill chip on the graph points to.</p>
+                  <div className="gloss-az" aria-label="Jump to letter">
+                    {LETTERS.map((l) => <a key={l} href={`#skill-letter-${l}`}>{l}</a>)}
+                  </div>
+                  <dl className="gloss-list">
+                    {LETTERS.map((letter) => (
+                      <div key={letter} className="gloss-letter-group">
+                        <h3 className="gloss-letter" id={`skill-letter-${letter}`}>{letter}</h3>
+                        {SKILLS.filter((s) => firstLetter(s.term) === letter).map((s) => (
+                          <div className="gloss-item gloss-skill" id={`skill-${s.slug}`} key={s.slug}>
+                            <dt><span className="gt"><SkillMarkSvg id={s.slug} className="gt-mark" />{s.term}</span>{s.field && <span className="gf">{s.field}</span>}</dt>
+                            <dd>
+                              {s.def}
+                              {s.unlocks.length > 0 && (
+                                <div className="gloss-unlocks">
+                                  <span className="lbl">Open roles it unlocks</span>
+                                  <span className="gu-list">
+                                    {s.unlocks.map((u) => (
+                                      <Link key={u.slug} href={`/jobs/${u.slug}`} className="gu-link">{u.title}<span className="gu-n">{u.count}</span></Link>
+                                    ))}
+                                  </span>
+                                </div>
+                              )}
+                            </dd>
                           </div>
-                        )}
-                      </dd>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </dl>
-          </section>
-        )}
+                        ))}
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              ),
+            },
+          ]}
+        />
 
         <div className="post-foot gloss-foot">
           <Link href="/blog" className="lbl">&larr; The blog</Link>
