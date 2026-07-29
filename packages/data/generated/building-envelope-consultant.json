@@ -5,13 +5,13 @@
     "title": "Building Envelope Consultant",
     "field": "Architecture",
     "cluster": "Built Environment",
-    "postings": 67,
+    "postings": 76,
     "salary": "$75k–$110k",
     "salary_band": [
-      75122,
-      108650
+      75356,
+      109225
     ],
-    "remote": "0%",
+    "remote": "5%",
     "separations": {
       "transfer": 3.3,
       "exit": 2.3,
@@ -21,14 +21,14 @@
   },
   "roles": [
     {
-      "id": "civil-engineer",
-      "title": "Civil Engineer",
+      "id": "structural-engineer",
+      "title": "Structural Engineer",
       "field": "Engineering",
       "cluster": "Built Environment",
       "kind": "lateral",
       "license": {
         "req": "required",
-        "label": "PE license required for responsible charge"
+        "label": "PE license required to sign/seal structural work"
       },
       "desc": "",
       "match": 27,
@@ -38,171 +38,571 @@
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$65k–$105k",
+      "salary": "$65k–$115k",
       "salary_band": [
-        62593,
-        103000
+        62675,
+        113919
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "1%",
       "time": "12–24 mo + license",
       "have": [
         "Project Management",
         "Sustainability",
-        "Criminal Investigation"
+        "Revit"
       ],
       "learn": [
-        "Assessment",
-        "Civil 3D",
-        "AutoCAD",
+        "Structural Analysis",
+        "FEA / Simulation",
+        "Steel Design",
         "Construction Administration"
       ],
       "waterfall": [
         {
+          "skill": "structural-analysis",
+          "name": "Structural Analysis",
+          "pts": 40.6,
+          "earned": 0
+        },
+        {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 20.5,
-          "earned": 17.9
+          "pts": 15.6,
+          "earned": 15.6
         },
         {
-          "skill": "assessment",
-          "name": "Assessment",
-          "pts": 9.5,
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 8.8,
           "earned": 0
         },
         {
-          "skill": "civil-3d",
-          "name": "Civil 3D",
-          "pts": 9.4,
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 5.9,
+          "earned": 5.9
+        },
+        {
+          "skill": "steel-design",
+          "name": "Steel Design",
+          "pts": 5.8,
           "earned": 0
         },
         {
-          "skill": "autocad",
-          "name": "AutoCAD",
-          "pts": 8.2,
-          "earned": 0
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 5.8,
+          "earned": 5.8
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 7.7,
+          "pts": 4.6,
           "earned": 0
         },
         {
-          "skill": "structural-analysis",
-          "name": "Structural Analysis",
-          "pts": 6.1,
+          "skill": "building-codes",
+          "name": "Building Codes",
+          "pts": 4.5,
           "earned": 0
         },
         {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 5.3,
+          "skill": "etabs",
+          "name": "ETABS / SAP2000",
+          "pts": 4.5,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 5.3,
+          "pts": 4,
           "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 5.2,
-          "earned": 5.2
-        },
-        {
-          "skill": "qa-testing",
-          "name": "QA / Testing",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 4.2,
-          "earned": 4.2
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1240,
-        "salaried": 812
+        "postings": 1102,
+        "salaried": 635
       }
     },
     {
-      "id": "sustainability-consultant",
-      "title": "Sustainability Consultant",
+      "id": "architect",
+      "title": "Architect",
       "field": "Architecture",
       "cluster": "Built Environment",
       "kind": "lateral",
-      "license": null,
-      "desc": "",
-      "match": 12,
-      "fit": 9,
+      "license": {
+        "req": "required",
+        "label": "State architecture license (RA/ARB) — registration required to practice/title"
+      },
+      "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
+      "match": 32,
+      "fit": 25,
       "capability": null,
-      "mobility": 2,
+      "mobility": 8,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 8,
+      "mobility_eu": 36,
       "mobility_tier": null,
-      "salary": "$55k–$80k",
+      "salary": "$65k–$100k",
       "salary_band": [
-        53368,
-        79975
+        64843,
+        101000
       ],
-      "demand": "Moderate",
-      "remote": "1%",
-      "time": "12–24 mo",
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo + license",
       "have": [
-        "Sustainability",
-        "Energy Modeling",
-        "Project Management"
+        "Revit",
+        "Project Management",
+        "Sustainability"
       ],
       "learn": [
-        "LEED"
+        "Construction Documentation",
+        "Construction Administration",
+        "Urban Design",
+        "Building Codes"
       ],
       "waterfall": [
         {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 78.8,
-          "earned": 3.5
-        },
-        {
-          "skill": "leed",
-          "name": "LEED",
-          "pts": 12.4,
-          "earned": 0
-        },
-        {
-          "skill": "energy-modeling",
-          "name": "Energy Modeling",
-          "pts": 5.3,
-          "earned": 5.3
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 19,
+          "earned": 7.9
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 3.5,
-          "earned": 3.5
+          "pts": 16.3,
+          "earned": 16.3
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 14.4,
+          "earned": 7.9
+        },
+        {
+          "skill": "construction-documents",
+          "name": "Construction Documentation",
+          "pts": 10.1,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 8,
+          "earned": 0
+        },
+        {
+          "skill": "urban-design",
+          "name": "Urban Design",
+          "pts": 7.4,
+          "earned": 0
+        },
+        {
+          "skill": "building-codes",
+          "name": "Building Codes",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 4.5,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 89,
-        "salaried": 66
+        "postings": 969,
+        "salaried": 687
+      }
+    },
+    {
+      "id": "interior-designer",
+      "title": "Interior Designer",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 26,
+      "fit": 23,
+      "capability": null,
+      "mobility": 16,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$55k–$85k",
+      "salary_band": [
+        53304,
+        84459
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Revit",
+        "Project Management",
+        "Sustainability"
+      ],
+      "learn": [
+        "Space Planning",
+        "Presentation",
+        "AutoCAD",
+        "Construction Documentation"
+      ],
+      "waterfall": [
+        {
+          "skill": "space-planning",
+          "name": "Space Planning",
+          "pts": 16.4,
+          "earned": 0
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 13.6,
+          "earned": 7.6
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 13.3,
+          "earned": 13.3
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 10.1,
+          "earned": 0
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 9.8,
+          "earned": 0
+        },
+        {
+          "skill": "construction-documents",
+          "name": "Construction Documentation",
+          "pts": 8.2,
+          "earned": 0
+        },
+        {
+          "skill": "sketchup",
+          "name": "SketchUp",
+          "pts": 7.9,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 5.7,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 5.4,
+          "earned": 0
+        },
+        {
+          "skill": "rendering",
+          "name": "Rendering",
+          "pts": 5.1,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.7,
+          "earned": 4.7
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 609,
+        "salaried": 379
+      }
+    },
+    {
+      "id": "electrical-engineer",
+      "title": "Electrical Engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "license": {
+        "req": "partial",
+        "label": "PE required for public-facing/utility sign-off; not for product roles"
+      },
+      "desc": "",
+      "match": 25,
+      "fit": 23,
+      "capability": null,
+      "mobility": 19,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 15,
+      "mobility_tier": null,
+      "salary": "$65k–$125k",
+      "salary_band": [
+        66710,
+        126513
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Sustainability",
+        "Revit"
+      ],
+      "learn": [
+        "Electrical Systems",
+        "MEP",
+        "Blueprint Reading",
+        "FEA / Simulation"
+      ],
+      "waterfall": [
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 35.1,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 10.8,
+          "earned": 10.8
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 8.9,
+          "earned": 7.9
+        },
+        {
+          "skill": "mep",
+          "name": "MEP",
+          "pts": 8.5,
+          "earned": 0
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 7.2,
+          "earned": 0
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 6.3,
+          "earned": 6.3
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 5.9,
+          "earned": 0
+        },
+        {
+          "skill": "plc",
+          "name": "PLC / Controls",
+          "pts": 5.1,
+          "earned": 0
+        },
+        {
+          "skill": "prototyping",
+          "name": "Prototyping",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "system-design",
+          "name": "System Design",
+          "pts": 4.3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1818,
+        "salaried": 991
+      }
+    },
+    {
+      "id": "architectural-drafter",
+      "title": "Architectural Drafter",
+      "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
+      "license": null,
+      "desc": "Turns an architect's design into the precise drawings a project gets built from. Lives in Revit and AutoCAD; owns the accuracy of the set.",
+      "match": 13,
+      "fit": 11,
+      "capability": null,
+      "mobility": 8,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 100,
+      "mobility_tier": null,
+      "salary": "$50k–$65k",
+      "salary_band": [
+        50033,
+        66710
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Revit",
+        "Project Management",
+        "Sustainability"
+      ],
+      "learn": [
+        "BIM",
+        "AutoCAD",
+        "Drafting",
+        "MEP"
+      ],
+      "waterfall": [
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 41.5,
+          "earned": 4.4
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 10.6,
+          "earned": 0
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 10.2,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 7.4,
+          "earned": 0
+        },
+        {
+          "skill": "mep",
+          "name": "MEP",
+          "pts": 7.1,
+          "earned": 0
+        },
+        {
+          "skill": "construction-documents",
+          "name": "Construction Documentation",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "cad-mechanical",
+          "name": "Mechanical CAD",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 4.4,
+          "earned": 4.4
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4,
+          "earned": 4
+        },
+        {
+          "skill": "3d-modeling",
+          "name": "3D Modeling",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "finish-carpentry",
+          "name": "Finish Carpentry",
+          "pts": 2.3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 783,
+        "salaried": 607
       }
     }
   ],
   "next": {
-    "civil-engineer": [],
-    "sustainability-consultant": []
+    "structural-engineer": [],
+    "architect": [],
+    "interior-designer": [],
+    "electrical-engineer": [],
+    "architectural-drafter": []
   },
   "direct": [],
-  "cross": [],
+  "cross": [
+    [
+      "architect",
+      "interior-designer",
+      0.57
+    ],
+    [
+      "architect",
+      "architectural-drafter",
+      0.53
+    ],
+    [
+      "structural-engineer",
+      "architect",
+      0.44
+    ],
+    [
+      "interior-designer",
+      "architectural-drafter",
+      0.44
+    ],
+    [
+      "structural-engineer",
+      "electrical-engineer",
+      0.3
+    ],
+    [
+      "electrical-engineer",
+      "architectural-drafter",
+      0.3
+    ]
+  ],
   "bridges": [],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }
