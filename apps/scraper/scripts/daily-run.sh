@@ -24,8 +24,25 @@ if [ "$(date +%u)" = "1" ]; then
   npm run --silent scrape -- fx:update >> "$LOG" 2>&1
 fi
 
-npm run --silent scrape -- run all >> "$LOG" 2>&1
+# The board and the graph move at different speeds, so they are scored at
+# different speeds. Listings expire in weeks, so ingest/normalize/aggregate run
+# nightly. Adjacency scores are computed over a large accumulated corpus and
+# barely move — re-emitting them every night shuffled route numbers by a point
+# or two for no reader benefit, and made the sitemap's "changed today" signal
+# meaningless because a match going 53 -> 52 counted as a change. Score and
+# emit therefore run on Mondays only; on other nights the previously emitted
+# packages/data/generated/ files stand, and the route pages stay still.
+npm run --silent scrape -- ingest all >> "$LOG" 2>&1
 STATUS=$?
+npm run --silent scrape -- normalize >> "$LOG" 2>&1 || STATUS=$?
+npm run --silent scrape -- aggregate >> "$LOG" 2>&1 || STATUS=$?
+if [ "$(date +%u)" = "1" ] || [ "${FORCE_GRAPH:-0}" = "1" ]; then
+  echo "graph: weekly rescore (Monday, or FORCE_GRAPH=1)" >> "$LOG"
+  npm run --silent scrape -- score >> "$LOG" 2>&1 || STATUS=$?
+  npm run --silent scrape -- emit  >> "$LOG" 2>&1 || STATUS=$?
+else
+  echo "graph: held — adjacency re-scores Mondays (FORCE_GRAPH=1 to override)" >> "$LOG"
+fi
 npm run --silent scrape -- salaries >> "$LOG" 2>&1
 npm run --silent scrape -- status >> "$LOG" 2>&1
 

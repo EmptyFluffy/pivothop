@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { CompareLink } from '../compare/CompareLink';
 
 /* The five launch posts. Every number in these comes from the PivotHop pipeline
    (July 2026 run: 66,403 postings, 145 occupations, 2,874 measured connections)
@@ -474,7 +475,7 @@ export const POSTS: Post[] = [
         <h2>Graphic designer vs UX designer</h2>
         <div className="post-callout"><b>13% / 12%</b><span>mutual overlap &mdash; near-strangers professionally &mdash; while the posted bands run $42k&ndash;$73k against $74k&ndash;$151k.</span></div>
         <p>
-          The most expensive confusion on the list. The shared core is essentially <strong>Figma</strong> and motion design; from there the jobs diverge into branding and production on one side, interaction design, prototyping, and user research on the other. Treating UX as &ldquo;graphic design, newer&rdquo; is how a doubled salary band gets left on the table. <a className="gl" href="/compare/graphic-designer-vs-ux-designer">The measured pair</a> shows the exact gap lists.
+          The most expensive confusion on the list. The shared core is essentially <strong>Figma</strong> and motion design; from there the jobs diverge into branding and production on one side, interaction design, prototyping, and user research on the other. Treating UX as &ldquo;graphic design, newer&rdquo; is how a doubled salary band gets left on the table. <CompareLink slug="graphic-designer-vs-ux-designer">The measured pair</CompareLink> shows the exact gap lists.
         </p>
 
         <Pull>Half of these pairs share a family name and almost nothing else.</Pull>

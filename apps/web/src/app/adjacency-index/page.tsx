@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { compareHref } from '../compare/CompareLink';
 import Link from 'next/link';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -130,7 +131,9 @@ export default function AdjacencyIndex() {
                   <div className="axi-big">{st.big}</div>
                   <div className="axi-unit lbl">{st.unit}</div>
                   <p className="axi-sentence">{st.sentence}</p>
-                  <Link className="gl axi-src" href={st.href}>{st.hrefLabel} &rarr;</Link>
+                  {/* Compare hrefs go through the guard: those pages are
+                      generated only while the pair still qualifies. */}
+                  <Link className="gl axi-src" href={st.href.startsWith('/compare/') ? compareHref(st.href.slice('/compare/'.length)) : st.href}>{st.hrefLabel} &rarr;</Link>
                 </div>
               ))}
             </div>

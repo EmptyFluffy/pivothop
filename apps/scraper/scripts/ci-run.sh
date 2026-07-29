@@ -12,7 +12,20 @@ cd "$(git rev-parse --show-toplevel)"
 # FX snapshot weekly (Mondays), cheap + keyless.
 if [ "$(date +%u)" = "1" ]; then npm run --silent scrape -- fx:update || true; fi
 
-npm run --silent scrape -- run all || echo "::warning::run all exited non-zero (continuing to the gate)"
+# Board nightly, graph weekly — same split as daily-run.sh. Adjacency is
+# computed over a large accumulated corpus and barely moves; re-emitting nightly
+# shuffled route numbers for no reader benefit and made the sitemap's
+# "changed today" signal meaningless.
+npm run --silent scrape -- ingest all || echo "::warning::ingest exited non-zero (continuing to the gate)"
+npm run --silent scrape -- normalize  || echo "::warning::normalize exited non-zero"
+npm run --silent scrape -- aggregate  || echo "::warning::aggregate exited non-zero"
+if [ "$(date +%u)" = "1" ] || [ "${FORCE_GRAPH:-0}" = "1" ]; then
+  echo "graph: weekly rescore (Monday, or FORCE_GRAPH=1)"
+  npm run --silent scrape -- score || echo "::warning::score exited non-zero"
+  npm run --silent scrape -- emit  || echo "::warning::emit exited non-zero"
+else
+  echo "graph: held — adjacency re-scores Mondays (FORCE_GRAPH=1 to override)"
+fi
 npm run --silent scrape -- salaries || true
 npm run --silent scrape -- status || true
 
