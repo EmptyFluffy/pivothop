@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
+import JobSheet from './JobSheet';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
 
@@ -48,7 +49,13 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [tagsOpen, setTagsOpen] = useState(false);        // the Tags dropdown (keeps the bar to one line)
   const [shown, setShown] = useState(PAGE);
   const [now] = useState(() => Date.now());
+  // Phones open a listing as a bottom sheet over the board instead of a page
+  // load. pushState keeps a real URL, so refresh/share hits the static page and
+  // Back closes the sheet. Desktop keeps normal navigation.
+  const [sheetJob, setSheetJob] = useState<Job | null>(null);
+  const allRef = useRef<Job[] | null>(null);
   const tagRef = useRef<HTMLDivElement>(null);
+  allRef.current = all;
 
   // Load the corpus once, and read any shared filter state from the URL.
   useEffect(() => {
@@ -80,6 +87,33 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       ]).then(([scraped, employer]: [Job[], Job[]]) => setAll([...(employer || []), ...(scraped || [])]));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Mobile: intercept a card tap, open the sheet, and push the listing URL so
+  // the address bar, Back, refresh and sharing all behave as if it were a page.
+  useEffect(() => {
+    const isPhone = () => window.matchMedia('(max-width: 760px)').matches;
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (!isPhone()) return;
+      const a = (e.target as HTMLElement)?.closest?.('a.job-card') as HTMLAnchorElement | null;
+      if (!a) return;
+      const m = /^\/jobs\/([a-z0-9-]+)\/([a-z0-9]+)$/.exec(a.getAttribute('href') || '');
+      if (!m) return;                       // employer outbound links keep their own behaviour
+      const job = (allRef.current ?? []).find((j) => j.occ === m[1] && j.id === m[2]);
+      if (!job) return;                     // not in state — let the page load
+      // Capture phase, and stop propagation: Next's <Link> handler sits on the
+      // React root, which bubbles before document, so a bubble-phase listener
+      // would fire only after the route had already been pushed.
+      e.preventDefault();
+      e.stopPropagation();
+      history.pushState({ jobSheet: true }, '', a.getAttribute('href')!);
+      setSheetJob(job);
+    };
+    const onPop = () => setSheetJob(null);
+    document.addEventListener('click', onClick, true);
+    window.addEventListener('popstate', onPop);
+    return () => { document.removeEventListener('click', onClick, true); window.removeEventListener('popstate', onPop); };
   }, []);
 
   // Close the Tags dropdown on an outside click or Escape.
@@ -187,6 +221,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   });
 
   const activeCount = (field ? 1 : 0) + (cty ? 1 : 0) + (region ? 1 : 0) + (minPay ? 1 : 0) + (remoteOnly ? 1 : 0) + tags.size + (sort === 'pay' ? 1 : 0);
+  const closeSheet = () => { if (history.state?.jobSheet) history.back(); else setSheetJob(null); };
+
   return (
     <div className={`jb${filtersOpen ? ' filters-open' : ''}${scope ? ' jb-scoped' : ''}`}>
       <div className="jb-stick">
@@ -284,6 +320,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           )}
         </>
       )}
+      <JobSheet job={sheetJob} onClose={closeSheet} />
     </div>
   );
 }
