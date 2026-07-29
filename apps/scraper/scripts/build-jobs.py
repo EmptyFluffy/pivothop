@@ -33,12 +33,20 @@ def fix_mojibake(s):
             break
         try:
             fixed = out.encode('latin-1').decode('utf-8')
-        except (UnicodeEncodeError, UnicodeDecodeError):
-            break
+        except UnicodeEncodeError:
+            break                      # not Latin-1 representable: leave it alone
+        except UnicodeDecodeError:
+            # A truncated sequence at the end - a lone high byte with nothing to
+            # pair with - used to abort the whole repair and leave the entire
+            # string corrupted. Drop the undecodable tail, keep the rest.
+            fixed = out.encode('latin-1', 'ignore').decode('utf-8', 'ignore')
+            if not fixed or _MOJIBAKE.search(fixed):
+                break
         if '�' in fixed or fixed == out:
             break
         out = fixed
-    return out
+    # Separator junk left dangling by a dropped tail ("Agent - ").
+    return re.sub(r'[\s·|,\-–—]+$', '', out)
 
 RAW = 'apps/scraper/data/postings_raw.ndjson'
 NORM = 'apps/scraper/data/postings.ndjson'
@@ -58,7 +66,13 @@ OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
 # (account-executive had 1,858 available and showed 60). The global aggregate is
 # downloaded by everyone who opens /jobs, so it stays lean.
 CAP = 250        # freshest N per occupation (per-occupation board + detail)
-ALL_CAP = 60     # rows per occupation inside the global all-jobs.json
+# The global file must describe the SAME universe as the per-occupation boards,
+# or the site quotes two different numbers for one thing: the /jobs dek counted
+# the full board (3,066 remote) while the client could only filter the global
+# file (1,530). Full board is 2.74MB raw but 430KB gzipped, which is what
+# actually crosses the wire, so completeness is affordable and consistency is
+# not optional. ALL_CAP exists only as an escape hatch if that stops being true.
+ALL_CAP = CAP
 FLOOR = 3        # skip occupations with fewer than this (no board)
 DESC_CAP = 7000  # chars of description on the detail page
 
@@ -426,6 +440,19 @@ if moji:
     for j in moji[:5]:
         print(f"mojibake canary: {j['company']!r} · {j['location']!r} · {j['title']!r}")
     raise SystemExit(f'mojibake canary failed: {len(moji)} displayed listings still corrupted')
+
+# Consistency canary: every surface counts from one universe, or the build
+# fails. The /jobs dek sums the per-occupation files, /jobs/browse and the
+# client both read all-jobs.json — they must agree exactly.
+board_total_chk = sum(index.values())
+if board_total_chk != len(all_rows):
+    raise SystemExit(f'consistency canary failed: per-occupation boards hold {board_total_chk} '
+                     f'listings but all-jobs.json carries {len(all_rows)} — the site would quote two numbers')
+remote_occ = sum(1 for jobs in kept_byocc.values() for j in jobs if j.get('remote'))
+remote_all = sum(1 for j in all_rows if j.get('remote'))
+if remote_occ != remote_all:
+    raise SystemExit(f'consistency canary failed: remote count {remote_occ} across boards '
+                     f'vs {remote_all} in all-jobs.json')
 
 json.dump(all_rows, open(ALL, 'w'), ensure_ascii=False)
 json.dump(index, open(INDEX, 'w'), ensure_ascii=False)

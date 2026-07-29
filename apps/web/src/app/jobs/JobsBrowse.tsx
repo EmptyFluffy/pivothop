@@ -331,7 +331,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}
           {results.length > shown && (
             <button type="button" className="jb-more" onClick={() => setShown((n) => n + PAGE)}>
-              Show {Math.min(PAGE, results.length - shown)} more of {(results.length - shown).toLocaleString()}
+              {/* "of N" reads as the total, so quote the total — the remainder
+                  here made the board look like it held fewer roles than it does. */}
+              Show {Math.min(PAGE, results.length - shown)} more &middot; {shown.toLocaleString()} of {results.length.toLocaleString()}
             </button>
           )}
         </>
