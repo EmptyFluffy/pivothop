@@ -21,6 +21,28 @@ export function jobsIndex(): Record<string, number> {
 export function jobOccupations(): string[] { return Object.keys(jobsIndex()); }
 export function jobCount(occ: string): number { return jobsIndex()[occ] ?? 0; }
 export function getJobs(occ: string): Job[] { return read<Job[]>(`jobs/${occ}.json`) ?? []; }
+
+/** Board-wide counts, from all-jobs.json and nowhere else.
+ *
+ *  Every visible count must come from one file. The /jobs dek used to re-derive
+ *  its numbers by summing the per-occupation boards while the client and
+ *  /jobs/browse filtered all-jobs.json — two universes, and the site quoted
+ *  3,066 remote in one place and 1,530 in another. build-jobs.py now fails the
+ *  build if those two files disagree, and this reader means new surfaces cannot
+ *  reintroduce the split by counting somewhere else. Add facets here rather
+ *  than filtering the board again in a page. */
+let _stats: { total: number; remote: number; withSalary: number } | null = null;
+export function boardStats() {
+  if (!_stats) {
+    const all = read<Job[]>('all-jobs.json') ?? [];
+    _stats = {
+      total: all.length,
+      remote: all.filter((j) => j.remote).length,
+      withSalary: all.filter((j) => j.smin != null || j.smax != null).length,
+    };
+  }
+  return _stats;
+}
 export function getJob(occ: string, id: string): Job | null {
   return getJobs(occ).find((j) => j.id === id) ?? null;
 }

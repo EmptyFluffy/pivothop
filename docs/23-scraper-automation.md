@@ -65,3 +65,54 @@ Non-negotiables regardless of home: the verify gates run **in the bot**, the pub
 - Anything that touches copy, pages, or the graph's tuned values.
 
 The bot's jurisdiction is: fetch, normalize, score, verify, publish data. Nothing else.
+
+---
+
+## The rebuild contract (2026-07-29)
+
+*What must regenerate every time the scraper finishes, in what order, and what stops the publish. Written after the board quoted three different remote counts on one page.*
+
+### Order is load-bearing
+
+```
+scrape -- ingest all → normalize → aggregate → salaries      (nightly)
+scrape -- score → emit                                        (Mondays only, FORCE_GRAPH=1 to override)
+export-web-data.py        origins, skill-profiles, salaries, cloud, lib/data.js
+fetch-logos.mjs           company logos (incremental, non-fatal)
+build-jobs.py             the board: jobs/<occ>.json, jobs-detail/, all-jobs.json, jobs-index.json
+build-skill-icons.mjs     skill-icons.ts + skill-marks.json
+build-skill-glossary.py   skills-glossary.json   ← folds in skill-marks.json, so icons MUST run first
+build-lastmod.py          lastmod.json           ← sitemap.ts reads it at build time, so this runs last
+next build → check:links
+```
+
+Three of these have bitten us by running in the wrong order or not at all: `build-jobs.py` is not part of `scrape -- run`, so a hand-run scrape refreshes the graph and leaves the board a day stale; `build-skill-icons` after the glossary ships markless chips for a day; `build-lastmod` after the build has no effect at all.
+
+### One source per number
+
+**Every visible count comes from `all-jobs.json`, via `boardStats()` in `jobs-data.tsx`.** Do not re-derive a count by filtering the board inside a page — that is exactly how the `/jobs` dek came to say 3,066 remote while the client said 1,530. New facets get added to `boardStats()`, not recomputed at the call site. Category counts come from `categories-data`, which reads the same file.
+
+### The gates, and what each one exists to stop
+
+| Gate | Catches |
+|---|---|
+| `verify` gold set (67 cases) | every bug ever fixed, frozen as a test |
+| `verify` sanity + licensed routes | waterfalls that do not reconcile, a months-scale timeline on a multi-year credential |
+| purity canary (build-jobs) | a licensed board >30% cross-tier titles — the dental-hygienist class |
+| **mojibake canary** | double-encoded text reaching a displayed field |
+| **consistency canary** (new) | per-occupation boards and `all-jobs.json` disagreeing on total or remote |
+| `check:links` | any internal href with no target — including pages that stopped being generated |
+| implausible-diff tripwire | >3,000 changed files, i.e. something went badly wrong upstream |
+
+**Red gate = no publish, last-good data stays live.** That is the whole point: the bot may only publish what it can defend.
+
+### The recurring failure mode
+
+Threshold-gated pages vanish when their data moves. A compare pair stops qualifying, an origin drops below the posting floor, a category falls under the 6-listing gate — and any hard-coded link to it 404s. `check:links` catches it, but only *after* it has blocked a night's publish. Editorial links to computed pages must go through a guard: `hasOriginPage()` for routes, `CompareLink`/`compareHref` for comparisons. Anything new that links from prose to a generated page needs the same treatment.
+
+### Freshness expectations, by surface
+
+- **Board listings** — nightly. Expire in weeks; this is the product's freshness claim.
+- **Adjacency / route numbers** — weekly (Mondays). Computed over a large accumulated corpus, so nightly re-scoring shuffled matches by a point or two for no reader benefit and made `lastmod` meaningless.
+- **Salary bands** — nightly, from aggregates. Note the trade: route pages carry Monday's salary strings while `/salary/*` carries nightly figures, so the two can drift a little during the week and re-sync on Monday.
+- **`lastmod`** — advances only when the data behind a page actually changed (`build-lastmod.py` hashes it). "Changed today" has to mean something or Google stops believing it.

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
-import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs, featuredJobs } from './jobs-data';
+import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs, featuredJobs, boardStats } from './jobs-data';
 import { salaryLabel, Arrow45, agoLabel } from './JobCard';
 import { routableSlugs } from '../routes/routes-data';
 import JobsBrowse from './JobsBrowse';
@@ -16,8 +16,9 @@ export const metadata: Metadata = {
 export default function JobsHub() {
   const idx = jobsIndex();
   const occs = jobOccupations();
-  const total = Object.values(idx).reduce((a, b) => a + b, 0);
-  const remoteN = occs.reduce((s, o) => s + getJobs(o).filter((j) => j.remote).length, 0);
+  // One source for every visible count — see boardStats(). Deriving these here
+  // from the per-occupation files is what made the dek disagree with the board.
+  const { total, remote: remoteN } = boardStats();
   const fields: Record<string, string> = {};
   const titles: Record<string, string> = {};
   const search: Record<string, string> = {};
