@@ -109,8 +109,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         </div>
 
         <div className="jd-applyrow">
-          <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply at {j.company} <Arrow45 size={24} /></a>
-          <span className="lbl">Opens the original posting. PivotHop does not host applications.</span>
+          <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply now <Arrow45 size={24} /></a>
+          <span className="lbl">Opens the original posting at {j.company}. PivotHop does not host applications.</span>
         </div>
 
         {skills.length > 0 && (

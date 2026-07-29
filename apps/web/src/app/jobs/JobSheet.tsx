@@ -183,8 +183,9 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
 
         <div className="jsheet-foot">
           <a className="rt-go jsheet-apply" href={job.url} target="_blank" rel="nofollow noopener noreferrer">
-            <span className="jsheet-applytx">Apply at {job.company}</span>
+            Apply now
           </a>
+          <span className="jsheet-src lbl">Opens the original posting at {job.company}</span>
         </div>
       </div>
     </div>

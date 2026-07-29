@@ -96,19 +96,35 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       if (!isPhone()) return;
-      const a = (e.target as HTMLElement)?.closest?.('a.job-card') as HTMLAnchorElement | null;
+      // .feat-row is the featured ledger, which renders from featured-jobs.json
+      // and never enters board state — it needs the same treatment as a card.
+      const a = (e.target as HTMLElement)?.closest?.('a.job-card, a.feat-row') as HTMLAnchorElement | null;
       if (!a) return;
-      const m = /^\/jobs\/([a-z0-9-]+)\/([a-z0-9]+)$/.exec(a.getAttribute('href') || '');
+      const href = a.getAttribute('href') || '';
+      const m = /^\/jobs\/([a-z0-9-]+)\/([a-z0-9]+)$/.exec(href);
       if (!m) return;                       // employer outbound links keep their own behaviour
-      const job = (allRef.current ?? []).find((j) => j.occ === m[1] && j.id === m[2]);
-      if (!job) return;                     // not in state — let the page load
       // Capture phase, and stop propagation: Next's <Link> handler sits on the
       // React root, which bubbles before document, so a bubble-phase listener
       // would fire only after the route had already been pushed.
       e.preventDefault();
       e.stopPropagation();
-      history.pushState({ jobSheet: true }, '', a.getAttribute('href')!);
-      setSheetJob(job);
+      const inState = (allRef.current ?? []).find((j) => j.occ === m[1] && j.id === m[2]);
+      if (inState) {
+        history.pushState({ jobSheet: true }, '', href);
+        setSheetJob(inState);
+        return;
+      }
+      // Featured rows: resolve from their own file, then fall back to the page
+      // rather than swallowing the tap.
+      void (async () => {
+        try {
+          const r = await fetch('/data/featured-jobs.json');
+          const feat: Job[] = r.ok ? await r.json() : [];
+          const hit = feat.find((j) => j.occ === m[1] && j.id === m[2]);
+          if (hit) { history.pushState({ jobSheet: true }, '', href); setSheetJob(hit); return; }
+        } catch { /* fall through */ }
+        window.location.href = href;
+      })();
     };
     const onPop = () => setSheetJob(null);
     document.addEventListener('click', onClick, true);
