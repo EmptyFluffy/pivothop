@@ -25,6 +25,7 @@ const SOURCE_NAMES: Record<string, string> = {
   greenhouse: 'Greenhouse', usajobs: 'USAJOBS', ashby: 'Ashby', lever: 'Lever',
   himalayas: 'Himalayas', arbeitnow: 'Arbeitnow', themuse: 'The Muse',
   smartrecruiters: 'SmartRecruiters', jobicy: 'Jobicy', remoteok: 'RemoteOK', remotive: 'Remotive',
+  workable: 'Workable', recruitee: 'Recruitee', careerjet: 'Careerjet', getonbrd: 'Get on Board',
 };
 export const sourceName = (s: string) => SOURCE_NAMES[s] ?? s;
 

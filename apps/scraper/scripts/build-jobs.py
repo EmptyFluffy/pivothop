@@ -57,8 +57,12 @@ INDEX = 'apps/web/public/data/jobs-index.json'
 # Sources whose terms allow re-display with attribution + link-back.
 OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
       'themuse', 'smartrecruiters', 'jobicy', 'remoteok', 'remotive',
-      'workable', 'recruitee', 'careerjet'}
-# getonbrd is intentionally NOT here: data-only until GetOnBoard grants re-display.
+      'workable', 'recruitee', 'careerjet', 'getonbrd'}
+# getonbrd: re-display granted by GetOnBoard 2026-07-29, conditional on linking
+# back to their listing. Every card and the sheet's apply button already point at
+# j.url, which for these rows is the getonbrd.com posting, so the condition is
+# met by the board's existing behaviour — do not route these through a rewritten
+# or intermediary URL.
 # Two caps, because the two outputs have different costs. The per-occupation
 # board is fetched only when someone is on that occupation, and the client
 # paginates at 60 anyway, so depth there is nearly free — a single CAP of 60 was
