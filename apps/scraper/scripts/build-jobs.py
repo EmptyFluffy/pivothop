@@ -51,7 +51,14 @@ OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
       'themuse', 'smartrecruiters', 'jobicy', 'remoteok', 'remotive',
       'workable', 'recruitee', 'careerjet'}
 # getonbrd is intentionally NOT here: data-only until GetOnBoard grants re-display.
-CAP = 60         # freshest N per occupation
+# Two caps, because the two outputs have different costs. The per-occupation
+# board is fetched only when someone is on that occupation, and the client
+# paginates at 60 anyway, so depth there is nearly free — a single CAP of 60 was
+# suppressing 12,307 listings we already hold and are licensed to display
+# (account-executive had 1,858 available and showed 60). The global aggregate is
+# downloaded by everyone who opens /jobs, so it stays lean.
+CAP = 250        # freshest N per occupation (per-occupation board + detail)
+ALL_CAP = 60     # rows per occupation inside the global all-jobs.json
 FLOOR = 3        # skip occupations with fewer than this (no board)
 DESC_CAP = 7000  # chars of description on the detail page
 
@@ -406,9 +413,10 @@ for role, jobs in kept_byocc.items():
     details = {i: v for i, v in desc_byocc[role].items() if i in kept}
     json.dump(details, open(f'{DETAIL}/{role}.json', 'w'), ensure_ascii=False)
     index[role] = len(jobs)
-    # global search rows: drop the outbound URL (only detail pages need it; it is
-    # the heaviest field) — browse links internally via occ + id.
-    all_rows.extend({k: v for k, v in j.items() if k != 'url'} for j in jobs)
+    # global search rows: the freshest ALL_CAP per occupation, and drop the
+    # outbound URL (only detail pages need it; it is the heaviest field) —
+    # browse links internally via occ + id.
+    all_rows.extend({k: v for k, v in j.items() if k != 'url'} for j in jobs[:ALL_CAP])
 all_rows.sort(key=lambda j: j['posted'] or '', reverse=True)
 
 # Mojibake canary: no displayed field may ship the two-high-byte corruption
@@ -422,6 +430,8 @@ if moji:
 json.dump(all_rows, open(ALL, 'w'), ensure_ascii=False)
 json.dump(index, open(INDEX, 'w'), ensure_ascii=False)
 size_kb = os.path.getsize(ALL) // 1024
-print(f"emitted {len(index)} occupation boards, {len(all_rows)} listings, all-jobs.json {size_kb}KB")
+board_total = sum(index.values())
+print(f"emitted {len(index)} occupation boards, {board_total} listings "
+      f"(global file carries {len(all_rows)} at ALL_CAP={ALL_CAP}), all-jobs.json {size_kb}KB")
 with_desc = sum(1 for role in index for _ in json.load(open(f'{DETAIL}/{role}.json')))
-print(f"detail descriptions: {with_desc} of {len(all_rows)}")
+print(f"detail descriptions: {with_desc} of {board_total}")
