@@ -161,6 +161,30 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   roleInput.placeholder = demos[0].title;
   skillInput.placeholder = demos[0].skills;
 
+  // Mobile: the search collapses to a one-line summary (see globals.css, the
+  // 760px block). Tapping it opens the real fields. The summary doubles as the
+  // state readout, so a phone shows what the graph is currently keyed to
+  // without spending 209px on three stacked inputs. Desktop never renders it.
+  const peek = document.getElementById('searchPeek');
+  const peekVal = document.getElementById('searchPeekVal');
+  const wrap = document.querySelector('.searchwrap');
+  const syncPeek = () => {
+    if (!peekVal) return;
+    const role = roleInput.value.trim() || roleInput.placeholder;
+    const skills = skillInput.value.trim();
+    peekVal.textContent = skills ? `${role} · ${skills}` : role;
+  };
+  if (peek && wrap) {
+    syncPeek();
+    peek.addEventListener('click', () => {
+      const open = wrap.classList.toggle('open');
+      peek.setAttribute('aria-expanded', String(open));
+      if (open) roleInput.focus();
+    });
+    roleInput.addEventListener('input', syncPeek);
+    skillInput.addEventListener('input', syncPeek);
+  }
+
   // ---------- hop navigation state (the trail) ----------
   let hops: { slug: string; title: string }[] = [{ slug: 'architect', title: 'Architect' }];
   const hooks: Hooks = {

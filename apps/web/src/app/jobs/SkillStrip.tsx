@@ -36,6 +36,10 @@ export default function SkillStrip({ skills }: { skills: SkillEntry[] }) {
             key={s.slug} className="jd-skill" href={`/glossary#skill-${s.slug}`}
             onClick={(e) => {
               if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+              // Phones keep the plain glossary link. A job listing is itself a
+              // sheet on mobile, and a sheet opening inside a sheet is a trap:
+              // two stacked dismiss gestures, ambiguous back behaviour.
+              if (window.matchMedia('(max-width: 760px)').matches) return;
               e.preventDefault();
               setOpen(s);
             }}

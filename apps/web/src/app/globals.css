@@ -51,6 +51,7 @@
   /* ── search: the one boxed instrument ── */
   .instr{position:relative}
   .searchwrap{padding:0;position:sticky;top:59px;z-index:40}
+  .search-peek{display:none}   /* mobile only — see the 760px block */
   .searchbar{display:grid;grid-template-columns:var(--railw) 1px 1fr 250px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--card);height:78px}
   .sfield{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 24px;min-width:0}
   .sfield .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
@@ -271,6 +272,17 @@
        ix-search/jb-stick offsets live next to their base rules (cascade order). */
     .searchwrap{padding:0;top:55px}
     .searchbar{grid-template-columns:1fr;height:auto}
+    /* Mobile search: the desktop bar stacks into three full-width rows (role,
+       skills, button) — 209px of a 664px viewport, which pushed the whole
+       instrument below the fold. Collapse to one 60px summary row that opens
+       the real fields on tap. Desktop never sees the peek row. */
+    .search-peek{display:flex;align-items:center;gap:12px;width:100%;background:var(--card);border:none;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:0 22px;height:60px;cursor:pointer;text-align:left;font-family:inherit}
+    .search-peek .sp-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);flex:none}
+    .search-peek .sp-v{flex:1;min-width:0;font-size:16.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .search-peek .sp-c{width:18px;height:18px;flex:none;color:var(--ink-3);transition:transform .18s}
+    .searchwrap.open .search-peek .sp-c{transform:rotate(180deg)}
+    .searchbar{display:none}
+    .searchwrap.open .searchbar{display:grid;border-top:none}
     .sdiv{display:none}
     .sfield{padding:16px 20px;border-bottom:0.5px solid var(--rule)}
     .go{height:60px}
@@ -1035,10 +1047,31 @@ input:focus-visible{outline:none}
   .jb-mtoggle svg{width:19px;height:19px;color:var(--ink-2);flex:none}
   .jb-mtoggle .jb-mchev{margin-left:12px;transition:transform .2s}
   .jb.filters-open .jb-mtoggle .jb-mchev{transform:rotate(180deg)}
+  /* The active-filter pills duplicated what the panel already shows, and cost
+     106px of a 664px viewport once three of them wrapped. On mobile the panel
+     is the single source of truth: selects carry their value, toggles carry a
+     checkbox, and the count lives in the "Filters & sort · N on" row. */
+  .jb-active{display:none}
   .jb-filters{display:none}
   .jb.filters-open .jb-filters{display:flex;padding-top:14px;flex-direction:column;align-items:stretch;gap:12px}
+  /* Checked affordance: a real box, so selected state reads at a glance
+     without spawning a chip outside the panel. */
+  .jb.filters-open .jb-toggle,.jb.filters-open .jb-chip{position:relative;padding-left:38px;text-align:left;justify-content:flex-start}
+  .jb.filters-open .jb-toggle::before,.jb.filters-open .jb-chip::before{content:"";position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;border:1.5px solid var(--rule-2);background:var(--paper)}
+  .jb.filters-open .jb-toggle.on::before,.jb.filters-open .jb-chip.on::before{background:var(--accent);border-color:var(--accent)}
+  .jb.filters-open .jb-toggle.on::after,.jb.filters-open .jb-chip.on::after{content:"";position:absolute;left:17.5px;top:calc(50% - 1.5px);transform:translateY(-50%) rotate(-45deg);width:7px;height:3.5px;border-left:1.6px solid #fff;border-bottom:1.6px solid #fff}
+  /* The tag button is a disclosure, not a toggle, so it gets no checkbox.
+     Needs .on in the selector to outrank .jb-toggle.on::after above, which
+     otherwise painted a tick across the label. */
+  .jb.filters-open .jb-tagbtn::before,.jb.filters-open .jb-tagbtn::after,
+  .jb.filters-open .jb-tagbtn.on::before,.jb.filters-open .jb-tagbtn.on::after{content:none}
+  .jb.filters-open .jb-tagbtn{padding-left:13px}
   .jb.filters-open .jb-filters select,.jb.filters-open .jb-filters .jb-toggle,.jb.filters-open .jb-tagdd{width:100%}
   .jb.filters-open .jb-tagbtn{justify-content:space-between}
+  /* .jb-tagdd is an inline-flex row, so a static menu became a sibling column
+     next to the button — both stretched to the same height and overlapped.
+     Stack them on mobile instead. */
+  .jb.filters-open .jb-tagdd{flex-direction:column;align-items:stretch}
   .jb.filters-open .jb-tagmenu{position:static;width:auto;max-width:none;box-shadow:none;border:none;padding:12px 0 2px}
   /* scoped board: Show-all drops to its own full-width row under the search */
   .jb-scoped .jb-searchband{flex-wrap:wrap}

@@ -1053,6 +1053,9 @@ export function mountInstrument(DATA,HOOKS){
     });
     document.addEventListener('click',function(ev){
       if(ev.defaultPrevented||ev.button!==0||ev.metaKey||ev.ctrlKey||ev.shiftKey||ev.altKey)return;
+      // Phones fall through to the glossary link — same rule as the job-detail
+      // strip: no sheet stacking on a small screen.
+      if(window.matchMedia&&window.matchMedia('(max-width: 760px)').matches)return;
       var a=ev.target&&ev.target.closest?ev.target.closest('a.tag[href^="/glossary#skill-"]'):null;
       if(!a)return;
       ev.preventDefault();
