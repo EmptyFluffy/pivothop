@@ -127,6 +127,25 @@
 - **Search Console** is still the gate on almost everything above. Until the indexed count and the "crawled – currently not indexed" trend are visible, every prioritisation here is a guess.
 - **Google favicon**: our side is provably correct (48/32/16 ICO, 200 to Googlebot, robots clean, apex 308s to www). It's Google's cache. A Request Indexing on the homepage is the only lever.
 
+### Saved roles — the one Pinterest mechanic worth taking (designed 2026-07-29)
+*Came out of "what if this behaved like Pinterest for jobs?". The honest answer: the masonry grid is the wrong half of Pinterest for text content — a grid of job cards fits less per screen, scans worse, and shrinks the salary and readiness numbers that make the board useful. Every board that tried it drifted back to lists. The mechanics underneath it are the valuable part.*
+- **Save a role.** The most-requested job-board feature, and we do not have it. Tap to save from the card or the sheet, a `/saved` list persisted locally (no account), "N saved" in the nav.
+- **Why it is strategic, not just convenient**: a save is a stated intent signal, and a saved list is exactly the thing that makes someone come back. More to the point, **the concierge board is not sellable to employers until a candidate list exists** — knowing which roles a candidate saved is precisely what you would tell an employer in a concierge introduction.
+- **It makes the email capture natural.** "Email me my saved roles, and tell me when similar ones appear" is a far better reason to hand over an address than the current generic capture. That folds the half-built saved-search checkbox on the capture band into a feature people actually want.
+- **"More like this" already exists.** Pinterest's real engine is related pins. Our version shipped 2026-07-28 on job pages: "Where these skills also reach" — adjacency-scored, not title-matched. No competitor can build it. Saving is the missing half of that loop.
+- **Sequence**: save + `/saved` + count in nav → capture tied to saved roles → notify when adjacent roles appear (the nightly bot already knows what is new).
+- Ranked above most of the site-hygiene items above; it is the only queued idea that moves the business model rather than the crawl.
+
+### Mobile pass (2026-07-28/29 — SHIPPED)
+*Measured on a 390×664 viewport before changing anything. The landing spent nav 52 + hero 331 + search 209 = 592px before anything happened, and the graph is deliberately off on phones, so what waited below was an empty state. The board with five filters spent 224px (34%) on a sticky header, 106px of it wrapped rows of accent pills duplicating the panel beneath.*
+- **Search collapses to a 60px summary row** that opens the real fields on tap and doubles as the state readout. 209 → 60.
+- **Filter chips gone on mobile**; the panel is the single source of truth with real checkbox affordances, count in "Filters & sort · N on". 224 → 106.
+- **Skill sheet disabled on phones** — a listing is itself a sheet, and stacking gives two dismiss gestures and ambiguous Back.
+- **Job listing opens as a bottom sheet** over the board: drag-to-dismiss, explicit ✕, Escape, focus trap and restore, scroll lock that survives iOS. `pushState` keeps a real URL; Back closes; refresh or a shared link renders the static page. **Chose a client sheet over Next intercepting routes** — the board already holds the data, and interception would have meant 4,477 extra static variants or serverless functions on a deliberately static site.
+- **Fixed while testing**, each a real bug: Next's `<Link>` handler bubbles before `document` so the interceptor had to run in **capture**; a base `display:none` declared *after* its media query silently killed the sheet; `.jb-tagdd` is an inline-flex row so a static mobile menu sat beside its button; `.jb-toggle.on::after` outranked the tag button's override and painted a tick across the label; the sheet had **no exit animation** so it vanished instead of sliding away; and the apply button was dead everywhere except an occupation board because **all-jobs.json and featured-jobs.json carry no `url` field** — only `jobs/<occ>.json` does.
+- **Apply is "Apply now" everywhere** — "Apply at {company}" made every desktop button a different width and overflowed the sheet's fixed bar. Destination moved to the caption.
+- Desktop verified untouched at every step: graph still mounts with 8 rail routes at 0.00px over 20 frames.
+
 ### The graph, made smarter (designed 2026-07-28 — ordered by value per hour)
 *Finding: the instrument is the least informed surface in the product. Every route emits 26 fields; the detail panel renders about nine. The PDF report and the route pages already know more about a route than the graph does. Most of this is showing what we compute, not computing more.*
 
