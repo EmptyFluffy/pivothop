@@ -61,6 +61,11 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
   const [detail, setDetail] = useState<Detail | null>(null);
   const [names, setNames] = useState<Record<string, string>>({});
   const [applyUrl, setApplyUrl] = useState<string | null>(null);
+  // The sheet outlives the `job` prop by one transition. Without this it
+  // unmounted the instant the parent cleared the job, so it vanished rather
+  // than sliding away — the reason dismissing felt abrupt.
+  const [local, setLocal] = useState<Job | null>(null);
+  const [shown, setShown] = useState(false);
   const [drag, setDrag] = useState(0);
   const sheetRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -70,7 +75,20 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
   const close = useCallback(() => { setDrag(0); onClose(); }, [onClose]);
 
   useEffect(() => {
-    if (!job) { setDetail(null); return; }
+    if (job) {
+      setLocal(job);
+      // Two frames: one to mount at translateY(100%), one to flip the class so
+      // the transition actually has a start value to animate from.
+      const r1 = requestAnimationFrame(() => requestAnimationFrame(() => setShown(true)));
+      return () => cancelAnimationFrame(r1);
+    }
+    setShown(false);
+    const t = setTimeout(() => { setLocal(null); setDetail(null); setDrag(0); }, 460);
+    return () => clearTimeout(t);
+  }, [job]);
+
+  useEffect(() => {
+    if (!job) return;
     let live = true;
     loadDetail(job.occ, job.id).then((d) => { if (live) setDetail(d); });
     loadSkillNames().then((n) => { if (live) setNames(n); });
@@ -82,7 +100,7 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
   // Scroll lock. iOS ignores overflow:hidden on body, so pin it and restore the
   // exact offset on close, otherwise dismissing throws the board to the top.
   useEffect(() => {
-    if (!job) return;
+    if (!local) return;
     const y = window.scrollY;
     const { body } = document;
     const prev = { position: body.style.position, top: body.style.top, width: body.style.width };
@@ -95,11 +113,11 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
       body.style.width = prev.width;
       window.scrollTo(0, y);
     };
-  }, [job]);
+  }, [local]);
 
   // Focus: remember what opened it, move in, trap, restore on close.
   useEffect(() => {
-    if (!job) return;
+    if (!local) return;
     restoreFocus.current = document.activeElement as HTMLElement | null;
     sheetRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
@@ -118,12 +136,13 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
       document.removeEventListener('keydown', onKey);
       restoreFocus.current?.focus?.();
     };
-  }, [job, close]);
+  }, [local, close]);
 
-  if (!job) return null;
+  if (!local) return null;
+  const j = local;
 
-  const pay = salaryLabel(job.smin, job.smax);
-  const date = postedLabel(job.posted);
+  const pay = salaryLabel(j.smin, j.smax);
+  const date = postedLabel(j.posted);
 
   // Drag to dismiss from the handle/header only — the body scrolls normally.
   const onTouchStart = (e: React.TouchEvent) => {
@@ -142,13 +161,13 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
   };
 
   return (
-    <div className="jsheet-wrap" role="dialog" aria-modal="true" aria-label={`${job.title} at ${job.company}`}>
+    <div className={`jsheet-wrap${shown ? ' in' : ''}`} role="dialog" aria-modal="true" aria-label={`${j.title} at ${j.company}`}>
       <div className="jsheet-veil" onClick={close} />
       <div
         ref={sheetRef}
         tabIndex={-1}
         className="jsheet"
-        style={drag ? { transform: `translateY(${drag}px)`, transition: 'none' } : undefined}
+        style={shown && drag ? { transform: `translateY(${drag}px)`, transition: 'none' } : undefined}
       >
         <div className="jsheet-grab" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
           <span className="jsheet-bar" aria-hidden="true" />
@@ -156,14 +175,14 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
         </div>
 
         <div className="jsheet-scroll" ref={scrollRef}>
-          <h2 className="jsheet-title">{job.title}</h2>
-          <p className="jsheet-co">{job.company}{job.location ? ` · ${job.location}` : ''}</p>
+          <h2 className="jsheet-title">{j.title}</h2>
+          <p className="jsheet-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
 
           <div className="jsheet-facts">
             {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
-            <div><span className="v">{job.remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
-            {date && <div><span className="v" suppressHydrationWarning>{agoLabel(job.posted)}</span><span className="k">Posted</span></div>}
-            <div><span className="v">{sourceName(job.source)}</span><span className="k">Source</span></div>
+            <div><span className="v">{j.remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
+            {date && <div><span className="v" suppressHydrationWarning>{agoLabel(j.posted)}</span><span className="k">Posted</span></div>}
+            <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
           </div>
 
           {detail?.k?.length ? (
@@ -191,7 +210,7 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
             </div>
           ) : null}
 
-          <Link className="jsheet-full lbl" href={`/jobs/${job.occ}/${job.id}`}>
+          <Link className="jsheet-full lbl" href={`/jobs/${j.occ}/${j.id}`}>
             Open the full listing &rarr;
           </Link>
         </div>
@@ -202,13 +221,13 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
               <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer">
                 Apply now <Arrow45 size={22} />
               </a>
-              <span className="jsheet-src lbl">Opens the original posting at {job.company}</span>
+              <span className="jsheet-src lbl">Opens the original posting at {j.company}</span>
             </>
           ) : (
             // No outbound link resolved — send them to the full listing rather
             // than render a button that does nothing when tapped.
             <>
-              <Link className="rt-go jsheet-apply" href={`/jobs/${job.occ}/${job.id}`}>
+              <Link className="rt-go jsheet-apply" href={`/jobs/${j.occ}/${j.id}`}>
                 Open the full listing <Arrow45 size={22} />
               </Link>
               <span className="jsheet-src lbl">The apply link lives on the listing page</span>

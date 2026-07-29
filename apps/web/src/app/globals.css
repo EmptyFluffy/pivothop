@@ -1144,10 +1144,15 @@ input:focus-visible{outline:none}
 /* Phones only. Declared here, after the base rule, so source order cannot
    silently undo it — an earlier media query lost to the default below. */
 @media (max-width:760px){.jsheet-wrap{display:block}}
-.jsheet-veil{position:absolute;inset:0;background:rgba(12,12,20,.42)}
+.jsheet-veil{position:absolute;inset:0;background:rgba(12,12,20,.42);opacity:0;transition:opacity .34s ease}
 .jsheet{position:absolute;left:0;right:0;bottom:0;max-height:92svh;display:flex;flex-direction:column;
   background:var(--paper);border-top:1px solid var(--ink);border-radius:16px 16px 0 0;overflow:hidden;
-  transform:translateY(0);transition:transform .26s cubic-bezier(.3,.7,.3,1)}
+  transform:translateY(100%);
+  /* Soft decelerating curve — fast off the mark, long settle. The same shape
+     the good native sheets use; a plain ease-out arrives too abruptly. */
+  transition:transform .44s cubic-bezier(.32,.72,0,1)}
+.jsheet-wrap.in .jsheet-veil{opacity:1}
+.jsheet-wrap.in .jsheet{transform:translateY(0)}
 .jsheet:focus{outline:none}
 .jsheet-grab{position:relative;flex:none;padding:10px 0 6px;touch-action:none;cursor:grab}
 .jsheet-bar{display:block;width:38px;height:4px;margin:0 auto;border-radius:2px;background:var(--rule-2)}
@@ -1166,11 +1171,10 @@ input:focus-visible{outline:none}
 .jsheet-desc li{margin-left:18px}
 .jsheet-full{display:inline-block;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule-2);padding-bottom:2px}
 .jsheet-foot{flex:none;padding:12px 22px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--rule);background:var(--card)}
-.jsheet-apply{width:100%;justify-content:center;padding-left:14px;padding-right:14px}
+.jsheet-apply{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px 14px}
+.jsheet-apply svg{flex:0 0 auto}
 .jsheet-src{display:block;margin-top:8px;text-align:center;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (prefers-reduced-motion: no-preference){
-  .jsheet-wrap .jsheet{animation:jsheetIn .3s cubic-bezier(.3,.7,.3,1)}
-  @keyframes jsheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
 }
 
 /* Computed findings on the origin pages — prose generated from the payload,
