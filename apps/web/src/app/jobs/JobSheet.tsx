@@ -19,7 +19,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
-import { salaryLabel, postedLabel, agoLabel, sourceName } from './JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
 
 type Detail = { s: { h: string | null; t: string }[]; k: string[] };
 
@@ -32,6 +32,18 @@ async function loadSkillNames(): Promise<Record<string, string>> {
     skillNames = r.ok ? (await r.json()).names ?? {} : {};
   } catch { skillNames = {}; }
   return skillNames ?? {};
+}
+const boardCache = new Map<string, Job[]>();
+async function loadJobUrl(occ: string, id: string): Promise<string | null> {
+  try {
+    if (!boardCache.has(occ)) {
+      const r = await fetch(`/data/jobs/${occ}.json`);
+      boardCache.set(occ, r.ok ? await r.json() : []);
+    }
+    return boardCache.get(occ)?.find((j) => j.id === id)?.url ?? null;
+  } catch {
+    return null;
+  }
 }
 async function loadDetail(occ: string, id: string): Promise<Detail | null> {
   try {
@@ -48,6 +60,7 @@ async function loadDetail(occ: string, id: string): Promise<Detail | null> {
 export default function JobSheet({ job, onClose }: { job: Job | null; onClose: () => void }) {
   const [detail, setDetail] = useState<Detail | null>(null);
   const [names, setNames] = useState<Record<string, string>>({});
+  const [applyUrl, setApplyUrl] = useState<string | null>(null);
   const [drag, setDrag] = useState(0);
   const sheetRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -61,6 +74,8 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
     let live = true;
     loadDetail(job.occ, job.id).then((d) => { if (live) setDetail(d); });
     loadSkillNames().then((n) => { if (live) setNames(n); });
+    setApplyUrl(job.url ?? null);
+    if (!job.url) loadJobUrl(job.occ, job.id).then((u) => { if (live) setApplyUrl(u); });
     return () => { live = false; };
   }, [job]);
 
@@ -182,10 +197,23 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
         </div>
 
         <div className="jsheet-foot">
-          <a className="rt-go jsheet-apply" href={job.url} target="_blank" rel="nofollow noopener noreferrer">
-            Apply now
-          </a>
-          <span className="jsheet-src lbl">Opens the original posting at {job.company}</span>
+          {applyUrl ? (
+            <>
+              <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer">
+                Apply now <Arrow45 size={22} />
+              </a>
+              <span className="jsheet-src lbl">Opens the original posting at {job.company}</span>
+            </>
+          ) : (
+            // No outbound link resolved — send them to the full listing rather
+            // than render a button that does nothing when tapped.
+            <>
+              <Link className="rt-go jsheet-apply" href={`/jobs/${job.occ}/${job.id}`}>
+                Open the full listing <Arrow45 size={22} />
+              </Link>
+              <span className="jsheet-src lbl">The apply link lives on the listing page</span>
+            </>
+          )}
         </div>
       </div>
     </div>
