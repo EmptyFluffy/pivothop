@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { readJson } from '../lib/store.js';
 import { TAXONOMY_DIR } from '../lib/paths.js';
+import { foldAccents, translateRomance } from './titles-i18n.js';
 
 // Rules-first title canonicalization against the occupation taxonomy.
 // Every unmapped title is logged for review — the synonym tables grow from that log.
@@ -13,7 +14,11 @@ const SENIORITY = /\b(senior|sr\.?|junior|jr\.?|lead|principal|staff|chief|head 
 const NOISE = /\b(remote|hybrid|onsite|on-site|contract|contractor|freelance|part[- ]?time|full[- ]?time|temporary|temp|permanent|urgent|immediate|new|now hiring|work from home|wfh|m\/f\/d|f\/m\/d|h\/f)\b/g;
 
 function cleanSegment(t) {
-  t = t.replace(NOISE, ' ').replace(SENIORITY, ' ');
+  // Fold accents BEFORE the character filter. The filter maps every non-ASCII
+  // byte to a space, so "médico" used to become "m dico" and "Ingénieur Système"
+  // three fragments — and the accented and unaccented spellings of one word could
+  // never match each other, though the corpus carries both.
+  t = foldAccents(t).replace(NOISE, ' ').replace(SENIORITY, ' ');
   t = t.replace(/[^a-z0-9&/+.# ]/g, ' ').replace(/\s+/g, ' ').trim();
   return t;
 }
@@ -49,7 +54,7 @@ function buildMatcher() {
     // Synonyms pass through the same character cleaning as titles — otherwise a
     // hyphenated synonym ("front-end engineer") is a dead key that no cleaned
     // title (hyphens stripped) can ever reach.
-    const normSyn = (s) => s.toLowerCase().replace(/[^a-z0-9&/+.# ]/g, ' ').replace(/\s+/g, ' ').trim();
+    const normSyn = (s) => foldAccents(s.toLowerCase()).replace(/[^a-z0-9&/+.# ]/g, ' ').replace(/\s+/g, ' ').trim();
     const exactOnly = new Set((occ.exactOnly ?? []).map(normSyn));
     for (const syn of [occ.title.toLowerCase(), ...occ.synonyms, ...(occ.exactOnly ?? [])]) {
       const c = normSyn(syn);
@@ -100,7 +105,7 @@ function matchOne(m, cleaned) {
   return null;
 }
 
-/** @returns {{slug:string, method:'exact'|'phrase'|'segment'}|null} */
+/** @returns {{slug:string, method:'exact'|'phrase'|'segment'|'i18n'}|null} */
 export function mapTitle(rawTitle) {
   const m = getTaxonomy();
   const primary = cleanTitle(rawTitle);
@@ -111,6 +116,15 @@ export function mapTitle(rawTitle) {
     if (seg === primary) continue;
     const hit = matchOne(m, seg);
     if (hit) return { slug: hit.slug, method: 'segment' };
+  }
+  // Last tier: the title may not be English. translateRomance returns null unless
+  // it recognised an actual Spanish/Portuguese occupation head, so this can only
+  // fire on titles the English tiers had already given up on — English mapping
+  // cannot regress through it. See titles-i18n.js.
+  const en = translateRomance(rawTitle);
+  if (en) {
+    const hit = matchOne(m, cleanTitle(en)) ?? matchOne(m, cleanSegment(en));
+    if (hit) return { slug: hit.slug, method: 'i18n' };
   }
   return null;
 }
