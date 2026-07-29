@@ -46,6 +46,9 @@ python3 apps/scraper/scripts/build-jobs.py           || { echo "::error::build-j
 # steps and before the web build, since sitemap.ts reads lastmod.json.
 node    apps/scraper/scripts/build-skill-icons.mjs    || echo "::warning::build-skill-icons failed (non-fatal)"
 python3 apps/scraper/scripts/build-skill-glossary.py || echo "::warning::build-skill-glossary failed (non-fatal)"
+# Outreach target list (docs/28) — NOT non-fatal: the admin console imports
+# packages/data/outreach/targets.json at build time, so a missing file fails the build.
+python3 apps/scraper/scripts/build-outreach-targets.py || { echo "::error::build-outreach-targets failed"; exit 2; }
 python3 apps/scraper/scripts/build-lastmod.py        || echo "::warning::build-lastmod failed (non-fatal)"
 
 # web build + link-integrity gate before anything is committed
@@ -59,7 +62,7 @@ git config user.name  "Carlos Alvarez"
 git config user.email "vinocouralvarez@gmail.com"
 # packages/data/fx holds the weekly FX snapshot (fx:update, Mondays) — a tracked
 # file outside the data dirs; without it the Monday rebase aborts on a dirty tree.
-git add apps/web/public/data packages/data/generated packages/data/fx apps/web/src/lib/data.js
+git add apps/web/public/data packages/data/generated packages/data/outreach packages/data/fx apps/web/src/lib/data.js
 # Belt-and-suspenders: stage any OTHER tracked modification (future writers) so the
 # rebase never fails on a dirty tree. -u touches tracked files only — never the
 # stray untracked ones (__pycache__, scratch) we must not commit.

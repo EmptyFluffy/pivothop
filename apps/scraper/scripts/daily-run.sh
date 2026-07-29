@@ -69,6 +69,11 @@ python3 "$REPO/apps/scraper/scripts/build-jobs.py" >> "$LOG" 2>&1 || { echo "bui
 # its entries, so a lexicon addition that skips this step ships markless chips.
 node "$REPO/apps/scraper/scripts/build-skill-icons.mjs" >> "$LOG" 2>&1 || echo "build-skill-icons failed (non-fatal)" >> "$LOG"
 python3 "$REPO/apps/scraper/scripts/build-skill-glossary.py" >> "$LOG" 2>&1 || echo "build-skill-glossary failed (non-fatal)" >> "$LOG"
+# Outreach target list (docs/28). NOT non-fatal: the admin console imports
+# packages/data/outreach/targets.json at build time, so a missing file breaks the
+# web build rather than degrading. Reads the corpus + the emitted graph; writes no
+# personal data (company names and public posting URLs only).
+python3 "$REPO/apps/scraper/scripts/build-outreach-targets.py" >> "$LOG" 2>&1 || { echo "build-outreach-targets FAILED — aborting publish" >> "$LOG"; date > "$MARKER"; exit 2; }
 # Per-page sitemap dates. Must run after the data above and before the build,
 # since sitemap.ts reads lastmod.json at build time.
 python3 "$REPO/apps/scraper/scripts/build-lastmod.py" >> "$LOG" 2>&1 || echo "build-lastmod failed (non-fatal)" >> "$LOG"
@@ -79,7 +84,7 @@ python3 "$REPO/apps/scraper/scripts/build-lastmod.py" >> "$LOG" 2>&1 || echo "bu
 
 # ── Publish: auto-commit the regenerated data, push -> Vercel deploys ────────
 cd "$REPO"
-git add apps/web/public/data packages/data/generated packages/data/fx apps/web/src/lib/data.js apps/scraper/data/first-seen.json 2>> "$LOG"
+git add apps/web/public/data packages/data/generated packages/data/outreach packages/data/fx apps/web/src/lib/data.js apps/scraper/data/first-seen.json 2>> "$LOG"
 git add -u 2>> "$LOG"   # stage any other tracked mod (weekly FX, future writers) so the rebase never aborts on a dirty tree
 CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
 if [ "$CHANGED" = "0" ]; then
