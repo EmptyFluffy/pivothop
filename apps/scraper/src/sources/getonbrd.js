@@ -29,13 +29,24 @@ async function get(url) {
   return fetchJson(url, { headers: HDRS, minIntervalMs: 1200 }).catch(() => null);
 }
 
+// The API paginates and reports meta.total_pages. Taking page 1 only, at
+// per_page=50, was fetching 226 of the ~1,233 postings actually on offer — 18%
+// of the feed. per_page=100 is accepted, and programming alone runs to 4 pages.
+const PER_PAGE = 100;
+const MAX_PAGES = 25;   // backstop against a malformed meta sending us spinning
+
 export async function fetchRaw({ log }) {
   const cats = ((await get(`${API}/categories`))?.data ?? []).map((c) => c.id);
   const rows = [];
   const seen = new Set();
   for (const id of cats) {
-    const body = await get(`${API}/categories/${id}/jobs?per_page=50&expand=%5B%22company%22%5D`);
-    for (const j of body?.data ?? []) {
+    let page = 1, pages = 1;
+    do {
+      const body = await get(
+        `${API}/categories/${id}/jobs?per_page=${PER_PAGE}&page=${page}&expand=%5B%22company%22%5D`
+      );
+      pages = Math.min(body?.meta?.total_pages ?? 1, MAX_PAGES);
+      for (const j of body?.data ?? []) {
       if (!j?.id || seen.has(j.id)) continue;
       seen.add(j.id);
       const a = j.attributes ?? {};
@@ -57,7 +68,9 @@ export async function fetchRaw({ log }) {
         posted_at: a.published_at ? new Date(a.published_at * 1000).toISOString().slice(0, 10) : null,
         url: j.links?.public_url ?? null,
       });
-    }
+      }
+      page += 1;
+    } while (page <= pages);
   }
   log(`getonbrd: ${rows.length} distinct postings from ${cats.length} categories`);
   return rows;
