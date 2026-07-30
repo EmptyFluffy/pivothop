@@ -632,14 +632,13 @@ input:focus-visible{outline:none}
 .otr-mailable{display:flex;gap:7px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);cursor:pointer}
 .otr-mailable input{accent-color:var(--accent)}
 .otr-filters>.lbl{margin-left:auto}
-/* status sections */
-.otr-sec{margin-top:18px}
-.otr-sec>summary{display:flex;align-items:baseline;gap:12px;cursor:pointer;list-style:none;padding:10px 0;border-bottom:2px solid var(--ink)}
-.otr-sec>summary::-webkit-details-marker{display:none}
-.otr-sec>summary h2{font-weight:700;font-size:19px;letter-spacing:-.015em;margin:0;display:inline}
-.otr-sec>summary::after{content:'+';font-family:var(--mono);font-size:13px;color:var(--ink-3);margin-left:auto}
-.otr-sec[open]>summary::after{content:'−'}
-.otr-sec .otr-list{margin-top:14px}
+/* status buckets: pill bar with live counts, one bucket visible at a time */
+.otr-subtabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.otr-subtabs button{background:var(--card);border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding:7px 13px;cursor:pointer;border-radius:50px;transition:color .15s,border-color .15s}
+.otr-subtabs button:hover{color:var(--ink);border-color:var(--ink-3)}
+.otr-subtabs button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.otr-subtabs button span{opacity:.65;margin-left:4px}
+.otr-subtabs button.on span{color:#fff;opacity:.8}
 .otr-rules ol{margin:0;padding-left:20px}
 .otr-rules li{font-size:13.5px;line-height:1.65;color:var(--ink-2);margin-bottom:7px}
 .otr-rules li b{color:var(--ink)}

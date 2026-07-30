@@ -12,16 +12,19 @@ import { OutreachControl } from './OutreachControl';
  * OutreachControl into `overrides`, so marking a row "contacted" re-buckets it
  * into the Contacted section on the spot; the Supabase write happens behind it.
  *
- * Sections, not sorting: "contacted rises to the top" was the request, but a
- * contacted row above an uncontacted one INSIDE one list re-creates the
- * double-email risk this console exists to prevent. Separate sections make the
- * untouched queue unambiguous — what is in "To contact" has nobody's name on it. */
+ * Status is a FILTER BAR with live counts, not stacked sections. The first
+ * version stacked sections and put "Contacted" below the full 1,200-row queue,
+ * so marking a row contacted teleported it thousands of pixels down — from the
+ * operator's seat it just disappeared. One visible bucket at a time, with the
+ * counts ticking on the bar, keeps the move legible: tap contacted, watch the
+ * Contacted count go up, click it to see them. Buckets stay separate (never
+ * interleaved in one list) so the untouched queue remains unambiguous. */
 
-const SECTIONS: { key: string; title: string; statuses: string[]; open: boolean }[] = [
-  { key: 'todo', title: 'To contact', statuses: ['new', 'queued'], open: true },
-  { key: 'contacted', title: 'Contacted — awaiting reply', statuses: ['contacted'], open: true },
-  { key: 'live', title: 'Replied / won', statuses: ['replied', 'won'], open: true },
-  { key: 'dead', title: 'Declined / skipped', statuses: ['declined', 'skip'], open: false },
+const BUCKETS: { key: string; title: string; statuses: string[] }[] = [
+  { key: 'todo', title: 'To contact', statuses: ['new', 'queued'] },
+  { key: 'contacted', title: 'Contacted', statuses: ['contacted'] },
+  { key: 'live', title: 'Replied / won', statuses: ['replied', 'won'] },
+  { key: 'dead', title: 'Skipped', statuses: ['declined', 'skip'] },
 ];
 
 const SCALE_LABEL: Record<string, string> = {
@@ -128,6 +131,7 @@ const TABS = [
 
 export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: CuratedRow[] }) {
   const [tab, setTab] = useState<(typeof TABS)[number]['key']>('employers');
+  const [bucket, setBucket] = useState('todo');
   // Status truth for THIS session: server state overlaid with local changes, so a
   // row moves sections the moment its select changes rather than on next load.
   const [overrides, setOverrides] = useState<Record<string, string>>({});
@@ -164,14 +168,31 @@ export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: Curated
         })}
       </nav>
 
-      {tab !== 'employers' && (
-        <div className="otr-list" style={{ marginTop: 18 }}>
-          {curated.filter((c) => c.category === tab).map((c) => (
-            <CuratedCard key={c.slug} c={c} status={curStatusOf(c)}
-              onStatus={(key, s) => setOverrides((o) => ({ ...o, [key]: s }))} />
-          ))}
-        </div>
-      )}
+      {tab !== 'employers' && (() => {
+        const inTab = curated.filter((c) => c.category === tab);
+        const shown = inTab.filter((c) => BUCKETS.find((bk) => bk.key === bucket)!.statuses.includes(curStatusOf(c)));
+        return (
+          <>
+            <nav className="otr-subtabs" aria-label="Status">
+              {BUCKETS.map((bk) => {
+                const n = inTab.filter((c) => bk.statuses.includes(curStatusOf(c))).length;
+                return (
+                  <button key={bk.key} type="button" className={bucket === bk.key ? 'on' : ''} onClick={() => setBucket(bk.key)}>
+                    {bk.title} <span>{n}</span>
+                  </button>
+                );
+              })}
+            </nav>
+            <div className="otr-list" style={{ marginTop: 16 }}>
+              {shown.map((c) => (
+                <CuratedCard key={c.slug} c={c} status={curStatusOf(c)}
+                  onStatus={(key, s) => setOverrides((o) => ({ ...o, [key]: s }))} />
+              ))}
+              {!shown.length && <p className="adm-note">Nothing in this bucket for this tab.</p>}
+            </div>
+          </>
+        );
+      })()}
 
       {tab === 'employers' && (<>
       <div className="otr-filters">
@@ -194,26 +215,24 @@ export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: Curated
         <span className="lbl">{filtered.length} of {rows.length}</span>
       </div>
 
-      {SECTIONS.map((sec) => {
-        const inSec = filtered.filter((r) => sec.statuses.includes(statusOf(r)));
-        if (!inSec.length) return null;
-        return (
-          <details key={sec.key} className="otr-sec" open={sec.open}>
-            <summary>
-              <h2>{sec.title}</h2>
-              <span className="lbl">{inSec.length}</span>
-            </summary>
-            <div className="otr-list">
-              {inSec.map((r) => (
-                <TargetRow
-                  key={r.key} r={r} status={statusOf(r)}
-                  onStatus={(key, s) => setOverrides((o) => ({ ...o, [key]: s }))}
-                />
-              ))}
-            </div>
-          </details>
-        );
-      })}
+      <nav className="otr-subtabs" aria-label="Status">
+        {BUCKETS.map((bk) => {
+          const n = filtered.filter((r) => bk.statuses.includes(statusOf(r))).length;
+          return (
+            <button key={bk.key} type="button" className={bucket === bk.key ? 'on' : ''} onClick={() => setBucket(bk.key)}>
+              {bk.title} <span>{n}</span>
+            </button>
+          );
+        })}
+      </nav>
+      <div className="otr-list" style={{ marginTop: 16 }}>
+        {filtered.filter((r) => BUCKETS.find((bk) => bk.key === bucket)!.statuses.includes(statusOf(r))).map((r) => (
+          <TargetRow
+            key={r.key} r={r} status={statusOf(r)}
+            onStatus={(key, s) => setOverrides((o) => ({ ...o, [key]: s }))}
+          />
+        ))}
+      </div>
       </>)}
     </div>
   );
