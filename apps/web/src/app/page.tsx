@@ -157,7 +157,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   if (!roleInput || !skillInput) return;
 
   // Fresh example combo every load; the first pick also seeds the placeholders.
-  const demos = pickDemos(4);
+  const demos = pickDemos(3);   // 3, not 4 — four wrapped to a second row and read as a menu
   roleInput.placeholder = demos[0].title;
   skillInput.placeholder = demos[0].skills;
 
@@ -301,7 +301,30 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
     controller.loadOrigin(standardData);
     dismissEmpty();
     posthog.capture('instrument_origin_selected', { origin_slug: slug, origin_title: title });
-    document.getElementById('bandEl')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    scrollToInstrument();
+  }
+
+  /* The landing spot is where the SEARCH BAR meets the nav — i.e. the moment the
+     search reaches its sticky position — not where the band clears the sticky
+     stack. scrollIntoView({block:'start'}) put the band top at viewport 0, which
+     the sticky nav + search then covered: it overshot by the height of the whole
+     stack, and on a 13" MacBook that ate the top of the instrument.
+
+     Non-negotiable #9 already said scroll landings must COMPUTE their target and
+     that scrollIntoView puts the target under the sticky stack. This call site
+     was still using it. Now computed, reading the sticky offset from the element
+     rather than hardcoding it (59px desktop, 55/51 at the two mobile breakpoints
+     — see #8: the nav border and the search border share a pixel row).
+
+     Guarded by the 2px no-op check #9 requires, so an already-correct position
+     never triggers a pointless smooth scroll. */
+  function scrollToInstrument() {
+    const search = document.querySelector('.searchwrap') as HTMLElement | null;
+    if (!search) return;
+    const stickyTop = parseFloat(getComputedStyle(search).top) || 0;
+    const target = Math.max(0, search.getBoundingClientRect().top + window.scrollY - stickyTop);
+    if (Math.abs(target - window.scrollY) < 2) return;
+    window.scrollTo({ top: target, behavior: 'smooth' });
   }
 
   function renderTa(q: string) {
