@@ -49,12 +49,28 @@ export type Target = {
 
 export type Status = {
   company_key: string;
+  company?: string;
   status: string;
   owner: string | null;
   contact_email: string | null;
   contact_name: string | null;
   note: string | null;
   contacted_at: string | null;
+  /* Migration 0008 — manual leads live in this same table. */
+  category?: string | null;
+  url?: string | null;
+  manual?: boolean;
+};
+
+/** A hand-added lead (met at an event, a studio with no ATS, a journalist who
+ *  replied out of the blue). It IS an outreach_status row with manual=true;
+ *  `category` routes it to the right console tab. */
+export type ManualRow = {
+  key: string;
+  name: string;
+  category: string;
+  url: string | null;
+  state: Status;
 };
 
 export type Row = Target & { state: Status | null };
@@ -80,10 +96,10 @@ export const meta = {
   minReadiness: (targets as { min_readiness: number }).min_readiness,
 };
 
-export async function readOutreach(): Promise<{ rows: Row[]; curated: CuratedRow[]; error: string | null }> {
+export async function readOutreach(): Promise<{ rows: Row[]; curated: CuratedRow[]; manual: ManualRow[]; error: string | null }> {
   const list = (targets as { targets: Target[] }).targets ?? [];
   const cur = (curated as { targets: CuratedTarget[] }).targets ?? [];
-  const bare = { rows: list.map((t) => ({ ...t, state: null })), curated: cur.map((c) => ({ ...c, state: null })) };
+  const bare = { rows: list.map((t) => ({ ...t, state: null })), curated: cur.map((c) => ({ ...c, state: null })), manual: [] as ManualRow[] };
   const base = process.env.SUPABASE_URL?.replace(/\/$/, '');
   const key = process.env.SUPABASE_SERVICE_KEY;
   // The lists are useful before the table exists — they are build artefacts, not
@@ -97,9 +113,20 @@ export async function readOutreach(): Promise<{ rows: Row[]; curated: CuratedRow
     if (!res.ok) return { ...bare, error: `db-${res.status}` };
     const states = (await res.json()) as Status[];
     const byKey = new Map(states.map((s) => [s.company_key, s]));
+    const manual: ManualRow[] = states
+      .filter((s) => s.manual)
+      .map((s) => ({
+        key: s.company_key,
+        name: s.company ?? s.company_key,
+        category: s.category ?? 'employers',
+        url: s.url ?? null,
+        state: s,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
     return {
       rows: list.map((t) => ({ ...t, state: byKey.get(t.key) ?? null })),
       curated: cur.map((c) => ({ ...c, state: byKey.get(`cur:${c.slug}`) ?? null })),
+      manual,
       error: null,
     };
   } catch {

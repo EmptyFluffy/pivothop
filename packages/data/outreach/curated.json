@@ -1,35 +1,357 @@
 {
   "$comment": "Hand-curated outreach targets beyond employers (docs/28, phases 2-3, 2026-07-30). Three categories: 'launch' (directories and launch boards - submit, don't email), 'press' (desks and data-journalism outlets - pitch the data findings, verify the current contact before sending, reporters move beats constantly), 'backlink' (career-education orgs whose audience is literally mid-pivot - pitch a route page or the Adjacency Index as a resource, the ask is a link not a client). Status tracking reuses outreach_status with key 'cur:<slug>'. Keep entries honest: every 'why' should survive being read aloud to the target.",
   "targets": [
-    { "slug": "product-hunt", "category": "launch", "name": "Product Hunt", "url": "https://www.producthunt.com", "why": "Biggest one-day launch audience in tech. A career-data instrument with a live graph demos well.", "pitch": "Launch the graph as the hero. Tuesday-Thursday, prepared gallery, founder comment ready." },
-    { "slug": "hacker-news-show", "category": "launch", "name": "Hacker News (Show HN)", "url": "https://news.ycombinator.com/showhn.html", "why": "The audience most likely to appreciate measured adjacency data and a dependency-free force graph. Also the harshest — bring the methodology.", "pitch": "Show HN: I measured which careers 236k live job postings say your skills can reach. Lead with method, not marketing." },
-    { "slug": "uneed", "category": "launch", "name": "Uneed", "url": "https://www.uneed.best", "why": "Community launch platform that caps daily launches, so small products get real visibility. Indie-friendly.", "pitch": "Standard listing. Indie/boutique framing fits the one-architect story." },
-    { "slug": "betalist", "category": "launch", "name": "BetaList", "url": "https://betalist.com", "why": "Early-adopter audience; permanent listing.", "pitch": "Frame the employer board as the upcoming part; the instrument is live." },
-    { "slug": "startupbase", "category": "launch", "name": "StartupBase", "url": "https://startupbase.io", "why": "Daily launches plus ongoing directory visibility and newsletter distribution.", "pitch": "Standard listing." },
-    { "slug": "indie-hackers", "category": "launch", "name": "Indie Hackers", "url": "https://www.indiehackers.com", "why": "Not a directory - a community. The 'boutique second-income business, deliberately not a startup' doctrine IS an Indie Hackers story.", "pitch": "Write the build story as a post: one architect, a day job, a scraper, and a no-VC doctrine. Do not just drop a link." },
-    { "slug": "saashub", "category": "launch", "name": "SaaSHub", "url": "https://www.saashub.com", "why": "Alternatives-directory with durable SEO pages; a listing is a permanent backlink.", "pitch": "List as alternative to LinkedIn Career Explorer / job boards." },
-    { "slug": "alternativeto", "category": "launch", "name": "AlternativeTo", "url": "https://alternativeto.net", "why": "High-authority alternatives directory; users search 'X alternative' constantly.", "pitch": "List as alternative to career-explorer tools; category career/jobs." },
-    { "slug": "fazier", "category": "launch", "name": "Fazier", "url": "https://fazier.com", "why": "Rising launch platform, lighter competition than PH; daily/weekly showcases.", "pitch": "Standard listing." },
-    { "slug": "smol-launch", "category": "launch", "name": "Smol Launch", "url": "https://smollaunch.com", "why": "Week-long launch window instead of one day - better for a product without an audience yet.", "pitch": "Standard listing." },
-    { "slug": "launching-next", "category": "launch", "name": "Launching Next", "url": "https://www.launchingnext.com", "why": "Permanent directory listing, low effort.", "pitch": "Standard listing." },
-
-    { "slug": "the-pudding", "category": "press", "name": "The Pudding", "url": "https://pudding.cool", "why": "Visual data essays - the adjacency graph and the mobility findings are exactly their form. They accept pitches and pay for collaborations.", "pitch": "Pitch a visual essay from our data: where people actually go when they leave a profession, from 236k postings + observed mobility flows. Offer the dataset." },
-    { "slug": "flowingdata", "category": "press", "name": "FlowingData", "url": "https://flowingdata.com", "why": "Nathan Yau features data projects and visualizations; a feature there reaches the entire data-viz community and links hard.", "pitch": "Submit the graph as a project: force-directed career adjacency, tuned by hand, no D3." },
-    { "slug": "hr-brew", "category": "press", "name": "HR Brew (Morning Brew)", "url": "https://www.morningbrew.com/hr", "why": "Newsletter for HR professionals - the employer side of the pitch. Covers hiring tools and labor-market data.", "pitch": "Pitch the adjacent-talent finding: N% of hard-to-fill roles are reachable by candidates with a different title. Verify current desk contact first." },
-    { "slug": "worklife", "category": "press", "name": "WorkLife (Digiday)", "url": "https://www.worklife.news", "why": "Future-of-work desk; covers career pivots, hiring signal, ghost jobs.", "pitch": "Ghost-jobs measurement or the title-collapse finding (42,254 dead titles). Verify current reporter on the beat first." },
-    { "slug": "hr-tech-feed", "category": "press", "name": "HR Tech Feed / HR Technology Wire", "url": "https://hrtechfeed.com", "why": "Aggregates HR-tech product news; accepts wire-style announcements. Low bar, real links.", "pitch": "Product announcement when the employer board opens; data findings as news items." },
-    { "slug": "ere-net", "category": "press", "name": "ERE.net", "url": "https://www.ere.net", "why": "Recruiter trade publication; accepts contributed articles. Recruiters are the buyer.", "pitch": "Contributed piece: 'the adjacent-talent pool you are filtering out' with our numbers. Byline + link." },
-    { "slug": "techcrunch-tips", "category": "press", "name": "TechCrunch (tips)", "url": "https://techcrunch.com/tips/", "why": "Long shot at our size, but the Texas/LinkedIn ghost-jobs investigation gives a news hook our data can extend.", "pitch": "Only pitch WITH a news hook: 'while Texas investigates LinkedIn, here is what ghost patterns look like across 236k postings from 15 sources.'" },
-    { "slug": "ask-a-manager", "category": "press", "name": "Ask a Manager", "url": "https://www.askamanager.org", "why": "Huge jobseeker audience with deep trust; links in posts carry real referral traffic.", "pitch": "Not a pitch target for features - offer the data when a relevant question runs (career change, ghost jobs). Light touch only." },
-
-    { "slug": "course-report", "category": "backlink", "name": "Course Report", "url": "https://www.coursereport.com", "why": "THE bootcamp directory and review site; their content is career-change guides that cite outcome data. High authority.", "pitch": "Offer route/salary data for their guides: what a bootcamp grad's target role pays and which prior careers are closest to it. Ask: citation link." },
-    { "slug": "careerfoundry", "category": "backlink", "name": "CareerFoundry", "url": "https://careerfoundry.com", "why": "UX/data bootcamp whose entire audience is mid-pivot; their blog publishes career-change guides constantly.", "pitch": "Their 'can I become a UX designer from X' articles can cite our measured readiness for that exact route. Link to the route page." },
-    { "slug": "ironhack", "category": "backlink", "name": "Ironhack", "url": "https://www.ironhack.com", "why": "Global bootcamp (UX, data, web); blog covers career-change questions our routes answer with numbers.", "pitch": "Same route-page citation angle; they have EU campuses, our EU salary data helps them." },
-    { "slug": "general-assembly", "category": "backlink", "name": "General Assembly", "url": "https://generalassemb.ly", "why": "The biggest reskilling brand; career-services teams assemble resource lists for grads.", "pitch": "Pitch career services, not marketing: the route pages as a free resource for career coaches." },
-    { "slug": "springboard", "category": "backlink", "name": "Springboard", "url": "https://www.springboard.com", "why": "Mentor-led career-change bootcamp; publishes salary guides that need sources.", "pitch": "Their salary guides can cite our measured bands with a methodology link." },
-    { "slug": "merit-america", "category": "backlink", "name": "Merit America", "url": "https://meritamerica.org", "why": "Nonprofit reskilling for workers without degrees - the skills-over-titles thesis is their thesis.", "pitch": "Offer the data for their program design and grant reporting; nonprofit links are clean." },
-    { "slug": "flatiron-school", "category": "backlink", "name": "Flatiron School", "url": "https://flatironschool.com", "why": "Coding/data/cyber bootcamp with an active blog on career outcomes.", "pitch": "Route-page citation angle for 'from X to software engineer' content." },
-    { "slug": "le-wagon", "category": "backlink", "name": "Le Wagon", "url": "https://www.lewagon.com", "why": "International bootcamp; strong European presence matches our EU salary coverage.", "pitch": "EU salary + route data for their country pages." },
-    { "slug": "interaction-design-foundation", "category": "backlink", "name": "Interaction Design Foundation", "url": "https://www.interaction-design.org", "why": "UX education at scale with enormous literature/resource pages; a resource listing there is a durable, topical link.", "pitch": "Offer the architect->UX and graphic-designer->UX route pages for their career-change literature." }
+    {
+      "slug": "product-hunt",
+      "category": "launch",
+      "name": "Product Hunt",
+      "url": "https://www.producthunt.com",
+      "why": "Biggest one-day launch audience in tech. A career-data instrument with a live graph demos well.",
+      "pitch": "Launch the graph as the hero. Tuesday-Thursday, prepared gallery, founder comment ready."
+    },
+    {
+      "slug": "hacker-news-show",
+      "category": "launch",
+      "name": "Hacker News (Show HN)",
+      "url": "https://news.ycombinator.com/showhn.html",
+      "why": "The audience most likely to appreciate measured adjacency data and a dependency-free force graph. Also the harshest — bring the methodology.",
+      "pitch": "Show HN: I measured which careers 236k live job postings say your skills can reach. Lead with method, not marketing."
+    },
+    {
+      "slug": "uneed",
+      "category": "launch",
+      "name": "Uneed",
+      "url": "https://www.uneed.best",
+      "why": "Community launch platform that caps daily launches, so small products get real visibility. Indie-friendly.",
+      "pitch": "Standard listing. Indie/boutique framing fits the one-architect story."
+    },
+    {
+      "slug": "betalist",
+      "category": "launch",
+      "name": "BetaList",
+      "url": "https://betalist.com",
+      "why": "Early-adopter audience; permanent listing.",
+      "pitch": "Frame the employer board as the upcoming part; the instrument is live."
+    },
+    {
+      "slug": "startupbase",
+      "category": "launch",
+      "name": "StartupBase",
+      "url": "https://startupbase.io",
+      "why": "Daily launches plus ongoing directory visibility and newsletter distribution.",
+      "pitch": "Standard listing."
+    },
+    {
+      "slug": "indie-hackers",
+      "category": "launch",
+      "name": "Indie Hackers",
+      "url": "https://www.indiehackers.com",
+      "why": "Not a directory - a community. The 'boutique second-income business, deliberately not a startup' doctrine IS an Indie Hackers story.",
+      "pitch": "Write the build story as a post: one architect, a day job, a scraper, and a no-VC doctrine. Do not just drop a link."
+    },
+    {
+      "slug": "saashub",
+      "category": "launch",
+      "name": "SaaSHub",
+      "url": "https://www.saashub.com",
+      "why": "Alternatives-directory with durable SEO pages; a listing is a permanent backlink.",
+      "pitch": "List as alternative to LinkedIn Career Explorer / job boards."
+    },
+    {
+      "slug": "alternativeto",
+      "category": "launch",
+      "name": "AlternativeTo",
+      "url": "https://alternativeto.net",
+      "why": "High-authority alternatives directory; users search 'X alternative' constantly.",
+      "pitch": "List as alternative to career-explorer tools; category career/jobs."
+    },
+    {
+      "slug": "fazier",
+      "category": "launch",
+      "name": "Fazier",
+      "url": "https://fazier.com",
+      "why": "Rising launch platform, lighter competition than PH; daily/weekly showcases.",
+      "pitch": "Standard listing."
+    },
+    {
+      "slug": "smol-launch",
+      "category": "launch",
+      "name": "Smol Launch",
+      "url": "https://smollaunch.com",
+      "why": "Week-long launch window instead of one day - better for a product without an audience yet.",
+      "pitch": "Standard listing."
+    },
+    {
+      "slug": "launching-next",
+      "category": "launch",
+      "name": "Launching Next",
+      "url": "https://www.launchingnext.com",
+      "why": "Permanent directory listing, low effort.",
+      "pitch": "Standard listing."
+    },
+    {
+      "slug": "the-pudding",
+      "category": "press",
+      "name": "The Pudding",
+      "url": "https://pudding.cool",
+      "why": "Visual data essays - the adjacency graph and the mobility findings are exactly their form. They accept pitches and pay for collaborations.",
+      "pitch": "Pitch a visual essay from our data: where people actually go when they leave a profession, from 236k postings + observed mobility flows. Offer the dataset."
+    },
+    {
+      "slug": "flowingdata",
+      "category": "press",
+      "name": "FlowingData",
+      "url": "https://flowingdata.com",
+      "why": "Nathan Yau features data projects and visualizations; a feature there reaches the entire data-viz community and links hard.",
+      "pitch": "Submit the graph as a project: force-directed career adjacency, tuned by hand, no D3."
+    },
+    {
+      "slug": "hr-brew",
+      "category": "press",
+      "name": "HR Brew (Morning Brew)",
+      "url": "https://www.morningbrew.com/hr",
+      "why": "Newsletter for HR professionals - the employer side of the pitch. Covers hiring tools and labor-market data.",
+      "pitch": "Pitch the adjacent-talent finding: N% of hard-to-fill roles are reachable by candidates with a different title. Verify current desk contact first."
+    },
+    {
+      "slug": "worklife",
+      "category": "press",
+      "name": "WorkLife (Digiday)",
+      "url": "https://www.worklife.news",
+      "why": "Future-of-work desk; covers career pivots, hiring signal, ghost jobs.",
+      "pitch": "Ghost-jobs measurement or the title-collapse finding (42,254 dead titles). Verify current reporter on the beat first."
+    },
+    {
+      "slug": "hr-tech-feed",
+      "category": "press",
+      "name": "HR Tech Feed / HR Technology Wire",
+      "url": "https://hrtechfeed.com",
+      "why": "Aggregates HR-tech product news; accepts wire-style announcements. Low bar, real links.",
+      "pitch": "Product announcement when the employer board opens; data findings as news items."
+    },
+    {
+      "slug": "ere-net",
+      "category": "press",
+      "name": "ERE.net",
+      "url": "https://www.ere.net",
+      "why": "Recruiter trade publication; accepts contributed articles. Recruiters are the buyer.",
+      "pitch": "Contributed piece: 'the adjacent-talent pool you are filtering out' with our numbers. Byline + link."
+    },
+    {
+      "slug": "techcrunch-tips",
+      "category": "press",
+      "name": "TechCrunch (tips)",
+      "url": "https://techcrunch.com/tips/",
+      "why": "Long shot at our size, but the Texas/LinkedIn ghost-jobs investigation gives a news hook our data can extend.",
+      "pitch": "Only pitch WITH a news hook: 'while Texas investigates LinkedIn, here is what ghost patterns look like across 236k postings from 15 sources.'"
+    },
+    {
+      "slug": "ask-a-manager",
+      "category": "press",
+      "name": "Ask a Manager",
+      "url": "https://www.askamanager.org",
+      "why": "Huge jobseeker audience with deep trust; links in posts carry real referral traffic.",
+      "pitch": "Not a pitch target for features - offer the data when a relevant question runs (career change, ghost jobs). Light touch only."
+    },
+    {
+      "slug": "course-report",
+      "category": "backlink",
+      "name": "Course Report",
+      "url": "https://www.coursereport.com",
+      "why": "THE bootcamp directory and review site; their content is career-change guides that cite outcome data. High authority.",
+      "pitch": "Offer route/salary data for their guides: what a bootcamp grad's target role pays and which prior careers are closest to it. Ask: citation link."
+    },
+    {
+      "slug": "careerfoundry",
+      "category": "backlink",
+      "name": "CareerFoundry",
+      "url": "https://careerfoundry.com",
+      "why": "UX/data bootcamp whose entire audience is mid-pivot; their blog publishes career-change guides constantly.",
+      "pitch": "Their 'can I become a UX designer from X' articles can cite our measured readiness for that exact route. Link to the route page."
+    },
+    {
+      "slug": "ironhack",
+      "category": "backlink",
+      "name": "Ironhack",
+      "url": "https://www.ironhack.com",
+      "why": "Global bootcamp (UX, data, web); blog covers career-change questions our routes answer with numbers.",
+      "pitch": "Same route-page citation angle; they have EU campuses, our EU salary data helps them."
+    },
+    {
+      "slug": "general-assembly",
+      "category": "backlink",
+      "name": "General Assembly",
+      "url": "https://generalassemb.ly",
+      "why": "The biggest reskilling brand; career-services teams assemble resource lists for grads.",
+      "pitch": "Pitch career services, not marketing: the route pages as a free resource for career coaches."
+    },
+    {
+      "slug": "springboard",
+      "category": "backlink",
+      "name": "Springboard",
+      "url": "https://www.springboard.com",
+      "why": "Mentor-led career-change bootcamp; publishes salary guides that need sources.",
+      "pitch": "Their salary guides can cite our measured bands with a methodology link."
+    },
+    {
+      "slug": "merit-america",
+      "category": "backlink",
+      "name": "Merit America",
+      "url": "https://meritamerica.org",
+      "why": "Nonprofit reskilling for workers without degrees - the skills-over-titles thesis is their thesis.",
+      "pitch": "Offer the data for their program design and grant reporting; nonprofit links are clean."
+    },
+    {
+      "slug": "flatiron-school",
+      "category": "backlink",
+      "name": "Flatiron School",
+      "url": "https://flatironschool.com",
+      "why": "Coding/data/cyber bootcamp with an active blog on career outcomes.",
+      "pitch": "Route-page citation angle for 'from X to software engineer' content."
+    },
+    {
+      "slug": "le-wagon",
+      "category": "backlink",
+      "name": "Le Wagon",
+      "url": "https://www.lewagon.com",
+      "why": "International bootcamp; strong European presence matches our EU salary coverage.",
+      "pitch": "EU salary + route data for their country pages."
+    },
+    {
+      "slug": "interaction-design-foundation",
+      "category": "backlink",
+      "name": "Interaction Design Foundation",
+      "url": "https://www.interaction-design.org",
+      "why": "UX education at scale with enormous literature/resource pages; a resource listing there is a durable, topical link.",
+      "pitch": "Offer the architect->UX and graphic-designer->UX route pages for their career-change literature."
+    },
+    {
+      "slug": "peerlist-launchpad",
+      "category": "launch",
+      "name": "Peerlist Launchpad",
+      "url": "https://peerlist.io/launchpad",
+      "why": "Professional network for builders; weekly launch cycle voted by developers and designers - our exact early audience.",
+      "pitch": "Launch into a weekly cycle; the graph demos well to this crowd."
+    },
+    {
+      "slug": "microlaunch",
+      "category": "launch",
+      "name": "MicroLaunch",
+      "url": "https://microlaunch.net",
+      "why": "Product Hunt-style but intimate, built for micro-SaaS; monthly cohorts of builders.",
+      "pitch": "Standard listing; boutique framing fits."
+    },
+    {
+      "slug": "dev-hunt",
+      "category": "launch",
+      "name": "Dev Hunt",
+      "url": "https://devhunt.org",
+      "why": "Launch venue specifically for developer tools; the dependency-free graph and open method play well.",
+      "pitch": "Frame as a data instrument with a documented method."
+    },
+    {
+      "slug": "tiny-startups",
+      "category": "launch",
+      "name": "Tiny Startups",
+      "url": "https://tinystartups.com",
+      "why": "Lightweight launch platform, fast approval, badge + backlink; good for first versions.",
+      "pitch": "Standard listing."
+    },
+    {
+      "slug": "startup-stash",
+      "category": "launch",
+      "name": "Startup Stash",
+      "url": "https://startupstash.com",
+      "why": "Curated directory of startup resources; durable listing.",
+      "pitch": "Submit under career/hiring tools."
+    },
+    {
+      "slug": "triple-ten",
+      "category": "backlink",
+      "name": "TripleTen",
+      "url": "https://tripleten.com",
+      "why": "Online career accelerator for busy professionals moving into tech - mid-pivot audience, active blog that ranks.",
+      "pitch": "Their career-change guides can cite our measured routes into the roles they teach."
+    },
+    {
+      "slug": "designlab",
+      "category": "backlink",
+      "name": "Designlab",
+      "url": "https://designlab.com",
+      "why": "UX Academy; mentor-led career switchers into UX. Publishes 'best bootcamps' style content that needs data.",
+      "pitch": "Route pages into ux-designer (and our UX salary bands) as citable sources."
+    },
+    {
+      "slug": "brainstation",
+      "category": "backlink",
+      "name": "BrainStation",
+      "url": "https://brainstation.io",
+      "why": "Bootcamp with career guides content arm ('are bootcamps worth it') - exactly where a measured readiness number belongs. NOTE: Canadian HQ - backlink pitch via form/editors, not cold email under CASL.",
+      "pitch": "Offer readiness + salary data for their career guides; no cold email, use their contact form."
+    },
+    {
+      "slug": "app-academy",
+      "category": "backlink",
+      "name": "App Academy",
+      "url": "https://www.appacademy.io",
+      "why": "Premium coding bootcamp; outcome-focused content.",
+      "pitch": "From-X-to-software-engineer route citations."
+    },
+    {
+      "slug": "per-scholas",
+      "category": "backlink",
+      "name": "Per Scholas",
+      "url": "https://perscholas.org",
+      "why": "Nonprofit, no-cost IT training in 20+ cities for underrepresented communities; the skills-over-titles thesis in practice. Clean, high-trust links.",
+      "pitch": "Offer route/salary data for program design and grant reporting."
+    },
+    {
+      "slug": "career-karma",
+      "category": "backlink",
+      "name": "Career Karma",
+      "url": "https://careerkarma.com",
+      "why": "Bootcamp matchmaker + huge SEO content operation ranking for career-change queries; their listicles cite sources.",
+      "pitch": "Salary bands and route readiness as citable data for their rankings."
+    },
+    {
+      "slug": "clay-agency",
+      "category": "studio",
+      "name": "Clay",
+      "url": "https://clay.global",
+      "why": "SF brand + UX agency for global tech brands; hires product/brand designers - adjacent-talent prospect in our launch vertical.",
+      "pitch": "Concierge intro: designers adjacent to their open roles (brand->product, graphic->UX), measured."
+    },
+    {
+      "slug": "ramotion",
+      "category": "studio",
+      "name": "Ramotion",
+      "url": "https://www.ramotion.com",
+      "why": "SF design and product studio (branding, UX/UI, front-end); boutique scale means the founder reads email.",
+      "pitch": "Adjacent-talent intros for design roles; small enough for concierge."
+    },
+    {
+      "slug": "ueno-2",
+      "category": "studio",
+      "name": "Ueno",
+      "url": "https://ueno.co",
+      "why": "Restructured 2025 as a boutique strategic agency; design-led, senior-heavy.",
+      "pitch": "Adjacent senior talent (creative-director-adjacent routes)."
+    },
+    {
+      "slug": "basic-dept",
+      "category": "studio",
+      "name": "BASIC/DEPT",
+      "url": "https://www.basicagency.com",
+      "why": "Digital branding/design agency; hires across brand, product, motion.",
+      "pitch": "Adjacent-talent intros; motion-designer and brand-designer routes."
+    },
+    {
+      "slug": "pentagram",
+      "category": "studio",
+      "name": "Pentagram",
+      "url": "https://www.pentagram.com",
+      "why": "The largest independent design consultancy, partner-run; a single placed candidate or a data citation from them carries outsized weight.",
+      "pitch": "Long shot: offer the design-career mobility data to a partner's team; citation or talk, not a sale."
+    }
   ]
 }

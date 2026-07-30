@@ -18,7 +18,7 @@ const PROVIDERS = [
 ];
 
 export default async function Outreach() {
-  const { rows, curated, error } = await readOutreach();
+  const { rows, curated, manual, error } = await readOutreach();
   const done = rows.filter((r) => r.state && r.state.status !== 'new').length;
   const contacted = rows.filter((r) => r.state?.status === 'contacted' || r.state?.status === 'replied').length;
 
@@ -80,7 +80,7 @@ export default async function Outreach() {
         </ul>
       </details>
 
-      <OutreachBoard rows={rows} curated={curated} />
+      <OutreachBoard rows={rows} curated={curated} manual={manual} />
     </div>
   );
 }

@@ -1,8 +1,10 @@
 'use client';
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import type { Row, CuratedRow } from './data';
+import { useRouter } from 'next/navigation';
+import type { Row, CuratedRow, ManualRow } from './data';
 import { OutreachControl } from './OutreachControl';
+import { setOutreach } from './actions';
 
 /* The working surface of the outreach console (phase 1, 2026-07-30).
  *
@@ -127,9 +129,85 @@ const TABS = [
   { key: 'launch', label: 'Launch boards' },
   { key: 'press', label: 'Press' },
   { key: 'backlink', label: 'Backlinks' },
+  { key: 'studio', label: 'Studios' },
 ] as const;
 
-export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: CuratedRow[] }) {
+/* A hand-added lead: same card weight as curated, plus a MANUAL tag so it is
+   obvious the row came from a person, not the corpus or the curated file. */
+function ManualCard({ m, status, onStatus }: { m: ManualRow; status: string; onStatus: (key: string, s: string) => void }) {
+  return (
+    <article className={`otr-row status-${status}`}>
+      <div className="otr-main">
+        <div className="otr-id">
+          <span className="otr-score">MANUAL</span>
+          <h2>{m.url ? <a href={m.url} target="_blank" rel="noopener noreferrer">{m.name}</a> : m.name}</h2>
+          {m.url ? <span className="lbl">{m.url.replace(/^https?:\/\//, '')}</span> : null}
+        </div>
+        <OutreachControl id={m.key} company={m.name} mailOk state={m.state} onStatus={(s) => onStatus(m.key, s)} />
+      </div>
+      {m.state.note ? <dl className="otr-meta"><div><dt>Note</dt><dd>{m.state.note}</dd></div></dl> : null}
+    </article>
+  );
+}
+
+/* Add a lead by hand. Writes an outreach_status row with manual=true (0008) and
+   refreshes the server data so the new card appears in its tab. */
+function AddLead({ activeTab }: { activeTab: string }) {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState(activeTab);
+  const [url, setUrl] = useState('');
+  const [note, setNote] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  async function submit() {
+    const n = name.trim();
+    if (!n) return;
+    setSaving(true);
+    const key = `man:${n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+    const cleanUrl = url.trim() ? (/^https?:\/\//.test(url.trim()) ? url.trim() : `https://${url.trim()}`) : undefined;
+    await setOutreach(key, n, { status: 'new', manual: true, category, url: cleanUrl, note: note.trim() || undefined });
+    setSaving(false);
+    setName(''); setUrl(''); setNote('');
+    setOpen(false);
+    router.refresh();
+  }
+
+  if (!open) {
+    return <button type="button" className="otr-add" onClick={() => { setCategory(activeTab); setOpen(true); }}>+ Add lead</button>;
+  }
+  return (
+    <div className="otr-addform">
+      <input type="text" placeholder="Company or contact name" value={name} onChange={(e) => setName(e.target.value)} autoFocus />
+      <select value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Category">
+        {TABS.map((t) => <option key={t.key} value={t.key}>{t.label}</option>)}
+      </select>
+      <input type="text" placeholder="URL (optional)" value={url} onChange={(e) => setUrl(e.target.value)} />
+      <input type="text" placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
+      <button type="button" className="adm-reply" disabled={saving || !name.trim()} onClick={() => void submit()}>
+        {saving ? 'Saving…' : 'Save'}
+      </button>
+      <button type="button" className="otr-more" onClick={() => setOpen(false)}>cancel</button>
+    </div>
+  );
+}
+
+/* CSV of the CURRENT tab with facet filters applied, all status buckets, one
+   status column — what you see is what lands in Sheets/Excel. Client-side blob:
+   no endpoint, nothing new exposed. Excel-embed was considered and rejected: an
+   embedded sheet forks the source of truth; export is a one-way snapshot. */
+const csvEsc = (v: unknown) => { const t = String(v ?? ''); return /[",\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t; };
+function downloadCsv(filename: string, header: string[], lines: unknown[][]) {
+  const csv = [header, ...lines].map((row) => row.map(csvEsc).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([`\ufeff${csv}`], { type: 'text/csv;charset=utf-8' }));
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+export function OutreachBoard({ rows, curated, manual }: { rows: Row[]; curated: CuratedRow[]; manual: ManualRow[] }) {
   const [tab, setTab] = useState<(typeof TABS)[number]['key']>('employers');
   const [bucket, setBucket] = useState('todo');
   // Status truth for THIS session: server state overlaid with local changes, so a
@@ -154,6 +232,25 @@ export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: Curated
     (!q || r.company.toLowerCase().includes(q.toLowerCase())));
 
   const curStatusOf = (c: CuratedRow) => overrides[`cur:${c.slug}`] ?? c.state?.status ?? 'new';
+  const manStatusOf = (m: ManualRow) => overrides[m.key] ?? m.state.status ?? 'new';
+  const manualIn = (cat: string) => manual.filter((m) => m.category === cat);
+
+  function exportCsv() {
+    const header = ['category', 'company', 'status', 'owner', 'contact_email', 'url_or_domain', 'score', 'industry', 'scale', 'pitch', 'readiness', 'days_open', 'countries', 'note'];
+    const lines: unknown[][] = [];
+    if (tab === 'employers') {
+      for (const m of manualIn('employers')) lines.push(['manual', m.name, manStatusOf(m), m.state.owner, m.state.contact_email, m.url, '', '', '', '', '', '', '', m.state.note]);
+      for (const r of filtered) lines.push([
+        'employer', r.company, statusOf(r), r.state?.owner, r.state?.contact_email, r.domain_candidates[0],
+        Math.round(r.score), r.field, r.scale, `${r.pitch.from} -> ${r.pitch.role}`, r.pitch.readiness,
+        r.days_open, r.countries.join(' '), r.state?.note,
+      ]);
+    } else {
+      for (const m of manualIn(tab)) lines.push(['manual', m.name, manStatusOf(m), m.state.owner, m.state.contact_email, m.url, '', '', '', '', '', '', '', m.state.note]);
+      for (const c of curated.filter((x) => x.category === tab)) lines.push([c.category, c.name, curStatusOf(c), c.state?.owner, c.state?.contact_email, c.url, '', '', '', c.pitch, '', '', '', c.state?.note]);
+    }
+    downloadCsv(`pivothop-outreach-${tab}-${new Date().toISOString().slice(0, 10)}.csv`, header, lines);
+  }
 
   return (
     <div>
@@ -168,14 +265,23 @@ export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: Curated
         })}
       </nav>
 
+      <div className="otr-toolbar">
+        <AddLead activeTab={tab} />
+        <button type="button" className="otr-add" onClick={exportCsv}>Export CSV</button>
+      </div>
+
       {tab !== 'employers' && (() => {
         const inTab = curated.filter((c) => c.category === tab);
-        const shown = inTab.filter((c) => BUCKETS.find((bk) => bk.key === bucket)!.statuses.includes(curStatusOf(c)));
+        const mans = manualIn(tab);
+        const bk0 = BUCKETS.find((bk) => bk.key === bucket)!;
+        const shown = inTab.filter((c) => bk0.statuses.includes(curStatusOf(c)));
+        const shownMan = mans.filter((m) => bk0.statuses.includes(manStatusOf(m)));
         return (
           <>
             <nav className="otr-subtabs" aria-label="Status">
               {BUCKETS.map((bk) => {
-                const n = inTab.filter((c) => bk.statuses.includes(curStatusOf(c))).length;
+                const n = inTab.filter((c) => bk.statuses.includes(curStatusOf(c))).length
+                  + mans.filter((m) => bk.statuses.includes(manStatusOf(m))).length;
                 return (
                   <button key={bk.key} type="button" className={bucket === bk.key ? 'on' : ''} onClick={() => setBucket(bk.key)}>
                     {bk.title} <span>{n}</span>
@@ -184,11 +290,15 @@ export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: Curated
               })}
             </nav>
             <div className="otr-list" style={{ marginTop: 16 }}>
+              {shownMan.map((m) => (
+                <ManualCard key={m.key} m={m} status={manStatusOf(m)}
+                  onStatus={(key, s) => setOverrides((o) => ({ ...o, [key]: s }))} />
+              ))}
               {shown.map((c) => (
                 <CuratedCard key={c.slug} c={c} status={curStatusOf(c)}
                   onStatus={(key, s) => setOverrides((o) => ({ ...o, [key]: s }))} />
               ))}
-              {!shown.length && <p className="adm-note">Nothing in this bucket for this tab.</p>}
+              {!shown.length && !shownMan.length && <p className="adm-note">Nothing in this bucket for this tab.</p>}
             </div>
           </>
         );
@@ -217,7 +327,8 @@ export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: Curated
 
       <nav className="otr-subtabs" aria-label="Status">
         {BUCKETS.map((bk) => {
-          const n = filtered.filter((r) => bk.statuses.includes(statusOf(r))).length;
+          const n = filtered.filter((r) => bk.statuses.includes(statusOf(r))).length
+            + manualIn('employers').filter((m) => bk.statuses.includes(manStatusOf(m))).length;
           return (
             <button key={bk.key} type="button" className={bucket === bk.key ? 'on' : ''} onClick={() => setBucket(bk.key)}>
               {bk.title} <span>{n}</span>
@@ -226,6 +337,10 @@ export function OutreachBoard({ rows, curated }: { rows: Row[]; curated: Curated
         })}
       </nav>
       <div className="otr-list" style={{ marginTop: 16 }}>
+        {manualIn('employers').filter((m) => BUCKETS.find((bk) => bk.key === bucket)!.statuses.includes(manStatusOf(m))).map((m) => (
+          <ManualCard key={m.key} m={m} status={manStatusOf(m)}
+            onStatus={(key, s) => setOverrides((o) => ({ ...o, [key]: s }))} />
+        ))}
         {filtered.filter((r) => BUCKETS.find((bk) => bk.key === bucket)!.statuses.includes(statusOf(r))).map((r) => (
           <TargetRow
             key={r.key} r={r} status={statusOf(r)}

@@ -632,6 +632,14 @@ input:focus-visible{outline:none}
 .otr-mailable{display:flex;gap:7px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);cursor:pointer}
 .otr-mailable input{accent-color:var(--accent)}
 .otr-filters>.lbl{margin-left:auto}
+/* toolbar: add-lead + export */
+.otr-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.otr-add{background:none;border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding:7px 13px;cursor:pointer;border-radius:50px;transition:color .15s,border-color .15s}
+.otr-add:hover{color:var(--accent);border-color:var(--accent)}
+.otr-addform{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1px solid var(--rule);background:var(--card);padding:12px 14px;width:100%}
+.otr-addform input[type=text]{font-family:var(--sans);font-size:13px;background:var(--paper);border:1px solid var(--rule-2);color:var(--ink);padding:7px 10px;flex:1;min-width:150px}
+.otr-addform select{appearance:none;-webkit-appearance:none;background:var(--paper);border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);padding:8px 26px 8px 10px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 13px) 55%,calc(100% - 9px) 55%;background-size:4px 4px;background-repeat:no-repeat}
+.otr-addform .adm-reply{border:none}
 /* status buckets: pill bar with live counts, one bucket visible at a time */
 .otr-subtabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .otr-subtabs button{background:var(--card);border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding:7px 13px;cursor:pointer;border-radius:50px;transition:color .15s,border-color .15s}

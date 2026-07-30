@@ -9,7 +9,12 @@ import { revalidatePath } from 'next/cache';
 export async function setOutreach(
   companyKey: string,
   company: string,
-  patch: { status?: string; owner?: string; note?: string; contact_email?: string; contact_name?: string },
+  patch: {
+    status?: string; owner?: string; note?: string; contact_email?: string; contact_name?: string;
+    // Manual-lead fields (migration 0008): a hand-added lead is an outreach_status
+    // row with manual=true and a category that routes it to the right console tab.
+    category?: string; url?: string; manual?: boolean;
+  },
 ): Promise<{ ok: boolean }> {
   const base = process.env.SUPABASE_URL?.replace(/\/$/, '');
   const key = process.env.SUPABASE_SERVICE_KEY;
