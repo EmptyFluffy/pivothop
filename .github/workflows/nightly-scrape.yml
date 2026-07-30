@@ -45,6 +45,7 @@ jobs:
             apps/scraper/data/postings_raw.ndjson
             apps/scraper/data/first-seen.json
             apps/scraper/data/logo-tried.json
+            apps/scraper/data/adjacency.json
           key: scraper-state-${{ github.run_id }}
           restore-keys: |
             scraper-state-

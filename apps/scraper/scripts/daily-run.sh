@@ -36,8 +36,14 @@ npm run --silent scrape -- ingest all >> "$LOG" 2>&1
 STATUS=$?
 npm run --silent scrape -- normalize >> "$LOG" 2>&1 || STATUS=$?
 npm run --silent scrape -- aggregate >> "$LOG" 2>&1 || STATUS=$?
-if [ "$(date +%u)" = "1" ] || [ "${FORCE_GRAPH:-0}" = "1" ]; then
-  echo "graph: weekly rescore (Monday, or FORCE_GRAPH=1)" >> "$LOG"
+# Graph re-scores weekly (Mondays) — but ALSO whenever adjacency.json is absent.
+# That second condition is not belt-and-braces, it is required: score writes
+# adjacency.json into the gitignored data dir, so on a fresh CI checkout a
+# non-Monday run skipped score, never produced the file, and export-web-data
+# died on it. The laptop never saw this because the file persists locally.
+# Missing input -> rebuild it, whatever day it is.
+if [ "$(date +%u)" = "1" ] || [ "${FORCE_GRAPH:-0}" = "1" ] || [ ! -f "$REPO/apps/scraper/data/adjacency.json" ]; then
+  echo "graph: rescoring (Monday, FORCE_GRAPH=1, or adjacency.json missing)" >> "$LOG"
   npm run --silent scrape -- score >> "$LOG" 2>&1 || STATUS=$?
   npm run --silent scrape -- emit  >> "$LOG" 2>&1 || STATUS=$?
 else
