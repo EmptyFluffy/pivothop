@@ -169,8 +169,19 @@
   .graph-empty p{max-width:46ch;font-size:15.5px;line-height:1.6;color:var(--ink-2);margin:0 0 28px}
   .graph-empty .ge-eg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;max-width:540px}
   .graph-empty .ge-eg .lbl{width:100%;margin-bottom:5px;color:var(--ink-3)}
-  .graph-empty .ge-eg button{background:transparent;border:1px solid var(--rule-2);font-family:inherit;font-size:13.5px;color:var(--ink-2);padding:8px 15px;cursor:pointer;transition:all .12s}
-  .graph-empty .ge-eg button:hover{border-color:var(--accent);color:var(--accent)}
+  /* Seed pills, built to the Creative Boom recipe (docs/29), measured from their
+     .tag-outline-colored component rather than approximated:
+       rounded-full · 1px border in BLACK (not the grey rule) · display face at
+       medium weight, sentence case, noticeably larger than body · asymmetric
+       vertical padding for optical centring · transition-colors on the .15s
+       ease-in-out pair.
+     Their hover sets background, border AND text together so the pill FILLS —
+     that is the whole gesture. Ours inverts to ink-on-paper, which keeps the
+     accent on the data (law #2): a filled Klein pill here would put the accent
+     on navigation furniture. */
+  .graph-empty .ge-eg button{background:transparent;border:1px solid var(--ink);border-radius:var(--r-pill);font-family:var(--sans);font-weight:500;font-size:16px;letter-spacing:-.005em;line-height:1;color:var(--ink);padding:11px 20px 13px;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+  .graph-empty .ge-eg button:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .graph-empty .ge-eg button:active{background:var(--black);border-color:var(--black)}
   .proof .sk{font-size:14.5px;color:var(--ink-2);max-width:640px;line-height:1.7}
   .proof .sk .cap{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:6px}
   .proof .sk b{color:var(--ink);font-weight:500}
