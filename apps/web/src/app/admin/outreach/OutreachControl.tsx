@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { setOutreach } from './actions';
-import type { Row } from './data';
 
 const STATUSES = ['new', 'queued', 'contacted', 'replied', 'won', 'declined', 'skip'];
 
@@ -9,23 +8,33 @@ const STATUSES = ['new', 'queued', 'contacted', 'replied', 'won', 'declined', 's
    said. Optimistic — the select moves immediately and the write follows, because a
    round trip per row makes working a 1,200-row queue unbearable.
 
-   mail_ok=false disables the whole control rather than warning: Germany (UWG s7)
+   Takes the minimal shape rather than a full employer Row so the curated targets
+   (launch boards, press, backlink orgs — phases 2-3) share the same control and
+   the same Supabase table; their keys are namespaced "cur:<slug>".
+
+   mailOk=false disables the whole control rather than warning: Germany (UWG s7)
    and Canada (CASL) require prior consent for B2B email, so a company posting only
    from there is not a decision the operator should be able to get wrong in a hurry. */
-export function OutreachControl({ r }: { r: Row }) {
-  const [status, setStatus] = useState(r.state?.status ?? 'new');
-  const [owner, setOwner] = useState(r.state?.owner ?? '');
-  const [note, setNote] = useState(r.state?.note ?? '');
+export function OutreachControl({ id, company, mailOk, state, onStatus }: {
+  id: string;
+  company: string;
+  mailOk: boolean;
+  state: { status?: string; owner?: string | null; note?: string | null } | null;
+  onStatus?: (s: string) => void;
+}) {
+  const [status, setStatus] = useState(state?.status ?? 'new');
+  const [owner, setOwner] = useState(state?.owner ?? '');
+  const [note, setNote] = useState(state?.note ?? '');
   const [saving, setSaving] = useState(false);
   const [open, setOpen] = useState(false);
 
   async function save(patch: Parameters<typeof setOutreach>[2]) {
     setSaving(true);
-    await setOutreach(r.key, r.company, patch);
+    await setOutreach(id, company, patch);
     setSaving(false);
   }
 
-  if (!r.mail_ok) {
+  if (!mailOk) {
     return (
       <div className="otr-ctl">
         <span className="otr-blocked" title="Prior consent required in every country this company posts from">
@@ -41,7 +50,7 @@ export function OutreachControl({ r }: { r: Row }) {
         <select
           value={status}
           disabled={saving}
-          onChange={(e) => { const v = e.target.value; setStatus(v); void save({ status: v }); }}
+          onChange={(e) => { const v = e.target.value; setStatus(v); onStatus?.(v); void save({ status: v }); }}
         >
           {STATUSES.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>

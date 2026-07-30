@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { readJson, writeJson } from '../lib/store.js';
-import { GENERATED_DIR, DATA_DIR } from '../lib/paths.js';
+import { readJson, writeJson, readNdjson } from '../lib/store.js';
+import { GENERATED_DIR, DATA_DIR, RAW_FILE, POSTINGS_FILE } from '../lib/paths.js';
 import { listOrigins, loadOrigin } from '../../../../packages/data/src/index.js';
 import { getTaxonomy, mapTitle } from '../normalize/titles.js';
 import { extractSkills, zoneText } from '../normalize/skills.js';
@@ -106,6 +106,41 @@ export function verify({ log, snapshot = false } = {}) {
         if (reqSet.has(r.id) && r.license?.req !== 'required') {
           problems.push(`${idx.slug}→${r.id}: taxonomy requires a license but the emit carries none`);
         }
+      }
+    }
+  }
+
+  // Contamination canary (2026-07-30). A single listing carpet-bombed across
+  // geography used to survive dedup, because place was part of the key: 326
+  // (company, title) pairs were 8.6% of the corpus, and sound-designer was 83%
+  // ONE listing — which set that occupation's whole skill profile, salary band
+  // and adjacency routes. The content-hash collapse in normalize fixes it; this
+  // makes sure it cannot come back silently through a source that varies its
+  // boilerplate. Any occupation whose postings are mostly one employer+title is
+  // not measuring an occupation, it is measuring an advert.
+  {
+    const raw = new Map();
+    for (const r of readNdjson(RAW_FILE)) {
+      const co = String(r.company ?? '').trim().toLowerCase();
+      const ti = String(r.title ?? '').trim().toLowerCase();
+      if (co && ti) raw.set(`${r.source}|${r.external_id}`, `${co}|${ti}`);
+    }
+    const perOcc = new Map();
+    for (const p of readNdjson(POSTINGS_FILE)) {
+      if (!p.role_id) continue;
+      const k = raw.get(`${p.source}|${p.external_id}`);
+      if (!k) continue;
+      let m = perOcc.get(p.role_id);
+      if (!m) { m = new Map(); perOcc.set(p.role_id, m); }
+      m.set(k, (m.get(k) ?? 0) + 1);
+    }
+    for (const [occ, m] of perOcc) {
+      const total = [...m.values()].reduce((a, b) => a + b, 0);
+      if (total < 25) continue;                       // too small to conclude anything
+      const [pair, top] = [...m.entries()].sort((a, b) => b[1] - a[1])[0];
+      const share = top / total;
+      if (share > 0.40) {
+        problems.push(`${occ}: ${Math.round(share * 100)}% of ${total} postings are one listing (${pair.slice(0, 60)}) — contamination`);
       }
     }
   }

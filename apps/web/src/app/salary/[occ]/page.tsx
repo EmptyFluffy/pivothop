@@ -4,7 +4,7 @@ import { jobCount } from '../../jobs/jobs-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { coverableSlugs, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
+import { coverableSlugs, coverable, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
 import SalaryChart from '../SalaryChart';
 import { article } from '../../../lib/site';
 import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
@@ -176,9 +176,23 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
             <ul className="rt-rel">
               {payMore.map((r) => (
                 <li key={r.id}>
-                  <Link href={r.n > 0 ? `/jobs/${r.id}` : `/salary/${r.id}`}>
-                    {r.n > 0 ? `${r.n} open ${r.title.toLowerCase()} role${r.n === 1 ? '' : 's'}` : `${r.title} pay`}
-                  </Link>
+                  {/* The /salary fallback must be gated on the page actually existing.
+                      coverableSlugs() decides that from posting volume, so an
+                      occupation can drop out between runs: on 2026-07-30 the
+                      geo-blast dedup took forensic-accountant from 61 postings to
+                      49, its page stopped generating, and this link 404'd from
+                      /salary/paralegal. Same guard as the "also" list below, and
+                      the same lesson as CompareLink. */}
+                  {r.n > 0 ? (
+                    <Link href={`/jobs/${r.id}`}>{r.n} open {r.title.toLowerCase()} role{r.n === 1 ? '' : 's'}</Link>
+                  ) : coverable(r.id) ? (
+                    <Link href={`/salary/${r.id}`}>{r.title} pay</Link>
+                  ) : (
+                    // Neither page exists: /jobs/[occ] is generated from occupations
+                    // that HAVE listings, so it is not a safe fallback when n === 0.
+                    // The row still carries the finding; it just isn't a link.
+                    <span>{r.title} pay</span>
+                  )}
                   <span className="lbl">{fmt(r.p50)} median &middot; +{fmt(r.delta)} &middot; {r.match}% readiness</span>
                 </li>
               ))}
@@ -216,7 +230,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           <section className="rt-sec">
             <h2>Related salaries</h2>
             <ul className="rt-rel">
-              {def.also.map((s) => { const sf = getSalary(s); return sf ? <li key={s}><Link href={`/salary/${s}`}>{sf.title} salary</Link><span className="lbl">{fmt(usBand(sf)?.p50)} median</span></li> : null; })}
+              {def.also.map((s) => { const sf = coverable(s) ? getSalary(s) : null; return sf ? <li key={s}><Link href={`/salary/${s}`}>{sf.title} salary</Link><span className="lbl">{fmt(usBand(sf)?.p50)} median</span></li> : null; })}
             </ul>
           </section>
         )}

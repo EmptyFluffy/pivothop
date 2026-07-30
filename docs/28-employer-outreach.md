@@ -147,6 +147,38 @@ State is shared rather than per-browser on purpose: two people working one list 
 `localStorage` would double-email the same company, which is worse for sender
 reputation than not sending at all. Claim a row (`queued` + `owner`) before writing.
 
+## The console, after the 2026-07-30 refinement
+
+Four category tabs, because "outreach" turned out to be four different motions:
+
+| tab | what it is | the ask |
+|---|---|---|
+| **Employers** | the ranked 1,200 from the corpus | post a job / take intros |
+| **Launch boards** | Product Hunt, Show HN, Uneed, BetaList, Fazier, Smol Launch, SaaSHub, AlternativeTo, Indie Hackers… | submit, don't email |
+| **Press** | The Pudding, FlowingData, HR Brew, WorkLife, ERE.net, HR Tech Feed, TechCrunch tips | pitch a data finding, never the product |
+| **Backlinks** | Course Report, CareerFoundry, Ironhack, GA, Springboard, Merit America, Flatiron, Le Wagon, IxDF | a citation link — their career-change content can cite our route pages |
+
+The employer tab gets facet filters — **industry** (taxonomy `field`, dominant among
+the company's adjacent openings), **scale** (corpus footprint: major = 100+ open
+roles here and realistically unreachable by cold email, mid = 20–99, small = <20),
+mailable-only, and company search — plus **status sections**: To contact /
+Contacted / Replied-won / Declined-skipped. Sections rather than sorting on
+purpose: a contacted row floating above uncontacted ones inside one list
+re-creates the double-email risk the console exists to prevent. Rows move section
+the moment their status changes; the Supabase write follows behind.
+
+Curated (non-employer) targets live in `packages/data/outreach/curated.json`,
+hand-maintained, and share the same `outreach_status` table under keys
+`cur:<slug>` — no migration needed. Every entry carries a `why` and a pitch
+angle that should survive being read aloud to the target. Press entries name
+desks, not people: reporters change beats constantly, so the rule is verify the
+current byline before sending anything.
+
+The two strongest press fits are the data-essay outlets (The Pudding,
+FlowingData) — the graph and the mobility findings are their native form — and
+the strongest overall angle is the Indie Hackers build story, which is a post to
+write, not a link to drop.
+
 ## Access
 
 `/admin` and `/admin/*` sit behind HTTP Basic Auth in `src/middleware.ts`

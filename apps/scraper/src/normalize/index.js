@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readNdjson, writeNdjson, readJson, writeJson, supabaseUpsert } from '../lib/store.js';
 import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE, FIRST_SEEN_FILE } from '../lib/paths.js';
 import { mapTitle, cleanTitle } from './titles.js';
@@ -18,6 +19,44 @@ function normCompany(name) {
 
 const DAY = 864e5;
 const WINDOW_DAYS = 60; // Lightcast-style: the same job re-seen within a window is one job
+
+// Content-identity dedup (2026-07-30). The place-keyed dedup above cannot see a
+// listing carpet-bombed across geography: "chartis / recruiter" appeared 325 times
+// in one month across 245 US towns, every copy byte-identical, and every copy
+// survived because the place differed. Measured before the fix: 326 (company,
+// title) pairs accounted for 10,762 of 125,537 corpus rows — 8.6% — and the worst
+// case made sound-designer 83% ONE listing (174 of 210), which set that
+// occupation's entire skill profile, salary band and adjacency routes.
+//
+// A byte-identical description from one employer is one piece of evidence about
+// what that job requires, however many towns it names. So a second pass collapses
+// on (employer, title, description hash) with NO place and NO time bucket.
+//
+// The length floor is load-bearing: sources that ship empty or stub descriptions
+// would otherwise hash identically and collapse genuinely distinct openings.
+// Below the floor the posting keeps its place-keyed identity and this pass is a
+// no-op for it.
+const CONTENT_MIN_CHARS = 200;
+
+// Case and whitespace only. An earlier version also stripped each posting's own
+// location tokens and all digits, meaning to catch templates that write the city
+// into the body ("seeking a Perfusionist for a job in Harwood Heights, Illinois").
+// Measured, it was a net LOSS: 19,433 collapses fell to 18,514, because two
+// postings with byte-identical descriptions strip DIFFERENT tokens — so if the
+// shared text mentions another posting's city, they stop matching. It bought 3
+// rows on the case it targeted and cost ~900 real duplicates elsewhere.
+//
+// The targeted case is not reachable by exact hashing anyway: SpecialtyCare's
+// descriptions are truncated at exactly 500 characters with the city inside, so a
+// longer city name shifts the cut and the tails differ no matter what is removed.
+// Catching that needs near-duplicate detection (shingling/simhash), which is a
+// different piece of work and is NOT justified by 3 rows. Digit-stripping was
+// dropped for a second reason: it would hash two different salaries the same.
+function contentHash(desc) {
+  return createHash('sha1')
+    .update(String(desc).toLowerCase().replace(/\s+/g, ' ').trim())
+    .digest('hex').slice(0, 16);
+}
 
 /**
  * postings_raw -> postings. Title canonicalization, salary to annual USD, skill
@@ -64,9 +103,16 @@ export async function normalize({ log }) {
     const t = Date.parse(posted);
     const bucket = Number.isFinite(t) ? Math.floor(t / (WINDOW_DAYS * DAY)) : 'x';
     const dedupKey = `${normCompany(r.company)}|${cleanTitle(r.title)}|${place}|${bucket}`;
+    // 3. Content identity: same employer, same title, same words — one job,
+    //    regardless of how many towns it was posted into. Null below the floor.
+    const desc = String(r.description_text ?? '');
+    const contentKey = desc.length >= CONTENT_MIN_CHARS
+      ? `${normCompany(r.company)}|${cleanTitle(r.title)}|${contentHash(desc)}`
+      : null;
 
     candidates.push({
       dedupKey,
+      contentKey,
       richness: (sal.min ? 2 : 0) + Math.min(skills.length, 8) / 10 + (r.description_text?.length > 800 ? 0.5 : 0),
       row: {
         source: r.source,
@@ -91,7 +137,21 @@ export async function normalize({ log }) {
     const prev = best.get(c.dedupKey);
     if (!prev || c.richness > prev.richness) best.set(c.dedupKey, c);
   }
-  const out = [...best.values()].map((c) => c.row);
+  const placeDeduped = [...best.values()];
+
+  // Second pass: collapse geographic blasts. Runs AFTER the place-keyed pass so a
+  // genuinely syndicated job is already one row before content identity is asked.
+  const byContent = new Map();
+  const kept = [];
+  for (const c of placeDeduped) {
+    if (!c.contentKey) { kept.push(c); continue; }
+    const prev = byContent.get(c.contentKey);
+    if (!prev) { byContent.set(c.contentKey, c); kept.push(c); continue; }
+    if (c.richness > prev.richness) Object.assign(prev, c); // richest copy still wins
+  }
+  const blasted = placeDeduped.length - kept.length;
+
+  const out = kept.map((c) => c.row);
   const dupes = candidates.length - out.length;
 
   // Ledger hygiene: entries whose first-seen date is over 400 days old are done.
@@ -109,6 +169,7 @@ export async function normalize({ log }) {
     mapped: candidates.length,
     deduped: out.length,
     dupes_removed: dupes,
+    blasts_collapsed: blasted,
     pct_titles_mapped: +(100 * candidates.length / raw.length).toFixed(1),
     pct_with_salary: out.length ? +(100 * withSalary / out.length).toFixed(1) : 0,
     pct_with_3plus_skills: out.length ? +(100 * withSkills3 / out.length).toFixed(1) : 0,
@@ -120,7 +181,7 @@ export async function normalize({ log }) {
     titles: [...unmapped.entries()].sort((a, b) => b[1] - a[1]).slice(0, 400).map(([title, count]) => ({ title, count })),
   });
 
-  log(`normalize: ${raw.length} raw → ${candidates.length} mapped (${quality.pct_titles_mapped}%) → ${out.length} after dedup (−${dupes}) · salary ${quality.pct_with_salary}% · ≥3 skills ${quality.pct_with_3plus_skills}% · ${unmapped.size} distinct unmapped titles`);
+  log(`normalize: ${raw.length} raw → ${candidates.length} mapped (${quality.pct_titles_mapped}%) → ${out.length} after dedup (−${dupes}, of which −${blasted} geo-blast) · salary ${quality.pct_with_salary}% · ≥3 skills ${quality.pct_with_3plus_skills}% · ${unmapped.size} distinct unmapped titles`);
 
   const { mirrored } = await supabaseUpsert('postings', out.map((p) => ({ ...p, skills: p.skills })), 'source,external_id');
   if (mirrored) log(`normalize: mirrored ${mirrored} rows to Supabase`);

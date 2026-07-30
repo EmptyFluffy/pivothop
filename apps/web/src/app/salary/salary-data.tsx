@@ -974,7 +974,7 @@ function loadCover() {
   } catch { /* no dir at build edge */ }
 }
 export function coverableSlugs(): string[] { loadCover(); return _cover!; }
-function coverable(slug: string): boolean { loadCover(); return _coverSet.has(slug); }
+export function coverable(slug: string): boolean { loadCover(); return _coverSet.has(slug); }
 
 let _metaCache: Record<string, { field?: string; demand?: string; remote?: string }> | null = null;
 function getMeta(occ: string) {

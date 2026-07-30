@@ -1,5 +1,6 @@
 import 'server-only';
 import targets from '../../../../../../packages/data/outreach/targets.json';
+import curated from '../../../../../../packages/data/outreach/curated.json';
 
 /* Outreach target list + its campaign state.
  *
@@ -15,6 +16,12 @@ import targets from '../../../../../../packages/data/outreach/targets.json';
 export type Target = {
   key: string;
   company: string;
+  /** Dominant industry among the company's adjacent openings (taxonomy `field`). */
+  field: string;
+  /** Corpus footprint, not headcount: major = 100+ open roles here (long shot),
+   *  mid = 20–99, small = <20. The filter exists because a giant's inbox is
+   *  unreachable and the operator should be able to hide them. */
+  scale: 'small' | 'mid' | 'major';
   score: number;
   why: { reach: number; volume: number; age: number };
   open_roles: number;
@@ -52,6 +59,19 @@ export type Status = {
 
 export type Row = Target & { state: Status | null };
 
+/** Hand-curated non-employer targets (phases 2-3): launch boards, press desks,
+ *  career-education orgs for backlinks. Source: packages/data/outreach/curated.json.
+ *  Status lives in the SAME outreach_status table under key "cur:<slug>". */
+export type CuratedTarget = {
+  slug: string;
+  category: 'launch' | 'press' | 'backlink';
+  name: string;
+  url: string;
+  why: string;
+  pitch: string;
+};
+export type CuratedRow = CuratedTarget & { state: Status | null };
+
 export const meta = {
   generated: (targets as { generated: string }).generated,
   scored: (targets as { scored: number }).scored,
@@ -60,23 +80,29 @@ export const meta = {
   minReadiness: (targets as { min_readiness: number }).min_readiness,
 };
 
-export async function readOutreach(): Promise<{ rows: Row[]; error: string | null }> {
+export async function readOutreach(): Promise<{ rows: Row[]; curated: CuratedRow[]; error: string | null }> {
   const list = (targets as { targets: Target[] }).targets ?? [];
+  const cur = (curated as { targets: CuratedTarget[] }).targets ?? [];
+  const bare = { rows: list.map((t) => ({ ...t, state: null })), curated: cur.map((c) => ({ ...c, state: null })) };
   const base = process.env.SUPABASE_URL?.replace(/\/$/, '');
   const key = process.env.SUPABASE_SERVICE_KEY;
-  // The list is useful before the table exists — it is a build artefact, not a
-  // query. Missing credentials degrade to a read-only list, not an error page.
-  if (!base || !key) return { rows: list.map((t) => ({ ...t, state: null })), error: 'not-configured' };
+  // The lists are useful before the table exists — they are build artefacts, not
+  // queries. Missing credentials degrade to a read-only console, not an error page.
+  if (!base || !key) return { ...bare, error: 'not-configured' };
   try {
     const res = await fetch(`${base}/rest/v1/outreach_status?select=*`, {
       headers: { apikey: key, Authorization: `Bearer ${key}` },
       cache: 'no-store',
     });
-    if (!res.ok) return { rows: list.map((t) => ({ ...t, state: null })), error: `db-${res.status}` };
+    if (!res.ok) return { ...bare, error: `db-${res.status}` };
     const states = (await res.json()) as Status[];
     const byKey = new Map(states.map((s) => [s.company_key, s]));
-    return { rows: list.map((t) => ({ ...t, state: byKey.get(t.key) ?? null })), error: null };
+    return {
+      rows: list.map((t) => ({ ...t, state: byKey.get(t.key) ?? null })),
+      curated: cur.map((c) => ({ ...c, state: byKey.get(`cur:${c.slug}`) ?? null })),
+      error: null,
+    };
   } catch {
-    return { rows: list.map((t) => ({ ...t, state: null })), error: 'network' };
+    return { ...bare, error: 'network' };
   }
 }

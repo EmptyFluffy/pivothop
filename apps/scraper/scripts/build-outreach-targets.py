@@ -173,7 +173,9 @@ def load_inbound():
 
 
 def main():
-    titles = {o['slug']: o['title'] for o in json.load(open(TAX, encoding='utf-8'))['occupations']}
+    tax = json.load(open(TAX, encoding='utf-8'))['occupations']
+    titles = {o['slug']: o['title'] for o in tax}
+    fields = {o['slug']: (o.get('field') or 'Other') for o in tax}
     inbound = load_inbound()
     gated = sorted(o['slug'] for o in json.load(open(TAX, encoding='utf-8'))['occupations']
                    if (o.get('license') or {}).get('req') == 'required')
@@ -332,9 +334,22 @@ def main():
         if ng and ng not in cands:
             cands.append(ng)
 
+        # Facets for the console (2026-07-30). `field` is the dominant industry
+        # among the company's adjacent openings, straight from the taxonomy.
+        # `scale` is corpus footprint, NOT headcount — a company with 100+ open
+        # roles in a 236k corpus is a giant whose inbox we will never reach, and
+        # the operator wants to filter those out, so the honest proxy is enough.
+        fld = collections.Counter()
+        for o, n_open in c['occs'].items():
+            fld[fields.get(o, 'Other')] += n_open
+        field = fld.most_common(1)[0][0] if fld else 'Other'
+        scale = 'major' if c['postings'] >= 100 else 'mid' if c['postings'] >= 20 else 'small'
+
         rows.append({
             'key': key,
             'company': name,
+            'field': field,
+            'scale': scale,
             'score': score,
             'why': {'reach': round(reach, 1), 'volume': round(volume, 1), 'age': round(agepts, 1)},
             'open_roles': c['postings'],

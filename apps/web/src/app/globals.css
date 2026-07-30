@@ -612,7 +612,34 @@ input:focus-visible{outline:none}
 .otr-nav a{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);text-decoration:none}
 .otr-nav a:hover{color:var(--accent)}
 .otr-rules,.otr-prov{border:1px solid var(--rule);background:var(--card);padding:18px 22px;margin-bottom:16px}
-.otr-rules h2,.otr-prov h2{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px;font-weight:400}
+.otr-rules h2,.otr-prov h2{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:0;font-weight:400;display:inline}
+.otr-rules summary,.otr-prov summary{cursor:pointer;list-style:none}
+.otr-rules summary::-webkit-details-marker,.otr-prov summary::-webkit-details-marker{display:none}
+.otr-rules summary::after,.otr-prov summary::after{content:' +';font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.otr-rules[open] summary::after,.otr-prov[open] summary::after{content:' −'}
+.otr-rules[open] summary,.otr-prov[open] summary{margin-bottom:12px}
+/* category tabs (phases 2-3): employers / launch / press / backlinks */
+.otr-tabs{display:flex;gap:0;margin-top:24px;border-bottom:2px solid var(--ink)}
+.otr-tabs button{background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:10px 16px 9px;cursor:pointer}
+.otr-tabs button span{color:var(--ink-3);opacity:.7;margin-left:4px}
+.otr-tabs button:hover{color:var(--ink)}
+.otr-tabs button.on{color:var(--ink);border-bottom-color:var(--accent)}
+.otr-tabs button.on span{color:var(--accent)}
+/* facet filters (phase 1) */
+.otr-filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:22px 0 6px;padding:12px 0;border-top:1px solid var(--ink);border-bottom:0.5px solid var(--rule)}
+.otr-filters input[type=search]{font-family:var(--sans);font-size:13px;background:var(--card);border:1px solid var(--rule-2);color:var(--ink);padding:7px 10px;min-width:170px}
+.otr-filters select{appearance:none;-webkit-appearance:none;background:var(--card);border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);padding:8px 26px 8px 10px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 13px) 55%,calc(100% - 9px) 55%;background-size:4px 4px;background-repeat:no-repeat}
+.otr-mailable{display:flex;gap:7px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);cursor:pointer}
+.otr-mailable input{accent-color:var(--accent)}
+.otr-filters>.lbl{margin-left:auto}
+/* status sections */
+.otr-sec{margin-top:18px}
+.otr-sec>summary{display:flex;align-items:baseline;gap:12px;cursor:pointer;list-style:none;padding:10px 0;border-bottom:2px solid var(--ink)}
+.otr-sec>summary::-webkit-details-marker{display:none}
+.otr-sec>summary h2{font-weight:700;font-size:19px;letter-spacing:-.015em;margin:0;display:inline}
+.otr-sec>summary::after{content:'+';font-family:var(--mono);font-size:13px;color:var(--ink-3);margin-left:auto}
+.otr-sec[open]>summary::after{content:'−'}
+.otr-sec .otr-list{margin-top:14px}
 .otr-rules ol{margin:0;padding-left:20px}
 .otr-rules li{font-size:13.5px;line-height:1.65;color:var(--ink-2);margin-bottom:7px}
 .otr-rules li b{color:var(--ink)}
