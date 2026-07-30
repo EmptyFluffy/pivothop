@@ -33,6 +33,7 @@ export default async function Outreach() {
 
       <nav className="otr-nav">
         <Link href="/admin">← Submissions</Link>
+        <Link href="/admin/research">Competitor research →</Link>
         <span className="lbl">list built {meta.generated}</span>
       </nav>
 

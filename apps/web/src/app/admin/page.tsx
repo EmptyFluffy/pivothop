@@ -80,6 +80,7 @@ export default async function Admin() {
       </header>
       <nav className="otr-nav">
         <Link href="/admin/outreach">Outreach queue →</Link>
+        <Link href="/admin/research">Competitor research →</Link>
       </nav>
       {error === 'not-configured' && <p className="adm-note">Not connected. Set <b>SUPABASE_URL</b> and <b>SUPABASE_SERVICE_KEY</b> in the Vercel environment.</p>}
       {error && error !== 'not-configured' && <p className="adm-note">Couldn&rsquo;t load submissions ({error}).</p>}
