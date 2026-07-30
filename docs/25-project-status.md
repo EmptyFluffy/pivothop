@@ -113,6 +113,7 @@
 *Everything found while working and deliberately not done yet, cheapest first. Each is self-contained; none blocks another.*
 
 **Site hygiene — small, mechanical**
+- **FairElephant is out of the top nav** (2026-07-30) — not ready to promote. It keeps its footer entry under Product and the `/fairelephant` page is untouched, so nothing 404s and the link gate stays green. Put it back in the nav when the calculator is finished, not before.
 - **`/compare/<pair>` at 69% sibling similarity** — the same problem the origin pages had, and the pattern is now established, so it's the faster second pass. Compare pages already hold the shared-skill waterfall and both salary bands; the findings should write themselves.
 - **Sibling-origin cross-links** — architect ↔ interior designer ↔ BIM manager origin pages don't link each other. Closes the silo, and the adjacency data is an honest reason to link.
 - **Prune the footer's 11 sitewide links.** Every one of 6,355 pages fires all 11 at hubs already one click from everywhere. That's the dilution half of the link problem; only the starvation half was fixed. A navigation call as much as an SEO one.
@@ -132,6 +133,37 @@
 **Waiting on the founder / on time**
 - **Search Console** is still the gate on almost everything above. Until the indexed count and the "crawled – currently not indexed" trend are visible, every prioritisation here is a guess.
 - **Google favicon** (re-investigated 2026-07-29 — the earlier "our side is provably correct" was wrong). The ICO, robots, 200s and apex 308 all check out, but **`icon.svg` had a non-square viewBox (139×124)** and Google rejects non-square favicons outright. Since the SVG is declared `sizes="any"`, it is the candidate Google prefers — so the compliant ICO behind it may never have been reached. Fixed to a square viewBox. Remaining levers are Google's: it re-reads the favicon when it crawls the homepage, and the cache turns over on its own 2–6 week schedule. Request Indexing on `/` is the only push.
+
+### Join the pool — candidate profiles as the second marketplace side (idea, 2026-07-30)
+
+*Founder's call while pulling FairElephant out of the top nav. Not built.*
+
+A "join our pool" capture: a visitor submits a profile (current role, skills, target
+roles, location/remote, notice period) and we hold it for later matching against
+employers who ask for adjacent talent. It is the missing half of the concierge model
+in docs/00 — today we can tell an employer *"architects are 62% ready for your BIM
+Manager role"* and then have nobody to introduce.
+
+**Why it is more than a mailing list.** The Himalayas teardown (`/admin/research`)
+found they index candidates as a full third entity — profiles by skill, by location,
+and a people directory — so each profile is simultaneously product (employers search
+it), inventory (a second marketplace side), and a page. Ours would differ in the way
+that matters: not a self-reported CV, but a profile whose *reachable roles are
+computed*. "Show me people who can reach BIM Manager" is a query only we can answer.
+
+**Sequencing.** The employer side must exist first, or we are collecting personal
+data with nothing to do with it — which is both useless and a GDPR liability
+(docs/28: every stored profile is a subject-access and deletion obligation). Order:
+one paying employer → a manual pool of tens → the capture form → only then anything
+resembling a directory.
+
+**Open questions worth deciding before building.**
+- Storage: Supabase table with RLS and a real retention window, or start as a form
+  that emails us and holds nothing? The second is the honest V0.
+- Do profiles ever become public pages? That is the Himalayas SEO play, and it is a
+  materially different privacy posture. Default: no, private until asked.
+- Does it fold into the existing roadmap-email capture rather than being a new
+  surface? Probably — one capture, two intents, fewer things to maintain.
 
 ### Saved roles — the one Pinterest mechanic worth taking (designed 2026-07-29)
 *Came out of "what if this behaved like Pinterest for jobs?". The honest answer: the masonry grid is the wrong half of Pinterest for text content — a grid of job cards fits less per screen, scans worse, and shrinks the salary and readiness numbers that make the board useful. Every board that tried it drifted back to lists. The mechanics underneath it are the valuable part.*

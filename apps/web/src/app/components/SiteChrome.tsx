@@ -23,7 +23,6 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
       <Link href="/" className="brand"><RabbitMark /><span className="wm">PIVOTHOP</span></Link>
       <NavBurger controls="site-navmenu" />
       <div className="nav-menu" id="site-navmenu">
-        <a className="navlink" href="/fairelephant">FairElephant <ArrowIco /></a>
         <Link className="navlink" href="/#how">Method</Link>
         <Link className="navlink" href="/jobs">Jobs</Link>
         <Link className="navlink" href="/blog">Blog</Link>

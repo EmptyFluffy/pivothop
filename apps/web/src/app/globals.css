@@ -28,7 +28,10 @@
   .main{min-width:0}
 
   /* ── nav ── */
-  .nav{display:grid;grid-template-columns:250px repeat(5,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
+  /* repeat(4) not (5): FairElephant left the top nav on 2026-07-30 (not ready
+     to promote; it keeps its footer entry). The grid track count is not
+     decorative — leave it at 5 and the row carries a phantom empty column. */
+  .nav{display:grid;grid-template-columns:250px repeat(4,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
   .nav .brand{position:relative;display:flex;align-items:center;gap:12px;padding:0 26px}
   .nav .brand .mark{width:30px;height:25px;color:var(--ink)}
   .nav .brand .wm{font-weight:700;font-size:15px;letter-spacing:.12em}
