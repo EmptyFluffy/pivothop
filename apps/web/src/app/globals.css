@@ -36,7 +36,8 @@
      sans at 600 gives the bar the same voice as the logotype beside it. Tracking
      sits below the wordmark's .12em, which is a logotype value and too wide for
      a row of words. */
-  .navlink{display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);text-align:center;padding:0 6px;transition:color var(--dur) var(--ease)}
+  .navlink{display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);text-align:center;padding:0 6px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+  .navlink:hover{text-decoration-color:currentColor}
   .navlink.on{color:var(--ink)}
   .navlink:hover{color:var(--ink)}
   .nav .cta{background:var(--black);color:#f4f4f6;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 26px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;transition:background .2s}
@@ -60,7 +61,8 @@
      fixed 2px underline disappears under a 132px headline. currentColor, not
      accent: non-negotiable #6 keeps the accent on the data, and the contemporary
      feel here comes from the offset and weight rather than the hue. */
-  .hero h1 .em{font-weight:700;text-decoration:underline;text-decoration-thickness:.055em;text-underline-offset:.11em;text-decoration-skip-ink:none}
+  .hero h1 .em{font-weight:700;text-decoration:underline;text-decoration-thickness:.055em;text-underline-offset:.11em;text-decoration-skip-ink:none;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease)}
+  .hero:hover h1 .em{text-decoration-color:currentColor}
 
   /* ── search: the one boxed instrument ── */
   .instr{position:relative}
@@ -140,7 +142,7 @@
   .dsk{margin-top:18px}
   .dsk .cap{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
   .tags{display:flex;flex-wrap:wrap;gap:6px}
-  .tag{font-family:var(--mono);font-size:11px;padding:5px 9px;border:0.5px solid var(--rule-2);color:var(--ink-2);background:var(--card)}
+  .tag{font-family:var(--mono);font-size:11px;padding:5px 11px;border:0.5px solid var(--rule-2);border-radius:var(--r-pill);color:var(--ink-2);background:var(--card);transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),color var(--dur) var(--ease)}
   .tag.have{background:var(--accent-tint);border-color:transparent;color:var(--accent-press)}
   a.tag{text-decoration:none;cursor:pointer;transition:border-color .12s,color .12s,background .12s}
   a.tag:hover{border-color:var(--accent);color:var(--accent)}
@@ -646,13 +648,30 @@ input:focus-visible{outline:none}
 .otr-mailable{display:flex;gap:7px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);cursor:pointer}
 .otr-mailable input{accent-color:var(--accent)}
 .otr-filters>.lbl{margin-left:auto}
-/* Fade-in underline (Creative Boom, docs/29). The underline is always rendered
+/* Fade-in underline (Creative Boom, docs/29). The underline is ALWAYS rendered
    and always occupies layout; only text-decoration-color animates. Nothing
-   reflows, so it fades rather than snapping on — that is the whole trick.
-   Editorial links only: nav, chips and data surfaces are excluded on purpose,
-   because if every clickable thing underlines the page twitches. */
-.gl,.post-body a,.rt-dek a,.adm-note a{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:2px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
-.gl:hover,.post-body a:hover,.rt-dek a:hover,.adm-note a:hover{text-decoration-color:currentColor}
+   reflows, so it fades in rather than snapping — that is the whole trick, and
+   it is why the same treatment can go on everything clickable without the page
+   twitching. (An earlier pass restricted this to editorial links on exactly
+   that fear; with the colour-only transition the fear does not apply.)
+   Applied broadly: editorial links, blog titles, FAQ questions, method
+   headings, job titles, route links, footer. */
+.gl,.post-body a,.rt-dek a,.adm-note a,.rt-note a,
+.blog-card h2,.blog-card h3,.bl-item a,.post-go a,
+.faq-item summary,.how .step h4,
+.job-card .jc-title,.feat-row .fr-title,.jsheet-title,
+.jb-occlinks a,.rt-rel a,.foot a,.copy a,
+.res-boards h3 a,.otr-pitch a{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.gl:hover,.post-body a:hover,.rt-dek a:hover,.adm-note a:hover,.rt-note a:hover,
+.blog-card:hover h2,.blog-card:hover h3,.bl-item a:hover,.post-go a:hover,
+.faq-item summary:hover,.how .step:hover h4,
+.job-card:hover .jc-title,.feat-row:hover .fr-title,.jsheet-title:hover,
+.jb-occlinks a:hover,.rt-rel a:hover,.foot a:hover,.copy a:hover,
+.res-boards h3 a:hover,.otr-pitch a:hover{text-decoration-color:currentColor}
+/* The routes list already drew its own bottom border on hover — now redundant
+   with the underline, and two lines under one word looked like a mistake. */
+.jb-occlinks a{border-bottom:none}
+.jb-occlinks a:hover{border-bottom-color:transparent}
 /* competitor research (/admin/research) — a reading surface, so wider measure
    and real paragraph rhythm rather than the console's dense rows */
 .res{width:min(860px,94vw)}
@@ -691,7 +710,7 @@ input:focus-visible{outline:none}
 @media (max-width:640px){.res-two{grid-template-columns:1fr}.res-sec>h2{font-size:21px}}
 /* toolbar: add-lead + export */
 .otr-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
-.otr-add{background:none;border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding:7px 13px;cursor:pointer;border-radius:50px;transition:color .15s,border-color .15s}
+.otr-add{background:none;border:1px solid var(--rule-2);font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding:7px 13px;cursor:pointer;border-radius:var(--r-pill);transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
 .otr-add:hover{color:var(--accent);border-color:var(--accent)}
 .otr-addform{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1px solid var(--rule);background:var(--card);padding:12px 14px;width:100%}
 .otr-addform input[type=text]{font-family:var(--sans);font-size:13px;background:var(--paper);border:1px solid var(--rule-2);color:var(--ink);padding:7px 10px;flex:1;min-width:150px}
@@ -1012,7 +1031,7 @@ input:focus-visible{outline:none}
 .jb-tagbtn[aria-expanded="true"] .jb-tagchev{transform:rotate(180deg)}
 .jb-tagmenu{position:absolute;top:calc(100% + 9px);left:0;z-index:60;display:flex;flex-wrap:wrap;gap:8px;width:max-content;max-width:min(80vw,430px);background:var(--card);border:1px solid var(--ink);padding:14px;box-shadow:0 14px 34px rgba(20,18,15,.16)}
 /* scoped (occupation) board: the button back to the full board */
-.jb-showall{flex:0 0 auto;display:inline-flex;align-items:center;background:var(--accent);border:1px solid var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px 7px;white-space:nowrap;transition:background .12s,border-color .12s}
+.jb-showall{flex:0 0 auto;display:inline-flex;align-items:center;background:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px 7px;white-space:nowrap;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
 .jb-showall:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .jb-mtoggle{display:none}
 .jb-mcount{display:none}
