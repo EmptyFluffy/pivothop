@@ -13,7 +13,7 @@ import type { Job } from '../jobs/JobCard';
    posts publish, dated to the run. Dataset + Article JSON-LD below. */
 
 export const metadata: Metadata = {
-  title: 'The Adjacency Index — the state of career mobility, in numbers | PivotHop',
+  title: 'The Adjacency Index: career mobility, in numbers',
   description:
     'Headline figures from the PivotHop corpus of 100,000+ live job postings: how AI-exposed each field is, how much skill sets overlap between careers, which jobs are most transferable, and the pay behind every route. Computed, dated, and citable — nothing invented.',
   alternates: { canonical: '/adjacency-index' },

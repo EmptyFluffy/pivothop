@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ route: st
   if (def && r) {
     const om = originMeta(def.origin);
     return {
-      title: `${om.title} to ${r.title}: match, salary, skill gap — PivotHop`,
+      title: `${om.title} to ${r.title}: match, salary, gap`,
       description: `The ${om.title.toLowerCase()} to ${r.title.toLowerCase()} pivot, measured from ${om.postings.toLocaleString()} live ${om.title.toLowerCase()} postings: ${r.match}% skill readiness, ${r.salary} posted salary band, the exact gap, and the working graph preloaded to this route.`,
       alternates: { canonical: `/routes/${route}` },
     };
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ route: st
     const roles = originRoles(route);
     const top = roles[0];
     return {
-      title: `Alternative careers for ${om.title.toLowerCase()}s: ${roles.length} measured routes — PivotHop`,
+      title: `Alternative careers for ${om.title.toLowerCase()}s: ${roles.length} measured routes`,
       description: `Every career change from ${om.title.toLowerCase()} we can measure, ranked by skill readiness from ${om.postings.toLocaleString()} live postings${top ? ` — starting with ${top.title.toLowerCase()} at ${top.match}%` : ''}. Salary, transition time, and license gates for each.`,
       alternates: { canonical: `/routes/${route}` },
     };

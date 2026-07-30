@@ -8,7 +8,7 @@ import GlossaryTabs from './GlossaryTabs';
 import { SkillMarkSvg } from '../jobs/SkillMark';
 
 export const metadata: Metadata = {
-  title: 'Glossary and sources: the career-data terms and skills, defined — PivotHop',
+  title: 'Glossary and sources: career-data terms and skills, defined',
   description: 'Plain-language definitions of every acronym, dataset, and skill behind PivotHop, from SOC codes and OEWS wage data to Python, Revit, and FP&A — each skill linked to the open roles it unlocks.',
   alternates: { canonical: '/glossary' },
 };

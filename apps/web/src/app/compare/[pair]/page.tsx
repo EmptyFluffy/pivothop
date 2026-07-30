@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ pair: str
   if (!p) return {};
   const tA = occTitle(p.a), tB = occTitle(p.b);
   return {
-    title: `${tA} vs ${tB}: salary, skills, and the measured overlap — PivotHop`,
+    title: `${tA} vs ${tB}: salary, skills, overlap`,
     description: `${tA} vs ${tB}, measured from live postings: posted salary bands (${fmtBand(p.bandA) ?? 'n/a'} vs ${fmtBand(p.bandB) ?? 'n/a'}), skill readiness in both directions, the shared skills, and which switch is easier.`,
     alternates: { canonical: `/compare/${pair}` },
   };

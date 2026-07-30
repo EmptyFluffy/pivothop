@@ -26,14 +26,14 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   if (jobCount(occ) > 0) {
     const title = occTitle(occ);
     return {
-      title: `${title} jobs: ${jobCount(occ)} open roles — PivotHop`,
+      title: `${title} jobs: ${jobCount(occ)} open roles`,
       description: `${jobCount(occ)} live ${title.toLowerCase()} openings from company career pages and remote boards, with salary where posted, plus the adjacent routes that lead into the role.`,
       alternates: { canonical: `/jobs/${occ}` },
     };
   }
   const cat = getCategory(occ);
   if (cat) return {
-    title: `${cat.title}: ${cat.count.toLocaleString()} open roles — PivotHop`,
+    title: `${cat.title}: ${cat.count.toLocaleString()} open roles`,
     description: categoryBlurb(cat),
     alternates: { canonical: `/jobs/${occ}` },
   };

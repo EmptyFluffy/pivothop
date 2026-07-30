@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   if (!f) return {};
   const b = usBand(f);
   return {
-    title: `${f.title} salary (2026): what ${f.title.toLowerCase()}s actually make — PivotHop`,
+    title: `${f.title} salary (2026): what they actually make`,
     description: `${f.title} pay from ${f.observations.toLocaleString()} live job postings and official US BLS OEWS data: median ${fmt(b?.p50)}, typical range ${fmt(b?.p25)} to ${fmt(b?.p75)}, with a per-country switcher, the wage trend over recent years, and how it splits by seniority.`,
     alternates: { canonical: `/salary/${occ}` },
   };
