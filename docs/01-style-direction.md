@@ -328,6 +328,34 @@ The no-inline-bolding law above governs *emphasis*. It does not forbid bold as a
 
 The judgment-call block under each route graph is prose, and prose breathes in paragraphs. One wall of text is a draft, not a finished block. Break each editorial into three or four short paragraphs along its natural seams: the claim, what actually changes, where the gap really is, and the concrete first step. Bold the destination role and the named skills on first use per the rule above. Link every profession acronym on first mention. Same voice as everywhere else: deadpan, numbers over adjectives, no em dashes.
 
+### Headlines — the no-colon law
+
+*Added 2026-07-30, after an audit found 20 of 41 blog headlines carrying the same construction.*
+
+**The headline is a newsroom headline, not a paper title.** The failure mode is specific and it is punctuation, not vocabulary:
+
+> ~~The gravity wells**: the careers the most skill sets can reach, and what they share**~~
+> ~~Licensed exits**: 18 percent of good career routes have a legal gate**~~
+
+`Label: explanation` is the academic convention — *"Title: A Study of X Among Y."* Journals use it constantly, newsrooms sparingly. It is why headlines written this way read like research papers, and this is a business.
+
+The rules:
+
+1. **Cut the clause that explains.** Every post already carries a `dek` of 300–400 characters doing the full explanation, so a subtitle is the third telling of the same thing. The colon survives only when the second half *turns* rather than explains — "Product manager vs project manager: 24% the same job" earns it, because the number contradicts the setup.
+2. **Do not close the gap you just opened.** Curiosity is the space between what the reader knows and what they want to know. A headline that answers itself has nothing left to click for.
+3. **Lead with the number when the number is the story.** "42,254 job titles now map to no job at all" beats "Job titles, deprecated: 42,254 title strings now map to no job at all."
+4. **40–60 characters.** Search truncates near 600px; social truncates earlier. Long headlines are not penalised in ranking — Google indexes every word — so length is a click-through matter, which is exactly why it is a business matter.
+5. **Rewrite by deleting.** If a headline is fixed by *adding* words, the diagnosis was wrong. Every rewrite in the 2026-07-30 pass was a deletion or a re-ordering; none added an adjective.
+6. **The register does not change.** Not clickbait — no hype, no second person imperative, no "you won't believe." The model is *The Economist* and Bloomberg: short, dry, frequently a sharp turn, never breathless. A site whose whole claim is measurement cannot sell with adjectives.
+
+Headlines that were already right, kept untouched as the reference set: *"Pink Floyd were architecture students, and it shows"*, *"The giants disagree about where you should sit"*, *"Where nurses actually go when they leave the bedside"*, *"What 1,090 job postings say architects actually do"*.
+
+### Page titles — the brand suffix
+
+`— PivotHop` does not go in the `<title>` of a templated page (`/compare`, `/salary`, `/routes`, `/jobs`, `/blog` posts). It sits at the end, where it is truncated first, and search already prints the domain above the title. Split-test data: a brand suffix lifts click-through up to 30% for a **recognised** brand and is negligible-to-negative for an unknown one. It stays on the hand-written pages — home, `/about`, `/employers`, section indexes — where length is not a constraint and ownership is the point.
+
+Keywords go at the front. Boilerplate is the only thing that may be cut to hit length; never a keyword, since Google indexes the whole title regardless of what it displays.
+
 ---
 
 ## Photography and imagery

@@ -59,7 +59,7 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 export const POSTS: Post[] = [
   {
     slug: 'karp-two-safe-workers',
-    title: 'Alex Karp says two workers are AI-proof: the trades and the neurodivergent',
+    title: 'Alex Karp says the trades are AI-proof. We checked.',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'Palantir’s CEO says two groups have a future as AI accelerates: people with vocational training, and the neurodivergent. One of those claims we can check against 100,000 job postings, and it holds hard — every hands-on field shows zero demand for AI skills, while technology shows the most. The other is a thesis with a fellowship attached. Both land on the same two things a machine still can’t do.',
@@ -240,7 +240,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'ai-jobs-three-ledgers',
-    title: 'Sam Altman says AI created more jobs than it took. The data, checked.',
+    title: 'Sam Altman says AI made more jobs than it took. Checked.',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'Sam Altman now says he was wrong about AI eliminating entry-level jobs. His neighbor at Anthropic predicted half of them would go. Anthropic’s own index charts where AI is actually used; payroll studies measure who is actually hurting. We keep a fourth ledger — live posting demand — and it says the reallocation is already visible: 4.9 percent of postings now demand AI-agent skills, across 43 occupations including lawyers and recruiters.',
@@ -323,7 +323,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'skills-over-titles',
-    title: 'Job titles, deprecated: 42,254 title strings now map to no job at all',
+    title: '42,254 job titles now map to no job at all',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'The labor market is quietly switching units, from job titles to skill sets. Our corpus shows the seams: 42,254 title strings that map to nothing, a handful of skills that appear in a third of all occupations, and a measurable split between careers whose skills travel and careers that lock you in. Here is the thesis, with the rankings.',
@@ -438,7 +438,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'confused-career-pairs',
-    title: 'Product manager vs project manager: 24% the same job. Eight confused pairs, measured.',
+    title: 'Product manager vs project manager: 24% the same job',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'Product manager and project manager share 24 percent of a skill set. Graphic designers and UX designers share 13 percent and a doubled salary band. We measured the eight most-confused title pairs from each occupation’s own live postings: the overlap, the pay gap, and which direction the switch actually runs.',
@@ -537,7 +537,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'why-recruiters-ghost',
-    title: 'Why recruiters ghost you, and why more applications is the wrong answer',
+    title: "Why recruiters ghost you, and why applying more won't help",
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Sixty-one percent of job seekers get ghosted after an interview, and the silence is mostly structural: jobs that were never real, roles filled before you applied, software that rejects you before a person reads a word. Here is why it happens, why sending more applications makes it worse, and the numbers behind each claim.',
@@ -653,7 +653,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'what-is-career-adjacency',
-    title: 'What is career adjacency? The full method, the acronyms, and the numbers',
+    title: 'What is career adjacency? The method and the numbers',
     pillar: 'What Carried Over',
     date: 'July 2026',
     dek: 'Career adjacency is the distance between two occupations measured in shared skills, not job titles. Here is exactly how we compute it from 151,369 live postings, what the three signals are, what every acronym means, and why 63 percent of the routes we score are dead ends.',
@@ -801,7 +801,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'visa-sponsorship-counted',
-    title: 'Visa sponsorship, counted: a coin flip, and 43 real offers',
+    title: 'Visa sponsorship, counted: a coin flip and 43 offers',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'We added a visa-sponsor filter to the board, then read the postings behind it. Nearly half the listings that mention the phrase were declining sponsorship, not offering it. Here is the honest count of jobs that will actually move you across a border.',
@@ -877,7 +877,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'fulfilling-careers-who-actually-stays',
-    title: 'Do people stay in the most fulfilling careers? The exit rates say it depends',
+    title: 'Do people stay in the most fulfilling careers?',
     pillar: 'Career Half-Life',
     date: 'July 2026',
     dek: 'The satisfaction surveys measure a feeling. We measured whether people actually stay, and the two do not always agree. Some fulfilling jobs keep people for a career; others run on meaning because they cannot run on anything else.',
@@ -972,7 +972,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'jobs-disappearing-versus-created',
-    title: 'Jobs disappearing versus jobs created: the only number that is actually yours',
+    title: 'The only jobs number that is actually yours',
     pillar: 'What Carried Over',
     date: 'July 2026',
     dek: 'The AI-jobs debate argues about totals, 92 million gone, 170 million made. That number cannot help you. The one that can is which growing job your skills already reach.',
@@ -1059,7 +1059,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'the-weird-jobs-priced',
-    title: 'The weird jobs, priced: what an ethical hacker, a brewmaster, and a perfusionist actually make',
+    title: 'What a brewmaster, an ethical hacker, and a perfusionist make',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'We pointed the scraper at the strange edges of the job market and asked what they pay. The ones it could see price against every intuition. The weirdest ones it could barely see at all.',
@@ -1130,7 +1130,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'the-broken-bottom-rung',
-    title: 'The broken bottom rung: the entry-level job is vanishing, and the way in went sideways',
+    title: 'The entry-level job is vanishing. The way in went sideways',
     pillar: 'Career Half-Life',
     date: 'July 2026',
     dek: 'Entry-level postings are down about a third since 2023, and the word junior has nearly disappeared from our corpus. When the front door closes, the way in is adjacency.',
@@ -1193,7 +1193,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'the-gravity-wells',
-    title: 'The gravity wells: the careers the most skill sets can reach, and what they share',
+    title: 'The gravity wells: the careers most skills can reach',
     pillar: 'What Carried Over',
     date: 'July 2026',
     dek: 'We counted, for every occupation, how many others can reach it on skills alone. The destinations the most skill sets pull toward are, without exception, high-demand. They are not the best paid.',
@@ -1253,7 +1253,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'generalist-vs-specialist-measured',
-    title: 'Generalist versus specialist, measured: breadth is a number, and it is handed out unevenly',
+    title: 'Generalist or specialist? Breadth is a number',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'The AI-era advice is to be a generalist, or a specialist, or a hybrid, always without a number. We put one on it. Sixty of 153 occupations cannot reach a single adjacent field on skills; twenty-nine can reach five or more.',
@@ -1314,7 +1314,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'the-adjacency-premium',
-    title: 'The adjacency premium: what 148 strong career connections pay',
+    title: 'The adjacency premium: what 148 career routes pay',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'A third of well-matched career moves lead somewhere that pays more. The biggest raises hide behind licenses. The whole table logic follows.',
@@ -1474,7 +1474,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'one-word-two-professions',
-    title: 'One word, two professions: the architect problem in job data',
+    title: 'One word, two professions: the architect problem',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'Half the postings titled architect are not about buildings. Every career site you have used mixes them together. How we split them, and why it matters.',
@@ -1561,7 +1561,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'seven-jobs-inside-architect',
-    title: 'The seven jobs inside "architect," and where each one goes alone',
+    title: 'The seven jobs inside "architect"',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'A profession is a bundle of skills that history happened to staple together. Unstaple the architect and seven separate careers fall out.',
@@ -1639,7 +1639,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'licensed-exits',
-    title: 'Licensed exits: 18 percent of good career routes have a legal gate',
+    title: '18% of good career routes have a legal gate',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'We annotated licensing for every major destination in the graph. Nearly one strong route in five runs through a license, and the pattern is not what you would guess.',
@@ -1720,7 +1720,7 @@ export const POSTS: Post[] = [
 
   {
     slug: 'most-transferable-skills',
-    title: 'The 15 most transferable skills of 2026, measured across 132 professions',
+    title: 'The 15 most transferable skills of 2026',
     pillar: 'What Carried Over',
     date: 'July 2026',
     dek: 'We counted which skills appear in the hiring demand of the most occupations. Data analysis and monitoring tie at the top, and generative AI just cracked the list.',
@@ -1815,7 +1815,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'career-change-at-40',
-    title: 'Changing careers at 40: the arithmetic nobody puts in the pep talk',
+    title: 'Changing careers at 40: the arithmetic, not the pep talk',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'At 40 you have roughly 25 working years left, which changes which moves pay off. The math on licenses, pay cuts, and the license-free raises most people never hear about.',
@@ -1974,7 +1974,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'how-to-become-an-ai-engineer',
-    title: 'How people actually become AI engineers, according to 670 salary postings',
+    title: 'How people actually become AI engineers',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'The blended US median is about 150,000 dollars, the doorway professions are wider than the degree myth suggests, and one of the best on-ramps is a sales job.',
@@ -2072,7 +2072,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'should-i-leave-architecture',
-    title: 'Should you leave architecture? Read the numbers before the forum threads',
+    title: 'Should you leave architecture? The numbers first',
     pillar: 'Career Half-Life',
     date: 'July 2026',
     dek: 'The exits from architecture are real, measured, and mostly pay more. What 1,178 postings say about the profession, and the one question the data cannot answer for you.',
@@ -2246,7 +2246,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'forward-deployed-engineer',
-    title: 'The forward-deployed engineer: the job title quietly eating AI hiring',
+    title: 'The forward-deployed engineer is eating AI hiring',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'There are 337 forward-deployed engineer postings in our corpus right now, more than four times the count for prompt engineers. What the role is, who it fits, and why the AI labs invented a field job.',
@@ -2319,7 +2319,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'job-titles-born-since-2023',
-    title: 'Nine job titles that did not exist in 2023, counted in the wild',
+    title: 'Nine job titles that did not exist in 2023',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'We watch new titles being born in the posting stream. Forward-deployed engineers, agentic everything, model evaluators, red-teamers: the census of the AI labor market\u2019s nursery.',
@@ -2403,7 +2403,7 @@ export const POSTS: Post[] = [
 
   {
     slug: 'every-feed-is-the-same-machine',
-    title: 'Google, TikTok, Instagram, X: four algorithms became the same machine',
+    title: 'Google, TikTok, Instagram, X: the same machine now',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'In eighteen months, every major feed rebuilt itself around one architecture: a model that reads your content and predicts who will finish it. What converged, why it converged, and what it means for anyone who publishes anything.',
@@ -2525,7 +2525,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'seo-died-again',
-    title: 'SEO died again in 2026. What the survivors are doing differently',
+    title: 'SEO died again in 2026. What survivors do differently',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Half of Google searches now show an AI answer and most end without a click. The discipline is not dead, but it has been reorganized around one question: what makes a machine cite you?',
@@ -2613,7 +2613,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'seo-specialist-career-priced',
-    title: 'SEO specialist as a career, priced at the exact moment the job is being rewritten',
+    title: 'SEO specialist, priced as the job is rewritten',
     pillar: 'What Carried Over',
     date: 'July 2026',
     dek: 'The US median for SEO specialists in our data is about 80,000 dollars, the skill appears in four professions\u2019 demand, and the role is mid-mutation into AI visibility work. A career analysis with the numbers attached.',
@@ -2816,7 +2816,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'the-day-job-years',
-    title: 'The day-job years: Harrison Ford, Ken Jeong, and the pivot that keeps the paycheck',
+    title: 'The day-job years: Harrison Ford and Ken Jeong',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Ford built cabinets for eight years while turning down bad roles. Jeong saw patients by day and did stand-up at night. The famous version of the strategy our data says is the rational one: pivot in parallel, not in freefall.',
@@ -2903,7 +2903,7 @@ export const POSTS: Post[] = [
 
   {
     slug: 'salary-secrecy-ranking',
-    title: 'The salary secrecy ranking: which professions will not tell you what they pay',
+    title: "Which professions won't tell you what they pay",
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'Sales engineering postings state pay 44 percent of the time. Police postings, 98. We ranked 60 professions by how often they publish a number, and the pattern says more about power than about money.',
@@ -3055,7 +3055,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'remote-premium-illusion',
-    title: 'We tried to verify the remote-pay premium and mostly failed. The whole file, published',
+    title: 'We tried to verify the remote-pay premium and failed',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Our own data says remote software jobs post 87 percent more than onsite ones. We no longer believe that number as stated, and the reasons apply to every remote-salary statistic you have ever read.',
@@ -3187,7 +3187,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'stepping-stone-jobs',
-    title: 'Stepping-stone jobs: the careers that unlock other careers',
+    title: 'The jobs that unlock the most other jobs',
     pillar: 'Unbundle the Job',
     date: 'July 2026',
     dek: 'Some jobs are destinations. Others are doors. We counted which occupations most often serve as the bridge that makes a second move possible, and construction management wins by a distance.',
@@ -3319,7 +3319,7 @@ export const POSTS: Post[] = [
 
   {
     slug: 'four-day-week-counted',
-    title: 'The four-day week, counted: 102 postings out of 110,681',
+    title: 'The four-day week: 102 postings out of 110,681',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'Everyone talks about the four-day week. We searched our entire posting corpus for employers actually offering one, found 0.09 percent, and discovered the offers cluster in trades, not tech.',
@@ -3528,7 +3528,7 @@ export const POSTS: Post[] = [
 
   {
     slug: 'degree-premium-trick-question',
-    title: 'Who earns more, people with degrees or without? The trick question inside the obvious answer',
+    title: 'The degree premium is a trick question',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Degree holders out-earn non-graduates by about 60 percent on average, and the average hides two twists: postings that welcome non-graduates now pay more than ones demanding degrees, and a self-taught developer out-earns a veterinarian holding a doctorate.',
@@ -3684,7 +3684,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'where-people-actually-go',
-    title: 'Where people actually go: what happened when we added real career-change data to the graph',
+    title: 'Where people actually go when they change careers',
     pillar: 'Run It 10,000 Times',
     date: 'July 2026',
     dek: 'Skill overlap says an architect resembles a structural engineer. Federal survey data says architects become interior designers and industrial designers. We wired three observed-transition datasets into the instrument, and the map moved.',
@@ -4009,7 +4009,7 @@ export const POSTS: Post[] = [
 
   {
     slug: 'remote-friendly-careers-ranked',
-    title: 'Remote-friendly careers, ranked from 77,443 live postings (and the license that keeps you in the office)',
+    title: 'Remote-friendly careers, ranked from 77,443 postings',
     pillar: 'Shape of Work',
     date: 'July 2026',
     dek: 'Fully-remote share by occupation, from our own corpus: sales engineers at 29.7 percent, registered nurses at 0.3. The strongest predictor is not the industry. It is whether your job requires a state-issued license, and whether that license has learned to cross state lines.',
