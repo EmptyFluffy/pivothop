@@ -53,9 +53,15 @@
   .nav.open .nav-burger .i-close{display:block}
 
   /* ── hero: type as architecture ── */
-  .hero{padding:104px 30px 88px}
-  .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:34px}
-  .hero h1{font-weight:500;font-size:clamp(60px,9.4vw,132px);line-height:.96;letter-spacing:-.04em;max-width:12ch}
+  .hero{padding:78px 30px 66px}
+  .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:26px}
+  /* Reduced from clamp(60px,9.4vw,132px) on 2026-07-30. Because max-width is in
+     ch and ch scales with font-size, the headline's share of the viewport is
+     CONSTANT below the clamp ceiling: 12ch is about 12 x 0.55 x <vw> wide, so
+     9.4vw was occupying ~62vw at every width. 7vw puts it near 46vw — big, but
+     under the half-screen bar. The 12ch itself is load-bearing (docs/01) and
+     stays: it is what forces two lines and gives the statement its shape. */
+  .hero h1{font-weight:500;font-size:clamp(46px,7vw,104px);line-height:.98;letter-spacing:-.035em;max-width:12ch}
   /* The emphasised word carries a scaled underline (Creative Boom, docs/29).
      em units so it holds proportion across the clamp from 60px to 132px — a
      fixed 2px underline disappears under a 132px headline. currentColor, not

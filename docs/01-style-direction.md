@@ -46,7 +46,7 @@ The split is semantic, not decorative: **Grotesk = words, Mono = measurements.**
 
 | Role | Value |
 |---|---|
-| Hero h1 | `clamp(60px, 9.4vw, 132px)`, weight 500, line-height .96, letter-spacing −.04em, `max-width: 12ch` |
+| Hero h1 | `clamp(46px, 7vw, 104px)`, weight 500, line-height .98, letter-spacing −.035em, `max-width: 12ch` |
 | Hero h1 emphasis span | weight 700 |
 | Manifesto h3 | `clamp(38px, 5.4vw, 72px)`, weight 500, line-height 1.02, letter-spacing −.03em, `max-width: 20ch` |
 | Section h2 | `clamp(30px, 3.8vw, 48px)`, weight 600, letter-spacing −.025em |
@@ -57,6 +57,8 @@ The split is semantic, not decorative: **Grotesk = words, Mono = measurements.**
 | Body | 15–16px, weight 400, line-height 1.5–1.6 |
 | Small body | 13.5px |
 | Mono labels | 9.5–11px, letter-spacing .14–.22em, uppercase |
+
+**Hero sizing is a ratio, not a number (2026-07-30).** Because `max-width` is in `ch` and `ch` scales with font-size, the headline's share of the viewport is *constant* below the clamp ceiling: `12ch` ≈ `12 × 0.55 × <vw>`. The original `9.4vw` therefore occupied ~62vw at every width, which read as shouting. `7vw` lands near 46vw — still the largest thing on the page by a wide margin, but under half the screen. If the hero is ever resized again, solve for the ratio, not for a pixel value.
 
 **The `max-width` in ch on headlines is load-bearing.** It's what forces the hero onto two lines and gives the statement its shape. Do not remove it and let the line run.
 
