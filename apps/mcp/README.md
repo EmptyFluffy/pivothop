@@ -9,7 +9,18 @@ assembled from whatever it read on the web. This makes it come from measurement.
 
 ## Install
 
-**Claude Desktop / Claude Code** — add to your MCP config:
+### Easiest — no install (Claude web/desktop/mobile, ChatGPT)
+
+Add this as a **custom connector**:
+
+```
+https://www.pivothop.com/api/mcp
+```
+
+Claude → Settings → Connectors → Add custom connector. ChatGPT accepts remote
+HTTPS endpoints only, so this is the *only* option there.
+
+### Local package (Claude Desktop, Claude Code, Cursor, VS Code)
 
 ```json
 {

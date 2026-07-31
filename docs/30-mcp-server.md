@@ -20,6 +20,34 @@ over data we already regenerate nightly. No accounts, no stored credentials, no
 per-ATS integrations, no liability for what an agent submitted in someone's
 name. Those five things are what make auto-apply a team-sized product.
 
+## Two front doors
+
+| | local package | **remote endpoint** |
+|---|---|---|
+| Install | edit JSON config, needs Node | **paste a URL** |
+| Claude Desktop / Cursor / VS Code | ✅ | ✅ |
+| claude.ai + Claude mobile | ❌ | ✅ |
+| **ChatGPT** | ❌ | ✅ |
+
+`https://www.pivothop.com/api/mcp` is one route in the Next app we already
+deploy — not a service to keep alive. **ChatGPT accepts remote HTTPS endpoints
+only**, and so do claude.ai and mobile, which is where anyone who is not a
+developer actually is. Building only the package would have reached the smallest
+possible audience; that was the initial mistake here.
+
+Both share `apps/mcp/src/tools.js` verbatim. The single injected difference is
+where the JSON comes from. Two copies of that logic would drift within a month
+and the divergence would be invisible until one door answered differently from
+the other.
+
+**On audience:** the corpus is 25.9% Technology and 20.5% Business — software
+engineer, project manager, account executive, solutions architect, product
+manager, devops engineer are the six largest occupations. Healthcare is 6.8%.
+Coverage is not audience: tech is who this reaches, and MCP reaches them
+natively. The differentiator stays cross-field adjacency, aimed at the "AI is
+reshaping my job, where do I go" question rather than at lateral tech hopping,
+which every board already serves.
+
 ## Architecture
 
 **Local stdio server.** An `npx` package that runs on the *user's* machine and
