@@ -120,6 +120,44 @@ machinery that the next language would otherwise inherit.
 | 2 | German | next | `arbeitnow` survives at 26.1% (2,525 raw → 660) — the worst rate of any source |
 | 3 | French | after | Adzuna FR, plus the Canadian bilingual postings |
 
+## Phase 2 was reprioritised — measure before building (2026-07-31)
+
+German was next in the plan because `arbeitnow` survives normalize at 26.1%, the
+worst rate of any source. Measured before building, that framing was wrong:
+
+| | |
+|---|---|
+| Unmapped corpus-wide | **93,944 (36.1%)** |
+| German-marked and unmapped | **1,839** |
+| **German share of the problem** | **2.0%** |
+
+arbeitnow is the worst *rate* and a negligible *volume* — 3,306 postings out of
+260,479. The original entry ranked by rate when what matters is rate × volume.
+
+The other 98% is overwhelmingly **English titles for occupations we either do not
+have or have not given synonyms**: `recruitment consultant` (281), `doctor`
+(190), `real estate sales agent` (129), `mental health clinician` (73).
+
+So phase 2 became an English synonym pass instead: **19 synonyms + 2 exactOnly
+across 11 occupations, +1,891 postings, mapping 63.94% → 64.67%, in about an
+hour.** More than the entire German effort would have returned, for a fraction of
+the work. German remains real but small, and stays small until German sources are
+added deliberately.
+
+**`exactOnly` did the load-bearing work.** `doctor` by containment swallows
+"doctor of veterinary medicine"; `counsellor` swallows "career counsellor". Both
+map on an exact title and never by containment.
+
+**The gold set caught a cross-tier error of mine.** I mapped `emergency medical
+technician` and `emt` → paramedic. `Emergency Medical Technician` was already
+pinned `expect: null` from earlier work, and that decision is correct: EMT-Basic
+and Paramedic (EMT-P) are different certification tiers, so it is the same class
+as Physician Assistant → physician. Reverted, and `EMT` / `EMT Basic` are now
+pinned too, so a future sweep cannot re-add them. Worth stating plainly: the
+guardrail caught the person adding synonyms, which is exactly who it is for.
+
+---
+
 German needs a genuinely different rule and is the reason phase 2 is separate
 work rather than another table: German is **head-final and compounds**
 (*Softwareentwickler*, *Bauingenieur*), so the reorder pass is unnecessary but
