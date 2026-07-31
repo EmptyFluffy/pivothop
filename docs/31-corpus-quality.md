@@ -236,3 +236,45 @@ ATS boards on Greenhouse, Ashby and Lever — not a better matcher.
 Flight Attendant is the honest illustration. It has 74 postings of airline marketing
 prose ("the world's nicest airline", "truly awesome"), and no lexicon fixes that.
 Its empty state is the correct output, not a gap to close.
+
+
+## The stale-artifact bug this uncovered (2026-07-31, post-deploy)
+
+Verifying the deploy against the live site rather than trusting the push found a
+defect that predates this pass and that the gates could not see.
+
+`export-web-data.py` **skipped** insufficient origins instead of overwriting them:
+
+```python
+if g.get('insufficient') or not g.get('roles'): continue
+```
+
+So an origin that FELL BELOW the floor kept its last good file at a public URL.
+`/data/flight-attendant.json` was still serving "Automotive Technician 17%" after
+the origin had stopped qualifying. Fourteen origins were in that state, several
+with five to eight stale routes — `pilot`, `journalist`, `tutor`, `librarian` —
+and two of them (`exhibit-designer`, `forensic-accountant`) had been stale since
+well before today.
+
+**The site itself was never wrong.** `origins.json` carries an `ok` flag, the
+graph gates on it, and `/routes/flight-attendant` correctly returns 404. That is
+why `check:links` passed and why nothing looked broken. The hole was for every
+*other* consumer of those files — and `apps/mcp` reads exactly these files, so
+asking an assistant "what can a flight attendant become?" returned a stale number
+presented as measurement. That is the one thing the honesty rule exists to
+prevent, and it was live.
+
+Fixed in two places, deliberately:
+
+1. **`export-web-data.py` now writes the honest payload** for an insufficient
+   origin rather than skipping it, so the URL resolves and says so.
+2. **`tools.js` trusts `ok` from `origins.json` over the payload.** A published
+   file can lag its index, and the tool should not be the thing that discovers
+   that. Defense in depth: either fix alone would have closed this instance.
+
+**The general lesson: a gate that changes state must clean up the artifacts of
+the old state.** This codebase now has four instances of the same shape —
+CompareLink, `hasOriginPage`, `coverable()`, and this one — where a threshold
+moved and something downstream kept serving the pre-threshold answer. Adding a
+floor is never only an `if`; it is an `if` plus whatever the old branch already
+published.

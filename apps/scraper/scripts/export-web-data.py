@@ -87,7 +87,25 @@ def main():
     for f in glob.glob(os.path.join(GEN, '*.json')):
         if os.path.basename(f) in SKIP: continue
         g = json.load(open(f))
-        if g.get('insufficient') or not g.get('roles'): continue
+        # An origin that FALLS BELOW the floor must have its published file
+        # overwritten with the honest state, not skipped. Skipping left the last
+        # good run's routes sitting at a public URL: /data/flight-attendant.json
+        # was still serving "Automotive Technician 17%" long after the origin
+        # stopped qualifying, and apps/mcp reads exactly these files, so an
+        # assistant asking "what can a flight attendant become?" got a stale
+        # number presented as measurement. origins.json already gates the site's
+        # own navigation; this closes the same hole for every other consumer.
+        if g.get('insufficient') or not g.get('roles'):
+            o = g.get('origin') or {}
+            json.dump({'originSlug': o.get('slug') or os.path.basename(f)[:-5],
+                       'originLabel': o.get('title', ''),
+                       'postings': o.get('postings', 0),
+                       'insufficient': True,
+                       'note': g.get('note', 'Below the posting floor needed for a defensible route.'),
+                       'roles': [], 'next': {}, 'cross': [], 'bridges': []},
+                      open(os.path.join(OUT, f"{o.get('slug') or os.path.basename(f)[:-5]}.json"), 'w'),
+                      ensure_ascii=False)
+            continue
         d = to_data(g)
         dumps.append(d)
         json.dump(d, open(os.path.join(OUT, f"{d['originSlug']}.json"), 'w'), ensure_ascii=False)

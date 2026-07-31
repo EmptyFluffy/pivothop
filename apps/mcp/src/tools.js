@@ -124,8 +124,12 @@ async function careerRoutes({ occupation, limit = 8 }) {
   if (occ.ambiguous) return { error: 'ambiguous', asked: occupation, candidates: occ.ambiguous };
 
   const d = await getJson(`/data/${occ.slug}.json`);
-  const roles = d?.roles ?? [];
-  if (!roles.length) {
+  // Trust `ok` from origins.json over the payload. A published file can lag the
+  // index — an origin that drops below the floor used to keep its last good
+  // routes at a public URL — and answering from a stale file is exactly the
+  // "confident but wrong" failure that gets a tool distrusted permanently.
+  const roles = occ.ok === false ? [] : (d?.roles ?? []);
+  if (d?.insufficient || !roles.length) {
     // The honesty rule. Do not invent, do not return empty and let the model fill in.
     return {
       occupation: occ.title,
