@@ -16,14 +16,15 @@
     --dot:rgba(21,21,26,.13);--dot-size:1.3px;--dot-gap:48px;
     --black:#0c0c14;
     --railw:300px;
-    --sans:var(--font-sans),"Space Grotesk",system-ui,sans-serif;
+    --sans:var(--font-sans),"Instrument Sans",system-ui,sans-serif;
     --mono:var(--font-mono),"Space Mono",ui-monospace,monospace;
-    /* TRIAL 2026-07-31: --display was an alias of --sans. Now Instrument Sans, the
-     closest free relative to Creative Boom's ABC Diatype, so the hero and nav can
-     be judged against real Space Mono on a live page. ONE LINE TO REVERT: set
-     this back to var(--sans) and the site returns to two typefaces exactly.
-     Non-negotiable #7 is not amended by a trial — it is amended if we keep it. */
-  --display:var(--font-display),"Instrument Sans",var(--sans);
+    /* ADOPTED 2026-07-31. The trial ran Instrument Sans on the hero and nav only,
+     against real Space Mono, and it is now the word face everywhere — Space
+     Grotesk is gone. --display stays as a named alias so the ~40 rules that ask
+     for the display face keep reading intentionally, and so a future display
+     cut can be introduced in one line without touching them.
+     Still TWO typefaces (non-negotiable #7): Instrument Sans + Space Mono. */
+  --display:var(--sans);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -66,8 +67,13 @@
   .nav.open .nav-burger .i-close{display:block}
 
   /* ── hero: type as architecture ── */
-  .hero{padding:78px 30px 66px}
-  .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:26px}
+  /* Symmetric padding, and a min-height so the headline sits optically centred in
+     its own block rather than hanging off the nav. The 78/66 split existed to
+     balance the eyebrow's visual weight at the top; the eyebrow is gone
+     (2026-07-31) and the asymmetry went with it. line-height .98 makes the type
+     sit slightly high in its box, so `justify-content:center` on a flex column
+     centres the INK, not the line boxes. */
+  .hero{padding:72px 30px;min-height:clamp(300px,38vh,420px);display:flex;flex-direction:column;justify-content:center}
   /* Reduced from clamp(60px,9.4vw,132px) on 2026-07-30. Because max-width is in
      ch and ch scales with font-size, the headline's share of the viewport is
      CONSTANT below the clamp ceiling: 12ch is about 12 x 0.55 x <vw> wide, so
@@ -319,7 +325,7 @@
     .nav.open .nav-menu .navlink{height:auto;justify-content:flex-start;padding:16px 24px;border-bottom:0.5px solid var(--rule);font-size:12px;gap:8px}
     .nav.open .nav-menu .navlink.on{color:var(--accent)}
     .nav.open .nav-menu .cta{justify-content:flex-start;padding:18px 24px;height:auto;gap:10px}
-    .hero{padding:64px 22px 44px}
+    .hero{padding:48px 22px;min-height:clamp(220px,30vh,300px)}
     /* nav is 56px here; stickies keep sharing its border row (56 - 1).
        ix-search/jb-stick offsets live next to their base rules (cascade order). */
     .searchwrap{padding:0;top:55px}
@@ -731,7 +737,7 @@ input:focus-visible{outline:none}
 
 /* "Opens paths to" role pills — the one place the detail panel named a
    destination you could not reach. Fill on hover like every other touchpoint. */
-.tag-go{font-family:inherit;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.tag-go{font-family:inherit;cursor:pointer;text-decoration:none;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
 .tag-go:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 
 /* Graph labels are click targets, so they say so. Set by hit-test rather than
@@ -1495,6 +1501,9 @@ input:focus-visible{outline:none}
 .jd-skillgrid{display:flex;flex-wrap:wrap;gap:10px}
 .jd-skill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);border-radius:var(--r-pill);background:var(--card);padding:8px 15px;font-family:var(--mono);font-size:13px;color:var(--ink);line-height:1;transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease)}
 .jd-skill svg{width:16px;height:16px;flex:none;color:var(--ink-2)}
-a.jd-skill{text-decoration:none;transition:border-color .12s,color .12s}
-a.jd-skill:hover{border-color:var(--accent);color:var(--accent)}
-a.jd-skill:hover svg{color:var(--accent)}
+/* Fills black on hover like every other pill on the site (search chips, the
+   "Opens paths to" role chips). It used to only tint its border and text to the
+   accent, which read as a different kind of control than it is. */
+a.jd-skill{text-decoration:none;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+a.jd-skill:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+a.jd-skill:hover svg{color:var(--paper)}

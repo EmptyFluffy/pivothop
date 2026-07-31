@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, Space_Mono, Instrument_Sans } from 'next/font/google';
+import { Space_Mono, Instrument_Sans } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
@@ -8,29 +8,16 @@ import './globals.css';
 // external Google stylesheet used display=swap, so every page rendered in a
 // fallback face and reflowed when the real font landed ~1.4s in, shifting
 // everything below the heading. Same two typefaces, nothing added.
-const sans = Space_Grotesk({
+// ADOPTED 2026-07-31, after the trial below ran on the live hero and nav.
+// Instrument Sans (Rodrigo Fuenzalida) replaces Space Grotesk as the word face.
+// Variable across weight AND width, which is the argument: the hero clamps
+// 46->104px, and type sized right at 46 is a touch wide at 104. Space Grotesk
+// cannot do that. Still two typefaces — Instrument Sans + Space Mono — so
+// non-negotiable #7 holds; only the sans changed.
+const sans = Instrument_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-sans',
-  display: 'swap',
-});
-// TRIAL, 2026-07-31 — not adopted. Instrument Sans (Rodrigo Fuenzalida for the
-// Instrument agency) is the closest free relative to ABC Diatype, which is what
-// Creative Boom runs. Wired to --font-display and used ONLY by the hero and nav
-// so the two faces can be compared on a live page with real Space Mono beneath
-// them, which is the only way this gets decided.
-//
-// Variable across weight AND width. The width axis is the actual argument: the
-// hero clamps 46->104px, and type sized right at 46 is usually a touch wide at
-// 104. Space Grotesk cannot do that.
-//
-// To revert: delete this block, drop --font-display from the html className, and
-// remove the two --font-display references in globals.css. Nothing else depends
-// on it.
-const display = Instrument_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-display',
   display: 'swap',
 });
 const mono = Space_Mono({
@@ -80,7 +67,7 @@ const SITE_LD = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable} ${display.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <head>
         {/* Favicons come from app/icon.svg (vector, for browser tabs + Google's
             SVG support) and app/favicon.ico (multi-size ICO fallback). Both are

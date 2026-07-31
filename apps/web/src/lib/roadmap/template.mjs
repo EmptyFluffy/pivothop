@@ -2,7 +2,7 @@
    Framework-free ESM: imported by the render script (draft) and the
    /api/roadmap route handler (production). Renders the full HTML document;
    Chromium prints it to A4. Design system per docs/01: paper/ink/cobalt,
-   Space Grotesk for words, Space Mono for measurements, accent on data only.
+   Instrument Sans for words, Space Mono for measurements, accent on data only.
 
    Pages (matching the export sheet's table of contents):
      01 The measurement   02 The role, decoded   03 The 90-day plan
@@ -207,13 +207,13 @@ function pageSalary(d) {
 export function renderRoadmapHTML(d) {
   return `<!doctype html><html><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{--ink:#15151a;--ink2:#56565e;--ink3:#8a8a93;--paper:#f5f3ed;--paper2:#eae7df;--card:#faf9f5;--rule:#d5cfbf;--rule2:#b8b0a0;--acc:#002FA6}
   *{margin:0;padding:0;box-sizing:border-box}
   @page{size:A4;margin:0}
   html,body{background:var(--paper)}
-  body{font-family:'Space Grotesk',sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:'Instrument Sans',sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .mono,.cap{font-family:'Space Mono',monospace}
   .acc{color:var(--acc)}
   .pg{width:210mm;height:297mm;padding:13mm 16mm 24mm;page-break-after:always;position:relative;background:var(--paper);display:flex;flex-direction:column;overflow:hidden}

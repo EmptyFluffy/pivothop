@@ -5,6 +5,24 @@ export function mountInstrument(DATA,HOOKS){
   HOOKS=HOOKS||{};
   var PILL_W=108,PILL_H=24;   /* wordmark clearance zone */
   var ROLES,NEXT,GNODES,GEDGES,NODE_BY_ID,NBRS;
+  /* Average glyph advance as a fraction of font-size, for the label face. Label
+     widths are computed from CHARACTER COUNTS (non-negotiable #1 — no getBBox in
+     the loop), so this ratio is the only thing standing in for real measurement,
+     and it is per-font.
+
+     0.6 was set for Space Grotesk and is KEPT for Instrument Sans, because it was
+     re-measured rather than assumed: rendering the live labels and dividing
+     observed advance by (chars x font-size) gives median 0.478 / max 0.558 at
+     12.5px and median 0.509 / max 0.594 at 10.5px. Instrument Sans is the
+     narrower face, so 0.6 stays a conservative UPPER bound — it over-reserves a
+     little, which is the safe direction.
+
+     Changing the sans WITHOUT re-measuring silently mis-sizes every label, and
+     label width is what the edge repulsion (non-negotiable #3) keeps text clear
+     of — so the symptom would be text crossing wires, not anything font-shaped. */
+  var GLYPH_W=0.6;
+  var LABEL_FONT='Instrument Sans, system-ui, sans-serif';
+
   function derive(){
     ROLES=DATA.roles; NEXT=DATA.next;
     ROLES.forEach(function(rl){rl.next=NEXT[rl.id]||[];});
@@ -23,8 +41,8 @@ export function mountInstrument(DATA,HOOKS){
     GNODES.forEach(function(n){
       var t=n.label;
       if(n.type==='you'){n.lblW=PILL_W;n.lblH=PILL_H;}
-      else if(n.type==='first'){n.lblW=Math.max(t.length*12.5*0.6,9*9.5*0.72)+8;n.lblH=30;}
-      else{n.lblW=t.length*10.5*0.6+8;n.lblH=16;}
+      else if(n.type==='first'){n.lblW=Math.max(t.length*12.5*GLYPH_W,9*9.5*0.72)+8;n.lblH=30;}
+      else{n.lblW=t.length*10.5*GLYPH_W+8;n.lblH=16;}
     });
   }
   derive();
@@ -435,7 +453,7 @@ export function mountInstrument(DATA,HOOKS){
        visually pass through the wordmark. Type is the mark. */
     youG.appendChild(svgEl('rect',{x:you.x-52,y:you.y-11,width:104,height:22,
       fill:'#faf9f5',stroke:'none','pointer-events':'none'}));
-    var pt=svgEl('text',{x:you.x,y:you.y+5,'text-anchor':'middle','font-family':'Space Grotesk',
+    var pt=svgEl('text',{x:you.x,y:you.y+5,'text-anchor':'middle','font-family':LABEL_FONT,
       'font-size':15,'letter-spacing':1.8,'font-weight':700,fill:'#15151a','pointer-events':'none'});
     pt.textContent=(you.label||'').toUpperCase();
     youG.appendChild(pt);
@@ -461,13 +479,13 @@ export function mountInstrument(DATA,HOOKS){
       var leader=svgEl('line',{'class':'leader',stroke:'#b8b0a0','stroke-width':0.5,'stroke-opacity':0.75,x1:0,y1:0,x2:0,y2:0});
       g.appendChild(leader);
       if(n.type==='first'){
-        var name=svgEl('text',{'text-anchor':'middle','font-family':'Space Grotesk','font-weight':500,'font-size':12.5,fill:'#15151a',x:0,y:0});
+        var name=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':500,'font-size':12.5,fill:'#15151a',x:0,y:0});
         name.textContent=n.label;g.appendChild(name);
         var match=svgEl('text',{'text-anchor':'middle','font-family':'Space Mono','font-size':9.5,'letter-spacing':1,fill:'#8a8a93',x:0,y:0});
         match.textContent=n.match+'% MATCH';g.appendChild(match);
         el.labelTexts[n.id]={name:name,match:match};
       }else{
-        var name2=svgEl('text',{'text-anchor':'middle','font-family':'Space Grotesk','font-weight':400,'font-size':10.5,fill:'#56565e',x:0,y:0});
+        var name2=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':400,'font-size':10.5,fill:'#56565e',x:0,y:0});
         name2.textContent=n.label;g.appendChild(name2);
         el.labelTexts[n.id]={name:name2};
       }
@@ -610,13 +628,23 @@ export function mountInstrument(DATA,HOOKS){
   function pills(a,c){return a.map(function(x){var slug=skillSlugs[(''+x).toLowerCase()];return slug?('<a class="tag '+c+'" href="/glossary#skill-'+slug+'">'+x+'</a>'):('<span class="tag '+c+'">'+x+'</span>');}).join('');}
   /* "Opens paths to" lists ROLES, not skills, so pills() rendered them as inert
      spans — the one place in the detail panel naming a destination you could not
-     go to. These select that node instead, exactly as clicking its rail item
-     does. Guarded on the node existing in the current graph: ring-2 kids are
-     always present, but a payload change should degrade to a plain tag rather
-     than a dead button. */
+     go to.
+
+     Two destinations, picked by whether the board can actually answer:
+       - open roles on the board -> a real <a> to /jobs/<slug>, so the chip
+         resolves the question it raises ("what does a Technical Artist do all
+         day?") with live listings, and middle-click / open-in-new-tab work.
+       - none -> fall back to selecting that node, exactly as its rail item does,
+         which is still useful and never a dead end.
+     The count gate is the same boardCounts the panel's jobs CTA uses. Linking
+     ungated would ship a link to an empty board, which is the mistake this
+     codebase has now made three times. */
   function rolePills(list){return list.map(function(x){
     var sl=x.slug;
-    if(!sl||!NODE_BY_ID[sl])return '<span class="tag">'+x.t+'</span>';
+    if(!sl)return '<span class="tag">'+x.t+'</span>';
+    var n=(boardCounts&&boardCounts[sl])||0;
+    if(n>0)return '<a class="tag tag-go" href="/jobs/'+sl+'">'+x.t+'</a>';
+    if(!NODE_BY_ID[sl])return '<span class="tag">'+x.t+'</span>';
     return '<button type="button" class="tag tag-go" data-goto="'+sl+'">'+x.t+'</button>';
   }).join('');}
 

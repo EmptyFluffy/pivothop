@@ -36,7 +36,11 @@ These four rules do more work than the rest of this document. When a new surface
 
 **Two typefaces. Not three.** Archivo has been removed — it and Space Grotesk were doing the same job.
 
-**Space Grotesk** (400/500/600/700) — everything set as language. Headlines, prose, UI, buttons, role names in the graph, the wordmark, the graph's center anchor.
+**Instrument Sans** (400/500/600/700) — everything set as language. Headlines, prose, UI, buttons, role names in the graph, the wordmark, the graph's center anchor.
+
+*Adopted 2026-07-31, replacing Space Grotesk in the same slot. Rodrigo Fuenzalida's face for the Instrument agency, and the closest free relative to ABC Diatype, which is what Creative Boom runs (docs/29). It is variable across weight **and width**, which is the operative argument: the hero clamps 46→104px, and type sized right at 46 is a touch wide at 104. Space Grotesk cannot do that. The count is unchanged — two faces, not three.*
+
+*One coupling to know about: graph label widths are computed from character counts rather than measured (non-negotiable #1), via a `GLYPH_W` ratio in `instrument.js` that stands in for the average glyph advance. It is **per-font** — 0.6 for Space Grotesk — and re-measured whenever the sans changes. Getting it wrong does not look like a font bug; it looks like labels crossing wires, because label width is what the edge repulsion keeps text clear of.*
 
 **Space Mono** (400/700) — everything set as data or machine annotation. Eyebrows, labels, match percentages, metadata rows, crumbs, stat captions, source lines, section captions. This is the instrument voice. When something needs to read as *a machine reported this*, it is Space Mono uppercase with wide letter-spacing.
 
@@ -420,7 +424,7 @@ These decisions were made against rendered mockups and the running app; they ove
 - Representational/classical imagery (e.g. the Michelangelo hands) is rejected: it's a category cliché and violates "entirely typographic and vectorial."
 - The halftone/dot-matrix *technique* is approved in principle (it is a print method) but only applied to our own material (data fields, the marks, the graph) — currently pinned, unused, pending a placement that doesn't read as texture for texture's sake.
 
-**Typefaces — reconfirmed.** Space Grotesk + Space Mono stay. Brutalist character comes from layout, hairlines, arrows, scale, and Mono-as-instrument-voice — not from swapping to a generic neo-grotesque.
+**Typefaces — reconfirmed.** The two-face system stays (Instrument Sans + Space Mono since 2026-07-31; Space Grotesk before that). Brutalist character comes from layout, hairlines, arrows, scale, and Mono-as-instrument-voice — not from swapping to a generic neo-grotesque.
 
 **Motion additions (inside `prefers-reduced-motion` gates):** dropdowns settle in at 180ms / 7px on `cubic-bezier(.3,.7,.3,1)`; the export sheet rises 16px with a .985→1 scale settle at 280ms behind a 220ms veil fade. Scroll areas use macOS-style overlay scrollbars (5px, hover-only thumb).
 

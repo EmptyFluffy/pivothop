@@ -6,7 +6,10 @@
     --rule:#d5cfbf;--rule-2:#b8b0a0;
     --accent:#8a2f1e;--accent-press:#6e2416;--accent-tint:#f4e3dd;
     --black:#0c0c14;
-    --sans:"Space Grotesk",system-ui,sans-serif;
+    /* Same face as PivotHop — --font-sans is set on <html> by next/font.
+       Was "Space Grotesk"; that font is no longer loaded (2026-07-31), so a
+       literal name here would silently fall back to system-ui. */
+    --sans:var(--font-sans),"Instrument Sans",system-ui,sans-serif;
     --mono:"Space Mono",ui-monospace,monospace;
   }
   .fe-root *{box-sizing:border-box;margin:0;padding:0}
