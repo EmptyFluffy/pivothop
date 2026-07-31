@@ -717,6 +717,27 @@ input:focus-visible{outline:none}
    with the underline, and two lines under one word looked like a mistake. */
 .jb-occlinks a{border-bottom:none}
 .jb-occlinks a:hover{border-bottom-color:transparent}
+/* Search-panel skill chips. Were inline-styled squares built in a template
+   string; now real classes so they carry the pill tokens and the display face
+   like every other touchpoint. .chip is a REMOVE control (it drops the skill),
+   .sugg is an ADD control — different jobs, so filled vs outlined rather than
+   two shades of the same thing. */
+.chips-drop .chip{display:inline-flex;align-items:center;gap:7px;background:var(--accent-tint);border:1px solid transparent;border-radius:var(--r-pill);color:var(--accent-press);font-family:var(--display);font-size:12.5px;padding:6px 13px;margin:0 6px 6px 0;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.chips-drop .chip span{font-weight:700;opacity:.55;transition:opacity var(--dur) var(--ease)}
+.chips-drop .chip:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.chips-drop .chip:hover span{opacity:1}
+.chips-drop .sugg{display:inline-flex;background:none;border:1px solid var(--rule-2);border-radius:var(--r-pill);color:var(--ink-2);font-family:var(--display);font-size:12px;padding:5px 13px;margin:0 6px 6px 0;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.chips-drop .sugg:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+/* "Opens paths to" role pills — the one place the detail panel named a
+   destination you could not reach. Fill on hover like every other touchpoint. */
+.tag-go{font-family:inherit;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.tag-go:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+/* Graph labels are click targets, so they say so. Set by hit-test rather than
+   on the elements: only a label that is NOT overlapping a node circle takes the
+   pointer, because the circle is the precise target and wins. */
+.graph-stage svg.over-label{cursor:pointer}
 /* competitor research (/admin/research) — a reading surface, so wider measure
    and real paragraph rhythm rather than the console's dense rows */
 .res{width:min(860px,94vw)}

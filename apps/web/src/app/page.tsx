@@ -430,11 +430,11 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
 
   function renderPanel(addQuery = '', animateId?: string) {
     const chipHtml = chips.map((c) =>
-      `<button class="chip${c === animateId ? ' chip-in' : ''}" data-id="${c}" title="Remove" style="display:inline-flex;align-items:center;gap:7px;background:var(--accent-tint);border:none;color:var(--accent-press);font:inherit;font-size:12.5px;padding:6px 10px;margin:0 6px 6px 0;cursor:pointer">${skillNames[c] || c}<span style="font-weight:700">&times;</span></button>`
+      `<button class="chip${c === animateId ? ' chip-in' : ''}" data-id="${c}" title="Remove">${skillNames[c] || c}<span aria-hidden="true">&times;</span></button>`
     ).join('') || '<span style="font-size:12.5px;color:var(--ink-3)">No skills — add some below</span>';
     const sugg = suggestions(addQuery);
     const suggHtml = sugg.map((s) =>
-      `<button class="sugg" data-id="${s.id}" style="display:inline-flex;background:none;border:0.5px solid var(--rule-2);color:var(--ink-2);font:inherit;font-size:12px;padding:5px 10px;margin:0 6px 6px 0;cursor:pointer">+ ${s.name}</button>`
+      `<button class="sugg" data-id="${s.id}">+ ${s.name}</button>`
     ).join('') || '<span style="font-size:11.5px;color:var(--ink-3)">Type to search the skill dictionary</span>';
     panel.innerHTML =
       `<div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px">Your skills — the graph derives from these</div>` +

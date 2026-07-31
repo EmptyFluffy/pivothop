@@ -608,6 +608,17 @@ export function mountInstrument(DATA,HOOKS){
   });
 
   function pills(a,c){return a.map(function(x){var slug=skillSlugs[(''+x).toLowerCase()];return slug?('<a class="tag '+c+'" href="/glossary#skill-'+slug+'">'+x+'</a>'):('<span class="tag '+c+'">'+x+'</span>');}).join('');}
+  /* "Opens paths to" lists ROLES, not skills, so pills() rendered them as inert
+     spans — the one place in the detail panel naming a destination you could not
+     go to. These select that node instead, exactly as clicking its rail item
+     does. Guarded on the node existing in the current graph: ring-2 kids are
+     always present, but a payload change should degrade to a plain tag rather
+     than a dead button. */
+  function rolePills(list){return list.map(function(x){
+    var sl=x.slug;
+    if(!sl||!NODE_BY_ID[sl])return '<span class="tag">'+x.t+'</span>';
+    return '<button type="button" class="tag tag-go" data-goto="'+sl+'">'+x.t+'</button>';
+  }).join('');}
 
   function detailSignals(o){
     var rows='';
@@ -665,7 +676,14 @@ export function mountInstrument(DATA,HOOKS){
       '<div class="d-jobs-slot" id="djobs"></div>'+
       '<div class="dsk"><div class="cap">Skills you have</div><div class="tags">'+pills(rl.have,"have")+'</div></div>'+
       '<div class="dsk"><div class="cap">Skills to build</div><div class="tags">'+pills(rl.learn,"")+'</div></div>'+
-      (rl.next.length?'<div class="dsk"><div class="cap">Opens paths to</div><div class="tags">'+pills(rl.next.map(function(x){return x.t;}),"")+'</div></div>':'');
+      (rl.next.length?'<div class="dsk"><div class="cap">Opens paths to</div><div class="tags">'+rolePills(rl.next)+'</div></div>':'');
+    var host=document.getElementById('detail');
+    if(host)host.querySelectorAll('.tag-go').forEach(function(b){
+      b.addEventListener('click',function(){
+        var rid=b.getAttribute('data-goto');
+        clickedNode=rid;commitStateChange();updateDetailForId(rid);
+      });
+    });
     paintJobsCTA();
   }
   function kidStory(kid,parent){
@@ -755,6 +773,21 @@ export function mountInstrument(DATA,HOOKS){
     return best;
   }
 
+  /* Labels are clickable targets too, not just decoration. This reuses the
+     CACHED lblW/lblH — set once from character counts per non-negotiable #1 —
+     so nothing is measured here and the simulation loop is untouched. Circles
+     are tested first and win: the dot is the precise target, the label is the
+     generous one, and a label overlapping a neighbouring node must not steal it. */
+  function hitTestLabel(px,py){
+    for(var i=0;i<GNODES.length;i++){
+      var n=GNODES[i];
+      if(n.type==='you'||n.lblW==null||n.lx==null)continue;
+      if(Math.abs(px-n.lx)<=n.lblW/2+2&&Math.abs(py-n.ly)<=n.lblH/2+2)return n;
+    }
+    return null;
+  }
+  function hitTestAny(px,py){return hitTestNode(px,py)||hitTestLabel(px,py);}
+
   var hopHoverNode=null,hopTagTimer=null;
   function showHopTag(n){
     if(!el.hopTag)return;
@@ -771,7 +804,8 @@ export function mountInstrument(DATA,HOOKS){
     if(unfolding)return;
     if(!dragging&&!clickedNode){
       var p=svgPoint(ev);
-      var hit=hitTestNode(p.x,p.y);
+      var hit=hitTestAny(p.x,p.y);
+      SVG.classList.toggle('over-label',!!hit&&!hitTestNode(p.x,p.y));
       var newLayer=hit?(hit.type==='first'?'first':'kid'):null;
       if(newLayer!==hoveredLayer){hoveredLayer=newLayer;commitStateChange();}
       if(hit!==hopHoverNode){
@@ -793,13 +827,14 @@ export function mountInstrument(DATA,HOOKS){
     }
   });
   SVG.addEventListener('mouseleave',function(){
+    SVG.classList.remove('over-label');
     hideHopTag();
     if(!dragging&&!clickedNode&&hoveredLayer!==null){hoveredLayer=null;commitStateChange();}
   });
   SVG.addEventListener('dblclick',function(ev){
     if(unfolding||dragMoved)return;
     var p=svgPoint(ev);
-    var hit=hitTestNode(p.x,p.y);
+    var hit=hitTestAny(p.x,p.y);
     if(hit)doHop(hit);
   });
   SVG.addEventListener('mousedown',function(ev){
@@ -815,6 +850,18 @@ export function mountInstrument(DATA,HOOKS){
       n.fixed=true;
       SVG.classList.add('dragging');
       ensureLoop();
+      return;
+    }
+    var lp=svgPoint(ev);
+    var lab=hitTestLabel(lp.x,lp.y);
+    if(lab){
+      /* Select, never drag: the label sits offset from its node, so using it as
+         a drag handle would snap the node to the pointer on grab. */
+      ev.preventDefault();
+      clickedNode=(clickedNode===lab.id)?null:lab.id;
+      commitStateChange();
+      if(clickedNode)updateDetailForId(clickedNode);
+      else{closePanel();updateTrail(null);highlightRail(null);}
       return;
     }
     if(clickedNode){
