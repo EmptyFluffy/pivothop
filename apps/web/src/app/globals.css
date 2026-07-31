@@ -18,7 +18,12 @@
     --railw:300px;
     --sans:var(--font-sans),"Space Grotesk",system-ui,sans-serif;
     --mono:var(--font-mono),"Space Mono",ui-monospace,monospace;
-    --display:var(--sans);
+    /* TRIAL 2026-07-31: --display was an alias of --sans. Now Instrument Sans, the
+     closest free relative to Creative Boom's ABC Diatype, so the hero and nav can
+     be judged against real Space Mono on a live page. ONE LINE TO REVERT: set
+     this back to var(--sans) and the site returns to two typefaces exactly.
+     Non-negotiable #7 is not amended by a trial — it is amended if we keep it. */
+  --display:var(--font-display),"Instrument Sans",var(--sans);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -39,12 +44,12 @@
   .nav{display:grid;grid-template-columns:250px repeat(4,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
   .nav .brand{position:relative;display:flex;align-items:center;gap:12px;padding:0 26px}
   .nav .brand .mark{width:30px;height:25px;color:var(--ink)}
-  .nav .brand .wm{font-weight:700;font-size:15px;letter-spacing:.12em}
+  .nav .brand .wm{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.12em}
   /* Nav in the WORDMARK face, not the mono. Mono read as a caption strip; the
      sans at 600 gives the bar the same voice as the logotype beside it. Tracking
      sits below the wordmark's .12em, which is a logotype value and too wide for
      a row of words. */
-  .navlink{display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);text-align:center;padding:0 6px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+  .navlink{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);text-align:center;padding:0 6px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
   .navlink:hover{text-decoration-color:currentColor}
   .navlink.on{color:var(--ink)}
   .navlink:hover{color:var(--ink)}
@@ -69,7 +74,7 @@
      9.4vw was occupying ~62vw at every width. 7vw puts it near 46vw — big, but
      under the half-screen bar. The 12ch itself is load-bearing (docs/01) and
      stays: it is what forces two lines and gives the statement its shape. */
-  .hero h1{font-weight:500;font-size:clamp(46px,7vw,104px);line-height:.98;letter-spacing:-.035em;max-width:12ch}
+  .hero h1{font-family:var(--display);font-weight:500;font-size:clamp(46px,7vw,104px);line-height:.98;letter-spacing:-.035em;max-width:12ch}
   /* The emphasised word carries a scaled underline (Creative Boom, docs/29).
      em units so it holds proportion across the clamp from 60px to 132px — a
      fixed 2px underline disappears under a 132px headline. currentColor, not
