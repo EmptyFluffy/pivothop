@@ -102,7 +102,32 @@ Every voice rule from `01-style-direction.md` applies, plus specifics for long-f
 - No "In this post, we'll cover..." opening. Get in and get to the point.
 - No "Conclusion" heading. End with the actual ending.
 
-### Titles (added 2026-07 — the glance test)
+### Titles — journalist first (revised 2026-07-31, supersedes the glance test below)
+
+**Think like a journalist, then add our calculations.** The number-first, deadpan
+title was too cold and too dry, and it was poor SEO: nobody searches "1.16% of
+postings are entry-level", they search "is it easier to switch careers or start
+over". A title that does not sound like a human question does not get found and
+does not get clicked.
+
+- **Lead with the reader's question, in the words they would use.** Everyday
+  language, no house jargon, no internal vocabulary. If it is a question people
+  actually type, it is both the better headline and the better search target.
+- **The number belongs in the dek, not the title.** The dek is where "1 in 86"
+  and "46 percent" land, and it is what makes the promise concrete once the
+  question has already earned the glance.
+- **Qualitative before quantitative in the BODY too.** Open on the real dilemma
+  in plain words. Explain why it feels the way it feels. Bring the counting in
+  once the reader knows why they should care about it.
+- Everything below still holds: no clickbait, never withhold the finding, kill
+  the colon-stacked abstraction, retitling a live post is encouraged.
+
+*What changed and why: the rules below optimised for a reader who already trusts
+us and scans a feed. Most readers arrive cold from search. Numbers-first reads as
+a spreadsheet to them. The measurement is still the moat — it just goes in the
+second paragraph instead of the first five words.*
+
+### The glance test (2026-07 — still true for feed/social, superseded for titles by the above)
 
 A reader scrolling a feed gives a title one glance. If the main substance is not IN the title, they keep scrolling, correctly. Rules:
 

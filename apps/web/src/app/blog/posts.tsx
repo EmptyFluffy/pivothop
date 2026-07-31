@@ -58,6 +58,203 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'pivot-or-start-over',
+    title: 'Is it easier to switch careers, or to start over in an entry-level job?',
+    pillar: 'Career Half-Life',
+    date: 'July 2026',
+    dek: 'Starting over means competing for the one percent of jobs that are actually entry-level. Switching means you already have about half of what the new job is asking for. Here is what 118,515 live postings say about both doors.',
+    minutes: 7,
+    takeaways: [
+      'Postings whose title says entry-level, junior or graduate are 1.16% of our corpus \u2014 about one job in 86.',
+      'Sixteen occupations we track posted 300 or more jobs each and not one of them was entry-level.',
+      'Healthcare posts entry-level roles at 0.23% and Education at 0.26%. Design, at 2.76%, is more than ten times either.',
+      'The median occupation\u2019s best adjacent route already covers 46% of what that destination\u2019s postings ask for.',
+      '62% of the occupations we track have at least one route where the overlap is already above 40%.',
+    ],
+    body: (
+      <>
+        <p>
+          You want out of your job. Not in a dramatic way &mdash; you have simply
+          worked out that the next ten years of doing this will look a lot like
+          the last three, and that is not a thing you want. So you start looking,
+          and almost immediately you hit the same fork everyone hits.
+        </p>
+        <p>
+          <strong>Door one: start over.</strong> Pick something new, accept that
+          you are a beginner in it, and apply for the junior version of that job.
+          It feels honest. You are not pretending to be something you are not.
+        </p>
+        <p>
+          <strong>Door two: move sideways.</strong> Find the job that is adjacent
+          to what you already do &mdash; close enough that most of your skills
+          come with you &mdash; and go in at your own level. This one feels like
+          cheating. Like you are claiming credit for experience you have not
+          really earned in that field.
+        </p>
+        <p>
+          Most people we hear from assume door one is the humble, sensible
+          choice and door two is a shortcut that probably will not work. We
+          count job postings for a living, so we went and looked at what is
+          actually behind each door. The answer is not close.
+        </p>
+
+        <h2>Door one is mostly a wall</h2>
+        <p>
+          The problem with starting over is not that it is hard. It is that the
+          jobs are not there. Across the <strong>118,515 live postings</strong>{' '}
+          in our corpus, the ones whose title actually says{' '}
+          <em>entry-level</em>, <em>junior</em>, <em>graduate</em> or{' '}
+          <em>trainee</em> come to <strong>1,373</strong>. That is{' '}
+          <strong>1.16 percent</strong> &mdash; about <strong>one job in 86</strong>.
+        </p>
+        <p>
+          And it is not spread evenly. Design is the most open front door we
+          measure at <strong>2.76 percent</strong>, with Engineering at 1.63 and
+          Finance at 1.61. Then it falls off a cliff. Education posts entry-level
+          roles at <strong>0.26 percent</strong> and Healthcare at{' '}
+          <strong>0.23 percent</strong> &mdash; roughly one in four hundred. If
+          you were planning to retrain into care work or teaching by applying for
+          the junior version, there is very nearly no junior version to apply for.
+        </p>
+        <Pull>
+          Sixteen occupations posted 300 jobs or more each, and not a single one
+          of them was entry-level.
+        </Pull>
+        <p>
+          Those sixteen are worth naming because they are not obscure:{' '}
+          <strong>actuary, construction manager, creative director, customer
+          success manager, data architect, dental hygienist, dietitian,
+          facilities manager</strong> and eight more. Thousands of open jobs
+          between them. Zero front doors. These are not professions that are
+          closed &mdash; people plainly do become facilities managers. They are
+          professions you do not enter at the bottom, because the bottom is not
+          advertised.
+        </p>
+        <p>
+          Even where the front door exists it is narrow. Software engineer is the
+          single largest occupation in our corpus at 5,495 postings, and{' '}
+          <strong>90</strong> of them are entry-level. That is the good case.
+        </p>
+        <p>
+          One more thing, offered as an anecdote rather than a statistic because
+          the sample is too small to be anything else: among the handful of
+          junior-titled ads that state a number, we found a posting titled{' '}
+          <strong>&ldquo;Junior Software Engineer&rdquo;</strong> asking for
+          three or more years of experience. We could not measure how common that
+          is without overclaiming, so we are not going to. But you have seen it
+          too.
+        </p>
+
+        <h2>Door two: you are further along than you think</h2>
+        <p>
+          Here is the part that surprises people. Moving sideways is not starting
+          from nothing &mdash; and we can put a number on how much of it you
+          already have.
+        </p>
+        <p>
+          For every occupation we track, we read what its postings actually ask
+          for, then measure how much of a <em>different</em> occupation&rsquo;s
+          demands your current skill profile already covers. Not job titles.
+          The stated requirements.
+        </p>
+        <p>
+          For the median occupation, the best available route{' '}
+          <strong>already covers 46 percent</strong> of what that destination is
+          asking for. Not 5 percent. Not a hopeful maybe. Just under half the
+          stated requirements, on day one, before you learn anything new. And{' '}
+          <strong>62 percent</strong> of the occupations we track have at least
+          one route sitting above 40 percent.
+        </p>
+        <Pull>
+          Door one: you compete for 1 percent of the market, starting at zero.
+          Door two: you start at about half, and the whole market is open.
+        </Pull>
+        <p>
+          That is the asymmetry, and it is large enough that it does not need
+          careful phrasing. Starting over asks you to fight for a sliver of the
+          market from a standing start. Moving sideways lets you apply to the
+          other 99 percent with half the work already done.
+        </p>
+
+        <h2>What the 46 percent does not mean</h2>
+        <p>
+          It is not a probability of being hired, and we will not pretend it is.
+          It is the share of a destination&rsquo;s typical stated requirements
+          that your current profile already covers. Hiring involves a human
+          reading your CV and deciding whether the story holds together. Nothing
+          in a posting measures that.
+        </p>
+        <p>
+          The 1.16 percent has a caveat pointing the other way, and it matters:
+          it is a <strong>floor, not a ceiling</strong>. We count a job as
+          entry-level when its <em>title</em> says so, because titles are the one
+          field no job board truncates. Plenty of genuinely junior roles never
+          use the word. The true share of the market open to a true beginner is
+          somewhat higher than 1.16 percent &mdash; it is just not{' '}
+          <em>much</em> higher, and it is nowhere near the other door.
+        </p>
+        <p>
+          And some destinations are gated no matter how much your skills overlap.
+          A licence is a licence. Our own numbers put architect to civil engineer
+          at <strong>53 percent</strong> readiness &mdash; one of the strongest
+          routes we measure &mdash; and it still requires a PE licence to take
+          responsible charge of the work. The overlap is real and the gate does
+          not move. Every route we publish that hits a credential says so on its
+          face, with the time cost attached.
+        </p>
+
+        <h2>So what do you actually do</h2>
+        <p>
+          Stop looking for permission to skip the bottom rung and go find out
+          which sideways moves are already open to you. The question is not
+          &ldquo;what do I want to be&rdquo; &mdash; it is &ldquo;what does the
+          market already think I am qualified for.&rdquo; Those are different
+          questions and only one of them has an answer you can check.
+        </p>
+        <p>
+          Put your current role into the instrument and read the routes it
+          returns. The percentage next to each one is the same measurement in
+          this article: how much of that job&rsquo;s stated requirements you
+          already carry. Start with the ones above 40 percent. There are probably
+          more of them than you expect.
+        </p>
+        <Go links={[
+          { href: '/routes', label: 'See the routes from your role' },
+          { href: '/blog/the-broken-bottom-rung', label: 'The entry-level job is vanishing' },
+          { href: '/blog/skills-over-titles', label: 'Why titles are the wrong unit' },
+        ]} />
+        <Sources>
+          Entry-level share is computed over the 118,515 mapped postings in the
+          July 2026 corpus, counting a posting as entry-level when its{' '}
+          <strong>title</strong> matches entry-level, junior, jr, new grad,
+          graduate scheme, trainee or apprentice and does not also carry a
+          seniority marker. Title-only is deliberate: roughly four fifths of the
+          corpus arrives from aggregators that truncate the description at 500
+          characters, so any body-text count would be biased toward the sources
+          that ship full text. An earlier draft of this article measured
+          entry-level from description text and produced a much more dramatic
+          finding &mdash; that the median entry-level ad demands four years of
+          experience. Spot-checking killed it: the ads were titled &ldquo;Senior
+          Software Engineer&rdquo; and matched only because the word{' '}
+          <em>junior</em> appeared somewhere in a long description. That number
+          is not in this article because it did not survive its own check.
+          Readiness figures come from the nightly adjacency scoring described in{' '}
+          <a className="gl" href="/blog/what-is-career-adjacency">What career adjacency measures</a>,
+          over the 158 occupations that currently score at least one route
+          (153 of those clear the publishing floor and appear on the site). All
+          figures recompute with the nightly scrape.
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'Is it easier to change careers or start over in an entry-level job?', a: 'By the numbers in our corpus, changing careers sideways is easier. Entry-level roles are about 1.16% of live postings \u2014 one job in 86 \u2014 while the median occupation already covers 46% of the stated requirements of its best adjacent destination. Starting over means competing for a sliver of the market from zero; moving sideways means applying to the rest of it with roughly half the requirements already met.' },
+      { q: 'How many jobs are actually entry-level?', a: 'About one in 86. Of 118,515 live postings we mapped in July 2026, 1,373 carried an entry-level, junior, graduate or trainee title. That is a floor rather than a ceiling, since some genuinely junior roles do not say so in the title.' },
+      { q: 'Which fields still hire entry-level?', a: 'Design is the most open at 2.76% of its postings, followed by Engineering at 1.63% and Finance at 1.61%. Education (0.26%) and Healthcare (0.23%) are the tightest \u2014 roughly one posting in four hundred.' },
+      { q: 'What does 46 percent readiness actually mean?', a: 'It is the share of a destination occupation\u2019s typical stated requirements that your current occupation\u2019s skill profile already covers, measured from live postings. It is not a probability of being hired and not a share of candidates. Licensed destinations stay gated regardless of overlap.' },
+      { q: 'Do I need to take a pay cut to switch careers?', a: 'Not necessarily. Roughly a third of strong adjacent moves in our data point to a destination with a higher posted salary band than the origin. Every route on the instrument shows the destination\u2019s posted band so the pay consequence is visible before you decide.' },
+    ],
+  },
+  {
     slug: 'karp-two-safe-workers',
     title: 'Alex Karp says the trades are AI-proof. We checked.',
     pillar: 'Shape of Work',
