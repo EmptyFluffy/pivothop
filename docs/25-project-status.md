@@ -112,6 +112,10 @@
 ### The optimisation queue (2026-07-28 — pick off little by little)
 *Everything found while working and deliberately not done yet, cheapest first. Each is self-contained; none blocks another.*
 
+**Shipped 2026-07-31 — the MCP server (docs/30)**
+- `apps/mcp` / `pivothop-mcp`: five read-only tools exposing measured adjacency to AI assistants. `career_routes`, `skill_gap`, `who_can_reach` (the employer question, and the one nobody else answers), `salary`, `list_occupations`. Reads live public data, no key, no account. Honest `insufficient_data` below the posting floor rather than a guess. Citation sentence + `utm_source=mcp` on every URL so usage is measurable in three places: npm downloads (installs), the `pivothop-mcp/*` User-Agent in Vercel logs (queries), analytics (click-throughs).
+- **Remaining founder step:** `npm login && cd apps/mcp && npm publish`, then submit to the official MCP Registry, mcp.so, smithery.ai, glama.ai, lobehub, and `punkpeye/awesome-mcp-servers`.
+
 **Site hygiene — small, mechanical**
 - **FairElephant is out of the top nav** (2026-07-30) — not ready to promote. It keeps its footer entry under Product and the `/fairelephant` page is untouched, so nothing 404s and the link gate stays green. Put it back in the nav when the calculator is finished, not before.
 - **`/compare/<pair>` at 69% sibling similarity** — the same problem the origin pages had, and the pattern is now established, so it's the faster second pass. Compare pages already hold the shared-skill waterfall and both salary bands; the findings should write themselves.

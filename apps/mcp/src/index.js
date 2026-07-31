@@ -27,6 +27,19 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprot
 const BASE = process.env.PIVOTHOP_BASE ?? 'https://www.pivothop.com';
 const UA = 'pivothop-mcp/0.1.0 (+https://www.pivothop.com)';
 
+/** Every URL we hand back is tagged, because otherwise a click arriving from a
+ *  chat window is indistinguishable from someone typing the address — and
+ *  "is anything actually using this?" becomes unanswerable.
+ *
+ *  utm_source is the standard PostHog captures without configuration. The pages
+ *  carry canonical tags to the clean URL, so the parameter does not fork the
+ *  crawlable surface. Two signals, measuring different things: the custom
+ *  User-Agent above shows QUERIES in the server logs, this shows CLICK-THROUGHS
+ *  in analytics. A high query count with near-zero clicks would mean the tool is
+ *  answering well and keeping people in chat, which is worth knowing rather than
+ *  guessing at. */
+const tag = (url) => `${url}${url.includes('?') ? '&' : '?'}utm_source=mcp`;
+
 // Small in-process cache. The data changes once a night, so re-fetching per call
 // is pure waste — but a long-lived assistant session should still pick up a new
 // nightly, hence a TTL rather than caching forever.
@@ -138,8 +151,8 @@ async function careerRoutes({ occupation, limit = 8 }) {
         `PivotHop does not yet have enough live postings for ${occ.title} to publish measured routes. ` +
         `Routes require at least 50 mapped postings for the origin; this occupation is below that floor. ` +
         `This is a data-coverage limit, not a claim that no career moves exist.`,
-      source: `${BASE}/routes`,
-      citation: cite(`${occ.title} is below the posting floor needed for a defensible route.`, `${BASE}/routes`),
+      source: tag(`${BASE}/routes`),
+      citation: cite(`${occ.title} is below the posting floor needed for a defensible route.`, tag(`${BASE}/routes`)),
     };
   }
   return {
@@ -163,12 +176,12 @@ async function careerRoutes({ occupation, limit = 8 }) {
       skills_to_build: r.learn ?? [],
       licence_required: r.license?.req === 'required' ? r.license.label : null,
       observed_mobility: r.mobility_source ? { score: r.mobility, source: r.mobility_source } : null,
-      url: `${BASE}/routes/${occ.slug}-to-${r.id}`,
+      url: tag(`${BASE}/routes/${occ.slug}-to-${r.id}`),
     })),
-    source: `${BASE}/routes/${occ.slug}`,
+    source: tag(`${BASE}/routes/${occ.slug}`),
     citation: cite(
       `${roles.length} measured route(s) out of ${occ.title}, from ${d.postings?.toLocaleString?.() ?? d.postings} postings.`,
-      `${BASE}/routes/${occ.slug}`,
+      tag(`${BASE}/routes/${occ.slug}`),
     ),
   };
 }
@@ -192,8 +205,8 @@ async function skillGap({ from, to }) {
         `${a.title} to ${b.title} is not among the measured routes for ${a.title}. ` +
         `That means the skill overlap did not clear our threshold, or one side lacks the posting volume to measure — ` +
         `not that the move is impossible.`,
-      source: `${BASE}/routes/${a.slug}`,
-      citation: cite(`${a.title} to ${b.title} is not among the measured routes.`, `${BASE}/routes/${a.slug}`),
+      source: tag(`${BASE}/routes/${a.slug}`),
+      citation: cite(`${a.title} to ${b.title} is not among the measured routes.`, tag(`${BASE}/routes/${a.slug}`)),
     };
   }
   return {
@@ -211,10 +224,10 @@ async function skillGap({ from, to }) {
     skills_to_build: r.learn ?? [],
     salary_from: (await meta())[a.slug]?.salary ?? null,
     salary_to: r.salary ?? null,
-    url: `${BASE}/routes/${a.slug}-to-${b.slug}`,
+    url: tag(`${BASE}/routes/${a.slug}-to-${b.slug}`),
     citation: cite(
       `${a.title} covers ${r.match}% of what ${b.title} postings ask for.`,
-      `${BASE}/routes/${a.slug}-to-${b.slug}`,
+      tag(`${BASE}/routes/${a.slug}-to-${b.slug}`),
     ),
   };
 }
@@ -265,10 +278,10 @@ async function whoCanReach({ occupation, min_readiness = 40 }) {
       ? `${origins_.length} occupation(s) already cover at least ${min_readiness}% of what ${target.title} postings ask for.`
       : `No occupation clears ${min_readiness}% readiness for ${target.title} in the measured data. Try a lower min_readiness.`,
     pools: origins_,
-    source: `${BASE}/jobs/${target.slug}`,
+    source: tag(`${BASE}/jobs/${target.slug}`),
     citation: cite(
       `${origins_.length} occupation(s) reach ${target.title} at ${min_readiness}%+ readiness.`,
-      `${BASE}/jobs/${target.slug}`,
+      tag(`${BASE}/jobs/${target.slug}`),
     ),
   };
 }
@@ -310,10 +323,10 @@ async function salary({ occupation, country }) {
     updated: s.updated ?? null,
     countries_covered: Object.keys(s.by_country ?? {}),
     note: 'Posted-salary bands from live job postings, blended with official US OEWS wage data where available.',
-    source: `${BASE}/salary/${occ.slug}`,
+    source: tag(`${BASE}/salary/${occ.slug}`),
     citation: cite(
       `${occ.title} median ${pick?.p50 ? '$' + pick.p50.toLocaleString() : 'n/a'} (${cc ?? 'global'}), from ${s.observations?.toLocaleString?.() ?? s.observations} observations.`,
-      `${BASE}/salary/${occ.slug}`,
+      tag(`${BASE}/salary/${occ.slug}`),
     ),
   };
 }

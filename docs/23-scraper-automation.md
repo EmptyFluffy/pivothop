@@ -116,3 +116,66 @@ Threshold-gated pages vanish when their data moves. A compare pair stops qualify
 - **Adjacency / route numbers** — weekly (Mondays). Computed over a large accumulated corpus, so nightly re-scoring shuffled matches by a point or two for no reader benefit and made `lastmod` meaningless.
 - **Salary bands** — nightly, from aggregates. Note the trade: route pages carry Monday's salary strings while `/salary/*` carries nightly figures, so the two can drift a little during the week and re-sync on Monday.
 - **`lastmod`** — advances only when the data behind a page actually changed (`build-lastmod.py` hashes it). "Changed today" has to mean something or Google stops believing it.
+
+
+---
+
+## 2026-07-31 — the corpus hit a hard ceiling, and the cloud found it
+
+**The most important entry in this file.** Seeding the cloud with the laptop's
+real corpus ran the primary code path against real data on a different machine,
+and it failed:
+
+```
+Error: Cannot create a string longer than 0x1fffffe8 characters
+```
+
+`0x1fffffe8` is **V8's maximum string length: 536,870,888 characters.**
+`postings_raw.ndjson` was **535,851,089 bytes — 99.8% of it.** Headroom: under
+1MB, against ~70MB of growth a night.
+
+`readNdjson` did `readFileSync(file,'utf8')` — the whole corpus as one string.
+`writeNdjson` built one on the way out. **The laptop bot would have died at
+07:15 the next morning**, and the failure cascades: normalize dies,
+`postings.ndjson` is never written, every downstream step fails on a missing
+file, and the cause reads as gibberish unless you know V8 internals.
+
+Fixed by reading as a **Buffer** and decoding line by line (Buffers have no such
+cap), and writing in 8MB chunks while keeping the atomic temp-then-rename.
+Verified: 260,519 rows in 2.1s, byte-identical round-trip, UTF-8 safety at chunk
+boundaries (`São Paulo`, `Köln`, `東京` — splitting a multi-byte sequence would
+have silently corrupted exactly the Spanish and Portuguese titles docs/27 was
+written to fix), and a full normalize matching the laptop's run to the digit.
+
+**The lesson worth keeping:** running the same code against the same data on a
+second machine is a test, not a formality. The ceiling had been approaching for
+weeks and nothing on one machine would have revealed it before it bit.
+
+## The corpus seed
+
+`postings_raw.ndjson` is gitignored, so before today the entire 511MB corpus
+existed on **one laptop** and nowhere else. That was the real single point of
+failure, independent of the switchover.
+
+Private release `corpus-seed-2026-07-31` now holds it (93MB gzipped) plus the
+first-seen ledger. `ci-run.sh` restores both on a cold cache, gated on **size,
+not existence** — a truncated restore is worse than none because it looks like
+data, so anything under 50MB re-downloads. The ledger is restored alongside
+deliberately: seeding postings without it would make every seeded posting look
+first-seen today, destroying the repost-proof age guarantee.
+
+**Keep the release private.** It contains 195,982 Adzuna and 14,200 Reed
+postings whose terms restrict re-display. If this repo is ever made public,
+delete the release first.
+
+## Where the switchover stands
+
+The cloud now runs green on the full corpus — 262,290 raw → 118,319 after dedup,
+gold 91/91, sanity clean, published. It is at parity with the laptop.
+
+**Both bots still run, and that is the remaining problem:** they commit the same
+paths, so whichever finishes last publishes. No longer a data-quality risk now
+that the corpora match, but still a race that produces confusing diffs.
+
+Retire the laptop *after* several unattended green cloud nights, not before.
+The order matters — there must never be a window with no working publisher.
