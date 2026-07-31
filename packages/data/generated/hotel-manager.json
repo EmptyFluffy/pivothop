@@ -5,11 +5,11 @@
     "title": "Hotel Manager",
     "field": "Hospitality",
     "cluster": "Service",
-    "postings": 457,
-    "salary": "$50k–$75k",
+    "postings": 490,
+    "salary": "$50k–$70k",
     "salary_band": [
-      50033,
-      74306
+      49883,
+      71965
     ],
     "remote": "0%",
     "separations": {
@@ -20,6 +20,178 @@
     }
   },
   "roles": [
+    {
+      "id": "sommelier",
+      "title": "Sommelier",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Curates and serves wine and builds a beverage program in restaurants and hospitality. A certified craft of taste.",
+      "match": 42,
+      "fit": 42,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$40k–$55k",
+      "salary_band": [
+        40026,
+        55502
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Guest Relations",
+        "Food & Beverage",
+        "Food Service",
+        "Hotel Operations"
+      ],
+      "learn": [
+        "Wine Service",
+        "Procurement"
+      ],
+      "waterfall": [
+        {
+          "skill": "wine-service",
+          "name": "Wine Service",
+          "pts": 22.4,
+          "earned": 0
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 17.1,
+          "earned": 17.1
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 14.4,
+          "earned": 14.4
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 13.9,
+          "earned": 6.1
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 5.9,
+          "earned": 0
+        },
+        {
+          "skill": "hotel-operations",
+          "name": "Hotel Operations",
+          "pts": 4.3,
+          "earned": 4.3
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 375,
+        "salaried": 206
+      }
+    },
+    {
+      "id": "chef",
+      "title": "Chef",
+      "field": "Hospitality",
+      "cluster": "Service",
+      "kind": "lateral",
+      "license": {
+        "req": "partial",
+        "label": "Food-safety certification (ServSafe) typically required"
+      },
+      "desc": "",
+      "match": 17,
+      "fit": 25,
+      "capability": 73,
+      "mobility": 6,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 11,
+      "mobility_tier": null,
+      "salary": "$40k–$60k",
+      "salary_band": [
+        38852,
+        57677
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Food Service",
+        "Guest Relations",
+        "Food & Beverage"
+      ],
+      "learn": [
+        "Kitchen Management",
+        "Catering & Banquet",
+        "Food Safety",
+        "Menu Development"
+      ],
+      "waterfall": [
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 41.6,
+          "earned": 5
+        },
+        {
+          "skill": "kitchen-management",
+          "name": "Kitchen Management",
+          "pts": 15.3,
+          "earned": 0
+        },
+        {
+          "skill": "catering",
+          "name": "Catering & Banquet",
+          "pts": 13.4,
+          "earned": 0
+        },
+        {
+          "skill": "food-safety",
+          "name": "Food Safety",
+          "pts": 7.8,
+          "earned": 0
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 6.1,
+          "earned": 6.1
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 5.9,
+          "earned": 5.9
+        },
+        {
+          "skill": "menu-development",
+          "name": "Menu Development",
+          "pts": 5.7,
+          "earned": 0
+        },
+        {
+          "skill": "baking-pastry",
+          "name": "Baking & Pastry",
+          "pts": 4.2,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1312,
+        "salaried": 686
+      }
+    },
     {
       "id": "hr-manager",
       "title": "HR Manager",
@@ -37,8 +209,8 @@
       "mobility_tier": null,
       "salary": "$60k–$105k",
       "salary_band": [
-        60154,
-        102742
+        60039,
+        102788
       ],
       "demand": "High",
       "remote": "3%",
@@ -58,37 +230,37 @@
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 41.8,
+          "pts": 41.6,
           "earned": 0
         },
         {
           "skill": "recruiting",
           "name": "Recruiting",
-          "pts": 11.7,
+          "pts": 11.4,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 8.5,
+          "pts": 8.6,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 7.4,
-          "earned": 6.2
+          "pts": 7.5,
+          "earned": 5.8
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 7,
+          "pts": 7.1,
           "earned": 0
         },
         {
           "skill": "change-management",
           "name": "Change Management",
-          "pts": 6.8,
+          "pts": 6.7,
           "earned": 0
         },
         {
@@ -107,7 +279,7 @@
           "skill": "customer-service",
           "name": "Customer Service",
           "pts": 4.1,
-          "earned": 3.9
+          "earned": 4
         },
         {
           "skill": "supply-chain",
@@ -119,16 +291,103 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 916,
-        "salaried": 436
+        "postings": 903,
+        "salaried": 431
+      }
+    },
+    {
+      "id": "cook",
+      "title": "Cook",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Prepares and plates food to order on a working line, under time and consistency pressure. Distinct from the chef who runs the kitchen.",
+      "match": 13,
+      "fit": 13,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$30k–$45k",
+      "salary_band": [
+        32030,
+        45622
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Food Service",
+        "Food & Beverage",
+        "Customer Service"
+      ],
+      "learn": [
+        "Line Cooking",
+        "Food Safety",
+        "Catering & Banquet"
+      ],
+      "waterfall": [
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 39.7,
+          "earned": 4.3
+        },
+        {
+          "skill": "line-cooking",
+          "name": "Line Cooking",
+          "pts": 26.9,
+          "earned": 0
+        },
+        {
+          "skill": "food-safety",
+          "name": "Food Safety",
+          "pts": 15.4,
+          "earned": 0
+        },
+        {
+          "skill": "catering",
+          "name": "Catering & Banquet",
+          "pts": 8.4,
+          "earned": 0
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 5.8,
+          "earned": 5.8
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 3.8,
+          "earned": 3.2
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1443,
+        "salaried": 814
       }
     }
   ],
   "next": {
-    "hr-manager": []
+    "sommelier": [],
+    "chef": [],
+    "hr-manager": [],
+    "cook": []
   },
   "direct": [],
-  "cross": [],
+  "cross": [
+    [
+      "chef",
+      "cook",
+      0.65
+    ]
+  ],
   "bridges": [],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

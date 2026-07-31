@@ -7,15 +7,37 @@ export function decodeEntities(s) {
     .replace(/&([a-z]+);/gi, (m, name) => ENTITIES[name.toLowerCase()] ?? m);
 }
 
+// A tag must open with a LETTER. Without that guard "&lt;5 years and &gt;10 projects"
+// decodes to "<5 years and >10 projects" and the whole span is eaten as a tag.
+const TAG = /<\/?[a-zA-Z][^>]*>/g;
+
+/** Strips markup to plain text.
+ *
+ *  Runs strip-then-decode repeatedly rather than once, because several feeds
+ *  deliver ESCAPED markup — Greenhouse's `content` is the big one. On escaped
+ *  input a single pass removes nothing (there are no literal tags), and the
+ *  decode then turns `&lt;p&gt;` INTO a real tag, so the helper handed back raw
+ *  HTML. That cost us twice: `html-css`, `git`, `aws` and `react` were extracted
+ *  from tags and href values, while `forecasting` and `budgeting` were missed
+ *  because `</li>` never became the newline that separates two list items.
+ *
+ *  Three passes is comfortably enough for one level of escaping; the cap keeps a
+ *  doubly-encoded pathological input from spinning. */
 export function stripHtml(html) {
   if (!html) return '';
-  return decodeEntities(
-    String(html)
-      .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ')
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, '\n')
-      .replace(/<[^>]+>/g, ' ')
-  ).replace(/[ \t]+/g, ' ').replace(/\s*\n\s*/g, '\n').trim();
+  let s = String(html);
+  for (let i = 0; i < 3; i++) {
+    const before = s;
+    s = decodeEntities(
+      s
+        .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ')
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, '\n')
+        .replace(TAG, ' ')
+    );
+    if (s === before) break;
+  }
+  return s.replace(/[ \t]+/g, ' ').replace(/\s*\n\s*/g, '\n').trim();
 }
 
 /** Parses salary strings like "$70,000 - $90,000", "€60k–€80k", "70k-90k USD". Returns {min,max,currency}|null. */

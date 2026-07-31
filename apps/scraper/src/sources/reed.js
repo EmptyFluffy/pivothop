@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fetchJson } from '../lib/http.js';
 import { readJson } from '../lib/store.js';
+import { stripHtml } from '../lib/text.js';
 import { CONFIG_DIR } from '../lib/paths.js';
 
 // Reed.co.uk Jobseeker API — free key at reed.co.uk/developers. UK's best salary
@@ -28,7 +29,9 @@ export async function fetchRaw({ log }) {
         salary_max: j.maximumSalary || null,
         currency: j.currency || 'GBP',
         salary_period: null, // Reed mixes annual and hourly; magnitude inference handles it
-        description_text: (j.jobDescription ?? '').slice(0, 20000),
+        // 25.6% of Reed rows carry HTML entities, and Reed's snippet is only ~453
+        // characters — "R&amp;D" wastes four of them and matches nothing.
+        description_text: stripHtml(j.jobDescription ?? '').slice(0, 20000),
         posted_at: j.date ? j.date.split('/').reverse().join('-') : null,
         url: j.jobUrl ?? null,
       });

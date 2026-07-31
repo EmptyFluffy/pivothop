@@ -52,6 +52,10 @@ def field(slug):
 # occupations that use them. Superseded by posting counts the moment they exist.
 HAND_MAP = {
     'chief-architect': ['architect', 'architectural-drafter', 'interior-designer'],
+    # Opera PMS used to unlock `auditor`, and only because Night Auditor — a hotel
+    # front-desk role — was mis-mapped to the financial occupation. Refusing that
+    # title (docs/31) correctly took the evidence away; this is where it belongs.
+    'opera-pms': ['hotel-manager'],
     'marvelous-designer': ['game-designer', 'industrial-designer', 'motion-designer'],
     'nuke': ['video-editor', 'motion-designer'],
     'sketch-app': ['ux-designer', 'product-designer', 'graphic-designer'],

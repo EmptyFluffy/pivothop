@@ -368,6 +368,58 @@
     {
       "title": "Physician Assistant",
       "expect": null
+    },
+    {
+      "title": "Night Auditor",
+      "expect": null
+    },
+    {
+      "title": "Hotel Night Auditor",
+      "expect": null
+    },
+    {
+      "title": "Front Desk Night Auditor",
+      "expect": null
+    },
+    {
+      "title": "Night Audit Agent",
+      "expect": null
+    },
+    {
+      "title": "Overnight Auditor",
+      "expect": "auditor"
+    },
+    {
+      "title": "Internal Auditor",
+      "expect": "auditor"
+    },
+    {
+      "title": "Remote Pilot",
+      "expect": "drone-pilot"
+    },
+    {
+      "title": "Remote Pilot Operator",
+      "expect": null
+    },
+    {
+      "title": "UAS Remote Pilot",
+      "expect": "drone-pilot"
+    },
+    {
+      "title": "Remote Software Engineer",
+      "expect": "software-engineer"
+    },
+    {
+      "title": "Remote UX Designer",
+      "expect": "ux-designer"
+    },
+    {
+      "title": "Helicopter Pilot",
+      "expect": "pilot"
+    },
+    {
+      "title": "ZME Remote Pilot Operator",
+      "expect": null
     }
   ],
   "skills": [
@@ -496,6 +548,59 @@
       "text": "Fabricate cabinetry according to specifications and shop drawings",
       "absent": [
         "spec-writing"
+      ]
+    },
+    {
+      "$case": "housekeeping is workplace tidiness in trades postings, not the hotel function",
+      "text": "Complies with safety, fire, security, environmental, and housekeeping regulations.",
+      "absent": [
+        "housekeeping"
+      ]
+    },
+    {
+      "$case": "hotel housekeeping is the real thing",
+      "text": "Supervise the housekeeping team and room attendants across 120 rooms.",
+      "present": [
+        "housekeeping"
+      ]
+    },
+    {
+      "$case": "food and beverage as a sales VERTICAL is not the operational skill",
+      "text": "Toast is expanding into other food and beverage concepts such as grocery stores and bottle shops.",
+      "absent": [
+        "food-beverage"
+      ]
+    },
+    {
+      "$case": "food and beverage as an operation is",
+      "text": "Manage food and beverage operations including banqueting and bar operations.",
+      "present": [
+        "food-beverage"
+      ]
+    },
+    {
+      "$case": "front office is the trading floor in banking",
+      "text": "Support the front office of a sell-side investment bank trading desk.",
+      "absent": [
+        "front-office"
+      ]
+    },
+    {
+      "$case": "front office in hospitality",
+      "text": "Run the front desk and night audit, handling guest check-in for a 200-room property.",
+      "present": [
+        "front-office"
+      ]
+    },
+    {
+      "$case": "escaped markup must not yield html-css, and must not hide adjacent list items",
+      "text": "&lt;ul&gt;&lt;li&gt;Forecasting&lt;/li&gt;&lt;li&gt;Budgeting&lt;/li&gt;&lt;/ul&gt;",
+      "present": [
+        "forecasting",
+        "budgeting"
+      ],
+      "absent": [
+        "html-css"
       ]
     }
   ],

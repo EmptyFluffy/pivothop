@@ -5,7 +5,7 @@
     "title": "Chef",
     "field": "Hospitality",
     "cluster": "Service",
-    "postings": 1318,
+    "postings": 1312,
     "salary": "$40k–$60k",
     "salary_band": [
       38852,
@@ -28,8 +28,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Prepares and plates food to order on a working line, under time and consistency pressure. Distinct from the chef who runs the kitchen.",
-      "match": 54,
-      "fit": 68,
+      "match": 56,
+      "fit": 70,
       "capability": null,
       "mobility": 100,
       "mobility_source": "observed-flow-ctot",
@@ -37,8 +37,8 @@
       "mobility_tier": null,
       "salary": "$30k–$45k",
       "salary_band": [
-        32091,
-        45326
+        32030,
+        45622
       ],
       "demand": "High",
       "remote": "0%",
@@ -46,7 +46,8 @@
       "have": [
         "Food Service",
         "Food Safety",
-        "Catering & Banquet"
+        "Catering & Banquet",
+        "Food & Beverage"
       ],
       "learn": [
         "Line Cooking",
@@ -56,44 +57,129 @@
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 42.3,
-          "earned": 38.2
+          "pts": 39.7,
+          "earned": 36.1
         },
         {
           "skill": "line-cooking",
           "name": "Line Cooking",
-          "pts": 28.2,
+          "pts": 26.9,
           "earned": 0
         },
         {
           "skill": "food-safety",
           "name": "Food Safety",
-          "pts": 16.7,
-          "earned": 7.2
+          "pts": 15.4,
+          "earned": 6.8
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 8.9,
-          "earned": 8.9
+          "pts": 8.4,
+          "earned": 8.4
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 5.8,
+          "earned": 5.2
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 4,
+          "pts": 3.8,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1466,
-        "salaried": 831
+        "postings": 1443,
+        "salaried": 814
+      }
+    },
+    {
+      "id": "sommelier",
+      "title": "Sommelier",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Curates and serves wine and builds a beverage program in restaurants and hospitality. A certified craft of taste.",
+      "match": 29,
+      "fit": 29,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$40k–$55k",
+      "salary_band": [
+        40026,
+        55502
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Guest Relations",
+        "Food & Beverage",
+        "Food Service"
+      ],
+      "learn": [
+        "Wine Service",
+        "Procurement",
+        "Hotel Operations"
+      ],
+      "waterfall": [
+        {
+          "skill": "wine-service",
+          "name": "Wine Service",
+          "pts": 22.4,
+          "earned": 0
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 17.1,
+          "earned": 7.5
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 14.4,
+          "earned": 7.3
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 13.9,
+          "earned": 13.9
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 5.9,
+          "earned": 0
+        },
+        {
+          "skill": "hotel-operations",
+          "name": "Hotel Operations",
+          "pts": 4.3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 375,
+        "salaried": 206
       }
     }
   ],
   "next": {
-    "cook": []
+    "cook": [],
+    "sommelier": []
   },
   "direct": [],
   "cross": [],

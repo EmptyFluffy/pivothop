@@ -128,12 +128,20 @@ export async function emit({ log, origin: onlyOrigin } = {}) {
     if (!oAgg) { log(`emit: ${origin} — no postings, skipped`); continue; }
 
     const file = path.join(GENERATED_DIR, `${origin}.json`);
-    if (oAgg.count < MIN_ORIGIN_POSTINGS) {
+    // Two ways to be short of evidence, and they need separate notes. Too few
+    // postings is the obvious one. The other is enough postings but too thin a
+    // skill profile to score against — adjacency's MIN_ORIGIN_DEN floor returns an
+    // empty list for those, and without this branch the origin would publish a page
+    // with an empty route table instead of saying why it is empty.
+    const starvedProfile = oAgg.count >= MIN_ORIGIN_POSTINGS && !(adj[origin] ?? []).length;
+    if (oAgg.count < MIN_ORIGIN_POSTINGS || starvedProfile) {
       writeJson(file, {
         version: 2,
         origin: { slug: origin, title: oInfo.title, postings: oAgg.count },
         insufficient: true,
-        note: `Only ${oAgg.count} mapped postings for this origin — honest empty state, never invented routes.`,
+        note: starvedProfile
+          ? `${oAgg.count} mapped postings, but too few of them state their requirements in enough detail to build a defensible skill profile — honest empty state, never invented routes.`
+          : `Only ${oAgg.count} mapped postings for this origin — honest empty state, never invented routes.`,
       });
       index.push({ slug: origin, title: oInfo.title, postings: oAgg.count, insufficient: true });
       continue;

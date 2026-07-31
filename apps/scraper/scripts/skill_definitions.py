@@ -276,3 +276,18 @@ DEFS = {
     'hipaa': 'The US law governing the privacy and security of health information, and the handling rules that follow from it. Named in clinical, health-tech, and health-adjacent administrative postings.',
     'plc': 'Programmable Logic Controller: the ruggedized industrial computer that runs machinery and process automation. The boundary marker between building electrical work and industrial controls.',
 }
+
+# Hospitality, property, library and airspace vocabulary — added 2026-07-31 with the
+# nine skills that lifted hotel-manager from a four-skill profile to nine. See
+# docs/31-corpus-quality.md.
+DEFS.update({
+    'guest-relations': 'Handling guests as people rather than bookings: recovery when something has gone wrong, and the satisfaction scores that follow. The measured half of hospitality.',
+    'front-office': 'The desk a guest actually meets — arrivals, departures, and the overnight audit that reconciles the day. In banking the same words mean the trading floor, which is a different job.',
+    'housekeeping': 'Room turnover at volume: attendants, linen, and the standards that survive an inspection. Not the same word trades postings use for tidying a workshop.',
+    'hotel-operations': 'Running the property end to end — rooms, staffing, occupancy, and the brand standards an owner audits against.',
+    'food-beverage': 'Running the kitchens, bars, and banqueting a venue sells. Distinct from being a supplier who sells into the food and beverage trade.',
+    'revenue-management': 'Pricing perishable inventory — a room tonight is worthless tomorrow. Rate strategy, occupancy forecasting, and yield.',
+    'property-management': 'Running buildings on behalf of an owner: tenancies, leases, rent, and the repairs in between. The recurring-income side of real estate.',
+    'library-services': 'The operating layer of a library — circulation, interlibrary loan, reader guidance, and the systems underneath. Distinct from cataloguing the collection.',
+    'air-traffic-control': 'Separating aircraft in a defined block of airspace. Licensed, rated per facility, and one of the few jobs with no informal route in.',
+})

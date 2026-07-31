@@ -11,7 +11,17 @@ import { foldAccents, translateRomance } from './titles-i18n.js';
 // Research Associate). The phrase matcher still recovers the head noun of "Assistant
 // Project Manager" by containment, so keeping them costs nothing and saves whole occupations.
 const SENIORITY = /\b(senior|sr\.?|junior|jr\.?|lead|principal|staff|chief|head of|head|intern|entry[- ]?level|mid[- ]?level|graduate|trainee|apprentice|expert|specialist i{1,3}|i{1,3}|iv|v|\d+)\b/g;
-const NOISE = /\b(remote|hybrid|onsite|on-site|contract|contractor|freelance|part[- ]?time|full[- ]?time|temporary|temp|permanent|urgent|immediate|new|now hiring|work from home|wfh|m\/f\/d|f\/m\/d|h\/f)\b/g;
+// "remote" is a work-arrangement modifier everywhere EXCEPT before "pilot": a
+// Remote Pilot is the FAA's term for a drone operator, and stripping the word
+// turned "Remote Pilot Operator" into "pilot operator", which then matched the
+// airline occupation. A generic noise-word list eating domain vocabulary is the
+// trap here; the lookahead is narrow on purpose.
+//
+// "contract" stays unguarded deliberately. It IS employment type in the common
+// case — "Contract Visual Designer" should map to the designer — and the minority
+// where it is the subject ("Contract Manager") has no occupation to land on
+// anyway, so guarding it would buy unmapped rows rather than correct ones.
+const NOISE = /\b(remote(?! pilot)|hybrid|onsite|on-site|contract|contractor|freelance|part[- ]?time|full[- ]?time|temporary|temp|permanent|urgent|immediate|new|now hiring|work from home|wfh|m\/f\/d|f\/m\/d|h\/f)\b/g;
 
 function cleanSegment(t) {
   // Fold accents BEFORE the character filter. The filter maps every non-ASCII
@@ -105,10 +115,31 @@ function matchOne(m, cleaned) {
   return null;
 }
 
+// Titles that contain a real synonym but denote an occupation we do not carry.
+// Containment would land them on the wrong vertical, so they are refused outright
+// and stay unmapped — the same call as "Técnico Mecánico": an honest miss beats a
+// confident mis-map.
+//
+// A "Night Auditor" is a hotel front-desk role that reconciles the day's folios.
+// It was 120 of 1,295 `auditor` postings (9.3%), dragging guest relations, front
+// office and hotel operations into the financial auditor's skill profile — and
+// from there into its adjacency. There is no front-desk occupation to move it to,
+// so it maps to nothing until there is.
+// Unanchored so "Hotel Night Auditor" and "Front Desk Night Auditor" are caught
+// too; the leading \b keeps "Overnight Auditor" out of it.
+//
+// "Remote Pilot Operator" is FAA terminology too — they fly simulated aircraft so
+// trainee controllers have traffic to work, at facilities the postings name by
+// identifier (CLT, ZME, D01, S46). Not a drone pilot and not an airline pilot; it
+// was landing on `pilot` before the "remote pilot" fix below and on `drone-pilot`
+// after, so it needs refusing rather than rerouting.
+const NEVER = /\bnight audit(or|ing|s)?\b|\bremote pilot operator\b/;
+
 /** @returns {{slug:string, method:'exact'|'phrase'|'segment'|'i18n'}|null} */
 export function mapTitle(rawTitle) {
   const m = getTaxonomy();
   const primary = cleanTitle(rawTitle);
+  if (NEVER.test(primary)) return null;
   const first = matchOne(m, primary);
   if (first) return first;
   // Head segment mapped to nothing — try the remaining segments before giving up.

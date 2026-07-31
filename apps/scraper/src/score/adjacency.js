@@ -15,6 +15,21 @@ const MIN_DEST_POSTINGS = 30;
 // genuinely degenerate (police-officer pre-enrichment at ~0.15) and is not scored.
 const FULL_PROFILE_DEN = 0.5;
 const HARD_MIN_DEN = 0.25;
+// ORIGIN floor — the mirror of HARD_MIN_DEN, which only ever guarded the destination.
+//
+// Coverage is directional: a starved origin profile makes every `min(o_s, d_s)`
+// small, so the failure mode is not an inflated match but an ARBITRARY one. The
+// only destinations that clear MIN_SHARED_SKILLS are whichever three generic
+// skills the origin happened to catch, and they get published as though they were
+// measured. Hotel Manager reached 456 postings and a four-skill profile, from
+// which it emitted eight routes; Flight Attendant published a single route to
+// Automotive Technician on the strength of "customer service".
+//
+// Same value as the destination floor. An origin below it is not a thin signal to
+// damp, it is an absence of evidence, and the honest output is no routes at all —
+// the page then renders the insufficient-data state it already has for occupations
+// under the posting floor.
+const MIN_ORIGIN_DEN = 0.25;
 
 /**
  * Occupation-to-occupation adjacency from weighted skill overlap.
@@ -44,8 +59,11 @@ export async function adjacency({ log }) {
   for (const s of slugs) maps[s] = new Map(roles[s].top_skills.map((t) => [t.id, t.share]));
 
   const out = {};
+  const starved = [];
   for (const o of slugs) {
     const scored = [];
+    let oden = 0; for (const w of maps[o].values()) oden += w;
+    if (oden < MIN_ORIGIN_DEN) { out[o] = []; starved.push(`${o}(${oden.toFixed(2)})`); continue; }
     for (const d of slugs) {
       if (d === o) continue;
       const om = maps[o], dm = maps[d];
@@ -76,6 +94,7 @@ export async function adjacency({ log }) {
 
   writeJson(ADJACENCY_FILE, { ranAt: new Date().toISOString(), formula: 'match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored', topK: TOP_K, origins: out });
   log(`adjacency: scored ${slugs.length} origins, top-${TOP_K} kept per origin`);
+  if (starved.length) log(`adjacency: ${starved.length} origins below the ${MIN_ORIGIN_DEN} profile floor, no routes emitted — ${starved.join(', ')}`);
 
   const rows = Object.entries(out).flatMap(([origin, dests]) =>
     dests.map((d) => ({ origin_role_id: origin, dest_role_id: d.dest, match: d.match, jaccard: d.jaccard, coverage: d.coverage }))

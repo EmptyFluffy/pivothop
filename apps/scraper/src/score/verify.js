@@ -5,6 +5,7 @@ import { GENERATED_DIR, DATA_DIR, RAW_FILE, POSTINGS_FILE } from '../lib/paths.j
 import { listOrigins, loadOrigin } from '../../../../packages/data/src/index.js';
 import { getTaxonomy, mapTitle } from '../normalize/titles.js';
 import { extractSkills, zoneText } from '../normalize/skills.js';
+import { stripHtml } from '../lib/text.js';
 
 const SNAPSHOT = path.join(DATA_DIR, 'emit-snapshot.json');
 
@@ -54,7 +55,9 @@ export function verify({ log, snapshot = false } = {}) {
       }
       for (const c of [...(gold.skills ?? []), ...(gold.zoning ?? [])]) {
         total++;
-        const got = new Set(extractSkills(zoneText(c.text)));
+        // Same order normalize uses — strip, zone, extract. Asserting against a
+        // path production does not run is how a gold set goes green on a broken miner.
+        const got = new Set(extractSkills(zoneText(stripHtml(c.text))));
         const missing = (c.present ?? []).filter((s) => !got.has(s));
         const leaked = (c.absent ?? []).filter((s) => got.has(s));
         if (!missing.length && !leaked.length) pass++;

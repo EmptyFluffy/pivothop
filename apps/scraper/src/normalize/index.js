@@ -5,7 +5,7 @@ import { mapTitle, cleanTitle } from './titles.js';
 import { toAnnualUsd } from './salary.js';
 import { extractSkills, zoneText } from './skills.js';
 import { inferCountry } from './country.js';
-import { fixMojibake } from '../lib/text.js';
+import { fixMojibake, stripHtml } from '../lib/text.js';
 
 // Light company normalization for the dedup key: lowercase, legal suffixes off,
 // non-alphanumerics out. "Aspen Dental Group, LLC" == "aspen dental group".
@@ -83,6 +83,16 @@ export async function normalize({ log }) {
 
   for (const r of raw) {
     r.title = fixMojibake(r.title); r.company = fixMojibake(r.company); r.location = fixMojibake(r.location);
+
+    // Repair markup HERE as well as in the adapters, so the corpus already on disk
+    // is fixed without re-scraping 260k rows. Feeds that deliver escaped HTML —
+    // Greenhouse above all — used to reach this point as raw tags (see stripHtml),
+    // averaging 129 residual tags per posting on our richest source. That cut both
+    // ways: `html-css`, `git` and `aws` were extracted from tags and href values,
+    // while `forecasting` and `budgeting` were missed because `</li>` never became
+    // the break that separates two list items.
+    // Cheap-exit on text that has neither a tag nor an entity, which is most rows.
+    if (r.description_text && /[<&]/.test(r.description_text)) r.description_text = stripHtml(r.description_text);
     const mapped = mapTitle(r.title);
     if (!mapped) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);

@@ -27,6 +27,8 @@ export async function fetchRaw({ log }) {
     const jobs = body.jobs ?? [];
     log(`greenhouse:${token} — ${jobs.length} postings`);
     for (const j of jobs) {
+      // Greenhouse delivers `content` as ESCAPED HTML, so this needs the repeated
+      // strip/decode in stripHtml — a single pass returns the markup intact.
       const text = stripHtml(j.content ?? '');
       const sal = extractSalary(text);
       const loc = j.location?.name ?? '';
