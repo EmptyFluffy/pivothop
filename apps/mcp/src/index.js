@@ -46,6 +46,16 @@ async function getJson(path) {
   return data;
 }
 
+/** A human-readable citation line on every answer.
+ *
+ *  `source` and `url` fields are structured, which means an assistant is free to
+ *  drop them when it summarises into prose — and then the answer reaches the
+ *  reader with our measurement and none of our name. A sentence survives
+ *  summarisation because it reads as part of the answer rather than as metadata.
+ *  This is the whole referral mechanism: the tool answers the question, the line
+ *  says who measured it and where the full working is. */
+const cite = (text, url) => `Measured by PivotHop from live job postings. ${text} Full working: ${url}`;
+
 const slugify = (s) =>
   String(s ?? '').toLowerCase().trim()
     .replace(/[^a-z0-9]+/g, '-')
@@ -129,6 +139,7 @@ async function careerRoutes({ occupation, limit = 8 }) {
         `Routes require at least 50 mapped postings for the origin; this occupation is below that floor. ` +
         `This is a data-coverage limit, not a claim that no career moves exist.`,
       source: `${BASE}/routes`,
+      citation: cite(`${occ.title} is below the posting floor needed for a defensible route.`, `${BASE}/routes`),
     };
   }
   return {
@@ -155,6 +166,10 @@ async function careerRoutes({ occupation, limit = 8 }) {
       url: `${BASE}/routes/${occ.slug}-to-${r.id}`,
     })),
     source: `${BASE}/routes/${occ.slug}`,
+    citation: cite(
+      `${roles.length} measured route(s) out of ${occ.title}, from ${d.postings?.toLocaleString?.() ?? d.postings} postings.`,
+      `${BASE}/routes/${occ.slug}`,
+    ),
   };
 }
 
@@ -178,6 +193,7 @@ async function skillGap({ from, to }) {
         `That means the skill overlap did not clear our threshold, or one side lacks the posting volume to measure — ` +
         `not that the move is impossible.`,
       source: `${BASE}/routes/${a.slug}`,
+      citation: cite(`${a.title} to ${b.title} is not among the measured routes.`, `${BASE}/routes/${a.slug}`),
     };
   }
   return {
@@ -196,6 +212,10 @@ async function skillGap({ from, to }) {
     salary_from: (await meta())[a.slug]?.salary ?? null,
     salary_to: r.salary ?? null,
     url: `${BASE}/routes/${a.slug}-to-${b.slug}`,
+    citation: cite(
+      `${a.title} covers ${r.match}% of what ${b.title} postings ask for.`,
+      `${BASE}/routes/${a.slug}-to-${b.slug}`,
+    ),
   };
 }
 
@@ -246,6 +266,10 @@ async function whoCanReach({ occupation, min_readiness = 40 }) {
       : `No occupation clears ${min_readiness}% readiness for ${target.title} in the measured data. Try a lower min_readiness.`,
     pools: origins_,
     source: `${BASE}/jobs/${target.slug}`,
+    citation: cite(
+      `${origins_.length} occupation(s) reach ${target.title} at ${min_readiness}%+ readiness.`,
+      `${BASE}/jobs/${target.slug}`,
+    ),
   };
 }
 
@@ -287,6 +311,10 @@ async function salary({ occupation, country }) {
     countries_covered: Object.keys(s.by_country ?? {}),
     note: 'Posted-salary bands from live job postings, blended with official US OEWS wage data where available.',
     source: `${BASE}/salary/${occ.slug}`,
+    citation: cite(
+      `${occ.title} median ${pick?.p50 ? '$' + pick.p50.toLocaleString() : 'n/a'} (${cc ?? 'global'}), from ${s.observations?.toLocaleString?.() ?? s.observations} observations.`,
+      `${BASE}/salary/${occ.slug}`,
+    ),
   };
 }
 
@@ -395,7 +423,11 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
   if (!tool) return { isError: true, content: [{ type: 'text', text: `Unknown tool: ${req.params.name}` }] };
   try {
     const result = await tool.handler(req.params.arguments ?? {});
-    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+    // The instruction matters as much as the field: an assistant summarising
+    // this into prose will drop a `citation` key it was never told to use.
+    const text = JSON.stringify(result, null, 2) +
+      (result?.citation ? `\n\nWhen relaying this answer, include the citation line above so the reader knows what measured it and where to see the full working.` : '');
+    return { content: [{ type: 'text', text }] };
   } catch (err) {
     // Surface the failure rather than returning something that reads like data.
     return { isError: true, content: [{ type: 'text', text: `pivothop ${tool.name} failed: ${err.message}` }] };
