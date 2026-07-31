@@ -83,11 +83,13 @@ def main():
     fresh = {o['slug']: o for o in json.load(open(os.path.join(GEN, 'index.json')))['origins']}
 
     n = 0
+    dumps = []          # kept for the inbound index below
     for f in glob.glob(os.path.join(GEN, '*.json')):
         if os.path.basename(f) in SKIP: continue
         g = json.load(open(f))
         if g.get('insufficient') or not g.get('roles'): continue
         d = to_data(g)
+        dumps.append(d)
         json.dump(d, open(os.path.join(OUT, f"{d['originSlug']}.json"), 'w'), ensure_ascii=False)
         json.dump(to_report(g), open(os.path.join(REP, f"{d['originSlug']}.json"), 'w'), ensure_ascii=False)
         n += 1
@@ -115,6 +117,30 @@ def main():
                       'postings': a['count'], 'license': o.get('license')}
     json.dump({'profiles': profiles}, open(os.path.join(OUT, 'skill-profiles.json'), 'w'))
     json.dump({'meta': meta}, open(os.path.join(OUT, 'occ-meta.json'), 'w'))
+
+    # Inbound index: destination -> the origins that reach it, ranked.
+    #
+    # The forward direction (origin -> destinations) is what every origin file
+    # already holds. The REVERSE — "who can reach this role?" — is the employer
+    # question, and answering it by scanning 180 origin files means 180 requests
+    # per question. The MCP server (apps/mcp) did exactly that on its first
+    # version and would have hammered the CDN once per call. Precompute it here:
+    # one file, one fetch, same numbers.
+    inbound = {}
+    for d in dumps:
+        for r in d.get('roles') or []:
+            inbound.setdefault(r['id'], []).append({
+                'slug': d['originSlug'],
+                'title': d['originLabel'],
+                'match': r.get('match'),
+                'kind': r.get('kind'),
+                'have': (r.get('have') or [])[:4],
+                'learn': (r.get('learn') or [])[:4],
+            })
+    for v in inbound.values():
+        v.sort(key=lambda x: -(x['match'] or 0))
+    json.dump({'inbound': inbound}, open(os.path.join(OUT, 'inbound.json'), 'w'), ensure_ascii=False)
+    print(f'inbound index: {len(inbound)} destinations reachable from at least one origin')
     json.dump({'names': skills}, open(os.path.join(OUT, 'skills-meta.json'), 'w'))
     shutil.copy(os.path.join(GEN, 'skill-cooccur.json'), os.path.join(OUT, 'skill-cooccur.json'))
 
