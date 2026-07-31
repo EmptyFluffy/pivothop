@@ -1,14 +1,36 @@
 {
-  "name": "@pivothop/mcp",
+  "name": "pivothop-mcp",
   "version": "0.1.0",
   "description": "Measured career adjacency from live job postings — which careers your skills already reach, the gap, the salary, and the honest odds.",
   "license": "MIT",
   "type": "module",
-  "bin": { "pivothop-mcp": "./src/index.js" },
-  "files": ["src", "README.md"],
-  "keywords": ["mcp", "modelcontextprotocol", "careers", "jobs", "career-change", "salary", "labor-market", "skills"],
-  "repository": { "type": "git", "url": "git+https://github.com/EmptyFluffy/pivothop.git", "directory": "apps/mcp" },
+  "bin": {
+    "pivothop-mcp": "src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "modelcontextprotocol",
+    "careers",
+    "jobs",
+    "career-change",
+    "salary",
+    "labor-market",
+    "skills"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmptyFluffy/pivothop.git",
+    "directory": "apps/mcp"
+  },
   "homepage": "https://www.pivothop.com",
-  "engines": { "node": ">=20" },
-  "dependencies": { "@modelcontextprotocol/sdk": "^1.0.0" }
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
 }
