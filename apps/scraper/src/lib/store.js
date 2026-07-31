@@ -2,9 +2,35 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { hasSupabase } from './env.js';
 
+// Read as a BUFFER and decode line by line — never as one string.
+//
+// V8 caps a single string at 0x1fffffe8 (536,870,888) characters. On 2026-07-31
+// postings_raw.ndjson was 535,851,089 bytes: 99.8% of that ceiling, under 1MB of
+// headroom, growing ~70MB a night. The cloud runner hit it first —
+// "Error: Cannot create a string longer than 0x1fffffe8 characters" — but the
+// laptop was one night behind it, and this is the primary publisher's read path
+// for the entire accumulated corpus.
+//
+// Buffers have no such cap (buffer.constants.MAX_LENGTH is gigabytes), so the
+// file is read as bytes and each line is decoded individually. Same synchronous
+// signature, so no caller changes; the ceiling is simply gone.
+function eachLine(buf, fn) {
+  let start = 0;
+  for (let i = 0; i < buf.length; i++) {
+    if (buf[i] !== 10) continue;                 // \n
+    let end = i;
+    if (end > start && buf[end - 1] === 13) end--; // tolerate CRLF
+    if (end > start) fn(buf.toString('utf8', start, end));
+    start = i + 1;
+  }
+  if (start < buf.length) fn(buf.toString('utf8', start));
+}
+
 export function readNdjson(file) {
   if (!fs.existsSync(file)) return [];
-  return fs.readFileSync(file, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l));
+  const rows = [];
+  eachLine(fs.readFileSync(file), (l) => rows.push(JSON.parse(l)));
+  return rows;
 }
 
 // Atomic write: serialize to a temp file in the same directory, then rename over the
@@ -18,8 +44,26 @@ function atomicWrite(file, contents) {
   fs.renameSync(tmp, file);
 }
 
+// Same ceiling applied on the way out: rows.map().join() built one giant string.
+// Written in chunks to the temp file instead, so the atomic rename is preserved
+// (a crash mid-write still leaves the previous good corpus intact) without ever
+// materialising the whole file as a string.
+const WRITE_CHUNK = 8 << 20; // 8MB
 export function writeNdjson(file, rows) {
-  atomicWrite(file, rows.map((r) => JSON.stringify(r)).join('\n') + (rows.length ? '\n' : ''));
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  const tmp = `${file}.tmp-${process.pid}`;
+  const fd = fs.openSync(tmp, 'w');
+  try {
+    let chunk = '';
+    for (const r of rows) {
+      chunk += JSON.stringify(r) + '\n';
+      if (chunk.length >= WRITE_CHUNK) { fs.writeSync(fd, chunk); chunk = ''; }
+    }
+    if (chunk) fs.writeSync(fd, chunk);
+  } finally {
+    fs.closeSync(fd);
+  }
+  fs.renameSync(tmp, file);
 }
 
 /** Merge rows into an NDJSON file by key. Returns {added, updated, total}. */
@@ -51,10 +95,9 @@ export function readNdjsonSafe(file) {
   if (!fs.existsSync(file)) return [];
   const out = [];
   let bad = 0;
-  for (const l of fs.readFileSync(file, 'utf8').split('\n')) {
-    if (!l) continue;
+  eachLine(fs.readFileSync(file), (l) => {
     try { out.push(JSON.parse(l)); } catch { bad++; }
-  }
+  });
   if (bad) console.warn(`readNdjsonSafe: skipped ${bad} unparseable line(s) in ${path.basename(file)}`);
   return out;
 }
