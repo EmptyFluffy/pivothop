@@ -161,7 +161,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
               <h2>{r.title} roles are open now.</h2>
               <p>{`${destBoard} live ${destLc} ${destBoard === 1 ? 'opening' : 'openings'} on the board, with the pay where it is posted. Your ${originLc} profile already covers ${r.match}% of what they ask.`}</p>
             </div>
-            <Link className="rt-go" href={`/jobs/${def.dest}`}>View {destBoard} open {destLc} {destBoard === 1 ? 'role' : 'roles'} &rarr;</Link>
+            <Link className="rt-go" href={`/jobs/${def.dest}`}>{destBoard} open {destLc} {destBoard === 1 ? 'role' : 'roles'} &rarr;</Link>
           </section>
         ) : (
           <section className="rt-cta">

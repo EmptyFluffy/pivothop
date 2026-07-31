@@ -39,7 +39,7 @@ export function mountInstrument(DATA,HOOKS){
     if(!boardCounts)return;                       // wait for the fetch; no false flash
     var slug=DATA.originSlug,n=(slug&&boardCounts[slug])||0;
     var goSpan=document.querySelector('#goBtn span');
-    if(goSpan)goSpan.textContent=n>0?('View '+n.toLocaleString()+' open roles'):'View the job board';
+    if(goSpan)goSpan.textContent=n>0?(n.toLocaleString()+' open roles'):'Open the job board';
     var stat=document.getElementById('openRolesStat');
     if(stat){
       var v=stat.querySelector('.v'),l=stat.querySelector('.l');
@@ -623,7 +623,7 @@ export function mountInstrument(DATA,HOOKS){
   }
   function hopButton(slug,title){
     var can=HOOKS.canRecenter?HOOKS.canRecenter(slug):false;
-    if(can)return '<button class="d-hop" onclick="window.__hop(\''+slug+'\',\''+String(title).replace(/'/g,'')+'\')"><span>Hop here \u2014 recenter the graph</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></button>';
+    if(can)return '<button class="d-hop" onclick="window.__hop(\''+slug+'\',\''+String(title).replace(/'/g,'')+'\')"><span>Hop here</span></button>';
     return '<button class="d-hop off" disabled><span>Hop here</span><span class="nd">Not enough data yet</span></button>';
   }
   function licenseStrip(o){
@@ -646,7 +646,7 @@ export function mountInstrument(DATA,HOOKS){
     var title=(xsel&&xsel.kind==='kid'&&xsel.kid)?xsel.kid.t:(xsel&&xsel.kind==='role'&&xsel.role)?xsel.role.title:'';
     var n=(slug&&boardCounts&&boardCounts[slug])||0;
     if(!n){slot.innerHTML='';return;}
-    slot.innerHTML='<a class="d-jobs" href="/jobs/'+slug+'"><span class="tx">View '+n.toLocaleString()+' open '+title.toLowerCase()+' role'+(n===1?'':'s')+'</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>';
+    slot.innerHTML='<a class="d-jobs" href="/jobs/'+slug+'"><span class="tx">'+n.toLocaleString()+' open '+title.toLowerCase()+' role'+(n===1?'':'s')+'</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>';
   }
   function renderRoleDetail(rl){
     xsel={kind:'role',role:rl};

@@ -466,7 +466,10 @@
   @keyframes chipOut{to{opacity:0;transform:scale(.82)}}
 }
 /* hop: recenter action in the rail + clickable trail history */
-.d-hop{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:none;border:1px solid var(--ink);border-radius:var(--r-pill);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13.5px;padding:12px 18px;margin:16px 0 4px;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+/* justify-content:center since the label is text-only (the arrow icon came out
+   2026-07-30). The .off variant keeps space-between — it still carries a second
+   span, the 'Not enough data yet' note. */
+.d-hop{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:none;border:1px solid var(--ink);border-radius:var(--r-pill);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13.5px;padding:12px 18px;margin:16px 0 4px;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
 .d-hop:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .d-hop:active{background:var(--black);border-color:var(--black)}
 .d-hop .ico{flex:none}
