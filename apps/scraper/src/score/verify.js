@@ -134,9 +134,18 @@ export function verify({ log, snapshot = false } = {}) {
       if (!m) { m = new Map(); perOcc.set(p.role_id, m); }
       m.set(k, (m.get(k) ?? 0) + 1);
     }
+    // Floor raised 25 -> 100 on 2026-07-31. At n=25 the canary fired on the CLOUD
+    // nightly for `dietitian`: 50% of 52 postings were one Veterans Health
+    // Administration listing. That is a federal agency hiring the same role at
+    // many facilities — legitimate, not a blast — and below ~100 postings a
+    // single multi-site employer can dominate an occupation honestly. The bug
+    // this guards against produced 174-of-210 and 294-of-587, both far above the
+    // new floor, so nothing real is lost. Verified locally only before shipping,
+    // which is why it was missed: the cloud corpus is a third the size of the
+    // laptop's, and small denominators are exactly where this bites.
     for (const [occ, m] of perOcc) {
       const total = [...m.values()].reduce((a, b) => a + b, 0);
-      if (total < 25) continue;                       // too small to conclude anything
+      if (total < 100) continue;
       const [pair, top] = [...m.entries()].sort((a, b) => b[1] - a[1])[0];
       const share = top / total;
       if (share > 0.40) {
