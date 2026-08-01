@@ -138,7 +138,12 @@ export async function POST(req: Request) {
   await logLead({
     email, origin_slug: body.originSlug || null, origin_title: d.origin.title,
     dest_slug: destId, dest_title: d.dest.title, match: d.dest.match,
-    notify: !!body.notify, personalized: !!body.personalized, ai: (d as { _ai?: boolean })._ai === true,   // set only when the model actually answered (prose.mjs)
+    notify: !!body.notify, personalized: !!body.personalized,
+    ai: (d as { _ai?: boolean })._ai === true,   // set only when the model actually answered (prose.mjs)
+    // WHY it fell back, written next to the row rather than left in a log nobody
+    // is watching. Four rounds of this were spent guessing because ai=false said
+    // that something failed and never what.
+    ai_error: (d as { _aiError?: string })._aiError ?? null,
     delivered, report_id: d.meta.reportId, source: body.source || 'graph-export', user_agent: ua,
   });
 

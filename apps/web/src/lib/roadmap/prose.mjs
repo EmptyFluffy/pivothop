@@ -252,7 +252,24 @@ function parseLoose(raw) {
   } catch { return null; }
 }
 
+/* One retry, because a malformed generation is usually not repeated and the
+ * whole AI report is the thing at stake. Only retries the cases a second attempt
+ * can plausibly fix — a bad parse or a 5xx — never a 401, which will fail
+ * identically forever and should surface immediately. There is room for it:
+ * maxDuration is 300s and one call runs in single-digit seconds. */
 export async function buildProseAI(d, apiKey) {
+  const first = await buildProseAIOnce(d, apiKey);
+  const err = first?._aiError;
+  const worthRetry = err && (err.startsWith('unparseable') || err.startsWith('no-json') || /^http 5/.test(err));
+  if (!worthRetry) return first;
+  console.error('[roadmap] retrying after:', err);
+  const second = await buildProseAIOnce(d, apiKey);
+  // If the retry also failed, keep the SECOND reason — it is the more recent
+  // truth, and two different reasons in a row is itself worth seeing.
+  return second?._ai ? second : { ...second, _aiError: `retried; ${second?._aiError || err}` };
+}
+
+async function buildProseAIOnce(d, apiKey) {
   const fallback = buildProse(d);
   if (!apiKey) return fallback;
   const A = analyze(d);
@@ -349,18 +366,31 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-5', max_tokens: 5000, system: sys,
+        model: 'claude-sonnet-5', max_tokens: 8000, system: sys,
         messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\n${shape}\n\nReturn the JSON now.` }],
       }),
     });
-    if (!res.ok) { console.error('[roadmap] anthropic HTTP', res.status, (await res.text().catch(() => '')).slice(0, 300)); return fallback; }
+    if (!res.ok) {
+      const body = (await res.text().catch(() => '')).slice(0, 300);
+      console.error('[roadmap] anthropic HTTP', res.status, body);
+      return { ...fallback, _aiError: `http ${res.status}: ${body.slice(0, 160)}` };
+    }
     const j = await res.json();
     let text = (j.content || []).map((c) => c.text || '').join('').trim();
     text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
     const start = text.indexOf('{'), end = text.lastIndexOf('}');
-    if (start < 0 || end < 0) { console.error('[roadmap] anthropic returned no JSON object; first 200 chars:', text.slice(0, 200)); return fallback; }
+    if (start < 0 || end < 0) {
+      console.error('[roadmap] anthropic returned no JSON object; first 200 chars:', text.slice(0, 200));
+      return { ...fallback, _aiError: `no-json: ${text.slice(0, 160)}` };
+    }
     const out = parseLoose(text.slice(start, end + 1));
-    if (!out) { console.error('[roadmap] anthropic JSON unparseable after repair; first 300 chars:', text.slice(0, 300)); return fallback; }
+    if (!out) {
+      // stop_reason tells us truncation apart from malformed output — the two
+      // have opposite fixes and looked identical from the outside.
+      const stop = j.stop_reason || '?';
+      console.error('[roadmap] anthropic JSON unparseable after repair; stop_reason=', stop, '; first 300:', text.slice(0, 300));
+      return { ...fallback, _aiError: `unparseable (stop_reason=${stop}, ${text.length} chars)` };
+    }
     // shape-guard: any missing branch falls back to the templated field
     const merged = {
       resources: out.resources?.items?.length ? out.resources : fallback.resources,
@@ -393,7 +423,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
     return { ...reviewed, _ai: true };
   } catch (e) {
     console.error('[roadmap] anthropic call threw:', e?.message || e);
-    return fallback;
+    return { ...fallback, _aiError: `threw: ${String(e?.message || e).slice(0, 160)}` };
   }
 }
 
