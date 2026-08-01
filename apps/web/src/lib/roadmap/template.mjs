@@ -221,7 +221,7 @@ function resourcesBlock(d) {
     ${r.intro ? `<p class="res-i">${r.intro}</p>` : ''}
     <div class="res-list">
       ${r.items.map((it) => `<div class="res-r">
-        <div class="res-l"><b>${esc(it.what || '')}</b>${it.why ? `<span class="res-w">${esc(it.why)}</span>` : ''}</div>
+        <div class="res-l"><b>${esc(it.what || '')}</b>${it.url ? `<span class="res-u">${esc(String(it.url).replace(/^https?:\/\//, ''))}</span>` : ''}${it.why ? `<span class="res-w">${esc(it.why)}</span>` : ''}</div>
         <div class="res-m">${esc(it.skill || '')}${it.hours ? ` · ${esc(it.hours)}` : ''}</div>
       </div>`).join('')}
     </div>
@@ -426,6 +426,7 @@ export function renderRoadmapHTML(d) {
   .res-list{display:flex;flex-direction:column}
   .res-r{display:flex;justify-content:space-between;align-items:baseline;gap:6mm;padding:2.6mm 0;border-bottom:0.5px solid var(--rule)}
   .res-l b{font-size:9.6pt;font-weight:600;color:var(--ink)}
+  .res-u{display:block;margin-top:0.6mm;font-family:'Space Mono',monospace;font-size:7.8pt;color:var(--acc)}
   .res-w{display:block;margin-top:0.8mm;font-size:8.8pt;line-height:1.45;color:var(--ink2)}
   .res-m{flex:none;font-family:'Space Mono',monospace;font-size:8pt;color:var(--acc);white-space:nowrap}
   .res-n{margin:3.5mm 0 0;font-size:8.8pt;line-height:1.5;color:var(--ink3)}

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 /* The prose layer of the route report — everything the mechanical numbers can't
    write on their own: the verdict, the sequenced 90-day plan, the evidence
    checklist, the timeline copy. Two producers, one shape:
@@ -41,6 +42,23 @@ function payDelta(d) {
 }
 
 /* ── the deterministic fallback ───────────────────────────────────────── */
+/* Curated courses, keyed by skill NAME.
+ *
+ * The waterfall rows carry { name, pts, earned } and no id — data.mjs drops it —
+ * so keying the map on w.id would have silently produced an empty resource list
+ * on every report. Building a name -> id index from the lexicon instead, which
+ * also means the JSON stays keyed on stable ids rather than display strings. */
+const RES = (() => {
+  try {
+    const here = (rel) => new URL(rel, import.meta.url);
+    const byId = JSON.parse(readFileSync(here('../../../../../packages/data/taxonomy/skill-resources.json'), 'utf8')).resources;
+    const lex = JSON.parse(readFileSync(here('../../../../../packages/data/taxonomy/skills.json'), 'utf8')).skills;
+    const out = {};
+    for (const sk of lex) if (byId[sk.id]) out[sk.name.toLowerCase()] = byId[sk.id];
+    return out;
+  } catch { return {}; }
+})();
+
 export function buildProse(d) {
   const A = analyze(d);
   const dest = d.dest.title;
@@ -183,14 +201,20 @@ export function buildProse(d) {
   // Without a model we will not invent course names. The fallback gives the
   // reader the search terms and the shape of what to look for, which is honest
   // and still useful.
+  // Named courses come from packages/data/taxonomy/skill-resources.json, which is
+  // hand-written and verified. "Search for a project-based X course" was the old
+  // fallback and the founder was right that it says nothing the reader did not
+  // already know. Skills with no curated entry are simply omitted rather than
+  // padded with generic advice.
   const resources = {
-    intro: 'Pick one thing per gap and build something with it. The certificate is not the point — the thing you make in the course is.',
-    items: A.gaps.slice(0, 4).map((w) => ({
+    intro: 'One thing per gap, and build something with it. The certificate is not the point — the thing you make in the course is what an employer opens.',
+    items: A.gaps.slice(0, 6).flatMap((w) => (RES[(w.name || '').toLowerCase()] || []).slice(0, 2).map((r) => ({
       skill: w.name,
-      what: `Search for a project-based ${w.name.toLowerCase()} course — one that ends with something you can show, not a quiz.`,
-      why: `Worth ${w.pts.toFixed(1)} of the 100 points.`,
-      hours: '',
-    })),
+      what: `${r.platform} — ${r.title}`,
+      url: r.url || '',
+      why: r.note || `Worth ${w.pts.toFixed(1)} of the 100 points.`,
+      hours: r.cost || '',
+    }))).slice(0, 6),
     note: 'Skip anything that ends in a certificate and nothing else. Hiring managers open the artifact, not the badge.',
   };
   return { resources, roleContext, difficulty, verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
@@ -242,6 +266,9 @@ export async function buildProseAI(d, apiKey) {
     salary: { origin: d.origin.salary_band, dest: d.dest.salary_band },
     demand: d.dest.demand, remote: d.dest.remote,
     board: { open: d.board.open, companies: d.board.companies },
+    // Verified courses for the gap skills, so the model picks from real ones
+    // rather than producing a plausible title nobody can find.
+    curatedResources: A.gaps.slice(0, 6).flatMap((w) => (RES[(w.name || '').toLowerCase()] || []).map((r) => ({ skill: w.name, ...r }))),
     mobility: d.dest.mobility, mobilitySource: d.dest.mobilitySource,
   };
   const sys = `You write one section of a career-transition report for PivotHop.
@@ -272,6 +299,7 @@ COUNTS (the SHAPE below shows ONE example element per array; produce these many)
 
 RESOURCES — read this twice:
 - Name the PLATFORM and the COURSE TITLE. Do NOT write URLs. You will get them wrong, and a dead link in a paid-for report destroys more trust than the course was worth.
+- PREFER FACTS.curatedResources. Those are verified and carry real URLs; use them verbatim where one exists for a gap skill. Only go beyond that list if a gap has no entry.
 - Only name things you are confident actually exist. A well-known platform and an approximate title the reader can search beats a precise-sounding invention.
 - Prefer the specific over the famous: for a RAG gap, a vector-database course beats "Intro to Python" on a bigger brand.
 - 4 to 6 items, at least one per named gap skill, ordered by the gap they close.
