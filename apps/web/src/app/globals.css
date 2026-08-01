@@ -42,7 +42,14 @@
   /* repeat(4) not (5): FairElephant left the top nav on 2026-07-30 (not ready
      to promote; it keeps its footer entry). The grid track count is not
      decorative — leave it at 5 and the row carries a phantom empty column. */
-  .nav{display:grid;grid-template-columns:250px repeat(4,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
+  /* Editorial nav: the links sit together immediately after the wordmark and are
+     spaced by their own padding, not by the viewport. The old rule was
+     `grid-template-columns:250px repeat(4,1fr) 250px`, which stretched four words
+     across the full width — at 1440px that is ~230px of air between "Jobs" and
+     "Blog", so the bar read as six unrelated regions instead of one masthead.
+     Flex + margin-left:auto on the CTA keeps the ONE commercial action right and
+     everything editorial left. Adding a link no longer changes the geometry. */
+  .nav{display:flex;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
   .nav .brand{position:relative;display:flex;align-items:center;gap:12px;padding:0 26px}
   .nav .brand .mark{width:30px;height:25px;color:var(--ink)}
   .nav .brand .wm{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.12em}
@@ -50,16 +57,20 @@
      sans at 600 gives the bar the same voice as the logotype beside it. Tracking
      sits below the wordmark's .12em, which is a logotype value and too wide for
      a row of words. */
-  .navlink{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);text-align:center;padding:0 6px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+  .navlink{display:flex;align-items:center;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);padding:0 15px;white-space:nowrap;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
   .navlink:hover{text-decoration-color:currentColor}
   .navlink.on{color:var(--ink)}
   .navlink:hover{color:var(--ink)}
-  .nav .cta{background:var(--black);color:#f4f4f6;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 26px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;transition:background .2s}
+  /* margin-left:auto is what pins it right. In the display face now, not the mono:
+     the mono read as a system label rather than the one thing on the bar you can buy. */
+  .nav .cta{margin-left:auto;background:var(--black);color:#f4f4f6;display:flex;align-items:center;justify-content:center;padding:0 26px;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;transition:background .2s}
   .nav .cta .ic{width:18px;height:18px;flex:none}
   .nav .cta:hover{background:#05050b}
   /* nav-menu is display:contents on desktop so its children join the grid as
      before; on mobile it collapses into a burger-toggled dropdown */
-  .nav-menu{display:contents}
+  /* Was display:contents so the links became grid cells. Now a real flex row that
+     takes the remaining width, so the CTA can push itself to the far edge. */
+  .nav-menu{display:flex;align-items:stretch;flex:1;min-width:0}
   .nav-burger{display:none;align-items:center;justify-content:center;background:none;border:none;color:var(--ink);cursor:pointer;padding:0 22px;height:100%}
   .nav-burger svg{width:25px;height:25px}
   .nav-burger .i-close{display:none}
@@ -324,7 +335,7 @@
     .nav.open .nav-menu{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--ink);box-shadow:0 16px 30px rgba(21,21,26,.10);z-index:59;max-height:calc(100vh - 56px);overflow-y:auto}
     .nav.open .nav-menu .navlink{height:auto;justify-content:flex-start;padding:16px 24px;border-bottom:0.5px solid var(--rule);font-size:12px;gap:8px}
     .nav.open .nav-menu .navlink.on{color:var(--accent)}
-    .nav.open .nav-menu .cta{justify-content:flex-start;padding:18px 24px;height:auto;gap:10px}
+    .nav.open .nav-menu .cta{margin-left:0;justify-content:flex-start;padding:18px 24px;height:auto;gap:10px}
     .hero{padding:48px 22px;min-height:clamp(220px,30vh,300px)}
     /* nav is 56px here; stickies keep sharing its border row (56 - 1).
        ix-search/jb-stick offsets live next to their base rules (cascade order). */

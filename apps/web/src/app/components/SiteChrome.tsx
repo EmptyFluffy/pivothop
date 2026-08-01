@@ -23,8 +23,14 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
       <Link href="/" className="brand"><RabbitMark /><span className="wm">PIVOTHOP</span></Link>
       <NavBurger controls="site-navmenu" />
       <div className="nav-menu" id="site-navmenu">
-        <Link className="navlink" href="/#how">Method</Link>
+        {/* Ordered by what a first visit wants, not alphabetically: the product
+            surfaces first (the board, then the instrument), then how it works,
+            then editorial, then the company. Routes was promoted out of the
+            footer — it is the instrument's own page and was the only core
+            surface with no way to reach it from the top of the site. */}
         <Link className="navlink" href="/jobs">Jobs</Link>
+        <Link className="navlink" href="/routes">Routes</Link>
+        <Link className="navlink" href="/#how">Method</Link>
         <Link className="navlink" href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
         <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Post a job</Link>
