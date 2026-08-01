@@ -252,12 +252,12 @@ HARD RULES, in order of importance:
         messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\n${shape}\n\nReturn the JSON now.` }],
       }),
     });
-    if (!res.ok) return fallback;
+    if (!res.ok) { console.error('[roadmap] anthropic HTTP', res.status, (await res.text().catch(() => '')).slice(0, 300)); return fallback; }
     const j = await res.json();
     let text = (j.content || []).map((c) => c.text || '').join('').trim();
     text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
     const start = text.indexOf('{'), end = text.lastIndexOf('}');
-    if (start < 0 || end < 0) return fallback;
+    if (start < 0 || end < 0) { console.error('[roadmap] anthropic returned no JSON object; first 200 chars:', text.slice(0, 200)); return fallback; }
     const out = JSON.parse(text.slice(start, end + 1));
     // shape-guard: any missing branch falls back to the templated field
     const merged = {
@@ -273,8 +273,14 @@ HARD RULES, in order of importance:
     };
     // Second pass: re-read the report against the same FACTS and repair claims
     // that contradict them. Returns `merged` untouched on any failure.
-    return await reviewProse(merged, facts, apiKey);
-  } catch {
+    const reviewed = await reviewProse(merged, facts, apiKey);
+    // _ai marks prose that genuinely came from the model. The lead row used to
+    // record `ai: !!apiKey`, which only said the env var existed — so a failing
+    // API call looked identical to a working one and the report silently shipped
+    // the template. The flag now has to be earned.
+    return { ...reviewed, _ai: true };
+  } catch (e) {
+    console.error('[roadmap] anthropic call threw:', e?.message || e);
     return fallback;
   }
 }
