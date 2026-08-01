@@ -13,6 +13,12 @@ export const dynamic = 'force-dynamic';
 // 300s on Hobby if a render ever outgrows this, but a six-page PDF lands in single
 // -digit seconds. Do not "fix" this back down to 10.
 export const maxDuration = 60;
+// Timed out at 60s once the prose layer did TWO Claude calls at 8000 tokens.
+// The budget is: cold start + chromium decompress (15-25s) + generate + render
+// + Postmark. That leaves roughly 25s for the model, which one call at 5000
+// tokens fits and two do not. The review pass is therefore opt-in
+// (ROADMAP_REVIEW=1) and belongs behind Fluid compute, which lifts Hobby to
+// 300s. Raising this number above 60 without Fluid enabled fails the BUILD.
 
 /* The export loop: a route + email in, a six-page PDF in the inbox out.
    Every downstream stage is optional and degrades gracefully, so the endpoint

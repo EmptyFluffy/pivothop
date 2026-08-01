@@ -275,7 +275,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-5', max_tokens: 8000, system: sys,
+        model: 'claude-sonnet-5', max_tokens: 5000, system: sys,
         messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\n${shape}\n\nReturn the JSON now.` }],
       }),
     });
@@ -301,7 +301,13 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
     };
     // Second pass: re-read the report against the same FACTS and repair claims
     // that contradict them. Returns `merged` untouched on any failure.
-    const reviewed = await reviewProse(merged, facts, apiKey);
+    // OFF by default: this is a SECOND full generation, and adding it blew the
+    // 60s function budget (cold start + chromium decompress + generate + review
+    // + render + send). Set ROADMAP_REVIEW=1 once the route has headroom —
+    // Vercel's Fluid compute raises Hobby to 300s and makes it comfortable.
+    const reviewed = process.env.ROADMAP_REVIEW === '1'
+      ? await reviewProse(merged, facts, apiKey)
+      : merged;
     // _ai marks prose that genuinely came from the model. The lead row used to
     // record `ai: !!apiKey`, which only said the env var existed — so a failing
     // API call looked identical to a working one and the report silently shipped
