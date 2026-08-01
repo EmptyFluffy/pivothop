@@ -217,7 +217,13 @@ export function buildProse(d) {
     }))).slice(0, 6),
     note: 'Skip anything that ends in a certificate and nothing else. Hiring managers open the artifact, not the badge.',
   };
-  return { resources, roleContext, difficulty, verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
+  const explainTheJump = A.have.length
+    ? `Lead with what travels: ${A.have.slice(0, 3).map((w) => w.name).join(', ')} are named in ${destL} postings, not merely adjacent to them. Then name the number — ${Math.round(A.earned)}% of the requirements held on day one — and the artifact that proves it.`
+    : '';
+  // Without a model we do not describe what a job FEELS like; that would be
+  // invention. The block simply does not render on the fallback path.
+  const first90 = '';
+  return { explainTheJump, first90, resources, roleContext, difficulty, verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
 }
 
 function planIntro(A, destL) {
@@ -335,6 +341,7 @@ export function factsFor(d) {
     curatedResources: A.gaps.slice(0, 6).flatMap((w) => (RES[(w.name || '').toLowerCase()] || []).map((r) => ({ skill: w.name, ...r }))),
     mobility: d.dest.mobility, mobilitySource: d.dest.mobilitySource,
     gapCount: A.gaps.length,
+    onward: d.onward || [], bridge: d.bridge || null, destSeniority: d.destSeniority || null,
   };
 }
 
@@ -397,6 +404,8 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
    "howMany": "1 sentence: how many skills have to be learned. Name at most 3, then \'and N more\'.",
    "mobilityRead": "1 sentence on the observed-flow number: well-worn path or unusual one, and what that means for how you will be received."
  },
+ "explainTheJump": "2-3 sentences, second person: the actual words for the interview question \'why are you moving?\'. Built from the held skills and the shape of the move. No apology — a reason, told forward.",
+ "first90": "2-3 sentences: what the first ninety days IN the new job will feel like, including the part that will feel worse before it feels better. This is shift-shock inoculation, not a pep talk.",
  "decodedNote": "1 sentence about partial-credit skills.",
  "alternatesNote": "1 sentence about the fallback routes.",
  "salaryVerdict": "1-2 sentences comparing the two posted bands."
@@ -464,6 +473,8 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
     roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
     difficulty: out.difficulty?.verdict ? out.difficulty : fallback.difficulty,
     verdict: out.verdict || fallback.verdict,
+    explainTheJump: out.explainTheJump || fallback.explainTheJump,
+    first90: out.first90 || fallback.first90,
     decodedNote: out.decodedNote || fallback.decodedNote,
     plan: out.plan?.phases?.length ? { intro: out.plan.intro || fallback.plan.intro, phases: out.plan.phases, firstMove: out.plan.firstMove || fallback.plan.firstMove, longArc: out.plan.longArc || fallback.plan.longArc } : fallback.plan,
     evidence: out.evidence?.items?.length ? { intro: out.evidence.intro || fallback.evidence.intro, items: out.evidence.items, checkpoints: out.evidence.checkpoints || fallback.evidence.checkpoints } : fallback.evidence,

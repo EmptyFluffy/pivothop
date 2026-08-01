@@ -76,6 +76,10 @@ export async function buildReportData(p, opts = {}) {
       rank: p.rank || null,
     },
     routeCount: p.routeCount || null,
+    // Pass-throughs for the report's "what this position unlocks" surfaces.
+    onward: Array.isArray(p.onward) ? p.onward.slice(0, 3) : [],
+    bridge: p.bridge || null,
+    destSeniority: p.seniority || null,
     waterfall,
     alternates: Array.isArray(p.alternates) ? p.alternates.slice(0, 3).map((a) => ({
       title: a.title, match: Math.round(Number(a.match) || 0), gate: a.gate || (a.license ? 'License · slower' : '—'),

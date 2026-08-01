@@ -64,7 +64,36 @@ function assemble(originSlug: string, destId: string) {
   const rank = ranked.findIndex((r) => r.id === dest!.id) + 1 || null;
   const alternates = ranked.filter((r) => r.id !== dest!.id).slice(0, 3)
     .map((r) => ({ title: r.title, match: r.match, gate: r.license ? 'License · slower' : 'No license' }));
-  return { payload: { origin: rep.origin, dest, alternates, rank, routeCount: roles.length } };
+
+  // Where the destination leads NEXT — its own onward routes, from the same
+  // graph. A pivot is a new position, not a terminus, and this is the one page
+  // of the report nobody else can print. Keyed by first-hop id, so a bridged
+  // kid simply gets none.
+  const onward = (rep.next?.[dest.id] || []).slice(0, 3).map((k) => ({ title: k.t, match: k.m }));
+
+  // The stepping-stone. Only offered when the direct move is FAR (<35%) — for a
+  // 19% route the honest advice is often the ridge path, not the face. The best
+  // higher-match first hop whose own onward list contains this destination.
+  let bridge: { via: string; viaMatch: number; thenMatch: number } | null = null;
+  if ((dest.match ?? 100) < 35) {
+    for (const r of ranked) {
+      if (r.id === dest.id || (r.match ?? 0) <= (dest.match ?? 0)) continue;
+      const k = (rep.next?.[r.id] || []).find((x) => x.slug === dest!.id);
+      if (k) { bridge = { via: r.title, viaMatch: r.match, thenMatch: k.m }; break; }
+    }
+  }
+
+  // Entry-versus-senior pay, from the salary file. A switcher enters below the
+  // median, and the full band on the salary map quietly implies otherwise.
+  // Gated on sample size — a band from six postings is not a claim.
+  type Band = { n?: number; p25?: number; p50?: number };
+  const salFile = readData(`salaries/${dest.id}.json`) as { seniority?: { mid?: Band; senior?: Band } } | null;
+  const mid = salFile?.seniority?.mid, senior = salFile?.seniority?.senior;
+  const seniority = (mid?.n ?? 0) >= 15 && mid?.p25 && mid?.p50
+    ? { mid: { p25: mid.p25, p50: mid.p50, n: mid.n }, senior: (senior?.n ?? 0) >= 15 && senior?.p50 ? { p50: senior.p50, n: senior.n } : null }
+    : null;
+
+  return { payload: { origin: rep.origin, dest, alternates, rank, routeCount: roles.length, onward, bridge, seniority } };
 }
 
 const SB = () => {

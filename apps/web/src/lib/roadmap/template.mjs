@@ -154,6 +154,10 @@ function pageHuman(d) {
     <h2 class="ph">Before the plan, the job.</h2>
     <p class="lede">The numbers say how far it is. This page says what you are walking towards, and how hard the walk is.</p>
     ${humanBlock(d)}
+    ${d.explainTheJump || d.first90 ? `<div class="hu-talk">
+      ${d.explainTheJump ? `<div class="hu-t"><span class="lbl">When they ask why you&rsquo;re moving</span><p>${d.explainTheJump}</p></div>` : ''}
+      ${d.first90 ? `<div class="hu-t"><span class="lbl">The first ninety days, honestly</span><p>${d.first90}</p></div>` : ''}
+    </div>` : ''}
     ${resourcesBlock(d)}
     ${footer(d, 3)}
   </section>`;
@@ -304,6 +308,10 @@ function pageTimeline(d) {
       ${d.alternates.map((a) => `<div class="alt"><span class="alt-t">${esc(a.title)}</span><span class="alt-m">${a.match}%</span><span class="alt-g">${esc(a.gate)}</span></div>`).join('')}
     </div>
     <p class="note note-flow">${d.alternatesNote}</p>
+    ${d.bridge ? `<div class="bridge">
+      <span class="lbl">The stepping-stone, if the direct jump reads too far</span>
+      <p><b>${esc(d.bridge.via)}</b> first &mdash; your skills already read <b>${d.bridge.viaMatch}%</b> there &mdash; and from ${esc(d.bridge.via.toLowerCase())} this move reads <b>${d.bridge.thenMatch}%</b>. Two smaller jumps, each one explainable, instead of one long one.</p>
+    </div>` : ''}
     ${footer(d, 6)}
   </section>`;
 }
@@ -342,6 +350,15 @@ function pageSalary(d) {
       <div class="cap">Method</div>
       <p>Readiness is the share of the destination&rsquo;s 100 demand-weighted skill points your profile already earns, read from ${d.dest.provenance.postings.toLocaleString()} live postings (${d.dest.provenance.salaried.toLocaleString()} stating pay). Mobility is observed worker flow, not opinion. Salary bands are the posted 10th&ndash;90th spread. Numbers move with the market; the graph re-runs free at <b>pivothop.com</b>.</p>
     </div>
+    ${d.destSeniority ? `<div class="sal-sen">
+      <span class="lbl">Where in the band you&rsquo;d actually start</span>
+      <p>Mid-level ${esc(d.dest.title.toLowerCase())} postings pay <b>${money(d.destSeniority.mid.p25)}&ndash;${money(d.destSeniority.mid.p50)}</b> (p25&ndash;median, ${d.destSeniority.mid.n} postings)${d.destSeniority.senior ? `; senior runs to a <b>${money(d.destSeniority.senior.p50)}</b> median` : ''}. A switcher enters below the median &mdash; read the band&rsquo;s lower half as year one, not the ceiling.</p>
+    </div>` : ''}
+    ${d.onward && d.onward.length ? `<div class="sal-onward">
+      <span class="lbl">Where this door leads next</span>
+      <p class="onw-i">A pivot is a position, not a terminus. From ${esc(d.dest.title.toLowerCase())}, the graph already measures onward routes:</p>
+      ${d.onward.map((o) => `<div class="onw-r"><b>${esc(o.title)}</b><span class="onw-m">${o.match}% from there</span></div>`).join('')}
+    </div>` : ''}
     ${footer(d, 7)}
   </section>`;
 }
@@ -403,6 +420,17 @@ export function renderRoadmapHTML(d) {
   .two{display:grid;grid-template-columns:1fr 1fr;gap:11mm}
   .anatomy{display:flex;height:11mm;border:1.2px solid var(--ink);margin-bottom:2.6mm;background:var(--card)}
   /* 07 — the summary. Big numbers, few words, readable at a glance on a phone. */
+  .hu-talk{margin-top:6mm;display:grid;grid-template-columns:1fr 1fr;gap:8mm}
+  .hu-t p{margin:1.5mm 0 0;font-size:9.4pt;line-height:1.55;color:var(--ink)}
+  .bridge{margin-top:5mm;background:var(--paper2);border-left:1.6px solid var(--acc);padding:3.5mm 4.5mm}
+  .bridge p{margin:1.5mm 0 0;font-size:9.4pt;line-height:1.55;color:var(--ink)}
+  .sal-sen{margin-top:7mm;padding-top:5mm;border-top:0.6px solid var(--rule2)}
+  .sal-sen p{margin:1.5mm 0 0;font-size:9.2pt;line-height:1.55;color:var(--ink2)}
+  .sal-onward{margin-top:6mm}
+  .onw-i{margin:1.5mm 0 2mm;font-size:9.2pt;line-height:1.5;color:var(--ink2)}
+  .onw-r{display:flex;justify-content:space-between;align-items:baseline;padding:2.2mm 0;border-bottom:0.5px solid var(--rule)}
+  .onw-r b{font-size:9.8pt;font-weight:600}
+  .onw-m{font-family:'Space Mono',monospace;font-size:8pt;color:var(--acc)}
   .sm-top{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm;margin:6mm 0 7mm;padding-bottom:6mm;border-bottom:1.2px solid var(--ink)}
   .sm-big .sm-n{display:block;font-size:23pt;font-weight:600;letter-spacing:-.02em;color:var(--acc);line-height:1}
   .sm-big .sm-n.sm-sm{font-size:15pt;color:var(--ink)}
