@@ -61,11 +61,14 @@
   .navlink:hover{text-decoration-color:currentColor}
   .navlink.on{color:var(--ink)}
   .navlink:hover{color:var(--ink)}
-  /* margin-left:auto is what pins it right. In the display face now, not the mono:
-     the mono read as a system label rather than the one thing on the bar you can buy. */
-  .nav .cta{margin-left:auto;background:var(--black);color:#f4f4f6;display:flex;align-items:center;justify-content:center;padding:0 26px;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;transition:background .2s}
-  .nav .cta .ic{width:18px;height:18px;flex:none}
-  .nav .cta:hover{background:#05050b}
+  /* margin-left:auto pins it right. The black box is gone (2026-08-01): one filled
+     block on an otherwise typographic bar read as an ad, and the action is now a
+     waitlist rather than a checkout. Bold text, same size and tracking as the
+     links so the bar stays one voice, weight 700 doing the differentiating, and
+     the same fade-in underline as every other clickable thing on the site,
+     except in the accent, because this is the one commercial action. */
+  .nav .cta{margin-left:auto;display:flex;align-items:center;padding:0 26px;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;color:var(--ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+  .nav .cta:hover{color:var(--accent);text-decoration-color:var(--accent)}
   /* nav-menu is display:contents on desktop so its children join the grid as
      before; on mobile it collapses into a burger-toggled dropdown */
   /* Was display:contents so the links became grid cells. Now a real flex row that

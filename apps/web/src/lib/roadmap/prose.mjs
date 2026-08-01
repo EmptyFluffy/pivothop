@@ -486,7 +486,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
   // Shape-guard: any missing branch falls back to the templated field, which is
   // also what makes a ONE-half failure graceful, the other half still ships.
   const merged = {
-    resources: out.resources?.items?.length ? out.resources : fallback.resources,
+    resources: out.resources?.items?.length ? { ...out.resources, items: out.resources.items.slice(0, 5) } : fallback.resources,
     roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
     difficulty: out.difficulty?.verdict ? out.difficulty : fallback.difficulty,
     verdict: out.verdict || fallback.verdict,

@@ -69,7 +69,10 @@ function assemble(originSlug: string, destId: string) {
   // graph. A pivot is a new position, not a terminus, and this is the one page
   // of the report nobody else can print. Keyed by first-hop id, so a bridged
   // kid simply gets none.
-  const onward = (rep.next?.[dest.id] || []).slice(0, 3).map((k) => ({ title: k.t, match: k.m }));
+  // Floor at 30%: the founder's report offered "Mechanical Engineer, 23% from
+  // there" as an onward route, which is noise wearing a number. Below the floor
+  // the block simply does not render.
+  const onward = (rep.next?.[dest.id] || []).filter((k) => (k.m ?? 0) >= 30).slice(0, 3).map((k) => ({ title: k.t, match: k.m }));
 
   // The stepping-stone. Only offered when the direct move is FAR (<35%) — for a
   // 19% route the honest advice is often the ridge path, not the face. The best

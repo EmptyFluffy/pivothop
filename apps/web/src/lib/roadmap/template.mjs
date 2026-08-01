@@ -224,7 +224,7 @@ function resourcesBlock(d) {
     <span class="lbl">Where to actually learn this</span>
     ${r.intro ? `<p class="res-i">${r.intro}</p>` : ''}
     <div class="res-list">
-      ${r.items.map((it) => `<div class="res-r">
+      ${r.items.map((it) => `<div class="res-r" data-trim="resource">
         <div class="res-l"><b>${esc(it.what || '')}</b>${it.url ? `<span class="res-u">${esc(String(it.url).replace(/^https?:\/\//, ''))}</span>` : ''}${it.why ? `<span class="res-w">${esc(it.why)}</span>` : ''}</div>
         <div class="res-m">${esc(it.skill || '')}${it.hours ? ` · ${esc(it.hours)}` : ''}</div>
       </div>`).join('')}
@@ -272,7 +272,7 @@ function pageSummary(d) {
         <span class="lbl">Start here, this week</span>
         <p class="sm-first">${d.plan.firstMove}</p>
         ${stones.length ? `<span class="lbl" style="margin-top:5mm;display:block">Then, in order</span>
-        <div class="sm-stones">${stones.map((st) => `<div class="sm-st"><span>${esc(st.when || '')}</span><b>${esc(st.label || '')}</b></div>`).join('')}</div>` : ''}
+        <div class="sm-stones">${stones.map((st) => `<div class="sm-st" data-trim="stone"><span>${esc(st.when || '')}</span><b>${esc(st.label || '')}</b></div>`).join('')}</div>` : ''}
       </div>
     </div>
 
@@ -357,7 +357,7 @@ function pageSalary(d) {
     ${d.onward && d.onward.length ? `<div class="sal-onward">
       <span class="lbl">Where this door leads next</span>
       <p class="onw-i">A pivot is a position, not a terminus. From ${esc(d.dest.title.toLowerCase())}, the graph already measures onward routes:</p>
-      ${d.onward.map((o) => `<div class="onw-r"><b>${esc(o.title)}</b><span class="onw-m">${o.match}% from there</span></div>`).join('')}
+      ${d.onward.map((o) => `<div class="onw-r" data-trim="onward"><b>${esc(o.title)}</b><span class="onw-m">${o.match}% from there</span></div>`).join('')}
     </div>` : ''}
     ${footer(d, 7)}
   </section>`;

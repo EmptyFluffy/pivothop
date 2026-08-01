@@ -33,7 +33,7 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
         <Link className="navlink" href="/#how">Method</Link>
         <Link className="navlink" href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
-        <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Post a job</Link>
+        <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Join the waitlist</Link>
       </div>
     </header>
   );
