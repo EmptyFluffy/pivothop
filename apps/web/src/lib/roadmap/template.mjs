@@ -63,7 +63,7 @@ function pageDecoded(d) {
   const otherPts = 100 - earned - top3pts;
   // the anatomy strip: one bar, five segments — yours + the three named gaps + the rest
   const seg = (w, cls, label) => `<span class="an-seg ${cls}" style="width:${w}%">${label ? `<span class="an-in">${label}</span>` : ''}</span>`;
-  const strip = seg(earned, 'an-yours', `${earned.toFixed(1)} &mdash; already yours`) +
+  const strip = seg(earned, earned < 24 ? 'an-yours an-tight' : 'an-yours', `${earned.toFixed(1)} &mdash; already yours`) +
     top3.map((w, i) => seg(w.pts, 'an-gap', `<b>${i + 1}</b>`)).join('') +
     seg(otherPts, 'an-rest', '');
   const legend = top3.map((w, i) => `<span class="an-key"><b>${i + 1}</b> ${esc(w.name)} +${w.pts.toFixed(1)}</span>`).join('') +
@@ -137,6 +137,19 @@ function pageEvidence(d) {
   </section>`;
 }
 
+/* The arc heading read t.lo/t.hi, which NEITHER prose path ever set — the
+   fallback computes them locally without returning them, and the AI shape does
+   not declare them at all. It rendered "undefined–undefined months" on every
+   report. Derived here from dest.time instead, so the heading cannot depend on
+   the prose layer at all; t.lo/t.hi are still honoured if a future shape adds them. */
+function arcMonths(d, t) {
+  if (t?.lo != null && t?.hi != null) return `${t.lo}&ndash;${t.hi}`;
+  const m = String(d?.dest?.time || '').match(/(\d+)\s*[–—-]\s*(\d+)/);
+  if (m) return `${m[1]}&ndash;${m[2]}`;
+  const one = String(d?.dest?.time || '').match(/(\d+)/);
+  return one ? one[1] : '12&ndash;24';
+}
+
 /* ── 05 · the timeline (vertical, phase-grouped roadmap) ──────────────── */
 function pageTimeline(d) {
   const t = d.timeline;
@@ -152,7 +165,7 @@ function pageTimeline(d) {
     </div>`).join('');
   return `<section class="pg">
     ${header('The timeline')}
-    <h2 class="ph">The whole arc, ${t.lo}&ndash;${t.hi} months.</h2>
+    <h2 class="ph">The whole arc, ${arcMonths(d, t)} months.</h2>
     <p class="pdek">${t.intro}</p>
     <div class="rm">${phases}</div>
     <div class="rm-note"><span class="cap">Pacing</span><p>${t.weekly}</p></div>
@@ -262,6 +275,10 @@ export function renderRoadmapHTML(d) {
   .an-seg{position:relative;height:100%}
   .an-yours{background:var(--acc)}
   .an-yours .an-in{position:absolute;left:3mm;top:50%;transform:translateY(-50%);color:#fff;font-family:'Space Mono',monospace;font-size:8pt;letter-spacing:.05em;white-space:nowrap}
+  /* White-on-white bug: the label is nowrap and absolutely placed, so on a low
+     readiness (13.4% of the bar) it ran past the blue segment onto paper and
+     vanished. Below 24% it sits to the RIGHT of the segment in accent ink. */
+  .an-yours.an-tight .an-in{left:calc(100% + 2.5mm);color:var(--acc)}
   .an-gap{border-left:1.2px solid var(--acc);display:flex;align-items:center;justify-content:center}
   .an-gap .an-in b{font-family:'Space Mono',monospace;font-weight:700;font-size:8.4pt;color:var(--acc)}
   .an-rest{background:var(--paper2);border-left:1.2px solid var(--rule2)}
