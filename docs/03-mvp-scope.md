@@ -65,8 +65,14 @@ This page carries E-E-A-T weight for every other page on the site. It's not "opt
 ### 5. Report PDF + email flow
 
 - User enters email in the export modal
-- PDF generated with the design system (Space Grotesk + Space Mono, paper tones, cobalt accent)
-- PDF contains: cover with route summary, role decoded, 90-day plan, evidence checklist, bridge role (if applicable), graph snapshot, AI insight paragraph, salary map
+- PDF generated with the design system (**Instrument Sans** + Space Mono, paper tones, cobalt accent)
+- **What the built report actually contains** (5 named sections, `lib/roadmap/template.mjs` — this list supersedes the looser spec that used to sit here, which named a graph snapshot, a "role decoded" page and a bridge-role page that the shipped template does not render):
+  1. **"The 100 points, opened up."** — the readiness score decomposed into what each missing skill is worth
+  2. **"Ninety days, sequenced by the points."** — the plan, ordered by value per skill rather than by difficulty
+  3. **"What counts as proof."** — the evidence that reads as credible to a hiring manager
+  4. **"The whole arc, X–Y months."** — the honest timeline, credential-floored where a licence applies
+  5. **"Both bands, one axis."** — origin and destination pay on one scale
+- Prose is AI-written when `ANTHROPIC_API_KEY` is set and falls back to a template otherwise; both ship the same five sections
 - Confirmation email sent with PDF attached (or link to download)
 - Email uses transactional email provider (Postmark, SendGrid, or Resend)
 - Compliant with GDPR — consent language, unsubscribe link, plain footer

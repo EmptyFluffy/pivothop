@@ -1,4 +1,14 @@
 import type { NextConfig } from "next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+// npm workspaces HOISTS dependencies to the repo root, so @sparticuz/chromium
+// (67MB) physically lives in /node_modules, not /apps/web/node_modules. Next
+// traces from the app directory by default, so without this it never packages
+// the binary: the runtime import in render.mjs throws, renderPdf returns null,
+// and /api/roadmap silently degrades to lead-capture with delivered=false —
+// which is precisely how this failed the first time.
+const REPO_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 const nextConfig: NextConfig = {
   // First-party proxy for PostHog ingestion (api_host '/ingest' in PostHogInit):
@@ -17,6 +27,15 @@ const nextConfig: NextConfig = {
   // puppeteer-core resolves its browser path at runtime. Listing them here makes
   // Next require() them natively at execution instead. See lib/roadmap/render.mjs.
   serverExternalPackages: ['puppeteer-core', '@sparticuz/chromium'],
+  outputFileTracingRoot: REPO_ROOT,
+  // The tracer follows JS requires, so it packaged @sparticuz/chromium's four
+  // build/*.js files and stopped — it cannot see that paths.js resolves
+  // bin/chromium.br (64MB, the ACTUAL browser) at runtime. Without this the
+  // function deploys looking complete and fails on launch. Verified by reading
+  // route.js.nft.json rather than trusting a green build.
+  outputFileTracingIncludes: {
+    '/api/roadmap': ['../../node_modules/@sparticuz/chromium/bin/**'],
+  },
 };
 
 export default nextConfig;

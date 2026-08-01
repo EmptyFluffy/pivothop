@@ -10,9 +10,16 @@
 export async function renderPdf(html) {
   let puppeteer, chromium;
   try {
-    // computed specifiers => not statically bundled; runtime require only
-    puppeteer = (await import(/* @vite-ignore */ /* webpackIgnore: true */ 'puppeteer' + '-core')).default;
-    chromium = (await import(/* @vite-ignore */ /* webpackIgnore: true */ '@sparticuz/' + 'chromium')).default;
+    // LITERAL specifiers, deliberately. These were concatenated ('puppeteer' +
+    // '-core') so the build would not resolve them before they were installed —
+    // correct at the time, and the exact reason the first deploy failed: Next's
+    // file tracer is a STATIC analyser, so a computed specifier is invisible to
+    // it and the 67MB chromium binary was never packaged into the function. The
+    // import then threw at runtime, renderPdf returned null, and /api/roadmap
+    // degraded to lead-capture with delivered=false and no error anywhere.
+    // The packages are real dependencies now, so the specifiers must be literal.
+    puppeteer = (await import('puppeteer-core')).default;
+    chromium = (await import('@sparticuz/chromium')).default;
   } catch {
     return null; // render deps not installed yet — see the step-3 wiring
   }
