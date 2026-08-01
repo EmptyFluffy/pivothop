@@ -130,6 +130,24 @@ export default function Research() {
           ZipRecruiter leadership.
         </p>
         <div className="res-warn">
+          <b>The &ldquo;bootstrapped&rdquo; figure is stale &mdash; check before repeating it.</b> The
+          no-outside-capital claim describes their position through roughly autumn 2025. Measured{' '}
+          <b>2026-07-31, their own Ashby board carries 8 open roles and 7 are titled &ldquo;Founding&rdquo;</b>:
+          Head of Marketing, Head of SEO, Head of Recruiting, Growth Hacker, plus three founding engineers.
+          Nobody hires a Founding Head of Recruiting on zero revenue and zero capital &mdash; that is the role you
+          hire to hire the other seven. Either they raised, or the Talent Network started earning, or both. No
+          specific round could be verified, so none is claimed here. What can be said: they are no longer a
+          two-person bootstrapped project. <b>Also note their board is on Ashby under the token{' '}
+          <code>hiring-cafe</code></b>, so we can watch their headcount plans directly.
+        </div>
+
+        <div className="res-warn">
+          <b>Name collision, for whoever researches this next.</b> Tracxn and some aggregators carry a{' '}
+          <em>different</em> HiringCafe &mdash; founded 2022, India, an aggregator of other job portals. Not this
+          company. Ours is US, 2024, and refuses aggregator feeds on principle. Do not merge the profiles.
+        </div>
+
+        <div className="res-warn">
           <b>Read this carefully, because it is our thesis with their distribution.</b> &ldquo;Employers apply to
           candidates&rdquo; is the adjacent-talent job board. They have a million users and an 83k subreddit; we
           have the measurement. If they ship it well, our window is the <em>matching</em> — they can tell an
