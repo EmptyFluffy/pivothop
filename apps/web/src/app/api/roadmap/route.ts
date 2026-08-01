@@ -85,6 +85,10 @@ async function emailReport(to: string, d: { dest: { title: string }; origin: { t
     headers: { 'X-Postmark-Server-Token': token, 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({
       From: from, To: to, ReplyTo: SITE_EMAIL,
+      // Blind copy, not CC: the recipient must never see an internal address on
+      // a report they asked for. Optional — unset the env var and sending is
+      // unaffected. Postmark counts a Bcc as a separate recipient for billing.
+      ...(process.env.ROADMAP_BCC ? { Bcc: process.env.ROADMAP_BCC } : {}),
       Subject: `Your route report: ${route}`,
       HtmlBody: html, MessageStream: 'outbound',
       Attachments: [{ Name: `PivotHop-${d.origin.title}-to-${d.dest.title}.pdf`.replace(/\s+/g, '-'), Content: pdf.toString('base64'), ContentType: 'application/pdf' }],

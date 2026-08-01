@@ -268,6 +268,8 @@ The loop is built and degrades gracefully (today: leads captured, no email sent)
 - **Vercel Pro** (~$20/mo): 60s function limit fits the PDF render; then Claude installs `puppeteer-core` + `@sparticuz/chromium` and sets `serverExternalPackages` — render works with no further change (the code already loads them at runtime).
 - **or the VPS** (already in the stack plan): Claude moves rendering behind a tiny endpoint there instead.
 
+**C4. BCC yourself** (wired 2026-07-31, opt-in): Vercel env `ROADMAP_BCC` = the address that should receive a blind copy of every report sent. Blind, not CC — the recipient must never see an internal address on a report they asked for. Leave it unset and sending is unaffected. Note Postmark bills a Bcc as a second recipient.
+
 **Also:** run migration `supabase/migrations/0005_roadmap_leads.sql` in the Supabase SQL editor (one paste-and-run) so leads persist.
 
 **Then Claude finishes:** install render deps for the chosen env, end-to-end test to the founder's inbox, deploy. The graph's "Send my report" then delivers the six-page PDF for real.
