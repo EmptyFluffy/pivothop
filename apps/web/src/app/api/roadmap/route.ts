@@ -12,13 +12,15 @@ export const dynamic = 'force-dynamic';
 // (raised from 10s), so this flow needs no paid plan. Fluid compute would allow
 // 300s on Hobby if a render ever outgrows this, but a six-page PDF lands in single
 // -digit seconds. Do not "fix" this back down to 10.
-export const maxDuration = 60;
-// Timed out at 60s once the prose layer did TWO Claude calls at 8000 tokens.
-// The budget is: cold start + chromium decompress (15-25s) + generate + render
-// + Postmark. That leaves roughly 25s for the model, which one call at 5000
-// tokens fits and two do not. The review pass is therefore opt-in
-// (ROADMAP_REVIEW=1) and belongs behind Fluid compute, which lifts Hobby to
-// 300s. Raising this number above 60 without Fluid enabled fails the BUILD.
+export const maxDuration = 300;
+// 300s, the Fluid compute ceiling on Hobby — confirmed enabled on this project
+// 2026-08-01. The earlier "timed out after 60 seconds" was NOT a plan limit: it
+// was this line, set to 60 on the assumption Fluid was off. The budget is cold
+// start + chromium decompress (15-25s) + generate + optional review + render +
+// Postmark, so 300 leaves real headroom rather than the ~25s the model had.
+//
+// If Fluid is ever turned OFF, this fails the BUILD rather than degrading — the
+// plan cap is 60 without it. That is the right failure: loud, at build time.
 
 /* The export loop: a route + email in, a six-page PDF in the inbox out.
    Every downstream stage is optional and degrades gracefully, so the endpoint
