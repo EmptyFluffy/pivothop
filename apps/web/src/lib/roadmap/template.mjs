@@ -53,6 +53,27 @@ function pageCover(d) {
   </section>`;
 }
 
+/* The human half of page 2. prose.mjs has been generating roleContext and
+   difficulty on every report since they were added — and the template never
+   referenced them, so the model wrote them and we threw them away. This renders
+   them: what the destination job actually is, what carries over, what does not,
+   and one plain-English read on how hard the jump is. Every field is optional,
+   so a payload without them renders exactly as before. */
+function humanBlock(d) {
+  const rc = d.roleContext || {}, df = d.difficulty || {};
+  const rows = [
+    ['What this job actually is', rc.whatItIs],
+    ['What carries over', rc.carriesOver],
+    ['What does not', rc.doesNot],
+  ].filter(([, v]) => v);
+  const verdict = [df.verdict, df.howMany, df.mobilityRead].filter(Boolean);
+  if (!rows.length && !verdict.length) return '';
+  return `<div class="human">
+    ${rows.length ? `<div class="hu-cols">${rows.map(([k, v]) => `<div class="hu-c"><span class="lbl">${k}</span><p>${v}</p></div>`).join('')}</div>` : ''}
+    ${verdict.length ? `<div class="hu-verdict"><span class="lbl">How hard is this, honestly</span>${verdict.map((v) => `<p>${v}</p>`).join('')}</div>` : ''}
+  </div>`;
+}
+
 /* ── 02 · the role, decoded (one anatomy strip + two lists) ───────────── */
 function pageDecoded(d) {
   const have = d.waterfall.filter((w) => w.earned > 0);
@@ -97,6 +118,7 @@ function pageDecoded(d) {
       <div><b>${esc(d.dest.time)}</b><span>to hiring-ready</span></div>
     </div>
     ${d.decodedNote ? `<p class="note">${d.decodedNote}</p>` : ''}
+    ${humanBlock(d)}
     ${footer(d, 2)}
   </section>`;
 }
@@ -272,6 +294,11 @@ export function renderRoadmapHTML(d) {
   /* the anatomy strip + skill lists */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:11mm}
   .anatomy{display:flex;height:11mm;border:1.2px solid var(--ink);margin-bottom:2.6mm;background:var(--card)}
+  .human{margin-top:7mm;padding-top:5mm;border-top:0.6px solid var(--rule2)}
+  .hu-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6mm;margin-bottom:5mm}
+  .hu-c p{margin:1.5mm 0 0;font-size:9.2pt;line-height:1.5;color:var(--ink2)}
+  .hu-verdict{background:var(--paper2);border-left:1.6px solid var(--acc);padding:3.5mm 4.5mm}
+  .hu-verdict p{margin:1.5mm 0 0;font-size:9.4pt;line-height:1.55;color:var(--ink)}
   .an-seg{position:relative;height:100%}
   .an-yours{background:var(--acc)}
   .an-yours .an-in{position:absolute;left:3mm;top:50%;transform:translateY(-50%);color:#fff;font-family:'Space Mono',monospace;font-size:8pt;letter-spacing:.05em;white-space:nowrap}
