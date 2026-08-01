@@ -252,28 +252,75 @@ function parseLoose(raw) {
   } catch { return null; }
 }
 
+/* STEP 1 OF THE CHAIN — form a view before writing a word.
+ *
+ * The single-call version asked the model to produce eight sections at once from
+ * raw numbers, and it read like transcription because that is what it was. This
+ * call produces nothing the reader ever sees: it is a working note that the
+ * writing steps then argue FROM. Asking "what do these numbers mean" and "what
+ * would you tell a friend" separately from "now write the report" is the whole
+ * difference between a document with a thesis and a document with statistics.
+ *
+ * It is also cheap insurance against the failure that has dogged this flow: a
+ * small call with a small output truncates far less readily than one carrying a
+ * whole document, and if it fails the report still generates without it.
+ *
+ * Returns a short object. Never rendered directly. */
+async function interpret(d, facts, apiKey) {
+  const sys = `You are reading one person's career-transition numbers and forming a view, before anyone writes anything for them. This is a working note, not copy — nobody will read it but the writer who comes next. Be blunt and specific. No hedging, no encouragement, no audience.
+
+Answer four questions:
+1. What is the SHAPE of this move? Is the gap one enormous skill or many small ones? That changes the advice completely and the numbers usually make it obvious.
+2. What does the mobility figure actually mean here — is this a path people take, or one this person will have to justify?
+3. What is the single most useful true thing you could tell them, including if it is discouraging? If the honest read is "this is a long way and the pay does not improve", say that.
+4. What would make this report worth keeping rather than skimming?
+
+Return ONLY JSON: {"shape":"...","mobilityRead":"...","mostUsefulTruth":"...","whatMakesItWorthKeeping":"..."} — two or three sentences each, plain words.`;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5', max_tokens: 1200, system: sys,
+        messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\nReturn the JSON now.` }],
+      }),
+    });
+    if (!res.ok) return null;
+    const j = await res.json();
+    const text = (j.content || []).map((c) => c.text || '').join('').trim();
+    const a = text.indexOf('{'), b = text.lastIndexOf('}');
+    if (a < 0 || b < 0) return null;
+    return parseLoose(text.slice(a, b + 1));
+  } catch { return null; }   // the report is fine without it; never block on this
+}
+
 /* One retry, because a malformed generation is usually not repeated and the
  * whole AI report is the thing at stake. Only retries the cases a second attempt
  * can plausibly fix — a bad parse or a 5xx — never a 401, which will fail
  * identically forever and should surface immediately. There is room for it:
  * maxDuration is 300s and one call runs in single-digit seconds. */
 export async function buildProseAI(d, apiKey) {
-  const first = await buildProseAIOnce(d, apiKey);
+  // Step 1: form a view. Cheap, small, and the report still generates if it fails.
+  const facts0 = factsFor(d);
+  const view = await interpret(d, facts0, apiKey);
+  const first = await buildProseAIOnce(d, apiKey, view);
   const err = first?._aiError;
   const worthRetry = err && (err.startsWith('unparseable') || err.startsWith('no-json') || /^http 5/.test(err));
   if (!worthRetry) return first;
   console.error('[roadmap] retrying after:', err);
-  const second = await buildProseAIOnce(d, apiKey);
+  const second = await buildProseAIOnce(d, apiKey, view);
   // If the retry also failed, keep the SECOND reason — it is the more recent
   // truth, and two different reasons in a row is itself worth seeing.
   return second?._ai ? second : { ...second, _aiError: `retried; ${second?._aiError || err}` };
 }
 
-async function buildProseAIOnce(d, apiKey) {
-  const fallback = buildProse(d);
-  if (!apiKey) return fallback;
+/* One fact set, shared by every step of the chain. It was built inline inside the
+   writing call, which meant the interpretation step could not see the same
+   numbers the writer would — and two steps reasoning from different facts is how
+   a chain contradicts itself. */
+export function factsFor(d) {
   const A = analyze(d);
-  const facts = {
+  return {
     origin: d.origin.title, dest: d.dest.title,
     readiness: A.earned, gapTotal: Math.round((100 - A.earned) * 10) / 10,
     topGaps: A.top3.map((w) => ({ skill: w.name, points: w.pts })),
@@ -287,7 +334,15 @@ async function buildProseAIOnce(d, apiKey) {
     // rather than producing a plausible title nobody can find.
     curatedResources: A.gaps.slice(0, 6).flatMap((w) => (RES[(w.name || '').toLowerCase()] || []).map((r) => ({ skill: w.name, ...r }))),
     mobility: d.dest.mobility, mobilitySource: d.dest.mobilitySource,
+    gapCount: A.gaps.length,
   };
+}
+
+async function buildProseAIOnce(d, apiKey, view) {
+  const fallback = buildProse(d);
+  if (!apiKey) return fallback;
+  const A = analyze(d);
+  const facts = factsFor(d);
   const sys = `You write one section of a career-transition report for PivotHop.
 
 WHO IS READING THIS. Someone who wants out of their job and is not sure they are allowed to want it. Often anxious, often convinced they are behind. They did not buy a pep talk; they asked what the numbers say. Write to one person, not an audience.
@@ -367,7 +422,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-5', max_tokens: 8000, system: sys,
-        messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\n${shape}\n\nReturn the JSON now.` }],
+        messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}${view ? `\n\nYOUR OWN READ OF THIS CASE, formed before writing — argue FROM it, do not restate it:\n${JSON.stringify(view, null, 1)}` : ''}\n\n${shape}\n\nReturn the JSON now.` }],
       }),
     });
     if (!res.ok) {
