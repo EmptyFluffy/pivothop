@@ -171,7 +171,11 @@ export function buildProse(d) {
   const mob = d.dest.mobility;
   const difficulty = {
     verdict: `${A.earned.toFixed(1)} of 100 points held, ${A.gaps.length} named gap${A.gaps.length === 1 ? '' : 's'}, and ${d.dest.license ? 'a credential at the door' : 'no licence at the door'}.`,
-    howMany: A.gaps.length ? `${A.gaps.length} skill${A.gaps.length === 1 ? '' : 's'} to learn: ${A.gaps.map((w) => w.name).join(', ')}.` : '',
+    // Capped at three names. The uncapped version printed all EIGHT gap skills for
+    // copywriter -> motion designer and pushed the panel under the page footer.
+    howMany: A.gaps.length
+      ? `${A.gaps.length} skill${A.gaps.length === 1 ? '' : 's'} to learn: ${A.gaps.slice(0, 3).map((w) => w.name).join(', ')}${A.gaps.length > 3 ? `, and ${A.gaps.length - 3} more` : ''}.`
+      : '',
     mobilityRead: mob == null ? '' : mob >= 25
       ? `Observed worker flow is ${mob}, a well-travelled path — employers have seen this move before.`
       : `Observed worker flow is ${mob}, which makes this an uncommon move. Expect to explain the jump rather than have it assumed.`,
@@ -348,9 +352,12 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
     // 60s function budget (cold start + chromium decompress + generate + review
     // + render + send). Set ROADMAP_REVIEW=1 once the route has headroom —
     // Vercel's Fluid compute raises Hobby to 300s and makes it comfortable.
-    const reviewed = process.env.ROADMAP_REVIEW === '1'
-      ? await reviewProse(merged, facts, apiKey)
-      : merged;
+    // ON by default again. It was disabled to fit a 60s budget that turned out to
+    // be self-imposed — Fluid compute was already enabled and the real ceiling is
+    // 300s (see route.ts). Set ROADMAP_REVIEW=0 to switch it back off.
+    const reviewed = process.env.ROADMAP_REVIEW === '0'
+      ? merged
+      : await reviewProse(merged, facts, apiKey);
     // _ai marks prose that genuinely came from the model. The lead row used to
     // record `ai: !!apiKey`, which only said the env var existed — so a failing
     // API call looked identical to a working one and the report silently shipped
@@ -386,6 +393,9 @@ Fix ONLY these, and change nothing else:
 - Any figure that contradicts FACTS.
 - Any claim of a licence, requirement or timeline that FACTS does not support.
 - Any remaining generic artifact phrasing like "an artifact that proves X" — replace with the concrete deliverable, but ONLY if you can name one from FACTS.
+- Any placeholder letter or symbol that escaped: a literal L, H, N, X or NN standing in for a number.
+- Any readiness percentage that disagrees with FACTS.afterTop3, or with the same figure elsewhere in the report.
+- LENGTH. This is a fixed-page PDF and overlong fields print past the page edge. Keep roleContext fields to 2 sentences, difficulty fields to 1 sentence each, and any skill list to 3 names plus "and N more". Trim rather than rewrite.
 
 You may NOT: add numbers absent from FACTS, change the voice, lengthen the text, or rewrite anything that is already accurate. If a passage is fine, return it byte-identical. Preserve every key.`;
   try {

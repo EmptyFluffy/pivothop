@@ -17,7 +17,7 @@ function header(tag) {
   return `<div class="hd"><span class="hd-brand"><span class="hd-mark">${RABBIT}</span>PIVOTHOP</span><span class="hd-tag">${esc(tag)}</span></div>`;
 }
 function footer(d, n) {
-  return `<div class="ft"><span>${esc(d.origin.title)} &rarr; ${esc(d.dest.title)}</span><span>${esc(d.meta.reportId)} &middot; generated ${esc(d.meta.generated)}</span><span>${String(n).padStart(2, '0')} / 07</span></div>`;
+  return `<div class="ft"><span>${esc(d.origin.title)} &rarr; ${esc(d.dest.title)}</span><span>${esc(d.meta.reportId)} &middot; generated ${esc(d.meta.generated)}</span><span>${String(n).padStart(2, '0')} / 08</span></div>`;
 }
 
 /* ── 01 · cover / the measurement ─────────────────────────────────────── */
@@ -46,7 +46,7 @@ function pageCover(d) {
     </div>` : ''}
     <div class="cover-toc">
       <div class="cap">Inside</div>
-      ${[['02', 'The role, decoded', 'the 100 points, skill by skill'], ['03', 'The 90-day plan', 'sequenced by what each skill is worth'], ['04', 'Evidence', 'the artifacts that read as proof'], ['05', 'The timeline', 'the whole arc, drawn to scale'], ['06', 'Salary map', 'both bands, one axis'], ['07', 'The short version', 'if you only keep one page']]
+      ${[['02', 'The role, decoded', 'the 100 points, skill by skill'], ['03', 'What this actually is', 'the job, the jump, and where to learn it'], ['04', 'The 90-day plan', 'sequenced by what each skill is worth'], ['05', 'Evidence', 'the artifacts that read as proof'], ['06', 'The timeline', 'the whole arc, drawn to scale'], ['07', 'Salary map', 'both bands, one axis'], ['08', 'The short version', 'if you only keep one page']]
         .map(([n, t, s]) => `<div class="toc-row"><span class="toc-n">${n}</span><span class="toc-t">${t}</span><span class="toc-s">${s}</span></div>`).join('')}
     </div>
     ${footer(d, 1)}
@@ -137,8 +137,25 @@ function pageDecoded(d) {
       <div><b>${esc(d.dest.time)}</b><span>to hiring-ready</span></div>
     </div>
     ${d.decodedNote ? `<p class="note">${d.decodedNote}</p>` : ''}
-    ${humanBlock(d)}
     ${footer(d, 2)}
+  </section>`;
+}
+
+
+/* ── 03 · what this actually is (the human page) ──────────────────────── */
+/* These two blocks were bolted onto pages 2 and 4, which were already full.
+   A4 is a fixed height, so page 2's difficulty panel printed UNDER the footer
+   and page 4's resource list was cut mid-sentence. They also belong together:
+   what the job is, how hard the jump is, and where to go and learn it are one
+   question asked three ways. */
+function pageHuman(d) {
+  return `<section class="pg">
+    ${header('What this actually is')}
+    <h2 class="ph">Before the plan, the job.</h2>
+    <p class="lede">The numbers say how far it is. This page says what you are walking towards, and how hard the walk is.</p>
+    ${humanBlock(d)}
+    ${resourcesBlock(d)}
+    ${footer(d, 3)}
   </section>`;
 }
 
@@ -155,7 +172,7 @@ function pagePlan(d) {
         <div class="phase-proof"><span class="cap">Proof</span>${p.proof}</div>
       </div>`).join('')}
     <div class="firstmove"><span class="cap">The first move, this week</span><p>${d.plan.firstMove}</p></div>
-    ${footer(d, 3)}
+    ${footer(d, 4)}
   </section>`;
 }
 
@@ -173,9 +190,8 @@ function pageEvidence(d) {
     <div class="checks">
       ${d.evidence.checkpoints.map((c, i) => `<div class="chk"><span class="chk-n">${String(i + 1).padStart(2, '0')}</span><p>${c}</p></div>`).join('')}
     </div>
-    ${resourcesBlock(d)}
     <p class="note">${d.plan.longArc}</p>
-    ${footer(d, 4)}
+    ${footer(d, 5)}
   </section>`;
 }
 
@@ -260,7 +276,7 @@ function pageSummary(d) {
       <div><span class="lbl">Pay</span><p>${esc(d.origin.title)} ${esc(d.origin.salary)} &nbsp;&rarr;&nbsp; ${esc(d.dest.title)} ${esc(d.dest.salary)}</p></div>
       <div><span class="lbl">Re-run it free, any time</span><p><b>pivothop.com</b> &mdash; the numbers move with the market, and the graph is always current.</p></div>
     </div>
-    ${footer(d, 7)}
+    ${footer(d, 8)}
   </section>`;
 }
 
@@ -288,7 +304,7 @@ function pageTimeline(d) {
       ${d.alternates.map((a) => `<div class="alt"><span class="alt-t">${esc(a.title)}</span><span class="alt-m">${a.match}%</span><span class="alt-g">${esc(a.gate)}</span></div>`).join('')}
     </div>
     <p class="note note-flow">${d.alternatesNote}</p>
-    ${footer(d, 5)}
+    ${footer(d, 6)}
   </section>`;
 }
 
@@ -326,7 +342,7 @@ function pageSalary(d) {
       <div class="cap">Method</div>
       <p>Readiness is the share of the destination&rsquo;s 100 demand-weighted skill points your profile already earns, read from ${d.dest.provenance.postings.toLocaleString()} live postings (${d.dest.provenance.salaried.toLocaleString()} stating pay). Mobility is observed worker flow, not opinion. Salary bands are the posted 10th&ndash;90th spread. Numbers move with the market; the graph re-runs free at <b>pivothop.com</b>.</p>
     </div>
-    ${footer(d, 6)}
+    ${footer(d, 7)}
   </section>`;
 }
 
@@ -511,6 +527,6 @@ export function renderRoadmapHTML(d) {
   .method{margin-top:auto;border-top:1.2px solid var(--ink);padding-top:4mm}
   .method p{font-size:8.2pt;line-height:1.55;color:var(--ink2);max-width:160mm}
 </style></head><body>
-${pageCover(d)}${pageDecoded(d)}${pagePlan(d)}${pageEvidence(d)}${pageTimeline(d)}${pageSalary(d)}${pageSummary(d)}
+${pageCover(d)}${pageDecoded(d)}${pageHuman(d)}${pagePlan(d)}${pageEvidence(d)}${pageTimeline(d)}${pageSalary(d)}${pageSummary(d)}
 </body></html>`;
 }
