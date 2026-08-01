@@ -431,12 +431,24 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
       return { ...fallback, _aiError: `http ${res.status}: ${body.slice(0, 160)}` };
     }
     const j = await res.json();
-    let text = (j.content || []).map((c) => c.text || '').join('').trim();
+    // An empty `text` produced "no-json:" with nothing after it — the response
+    // parsed, returned 200, and carried no readable text. That rules out
+    // truncation and auth, and means the assumption here is wrong: that every
+    // content block is type "text" with a .text string. Capture what actually
+    // came back instead of inferring it again.
+    const blocks = Array.isArray(j.content) ? j.content : [];
+    const shapeNote = `blocks=${blocks.length}[${blocks.map((c) => c?.type ?? typeof c).join(',')}] stop=${j.stop_reason ?? '?'}${j.type === 'error' ? ` ERRTYPE=${j.error?.type}:${String(j.error?.message).slice(0, 80)}` : ''}`;
+    // Take text from any block that has it, whatever its type is called.
+    let text = blocks.map((c) => (typeof c?.text === 'string' ? c.text : '')).join('').trim();
+    if (!text) {
+      console.error('[roadmap] anthropic empty text —', shapeNote, JSON.stringify(j).slice(0, 400));
+      return { ...fallback, _aiError: `empty-text: ${shapeNote}` };
+    }
     text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
     const start = text.indexOf('{'), end = text.lastIndexOf('}');
     if (start < 0 || end < 0) {
       console.error('[roadmap] anthropic returned no JSON object; first 200 chars:', text.slice(0, 200));
-      return { ...fallback, _aiError: `no-json: ${text.slice(0, 160)}` };
+      return { ...fallback, _aiError: `no-json (${shapeNote}): ${text.slice(0, 120)}` };
     }
     const out = parseLoose(text.slice(start, end + 1));
     if (!out) {
@@ -522,7 +534,19 @@ You may NOT: add numbers absent from FACTS, change the voice, lengthen the text,
     });
     if (!res.ok) return prose;
     const j = await res.json();
-    let text = (j.content || []).map((c) => c.text || '').join('').trim();
+    // An empty `text` produced "no-json:" with nothing after it — the response
+    // parsed, returned 200, and carried no readable text. That rules out
+    // truncation and auth, and means the assumption here is wrong: that every
+    // content block is type "text" with a .text string. Capture what actually
+    // came back instead of inferring it again.
+    const blocks = Array.isArray(j.content) ? j.content : [];
+    const shapeNote = `blocks=${blocks.length}[${blocks.map((c) => c?.type ?? typeof c).join(',')}] stop=${j.stop_reason ?? '?'}${j.type === 'error' ? ` ERRTYPE=${j.error?.type}:${String(j.error?.message).slice(0, 80)}` : ''}`;
+    // Take text from any block that has it, whatever its type is called.
+    let text = blocks.map((c) => (typeof c?.text === 'string' ? c.text : '')).join('').trim();
+    if (!text) {
+      console.error('[roadmap] anthropic empty text —', shapeNote, JSON.stringify(j).slice(0, 400));
+      return { ...fallback, _aiError: `empty-text: ${shapeNote}` };
+    }
     text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
     const a = text.indexOf('{'), b = text.lastIndexOf('}');
     if (a < 0 || b < 0) return prose;
