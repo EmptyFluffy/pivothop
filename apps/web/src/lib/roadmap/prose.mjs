@@ -379,119 +379,104 @@ RESOURCES — read this twice:
 - The point of a course is the artifact you build in it. Say so.
 
 OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no comments, and no placeholder notation of any kind — every value must be real content.`;
-  const shape = `SHAPE = {
+  /* TWO shapes, two calls. One call carrying the whole document hit
+     stop_reason=max_tokens at 9,063 characters and died mid-JSON — and the
+     single shape it was copying had itself become malformed, with `resources`
+     nested inside `difficulty` after an earlier edit. Both problems have the
+     same fix: smaller, separately-declared shapes that are each valid on their
+     own and each comfortably inside the budget. */
+  const shapeA = `SHAPE = {
+ "verdict": "2-4 sentences: where this route ranks, points already held, the nature of the gap (skills vs credential), whether people actually make the move, and the pay direction.",
  "roleContext": {
-   "whatItIs": "2-3 sentences in plain language: what a ${d.dest.title} actually does day to day. No jargon, no adjectives. Assume the reader has only ever done ${d.origin.title}.",
-   "carriesOver": "1-2 sentences: which parts of ${d.origin.title} work transfer, named specifically from the skills in FACTS.",
-   "doesNot": "1-2 sentences: what genuinely does not transfer, and what that will feel like. Be concrete."
+   "whatItIs": "2-3 sentences in plain language: what a ${d.dest.title} actually does day to day. No jargon. Assume the reader has only ever done ${d.origin.title}.",
+   "carriesOver": "1-2 sentences: which parts of ${d.origin.title} work transfer, named from the skills in FACTS.",
+   "doesNot": "1-2 sentences: what genuinely does not transfer, and what that will feel like."
  },
  "difficulty": {
-   "resources": {
-   "intro": "1 sentence, warm and plain: how to use this list. Say that the point is the artifact, not the certificate.",
-   "items": [ {"skill":"the gap skill this closes","what":"platform + the course or resource TITLE, e.g. DeepLearning.AI \u2014 \u2018Building Applications with Vector Databases\u2019","why":"1 short sentence on what it gets you","hours":"a realistic time, e.g. 8-12 hours"} ],
-   "note": "1 sentence: what to skip, or the trap people fall into with courses for this role."
+   "verdict": "ONE sentence reading the numbers together: how hard this jump is, grounded in readiness, mobility and whether a licence gates it.",
+   "howMany": "1 sentence: how many skills have to be learned. Name at most 3, then \'and N more\'.",
+   "mobilityRead": "1 sentence on the observed-flow number: well-worn path or unusual one, and what that means for how you will be received."
  },
- "verdict": "ONE sentence reading the numbers together as a plain-English judgement of how hard this jump is. Ground it in readiness, shared abilities, mobility and whether a licence gates it.",
-   "howMany": "1 sentence: how many skills genuinely have to be learned, by name.",
-   "mobilityRead": "1 sentence interpreting the observed-flow number: is this a well-worn path or an unusual one, and what that means for how the reader will be received."
- },
- "resources": {
-   "intro": "1 sentence, warm and plain: how to use this list. Say that the point is the artifact, not the certificate.",
-   "items": [ {"skill":"the gap skill this closes","what":"platform + the course or resource TITLE, e.g. DeepLearning.AI \u2014 \u2018Building Applications with Vector Databases\u2019","why":"1 short sentence on what it gets you","hours":"a realistic time, e.g. 8-12 hours"} ],
-   "note": "1 sentence: what to skip, or the trap people fall into with courses for this role."
- },
- "verdict": "2-4 sentences: where this route ranks, points already held, the nature of the gap (skills vs credential), whether people actually make the move, and the pay direction.",
- "decodedNote": "1 sentence about partial-credit skills (a deeper/role-specific version of something held).",
- "plan": {
-   "intro": "1-2 sentences: the plan is sequenced by what each gap skill is worth.",
-   "phases": [ {"weeks":"WK 01–04","title":"short","worth":"+X.X pts","steps":["step one","step two","step three"],"proof":"the artifact this phase yields"} ],
-   "firstMove": "1-2 sentences: the single artifact to make THIS week.",
-   "longArc": "2-3 sentences framing the full ${d.dest.time} arc vs the 90-day quarter."
- },
- "evidence": { "intro":"1-2 sentences","items":[{"item":"the named artifact","why":"1 sentence","covers":"+X.X pts"}],"checkpoints":["a measurable week-N check"] },
- "timeline": {
-   "intro":"1-2 sentences","weekly":"1-2 sentences on pacing (6-8 hrs/week)",
-   "phases":[ {"title":"The 90-day plan","span":"Weeks 1–12","stones":[{"when":"Week 4","label":"deliverable","detail":"1 sentence"}]} ]
- },
+ "decodedNote": "1 sentence about partial-credit skills.",
  "alternatesNote": "1 sentence about the fallback routes.",
  "salaryVerdict": "1-2 sentences comparing the two posted bands."
 }`;
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-5', max_tokens: 8000, system: sys,
-        messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}${view ? `\n\nYOUR OWN READ OF THIS CASE, formed before writing — argue FROM it, do not restate it:\n${JSON.stringify(view, null, 1)}` : ''}\n\n${shape}\n\nReturn the JSON now.` }],
-      }),
-    });
-    if (!res.ok) {
-      const body = (await res.text().catch(() => '')).slice(0, 300);
-      console.error('[roadmap] anthropic HTTP', res.status, body);
-      return { ...fallback, _aiError: `http ${res.status}: ${body.slice(0, 160)}` };
-    }
-    const j = await res.json();
-    // An empty `text` produced "no-json:" with nothing after it — the response
-    // parsed, returned 200, and carried no readable text. That rules out
-    // truncation and auth, and means the assumption here is wrong: that every
-    // content block is type "text" with a .text string. Capture what actually
-    // came back instead of inferring it again.
-    const blocks = Array.isArray(j.content) ? j.content : [];
-    const shapeNote = `blocks=${blocks.length}[${blocks.map((c) => c?.type ?? typeof c).join(',')}] stop=${j.stop_reason ?? '?'}${j.type === 'error' ? ` ERRTYPE=${j.error?.type}:${String(j.error?.message).slice(0, 80)}` : ''}`;
-    // Take text from any block that has it, whatever its type is called.
-    let text = blocks.map((c) => (typeof c?.text === 'string' ? c.text : '')).join('').trim();
-    if (!text) {
-      console.error('[roadmap] anthropic empty text —', shapeNote, JSON.stringify(j).slice(0, 400));
-      return { ...fallback, _aiError: `empty-text: ${shapeNote}` };
-    }
-    text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
-    const start = text.indexOf('{'), end = text.lastIndexOf('}');
-    if (start < 0 || end < 0) {
-      console.error('[roadmap] anthropic returned no JSON object; first 200 chars:', text.slice(0, 200));
-      return { ...fallback, _aiError: `no-json (${shapeNote}): ${text.slice(0, 120)}` };
-    }
-    const out = parseLoose(text.slice(start, end + 1));
-    if (!out) {
-      // stop_reason tells us truncation apart from malformed output — the two
-      // have opposite fixes and looked identical from the outside.
-      const stop = j.stop_reason || '?';
-      console.error('[roadmap] anthropic JSON unparseable after repair; stop_reason=', stop, '; first 300:', text.slice(0, 300));
-      return { ...fallback, _aiError: `unparseable (stop_reason=${stop}, ${text.length} chars)` };
-    }
-    // shape-guard: any missing branch falls back to the templated field
-    const merged = {
-      resources: out.resources?.items?.length ? out.resources : fallback.resources,
-      roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
-      difficulty: out.difficulty?.verdict ? out.difficulty : fallback.difficulty,
-      verdict: out.verdict || fallback.verdict,
-      decodedNote: out.decodedNote || fallback.decodedNote,
-      plan: out.plan?.phases?.length ? { intro: out.plan.intro || fallback.plan.intro, phases: out.plan.phases, firstMove: out.plan.firstMove || fallback.plan.firstMove, longArc: out.plan.longArc || fallback.plan.longArc } : fallback.plan,
-      evidence: out.evidence?.items?.length ? { intro: out.evidence.intro || fallback.evidence.intro, items: out.evidence.items, checkpoints: out.evidence.checkpoints || fallback.evidence.checkpoints } : fallback.evidence,
-      timeline: out.timeline?.phases?.length ? { intro: out.timeline.intro || fallback.timeline.intro, weekly: out.timeline.weekly || fallback.timeline.weekly, phases: out.timeline.phases } : fallback.timeline,
-      alternatesNote: out.alternatesNote || fallback.alternatesNote,
-      salaryVerdict: out.salaryVerdict || fallback.salaryVerdict,
-    };
-    // Second pass: re-read the report against the same FACTS and repair claims
-    // that contradict them. Returns `merged` untouched on any failure.
-    // OFF by default: this is a SECOND full generation, and adding it blew the
-    // 60s function budget (cold start + chromium decompress + generate + review
-    // + render + send). Set ROADMAP_REVIEW=1 once the route has headroom —
-    // Vercel's Fluid compute raises Hobby to 300s and makes it comfortable.
-    // ON by default again. It was disabled to fit a 60s budget that turned out to
-    // be self-imposed — Fluid compute was already enabled and the real ceiling is
-    // 300s (see route.ts). Set ROADMAP_REVIEW=0 to switch it back off.
-    const reviewed = process.env.ROADMAP_REVIEW === '0'
-      ? merged
-      : await reviewProse(merged, facts, apiKey);
-    // _ai marks prose that genuinely came from the model. The lead row used to
-    // record `ai: !!apiKey`, which only said the env var existed — so a failing
-    // API call looked identical to a working one and the report silently shipped
-    // the template. The flag now has to be earned.
-    return { ...reviewed, _ai: true };
-  } catch (e) {
-    console.error('[roadmap] anthropic call threw:', e?.message || e);
-    return { ...fallback, _aiError: `threw: ${String(e?.message || e).slice(0, 160)}` };
-  }
+  const shapeB = `SHAPE = {
+ "plan": {
+   "intro": "1-2 sentences: the plan is sequenced by what each gap skill is worth.",
+   "phases": [ {"weeks":"WK 01\u201304","title":"short","worth":"+X.X pts","steps":["step one","step two","step three"],"proof":"the artifact this phase yields"} ],
+   "firstMove": "1-2 sentences: the single artifact to make THIS week.",
+   "longArc": "2-3 sentences framing the full ${d.dest.time} arc against the 90-day quarter."
+ },
+ "evidence": { "intro":"1-2 sentences","items":[{"item":"the named artifact","why":"1 sentence","covers":"+X.X pts"}],"checkpoints":["a measurable week-N check"] },
+ "resources": {
+   "intro": "1 sentence, warm and plain: the point is the artifact, not the certificate.",
+   "items": [ {"skill":"the gap skill this closes","what":"platform + course TITLE","why":"1 short sentence","hours":"cost or time"} ],
+   "note": "1 sentence: what to skip, or the trap people fall into with courses for this role."
+ },
+ "timeline": {
+   "intro":"1-2 sentences","weekly":"1-2 sentences on pacing (6-8 hrs/week)",
+   "phases":[ {"title":"The 90-day plan","span":"Weeks 1\u201312","stones":[{"when":"Week 4","label":"deliverable","detail":"1 sentence"}]} ]
+ }
+}`;
+  /* One helper, called twice. Each half is well inside the budget, and a failure
+     in one half no longer costs the other — the merge below keeps whatever came
+     back and fills the rest from the template. */
+  const ask = async (shape, label) => {
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-5', max_tokens: 8000, system: sys,
+          messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}${view ? `\n\nYOUR OWN READ OF THIS CASE, formed before writing \u2014 argue FROM it, do not restate it:\n${JSON.stringify(view, null, 1)}` : ''}\n\n${shape}\n\nReturn the JSON now.` }],
+        }),
+      });
+      if (!res.ok) {
+        const body = (await res.text().catch(() => '')).slice(0, 200);
+        return { err: `${label} http ${res.status}: ${body.slice(0, 120)}` };
+      }
+      const j = await res.json();
+      const blocks = Array.isArray(j.content) ? j.content : [];
+      const note = `${label} blocks=${blocks.length}[${blocks.map((c) => c?.type ?? typeof c).join(',')}] stop=${j.stop_reason ?? '?'}`;
+      let text = blocks.map((c) => (typeof c?.text === 'string' ? c.text : '')).join('').trim();
+      if (!text) return { err: `empty-text: ${note}` };
+      text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
+      const a = text.indexOf('{'), b = text.lastIndexOf('}');
+      if (a < 0 || b < 0) return { err: `no-json (${note}): ${text.slice(0, 100)}` };
+      const out = parseLoose(text.slice(a, b + 1));
+      if (!out) return { err: `unparseable (${note}, ${text.length} chars)` };
+      return { out };
+    } catch (e) { return { err: `${label} threw: ${String(e?.message || e).slice(0, 120)}` }; }
+  };
+
+  const [A1, B1] = await Promise.all([ask(shapeA, 'narrate'), ask(shapeB, 'plan')]);
+  const out = { ...(A1.out || {}), ...(B1.out || {}) };
+  const errs = [A1.err, B1.err].filter(Boolean);
+  if (errs.length) console.error('[roadmap] partial/failed halves:', errs.join(' | '));
+  // Both halves failed: nothing was written, report it plainly.
+  if (!A1.out && !B1.out) return { ...fallback, _aiError: errs.join(' | ') };
+
+  // Shape-guard: any missing branch falls back to the templated field, which is
+  // also what makes a ONE-half failure graceful — the other half still ships.
+  const merged = {
+    resources: out.resources?.items?.length ? out.resources : fallback.resources,
+    roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
+    difficulty: out.difficulty?.verdict ? out.difficulty : fallback.difficulty,
+    verdict: out.verdict || fallback.verdict,
+    decodedNote: out.decodedNote || fallback.decodedNote,
+    plan: out.plan?.phases?.length ? { intro: out.plan.intro || fallback.plan.intro, phases: out.plan.phases, firstMove: out.plan.firstMove || fallback.plan.firstMove, longArc: out.plan.longArc || fallback.plan.longArc } : fallback.plan,
+    evidence: out.evidence?.items?.length ? { intro: out.evidence.intro || fallback.evidence.intro, items: out.evidence.items, checkpoints: out.evidence.checkpoints || fallback.evidence.checkpoints } : fallback.evidence,
+    timeline: out.timeline?.phases?.length ? { intro: out.timeline.intro || fallback.timeline.intro, weekly: out.timeline.weekly || fallback.timeline.weekly, phases: out.timeline.phases } : fallback.timeline,
+    alternatesNote: out.alternatesNote || fallback.alternatesNote,
+    salaryVerdict: out.salaryVerdict || fallback.salaryVerdict,
+  };
+  const reviewed = process.env.ROADMAP_REVIEW === '0'
+    ? merged
+    : await reviewProse(merged, facts, apiKey);
+  // _ai is TRUE when at least one half genuinely came from the model; a half
+  // failure surfaces in _aiError so it is visible rather than silently partial.
+  return { ...reviewed, _ai: true, ...(errs.length ? { _aiError: `partial: ${errs.join(' | ')}` } : {}) };
 }
 
 /* A second pass that re-reads the generated report against the same FACTS and
