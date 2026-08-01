@@ -160,7 +160,23 @@ export function buildProse(d) {
 
   const salaryVerdict = `${origin} posts ${b(`${money(d.origin.salary_band[0])}–${money(d.origin.salary_band[1])}`)}; ${destL} posts ${b(`${money(d.dest.salary_band[0])}–${money(d.dest.salary_band[1])}`)}. ${pay.line} Read from ${d.dest.provenance.salaried.toLocaleString()} postings that state pay.`;
 
-  return { verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
+  // The fallback is deliberately vaguer than the AI path here: without a model
+  // we cannot describe an occupation we hold no prose about. It says less rather
+  // than inventing, which is the same rule the rest of the product runs on.
+  const roleContext = {
+    whatItIs: `${dest} work is defined by what the postings ask for, and for this role that is led by ${A.gaps.slice(0, 2).map((w) => w.name).join(' and ') || 'the skills listed below'}.`,
+    carriesOver: A.have.length ? `${A.have.slice(0, 3).map((w) => w.name).join(', ')} carry over directly — they are named in ${dest} postings, not merely adjacent to them.` : '',
+    doesNot: A.gaps.length ? `${A.gaps[0].name} is the part that does not come with you; it is ${A.gaps[0].pts.toFixed(1)} of the 100 points and has to be built.` : '',
+  };
+  const mob = d.dest.mobility;
+  const difficulty = {
+    verdict: `${A.earned.toFixed(1)} of 100 points held, ${A.gaps.length} named gap${A.gaps.length === 1 ? '' : 's'}, and ${d.dest.license ? 'a credential at the door' : 'no licence at the door'}.`,
+    howMany: A.gaps.length ? `${A.gaps.length} skill${A.gaps.length === 1 ? '' : 's'} to learn: ${A.gaps.map((w) => w.name).join(', ')}.` : '',
+    mobilityRead: mob == null ? '' : mob >= 25
+      ? `Observed worker flow is ${mob}, a well-travelled path — employers have seen this move before.`
+      : `Observed worker flow is ${mob}, which makes this an uncommon move. Expect to explain the jump rather than have it assumed.`,
+  };
+  return { roleContext, difficulty, verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
 }
 
 function planIntro(A, destL) {
@@ -193,8 +209,24 @@ export async function buildProseAI(d, apiKey) {
     board: { open: d.board.open, companies: d.board.companies },
     mobility: d.dest.mobility, mobilitySource: d.dest.mobilitySource,
   };
-  const sys = `You write one section of a career-transition report for PivotHop. Voice: deadpan, precise, numbers over adjectives, no exclamation points, no motivational filler, second person ("you"). Wrap key figures in <b></b>. Use plain unicode punctuation. Every claim must be grounded in the FACTS provided; invent no numbers. The reader is moving from ${d.origin.title} to ${d.dest.title}. Return ONLY valid JSON matching the SHAPE exactly, no prose around it.`;
+  const sys = `You write one section of a career-transition report for PivotHop. Voice: deadpan, precise, numbers over adjectives, no exclamation points, no motivational filler, second person ("you"). Wrap key figures in <b></b>. Use plain unicode punctuation. Every claim must be grounded in the FACTS provided; invent no numbers. The reader is moving from ${d.origin.title} to ${d.dest.title}. Return ONLY valid JSON matching the SHAPE exactly, no prose around it.
+
+HARD RULES, in order of importance:
+1. NAME the artifact. Never write "an artifact that proves X" — that is the failure mode this prompt exists to kill. Say the actual deliverable a ${d.dest.title} would recognise: a document type, a model, a calculation, a teardown, a named tool output. If you cannot name one for a skill, describe the smallest real piece of work that would demonstrate it.
+2. Never state a count you have not verified against FACTS. Do not write "these three" for a two-item list, or "several at X" when X has two openings. Prefer the exact number or no number.
+3. Say the hard thing. If mobility is low, the move is uncommon and the reader will have to explain themselves — write that plainly rather than burying it. If readiness is low, do not dress it up. An honest report that costs a reader an illusion is the product.
+4. Assume the reader does NOT know what the destination job actually does day to day.`;
   const shape = `SHAPE = {
+ "roleContext": {
+   "whatItIs": "2-3 sentences in plain language: what a ${d.dest.title} actually does day to day. No jargon, no adjectives. Assume the reader has only ever done ${d.origin.title}.",
+   "carriesOver": "1-2 sentences: which parts of ${d.origin.title} work transfer, named specifically from the skills in FACTS.",
+   "doesNot": "1-2 sentences: what genuinely does not transfer, and what that will feel like. Be concrete."
+ },
+ "difficulty": {
+   "verdict": "ONE sentence reading the numbers together as a plain-English judgement of how hard this jump is. Ground it in readiness, shared abilities, mobility and whether a licence gates it.",
+   "howMany": "1 sentence: how many skills genuinely have to be learned, by name.",
+   "mobilityRead": "1 sentence interpreting the observed-flow number: is this a well-worn path or an unusual one, and what that means for how the reader will be received."
+ },
  "verdict": "2-4 sentences: where this route ranks, points already held, the nature of the gap (skills vs credential), whether people actually make the move, and the pay direction.",
  "decodedNote": "1 sentence about partial-credit skills (a deeper/role-specific version of something held).",
  "plan": {
@@ -228,7 +260,9 @@ export async function buildProseAI(d, apiKey) {
     if (start < 0 || end < 0) return fallback;
     const out = JSON.parse(text.slice(start, end + 1));
     // shape-guard: any missing branch falls back to the templated field
-    return {
+    const merged = {
+      roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
+      difficulty: out.difficulty?.verdict ? out.difficulty : fallback.difficulty,
       verdict: out.verdict || fallback.verdict,
       decodedNote: out.decodedNote || fallback.decodedNote,
       plan: out.plan?.phases?.length ? { intro: out.plan.intro || fallback.plan.intro, phases: out.plan.phases, firstMove: out.plan.firstMove || fallback.plan.firstMove, longArc: out.plan.longArc || fallback.plan.longArc } : fallback.plan,
@@ -237,7 +271,60 @@ export async function buildProseAI(d, apiKey) {
       alternatesNote: out.alternatesNote || fallback.alternatesNote,
       salaryVerdict: out.salaryVerdict || fallback.salaryVerdict,
     };
+    // Second pass: re-read the report against the same FACTS and repair claims
+    // that contradict them. Returns `merged` untouched on any failure.
+    return await reviewProse(merged, facts, apiKey);
   } catch {
     return fallback;
+  }
+}
+
+/* A second pass that re-reads the generated report against the same FACTS and
+   repairs claims that contradict them.
+ *
+ * Why a second call rather than a better first prompt: the first pass is writing
+ * and the second is checking, and a model asked to do both at once reliably does
+ * the first. The errors this catches are the ones the founder found by reading a
+ * real report — "close those three" against a two-item list, "several at SpaceX"
+ * when SpaceX has two openings. Both are the same failure: a word that implies a
+ * count nobody verified.
+ *
+ * Deliberately CONSERVATIVE. It may only edit wording, never introduce a number
+ * that is not in FACTS, and on any doubt it returns the text unchanged — an LLM
+ * reviewing an LLM can invent as easily as it can correct, and a wrong "fix"
+ * shipped as a correction is worse than the original error. If anything fails,
+ * parses badly, or comes back empty, the unreviewed report ships. */
+export async function reviewProse(prose, facts, apiKey) {
+  if (!apiKey) return prose;
+  const sys = `You are checking a finished career report against the facts it was generated from. Return ONLY the corrected JSON, same shape, no commentary.
+
+Fix ONLY these, and change nothing else:
+- Count words that do not match the list they describe ("these three" over two items, "several" for two, "a handful" for one).
+- Any figure that contradicts FACTS.
+- Any claim of a licence, requirement or timeline that FACTS does not support.
+- Any remaining generic artifact phrasing like "an artifact that proves X" — replace with the concrete deliverable, but ONLY if you can name one from FACTS.
+
+You may NOT: add numbers absent from FACTS, change the voice, lengthen the text, or rewrite anything that is already accurate. If a passage is fine, return it byte-identical. Preserve every key.`;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5', max_tokens: 4000, system: sys,
+        messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\nREPORT = ${JSON.stringify(prose)}\n\nReturn the corrected REPORT JSON now.` }],
+      }),
+    });
+    if (!res.ok) return prose;
+    const j = await res.json();
+    let text = (j.content || []).map((c) => c.text || '').join('').trim();
+    text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
+    const a = text.indexOf('{'), b = text.lastIndexOf('}');
+    if (a < 0 || b < 0) return prose;
+    const out = JSON.parse(text.slice(a, b + 1));
+    // Every top-level key the report already had must survive the review.
+    for (const k of Object.keys(prose)) if (out[k] == null) return prose;
+    return out;
+  } catch {
+    return prose;
   }
 }
