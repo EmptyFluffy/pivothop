@@ -17,7 +17,7 @@ function header(tag) {
   return `<div class="hd"><span class="hd-brand"><span class="hd-mark">${RABBIT}</span>PIVOTHOP</span><span class="hd-tag">${esc(tag)}</span></div>`;
 }
 function footer(d, n) {
-  return `<div class="ft"><span>${esc(d.origin.title)} &rarr; ${esc(d.dest.title)}</span><span>${esc(d.meta.reportId)} &middot; generated ${esc(d.meta.generated)}</span><span>${String(n).padStart(2, '0')} / 06</span></div>`;
+  return `<div class="ft"><span>${esc(d.origin.title)} &rarr; ${esc(d.dest.title)}</span><span>${esc(d.meta.reportId)} &middot; generated ${esc(d.meta.generated)}</span><span>${String(n).padStart(2, '0')} / 07</span></div>`;
 }
 
 /* ── 01 · cover / the measurement ─────────────────────────────────────── */
@@ -46,7 +46,7 @@ function pageCover(d) {
     </div>` : ''}
     <div class="cover-toc">
       <div class="cap">Inside</div>
-      ${[['02', 'The role, decoded', 'the 100 points, skill by skill'], ['03', 'The 90-day plan', 'sequenced by what each skill is worth'], ['04', 'Evidence', 'the artifacts that read as proof'], ['05', 'The timeline', 'the whole arc, drawn to scale'], ['06', 'Salary map', 'both bands, one axis']]
+      ${[['02', 'The role, decoded', 'the 100 points, skill by skill'], ['03', 'The 90-day plan', 'sequenced by what each skill is worth'], ['04', 'Evidence', 'the artifacts that read as proof'], ['05', 'The timeline', 'the whole arc, drawn to scale'], ['06', 'Salary map', 'both bands, one axis'], ['07', 'The short version', 'if you only keep one page']]
         .map(([n, t, s]) => `<div class="toc-row"><span class="toc-n">${n}</span><span class="toc-t">${t}</span><span class="toc-s">${s}</span></div>`).join('')}
     </div>
     ${footer(d, 1)}
@@ -213,6 +213,57 @@ function resourcesBlock(d) {
   </div>`;
 }
 
+
+/* ── 07 · the summary (the page people actually re-read) ──────────────── */
+/* Everything above is the argument; this is the answer. Deliberately no new
+   information — if a number appears here it appears earlier too, because a
+   summary that introduces facts is a seventh page of reading rather than a
+   place to land. Built to survive being screenshotted on a phone. */
+function pageSummary(d) {
+  const have = d.waterfall.filter((w) => w.earned > 0);
+  const earned = have.reduce((s, w) => s + w.earned, 0);
+  const full = d.waterfall.filter((w) => w.earned === 0).sort((a, b) => b.pts - a.pts);
+  const partial = d.waterfall.filter((w) => w.earned > 0 && w.pts - w.earned > 0.05)
+    .map((w) => ({ ...w, pts: +(w.pts - w.earned).toFixed(1) })).sort((a, b) => b.pts - a.pts);
+  const top = (full.length ? full : partial).slice(0, 3);
+  const after = Math.round(earned + top.reduce((s, w) => s + w.pts, 0));
+  const stones = (d.timeline?.phases || []).flatMap((ph) => ph.stones || []).slice(0, 4);
+  const lic = d.dest.license;
+  return `<section class="pg">
+    ${header('The short version')}
+    <h2 class="ph">If you only keep one page.</h2>
+    <p class="lede">Everything in this report, on one page. Nothing here is new &mdash; it is all above, with the working attached.</p>
+
+    <div class="sm-top">
+      <div class="sm-big"><span class="sm-n">${Math.round(earned)}<span class="sm-pc">%</span></span><span class="lbl">where you stand today</span></div>
+      <div class="sm-big"><span class="sm-n">${after}<span class="sm-pc">%</span></span><span class="lbl">after the ${numWord(top.length)} below</span></div>
+      <div class="sm-big"><span class="sm-n sm-sm">${esc(d.dest.time)}</span><span class="lbl">to hiring-ready</span></div>
+      <div class="sm-big"><span class="sm-n sm-sm">${d.board.open ? d.board.open : '&mdash;'}</span><span class="lbl">open ${esc(d.dest.title.toLowerCase())} roles today</span></div>
+    </div>
+
+    <div class="sm-grid">
+      <div class="sm-col">
+        <span class="lbl">What stands between you and it</span>
+        ${top.map((w, i) => `<div class="sm-gap"><span class="sm-i">${i + 1}</span><b>${esc(w.name)}</b><span class="sm-p">+${w.pts.toFixed(1)}</span></div>`).join('')}
+        ${lic ? `<p class="sm-lic"><b>Licence:</b> ${esc(lic.label || 'required')}. No amount of skill overlap shortens it.</p>`
+              : '<p class="sm-lic">No licence stands at the door. What is missing is skills, and skills you can show.</p>'}
+      </div>
+      <div class="sm-col">
+        <span class="lbl">Start here, this week</span>
+        <p class="sm-first">${d.plan.firstMove}</p>
+        ${stones.length ? `<span class="lbl" style="margin-top:5mm;display:block">Then, in order</span>
+        <div class="sm-stones">${stones.map((st) => `<div class="sm-st"><span>${esc(st.when || '')}</span><b>${esc(st.label || '')}</b></div>`).join('')}</div>` : ''}
+      </div>
+    </div>
+
+    <div class="sm-foot">
+      <div><span class="lbl">Pay</span><p>${esc(d.origin.title)} ${esc(d.origin.salary)} &nbsp;&rarr;&nbsp; ${esc(d.dest.title)} ${esc(d.dest.salary)}</p></div>
+      <div><span class="lbl">Re-run it free, any time</span><p><b>pivothop.com</b> &mdash; the numbers move with the market, and the graph is always current.</p></div>
+    </div>
+    ${footer(d, 7)}
+  </section>`;
+}
+
 /* ── 05 · the timeline (vertical, phase-grouped roadmap) ──────────────── */
 function pageTimeline(d) {
   const t = d.timeline;
@@ -335,6 +386,25 @@ export function renderRoadmapHTML(d) {
   /* the anatomy strip + skill lists */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:11mm}
   .anatomy{display:flex;height:11mm;border:1.2px solid var(--ink);margin-bottom:2.6mm;background:var(--card)}
+  /* 07 — the summary. Big numbers, few words, readable at a glance on a phone. */
+  .sm-top{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm;margin:6mm 0 7mm;padding-bottom:6mm;border-bottom:1.2px solid var(--ink)}
+  .sm-big .sm-n{display:block;font-size:23pt;font-weight:600;letter-spacing:-.02em;color:var(--acc);line-height:1}
+  .sm-big .sm-n.sm-sm{font-size:15pt;color:var(--ink)}
+  .sm-big .sm-pc{font-size:13pt}
+  .sm-big .lbl{display:block;margin-top:1.5mm}
+  .sm-grid{display:grid;grid-template-columns:1fr 1fr;gap:9mm}
+  .sm-gap{display:flex;align-items:baseline;gap:3mm;padding:2.4mm 0;border-bottom:0.5px solid var(--rule)}
+  .sm-i{font-family:'Space Mono',monospace;font-size:8pt;color:var(--acc)}
+  .sm-gap b{flex:1;font-size:10pt;font-weight:600}
+  .sm-p{font-family:'Space Mono',monospace;font-size:8.5pt;color:var(--acc)}
+  .sm-lic{margin:3.5mm 0 0;font-size:8.8pt;line-height:1.5;color:var(--ink2)}
+  .sm-first{margin:1.5mm 0 0;font-size:10pt;line-height:1.55;color:var(--ink)}
+  .sm-stones{margin-top:1.5mm}
+  .sm-st{display:flex;gap:4mm;padding:1.8mm 0;border-bottom:0.5px solid var(--rule)}
+  .sm-st span{flex:none;width:22mm;font-family:'Space Mono',monospace;font-size:8pt;color:var(--ink3)}
+  .sm-st b{font-size:9.4pt;font-weight:600}
+  .sm-foot{display:grid;grid-template-columns:1fr 1fr;gap:9mm;margin-top:8mm;padding-top:5mm;border-top:0.6px solid var(--rule2)}
+  .sm-foot p{margin:1.5mm 0 0;font-size:9pt;line-height:1.5;color:var(--ink2)}
   .res-b{margin-top:7mm;padding-top:5mm;border-top:0.6px solid var(--rule2)}
   .res-i{margin:1.5mm 0 3.5mm;font-size:9.2pt;line-height:1.5;color:var(--ink2)}
   .res-list{display:flex;flex-direction:column}
@@ -441,6 +511,6 @@ export function renderRoadmapHTML(d) {
   .method{margin-top:auto;border-top:1.2px solid var(--ink);padding-top:4mm}
   .method p{font-size:8.2pt;line-height:1.55;color:var(--ink2);max-width:160mm}
 </style></head><body>
-${pageCover(d)}${pageDecoded(d)}${pagePlan(d)}${pageEvidence(d)}${pageTimeline(d)}${pageSalary(d)}
+${pageCover(d)}${pageDecoded(d)}${pagePlan(d)}${pageEvidence(d)}${pageTimeline(d)}${pageSalary(d)}${pageSummary(d)}
 </body></html>`;
 }
