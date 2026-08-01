@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-/* The prose layer of the route report — everything the mechanical numbers can't
+/* The prose layer of the route report, everything the mechanical numbers can't
    write on their own: the verdict, the sequenced 90-day plan, the evidence
    checklist, the timeline copy. Two producers, one shape:
 
@@ -44,7 +44,7 @@ function payDelta(d) {
 /* ── the deterministic fallback ───────────────────────────────────────── */
 /* Curated courses, keyed by skill NAME.
  *
- * The waterfall rows carry { name, pts, earned } and no id — data.mjs drops it —
+ * The waterfall rows carry { name, pts, earned } and no id, data.mjs drops it ,
  * so keying the map on w.id would have silently produced an empty resource list
  * on every report. Building a name -> id index from the lexicon instead, which
  * also means the JSON stays keyed on stable ids rather than display strings. */
@@ -82,10 +82,10 @@ export function buildProse(d) {
   const verdict = `This is ${rankPhrase}. You already hold ${b(`${A.earned} of the 100 points`)} that ${destL} postings ask for, and the gap is ${gapPhrase}. ${licensePhrase}${flowPhrase} On pay, the move ${pay.word}.`;
 
   const decodedNote = A.partials.length
-    ? `Partial rows (${A.partials.slice(0, 4).map((w) => w.name).join(', ')}) mean the postings want a deeper or ${destL}-specific version of a skill you already carry — the fastest points on the board after the named gap.`
+    ? `Partial rows (${A.partials.slice(0, 4).map((w) => w.name).join(', ')}) mean the postings want a deeper or ${destL}-specific version of a skill you already carry, the fastest points on the board after the named gap.`
     : `Every point you hold is a skill the ${destL} postings name outright; the gap is a short, specific list, not a rebuild.`;
 
-  // 90-day plan — the top three gaps, in value order, then applications
+  // 90-day plan, the top three gaps, in value order, then applications
   const artifact = (w) => `a portfolio artifact that puts ${w.name} to work in the format ${destL} employers review`;
   const phases = [];
   if (A.top3[0]) phases.push({
@@ -102,7 +102,7 @@ export function buildProse(d) {
     weeks: 'WK 05–08', title: `${p2.map((w) => w.name).join(' + ')}, on paper`, worth: `+${p2.reduce((s, w) => s + w.pts, 0).toFixed(1)} pts`,
     steps: [
       `Build the deliverable that proves ${p2[0].name} (${b(`+${p2[0].pts.toFixed(1)}`)})${p2[1] ? ` and, alongside it, ${p2[1].name} (${b(`+${p2[1].pts.toFixed(1)}`)})` : ''}.`,
-      A.have[0] ? `Lean on ${A.have[0].name}, which you already hold, as the bridge into it — same muscle, different paperwork.` : `Keep each piece small and finished; a shipped artifact beats a polished intention.`,
+      A.have[0] ? `Lean on ${A.have[0].name}, which you already hold, as the bridge into it, same muscle, different paperwork.` : `Keep each piece small and finished; a shipped artifact beats a polished intention.`,
       `Make things, do not describe things. The work speaks for you in a way a bullet point cannot.`,
     ],
     proof: `One finished deliverable per skill, exported as the document that reads as competence.`,
@@ -111,27 +111,34 @@ export function buildProse(d) {
     weeks: 'WK 09–12', title: 'Applications, positioned as proof', worth: `→ ${A.after3}%`,
     steps: [
       `Re-narrate three ${origin.toLowerCase()} projects as ${destL} stories: same work, new camera.`,
-      d.board.open ? `Apply against the live board — ${b(`${d.board.open} ${destL} role${d.board.open > 1 ? 's are' : ' is'} open today`)}${d.board.companies[0] ? `, several at ${d.board.companies[0][0]}` : ''}. Lead with the artifacts.` : `Apply where the postings are freshest, and lead with the artifacts, not the title.`,
+      d.board.open ? `Apply against the live board, ${b(`${d.board.open} ${destL} role${d.board.open > 1 ? 's are' : ' is'} open today`)}${d.board.companies[0] ? `, several at ${d.board.companies[0][0]}` : ''}. Lead with the artifacts.` : `Apply where the postings are freshest, and lead with the artifacts, not the title.`,
       `Name the number in every conversation: your skills cover ${b(`${A.after3}%`)} of what the postings ask once the three gaps close, and the evidence is attached.`,
     ],
     proof: `Three applications sent with the re-cut portfolio, each cover note citing the readiness number and an artifact.`,
   });
 
   const firstMove = A.top3[0]
-    ? `This week, produce one small artifact that puts ${A.top3[0].name} to work — the highest-value gap on the board. That single piece seeds Phase 1 and becomes the first page of the new portfolio.`
+    ? `This week, produce one small artifact that puts ${A.top3[0].name} to work, the highest-value gap on the board. That single piece seeds Phase 1 and becomes the first page of the new portfolio.`
     : `This week, re-narrate one project you are proud of in the language of ${destL} postings. It is the cheapest way to start reading as ${destL}, not ${origin.toLowerCase()}.`;
 
-  const longArc = `The ${d.dest.time} figure is the full arc to hired-and-settled, estimated from how long this gap typically closes alongside a day job. The 90-day plan is its first quarter — the part that makes you interview-able. First conversations tend to open a few months in; matching your current seniority takes the rest.`;
+  const longArc = `The ${d.dest.time} figure is the full arc to hired-and-settled, estimated from how long this gap typically closes alongside a day job. The 90-day plan is its first quarter, the part that makes you interview-able. First conversations tend to open a few months in; matching your current seniority takes the rest.`;
 
-  // evidence — the gaps as artifacts, plus positioning
+  // evidence, the gaps as artifacts, plus positioning
+  // When the skill is curated, the evidence item IS the hand-written artifact
+  // ("a 15-second animated piece for a real brand, posted publicly") rather than
+  // the generic "an artifact that proves X" the founder rightly rejected. The
+  // generic phrasing survives only for uncurated skills, where inventing a
+  // specific deliverable we know nothing about would be worse.
   const evItems = A.top3.map((w) => ({
-    item: `An artifact that proves ${w.name}`,
-    why: `Worth ${w.pts.toFixed(1)} points, and not something you can claim — you have to show it. This is that, in the form an employer actually opens.`,
+    item: (RES[(w.name || '').toLowerCase()] || [])[0]?.artifact
+      ? RES[w.name.toLowerCase()][0].artifact.charAt(0).toUpperCase() + RES[w.name.toLowerCase()][0].artifact.slice(1)
+      : `An artifact that proves ${w.name}`,
+    why: `Worth ${w.pts.toFixed(1)} points, and not something you can claim, you have to show it. This is that, in the form an employer actually opens.`,
     covers: `+${w.pts.toFixed(1)} pts`,
   }));
   if (A.partials[0]) evItems.push({
     item: `A piece that deepens ${A.partials[0].name}`,
-    why: `You already have this — you just need to show the ${destL} version of it. That turns a half-row into a full one.`,
+    why: `You already have this, you just need to show the ${destL} version of it. That turns a half-row into a full one.`,
     covers: `+${(A.partials[0].pts - A.partials[0].earned).toFixed(1)} pts`,
   });
   evItems.push({
@@ -143,17 +150,17 @@ export function buildProse(d) {
     intro: `${dest} hiring runs on artifacts, not certificates. Each item below is checkable, fits in a portfolio, and maps to points in the gap. The right-hand column is what the artifact evidences.`,
     items: evItems.slice(0, 6),
     checkpoints: [
-      `By week 4 you can produce a defensible ${A.top3[0] ? A.top3[0].name.toLowerCase() : 'first'} artifact in under a day — the speed itself is the signal.`,
+      `By week 4 you can produce a defensible ${A.top3[0] ? A.top3[0].name.toLowerCase() : 'first'} artifact in under a day, the speed itself is the signal.`,
       `By week 8 the portfolio holds pieces a ${origin.toLowerCase()} portfolio does not, aimed squarely at ${destL}.`,
       `By week 12 you apply with a ${A.after3}% readiness claim you can itemize${d.board.open ? `, on a board with ${d.board.open} open seat${d.board.open > 1 ? 's' : ''}` : ''}.`,
     ],
   };
 
-  // timeline — the plan's three phases plus the hiring window from the time band
+  // timeline, the plan's three phases plus the hiring window from the time band
   const [lo, hi] = parseTime(d.dest.time);
   const timeline = {
     intro: `Ninety days makes you interview-able; the hiring window opens around month ${lo}. Every milestone below is a deliverable you can check the week it lands, not an intention.`,
-    weekly: `Pacing assumes six to eight focused hours a week alongside your current job — the cadence the ${lo}–${hi} month figure is measured from, not a sabbatical. Miss a week and the window shifts a week; it does not close.`,
+    weekly: `Pacing assumes six to eight focused hours a week alongside your current job, the cadence the ${lo}–${hi} month figure is measured from, not a sabbatical. Miss a week and the window shifts a week; it does not close.`,
     phases: [
       { title: 'The 90-day plan', span: 'Weeks 1–12', stones: [
         { when: 'Week 4', label: `${A.top3[0] ? A.top3[0].name : 'First artifacts'} proven`, detail: phases[0].proof },
@@ -162,10 +169,10 @@ export function buildProse(d) {
       ] },
       { title: 'Compounding', span: `Months 4–${Math.max(4, lo - 1)}`, stones: [
         { when: 'Month 4–5', label: 'First conversations begin', detail: 'The readiness number is what gets you into the room this early.' },
-        { when: `Month ${Math.max(5, lo - 3)}`, label: 'Portfolio v2 · review point', detail: 'Re-run the graph. If two checkpoints have slipped, adjust the plan — not the goal.' },
+        { when: `Month ${Math.max(5, lo - 3)}`, label: 'Portfolio v2 · review point', detail: 'Re-run the graph. If two checkpoints have slipped, adjust the plan, not the goal.' },
       ] },
       { title: 'Hiring window', span: `Months ${lo}–${hi}`, hot: true, stones: [
-        { when: `Month ${lo}`, label: 'Hiring window opens', detail: `Where this pivot typically lands — the point the ${lo}–${hi} month figure is measured to.`, hot: true },
+        { when: `Month ${lo}`, label: 'Hiring window opens', detail: `Where this pivot typically lands, the point the ${lo}–${hi} month figure is measured to.`, hot: true },
         { when: `Month ${Math.round((lo + hi) / 2)}–${hi}`, label: 'Seniority-match offers', detail: 'Matching your current level, rather than restarting junior, takes the back half of the arc.', hot: true },
       ] },
     ],
@@ -173,7 +180,7 @@ export function buildProse(d) {
 
   const altsLicensed = (d.alternates || []).filter((a) => /licens|pe /i.test(a.gate || '')).length;
   const alternatesNote = (d.alternates && d.alternates.length)
-    ? `Ranked by the same 100-point read.${altsLicensed >= (d.alternates.length) ? ` All ${d.alternates.length} run through licensure — which is why ${destL}, gated nowhere, is the route this report prices.` : d.dest.license ? '' : ` ${dest} clears without one, which is part of why it prices first.`}`
+    ? `Ranked by the same 100-point read.${altsLicensed >= (d.alternates.length) ? ` All ${d.alternates.length} run through licensure, which is why ${destL}, gated nowhere, is the route this report prices.` : d.dest.license ? '' : ` ${dest} clears without one, which is part of why it prices first.`}`
     : `No other route your skills reach clears the confidence bar yet; ${destL} is the one the numbers support.`;
 
   const salaryVerdict = `${origin} posts ${b(`${money(d.origin.salary_band[0])}–${money(d.origin.salary_band[1])}`)}; ${destL} posts ${b(`${money(d.dest.salary_band[0])}–${money(d.dest.salary_band[1])}`)}. ${pay.line} Read from ${d.dest.provenance.salaried.toLocaleString()} postings that state pay.`;
@@ -183,7 +190,7 @@ export function buildProse(d) {
   // than inventing, which is the same rule the rest of the product runs on.
   const roleContext = {
     whatItIs: `${dest} work is defined by what the postings ask for, and for this role that is led by ${A.gaps.slice(0, 2).map((w) => w.name).join(' and ') || 'the skills listed below'}.`,
-    carriesOver: A.have.length ? `${A.have.slice(0, 3).map((w) => w.name).join(', ')} carry over directly — they are named in ${dest} postings, not merely adjacent to them.` : '',
+    carriesOver: A.have.length ? `${A.have.slice(0, 3).map((w) => w.name).join(', ')} carry over directly, they are named in ${dest} postings, not merely adjacent to them.` : '',
     doesNot: A.gaps.length ? `${A.gaps[0].name} is the part that does not come with you; it is ${A.gaps[0].pts.toFixed(1)} of the 100 points and has to be built.` : '',
   };
   const mob = d.dest.mobility;
@@ -195,7 +202,7 @@ export function buildProse(d) {
       ? `${A.gaps.length} skill${A.gaps.length === 1 ? '' : 's'} to learn: ${A.gaps.slice(0, 3).map((w) => w.name).join(', ')}${A.gaps.length > 3 ? `, and ${A.gaps.length - 3} more` : ''}.`
       : '',
     mobilityRead: mob == null ? '' : mob >= 25
-      ? `Observed worker flow is ${mob}, a well-travelled path — employers have seen this move before.`
+      ? `Observed worker flow is ${mob}, a well-travelled path, employers have seen this move before.`
       : `Observed worker flow is ${mob}, which makes this an uncommon move. Expect to explain the jump rather than have it assumed.`,
   };
   // Without a model we will not invent course names. The fallback gives the
@@ -207,10 +214,10 @@ export function buildProse(d) {
   // already know. Skills with no curated entry are simply omitted rather than
   // padded with generic advice.
   const resources = {
-    intro: 'One thing per gap, and build something with it. The certificate is not the point — the thing you make in the course is what an employer opens.',
+    intro: 'One thing per gap, and build something with it. The certificate is not the point, the thing you make in the course is what an employer opens.',
     items: A.gaps.slice(0, 6).flatMap((w) => (RES[(w.name || '').toLowerCase()] || []).slice(0, 2).map((r) => ({
       skill: w.name,
-      what: `${r.platform} — ${r.title}`,
+      what: `${r.platform}, ${r.title}`,
       url: r.url || '',
       why: r.note || `Worth ${w.pts.toFixed(1)} of the 100 points.`,
       hours: r.cost || '',
@@ -218,7 +225,7 @@ export function buildProse(d) {
     note: 'Skip anything that ends in a certificate and nothing else. Hiring managers open the artifact, not the badge.',
   };
   const explainTheJump = A.have.length
-    ? `Lead with what travels: ${A.have.slice(0, 3).map((w) => w.name).join(', ')} are named in ${destL} postings, not merely adjacent to them. Then name the number — ${Math.round(A.earned)}% of the requirements held on day one — and the artifact that proves it.`
+    ? `Lead with what travels: ${A.have.slice(0, 3).map((w) => w.name).join(', ')} are named in ${destL} postings, not merely adjacent to them. Then name the number, ${Math.round(A.earned)}% of the requirements held on day one, and the artifact that proves it.`
     : '';
   // Without a model we do not describe what a job FEELS like; that would be
   // invention. The block simply does not render on the fallback path.
@@ -232,7 +239,7 @@ function planIntro(A, destL) {
 }
 
 export function parseTime(time) {
-  const m = String(time || '').match(/(\d+)\s*[–\-—]\s*(\d+)/);
+  const m = String(time || '').match(/(\d+)\s*[–\-,]\s*(\d+)/);
   if (m) return [Number(m[1]), Number(m[2])];
   const one = String(time || '').match(/(\d+)/);
   const n = one ? Number(one[1]) : 12;
@@ -241,12 +248,12 @@ export function parseTime(time) {
 
 /* ── the AI version ───────────────────────────────────────────────────── */
 /* One strict parse, then one forgiving retry. The failure that motivated this
-   was "Expected ',' or '}' at position 852" — the SHAPE we sent contained
+   was "Expected ',' or '}' at position 852", the SHAPE we sent contained
    pseudo-notation (x3, x5-6, a parenthetical aside) that is not valid JSON, so
    the model reproduced the malformation faithfully. The shape is fixed now; this
    is the net underneath it, because one bad character should not cost a reader
    the whole AI report. Repairs only unambiguous damage: trailing commas and
-   stray comment lines. Returns null if it still will not parse — never guesses
+   stray comment lines. Returns null if it still will not parse, never guesses
    at content. */
 function parseLoose(raw) {
   try { return JSON.parse(raw); } catch { /* fall through to repair */ }
@@ -258,7 +265,7 @@ function parseLoose(raw) {
   } catch { return null; }
 }
 
-/* STEP 1 OF THE CHAIN — form a view before writing a word.
+/* STEP 1 OF THE CHAIN, form a view before writing a word.
  *
  * The single-call version asked the model to produce eight sections at once from
  * raw numbers, and it read like transcription because that is what it was. This
@@ -273,21 +280,25 @@ function parseLoose(raw) {
  *
  * Returns a short object. Never rendered directly. */
 async function interpret(d, facts, apiKey) {
-  const sys = `You are reading one person's career-transition numbers and forming a view, before anyone writes anything for them. This is a working note, not copy — nobody will read it but the writer who comes next. Be blunt and specific. No hedging, no encouragement, no audience.
+  const sys = `You are reading one person's career-transition numbers and forming a view, before anyone writes anything for them. This is a working note, not copy, nobody will read it but the writer who comes next. Be blunt and specific. No hedging, no encouragement, no audience.
 
 Answer four questions:
 1. What is the SHAPE of this move? Is the gap one enormous skill or many small ones? That changes the advice completely and the numbers usually make it obvious.
-2. What does the mobility figure actually mean here — is this a path people take, or one this person will have to justify?
+2. What does the mobility figure actually mean here, is this a path people take, or one this person will have to justify?
 3. What is the single most useful true thing you could tell them, including if it is discouraging? If the honest read is "this is a long way and the pay does not improve", say that.
 4. What would make this report worth keeping rather than skimming?
 
-Return ONLY JSON: {"shape":"...","mobilityRead":"...","mostUsefulTruth":"...","whatMakesItWorthKeeping":"..."} — two or three sentences each, plain words.`;
+Return ONLY JSON: {"shape":"...","mobilityRead":"...","mostUsefulTruth":"...","whatMakesItWorthKeeping":"..."}, two or three sentences each, plain words.`;
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-5', max_tokens: 1200, system: sys,
+        // thinking DISABLED explicitly: the model was spending the max_tokens budget on
+        // a thinking block before the text, "blocks=2[thinking,text] stop=max_tokens"
+        //, which produced empty and truncated JSON at any budget. These calls want
+        // structured output, not deliberation.
+        model: 'claude-sonnet-5', thinking: { type: 'disabled' }, max_tokens: 1200, system: sys,
         messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\nReturn the JSON now.` }],
       }),
     });
@@ -302,7 +313,7 @@ Return ONLY JSON: {"shape":"...","mobilityRead":"...","mostUsefulTruth":"...","w
 
 /* One retry, because a malformed generation is usually not repeated and the
  * whole AI report is the thing at stake. Only retries the cases a second attempt
- * can plausibly fix — a bad parse or a 5xx — never a 401, which will fail
+ * can plausibly fix, a bad parse or a 5xx, never a 401, which will fail
  * identically forever and should surface immediately. There is room for it:
  * maxDuration is 300s and one call runs in single-digit seconds. */
 export async function buildProseAI(d, apiKey) {
@@ -315,14 +326,14 @@ export async function buildProseAI(d, apiKey) {
   if (!worthRetry) return first;
   console.error('[roadmap] retrying after:', err);
   const second = await buildProseAIOnce(d, apiKey, view);
-  // If the retry also failed, keep the SECOND reason — it is the more recent
+  // If the retry also failed, keep the SECOND reason, it is the more recent
   // truth, and two different reasons in a row is itself worth seeing.
   return second?._ai ? second : { ...second, _aiError: `retried; ${second?._aiError || err}` };
 }
 
 /* One fact set, shared by every step of the chain. It was built inline inside the
    writing call, which meant the interpretation step could not see the same
-   numbers the writer would — and two steps reasoning from different facts is how
+   numbers the writer would, and two steps reasoning from different facts is how
    a chain contradicts itself. */
 export function factsFor(d) {
   const A = analyze(d);
@@ -354,29 +365,31 @@ async function buildProseAIOnce(d, apiKey, view) {
 
 WHO IS READING THIS. Someone who wants out of their job and is not sure they are allowed to want it. Often anxious, often convinced they are behind. They did not buy a pep talk; they asked what the numbers say. Write to one person, not an audience.
 
-VOICE. Precise, plain, warm through candour rather than through adjectives. Numbers over adjectives. Second person. Short sentences and ordinary words — "you cannot just say you can do this" beats "unprovable by assertion", and it is the same sentence. Contractions are fine.
+PUNCTUATION. Never use an em dash anywhere in the output. Use a comma, a colon, or a new sentence.
 
-THE WARMTH IS IN THE HONESTY, NOT IN THE ENCOURAGEMENT. Telling someone a move is uncommon and they will have to explain themselves in every interview is kinder than telling them they have got this, because it treats them as an adult and tells them what is coming. Where the news is good, say it plainly and without fanfare — "you already hold more of this than you would guess" is a measured fact delivered kindly, and that is the register.
+VOICE. Precise, plain, warm through candour rather than through adjectives. Numbers over adjectives. Second person. Short sentences and ordinary words, "you cannot just say you can do this" beats "unprovable by assertion", and it is the same sentence. Contractions are fine.
 
-BANNED, because it reads as a company that wants something: exclamation points, "journey", "passion", "unlock", "empower", "dream role", "you've got this", and any sentence that could sit on a bootcamp landing page. Acknowledge the difficulty once, in one sentence, and then get on with the numbers — dwelling on the feeling is its own kind of condescension. Wrap key figures in <b></b>. Use plain unicode punctuation. Every claim must be grounded in the FACTS provided; invent no numbers. The reader is moving from ${d.origin.title} to ${d.dest.title}. Return ONLY valid JSON matching the SHAPE exactly, no prose around it.
+THE WARMTH IS IN THE HONESTY, NOT IN THE ENCOURAGEMENT. Telling someone a move is uncommon and they will have to explain themselves in every interview is kinder than telling them they have got this, because it treats them as an adult and tells them what is coming. Where the news is good, say it plainly and without fanfare, "you already hold more of this than you would guess" is a measured fact delivered kindly, and that is the register.
+
+BANNED, because it reads as a company that wants something: exclamation points, "journey", "passion", "unlock", "empower", "dream role", "you've got this", and any sentence that could sit on a bootcamp landing page. Acknowledge the difficulty once, in one sentence, and then get on with the numbers, dwelling on the feeling is its own kind of condescension. Wrap key figures in <b></b>. Use plain unicode punctuation. Every claim must be grounded in the FACTS provided; invent no numbers. The reader is moving from ${d.origin.title} to ${d.dest.title}. Return ONLY valid JSON matching the SHAPE exactly, no prose around it.
 
 HARD RULES, in order of importance:
-1. NAME the artifact. Never write "an artifact that proves X" — that is the failure mode this prompt exists to kill. Say the actual deliverable a ${d.dest.title} would recognise: a document type, a model, a calculation, a teardown, a named tool output. If you cannot name one for a skill, describe the smallest real piece of work that would demonstrate it.
+1. NAME the artifact. Never write "an artifact that proves X", that is the failure mode this prompt exists to kill. Say the actual deliverable a ${d.dest.title} would recognise: a document type, a model, a calculation, a teardown, a named tool output. If you cannot name one for a skill, describe the smallest real piece of work that would demonstrate it.
 2. Never state a count you have not verified against FACTS. Do not write "these three" for a two-item list, or "several at X" when X has two openings. Prefer the exact number or no number.
-3. Say the hard thing. If mobility is low, the move is uncommon and the reader will have to explain themselves — write that plainly rather than burying it. If readiness is low, do not dress it up. An honest report that costs a reader an illusion is the product.
+3. Say the hard thing. If mobility is low, the move is uncommon and the reader will have to explain themselves, write that plainly rather than burying it. If readiness is low, do not dress it up. An honest report that costs a reader an illusion is the product.
 4. Assume the reader does NOT know what the destination job actually does day to day.
 
 COUNTS (the SHAPE below shows ONE example element per array; produce these many):
-- plan.phases: exactly 3 — weeks 1-4, 5-8, 9-12. Phase 3 is about applications and its "worth" reads like "→ 68%".
+- plan.phases: exactly 3, weeks 1-4, 5-8, 9-12. Phase 3 is about applications and its "worth" reads like "→ 68%".
 - plan.phases[].steps: 3 each.
 - evidence.items: 5 or 6. evidence.checkpoints: 3.
-- timeline.phases: exactly 3 — "The 90-day plan" (span "Weeks 1–12"), "Compounding" (span "Months 4–8"), and "Hiring window" (set "hot": true on the phase and on each of its stones).
-- NEVER emit a placeholder letter or symbol. The hiring-window span and its stone labels must carry the REAL month numbers from FACTS.time — write "Months 12–24", "Month 12", "Month 18–24". A literal "L", "H", "N", "X" or "NN" anywhere in the output is a defect.
+- timeline.phases: exactly 3, "The 90-day plan" (span "Weeks 1–12"), "Compounding" (span "Months 4–8"), and "Hiring window" (set "hot": true on the phase and on each of its stones).
+- NEVER emit a placeholder letter or symbol. The hiring-window span and its stone labels must carry the REAL month numbers from FACTS.time, write "Months 12–24", "Month 12", "Month 18–24". A literal "L", "H", "N", "X" or "NN" anywhere in the output is a defect.
 - Every readiness percentage you state must equal FACTS afterTop3. Do not compute your own; the same number appears on three pages and they must agree.
 - Money is written as $80k / $140k, never as 139995 or 161,000.
 - timeline.phases[].stones: 3 for the first phase, 2 for the other two.
 
-RESOURCES — read this twice:
+RESOURCES, read this twice:
 - Name the PLATFORM and the COURSE TITLE. Do NOT write URLs. You will get them wrong, and a dead link in a paid-for report destroys more trust than the course was worth.
 - PREFER FACTS.curatedResources. Those are verified and carry real URLs; use them verbatim where one exists for a gap skill. Only go beyond that list if a gap has no entry.
 - Only name things you are confident actually exist. A well-known platform and an approximate title the reader can search beats a precise-sounding invention.
@@ -385,9 +398,9 @@ RESOURCES — read this twice:
 - Free and paid are both fine; say which where you are sure.
 - The point of a course is the artifact you build in it. Say so.
 
-OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no comments, and no placeholder notation of any kind — every value must be real content.`;
+OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no comments, and no placeholder notation of any kind, every value must be real content.`;
   /* TWO shapes, two calls. One call carrying the whole document hit
-     stop_reason=max_tokens at 9,063 characters and died mid-JSON — and the
+     stop_reason=max_tokens at 9,063 characters and died mid-JSON, and the
      single shape it was copying had itself become malformed, with `resources`
      nested inside `difficulty` after an earlier edit. Both problems have the
      same fix: smaller, separately-declared shapes that are each valid on their
@@ -404,7 +417,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
    "howMany": "1 sentence: how many skills have to be learned. Name at most 3, then \'and N more\'.",
    "mobilityRead": "1 sentence on the observed-flow number: well-worn path or unusual one, and what that means for how you will be received."
  },
- "explainTheJump": "2-3 sentences, second person: the actual words for the interview question \'why are you moving?\'. Built from the held skills and the shape of the move. No apology — a reason, told forward.",
+ "explainTheJump": "2-3 sentences, second person: the actual words for the interview question \'why are you moving?\'. Built from the held skills and the shape of the move. No apology, a reason, told forward.",
  "first90": "2-3 sentences: what the first ninety days IN the new job will feel like, including the part that will feel worse before it feels better. This is shift-shock inoculation, not a pep talk.",
  "decodedNote": "1 sentence about partial-credit skills.",
  "alternatesNote": "1 sentence about the fallback routes.",
@@ -429,7 +442,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
  }
 }`;
   /* One helper, called twice. Each half is well inside the budget, and a failure
-     in one half no longer costs the other — the merge below keeps whatever came
+     in one half no longer costs the other, the merge below keeps whatever came
      back and fills the rest from the template. */
   const ask = async (shape, label) => {
     try {
@@ -437,7 +450,11 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
         method: 'POST',
         headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-5', max_tokens: 8000, system: sys,
+          // thinking DISABLED explicitly: the model was spending the max_tokens budget on
+        // a thinking block before the text, "blocks=2[thinking,text] stop=max_tokens"
+        //, which produced empty and truncated JSON at any budget. These calls want
+        // structured output, not deliberation.
+        model: 'claude-sonnet-5', thinking: { type: 'disabled' }, max_tokens: 8000, system: sys,
           messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}${view ? `\n\nYOUR OWN READ OF THIS CASE, formed before writing \u2014 argue FROM it, do not restate it:\n${JSON.stringify(view, null, 1)}` : ''}\n\n${shape}\n\nReturn the JSON now.` }],
         }),
       });
@@ -467,7 +484,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
   if (!A1.out && !B1.out) return { ...fallback, _aiError: errs.join(' | ') };
 
   // Shape-guard: any missing branch falls back to the templated field, which is
-  // also what makes a ONE-half failure graceful — the other half still ships.
+  // also what makes a ONE-half failure graceful, the other half still ships.
   const merged = {
     resources: out.resources?.items?.length ? out.resources : fallback.resources,
     roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
@@ -496,12 +513,12 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
  * Why a second call rather than a better first prompt: the first pass is writing
  * and the second is checking, and a model asked to do both at once reliably does
  * the first. The errors this catches are the ones the founder found by reading a
- * real report — "close those three" against a two-item list, "several at SpaceX"
+ * real report, "close those three" against a two-item list, "several at SpaceX"
  * when SpaceX has two openings. Both are the same failure: a word that implies a
  * count nobody verified.
  *
  * Deliberately CONSERVATIVE. It may only edit wording, never introduce a number
- * that is not in FACTS, and on any doubt it returns the text unchanged — an LLM
+ * that is not in FACTS, and on any doubt it returns the text unchanged, an LLM
  * reviewing an LLM can invent as easily as it can correct, and a wrong "fix"
  * shipped as a correction is worse than the original error. If anything fails,
  * parses badly, or comes back empty, the unreviewed report ships. */
@@ -513,7 +530,7 @@ Fix ONLY these, and change nothing else:
 - Count words that do not match the list they describe ("these three" over two items, "several" for two, "a handful" for one).
 - Any figure that contradicts FACTS.
 - Any claim of a licence, requirement or timeline that FACTS does not support.
-- Any remaining generic artifact phrasing like "an artifact that proves X" — replace with the concrete deliverable, but ONLY if you can name one from FACTS.
+- Any remaining generic artifact phrasing like "an artifact that proves X", replace with the concrete deliverable, but ONLY if you can name one from FACTS.
 - Any placeholder letter or symbol that escaped: a literal L, H, N, X or NN standing in for a number.
 - Any readiness percentage that disagrees with FACTS.afterTop3, or with the same figure elsewhere in the report.
 - LENGTH. This is a fixed-page PDF and overlong fields print past the page edge. Keep roleContext fields to 2 sentences, difficulty fields to 1 sentence each, and any skill list to 3 names plus "and N more". Trim rather than rewrite.
@@ -524,13 +541,17 @@ You may NOT: add numbers absent from FACTS, change the voice, lengthen the text,
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-5', max_tokens: 4000, system: sys,
+        // thinking DISABLED explicitly: the model was spending the max_tokens budget on
+        // a thinking block before the text, "blocks=2[thinking,text] stop=max_tokens"
+        //, which produced empty and truncated JSON at any budget. These calls want
+        // structured output, not deliberation.
+        model: 'claude-sonnet-5', thinking: { type: 'disabled' }, max_tokens: 4000, system: sys,
         messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\nREPORT = ${JSON.stringify(prose)}\n\nReturn the corrected REPORT JSON now.` }],
       }),
     });
     if (!res.ok) return prose;
     const j = await res.json();
-    // An empty `text` produced "no-json:" with nothing after it — the response
+    // An empty `text` produced "no-json:" with nothing after it, the response
     // parsed, returned 200, and carried no readable text. That rules out
     // truncation and auth, and means the assumption here is wrong: that every
     // content block is type "text" with a .text string. Capture what actually
@@ -540,7 +561,7 @@ You may NOT: add numbers absent from FACTS, change the voice, lengthen the text,
     // Take text from any block that has it, whatever its type is called.
     let text = blocks.map((c) => (typeof c?.text === 'string' ? c.text : '')).join('').trim();
     if (!text) {
-      console.error('[roadmap] anthropic empty text —', shapeNote, JSON.stringify(j).slice(0, 400));
+      console.error('[roadmap] anthropic empty text ,', shapeNote, JSON.stringify(j).slice(0, 400));
       return { ...fallback, _aiError: `empty-text: ${shapeNote}` };
     }
     text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');

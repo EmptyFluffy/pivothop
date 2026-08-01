@@ -1,4 +1,4 @@
-/* The route report — the six-page PDF the export sheet promises.
+/* The route report, the six-page PDF the export sheet promises.
    Framework-free ESM: imported by the render script (draft) and the
    /api/roadmap route handler (production). Renders the full HTML document;
    Chromium prints it to A4. Design system per docs/01: paper/ink/cobalt,
@@ -35,13 +35,13 @@ function pageCover(d) {
     <div class="cover-meta">${d.dest.match}% readiness &middot; ${esc(d.dest.salary)} &middot; ${esc(d.dest.demand)} demand &middot; ${esc(d.dest.time)}${d.dest.license ? ' &middot; license required' : ' &middot; no license gate'}</div>
     <p class="cover-verdict">${d.verdict}</p>
     <div class="cover-sigs">
-      <div class="cap">${nSig > 1 ? 'The signals' : 'The measurement'} &mdash; read from ${d.dest.provenance.postings.toLocaleString()} live ${esc(d.dest.title.toLowerCase())} postings</div>
+      <div class="cap">${nSig > 1 ? 'The signals' : 'The measurement'}, read from ${d.dest.provenance.postings.toLocaleString()} live ${esc(d.dest.title.toLowerCase())} postings</div>
       ${sig('Skill readiness', d.dest.match)}
       ${sig('Shared core abilities', d.dest.capability)}
       ${sig('Commonly done', d.dest.mobility, mobilitySrc)}
     </div>
     ${gaps.length ? `<div class="cover-gap">
-      <div class="cap">What closes it &mdash; the highest-value gaps</div>
+      <div class="cap">What closes it, the highest-value gaps</div>
       <div class="cg-row">${gaps.map((w) => `<span class="cg">${esc(w.name)}<span class="cg-p">+${w.pts.toFixed(1)}</span></span>`).join('')}</div>
     </div>` : ''}
     <div class="cover-toc">
@@ -54,7 +54,7 @@ function pageCover(d) {
 }
 
 /* The human half of page 2. prose.mjs has been generating roleContext and
-   difficulty on every report since they were added — and the template never
+   difficulty on every report since they were added, and the template never
    referenced them, so the model wrote them and we threw them away. This renders
    them: what the destination job actually is, what carries over, what does not,
    and one plain-English read on how hard the jump is. Every field is optional,
@@ -75,7 +75,7 @@ function humanBlock(d) {
 }
 
 /* ── 02 · the role, decoded (one anatomy strip + two lists) ───────────── */
-// "Close those three" was hardcoded against a variable-length list — it printed
+// "Close those three" was hardcoded against a variable-length list, it printed
 // over a two-item list in the mechanical-engineer report. The count now follows
 // the list, and reads as words rather than digits, which is how a person says it.
 const numWord = (n) => ['', 'one', 'two', 'three', 'four', 'five', 'six'][n] || String(n);
@@ -83,14 +83,14 @@ const numWord = (n) => ['', 'one', 'two', 'three', 'four', 'five', 'six'][n] || 
 function pageDecoded(d) {
   const have = d.waterfall.filter((w) => w.earned > 0);
   const earned = have.reduce((s, w) => s + w.earned, 0);
-  // A route can have NO zero-earned skills — every row partial credit. Product
+  // A route can have NO zero-earned skills, every row partial credit. Product
   // Manager -> Conversation Designer is one: LangChain 15.8/30.8, Machine
   // Learning 7.5/15.4, Customer Service 6.8/11.5, nothing at zero. `gaps` came
   // back empty, so the strip drew three zero-width segments and the callout read
   // "are worth +0.0 points together" with no subject at all.
   //
   // When nothing is a clean gap, the real gap is the REMAINING points inside the
-  // partial rows — which is what page 3 already names correctly, and what the
+  // partial rows, which is what page 3 already names correctly, and what the
   // reader needs either way.
   const full = d.waterfall.filter((w) => w.earned === 0).sort((a, b) => b.pts - a.pts);
   const partialDeficits = d.waterfall
@@ -101,9 +101,9 @@ function pageDecoded(d) {
   const top3 = gaps.slice(0, 3);
   const top3pts = top3.reduce((s, w) => s + w.pts, 0);
   const otherPts = 100 - earned - top3pts;
-  // the anatomy strip: one bar, five segments — yours + the three named gaps + the rest
+  // the anatomy strip: one bar, five segments, yours + the three named gaps + the rest
   const seg = (w, cls, label) => `<span class="an-seg ${cls}" style="width:${w}%">${label ? `<span class="an-in">${label}</span>` : ''}</span>`;
-  const strip = seg(earned, earned < 24 ? 'an-yours an-tight' : 'an-yours', `${earned.toFixed(1)} &mdash; already yours`) +
+  const strip = seg(earned, earned < 24 ? 'an-yours an-tight' : 'an-yours', `${earned.toFixed(1)}, already yours`) +
     top3.map((w, i) => seg(w.pts, 'an-gap', `<b>${i + 1}</b>`)).join('') +
     seg(otherPts, 'an-rest', '');
   const legend = top3.map((w, i) => `<span class="an-key"><b>${i + 1}</b> ${esc(w.name)} +${w.pts.toFixed(1)}</span>`).join('') +
@@ -118,11 +118,11 @@ function pageDecoded(d) {
     <div class="an-legend">${legend}</div>
     <div class="two">
       <div>
-        <div class="cap">Already yours &mdash; ${earned.toFixed(1)} pts</div>
+        <div class="cap">Already yours, ${earned.toFixed(1)} pts</div>
         ${have.map(haveRow).join('')}
       </div>
       <div>
-        <div class="cap acc">The gap, priced &mdash; ${(100 - earned).toFixed(1)} pts</div>
+        <div class="cap acc">The gap, priced, ${(100 - earned).toFixed(1)} pts</div>
         ${gaps.map(gapRow).join('')}
         <div class="callout">
           <b>${top3.map((w) => esc(w.name)).join(' + ')}</b> ${top3.length === 1 ? 'is worth' : 'are worth'} <b>+${top3pts.toFixed(1)} points</b> together. Close ${top3.length === 1 ? 'it' : `those ${numWord(top3.length)}`} and this route reads <b>${Math.round(earned + top3pts)}%</b>. That is the whole plan, on one line.
@@ -199,14 +199,14 @@ function pageEvidence(d) {
   </section>`;
 }
 
-/* The arc heading read t.lo/t.hi, which NEITHER prose path ever set — the
+/* The arc heading read t.lo/t.hi, which NEITHER prose path ever set, the
    fallback computes them locally without returning them, and the AI shape does
    not declare them at all. It rendered "undefined–undefined months" on every
    report. Derived here from dest.time instead, so the heading cannot depend on
    the prose layer at all; t.lo/t.hi are still honoured if a future shape adds them. */
 function arcMonths(d, t) {
   if (t?.lo != null && t?.hi != null) return `${t.lo}&ndash;${t.hi}`;
-  const m = String(d?.dest?.time || '').match(/(\d+)\s*[–—-]\s*(\d+)/);
+  const m = String(d?.dest?.time || '').match(/(\d+)\s*[–,-]\s*(\d+)/);
   if (m) return `${m[1]}&ndash;${m[2]}`;
   const one = String(d?.dest?.time || '').match(/(\d+)/);
   return one ? one[1] : '12&ndash;24';
@@ -214,7 +214,7 @@ function arcMonths(d, t) {
 
 /* Resources sit on the evidence page on purpose: the courses and the artifacts
    they produce are the same argument, and splitting them across pages makes the
-   course look like the goal. Platform + title, never URLs — see the RESOURCES
+   course look like the goal. Platform + title, never URLs, see the RESOURCES
    rule in prose.mjs. A dead link in a report someone trusted costs more than the
    course was worth. */
 function resourcesBlock(d) {
@@ -236,7 +236,7 @@ function resourcesBlock(d) {
 
 /* ── 07 · the summary (the page people actually re-read) ──────────────── */
 /* Everything above is the argument; this is the answer. Deliberately no new
-   information — if a number appears here it appears earlier too, because a
+   information, if a number appears here it appears earlier too, because a
    summary that introduces facts is a seventh page of reading rather than a
    place to land. Built to survive being screenshotted on a phone. */
 function pageSummary(d) {
@@ -252,13 +252,13 @@ function pageSummary(d) {
   return `<section class="pg">
     ${header('The short version')}
     <h2 class="ph">If you only keep one page.</h2>
-    <p class="lede">Everything in this report, on one page. Nothing here is new &mdash; it is all above, with the working attached.</p>
+    <p class="lede">Everything in this report, on one page. Nothing here is new, it is all above, with the working attached.</p>
 
     <div class="sm-top">
       <div class="sm-big"><span class="sm-n">${Math.round(earned)}<span class="sm-pc">%</span></span><span class="lbl">where you stand today</span></div>
       <div class="sm-big"><span class="sm-n">${after}<span class="sm-pc">%</span></span><span class="lbl">after the ${numWord(top.length)} below</span></div>
       <div class="sm-big"><span class="sm-n sm-sm">${esc(d.dest.time)}</span><span class="lbl">to hiring-ready</span></div>
-      <div class="sm-big"><span class="sm-n sm-sm">${d.board.open ? d.board.open : '&mdash;'}</span><span class="lbl">open ${esc(d.dest.title.toLowerCase())} roles today</span></div>
+      <div class="sm-big"><span class="sm-n sm-sm">${d.board.open ? d.board.open : ','}</span><span class="lbl">open ${esc(d.dest.title.toLowerCase())} roles today</span></div>
     </div>
 
     <div class="sm-grid">
@@ -278,7 +278,7 @@ function pageSummary(d) {
 
     <div class="sm-foot">
       <div><span class="lbl">Pay</span><p>${esc(d.origin.title)} ${esc(d.origin.salary)} &nbsp;&rarr;&nbsp; ${esc(d.dest.title)} ${esc(d.dest.salary)}</p></div>
-      <div><span class="lbl">Re-run it free, any time</span><p><b>pivothop.com</b> &mdash; the numbers move with the market, and the graph is always current.</p></div>
+      <div><span class="lbl">Re-run it free, any time</span><p><b>pivothop.com</b>, the numbers move with the market, and the graph is always current.</p></div>
     </div>
     ${footer(d, 8)}
   </section>`;
@@ -303,14 +303,14 @@ function pageTimeline(d) {
     <p class="pdek">${t.intro}</p>
     <div class="rm">${phases}</div>
     <div class="rm-note"><span class="cap">Pacing</span><p>${t.weekly}</p></div>
-    <div class="cap" style="margin-top:4mm">If this route sours &mdash; the nearest alternates</div>
+    <div class="cap" style="margin-top:4mm">If this route sours, the nearest alternates</div>
     <div class="alts">
       ${d.alternates.map((a) => `<div class="alt"><span class="alt-t">${esc(a.title)}</span><span class="alt-m">${a.match}%</span><span class="alt-g">${esc(a.gate)}</span></div>`).join('')}
     </div>
     <p class="note note-flow">${d.alternatesNote}</p>
     ${d.bridge ? `<div class="bridge">
       <span class="lbl">The stepping-stone, if the direct jump reads too far</span>
-      <p><b>${esc(d.bridge.via)}</b> first &mdash; your skills already read <b>${d.bridge.viaMatch}%</b> there &mdash; and from ${esc(d.bridge.via.toLowerCase())} this move reads <b>${d.bridge.thenMatch}%</b>. Two smaller jumps, each one explainable, instead of one long one.</p>
+      <p><b>${esc(d.bridge.via)}</b> first, your skills already read <b>${d.bridge.viaMatch}%</b> there, and from ${esc(d.bridge.via.toLowerCase())} this move reads <b>${d.bridge.thenMatch}%</b>. Two smaller jumps, each one explainable, instead of one long one.</p>
     </div>` : ''}
     ${footer(d, 6)}
   </section>`;
@@ -352,7 +352,7 @@ function pageSalary(d) {
     </div>
     ${d.destSeniority ? `<div class="sal-sen">
       <span class="lbl">Where in the band you&rsquo;d actually start</span>
-      <p>Mid-level ${esc(d.dest.title.toLowerCase())} postings pay <b>${money(d.destSeniority.mid.p25)}&ndash;${money(d.destSeniority.mid.p50)}</b> (p25&ndash;median, ${d.destSeniority.mid.n} postings)${d.destSeniority.senior ? `; senior runs to a <b>${money(d.destSeniority.senior.p50)}</b> median` : ''}. A switcher enters below the median &mdash; read the band&rsquo;s lower half as year one, not the ceiling.</p>
+      <p>Mid-level ${esc(d.dest.title.toLowerCase())} postings pay <b>${money(d.destSeniority.mid.p25)}&ndash;${money(d.destSeniority.mid.p50)}</b> (p25&ndash;median, ${d.destSeniority.mid.n} postings)${d.destSeniority.senior ? `; senior runs to a <b>${money(d.destSeniority.senior.p50)}</b> median` : ''}. A switcher enters below the median, read the band&rsquo;s lower half as year one, not the ceiling.</p>
     </div>` : ''}
     ${d.onward && d.onward.length ? `<div class="sal-onward">
       <span class="lbl">Where this door leads next</span>
@@ -419,7 +419,7 @@ export function renderRoadmapHTML(d) {
   /* the anatomy strip + skill lists */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:11mm}
   .anatomy{display:flex;height:11mm;border:1.2px solid var(--ink);margin-bottom:2.6mm;background:var(--card)}
-  /* 07 — the summary. Big numbers, few words, readable at a glance on a phone. */
+  /* 07, the summary. Big numbers, few words, readable at a glance on a phone. */
   .hu-talk{margin-top:6mm;display:grid;grid-template-columns:1fr 1fr;gap:8mm}
   .hu-t p{margin:1.5mm 0 0;font-size:9.4pt;line-height:1.55;color:var(--ink)}
   .bridge{margin-top:5mm;background:var(--paper2);border-left:1.6px solid var(--acc);padding:3.5mm 4.5mm}
@@ -517,7 +517,7 @@ export function renderRoadmapHTML(d) {
   /* vertical roadmap: a spine, phase groups, milestone rows */
   .rm{position:relative;margin-bottom:5mm}
   /* the spine: centred on the dot axis (24mm) and behind the dots, whose paper
-     halo masks it — line reads as connecting into each node, never over it */
+     halo masks it, line reads as connecting into each node, never over it */
   .rm::before{content:"";position:absolute;left:24mm;top:7.5mm;bottom:3.5mm;width:1.4px;background:var(--rule2);transform:translateX(-50%);z-index:0}
   .rm-ph-hd{display:flex;align-items:baseline;gap:4mm;margin:4mm 0 .5mm;padding-left:29mm}
   .rm-ph:first-child .rm-ph-hd{margin-top:1mm}
