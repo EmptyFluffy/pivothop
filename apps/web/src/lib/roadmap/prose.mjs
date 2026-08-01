@@ -193,6 +193,24 @@ export function parseTime(time) {
 }
 
 /* ── the AI version ───────────────────────────────────────────────────── */
+/* One strict parse, then one forgiving retry. The failure that motivated this
+   was "Expected ',' or '}' at position 852" — the SHAPE we sent contained
+   pseudo-notation (x3, x5-6, a parenthetical aside) that is not valid JSON, so
+   the model reproduced the malformation faithfully. The shape is fixed now; this
+   is the net underneath it, because one bad character should not cost a reader
+   the whole AI report. Repairs only unambiguous damage: trailing commas and
+   stray comment lines. Returns null if it still will not parse — never guesses
+   at content. */
+function parseLoose(raw) {
+  try { return JSON.parse(raw); } catch { /* fall through to repair */ }
+  try {
+    const fixed = raw
+      .replace(/\/\/[^\n"]*$/gm, '')       // line comments outside strings
+      .replace(/,\s*([}\]])/g, '$1');       // trailing commas
+    return JSON.parse(fixed);
+  } catch { return null; }
+}
+
 export async function buildProseAI(d, apiKey) {
   const fallback = buildProse(d);
   if (!apiKey) return fallback;
@@ -215,7 +233,16 @@ HARD RULES, in order of importance:
 1. NAME the artifact. Never write "an artifact that proves X" — that is the failure mode this prompt exists to kill. Say the actual deliverable a ${d.dest.title} would recognise: a document type, a model, a calculation, a teardown, a named tool output. If you cannot name one for a skill, describe the smallest real piece of work that would demonstrate it.
 2. Never state a count you have not verified against FACTS. Do not write "these three" for a two-item list, or "several at X" when X has two openings. Prefer the exact number or no number.
 3. Say the hard thing. If mobility is low, the move is uncommon and the reader will have to explain themselves — write that plainly rather than burying it. If readiness is low, do not dress it up. An honest report that costs a reader an illusion is the product.
-4. Assume the reader does NOT know what the destination job actually does day to day.`;
+4. Assume the reader does NOT know what the destination job actually does day to day.
+
+COUNTS (the SHAPE below shows ONE example element per array; produce these many):
+- plan.phases: exactly 3 — weeks 1-4, 5-8, 9-12. Phase 3 is about applications and its "worth" reads like "→ 68%".
+- plan.phases[].steps: 3 each.
+- evidence.items: 5 or 6. evidence.checkpoints: 3.
+- timeline.phases: exactly 3 — "The 90-day plan" (Weeks 1–12), "Compounding" (Months 4–8), and "Hiring window" (Months L–H, with "hot": true on the phase and on each of its stones).
+- timeline.phases[].stones: 3 for the first phase, 2 for the other two.
+
+OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no comments, and no placeholder notation of any kind — every value must be real content.`;
   const shape = `SHAPE = {
  "roleContext": {
    "whatItIs": "2-3 sentences in plain language: what a ${d.dest.title} actually does day to day. No jargon, no adjectives. Assume the reader has only ever done ${d.origin.title}.",
@@ -231,14 +258,14 @@ HARD RULES, in order of importance:
  "decodedNote": "1 sentence about partial-credit skills (a deeper/role-specific version of something held).",
  "plan": {
    "intro": "1-2 sentences: the plan is sequenced by what each gap skill is worth.",
-   "phases": [ {"weeks":"WK 01–04","title":"short","worth":"+X.X pts","steps":["3 concrete steps, each tied to a real skill from FACTS"],"proof":"the artifact this phase yields"}, (exactly 3 phases: weeks 1-4, 5-8, 9-12; phase 3 titled around applications with worth like "→ NN%") ],
+   "phases": [ {"weeks":"WK 01–04","title":"short","worth":"+X.X pts","steps":["step one","step two","step three"],"proof":"the artifact this phase yields"} ],
    "firstMove": "1-2 sentences: the single artifact to make THIS week.",
    "longArc": "2-3 sentences framing the full ${d.dest.time} arc vs the 90-day quarter."
  },
- "evidence": { "intro":"1-2 sentences","items":[{"item":"artifact","why":"1 sentence","covers":"+X.X pts | positioning"} x5-6],"checkpoints":["3 measurable week-N checks"] },
+ "evidence": { "intro":"1-2 sentences","items":[{"item":"the named artifact","why":"1 sentence","covers":"+X.X pts"}],"checkpoints":["a measurable week-N check"] },
  "timeline": {
    "intro":"1-2 sentences","weekly":"1-2 sentences on pacing (6-8 hrs/week)",
-   "phases":[ {"title":"The 90-day plan","span":"Weeks 1–12","stones":[{"when":"Week 4","label":"deliverable","detail":"1 sentence"} x3]}, {"title":"Compounding","span":"Months 4–8","stones":[{when,label,detail} x2]}, {"title":"Hiring window","span":"Months L–H","hot":true,"stones":[{when,label,detail,"hot":true} x2]} ]
+   "phases":[ {"title":"The 90-day plan","span":"Weeks 1–12","stones":[{"when":"Week 4","label":"deliverable","detail":"1 sentence"}]} ]
  },
  "alternatesNote": "1 sentence about the fallback routes.",
  "salaryVerdict": "1-2 sentences comparing the two posted bands."
@@ -248,7 +275,7 @@ HARD RULES, in order of importance:
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-5', max_tokens: 3000, system: sys,
+        model: 'claude-sonnet-5', max_tokens: 8000, system: sys,
         messages: [{ role: 'user', content: `FACTS = ${JSON.stringify(facts)}\n\n${shape}\n\nReturn the JSON now.` }],
       }),
     });
@@ -258,7 +285,8 @@ HARD RULES, in order of importance:
     text = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
     const start = text.indexOf('{'), end = text.lastIndexOf('}');
     if (start < 0 || end < 0) { console.error('[roadmap] anthropic returned no JSON object; first 200 chars:', text.slice(0, 200)); return fallback; }
-    const out = JSON.parse(text.slice(start, end + 1));
+    const out = parseLoose(text.slice(start, end + 1));
+    if (!out) { console.error('[roadmap] anthropic JSON unparseable after repair; first 300 chars:', text.slice(0, 300)); return fallback; }
     // shape-guard: any missing branch falls back to the templated field
     const merged = {
       roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
