@@ -239,7 +239,10 @@ COUNTS (the SHAPE below shows ONE example element per array; produce these many)
 - plan.phases: exactly 3 — weeks 1-4, 5-8, 9-12. Phase 3 is about applications and its "worth" reads like "→ 68%".
 - plan.phases[].steps: 3 each.
 - evidence.items: 5 or 6. evidence.checkpoints: 3.
-- timeline.phases: exactly 3 — "The 90-day plan" (Weeks 1–12), "Compounding" (Months 4–8), and "Hiring window" (Months L–H, with "hot": true on the phase and on each of its stones).
+- timeline.phases: exactly 3 — "The 90-day plan" (span "Weeks 1–12"), "Compounding" (span "Months 4–8"), and "Hiring window" (set "hot": true on the phase and on each of its stones).
+- NEVER emit a placeholder letter or symbol. The hiring-window span and its stone labels must carry the REAL month numbers from FACTS.time — write "Months 12–24", "Month 12", "Month 18–24". A literal "L", "H", "N", "X" or "NN" anywhere in the output is a defect.
+- Every readiness percentage you state must equal FACTS afterTop3. Do not compute your own; the same number appears on three pages and they must agree.
+- Money is written as $80k / $140k, never as 139995 or 161,000.
 - timeline.phases[].stones: 3 for the first phase, 2 for the other two.
 
 OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no comments, and no placeholder notation of any kind — every value must be real content.`;
