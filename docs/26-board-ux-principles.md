@@ -48,3 +48,36 @@ The capture band already offers "email me when the board adds roles my skills al
 Reviewers consistently report HiringCafe as slow. Our statically generated pages are a real edge and are not worth trading for interactivity we do not need.
 
 We also do not copy the model-written posting summary. Ours must stay computed — the numbers are the product, and a generated paraphrase is exactly the uncheckable content the instrument exists to replace.
+
+## HiringCafe — the business teardown (2026-07-31)
+
+The notes above cover what their interface does. The business picture, researched
+separately, lives in full on `/admin/research` next to Himalayas. The short form:
+
+**0 to 1,000,000+ MAU in twelve months on a $0 marketing budget**, two founders,
+no outside capital through autumn 2025, an 83,000-member subreddit by January
+2026, 1.5M+ jobs live. Ali Mir (ex-Meta/DoorDash/Rippling) and Hamed Nilforoshan
+(Stanford CS PhD), advised by Jure Leskovec.
+
+**They arrived at our architecture independently.** Crawl employer career pages
+directly twice a day, refuse aggregator feeds, and use an LLM to derive filter
+metadata *from the description text* rather than trusting employer tags. Same
+bet, roughly twelve times the scale. That validates the approach and it dates our
+head start in months rather than years.
+
+**Their 2026 monetization is our thesis.** A "Talent Network" beta where
+employers apply to candidates — the adjacent-talent board, with a million users
+already attached.
+
+**The gap that stays ours:** everything they built assumes you can already name
+the job you want. No readiness score, no skill gap, no licence gates. They can
+tell an employer who applied; `who_can_reach` tells an employer who *could do the
+job and never applied*. Their architecture does not produce that number.
+
+**What not to copy:** the coverage race (80% of the job market with two founders
+is not a game we can enter, and coverage is not our product), and Reddit-first
+growth (their product demos in one screenshot; adjacency needs the graph to
+land — ours is the SEO/AEO play, per Himalayas).
+
+**Their weak point, worth watching:** independent 2026 reviews consistently call
+the site slow. That is the cost of LLM-structured filters over 1.5M rows.

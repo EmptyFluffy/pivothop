@@ -73,13 +73,99 @@ export default function Research() {
     <div className="adm res">
       <header className="adm-head">
         <h1>Competitor research</h1>
-        <span className="lbl">measured 2026-07-30 · numbers are published or measured, never estimated</span>
+        <span className="lbl">Himalayas 2026-07-30 · HiringCafe 2026-07-31 · numbers are published or reported, never estimated</span>
       </header>
 
       <nav className="otr-nav">
         <Link href="/admin">← Submissions</Link>
         <Link href="/admin/outreach">Outreach →</Link>
       </nav>
+
+      {/* ── HiringCafe ────────────────────────────────────────────── */}
+      <section className="res-sec">
+        <h2>HiringCafe <span className="lbl">hiring.cafe · the closest thing to a direct competitor</span></h2>
+
+        <p className="res-lede">
+          Ali Mir (ex-Meta, DoorDash, Rippling) and Hamed Nilforoshan (Stanford CS PhD) launched it in{' '}
+          <b>2024</b>, advised by Stanford&rsquo;s Jure Leskovec — the recommender-systems academic. Two founders,
+          no employees disclosed. <b>0 → 1,000,000+ monthly active users in twelve months, on a $0 marketing
+          budget</b>, and no outside capital raised through at least autumn 2025. Their subreddit had{' '}
+          <b>83,000 members</b> by January 2026.
+        </p>
+
+        <div className="res-callout">
+          <span className="lbl">The finding that matters most to us</span>
+          <p>
+            They crawl <b>company career pages directly, twice a day</b>, and refuse aggregator feeds — what one
+            teardown calls the &ldquo;incestuous data loop.&rdquo; Then they use an LLM to extract structured
+            metadata (salary, location, seniority, industry) <b>out of the description text itself</b>, and the
+            filters run on that extraction rather than on whatever the employer tagged. That is the same bet we
+            made, arrived at independently. <b>They are the proof the approach scales past a hobby</b> — and the
+            warning that our head start is a matter of months, not years.
+          </p>
+        </div>
+
+        <h3>Under the hood</h3>
+        <ul className="res-notes">
+          <li><span className="lbl">Source of truth</span>Crawls tens of thousands of employer career sites twice daily. No job-board feeds, so the employer cannot manipulate the listing and there is no syndication echo.</li>
+          <li><span className="lbl">Structuring</span>LLM reads the description and emits the filter fields. This is why their filters actually match the role — the metadata is derived, not declared.</li>
+          <li><span className="lbl">Coverage</span>1.5M+ jobs live, stated ambition of 2M more. Self-reported ~35% of the job market, targeting 80% by end of 2026.</li>
+          <li><span className="lbl">No walled garden</span>Every listing links straight to the employer&rsquo;s own careers page. No account to browse, no resume upload, no &ldquo;apply with our profile&rdquo;. They deliberately give up the data-capture most boards exist to collect.</li>
+          <li><span className="lbl">Retention hook</span>A built-in application tracker — save roles, mark applied, private notes. The only reason to hold an account, and it is a job-seeker tool rather than an employer one.</li>
+        </ul>
+
+        <h3>How they actually grew</h3>
+        <ul className="res-notes">
+          <li><span className="lbl">Reddit, before launch</span>A viral moment in r/ChatGPT <b>pre-product</b>. The audience existed before the product did — the same shape as Himalayas&rsquo; SEO-before-Product-Hunt, with a community instead of a crawler.</li>
+          <li><span className="lbl">Community as the moat</span>An 83k-member subreddit is a distribution channel no competitor can buy, and it doubles as their QA: users report ghost jobs and bad filters directly.</li>
+          <li><span className="lbl">Anti-incumbent positioning</span>The pitch is explicitly &ldquo;job boards optimise for employers, we optimise for you.&rdquo; Ghost jobs and junk filters are the enemy, and both are things a candidate feels weekly.</li>
+          <li><span className="lbl">Press followed, it did not cause</span>Business Insider (Aug 2024) covered them as a founder story. The users came from Reddit first.</li>
+        </ul>
+
+        <h3>Monetization — the part that is still unsettled</h3>
+        <p className="res-lede">
+          Through fall 2025 they had taken no outside capital and charged nobody. The 2026 plan is a{' '}
+          <b>&ldquo;Talent Network&rdquo; beta where employers apply to candidates</b>, plus self-serve employer
+          dashboards, with payment models still being tested. Angel money reportedly includes former Indeed and
+          ZipRecruiter leadership.
+        </p>
+        <div className="res-warn">
+          <b>Read this carefully, because it is our thesis with their distribution.</b> &ldquo;Employers apply to
+          candidates&rdquo; is the adjacent-talent job board. They have a million users and an 83k subreddit; we
+          have the measurement. If they ship it well, our window is the <em>matching</em> — they can tell an
+          employer who applied, we can tell an employer <b>who could do the job but never applied</b>. That is
+          `who_can_reach`, and it is the one thing their architecture does not produce.
+        </div>
+
+        <h3>What to copy, and what not to</h3>
+        <ul className="res-notes">
+          <li><span className="lbl">Copy — derived metadata</span>Already our approach; their scale validates it. Keep going.</li>
+          <li><span className="lbl">Copy — no-account browsing</span>We already do this. Do not let a signup wall creep in later; it is a real differentiator and they proved users notice.</li>
+          <li><span className="lbl">Copy — the application tracker</span>Cheap, and the only retention mechanic that does not require becoming a social network. Sits next to our saved-roles design.</li>
+          <li><span className="lbl">Copy — pick a visible enemy</span>Ghost jobs for them. Ours should be <b>&ldquo;career advice with no numbers behind it&rdquo;</b> — it is the thing we can disprove on demand.</li>
+          <li><span className="lbl">Do NOT copy — coverage racing</span>They are chasing 80% of the job market with two founders and a crawler fleet. We cannot win that and should not try. 118,515 well-measured postings beat 2M badly-parsed ones for our use case, and coverage is not our product.</li>
+          <li><span className="lbl">Do NOT copy — Reddit-first growth</span>It worked because their product is a better search box, which demos in one screenshot. Adjacency needs the graph to land. Ours is an SEO and AEO play, per Himalayas.</li>
+        </ul>
+
+        <h3>Where they are weak</h3>
+        <ul className="res-notes">
+          <li><span className="lbl">Search speed</span>Independent 2026 reviews consistently flag the site as slow — the cost of LLM-structured filters over 1.5M rows.</li>
+          <li><span className="lbl">Title-bound</span>They make finding a job you already know how to name much better. They do not tell you <b>which other jobs your skills reach</b>. Everything they built assumes you know the search term.</li>
+          <li><span className="lbl">No measurement layer</span>No readiness, no skill gap, no licence gates, no salary modelling. Their product ends where ours starts.</li>
+          <li><span className="lbl">Unproven revenue</span>A million MAU and no confirmed paying customer. That is a runway question for them and a reminder for us: the adjacent-talent board has to charge someone.</li>
+        </ul>
+
+        <div className="res-callout">
+          <span className="lbl">The uncomfortable summary</span>
+          <p>
+            HiringCafe is what PivotHop&rsquo;s <em>board</em> wants to be, already built, with a million users and
+            no revenue. Himalayas is what our <em>SEO</em> wants to be. Neither has the adjacency measurement, and
+            neither is trying to build it — HiringCafe because coverage is their whole roadmap, Himalayas because
+            remote is their whole filter. <b>The defensible position is the one nobody is racing us for: the
+            instrument, not the index.</b>
+          </p>
+        </div>
+      </section>
 
       {/* ── Himalayas ─────────────────────────────────────────────── */}
       <section className="res-sec">
