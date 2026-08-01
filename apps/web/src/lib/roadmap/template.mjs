@@ -75,10 +75,29 @@ function humanBlock(d) {
 }
 
 /* ── 02 · the role, decoded (one anatomy strip + two lists) ───────────── */
+// "Close those three" was hardcoded against a variable-length list — it printed
+// over a two-item list in the mechanical-engineer report. The count now follows
+// the list, and reads as words rather than digits, which is how a person says it.
+const numWord = (n) => ['', 'one', 'two', 'three', 'four', 'five', 'six'][n] || String(n);
+
 function pageDecoded(d) {
   const have = d.waterfall.filter((w) => w.earned > 0);
-  const gaps = d.waterfall.filter((w) => w.earned === 0).sort((a, b) => b.pts - a.pts);
   const earned = have.reduce((s, w) => s + w.earned, 0);
+  // A route can have NO zero-earned skills — every row partial credit. Product
+  // Manager -> Conversation Designer is one: LangChain 15.8/30.8, Machine
+  // Learning 7.5/15.4, Customer Service 6.8/11.5, nothing at zero. `gaps` came
+  // back empty, so the strip drew three zero-width segments and the callout read
+  // "are worth +0.0 points together" with no subject at all.
+  //
+  // When nothing is a clean gap, the real gap is the REMAINING points inside the
+  // partial rows — which is what page 3 already names correctly, and what the
+  // reader needs either way.
+  const full = d.waterfall.filter((w) => w.earned === 0).sort((a, b) => b.pts - a.pts);
+  const partialDeficits = d.waterfall
+    .filter((w) => w.earned > 0 && w.pts - w.earned > 0.05)
+    .map((w) => ({ ...w, pts: +(w.pts - w.earned).toFixed(1), partial: true }))
+    .sort((a, b) => b.pts - a.pts);
+  const gaps = full.length ? full : partialDeficits;
   const top3 = gaps.slice(0, 3);
   const top3pts = top3.reduce((s, w) => s + w.pts, 0);
   const otherPts = 100 - earned - top3pts;
@@ -106,7 +125,7 @@ function pageDecoded(d) {
         <div class="cap acc">The gap, priced &mdash; ${(100 - earned).toFixed(1)} pts</div>
         ${gaps.map(gapRow).join('')}
         <div class="callout">
-          <b>${top3.map((w) => esc(w.name)).join(' + ')}</b> are worth <b>+${top3pts.toFixed(1)} points</b> together. Close those three and this route reads <b>${Math.round(earned + top3pts)}%</b>. That is the whole plan on one line.
+          <b>${top3.map((w) => esc(w.name)).join(' + ')}</b> ${top3.length === 1 ? 'is worth' : 'are worth'} <b>+${top3pts.toFixed(1)} points</b> together. Close ${top3.length === 1 ? 'it' : `those ${numWord(top3.length)}`} and this route reads <b>${Math.round(earned + top3pts)}%</b>. That is the whole plan, on one line.
         </div>
       </div>
     </div>
@@ -154,6 +173,7 @@ function pageEvidence(d) {
     <div class="checks">
       ${d.evidence.checkpoints.map((c, i) => `<div class="chk"><span class="chk-n">${String(i + 1).padStart(2, '0')}</span><p>${c}</p></div>`).join('')}
     </div>
+    ${resourcesBlock(d)}
     <p class="note">${d.plan.longArc}</p>
     ${footer(d, 4)}
   </section>`;
@@ -170,6 +190,27 @@ function arcMonths(d, t) {
   if (m) return `${m[1]}&ndash;${m[2]}`;
   const one = String(d?.dest?.time || '').match(/(\d+)/);
   return one ? one[1] : '12&ndash;24';
+}
+
+/* Resources sit on the evidence page on purpose: the courses and the artifacts
+   they produce are the same argument, and splitting them across pages makes the
+   course look like the goal. Platform + title, never URLs — see the RESOURCES
+   rule in prose.mjs. A dead link in a report someone trusted costs more than the
+   course was worth. */
+function resourcesBlock(d) {
+  const r = d.resources;
+  if (!r?.items?.length) return '';
+  return `<div class="res-b">
+    <span class="lbl">Where to actually learn this</span>
+    ${r.intro ? `<p class="res-i">${r.intro}</p>` : ''}
+    <div class="res-list">
+      ${r.items.map((it) => `<div class="res-r">
+        <div class="res-l"><b>${esc(it.what || '')}</b>${it.why ? `<span class="res-w">${esc(it.why)}</span>` : ''}</div>
+        <div class="res-m">${esc(it.skill || '')}${it.hours ? ` · ${esc(it.hours)}` : ''}</div>
+      </div>`).join('')}
+    </div>
+    ${r.note ? `<p class="res-n">${r.note}</p>` : ''}
+  </div>`;
 }
 
 /* ── 05 · the timeline (vertical, phase-grouped roadmap) ──────────────── */
@@ -294,6 +335,14 @@ export function renderRoadmapHTML(d) {
   /* the anatomy strip + skill lists */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:11mm}
   .anatomy{display:flex;height:11mm;border:1.2px solid var(--ink);margin-bottom:2.6mm;background:var(--card)}
+  .res-b{margin-top:7mm;padding-top:5mm;border-top:0.6px solid var(--rule2)}
+  .res-i{margin:1.5mm 0 3.5mm;font-size:9.2pt;line-height:1.5;color:var(--ink2)}
+  .res-list{display:flex;flex-direction:column}
+  .res-r{display:flex;justify-content:space-between;align-items:baseline;gap:6mm;padding:2.6mm 0;border-bottom:0.5px solid var(--rule)}
+  .res-l b{font-size:9.6pt;font-weight:600;color:var(--ink)}
+  .res-w{display:block;margin-top:0.8mm;font-size:8.8pt;line-height:1.45;color:var(--ink2)}
+  .res-m{flex:none;font-family:'Space Mono',monospace;font-size:8pt;color:var(--acc);white-space:nowrap}
+  .res-n{margin:3.5mm 0 0;font-size:8.8pt;line-height:1.5;color:var(--ink3)}
   .human{margin-top:7mm;padding-top:5mm;border-top:0.6px solid var(--rule2)}
   .hu-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6mm;margin-bottom:5mm}
   .hu-c p{margin:1.5mm 0 0;font-size:9.2pt;line-height:1.5;color:var(--ink2)}

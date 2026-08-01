@@ -75,7 +75,7 @@ export function buildProse(d) {
     steps: [
       `Close the single most valuable gap first: ${A.top3[0].name} is worth ${b(`+${A.top3[0].pts.toFixed(1)} points`)}, more than any other missing skill. Produce ${artifact(A.top3[0])}.`,
       `Reframe two projects you have already done through ${A.top3[0].name}; the work exists, the lens is new.`,
-      `Adopt the vocabulary the postings use for it — the words are half of what a screener matches on.`,
+      `Use the words the postings use. Half of getting read is being findable.`,
     ],
     proof: `Two artifacts that demonstrate ${A.top3[0].name}, in the exact form an employer would receive.`,
   });
@@ -85,7 +85,7 @@ export function buildProse(d) {
     steps: [
       `Build the deliverable that proves ${p2[0].name} (${b(`+${p2[0].pts.toFixed(1)}`)})${p2[1] ? ` and, alongside it, ${p2[1].name} (${b(`+${p2[1].pts.toFixed(1)}`)})` : ''}.`,
       A.have[0] ? `Lean on ${A.have[0].name}, which you already hold, as the bridge into it — same muscle, different paperwork.` : `Keep each piece small and finished; a shipped artifact beats a polished intention.`,
-      `Package everything as documents, not descriptions — the artifact is the argument.`,
+      `Make things, do not describe things. The work speaks for you in a way a bullet point cannot.`,
     ],
     proof: `One finished deliverable per skill, exported as the document that reads as competence.`,
   });
@@ -108,17 +108,17 @@ export function buildProse(d) {
   // evidence — the gaps as artifacts, plus positioning
   const evItems = A.top3.map((w) => ({
     item: `An artifact that proves ${w.name}`,
-    why: `${w.name} is ${w.pts.toFixed(1)} points and unprovable by assertion; the artifact proves it in the format employers actually review.`,
+    why: `Worth ${w.pts.toFixed(1)} points, and not something you can claim — you have to show it. This is that, in the form an employer actually opens.`,
     covers: `+${w.pts.toFixed(1)} pts`,
   }));
   if (A.partials[0]) evItems.push({
     item: `A piece that deepens ${A.partials[0].name}`,
-    why: `You hold the base already; showing the ${destL} depth of it converts a partial row into a full one.`,
+    why: `You already have this — you just need to show the ${destL} version of it. That turns a half-row into a full one.`,
     covers: `+${(A.partials[0].pts - A.partials[0].earned).toFixed(1)} pts`,
   });
   evItems.push({
     item: `${origin} projects re-narrated as ${destL}`,
-    why: `Same work, ${destL} camera. Costs nothing but the reframing, and it is what makes the transferable skills legible.`,
+    why: `The same work, told for a ${destL} reader. It costs you an afternoon and it is what makes your experience legible to them.`,
     covers: 'positioning',
   });
   const evidence = {
@@ -176,7 +176,20 @@ export function buildProse(d) {
       ? `Observed worker flow is ${mob}, a well-travelled path — employers have seen this move before.`
       : `Observed worker flow is ${mob}, which makes this an uncommon move. Expect to explain the jump rather than have it assumed.`,
   };
-  return { roleContext, difficulty, verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
+  // Without a model we will not invent course names. The fallback gives the
+  // reader the search terms and the shape of what to look for, which is honest
+  // and still useful.
+  const resources = {
+    intro: 'Pick one thing per gap and build something with it. The certificate is not the point — the thing you make in the course is.',
+    items: A.gaps.slice(0, 4).map((w) => ({
+      skill: w.name,
+      what: `Search for a project-based ${w.name.toLowerCase()} course — one that ends with something you can show, not a quiz.`,
+      why: `Worth ${w.pts.toFixed(1)} of the 100 points.`,
+      hours: '',
+    })),
+    note: 'Skip anything that ends in a certificate and nothing else. Hiring managers open the artifact, not the badge.',
+  };
+  return { resources, roleContext, difficulty, verdict, decodedNote, plan: { intro: planIntro(A, destL), phases, firstMove, longArc }, evidence, timeline, alternatesNote, salaryVerdict };
 }
 
 function planIntro(A, destL) {
@@ -227,7 +240,15 @@ export async function buildProseAI(d, apiKey) {
     board: { open: d.board.open, companies: d.board.companies },
     mobility: d.dest.mobility, mobilitySource: d.dest.mobilitySource,
   };
-  const sys = `You write one section of a career-transition report for PivotHop. Voice: deadpan, precise, numbers over adjectives, no exclamation points, no motivational filler, second person ("you"). Wrap key figures in <b></b>. Use plain unicode punctuation. Every claim must be grounded in the FACTS provided; invent no numbers. The reader is moving from ${d.origin.title} to ${d.dest.title}. Return ONLY valid JSON matching the SHAPE exactly, no prose around it.
+  const sys = `You write one section of a career-transition report for PivotHop.
+
+WHO IS READING THIS. Someone who wants out of their job and is not sure they are allowed to want it. Often anxious, often convinced they are behind. They did not buy a pep talk; they asked what the numbers say. Write to one person, not an audience.
+
+VOICE. Precise, plain, warm through candour rather than through adjectives. Numbers over adjectives. Second person. Short sentences and ordinary words — "you cannot just say you can do this" beats "unprovable by assertion", and it is the same sentence. Contractions are fine.
+
+THE WARMTH IS IN THE HONESTY, NOT IN THE ENCOURAGEMENT. Telling someone a move is uncommon and they will have to explain themselves in every interview is kinder than telling them they have got this, because it treats them as an adult and tells them what is coming. Where the news is good, say it plainly and without fanfare — "you already hold more of this than you would guess" is a measured fact delivered kindly, and that is the register.
+
+BANNED, because it reads as a company that wants something: exclamation points, "journey", "passion", "unlock", "empower", "dream role", "you've got this", and any sentence that could sit on a bootcamp landing page. Acknowledge the difficulty once, in one sentence, and then get on with the numbers — dwelling on the feeling is its own kind of condescension. Wrap key figures in <b></b>. Use plain unicode punctuation. Every claim must be grounded in the FACTS provided; invent no numbers. The reader is moving from ${d.origin.title} to ${d.dest.title}. Return ONLY valid JSON matching the SHAPE exactly, no prose around it.
 
 HARD RULES, in order of importance:
 1. NAME the artifact. Never write "an artifact that proves X" — that is the failure mode this prompt exists to kill. Say the actual deliverable a ${d.dest.title} would recognise: a document type, a model, a calculation, a teardown, a named tool output. If you cannot name one for a skill, describe the smallest real piece of work that would demonstrate it.
@@ -245,6 +266,14 @@ COUNTS (the SHAPE below shows ONE example element per array; produce these many)
 - Money is written as $80k / $140k, never as 139995 or 161,000.
 - timeline.phases[].stones: 3 for the first phase, 2 for the other two.
 
+RESOURCES — read this twice:
+- Name the PLATFORM and the COURSE TITLE. Do NOT write URLs. You will get them wrong, and a dead link in a paid-for report destroys more trust than the course was worth.
+- Only name things you are confident actually exist. A well-known platform and an approximate title the reader can search beats a precise-sounding invention.
+- Prefer the specific over the famous: for a RAG gap, a vector-database course beats "Intro to Python" on a bigger brand.
+- 4 to 6 items, at least one per named gap skill, ordered by the gap they close.
+- Free and paid are both fine; say which where you are sure.
+- The point of a course is the artifact you build in it. Say so.
+
 OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no comments, and no placeholder notation of any kind — every value must be real content.`;
   const shape = `SHAPE = {
  "roleContext": {
@@ -253,9 +282,19 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
    "doesNot": "1-2 sentences: what genuinely does not transfer, and what that will feel like. Be concrete."
  },
  "difficulty": {
-   "verdict": "ONE sentence reading the numbers together as a plain-English judgement of how hard this jump is. Ground it in readiness, shared abilities, mobility and whether a licence gates it.",
+   "resources": {
+   "intro": "1 sentence, warm and plain: how to use this list. Say that the point is the artifact, not the certificate.",
+   "items": [ {"skill":"the gap skill this closes","what":"platform + the course or resource TITLE, e.g. DeepLearning.AI \u2014 \u2018Building Applications with Vector Databases\u2019","why":"1 short sentence on what it gets you","hours":"a realistic time, e.g. 8-12 hours"} ],
+   "note": "1 sentence: what to skip, or the trap people fall into with courses for this role."
+ },
+ "verdict": "ONE sentence reading the numbers together as a plain-English judgement of how hard this jump is. Ground it in readiness, shared abilities, mobility and whether a licence gates it.",
    "howMany": "1 sentence: how many skills genuinely have to be learned, by name.",
    "mobilityRead": "1 sentence interpreting the observed-flow number: is this a well-worn path or an unusual one, and what that means for how the reader will be received."
+ },
+ "resources": {
+   "intro": "1 sentence, warm and plain: how to use this list. Say that the point is the artifact, not the certificate.",
+   "items": [ {"skill":"the gap skill this closes","what":"platform + the course or resource TITLE, e.g. DeepLearning.AI \u2014 \u2018Building Applications with Vector Databases\u2019","why":"1 short sentence on what it gets you","hours":"a realistic time, e.g. 8-12 hours"} ],
+   "note": "1 sentence: what to skip, or the trap people fall into with courses for this role."
  },
  "verdict": "2-4 sentences: where this route ranks, points already held, the nature of the gap (skills vs credential), whether people actually make the move, and the pay direction.",
  "decodedNote": "1 sentence about partial-credit skills (a deeper/role-specific version of something held).",
@@ -292,6 +331,7 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
     if (!out) { console.error('[roadmap] anthropic JSON unparseable after repair; first 300 chars:', text.slice(0, 300)); return fallback; }
     // shape-guard: any missing branch falls back to the templated field
     const merged = {
+      resources: out.resources?.items?.length ? out.resources : fallback.resources,
       roleContext: out.roleContext?.whatItIs ? out.roleContext : fallback.roleContext,
       difficulty: out.difficulty?.verdict ? out.difficulty : fallback.difficulty,
       verdict: out.verdict || fallback.verdict,
