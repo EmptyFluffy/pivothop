@@ -78,7 +78,8 @@ export default function Research() {
 
       <nav className="otr-nav">
         <Link href="/admin">← Submissions</Link>
-        <Link href="/admin/outreach">Outreach →</Link>
+        <Link href="/admin/outreach">Outreach</Link>
+        <Link href="/admin/schweiz">Schweiz →</Link>
       </nav>
 
       {/* ── HiringCafe ────────────────────────────────────────────── */}
