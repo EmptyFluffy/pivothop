@@ -146,3 +146,77 @@ the thesis was never volume — it is depth in a market that pays.
 7. **Does the name carry?** "PivotHop" is an anglicism — fine for IT, untested
    for a Pflege audience. Keep the brand, German tagline? Or a Swiss product
    name over the same engine?
+
+
+---
+
+## The call (researched and answered, 2026-08-01)
+
+**Recommendation: go Swiss-first now, staged, without burning the global boats.**
+Not a rebrand-everything pivot — a redirection of all *new* effort while the
+automated global machine keeps running at zero marginal cost.
+
+### Why now is the cheapest this pivot will ever be
+
+1. **Nothing to strand.** Pre-revenue, pre-brand (Google was still serving our
+   Vercel logo days ago). The sunk cost is the engine — miner, gates, PDF,
+   report harness — and it transfers 100%. Every month of further US SEO
+   investment raises the cost of this decision; today it is near zero.
+2. **The global lane now has a named, funded competitor on our architecture.**
+   HiringCafe: 1M MAU, direct-crawl + LLM extraction, currently hiring a
+   Founding Head of SEO. Beating that solo on English-language organic is a bad
+   fight. Nobody in Switzerland measures adjacency; jobs.ch sells listings, not
+   measurement, and derquereinstieg.ch proves the demand at hobby scale.
+3. **Revenue is nearer in CH.** The US plan monetizes "after one paying
+   employer" with no pipeline. The Swiss plan has named buyer categories —
+   outplacement firms (customary in Swiss redundancies), RAV counselors,
+   employers in 32 shortage occupations — reachable in person by a native
+   partner who already runs our outreach operation.
+4. **The corpus risk is testable in days, not months.** The Job-Room API is
+   real and documented (api.job-room.ch, contact jobroom-api@seco.admin.ch) —
+   and the Stellenmeldepflicht means employers are *legally required* to report
+   vacancies in high-unemployment occupations to exactly this system: mandated
+   coverage precisely where career-changers are wanted. Bridge scrapers exist
+   (Apify: arbeit.swiss, jobscout24); x28 is the paid fallback.
+5. **Sequencing dissolves the German blocker.** Launch with Swiss TECH, where a
+   large share of ads are in English (SwissDevJobs, englishjobsearch.ch, US-ATS
+   companies with Zurich offices) — the miner works day one. German compound
+   splitting lands in parallel and unlocks wave 2 (Pflege, trades), where the
+   licence-gate honesty moat is deepest.
+
+### The seven questions, answered
+
+1. **Swiss edition, not full pivot.** The nightly global machine is automated
+   and free; keep it as method-proof and the MCP/AEO surface. Stop new US GTM
+   investment; all new build time goes to CH.
+2. **Language:** launch Deutschschweiz regardless (65% of market, shortage
+   concentration); if the partner is Romandie-native, ship DE+FR together —
+   jobup culture is a genuinely separate market and a native voice there is an
+   edge, not a detour.
+3. **Data budget: yes, capped.** ~CHF 300/mo ceiling, spent only after the free
+   path (Job-Room + direct crawling + bridge scrapers) proves insufficient.
+   First action costs nothing: one email to jobroom-api@seco.admin.ch, sent by
+   the Swiss partner from the Swiss entity.
+4. **Who sells: the partner.** She already operates the outreach console; the
+   GmbH makes her the Swiss face, which is the whole local-trust thesis made
+   flesh. Engineering, data and product stay on this side.
+5. **Vertical: IT first, Pflege second.** IT for data reasons (English ads,
+   existing ATS sources, the corpus is strongest there today, and "PivotHop"
+   carries in tech). Pflege once the German miner lands — biggest shortage,
+   federal retraining money, and the market where honest licence gates
+   embarrass the retraining marketers.
+6. **Kill criteria, concrete:** Day 14 — Job-Room read access answered OR a
+   bridge scraper delivering ≥10k CH postings, else pause. Day 45 — ≥25k CH
+   postings AND German titles mapping ≥55%, else reassess. Day 90 — one Swiss
+   B2B conversation showing pilot interest, else revert to global-only, which
+   never stopped running. Reverting costs almost nothing by construction.
+7. **Name: keep PivotHop, add the German tagline** ("Berufswechsel,
+   vermessen.") for the IT launch. Revisit only if the Pflege wave tests badly
+   against the anglicism.
+
+### What this is, in one sentence
+
+The engine was always the moat and the market was always the question; the data
+says the answer is a market that has a word for our user, a law that feeds our
+corpus, a price floor ten times the US baseline, and a co-founder who is native
+to it.
