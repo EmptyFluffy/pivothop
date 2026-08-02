@@ -35,7 +35,7 @@ function pageCover(d) {
     <div class="cover-meta">${d.dest.match}% readiness &middot; ${esc(d.dest.salary)} &middot; ${esc(d.dest.demand)} demand &middot; ${esc(d.dest.time)}${d.dest.license ? ' &middot; license required' : ' &middot; no license gate'}</div>
     <p class="cover-verdict">${d.verdict}</p>
     <div class="cover-sigs">
-      <div class="cap">${nSig > 1 ? 'The signals' : 'The measurement'}, read from ${d.dest.provenance.postings.toLocaleString()} live ${esc(d.dest.title.toLowerCase())} postings</div>
+      <div class="cap">${d.dest.provenance.postings > 0 ? `${nSig > 1 ? 'The signals' : 'The measurement'}, read from ${d.dest.provenance.postings.toLocaleString()} live ${esc(d.dest.title.toLowerCase())} postings` : `${nSig > 1 ? 'The signals' : 'The measurement'}, estimated via a bridging route, not read directly`}</div>
       ${sig('Skill readiness', d.dest.match)}
       ${sig('Shared core abilities', d.dest.capability)}
       ${sig('Commonly done', d.dest.mobility, mobilitySrc)}
@@ -46,7 +46,7 @@ function pageCover(d) {
     </div>` : ''}
     <div class="cover-toc">
       <div class="cap">Inside</div>
-      ${[['02', 'The role, decoded', 'the 100 points, skill by skill'], ['03', 'What this actually is', 'the job, the jump, and where to learn it'], ['04', 'The 90-day plan', 'sequenced by what each skill is worth'], ['05', 'Evidence', 'the artifacts that read as proof'], ['06', 'The timeline', 'the whole arc, drawn to scale'], ['07', 'Salary map', 'both bands, one axis'], ['08', 'The short version', 'if you only keep one page']]
+      ${[['02', 'The role, decoded', 'the 100 points, skill by skill'], ['03', 'What this actually is', 'the job, the jump, and how it will feel'], ['04', 'The 90-day plan', 'sequenced by what each skill is worth'], ['05', 'Evidence', 'the artifacts that read as proof'], ['06', 'The timeline', 'the whole arc, drawn to scale'], ['07', 'Salary map', 'both bands, one axis'], ['08', 'The short version', 'if you only keep one page']]
         .map(([n, t, s]) => `<div class="toc-row"><span class="toc-n">${n}</span><span class="toc-t">${t}</span><span class="toc-s">${s}</span></div>`).join('')}
     </div>
     ${footer(d, 1)}
@@ -130,7 +130,7 @@ function pageDecoded(d) {
       </div>
     </div>
     <div class="facts">
-      <div><b>${d.dest.provenance.postings.toLocaleString()}</b><span>postings read</span></div>
+      <div><b>${d.dest.provenance.postings > 0 ? d.dest.provenance.postings.toLocaleString() : 'est.'}</b><span>${d.dest.provenance.postings > 0 ? 'postings read' : 'via bridge route'}</span></div>
       <div><b>${esc(d.dest.demand)}</b><span>demand</span></div>
       <div><b>${esc(d.dest.remote)}</b><span>fully remote</span></div>
       <div><b>${d.dest.license ? 'Yes' : 'None'}</b><span>license gate</span></div>
@@ -158,7 +158,6 @@ function pageHuman(d) {
       ${d.explainTheJump ? `<div class="hu-t"><span class="lbl">When they ask why you&rsquo;re moving</span><p>${d.explainTheJump}</p></div>` : ''}
       ${d.first90 ? `<div class="hu-t"><span class="lbl">The first ninety days, honestly</span><p>${d.first90}</p></div>` : ''}
     </div>` : ''}
-    ${resourcesBlock(d)}
     ${footer(d, 3)}
   </section>`;
 }
@@ -194,6 +193,7 @@ function pageEvidence(d) {
     <div class="checks">
       ${d.evidence.checkpoints.map((c, i) => `<div class="chk"><span class="chk-n">${String(i + 1).padStart(2, '0')}</span><p>${c}</p></div>`).join('')}
     </div>
+    ${resourcesBlock(d)}
     <p class="note">${d.plan.longArc}</p>
     ${footer(d, 5)}
   </section>`;
@@ -348,7 +348,7 @@ function pageSalary(d) {
     <a class="board-cta">pivothop.com/jobs/${esc(d.dest.id)} ${ARROW}</a>
     <div class="method">
       <div class="cap">Method</div>
-      <p>Readiness is the share of the destination&rsquo;s 100 demand-weighted skill points your profile already earns, read from ${d.dest.provenance.postings.toLocaleString()} live postings (${d.dest.provenance.salaried.toLocaleString()} stating pay). Mobility is observed worker flow, not opinion. Salary bands are the posted 10th&ndash;90th spread. Numbers move with the market; the graph re-runs free at <b>pivothop.com</b>.</p>
+      <p>Readiness is the share of the destination&rsquo;s 100 demand-weighted skill points your profile already earns${d.dest.provenance.postings > 0 ? `, read from ${d.dest.provenance.postings.toLocaleString()} live postings (${d.dest.provenance.salaried.toLocaleString()} stating pay)` : `. This destination sits one hop beyond a measured route, so its numbers are estimated from the adjacent measured data rather than read directly from postings`}. Mobility is observed worker flow, not opinion. Salary bands are the posted 10th&ndash;90th spread. Numbers move with the market; the graph re-runs free at <b>pivothop.com</b>.</p>
     </div>
     ${d.destSeniority ? `<div class="sal-sen">
       <span class="lbl">Where in the band you&rsquo;d actually start</span>

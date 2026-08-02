@@ -367,6 +367,8 @@ WHO IS READING THIS. Someone who wants out of their job and is not sure they are
 
 PUNCTUATION. Never use an em dash anywhere in the output. Use a comma, a colon, or a new sentence.
 
+HTML. The ONLY tag allowed is <b></b>, and only inside verdict, roleContext, difficulty, plan and salaryVerdict fields. Timeline, evidence and resources fields are PLAIN TEXT: any tag there prints literally on the page.
+
 VOICE. Precise, plain, warm through candour rather than through adjectives. Numbers over adjectives. Second person. Short sentences and ordinary words, "you cannot just say you can do this" beats "unprovable by assertion", and it is the same sentence. Contractions are fine.
 
 THE WARMTH IS IN THE HONESTY, NOT IN THE ENCOURAGEMENT. Telling someone a move is uncommon and they will have to explain themselves in every interview is kinder than telling them they have got this, because it treats them as an adult and tells them what is coming. Where the news is good, say it plainly and without fanfare, "you already hold more of this than you would guess" is a measured fact delivered kindly, and that is the register.
@@ -499,6 +501,17 @@ OUTPUT: raw JSON only. No markdown fence, no commentary, no trailing commas, no 
     alternatesNote: out.alternatesNote || fallback.alternatesNote,
     salaryVerdict: out.salaryVerdict || fallback.salaryVerdict,
   };
+  // The model bolds figures with <b> wherever it likes, but the template ESCAPES
+  // some fields — timeline stones, evidence rows, resources — so tags printed
+  // literally: "is <b>$109,064</b> against 77 reporting" on a real report. Strip
+  // every tag from the escaped-render fields; <b> stays legal only in the prose
+  // fields the template renders raw.
+  const noTags = (v) => typeof v === 'string' ? v.replace(/<[^>]+>/g, '') : v;
+  const scrub = (o) => { if (Array.isArray(o)) return o.map(scrub); if (o && typeof o === 'object') { const r = {}; for (const k of Object.keys(o)) r[k] = scrub(o[k]); return r; } return noTags(o); };
+  merged.timeline = scrub(merged.timeline);
+  merged.evidence = scrub(merged.evidence);
+  merged.resources = scrub(merged.resources);
+
   const reviewed = process.env.ROADMAP_REVIEW === '0'
     ? merged
     : await reviewProse(merged, facts, apiKey);

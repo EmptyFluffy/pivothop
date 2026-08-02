@@ -55,6 +55,12 @@ export async function renderPdf(html) {
         }
         if (pg.scrollHeight > pg.clientHeight + 1) out.push(`p${i + 1}:STILL-OVERFLOWING`);
       });
+      // Husk cleanup: if every row of a list block was trimmed, remove the block —
+      // a "Where to actually learn this" heading with nothing under it reads as a
+      // rendering bug, which is exactly how the founder experienced it.
+      document.querySelectorAll('.res-b, .sal-onward, .sm-stones').forEach((blk) => {
+        if (!blk.querySelector('[data-trim]')) { blk.remove(); out.push('husk-removed'); }
+      });
       return out;
     });
     if (trimmed.length) console.error('[roadmap] layout trim:', trimmed.join(' '));

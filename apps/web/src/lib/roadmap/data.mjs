@@ -11,11 +11,14 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 
 // A kid (second-hop) arrives without a waterfall; synthesize a coherent one from
 // its have/learn lists so the report still reads, points summing to ~100.
-function synthWaterfall(have = [], learn = []) {
+function synthWaterfall(have = [], learn = [], match) {
   const H = have.length, L = learn.length, n = H + L || 1;
   const wf = [];
-  // held skills carry ~62 of the points, gaps ~38, each tapering by rank
-  const hPts = 62, gPts = 38;
+  // Held points MUST equal the route's real match. This used a hardcoded 62/38
+  // split, so a bridged 32% route rendered a cover saying 32% and a page 2
+  // saying "62.0 already yours" — two different answers to the same question in
+  // one document. Tapered by rank as before; only the totals are honest now.
+  const hPts = Math.min(95, Math.max(5, Number(match) || 62)), gPts = 100 - hPts;
   have.forEach((name, i) => { const p = +(hPts * (H - i) / (H * (H + 1) / 2 || 1)).toFixed(1); wf.push({ name, pts: p, earned: p }); });
   learn.forEach((name, i) => { const p = +(gPts * (L - i) / (L * (L + 1) / 2 || 1)).toFixed(1); wf.push({ name, pts: p, earned: 0 }); });
   return wf.length ? wf : [{ name: 'Core skills', pts: 100, earned: 60 }];
@@ -42,7 +45,7 @@ export async function buildReportData(p, opts = {}) {
   const dest = p.dest || {};
   const waterfall = (Array.isArray(dest.waterfall) && dest.waterfall.length)
     ? dest.waterfall.map((w) => ({ name: w.name || w.skill, pts: +w.pts, earned: +(w.earned ?? 0) }))
-    : synthWaterfall(dest.have, dest.learn);
+    : synthWaterfall(dest.have, dest.learn, dest.match);
 
   const salBand = (band, fallback) => (Array.isArray(band) && band.length === 2 ? band.map(Number) : fallback);
 
