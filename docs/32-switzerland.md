@@ -220,3 +220,99 @@ The engine was always the moat and the market was always the question; the data
 says the answer is a market that has a word for our user, a law that feeds our
 corpus, a price floor ten times the US baseline, and a co-founder who is native
 to it.
+
+
+---
+
+## Competitor deep-dive: business mechanics and growth (researched 2026-08-02)
+
+### JobCloud (jobs.ch, jobup.ch, JobScout24), the incumbent
+
+- **Ownership and scale:** a 50/50 joint venture of TX Group and Ringier, the two
+  big Swiss media houses; ~350 employees; crossed **CHF 100M revenue in 2017**;
+  holds 49% of Austria's karriere.at. This is the Swiss recruiting establishment,
+  not a startup.
+- **How they make money:** classic listings economics. Employers pay per posting
+  (~CHF 1,000+ on jobs.ch), plus packages, CV-database access, application
+  management, and display advertising on the portals. Job seekers pay nothing.
+- **How they grew:** consolidation, not product. jobs.ch and jobup.ch merged
+  under the JobCloud roof (2013) with media-house distribution behind them; the
+  moat is brand default and employer habit, refreshed by acquisitions.
+- **What this means for us:** their revenue is LISTING revenue; measurement
+  products would neither cannibalize nor tempt them. They are a channel-power
+  competitor, not a product competitor, and plausibly an eventual partner or
+  acquirer of a proven Swiss data product.
+
+### SwissDevJobs, the proof that a Swiss niche board sustains a business
+
+- **Origin:** 2018 side project by Zurich developers annoyed that job boards
+  "looked built in 2002." Bootstrapped, ~5 people, never funded.
+- **How they make money:** employer-paid postings with a twist that IS the
+  product: **mandatory salary transparency and structured tech-stack data**.
+  Standardization is the differentiator in a market of unstructured ads.
+- **How they grew:** 80,000+ monthly users; SEO on structured data plus
+  developer word-of-mouth; then EXPORTED the playbook (GermanTechJobs.de,
+  DevITJobs.fr) rather than widening at home.
+- **What this means for us:** the closest existing proof of our exact plan
+  shape: a two-person Swiss side project, data-structure-as-product, employer-
+  paid, bootstrapped to sustainability. They stopped at transparency; we go to
+  measurement. Also a candidate data partner (their postings are structured).
+
+### x28 AG, the data infrastructure (supplier, not competitor)
+
+- **How they make money:** B2B data licensing. They crawl ~250k postings from
+  employer sites and sell API access sliced by region/industry/company, plus
+  semantic matching (Profilmatcher) and the quarterly Jobradar report.
+- **Who buys:** KOF (ETH Zurich), University of Lausanne, cantons, NZZ,
+  consultancies, the academic Swiss Job Tracker. Government and research money,
+  in significant part.
+- **What this means for us:** x28 proves Swiss institutions PAY for labor-market
+  data, and that cantons/RAV budgets buy from private data vendors. They are our
+  fallback corpus supplier AND evidence for our own B2B pricing thesis. They do
+  not serve consumers and do not measure individual adjacency.
+
+### derquereinstieg.ch, the category board
+
+Small, listings-plus-guides economics (employer postings on a niche audience);
+its existence and its ~425 tagged ads are the demand proof. Not a business we
+compete with so much as a keyword surface we will outrank with data.
+
+### Outplacement (Grass & Partner, Alixio Mobility, LHH, Right Management, von Rohr, Dr. Nadig, Mangold)
+
+- **How they make money:** CHF 10,000–25,000 per person, paid by the FORMER
+  employer, customary and often contractual in Swiss redundancy social plans;
+  annual contracts with minimum terms at the big firms.
+- **How they grew:** relationship sales to HR departments over decades; the
+  market was described by hrtoday as "träge" (sluggish) and forced into
+  modernization by von Rundstedt's entry with flexible pricing and tooling.
+- **What this means for us:** a sluggish, tooling-poor, high-price service
+  industry whose unit economics make a CHF 100–150/month counselor seat
+  invisible. Buyers, not competitors, and the NZZ-documented pain ("employers
+  want a clone of the predecessor") is literally what adjacency measurement
+  answers.
+
+### The pattern across all of them
+
+Everyone monetizes EMPLOYERS (listings, data licenses, outplacement mandates);
+nobody monetizes measurement for the individual, and nobody sells the employer
+the answer to "who could do this job that never applied." The revenue in this
+market flows B2B, which is exactly where our plan points.
+
+## Scraping and data-acquisition option analysis (2026-08-02)
+
+| option | volume | cost | legal/terms posture | effort | verdict |
+|---|---|---|---|---|---|
+| **Careerjet CH locales** | unknown; careerjet.ch aggregates broadly | free (existing key) | terms make re-display the INTENDED use; we already comply (click-tracker attribution) | **config-only: add de_CH/fr_CH/en_CH to an adapter that runs tonight** | **do first, day one** |
+| **Job-Room API** (arbeit.swiss) | mandated coverage in shortage occupations via Stellenmeldepflicht | free | government portal, documented API; read-access terms to confirm with SECO | one email + an adapter | **do first, in parallel** |
+| **Direct ATS crawl** (Greenhouse/Lever/Ashby CH offices + SwissDevJobs-listed employers) | thin but full-text (skills!) | free | already our model; public JSON endpoints | token curation | do; feeds the SKILL side |
+| **Apify bridge scrapers** (arbeit.swiss, JobScout24) | 10k+ plausible | ~usage-priced (small) | third-party scrapers of public listings; fine for VALIDATION, not for permanent re-display | hours | volume validation only, weeks 1–2 |
+| **x28 API** | ~250k, the ceiling | commercial; institutional pricing unknown; our cap CHF ~300/mo may not reach it | clean (licensed) | one integration | fallback if free path fails the day-14 gate; also a partnership conversation, not just a purchase |
+| **jobs.ch / JobCloud scraping** | high | free | against ToS of the market's establishment and our plausible future partner; CH unfair-competition law (UWG) risk on systematic re-use | — | **refused** |
+| **Jobich / aggregator re-scrape** | high | free | scraping an aggregator = syndication echo + double-attribution mess | — | refused (same rule as everywhere) |
+
+**Recommended sequence:** Careerjet CH locales tonight (config), SECO email day
+one, ATS tokens for Swiss tech this week, one Apify volume probe to calibrate
+the day-14 gate, x28 only if the gate fails. Note the skill-quality caveat from
+docs/31 applies in Switzerland too: Careerjet delivers EXCERPTS, so it feeds
+counts and salaries; full-text skill profiles come from the ATS crawl and, if
+granted, Job-Room.
