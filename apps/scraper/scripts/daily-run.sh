@@ -85,7 +85,7 @@ python3 "$REPO/apps/scraper/scripts/build-outreach-targets.py" >> "$LOG" 2>&1 ||
 python3 "$REPO/apps/scraper/scripts/build-lastmod.py" >> "$LOG" 2>&1 || echo "build-lastmod failed (non-fatal)" >> "$LOG"
 
 # Web build + the link-integrity gate before anything is committed.
-( cd "$REPO/apps/web" && npm run build >> "$LOG" 2>&1 && npm run --silent check:links >> "$LOG" 2>&1 ) || {
+( cd "$REPO/apps/web" && npm run build >> "$LOG" 2>&1 && npm run --silent check:links >> "$LOG" 2>&1 && node "$REPO/apps/web/scripts/report-check.mjs" >> "$LOG" 2>&1 ) || {
   echo "WEB BUILD or LINK GATE FAILED — aborting publish" >> "$LOG"; date > "$MARKER"; exit 2; }
 
 # ── Publish: auto-commit the regenerated data, push -> Vercel deploys ────────

@@ -365,7 +365,12 @@ function pageSalary(d) {
 
 /* ── document ─────────────────────────────────────────────────────────── */
 export function renderRoadmapHTML(d) {
-  return `<!doctype html><html><head><meta charset="utf-8">
+  // Final pass: em dashes are banned from the reader-facing document (founder
+  // rule, 2026-08-01). Every upstream source is already clean, but the harness
+  // caught one arriving via the curated-course DATA, which proves upstream
+  // discipline alone cannot hold the line. Normalized here, at the last exit.
+  // En dashes (ranges like 12\u201324) are a different character and untouched.
+  const out = `<!doctype html><html><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -558,4 +563,5 @@ export function renderRoadmapHTML(d) {
 </style></head><body>
 ${pageCover(d)}${pageDecoded(d)}${pageHuman(d)}${pagePlan(d)}${pageEvidence(d)}${pageTimeline(d)}${pageSalary(d)}${pageSummary(d)}
 </body></html>`;
+  return out.replace(/ \u2014 /g, ', ').replace(/\u2014/g, ',');
 }
