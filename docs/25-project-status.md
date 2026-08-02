@@ -6,6 +6,14 @@
 
 ## Shipped
 
+### The route-report PDF — LIVE end to end (2026-08-01)
+- **The full loop works in production**: graph → /api/roadmap → AI chain → 8-page PDF → Postmark → inbox, with BCC to the founder. Runs on Vercel's FREE tier (Fluid compute, maxDuration 300, chromium traced into the function — three layers of tracing bugs fixed to get there).
+- **The AI chain**: shared facts → interpret (form a view, never rendered) → write (TWO parallel halves, narrate + plan) → review (opt-out) → scrub → layout trim. Root cause of every ai=false: the model's THINKING block was silently eating max_tokens — fixed with thinking:{type:'disabled'}. ai_error column in roadmap_leads names every failure since.
+- **Content**: role context, honest difficulty verdict, interview script, first-90-days, curated courses (30 skills, hand-verified links + hand-written artifacts in `skill-resources.json`), onward routes (≥30% floor), stepping-stone bridge (<35% routes), entry-vs-senior pay, one-page summary. Voice rule: warmth through candour; em dashes banned and normalized at the renderer exit.
+- **Bridged-route honesty**: synthesized waterfalls now sum to the real match (was a hardcoded 62/38 that contradicted the cover); "read from 0 live postings" replaced with "estimated via a bridging route".
+- **The report gold set** (`apps/web/scripts/report-check.mjs`): 4 payload shapes × 10 invariants, every one a shipped bug frozen as a test; wired into BOTH nightly publish gates next to check:links. Caught a real bug (em dashes in curated data) on its first run.
+- Nav: "Post a job" black box → bold "Join the waitlist" text. Also: nightly ran twice (laptop + cloud) and collided — retire the laptop job.
+
 ### Data pipeline & quality
 - **Scrape → normalize → aggregate → score → emit** pipeline, 15 keyless sources; local-first NDJSON, optional Supabase mirror.
 - **Cross-tier classification fix** (the dental-hygienist lesson): head-noun + next-token guard in the title matcher — "Physician Assistant" ≠ physician. Taxonomy synonym sweep (cross-tier, magnets → exactOnly, dedup).
