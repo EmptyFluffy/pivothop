@@ -16,13 +16,29 @@ import { stripHtml } from '../lib/text.js';
 export const name = 'careerjet';
 
 const ENDPOINT = 'https://search.api.careerjet.net/v4/query';
-// LATAM locales; salary_currency_code in the response overrides this per-job.
+// Locales, each with its own currency default and its own keyword sweep — the
+// API needs a query, and a German sweep run against Mexico would only burn the
+// rate limit. salary_currency_code in the response overrides ccy per-job.
+//
+// SWITZERLAND (added 2026-08-02, the Swiss pivot's first corpus source): the
+// adapter and key already existed for LATAM; Careerjet operates careerjet.ch
+// with German and French locales, and its terms make re-display the intended
+// use — the same reason it was chosen for LATAM. Excerpt-length descriptions,
+// so this feeds COUNTS and SALARIES; skill profiles come from full-text sources
+// (docs/31's lesson, unchanged by geography). en_CH may not exist as a locale;
+// if the API rejects it, the catch below skips it silently and de/fr carry CH.
+const LATAM_TERMS = ['developer', 'designer', 'marketing', 'ventas', 'engineer', 'analyst', 'product'];
+const CH_DE_TERMS = ['informatiker', 'entwickler', 'ingenieur', 'pflege', 'techniker', 'verkauf', 'marketing', 'buchhaltung', 'projektleiter', 'quereinsteiger'];
+const CH_FR_TERMS = ['développeur', 'ingénieur', 'infirmier', 'technicien', 'vente', 'comptable', 'chef de projet'];
+const CH_EN_TERMS = ['engineer', 'developer', 'designer', 'analyst', 'product manager', 'consultant'];
 const LOCALES = [
-  { code: 'es_MX', ccy: 'MXN' }, { code: 'pt_BR', ccy: 'BRL' }, { code: 'es_AR', ccy: 'ARS' },
-  { code: 'es_CO', ccy: 'COP' }, { code: 'es_CL', ccy: 'CLP' }, { code: 'es_PE', ccy: 'PEN' },
+  { code: 'es_MX', ccy: 'MXN', terms: LATAM_TERMS }, { code: 'pt_BR', ccy: 'BRL', terms: LATAM_TERMS },
+  { code: 'es_AR', ccy: 'ARS', terms: LATAM_TERMS }, { code: 'es_CO', ccy: 'COP', terms: LATAM_TERMS },
+  { code: 'es_CL', ccy: 'CLP', terms: LATAM_TERMS }, { code: 'es_PE', ccy: 'PEN', terms: LATAM_TERMS },
+  { code: 'de_CH', ccy: 'CHF', terms: CH_DE_TERMS },
+  { code: 'fr_CH', ccy: 'CHF', terms: CH_FR_TERMS },
+  { code: 'en_CH', ccy: 'CHF', terms: CH_EN_TERMS },
 ];
-// A field-spanning keyword sweep (the API needs a query; empty returns little).
-const TERMS = ['developer', 'designer', 'marketing', 'ventas', 'engineer', 'analyst', 'product'];
 const PERIOD = { Y: 'year', M: 'month', W: 'week', D: 'day', H: 'hour' };
 
 function postedDate(s) {
@@ -37,8 +53,8 @@ export async function fetchRaw({ log }) {
   const auth = `Basic ${Buffer.from(`${key}:`).toString('base64')}`;
 
   const byId = new Map();
-  for (const { code, ccy } of LOCALES) {
-    for (const kw of TERMS) {
+  for (const { code, ccy, terms } of LOCALES) {
+    for (const kw of terms) {
       const url = `${ENDPOINT}?locale_code=${code}&keywords=${encodeURIComponent(kw)}`
         + `&page_size=100&sort=date&user_ip=1.1.1.1&user_agent=${encodeURIComponent('PivotHopScraper/0.1')}`;
       const body = await fetchJson(url, {
@@ -69,6 +85,7 @@ export async function fetchRaw({ log }) {
     }
   }
   const rows = [...byId.values()];
-  log(`careerjet: ${rows.length} distinct LATAM postings from ${LOCALES.length} locales`);
+  const ch = rows.filter((r) => r.currency === 'CHF').length;
+  log(`careerjet: ${rows.length} distinct postings from ${LOCALES.length} locales (${ch} CHF/Swiss)`);
   return rows;
 }

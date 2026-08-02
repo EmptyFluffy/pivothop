@@ -16,7 +16,7 @@ const RULES = [
   ['PL', /\b(poland|warsaw|krakow|kraków|wroclaw)\b/i],
   ['CZ', /\b(czech|prague)\b/i],
   ['AT', /\b(austria|vienna)\b/i],
-  ['CH', /\b(switzerland|zurich|zürich|geneva)\b/i],
+  ['CH', /\b(switzerland|schweiz|suisse|svizzera|zurich|zürich|geneva|genève|genf|basel|bâle|bern[e]?|lausanne|winterthur|luzern|lucerne|st\.? ?gallen|lugano|zug|aargau|thurgau|vaud|wallis|valais|tessin|ticino|graubünden|fribourg|solothurn|schaffhausen)\b/i],
   ['SE', /\b(sweden|stockholm)\b/i],
   ['NO', /\b(norway|oslo)\b/i],
   ['DK', /\b(denmark|copenhagen)\b/i],
