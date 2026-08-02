@@ -11,8 +11,10 @@ function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
  * Polite JSON fetch: disk cache (default 20h TTL), per-host rate limit, retry on 429/5xx.
  * Returns parsed JSON, or null on 404. Throws on persistent failure.
  */
-export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minIntervalMs = 1100, retries = 3 } = {}) {
-  const key = crypto.createHash('sha1').update(url).digest('hex');
+export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minIntervalMs = 1100, retries = 3, method = 'GET', body = undefined } = {}) {
+  // POST support (jobroom's search endpoint). The body joins the cache key so
+  // two different queries to one URL can never serve each other's cache.
+  const key = crypto.createHash('sha1').update(url + (body ? `|${body}` : '')).digest('hex');
   const cacheFile = path.join(CACHE_DIR, key + '.json');
   if (fs.existsSync(cacheFile)) {
     const age = Date.now() - fs.statSync(cacheFile).mtimeMs;
@@ -32,7 +34,7 @@ export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minInt
     try {
       // Hard timeout: a dead socket must fail and retry, never wedge the run
       // (an untimed fetch once hung the nightly bot for an hour, mid-source).
-      res = await fetch(url, { headers: { accept: 'application/json', ...headers }, signal: AbortSignal.timeout(45000) });
+      res = await fetch(url, { method, body, headers: { accept: 'application/json', ...headers }, signal: AbortSignal.timeout(45000) });
     } catch (err) {
       if (attempt >= retries) throw err;
       await sleep(2000 * (attempt + 1));
@@ -50,16 +52,16 @@ export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minInt
       continue;
     }
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-    let body;
+    let resBody;
     try {
-      body = await res.json();
+      resBody = await res.json();
     } catch (err) {
       if (attempt >= retries) throw err;
       await sleep(2000 * (attempt + 1));
       continue;
     }
     fs.mkdirSync(CACHE_DIR, { recursive: true });
-    fs.writeFileSync(cacheFile, JSON.stringify({ body }));
-    return body;
+    fs.writeFileSync(cacheFile, JSON.stringify({ body: resBody }));
+    return resBody;
   }
 }

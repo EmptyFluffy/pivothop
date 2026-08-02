@@ -347,3 +347,54 @@ Settled with the founder; not to be re-litigated without new evidence.
   career portal), cantonal RAV pages, university career services, hrtoday /
   Handelszeitung. Few but mighty, reachable in German in person — Nadine's
   channel, earned by the Swiss launch data-post.
+
+
+---
+
+## Day one, executed (2026-08-02)
+
+**Job-Room is live in the pipeline.** The portal's own public search endpoint
+(`job-room.ch/jobadservice/api/jobAdvertisements/_search`) serves published ads
+keyless: **71,702 on first probe**, full-text descriptions, language-tagged
+(overwhelmingly German, confirming the miner priority), official AVAM occupation
+codes on every ad, canton codes, and the Stellenmeldepflicht flag. The adapter
+(`sources/jobroom.js`) ingests nightly with polite paging and a hard page cap;
+`avam_code` and `lang` are stored verbatim, because one AVAM-to-taxonomy
+crosswalk will beat parsing German compounds title by title, and the data for it
+accrues from tonight.
+
+This **passes the day-14 corpus gate (≥10k) by 7x on day zero.** The formal SECO
+channel is still worth the email, for blessing and stability; the draft below is
+ready for the partner to send.
+
+**Careerjet correction:** the adapter existed but the key never did — it has
+been skipping silently since it was written. Founder signup at
+careerjet.com/partners (free), then `CAREERJET_API_KEY` in `.env` (laptop) and
+in the GitHub Actions secrets, plus IP allow-listing. With Job-Room live,
+Careerjet drops from "first source" to "nice supplementary" and the laptop
+retirement is unblocked once we confirm a few Job-Room nights.
+
+### SECO email draft (for the partner to send, adjust freely)
+
+> **An:** jobroom-api@seco.admin.ch
+> **Betreff:** Anfrage Lesezugriff Job-Room API, Arbeitsmarkt-Analyse
+>
+> Guten Tag
+>
+> Wir bauen mit PivotHop (pivothop.ch, Schweizer Firma in Gründung) ein
+> Analyse-Instrument für Berufswechsel: Es misst anhand echter Stellendaten,
+> welche Berufe die vorhandenen Kompetenzen einer Person bereits erreichen,
+> und was konkret fehlt. Zielgruppen sind Stellensuchende, Berufsberatung und
+> Outplacement.
+>
+> Dafür möchten wir publizierte Stellenanzeigen aus dem Job-Room auswerten
+> (reiner Lesezugriff, aggregierte Analyse, tägliche Aktualisierung, keine
+> Weitergabe von Personendaten). Die API-Dokumentation unter api.job-room.ch
+> beschreibt primär den Publikationskanal für Arbeitgeber; uns interessiert der
+> korrekte, von Ihnen vorgesehene Weg für Lesezugriff.
+>
+> Können Sie uns sagen, welche Nutzungsbedingungen gelten und ob ein formeller
+> Zugang möglich ist? Wir richten uns selbstverständlich nach Ihren Vorgaben.
+>
+> Freundliche Grüsse
+> [Nadine], PivotHop

@@ -27,7 +27,7 @@ import { redditTransitions } from './analyze/reddit-transitions.js';
 loadEnv();
 const log = (...a) => console.log(...a);
 
-const SOURCES = ['remotive', 'remoteok', 'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'arbeitnow', 'jobicy', 'themuse', 'himalayas', 'getonbrd', 'careerjet', 'adzuna', 'usajobs', 'reed'];
+const SOURCES = ['remotive', 'remoteok', 'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'arbeitnow', 'jobicy', 'themuse', 'himalayas', 'getonbrd', 'careerjet', 'adzuna', 'usajobs', 'reed', 'jobroom'];
 
 // Fault-isolated ingest: each source runs in its own try/catch so one dead API,
 // timeout, or schema change can't sink the run — the failure is logged and the
