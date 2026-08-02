@@ -316,3 +316,34 @@ the day-14 gate, x28 only if the gate fails. Note the skill-quality caveat from
 docs/31 applies in Switzerland too: Careerjet delivers EXCERPTS, so it feeds
 counts and salaries; full-text skill profiles come from the ATS crawl and, if
 granted, Job-Room.
+
+
+---
+
+## Architecture decision: one corpus, sliced, honestly labeled (2026-08-02)
+
+Settled with the founder; not to be re-litigated without new evidence.
+
+- **One corpus, one engine.** The CH edition is a country slice of the shared
+  corpus, not a fork. Lexicon, taxonomy, extraction, graph, gates, PDF: shared.
+- **Demand weights are per-market where the sample allows.** Skill
+  RELATIONSHIPS are universal; the 100-point demand WEIGHTS drift by market
+  (language requirements, SAP prevalence, local regulation). Per-occupation:
+  compute Swiss weights once the CH slice clears the existing sample floor,
+  else fall back to the global profile, LABELED as global. Same
+  insufficient-data discipline, one more dimension.
+- **Licence gates get a CH overlay** from the SBFI reglementierte-Berufe list;
+  the US licensing map does not transfer.
+- **Mobility** stays geography-labeled (as today with mobility_eu); BFS open
+  data upgrades it later without architectural change. **Salaries** per-country
+  via Salarium.
+- **Language is de-CH, never dialect and never de-DE:** no ß (always ss),
+  "Lohn" not "Gehalt", "Ferien" not "Urlaub". Nadine reviews all German copy —
+  the native eye is the quality gate.
+- **The Swiss cross is regulated** (Swissness Act): permitted for services when
+  HQ and administration are in Switzerland — the GmbH earns the flag; until
+  then, "Schweizer Ausgabe" as text.
+- **Backlink surface is institutional:** berufsberatung.ch (official national
+  career portal), cantonal RAV pages, university career services, hrtoday /
+  Handelszeitung. Few but mighty, reachable in German in person — Nadine's
+  channel, earned by the Swiss launch data-post.
