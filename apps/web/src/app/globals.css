@@ -121,9 +121,15 @@
   .searchbar{display:grid;grid-template-columns:var(--railw) 1px 1fr 250px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--card);height:78px}
   .sfield{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 24px;min-width:0;cursor:text;position:relative;transition:background var(--dur) var(--ease)}
   .sfield::after{content:"";position:absolute;left:24px;right:24px;bottom:-1px;height:2px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .24s var(--ease)}
-  .sfield:hover{background:var(--paper-2)}
   .sfield:focus-within{background:var(--paper-2)}
   .sfield:focus-within::after{transform:scaleX(1)}
+  /* Hover explainer: same plate language as the graph's hop tip (.hop-tip) —
+     ink box, caret arrow. Below the field (above would slide under the sticky
+     nav), delayed so a passing cursor never flashes it, gone once typing. */
+  .s-tip{position:absolute;z-index:8;top:calc(100% + 10px);left:24px;width:max-content;max-width:250px;background:var(--ink);color:var(--paper);font-family:var(--sans);font-weight:500;font-size:12.5px;line-height:1.45;letter-spacing:0;padding:9px 13px;border-radius:7px;box-shadow:0 6px 18px rgba(21,21,26,.22);pointer-events:none;opacity:0;transform:translateY(-2px);transition:opacity .16s var(--ease),transform .16s var(--ease)}
+  .s-tip::after{content:"";position:absolute;left:22px;top:-5px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid var(--ink)}
+  .sfield:hover .s-tip{opacity:1;transform:none;transition-delay:.4s}
+  .sfield:focus-within .s-tip{opacity:0;transition-delay:0s}
   .sfield .l{transition:color var(--dur) var(--ease)}
   .sfield:focus-within .l{color:var(--ink)}
   .sfield:focus-within input::placeholder{opacity:.35}

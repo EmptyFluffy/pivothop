@@ -820,7 +820,13 @@ export function mountInstrument(DATA,HOOKS){
   function showHopTag(n){
     if(!el.hopTag)return;
     var ctm=SVG.getScreenCTM();if(!ctm)return;
-    var pt=SVG.createSVGPoint();pt.x=n.x;pt.y=n.y-nodeRadius(n)-4;
+    /* Anchor on the label text, not the dot: the label is what the eye reads
+       (and the generous hit target), so the cue belongs to it. Cached lx/ly/lblH
+       only — nothing is measured here (non-negotiable #1). Dot is the fallback
+       for the rare frame before a label has settled. */
+    var pt=SVG.createSVGPoint();
+    if(n.lx!=null&&n.lblH!=null){pt.x=n.lx;pt.y=n.ly-n.lblH/2-6;}
+    else{pt.x=n.x;pt.y=n.y-nodeRadius(n)-4;}
     var sp=pt.matrixTransform(ctm);
     var sr=document.getElementById('stage').getBoundingClientRect();
     el.hopTag.style.left=(sp.x-sr.left)+'px';

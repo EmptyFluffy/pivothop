@@ -53,28 +53,28 @@ export function SiteFooter() {
           <ul>
             <li><Link href="/#how">Method</Link></li>
             <li><Link href="/jobs">Job board</Link></li>
+            <li><Link href="/jobs/browse">Browse jobs</Link></li>
             <li><Link href="/routes">Career routes</Link></li>
             <li><Link href="/compare">Compare careers</Link></li>
-            <li><Link href="/adjacency-index">Adjacency Index</Link></li>
             <li><Link href="/salary">Salaries</Link></li>
             <li><a href="/fairelephant">FairElephant <ArrowIco /></a></li>
-            <li><a href="#">API (soon)</a></li>
           </ul>
         </div>
         <div>
           <h5>Resources</h5>
           <ul>
             <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/adjacency-index">Adjacency Index</Link></li>
+            <li><Link href="/glossary">Glossary &amp; sources</Link></li>
             <li><Link href="/#faq">FAQ</Link></li>
-            <li><Link href="/glossary">Glossary</Link></li>
           </ul>
         </div>
         <div>
           <h5>Company</h5>
           <ul>
             <li><Link href="/about">About us</Link></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><Link href="/employers">For employers</Link></li>
+            <li><a href="mailto:hello@pivothop.com">Contact</a></li>
           </ul>
         </div>
       </footer>
