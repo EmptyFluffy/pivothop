@@ -971,10 +971,21 @@ input:focus-visible{outline:none}
 .post-faq{margin-top:36px;border-top:1px solid var(--ink);padding-top:18px}
 .post-faq h2{font-family:var(--sans);font-weight:600;font-size:17px;margin-bottom:10px}
 .post-faq details{border-bottom:0.5px solid var(--rule)}
-.post-faq summary{cursor:pointer;font-size:14.5px;font-weight:500;padding:12px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
-.post-faq summary::after{content:"+";font-family:var(--mono);color:var(--ink-3)}
-.post-faq details[open] summary::after{content:"\2212"}
+.post-faq summary{cursor:pointer;font-size:14.5px;font-weight:500;padding:12px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;transition:color .15s}
+.post-faq summary::-webkit-details-marker{display:none}
+.post-faq summary::after{content:"";flex:none;width:12px;height:12px;margin-left:12px;color:var(--ink-3);background:linear-gradient(currentColor,currentColor) center/12px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 12px no-repeat;transition:transform .34s var(--ease),background-size .2s ease,color .15s}
+.post-faq summary:hover{color:var(--accent)}
+.post-faq summary:hover::after{color:var(--accent)}
+.post-faq details[open] summary::after{transform:rotate(90deg);background-size:12px 1.5px,1.5px 0}
 .post-faq details p{font-size:14px;line-height:1.6;color:var(--ink-2);padding:0 0 14px;max-width:62ch}
+/* same motion as the landing FAQ; ::details-content rules stay standalone —
+   grouping them with any other selector drops the whole rule in browsers that
+   don't know the pseudo */
+.post-faq{interpolate-size:allow-keywords}
+.post-faq details::details-content{block-size:0;overflow:clip;transition:block-size .34s var(--ease),content-visibility .34s allow-discrete}
+.post-faq details[open]::details-content{block-size:auto}
+.post-faq details p{opacity:0;transform:translateY(-4px);transition:opacity .3s var(--ease) .08s,transform .3s var(--ease) .08s}
+.post-faq details[open] p{opacity:1;transform:none}
 
 /* ── post visual components (per docs/16 playbook: a visual break every 300-400 words) ── */
 .post-table{width:100%;border-collapse:collapse;margin:18px 0 22px;font-size:13.5px}

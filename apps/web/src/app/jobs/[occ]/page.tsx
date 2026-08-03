@@ -308,7 +308,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
         <div className="post-faq rt-faq">
           <h2>Quick answers</h2>
           {faq.map((f) => (
-            <details key={f.q}><summary>{f.q}</summary><p>{f.jsx}</p></details>
+            <details key={f.q} name="pagefaq"><summary>{f.q}</summary><p>{f.jsx}</p></details>
           ))}
         </div>
 

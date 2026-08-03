@@ -59,7 +59,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <div className="post-faq">
               <h2>Quick answers</h2>
               {post.faq.map((f) => (
-                <details key={f.q}>
+                <details key={f.q} name="pagefaq">
                   <summary>{f.q}</summary>
                   <p>{f.a}</p>
                 </details>

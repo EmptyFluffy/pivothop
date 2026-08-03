@@ -238,7 +238,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         {def.faq.length > 0 && (
           <div className="post-faq rt-faq">
             <h2>Quick answers</h2>
-            {def.faq.map((q) => (<details key={q.q}><summary>{q.q}</summary><p>{q.a}</p></details>))}
+            {def.faq.map((q) => (<details key={q.q} name="pagefaq"><summary>{q.q}</summary><p>{q.a}</p></details>))}
           </div>
         )}
 

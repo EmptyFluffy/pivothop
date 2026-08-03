@@ -177,7 +177,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           <div className="post-faq rt-faq">
             <h2>Quick answers</h2>
             {def.faq.map((f) => (
-              <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>
+              <details key={f.q} name="pagefaq"><summary>{f.q}</summary><p>{f.a}</p></details>
             ))}
           </div>
         )}
@@ -414,7 +414,7 @@ function OriginPage({ origin }: { origin: string }) {
         <div className="post-faq rt-faq">
           <h2>Quick answers</h2>
           {faq.map((f) => (
-            <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>
+            <details key={f.q} name="pagefaq"><summary>{f.q}</summary><p>{f.a}</p></details>
           ))}
         </div>
 
