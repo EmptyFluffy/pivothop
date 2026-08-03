@@ -167,7 +167,7 @@ async function extract(prompt, cacheKeyParts) {
 // Kundig to JazzHR, NBBJ to Jobvite. The job list is never on the page we were
 // pointed at, which is why extraction kept returning an honest zero. So when a
 // careers page names one of these, the adapter FOLLOWS it and reads there.
-const ATS_HINT = /myworkdayjobs\.com|teamtailor\.com|jobs\.personio|bamboohr\.com|homerun\.co|pinpointhq\.com|applytojob\.com|jobvite\.com|icims\.com|breezy\.hr|avature\.net|dayforcehcm\.com|successfactors\.|sapsf\.|taleo\.net|eploy\.net|hirehive\.com|smartrecruiters\.com|greenhouse\.io|lever\.co|ashbyhq\.com|recruitee\.com|workable\.com/;
+const ATS_HINT = /myworkdayjobs\.com|teamtailor\.com|jobs\.personio|bamboohr\.com|homerun\.co|pinpointhq\.com|applytojob\.com|jobvite\.com|icims\.com|breezy\.hr|avature\.net|dayforcehcm\.com|successfactors\.|sapsf\.|taleo\.net|eploy\.net|hirehive\.com|smartrecruiters\.com|greenhouse\.io|lever\.co|ashbyhq\.com|recruitee\.com|workable\.com|recruiting\.paylocity\.com|careers\.hibob\.com/;
 
 function links(html, baseUrl) {
   const out = [];
@@ -239,6 +239,11 @@ export async function fetchRaw({ log }) {
       let kept = 0;
       for (const j of jobs) {
         if (!j.url || !j.title) continue;
+        // The listing page is not a posting. When a studio renders all its
+        // openings inline, the model has no per-job URL to give and hands back
+        // the page it was shown; that row would key its external_id to a URL
+        // that changes meaning every time the page changes.
+        if (j.url.replace(/\/$/, '') === pageUrl.replace(/\/$/, '')) continue;
         if (!(await allowed(j.url))) continue;
         const jobPage = await renderGet(j.url);
         const jobText = jobPage ? jobPage.text.slice(0, 20000) : stripHtml((await politeGet(j.url)) || '').slice(0, 20000);
