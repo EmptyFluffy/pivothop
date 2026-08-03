@@ -10,8 +10,8 @@ export const name = 'greenhouse';
 
 function extractSalary(text) {
   // Pay-transparency ranges are the highest-quality salary signal in any feed.
-  const m = text.match(/(?:salary|pay|compensation|base)[^.\n]{0,80}?\$\s?([\d,]{4,11})(?:\s?[-–—to]{1,3}\s?\$?\s?([\d,]{4,11}))?/i)
-    || text.match(/\$\s?([\d,]{6,11})\s?[-–—]\s?\$?\s?([\d,]{6,11})/);
+  const m = text.match(/(?:salary|pay|compensation|base)[^\n]{0,80}?\$\s?([\d,]{4,11})(?:\.\d{2})?(?:\s?(?:[-–—]|to){1,3}\s?\$?\s?([\d,]{4,11})(?:\.\d{2})?)?/i)
+    || text.match(/\$\s?([\d,]{6,11})(?:\.\d{2})?\s?[-–—]\s?\$?\s?([\d,]{6,11})(?:\.\d{2})?/);
   if (!m) return null;
   const parsed = parseSalaryString(m[0]);
   if (!parsed || parsed.max < 20000 || parsed.max > 2000000) return null;
