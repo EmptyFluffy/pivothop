@@ -5,11 +5,11 @@
     "title": "GIS Analyst",
     "field": "Technology",
     "cluster": "Technology",
-    "postings": 222,
+    "postings": 237,
     "salary": "$65k–$90k",
     "salary_band": [
-      63665,
-      90929
+      63755,
+      90052
     ],
     "remote": "1%",
     "separations": {
@@ -28,17 +28,17 @@
       "kind": "pivot",
       "license": null,
       "desc": "Turns spatial data into maps and models, from survey to screen. Overlaps GIS but centered on the map itself.",
-      "match": 55,
-      "fit": 55,
+      "match": 49,
+      "fit": 49,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$85k–$115k",
+      "salary": "$80k–$115k",
       "salary_band": [
-        82558,
-        113570
+        81778,
+        114170
       ],
       "demand": "Low",
       "remote": "3%",
@@ -50,45 +50,261 @@
       ],
       "learn": [
         "QA / Testing",
-        "Statistics"
+        "Statistics",
+        "Business Development",
+        "ETL"
       ],
       "waterfall": [
         {
           "skill": "gis",
           "name": "GIS",
-          "pts": 47.1,
-          "earned": 47.1
+          "pts": 42.2,
+          "earned": 42.2
         },
         {
           "skill": "point-cloud",
           "name": "Point Cloud / Scanning",
-          "pts": 20.6,
-          "earned": 2.4
+          "pts": 15.6,
+          "earned": 2.2
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 14.7,
-          "earned": 5.2
+          "pts": 15.6,
+          "earned": 4.1
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 8.8,
+          "pts": 6.7,
           "earned": 0
         },
         {
           "skill": "statistics",
           "name": "Statistics",
-          "pts": 8.8,
+          "pts": 6.7,
+          "earned": 0
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 6.7,
+          "earned": 0
+        },
+        {
+          "skill": "etl",
+          "name": "ETL",
+          "pts": 6.7,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 30,
-        "salaried": 27
+        "postings": 34,
+        "salaried": 30
+      }
+    },
+    {
+      "id": "drone-pilot",
+      "title": "Drone Pilot",
+      "field": "Transport",
+      "cluster": "Transport",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Flies uncrewed aircraft for survey, inspection, film, and delivery. Commercial work requires a remote-pilot certificate.",
+      "match": 26,
+      "fit": 26,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$75k–$120k",
+      "salary_band": [
+        76886,
+        120311
+      ],
+      "demand": "Moderate",
+      "remote": "13%",
+      "time": "12–24 mo",
+      "have": [
+        "Point Cloud / Scanning",
+        "GIS",
+        "Emergency Response",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Aviation Operations",
+        "Flight Operations",
+        "Video Editing",
+        "Air Traffic Control"
+      ],
+      "waterfall": [
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 16.7,
+          "earned": 0
+        },
+        {
+          "skill": "point-cloud",
+          "name": "Point Cloud / Scanning",
+          "pts": 16.7,
+          "earned": 5.4
+        },
+        {
+          "skill": "flight-operations",
+          "name": "Flight Operations",
+          "pts": 15.1,
+          "earned": 0
+        },
+        {
+          "skill": "video-editing",
+          "name": "Video Editing",
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "air-traffic-control",
+          "name": "Air Traffic Control",
+          "pts": 9.1,
+          "earned": 0
+        },
+        {
+          "skill": "videography",
+          "name": "Videography",
+          "pts": 7.6,
+          "earned": 0
+        },
+        {
+          "skill": "gis",
+          "name": "GIS",
+          "pts": 7.6,
+          "earned": 7.6
+        },
+        {
+          "skill": "photography",
+          "name": "Photography",
+          "pts": 4.5,
+          "earned": 0
+        },
+        {
+          "skill": "emergency-response",
+          "name": "Emergency Response",
+          "pts": 4.5,
+          "earned": 3.8
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 4.5,
+          "earned": 4.5
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 4.5,
+          "earned": 4.5
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 120,
+        "salaried": 74
+      }
+    },
+    {
+      "id": "medical-writer",
+      "title": "Medical Writer",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 21,
+      "fit": 25,
+      "capability": 56,
+      "mobility": 10,
+      "mobility_source": "observed-flow-eu",
+      "mobility_eu": 10,
+      "mobility_tier": null,
+      "salary": "$70k–$130k",
+      "salary_band": [
+        69225,
+        129126
+      ],
+      "demand": "Moderate",
+      "remote": "5%",
+      "time": "12–24 mo",
+      "have": [
+        "Writing & Editing",
+        "Quality Control",
+        "Scheduling",
+        "Data Analysis"
+      ],
+      "learn": [
+        "Clinical Research",
+        "Operations",
+        "PLC / Controls",
+        "GCP"
+      ],
+      "waterfall": [
+        {
+          "skill": "clinical-research",
+          "name": "Clinical Research",
+          "pts": 35,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 7.3,
+          "earned": 0
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 7.3,
+          "earned": 6.8
+        },
+        {
+          "skill": "plc",
+          "name": "PLC / Controls",
+          "pts": 6.5,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 4.9,
+          "earned": 4.9
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 4.9,
+          "earned": 4.9
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 4.1,
+          "earned": 4.1
+        },
+        {
+          "skill": "gcp",
+          "name": "GCP",
+          "pts": 4.1,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 246,
+        "salaried": 174
       }
     },
     {
@@ -106,13 +322,13 @@
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$70k–$140k",
+      "salary": "$70k–$145k",
       "salary_band": [
-        70364,
-        141063
+        71000,
+        144645
       ],
       "demand": "Moderate",
-      "remote": "6%",
+      "remote": "7%",
       "time": "12–24 mo",
       "have": [
         "Data Analysis",
@@ -129,185 +345,75 @@
         {
           "skill": "statistics",
           "name": "Statistics",
-          "pts": 34.4,
+          "pts": 34.6,
           "earned": 0
         },
         {
           "skill": "clinical-research",
           "name": "Clinical Research",
-          "pts": 23.9,
+          "pts": 24.3,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 12.8,
-          "earned": 9.9
+          "pts": 13,
+          "earned": 9.8
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 5.6,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "research",
           "name": "Research",
-          "pts": 5.6,
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 3.3,
+          "pts": 3.2,
           "earned": 0
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 3.3,
-          "earned": 3.3
+          "pts": 3.2,
+          "earned": 3.2
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "sql",
           "name": "SQL",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "etl",
           "name": "ETL",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 2.8,
-          "earned": 2.8
+          "pts": 2.7,
+          "earned": 2.7
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 219,
-        "salaried": 154
-      }
-    },
-    {
-      "id": "drone-pilot",
-      "title": "Drone Pilot",
-      "field": "Transport",
-      "cluster": "Transport",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Flies uncrewed aircraft for survey, inspection, film, and delivery. Commercial work requires a remote-pilot certificate.",
-      "match": 22,
-      "fit": 22,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$80k–$120k",
-      "salary_band": [
-        81052,
-        119815
-      ],
-      "demand": "Moderate",
-      "remote": "14%",
-      "time": "12–24 mo",
-      "have": [
-        "Point Cloud / Scanning",
-        "GIS",
-        "Data Analysis",
-        "Writing & Editing"
-      ],
-      "learn": [
-        "Aviation Operations",
-        "Flight Operations",
-        "Video Editing",
-        "Air Traffic Control"
-      ],
-      "waterfall": [
-        {
-          "skill": "aviation-ops",
-          "name": "Aviation Operations",
-          "pts": 16.7,
-          "earned": 0
-        },
-        {
-          "skill": "flight-operations",
-          "name": "Flight Operations",
-          "pts": 15,
-          "earned": 0
-        },
-        {
-          "skill": "point-cloud",
-          "name": "Point Cloud / Scanning",
-          "pts": 13.3,
-          "earned": 5
-        },
-        {
-          "skill": "video-editing",
-          "name": "Video Editing",
-          "pts": 10,
-          "earned": 0
-        },
-        {
-          "skill": "air-traffic-control",
-          "name": "Air Traffic Control",
-          "pts": 10,
-          "earned": 0
-        },
-        {
-          "skill": "videography",
-          "name": "Videography",
-          "pts": 8.3,
-          "earned": 0
-        },
-        {
-          "skill": "gis",
-          "name": "GIS",
-          "pts": 6.7,
-          "earned": 6.7
-        },
-        {
-          "skill": "photography",
-          "name": "Photography",
-          "pts": 5,
-          "earned": 0
-        },
-        {
-          "skill": "emergency-response",
-          "name": "Emergency Response",
-          "pts": 5,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 5,
-          "earned": 5
-        },
-        {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 5,
-          "earned": 5
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 111,
-        "salaried": 68
+        "postings": 225,
+        "salaried": 157
       }
     },
     {
@@ -318,73 +424,73 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 12,
-      "fit": 21,
+      "match": 13,
+      "fit": 22,
       "capability": 46,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$70k–$170k",
+      "salary": "$75k–$170k",
       "salary_band": [
-        72430,
-        171837
+        72852,
+        171758
       ],
       "demand": "High",
       "remote": "4%",
       "time": "12–24 mo",
       "have": [
-        "Python",
         "Data Analysis",
+        "Python",
         "Quality Control"
       ],
       "learn": [
         "LLMs / Generative AI",
         "Machine Learning",
         "Deep Learning",
-        "LangChain / Agents"
+        "Supply Chain"
       ],
       "waterfall": [
         {
           "skill": "llm",
           "name": "LLMs / Generative AI",
-          "pts": 15.2,
+          "pts": 14.7,
           "earned": 0
         },
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 15,
+          "pts": 14.6,
           "earned": 0
-        },
-        {
-          "skill": "deep-learning",
-          "name": "Deep Learning",
-          "pts": 6.5,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 6.4,
-          "earned": 3.7
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 6.1,
-          "earned": 6.1
+          "pts": 7,
+          "earned": 7
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 6.7,
+          "earned": 3.6
+        },
+        {
+          "skill": "deep-learning",
+          "name": "Deep Learning",
+          "pts": 6.6,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 4.5,
+          "earned": 0
         },
         {
           "skill": "langchain",
           "name": "LangChain / Agents",
-          "pts": 4.4,
-          "earned": 0
-        },
-        {
-          "skill": "market-research",
-          "name": "Market Research",
-          "pts": 4.4,
+          "pts": 4.2,
           "earned": 0
         },
         {
@@ -394,39 +500,45 @@
           "earned": 0
         },
         {
-          "skill": "computer-vision",
-          "name": "Computer Vision",
+          "skill": "market-research",
+          "name": "Market Research",
           "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "clinical-research",
           "name": "Clinical Research",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "computer-vision",
+          "name": "Computer Vision",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "prototyping",
+          "name": "Prototyping",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
           "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "statistics",
           "name": "Statistics",
-          "pts": 3.2,
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "nlp",
+          "name": "NLP",
+          "pts": 2.7,
           "earned": 0
         },
         {
@@ -436,41 +548,35 @@
           "earned": 0
         },
         {
-          "skill": "nlp",
-          "name": "NLP",
-          "pts": 2.6,
-          "earned": 0
-        },
-        {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 2.6,
-          "earned": 2.6
+          "pts": 2.5,
+          "earned": 2.5
         },
         {
           "skill": "health-education",
           "name": "Health Education",
-          "pts": 2.6,
+          "pts": 2.5,
           "earned": 0
         },
         {
           "skill": "fine-tuning",
           "name": "Model Fine-tuning",
-          "pts": 2.4,
+          "pts": 2.2,
           "earned": 0
         },
         {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 2.4,
+          "skill": "product-management",
+          "name": "Product Management",
+          "pts": 2.2,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 686,
-        "salaried": 354
+        "postings": 756,
+        "salaried": 387
       }
     },
     {
@@ -481,25 +587,26 @@
       "kind": "lateral",
       "license": null,
       "desc": "Labels and rates the data that trains and aligns machine-learning models, including the human feedback behind modern AI.",
-      "match": 18,
-      "fit": 18,
+      "match": 17,
+      "fit": 17,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$65k–$130k",
+      "salary": "$60k–$130k",
       "salary_band": [
-        63354,
-        128995
+        61988,
+        128136
       ],
       "demand": "Moderate",
-      "remote": "12%",
+      "remote": "15%",
       "time": "12–24 mo",
       "have": [
         "Python",
         "Data Analysis",
-        "Writing & Editing"
+        "Writing & Editing",
+        "GIS"
       ],
       "learn": [
         "LLMs / Generative AI",
@@ -511,91 +618,121 @@
         {
           "skill": "llm",
           "name": "LLMs / Generative AI",
-          "pts": 27.9,
+          "pts": 22.9,
           "earned": 0
         },
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 15.4,
+          "pts": 12.9,
           "earned": 0
         },
         {
           "skill": "python",
           "name": "Python",
-          "pts": 10.6,
-          "earned": 6.3
+          "pts": 9.3,
+          "earned": 4.8
         },
         {
           "skill": "qa-testing",
           "name": "QA / Testing",
-          "pts": 9.6,
+          "pts": 7.9,
           "earned": 0
         },
         {
           "skill": "machine-learning",
           "name": "Machine Learning",
-          "pts": 7.7,
+          "pts": 6.4,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 6.7,
-          "earned": 6.7
+          "pts": 5,
+          "earned": 5
         },
         {
-          "skill": "writing",
-          "name": "Writing & Editing",
-          "pts": 4.8,
-          "earned": 4.8
-        },
-        {
-          "skill": "fact-checking",
-          "name": "Fact-Checking",
-          "pts": 4.8,
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "journalism",
           "name": "Journalism",
-          "pts": 4.8,
+          "pts": 5,
           "earned": 0
         },
         {
-          "skill": "teaching",
-          "name": "Teaching",
-          "pts": 3.8,
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 4.3,
+          "earned": 4.3
+        },
+        {
+          "skill": "fact-checking",
+          "name": "Fact-Checking",
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "prompt-engineering",
+          "name": "Prompt Engineering",
+          "pts": 4.3,
           "earned": 0
         },
         {
           "skill": "localization",
           "name": "Localization",
-          "pts": 3.8,
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "technical-writing",
+          "name": "Technical Writing",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "gis",
+          "name": "GIS",
+          "pts": 2.9,
+          "earned": 2.9
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 2.9,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 182,
-        "salaried": 44
+        "postings": 199,
+        "salaried": 51
       }
     }
   ],
   "next": {
     "cartographer": [],
-    "statistician": [],
     "drone-pilot": [],
+    "medical-writer": [],
+    "statistician": [],
     "research-scientist": [],
     "data-annotator": []
   },
   "direct": [],
   "cross": [
     [
+      "medical-writer",
+      "statistician",
+      0.43
+    ],
+    [
       "research-scientist",
       "data-annotator",
-      0.51
+      0.4
     ]
   ],
   "bridges": [],
