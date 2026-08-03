@@ -367,6 +367,18 @@ This **passes the day-14 corpus gate (≥10k) by 7x on day zero.** The formal SE
 channel is still worth the email, for blessing and stability; the draft below is
 ready for the partner to send.
 
+**Night one and the 10,000-row window (2026-08-03).** The first nightly pull
+stopped at exactly 10,000 of 71,320 ads: the backend is Elasticsearch with the
+default `max_result_window`, and page x size past 10,000 returns HTTP 412. Probed
+and fixed the same day: `cantonCodes` filters work and `x-total-count` reports
+slice sizes (ZH alone holds ~17k, so big cantons sub-slice by `permanent` and
+`workloadPercentageMin/Max`; the `sort` param is honored, so a slice that still
+exceeds the window gets a two-ended `date_desc` + `date_asc` read covering 20k).
+The adapter now runs a nightly two-pass: `onlineSince: 2` countrywide for fresh
+ads first, then a rotating canton sweep under a page budget — the full corpus is
+touched every couple of nights and nothing is silently dropped. Night one still
+banked +9,735 Swiss postings (94% German), taking the raw corpus to ~293k.
+
 **Careerjet correction:** the adapter existed but the key never did — it has
 been skipping silently since it was written. Founder signup at
 careerjet.com/partners (free), then `CAREERJET_API_KEY` in `.env` (laptop) and
