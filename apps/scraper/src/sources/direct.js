@@ -48,6 +48,58 @@ async function politeGet(url) {
   } catch { return null; }
 }
 
+/* RENDERING IS NOT OPTIONAL HERE. Measured 2026-08-03: a raw fetch of
+ * fosterandpartners.com/careers returns 73KB of app shell with zero job words —
+ * the listings arrive from a JS content API after load, so static HTML can never
+ * contain them. Every studio site in this list is a modern JS app; this is the
+ * difference between the adapter finding jobs and reporting a confident zero.
+ *
+ * One browser for the whole run, one page per site, closed in a finally. If
+ * Chromium cannot launch (a CI image without it), renderGet returns null and the
+ * caller falls back to politeGet — logged loudly, never a silent downgrade. */
+let browserPromise = null;
+async function getBrowser() {
+  if (browserPromise === null) {
+    browserPromise = (async () => {
+      try {
+        const { chromium } = await import('playwright');
+        return await chromium.launch();
+      } catch { return false; }
+    })();
+  }
+  return browserPromise;
+}
+
+async function renderGet(url) {
+  const browser = await getBrowser();
+  if (!browser) return null;
+  const host = new URL(url).host;
+  const wait = (lastHit.get(host) ?? 0) + 1500 - Date.now();
+  if (wait > 0) await sleep(wait);
+  lastHit.set(host, Date.now());
+  let page;
+  try {
+    page = await browser.newPage({ userAgent: UA });
+    const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    if (!res || res.status() >= 400) return null;
+    await page.waitForTimeout(2500); // let the client-side job list paint
+    const text = await page.evaluate(() => document.body.innerText);
+    // Links come from the LIVE DOM, so client-rendered anchors are included.
+    const links = await page.evaluate(() =>
+      [...document.querySelectorAll('a[href]')]
+        .map((a) => ({ href: a.href, label: (a.innerText || '').trim().slice(0, 120) }))
+        .filter((l) => /^https?:/.test(l.href)));
+    const html = await page.content();
+    return { text, links, html, url: page.url() };
+  } catch { return null; } finally { if (page) await page.close().catch(() => {}); }
+}
+
+export async function closeBrowser() {
+  const b = await (browserPromise ?? Promise.resolve(false));
+  if (b) await b.close().catch(() => {});
+  browserPromise = null;
+}
+
 /* Minimal robots.txt: collect Disallow prefixes under User-agent: * (and our
  * token), block on prefix match. Conservative — Allow overrides are ignored. */
 const robotsCache = new Map();
@@ -70,6 +122,22 @@ async function allowed(url) {
   return !robotsCache.get(u.origin).some((p) => u.pathname.startsWith(p));
 }
 
+/* Truncation-tolerant JSON. A response cut off mid-array is still worth every
+ * complete object it managed to emit — throwing away a whole studio because the
+ * 30th job was clipped is the wrong trade. Falls back to salvaging balanced
+ * {...} objects, which is exactly what a truncated {"jobs":[...]} leaves behind. */
+function parseLoose(text) {
+  const whole = text.match(/\{[\s\S]*\}/);
+  if (whole) { try { return JSON.parse(whole[0]); } catch { /* fall through to salvage */ } }
+  const objs = [];
+  for (const m of text.matchAll(/\{[^{}]*\}/g)) {
+    try { objs.push(JSON.parse(m[0])); } catch { /* skip the clipped one */ }
+  }
+  const jobs = objs.filter((o) => o && o.title && o.url);
+  if (jobs.length) return { jobs };
+  return objs.length === 1 ? objs[0] : null;
+}
+
 /* Cached model call: an unchanged page never pays twice. */
 async function extract(prompt, cacheKeyParts) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -79,20 +147,27 @@ async function extract(prompt, cacheKeyParts) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({ model: MODEL, max_tokens: 2000, messages: [{ role: 'user', content: prompt }] }),
+    // 4000: a studio with 30 openings overflowed 2000 and returned a truncated
+    // array, which threw and lost the whole site (BIG, 2026-08-03).
+    body: JSON.stringify({ model: MODEL, max_tokens: 4000, messages: [{ role: 'user', content: prompt }] }),
     signal: AbortSignal.timeout(60000),
   });
   if (!res.ok) throw new Error(`anthropic ${res.status}`);
   const body = await res.json();
   const text = (body.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
-  const m = text.match(/\{[\s\S]*\}/);
-  const parsed = m ? JSON.parse(m[0]) : null;
+  const parsed = parseLoose(text);
   fs.mkdirSync(CACHE_DIR, { recursive: true });
   fs.writeFileSync(cacheFile, JSON.stringify(parsed));
   return parsed;
 }
 
-const ATS_HINT = /myworkdayjobs\.com|teamtailor\.com|jobs\.personio|bamboohr\.com|homerun\.co|pinpointhq\.com|applytojob\.com|jobvite\.com|icims\.com|breezy\.hr/;
+// Hosted ATS platforms these studios actually use. Measured 2026-08-03: a big
+// practice's "careers page" is nearly always a MARKETING page that links out to
+// one of these — Gensler to Avature, HOK to Dayforce, Mecanoo to Homerun, Olson
+// Kundig to JazzHR, NBBJ to Jobvite. The job list is never on the page we were
+// pointed at, which is why extraction kept returning an honest zero. So when a
+// careers page names one of these, the adapter FOLLOWS it and reads there.
+const ATS_HINT = /myworkdayjobs\.com|teamtailor\.com|jobs\.personio|bamboohr\.com|homerun\.co|pinpointhq\.com|applytojob\.com|jobvite\.com|icims\.com|breezy\.hr|avature\.net|dayforcehcm\.com|successfactors\.|sapsf\.|taleo\.net|eploy\.net|hirehive\.com|smartrecruiters\.com|greenhouse\.io|lever\.co|ashbyhq\.com|recruitee\.com|workable\.com/;
 
 function links(html, baseUrl) {
   const out = [];
@@ -113,27 +188,46 @@ export async function fetchRaw({ log }) {
     return [];
   }
   const rows = [];
-  for (const { name: company, careers } of companies) {
+  try {
+    for (const { name: company, careers } of companies) {
     try {
       if (!(await allowed(careers))) { log(`direct:${company} — robots.txt disallows, skipped`); continue; }
-      let html = await politeGet(careers);
-      if (!html) { log(`direct:${company} — fetch failed (likely bot wall), skipped`); continue; }
 
-      // Homepage entries hop once to the most careers-looking same-host link.
-      let pageUrl = careers;
-      if (!/job|career|vacanc|position|join/i.test(new URL(careers).pathname)) {
-        const hop = links(html, careers).find((l) => new URL(l.href).host === new URL(careers).host && /career|jobs|vacanc|join|work-with/i.test(l.href + ' ' + l.label));
-        if (hop && (await allowed(hop.href))) {
-          const h2 = await politeGet(hop.href);
-          if (h2) { html = h2; pageUrl = hop.href; }
+      // Render first — these are JS apps whose listings never appear in raw
+      // HTML. Static fetch is the fallback, and it says so when it is used.
+      let pageUrl = careers, all, pageText;
+      const rendered = await renderGet(careers);
+      if (rendered) {
+        pageUrl = rendered.url;
+        all = rendered.links;
+        pageText = rendered.text.slice(0, 12000);
+      } else {
+        const html = await politeGet(careers);
+        if (!html) { log(`direct:${company} — page unreachable (bot wall or dead URL), skipped`); continue; }
+        log(`direct:${company} — NOT RENDERED, static HTML only (JS-loaded jobs will be missed)`);
+        all = links(html, careers);
+        pageText = stripHtml(html).slice(0, 12000);
+      }
+
+      // Follow the ATS the careers page points at — that is where the openings
+      // are. Only when the current page is not already on it, and only one hop.
+      const atsUrl = all.find((l) => ATS_HINT.test(l.href));
+      if (atsUrl && !ATS_HINT.test(pageUrl)) {
+        log(`direct:${company} — careers page links to a hosted ATS, following: ${atsUrl.href.slice(0, 80)}`);
+        if (await allowed(atsUrl.href)) {
+          const atsPage = await renderGet(atsUrl.href);
+          if (atsPage) {
+            pageUrl = atsPage.url;
+            all = atsPage.links;
+            pageText = atsPage.text.slice(0, 12000);
+          } else {
+            log(`direct:${company} — ATS page did not render, reading the careers page instead`);
+          }
+        } else {
+          log(`direct:${company} — ATS page disallowed by robots.txt, reading the careers page instead`);
         }
       }
 
-      const all = links(html, pageUrl);
-      const atsUrl = all.find((l) => ATS_HINT.test(l.href));
-      if (atsUrl) log(`direct:${company} — hosted ATS discovered: ${atsUrl.href.slice(0, 90)} (graduate to a deterministic adapter)`);
-
-      const pageText = stripHtml(html).slice(0, 12000);
       const linkList = all.filter((l) => l.label).slice(0, 150).map((l) => `${l.label} -> ${l.href}`).join('\n').slice(0, 8000);
       const listing = await extract(
         `This is the careers page of ${company}, a design/architecture studio. From the page text and link list, return ONLY currently-open job positions as JSON: {"jobs":[{"title":"...","url":"..."}]}. Rules: real openings only (no "general application" catch-alls, no news, no projects); url must come from the link list; empty array if none. No prose, JSON only.\n\nPAGE TEXT:\n${pageText}\n\nLINKS:\n${linkList}`,
@@ -146,9 +240,9 @@ export async function fetchRaw({ log }) {
       for (const j of jobs) {
         if (!j.url || !j.title) continue;
         if (!(await allowed(j.url))) continue;
-        const jobHtml = await politeGet(j.url);
-        if (!jobHtml) continue;
-        const jobText = stripHtml(jobHtml).slice(0, 20000);
+        const jobPage = await renderGet(j.url);
+        const jobText = jobPage ? jobPage.text.slice(0, 20000) : stripHtml((await politeGet(j.url)) || '').slice(0, 20000);
+        if (jobText.length < 200) continue; // a shell, not a posting
         const meta = await extract(
           `Job posting page for "${j.title}" at ${company}. Extract as JSON: {"title":"...","location":"city, country or null","salary_min":number|null,"salary_max":number|null,"currency":"USD/GBP/EUR/CHF/...or null","is_job_posting":true|false}. is_job_posting is false if this page is not actually a single job posting. JSON only.\n\n${jobText.slice(0, 10000)}`,
           [j.url, jobText.slice(0, 4000)],
@@ -175,6 +269,10 @@ export async function fetchRaw({ log }) {
     } catch (err) {
       log(`direct:${company} — failed: ${String(err.message).slice(0, 120)}`);
     }
+    }
+    return rows;
+  } finally {
+    // A leaked Chromium would keep the nightly alive forever after the run.
+    await closeBrowser();
   }
-  return rows;
 }
