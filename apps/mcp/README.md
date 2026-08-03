@@ -2,7 +2,7 @@
 
 **Measured career adjacency for AI assistants.** Which careers a person's skills
 already reach, the gap, the salary, the licence gates — computed nightly from
-~260,000 live job postings, not guessed from prose.
+more than 250,000 live job postings, not guessed from prose.
 
 Ask an assistant *"what can an architect become?"* and today the answer is
 assembled from whatever it read on the web. This makes it come from measurement.

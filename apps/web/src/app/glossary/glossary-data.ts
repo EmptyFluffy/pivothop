@@ -164,6 +164,18 @@ export const GLOSSARY: GlossaryEntry[] = [
     id: 'faa', term: 'FAA', full: 'Federal Aviation Administration', cat: 'term',
     def: 'The US aviation regulator whose certifications gate pilot and flight-attendant roles. It appears here in transferable-skills examples, where a licensed destination sets the real timeline.',
   },
+  {
+    id: 'aec', term: 'AEC', full: 'Architecture, Engineering, and Construction', cat: 'term',
+    def: 'The industry shorthand for the building world: the architects who design, the engineers who size, and the contractors who build. It is PivotHop’s launch vertical, and AEC postings are where the board’s Revit, BIM, and construction-administration chips come from.',
+  },
+  {
+    id: 'pms', term: 'PMS', full: 'Property Management System', cat: 'term',
+    def: 'The operations software a hotel runs on: reservations, room inventory, billing. Hospitality postings ask for specific systems by name, Opera being the common one, and PMS fluency is to a front-office career what an ATS is to recruiting: the tool you cannot skip.',
+  },
+  {
+    id: 'wcag', term: 'WCAG', full: 'Web Content Accessibility Guidelines', cat: 'term',
+    def: 'The W3C standard for making websites usable by people with disabilities, cited by level, with AA the common bar. Accessibility appears in UX, front-end, and content postings as a named skill, and public-sector work increasingly requires it outright.',
+  },
 
   // ── Sources and data ──
   {
@@ -235,8 +247,12 @@ export const GLOSSARY: GlossaryEntry[] = [
     def: 'The body that administers the Nurse Licensure Compact and nursing exams. Cited for the current count of compact states.',
   },
   {
-    id: 'postings', term: 'Adzuna · USAJOBS · Reed', full: 'Live job-posting sources', cat: 'source', url: 'https://developer.adzuna.com',
-    def: 'The keyed posting sources PivotHop scrapes under their terms: Adzuna (a global aggregator with salary data), USAJOBS (US federal roles with clean pay bands), and Reed (UK employer-stated pay). Together with several open boards, they supply the live postings behind every match and salary band. No LinkedIn or Indeed, by policy.',
+    id: 'postings', term: 'Adzuna · USAJOBS · Reed +', full: 'Live job-posting sources', cat: 'source', url: 'https://developer.adzuna.com',
+    def: 'The keyed posting sources PivotHop scrapes under their terms: Adzuna (a global aggregator with salary data), USAJOBS (US federal roles with clean pay bands), and Reed (UK employer-stated pay). Alongside them, a fleet of open boards and public ATS feeds, Remotive, Himalayas, The Muse, RemoteOK, Arbeitnow, Jobicy, and the Greenhouse, Lever, Ashby, Workable, SmartRecruiters, and Recruitee boards among them, plus Switzerland’s federal Job-Room, supply the live postings behind every match and salary band. No LinkedIn or Indeed, by policy.',
+  },
+  {
+    id: 'jobroom', term: 'Job-Room', full: 'Swiss federal job portal (SECO / arbeit.swiss)', cat: 'source', url: 'https://www.job-room.ch',
+    def: 'The Swiss government’s official job board, run by the State Secretariat for Economic Affairs. Employers are required by law to report vacancies in occupations with elevated unemployment (the Stellenmeldepflicht), so its coverage is partly mandated, and every ad carries an official AVAM occupation code and a language tag. It anchors PivotHop’s Swiss corpus: full-text postings in German, French, Italian, and English, read nightly.',
   },
 ];
 
