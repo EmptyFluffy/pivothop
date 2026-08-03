@@ -93,8 +93,26 @@ const TIER_TAIL = new Set([
   'transporter', 'courier',
 ]);
 
+// French/German "Chef" is a boss, not a cook — the first cross-language false
+// friend the Swiss corpus surfaced (2026-08-03: 86 Job-Room rows on `chef`, and
+// "Chef de projet" is a project manager, "Chef d'équipe" a team lead, "Chef de
+// rang" a waiter rank). Refused: chef/cheffe + de/du/d' + anything non-culinary
+// (cuisine and partie stay, they ARE cook titles), "chef comptable"/"chef
+// monteur" (French head-X without de), and the German inclusive "Chef/-in".
+// English culinary titles ("Sous Chef", "Executive Chef", bare "Chef") are
+// untouched: none of them puts a complement after the word. Same call as Night
+// Auditor — an honest miss beats a confident mis-map; these become correct
+// again when the multilingual miner maps them to what they actually are.
+const CHEF_LEAD = new RegExp([
+  String.raw`\bchef(?:[/\s]?fes?)?s?\s+(?:ou\s+chef(?:[/\s]?fes?)?s?\s+)?d(?:[eu])?\b(?!\s+(?:cuisine|partie)\b)`,
+  String.raw`\bchef(?:[/\s]?fes?)?s?\s+(?:comptable|monteur)\b`,
+  String.raw`\bstv\.?\s*chef\b`,
+  String.raw`\bchef\s*/\s*-?\s*in\b`,
+].join('|'));
+
 function matchOne(m, cleaned) {
   if (!cleaned) return null;
+  if (CHEF_LEAD.test(cleaned)) return null;
   const hitExact = m.exact.get(cleaned);
   if (hitExact) return { slug: hitExact, method: 'exact' };
   // containment on word boundaries — longest synonym wins
@@ -140,6 +158,10 @@ export function mapTitle(rawTitle) {
   const m = getTaxonomy();
   const primary = cleanTitle(rawTitle);
   if (NEVER.test(primary)) return null;
+  // Whole-title check: segmentation splits "Chef/fe de projet" at the slash and
+  // hands matchOne a bare "chef" segment, so the guard must also see the intact
+  // title before any segment can match.
+  if (CHEF_LEAD.test(primary)) return null;
   const first = matchOne(m, primary);
   if (first) return first;
   // Head segment mapped to nothing — try the remaining segments before giving up.
