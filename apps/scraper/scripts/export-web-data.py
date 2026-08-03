@@ -204,6 +204,13 @@ def main():
                 nh += 1
         print(f'salary-history: {nh} occupations with an OEWS trend line')
 
+    def _count_raw_lines():
+        try:
+            with open(os.path.join(ROOT, 'apps/scraper/data/postings_raw.ndjson'), 'rb') as f:
+                return sum(chunk.count(b'\n') for chunk in iter(lambda: f.read(1 << 22), b''))
+        except Exception:
+            return 0
+
     # The adjacency field (landing cloud): whole-network nodes/edges + live stats.
     # Positions persist across rebuilds keyed by title — dots must not jump from
     # one night to the next. Only new occupations get seeded (at their neighbors'
@@ -275,6 +282,12 @@ def main():
         'n': [[title, agg[slug]['count']] for title, slug in nodes],
         'stats': {'occupations': len(nodes),
                   'postings': sum(agg[slug]['count'] for _t, slug in nodes),
+                  # Gross postings READ this cycle — the raw corpus before dedup
+                  # and title mapping. The hero quotes this with the verb "read"
+                  # (true of gross); "measured" stays tied to `postings` (net).
+                  # Never present gross as bare "postings": it counts one ad
+                  # reposted across 30 cities 30 times.
+                  'read': _count_raw_lines(),
                   'connections': len(cedges)},
     }
     json.dump(cloud, open(cloud_path, 'w'))

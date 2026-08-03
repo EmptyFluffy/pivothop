@@ -13,7 +13,15 @@ export async function initCloud(canvas, capEl) {
   // (a stale number in a hero is a lie in slower form). The slot is empty until
   // this resolves and CSS hides it while empty, so nothing pops mid-sentence.
   const hc = document.getElementById('heroCount');
-  if (hc && data?.stats?.postings) hc.textContent = `${data.stats.postings.toLocaleString('en-US')} live postings tonight`;
+  // Gross with the verb "read" — we did read every raw posting. The NET figure
+  // (deduped + occupation-mapped) keeps the verb "measured" wherever it appears;
+  // gross must never be presented as bare "postings", because it counts one ad
+  // reposted across 30 cities 30 times. Falls back to net if `read` is absent
+  // (older cloud.json), so the line never goes blank on a stale file.
+  const gross = data?.stats?.read || 0, net = data?.stats?.postings || 0;
+  if (hc && (gross || net)) hc.textContent = gross
+    ? `${gross.toLocaleString('en-US')} live postings read tonight`
+    : `${net.toLocaleString('en-US')} live postings measured tonight`;
   if (!data) return;
   const { p, d, e, n, stats } = data;
   const N = p.length;
