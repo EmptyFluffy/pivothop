@@ -62,6 +62,15 @@ jobs:
 
       - run: npm ci
 
+      # The `direct` source RENDERS studio careers pages — their listings are
+      # loaded by JavaScript and are absent from raw HTML. npm ci installs the
+      # playwright package but not its browser binary, so without this step
+      # Chromium cannot launch, the adapter falls back to static fetch (logging
+      # NOT RENDERED), and every JS-loaded opening is missed. Chromium only:
+      # the other browsers are ~400MB of runner time we never use.
+      - name: Install Chromium for the direct-careers renderer
+        run: npx playwright install --with-deps chromium
+
       - name: Scrape, gate, publish
         env:
           # normalize holds the parsed 150k-row corpus in memory; the runner's
@@ -79,4 +88,7 @@ jobs:
           USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # Gates the `direct` source (studio careers pages read via Claude
+          # extraction). Absent, that source logs loudly and reads nothing.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: bash apps/scraper/scripts/ci-run.sh
