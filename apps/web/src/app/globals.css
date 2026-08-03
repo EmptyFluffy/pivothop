@@ -202,7 +202,7 @@
   .dsk{margin-top:18px}
   .dsk .cap{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
   .tags{display:flex;flex-wrap:wrap;gap:6px}
-  .tag{font-family:var(--mono);font-size:11px;padding:5px 11px;border:0.5px solid var(--rule-2);border-radius:var(--r-pill);color:var(--ink-2);background:var(--card);transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),color var(--dur) var(--ease)}
+  .tag{font-family:var(--display);font-weight:500;font-size:12px;padding:5px 11px;border:0.5px solid var(--rule-2);border-radius:var(--r-pill);color:var(--ink-2);background:var(--card);transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),color var(--dur) var(--ease)}
   .tag.have{background:var(--accent-tint);border-color:transparent;color:var(--accent-press)}
   a.tag{text-decoration:none;cursor:pointer;transition:border-color .12s,color .12s,background .12s}
   a.tag:hover{border-color:var(--accent);color:var(--accent)}
@@ -508,7 +508,7 @@
    radius, 1px ink border, and a FILL on hover/active rather than a colour
    nudge. (Creative Boom's .tag-outline-colored, docs/29 — background, border
    and text all move together.) */
-.rl-filter{background:none;border:1px solid var(--rule-2);border-radius:var(--r-pill);color:var(--ink-3);font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.rl-filter{background:none;border:1px solid var(--rule-2);border-radius:var(--r-pill);color:var(--ink-3);font-family:var(--display);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
 .rl-filter:hover{border-color:var(--ink);color:var(--ink)}
 .rl-filter.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .rl-filter.on:hover{background:var(--black);border-color:var(--black)}
@@ -759,7 +759,7 @@ input:focus-visible{outline:none}
 /* The routes list already drew its own bottom border on hover — now redundant
    with the underline, and two lines under one word looked like a mistake. */
 .jb-occlinks a{border-bottom:none}
-.jb-occlinks a:hover{border-bottom-color:transparent}
+.jb-occlinks a:hover{color:var(--accent)}
 /* Search-panel skill chips. Were inline-styled squares built in a template
    string; now real classes so they carry the pill tokens and the display face
    like every other touchpoint. .chip is a REMOVE control (it drops the skill),
@@ -934,7 +934,10 @@ input:focus-visible{outline:none}
   .ejf-dock{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}
   .emp-post-head h1{font-size:clamp(30px,9vw,44px)}
 }
-.cta.on{background:var(--accent)}
+/* The active state painted a filled box again — on /employers the nav's own
+   item rendered as a dark block while every other page showed the typographic
+   CTA. Active = the underline shown, in the accent, nothing filled. */
+.cta.on{color:var(--accent);text-decoration-color:var(--accent)}
 @media (max-width:700px){.ef-row2{grid-template-columns:1fr}.emp-stats{grid-template-columns:1fr}.emp-stats>div{border-right:none;border-bottom:0.5px solid var(--rule)}}
 
 /* ── blog ── */
@@ -1167,8 +1170,12 @@ input:focus-visible{outline:none}
 .jb-occrow{display:flex;gap:18px;padding:12px 0;border-bottom:0.5px solid var(--rule);align-items:baseline}
 .jb-occfield{flex:0 0 120px;color:var(--ink-3)}
 .jb-occlinks{display:flex;flex-wrap:wrap;gap:6px 18px}
-.jb-occlinks a{color:var(--ink-2);font-size:13.5px;border-bottom:1px solid transparent;transition:all .12s}
-.jb-occlinks a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+/* border-bottom REMOVED (2026-08-02): this rule sits later in the cascade than
+   the .jb-occlinks a{border-bottom:none} fix above, so it quietly resurrected
+   the border — and with the sitewide fade-in text-decoration underline, hover
+   drew TWO lines under one word on the compare hub. One underline system only. */
+.jb-occlinks a{color:var(--ink-2);font-size:13.5px;transition:color .12s,text-decoration-color var(--dur) var(--ease)}
+.jb-occlinks a:hover{color:var(--accent);}
 .jb-occlinks a .lbl{color:var(--ink-3)}
 /* featured strip: the cobalt ledger. The accent belongs to the data, and these
    rows are the data — oversized type as structure, white on Klein blue,
@@ -1378,14 +1385,20 @@ input:focus-visible{outline:none}
 .faq-head h3{font-weight:700;font-size:clamp(26px,2.6vw,36px);letter-spacing:-.025em;line-height:1.05}
 .faq-sub{margin-top:16px;font-size:14.5px;line-height:1.6;color:var(--ink-2);max-width:34ch}
 .faq-list{border-top:1px solid var(--ink)}
+.faq{interpolate-size:allow-keywords}
 .faq-item{border-bottom:0.5px solid var(--rule)}
+.faq-item::details-content{block-size:0;overflow:clip;transition:block-size .34s var(--ease),content-visibility .34s allow-discrete}
+.faq-item[open]::details-content{block-size:auto}
+.faq-a{opacity:0;transform:translateY(-4px);transition:opacity .3s var(--ease) .08s,transform .3s var(--ease) .08s}
+.faq-item[open] .faq-a{opacity:1;transform:none}
 .faq-item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:22px 0;font-weight:600;font-size:18px;letter-spacing:-.01em;color:var(--ink);transition:color .15s}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary:hover{color:var(--accent)}
-.faq-mk{position:relative;flex:none;width:14px;height:14px;margin-top:5px}
+.faq-mk{position:relative;flex:none;width:14px;height:14px;margin-top:5px;transition:transform .34s var(--ease)}
 .faq-mk::before,.faq-mk::after{content:"";position:absolute;background:var(--ink-3);transition:transform .2s ease,background .15s}
 .faq-mk::before{top:6px;left:0;width:14px;height:1.5px}
 .faq-mk::after{top:0;left:6.25px;width:1.5px;height:14px}
+.faq-item[open] .faq-mk{transform:rotate(90deg)}
 .faq-item[open] .faq-mk::after{transform:scaleY(0)}
 .faq-item summary:hover .faq-mk::before,.faq-item summary:hover .faq-mk::after{background:var(--accent)}
 .faq-a{padding:0 0 24px;max-width:64ch}
@@ -1472,8 +1485,9 @@ input:focus-visible{outline:none}
 .gloss-unlocks{margin-top:14px}
 .gloss-unlocks .lbl{display:block;margin-bottom:9px;color:var(--ink-3)}
 .gu-list{display:flex;flex-wrap:wrap;gap:7px}
-.gu-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);border:0.5px solid var(--rule-2);background:var(--card);padding:5px 10px;text-decoration:none;transition:border-color .12s,color .12s}
-.gu-link:hover{border-color:var(--accent);color:var(--accent)}
+.gu-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:500;font-size:12.5px;color:var(--ink-2);border:1px solid var(--rule-2);border-radius:var(--r-pill);background:var(--card);padding:6px 13px;text-decoration:none;transition:border-color .12s,color .12s,background .12s}
+.gu-link:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.gu-link:hover .gu-n{color:var(--paper)}
 .gu-n{font-size:10px;color:var(--ink-3);transition:color .12s}
 .gu-link:hover .gu-n{color:var(--accent)}
 @media (max-width:640px){.gloss-item{grid-template-columns:1fr;gap:10px}}
