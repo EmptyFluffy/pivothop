@@ -87,20 +87,31 @@
      (2026-07-31) and the asymmetry went with it. line-height .98 makes the type
      sit slightly high in its box, so `justify-content:center` on a flex column
      centres the INK, not the line boxes. */
-  .hero{padding:72px 30px;min-height:clamp(300px,38vh,420px);display:flex;flex-direction:column;justify-content:center}
+  /* One rhythm value governs every internal distance in the hero, so the eye
+     reads h1 -> explainer -> hint as one measured column instead of three
+     stacked accidents. Flex gap means adding an element cannot break it. */
+  .hero{padding:72px 30px;min-height:clamp(340px,42vh,460px);display:flex;flex-direction:column;justify-content:center;gap:30px}
+  .hero-sub{max-width:56ch;font-size:17.5px;line-height:1.6;color:var(--ink-2);margin:0}
+  .hero-hint{display:flex;align-items:baseline;gap:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+  #heroCount{color:var(--ink-2)}
+  #heroCount:empty{display:none}
   /* Reduced from clamp(60px,9.4vw,132px) on 2026-07-30. Because max-width is in
      ch and ch scales with font-size, the headline's share of the viewport is
      CONSTANT below the clamp ceiling: 12ch is about 12 x 0.55 x <vw> wide, so
      9.4vw was occupying ~62vw at every width. 7vw puts it near 46vw — big, but
      under the half-screen bar. The 12ch itself is load-bearing (docs/01) and
      stays: it is what forces two lines and gives the statement its shape. */
-  .hero h1{font-family:var(--display);font-weight:500;font-size:clamp(46px,7vw,104px);line-height:.98;letter-spacing:-.035em;max-width:12ch}
+  /* Optical compensation: the larger the setting, the lighter the weight.
+     500 read heavy at 104px; 440 on the variable axis keeps the presence and
+     loses the shout. Premium display type differentiates the emphasised word by
+     a STEP (560) plus the underline, not by jumping to bold. */
+  .hero h1{font-family:var(--display);font-weight:440;font-size:clamp(46px,7vw,104px);line-height:.98;letter-spacing:-.033em;max-width:12ch}
   /* The emphasised word carries a scaled underline (Creative Boom, docs/29).
      em units so it holds proportion across the clamp from 60px to 132px — a
      fixed 2px underline disappears under a 132px headline. currentColor, not
      accent: non-negotiable #6 keeps the accent on the data, and the contemporary
      feel here comes from the offset and weight rather than the hue. */
-  .hero h1 .em{font-weight:700;text-decoration:underline;text-decoration-thickness:.055em;text-underline-offset:.11em;text-decoration-skip-ink:none;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease)}
+  .hero h1 .em{font-weight:560;text-decoration:underline;text-decoration-thickness:.055em;text-underline-offset:.11em;text-decoration-skip-ink:none;text-decoration-color:transparent;transition:text-decoration-color var(--dur) var(--ease)}
   .hero:hover h1 .em{text-decoration-color:currentColor}
 
   /* ── search: the one boxed instrument ── */
@@ -108,12 +119,22 @@
   .searchwrap{padding:0;position:sticky;top:59px;z-index:40}
   .search-peek{display:none}   /* mobile only — see the 760px block */
   .searchbar{display:grid;grid-template-columns:var(--railw) 1px 1fr 250px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--card);height:78px}
-  .sfield{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 24px;min-width:0}
+  .sfield{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 24px;min-width:0;cursor:text;position:relative;transition:background var(--dur) var(--ease)}
+  .sfield::after{content:"";position:absolute;left:24px;right:24px;bottom:-1px;height:2px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .24s var(--ease)}
+  .sfield:hover{background:var(--paper-2)}
+  .sfield:focus-within{background:var(--paper-2)}
+  .sfield:focus-within::after{transform:scaleX(1)}
+  .sfield .l{transition:color var(--dur) var(--ease)}
+  .sfield:focus-within .l{color:var(--ink)}
+  .sfield:focus-within input::placeholder{opacity:.35}
+  .sfield input::placeholder{transition:opacity var(--dur) var(--ease)}
   .sfield .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
   .sfield input{border:none;background:transparent;font-family:var(--sans);font-size:16.5px;color:var(--ink);outline:none;width:100%}
   .sfield input::placeholder{color:var(--ink-3)}
   .sdiv{background:var(--rule);width:1px;height:100%}
   .go{background:var(--accent);border:none;color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:14px;transition:background .18s}
+  .go svg{transition:transform .2s var(--ease)}
+  .go:hover svg{transform:translate(2px,-2px)}
   .go:hover{background:var(--accent-press)}
   .go svg{width:17px;height:17px;stroke:currentColor;stroke-width:2;fill:none}
 
@@ -339,7 +360,9 @@
     .nav.open .nav-menu .navlink{height:auto;justify-content:flex-start;padding:16px 24px;border-bottom:0.5px solid var(--rule);font-size:12px;gap:8px}
     .nav.open .nav-menu .navlink.on{color:var(--accent)}
     .nav.open .nav-menu .cta{margin-left:0;justify-content:flex-start;padding:18px 24px;height:auto;gap:10px}
-    .hero{padding:48px 22px;min-height:clamp(220px,30vh,300px)}
+    .hero{padding:48px 22px;min-height:clamp(240px,32vh,320px);gap:22px}
+    .hero-sub{font-size:15.5px}
+    .hero-hint{flex-wrap:wrap;gap:12px}
     /* nav is 56px here; stickies keep sharing its border row (56 - 1).
        ix-search/jb-stick offsets live next to their base rules (cascade order). */
     .searchwrap{padding:0;top:55px}

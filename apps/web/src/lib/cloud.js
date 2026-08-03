@@ -9,6 +9,11 @@ const W = 900, H = 520;
 
 export async function initCloud(canvas, capEl) {
   const data = await fetch('/data/cloud.json').then((r) => r.json()).catch(() => null);
+  // The hero's count hydrates from the SAME payload — live, never hardcoded
+  // (a stale number in a hero is a lie in slower form). The slot is empty until
+  // this resolves and CSS hides it while empty, so nothing pops mid-sentence.
+  const hc = document.getElementById('heroCount');
+  if (hc && data?.stats?.postings) hc.textContent = `${data.stats.postings.toLocaleString('en-US')} live postings tonight`;
   if (!data) return;
   const { p, d, e, n, stats } = data;
   const N = p.length;

@@ -16,7 +16,12 @@ import './globals.css';
 // non-negotiable #7 holds; only the sans changed.
 const sans = Instrument_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  // 'variable' loads the full wght axis (400-700) instead of four static cuts.
+  // The hero uses true intermediate weights (440/560): display type follows
+  // optical compensation — the larger the setting, the lighter the weight — and
+  // the static instances forced a choice between 400 (too thin at 104px against
+  // the wordmark) and 500+700 (the "too bold" the founder flagged).
+  weight: 'variable',
   variable: '--font-sans',
   display: 'swap',
 });
