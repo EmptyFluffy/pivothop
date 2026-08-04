@@ -90,13 +90,21 @@
   /* One rhythm value governs every internal distance in the hero, so the eye
      reads h1 -> explainer -> hint as one measured column instead of three
      stacked accidents. Flex gap means adding an element cannot break it. */
-  .hero{padding:72px 30px;min-height:clamp(340px,42vh,460px);display:flex;align-items:center}
+  .hero{padding:122px 30px;min-height:clamp(340px,42vh,460px);display:flex;align-items:center}
   .hero-copy{display:flex;flex-direction:column;justify-content:center;gap:30px;min-width:0}
   /* The illustration is centered in the free span between the copy's right
      edge and the hero's right padding edge (margin-inline:auto splits the
-     leftover flex space equally). Height-capped by the hero itself, so it
-     never pushes the instrument below the fold. */
-  .hero-art{flex:none;align-self:center;margin-inline:auto;transform:translate(-20%,10%);max-height:324px;width:auto;user-select:none;-webkit-user-drag:none}
+     leftover flex space equally), then nudged into the composition by
+     transform — visual only, so layout and the fold are untouched. Height is
+     FIXED, not viewport-relative: a vh cap grew the figure on tall monitors. */
+  .hero-art{flex:none;align-self:center;margin-inline:auto;transform:translate(-27%,10%);max-height:324px;width:auto;user-select:none;-webkit-user-drag:none}
+  /* Below ~1280px the free span is too narrow to also absorb the leftward
+     nudge — measured at 1150px the figure crossed into the explainer text by
+     21px. Drop the nudge there and let it sit centered in what room remains. */
+  @media (max-width:1280px){ .hero-art{transform:translate(0,10%)} }
+  /* Narrower than this the copy needs the whole width: at 990px the figure was
+     touching the text with 0px between them. Text wins, figure goes. */
+  @media (max-width:1060px){ .hero-art{display:none} }
   .hero-sub{max-width:56ch;font-size:17.5px;line-height:1.6;color:var(--ink-2);margin:0}
   .hero-hint{display:flex;align-items:baseline;gap:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
   #heroCount{color:var(--ink-2)}
