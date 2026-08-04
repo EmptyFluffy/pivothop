@@ -43,6 +43,28 @@ try {
 // 2. Non-HTML targets that are legitimately linkable.
 const PASS = [/^\/api\//, /^\/data\//, /^\/_next\//, /^\/feed\.xml$/, /^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/llms\.txt$/, /^\/llms-full\.txt$/, /^\/[0-9a-f]{32}\.txt$/, /\.(png|svg|ico|pdf|jpg|webp)(\?|$)/];
 
+// 2b. Job detail pages render ON DEMAND since 2026-08-04 (prebuilding 14.5k
+// noindexed pages crashed Vercel's deploy walker), so there is no HTML file to
+// find. The check stays REAL: a /jobs/<occ>/<id> link resolves only if that id
+// actually exists in that occupation's published board JSON — a link to a
+// removed job still fails the gate.
+const jobIds = new Map();
+{
+  const dir = path.join(process.cwd(), 'public', 'data', 'jobs');
+  for (const f of fs.existsSync(dir) ? fs.readdirSync(dir) : []) {
+    if (!f.endsWith('.json')) continue;
+    try {
+      const d = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+      const jobs = Array.isArray(d) ? d : d.jobs ?? [];
+      jobIds.set(f.slice(0, -5), new Set(jobs.map((j) => j.id)));
+    } catch { /* malformed board file surfaces elsewhere */ }
+  }
+}
+function dynamicJobPage(target) {
+  const m = target.match(/^\/jobs\/([a-z0-9-]+)\/([a-z0-9]+)$/);
+  return !!m && (jobIds.get(m[1])?.has(m[2]) ?? false);
+}
+
 // 3. Scan every page's hrefs.
 const broken = new Map();
 let scanned = 0, checked = 0;
@@ -57,6 +79,7 @@ let scanned = 0, checked = 0;
       checked++;
       if (PASS.some((re) => re.test(target))) continue;
       if (pages.has(target)) continue;
+      if (dynamicJobPage(target)) continue;
       if (!broken.has(target)) broken.set(target, []);
       const from = path.join(dir, e.name).slice(APP.length, -5);
       if (broken.get(target).length < 3) broken.get(target).push(from);

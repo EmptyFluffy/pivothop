@@ -11,9 +11,15 @@ import { routableSlugs, routePair, destRole, originMeta, hasOriginPage, originRo
 import { jobCount } from '../../jobs-data';
 import { SITE_EMAIL, article, originAnchors, pickAnchor } from '../../../../lib/site';
 
-export function generateStaticParams() {
-  return jobOccupations().flatMap((occ) => getJobs(occ).map((j) => ({ occ, id: j.id })));
-}
+// ON DEMAND, NOT PREBUILT. These pages are deliberately noindexed (below), so
+// prerendering bought nothing — and at 14,504 listings it produced enough
+// output files to crash Vercel's own deploy walker with a stack overflow
+// ("Maximum call stack size exceeded", 2026-08-04, both deploys of the Swiss
+// unlock). Rendered on first request, cached for a day by ISR; the board data
+// this reads is republished nightly anyway. This also decouples deploy size
+// from board growth permanently: 30k listings cost the same as 3k.
+export const dynamicParams = true;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ occ: string; id: string }> }): Promise<Metadata> {
   const { occ, id } = await params;
