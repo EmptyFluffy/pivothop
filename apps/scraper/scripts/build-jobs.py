@@ -57,7 +57,19 @@ INDEX = 'apps/web/public/data/jobs-index.json'
 # Sources whose terms allow re-display with attribution + link-back.
 OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
       'themuse', 'smartrecruiters', 'jobicy', 'remoteok', 'remotive',
-      'workable', 'recruitee', 'careerjet', 'getonbrd'}
+      'workable', 'recruitee', 'careerjet', 'getonbrd',
+      # Employer-direct postings, the same category as the ATS feeds above: the
+      # employer publishes them publicly to attract candidates and every card
+      # links back to their own posting. workday/personio are hosted-ATS feeds,
+      # `direct` is the studio careers pages we render.
+      'workday', 'personio', 'direct',
+      # Job-Room is SECO's public federal portal (docs/32). Ads are employer
+      # vacancy notices, many mandated by the Stellenmeldepflicht, and every
+      # card links back to job-room.ch or the employer's own externalUrl. This
+      # is NOT the Adzuna/Reed case: those are contractually barred from
+      # re-display, Job-Room carries no such term. Posture unchanged — if SECO
+      # says stop, we stop, and this line is where we stop it.
+      'jobroom'}
 # getonbrd: re-display granted by GetOnBoard 2026-07-29, conditional on linking
 # back to their listing. Every card and the sheet's apply button already point at
 # j.url, which for these rows is the getonbrd.com posting, so the condition is

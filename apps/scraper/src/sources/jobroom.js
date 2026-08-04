@@ -81,7 +81,17 @@ function toRow(ad) {
     salary_period: null,
     description_text: stripHtml(jd.description || '').slice(0, 20000),
     posted_at: ad.publication?.startDate || String(ad.createdTime || '').slice(0, 10) || null,
-    url: jc.externalUrl || `https://www.job-room.ch/job-search/${ad.id}`,
+    // ALWAYS the Job-Room canonical page, never the employer's externalUrl.
+    // Measured 2026-08-04: 5,696 of 31,096 externalUrls point at jobs.ch or
+    // jobup.ch. Those are JobCloud properties we deliberately declined to
+    // scrape (docs/32: their ToS plus Swiss UWG, and they are a plausible
+    // future partner). Publishing apply links into them would route our board's
+    // traffic through the one Swiss operator we chose to stay clear of, and
+    // would credit a source we never read. Link-back belongs to Job-Room, which
+    // is where we actually read the ad and where the apply flow exists.
+    url: `https://www.job-room.ch/job-search/${ad.id}`,
+    employer_url: jc.externalUrl || null, // kept for provenance, never published
+
     // Swiss-specific extras, preserved verbatim for the CH build-out:
     lang: jd.languageIsoCode || null,                       // miner ground truth
     avam_code: jc.occupations?.[0]?.avamOccupationCode || null, // official occupation code -> future crosswalk
