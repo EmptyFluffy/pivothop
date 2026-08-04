@@ -97,11 +97,11 @@
      leftover flex space equally), then nudged into the composition by
      transform — visual only, so layout and the fold are untouched. Height is
      FIXED, not viewport-relative: a vh cap grew the figure on tall monitors. */
-  .hero-art{flex:none;align-self:center;margin-inline:auto;transform:translate(-27%,10%);max-height:324px;width:auto;user-select:none;-webkit-user-drag:none}
+  .hero-art{flex:none;align-self:center;margin-inline:auto;transform-origin:100% 100%;transform:translate(-27%,10%) scale(1.05);max-height:324px;width:auto;user-select:none;-webkit-user-drag:none}
   /* Below ~1280px the free span is too narrow to also absorb the leftward
      nudge — measured at 1150px the figure crossed into the explainer text by
      21px. Drop the nudge there and let it sit centered in what room remains. */
-  @media (max-width:1280px){ .hero-art{transform:translate(0,10%)} }
+  @media (max-width:1280px){ .hero-art{transform:translate(0,10%) scale(1.05)} }
   /* Narrower than this the copy needs the whole width: at 990px the figure was
      touching the text with 0px between them. Text wins, figure goes. */
   @media (max-width:1060px){ .hero-art{display:none} }
