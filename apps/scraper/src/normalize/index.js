@@ -1,7 +1,14 @@
 import { createHash } from 'node:crypto';
 import { readNdjson, writeNdjson, readJson, writeJson, supabaseUpsert } from '../lib/store.js';
-import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE, FIRST_SEEN_FILE } from '../lib/paths.js';
+import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE, FIRST_SEEN_FILE, TAXONOMY_DIR } from '../lib/paths.js';
+import path from 'node:path';
 import { mapTitle, cleanTitle } from './titles.js';
+
+// AVAM code -> occupation slug (packages/data/taxonomy/avam-crosswalk.json).
+// Job-Room stamps every Swiss ad with SECO's official occupation code, which is
+// ground truth the title matcher can only approximate — a German title that
+// defeats every matcher tier still maps if its code is in the crosswalk.
+const AVAM = readJson(path.join(TAXONOMY_DIR, 'avam-crosswalk.json'))?.map ?? {};
 import { toAnnualUsd } from './salary.js';
 import { extractSkills, zoneText } from './skills.js';
 import { inferCountry } from './country.js';
@@ -93,7 +100,8 @@ export async function normalize({ log }) {
     // the break that separates two list items.
     // Cheap-exit on text that has neither a tag nor an entity, which is most rows.
     if (r.description_text && /[<&]/.test(r.description_text)) r.description_text = stripHtml(r.description_text);
-    const mapped = mapTitle(r.title);
+    let mapped = mapTitle(r.title);
+    if (!mapped && r.avam_code && AVAM[r.avam_code]) mapped = { slug: AVAM[r.avam_code], method: 'avam' };
     if (!mapped) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);
       continue;

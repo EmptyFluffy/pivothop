@@ -2,6 +2,7 @@ import path from 'node:path';
 import { readJson } from '../lib/store.js';
 import { TAXONOMY_DIR } from '../lib/paths.js';
 import { foldAccents, translateRomance } from './titles-i18n.js';
+import { translateGerman } from './titles-de.js';
 
 // Rules-first title canonicalization against the occupation taxonomy.
 // Every unmapped title is logged for review — the synonym tables grow from that log.
@@ -178,6 +179,13 @@ export function mapTitle(rawTitle) {
   if (en) {
     const hit = matchOne(m, cleanTitle(en)) ?? matchOne(m, cleanSegment(en));
     if (hit) return { slug: hit.slug, method: 'i18n' };
+  }
+  // German, same contract: fires only when a German occupation word was
+  // recognised, so English titles cannot regress through it. See titles-de.js.
+  const de = translateGerman(rawTitle);
+  if (de) {
+    const hit = matchOne(m, cleanTitle(de)) ?? matchOne(m, cleanSegment(de));
+    if (hit) return { slug: hit.slug, method: 'de' };
   }
   return null;
 }

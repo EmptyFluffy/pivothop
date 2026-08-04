@@ -29,16 +29,16 @@
       "license": null,
       "desc": "",
       "match": 15,
-      "fit": 22,
-      "capability": 24,
+      "fit": 26,
+      "capability": 43,
       "mobility": 36,
       "mobility_source": "related",
       "mobility_eu": null,
       "mobility_tier": "Supplemental",
       "salary": "$70k–$120k",
       "salary_band": [
-        70770,
-        118746
+        70782,
+        118997
       ],
       "demand": "High",
       "remote": "1%",
@@ -58,81 +58,81 @@
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 30.5,
+          "pts": 30.8,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 13.6,
+          "pts": 13.3,
           "earned": 0
         },
         {
           "skill": "welding-fabrication",
           "name": "Welding / Fabrication",
-          "pts": 7.9,
+          "pts": 8,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 7.5,
-          "earned": 6.7
+          "pts": 7.7,
+          "earned": 6.6
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 7.5,
-          "earned": 4.5
+          "pts": 7.7,
+          "earned": 4.4
         },
         {
           "skill": "cad-mechanical",
           "name": "Mechanical CAD",
-          "pts": 6,
+          "pts": 5.9,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 5.4,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 4.8,
+          "pts": 4.7,
           "earned": 0
         },
         {
           "skill": "fea",
           "name": "FEA / Simulation",
-          "pts": 4.5,
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "gd-t",
+          "name": "GD&T",
+          "pts": 4.1,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 4.2,
+          "pts": 4.1,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 3.9,
-          "earned": 3.9
-        },
-        {
-          "skill": "gd-t",
-          "name": "GD&T",
-          "pts": 3.9,
-          "earned": 0
+          "pts": 3.8,
+          "earned": 3.8
         }
       ],
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 608,
-        "salaried": 330
+        "postings": 613,
+        "salaried": 332
       }
     },
     {
@@ -147,8 +147,8 @@
       },
       "desc": "",
       "match": 23,
-      "fit": 17,
-      "capability": 19,
+      "fit": 21,
+      "capability": 39,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
@@ -177,69 +177,182 @@
         {
           "skill": "clinical-research",
           "name": "Clinical Research",
-          "pts": 77.5,
-          "earned": 14.7
+          "pts": 76.2,
+          "earned": 14.4
         },
         {
           "skill": "gcp",
           "name": "GCP",
-          "pts": 5.6,
-          "earned": 1.7
+          "pts": 5.4,
+          "earned": 1.6
         },
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 4.3,
+          "pts": 4.2,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 3.1,
-          "earned": 3
+          "pts": 3,
+          "earned": 2.9
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 2.2,
+          "pts": 2.1,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 1.9,
+          "pts": 1.8,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 1.9,
-          "earned": 1.9
+          "pts": 1.8,
+          "earned": 1.8
         },
         {
           "skill": "phlebotomy",
           "name": "Phlebotomy",
-          "pts": 1.9,
+          "pts": 1.8,
           "earned": 0
         },
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 1.9,
-          "earned": 1.9
+          "pts": 1.8,
+          "earned": 1.8
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 1.8,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 266,
+        "postings": 267,
         "salaried": 190
+      }
+    },
+    {
+      "id": "pilot",
+      "title": "Pilot",
+      "field": "Transport",
+      "cluster": "Service",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "FAA commercial/ATP certificate required"
+      },
+      "desc": "",
+      "match": 14,
+      "fit": 10,
+      "capability": 0,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$60k–$130k",
+      "salary_band": [
+        59237,
+        127504
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Scheduling",
+        "Operations",
+        "Quality Control"
+      ],
+      "learn": [
+        "Aviation Operations",
+        "Flight Operations",
+        "Cabin Safety",
+        "Emergency Care"
+      ],
+      "waterfall": [
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 17.5,
+          "earned": 0
+        },
+        {
+          "skill": "flight-operations",
+          "name": "Flight Operations",
+          "pts": 11,
+          "earned": 0
+        },
+        {
+          "skill": "cabin-safety",
+          "name": "Cabin Safety",
+          "pts": 7.1,
+          "earned": 0
+        },
+        {
+          "skill": "emergency-care",
+          "name": "Emergency Care",
+          "pts": 5.5,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 5.5,
+          "earned": 0
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 4.9,
+          "earned": 4.9
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 4.4,
+          "earned": 4.4
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 4.4,
+          "earned": 4.4
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 365,
+        "salaried": 141
       }
     }
   ],
   "next": {
     "industrial-engineer": [],
-    "clinical-research-coordinator": []
+    "clinical-research-coordinator": [],
+    "pilot": []
   },
   "direct": [],
   "cross": [],
