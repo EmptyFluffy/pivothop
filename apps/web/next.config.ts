@@ -36,6 +36,16 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     '/api/roadmap': ['../../node_modules/@sparticuz/chromium/bin/**'],
   },
+  // The route reads public/data/<dynamic>, so the tracer takes the whole
+  // directory — 95MB after the Swiss unlock (2026-08-04), of which 65MB is
+  // jobs-detail: posting descriptions the route provably never opens (it reads
+  // only jobs/, report/ and salaries/ — grep readData in route.ts). Function
+  // size has a 250MB ceiling and chromium already costs 64MB; without this
+  // exclude, board growth would eventually kill the roadmap PDF in production.
+  // Verify after build by reading route.js.nft.json, not by trusting green.
+  outputFileTracingExcludes: {
+    '/api/roadmap': ['./public/data/jobs-detail/**'],
+  },
 };
 
 export default nextConfig;
