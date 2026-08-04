@@ -83,6 +83,8 @@ python3 apps/scraper/scripts/build-jobs.py           || { echo "::error::build-j
 # steps and before the web build, since sitemap.ts reads lastmod.json.
 node    apps/scraper/scripts/build-skill-icons.mjs    || echo "::warning::build-skill-icons failed (non-fatal)"
 python3 apps/scraper/scripts/build-skill-glossary.py || echo "::warning::build-skill-glossary failed (non-fatal)"
+# Swiss official wage bands (BFS LSE): one cached request, survey updates biennially.
+python3 apps/scraper/scripts/build-salary-ch.py     || echo "::warning::build-salary-ch failed (non-fatal — yesterday's BFS bands stay)"
 # Outreach target list (docs/28) — NOT non-fatal: the admin console imports
 # packages/data/outreach/targets.json at build time, so a missing file fails the build.
 python3 apps/scraper/scripts/build-outreach-targets.py || { echo "::error::build-outreach-targets failed"; exit 2; }

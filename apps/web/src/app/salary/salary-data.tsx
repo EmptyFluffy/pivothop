@@ -1034,3 +1034,31 @@ export function getSalaryDef(occ: string): SalaryDef | null {
   const f = getSalary(occ);
   return isCoverable(f) ? defaultDef(occ, f) : null;
 }
+
+/* ── Switzerland: official federal wage bands (BFS LSE) ─────────────────────
+   Swiss ads post no salaries (0 of 31,096 Job-Room ads carry pay), so the CH
+   numbers come from the Lohnstrukturerhebung instead — the federal wage
+   survey, per ISCO-08 group and percentile. Joined slug -> ISCO-4 -> ISCO-2
+   via the taxonomy crosswalk; coarser than the occupation, and the UI says so.
+   Built by apps/scraper/scripts/build-salary-ch.py. */
+export type ChBand = { p10: number; p25: number; p50: number; p75: number; p90: number };
+type ChFile = {
+  year: number;
+  source: { name: string; url: string; note: string };
+  total: { label_de: string; month: ChBand } | null;
+  groups: Record<string, { label_de: string; month: ChBand }>;
+  by_slug: Record<string, string>;
+};
+let chCache: ChFile | null | undefined;
+export function getSwissFile(): ChFile | null {
+  if (chCache === undefined) chCache = read<ChFile>('salaries-ch.json');
+  return chCache;
+}
+export function getSwissBand(slug: string): { group: string; label_de: string; month: ChBand; year: number } | null {
+  const f = getSwissFile();
+  const g = f?.by_slug?.[slug];
+  if (!f || !g || !f.groups[g]) return null;
+  return { group: g, label_de: f.groups[g].label_de, month: f.groups[g].month, year: f.year };
+}
+/* Swiss format, Swiss convention: monthly CHF with the apostrophe separator. */
+export const fmtChf = (v?: number | null) => (v == null ? '—' : "CHF " + Math.round(v).toLocaleString('de-CH'));

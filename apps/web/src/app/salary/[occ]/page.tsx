@@ -4,7 +4,7 @@ import { jobCount } from '../../jobs/jobs-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { coverableSlugs, coverable, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES } from '../salary-data';
+import { coverableSlugs, coverable, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES, getSwissBand, fmtChf } from '../salary-data';
 import SalaryChart from '../SalaryChart';
 import { article } from '../../../lib/site';
 import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
@@ -152,6 +152,42 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
             </ul>
           </section>
         )}
+
+        {(() => {
+          const ch = getSwissBand(occ);
+          if (!ch) return null;
+          const pts: [string, number][] = [['P10', ch.month.p10], ['P25', ch.month.p25], ['Median', ch.month.p50], ['P75', ch.month.p75], ['P90', ch.month.p90]];
+          const max = ch.month.p90;
+          return (
+            <section className="rt-sec">
+              <details className="ch-sal" name="pagefaq">
+                <summary>
+                  <span className="ch-sal-flag" aria-hidden="true"><svg viewBox="0 0 32 32" width="13" height="13"><rect width="32" height="32" fill="#d52b1e" /><rect x="13" y="6" width="6" height="20" fill="#fff" /><rect x="6" y="13" width="20" height="6" fill="#fff" /></svg></span>
+                  <h2>Switzerland &middot; official wage bands</h2>
+                  <span className="ch-sal-med lbl">median {fmtChf(ch.month.p50)}/month</span>
+                </summary>
+                <div className="ch-sal-body">
+                  <p className="rt-note">
+                    Swiss postings do not state pay, so these are not posted salaries: they are the federal wage survey
+                    (Lohnstrukturerhebung {ch.year}) for the ISCO group <i>{ch.label_de}</i> &mdash; standardized gross monthly,
+                    full-time, 13th salary included pro&nbsp;rata. The band covers the whole occupation group, which is coarser
+                    than this occupation alone.
+                  </p>
+                  <ul className="sal-bars">
+                    {pts.map(([label, v]) => (
+                      <li key={label}>
+                        <span className="sl">{label}</span>
+                        <span className="sbar"><span className="sfill" style={{ width: `${Math.round((v / max) * 100)}%` }} /></span>
+                        <span className="sv">{fmtChf(v)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="rt-note">Annual &asymp; {fmtChf(ch.month.p50 * 12)} at the median. Source: Bundesamt f&uuml;r Statistik, LSE {ch.year}.</p>
+                </div>
+              </details>
+            </section>
+          );
+        })()}
 
         {states.length >= 3 && (
           <section className="rt-sec">

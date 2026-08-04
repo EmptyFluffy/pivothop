@@ -1603,3 +1603,13 @@ a.jd-skill:hover svg{color:var(--paper)}
 .ch-x{flex:none;background:none;border:0;color:var(--paper);opacity:.6;font-size:19px;line-height:1;cursor:pointer;padding:2px 4px}
 .ch-x:hover{opacity:1}
 @media (max-width:700px){.ch-banner{flex-wrap:wrap;bottom:12px;font-size:12.5px}.ch-txt{flex:1 1 100%}}
+
+/* ── Swiss wage-band dropdown on salary pages ── */
+.ch-sal{border:1px solid var(--rule);border-radius:9px;padding:0 18px}
+.ch-sal summary{display:flex;align-items:center;gap:10px;list-style:none;cursor:pointer;padding:15px 0}
+.ch-sal summary::-webkit-details-marker{display:none}
+.ch-sal summary h2{margin:0;font-size:16.5px}
+.ch-sal-flag{flex:none;display:grid;place-items:center}
+.ch-sal-med{margin-left:auto;white-space:nowrap}
+.ch-sal-body{padding:2px 0 16px;border-top:0.5px solid var(--rule)}
+.ch-sal .sal-bars .sv{font-family:var(--mono);white-space:nowrap}

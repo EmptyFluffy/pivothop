@@ -1,0 +1,650 @@
+{
+ "updated": "2026-08-04",
+ "year": 2024,
+ "source": {
+  "name": "BFS Lohnstrukturerhebung (LSE) 2024",
+  "cube": "px-x-0304010000_205",
+  "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/arbeit-erwerb/loehne-erwerbseinkommen-arbeitskosten.html",
+  "note": "Standardisierter monatlicher Bruttolohn, Vollzeitäquivalent, 13. Monatslohn anteilig enthalten. Schweiz gesamt, alle Altersgruppen, alle Geschlechter."
+ },
+ "total": {
+  "label_de": "Berufsgruppe - Total",
+  "month": {
+   "p50": 7024,
+   "p10": 4635,
+   "p25": 5524,
+   "p75": 9326,
+   "p90": 12526
+  }
+ },
+ "groups": {
+  "10": {
+   "label_de": "1 Führungskräfte",
+   "month": {
+    "p50": 10208,
+    "p10": 5957,
+    "p25": 7667,
+    "p75": 13731,
+    "p90": 19237
+   }
+  },
+  "11": {
+   "label_de": "11 Geschäftsführer, Vorstände, leitende Verwaltungsbedienstete und Angehörige gesetzgebender Körperschaften",
+   "month": {
+    "p50": 10831,
+    "p10": 5855,
+    "p25": 7736,
+    "p75": 15276,
+    "p90": 21472
+   }
+  },
+  "12": {
+   "label_de": "12 Führungskräfte im kaufmännischen Bereich",
+   "month": {
+    "p50": 10375,
+    "p10": 6258,
+    "p25": 7986,
+    "p75": 13606,
+    "p90": 18841
+   }
+  },
+  "13": {
+   "label_de": "13 Führungskräfte in der Produktion und bei spezialisierten Dienstleistungen",
+   "month": {
+    "p50": 9594,
+    "p10": 6257,
+    "p25": 7644,
+    "p75": 12355,
+    "p90": 16019
+   }
+  },
+  "14": {
+   "label_de": "14 Führungskräfte in Hotels und Restaurants, im Handel und in der Erbringung sonstiger Dienstleistungen",
+   "month": {
+    "p50": 6723,
+    "p10": 4372,
+    "p25": 5441,
+    "p75": 8584,
+    "p90": 10411
+   }
+  },
+  "20": {
+   "label_de": "2 Intellektuelle und wissenschaftliche Berufe",
+   "month": {
+    "p50": 9027,
+    "p10": 6078,
+    "p25": 7345,
+    "p75": 11237,
+    "p90": 14121
+   }
+  },
+  "21": {
+   "label_de": "21 Naturwissenschaftler, Mathematiker und Ingenieure",
+   "month": {
+    "p50": 8730,
+    "p10": 5985,
+    "p25": 7194,
+    "p75": 10720,
+    "p90": 13151
+   }
+  },
+  "22": {
+   "label_de": "22 Spezialisten in Gesundheitsberufen",
+   "month": {
+    "p50": 8000,
+    "p10": 6024,
+    "p25": 6862,
+    "p75": 9722,
+    "p90": 14238
+   }
+  },
+  "23": {
+   "label_de": "23 Lehrkräfte",
+   "month": {
+    "p50": 9697,
+    "p10": 6740,
+    "p25": 8117,
+    "p75": 11302,
+    "p90": 12965
+   }
+  },
+  "24": {
+   "label_de": "24 Betriebswirte und vergleichbare Spezialisten",
+   "month": {
+    "p50": 9509,
+    "p10": 6030,
+    "p25": 7447,
+    "p75": 12568,
+    "p90": 17135
+   }
+  },
+  "25": {
+   "label_de": "25 Spezialisten in der Informations- und Kommunikationstechnologie",
+   "month": {
+    "p50": 9949,
+    "p10": 6592,
+    "p25": 8079,
+    "p75": 11957,
+    "p90": 15079
+   }
+  },
+  "26": {
+   "label_de": "26 Juristen, Sozialwissenschaftler und Kulturberufe",
+   "month": {
+    "p50": 9122,
+    "p10": 6103,
+    "p25": 7501,
+    "p75": 11412,
+    "p90": 14750
+   }
+  },
+  "30": {
+   "label_de": "3 Techniker und gleichrangige nichttechnische Berufe",
+   "month": {
+    "p50": 7523,
+    "p10": 5199,
+    "p25": 6198,
+    "p75": 9224,
+    "p90": 11497
+   }
+  },
+  "31": {
+   "label_de": "31 Ingenieurtechnische und vergleichbare Fachkräfte",
+   "month": {
+    "p50": 7507,
+    "p10": 5450,
+    "p25": 6407,
+    "p75": 8783,
+    "p90": 10497
+   }
+  },
+  "32": {
+   "label_de": "32 Assistenzberufe im Gesundheitswesen",
+   "month": {
+    "p50": 6203,
+    "p10": 4739,
+    "p25": 5349,
+    "p75": 7275,
+    "p90": 8558
+   }
+  },
+  "33": {
+   "label_de": "33 Betriebswirtschaftliche und kaufmännische Fachkräfte und Verwaltungsfachkräfte",
+   "month": {
+    "p50": 7900,
+    "p10": 5292,
+    "p25": 6407,
+    "p75": 9961,
+    "p90": 12893
+   }
+  },
+  "34": {
+   "label_de": "34 Juristische, soziale, kulturelle und verwandte Fachkräfte",
+   "month": {
+    "p50": 7078,
+    "p10": 4791,
+    "p25": 5742,
+    "p75": 8407,
+    "p90": 9924
+   }
+  },
+  "35": {
+   "label_de": "35 Informations- und Kommunikationstechniker",
+   "month": {
+    "p50": 7859,
+    "p10": 5343,
+    "p25": 6414,
+    "p75": 9567,
+    "p90": 11373
+   }
+  },
+  "40": {
+   "label_de": "4 Bürokräfte und verwandte Berufe",
+   "month": {
+    "p50": 6370,
+    "p10": 4667,
+    "p25": 5343,
+    "p75": 7587,
+    "p90": 9225
+   }
+  },
+  "41": {
+   "label_de": "41 Allgemeine Büro- und Sekretariatskräfte",
+   "month": {
+    "p50": 6637,
+    "p10": 4803,
+    "p25": 5617,
+    "p75": 7762,
+    "p90": 9201
+   }
+  },
+  "42": {
+   "label_de": "42 Bürokräfte mit Kundenkontakt",
+   "month": {
+    "p50": 5965,
+    "p10": 4339,
+    "p25": 4921,
+    "p75": 7654,
+    "p90": 10644
+   }
+  },
+  "43": {
+   "label_de": "43 Bürokräfte im Finanz- und Rechnungswesen, in der Statistik und in der Materialwirtschaft",
+   "month": {
+    "p50": 6035,
+    "p10": 4589,
+    "p25": 5151,
+    "p75": 7155,
+    "p90": 8507
+   }
+  },
+  "44": {
+   "label_de": "44 Sonstige Bürokräfte und verwandte Berufe",
+   "month": {
+    "p50": 6356,
+    "p10": 4772,
+    "p25": 5362,
+    "p75": 7671,
+    "p90": 9718
+   }
+  },
+  "50": {
+   "label_de": "5 Dienstleistungsberufe und Verkäufer",
+   "month": {
+    "p50": 5136,
+    "p10": 4083,
+    "p25": 4563,
+    "p75": 6140,
+    "p90": 7643
+   }
+  },
+  "51": {
+   "label_de": "51 Berufe im Bereich personenbezogener Dienstleistungen",
+   "month": {
+    "p50": 4927,
+    "p10": 3883,
+    "p25": 4334,
+    "p75": 5783,
+    "p90": 7027
+   }
+  },
+  "52": {
+   "label_de": "52 Verkaufskräfte",
+   "month": {
+    "p50": 4970,
+    "p10": 4197,
+    "p25": 4545,
+    "p75": 5804,
+    "p90": 7521
+   }
+  },
+  "53": {
+   "label_de": "53 Betreuungsberufe",
+   "month": {
+    "p50": 5629,
+    "p10": 4564,
+    "p25": 5005,
+    "p75": 6426,
+    "p90": 7488
+   }
+  },
+  "54": {
+   "label_de": "54 Schutzkräfte und Sicherheitsbedienstete",
+   "month": {
+    "p50": 6528,
+    "p10": 4622,
+    "p25": 5138,
+    "p75": 8412,
+    "p90": 9862
+   }
+  },
+  "60": {
+   "label_de": "6 Fachkräfte in Land- und Forstwirtschaft und Fischerei",
+   "month": {
+    "p50": 5670,
+    "p10": 4504,
+    "p25": 5040,
+    "p75": 6441,
+    "p90": 7522
+   }
+  },
+  "61": {
+   "label_de": "61 Fachkräfte in der Landwirtschaft",
+   "month": {
+    "p50": 5622,
+    "p10": 4471,
+    "p25": 5003,
+    "p75": 6379,
+    "p90": 7398
+   }
+  },
+  "62": {
+   "label_de": "62 Fachkräfte in Forstwirtschaft, Fischerei und Jagd - Marktproduktion",
+   "month": {
+    "p50": 6109,
+    "p10": 5026,
+    "p25": 5471,
+    "p75": 7139,
+    "p90": 8199
+   }
+  },
+  "70": {
+   "label_de": "7 Handwerks- und verwandte Berufe",
+   "month": {
+    "p50": 6190,
+    "p10": 4791,
+    "p25": 5440,
+    "p75": 7044,
+    "p90": 8015
+   }
+  },
+  "71": {
+   "label_de": "71 Bau- und Ausbaufachkräfte sowie verwandte Berufe, ausgenommen Elektriker",
+   "month": {
+    "p50": 6172,
+    "p10": 5041,
+    "p25": 5587,
+    "p75": 6846,
+    "p90": 7656
+   }
+  },
+  "72": {
+   "label_de": "72 Metallarbeiter, Mechaniker, Polymechaniker, Produktionsmechaniker und verwandte Berufe",
+   "month": {
+    "p50": 6394,
+    "p10": 4777,
+    "p25": 5486,
+    "p75": 7319,
+    "p90": 8278
+   }
+  },
+  "73": {
+   "label_de": "73 Präzisionshandwerker, Drucker und kunsthandwerkliche Berufe",
+   "month": {
+    "p50": 6165,
+    "p10": 4542,
+    "p25": 5244,
+    "p75": 7161,
+    "p90": 8269
+   }
+  },
+  "74": {
+   "label_de": "74 Elektriker und Elektroniker",
+   "month": {
+    "p50": 6432,
+    "p10": 5199,
+    "p25": 5730,
+    "p75": 7358,
+    "p90": 8438
+   }
+  },
+  "75": {
+   "label_de": "75 Berufe in der Nahrungsmittelverarbeitung, Holzverarbeitung und Bekleidungsherstellung und verwandte handwerkliche Fachkräfte",
+   "month": {
+    "p50": 5302,
+    "p10": 4185,
+    "p25": 4672,
+    "p75": 6216,
+    "p90": 7292
+   }
+  },
+  "80": {
+   "label_de": "8 Bediener von Anlagen und Maschinen und Montageberufe",
+   "month": {
+    "p50": 5897,
+    "p10": 4356,
+    "p25": 5054,
+    "p75": 6802,
+    "p90": 7755
+   }
+  },
+  "81": {
+   "label_de": "81 Bediener stationärer Anlagen und Maschinen",
+   "month": {
+    "p50": 5778,
+    "p10": 4332,
+    "p25": 4949,
+    "p75": 6691,
+    "p90": 7641
+   }
+  },
+  "82": {
+   "label_de": "82 Montageberufe",
+   "month": {
+    "p50": 5980,
+    "p10": 4510,
+    "p25": 5278,
+    "p75": 6815,
+    "p90": 7731
+   }
+  },
+  "83": {
+   "label_de": "83 Fahrzeugführer und Bediener mobiler Anlagen",
+   "month": {
+    "p50": 5951,
+    "p10": 4354,
+    "p25": 5074,
+    "p75": 6866,
+    "p90": 7836
+   }
+  },
+  "90": {
+   "label_de": "9 Hilfsarbeitskräfte",
+   "month": {
+    "p50": 5120,
+    "p10": 3919,
+    "p25": 4399,
+    "p75": 5982,
+    "p90": 6866
+   }
+  },
+  "91": {
+   "label_de": "91 Reinigungspersonal und Hilfskräfte",
+   "month": {
+    "p50": 4549,
+    "p10": 3801,
+    "p25": 4078,
+    "p75": 5188,
+    "p90": 5908
+   }
+  },
+  "92": {
+   "label_de": "92 Hilfsarbeiter in der Land- und Forstwirtschaft und Fischerei",
+   "month": {
+    "p50": 4919,
+    "p10": 3031,
+    "p25": 4177,
+    "p75": 5491,
+    "p90": 6190
+   }
+  },
+  "93": {
+   "label_de": "93 Hilfsarbeiter im Bergbau, im Bau, bei der Herstellung von Waren und im Transportwesen",
+   "month": {
+    "p50": 5541,
+    "p10": 4241,
+    "p25": 4821,
+    "p75": 6343,
+    "p90": 7146
+   }
+  },
+  "94": {
+   "label_de": "94 Hilfskräfte in der Nahrungsmittelzubereitung",
+   "month": {
+    "p50": 4429,
+    "p10": 3679,
+    "p25": 4012,
+    "p75": 4921,
+    "p90": 5546
+   }
+  },
+  "96": {
+   "label_de": "96 Abfallentsorgungsarbeiter und sonstige Hilfsarbeitskräfte",
+   "month": {
+    "p50": 5288,
+    "p10": 3904,
+    "p25": 4517,
+    "p75": 6200,
+    "p90": 6979
+   }
+  }
+ },
+ "by_slug": {
+  "architect": "21",
+  "landscape-architect": "21",
+  "computational-designer": "21",
+  "urban-planner": "21",
+  "mobility-planner": "21",
+  "interior-designer": "34",
+  "interior-technologist": "34",
+  "ffe-specialist": "34",
+  "exhibit-designer": "34",
+  "set-designer": "26",
+  "product-designer": "21",
+  "ux-designer": "21",
+  "graphic-designer": "21",
+  "brand-designer": "21",
+  "motion-designer": "21",
+  "design-technologist": "21",
+  "service-designer": "21",
+  "design-systems-lead": "21",
+  "game-designer": "21",
+  "wayfinding-designer": "21",
+  "industrial-designer": "21",
+  "furniture-designer": "21",
+  "illustrator": "26",
+  "installation-artist": "26",
+  "visualization-artist": "21",
+  "3d-modeler": "21",
+  "technical-artist": "21",
+  "creative-director": "12",
+  "photographer": "34",
+  "video-editor": "35",
+  "architectural-drafter": "31",
+  "bim-manager": "31",
+  "vdc-manager": "31",
+  "building-surveyor": "31",
+  "construction-manager": "13",
+  "construction-estimator": "31",
+  "facilities-manager": "12",
+  "real-estate-developer": "33",
+  "real-estate-agent": "33",
+  "sustainability-consultant": "21",
+  "building-performance-analyst": "21",
+  "building-envelope-consultant": "21",
+  "structural-engineer": "21",
+  "civil-engineer": "21",
+  "mep-engineer": "21",
+  "mechanical-engineer": "21",
+  "electrical-engineer": "21",
+  "chemical-engineer": "21",
+  "industrial-engineer": "21",
+  "aerospace-engineer": "21",
+  "biomedical-engineer": "21",
+  "environmental-engineer": "21",
+  "gis-analyst": "21",
+  "software-engineer": "25",
+  "backend-developer": "25",
+  "mobile-developer": "25",
+  "data-engineer": "25",
+  "machine-learning-engineer": "25",
+  "game-developer": "25",
+  "frontend-developer": "25",
+  "creative-technologist": "25",
+  "xr-prototyper": "25",
+  "data-analyst": "25",
+  "bi-developer": "25",
+  "product-analyst": "25",
+  "business-analyst": "25",
+  "data-scientist": "21",
+  "statistician": "21",
+  "actuary": "21",
+  "qa-engineer": "25",
+  "devops-engineer": "25",
+  "database-administrator": "25",
+  "systems-administrator": "25",
+  "network-engineer": "25",
+  "solutions-architect": "25",
+  "security-engineer": "25",
+  "digital-twin-lead": "25",
+  "it-support": "35",
+  "health-informatics-specialist": "25",
+  "product-manager": "12",
+  "project-manager": "12",
+  "operations-manager": "12",
+  "scrum-master": "24",
+  "management-consultant": "24",
+  "supply-chain-analyst": "13",
+  "warehouse-manager": "13",
+  "marketing-manager": "12",
+  "seo-specialist": "24",
+  "social-media-manager": "24",
+  "market-researcher": "24",
+  "content-strategist": "24",
+  "sales-representative": "33",
+  "account-executive": "24",
+  "sales-engineer": "24",
+  "customer-success-manager": "33",
+  "customer-support": "42",
+  "hr-manager": "12",
+  "recruiter": "24",
+  "executive-assistant": "33",
+  "event-planner": "33",
+  "accountant": "24",
+  "auditor": "24",
+  "bookkeeper": "33",
+  "financial-analyst": "24",
+  "controller": "12",
+  "underwriter": "33",
+  "compliance-officer": "24",
+  "lawyer": "26",
+  "paralegal": "34",
+  "registered-nurse": "22",
+  "nurse-practitioner": "22",
+  "medical-assistant": "32",
+  "physical-therapist": "22",
+  "pharmacist": "22",
+  "dietitian": "22",
+  "clinical-research-coordinator": "21",
+  "medical-writer": "26",
+  "therapist": "26",
+  "social-worker": "26",
+  "psychologist": "26",
+  "teacher": "23",
+  "professor": "23",
+  "tutor": "23",
+  "corporate-trainer": "24",
+  "instructional-designer": "23",
+  "school-administrator": "13",
+  "librarian": "26",
+  "teaching-assistant": "53",
+  "technical-writer": "26",
+  "ux-writer": "26",
+  "copywriter": "26",
+  "grant-writer": "26",
+  "journalist": "26",
+  "translator": "26",
+  "research-scientist": "21",
+  "economist": "26",
+  "electrician": "74",
+  "plumber": "71",
+  "carpenter": "71",
+  "hvac-technician": "71",
+  "welder": "72",
+  "maintenance-technician": "72",
+  "chef": "34",
+  "hotel-manager": "14",
+  "flight-attendant": "51",
+  "pilot": "31",
+  "police-officer": "54",
+  "ai-engineer": "25",
+  "mlops-engineer": "25",
+  "computer-vision-engineer": "25",
+  "nlp-engineer": "25",
+  "prompt-engineer": "25",
+  "data-architect": "25",
+  "ai-product-manager": "12",
+  "ux-researcher": "21",
+  "robotics-engineer": "21"
+ }
+}
