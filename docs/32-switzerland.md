@@ -379,6 +379,19 @@ ads first, then a rotating canton sweep under a page budget — the full corpus 
 touched every couple of nights and nothing is silently dropped. Night one still
 banked +9,735 Swiss postings (94% German), taking the raw corpus to ~293k.
 
+**Day two: the mapping unlock (2026-08-04).** The sliced sweep banked 27,155
+more ads in one night (31,096 CH total). Two layers then took Swiss postings
+from 935 mapped to 12,056: the **AVAM crosswalk** (56 official SECO occupation
+codes mapped from corpus evidence — every ad carries one; 21 documented gaps
+like FaGe/1,454 and Polymechaniker/594 are the taxonomy shopping list) and the
+**German title matcher** (compound splitting, Swiss noise stripping, same
+only-fires-when-recognised safety as the Romance layer; the false-positive
+audit killed ~950 confident mis-maps before ship). The board went 6 → 4,800
+Swiss listings, all apply links pointing at job-room.ch — never at jobs.ch or
+jobup.ch (the JobCloud properties we deliberately stay clear of). The day-45
+gate (≥25k CH postings, ≥55% German mapping) **passed 41 days early**. Next:
+German skill extraction, then the gap occupations.
+
 **Careerjet correction:** the adapter existed but the key never did — it has
 been skipping silently since it was written. Founder signup at
 careerjet.com/partners (free), then `CAREERJET_API_KEY` in `.env` (laptop) and

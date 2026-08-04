@@ -17,7 +17,7 @@ export default function Schweiz() {
     <div className="adm res">
       <header className="adm-head">
         <h1>Schweiz — the pivot</h1>
-        <span className="lbl">{asOf} · corpus source LIVE · day-14 gate passed 7× on day zero</span>
+        <span className="lbl">{asOf} · 31,096 CH ads in corpus · 12,056 mapped · 4,800 LIVE on the board · day-45 mapping gate passed early</span>
       </header>
 
       <nav className="otr-nav">
@@ -58,7 +58,7 @@ export default function Schweiz() {
         <table className="res-table">
           <thead><tr><th>Item</th><th>Status</th><th>Owner</th></tr></thead>
           <tbody>
-            <tr><td><b>Job-Room corpus source</b> — the federal portal&rsquo;s public search endpoint: 71,702 published ads, full text, language-tagged, official AVAM occupation codes</td><td><b>LIVE</b> — adapter ships with tonight&rsquo;s nightly</td><td>done</td></tr>
+            <tr><td><b>Job-Room corpus source</b> — the federal portal&rsquo;s public search endpoint: 71,702 published ads, full text, language-tagged, official AVAM occupation codes</td><td><b>LIVE</b> — 31,096 ads banked; the 10k API window is beaten with canton-sliced queries; full country swept every ~2 nights</td><td>done</td></tr>
             <tr><td><b>SECO blessing email</b> — formal read-access request; draft below, ready to send</td><td>ready to send</td><td><b>Nadine</b></td></tr>
             <tr><td><b>CH country inference + Careerjet CH locales</b> in the miner</td><td>shipped</td><td>done</td></tr>
             <tr><td><b>Careerjet key</b> — free signup at careerjet.com/partners (the adapter existed, the key never did)</td><td>open, low priority now</td><td>Carlos</td></tr>
@@ -170,7 +170,7 @@ export default function Schweiz() {
           <thead><tr><th>Gate</th><th>Condition to continue</th><th>Otherwise</th><th>Status</th></tr></thead>
           <tbody>
             <tr><td>Day 14</td><td>Job-Room access answered OR ≥10k CH postings flowing</td><td>pause; price x28 (cap CHF 300/mo)</td><td><b>passed day zero — 71,702 available</b></td></tr>
-            <tr><td>Day 45</td><td>≥25k CH postings in corpus AND German titles mapping ≥55%</td><td>reassess scope (tech-only edition vs full market)</td><td>open — German miner is the critical path</td></tr>
+            <tr><td>Day 45</td><td>≥25k CH postings in corpus AND German titles mapping ≥55%</td><td>reassess scope (tech-only edition vs full market)</td><td><b>passed 2026-08-04, 41 days early</b> — 31k postings; AVAM crosswalk (56 official codes) + German title matcher map 12,056; ceiling is missing occupations (FaGe, machinists, drivers…), documented in the crosswalk&rsquo;s gap list</td></tr>
             <tr><td>Day 90</td><td>one Swiss B2B conversation showing pilot interest</td><td>revert to global-only (which never stopped running)</td><td>open — Nadine&rsquo;s gate</td></tr>
           </tbody>
         </table>

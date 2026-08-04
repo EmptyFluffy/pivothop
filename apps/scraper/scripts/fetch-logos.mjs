@@ -31,13 +31,26 @@ const TRIED = path.join(REPO, 'apps/scraper/data/logo-tried.json');
 const LIMIT = Number((process.argv.find((a) => a.startsWith('--limit=')) || '').split('=')[1]) || Infinity;
 const SPACING = 250; // ms between favicon requests
 const RETRY_DAYS = 30;
-const RESOLVER_V = 2; // bump when the ladder improves -> parked misses retry once
+const RESOLVER_V = 3; // bump when the ladder improves -> parked misses retry once
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
-// "Oura Health Ltd" -> "oura health" -> ourahealth.com; suffix strip helps the guess
-const LEGAL = /\b(ltd|llc|inc|corp|corporation|gmbh|s\.?a\.?|b\.?v\.?|plc|co|company|group|holdings|limited)\b\.?/gi;
-const nameDomain = (s) => { const g = String(s).toLowerCase().replace(/&/g, 'and').replace(LEGAL, '').replace(/[^a-z0-9]/g, ''); return g ? g + '.com' : null; };
+// "Oura Health Ltd" -> "oura health" -> ourahealth.com; suffix strip helps the guess.
+// ag/sarl/sagl are the Swiss legal forms — the corpus's biggest company pool is
+// Swiss since 2026-08-04 and virtually every company there is "Something AG".
+const LEGAL = /\b(ltd|llc|inc|corp|corporation|gmbh|s\.?a\.?|b\.?v\.?|plc|co|company|group|holdings|limited|ag|sarl|s\.?\u00e0\.?r\.?l\.?|sagl|kg|cie|stiftung|genossenschaft)\b\.?/gi;
+// German umlauts transliterate for DOMAINS (Bühler -> buehler.ch); slugify just
+// deleted the character and guessed a domain no registrar has ever seen.
+const translit = (s) => String(s).toLowerCase()
+  .replace(/\u00e4/g, 'ae').replace(/\u00f6/g, 'oe').replace(/\u00fc/g, 'ue').replace(/\u00df/g, 'ss')
+  .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+// Market-aware TLD ladder: a Swiss company lives on .ch far more often than
+// .com; both are tried, .ch first when the company's postings say CH.
+const nameDomains = (s, country) => {
+  const g = translit(s).replace(/&/g, 'and').replace(LEGAL, '').replace(/[^a-z0-9]/g, '');
+  if (!g) return [];
+  return country === 'CH' ? [g + '.ch', g + '.com'] : country === 'DE' ? [g + '.de', g + '.com'] : [g + '.com'];
+};
 
 // ATS slug -> the brand's likely domain roots. The slug is usually the company.
 function atsDomains(url, source) {
@@ -103,8 +116,8 @@ for (const f of fs.readdirSync(JOBS)) {
     if (!slug) continue;
     const cur = byCompany.get(slug);
     const rank = RANK[j.source] || 1;
-    if (!cur) byCompany.set(slug, { company: j.company, url: j.url, source: j.source, rank, n: 1 });
-    else { cur.n++; if (rank > cur.rank) { cur.url = j.url; cur.source = j.source; cur.rank = rank; } }
+    if (!cur) byCompany.set(slug, { company: j.company, url: j.url, source: j.source, country: j.country, rank, n: 1 });
+    else { cur.n++; if (rank > cur.rank) { cur.url = j.url; cur.source = j.source; cur.rank = rank; } if (!cur.country && j.country) cur.country = j.country; }
   }
 }
 
@@ -169,9 +182,10 @@ for (const [slug, meta] of work) {
     const domains = atsDomains(meta.url, meta.source);
     const cb = await clearbitDomain(meta.company);
     if (cb && !domains.includes(cb)) domains.push(cb);
-    const nd = nameDomain(meta.company);
-    if (nd && !domains.includes(nd)) domains.push(nd);
-    for (const domain of domains.slice(0, 4)) {
+    for (const nd of nameDomains(meta.company, meta.country)) {
+      if (!domains.includes(nd)) domains.push(nd);
+    }
+    for (const domain of domains.slice(0, 5)) {
       const png = await favicon(domain);
       await sleep(SPACING);
       if (!png || png.length < 70) continue;
