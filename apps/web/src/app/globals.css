@@ -1591,3 +1591,15 @@ input:focus-visible{outline:none}
 a.jd-skill{text-decoration:none;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
 a.jd-skill:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 a.jd-skill:hover svg{color:var(--paper)}
+
+/* ── Swiss visitor suggestion (docs/32: suggest, never force) ─────────────
+   Hydrates client-side off the proxy's geo cookie; absent from every
+   prerendered page, so crawlers and non-Swiss visitors never see it. */
+.ch-banner{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;max-width:calc(100vw - 32px);background:var(--ink);color:var(--paper);padding:11px 16px;border-radius:9px;box-shadow:0 10px 28px rgba(21,21,26,.28);font-family:var(--sans);font-size:13.5px;line-height:1.4}
+.ch-flag{flex:none;display:grid;place-items:center}
+.ch-txt{color:var(--paper);opacity:.85}
+.ch-go{flex:none;color:var(--paper);font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.ch-go:hover{color:#fff;text-decoration-color:var(--accent)}
+.ch-x{flex:none;background:none;border:0;color:var(--paper);opacity:.6;font-size:19px;line-height:1;cursor:pointer;padding:2px 4px}
+.ch-x:hover{opacity:1}
+@media (max-width:700px){.ch-banner{flex-wrap:wrap;bottom:12px;font-size:12.5px}.ch-txt{flex:1 1 100%}}

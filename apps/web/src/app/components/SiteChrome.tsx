@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import SwissBanner from './SwissBanner';
 import { MobileNav, NavBurger } from './MobileNav';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
@@ -87,6 +88,7 @@ export function PageShell({ children, active }: { children: React.ReactNode; act
   return (
     <div className="shell">
       <div className="main">
+        <SwissBanner />
         <SiteNav active={active} />
         <MobileNav />
         {children}
