@@ -154,21 +154,34 @@ function matchOne(m, cleaned) {
 // after, so it needs refusing rather than rerouting.
 const NEVER = /\bnight audit(or|ing|s)?\b|\bremote pilot operator\b/;
 
-/** @returns {{slug:string, method:'exact'|'phrase'|'segment'|'i18n'}|null} */
+// Software-architect disambiguation. The building `architect` synonym is
+// exactOnly, which blocks CONTAINMENT — but segmentation plus seniority
+// stripping still reduced "Principal Architect - Solutions" and "Lead
+// Architect" to the bare word, an EXACT hit on the building profession
+// (caught on the live board 2026-08-05: data/solutions architects filed under
+// buildings). Industry convention is the rule: unqualified "Architect" is the
+// building profession; software architects always carry a qualifier. When a
+// tech qualifier is present, the building slug is refused and the title
+// reroutes to the occupation it names — or an honest null.
+const TECH_ARCH = /(data|solutions?|cloud|enterprise|software|platform|security|integration|infrastructure|network|application|api|devops|iot|blockchain|java|aws|azure|gcp|salesforce|sap|erp|crm|technical|ml|ai)[\s-]+architect|architecte?s?\s*[-\u2013\u2014:/]\s*(data|solutions?|cloud|software)|\b(founding|data|software|cloud|devops|backend|frontend|full[ -]?stack|machine learning) engineer\b/i;
+
+/** @returns {{slug:string, method:string}|null} */
 export function mapTitle(rawTitle) {
   const m = getTaxonomy();
   const primary = cleanTitle(rawTitle);
   if (NEVER.test(primary)) return null;
+  const techArch = TECH_ARCH.test(String(rawTitle));
+  const guard = (hit) => (hit && hit.slug === 'architect' && techArch ? null : hit);
   // Whole-title check: segmentation splits "Chef/fe de projet" at the slash and
   // hands matchOne a bare "chef" segment, so the guard must also see the intact
   // title before any segment can match.
   if (CHEF_LEAD.test(primary)) return null;
-  const first = matchOne(m, primary);
+  const first = guard(matchOne(m, primary));
   if (first) return first;
   // Head segment mapped to nothing — try the remaining segments before giving up.
   for (const seg of titleSegments(rawTitle)) {
     if (seg === primary) continue;
-    const hit = matchOne(m, seg);
+    const hit = guard(matchOne(m, seg));
     if (hit) return { slug: hit.slug, method: 'segment' };
   }
   // Last tier: the title may not be English. translateRomance returns null unless
@@ -184,8 +197,16 @@ export function mapTitle(rawTitle) {
   // recognised, so English titles cannot regress through it. See titles-de.js.
   const de = translateGerman(rawTitle);
   if (de) {
-    const hit = matchOne(m, cleanTitle(de)) ?? matchOne(m, cleanSegment(de));
+    const hit = guard(matchOne(m, cleanTitle(de)) ?? matchOne(m, cleanSegment(de)));
     if (hit) return { slug: hit.slug, method: 'de' };
+  }
+  // The guard refused the building slug; give the title its REAL occupation
+  // when the qualifier names one, else an honest miss.
+  if (techArch && /architect/i.test(String(rawTitle))) {
+    if (/data[\s-]+architect/i.test(String(rawTitle))) return { slug: 'data-architect', method: 'disambig' };
+    // any other tech qualifier (java, aws, sap, security...) is the solutions
+    // family by industry convention
+    return { slug: 'solutions-architect', method: 'disambig' };
   }
   return null;
 }
