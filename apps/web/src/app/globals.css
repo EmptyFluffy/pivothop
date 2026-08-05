@@ -1636,7 +1636,7 @@ a.jd-skill:hover svg{color:var(--paper)}
 /* Sits immediately left of the waitlist CTA: the button takes the auto margin
    that used to pin the CTA right, so the pair travels together. */
 .nav-searchbtn{margin-left:auto;background:none;border:0;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;transition:color .15s}
-.nav-searchbtn kbd{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-2);background:var(--paper-2);border-radius:5px;padding:3px 7px;transition:color .15s,background .15s}
+.nav-searchbtn kbd{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink-2);background:var(--paper-2);border-radius:6px;padding:4px 9px;transition:color .15s,background .15s}
 .nav-searchbtn:hover{color:var(--accent)}
 .nav-searchbtn:hover kbd{color:var(--accent)}
 .nav .nav-searchbtn ~ .cta{margin-left:0}
@@ -1664,3 +1664,10 @@ a.jd-skill:hover svg{color:var(--paper)}
 .srch-s{color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
 .srch-none{padding:22px 16px;color:var(--ink-2);font-size:14.5px}
 @media (max-width:700px){.srch{padding-top:8vh}.srch-row input{font-size:17px}.srch-results a{grid-template-columns:52px 1fr;}.srch-s{display:none}}
+
+
+/* footer socials */
+.foot-social{display:flex;gap:16px;margin-top:18px}
+.foot-social a{color:var(--ink-2);display:grid;place-items:center;transition:color .15s}
+.foot-social a:hover{color:var(--accent)}
+.foot-social svg{width:19px;height:19px;fill:currentColor}
