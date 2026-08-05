@@ -141,7 +141,7 @@ function parseLoose(text) {
 /* Cached model call: an unchanged page never pays twice. */
 async function extract(prompt, cacheKeyParts) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  const key = crypto.createHash('sha1').update(['direct-v1', MODEL, ...cacheKeyParts].join('|')).digest('hex');
+  const key = crypto.createHash('sha1').update(['direct-v2', MODEL, ...cacheKeyParts].join('|')).digest('hex');
   const cacheFile = path.join(CACHE_DIR, `llm-${key}.json`);
   if (fs.existsSync(cacheFile)) return JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
   const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -195,18 +195,20 @@ export async function fetchRaw({ log }) {
 
       // Render first — these are JS apps whose listings never appear in raw
       // HTML. Static fetch is the fallback, and it says so when it is used.
-      let pageUrl = careers, all, pageText;
+      let pageUrl = careers, all, pageText, fullText = '';
       const rendered = await renderGet(careers);
       if (rendered) {
         pageUrl = rendered.url;
         all = rendered.links;
+        fullText = rendered.text.slice(0, 20000);
         pageText = rendered.text.slice(0, 12000);
       } else {
         const html = await politeGet(careers);
         if (!html) { log(`direct:${company} — page unreachable (bot wall or dead URL), skipped`); continue; }
         log(`direct:${company} — NOT RENDERED, static HTML only (JS-loaded jobs will be missed)`);
         all = links(html, careers);
-        pageText = stripHtml(html).slice(0, 12000);
+        fullText = stripHtml(html).slice(0, 20000);
+        pageText = fullText.slice(0, 12000);
       }
 
       // Follow the ATS the careers page points at — that is where the openings
@@ -219,6 +221,7 @@ export async function fetchRaw({ log }) {
           if (atsPage) {
             pageUrl = atsPage.url;
             all = atsPage.links;
+            fullText = atsPage.text.slice(0, 20000);
             pageText = atsPage.text.slice(0, 12000);
           } else {
             log(`direct:${company} — ATS page did not render, reading the careers page instead`);
@@ -239,23 +242,35 @@ export async function fetchRaw({ log }) {
       let kept = 0;
       for (const j of jobs) {
         if (!j.url || !j.title) continue;
-        // The listing page is not a posting. When a studio renders all its
-        // openings inline, the model has no per-job URL to give and hands back
-        // the page it was shown; that row would key its external_id to a URL
-        // that changes meaning every time the page changes.
-        if (j.url.replace(/\/$/, '') === pageUrl.replace(/\/$/, '')) continue;
-        if (!(await allowed(j.url))) continue;
-        const jobPage = await renderGet(j.url);
-        const jobText = jobPage ? jobPage.text.slice(0, 20000) : stripHtml((await politeGet(j.url)) || '').slice(0, 20000);
+        // INLINE LISTINGS. Boutique studios (EM2N, Lake|Flato...) render every
+        // opening on the jobs page itself with no per-job URL; the model then
+        // returns the page it was shown. Yesterday's guard dropped those rows
+        // because a bare listing URL is an unstable identity — the right fix is
+        // a stable one: page + title. The listing page IS the posting there,
+        // its text carries the ad, and the apply route lives on it.
+        const inline = j.url.replace(/[#?].*$/, '').replace(/\/$/, '') === pageUrl.replace(/[#?].*$/, '').replace(/\/$/, '');
+        let jobText, jobUrl = j.url, jobId = j.url;
+        if (inline) {
+          jobText = fullText;
+          jobUrl = pageUrl;
+          jobId = `${pageUrl}#${String(j.title).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+        } else {
+          if (!(await allowed(j.url))) continue;
+          const jobPage = await renderGet(j.url);
+          jobText = jobPage ? jobPage.text.slice(0, 20000) : stripHtml((await politeGet(j.url)) || '').slice(0, 20000);
+        }
         if (jobText.length < 200) continue; // a shell, not a posting
-        const meta = await extract(
-          `Job posting page for "${j.title}" at ${company}. Extract as JSON: {"title":"...","location":"city, country or null","salary_min":number|null,"salary_max":number|null,"currency":"USD/GBP/EUR/CHF/...or null","is_job_posting":true|false}. is_job_posting is false if this page is not actually a single job posting. JSON only.\n\n${jobText.slice(0, 10000)}`,
-          [j.url, jobText.slice(0, 4000)],
-        );
+        // Two different sanity questions. A dedicated posting page must BE a
+        // posting; an inline listing page must CONTAIN the named opening — the
+        // first question asked of the second kind vetoed every inline job.
+        const metaPrompt = inline
+          ? `Careers page of ${company}; it lists one or more openings inline. For the opening titled "${j.title}", extract as JSON: {"title":"...","location":"city, country or null","salary_min":number|null,"salary_max":number|null,"currency":"USD/GBP/EUR/CHF/...or null","is_job_posting":true|false}. is_job_posting is false ONLY if no opening with (approximately) this title appears in the text. JSON only.\n\n${jobText.slice(0, 10000)}`
+          : `Job posting page for "${j.title}" at ${company}. Extract as JSON: {"title":"...","location":"city, country or null","salary_min":number|null,"salary_max":number|null,"currency":"USD/GBP/EUR/CHF/...or null","is_job_posting":true|false}. is_job_posting is false if this page is not actually a single job posting. JSON only.\n\n${jobText.slice(0, 10000)}`;
+        const meta = await extract(metaPrompt, [jobId, jobText.slice(0, 4000)]);
         if (!meta || meta.is_job_posting === false) continue;
         rows.push({
           source: name,
-          external_id: j.url,
+          external_id: jobId,
           title: meta.title || j.title,
           company,
           location: meta.location || null,
@@ -266,7 +281,7 @@ export async function fetchRaw({ log }) {
           salary_period: meta.salary_min ? 'year' : null,
           description_text: jobText, // the employer's words, never the model's
           posted_at: null, // first-seen ledger keeps ages honest
-          url: j.url,
+          url: jobUrl,
         });
         kept++;
       }
