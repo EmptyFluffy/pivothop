@@ -669,7 +669,7 @@ export function mountInstrument(DATA,HOOKS){
     if(!o.license)return '';
     var head=(o.license.req==='required')?'Licensed profession':'License for some roles';
     /* The badge answers "what does this take?" — /licenses answers it fully. */
-    return '<a class="d-lic" href="/licenses#occ-'+o.id+'"><span class="k">'+head+'</span><span class="t">'+o.license.label+'</span></a>';
+    return '<a class="d-lic" data-license="'+o.id+'" href="/licenses#occ-'+o.id+'"><span class="k">'+head+'</span><span class="t">'+o.license.label+'</span></a>';
   }
   function kindTag(o){
     if(!o.kind)return '';
@@ -1091,7 +1091,11 @@ export function mountInstrument(DATA,HOOKS){
         '<a class="lbl sk-gloss" id="skgloss" href="/glossary">Show in glossary →</a>'+
       '</div>';
     document.body.appendChild(el);
-    function close(){el.classList.remove('open');}
+    function close(){
+      if(el.classList.contains('closing')||!el.classList.contains('open'))return;
+      el.classList.add('closing');
+      setTimeout(function(){el.classList.remove('open');el.classList.remove('closing');},190);
+    }
     el.querySelector('#skveil').addEventListener('click',close);
     el.querySelector('#skclose').addEventListener('click',close);
     document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});

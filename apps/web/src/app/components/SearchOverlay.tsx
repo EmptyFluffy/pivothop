@@ -34,14 +34,19 @@ const KIND_W: Record<string, number> = { jobs: 6, salary: 5, routes: 4, page: 3,
 
 export default function SearchOverlay() {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [q, setQ] = useState('');
   const [index, setIndex] = useState<Entry[] | null>(null);
   const [hint, setHint] = useState(0);
   const [sel, setSel] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const closeIt = useCallback(() => {
+    setClosing(true);
+    setTimeout(() => { setOpen(false); setClosing(false); }, 190);
+  }, []);
   const openIt = useCallback(() => {
-    setOpen(true); setQ(''); setSel(0);
+    setClosing(false); setOpen(true); setQ(''); setSel(0);
     if (!index) fetch('/data/search-index.json').then((r) => r.json()).then(setIndex).catch(() => setIndex([]));
   }, [index]);
 
@@ -53,12 +58,12 @@ export default function SearchOverlay() {
     const onKey = (ev: KeyboardEvent) => {
       const typing = /input|textarea|select/i.test((ev.target as HTMLElement).tagName || '');
       if ((ev.key === '/' && !typing) || ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === 'k')) { ev.preventDefault(); openIt(); }
-      if (ev.key === 'Escape') setOpen(false);
+      if (ev.key === 'Escape') closeIt();
     };
     document.addEventListener('click', onClick);
     document.addEventListener('keydown', onKey);
     return () => { document.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey); };
-  }, [openIt]);
+  }, [openIt, closeIt]);
 
   useEffect(() => { if (open) setTimeout(() => inputRef.current?.focus(), 30); }, [open]);
   useEffect(() => {
@@ -82,7 +87,7 @@ export default function SearchOverlay() {
 
   if (!open) return null;
   return (
-    <div className="srch" role="dialog" aria-modal="true" aria-label="Search" onMouseDown={(e) => { if (e.target === e.currentTarget) setOpen(false); }}>
+    <div className={`srch${closing ? ' closing' : ''}`} role="dialog" aria-modal="true" aria-label="Search" onMouseDown={(e) => { if (e.target === e.currentTarget) closeIt(); }}>
       <div className="srch-panel">
         <div className="srch-row">
           <span className="srch-mark" aria-hidden="true">
@@ -97,7 +102,7 @@ export default function SearchOverlay() {
               if (e.key === 'Enter' && results[sel]) window.location.href = results[sel].h;
             }}
           />
-          <button className="srch-x" aria-label="Close" onClick={() => setOpen(false)}>&times;</button>
+          <button className="srch-x" aria-label="Close" onClick={closeIt}>&times;</button>
         </div>
         {q.trim() === '' ? (
           <div className="srch-empty">

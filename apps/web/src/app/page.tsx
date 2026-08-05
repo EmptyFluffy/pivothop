@@ -4,6 +4,7 @@ import posthog from 'posthog-js';
 import { SHELL } from '@/lib/shell';
 import SwissBanner from './components/SwissBanner';
 import SearchOverlay from './components/SearchOverlay';
+import LicenseSheet from './components/LicenseSheet';
 import { DATA } from '@/lib/data';
 import { seedChips, rankPersonalized } from '@/lib/personalize';
 import { wireMobileNav } from '@/lib/mobilenav';
@@ -53,6 +54,7 @@ export default function Home() {
       {/* Sibling of the wiped div on purpose — anything inside it dies on mount. */}
       <SwissBanner />
       <SearchOverlay />
+      <LicenseSheet />
       <div ref={ref} suppressHydrationWarning>
         {/* Server-rendered boot state: real brand copy + links to the key pages,
             so the initial HTML is crawlable and the homepage passes structure to

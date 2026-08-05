@@ -20,10 +20,13 @@ export type SkillEntry = {
 
 export default function SkillStrip({ skills }: { skills: SkillEntry[] }) {
   const [open, setOpen] = useState<SkillEntry | null>(null);
+  const [closing, setClosing] = useState(false);
+  // Exit plays before unmount: .closing runs the out animation, then we clear.
+  const close = () => { setClosing(true); setTimeout(() => { setOpen(null); setClosing(false); }, 190); };
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(null); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
@@ -51,10 +54,10 @@ export default function SkillStrip({ skills }: { skills: SkillEntry[] }) {
       </div>
 
       {open && (
-        <div className="skmodal open" role="dialog" aria-modal="true" aria-label={`${open.term} definition`}>
-          <div className="veil" onClick={() => setOpen(null)} />
+        <div className={`skmodal open${closing ? ' closing' : ''}`} role="dialog" aria-modal="true" aria-label={`${open.term} definition`}>
+          <div className="veil" onClick={close} />
           <div className="sksheet" tabIndex={-1} ref={(el) => el?.focus()}>
-            <button className="xclose sk-close" aria-label="Close" onClick={() => setOpen(null)}>&times;</button>
+            <button className="xclose sk-close" aria-label="Close" onClick={close}>&times;</button>
             <span className="lbl">{open.field || 'Skill bank'}</span>
             <div className="sk-term">
               <span className="sk-mark"><SkillMarkSvg id={open.slug} /></span>

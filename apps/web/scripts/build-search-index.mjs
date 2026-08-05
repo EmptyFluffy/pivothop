@@ -68,4 +68,24 @@ push('page', 'Adjacency Index', 'the headline numbers, citable', '/adjacency-ind
 push('page', 'Jobs in Switzerland', 'the Swiss board', '/jobs/in-switzerland');
 
 fs.writeFileSync(path.join(DATA, 'search-index.json'), JSON.stringify(out));
+
+// License summary sheet data: per occupation, its US gate (primary) and the
+// Swiss entry when one exists — the in-page sheet reads this instead of
+// navigating to /licenses. Same source file as the page, so they cannot drift.
+const GATES = read(path.resolve(WEB, '..', '..', 'packages', 'data', 'taxonomy', 'license-gates.json'));
+const OCC_LIC = Object.fromEntries((TAX?.occupations ?? []).filter((o) => o.license).map((o) => [o.slug, { req: o.license.req, label: o.license.label, title: o.title }]));
+const sheet = {};
+for (const g of GATES?.us ?? []) {
+  for (const slug of g.occupations) {
+    sheet[slug] = { gate: g.name, market: 'US', path: g.path, time: g.time, note: g.note || '', body: g.body, anchor: `occ-${slug}`, ...OCC_LIC[slug] };
+  }
+}
+for (const g of GATES?.ch ?? []) {
+  for (const slug of g.occupations) {
+    if (sheet[slug]) sheet[slug].ch = { gate: g.name, path: g.path, time: g.time, url: g.body.url };
+    else sheet[slug] = { gate: g.name, market: 'CH', path: g.path, time: g.time, note: g.note || '', body: g.body, anchor: `ch-occ-${slug}`, ...OCC_LIC[slug] };
+  }
+}
+fs.writeFileSync(path.join(DATA, 'license-sheet.json'), JSON.stringify(sheet));
+console.log(`license-sheet: ${Object.keys(sheet).length} occupations`);
 console.log(`search-index: ${out.length} entries (${Object.entries(out.reduce((m, e) => ((m[e.k] = (m[e.k] ?? 0) + 1), m), {})).map(([k, n]) => `${k}:${n}`).join(' ')})`);

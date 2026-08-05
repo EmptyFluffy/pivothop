@@ -509,11 +509,12 @@
 }
 /* ── skill sheet: the chip's definition card, over the instrument ── */
 .skmodal{position:fixed;inset:0;z-index:220;display:none;align-items:center;justify-content:center;padding:20px}
-.skmodal.open{display:flex}
-.skmodal .veil{position:absolute;inset:0;background:rgba(12,12,20,.38)}
-.sksheet{position:relative;background:var(--card);border:1px solid var(--ink);width:min(460px,94vw);max-height:min(560px,84vh);overflow:auto;padding:26px 28px 24px}
+.skmodal.open,.skmodal.closing{display:flex}
+.skmodal .veil{position:absolute;inset:0;background:rgba(21,21,26,.45);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.sksheet{position:relative;background:var(--paper);border-radius:16px;box-shadow:0 24px 70px rgba(21,21,26,.35);width:min(480px,94vw);max-height:min(560px,84vh);overflow:auto;padding:26px 28px 24px}
 .sksheet:focus{outline:none}
-.sk-close{position:absolute;top:12px;right:12px;font-size:24px}
+.sk-close{position:absolute;top:14px;right:14px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule);border-radius:50%;background:var(--paper);font-size:19px;color:var(--ink-2);padding:0;transition:color .15s,border-color .15s}
+.sk-close:hover{color:var(--ink);border-color:var(--ink)}
 .sk-term{display:flex;align-items:center;gap:11px;font-weight:700;font-size:25px;letter-spacing:-.02em;margin:6px 0 10px}
 .sk-mark:empty{display:none}
 .sk-mark svg{display:block;width:26px;height:26px;color:var(--ink-2)}
@@ -1671,3 +1672,26 @@ a.jd-skill:hover svg{color:var(--paper)}
 .foot-social a{color:var(--ink-2);display:grid;place-items:center;transition:color .15s}
 .foot-social a:hover{color:var(--accent)}
 .foot-social svg{width:19px;height:19px;fill:currentColor}
+
+
+/* ── sheet out-animations (search, skill, license) ──
+   .closing plays the exit and JS unmounts/hides after ~190ms. */
+@keyframes sheetOut{to{opacity:0;transform:translateY(10px) scale(.985)}}
+@keyframes veilOut{to{opacity:0}}
+.skmodal.closing .sksheet{animation:sheetOut .18s var(--ease) forwards}
+.skmodal.closing .veil{animation:veilOut .18s ease forwards}
+.srch.closing{animation:veilOut .18s ease forwards}
+.srch.closing .srch-panel{animation:sheetOut .18s var(--ease) forwards}
+
+/* ── license summary sheet content ── */
+.lic-sh-head{display:flex;align-items:baseline;gap:10px;margin:2px 40px 4px 0}
+.lic-sh-head h3{margin:0;font-size:19px}
+.lic-sh-occ{font-size:14px;color:var(--ink-2);margin:0 0 14px}
+.lic-sh-occ .lic-req{margin-left:8px}
+.lic-sh dl{display:grid;gap:10px;margin:0}
+.lic-sh dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.lic-sh dd{margin:2px 0 0;font-size:14px;line-height:1.6;color:var(--ink-2)}
+.lic-sh-ch{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--rule)}
+.lic-sh-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:20px;padding-top:14px;border-top:0.5px solid var(--rule)}
+.lic-sh-foot a{text-decoration:underline;text-underline-offset:2px}
+.lic-sh-foot .acc{color:var(--accent)}

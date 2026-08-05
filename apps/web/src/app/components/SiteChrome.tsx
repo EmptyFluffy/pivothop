@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SwissBanner from './SwissBanner';
 import SearchOverlay from './SearchOverlay';
+import LicenseSheet from './LicenseSheet';
 import { MobileNav, NavBurger } from './MobileNav';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
@@ -101,6 +102,7 @@ export function PageShell({ children, active }: { children: React.ReactNode; act
       <div className="main">
         <SwissBanner />
         <SearchOverlay />
+        <LicenseSheet />
         <SiteNav active={active} />
         <MobileNav />
         {children}
