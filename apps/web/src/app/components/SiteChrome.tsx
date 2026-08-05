@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import SwissBanner from './SwissBanner';
+import SearchOverlay from './SearchOverlay';
 import { MobileNav, NavBurger } from './MobileNav';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
@@ -34,6 +35,9 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
         <Link className="navlink" href="/#how">Method</Link>
         <Link className="navlink" href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
+        <button className="nav-searchbtn" type="button" data-search aria-label="Search">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16.5 16.5 21 21" /></svg>
+        </button>
         <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Join the waitlist</Link>
       </div>
     </header>
@@ -90,6 +94,7 @@ export function PageShell({ children, active }: { children: React.ReactNode; act
     <div className="shell">
       <div className="main">
         <SwissBanner />
+        <SearchOverlay />
         <SiteNav active={active} />
         <MobileNav />
         {children}
