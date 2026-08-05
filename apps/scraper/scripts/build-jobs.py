@@ -81,7 +81,18 @@ OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
 # suppressing 12,307 listings we already hold and are licensed to display
 # (account-executive had 1,858 available and showed 60). The global aggregate is
 # downloaded by everyone who opens /jobs, so it stays lean.
-CAP = 250        # freshest N per occupation (per-occupation board + detail)
+#
+# 250 -> 600 on 2026-08-05. The country fix revealed 8,473 US postings we are
+# licensed to display; only 4,441 reached the board because 31 occupations sat
+# pegged at 250 and older US rows lost their slots to fresher Swiss ones.
+# Measured cost of the raise, gzipped (what actually crosses the wire):
+#   CAP=250  14,195 listings  697KB   US 4,441
+#   CAP=400  17,422 listings  845KB   US 5,470
+#   CAP=600  19,696 listings  942KB   US 6,000+
+# +245KB gzipped buys +5,500 listings. Affordable because /data/*.json now
+# carries a 1h cache header plus a day of stale-while-revalidate, so a repeat
+# visitor and the CDN both fetch it once, not once per page view.
+CAP = 600        # freshest N per occupation (per-occupation board + detail)
 # The global file must describe the SAME universe as the per-occupation boards,
 # or the site quotes two different numbers for one thing: the /jobs dek counted
 # the full board (3,066 remote) while the client could only filter the global
