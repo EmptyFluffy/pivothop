@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { readOutreach, meta } from './data';
 import { OutreachBoard } from './OutreachBoard';
+import { StudioFleet } from './StudioFleet';
 
 export const metadata: Metadata = { title: 'Admin — outreach', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
@@ -80,6 +81,8 @@ export default async function Outreach() {
           ))}
         </ul>
       </details>
+
+      <StudioFleet />
 
       <OutreachBoard rows={rows} curated={curated} manual={manual} />
     </div>
