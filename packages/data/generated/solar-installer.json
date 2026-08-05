@@ -3,8 +3,26 @@
   "origin": {
     "slug": "solar-installer",
     "title": "Solar Installer",
-    "postings": 211
+    "field": "Trades",
+    "cluster": "Trades",
+    "postings": 192,
+    "salary": "$55k–$75k",
+    "salary_band": [
+      52658,
+      75814
+    ],
+    "remote": "0%",
+    "separations": {
+      "transfer": 6.3,
+      "exit": 2,
+      "total": 8.4,
+      "openings": 4.1
+    }
   },
-  "insufficient": true,
-  "note": "211 mapped postings, but too few of them state their requirements in enough detail to build a defensible skill profile — honest empty state, never invented routes."
+  "roles": [],
+  "next": {},
+  "direct": [],
+  "cross": [],
+  "bridges": [],
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

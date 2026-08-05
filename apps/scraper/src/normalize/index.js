@@ -11,7 +11,7 @@ import { mapTitle, cleanTitle } from './titles.js';
 const AVAM = readJson(path.join(TAXONOMY_DIR, 'avam-crosswalk.json'))?.map ?? {};
 import { toAnnualUsd } from './salary.js';
 import { extractSkills, zoneText } from './skills.js';
-import { inferCountry } from './country.js';
+import { inferCountry, sourceCountry } from './country.js';
 import { fixMojibake, stripHtml } from '../lib/text.js';
 
 // Light company normalization for the dedup key: lowercase, legal suffixes off,
@@ -106,7 +106,8 @@ export async function normalize({ log }) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);
       continue;
     }
-    const country = inferCountry(r.location);
+    // Location first (specific), source market second (authoritative default).
+    const country = inferCountry(r.location) ?? sourceCountry(r);
     const sal = toAnnualUsd({ ...r, country }); // country drives the currency-mismatch check
     const skills = extractSkills(`${r.title}\n${zoneText(r.description_text)}`);
 

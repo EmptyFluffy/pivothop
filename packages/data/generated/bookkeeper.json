@@ -5,13 +5,13 @@
     "title": "Bookkeeper",
     "field": "Finance",
     "cluster": "Finance",
-    "postings": 1103,
-    "salary": "$40k–$55k",
+    "postings": 838,
+    "salary": "$40k–$50k",
     "salary_band": [
-      40450,
-      56251
+      39102,
+      50482
     ],
-    "remote": "4%",
+    "remote": "5%",
     "separations": {
       "transfer": 5,
       "exit": 6.4,
@@ -31,17 +31,17 @@
         "label": "CPA license required for public accounting/attest work"
       },
       "desc": "",
-      "match": 55,
+      "match": 52,
       "fit": 64,
-      "capability": 46,
+      "capability": 52,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 49,
       "mobility_tier": null,
       "salary": "$55k–$80k",
       "salary_band": [
-        53933,
-        82101
+        53343,
+        80900
       ],
       "demand": "High",
       "remote": "5%",
@@ -55,56 +55,50 @@
       "learn": [
         "Audit",
         "Forecasting",
-        "Financial Modeling",
-        "Budgeting"
+        "Budgeting",
+        "Financial Modeling"
       ],
       "waterfall": [
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 40.7,
-          "earned": 37.8
+          "pts": 40.6,
+          "earned": 33.6
         },
         {
           "skill": "reconciliation",
           "name": "Reconciliation",
-          "pts": 8.4,
-          "earned": 3.5
+          "pts": 8.3,
+          "earned": 2.4
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 7.1,
-          "earned": 2.1
-        },
-        {
-          "skill": "audit",
-          "name": "Audit",
-          "pts": 6.3,
-          "earned": 0
+          "pts": 7.4,
+          "earned": 2.6
         },
         {
           "skill": "accounts-payable",
           "name": "AP / AR",
-          "pts": 5.5,
-          "earned": 5.5
+          "pts": 5.7,
+          "earned": 5.7
+        },
+        {
+          "skill": "audit",
+          "name": "Audit",
+          "pts": 5.6,
+          "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 5.4,
-          "earned": 4
+          "pts": 5.6,
+          "earned": 4.4
         },
         {
           "skill": "forecasting",
           "name": "Forecasting",
-          "pts": 4.7,
-          "earned": 0
-        },
-        {
-          "skill": "financial-modeling",
-          "name": "Financial Modeling",
-          "pts": 3.8,
+          "pts": 4.8,
           "earned": 0
         },
         {
@@ -116,13 +110,19 @@
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
+          "pts": 3.5,
+          "earned": 1.7
+        },
+        {
+          "skill": "financial-modeling",
+          "name": "Financial Modeling",
           "pts": 3.4,
           "earned": 0
         },
         {
           "skill": "tax",
           "name": "Tax",
-          "pts": 3.1,
+          "pts": 3.3,
           "earned": 0
         },
         {
@@ -146,15 +146,115 @@
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 1.7,
+          "pts": 1.8,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 2264,
-        "salaried": 883
+        "postings": 2141,
+        "salaried": 796
+      }
+    },
+    {
+      "id": "auditor",
+      "title": "Auditor",
+      "field": "Finance",
+      "cluster": "Finance",
+      "kind": "lateral",
+      "license": {
+        "req": "partial",
+        "label": "CPA typically required for external audit"
+      },
+      "desc": "",
+      "match": 23,
+      "fit": 48,
+      "capability": 52,
+      "mobility": 100,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 49,
+      "mobility_tier": null,
+      "salary": "$45k–$85k",
+      "salary_band": [
+        45117,
+        84271
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "12–24 mo",
+      "have": [
+        "Accounting",
+        "Lean / Six Sigma",
+        "Excel"
+      ],
+      "learn": [
+        "Audit",
+        "Risk Management",
+        "QA / Testing",
+        "Data Analysis"
+      ],
+      "waterfall": [
+        {
+          "skill": "audit",
+          "name": "Audit",
+          "pts": 42.9,
+          "earned": 0
+        },
+        {
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 15.8,
+          "earned": 15.8
+        },
+        {
+          "skill": "risk-management",
+          "name": "Risk Management",
+          "pts": 11.4,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 6.5,
+          "earned": 3.5
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.5,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Supplemental",
+      "provenance": {
+        "postings": 1075,
+        "salaried": 466
       }
     },
     {
@@ -166,16 +266,16 @@
       "license": null,
       "desc": "",
       "match": 54,
-      "fit": 40,
-      "capability": 34,
+      "fit": 42,
+      "capability": 41,
       "mobility": 15,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 15,
       "mobility_tier": null,
       "salary": "$80k–$120k",
       "salary_band": [
-        80900,
-        117500
+        79878,
+        121350
       ],
       "demand": "High",
       "remote": "1%",
@@ -184,87 +284,105 @@
         "Accounting",
         "SAP",
         "Reconciliation",
-        "Excel"
+        "Lean / Six Sigma"
       ],
       "learn": [
         "Forecasting",
         "Budgeting",
         "Audit",
-        "Lean / Six Sigma"
+        "Supply Chain"
       ],
       "waterfall": [
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 42.3,
-          "earned": 42.3
+          "pts": 39,
+          "earned": 39
         },
         {
           "skill": "forecasting",
           "name": "Forecasting",
-          "pts": 13.1,
+          "pts": 11.9,
           "earned": 0
         },
         {
           "skill": "budgeting",
           "name": "Budgeting",
-          "pts": 10.4,
+          "pts": 9.7,
           "earned": 0
         },
         {
           "skill": "audit",
           "name": "Audit",
-          "pts": 6.7,
+          "pts": 6.5,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 5.6,
-          "earned": 3.3
+          "pts": 5.3,
+          "earned": 3.4
         },
         {
           "skill": "reconciliation",
           "name": "Reconciliation",
-          "pts": 4.9,
-          "earned": 4.9
+          "pts": 4.8,
+          "earned": 3.2
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 4.8,
-          "earned": 0
+          "pts": 4.5,
+          "earned": 2.3
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 4.1,
-          "earned": 4.1
+          "pts": 3.9,
+          "earned": 3.9
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 3,
+          "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 2.9,
+          "pts": 2.5,
           "earned": 0
         },
         {
           "skill": "compliance",
           "name": "Compliance",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 0
+        },
+        {
+          "skill": "financial-modeling",
+          "name": "Financial Modeling",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
+          "skill": "accounts-payable",
+          "name": "AP / AR",
+          "pts": 2.1,
+          "earned": 2.1
         }
       ],
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 1246,
-        "salaried": 654
+        "postings": 1099,
+        "salaried": 558
       }
     },
     {
@@ -278,17 +396,17 @@
         "label": "FINRA licenses required for securities roles; CFA common"
       },
       "desc": "",
-      "match": 28,
+      "match": 29,
       "fit": 20,
       "capability": null,
       "mobility": 1,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 11,
       "mobility_tier": null,
-      "salary": "$60k–$105k",
+      "salary": "$55k–$105k",
       "salary_band": [
-        58752,
-        104165
+        57304,
+        105344
       ],
       "demand": "High",
       "remote": "3%",
@@ -296,8 +414,8 @@
       "have": [
         "Accounting",
         "Excel",
-        "SAP",
-        "Reconciliation"
+        "Lean / Six Sigma",
+        "SAP"
       ],
       "learn": [
         "Forecasting",
@@ -309,14 +427,14 @@
         {
           "skill": "forecasting",
           "name": "Forecasting",
-          "pts": 20.4,
+          "pts": 21.3,
           "earned": 0
         },
         {
           "skill": "accounting",
           "name": "Accounting",
-          "pts": 19.1,
-          "earned": 19.1
+          "pts": 18.8,
+          "earned": 18.8
         },
         {
           "skill": "financial-modeling",
@@ -327,20 +445,26 @@
         {
           "skill": "budgeting",
           "name": "Budgeting",
-          "pts": 9.9,
+          "pts": 10.1,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 5.9,
+          "pts": 6,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 5.6,
-          "earned": 3.4
+          "pts": 5.9,
+          "earned": 3.9
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 3,
+          "earned": 1.5
         },
         {
           "skill": "supply-chain",
@@ -349,45 +473,39 @@
           "earned": 0
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
+          "skill": "data-visualization",
+          "name": "Data Visualization",
           "pts": 2.8,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 2.6,
-          "earned": 1.8
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "data-visualization",
-          "name": "Data Visualization",
-          "pts": 2.5,
-          "earned": 0
+          "pts": 2.7,
+          "earned": 2.3
         },
         {
           "skill": "saas",
           "name": "SaaS",
-          "pts": 2.3,
+          "pts": 2.4,
           "earned": 0
         },
         {
           "skill": "reconciliation",
           "name": "Reconciliation",
-          "pts": 2.3,
-          "earned": 2.3
+          "pts": 2.2,
+          "earned": 2.1
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 2.2,
+          "earned": 0
         },
         {
           "skill": "sql",
           "name": "SQL",
-          "pts": 1.9,
+          "pts": 2.1,
           "earned": 0
         },
         {
@@ -397,20 +515,14 @@
           "earned": 0
         },
         {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 1.6,
-          "earned": 1.6
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 1.8,
+          "earned": 0
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "business-development",
-          "name": "Business Development",
           "pts": 1.6,
           "earned": 0
         },
@@ -424,8 +536,8 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1622,
-        "salaried": 857
+        "postings": 1479,
+        "salaried": 741
       }
     },
     {
@@ -436,104 +548,92 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 12,
-      "fit": 8,
-      "capability": 0,
+      "match": 13,
+      "fit": 11,
+      "capability": 12,
       "mobility": 4,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 1,
       "mobility_tier": null,
-      "salary": "$75k–$130k",
+      "salary": "$75k–$140k",
       "salary_band": [
-        76205,
-        130369
+        74136,
+        137606
       ],
       "demand": "High",
-      "remote": "7%",
+      "remote": "8%",
       "time": "12–24 mo",
       "have": [
         "Excel",
+        "Lean / Six Sigma",
         "Accounting",
-        "SAP",
-        "Customer Service"
+        "SAP"
       ],
       "learn": [
-        "Data Analysis",
         "Supply Chain",
+        "Data Analysis",
         "Agile",
-        "Lean / Six Sigma"
+        "Product Management"
       ],
       "waterfall": [
         {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
+          "skill": "supply-chain",
+          "name": "Supply Chain",
           "pts": 10.3,
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 8.9,
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 9.9,
           "earned": 0
         },
         {
           "skill": "agile",
           "name": "Agile",
-          "pts": 7.8,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 6.2,
+          "pts": 9.1,
           "earned": 0
         },
         {
           "skill": "product-management",
           "name": "Product Management",
-          "pts": 5.8,
+          "pts": 6.8,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 5.3,
-          "earned": 4
+          "pts": 5.4,
+          "earned": 4.7
         },
         {
           "skill": "sql",
           "name": "SQL",
-          "pts": 5.2,
+          "pts": 5.3,
           "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 5.2,
+          "earned": 1.8
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
           "pts": 5,
           "earned": 0
         },
         {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 4.1,
-          "earned": 0
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 3.9,
+          "earned": 3.9
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 4,
+          "pts": 3.9,
           "earned": 0
         },
         {
@@ -543,58 +643,71 @@
           "earned": 0
         },
         {
-          "skill": "procurement",
-          "name": "Procurement",
+          "skill": "scheduling",
+          "name": "Scheduling",
           "pts": 3.8,
           "earned": 0
         },
         {
-          "skill": "accounting",
-          "name": "Accounting",
+          "skill": "procurement",
+          "name": "Procurement",
           "pts": 3.7,
-          "earned": 3.7
-        },
-        {
-          "skill": "power-bi",
-          "name": "Power BI",
-          "pts": 3.4,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 3.3,
-          "earned": 2.1
+          "pts": 3.7,
+          "earned": 2.7
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "power-bi",
+          "name": "Power BI",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 3.6,
+          "earned": 0
         },
         {
           "skill": "forecasting",
           "name": "Forecasting",
-          "pts": 3.2,
+          "pts": 3.1,
           "earned": 0
         },
         {
-          "skill": "customer-service",
-          "name": "Customer Service",
+          "skill": "jira",
+          "name": "Jira",
           "pts": 3.1,
-          "earned": 1.8
+          "earned": 0
         },
         {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 2.8,
+          "skill": "python",
+          "name": "Python",
+          "pts": 2.9,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1026,
-        "salaried": 522
+        "postings": 894,
+        "salaried": 404
       }
     }
   ],
   "next": {
     "accountant": [],
+    "auditor": [],
     "controller": [],
     "financial-analyst": [],
     "business-analyst": []
@@ -609,22 +722,27 @@
     [
       "controller",
       "financial-analyst",
-      0.83
+      0.78
     ],
     [
       "accountant",
       "financial-analyst",
-      0.55
+      0.54
+    ],
+    [
+      "accountant",
+      "auditor",
+      0.46
+    ],
+    [
+      "auditor",
+      "controller",
+      0.43
     ],
     [
       "financial-analyst",
       "business-analyst",
-      0.46
-    ],
-    [
-      "controller",
-      "business-analyst",
-      0.35
+      0.43
     ]
   ],
   "bridges": [],

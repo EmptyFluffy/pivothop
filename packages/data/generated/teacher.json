@@ -5,11 +5,11 @@
     "title": "Teacher",
     "field": "Education",
     "cluster": "Education",
-    "postings": 2010,
-    "salary": "$55k–$70k",
+    "postings": 1656,
+    "salary": "$50k–$70k",
     "salary_band": [
-      52585,
-      70113
+      51480,
+      71026
     ],
     "remote": "2%",
     "separations": {
@@ -31,17 +31,17 @@
         "label": "Paraprofessional requirements vary by state"
       },
       "desc": "Supports a classroom teacher and the students who need the most help. The most common way into the education profession.",
-      "match": 36,
-      "fit": 56,
+      "match": 42,
+      "fit": 60,
       "capability": null,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 100,
       "mobility_tier": null,
-      "salary": "$35k–$215k",
+      "salary": "$35k–$270k",
       "salary_band": [
-        34436,
-        214284
+        34759,
+        270119
       ],
       "demand": "Moderate",
       "remote": "0%",
@@ -54,52 +54,40 @@
       ],
       "learn": [
         "Mental Health",
+        "Assessment",
         "Event Planning",
-        "Scheduling",
-        "Assessment"
+        "Scheduling"
       ],
       "waterfall": [
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 50.2,
-          "earned": 24.2
+          "pts": 51.8,
+          "earned": 27.8
         },
         {
           "skill": "early-childhood",
           "name": "Early Childhood",
-          "pts": 15.9,
-          "earned": 5.7
+          "pts": 19.6,
+          "earned": 6.8
         },
         {
           "skill": "special-education",
           "name": "Special Education",
-          "pts": 10.5,
-          "earned": 3
+          "pts": 10.7,
+          "earned": 3.5
         },
         {
           "skill": "mental-health",
           "name": "Mental Health",
-          "pts": 8.8,
+          "pts": 7.6,
           "earned": 0
         },
         {
           "skill": "classroom-management",
           "name": "Classroom Management",
-          "pts": 4.7,
-          "earned": 3.6
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 2.7,
-          "earned": 0
+          "pts": 4,
+          "earned": 4
         },
         {
           "skill": "assessment",
@@ -108,22 +96,114 @@
           "earned": 0
         },
         {
-          "skill": "tutoring",
-          "name": "Tutoring",
-          "pts": 1.7,
+          "skill": "event-planning",
+          "name": "Event Planning",
+          "pts": 1.8,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 1.8,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 234,
-        "salaried": 198
+        "postings": 198,
+        "salaried": 165
+      }
+    },
+    {
+      "id": "tutor",
+      "title": "Tutor",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
+      "license": null,
+      "desc": "",
+      "match": 41,
+      "fit": 56,
+      "capability": 54,
+      "mobility": 90,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 14,
+      "mobility_tier": null,
+      "salary": "$35k–$65k",
+      "salary_band": [
+        35365,
+        64887
+      ],
+      "demand": "High",
+      "remote": "7%",
+      "time": "12–24 mo",
+      "have": [
+        "Teaching",
+        "Curriculum Development",
+        "Lesson Planning"
+      ],
+      "learn": [
+        "Tutoring",
+        "Excel",
+        "Training & Facilitation",
+        "Timber Design"
+      ],
+      "waterfall": [
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 51.5,
+          "earned": 35.4
+        },
+        {
+          "skill": "tutoring",
+          "name": "Tutoring",
+          "pts": 33.5,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "curriculum",
+          "name": "Curriculum Development",
+          "pts": 2.8,
+          "earned": 2.8
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "timber-design",
+          "name": "Timber Design",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "lesson-planning",
+          "name": "Lesson Planning",
+          "pts": 2.3,
+          "earned": 2.3
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Primary-Short",
+      "provenance": {
+        "postings": 481,
+        "salaried": 139
       }
     }
   ],
   "next": {
-    "teaching-assistant": []
+    "teaching-assistant": [],
+    "tutor": []
   },
   "direct": [],
   "cross": [],
