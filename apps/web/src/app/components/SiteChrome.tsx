@@ -35,8 +35,9 @@ export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
         <Link className="navlink" href="/#how">Method</Link>
         <Link className="navlink" href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
-        <button className="nav-searchbtn" type="button" data-search aria-label="Search">
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16.5 16.5 21 21" /></svg>
+        <button className="nav-searchbtn" type="button" data-search aria-label="Search" title="Search — press / or ⌘K">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+          <kbd aria-hidden="true">⌘K</kbd>
         </button>
         <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Join the waitlist</Link>
       </div>

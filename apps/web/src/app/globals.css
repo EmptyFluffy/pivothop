@@ -1633,8 +1633,14 @@ a.jd-skill:hover svg{color:var(--paper)}
 @media (min-width:900px){.lic-grid{grid-template-columns:1fr 1fr}}
 
 /* ── global search overlay ── */
-.nav-searchbtn{background:none;border:0;color:var(--ink);cursor:pointer;display:grid;place-items:center;padding:6px;border-radius:6px;transition:color .15s}
+/* Sits immediately left of the waitlist CTA: the button takes the auto margin
+   that used to pin the CTA right, so the pair travels together. */
+.nav-searchbtn{margin-left:auto;background:none;border:0;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;transition:color .15s}
+.nav-searchbtn kbd{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-2);background:var(--paper-2);border-radius:5px;padding:3px 7px;transition:color .15s,background .15s}
 .nav-searchbtn:hover{color:var(--accent)}
+.nav-searchbtn:hover kbd{color:var(--accent)}
+.nav .nav-searchbtn ~ .cta{margin-left:0}
+@media (max-width:980px){.nav-searchbtn kbd{display:none}.nav-searchbtn{margin-left:0}}
 .srch{position:fixed;inset:0;z-index:80;background:rgba(21,21,26,.45);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:flex;justify-content:center;align-items:flex-start;padding:14vh 18px 0;animation:srch-veil .18s ease}
 @keyframes srch-veil{from{opacity:0}to{opacity:1}}
 .srch-panel{width:100%;max-width:680px;background:var(--paper);border-radius:16px;box-shadow:0 24px 70px rgba(21,21,26,.35);padding:8px 8px 22px;animation:srch-pop .22s var(--ease)}
