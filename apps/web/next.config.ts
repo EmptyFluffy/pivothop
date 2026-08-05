@@ -46,6 +46,17 @@ const nextConfig: NextConfig = {
   outputFileTracingExcludes: {
     '/api/roadmap': ['./public/data/jobs-detail/**'],
   },
+
+  // Edge-request diet: logos are content-addressed by company and effectively
+  // immutable; a year of browser/CDN cache turns 60 image requests per board
+  // view into 60 once per visitor. Board JSON revalidates hourly — it changes
+  // once a night.
+  async headers() {
+    return [
+      { source: '/data/logos/:path*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+      { source: '/data/:path*.json', headers: [{ key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=86400' }] },
+    ];
+  },
 };
 
 export default nextConfig;
