@@ -1613,3 +1613,21 @@ a.jd-skill:hover svg{color:var(--paper)}
 .ch-sal-med{margin-left:auto;white-space:nowrap}
 .ch-sal-body{padding:2px 0 16px;border-top:0.5px solid var(--rule)}
 .ch-sal .sal-bars .sv{font-family:var(--mono);white-space:nowrap}
+
+/* ── /licenses: gate cards ── */
+.lic-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+.lic-card{border:1px solid var(--rule);border-radius:9px;padding:18px 20px;scroll-margin-top:80px}
+.lic-card h3{font-size:16.5px;margin:0 0 10px}
+.lic-facts{display:grid;gap:8px;margin:0}
+.lic-facts dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.lic-facts dd{margin:2px 0 0;font-size:14px;line-height:1.6;color:var(--ink-2)}
+.lic-facts a{text-decoration:underline;text-underline-offset:2px}
+.lic-occs{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:0.5px solid var(--rule);display:grid;gap:10px}
+.lic-occs li{scroll-margin-top:80px}
+.lic-occ-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.lic-req{white-space:nowrap}
+.lic-req.required{color:var(--accent)}
+.lic-occ-label{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.lic-occ-links{display:flex;gap:14px;margin-top:4px}
+.lic-occ-links a{text-decoration:underline;text-underline-offset:2px}
+@media (min-width:900px){.lic-grid{grid-template-columns:1fr 1fr}}

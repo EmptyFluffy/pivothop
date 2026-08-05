@@ -668,7 +668,8 @@ export function mountInstrument(DATA,HOOKS){
   function licenseStrip(o){
     if(!o.license)return '';
     var head=(o.license.req==='required')?'Licensed profession':'License for some roles';
-    return '<div class="d-lic"><span class="k">'+head+'</span><span class="t">'+o.license.label+'</span></div>';
+    /* The badge answers "what does this take?" — /licenses answers it fully. */
+    return '<a class="d-lic" href="/licenses#occ-'+o.id+'"><span class="k">'+head+'</span><span class="t">'+o.license.label+'</span></a>';
   }
   function kindTag(o){
     if(!o.kind)return '';

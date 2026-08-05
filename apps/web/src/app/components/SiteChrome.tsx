@@ -67,6 +67,7 @@ export function SiteFooter() {
             <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/adjacency-index">Adjacency Index</Link></li>
             <li><Link href="/glossary">Glossary &amp; sources</Link></li>
+            <li><Link href="/licenses">License gates</Link></li>
             <li><Link href="/#faq">FAQ</Link></li>
           </ul>
         </div>

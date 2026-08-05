@@ -85,7 +85,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           Measured from <strong>{om.postings.toLocaleString()}</strong>{` live ${originLc} postings and the destination’s own corpus.`}
           {observed ? ' Corroborated by observed US worker transitions.' : ''} Updated with the nightly scrape.
         </p>
-        {r.license && <p className="rt-lic lbl">{r.license.label}</p>}
+        {r.license && <p className="rt-lic lbl"><Link href={`/licenses#occ-${r.id}`}>{r.license.label}</Link></p>}
 
         <div className="rt-facts">
           <div><span className="v">{r.match}%</span><span className="k">Skill readiness</span></div>
