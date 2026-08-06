@@ -169,7 +169,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
                 <div className="ch-sal-body">
                   <p className="rt-note">
                     Swiss postings do not state pay, so these are not posted salaries: they are the federal wage survey
-                    (Lohnstrukturerhebung {ch.year}) for the ISCO group <i>{ch.label_de}</i> &mdash; standardized gross monthly,
+                    (Lohnstrukturerhebung {ch.year}) for the ISCO group <i>{ch.label_de}</i>: standardized gross monthly,
                     full-time, 13th salary included pro&nbsp;rata. The band covers the whole occupation group, which is coarser
                     than this occupation alone.
                   </p>

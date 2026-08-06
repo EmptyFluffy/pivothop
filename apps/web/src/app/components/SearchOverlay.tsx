@@ -2,24 +2,39 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 /* Global search: a command-palette overlay opened from the nav button (any
-   element carrying data-search — the landing's vanilla nav and the React nav
+   element carrying data-search: the landing's vanilla nav and the React nav
    share this via event delegation), the / key, or Cmd/Ctrl-K. The index is a
    compact prebuilt JSON of every searchable surface, fetched lazily on first
    open, so pages carry zero search weight until someone asks. Empty state
-   cycles deadpan hints in the house voice — the borrowed idea is the rotating
+   cycles deadpan hints in the house voice. The borrowed idea is the rotating
    placeholder; the register is ours. */
 
 type Entry = { k: string; t: string; s: string; h: string };
 const KIND: Record<string, string> = { jobs: 'JOBS', salary: 'SALARY', routes: 'ROUTES', skill: 'SKILL', blog: 'BLOG', page: 'PAGE' };
+// The empty state doubles as a menu: every line names something the index
+// actually holds, so a first-time visitor learns the site's shape by watching.
+// Kept literal on purpose (real queries, not slogans) and rotated slowly enough
+// to read. House voice: deadpan, no exclamation points, no em dashes.
 const HINTS = [
-  'Try "architect". Everyone does.',
-  'Type the job you have. It knows the ones you can reach.',
-  'Salaries, routes, jobs, skills. One box.',
-  '"Registered nurse" — Switzerland would like a word.',
-  '"Revit" is a skill. Skills open doors here.',
-  'Looking for a way out? Type the way in.',
-  'The graph has opinions. Ask it.',
-];
+  'Try "3d modeler salary"',
+  'Try "architect" for the building kind, "solutions architect" for the other',
+  'Type a skill: "Revit", "Figma", "SQL", "Python"',
+  'Try "registered nurse jobs"',
+  '"routes out of graphic designer" shows every measured move',
+  'Try "product manager vs project manager"',
+  'Any job title works: type yours and see what it reaches',
+  '"license gates" for what a credential actually takes',
+  'Try "motion designer jobs"',
+  '"jobs in switzerland" reads the federal Job-Room nightly',
+  'Compare two careers: "ux designer vs product designer"',
+  'Try "data analyst salary" for the whole distribution',
+  '"glossary" defines every term the numbers use',
+  'Try "civil engineer" and read the license gate',
+  '"adjacency index" is the headline numbers, citable',
+  'Try "interior designer jobs"',
+  'Skills open doors: search one and see which roles it unlocks',
+  'Try "software engineer salary by country"',
+]
 
 function score(q: string, e: Entry): number {
   const t = e.t.toLowerCase();
@@ -37,7 +52,7 @@ export default function SearchOverlay() {
   const [closing, setClosing] = useState(false);
   const [q, setQ] = useState('');
   const [index, setIndex] = useState<Entry[] | null>(null);
-  const [hint, setHint] = useState(0);
+  const [hint, setHint] = useState(() => Math.floor(Math.random() * HINTS.length));
   const [sel, setSel] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -68,7 +83,7 @@ export default function SearchOverlay() {
   useEffect(() => { if (open) setTimeout(() => inputRef.current?.focus(), 30); }, [open]);
   useEffect(() => {
     if (!open || q) return;
-    const id = setInterval(() => setHint((h) => (h + 1) % HINTS.length), 2600);
+    const id = setInterval(() => setHint((h) => (h + 1) % HINTS.length), 4500);
     return () => clearInterval(id);
   }, [open, q]);
 
@@ -111,7 +126,7 @@ export default function SearchOverlay() {
           </div>
         ) : (
           <ul className="srch-results">
-            {results.length === 0 && <li className="srch-none">Nothing by that name. The corpus is honest about its gaps.</li>}
+            {results.length === 0 && <li className="srch-none">Nothing by that name. Try a job title, a skill, or a country.</li>}
             {results.map((r, i) => (
               <li key={r.h + r.t}>
                 <a href={r.h} className={i === sel ? 'on' : ''} onMouseEnter={() => setSel(i)}>

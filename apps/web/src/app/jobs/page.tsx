@@ -7,7 +7,7 @@ import { routableSlugs } from '../routes/routes-data';
 import JobsBrowse from './JobsBrowse';
 
 export const metadata: Metadata = {
-  title: 'Job board: live roles across every field, searchable — PivotHop',
+  title: 'Job board: live roles across every field, searchable · PivotHop',
   description:
     'Search thousands of live job openings across technology, healthcare, business, design, engineering, and more. Filter by field, remote, and salary; every role is tagged to the skills that reach it and links out to apply at the source.',
   alternates: { canonical: '/jobs' },

@@ -5,7 +5,7 @@ import { comparePairs } from './compare-data';
 import { occTitle, occField } from '../jobs/jobs-data';
 
 export const metadata: Metadata = {
-  title: 'Careers compared: salary, skills, and overlap, measured — PivotHop',
+  title: 'Careers compared: salary, skills, and overlap, measured · PivotHop',
   description:
     'Side-by-side career comparisons measured from live job postings: posted salary bands, skill readiness in both directions, the shared skills, and which switch is easier. Data analyst vs data scientist, UX vs graphic design, and hundreds more.',
   alternates: { canonical: '/compare' },

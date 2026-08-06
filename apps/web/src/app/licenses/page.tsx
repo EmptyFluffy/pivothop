@@ -63,7 +63,7 @@ export default function LicensesPage() {
   const gatedOccs = Object.keys(OCC_LICENSE).length;
   const faq = [
     { q: 'What is a license gate?', a: 'A legal credential that stands between you and a profession regardless of your skills: a state license, a protected title, or a signature only a license-holder may give. PivotHop flags them on every route because they set the timeline in a way no skill overlap can shorten.' },
-    { q: 'Can transferable skills shorten a license?', a: 'No, and any tool that implies otherwise is selling something. Skills shorten the employable gap inside ungated work; the credential clock — degrees, supervised hours, exams — runs at its own speed. What skills can do is point you at the adjacent roles around a gated profession that hire without the credential.' },
+    { q: 'Can transferable skills shorten a license?', a: 'No, and any tool that implies otherwise is selling something. Skills shorten the employable gap inside ungated work; the credential clock (degrees, supervised hours, exams) runs at its own speed. What skills can do is point you at the adjacent roles around a gated profession that hire without the credential.' },
     { q: 'How is Switzerland different from the US?', a: 'Switzerland keeps one federal list of regulated professions and runs formal recognition procedures for foreign credentials, which matters in a country where a quarter of the workforce is foreign-born. Some gates are stricter than the US equivalent (independent electrical installation needs a federal permit) and some are looser: in most cantons, architect is not a protected practice at all.' },
   ];
   return (
@@ -73,7 +73,7 @@ export default function LicensesPage() {
         <h1 className="rt-h1">License gates, stated plainly.</h1>
         <p className="rt-dek">
           {gatedOccs} of the {(TAX as { occupations: unknown[] }).occupations.length} occupations we track carry a legal gate: a license,
-          a protected title, or a signature only a credential-holder may give. This page says what each one actually takes —
+          a protected title, or a signature only a credential-holder may give. This page says what each one actually takes:
           the issuing authority, the honest timeline, and what is gated (sometimes it is only the stamp, and the adjacent
           seats hire without it). No amount of skill overlap shortens a credential; the routes on this site are built on
           that rule, and every gated route links back here.

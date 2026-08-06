@@ -24,7 +24,7 @@ function replyHref(r: Submission): string {
     `You chose the ${r.tier} tier (launch rate). Reply here and I'll send the payment link and the go-live confirmation.`,
     applyLine ? `\nApply destination on file: ${applyLine}` : '',
     '',
-    '— PivotHop',
+    '· PivotHop',
   ].filter((l) => l !== '').join('\n');
   return `mailto:${r.contact_email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 /* License summary sheet: clicking a license badge (any element carrying
-   data-license="<occ-slug>" — route pages and the graph's detail panel) opens
+   data-license="<occ-slug>", route pages and the graph's detail panel) opens
    this in place instead of navigating away. The badge keeps its real
    /licenses#occ-<slug> href, so cmd-click, middle-click and no-JS still reach
    the full page; "All license gates" in the footer goes there deliberately.
@@ -54,7 +54,7 @@ export default function LicenseSheet() {
   if (!open) return null;
   const { g } = open;
   return (
-    <div className={`skmodal open${closing ? ' closing' : ''}`} role="dialog" aria-modal="true" aria-label={`${g.gate} — license gate`}>
+    <div className={`skmodal open${closing ? ' closing' : ''}`} role="dialog" aria-modal="true" aria-label={`${g.gate}, license gate`}>
       <div className="veil" onClick={close} />
       <div className="sksheet lic-sh" tabIndex={-1} ref={(el) => el?.focus()}>
         <button className="xclose sk-close" aria-label="Close" onClick={close}>&times;</button>

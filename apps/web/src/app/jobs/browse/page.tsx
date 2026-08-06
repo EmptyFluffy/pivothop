@@ -8,7 +8,7 @@ import { allCategories, type CategoryKind } from '../categories-data';
    human browse surface. A static segment, so it wins over /jobs/[occ]. */
 
 export const metadata: Metadata = {
-  title: 'Browse the job board: every filter, preloaded — PivotHop',
+  title: 'Browse the job board: every filter, preloaded · PivotHop',
   description:
     'Every way to browse the board: remote, by field, by country, by seniority, by pay, and the combinations. Each is a live, preloaded page of openings tagged to the skills that reach them.',
   alternates: { canonical: '/jobs/browse' },
