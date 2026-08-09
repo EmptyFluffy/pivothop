@@ -376,31 +376,63 @@ for d in (OUT, DETAIL):
             os.remove(os.path.join(d, f))
 # Trim and cap first; flag featured on the originals; then write everything,
 # so the per-occupation files, the global file, and the strip all agree.
-US_SHARE = 0.65  # per-occupation ceiling on US listings when non-US supply exists
+# Per-occupation ceiling on ANY single country while other-country supply
+# remains. Born as a US-only ceiling when US crowded out the world; Job-Room
+# then made CH the crowding country (CH 47% vs US 25% on 2026-08-09), so the
+# rule is now symmetric. Occupations with single-country supply still fill
+# to CAP: the ceiling only bites while spill from other countries exists.
+COUNTRY_SHARE = 0.65
 kept_byocc = {}
 for role, jobs in byocc.items():
     jobs.sort(key=lambda j: j['posted'] or '', reverse=True)
-    # freshest-first with a diversity ceiling: US rows stop at 65% of the cap
-    # while non-US rows remain, so one country cannot crowd out the world.
-    us_cap = int(CAP * US_SHARE)
-    picked, spill, us_n = [], [], 0
+    country_cap = int(CAP * COUNTRY_SHARE)
+    picked, spill, per_c = [], [], collections.Counter()
     for j in jobs:
         if len(picked) >= CAP:
             break
-        if j.get('c') == 'US':
-            if us_n < us_cap:
-                picked.append(j); us_n += 1
-            else:
-                spill.append(j)
+        c = j.get('c') or 'none'
+        if per_c[c] < country_cap:
+            picked.append(j); per_c[c] += 1
         else:
-            picked.append(j)
-    for j in spill:                     # backfill with US only if slots remain
+            spill.append(j)
+    for j in spill:                     # backfill over-ceiling rows only if slots remain
         if len(picked) >= CAP:
             break
         picked.append(j)
     picked.sort(key=lambda j: j['posted'] or '', reverse=True)
     if len(picked) >= FLOOR:
         kept_byocc[role] = picked
+
+# Global CH/US backstop. The per-occupation ceiling rebalances at-cap
+# occupations, but Job-Room also fills under-cap trades where no other source
+# has supply, and those alone can tip the whole board Swiss. Board-wide rule:
+# CH may not exceed BALANCE_RATIO x US. Overflow is trimmed oldest-first from
+# the most CH-heavy occupations, never taking an occupation below FLOOR, and
+# it relaxes by itself as US supply grows. Display-side only: the corpus and
+# the Swiss-filtered pages both shrink with it, deliberately (2026-08-09,
+# board was CH 47% / US 25%).
+BALANCE_RATIO = 1.25
+_c_tot = collections.Counter(j.get('c') or 'none' for jobs in kept_byocc.values() for j in jobs)
+_excess = _c_tot['CH'] - int(BALANCE_RATIO * _c_tot['US'])
+if _excess > 0:
+    # oldest CH rows across the board, grouped so each occupation keeps >= FLOOR
+    ch_rows = [(j['posted'] or '', role, j['id']) for role, jobs in kept_byocc.items()
+               for j in jobs if j.get('c') == 'CH']
+    ch_rows.sort()  # oldest first
+    drop = set()
+    room = {role: len(jobs) - FLOOR for role, jobs in kept_byocc.items()}
+    for posted, role, _id in ch_rows:
+        if _excess <= 0:
+            break
+        if room[role] <= 0:
+            continue
+        drop.add((role, _id)); room[role] -= 1; _excess -= 1
+    for role in list(kept_byocc):
+        kept_byocc[role] = [j for j in kept_byocc[role] if (role, j['id']) not in drop]
+        if len(kept_byocc[role]) < FLOOR:
+            del kept_byocc[role]
+    _after = collections.Counter(j.get('c') or 'none' for jobs in kept_byocc.values() for j in jobs)
+    print(f"balance: CH {_c_tot['CH']} -> {_after['CH']} (<= {BALANCE_RATIO} x US {_c_tot['US']}), dropped {len(drop)}")
 
 # Featured strip: recognizable employers, salary-stated first, freshest,
 # max two per company. Flag the original rows and emit the strip.

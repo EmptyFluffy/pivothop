@@ -16,11 +16,19 @@ export async function fetchRaw({ log }) {
   const headers = { host: 'data.usajobs.gov', 'user-agent': email, 'authorization-key': key };
   const rows = [];
   for (const term of cfg.terms) {
-    const url = `https://data.usajobs.gov/api/search?Keyword=${encodeURIComponent(term)}&ResultsPerPage=500`;
-    let body;
-    try { body = await fetchJson(url, { headers, minIntervalMs: 1500 }); }
-    catch (err) { log(`usajobs:"${term}" — ${err.message}`); continue; }
-    const items = body?.SearchResult?.SearchResultItems ?? [];
+    // the API pages at 500; most terms fit in one page, broad ones ("data analyst")
+    // need the follow-up pages or we silently keep only the first 500
+    const items = [];
+    for (let page = 1; page <= 5; page++) {
+      const url = `https://data.usajobs.gov/api/search?Keyword=${encodeURIComponent(term)}&ResultsPerPage=500&Page=${page}`;
+      let body;
+      try { body = await fetchJson(url, { headers, minIntervalMs: 1500 }); }
+      catch (err) { log(`usajobs:"${term}" p${page} — ${err.message}`); break; }
+      const batch = body?.SearchResult?.SearchResultItems ?? [];
+      items.push(...batch);
+      const pages = Number(body?.SearchResult?.UserArea?.NumberOfPages) || 1;
+      if (page >= pages || batch.length === 0) break;
+    }
     log(`usajobs:"${term}" — ${items.length} postings`);
     for (const it of items) {
       const d = it.MatchedObjectDescriptor ?? {};
