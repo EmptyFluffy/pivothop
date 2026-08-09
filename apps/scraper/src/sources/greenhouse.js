@@ -22,7 +22,9 @@ export async function fetchRaw({ log }) {
   const boards = readJson(path.join(CONFIG_DIR, 'greenhouse-companies.json'))?.boards ?? [];
   const rows = [];
   for (const token of boards) {
-    const body = await fetchJson(`https://boards-api.greenhouse.io/v1/boards/${token}/jobs?content=true`);
+    let body;
+    try { body = await fetchJson(`https://boards-api.greenhouse.io/v1/boards/${token}/jobs?content=true`); }
+    catch (err) { log(`greenhouse:${token} — ${err.message} (board skipped, source continues)`); continue; }
     if (!body) { log(`greenhouse:${token} — no public board (skipped)`); continue; }
     const jobs = body.jobs ?? [];
     log(`greenhouse:${token} — ${jobs.length} postings`);

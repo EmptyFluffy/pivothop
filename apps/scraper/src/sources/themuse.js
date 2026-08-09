@@ -1,4 +1,5 @@
 import { fetchJson } from '../lib/http.js';
+import { stripHtml } from '../lib/text.js';
 
 // The Muse public API — keyless, broad US coverage across many industries
 // (healthcare, retail, finance, creative — good for niche-occupation reach).
@@ -29,7 +30,7 @@ export async function fetchRaw({ log }) {
         salary_max: null,
         currency: 'USD',
         salary_period: 'year',
-        description_text: String(j.contents ?? '').replace(/<\/?[^>]+>/g, ' ').slice(0, 20000),
+        description_text: stripHtml(String(j.contents ?? '')).slice(0, 20000),
         posted_at: j.publication_date ?? null,
         url: j.refs?.landing_page ?? null,
       });

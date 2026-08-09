@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { readJson, writeJson, readNdjson } from '../lib/store.js';
+import { readJson, writeJson, readNdjsonSafe } from '../lib/store.js';
 import { GENERATED_DIR, DATA_DIR, RAW_FILE, POSTINGS_FILE } from '../lib/paths.js';
 import { listOrigins, loadOrigin } from '../../../../packages/data/src/index.js';
 import { getTaxonomy, mapTitle } from '../normalize/titles.js';
@@ -123,13 +123,13 @@ export function verify({ log, snapshot = false } = {}) {
   // not measuring an occupation, it is measuring an advert.
   {
     const raw = new Map();
-    for (const r of readNdjson(RAW_FILE)) {
+    for (const r of readNdjsonSafe(RAW_FILE)) {
       const co = String(r.company ?? '').trim().toLowerCase();
       const ti = String(r.title ?? '').trim().toLowerCase();
       if (co && ti) raw.set(`${r.source}|${r.external_id}`, `${co}|${ti}`);
     }
     const perOcc = new Map();
-    for (const p of readNdjson(POSTINGS_FILE)) {
+    for (const p of readNdjsonSafe(POSTINGS_FILE)) {
       if (!p.role_id) continue;
       const k = raw.get(`${p.source}|${p.external_id}`);
       if (!k) continue;

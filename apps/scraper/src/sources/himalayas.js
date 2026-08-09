@@ -1,4 +1,5 @@
 import { fetchJson } from '../lib/http.js';
+import { stripHtml } from '../lib/text.js';
 
 // Himalayas public jobs API — keyless JSON, ~100k remote roles with salary and
 // category data. https://himalayas.app/jobs/api — attribution appreciated.
@@ -16,6 +17,9 @@ export async function fetchRaw({ log }) {
     const items = body?.jobs ?? [];
     if (!items.length) break;
     for (const j of items) {
+      // no guid and no link -> external_id would be the literal "undefined"
+      // and every such row collides onto one key; skip instead
+      if (!j.guid && !j.applicationLink) continue;
       rows.push({
         source: name,
         external_id: String(j.guid ?? j.applicationLink),
@@ -28,7 +32,7 @@ export async function fetchRaw({ log }) {
         salary_max: j.maxSalary || null,
         currency: j.currency || 'USD',
         salary_period: (j.salaryPeriod || 'year').toLowerCase(),
-        description_text: String(j.description ?? '').replace(/<\/?[^>]+>/g, ' ').slice(0, 20000),
+        description_text: stripHtml(String(j.description ?? '')).slice(0, 20000),
         posted_at: j.pubDate ? new Date(j.pubDate * 1000).toISOString() : null,
         url: j.applicationLink ?? null,
       });

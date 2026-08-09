@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readNdjson, writeNdjson, readJson, writeJson, supabaseUpsert } from '../lib/store.js';
+import { readNdjsonSafe, writeNdjson, readJson, writeJson, supabaseUpsert } from '../lib/store.js';
 import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE, FIRST_SEEN_FILE, TAXONOMY_DIR } from '../lib/paths.js';
 import path from 'node:path';
 import { mapTitle, cleanTitle } from './titles.js';
@@ -81,7 +81,7 @@ function contentHash(desc) {
  * synonym tables grow from.
  */
 export async function normalize({ log }) {
-  const raw = readNdjson(RAW_FILE);
+  const raw = readNdjsonSafe(RAW_FILE);
   if (!raw.length) { log('normalize: no raw postings — run `ingest` first'); return null; }
 
   const ledger = readJson(FIRST_SEEN_FILE) ?? {};

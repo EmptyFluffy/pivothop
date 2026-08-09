@@ -15,7 +15,9 @@ export async function fetchRaw({ log }) {
   const auth = 'Basic ' + Buffer.from(`${key}:`).toString('base64');
   const rows = [];
   for (const term of cfg.terms) {
-    const body = await fetchJson(`https://www.reed.co.uk/api/1.0/search?keywords=${encodeURIComponent(term)}&resultsToTake=100`, { headers: { authorization: auth } });
+    let body;
+    try { body = await fetchJson(`https://www.reed.co.uk/api/1.0/search?keywords=${encodeURIComponent(term)}&resultsToTake=100`, { headers: { authorization: auth } }); }
+    catch (err) { log(`reed:"${term}" — ${err.message} (term skipped, source continues)`); continue; }
     const results = body?.results ?? [];
     for (const j of results) {
       rows.push({

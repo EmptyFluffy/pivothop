@@ -1,4 +1,4 @@
-import { readNdjson, writeJson, supabaseUpsert } from '../lib/store.js';
+import { readNdjsonSafe, writeJson, supabaseUpsert } from '../lib/store.js';
 import { POSTINGS_FILE, AGGREGATES_FILE } from '../lib/paths.js';
 
 function percentile(sorted, p) {
@@ -13,7 +13,7 @@ function percentile(sorted, p) {
  * real, stated-or-inferred salary), remote share, top-20 skill frequencies.
  */
 export async function aggregate({ log }) {
-  const postings = readNdjson(POSTINGS_FILE);
+  const postings = readNdjsonSafe(POSTINGS_FILE);
   if (!postings.length) { log('aggregate: no normalized postings — run `normalize` first'); return null; }
 
   const byRole = new Map();

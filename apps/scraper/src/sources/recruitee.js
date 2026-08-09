@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { stripHtml } from '../lib/text.js';
 import { fetchJson } from '../lib/http.js';
 import { readJson } from '../lib/store.js';
 import { CONFIG_DIR } from '../lib/paths.js';
@@ -8,13 +9,15 @@ import { CONFIG_DIR } from '../lib/paths.js';
 // as the other company-board sources: public JSON, link back to apply.
 export const name = 'recruitee';
 
-const strip = (h) => (h ?? '').replace(/<[^>]+>/g, ' ');
+const strip = (h) => stripHtml(h ?? ''); // canonical: keeps </li>/</p> as newlines for skill zoning
 
 export async function fetchRaw({ log }) {
   const companies = readJson(path.join(CONFIG_DIR, 'recruitee-companies.json'))?.companies ?? [];
   const rows = [];
   for (const c of companies) {
-    const body = await fetchJson(`https://${c}.recruitee.com/api/offers/`);
+    let body;
+    try { body = await fetchJson(`https://${c}.recruitee.com/api/offers/`); }
+    catch (err) { log(`recruitee:${c} — ${err.message} (board skipped, source continues)`); continue; }
     const offers = body?.offers;
     if (!Array.isArray(offers)) { log(`recruitee:${c} — no public board (skipped)`); continue; }
     log(`recruitee:${c} — ${offers.length} postings`);

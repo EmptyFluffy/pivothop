@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { stripHtml } from '../lib/text.js';
 import { fetchJson } from '../lib/http.js';
 import { readJson } from '../lib/store.js';
 import { CONFIG_DIR } from '../lib/paths.js';
@@ -9,13 +10,15 @@ import { CONFIG_DIR } from '../lib/paths.js';
 // Heavy in EU and SMB land, which diversifies the board's company mix.
 export const name = 'workable';
 
-const strip = (h) => (h ?? '').replace(/<[^>]+>/g, ' ');
+const strip = (h) => stripHtml(h ?? ''); // canonical: keeps </li>/</p> as newlines for skill zoning
 
 export async function fetchRaw({ log }) {
   const companies = readJson(path.join(CONFIG_DIR, 'workable-companies.json'))?.companies ?? [];
   const rows = [];
   for (const c of companies) {
-    const body = await fetchJson(`https://apply.workable.com/api/v1/widget/accounts/${c}?details=true`);
+    let body;
+    try { body = await fetchJson(`https://apply.workable.com/api/v1/widget/accounts/${c}?details=true`); }
+    catch (err) { log(`workable:${c} — ${err.message} (board skipped, source continues)`); continue; }
     const jobs = body?.jobs;
     if (!Array.isArray(jobs)) { log(`workable:${c} — no public board (skipped)`); continue; }
     log(`workable:${c} — ${jobs.length} postings`);

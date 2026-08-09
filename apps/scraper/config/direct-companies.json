@@ -1,573 +1,641 @@
 {
-  "_comment": "Studios read by the LLM direct adapter. EVERY URL HERE WAS VERIFIED BY RENDERING IT (apps/scraper/scripts/discover-careers.mjs, 2026-08-03). The first version of this file used pattern-guessed URLs (/careers, /jobs) and several were 404s whose SPA shell still returned 70KB, so the extractor reported a confident 'no positions'. Re-run the discovery script after editing, and periodically: studios move their careers pages and a stale URL fails silently. Firms that resolve to a hosted ATS with a public feed belong in that adapter's config instead (Zaha Hadid moved to personio-companies.json this way).",
-  "companies": [
-    {
-      "name": "BIG - Bjarke Ingels Group",
-      "careers": "https://big.dk/careers"
-    },
-    {
-      "name": "Gensler",
-      "careers": "https://www.gensler.com/careers"
-    },
-    {
-      "name": "HOK",
-      "careers": "https://www.hok.com/people/careers/"
-    },
-    {
-      "name": "Populous",
-      "careers": "https://populous.com/careers"
-    },
-    {
-      "name": "Perkins&Will",
-      "careers": "https://perkinswill.com/careers/"
-    },
-    {
-      "name": "Studio Gang",
-      "careers": "https://studiogang.com/opportunities/"
-    },
-    {
-      "name": "Herzog & de Meuron",
-      "careers": "https://www.herzogdemeuron.com/practice/jobs/"
-    },
-    {
-      "name": "Henning Larsen",
-      "careers": "https://henninglarsen.com/careers"
-    },
-    {
-      "name": "3XN",
-      "careers": "https://3xn.com/career"
-    },
-    {
-      "name": "HawkinsBrown",
-      "careers": "https://careers.hawkinsbrown.com/"
-    },
-    {
-      "name": "Sasaki",
-      "careers": "https://www.sasaki.com/careers/"
-    },
-    {
-      "name": "ZGF Architects",
-      "careers": "https://www.zgf.com/careers/"
-    },
-    {
-      "name": "SmithGroup",
-      "careers": "https://www.smithgroup.com/our-firm/careers"
-    },
-    {
-      "name": "Morphosis",
-      "careers": "https://www.morphosis.com/careers"
-    },
-    {
-      "name": "Safdie Architects",
-      "careers": "https://www.safdiearchitects.com/careers"
-    },
-    {
-      "name": "Payette",
-      "careers": "https://www.payette.com/careers/"
-    },
-    {
-      "name": "AHMM",
-      "careers": "https://www.ahmm.co.uk/practice/careers/"
-    },
-    {
-      "name": "Work & Co",
-      "careers": "https://work.co/careers/"
-    },
-    {
-      "name": "ustwo",
-      "careers": "https://ustwo.com/join-us/"
-    },
-    {
-      "name": "Koto",
-      "careers": "https://koto.com/careers"
-    },
-    {
-      "name": "Athletics",
-      "careers": "https://athleticsnyc.com/careers"
-    },
-    {
-      "name": "Pentagram",
-      "careers": "https://www.pentagram.com/careers"
-    },
-    {
-      "name": "Designit",
-      "careers": "https://www.designit.com/jobs"
-    },
-    {
-      "name": "Foster + Partners",
-      "careers": "https://vacancies.fosterandpartners.com/"
-    },
-    {
-      "name": "Ennead Architects",
-      "careers": "https://ennead.com/employment/"
-    },
-    {
-      "name": "Grimshaw",
-      "careers": "https://careers.grimshaw.global/"
-    },
-    {
-      "name": "OMA",
-      "careers": "https://www.oma.com/office"
-    },
-    {
-      "name": "Mecanoo",
-      "careers": "https://mecanoo.homerun.co/"
-    },
-    {
-      "name": "Olson Kundig",
-      "careers": "https://olsonkundig.applytojob.com/"
-    },
-    {
-      "name": "NBBJ",
-      "careers": "https://www.nbbj.com/careers"
-    },
-    {
-      "name": "KieranTimberlake",
-      "careers": "https://kierantimberlake.com/careers/"
-    },
-    {
-      "name": "Lake|Flato",
-      "careers": "https://www.lakeflato.com/careers/"
-    },
-    {
-      "name": "Miller Hull",
-      "careers": "https://millerhull.com/connect/#opportunities"
-    },
-    {
-      "name": "Mithun",
-      "careers": "https://mithun.com/people/careers/"
-    },
-    {
-      "name": "EHDD",
-      "careers": "https://ehdd.isolvedhire.com/jobs/"
-    },
-    {
-      "name": "WRNS Studio",
-      "careers": "https://wrnsstudio.com/careers/"
-    },
-    {
-      "name": "Perkins Eastman",
-      "careers": "https://www.perkinseastman.com/careers/"
-    },
-    {
-      "name": "Ballinger",
-      "careers": "https://ballinger.com/culture/join"
-    },
-    {
-      "name": "Cooper Carry",
-      "careers": "https://www.coopercarry.com/careers-2-2/"
-    },
-    {
-      "name": "Behnisch Architekten",
-      "careers": "https://behnisch.com/news?category=jobs"
-    },
-    {
-      "name": "Christ & Gantenbein",
-      "careers": "https://christgantenbein.com/office/jobs"
-    },
-    {
-      "name": "EM2N",
-      "careers": "https://www.em2n.ch/en/office/jobs.html"
-    },
-    {
-      "name": "Gigon/Guyer",
-      "careers": "https://www.gigon-guyer.ch/de/buero/jobs/"
-    },
-    {
-      "name": "Burckhardt Architektur",
-      "careers": "https://burckhardt.swiss/en/careers/"
-    },
-    {
-      "name": "Itten+Brechbuehl",
-      "careers": "https://www.ittenbrechbuehl.ch/de/karriere/"
-    },
-    {
-      "name": "Diener & Diener",
-      "careers": "https://www.dienerdiener.ch/de/jobs"
-    },
-    {
-      "name": "Buchner Bruendler",
-      "careers": "https://bbarc.ch/jobs"
-    },
-    {
-      "name": "Baumschlager Eberle",
-      "careers": "https://baumschlager-eberle.com/karriere/wir-als-arbeitgeber/"
-    },
-    {
-      "name": "Basler & Hofmann",
-      "careers": "https://www.baslerhofmann.ch/arbeiten-bei-uns/offene-stellen"
-    },
-    {
-      "name": "Emch+Berger",
-      "careers": "https://www.emchberger.ch/de/jobs"
-    },
-    {
-      "name": "Rapp AG",
-      "careers": "https://karriere.rapp.ch/"
-    },
-    {
-      "name": "TBF + Partner",
-      "careers": "https://www.tbf.ch/jobs"
-    },
-    {
-      "name": "Liip",
-      "careers": "https://jobs.liip.ch/"
-    },
-    {
-      "name": "Unic",
-      "careers": "https://www.unic.com/de/jobs"
-    },
-    {
-      "name": "Feinheit",
-      "careers": "https://feinheit.ch/jobs/"
-    },
-    {
-      "name": "Superhuit",
-      "careers": "https://superhuit.ch/fr/nous-rejoindre/"
-    },
-    {
-      "name": "Studio Dumbar",
-      "careers": "https://studiodumbar.com/jobs"
-    },
-    {
-      "name": "Base Design",
-      "careers": "https://www.basedesign.com/jobs"
-    },
-    {
-      "name": "Ragged Edge",
-      "careers": "https://raggededge.com/join"
-    },
-    {
-      "name": "DixonBaxi",
-      "careers": "https://joinus.dixonbaxi.com/"
-    },
-    {
-      "name": "Bakken & Baeck",
-      "careers": "https://bakkenbaeck.com/join"
-    },
-    {
-      "name": "Kurppa Hosk",
-      "careers": "https://kurppahosk.teamtailor.com/jobs/"
-    },
-    {
-      "name": "MAD Architects",
-      "careers": "https://www.i-mad.com/careers"
-    },
-    {
-      "name": "C.F. Moller",
-      "careers": "https://www.cfmoller.com/j/Job"
-    },
-    {
-      "name": "MVSA Architects",
-      "careers": "https://mvsa-architects.com/en/news/join-team-mvsa/"
-    },
-    {
-      "name": "Benthem Crouwel",
-      "careers": "https://benthem-crouwel-architects.homerun.co/"
-    },
-    {
-      "name": "Barcode Architects",
-      "careers": "https://barcodearchitects.com/careers/"
-    },
-    {
-      "name": "Stanton Williams",
-      "careers": "https://stantonwilliams.com/en/careers"
-    },
-    {
-      "name": "WilkinsonEyre",
-      "careers": "https://wilkinsoneyre.com/about/people#careers"
-    },
-    {
-      "name": "White Arkitekter",
-      "careers": "https://whitearkitekter.com/work-with-us/"
-    },
-    {
-      "name": "SO-IL",
-      "careers": "https://solidobjectives.com/about/#careers"
-    },
-    {
-      "name": "MASS Design Group",
-      "careers": "https://modelofarchitecture.org/careers"
-    },
-    {
-      "name": "Marmol Radziner",
-      "careers": "https://www.marmol-radziner.com/careers/"
-    },
-    {
-      "name": "BNIM",
-      "careers": "https://www.bnim.com/careers/"
-    },
-    {
-      "name": "Graham Baba",
-      "careers": "https://grahambaba.com/opportunities"
-    },
-    {
-      "name": "Trahan Architects",
-      "careers": "https://trahanarchitects.com/careers/"
-    },
-    {
-      "name": "GBBN",
-      "careers": "https://www.gbbn.com/careers/"
-    },
-    {
-      "name": "Reed Hilderbrand",
-      "careers": "https://www.reedhilderbrand.com/hiring"
-    },
-    {
-      "name": "Stoss Landscape Urbanism",
-      "careers": "https://www.stoss.net/info/careers"
-    },
-    {
-      "name": "Rios",
-      "careers": "https://www.rios.com/careers/"
-    },
-    {
-      "name": "Bora Architects",
-      "careers": "https://bora.co/contact/careers/"
-    },
-    {
-      "name": "MSR Design",
-      "careers": "https://msrdesign.com/connect/careers/"
-    },
-    {
-      "name": "Jestico + Whiles",
-      "careers": "https://www.jesticowhiles.com/join-us/"
-    },
-    {
-      "name": "FCBStudios",
-      "careers": "https://fcbstudios.com/practice/careers/"
-    },
-    {
-      "name": "Cullinan Studio",
-      "careers": "https://www.cullinanstudio.com/career-contact"
-    },
-    {
-      "name": "Morris+Company",
-      "careers": "https://www.morrisand.company/recruitment"
-    },
-    {
-      "name": "Karakusevic Carson",
-      "careers": "https://www.karakusevic-carson.com/practice/careers"
-    },
-    {
-      "name": "Maccreanor Lavington",
-      "careers": "https://www.maccreanorlavington.com/work-with-us/"
-    },
-    {
-      "name": "PLP Architecture",
-      "careers": "https://www.plparchitecture.com/careers"
-    },
-    {
-      "name": "Scott Brownrigg",
-      "careers": "https://scottbrownrigg.current-vacancies.com/Careers/Vacancies-1965"
-    },
-    {
-      "name": "TP Bennett",
-      "careers": "https://www.tpbennett.com/careers/"
-    },
-    {
-      "name": "AART",
-      "careers": "https://aart.dk/karriere"
-    },
-    {
-      "name": "Sauerbruch Hutton",
-      "careers": "https://www.sauerbruchhutton.de/de/office#jobs"
-    },
-    {
-      "name": "HENN",
-      "careers": "https://www.henn.com/en/careers"
-    },
-    {
-      "name": "kadawittfeld",
-      "careers": "https://www.kadawittfeldarchitektur.de/profil/jobs/"
-    },
-    {
-      "name": "Giant Ant",
-      "careers": "https://www.giantant.ca/careers"
-    },
-    {
-      "name": "ManvsMachine",
-      "careers": "https://mvsm.com/jobs"
-    },
-    {
-      "name": "Golden Wolf",
-      "careers": "https://www.goldenwolf.tv/careers"
-    },
-    {
-      "name": "Animade",
-      "careers": "https://animade.tv/scoops/working-culture-at-animade"
-    },
-    {
-      "name": "Territory Studio",
-      "careers": "https://territorystudio.teamtailor.com/"
-    },
-    {
-      "name": "North Kingdom",
-      "careers": "https://www.northkingdom.com/careers"
-    },
-    {
-      "name": "KPMB",
-      "careers": "https://www.kpmb.com/careers/"
-    },
-    {
-      "name": "Diamond Schmitt",
-      "careers": "https://dsai.ca/careers/"
-    },
-    {
-      "name": "Hariri Pontarini",
-      "careers": "https://www.hariripontarini.com/careers"
-    },
-    {
-      "name": "Moriyama Teshima",
-      "careers": "https://www.mtarch.com/careers"
-    },
-    {
-      "name": "Michael Green Architecture",
-      "careers": "https://mg-architecture.ca/studio/careers/"
-    },
-    {
-      "name": "HCMA",
-      "careers": "https://hcma.ca/careers/"
-    },
-    {
-      "name": "Omar Gandhi",
-      "careers": "https://omargandhi.com/careers"
-    },
-    {
-      "name": "Teeple Architects",
-      "careers": "https://teeplearch.com/careers/"
-    },
-    {
-      "name": "Revery Architecture",
-      "careers": "https://reveryarchitecture.com/careers/"
-    },
-    {
-      "name": "DIALOG",
-      "careers": "https://dialogdesign.ca/careers/"
-    },
-    {
-      "name": "ACDF Architecture",
-      "careers": "https://acdf.ca/carriere/"
-    },
-    {
-      "name": "Lemay",
-      "careers": "https://lemay.com/careers/"
-    },
-    {
-      "name": "Tendril",
-      "careers": "https://tendril.studio/careers/"
-    },
-    {
-      "name": "Brooks + Scarpa",
-      "careers": "https://bsharchitects.com/employment-opportunities"
-    },
-    {
-      "name": "Snow Kreilich",
-      "careers": "https://snowkreilich.com/careers/"
-    },
-    {
-      "name": "Kevin Daly Architects",
-      "careers": "https://kevindalyarchitects.com/careers/"
-    },
-    {
-      "name": "LOHA",
-      "careers": "https://loharchitects.com/about/"
-    },
-    {
-      "name": "Hoerr Schaudt",
-      "careers": "https://hoerrschaudt.com/about/careers/"
-    },
-    {
-      "name": "Nelson Byrd Woltz",
-      "careers": "https://nbwla.com/studio"
-    },
-    {
-      "name": "Design Workshop",
-      "careers": "https://www.designworkshop.com/careers.html"
-    },
-    {
-      "name": "E2A",
-      "careers": "https://www.e2a.ch/jobs"
-    },
-    {
-      "name": "jessenvollenweider",
-      "careers": "https://www.jessenvollenweider.ch/home/wir/jobs/"
-    },
-    {
-      "name": "Loeliger Strub",
-      "careers": "https://loeligerstrub.ch/nproject-category/jobs/"
-    },
-    {
-      "name": "Bob Gysin Partner",
-      "careers": "https://www.bgp.ch/jobs"
-    },
-    {
-      "name": "Meili Peter",
-      "careers": "https://www.meilipeterpartner.ch/offene-stellen"
-    },
-    {
-      "name": "Gruner",
-      "careers": "https://www.gruner.ch/de/karriere/offene-stellen"
-    },
-    {
-      "name": "Schnetzer Puskas",
-      "careers": "https://www.schnetzerpuskas.com/de/buero/arbeiten-bei-uns"
-    },
-    {
-      "name": "ZPF Ingenieure",
-      "careers": "https://www.zpfing.ch/de/meta/karriere.html"
-    },
-    {
-      "name": "WaltGalmarini",
-      "careers": "https://waltgalmarini.ch/karriere/"
-    },
-    {
-      "name": "Apps with love",
-      "careers": "https://appswithlove.com/jobs"
-    },
-    {
-      "name": "smartive",
-      "careers": "https://smartive.ch/de/agentur/jobs"
-    },
-    {
-      "name": "Norm Architects",
-      "careers": "https://normcph.com/welcome/jobs/"
-    },
-    {
-      "name": "i29",
-      "careers": "https://i29.nl/jobs"
-    },
-    {
-      "name": "PCA-Stream",
-      "careers": "https://pca-stream.com/fr/contacts/"
-    },
-    {
-      "name": "Lissoni & Partners",
-      "careers": "https://www.lissoniandpartners.com/en/careers"
-    },
-    {
-      "name": "DimoreStudio",
-      "careers": "https://www.dimorestudio.eu/careers/"
-    },
-    {
-      "name": "Park Associati",
-      "careers": "https://parkassociati.com/career"
-    },
-    {
-      "name": "ACPV Architects",
-      "careers": "https://acpvarchitects.com/join-acpv/"
-    },
-    {
-      "name": "Conran and Partners",
-      "careers": "https://conranandpartners.com/careers/"
-    },
-    {
-      "name": "dn&co",
-      "careers": "https://www.dnco.com/jobs"
-    },
-    {
-      "name": "Strichpunkt",
-      "careers": "https://sp.design/en/career"
-    }
-  ]
+ "_comment": "Studios read by the LLM direct adapter. EVERY URL HERE WAS VERIFIED BY RENDERING IT (apps/scraper/scripts/discover-careers.mjs, 2026-08-03). The first version of this file used pattern-guessed URLs (/careers, /jobs) and several were 404s whose SPA shell still returned 70KB, so the extractor reported a confident 'no positions'. Re-run the discovery script after editing, and periodically: studios move their careers pages and a stale URL fails silently. Firms that resolve to a hosted ATS with a public feed belong in that adapter's config instead (Zaha Hadid moved to personio-companies.json this way).",
+ "companies": [
+  {
+   "name": "BIG - Bjarke Ingels Group",
+   "careers": "https://big.dk/careers"
+  },
+  {
+   "name": "Gensler",
+   "careers": "https://www.gensler.com/careers"
+  },
+  {
+   "name": "HOK",
+   "careers": "https://www.hok.com/people/careers/"
+  },
+  {
+   "name": "Populous",
+   "careers": "https://populous.com/careers"
+  },
+  {
+   "name": "Perkins&Will",
+   "careers": "https://perkinswill.com/careers/"
+  },
+  {
+   "name": "Studio Gang",
+   "careers": "https://studiogang.com/opportunities/"
+  },
+  {
+   "name": "Herzog & de Meuron",
+   "careers": "https://www.herzogdemeuron.com/practice/jobs/"
+  },
+  {
+   "name": "Henning Larsen",
+   "careers": "https://henninglarsen.com/careers"
+  },
+  {
+   "name": "3XN",
+   "careers": "https://3xn.com/career"
+  },
+  {
+   "name": "HawkinsBrown",
+   "careers": "https://careers.hawkinsbrown.com/"
+  },
+  {
+   "name": "Sasaki",
+   "careers": "https://www.sasaki.com/careers/"
+  },
+  {
+   "name": "ZGF Architects",
+   "careers": "https://www.zgf.com/careers/"
+  },
+  {
+   "name": "SmithGroup",
+   "careers": "https://www.smithgroup.com/our-firm/careers"
+  },
+  {
+   "name": "Morphosis",
+   "careers": "https://www.morphosis.com/careers"
+  },
+  {
+   "name": "Safdie Architects",
+   "careers": "https://www.safdiearchitects.com/careers"
+  },
+  {
+   "name": "Payette",
+   "careers": "https://www.payette.com/careers/"
+  },
+  {
+   "name": "AHMM",
+   "careers": "https://www.ahmm.co.uk/practice/careers/"
+  },
+  {
+   "name": "Work & Co",
+   "careers": "https://work.co/careers/"
+  },
+  {
+   "name": "ustwo",
+   "careers": "https://ustwo.com/join-us/"
+  },
+  {
+   "name": "Koto",
+   "careers": "https://koto.com/careers"
+  },
+  {
+   "name": "Athletics",
+   "careers": "https://athleticsnyc.com/careers"
+  },
+  {
+   "name": "Pentagram",
+   "careers": "https://www.pentagram.com/careers"
+  },
+  {
+   "name": "Designit",
+   "careers": "https://www.designit.com/jobs"
+  },
+  {
+   "name": "Foster + Partners",
+   "careers": "https://vacancies.fosterandpartners.com/"
+  },
+  {
+   "name": "Ennead Architects",
+   "careers": "https://ennead.com/employment/"
+  },
+  {
+   "name": "Grimshaw",
+   "careers": "https://careers.grimshaw.global/"
+  },
+  {
+   "name": "OMA",
+   "careers": "https://www.oma.com/office"
+  },
+  {
+   "name": "Mecanoo",
+   "careers": "https://mecanoo.homerun.co/"
+  },
+  {
+   "name": "Olson Kundig",
+   "careers": "https://olsonkundig.applytojob.com/"
+  },
+  {
+   "name": "NBBJ",
+   "careers": "https://www.nbbj.com/careers"
+  },
+  {
+   "name": "KieranTimberlake",
+   "careers": "https://kierantimberlake.com/careers/"
+  },
+  {
+   "name": "Lake|Flato",
+   "careers": "https://www.lakeflato.com/careers/"
+  },
+  {
+   "name": "Miller Hull",
+   "careers": "https://millerhull.com/connect/#opportunities"
+  },
+  {
+   "name": "Mithun",
+   "careers": "https://mithun.com/people/careers/"
+  },
+  {
+   "name": "EHDD",
+   "careers": "https://ehdd.isolvedhire.com/jobs/"
+  },
+  {
+   "name": "WRNS Studio",
+   "careers": "https://wrnsstudio.com/careers/"
+  },
+  {
+   "name": "Perkins Eastman",
+   "careers": "https://www.perkinseastman.com/careers/"
+  },
+  {
+   "name": "Ballinger",
+   "careers": "https://ballinger.com/culture/join"
+  },
+  {
+   "name": "Cooper Carry",
+   "careers": "https://www.coopercarry.com/careers-2-2/"
+  },
+  {
+   "name": "Behnisch Architekten",
+   "careers": "https://behnisch.com/news?category=jobs"
+  },
+  {
+   "name": "Christ & Gantenbein",
+   "careers": "https://christgantenbein.com/office/jobs"
+  },
+  {
+   "name": "EM2N",
+   "careers": "https://www.em2n.ch/en/office/jobs.html"
+  },
+  {
+   "name": "Gigon/Guyer",
+   "careers": "https://www.gigon-guyer.ch/de/buero/jobs/"
+  },
+  {
+   "name": "Burckhardt Architektur",
+   "careers": "https://burckhardt.swiss/en/careers/"
+  },
+  {
+   "name": "Itten+Brechbuehl",
+   "careers": "https://www.ittenbrechbuehl.ch/de/karriere/"
+  },
+  {
+   "name": "Diener & Diener",
+   "careers": "https://www.dienerdiener.ch/de/jobs"
+  },
+  {
+   "name": "Buchner Bruendler",
+   "careers": "https://bbarc.ch/jobs"
+  },
+  {
+   "name": "Baumschlager Eberle",
+   "careers": "https://baumschlager-eberle.com/karriere/wir-als-arbeitgeber/"
+  },
+  {
+   "name": "Basler & Hofmann",
+   "careers": "https://www.baslerhofmann.ch/arbeiten-bei-uns/offene-stellen"
+  },
+  {
+   "name": "Emch+Berger",
+   "careers": "https://www.emchberger.ch/de/jobs"
+  },
+  {
+   "name": "Rapp AG",
+   "careers": "https://karriere.rapp.ch/"
+  },
+  {
+   "name": "TBF + Partner",
+   "careers": "https://www.tbf.ch/jobs"
+  },
+  {
+   "name": "Liip",
+   "careers": "https://jobs.liip.ch/"
+  },
+  {
+   "name": "Unic",
+   "careers": "https://www.unic.com/de/jobs"
+  },
+  {
+   "name": "Feinheit",
+   "careers": "https://feinheit.ch/jobs/"
+  },
+  {
+   "name": "Superhuit",
+   "careers": "https://superhuit.ch/fr/nous-rejoindre/"
+  },
+  {
+   "name": "Studio Dumbar",
+   "careers": "https://studiodumbar.com/jobs"
+  },
+  {
+   "name": "Base Design",
+   "careers": "https://www.basedesign.com/jobs"
+  },
+  {
+   "name": "Ragged Edge",
+   "careers": "https://raggededge.com/join"
+  },
+  {
+   "name": "DixonBaxi",
+   "careers": "https://joinus.dixonbaxi.com/"
+  },
+  {
+   "name": "Bakken & Baeck",
+   "careers": "https://bakkenbaeck.com/join"
+  },
+  {
+   "name": "Kurppa Hosk",
+   "careers": "https://kurppahosk.teamtailor.com/jobs/"
+  },
+  {
+   "name": "MAD Architects",
+   "careers": "https://www.i-mad.com/careers"
+  },
+  {
+   "name": "C.F. Moller",
+   "careers": "https://www.cfmoller.com/j/Job"
+  },
+  {
+   "name": "MVSA Architects",
+   "careers": "https://mvsa-architects.com/en/news/join-team-mvsa/"
+  },
+  {
+   "name": "Benthem Crouwel",
+   "careers": "https://benthem-crouwel-architects.homerun.co/"
+  },
+  {
+   "name": "Barcode Architects",
+   "careers": "https://barcodearchitects.com/careers/"
+  },
+  {
+   "name": "Stanton Williams",
+   "careers": "https://stantonwilliams.com/en/careers"
+  },
+  {
+   "name": "WilkinsonEyre",
+   "careers": "https://wilkinsoneyre.com/about/people#careers"
+  },
+  {
+   "name": "White Arkitekter",
+   "careers": "https://whitearkitekter.com/work-with-us/"
+  },
+  {
+   "name": "SO-IL",
+   "careers": "https://solidobjectives.com/about/#careers"
+  },
+  {
+   "name": "MASS Design Group",
+   "careers": "https://modelofarchitecture.org/careers"
+  },
+  {
+   "name": "Marmol Radziner",
+   "careers": "https://www.marmol-radziner.com/careers/"
+  },
+  {
+   "name": "BNIM",
+   "careers": "https://www.bnim.com/careers/"
+  },
+  {
+   "name": "Graham Baba",
+   "careers": "https://grahambaba.com/opportunities"
+  },
+  {
+   "name": "Trahan Architects",
+   "careers": "https://trahanarchitects.com/careers/"
+  },
+  {
+   "name": "GBBN",
+   "careers": "https://www.gbbn.com/careers/"
+  },
+  {
+   "name": "Reed Hilderbrand",
+   "careers": "https://www.reedhilderbrand.com/hiring"
+  },
+  {
+   "name": "Stoss Landscape Urbanism",
+   "careers": "https://www.stoss.net/info/careers"
+  },
+  {
+   "name": "Rios",
+   "careers": "https://www.rios.com/careers/"
+  },
+  {
+   "name": "Bora Architects",
+   "careers": "https://bora.co/contact/careers/"
+  },
+  {
+   "name": "MSR Design",
+   "careers": "https://msrdesign.com/connect/careers/"
+  },
+  {
+   "name": "Jestico + Whiles",
+   "careers": "https://www.jesticowhiles.com/join-us/"
+  },
+  {
+   "name": "FCBStudios",
+   "careers": "https://fcbstudios.com/practice/careers/"
+  },
+  {
+   "name": "Cullinan Studio",
+   "careers": "https://www.cullinanstudio.com/career-contact"
+  },
+  {
+   "name": "Morris+Company",
+   "careers": "https://www.morrisand.company/recruitment"
+  },
+  {
+   "name": "Karakusevic Carson",
+   "careers": "https://www.karakusevic-carson.com/practice/careers"
+  },
+  {
+   "name": "Maccreanor Lavington",
+   "careers": "https://www.maccreanorlavington.com/work-with-us/"
+  },
+  {
+   "name": "PLP Architecture",
+   "careers": "https://www.plparchitecture.com/careers"
+  },
+  {
+   "name": "Scott Brownrigg",
+   "careers": "https://scottbrownrigg.current-vacancies.com/Careers/Vacancies-1965"
+  },
+  {
+   "name": "TP Bennett",
+   "careers": "https://www.tpbennett.com/careers/"
+  },
+  {
+   "name": "AART",
+   "careers": "https://aart.dk/karriere"
+  },
+  {
+   "name": "Sauerbruch Hutton",
+   "careers": "https://www.sauerbruchhutton.de/de/office#jobs"
+  },
+  {
+   "name": "HENN",
+   "careers": "https://www.henn.com/en/careers"
+  },
+  {
+   "name": "kadawittfeld",
+   "careers": "https://www.kadawittfeldarchitektur.de/profil/jobs/"
+  },
+  {
+   "name": "Giant Ant",
+   "careers": "https://www.giantant.ca/careers"
+  },
+  {
+   "name": "ManvsMachine",
+   "careers": "https://mvsm.com/jobs"
+  },
+  {
+   "name": "Golden Wolf",
+   "careers": "https://www.goldenwolf.tv/careers"
+  },
+  {
+   "name": "Animade",
+   "careers": "https://animade.tv/scoops/working-culture-at-animade"
+  },
+  {
+   "name": "Territory Studio",
+   "careers": "https://territorystudio.teamtailor.com/"
+  },
+  {
+   "name": "North Kingdom",
+   "careers": "https://www.northkingdom.com/careers"
+  },
+  {
+   "name": "KPMB",
+   "careers": "https://www.kpmb.com/careers/"
+  },
+  {
+   "name": "Diamond Schmitt",
+   "careers": "https://dsai.ca/careers/"
+  },
+  {
+   "name": "Hariri Pontarini",
+   "careers": "https://www.hariripontarini.com/careers"
+  },
+  {
+   "name": "Moriyama Teshima",
+   "careers": "https://www.mtarch.com/careers"
+  },
+  {
+   "name": "Michael Green Architecture",
+   "careers": "https://mg-architecture.ca/studio/careers/"
+  },
+  {
+   "name": "HCMA",
+   "careers": "https://hcma.ca/careers/"
+  },
+  {
+   "name": "Omar Gandhi",
+   "careers": "https://omargandhi.com/careers"
+  },
+  {
+   "name": "Teeple Architects",
+   "careers": "https://teeplearch.com/careers/"
+  },
+  {
+   "name": "Revery Architecture",
+   "careers": "https://reveryarchitecture.com/careers/"
+  },
+  {
+   "name": "DIALOG",
+   "careers": "https://dialogdesign.ca/careers/"
+  },
+  {
+   "name": "ACDF Architecture",
+   "careers": "https://acdf.ca/carriere/"
+  },
+  {
+   "name": "Lemay",
+   "careers": "https://lemay.com/careers/"
+  },
+  {
+   "name": "Tendril",
+   "careers": "https://tendril.studio/careers/"
+  },
+  {
+   "name": "Brooks + Scarpa",
+   "careers": "https://bsharchitects.com/employment-opportunities"
+  },
+  {
+   "name": "Snow Kreilich",
+   "careers": "https://snowkreilich.com/careers/"
+  },
+  {
+   "name": "Kevin Daly Architects",
+   "careers": "https://kevindalyarchitects.com/careers/"
+  },
+  {
+   "name": "LOHA",
+   "careers": "https://loharchitects.com/about/"
+  },
+  {
+   "name": "Hoerr Schaudt",
+   "careers": "https://hoerrschaudt.com/about/careers/"
+  },
+  {
+   "name": "Nelson Byrd Woltz",
+   "careers": "https://nbwla.com/studio"
+  },
+  {
+   "name": "Design Workshop",
+   "careers": "https://www.designworkshop.com/careers.html"
+  },
+  {
+   "name": "E2A",
+   "careers": "https://www.e2a.ch/jobs"
+  },
+  {
+   "name": "jessenvollenweider",
+   "careers": "https://www.jessenvollenweider.ch/home/wir/jobs/"
+  },
+  {
+   "name": "Loeliger Strub",
+   "careers": "https://loeligerstrub.ch/nproject-category/jobs/"
+  },
+  {
+   "name": "Bob Gysin Partner",
+   "careers": "https://www.bgp.ch/jobs"
+  },
+  {
+   "name": "Meili Peter",
+   "careers": "https://www.meilipeterpartner.ch/offene-stellen"
+  },
+  {
+   "name": "Gruner",
+   "careers": "https://www.gruner.ch/de/karriere/offene-stellen"
+  },
+  {
+   "name": "Schnetzer Puskas",
+   "careers": "https://www.schnetzerpuskas.com/de/buero/arbeiten-bei-uns"
+  },
+  {
+   "name": "ZPF Ingenieure",
+   "careers": "https://www.zpfing.ch/de/meta/karriere.html"
+  },
+  {
+   "name": "WaltGalmarini",
+   "careers": "https://waltgalmarini.ch/karriere/"
+  },
+  {
+   "name": "Apps with love",
+   "careers": "https://appswithlove.com/jobs"
+  },
+  {
+   "name": "smartive",
+   "careers": "https://smartive.ch/de/agentur/jobs"
+  },
+  {
+   "name": "Norm Architects",
+   "careers": "https://normcph.com/welcome/jobs/"
+  },
+  {
+   "name": "i29",
+   "careers": "https://i29.nl/jobs"
+  },
+  {
+   "name": "PCA-Stream",
+   "careers": "https://pca-stream.com/fr/contacts/"
+  },
+  {
+   "name": "Lissoni & Partners",
+   "careers": "https://www.lissoniandpartners.com/en/careers"
+  },
+  {
+   "name": "DimoreStudio",
+   "careers": "https://www.dimorestudio.eu/careers/"
+  },
+  {
+   "name": "Park Associati",
+   "careers": "https://parkassociati.com/career"
+  },
+  {
+   "name": "ACPV Architects",
+   "careers": "https://acpvarchitects.com/join-acpv/"
+  },
+  {
+   "name": "Conran and Partners",
+   "careers": "https://conranandpartners.com/careers/"
+  },
+  {
+   "name": "dn&co",
+   "careers": "https://www.dnco.com/jobs"
+  },
+  {
+   "name": "Strichpunkt",
+   "careers": "https://sp.design/en/career"
+  },
+  {
+   "name": "Lake Flato",
+   "careers": "https://www.lakeflato.com/careers/"
+  },
+  {
+   "name": "Corgan",
+   "careers": "https://www.corgan.com/careers"
+  },
+  {
+   "name": "Michael Hsu Office of Architecture",
+   "careers": "https://hsuoffice.com/join/"
+  },
+  {
+   "name": "BOKA Powell",
+   "careers": "https://www.bokapowell.com/team/careers"
+  },
+  {
+   "name": "Solomon Cordwell Buenz",
+   "careers": "https://scb.com/careers/"
+  },
+  {
+   "name": "Tres Birds",
+   "careers": "https://tresbirds.com/careers"
+  },
+  {
+   "name": "CLB Architects",
+   "careers": "https://clbarchitects.com/careers/"
+  },
+  {
+   "name": "OZ Architecture",
+   "careers": "https://ozarch.com/studio/careers"
+  },
+  {
+   "name": "Shepley Bulfinch",
+   "careers": "https://shepleybulfinch.com/careers/"
+  },
+  {
+   "name": "Mikyoung Kim Design",
+   "careers": "https://myk.studio/#jobs"
+  },
+  {
+   "name": "Ten Eyck",
+   "careers": "https://www.teneyckla.com/contact/careers"
+  },
+  {
+   "name": "Valerio Dewalt Train",
+   "careers": "https://www.buildordie.com/careers"
+  },
+  {
+   "name": "CO Architects",
+   "careers": "https://coarchitects.com/practice/careers/"
+  },
+  {
+   "name": "Rockwell Group",
+   "careers": "https://www.rockwellgroup.com/careers"
+  },
+  {
+   "name": "Roman and Williams",
+   "careers": "https://romanandwilliams.com/pages/careers"
+  },
+  {
+   "name": "Davis Partnership",
+   "careers": "https://davispartnership.com/studio/careers/"
+  },
+  {
+   "name": "Page",
+   "careers": "https://www.pagethink.com/about/careers"
+  }
+ ]
 }

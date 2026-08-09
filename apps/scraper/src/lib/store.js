@@ -68,7 +68,7 @@ export function writeNdjson(file, rows) {
 
 /** Merge rows into an NDJSON file by key. Returns {added, updated, total}. */
 export function upsertNdjson(file, rows, keyFn) {
-  const existing = readNdjson(file);
+  const existing = readNdjsonSafe(file);
   const byKey = new Map(existing.map((r) => [keyFn(r), r]));
   let added = 0, updated = 0;
   for (const row of rows) {

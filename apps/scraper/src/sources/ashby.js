@@ -12,7 +12,9 @@ export async function fetchRaw({ log }) {
   const orgs = readJson(path.join(CONFIG_DIR, 'ashby-companies.json'))?.companies ?? [];
   const rows = [];
   for (const org of orgs) {
-    const body = await fetchJson(`https://api.ashbyhq.com/posting-api/job-board/${org}?includeCompensation=true`);
+    let body;
+    try { body = await fetchJson(`https://api.ashbyhq.com/posting-api/job-board/${org}?includeCompensation=true`); }
+    catch (err) { log(`ashby:${org} — ${err.message} (board skipped, source continues)`); continue; }
     const jobs = body?.jobs ?? [];
     if (!jobs.length) { log(`ashby:${org} — no public board (skipped)`); continue; }
     log(`ashby:${org} — ${jobs.length} postings`);

@@ -99,7 +99,7 @@ CAP = 600        # freshest N per occupation (per-occupation board + detail)
 # file (1,530). Full board is 2.74MB raw but 430KB gzipped, which is what
 # actually crosses the wire, so completeness is affordable and consistency is
 # not optional. ALL_CAP exists only as an escape hatch if that stops being true.
-ALL_CAP = CAP
+ALL_CAP = CAP  # MUST equal CAP: the consistency canary compares index sums against per-role files; a lower value aborts the build
 FLOOR = 3        # skip occupations with fewer than this (no board)
 DESC_CAP = 7000  # chars of description on the detail page
 
@@ -222,19 +222,25 @@ def resolve_country(norm_c, location):
             loc = (location.encode('latin-1', 'ignore').decode('utf-8', 'ignore').lower()) or loc
         except (UnicodeError, AttributeError):
             pass
-    for name, code in _C_NAMES.items():
-        if name in loc:
-            return code
-    for city, code in _C_CITIES.items():
-        if city in loc:
-            return code
+    # Word-bounded matching throughout: bare substring checks re-introduced
+    # bugs country.js already fixed ("indianapolis" contains "india",
+    # "come join us" contains "us"). Longest names first so "south korea"
+    # beats "korea" and "ukraine" is not shadowed by a shorter "uk".
+    for name in sorted(_C_NAMES, key=len, reverse=True):
+        if re.search(r'\b' + re.escape(name) + r'\b', loc):
+            return _C_NAMES[name]
+    for city in sorted(_C_CITIES, key=len, reverse=True):
+        if re.search(r'\b' + re.escape(city) + r'\b', loc):
+            return _C_CITIES[city]
     for st in ('alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia','hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts','michigan','minnesota','mississippi','missouri','montana','nebraska','nevada','new hampshire','new jersey','new mexico','new york','north carolina','north dakota','ohio','oklahoma','oregon','pennsylvania','rhode island','south carolina','south dakota','tennessee','texas','utah','vermont','virginia','washington','wisconsin','wyoming','district of columbia','puerto rico'):
-        if st in loc:
+        if re.search(r'\b' + st + r'\b', loc):
             return 'US'
     for city in ('san francisco','new york','seattle','boston','chicago','denver','atlanta','los angeles','san diego','san jose','portland','philadelphia','houston','dallas','miami','austin','nashville','phoenix','minneapolis','salt lake','brooklyn'):
-        if city in loc:
+        if re.search(r'\b' + city + r'\b', loc):
             return 'US'
-    if re.search(r'\b(us|u\.s\.|usa)\b', loc):
+    # 'us' is NOT matched lowercased: "come join us, fully remote" is the
+    # pronoun hijack country.js documents. Only the original-case token counts.
+    if re.search(r'\bUS\b', location or '') or re.search(r'\b(u\.s\.|usa)\b', loc):
         return 'US'
     m = re.search(r',\s*([a-z]{2})\b\s*$', loc)
     if m:

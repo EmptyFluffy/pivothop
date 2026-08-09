@@ -84,3 +84,27 @@ over the two occupations' top-20 skill shares (share = fraction of postings ment
 ## Growing the mapping
 
 `normalize` logs every unmapped title with its frequency to `data/unmapped-titles.json`. The loop: review that file, extend `packages/data/taxonomy/occupations.json` synonyms, re-run `normalize`. Same for skills in `packages/data/taxonomy/skills.json`.
+
+## Known debt (code review 2026-08-09)
+
+Fixed that day: verify-gate exit-code hole + STATUS gate in daily-run.sh,
+tolerant NDJSON reads on the pipeline paths, per-board try/catch in
+greenhouse/lever/ashby/workable/recruitee/smartrecruiters/reed, canonical
+stripHtml in six adapters, Adzuna predicted salaries dropped, himalayas
+undefined-key guard, build-jobs resolve_country word-boundary port.
+
+Still open, in priority order:
+1. Salary-from-description extraction exists in three drifted copies
+   (greenhouse via parseSalaryString; workday hardcodes USD; personio has its
+   own grammar). Fold into one extractSalaryFromText in lib/text.js.
+2. Source-to-country fallback lives in three places with three source lists
+   (normalize/country.js, analyze/salary-bands.js, build-jobs.py). Make
+   sourceCountry the single authority.
+3. Swallowed fetch errors (remoteok, careerjet, getonbrd, jobroom count(),
+   workday) make an API outage look like an empty market. Tally per-source
+   error counts; report ok:false when every request failed.
+4. build-jobs global (company,title) dedup keeps first-in-file, not freshest.
+5. build-jobs loads full descriptions for the whole OK corpus into RAM; parse
+   only the fields it uses before the next scale jump.
+6. Ingest IO is quadratic (each source rewrites the whole raw file). First fix
+   if the nightly starts missing its window.

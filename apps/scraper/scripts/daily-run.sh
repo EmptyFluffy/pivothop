@@ -55,9 +55,19 @@ npm run --silent scrape -- status >> "$LOG" 2>&1
 # ── THE GATE ─────────────────────────────────────────────────────────────────
 # verify runs the gold set (every fixed bug as a test), the sanity invariants,
 # and the licensed-route checks. Any PROBLEM line = red = no publish.
-VERIFY_OUT=$(npm run --silent scrape -- verify 2>&1)
+# Gate on the pipeline status FIRST: a crashed normalize leaves yesterday's
+# consistent-but-stale files in place and verify would wave them through.
+if [ "$STATUS" -ne 0 ]; then
+  echo "GATE RED: ingest/normalize/aggregate failed (status $STATUS) — NOT publishing" >> "$LOG"
+  date > "$MARKER"
+  echo "----- exit 2 (pipeline red) -----" >> "$LOG"
+  exit 2
+fi
+VERIFY_OUT=$(npm run --silent scrape -- verify 2>&1); VRC=$?
 echo "$VERIFY_OUT" >> "$LOG"
-if echo "$VERIFY_OUT" | grep -q "PROBLEM"; then
+# ci-run.sh checks the exit code too: a verify that CRASHES before printing
+# any PROBLEM line must read as red, not green.
+if [ "$VRC" -ne 0 ] || echo "$VERIFY_OUT" | grep -q "PROBLEM"; then
   echo "GATE RED: verify reported problems — keeping yesterday's data, NOT publishing" >> "$LOG"
   date > "$MARKER"
   echo "----- exit 2 (gate red) -----" >> "$LOG"

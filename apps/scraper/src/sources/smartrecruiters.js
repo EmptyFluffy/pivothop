@@ -16,12 +16,14 @@ export async function fetchRaw({ log }) {
   const companies = readJson(path.join(CONFIG_DIR, 'smartrecruiters-companies.json'))?.companies ?? [];
   const rows = [];
   for (const c of companies) {
-    const list = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings?limit=100`);
+    let list;
+    try { list = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings?limit=100`); }
+    catch (err) { log(`smartrecruiters:${c} — ${err.message} (board skipped, source continues)`); continue; }
     if (!list?.content?.length) { log(`smartrecruiters:${c} — no public postings (skipped)`); continue; }
     let items = list.content;
     // one page of pagination — 200 postings per company is plenty at hobbyist scale
     if (list.totalFound > 100 && list.content.length === 100) {
-      const page2 = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings?limit=100&offset=100`);
+      const page2 = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings?limit=100&offset=100`).catch((err) => { log(`smartrecruiters:${c} p2 — ${err.message}`); return null; });
       items = items.concat(page2?.content ?? []);
     }
     log(`smartrecruiters:${c} — ${items.length} postings (of ${list.totalFound})`);
@@ -29,7 +31,8 @@ export async function fetchRaw({ log }) {
     for (const j of items) {
       let text = '';
       if (detailed < DETAILS_PER_COMPANY) {
-        const d = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings/${j.id}`, { minIntervalMs: 700 });
+        const d = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings/${j.id}`, { minIntervalMs: 700 }).catch(() => null);
+      if (!d) continue;
         const sec = d?.jobAd?.sections ?? {};
         text = stripHtml([sec.jobDescription?.text, sec.qualifications?.text, sec.additionalInformation?.text].filter(Boolean).join('\n'));
         detailed++;

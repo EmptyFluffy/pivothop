@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { stripHtml } from '../lib/text.js';
 import { fetchJson } from '../lib/http.js';
 import { readJson } from '../lib/store.js';
 import { CONFIG_DIR } from '../lib/paths.js';
@@ -14,7 +15,9 @@ export async function fetchRaw({ log }) {
   const companies = readJson(path.join(CONFIG_DIR, 'lever-companies.json'))?.companies ?? [];
   const rows = [];
   for (const c of companies) {
-    const body = await fetchJson(`https://api.lever.co/v0/postings/${c}?mode=json`);
+    let body;
+    try { body = await fetchJson(`https://api.lever.co/v0/postings/${c}?mode=json`); }
+    catch (err) { log(`lever:${c} — ${err.message} (board skipped, source continues)`); continue; }
     if (!body || !Array.isArray(body)) { log(`lever:${c} — no public board (skipped)`); continue; }
     log(`lever:${c} — ${body.length} postings`);
     for (const j of body) {
@@ -30,7 +33,7 @@ export async function fetchRaw({ log }) {
         salary_max: sr.max || null,
         currency: sr.currency || (sr.min ? 'USD' : null),
         salary_period: PERIOD_BY_INTERVAL[sr.interval] ?? (sr.min ? 'year' : null),
-        description_text: (j.descriptionPlain ?? '').concat('\n', (j.lists ?? []).map((l) => `${l.text}\n${(l.content ?? '').replace(/<[^>]+>/g, ' ')}`).join('\n')).slice(0, 20000),
+        description_text: (j.descriptionPlain ?? '').concat('\n', (j.lists ?? []).map((l) => `${l.text}\n${stripHtml(l.content ?? '')}`).join('\n')).slice(0, 20000),
         posted_at: j.createdAt ? new Date(j.createdAt).toISOString() : null,
         url: j.hostedUrl ?? null,
       });

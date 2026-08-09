@@ -66,3 +66,20 @@ node apps/scraper/scripts/discover-studios.mjs apps/scraper/config/waves/wave-N.
   occupations our board covers thinly.
 - Cloud-blocked firms (Foster + Partners, AHMM render only from residential
   IPs): needs the residential-fetch workaround before re-adding.
+
+## Wave 5 (2026-08-09, US-heavy for board balance)
+
+53 candidates -> 22 render-verified careers pages into the direct fleet
+(Lake Flato 21 jobs, Shepley Bulfinch 20, SCB 15, Michael Hsu 9, Reed
+Hilderbrand 7, OZ 6, Base Design 6...), 27 no-surface firms into outreach.
+Junk-link discipline caught: Overland (news article), Ross Barney (award
+page), Fentress (link leaks to populous.com), Clayton Korte (#subscribe),
+OLIN (SlideRoom login).
+
+Retry list (DNS/timeout, re-probe in a future wave):
+- Landon Bone Baker (ERR_NAME_NOT_RESOLVED - check domain)
+- Parts and Labor Design (ERR_NAME_NOT_RESOLVED)
+- Champions Design (ERR_NAME_NOT_RESOLVED - try championsdesign.com)
+- ICRAVE (render timeout)
+- Taylor Design hires via BambooHR (no adapter yet; bamboohr JSON API is a
+  candidate: <tenant>.bamboohr.com/careers/list)

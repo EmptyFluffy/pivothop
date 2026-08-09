@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { stripHtml } from '../lib/text.js';
 import { fetchJson } from '../lib/http.js';
 import { readJson } from '../lib/store.js';
 import { CONFIG_DIR } from '../lib/paths.js';
@@ -39,11 +40,14 @@ export async function fetchRaw({ log }) {
             company: j.company?.display_name ?? null,
             location: j.location?.display_name ?? null,
             remote_flag: /remote/i.test(j.title ?? '') || /remote/i.test(j.location?.display_name ?? ''),
-            salary_min: j.salary_min || null,
-            salary_max: j.salary_max || null,
+            // salary_is_predicted='1' means Adzuna's MODEL imputed the number.
+            // Passing it through would let toAnnualUsd label it confidence:'stated'
+            // and poison the salary bands with predictions dressed as facts.
+            salary_min: j.salary_is_predicted === '1' ? null : (j.salary_min || null),
+            salary_max: j.salary_is_predicted === '1' ? null : (j.salary_max || null),
             currency: CURRENCY_BY_COUNTRY[country] ?? 'USD',
             salary_period: 'year', // Adzuna normalizes to annual
-            description_text: (j.description ?? '').replace(/<\/?[^>]+>/g, ' ').slice(0, 20000),
+            description_text: stripHtml(j.description ?? '').slice(0, 20000),
             posted_at: j.created ?? null,
             url: j.redirect_url ?? null,
           });
