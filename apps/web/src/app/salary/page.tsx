@@ -5,7 +5,7 @@ import { IndexSearch, type IxRow } from '../components/IndexSearch';
 import { coverableSlugs, getSalary, usBand, fmt, getSwissFile, fmtChf } from './salary-data';
 
 export const metadata: Metadata = {
-  title: 'Salaries by occupation, measured from live postings · PivotHop',
+  title: 'Salaries by occupation, measured from live postings | PivotHop',
   description: 'What each occupation actually pays, from live US job postings blended with official BLS OEWS data: median, range, the trend over time, and how pay splits by seniority and country. A growing salary reference.',
   alternates: { canonical: '/salary' },
 };

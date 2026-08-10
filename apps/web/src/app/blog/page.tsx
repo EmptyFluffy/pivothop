@@ -4,7 +4,7 @@ import { PageShell } from '../components/SiteChrome';
 import { POSTS, PillarIcons } from './posts';
 
 export const metadata: Metadata = {
-  title: 'Blog · PivotHop',
+  title: 'Blog | PivotHop',
   description:
     'Career moves, written up with the numbers attached. Every article runs on the same live posting data as the instrument.',
   alternates: { canonical: '/blog' },

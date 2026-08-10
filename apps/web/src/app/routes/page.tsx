@@ -5,7 +5,7 @@ import { IndexSearch, type IxRow, type IxGroup } from '../components/IndexSearch
 import { routableSlugs, routePair, occField, originMeta, destRole, routeOrigins, originRoles } from './routes-data';
 
 export const metadata: Metadata = {
-  title: 'Career pivots, measured from live job postings · PivotHop',
+  title: 'Career pivots, measured from live job postings | PivotHop',
   description:
     'Career pivots our instrument ranks with confident data, across technology, healthcare, business, finance, design, engineering, trades, and more. Skill readiness, salary band, the exact gap, and observed worker transitions, each preloaded on the working graph.',
   alternates: { canonical: '/routes' },

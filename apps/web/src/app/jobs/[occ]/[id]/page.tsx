@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const j = getJob(occ, id);
   if (!j) return {};
   return {
-    title: `${j.title} at ${j.company} · PivotHop jobs`,
+    title: `${j.title} at ${j.company} | PivotHop jobs`,
     description: `${j.title} at ${j.company}${j.location ? `, ${j.location}` : ''}. Live ${occTitle(occ).toLowerCase()} opening with the pay, the posting, and the skill routes that lead into the role.`,
     // Backfilled descriptions are the source's words; keep them out of the index
     // so the board's own pages carry the site's content signal.

@@ -4,7 +4,7 @@ import { PageShell } from '../components/SiteChrome';
 import { SITE_EMAIL } from '../../lib/site';
 
 export const metadata: Metadata = {
-  title: 'About · PivotHop',
+  title: 'About | PivotHop',
   description:
     'PivotHop is a measuring instrument for career moves. It reads live job postings and shows which roles your skills already reach, with the salary, the gap, and the odds attached. Built by a working architect who made the pivot himself.',
   alternates: { canonical: '/about' },

@@ -16,7 +16,7 @@ const WAITLIST = true;
 
 
 export const metadata: Metadata = {
-  title: 'Post a job · PivotHop',
+  title: 'Post a job | PivotHop',
   description:
     'Post a role on the adjacent-talent job board. Every listing is matched to the candidates whose skills already reach it, from adjacent professions. First month of featured placement free while the board fills.',
   alternates: { canonical: '/employers' },

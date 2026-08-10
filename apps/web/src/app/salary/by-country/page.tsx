@@ -6,7 +6,7 @@ import { PageShell } from '../../components/SiteChrome';
 import { COUNTRY_NAMES, fmt } from '../salary-data';
 
 export const metadata: Metadata = {
-  title: 'The same job, priced across countries · PivotHop salaries',
+  title: 'The same job, priced across countries | PivotHop salaries',
   description:
     'What the same occupation pays in the United States, United Kingdom, Canada, and Australia, from live job postings, nominal and adjusted for cost of living. A cross-market salary comparison, not a listicle.',
   alternates: { canonical: '/salary/by-country' },
