@@ -182,7 +182,13 @@ function links(html, baseUrl) {
 }
 
 export async function fetchRaw({ log }) {
-  const companies = readJson(path.join(CONFIG_DIR, 'direct-companies.json'))?.companies ?? [];
+  // Two fleets, one scrape: the hand-curated file plus the prospector's
+  // auto-admitted firms (scripts/prospect.mjs, nightly). Domain-deduped here
+  // so a firm promoted into the curated file doesn't get read twice.
+  const curated = readJson(path.join(CONFIG_DIR, 'direct-companies.json'))?.companies ?? [];
+  const auto = readJson(path.join(CONFIG_DIR, 'direct-companies-auto.json'))?.companies ?? [];
+  const seen = new Set(curated.map((c) => c.careers.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]));
+  const companies = curated.concat(auto.filter((c) => !seen.has(c.careers.replace(/^https?:\/\/(www\.)?/, '').split('/')[0])));
   if (!process.env.ANTHROPIC_API_KEY) {
     log(`direct: ANTHROPIC_API_KEY not set — ${companies.length} studio careers pages NOT read (add the key to .env / Actions secrets)`);
     return [];

@@ -83,3 +83,26 @@ Retry list (DNS/timeout, re-probe in a future wave):
 - ICRAVE (render timeout)
 - Taylor Design hires via BambooHR (no adapter yet; bamboohr JSON API is a
   candidate: <tenant>.bamboohr.com/careers/list)
+
+## The prospector (2026-08-09): discovery is now nightly
+
+`scripts/prospect.mjs` runs in both nightlies before ingest. It drains
+`config/prospect-queue.json` (seeded with 218 firms: US-weighted AEC,
+engineering, landscape, interiors, brand studios, plus Canada/UK/Nordics/CH)
+at PROSPECT_PER_NIGHT=12 candidates per night, renders each, and auto-admits
+into `config/direct-companies-auto.json` only when the wave rules pass
+mechanically:
+
+- careers link on the firm's own registrable domain (junk-link class killed)
+- landing URL itself careers-ish (award pages and news articles fail)
+- hosted-ATS signatures are NEVER auto-admitted: they land in
+  prospect-state.json as `ats-candidate` for manual sample-posting
+  verification. The namesake rule stays human.
+
+Every attempt is recorded once in `config/prospect-state.json`; both files
+are tracked, so cloud nightlies commit admissions with the data. direct.js
+reads curated + auto fleets, domain-deduped. When the queue drains the
+nightly log says so — top it up with a new candidate list any session.
+
+First live batch: LMN Architects admitted (7-job signal), Olson Kundig held
+as ats-candidate, three duplicates correctly skipped.

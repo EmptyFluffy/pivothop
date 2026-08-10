@@ -47,6 +47,11 @@ if [ "$(date +%u)" = "1" ]; then npm run --silent scrape -- fx:update || true; f
 # computed over a large accumulated corpus and barely moves; re-emitting nightly
 # shuffled route numbers for no reader benefit and made the sitemap's
 # "changed today" signal meaningless.
+# Prospector: drains the firm queue a few candidates per night, auto-admits
+# careers pages that pass the wave rules (same-domain + careers-ish URL; ATS
+# hits held for manual namesake checks). Non-fatal: a broken prospect run
+# must never cost the night's scrape.
+node apps/scraper/scripts/prospect.mjs || echo "::warning::prospect failed (non-fatal)"
 npm run --silent scrape -- ingest all || echo "::warning::ingest exited non-zero (continuing to the gate)"
 npm run --silent scrape -- normalize  || echo "::warning::normalize exited non-zero"
 npm run --silent scrape -- aggregate  || echo "::warning::aggregate exited non-zero"

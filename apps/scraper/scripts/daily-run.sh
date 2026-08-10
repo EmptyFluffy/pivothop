@@ -32,6 +32,7 @@ fi
 # meaningless because a match going 53 -> 52 counted as a change. Score and
 # emit therefore run on Mondays only; on other nights the previously emitted
 # packages/data/generated/ files stand, and the route pages stay still.
+node "$REPO/apps/scraper/scripts/prospect.mjs" >> "$LOG" 2>&1 || echo "prospect failed (non-fatal)" >> "$LOG"
 npm run --silent scrape -- ingest all >> "$LOG" 2>&1
 STATUS=$?
 npm run --silent scrape -- normalize >> "$LOG" 2>&1 || STATUS=$?
