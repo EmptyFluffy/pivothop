@@ -323,10 +323,10 @@ export const POSTS: Post[] = [
 
         <h2>Group two: a thesis, a fellowship, and a caveat</h2>
         <p>
-          The second claim is harder, and it deserves more care than the viral version gave it. Karp&rsquo;s wager is that <strong>neurodivergence</strong> &mdash; dyslexia, ADHD, autism, &ldquo;broadly defined&rdquo;, becomes an edge precisely as AI commoditizes the linear, in-distribution thinking it does best. Palantir put money on it: the Neurodivergent Fellowship drew over a thousand applications, and Karp framed it flatly &mdash; &ldquo;the neurally divergent (like myself) will disproportionately shape America&rsquo;s future.&rdquo;
+          The second claim is harder, and it deserves more care than the viral version gave it. Karp&rsquo;s wager is that <strong>neurodivergence</strong> &mdash; dyslexia, ADHD, autism, &ldquo;broadly defined&rdquo; &mdash; becomes an edge precisely as AI commoditizes the linear, in-distribution thinking it does best. Palantir put money on it: the Neurodivergent Fellowship drew over a thousand applications, and Karp framed it flatly &mdash; &ldquo;the neurally divergent (like myself) will disproportionately shape America&rsquo;s future.&rdquo;
         </p>
         <p>
-          There is real research under the mindset half of this, and it is specific, not a superpower story. Johan Wiklund and colleagues, across the <em>Journal of Business Venturing</em> (2016&ndash;2017), find that ADHD traits &mdash; impulsivity, hyperfocus, a bias toward action over planning, tolerance for risk, align unusually well with <strong>entrepreneurship</strong>, and that adults with ADHD are over-represented in self-employment. Which maps onto Frey and Osborne&rsquo;s second moat, creativity: divergent, cross-domain thinking is the thing generative models, trained to complete the most probable next token, are structurally weakest at.
+          There is real research under the mindset half of this, and it is specific, not a superpower story. Johan Wiklund and colleagues, across the <em>Journal of Business Venturing</em> (2016&ndash;2017), find that ADHD traits &mdash; impulsivity, hyperfocus, a bias toward action over planning, tolerance for risk &mdash; align unusually well with <strong>entrepreneurship</strong>, and that adults with ADHD are over-represented in self-employment. Which maps onto Frey and Osborne&rsquo;s second moat, creativity: divergent, cross-domain thinking is the thing generative models, trained to complete the most probable next token, are structurally weakest at.
         </p>
         <p>
           The caveat is non-negotiable and the honest brands say it: ADHD is a recognized disability with real daily costs, not a hack. The research shows fit for <em>particular</em> roles (founder, creative, high-stimulation, crisis-response), not blanket immunity to automation. Karp is stating a bet, not a finding. But it&rsquo;s a bet pointed at the same target as the trades: the two human capacities, the hands and the leap, that the current machines don&rsquo;t have.
@@ -869,7 +869,7 @@ export const POSTS: Post[] = [
         </p>
         <h2>Why titles are the wrong unit</h2>
         <p>
-          A job title is a marketing decision. The same work is a &ldquo;product designer&rdquo; at one company and a &ldquo;UX designer&rdquo; at the next, a &ldquo;financial analyst&rdquo; here and a &ldquo;finance business partner&rdquo; there. Titles also hide the opposite case: two roles that sound identical and share almost no daily work. Search by title and you inherit every one of those distortions.
+          A job title is whatever the employer chose to print. The same work is a &ldquo;product designer&rdquo; at one company and a &ldquo;UX designer&rdquo; at the next, a &ldquo;financial analyst&rdquo; here and a &ldquo;finance business partner&rdquo; there. Titles also hide the opposite case: two roles that sound identical and share almost no daily work. Search by title and you inherit every one of those distortions.
         </p>
         <p>
           Skills do not have that problem. A posting for a role lists what the role requires, and those requirements are comparable across titles, companies, and countries. So we throw the titles away as a matching key and keep them only as labels. Adjacency is computed on the skill vectors underneath.
@@ -1942,7 +1942,7 @@ export const POSTS: Post[] = [
           each appearing meaningfully in the demand of <strong>40 occupations</strong>.
         </p>
         <div className="post-bars">
-          {[['Data analysis', 40], ['Systems monitoring', 40], ['Project management', 33], ['Supply chain', 30], ['Training & facilitation', 28], ['Customer service', 22], ['Process improvement', 21], ['Python', 20], ['<a className="gl" href="/glossary#sql">SQL</a> (the standard database query language)', 19], ['Professional writing', 19]].map(([k, v]) => (
+          {[['Data analysis', 40], ['Systems monitoring', 40], ['Project management', 33], ['Supply chain', 30], ['Training & facilitation', 28], ['Customer service', 22], ['Process improvement', 21], ['Python', 20], ['SQL', 19], ['Professional writing', 19]].map(([k, v]) => (
             <div key={String(k)} className="pb-row"><span className="k">{k}</span><span className="t"><span className="f" style={{ width: `${(Number(v) / 40) * 100}%` }}></span></span><span className="v">{v}</span></div>
           ))}
         </div>
@@ -2970,8 +2970,8 @@ export const POSTS: Post[] = [
           credited drafting school with teaching him precision he carried
           into writing, and he studied it as a fallback in case music
           failed, which is the most honest career-risk hedge in this whole
-          story. <strong>None of them wasted the training. They relocated
-          it.</strong>
+          story. None of them wasted the training. They relocated
+          it.
         </p>
         <h2>The uncomfortable question for the profession</h2>
         <p>
@@ -3045,7 +3045,7 @@ export const POSTS: Post[] = [
         <p>
           Ken Jeong finished internal medicine training at the University
           of North Carolina and practiced for years, New Orleans, then Los
-          Angeles, seeing patients by day and doing stand-up at night. <strong>The license stayed active</strong> long after the comedy started working. The
+          Angeles, seeing patients by day and doing stand-up at night. The license stayed active long after the comedy started working. The
           pivot completed only when the destination could carry the
           income, not when the frustration peaked.
         </p>
@@ -3650,9 +3650,10 @@ export const POSTS: Post[] = [
           market data, <strong>54 percent of Fortune 100 employees</strong>
           were under full five-day requirements by mid-2025, against
           <strong> 11 percent a year earlier</strong>. Whatever executives
-          say about collaboration, a five-fold jump in one year is not a considered pedagogical conclusion. It is a coordinated retreat to
-          a default that leadership never stopped preferring, timed for a
-          labor market where employers hold the cards.
+          say about collaboration, a five-fold jump in one year reads less like a considered pedagogical conclusion than like a retreat
+          to a default leadership never stopped preferring, in a labor
+          market where employers hold the cards. That is our reading; the
+          companies themselves describe it as a return to collaboration.
         </p>
         <h2>The flexibility camp</h2>
         <p>
