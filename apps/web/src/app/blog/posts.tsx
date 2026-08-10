@@ -121,7 +121,7 @@ export const POSTS: Post[] = [
           of them was entry-level.
         </Pull>
         <p>
-          Those sixteen are worth naming because they are not obscure:{' '}
+          Those sixteen are not obscure:{' '}
           <strong>actuary, construction manager, creative director, customer
           success manager, data architect, dental hygienist, dietitian,
           facilities manager</strong> and eight more. Thousands of open jobs
@@ -270,13 +270,16 @@ export const POSTS: Post[] = [
       { q: 'What did Alex Karp say about AI-proof jobs?', a: 'On the tech show TBPN (March 2026), Palantir CEO Alex Karp said: "There are basically two ways to know you have a future. One, you have some vocational training, or two, you\'re neurodivergent. And when I say neurodivergent, I mean broadly defined." Karp, who is dyslexic, means people with hands-on trade skills and people who think differently. "Non-linear thinkers" and "ADHD" are how commentators paraphrased the second group; his own word was neurodivergent.' },
       { q: 'Which jobs are safest from AI automation?', a: 'By what postings actually demand: hands-on work. In the PivotHop corpus, every occupation in Trades, Healthcare, Construction, Hospitality, and Transport shows zero demand for AI skills in its top-20 — 100% "AI-free" — while only 37% of Technology occupations are. The safest are the ones that combine manual work with a license: electrician, plumber, HVAC technician, registered nurse, physical therapist, paramedic all pair no AI-skill demand with a required credential — two moats, not one.' },
       { q: 'Are the skilled trades a good career in the AI era?', a: 'The demand data is blunt. The US Bureau of Labor Statistics projects roughly 80,000 new electrician openings a year, and electrician employment is set to grow 9% (about 820,000 to 896,000 by 2034) against 3% for all jobs. The driver is the AI build-out itself: data-center construction, where electrical work is 45–70% of the cost, needs an estimated 300,000+ new electricians this decade. The machine rewriting knowledge work cannot wire its own buildings.' },
-      { q: 'Is ADHD or neurodivergence actually an advantage at work?', a: 'The honest answer is "for some things, and it is double-edged." Peer-reviewed work (Wiklund and colleagues, Journal of Business Venturing, 2016–2017) finds ADHD traits — impulsivity, hyperfocus, action-over-planning, risk tolerance — align with entrepreneurship, and adults with ADHD are over-represented in self-employment. That is a real fit for specific roles, not a blanket superpower; ADHD is a recognized disability with real costs. Karp’s claim that the neurodivergent "will disproportionately shape America’s future" is a thesis he is betting on, not an established fact.' },
+      { q: 'Is ADHD or neurodivergence actually an advantage at work?', a: 'For some things, and it is double-edged. Peer-reviewed work (Wiklund and colleagues, Journal of Business Venturing, 2016–2017) finds ADHD traits — impulsivity, hyperfocus, action-over-planning, risk tolerance — align with entrepreneurship, and adults with ADHD are over-represented in self-employment. That is a real fit for specific roles, not a blanket superpower; ADHD is a recognized disability with real costs. Karp’s claim that the neurodivergent "will disproportionately shape America’s future" is a thesis he is betting on, not an established fact.' },
       { q: 'Why can’t AI do skilled trades?', a: 'The 2013 Frey-Osborne study named three barriers to automation: perception and manipulation (physical dexterity), creativity, and social intelligence. Skilled trades sit on the first — non-routine physical work in unpredictable spaces (Moravec’s paradox: the things easiest for humans are hardest for machines). Notably, Karp’s two groups map onto two of those three barriers: vocational training is the dexterity moat, neurodivergence the creativity one.' },
     ],
     body: (
       <>
         <p>
-          On the tech show TBPN this spring, Palantir CEO Alex Karp gave the bluntest piece of career advice a billionaire has offered the AI generation: &ldquo;Everybody&rsquo;s worried about their future, but there are basically two ways to know you have a future. One, you have some vocational training. Or two, you&rsquo;re neurodivergent. And when I say neurodivergent, I mean broadly defined.&rdquo; It went viral as a claim about &ldquo;non-linear thinkers&rdquo; and ADHD, but that is the paraphrase. Karp&rsquo;s own word was <em>neurodivergent</em>, and he was talking partly about himself: he is dyslexic, and in December his company launched a <strong>Neurodivergent Fellowship</strong> paying $110,000 to $200,000, after a clip of him unable to sit still through a New York Times interview went viral.
+          On the tech show TBPN this spring, Palantir CEO Alex Karp offered an unusually blunt piece of career advice: &ldquo;Everybody&rsquo;s worried about their future, but there are basically two ways to know you have a future. One, you have some vocational training. Or two, you&rsquo;re neurodivergent. And when I say neurodivergent, I mean broadly defined.&rdquo;
+        </p>
+        <p>
+          It went viral as a claim about &ldquo;non-linear thinkers&rdquo; and ADHD, but that is the paraphrase. Karp&rsquo;s own word was <em>neurodivergent</em>, and he was talking partly about himself: he is dyslexic, and in December his company launched a <strong>Neurodivergent Fellowship</strong> paying $110,000 to $200,000, after a clip of him unable to sit still through a New York Times interview went viral.
         </p>
         <p>
           Two groups, then: people who work with their hands, and people who think differently. One of those claims is measurable, so we measured it.
@@ -305,7 +308,7 @@ export const POSTS: Post[] = [
           </tbody>
         </table>
         <p>
-          Say the honest limit out loud: &ldquo;no AI-skill demand&rdquo; means employers aren&rsquo;t asking electricians to prompt a model, not that a machine could never rewire a panel. It&rsquo;s a demand-side signal, not a robotics forecast. But it points the same way Karp does, and it stacks with a second moat. The safest occupations we track pair the manual work with a <strong>license</strong>: <a className="gl" href="/jobs/electrician">electrician</a>, <a className="gl" href="/jobs/plumber">plumber</a>, HVAC technician, <a className="gl" href="/jobs/registered-nurse">registered nurse</a>, physical therapist, paramedic: every one shows no AI-skill demand <em>and</em> a required credential. A model can&rsquo;t pass the licensing board, and it can&rsquo;t crawl the crawlspace.
+          The limit, stated plainly: &ldquo;no AI-skill demand&rdquo; means employers aren&rsquo;t asking electricians to prompt a model, not that a machine could never rewire a panel. It&rsquo;s a demand-side signal, not a robotics forecast. But it points the same way Karp does, and it stacks with a second moat. The safest occupations we track pair the manual work with a <strong>license</strong>: <a className="gl" href="/jobs/electrician">electrician</a>, <a className="gl" href="/jobs/plumber">plumber</a>, HVAC technician, <a className="gl" href="/jobs/registered-nurse">registered nurse</a>, physical therapist, paramedic: every one shows no AI-skill demand <em>and</em> a required credential.
         </p>
         <Pull>A model can’t pass the licensing board, and it can’t crawl the crawlspace.</Pull>
 
@@ -314,7 +317,7 @@ export const POSTS: Post[] = [
           The 2013 Oxford study by Frey and Osborne, the one that put &ldquo;47% of jobs at risk&rdquo; into the culture, named exactly three things that resist automation: physical dexterity, creativity, and social intelligence. The trades sit squarely on the first: non-routine physical work in cramped, unpredictable spaces, which is <em>Moravec&rsquo;s paradox</em> in a tool belt: the tasks easiest for a human are the hardest to automate.
         </p>
         <p>
-          And here is the part that should end the &ldquo;learn to code, not to weld&rdquo; era for good. The US Bureau of Labor Statistics projects roughly <strong>80,000 new electrician openings a year</strong>, with electrician employment growing <strong>9%</strong> against 3% for all jobs. The engine of that demand is the AI build-out itself: data-center construction, where electrical work runs <strong>45 to 70 percent</strong> of the cost, is projected to need <strong>300,000+ new electricians</strong> this decade, and a journeyman license takes three to five years and 8,000 hours to earn, so the shortage can&rsquo;t be closed on demand. Fortune called the wider skilled-trades gap a &ldquo;$1 trillion crisis.&rdquo;
+          Then the demand side turns &ldquo;learn to code, not to weld&rdquo; on its head. The US Bureau of Labor Statistics projects roughly <strong>80,000 new electrician openings a year</strong>, with electrician employment growing <strong>9%</strong> against 3% for all jobs. The engine of that demand is the AI build-out itself: data-center construction, where electrical work runs <strong>45 to 70 percent</strong> of the cost, is projected to need <strong>300,000+ new electricians</strong> this decade, and a journeyman license takes three to five years and 8,000 hours to earn, so the shortage can&rsquo;t be closed on demand. Fortune called the wider skilled-trades gap a &ldquo;$1 trillion crisis.&rdquo;
         </p>
         <Pull>The machine rewriting knowledge work can’t wire its own buildings.</Pull>
         <p>
@@ -329,9 +332,8 @@ export const POSTS: Post[] = [
           There is real research under the mindset half of this, and it is specific, not a superpower story. Johan Wiklund and colleagues, across the <em>Journal of Business Venturing</em> (2016&ndash;2017), find that ADHD traits &mdash; impulsivity, hyperfocus, a bias toward action over planning, tolerance for risk &mdash; align unusually well with <strong>entrepreneurship</strong>, and that adults with ADHD are over-represented in self-employment. Which maps onto Frey and Osborne&rsquo;s second moat, creativity: divergent, cross-domain thinking is the thing generative models, trained to complete the most probable next token, are structurally weakest at.
         </p>
         <p>
-          The caveat is non-negotiable and the honest brands say it: ADHD is a recognized disability with real daily costs, not a hack. The research shows fit for <em>particular</em> roles (founder, creative, high-stimulation, crisis-response), not blanket immunity to automation. Karp is stating a bet, not a finding. But it&rsquo;s a bet pointed at the same target as the trades: the two human capacities, the hands and the leap, that the current machines don&rsquo;t have.
+          The caveat is non-negotiable and the serious brands say it: ADHD is a recognized disability with real daily costs, not a hack. The research shows fit for <em>particular</em> roles (founder, creative, high-stimulation, crisis-response), not blanket immunity to automation. Karp is stating a bet, not a finding. But it&rsquo;s a bet pointed at the same target as the trades: the two human capacities, the hands and the leap, that the current machines don&rsquo;t have.
         </p>
-        <Pull>The hands and the leap: the two things the current machines don’t have.</Pull>
 
         <h2>What to do with two AI-proof groups</h2>
         <p>
@@ -397,7 +399,7 @@ export const POSTS: Post[] = [
 
         <h2>The fourth time, not the first</h2>
         <p>
-          Every major chatbot has now had a version of this incident, and the ledger is worth reading in order. <strong>Google Bard, September 2023</strong>: shared chats indexed; Google&rsquo;s own search liaison conceded &ldquo;we don&rsquo;t intend for these shared chats to be indexed&rdquo; and blocked them within a day. <strong>ChatGPT, July 2025</strong>: a share-dialog checkbox labeled &ldquo;make this chat discoverable&rdquo; put nearly 4,500 conversations into Google before Fast Company noticed; OpenAI&rsquo;s security chief killed the feature within two days, calling it &ldquo;a short-lived experiment,&rdquo; and a researcher later counted roughly <strong>100,000</strong> indexed conversations: NDAs, contract drafts, and a resume-rewrite chat a reporter traced to a real person&rsquo;s LinkedIn. <strong>Grok, August 2025</strong>: over <strong>370,000</strong> conversations indexed by Google&rsquo;s estimate. <strong>Claude</strong> has now had it twice: just under 600 conversations in September 2025 by Google&rsquo;s count, and this weekend&rsquo;s rerun.
+          Every major chatbot has now had a version of this incident, and the ledger reads best in order. <strong>Google Bard, September 2023</strong>: shared chats indexed; Google&rsquo;s own search liaison conceded &ldquo;we don&rsquo;t intend for these shared chats to be indexed&rdquo; and blocked them within a day. <strong>ChatGPT, July 2025</strong>: a share-dialog checkbox labeled &ldquo;make this chat discoverable&rdquo; put nearly 4,500 conversations into Google before Fast Company noticed; OpenAI&rsquo;s security chief killed the feature within two days, calling it &ldquo;a short-lived experiment,&rdquo; and a researcher later counted roughly <strong>100,000</strong> indexed conversations: NDAs, contract drafts, and a resume-rewrite chat a reporter traced to a real person&rsquo;s LinkedIn. <strong>Grok, August 2025</strong>: over <strong>370,000</strong> conversations indexed by Google&rsquo;s estimate. <strong>Claude</strong> has now had it twice: just under 600 conversations in September 2025 by Google&rsquo;s count, and this weekend&rsquo;s rerun.
         </p>
         <table className="post-table">
           <caption>Share-page indexing posture, checked directly, July 27, 2026</caption>
@@ -419,7 +421,7 @@ export const POSTS: Post[] = [
 
         <h2>What to actually do</h2>
         <p>
-          Three moves, none dramatic. <strong>Check yourself</strong>: run <code>site:claude.ai/share</code>, <code>site:chatgpt.com/share</code>, and <code>site:grok.com/share</code> with your name or a phrase you remember, on Google and on Bing, which cleared slower. <strong>Revoke at the source</strong>: Claude keeps the list under Settings &rarr; Privacy &rarr; Shared chats; ChatGPT under Settings &rarr; Data Controls &rarr; Shared Links, and deleting a chat from history does not delete its shared copy; then Google&rsquo;s Refresh Outdated Content tool for a listing that lingers. <strong>Change the mental model</strong>: a share link is publishing, so anything you would not put on a public profile &mdash; career material above all &mdash; should not travel through one. The instrument on this site runs without an account and stores nothing, which is not a flex; after a weekend like that one, it is just the obvious design.
+          Three moves, none dramatic. <strong>Check yourself</strong>: run <code>site:claude.ai/share</code>, <code>site:chatgpt.com/share</code>, and <code>site:grok.com/share</code> with your name or a phrase you remember, on Google and on Bing, which cleared slower. <strong>Revoke at the source</strong>: Claude keeps the list under Settings &rarr; Privacy &rarr; Shared chats; ChatGPT under Settings &rarr; Data Controls &rarr; Shared Links, and deleting a chat from history does not delete its shared copy; then Google&rsquo;s Refresh Outdated Content tool for a listing that lingers. <strong>Change the mental model</strong>: a share link is publishing, so anything you would not put on a public profile &mdash; career material above all &mdash; should not travel through one. The instrument on this site runs without an account and stores nothing, which, after a weekend like that one, is just the obvious design.
         </p>
         <Go links={[
           { href: '/', label: 'Run your numbers, nothing stored' },
@@ -460,7 +462,10 @@ export const POSTS: Post[] = [
           On July 11, 2026, Sam Altman posted eighteen words that would have been unthinkable from him a year earlier: &ldquo;so far at least, i&rsquo;m pretty sure AI has been net job-creating. this was not what i expected.&rdquo; Six weeks before that, at a Commonwealth Bank event in Sydney, he had already said the quiet part: &ldquo;I&rsquo;m delighted to be wrong about this. I thought there would have been more impact on entry-level white-collar jobs being eliminated by now than has actually happened.&rdquo; No dataset attached, either time. The AI-and-jobs argument is mostly people trading forecasts; underneath it sit ledgers, and the ledgers measure different things.
         </p>
         <p>
-          The whiplash deserves its timeline. February 2025: Altman writes that AI agents will &ldquo;eventually feel like virtual co-workers.&rdquo; May 2025: Anthropic&rsquo;s Dario Amodei tells Axios that AI could eliminate <strong>half of all entry-level white-collar jobs</strong> and push unemployment to 10&ndash;20 percent within one to five years, telling the industry to stop &ldquo;sugarcoating&rdquo; it. June 2025: asked on Hard Fork whether he agrees with that halving prediction, Altman answers, &ldquo;No, I don&rsquo;t.&rdquo; July 2025, on stage at a Federal Reserve conference: &ldquo;there are cases where entire classes of jobs will go away,&rdquo; immediately followed by &ldquo;there are entirely new classes of jobs that will come&rdquo; &mdash; customer support being the class he called effectively gone. June 2026, on CNBC: &ldquo;The companies that I know that have adopted AI the most are also the ones hiring the most,&rdquo; and blaming AI for layoffs is &ldquo;a convenient way&rdquo; to explain them. Then the July post. Same industry, same data access, forecasts pointing everywhere. So put the forecasts down and read the ledgers.
+          The reversal has a timeline. February 2025: Altman writes that AI agents will &ldquo;eventually feel like virtual co-workers.&rdquo; May 2025: Anthropic&rsquo;s Dario Amodei tells Axios that AI could eliminate <strong>half of all entry-level white-collar jobs</strong> and push unemployment to 10&ndash;20 percent within one to five years, telling the industry to stop &ldquo;sugarcoating&rdquo; it. June 2025: asked on Hard Fork whether he agrees with that halving prediction, Altman answers, &ldquo;No, I don&rsquo;t.&rdquo;
+        </p>
+        <p>
+          July 2025, on stage at a Federal Reserve conference: &ldquo;there are cases where entire classes of jobs will go away,&rdquo; immediately followed by &ldquo;there are entirely new classes of jobs that will come&rdquo; &mdash; customer support being the class he called effectively gone. June 2026, on CNBC: &ldquo;The companies that I know that have adopted AI the most are also the ones hiring the most,&rdquo; and blaming AI for layoffs is &ldquo;a convenient way&rdquo; to explain them. Then the July post. Same industry, same data access, forecasts pointing everywhere. So put the forecasts down and read the ledgers.
         </p>
         <Pull>Forecasts are free. Payrolls and postings pay rent.</Pull>
         <Go links={[
@@ -480,19 +485,19 @@ export const POSTS: Post[] = [
         <h2>Ledger two: who is measurably hurting</h2>
         <div className="post-callout"><b>&minus;16%</b><span>relative employment decline for workers aged 22&ndash;25 in the most AI-exposed occupations, in Stanford&rsquo;s analysis of ADP payroll data &mdash; concentrated where AI automates rather than augments. Experienced workers in the same fields: stable or growing.</span></div>
         <p>
-          The displacement ledger is payroll data, and the sharpest entry is the Stanford &ldquo;canaries in the coal mine&rdquo; work on ADP records: the figure was 13 percent in the August 2025 draft and grew to 16 as data extended, with software developers aged 22&ndash;25 down nearly 20 percent from their late-2022 peak. The adjustment shows up as <strong>headcount, not wages</strong>, concentrated where AI automates rather than augments, and it is genuinely contested: Google economists argue the timing tracks interest rates, not AI; the authors published a rebuttal; that argument is what real findings look like. Meanwhile Yale&rsquo;s Budget Lab, looking economy-wide, keeps finding no discernible aggregate disruption (&ldquo;AI is probably not yet the reason for labor-market weakening,&rdquo; May 2026), and of the 1.21 million US job cuts announced in 2025, employers explicitly attributed about <strong>5 percent</strong> to AI (Challenger, Gray &amp; Christmas). Both readings are honest: a specific rung is burning while the aggregate stays quiet. Altman&rsquo;s &ldquo;delighted to be wrong&rdquo; and a 22-year-old&rsquo;s rescinded offer are both in the data.
+          The displacement ledger is payroll data, and the sharpest entry is the Stanford &ldquo;canaries in the coal mine&rdquo; work on ADP records: the figure was 13 percent in the August 2025 draft and grew to 16 as data extended, with software developers aged 22&ndash;25 down nearly 20 percent from their late-2022 peak. The adjustment shows up as <strong>headcount, not wages</strong>, concentrated where AI automates rather than augments, and it is genuinely contested: Google economists argue the timing tracks interest rates, not AI; the authors published a rebuttal; that argument is what real findings look like. Meanwhile Yale&rsquo;s Budget Lab, looking economy-wide, keeps finding no discernible aggregate disruption (&ldquo;AI is probably not yet the reason for labor-market weakening,&rdquo; May 2026), and of the 1.21 million US job cuts announced in 2025, employers explicitly attributed about <strong>5 percent</strong> to AI (Challenger, Gray &amp; Christmas). The readings are compatible: a specific rung is burning while the aggregate stays quiet. Altman&rsquo;s &ldquo;delighted to be wrong&rdquo; and a 22-year-old&rsquo;s rescinded offer are both in the data.
         </p>
 
         <h2>Ledger three: what employers are asking for</h2>
         <p>
-          This is the ledger we keep. PivotHop reads live job postings nightly and extracts the skills they demand, so the question &ldquo;is AI creating jobs?&rdquo; has a countable answer on the demand side: right now, <strong>4.9 percent of all postings in our corpus demand LLM (large language model) or agent-tooling skills by name</strong>, and those skills sit in the top-20 posted demand of <strong>43 of our 177 occupations</strong>, spanning seven fields. The list is the story: alongside the engineers, it includes <strong>lawyer, recruiter, corporate trainer, sales representative, and motion designer</strong>. The tooling crossed the technical border already; the postings prove it.
+          This is the ledger we keep. PivotHop reads live job postings nightly and extracts the skills they demand, so the question &ldquo;is AI creating jobs?&rdquo; has a countable answer on the demand side: right now, <strong>4.9 percent of all postings in our corpus demand LLM (large language model) or agent-tooling skills by name</strong>, and those skills sit in the top-20 posted demand of <strong>43 of our 177 occupations</strong>, spanning seven fields. Alongside the engineers, the list includes <strong>lawyer, recruiter, corporate trainer, sales representative, and motion designer</strong>. The tooling crossed the technical border already; the postings prove it.
         </p>
         <div className="post-callout"><b>~2,350</b><span>live postings in the corpus belong to nine AI-native occupations that barely existed three years ago: <a className="gl" href="/jobs/ai-engineer">AI engineer</a> (932), <a className="gl" href="/jobs/machine-learning-engineer">machine learning engineer</a> (741), MLOps engineer (220), computer vision engineer (180), <a className="gl" href="/jobs/data-annotator">data annotator</a> (134), prompt engineer (75), <a className="gl" href="/jobs/conversation-designer">conversation designer</a> (38), and smaller others.</span></div>
         <p>
           Independent posting data now points the same direction: Indeed&rsquo;s Hiring Lab found the exposure gradient <strong>flipped</strong> between 2025 and 2026: the most AI-exposed occupations went from declining fastest to rebounding fastest, US software postings rose about 15 percent from early 2025 while overall postings fell, and 37 percent of the net new software postings carried AI in the title. Demand is not leaving the exposed occupations; it is being rewritten inside them.
         </p>
         <p>
-          Two things about those created jobs are measurable and worth more than the headline fight. First, they are real volume but not yet mass employment: 2,350 postings is a visible new wing of the market, not a replacement for what the canaries lost. Honesty cuts both ways. Second, and better: <strong>the AI-era titles are the most skill-open doors we measure</strong>. Conversation designer and solutions architect are each reachable at 45 percent readiness from 8 different origins, prompt engineer from 6 &mdash; the widest openness scores in the matrix, because titles this young have no guild and no credential wall. The market&rsquo;s newest jobs are also its most meritocratic on skills, for now. That window is the actionable part.
+          Two things about those created jobs are measurable and worth more than the headline fight. First, they are real volume but not yet mass employment: 2,350 postings is a visible new wing of the market, not a replacement for what the canaries lost. Second, and better: <strong>the AI-era titles are the most skill-open doors we measure</strong>. Conversation designer and solutions architect are each reachable at 45 percent readiness from 8 different origins, prompt engineer from 6 &mdash; the widest openness scores in the matrix, because titles this young have no guild and no credential wall. The market&rsquo;s newest jobs are also its most meritocratic on skills, for now. That window is the actionable part.
         </p>
         <Pull>Usage is not displacement, and displacement is not demand.</Pull>
 
@@ -577,15 +582,15 @@ export const POSTS: Post[] = [
           </tbody>
         </table>
         <p>
-          At the other end, a set of large occupations show <strong>zero</strong> routes out at 45 percent in our matrix: copywriter, creative director, social media manager, executive assistant, recruiter, translator, paralegal, UX writer. Two honest readings, and both matter. First, craft careers run on deep, narrow vocabularies the wider market does not post for by name, so their exits really are harder at full readiness. Second, our instrument reads posted skill demand, and postings under-specify craft depth; a copywriter&rsquo;s judgment shows up in postings as a thin skill list. The lock is real, and it is also partly a measurement shadow. We say so rather than pretend the number is complete.
+          At the other end, a set of large occupations show <strong>zero</strong> routes out at 45 percent in our matrix: copywriter, creative director, social media manager, executive assistant, recruiter, translator, paralegal, UX writer. Two readings, and both matter. First, craft careers run on deep, narrow vocabularies the wider market does not post for by name, so their exits really are harder at full readiness. Second, our instrument reads posted skill demand, and postings under-specify craft depth; a copywriter&rsquo;s judgment shows up in postings as a thin skill list. The lock is real, and it is also partly a measurement shadow. We say so rather than pretend the number is complete.
         </p>
 
         <h2>The careers most open to outsiders</h2>
         <p>
-          Reverse the lens and count how many origins reach each destination at 45 percent or better. The most skill-open doors in the market right now, measured: <strong>solutions architect</strong> and <strong>conversation designer</strong> (8 origins each), then <strong>database administrator</strong>, <strong>prompt engineer</strong>, <a className="gl" href="/jobs/executive-assistant">executive assistant</a>, and <a className="gl" href="/jobs/customer-success-manager">customer success manager</a> (6 each). Notice what tops the list: the AI-era titles. They are young enough to have no guild, no credential wall, and no settled pedigree, so they hire on demonstrated skills because there is nothing else to hire on. New titles are the skills-based market in its purest form.
+          Reverse the lens and count how many origins reach each destination at 45 percent or better. The most skill-open doors in the market right now, measured: <strong>solutions architect</strong> and <strong>conversation designer</strong> (8 origins each), then <strong>database administrator</strong>, <strong>prompt engineer</strong>, <a className="gl" href="/jobs/executive-assistant">executive assistant</a>, and <a className="gl" href="/jobs/customer-success-manager">customer success manager</a> (6 each). The top of the list is the AI-era titles. They are young enough to have no guild, no credential wall, and no settled pedigree, so they hire on demonstrated skills because there is nothing else to hire on. New titles are the skills-based market in its purest form.
         </p>
         <p>
-          Notice also the asymmetry hiding in the two lists: executive assistant and customer success manager are among the easiest doors <strong>in</strong> (6 origins each) and among the hardest doors <strong>out</strong> (zero routes at 45 percent). A career can be skill-friendly to enter and skill-locked to leave. If you are choosing a landing spot for a pivot, that difference is worth more than the title on the door.
+          The two lists hide an asymmetry: executive assistant and customer success manager are among the easiest doors <strong>in</strong> (6 origins each) and among the hardest doors <strong>out</strong> (zero routes at 45 percent). A career can be skill-friendly to enter and skill-locked to leave. If you are choosing a landing spot for a pivot, that difference is worth more than the title on the door.
         </p>
         <div className="post-callout"><b>8 origins</b><span>can reach <strong>nurse practitioner</strong> at &ge;45% skill readiness &mdash; and every one of them still faces the APRN license. Skills open the door; credentials own the lock. The two axes are not the same, and we display them separately on purpose.</span></div>
 
@@ -616,7 +621,7 @@ export const POSTS: Post[] = [
 
         <h2>What to do with the thesis</h2>
         <p>
-          Three moves follow from the data, none of them motivational. <strong>Choose destinations by measured overlap, not title glamour</strong>: a 60 percent route you can close in months beats a 15 percent route with a better-sounding name. <strong>Learn bridge skills before niche skills</strong> when you are undecided; data analysis and the LLM toolchain buy readiness across whole regions of the market. And <strong>respect the second axis</strong>: where a license stands, no skill overlap shortens it, which is why every gated route on this site says so in plain text.
+          Three moves follow from the data. <strong>Choose destinations by measured overlap, not title glamour</strong>: a 60 percent route you can close in months beats a 15 percent route with a better-sounding name. <strong>Learn bridge skills before niche skills</strong> when you are undecided; data analysis and the LLM toolchain buy readiness across whole regions of the market. And <strong>respect the second axis</strong>: where a license stands, no skill overlap shortens it, which is why every gated route on this site says so in plain text.
         </p>
         <Go links={[
           { href: '/', label: 'Measure your own reach' },
@@ -698,7 +703,7 @@ export const POSTS: Post[] = [
         <h2>Registered nurse vs nurse practitioner</h2>
         <div className="post-callout"><b>94% + a license</b><span>an RN&rsquo;s skills nearly cover NP posting demand &mdash; and none of that shortens the graduate degree and state licensure between the titles.</span></div>
         <p>
-          The pair that shows why we display credential gates separately from skill readiness. On skills alone an RN reads 94 percent ready for nurse-practitioner work; the honest transition line still says &ldquo;+ license,&rdquo; because an APRN license and the degree behind it stand regardless. The reward for the years: posted NP bands reach <strong>$135k</strong> against an RN&rsquo;s <strong>$59k&ndash;$109k</strong>. <a className="gl" href="/compare/nurse-practitioner-vs-registered-nurse">The comparison</a> carries both gates.
+          The pair that shows why we display credential gates separately from skill readiness. On skills alone an RN reads 94 percent ready for nurse-practitioner work; the transition line still says &ldquo;+ license,&rdquo; because an APRN license and the degree behind it stand regardless. The reward for the years: posted NP bands reach <strong>$135k</strong> against an RN&rsquo;s <strong>$59k&ndash;$109k</strong>. <a className="gl" href="/compare/nurse-practitioner-vs-registered-nurse">The comparison</a> carries both gates.
         </p>
 
         <h2>Lawyer vs paralegal</h2>
@@ -761,7 +766,7 @@ export const POSTS: Post[] = [
           Start with the scale, because it is the first thing that makes the experience survivable. Being ghosted is not a rare misfortune that finds only weak candidates. It is the median experience of applying for work in 2026, and it is getting more common, not less.
         </p>
         <p>
-          The toll is measured too. In a 2024 survey of a thousand US job seekers, 72 percent said the search had harmed their mental health, and 44 percent named being ghosted as one of their worst frustrations. So the silence is not a minor annoyance filed under the cost of doing business. It is the part of the process people single out as most corrosive, which is exactly why it deserves a clear-eyed explanation rather than a motivational one.
+          The toll is measured too. In a 2024 survey of a thousand US job seekers, 72 percent said the search had harmed their mental health, and 44 percent named being ghosted as one of their worst frustrations. The silence is the part of the process people single out as most corrosive, and it deserves a proper explanation.
         </p>
 
         <h2>Most of the silence is not about you</h2>
@@ -773,25 +778,25 @@ export const POSTS: Post[] = [
         </p>
         <div className="post-callout"><b>40%</b><span>of companies posted a job they were not trying to fill in the past year, and 70 percent of hiring managers called the practice morally acceptable (ResumeBuilder, 2024).</span></div>
         <p>
-          <strong>The role was filled or frozen before you.</strong> Requisitions get cancelled, budgets freeze mid-process, an internal candidate wins a race you did not know you had entered. The listing stays up because taking it down is nobody&rsquo;s job. Across the whole US labor market, close to a third of job openings never result in a hire, by one analysis of federal openings-and-hires data. A posting outliving the role it described is not a conspiracy. It is entropy.
+          <strong>The role was filled or frozen before you.</strong> Requisitions get cancelled, budgets freeze mid-process, an internal candidate wins a race you did not know you had entered. The listing stays up because taking it down is nobody&rsquo;s job. Across the whole US labor market, close to a third of job openings never result in a hire, by one analysis of federal openings-and-hires data. A posting outliving the role it described is entropy, not conspiracy.
         </p>
         <p>
           <strong>A machine rejected you before a person read a word.</strong> Most applications now pass through an <a className="gl" href="/glossary#ats">ATS</a> (applicant tracking system) before any human sees them, and the filter is blunter than its buyers admit. In a joint Harvard Business School and Accenture study, 88 percent of employers agreed that qualified, high-skilled candidates are screened out of hiring by their own automated systems; for middle-skilled roles the figure was 94 percent. The study put 27 million people in the US alone in that gap, capable and filtered. When the software rejects you, there is often no human who ever saw your name, and so no human to send the note you are waiting for.
         </p>
         <p>
-          <strong>No one is paid to close the loop.</strong> A recruiter working two hundred applicants against one opening has no time and no incentive to write back to the ones they pass on, and often a legal-caution convention that advises against giving reasons at all. Silence carries no penalty. Your follow-up lands in an inbox that no metric rewards anyone for reading. This is not malice. It is the absence of a reason to reply, which produces the same result as malice and is far more common.
+          <strong>No one is paid to close the loop.</strong> A recruiter working two hundred applicants against one opening has no time and no incentive to write back to the ones they pass on, and often a legal-caution convention that advises against giving reasons at all. Silence carries no penalty. Your follow-up lands in an inbox that no metric rewards anyone for reading. Malice is not required; an inbox nobody is paid to read produces the same silence.
         </p>
 
         <h2>The part that is about you</h2>
         <p>
-          Here is the part the ghosting conversation tends to skip, because it is less comforting than the four mechanisms above. Some of the silence is a signal, and the signal is fit.
+          The ghosting conversation tends to skip the less comforting part: some of the silence is a signal, and the signal is fit.
         </p>
         <p>
           Most applications go to roles the applicant is not close to. We can put a number on how far apart jobs usually are, because measuring that is the entire point of this instrument: across the routes we score from one occupation to another, 63 percent sit under 20 percent skill readiness. Most pairs of jobs share almost none of the skills their postings actually demand. The full method is in a <a className="gl" href="/blog/what-is-career-adjacency">separate piece on career adjacency</a>, but the headline is that real skill overlap between two fields is rare, and applying as though it were common is how you become the weakest resume in the stack.
         </p>
         <div className="post-callout"><b>63%</b><span>of the career routes we score sit under 20 percent skill readiness. Most pairs of jobs share almost none of the skills their postings demand (PivotHop, July 2026).</span></div>
         <p>
-          When you apply into that 63 percent, into roles your skills do not cover, the silence is not a mystery. It is the system working as designed. And this, unlike the ghost jobs and the frozen requisitions and the filtering software, is the one part of the machine you control. Not whether they answer. Which roles you ask.
+          When you apply into that 63 percent, into roles your skills do not cover, the silence is the system working as designed. And this part, unlike the ghost jobs and the frozen requisitions and the filtering software, is the one you control: not whether they answer, but which roles you ask.
         </p>
 
         <h2>Why more applications is the wrong answer</h2>
@@ -825,14 +830,14 @@ export const POSTS: Post[] = [
           <strong>Go around the front door.</strong> The public portal and the recruiter are the single most ghost-prone path into a company, because that is where the volume and the filtering software live. A direct message to the hiring manager, a warm introduction from someone inside, an application that arrives with a name attached: all of them skip the part of the pipeline that produces most of the silence.
         </p>
         <p>
-          <strong>Follow up once, then let it go.</strong> One follow-up a week after you apply or interview is worth sending. A second and a third are not; they land in the same unread inbox and cost you energy you need elsewhere. After the first, treat the silence as weather. It is not a verdict on you, and waiting on it is time not spent on the next role that fits.
+          <strong>Follow up once, then let it go.</strong> One follow-up a week after you apply or interview is worth sending. A second and a third are not; they land in the same unread inbox and cost you energy you need elsewhere. After the first, treat the silence as weather. Waiting on it is time not spent on the next role that fits.
         </p>
         <p>
-          <strong>Track it as a portfolio of bets, not a referendum.</strong> Ten applications to well-fit roles is a portfolio, and a portfolio is read in aggregate, not one heartbreak at a time. Expect most to go quiet. Price that in from the start and a ghosted application becomes a closed position, not a personal rejection. Measuring fit first is what makes this framing honest: when the bets are good, you do not need many of them to land.
+          <strong>Track it as a portfolio of bets, not a referendum.</strong> Ten applications to well-fit roles is a portfolio, and a portfolio is read in aggregate, not one heartbreak at a time. Expect most to go quiet. Price that in from the start and a ghosted application becomes a closed position, not a personal rejection. Measuring fit first is what earns this framing: when the bets are good, you do not need many of them to land.
         </p>
 
         <p>
-          Being ghosted is not evidence that you are unemployable. It is evidence that hiring is a black box with the loop left open on purpose, and that most applications are aimed at roles that were never a fit or never real. You cannot fix the box. You can aim better. Before the next batch, run your current role through the <a className="gl" href="/">instrument</a>, read which occupations your skills already reach, and send your applications there. Four that fit beat four hundred that do not.
+          Ghosting is evidence about hiring, not about you: a black box with the loop left open on purpose, and most applications aimed at roles that were never a fit or never real. You cannot fix the box. You can aim better. Before the next batch, run your current role through the <a className="gl" href="/">instrument</a>, read which occupations your skills already reach, and send your applications there. Four that fit beat four hundred that do not.
         </p>
 
         <Go links={[
@@ -934,7 +939,7 @@ export const POSTS: Post[] = [
           ))}
         </div>
         <p>
-          Nearly two-thirds of all occupation pairs score under 20 percent. The vast majority of careers are simply far from each other in skill space, which is the honest and slightly deflating truth the motivational literature skips. Only <strong>93 routes out of 7,946</strong> reach 60 percent readiness or higher. Adjacency is not everywhere. It is a thin, specific set of connections, and the entire point of measuring it is to find the few that are real for you.
+          Nearly two-thirds of all occupation pairs score under 20 percent. The vast majority of careers are simply far from each other in skill space, which is the slightly deflating truth. Only <strong>93 routes out of 7,946</strong> reach 60 percent readiness or higher. Adjacency is not everywhere. It is a thin, specific set of connections, and the entire point of measuring it is to find the few that are real for you.
         </p>
         <div className="post-pullq">
           The value is not that everything connects to everything. It is that a handful of things connect to what you already do, and until you measure the skills you cannot see which handful.
@@ -1055,7 +1060,7 @@ export const POSTS: Post[] = [
           </tbody>
         </table>
         <p>
-          There is a geography twist the raw count hides. The offers skew hard to the United States: <strong>34 of the 43 sit in US postings</strong>, and not because American employers sponsor more. They are legally required to address it. A US posting names H-1B status to screen applicants; a German or Singaporean posting for the same role often says nothing, because the local work-permit process is routine and unstated. The phrase tracks how loud a country&rsquo;s immigration paperwork is, not how open its employers are. Read the absence of the words as ambiguity, not a no.
+          The raw count hides a geography twist. The offers skew hard to the United States: <strong>34 of the 43 sit in US postings</strong>, and not because American employers sponsor more. They are legally required to address it. A US posting names H-1B status to screen applicants; a German or Singaporean posting for the same role often says nothing, because the local work-permit process is routine and unstated. The phrase tracks how loud a country&rsquo;s immigration paperwork is, not how open its employers are. Read the absence of the words as ambiguity, not a no.
         </p>
         <div className="post-pullq">
           Visa sponsorship is not a checkbox on a job board. It is a short list of employers who do it as policy, and the postings that use the phrase are about as likely to be ruling it out as offering it.
@@ -1115,7 +1120,7 @@ export const POSTS: Post[] = [
         </p>
         <div className="post-callout"><b>8.1%</b><span>of tutors and <strong>3.3%</strong> of teachers switch occupations every year, against <strong>1.5%</strong> of physical therapists. Same &ldquo;fulfilling&rdquo; label, very different staying power.</span></div>
         <p>
-          This is the gap the meaning surveys hide. A job can be genuinely fulfilling and still shed people, because meaning is not the only thing a career has to provide. When a role scores high on purpose and high on exit at the same time, the honest reading is not &ldquo;rewarding.&rdquo; It is rewarding enough that people try it, and depleting enough that they leave. Teaching runs on meaning because, for too many, it cannot run on pay or conditions. That combination is a warning label, not a recommendation.
+          This is the gap the meaning surveys hide. A job can be genuinely fulfilling and still shed people, because meaning is not the only thing a career has to provide. When a role scores high on purpose and high on exit at the same time, read it as: rewarding enough that people try it, depleting enough that they leave. Teaching runs on meaning because, for too many, it cannot run on pay or conditions.
         </p>
         <div className="post-pullq">A job that scores high on meaning and high on exit is not a calling. It is a role asking people to take meaning in place of the things it does not pay.</div>
         <h2>The pay underneath the flight</h2>
@@ -1145,7 +1150,7 @@ export const POSTS: Post[] = [
         </p>
         <h2>The trap: staying is not always fulfillment</h2>
         <p>
-          One more group complicates the picture. Lawyers leave their occupation at 1.4 percent a year and pharmacists at 1.3, rates that match or beat the happiest healthcare roles. But the cause is different, and the difference matters. When the entry price is a doctorate or a bar exam, people stay partly because leaving forfeits the investment. Retention has two engines: a job people do not want to leave, and a job people cannot afford to. The transfer rate alone cannot tell them apart, which is why a low exit number is a question, not an answer.
+          One more group complicates the picture. Lawyers leave their occupation at 1.4 percent a year and pharmacists at 1.3, rates that match or beat the happiest healthcare roles. But the cause is different, and the difference matters. When the entry price is a doctorate or a bar exam, people stay partly because leaving forfeits the investment. Retention has two engines: a job people do not want to leave, and a job people cannot afford to. The transfer rate alone cannot tell them apart, so a low exit number opens a question rather than settling one.
         </p>
         <h2>How to read a most-fulfilling list</h2>
         <p>
@@ -1180,7 +1185,7 @@ export const POSTS: Post[] = [
           Every forecast about AI and work reports the same shape of number. The World Economic Forum projects 92 million jobs displaced and 170 million created by 2030, a net gain of 78 million. It is a real figure and it is useless to you, because you do not hold 78 million jobs. You hold one, and the only question that matters at your scale is whether the one you hold is on the shrinking side, and if it is, which growing job your skills already reach.
         </p>
         <p>
-          We can answer part of that from our own data, and we have to be honest about the part we cannot. Our corpus is a snapshot of who is being hired now, not a time-lapse of who will be automated later, so it does not see jobs disappearing. For that, the government projections are the source. What our data does see, better than any projection, is the bridge: where one occupation&rsquo;s skills already reach another.
+          We can answer part of that from our own data, and and be clear about the part we cannot. Our corpus is a snapshot of who is being hired now, not a time-lapse of who will be automated later, so it does not see jobs disappearing. For that, the government projections are the source. What our data does see, better than any projection, is the bridge: where one occupation&rsquo;s skills already reach another.
         </p>
         <h2>The created jobs are real, but not the famous one</h2>
         <p>
@@ -1199,11 +1204,11 @@ export const POSTS: Post[] = [
           </tbody>
         </table>
         <p>
-          The split is the finding. The builders, AI engineer and machine-learning engineer and computer vision engineer, are real software-engineering jobs with an AI specialty, and they pay for it: computer vision clears 149,000 dollars. The bottom two are the ones the headlines named. Prompt engineer and data annotator are both low-demand, and the annotator, the human who labels the data that trains the models, sits at 63,000 dollars, the price the market puts on feeding AI rather than building it.
+          The builders, AI engineer and machine-learning engineer and computer vision engineer, are real software-engineering jobs with an AI specialty, and they pay for it: computer vision clears 149,000 dollars. The bottom two are the ones the headlines named. Prompt engineer and data annotator are both low-demand, and the annotator, the human who labels the data that trains the models, sits at 63,000 dollars, the price the market puts on feeding AI rather than building it.
         </p>
         <div className="post-callout"><b>74</b><span>prompt-engineer postings, already low-demand. The face of the AI-jobs boom is being reabsorbed into AI engineering (<strong>973</strong> postings) before most people finished retraining for it.</span></div>
         <p>
-          The lesson in that contrast is worth more than the totals. Prompt engineer was the job every 2023 headline named as the face of AI work. Two years on it is 74 postings in our corpus and fading, its tasks folded back into the broader AI-engineer role that actually grew. The created jobs are real; the ones named first are usually wrong. Betting a pivot on the meme job is how you arrive a year late to a role that no longer exists.
+          The contrast matters more than the totals. Prompt engineer was the job every 2023 headline named as the face of AI work. Two years on it is 74 postings in our corpus and fading, its tasks folded back into the broader AI-engineer role that actually grew. The created jobs are real; the ones named first are usually wrong. Betting a pivot on the meme job is how you arrive a year late to a role that no longer exists.
         </p>
         <h2>The disappearing jobs, and the bridge out of them</h2>
         <p>
@@ -1226,17 +1231,17 @@ export const POSTS: Post[] = [
         <p>
           These are not consolation prizes. A medical assistant, in one of the fastest-churning jobs in the country, already covers 76 percent of what a nurse-practitioner posting asks for, the exact ladder that turns an automation-exposed role into one of the stickiest careers there is. An IT-support worker covers 54 percent of a network engineer; a bookkeeper, 55 percent of a financial controller. The move is up and sideways at once, and it is measurable today, before any decline forces it. Notice the shape: the strongest escapes stay inside the same world, healthcare into healthcare, tech support into tech, because that is where the skills already overlap.
         </p>
-        <div className="post-pullq">A job disappearing is not the same as your skills expiring. The first is a headline. The second is almost never true.</div>
+        <div className="post-pullq">A job disappearing is not the same as your skills expiring.</div>
         <h2>Which skills carry you across</h2>
         <p>
           The bridge is not luck; it is a specific set of skills that appear on both sides of the shrink-to-grow gap. When we counted the skills that show up in the most different occupations, the winners were not any field&rsquo;s headline tools. They were the portable ones: project coordination, data analysis, writing, and the handling of people under pressure, the competencies that travel because no single job owns them. A bookkeeper reaches a financial controller on ledger fluency and process discipline; a customer-support specialist reaches an executive assistant on judgment and scheduling. The skill that automates is the narrow, repeatable one; the skill that carries you is the general one, which is the same reason it was never the thing AI came for first. The full ranking is in our piece on the <a className="gl" href="/blog/most-transferable-skills">most transferable skills of 2026</a>.
         </p>
         <h2>Why the net number is a trap</h2>
         <p>
-          The 78-million-net figure hides the only thing an individual needs to know. Net creation can be strongly positive while your specific occupation halves, because the created jobs and the destroyed ones are different jobs, held by different people, often in different places. The macro number reassures the economy and abandons the worker. The micro number, the coverage between where you are and where the hiring is, does the opposite. It ignores the economy and tells you your next move.
+          The 78-million-net figure hides the only thing an individual needs to know. Net creation can be strongly positive while your specific occupation halves, because the created jobs and the destroyed ones are different jobs, held by different people, often in different places. The macro number reassures the economy and abandons the worker; the micro number, the coverage between where you are and where the hiring is, ignores the economy and tells you your next move.
         </p>
         <p>
-          That is the entire design of the <a className="gl" href="/">instrument</a>: it does not forecast whether AI will take your job, a question no one can answer honestly. It measures which growing jobs your current skills already reach, which our data can answer for any starting point. The <a className="gl" href="/blog/job-titles-born-since-2023">new job titles</a> are one half of the picture and the <a className="gl" href="/blog/the-gravity-wells">gravity wells</a> are the other. Run your own. The net number is not yours. The bridge is.
+          That is the entire design of the <a className="gl" href="/">instrument</a>: it does not forecast whether AI will take your job, a question no one can answer honestly. It measures which growing jobs your current skills already reach, which our data can answer for any starting point. The <a className="gl" href="/blog/job-titles-born-since-2023">new job titles</a> are one half of the picture and the <a className="gl" href="/blog/the-gravity-wells">gravity wells</a> are the other. Run your own; the bridge number is the one that is yours.
         </p>
         <Sources>
           <p>
@@ -1353,7 +1358,7 @@ export const POSTS: Post[] = [
         </p>
         <h2>The way in went sideways</h2>
         <p>
-          Here is the move the panic articles miss. When you cannot enter a field at the bottom, you enter an adjacent field where your skills already reach, and you pivot on coverage rather than seniority. Our whole instrument measures exactly this: how much of one occupation&rsquo;s demanded skills another occupation&rsquo;s people already hold. Where that coverage is high, the crossing does not need a junior rung, because you are not starting over. You are arriving with most of the job already done.
+          The panic articles miss the move. When you cannot enter a field at the bottom, you enter an adjacent field where your skills already reach, and you pivot on coverage rather than seniority. Our whole instrument measures exactly this: how much of one occupation&rsquo;s demanded skills another occupation&rsquo;s people already hold. Where that coverage is high, the crossing does not need a junior rung, because you are not starting over. You are arriving with most of the job already done.
         </p>
         <table className="post-table">
           <caption>High-coverage crossings that do not require a junior rung &middot; PivotHop, July 2026</caption>
@@ -1416,12 +1421,12 @@ export const POSTS: Post[] = [
           </tbody>
         </table>
         <p>
-          Every one of the top fifteen is rated high demand. Not most of them. All of them. So we split the map in two and compared: the strong absorbers, the eighteen occupations reachable from six or more fields, against the weak ones reachable from two or fewer.
+          Every one of the top fifteen is rated high demand: all fifteen, not most. So we split the map in two and compared: the strong absorbers, the eighteen occupations reachable from six or more fields, against the weak ones reachable from two or fewer.
         </p>
         <div className="post-callout"><b>18 of 18</b><span>of the strongest skill-gravity destinations are high-demand, against about half of the weak ones. But the strong absorbers pay <strong>less</strong>, an $89k midpoint against $97k.</span></div>
         <h2>Gravity follows the shortage, not the salary</h2>
         <p>
-          This is the finding, and it is worth sitting with. The careers that the most skill sets can reach are the ones the market is short of, not the ones that pay the most. Construction manager, dietitian, project manager, database administrator, nurse practitioner: high demand, widely reachable, and clustered in the middle of the pay range rather than the top. The strong absorbers average an $89,000 posted midpoint and 4 percent fully remote. The hard-to-reach fields average $97,000 and 6 percent remote. Reachability tracks demand, and demand is a measure of what is missing, not of what is prized.
+          This is the finding. The careers that the most skill sets can reach are the ones the market is short of, not the ones that pay the most. Construction manager, dietitian, project manager, database administrator, nurse practitioner: high demand, widely reachable, and clustered in the middle of the pay range rather than the top. The strong absorbers average an $89,000 posted midpoint and 4 percent fully remote. The hard-to-reach fields average $97,000 and 6 percent remote. Reachability tracks demand, and demand is a measure of what is missing, not of what is prized.
         </p>
         <p>
           The mechanism is not mysterious. A field becomes reachable from many directions when its demanded skills are common ones: project coordination, clinical fundamentals, systems administration, the widely-held competencies. Common skills are common because many people have them, which is exactly why those fields can hire broadly, and also why they do not have to pay a scarcity premium. The best-paid fields are rare-skilled and therefore reachable from almost nowhere. The pay and the accessibility trade off against each other, and the trade is legible in the data.
@@ -1429,7 +1434,7 @@ export const POSTS: Post[] = [
         <div className="post-pullq">The reachable field is the employable field. It is not automatically the raise. Those are two questions, and the postings answer them separately.</div>
         <h2>What this changes about a pivot</h2>
         <p>
-          If your aim is to get hired, aim at gravity. The high-in-degree fields are where a broad skill set converts into an offer fastest, because the demand is real and the coverage bar is one many profiles clear. If your aim is to get paid, gravity can mislead you, because the most reachable destinations are mid-band by construction. The two goals are not the same move, and the honest version of career advice keeps them apart.
+          If your aim is to get hired, aim at gravity. The high-in-degree fields are where a broad skill set converts into an offer fastest, because the demand is real and the coverage bar is one many profiles clear. If your aim is to get paid, gravity can mislead you, because the most reachable destinations are mid-band by construction. The two goals are not the same move, and good career advice keeps them apart.
         </p>
         <p>
           We built the tools to answer them separately. The <a className="gl" href="/">instrument</a> shows which fields your own skills can reach; the <a className="gl" href="/salary">salary pages</a> show what each one actually pays across the distribution; and the earlier piece on <a className="gl" href="/blog/the-adjacency-premium">the adjacency premium</a> covers the third of crossings that do point to a raise. Reachable and better-paid is a shorter list than reachable. Know which one you are optimizing before you retrain.
@@ -1465,7 +1470,7 @@ export const POSTS: Post[] = [
         </p>
         <div className="post-callout"><b>60 of 153</b><span>occupations cannot reach a <strong>single</strong> adjacent field at 40 percent skill coverage. Twenty-nine can reach five or more. The median profession reaches exactly one.</span></div>
         <p>
-          Read that again, because it is the whole argument. Optionality is bimodal. A large group of professions, 60 of 153, is boxed in at the strict coverage bar we set: their skill bundle does not cover 40 percent of any other single occupation&rsquo;s demands. A smaller group ranges across the map. Most people sit in the middle, one door open. The generalist advantage is real, but it is a minority position, and it is a property of your skills, not your temperament.
+          Optionality is bimodal. A large group of professions, 60 of 153, is boxed in at the strict coverage bar we set: their skill bundle does not cover 40 percent of any other single occupation&rsquo;s demands. A smaller group ranges across the map. Most people sit in the middle, one door open. The generalist advantage is real, but it is a minority position, and it is a property of your skills, not your temperament.
         </p>
         <h2>Who is wide, and who is boxed in</h2>
         <table className="post-table">
@@ -1489,7 +1494,7 @@ export const POSTS: Post[] = [
           The reason the generalist question feels urgent now is AI, and here the data and the discourse agree. As automated tools absorb narrow, well-defined execution, the value that stays human is the part that connects things: judgment across domains, the decision about what to build, the translation between a model&rsquo;s output and a business&rsquo;s need. Those are breadth skills by definition. A wide out-degree is not only more exits in a crisis; it is a hedge against your specific deep skill being the next one commoditized.
         </p>
         <p>
-          That does not make specialization a mistake. Depth is what lets a person guide the tools rather than compete with them, and the highest pay still concentrates in scarce, deep, often licensed skills, as our piece on <a className="gl" href="/blog/the-adjacency-premium">the adjacency premium</a> showed. The honest synthesis is the one the think-pieces gesture at without evidence: hold a deep core so you are worth hiring, and enough general range that your core is not your only door. The difference is that now you can measure the range instead of guessing at it.
+          That does not make specialization a mistake. Depth is what lets a person guide the tools rather than compete with them, and the highest pay still concentrates in scarce, deep, often licensed skills, as our piece on <a className="gl" href="/blog/the-adjacency-premium">the adjacency premium</a> showed. The synthesis the think-pieces gesture at without evidence: hold a deep core so you are worth hiring, and enough general range that your core is not your only door. The difference is that now you can measure the range instead of guessing at it.
         </p>
         <h2>How to read your own number</h2>
         <p>
@@ -1815,7 +1820,7 @@ export const POSTS: Post[] = [
           starting over. They are dropping <strong>six sevenths of the bundle</strong> and getting paid for the seventh they kept.
         </p>
         <p>
-          This is also the honest reading of why pivots fail. People leave
+          This is also why pivots fail. People leave
           architecture because of the deadline culture and pick a destination
           that inherits the same thread they hated. Unbundling forces the
           useful question: which part of the week do you actually want more
@@ -1988,7 +1993,7 @@ export const POSTS: Post[] = [
           destinations that light up are the ones already paying for the hours
           you have been giving away under a different name.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Spending the list</h2>
         <p>
           Transferable skills are real, but they are not the vague virtues on a
           resume template. They are specific, countable, and unevenly
@@ -2060,7 +2065,7 @@ export const POSTS: Post[] = [
         </p>
         <h2>What 40 actually changes</h2>
         <p>
-          Two things, honestly. First, you have less patience for prestige
+          Two things. First, you have less patience for prestige
           ladders, which is an advantage: the moves above are unglamorous and
           underpriced precisely because 25-year-olds ignore them. Second, your
           transferable inventory is larger than you think and larger than
@@ -2069,7 +2074,7 @@ export const POSTS: Post[] = [
           analysis, training, writing. The things juniors are worst at are the
           things you have been doing on autopilot for a decade.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>The arithmetic, applied</h2>
         <p>
           Run the numbers before the feelings. Your remaining years, the overlap between your week and the destination's postings,
           the pay delta, and the gate. If the move clears that arithmetic, the
@@ -2137,7 +2142,7 @@ export const POSTS: Post[] = [
           without losing anything in translation. The pay is usually a lateral
           step from the blended US nursing median of about <strong>96,500 dollars</strong> in our data, sometimes a small raise with seniority.
         </p>
-        <h2>About remote work, honestly</h2>
+        <h2>About remote work</h2>
         <p>
           Remote nursing-adjacent work exists, telehealth triage and remote
           case review appear in our corpus, but it is a thin slice of demand,
@@ -2145,7 +2150,7 @@ export const POSTS: Post[] = [
           country has the same idea at 3 a.m. Treat remote as a bonus feature
           of a destination you would want anyway, not as the destination.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Picking the door</h2>
         <p>
           If you are a nurse running the exit math, the data says three things.
           Your skills are not the obstacle; they cover two thirds of several
@@ -2232,7 +2237,7 @@ export const POSTS: Post[] = [
           the requirements, in the nice-to-haves, in the interview
           descriptions.
         </p>
-        <h2>An honest note on the salary number</h2>
+        <h2>A note on the salary number</h2>
         <p>
           Posted AI salaries run hot relative to official statistics; our
           reconciliation layer flags the gap at over 100 percent against the
@@ -2242,7 +2247,7 @@ export const POSTS: Post[] = [
           blends toward the official anchor. Treat glossier numbers you see
           elsewhere accordingly.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>From your doorway</h2>
         <p>
           If you are in one of the doorway professions, the gap between you and
           the title is smaller than the mythology says and it is made of
@@ -2326,10 +2331,10 @@ export const POSTS: Post[] = [
           that did not exist five years ago. The passion caucus is also wrong:
           passion does not close a 28 percent structural pay gap, and telling
           people to ignore it is telling them to donate the difference to
-          their employer. The honest frame is neither. Architecture is a viable profession with a visible discount attached, surrounded by
+          their employer. Neither frame survives the data. Architecture is a viable profession with a visible discount attached, surrounded by
           well-matched exits that mostly price higher. Staying is defensible, and so is leaving. The one position the data refuses to support is staying while believing you have no options.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>The decision, priced</h2>
         <p>
           Separate two questions the threads always merge. First: can you leave? On the numbers, yes, in several directions, often at a raise, and
           the gaps are specific skills, not new degrees. Second: should you?
@@ -2376,12 +2381,11 @@ export const POSTS: Post[] = [
           Then, in March 2026, the same founder posted that the <strong>7 million dollars in annual recurring revenue</strong> he had told TechCrunch about the previous summer was, in his words, blatantly dishonest. A formal
           retraction, on X, of a number that had been load-bearing for the
           whole story. The apology tour then misstated how the original
-          interview came about, which TechCrunch also documented. You could
-          not write a cleaner parable if you tried.
+          interview came about, which TechCrunch also documented.
         </p>
         <h2>The uncomfortable part: it worked</h2>
         <p>
-          The honest analysis has to start here. The attention strategy did
+          The analysis has to start here. The attention strategy did
           exactly what it was designed to do. It converted outrage into
           awareness, awareness into a term sheet, and a term sheet into a
           company that employs real people at real salaries. Anyone who tells
@@ -2418,7 +2422,7 @@ export const POSTS: Post[] = [
           the same half-life as the outrage it borrowed. Recruiters remember
           both kinds. So do juries, occasionally.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>The lesson that transfers</h2>
         <p>
           We run a product whose entire bet is the opposite of Cluely's: that
           numbers people can check beat stories people want to believe,
@@ -2492,7 +2496,7 @@ export const POSTS: Post[] = [
           leadership roles unusually well. It is the apprenticeship the AI
           industry accidentally rebuilt.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>If you want in</h2>
         <p>
           If you are technical but energized by people, or customer-facing
           but underestimated technically, this title is the market catching
@@ -2576,7 +2580,7 @@ export const POSTS: Post[] = [
           The agentic cluster passes the first two and is still arguing with
           the third. Check again next quarter; the nursery updates daily.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Career or costume</h2>
         <p>
           Chasing new titles is a bad strategy, and ignoring them is a
           slightly worse one. The winning move is to watch which newborn
@@ -2668,7 +2672,7 @@ export const POSTS: Post[] = [
         </p>
         <h2>Why they all converged</h2>
         <p>
-          Not conspiracy. Economics plus capability. Every one of these
+          Economics plus capability, not conspiracy. Every one of these
           companies sells attention to advertisers, so every one of them is
           paid in retention, and retention is best predicted by deep
           engagement signals, not declared relationships. That pressure
@@ -2694,7 +2698,7 @@ export const POSTS: Post[] = [
           clicks, which favors pages with verifiable, unusual substance over
           pages with volume.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Working inside the machine</h2>
         <p>
           The convergence is bad news for tactics and good news for material.
           Every trick tuned to one platform's quirks depreciates, because
@@ -2784,12 +2788,12 @@ export const POSTS: Post[] = [
           If the strategy is wrong, you will be able to watch it fail in
           public, which is more than most SEO advice offers.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>What to do about it</h2>
         <p>
           Stop asking how to rank and start asking a colder question: if a
           careful machine read everything on this topic, would it have any
           reason to quote you? If the answer is no, no tactic will save the
-          page, and the honest move is to go get something worth quoting: a
+          page, and the real move is to go get something worth quoting: a
           measurement, an experiment, an experience, a dataset. If the
           answer is yes, most of the remaining work is making the quotable
           part easy to find and easy to lift. The discipline used to reward
@@ -2866,7 +2870,7 @@ export const POSTS: Post[] = [
           nobody has twenty years of experience getting cited by a language
           model. On the new subskill, everyone started in 2024.
         </p>
-        <h2>An honest word on the floor and the ceiling</h2>
+        <h2>The floor and the ceiling</h2>
         <p>
           The floor: the low end of SEO, the tooling-and-checklists end, is
           exactly the work AI systems are best at absorbing, and postings
@@ -2875,7 +2879,7 @@ export const POSTS: Post[] = [
           commanding marketing-leadership pay. The variable that decides which side you land on is whether you can prove impact with numbers. The specialists who do well in our data read like analysts who happen to work on visibility,
           not like content workers who happen to know meta tags.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>The move from here</h2>
         <p>
           If you are considering the field: enter through the new door,
           citations and AI visibility, and build the measurement habit from
@@ -2984,7 +2988,7 @@ export const POSTS: Post[] = [
           trained to notice structural problems. Some of them notice the
           one they are standing in.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>What the detour teaches</h2>
         <p>
           You are probably not going to found Pink Floyd. The transferable
           lesson is smaller and more useful: the skills a demanding
@@ -3061,7 +3065,7 @@ export const POSTS: Post[] = [
           courses and portfolio pieces our waterfalls itemize, out of
           cash flow instead of savings. And it keeps the option of not
           switching, which matters because some tested destinations
-          honestly fail the test, and finding that out while employed is
+          simply fail the test, and finding that out while employed is
           a bargain.
         </p>
         <p>
@@ -3073,7 +3077,7 @@ export const POSTS: Post[] = [
           stories and, we suspect, a far better median outcome. Medians do
           not give interviews.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Running your own day-job years</h2>
         <p>
           If your pivot can be run in parallel, run it in parallel: the
           data on transition time, the arithmetic of skill-gap financing,
@@ -3225,7 +3229,7 @@ export const POSTS: Post[] = [
           negotiates everything else, since with you they were still on
           best behavior.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Using the ranking</h2>
         <p>
           If you work in a secretive field, assume the missing number is a
           strategy and prepare accordingly. Look up the band before the
@@ -3359,7 +3363,7 @@ export const POSTS: Post[] = [
           possible, that is the range we expect it to confirm, and we will
           publish whatever it says either way.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Reading pay without the myth</h2>
         <p>
           If you are negotiating a remote offer, use occupation-level
           anchors rather than remote-market headlines: the blended bands on <a className="gl" href="/salary">our salary pages</a> start from official statistics and declare their posting bias, and <a className="gl" href="/fairelephant">FairElephant</a> will weigh a specific number against your location and remote rates. If you are choosing remote work expecting an
@@ -3472,7 +3476,7 @@ export const POSTS: Post[] = [
           chosen without one is just a detour with better branding. Then
           pick the bridge from the middle column of your own two-hop map,
           favoring roles that raise the specific skills the destination's
-          postings name. Then, and this is the part people skip, write the
+          postings name. Then comes the step people skip: write the
           destination's vocabulary into everything you produce during the
           bridge year: the budget you ran, the contractors you managed,
           the compliance signoffs you owned. The bridge only pays out if
@@ -3489,7 +3493,7 @@ export const POSTS: Post[] = [
           the coordination and client work your title hides before you
           apply outward.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Choosing a stone</h2>
         <p>
           Use bridge frequency as a tiebreaker. When two offers pay
           similarly, the one that appears more often as other people's
@@ -3596,7 +3600,7 @@ export const POSTS: Post[] = [
           A startup putting it in a careers-page banner has made a softer
           promise.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>If the four-day week is the goal</h2>
         <p>
           If a four-day week matters to you, the data suggests looking in
           unexpected places: UK engineering and construction firms are
@@ -3698,9 +3702,9 @@ export const POSTS: Post[] = [
           that sounds like an arbitrage, it is, and mid-sized firms are
           the ones collecting it.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Before you sign</h2>
         <p>
-          Treat workplace policy as a term sheet item, not a vibe. Ask
+          Treat workplace policy as a term-sheet item. Ask
           where the arrangement is written down, what happened to it
           during the last leadership change, and whether it survives
           promotion. The giants have made their preferences legible from
@@ -3794,7 +3798,7 @@ export const POSTS: Post[] = [
           lifted hires 41 percent in a year, and federal standards for
           technology roles dropped degree requirements in April 2026. The
           public sector, which our secrecy ranking showed publishes pay
-          most honestly, is also the sector dismantling the paper gate
+          most openly, is also the sector dismantling the paper gate
           fastest. The pattern is consistent: rules-bound employers
           change when the rule changes. Discretionary employers announce.
         </p>
@@ -3850,7 +3854,7 @@ export const POSTS: Post[] = [
           without it is illegal rather than merely unconventional. Paper
           you can enforce beats paper you can imply.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Answering the trick question</h2>
         <p>
           For the 70 million without the degree: the ad text is no longer
           the obstacle and never tells you the truth anyway. Target the
@@ -3898,8 +3902,7 @@ export const POSTS: Post[] = [
         <p>
           PivotHop’s graph has always been built from live postings: it reads what
           employers ask for and scores how much of a destination role you
-          already cover. That number is useful and it has a blind spot you
-          could drive a truck through. It knows what the market wants. It
+          already cover. That number is useful and it has a real blind spot. It knows what the market wants. It
           does not know what people do.
         </p>
         <p>
@@ -3971,7 +3974,7 @@ export const POSTS: Post[] = [
         </table>
         <div className="post-callout"><b>11 of 12</b><span>of the strongest “skills say yes, people say no” routes end at a <strong>licensed</strong> occupation. The wall the skill math cannot see is almost always a credential.</span></div>
         <p>
-          This is worth sitting with if you are healthcare-adjacent. The
+          If you are healthcare-adjacent, this is the row to remember. The
           skills genuinely transfer; the surveys show the moves genuinely
           not happening. Between those two facts sits two to six years of
           school and an exam. Career advice that only reads skill overlap
@@ -4025,7 +4028,7 @@ export const POSTS: Post[] = [
           and verified them against the study documentation. Public data has
           a shelf life. Mirror what you rely on.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Using both maps</h2>
         <p>
           When you evaluate a move, ask two questions instead of one. What
           share of the destination’s asks do I already cover, and do people
@@ -4162,7 +4165,7 @@ export const POSTS: Post[] = [
         </p>
         <div className="post-callout"><b>r = −0.44</b><span>the correlation between an occupation’s posted median salary and its annual transfer rate across 123 occupations. Higher pay, fewer departures, with licensing doing less work than the paycheck.</span></div>
         <p>
-          Because here is the twist worth keeping: licensing by itself
+          The useful twist: licensing by itself
           barely matters. Licensed occupations in our set average 4.2
           percent annual transfer; unlicensed, 4.4. What separates the
           sticky from the churny is what the position cost to reach and
@@ -4178,7 +4181,7 @@ export const POSTS: Post[] = [
           One rung at a time, license by license. We wrote up that
           full pattern in “Where people actually go.”
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>What to take from the stayers</h2>
         <p>
           Your occupation’s transfer rate is your base odds, the prior
           before anything about you. An architect’s 3.3 percent means
@@ -4224,7 +4227,7 @@ export const POSTS: Post[] = [
           Across the 77,443 postings PivotHop’s scrapers currently hold,{' '}
           <strong>5.3 percent</strong> are explicitly fully remote. That
           headline number is almost useless, because the distribution
-          underneath it is savage: the most remote-friendly occupation we
+          underneath it is lopsided: the most remote-friendly occupation we
           track posts remote jobs at roughly <strong>300 times</strong> the
           rate of the least. External counts bracket ours, for calibration:
           <a className="gl" href="/glossary#roberthalf">Robert Half</a>’s Q1 2026 read puts 4 percent of new postings fully
@@ -4345,7 +4348,7 @@ export const POSTS: Post[] = [
           UX sits at 1.5 percent while freelance-shaped creative work sits
           at 25.
         </p>
-        <h2>Where this leaves you</h2>
+        <h2>Choosing from the map</h2>
         <p>
           If remote is the constraint you are optimizing, read your options
           in this order. Unlicensed, words-based, deliverable-shaped work
@@ -4356,7 +4359,7 @@ export const POSTS: Post[] = [
           template, and the therapist route to it is one of the
           best-trodden paths in our transition data. And if your work is
           hands-on and licensed, the remote share is not low, it is zero
-          across thousands of postings, and the honest move is a pivot into
+          across thousands of postings, and the move is a pivot into
           the words-shaped role adjacent to your field rather than a hunt
           for a unicorn listing. The instrument prices those routes; run
           your origin and filter for what actually ships remote.
