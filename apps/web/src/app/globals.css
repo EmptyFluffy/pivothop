@@ -1157,12 +1157,12 @@ input:focus-visible{outline:none}
 /* the search + filters + chips ride together, stuck below the nav while the list scrolls */
 /* full-bleed so the paper background covers the side gutters too (the inset
    Try/active row is transparent; without this the ledger shows through it) */
-.jb-stick{position:sticky;top:59px;z-index:40;background:var(--paper);margin:26px -30px 0;padding:0 30px}
+.jb-stick{position:sticky;top:59px;z-index:40;background:var(--paper);margin:26px -30px 0;padding:0 30px;border-bottom:1px solid var(--ink)}
 /* mobile nav is 56/52px — the stickies keep sharing its border row (n − 1).
    Placed after the base rules above and for .ix-search so the cascade holds. */
 @media (max-width:980px){.ix-search,.jb-stick{top:55px}}
 @media (max-width:560px){.ix-search,.jb-stick{top:51px}}
-.jb-searchband{display:flex;align-items:center;gap:16px;margin:0 -30px 0;padding:24px 30px;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);background:var(--card)}
+.jb-searchband{display:flex;align-items:center;gap:16px;margin:0 -30px 0;padding:24px 30px;border-top:2px solid var(--ink);background:var(--card)}
 .jb-ico{width:19px;height:19px;color:var(--ink-3);flex:0 0 auto}
 .jb-search{flex:1;min-width:0;background:transparent;border:none;font-family:inherit;font-weight:600;font-size:22px;letter-spacing:-.015em;color:var(--ink);padding:4px 0}
 .jb-search:focus{outline:none}
@@ -1185,11 +1185,12 @@ input:focus-visible{outline:none}
 .jb-filters select:focus{outline:none;border-color:var(--accent)}
 .jb-toggle{background:transparent;border:1px solid var(--rule);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:7px 13px 6px;cursor:pointer;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease),background var(--dur) var(--ease)}
 .jb-toggle.on{background:var(--accent);border-color:var(--accent);color:#fff}
-.jb-active{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 0}
-.jb-pill{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:1px solid var(--accent);border-radius:var(--r-pill);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px 6px;cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
-.jb-pill:hover{background:var(--ink);border-color:var(--ink)}
-.jb-x{font-size:13px;line-height:1;opacity:.75}
-.jb-clear{background:transparent;border:none;color:var(--ink-2);border-bottom:1px solid var(--rule);padding:0 0 2px;cursor:pointer;margin-left:6px;transition:all .12s}
+.jb-active{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 -30px;padding:2px 30px 18px;background:var(--card)}
+.jb-pill{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--rule);border-radius:var(--r-pill);color:var(--ink);font-family:var(--sans);font-size:13.5px;font-weight:500;letter-spacing:0;text-transform:none;padding:7px 13px;cursor:pointer;transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.jb-pill:hover{border-color:var(--ink-2);box-shadow:0 1px 4px rgba(21,21,26,.07)}
+.jb-x{font-size:15px;line-height:1;color:var(--ink-3);transition:color var(--dur)}
+.jb-pill:hover .jb-x{color:var(--ink)}
+.jb-clear{background:transparent;border:none;color:var(--ink-2);font-family:var(--sans);font-size:13.5px;letter-spacing:0;text-transform:none;border-bottom:1px solid var(--rule);padding:0 0 2px;cursor:pointer;margin-left:6px;transition:all .12s}
 .jb-clear:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .jb-chip{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--rule);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:7px 12px 6px;cursor:pointer;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease),background var(--dur) var(--ease)}
 .jb-chip:hover{border-color:var(--ink-2)}
@@ -1697,7 +1698,7 @@ a.jd-skill:hover svg{color:var(--paper)}
 .lic-sh-foot .acc{color:var(--accent)}
 
 /* ── the filter sheet (docs/26, HiringCafe pattern on our skin) ───────────── */
-.flt-sh{width:min(860px,94vw);max-height:min(680px,88vh);padding:0;display:flex;flex-direction:column;overflow:hidden}
+.flt-sh{width:min(860px,94vw);height:min(680px,88vh);max-height:min(680px,88vh);padding:0;display:flex;flex-direction:column;overflow:hidden}
 .flt-head{display:flex;align-items:center;gap:13px;padding:16px 18px 14px 22px;border-bottom:0.5px solid var(--rule);flex:none}
 .flt-head .flt-ico{width:19px;height:19px;color:var(--ink-3);flex:none}
 .flt-head input{flex:1;border:0;background:none;outline:none;font-family:var(--sans);font-size:18px;color:var(--ink)}

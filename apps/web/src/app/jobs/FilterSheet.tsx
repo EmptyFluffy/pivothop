@@ -49,9 +49,9 @@ const FRESH: { code: Filters['fresh']; label: string }[] = [
 ];
 const TAG_META: Record<string, string> = { s: 'Senior', e: 'Entry level', '4d': 'Four-day week', eq: 'Equity offered', vi: 'Visa sponsorship' };
 
-type CatKey = 'field' | 'location' | 'seniority' | 'pay' | 'perks' | 'fresh' | 'source' | 'license';
+type CatKey = 'field' | 'location' | 'seniority' | 'pay' | 'perks' | 'fresh' | 'source' | 'license' | 'sortby';
 
-export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField }: {
+export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField, sort, onSort }: {
   open: boolean;
   onClose: () => void;
   f: Filters;
@@ -63,6 +63,8 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
   regionsList: { key: RegionKey; n: number }[];
   resultCount: number;
   hideField?: boolean;
+  sort: 'new' | 'pay';
+  onSort: (s: 'new' | 'pay') => void;
 }) {
   const [cat, setCat] = useState<CatKey>(hideField ? 'location' : 'field');
   const [closing, setClosing] = useState(false);
@@ -89,6 +91,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     fresh: f.fresh ? 1 : 0,
     source: f.srcSet.size,
     license: f.lic ? 1 : 0,
+    sortby: sort === 'pay' ? 1 : 0,
   };
 
   const CATS: { key: CatKey; label: string }[] = useMemo(() => [
@@ -100,6 +103,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     { key: 'fresh', label: 'Date posted' },
     { key: 'source', label: 'Where we read it' },
     { key: 'license', label: 'License gates' },
+    { key: 'sortby', label: 'Sort' },
   ], [hideField]);
 
   // The filter-name search: jump the rail to the first category whose options
@@ -116,6 +120,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
       ['fresh', FRESH.map((x) => x.label)],
       ['source', SRC_GROUPS.map((s) => s.label)],
       ['license', ['license', 'no license required', 'licensed professions']],
+      ['sortby', ['sort', 'newest first', 'highest pay']],
     ];
     const hit = catOf.find(([, labels]) => labels.some((l) => l.toLowerCase().includes(needle.toLowerCase())));
     if (hit && hit[0] !== cat && !(hideField && hit[0] === 'field')) setCat(hit[0]);
@@ -130,12 +135,12 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     set({ [key]: next } as Partial<Filters>);
   };
 
-  const Opt = ({ on, label, sub, n, onClick }: { on: boolean; label: string; sub?: string; n: number; onClick: () => void }) => (
+  const Opt = ({ on, label, sub, n, onClick }: { on: boolean; label: string; sub?: string; n?: number; onClick: () => void }) => (
     match(label) ? (
       <button type="button" className={`flt-opt${on ? ' on' : ''}`} aria-pressed={on} onClick={onClick}>
         <span className="flt-box" aria-hidden="true">{on && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round"><path d="M5 13l4 4L19 7" /></svg>}</span>
         <span className="flt-lab">{label}{sub && <span className="flt-sub">{sub}</span>}</span>
-        <span className="flt-n">{n.toLocaleString()}</span>
+        {n !== undefined && <span className="flt-n">{n.toLocaleString()}</span>}
       </button>
     ) : null
   );
@@ -239,6 +244,13 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
                     n={count('source', { srcSet: new Set([s.code]) })}
                     onClick={() => toggleIn('srcSet', s.code)} />
                 ))}
+              </>
+            )}
+            {cat === 'sortby' && (
+              <>
+                <p className="flt-note">One order at a time. Highest pay puts the postings that state a number first.</p>
+                <Opt on={sort === 'new'} label="Newest first" onClick={() => onSort('new')} />
+                <Opt on={sort === 'pay'} label="Highest pay" onClick={() => onSort('pay')} />
               </>
             )}
             {cat === 'license' && (

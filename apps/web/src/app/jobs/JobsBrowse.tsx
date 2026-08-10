@@ -283,10 +283,6 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
           Filters{activeCount > 0 && <span className="jb-fltn">{activeCount}</span>}
         </button>
-        <select className="jb-sort" aria-label="Sort" value={sort} onChange={(e) => setSort(e.target.value as 'new' | 'pay')}>
-          <option value="new">Newest</option>
-          <option value="pay">Highest pay</option>
-        </select>
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
         {scope && <Link href={scope.showAllHref ?? '/jobs'} className="jb-showall">{scope.showAllLabel ?? 'Show all jobs'}</Link>}
       </div>
@@ -337,6 +333,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         regionsList={regionsList}
         resultCount={results.length}
         hideField={!!scope?.occ}
+        sort={sort}
+        onSort={setSort}
       />
       <JobSheet job={sheetJob} onClose={closeSheet} />
     </div>
