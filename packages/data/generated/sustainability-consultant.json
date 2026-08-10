@@ -5,11 +5,11 @@
     "title": "Sustainability Consultant",
     "field": "Architecture",
     "cluster": "Built Environment",
-    "postings": 84,
+    "postings": 98,
     "salary": "$55k–$85k",
     "salary_band": [
-      56465,
-      83763
+      56109,
+      83267
     ],
     "remote": "1%",
     "separations": {
@@ -37,7 +37,7 @@
       "mobility_tier": null,
       "salary": "$65k–$110k",
       "salary_band": [
-        65081,
+        64930,
         108142
       ],
       "demand": "Low",
@@ -58,57 +58,63 @@
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 33.3,
-          "earned": 33.3
+          "pts": 35,
+          "earned": 35
         },
         {
           "skill": "energy-modeling",
           "name": "Energy Modeling",
-          "pts": 20.4,
-          "earned": 7.2
+          "pts": 18.3,
+          "earned": 6.3
         },
         {
           "skill": "hvac-systems",
           "name": "HVAC Systems",
-          "pts": 9.3,
+          "pts": 8.3,
           "earned": 0
         },
         {
           "skill": "plumbing",
           "name": "Plumbing",
-          "pts": 9.3,
+          "pts": 8.3,
           "earned": 0
         },
         {
           "skill": "mep",
           "name": "MEP",
-          "pts": 7.4,
+          "pts": 6.7,
           "earned": 0
         },
         {
           "skill": "leed",
           "name": "LEED",
-          "pts": 7.4,
-          "earned": 7.4
+          "pts": 6.7,
+          "earned": 6.7
         },
         {
           "skill": "fea",
           "name": "FEA / Simulation",
-          "pts": 7.4,
+          "pts": 6.7,
+          "earned": 0
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "data-analysis",
           "name": "Data Analysis",
-          "pts": 5.6,
+          "pts": 5,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 65,
-        "salaried": 45
+        "postings": 74,
+        "salaried": 53
       }
     },
     {
@@ -122,67 +128,81 @@
         "label": "Often requires PE/RA background"
       },
       "desc": "",
-      "match": 35,
-      "fit": 26,
+      "match": 33,
+      "fit": 24,
       "capability": null,
       "mobility": 5,
       "mobility_source": "observed-flow-us",
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$75k–$125k",
+      "salary": "$80k–$155k",
       "salary_band": [
-        75000,
-        125000
+        79371,
+        155501
       ],
-      "demand": "Low",
+      "demand": "Moderate",
       "remote": "4%",
       "time": "12–24 mo",
       "have": [
-        "Project Management",
         "Sustainability",
+        "Project Management",
         "Energy Modeling"
       ],
       "learn": [
         "Criminal Investigation",
-        "Account Management"
+        "Account Management",
+        "QA / Testing",
+        "Business Development"
       ],
       "waterfall": [
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 34.3,
+          "pts": 30,
           "earned": 0
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 20,
+          "pts": 17.5,
           "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 14.3,
-          "earned": 9.5
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 14.3,
-          "earned": 14.3
+          "pts": 15,
+          "earned": 15
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 12.5,
+          "earned": 7.9
         },
         {
           "skill": "energy-modeling",
           "name": "Energy Modeling",
-          "pts": 11.4,
-          "earned": 11.4
+          "pts": 10,
+          "earned": 9.8
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 7.5,
+          "earned": 0
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 7.5,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 70,
-        "salaried": 53
+        "postings": 77,
+        "salaried": 44
       }
     }
   ],
@@ -191,7 +211,13 @@
     "building-envelope-consultant": []
   },
   "direct": [],
-  "cross": [],
+  "cross": [
+    [
+      "building-performance-analyst",
+      "building-envelope-consultant",
+      0.32
+    ]
+  ],
   "bridges": [],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }
