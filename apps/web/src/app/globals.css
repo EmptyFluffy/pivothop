@@ -74,7 +74,8 @@
   /* Was display:contents so the links became grid cells. Now a real flex row that
      takes the remaining width, so the CTA can push itself to the far edge. */
   .nav-menu{display:flex;align-items:stretch;flex:1;min-width:0}
-  .nav-burger{display:none;align-items:center;justify-content:center;background:none;border:none;color:var(--ink);cursor:pointer;padding:0 22px;height:100%}
+  .nav-searchbtn-m{display:none;align-items:center;justify-content:center;background:none;border:none;color:var(--ink);cursor:pointer;padding:0 10px;height:100%}
+  .nav-burger{display:none;align-items:center;justify-content:center;background:none;border:none;color:var(--ink);cursor:pointer;padding:0 18px 0 10px;height:100%}
   .nav-burger svg{width:25px;height:25px}
   .nav-burger .i-close{display:none}
   .nav.open .nav-burger .i-open{display:none}
@@ -373,13 +374,18 @@
 
   /* ── responsive ── */
   @media (max-width:980px){
-    .nav{grid-template-columns:1fr auto;height:56px}
+    .nav{height:56px}
+    .nav .brand{padding:0 18px;flex:1;min-width:0}
+    .nav-searchbtn-m{display:flex}
     .nav-burger{display:flex}
     .nav-menu{display:none}
-    .nav.open .nav-menu{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--ink);box-shadow:0 16px 30px rgba(21,21,26,.10);z-index:59;max-height:calc(100vh - 56px);overflow-y:auto}
-    .nav.open .nav-menu .navlink{height:auto;justify-content:flex-start;padding:16px 24px;border-bottom:0.5px solid var(--rule);font-size:12px;gap:8px}
+    /* the menu is a full opaque screen under the bar, big type, one link per row */
+    .nav.open .nav-menu{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--paper);z-index:59;overflow-y:auto;padding:6px 0 calc(28px + env(safe-area-inset-bottom));animation:menuIn .18s ease}
+    .nav.open .nav-menu .navlink{height:auto;justify-content:flex-start;align-items:center;padding:22px 26px;border-bottom:0.5px solid var(--rule);font-size:28px;letter-spacing:.05em;gap:8px}
     .nav.open .nav-menu .navlink.on{color:var(--accent)}
-    .nav.open .nav-menu .cta{margin-left:0;justify-content:flex-start;padding:18px 24px;height:auto;gap:10px}
+    .nav.open .nav-menu .nav-searchbtn{display:none} /* search sits in the bar on phones */
+    .nav.open .nav-menu .cta{margin-left:0;justify-content:flex-start;padding:26px 26px;height:auto;gap:10px;font-size:22px;letter-spacing:.05em;color:var(--accent);text-decoration-color:var(--accent)}
+    @keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
     .hero{padding:48px 22px;min-height:clamp(240px,32vh,320px);gap:22px}
     .hero-copy{gap:22px}
     .hero-art{display:none} /* phones: the copy is the hero */
@@ -1454,8 +1460,8 @@ input:focus-visible{outline:none}
    silently undo it — an earlier media query lost to the default below. */
 @media (max-width:760px){.jsheet-wrap{display:block}}
 .jsheet-veil{position:absolute;inset:0;background:rgba(12,12,20,.42);opacity:0;transition:opacity .34s ease}
-.jsheet{position:absolute;left:0;right:0;bottom:0;max-height:92svh;display:flex;flex-direction:column;
-  background:var(--paper);border-top:1px solid var(--ink);border-radius:16px 16px 0 0;overflow:hidden;
+.jsheet{position:absolute;left:0;right:0;bottom:0;height:100dvh;max-height:100dvh;display:flex;flex-direction:column;
+  background:var(--paper);border-top:none;border-radius:0;overflow:hidden;
   transform:translateY(100%);
   /* Soft decelerating curve — fast off the mark, long settle. The same shape
      the good native sheets use; a plain ease-out arrives too abruptly. */
@@ -1467,10 +1473,11 @@ input:focus-visible{outline:none}
 .jsheet-bar{display:block;width:38px;height:4px;margin:0 auto;border-radius:2px;background:var(--rule-2)}
 .jsheet-x{position:absolute;top:2px;right:8px;border:none;background:none;font-size:26px;line-height:1;color:var(--ink-2);padding:4px 10px;cursor:pointer}
 .jsheet-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 22px 20px}
-.jsheet-title{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin:0 0 4px}
+.jsheet-title{font-size:25px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin:0 0 4px}
 .jsheet-co{color:var(--ink-2);font-size:14.5px;margin:0 0 16px}
 .jsheet-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:20px}
 .jsheet-facts>div{background:var(--paper);padding:11px 13px;display:flex;flex-direction:column;gap:3px}
+.jsheet-facts>div:last-child:nth-child(odd){grid-column:span 2} /* odd fact count: no dead cell */
 .jsheet-facts .v{font-weight:700;font-size:15px}
 .jsheet-facts .k{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .jsheet-sec{margin-bottom:22px}
@@ -1735,10 +1742,21 @@ a.jd-skill:hover svg{color:var(--paper)}
 .jb-fltn{font-family:var(--mono);font-size:10.5px;min-width:17px;height:17px;display:grid;place-items:center;border-radius:999px;background:var(--accent);color:#fff;padding:0 4px}
 .jb-sort{flex:none}
 @media (max-width:760px){
-  .flt-sh{width:100vw;max-height:92vh;border-radius:16px 16px 0 0;align-self:flex-end}
-  .skmodal.flt{padding:0;align-items:flex-end}
-  .flt-rail{width:132px;padding:10px 6px}
-  .flt-cat{font-size:13px;padding:9px 8px}
+  /* full screen: header, a horizontal category chip rail, the option list,
+     and a sticky footer. No side rail at phone width. */
+  .skmodal.flt{padding:0;align-items:stretch;justify-content:stretch}
+  .flt-sh{width:100vw;height:100dvh;max-height:100dvh;border-radius:0}
+  .flt-body{flex-direction:column}
+  .flt-rail{flex-direction:row;width:100%;overflow-x:auto;overflow-y:hidden;border-right:none;border-bottom:0.5px solid var(--rule);padding:12px 14px;gap:8px;scrollbar-width:none}
+  .flt-rail::-webkit-scrollbar{display:none}
+  .flt-cat{flex:none;white-space:nowrap;border:1px solid var(--rule);border-radius:999px;padding:9px 15px;font-size:13.5px}
+  .flt-cat.on{background:var(--ink);color:#fff;font-weight:600}
+  .flt-cat.on::before{display:none}
+  .flt-cat.on .flt-badge{background:#fff;color:var(--ink)}
+  .flt-pane{padding:16px 18px 20px}
+  .flt-opt{padding:12px 8px}
+  .flt-foot{padding-bottom:calc(13px + env(safe-area-inset-bottom))}
+  .flt-show{flex:1;text-align:center;justify-content:center;padding:15px 26px}
   .jb-searchband{flex-wrap:wrap}
 }
 /* skills inside the filter sheet */

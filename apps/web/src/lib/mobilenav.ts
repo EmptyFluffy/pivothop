@@ -13,6 +13,8 @@ export function wireMobileNav(): void {
       nav.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', String(open));
       burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      // full-screen menu on phones: the page behind it must not scroll
+      document.body.style.overflow = open ? 'hidden' : '';
     };
     burger.addEventListener('click', (e) => { e.stopPropagation(); set(!nav.classList.contains('open')); });
     // close on: link tap in the menu, Escape, tap outside the nav
