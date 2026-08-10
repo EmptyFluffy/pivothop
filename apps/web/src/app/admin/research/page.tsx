@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = { title: 'Admin — competitor research', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Admin | competitor research', robots: { index: false, follow: false } };
 // Dynamic like every other /admin page. Not for freshness — this is static
 // content — but so it is never prerendered into the public static output, and so
 // check-links does not crawl it and flag its links to the other (dynamic) admin

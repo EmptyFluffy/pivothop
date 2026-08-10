@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { readSubmissions, type Submission } from './data';
 import { StatusControl } from './StatusControl';
 
-export const metadata: Metadata = { title: 'Admin — job submissions', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Admin | job submissions', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
 
 const k = (n: number) => '$' + Math.round(n / 1000) + 'k';

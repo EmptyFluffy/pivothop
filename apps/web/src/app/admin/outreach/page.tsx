@@ -4,7 +4,7 @@ import { readOutreach, meta } from './data';
 import { OutreachBoard } from './OutreachBoard';
 import { StudioFleet } from './StudioFleet';
 
-export const metadata: Metadata = { title: 'Admin — outreach', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Admin | outreach', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
 
 /* Contact-discovery providers. Deliberately links, not an integration: the lookup

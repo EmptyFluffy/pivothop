@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = { title: 'Admin — Schweiz', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Admin | Schweiz', robots: { index: false, follow: false } };
 
 /* The Swiss pivot, complete, for both founders — written so Nadine can run her
    side (SECO, GmbH, outplacement, backlinks) without asking for context. Source

@@ -5,7 +5,7 @@ import { FEClient } from './FEClient';
 import { MobileNav, NavBurger } from '../components/MobileNav';
 
 export const metadata: Metadata = {
-  title: 'FairElephant — Fair pay, computed.',
+  title: 'FairElephant | Fair pay, computed.',
   description:
     'The remote-compensation instrument. Your salary read through live postings, official wage statistics, and World Bank purchasing power. Transparent method, no sign-up.',
 };
