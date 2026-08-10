@@ -1695,3 +1695,48 @@ a.jd-skill:hover svg{color:var(--paper)}
 .lic-sh-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:20px;padding-top:14px;border-top:0.5px solid var(--rule)}
 .lic-sh-foot a{text-decoration:underline;text-underline-offset:2px}
 .lic-sh-foot .acc{color:var(--accent)}
+
+/* ── the filter sheet (docs/26, HiringCafe pattern on our skin) ───────────── */
+.flt-sh{width:min(860px,94vw);max-height:min(680px,88vh);padding:0;display:flex;flex-direction:column;overflow:hidden}
+.flt-head{display:flex;align-items:center;gap:13px;padding:16px 18px 14px 22px;border-bottom:0.5px solid var(--rule);flex:none}
+.flt-head .flt-ico{width:19px;height:19px;color:var(--ink-3);flex:none}
+.flt-head input{flex:1;border:0;background:none;outline:none;font-family:var(--sans);font-size:18px;color:var(--ink)}
+.flt-head input::placeholder{color:var(--ink-3)}
+.flt-head .sk-close{position:static}
+.flt-body{display:flex;flex:1;min-height:0}
+.flt-rail{flex:none;width:212px;border-right:0.5px solid var(--rule);padding:12px 10px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.flt-cat{position:relative;display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:none;font-family:var(--sans);font-size:14.5px;color:var(--ink-2);padding:10px 12px;border-radius:9px;cursor:pointer;transition:background .12s,color .12s}
+.flt-cat:hover{background:var(--paper-2);color:var(--ink)}
+.flt-cat.on{background:var(--paper-2);color:var(--ink);font-weight:600}
+.flt-cat.on::before{content:"";position:absolute;left:2px;top:9px;bottom:9px;width:2.5px;border-radius:2px;background:var(--accent)}
+.flt-badge{margin-left:auto;font-family:var(--mono);font-size:10.5px;min-width:18px;height:18px;display:grid;place-items:center;border-radius:999px;background:var(--accent);color:#fff;padding:0 5px}
+.flt-pane{flex:1;overflow-y:auto;padding:14px 20px 18px}
+.flt-note{font-size:13px;color:var(--ink-3);line-height:1.5;margin:2px 0 12px}
+.flt-group{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:16px 0 6px}
+.flt-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:none;padding:9px 8px;border-radius:9px;cursor:pointer;transition:background .12s}
+.flt-opt:hover{background:var(--paper-2)}
+.flt-box{flex:none;width:19px;height:19px;border:1.5px solid var(--rule-2,var(--rule));border-radius:5px;display:grid;place-items:center;color:#fff;transition:background .12s,border-color .12s}
+.flt-box svg{width:13px;height:13px}
+.flt-opt.on .flt-box{background:var(--accent);border-color:var(--accent)}
+.flt-lab{flex:1;font-size:15px;color:var(--ink);line-height:1.35}
+.flt-sub{display:block;font-size:12px;color:var(--ink-3);margin-top:1px}
+.flt-n{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.flt-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 20px;border-top:0.5px solid var(--rule);flex:none}
+.flt-clear{border:0;background:none;color:var(--ink-2);cursor:pointer;padding:8px 6px}
+.flt-clear:hover{color:var(--ink)}
+.flt-show{border:0;border-radius:999px;background:var(--accent);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;padding:12px 26px;cursor:pointer;transition:filter .15s}
+.flt-show:hover{filter:brightness(1.07)}
+/* the bar: filters button + slim sort */
+.jb-fltbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);border-radius:999px;background:none;font-family:var(--sans);font-size:14px;color:var(--ink);padding:8px 15px;cursor:pointer;transition:border-color .15s;flex:none}
+.jb-fltbtn:hover{border-color:var(--ink)}
+.jb-fltbtn.on{border-color:var(--accent)}
+.jb-fltbtn svg{width:15px;height:15px}
+.jb-fltn{font-family:var(--mono);font-size:10.5px;min-width:17px;height:17px;display:grid;place-items:center;border-radius:999px;background:var(--accent);color:#fff;padding:0 4px}
+.jb-sort{flex:none}
+@media (max-width:760px){
+  .flt-sh{width:100vw;max-height:92vh;border-radius:16px 16px 0 0;align-self:flex-end}
+  .skmodal.flt{padding:0;align-items:flex-end}
+  .flt-rail{width:132px;padding:10px 6px}
+  .flt-cat{font-size:13px;padding:9px 8px}
+  .jb-searchband{flex-wrap:wrap}
+}

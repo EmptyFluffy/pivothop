@@ -3,29 +3,29 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
+import FilterSheet, { type Filters, srcGroup, SRC_GROUPS } from './FilterSheet';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
 
-/* The global board: one search over every listing. Patterns from the boards
-   that work (top filter bar, instant counts, shareable URL state) plus the
-   piece the tag boards get wrong: our tags are derived from the posting text,
-   never employer-self-reported. Featured rows render between the filters and
-   the results, and step aside the moment the user searches or filters.
+/* The global board: one search over every listing, and one filter sheet
+   (FilterSheet.tsx, docs/26) instead of a bar of dropdowns. The bar keeps only
+   what is used constantly: search, the Filters button with a live count, and
+   sort. Everything the sheet sets shows as removable pills under the band, and
+   the whole state stays in the URL, so a filtered board is shareable.
 
    Scoped mode (an occupation page, e.g. /jobs/architect): the same bar, seeded
    with that occupation's SSR'd listings (so the HTML is crawlable) and the live
    employer layer for that occupation, plus a "Show all jobs" link back here. */
 
 const PAGE = 60;
-const PAY_STOPS = [50, 100, 150, 200] as const;
-const TAGS: { code: string; label: string; hit: (j: Job, now: number) => boolean }[] = [
-  { code: '4d', label: '4-day week', hit: (j) => !!j.fl?.includes('4d') },
-  { code: 'eq', label: 'Equity', hit: (j) => !!j.fl?.includes('eq') },
-  { code: 'vi', label: 'Visa sponsor', hit: (j) => !!j.fl?.includes('vi') },
-  { code: 's', label: 'Senior', hit: (j) => j.lv === 's' },
-  { code: 'e', label: 'Entry', hit: (j) => j.lv === 'e' },
-  { code: 'new', label: 'New this week', hit: (j, now) => !!j.posted && now - new Date(j.posted).getTime() < 7 * 864e5 },
-];
+const TAG_LABEL: Record<string, string> = { s: 'Senior', e: 'Entry', '4d': '4-day week', eq: 'Equity', vi: 'Visa sponsor' };
+const FRESH_LABEL: Record<string, string> = { d: 'Last 24h', w: 'This week', m: 'This month' };
+const FRESH_MS: Record<string, number> = { d: 864e5, w: 7 * 864e5, m: 30 * 864e5 };
+
+const EMPTY: Filters = {
+  fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false,
+  minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '',
+};
 
 export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope }: {
   fields: Record<string, string>;   // occ slug -> field
@@ -33,54 +33,57 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
-  scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string }; // occupation page (occ set) or category page (occ absent)
+  scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string };
 }) {
   const [all, setAll] = useState<Job[] | null>(initialJobs ?? null);
   const [q, setQ] = useState('');
   const [needle, setNeedle] = useState('');
-  const [field, setField] = useState('');
-  const [cty, setCty] = useState('');
-  const [region, setRegion] = useState('');
-  const [remoteOnly, setRemoteOnly] = useState(false);
-  const [minPay, setMinPay] = useState(0);
-  const [tags, setTags] = useState<Set<string>>(new Set());
+  const [f, setF] = useState<Filters>(EMPTY);
   const [sort, setSort] = useState<'new' | 'pay'>('new');
-  const [filtersOpen, setFiltersOpen] = useState(false); // mobile: collapse filters behind a toggle
-  const [tagsOpen, setTagsOpen] = useState(false);        // the Tags dropdown (keeps the bar to one line)
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
   const [shown, setShown] = useState(PAGE);
   const [now] = useState(() => Date.now());
-  // Phones open a listing as a bottom sheet over the board instead of a page
-  // load. pushState keeps a real URL, so refresh/share hits the static page and
-  // Back closes the sheet. Desktop keeps normal navigation.
   const [sheetJob, setSheetJob] = useState<Job | null>(null);
   const allRef = useRef<Job[] | null>(null);
-  const tagRef = useRef<HTMLDivElement>(null);
   allRef.current = all;
+
+  const set = (patch: Partial<Filters>) => setF((prev) => ({ ...prev, ...patch }));
 
   // Load the corpus once, and read any shared filter state from the URL.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     setQ(p.get('q') ?? ''); setNeedle((p.get('q') ?? '').toLowerCase());
-    setField(p.get('f') ?? '');
-    setCty(p.get('c') ?? '');
-    setRegion(p.get('region') ?? '');
-    setRemoteOnly(p.get('r') === '1');
-    setMinPay(Number(p.get('pay')) || 0);
-    setTags(new Set((p.get('t') ?? '').split(',').filter(Boolean)));
+    const t = new Set((p.get('t') ?? '').split(',').filter(Boolean));
+    // legacy: the old 'new this week' lived in t; it is a freshness setting now
+    const fresh = (p.get('fresh') ?? (t.has('new') ? 'w' : '')) as Filters['fresh'];
+    t.delete('new');
+    setF({
+      fieldSet: new Set((p.get('f') ?? '').split(',').filter(Boolean)),
+      region: p.get('region') ?? '',
+      ctySet: new Set((p.get('c') ?? '').split(',').filter(Boolean)),
+      remoteOnly: p.get('r') === '1',
+      minPay: Number(p.get('pay')) || 0,
+      hasSalary: p.get('sal') === '1',
+      tags: t,
+      fresh: ['d', 'w', 'm'].includes(fresh) ? fresh : '',
+      srcSet: new Set((p.get('src') ?? '').split(',').filter(Boolean)),
+      lic: p.get('lic') === 'open' || p.get('lic') === 'gated' ? (p.get('lic') as 'open' | 'gated') : '',
+    });
     if (p.get('sort') === 'pay') setSort('pay');
+    // the license registry is small and powers the license filter
+    fetch('/data/license-sheet.json').then((r) => r.json())
+      .then((d: Record<string, unknown>) => setLicensed(new Set(Object.keys(d))))
+      .catch(() => setLicensed(new Set()));
     if (scope?.occ) {
-      // occupation page: the SSR'd listings are already in state; fold in the
-      // live layer of paid employer posts for this occupation, pinned first.
       fetch('/api/employer-jobs').then((r) => r.json()).catch(() => [])
         .then((employer: Job[]) => {
           const mine = (employer || []).filter((j) => j.occ === scope.occ);
           if (mine.length) setAll((prev) => [...mine, ...(prev ?? initialJobs ?? [])]);
         });
     } else if (scope) {
-      // category page: the capped SSR sample is the corpus; the full filtered
-      // set is one click away on /jobs, so no client fetch here.
+      // category page: the capped SSR sample is the corpus
     } else {
-      // global: static scraped jobs + the live layer of paid employer posts (pinned first)
       Promise.all([
         fetch('/data/all-jobs.json').then((r) => r.json()).catch(() => []),
         fetch('/api/employer-jobs').then((r) => r.json()).catch(() => []),
@@ -96,16 +99,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       if (!isPhone()) return;
-      // .feat-row is the featured ledger, which renders from featured-jobs.json
-      // and never enters board state — it needs the same treatment as a card.
       const a = (e.target as HTMLElement)?.closest?.('a.job-card, a.feat-row') as HTMLAnchorElement | null;
       if (!a) return;
       const href = a.getAttribute('href') || '';
       const m = /^\/jobs\/([a-z0-9-]+)\/([a-z0-9]+)$/.exec(href);
-      if (!m) return;                       // employer outbound links keep their own behaviour
-      // Capture phase, and stop propagation: Next's <Link> handler sits on the
-      // React root, which bubbles before document, so a bubble-phase listener
-      // would fire only after the route had already been pushed.
+      if (!m) return;
       e.preventDefault();
       e.stopPropagation();
       const inState = (allRef.current ?? []).find((j) => j.occ === m[1] && j.id === m[2]);
@@ -114,8 +112,6 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         setSheetJob(inState);
         return;
       }
-      // Featured rows: resolve from their own file, then fall back to the page
-      // rather than swallowing the tap.
       void (async () => {
         try {
           const r = await fetch('/data/featured-jobs.json');
@@ -132,16 +128,6 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return () => { document.removeEventListener('click', onClick, true); window.removeEventListener('popstate', onPop); };
   }, []);
 
-  // Close the Tags dropdown on an outside click or Escape.
-  useEffect(() => {
-    if (!tagsOpen) return;
-    const onDoc = (e: MouseEvent) => { if (tagRef.current && !tagRef.current.contains(e.target as Node)) setTagsOpen(false); };
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setTagsOpen(false); };
-    document.addEventListener('mousedown', onDoc);
-    document.addEventListener('keydown', onKey);
-    return () => { document.removeEventListener('mousedown', onDoc); document.removeEventListener('keydown', onKey); };
-  }, [tagsOpen]);
-
   // Debounce the text search; keep the URL shareable.
   useEffect(() => {
     const t = setTimeout(() => setNeedle(q.trim().toLowerCase()), 160);
@@ -151,17 +137,21 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (all === null) return;
     const p = new URLSearchParams();
     if (needle) p.set('q', needle);
-    if (field) p.set('f', field);
-    if (cty) p.set('c', cty);
-    if (region) p.set('region', region);
-    if (remoteOnly) p.set('r', '1');
-    if (minPay) p.set('pay', String(minPay));
-    if (tags.size) p.set('t', [...tags].join(','));
+    if (f.fieldSet.size) p.set('f', [...f.fieldSet].join(','));
+    if (f.ctySet.size) p.set('c', [...f.ctySet].join(','));
+    if (f.region) p.set('region', f.region);
+    if (f.remoteOnly) p.set('r', '1');
+    if (f.minPay) p.set('pay', String(f.minPay));
+    if (f.hasSalary) p.set('sal', '1');
+    if (f.tags.size) p.set('t', [...f.tags].join(','));
+    if (f.fresh) p.set('fresh', f.fresh);
+    if (f.srcSet.size) p.set('src', [...f.srcSet].join(','));
+    if (f.lic) p.set('lic', f.lic);
     if (sort === 'pay') p.set('sort', 'pay');
     const qs = p.toString();
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     setShown(PAGE);
-  }, [needle, field, cty, region, remoteOnly, minPay, tags, sort, all]);
+  }, [needle, f, sort, all]);
 
   const fieldNames = useMemo(() => [...new Set(Object.values(fields))].sort(), [fields]);
   const countries = useMemo(() => {
@@ -177,8 +167,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return [...m.entries()].map(([key, n]) => ({ key, n })).sort((a, b) => b.n - a.n);
   }, [all]);
 
-  // Precompute each job's haystack once: its own text plus the occupation's
-  // expansion (title, field, taxonomy synonyms). Words kept for prefix matching.
+  // Precompute each job's haystack once.
   const hays = useMemo(() => {
     if (!all) return new Map<string, { text: string; words: string[] }>();
     const m = new Map<string, { text: string; words: string[] }>();
@@ -189,58 +178,95 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return m;
   }, [all, search, titles]);
 
-  // A token matches on substring, or on a word-prefix in either direction, so
-  // "architecture" finds architect, "designer" finds design, and vice versa.
   const tokenHit = (h: { text: string; words: string[] }, tok: string) => {
     if (h.text.includes(tok)) return true;
     if (tok.length < 4) return false;
     return h.words.some((w) => w.startsWith(tok) || tok.startsWith(w));
   };
 
-  // Everything except the tag filters, so each chip can show a live count.
-  const preTag = useMemo(() => {
-    if (!all) return [];
-    let r = all;
-    if (field) r = r.filter((j) => fields[j.occ] === field);
-    if (cty) r = r.filter((j) => j.c === cty);
-    if (region) r = r.filter((j) => regionOf(j.c) === region);
-    if (remoteOnly) r = r.filter((j) => j.remote);
-    if (minPay) r = r.filter((j) => (j.smax ?? j.smin ?? 0) >= minPay * 1000);
-    if (needle) {
-      const toks = needle.split(/\s+/).filter(Boolean);
-      r = r.filter((j) => {
-        const h = hays.get(j.id);
-        return h ? toks.every((t) => tokenHit(h, t)) : false;
-      });
-    }
-    return r;
-  }, [all, needle, field, cty, region, remoteOnly, minPay, fields, hays]);
-
-  const tagCount = useMemo(() => {
-    const m: Record<string, number> = {};
-    for (const t of TAGS) m[t.code] = preTag.reduce((s, j) => s + (t.hit(j, now) ? 1 : 0), 0);
-    return m;
-  }, [preTag, now]);
+  // One filter pass used for results AND for the sheet's faceted counts.
+  // `omit` drops one category so its own options can be counted honestly.
+  const applyFilters = useMemo(() => {
+    return (spec: Filters, omit?: string) => {
+      if (!all) return [] as Job[];
+      let r = all;
+      if (needle) {
+        const toks = needle.split(/\s+/).filter(Boolean);
+        r = r.filter((j) => {
+          const h = hays.get(j.id);
+          return h ? toks.every((t) => tokenHit(h, t)) : false;
+        });
+      }
+      if (omit !== 'field' && spec.fieldSet.size) r = r.filter((j) => spec.fieldSet.has(fields[j.occ]));
+      if (omit !== 'location') {
+        if (spec.region) r = r.filter((j) => regionOf(j.c) === spec.region);
+        if (spec.ctySet.size) r = r.filter((j) => !!j.c && spec.ctySet.has(j.c));
+        if (spec.remoteOnly) r = r.filter((j) => j.remote);
+      }
+      if (omit !== 'pay') {
+        if (spec.minPay) r = r.filter((j) => (j.smax ?? j.smin ?? 0) >= spec.minPay * 1000);
+        if (spec.hasSalary) r = r.filter((j) => !!(j.smin || j.smax));
+      }
+      if (omit !== 'seniority' && omit !== 'perks' && spec.tags.size) {
+        for (const t of spec.tags) {
+          if (t === 's' || t === 'e') r = r.filter((j) => j.lv === t);
+          else r = r.filter((j) => !!j.fl?.includes(t));
+        }
+      }
+      if ((omit === 'seniority' || omit === 'perks') && spec.tags.size) {
+        // keep the OTHER tag family's filters while counting this one's options
+        const keep = omit === 'seniority' ? ['4d', 'eq', 'vi'] : ['s', 'e'];
+        for (const t of spec.tags) {
+          if (!keep.includes(t)) continue;
+          if (t === 's' || t === 'e') r = r.filter((j) => j.lv === t);
+          else r = r.filter((j) => !!j.fl?.includes(t));
+        }
+      }
+      if (omit !== 'fresh' && spec.fresh) r = r.filter((j) => !!j.posted && now - new Date(j.posted).getTime() < FRESH_MS[spec.fresh]);
+      if (omit !== 'source' && spec.srcSet.size) r = r.filter((j) => spec.srcSet.has(srcGroup(j.source)));
+      if (omit !== 'license' && spec.lic && licensed) {
+        r = spec.lic === 'gated' ? r.filter((j) => licensed.has(j.occ)) : r.filter((j) => !licensed.has(j.occ));
+      }
+      return r;
+    };
+  }, [all, needle, hays, fields, now, licensed]);
 
   const results = useMemo(() => {
-    let r = preTag;
-    for (const t of TAGS) if (tags.has(t.code)) r = r.filter((j) => t.hit(j, now));
+    let r = applyFilters(f);
     if (sort === 'pay') r = [...r].sort((a, b) => (b.smax ?? b.smin ?? 0) - (a.smax ?? a.smin ?? 0));
     return r;
-  }, [preTag, tags, sort, now]);
+  }, [applyFilters, f, sort]);
 
-  const pristine = !needle && !field && !cty && !region && !remoteOnly && !minPay && tags.size === 0 && sort === 'new';
-  const toggleTag = (code: string) => setTags((prev) => {
-    const next = new Set(prev);
-    if (next.has(code)) next.delete(code); else next.add(code);
-    return next;
-  });
+  // Faceted count for the sheet: the category's own filter is stripped, the
+  // probe stands in for the option being counted, every other filter applies.
+  const count = useMemo(() => {
+    return (cat: string, probe: Partial<Filters>) => applyFilters({ ...strip(f, cat), ...probe }).length;
+    function strip(base: Filters, cat: string): Filters {
+      // strip the category's own filter, the probe re-adds its single option
+      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet) };
+      if (cat === 'field') c.fieldSet = new Set();
+      if (cat === 'location') { c.region = ''; c.ctySet = new Set(); c.remoteOnly = false; }
+      if (cat === 'pay') { c.minPay = 0; c.hasSalary = false; }
+      if (cat === 'seniority') c.tags = new Set([...c.tags].filter((t) => t !== 's' && t !== 'e'));
+      if (cat === 'perks') c.tags = new Set([...c.tags].filter((t) => t === 's' || t === 'e'));
+      if (cat === 'fresh') c.fresh = '';
+      if (cat === 'source') c.srcSet = new Set();
+      if (cat === 'license') c.lic = '';
+      return c;
+    }
+  }, [applyFilters, f]);
 
-  const activeCount = (field ? 1 : 0) + (cty ? 1 : 0) + (region ? 1 : 0) + (minPay ? 1 : 0) + (remoteOnly ? 1 : 0) + tags.size + (sort === 'pay' ? 1 : 0);
+  const pristine = !needle && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && sort === 'new';
+  const activeCount = f.fieldSet.size + f.ctySet.size + (f.region ? 1 : 0) + (f.minPay ? 1 : 0) + (f.hasSalary ? 1 : 0) + (f.remoteOnly ? 1 : 0) + f.tags.size + (f.fresh ? 1 : 0) + f.srcSet.size + (f.lic ? 1 : 0);
   const closeSheet = () => { if (history.state?.jobSheet) history.back(); else setSheetJob(null); };
+  const dropFrom = (key: 'fieldSet' | 'ctySet' | 'tags' | 'srcSet', v: string) => {
+    const next = new Set(f[key]);
+    next.delete(v);
+    set({ [key]: next } as Partial<Filters>);
+  };
 
   return (
-    <div className={`jb${filtersOpen ? ' filters-open' : ''}${scope ? ' jb-scoped' : ''}`}>
+    <div className={`jb${scope ? ' jb-scoped' : ''}`}>
       <div className="jb-stick">
       <div className="jb-searchband">
         <svg className="jb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
@@ -253,70 +279,34 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           aria-label={scope ? `Search ${scope.title} listings` : 'Search all listings'}
           autoComplete="off"
         />
+        <button type="button" className={`jb-fltbtn${activeCount ? ' on' : ''}`} onClick={() => setSheetOpen(true)}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
+          Filters{activeCount > 0 && <span className="jb-fltn">{activeCount}</span>}
+        </button>
+        <select className="jb-sort" aria-label="Sort" value={sort} onChange={(e) => setSort(e.target.value as 'new' | 'pay')}>
+          <option value="new">Newest</option>
+          <option value="pay">Highest pay</option>
+        </select>
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
         {scope && <Link href={scope.showAllHref ?? '/jobs'} className="jb-showall">{scope.showAllLabel ?? 'Show all jobs'}</Link>}
       </div>
       {!pristine && (
         <div className="jb-active" aria-label="Active filters">
           {needle && <button type="button" className="jb-pill" onClick={() => { setQ(''); setNeedle(''); }}>&ldquo;{needle}&rdquo;<span className="jb-x">&times;</span></button>}
-          {field && <button type="button" className="jb-pill" onClick={() => setField('')}>{field}<span className="jb-x">&times;</span></button>}
-          {region && <button type="button" className="jb-pill" onClick={() => setRegion('')}>{REGION_META[region as RegionKey]?.name.replace(/^the /, '')}<span className="jb-x">&times;</span></button>}
-          {cty && <button type="button" className="jb-pill" onClick={() => setCty('')}>{countryName(cty)}<span className="jb-x">&times;</span></button>}
-          {minPay > 0 && <button type="button" className="jb-pill" onClick={() => setMinPay(0)}>${minPay}k and up<span className="jb-x">&times;</span></button>}
-          {remoteOnly && <button type="button" className="jb-pill" onClick={() => setRemoteOnly(false)}>Remote<span className="jb-x">&times;</span></button>}
-          {TAGS.filter((t) => tags.has(t.code)).map((t) => (
-            <button key={t.code} type="button" className="jb-pill" onClick={() => toggleTag(t.code)}>{t.label}<span className="jb-x">&times;</span></button>
-          ))}
+          {[...f.fieldSet].map((x) => <button key={x} type="button" className="jb-pill" onClick={() => dropFrom('fieldSet', x)}>{x}<span className="jb-x">&times;</span></button>)}
+          {f.region && <button type="button" className="jb-pill" onClick={() => set({ region: '' })}>{REGION_META[f.region as RegionKey]?.name.replace(/^the /, '')}<span className="jb-x">&times;</span></button>}
+          {[...f.ctySet].map((x) => <button key={x} type="button" className="jb-pill" onClick={() => dropFrom('ctySet', x)}>{countryName(x)}<span className="jb-x">&times;</span></button>)}
+          {f.minPay > 0 && <button type="button" className="jb-pill" onClick={() => set({ minPay: 0 })}>${f.minPay}k and up<span className="jb-x">&times;</span></button>}
+          {f.hasSalary && <button type="button" className="jb-pill" onClick={() => set({ hasSalary: false })}>States a salary<span className="jb-x">&times;</span></button>}
+          {f.remoteOnly && <button type="button" className="jb-pill" onClick={() => set({ remoteOnly: false })}>Remote<span className="jb-x">&times;</span></button>}
+          {[...f.tags].map((t) => <button key={t} type="button" className="jb-pill" onClick={() => dropFrom('tags', t)}>{TAG_LABEL[t] ?? t}<span className="jb-x">&times;</span></button>)}
+          {f.fresh && <button type="button" className="jb-pill" onClick={() => set({ fresh: '' })}>{FRESH_LABEL[f.fresh]}<span className="jb-x">&times;</span></button>}
+          {[...f.srcSet].map((s) => <button key={s} type="button" className="jb-pill" onClick={() => dropFrom('srcSet', s)}>{SRC_GROUPS.find((g) => g.code === s)?.label ?? s}<span className="jb-x">&times;</span></button>)}
+          {f.lic && <button type="button" className="jb-pill" onClick={() => set({ lic: '' })}>{f.lic === 'gated' ? 'Licensed professions' : 'No license required'}<span className="jb-x">&times;</span></button>}
           {sort === 'pay' && <button type="button" className="jb-pill" onClick={() => setSort('new')}>Highest pay<span className="jb-x">&times;</span></button>}
-          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setField(''); setCty(''); setRegion(''); setMinPay(0); setRemoteOnly(false); setTags(new Set()); setSort('new'); }}>Clear all</button>
+          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
         </div>
       )}
-      <button type="button" className="jb-mtoggle" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((v) => !v)}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
-        <span>Filters &amp; sort{activeCount > 0 ? ` · ${activeCount} on` : ''}</span>
-        <span className="jb-mcount">{all === null ? '' : `${results.length.toLocaleString()} roles`}</span>
-        <svg className="jb-mchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
-      </button>
-      <div className="jb-filters">
-        {!scope?.occ && (
-          <select aria-label="Field" value={field} onChange={(e) => setField(e.target.value)}>
-            <option value="">All fields</option>
-            {fieldNames.map((f) => <option key={f} value={f}>{f}</option>)}
-          </select>
-        )}
-        <select aria-label="Region" value={region} onChange={(e) => { const v = e.target.value; setRegion(v); if (v) setCty(''); }}>
-          <option value="">All regions</option>
-          {regionsList.map((x) => <option key={x.key} value={x.key}>{REGION_META[x.key].name.replace(/^the /, '')} ({x.n})</option>)}
-        </select>
-        <select aria-label="Country" value={cty} onChange={(e) => { const v = e.target.value; setCty(v); if (v) setRegion(''); }}>
-          <option value="">All countries</option>
-          {countries.map((x) => <option key={x.code} value={x.code}>{countryName(x.code)} ({x.n})</option>)}
-        </select>
-        <select aria-label="Minimum salary" value={minPay} onChange={(e) => setMinPay(Number(e.target.value))}>
-          <option value={0}>Any pay</option>
-          {PAY_STOPS.map((p) => <option key={p} value={p}>${p}k and up</option>)}
-        </select>
-        <button type="button" className={`jb-toggle${remoteOnly ? ' on' : ''}`} aria-pressed={remoteOnly} onClick={() => setRemoteOnly((v) => !v)}>Remote</button>
-        <select aria-label="Sort" value={sort} onChange={(e) => setSort(e.target.value as 'new' | 'pay')}>
-          <option value="new">Newest first</option>
-          <option value="pay">Highest pay</option>
-        </select>
-        <div className="jb-tagdd" ref={tagRef}>
-          <button type="button" className={`jb-toggle jb-tagbtn${tags.size ? ' on' : ''}`} aria-expanded={tagsOpen} aria-haspopup="true" onClick={() => setTagsOpen((v) => !v)}>
-            Tags{tags.size > 0 ? ` · ${tags.size}` : ''}
-            <svg className="jb-tagchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
-          </button>
-          {tagsOpen && (
-            <div className="jb-tagmenu" role="group" aria-label="Filter tags">
-              {TAGS.map((t) => (
-                <button key={t.code} type="button" className={`jb-chip${tags.has(t.code) ? ' on' : ''}`} aria-pressed={tags.has(t.code)} onClick={() => toggleTag(t.code)}>
-                  {t.label}{all !== null && <span className="jb-chip-n">{tagCount[t.code]}</span>}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
       </div>
 
       {pristine && featured}
@@ -331,13 +321,23 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}
           {results.length > shown && (
             <button type="button" className="jb-more" onClick={() => setShown((n) => n + PAGE)}>
-              {/* "of N" reads as the total, so quote the total — the remainder
-                  here made the board look like it held fewer roles than it does. */}
               Show {Math.min(PAGE, results.length - shown)} more &middot; {shown.toLocaleString()} of {results.length.toLocaleString()}
             </button>
           )}
         </>
       )}
+      <FilterSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        f={f}
+        set={set}
+        count={(cat, probe) => count(cat, probe)}
+        fieldNames={fieldNames}
+        countries={countries}
+        regionsList={regionsList}
+        resultCount={results.length}
+        hideField={!!scope?.occ}
+      />
       <JobSheet job={sheetJob} onClose={closeSheet} />
     </div>
   );
