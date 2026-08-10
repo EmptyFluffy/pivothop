@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { countryName } from './countries';
+import { SkillMarkSvg } from './SkillMark';
 import { REGION_META, type RegionKey } from './regions';
 
 /* The filter sheet (docs/26: HiringCafe's one good interaction, on our design
@@ -16,8 +17,14 @@ import { REGION_META, type RegionKey } from './regions';
    counted with every OTHER filter applied, so a number always answers "what
    would I get if I ticked this now". */
 
+export type SkillEntry = {
+  slug: string; term: string; field: string; def: string;
+  unlocks: { slug: string; title: string; count: number }[];
+};
+
 export type Filters = {
   fieldSet: Set<string>;
+  skillSet: Set<string>;
   region: string;
   ctySet: Set<string>;
   remoteOnly: boolean;
@@ -49,9 +56,9 @@ const FRESH: { code: Filters['fresh']; label: string }[] = [
 ];
 const TAG_META: Record<string, string> = { s: 'Senior', e: 'Entry level', '4d': 'Four-day week', eq: 'Equity offered', vi: 'Visa sponsorship' };
 
-type CatKey = 'field' | 'location' | 'seniority' | 'pay' | 'perks' | 'fresh' | 'source' | 'license' | 'sortby';
+type CatKey = 'skills' | 'field' | 'location' | 'seniority' | 'pay' | 'perks' | 'fresh' | 'source' | 'license' | 'sortby';
 
-export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField, sort, onSort }: {
+export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField, sort, onSort, skills }: {
   open: boolean;
   onClose: () => void;
   f: Filters;
@@ -65,8 +72,10 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
   hideField?: boolean;
   sort: 'new' | 'pay';
   onSort: (s: 'new' | 'pay') => void;
+  skills: SkillEntry[];
 }) {
-  const [cat, setCat] = useState<CatKey>(hideField ? 'location' : 'field');
+  const [cat, setCat] = useState<CatKey>('skills');
+  const [skillQ, setSkillQ] = useState('');
   const [closing, setClosing] = useState(false);
   const [needle, setNeedle] = useState('');
   const panelRef = useRef<HTMLDivElement>(null);
@@ -83,6 +92,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
   }, [open]);
 
   const activeIn: Record<CatKey, number> = {
+    skills: f.skillSet.size,
     field: f.fieldSet.size,
     location: (f.region ? 1 : 0) + f.ctySet.size + (f.remoteOnly ? 1 : 0),
     seniority: ['s', 'e'].filter((t) => f.tags.has(t)).length,
@@ -95,6 +105,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
   };
 
   const CATS: { key: CatKey; label: string }[] = useMemo(() => [
+    { key: 'skills', label: 'Your skills' },
     ...(hideField ? [] : [{ key: 'field' as CatKey, label: 'Field' }]),
     { key: 'location', label: 'Location' },
     { key: 'seniority', label: 'Seniority' },
@@ -112,6 +123,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
   useEffect(() => {
     if (!needle) return;
     const catOf: [CatKey, string[]][] = [
+      ['skills', skills.map((x) => x.term)],
       ['field', fieldNames],
       ['location', ['remote', ...regionsList.map((r) => REGION_META[r.key].name), ...countries.map((c) => countryName(c.code))]],
       ['seniority', ['senior', 'entry']],
@@ -127,9 +139,18 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [needle]);
 
+  const skillRows = useMemo(() => {
+    const sel = skills.filter((x) => f.skillSet.has(x.slug));
+    const ql = skillQ.trim().toLowerCase();
+    let rest = skills.filter((x) => !f.skillSet.has(x.slug));
+    if (ql) rest = rest.filter((x) => x.term.toLowerCase().includes(ql) || x.field.toLowerCase().includes(ql));
+    else rest = [...rest].sort((a, b) => b.unlocks.reduce((s2, u) => s2 + u.count, 0) - a.unlocks.reduce((s2, u) => s2 + u.count, 0));
+    return { sel, rest: rest.slice(0, 40), hidden: Math.max(0, rest.length - 40) };
+  }, [skills, f.skillSet, skillQ]);
+
   if (!open && !closing) return null;
 
-  const toggleIn = (key: 'fieldSet' | 'ctySet' | 'srcSet' | 'tags', v: string) => {
+  const toggleIn = (key: 'fieldSet' | 'ctySet' | 'srcSet' | 'tags' | 'skillSet', v: string) => {
     const next = new Set(f[key] as Set<string>);
     if (next.has(v)) next.delete(v); else next.add(v);
     set({ [key]: next } as Partial<Filters>);
@@ -171,6 +192,40 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
             ))}
           </nav>
           <div className="flt-pane">
+            {cat === 'skills' && (
+              <>
+                <p className="flt-note">The premise of the board: pick skills you already have, and it keeps the roles those skills reach. Any selected skill counts.</p>
+                <div className="flt-panesearch">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
+                  <input
+                    type="search"
+                    value={skillQ}
+                    onChange={(e) => setSkillQ(e.target.value)}
+                    placeholder={`Search ${skills.length} skills`}
+                    aria-label="Search skills"
+                    autoComplete="off"
+                  />
+                </div>
+                {skillRows.sel.map((sk) => (
+                  <button key={sk.slug} type="button" className="flt-opt on" aria-pressed="true" onClick={() => toggleIn('skillSet', sk.slug)}>
+                    <span className="flt-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round"><path d="M5 13l4 4L19 7" /></svg></span>
+                    <span className="flt-mark"><SkillMarkSvg id={sk.slug} /></span>
+                    <span className="flt-lab">{sk.term}<span className="flt-sub">{sk.unlocks.slice(0, 3).map((u) => u.title).join(' · ')}{sk.unlocks.length > 3 ? ` · +${sk.unlocks.length - 3}` : ''}</span></span>
+                    <span className="flt-n">{count('skills', { skillSet: new Set([sk.slug]) }).toLocaleString()}</span>
+                  </button>
+                ))}
+                {skillRows.sel.length > 0 && <div className="flt-group">{skillQ ? 'Matches' : 'Popular'}</div>}
+                {skillRows.rest.map((sk) => (
+                  <button key={sk.slug} type="button" className="flt-opt" aria-pressed="false" onClick={() => toggleIn('skillSet', sk.slug)}>
+                    <span className="flt-box" aria-hidden="true" />
+                    <span className="flt-mark"><SkillMarkSvg id={sk.slug} /></span>
+                    <span className="flt-lab">{sk.term}<span className="flt-sub">{sk.unlocks.slice(0, 3).map((u) => u.title).join(' · ')}{sk.unlocks.length > 3 ? ` · +${sk.unlocks.length - 3}` : ''}</span></span>
+                    <span className="flt-n">{count('skills', { skillSet: new Set([...f.skillSet, sk.slug]) }).toLocaleString()}</span>
+                  </button>
+                ))}
+                {skillRows.hidden > 0 && <p className="flt-note">{skillRows.hidden} more &mdash; keep typing to narrow.</p>}
+              </>
+            )}
             {cat === 'field' && (
               <>
                 <p className="flt-note">Fields group our occupations. Tick several to browse across them.</p>
@@ -263,7 +318,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
           </div>
         </div>
         <div className="flt-foot">
-          <button type="button" className="flt-clear lbl" onClick={() => set({ fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false, minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '' })}>
+          <button type="button" className="flt-clear lbl" onClick={() => set({ fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false, minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '', skillSet: new Set() })}>
             Clear all
           </button>
           <button type="button" className="flt-show" onClick={close}>

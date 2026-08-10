@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
-import FilterSheet, { type Filters, srcGroup, SRC_GROUPS } from './FilterSheet';
+import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
 
@@ -25,6 +25,7 @@ const FRESH_MS: Record<string, number> = { d: 864e5, w: 7 * 864e5, m: 30 * 864e5
 const EMPTY: Filters = {
   fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false,
   minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '',
+  skillSet: new Set(),
 };
 
 export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope }: {
@@ -42,6 +43,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [sort, setSort] = useState<'new' | 'pay'>('new');
   const [sheetOpen, setSheetOpen] = useState(false);
   const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
+  const [skills, setSkills] = useState<SkillEntry[] | null>(null);     // the glossary: skill -> occupations it unlocks
   const [shown, setShown] = useState(PAGE);
   const [now] = useState(() => Date.now());
   const [sheetJob, setSheetJob] = useState<Job | null>(null);
@@ -69,12 +71,17 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       fresh: ['d', 'w', 'm'].includes(fresh) ? fresh : '',
       srcSet: new Set((p.get('src') ?? '').split(',').filter(Boolean)),
       lic: p.get('lic') === 'open' || p.get('lic') === 'gated' ? (p.get('lic') as 'open' | 'gated') : '',
+      skillSet: new Set((p.get('sk') ?? '').split(',').filter(Boolean)),
     });
     if (p.get('sort') === 'pay') setSort('pay');
     // the license registry is small and powers the license filter
     fetch('/data/license-sheet.json').then((r) => r.json())
       .then((d: Record<string, unknown>) => setLicensed(new Set(Object.keys(d))))
       .catch(() => setLicensed(new Set()));
+    // the skill lexicon drifts nightly; always read it, never hardcode its size
+    fetch('/data/skills-glossary.json').then((r) => r.json())
+      .then((d: SkillEntry[]) => setSkills(d))
+      .catch(() => setSkills([]));
     if (scope?.occ) {
       fetch('/api/employer-jobs').then((r) => r.json()).catch(() => [])
         .then((employer: Job[]) => {
@@ -147,6 +154,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (f.fresh) p.set('fresh', f.fresh);
     if (f.srcSet.size) p.set('src', [...f.srcSet].join(','));
     if (f.lic) p.set('lic', f.lic);
+    if (f.skillSet.size) p.set('sk', [...f.skillSet].join(','));
     if (sort === 'pay') p.set('sort', 'pay');
     const qs = p.toString();
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
@@ -154,6 +162,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   }, [needle, f, sort, all]);
 
   const fieldNames = useMemo(() => [...new Set(Object.values(fields))].sort(), [fields]);
+  const skillOccs = useMemo(() => {
+    const m = new Map<string, Set<string>>();
+    for (const sk of skills ?? []) m.set(sk.slug, new Set(sk.unlocks.map((u) => u.slug)));
+    return m;
+  }, [skills]);
   const countries = useMemo(() => {
     if (!all) return [] as { code: string; n: number }[];
     const m = new Map<string, number>();
@@ -227,9 +240,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       if (omit !== 'license' && spec.lic && licensed) {
         r = spec.lic === 'gated' ? r.filter((j) => licensed.has(j.occ)) : r.filter((j) => !licensed.has(j.occ));
       }
+      if (omit !== 'skills' && spec.skillSet.size && skillOccs.size) {
+        const reach = new Set<string>();
+        for (const sk of spec.skillSet) for (const occ of skillOccs.get(sk) ?? []) reach.add(occ);
+        r = r.filter((j) => reach.has(j.occ));
+      }
       return r;
     };
-  }, [all, needle, hays, fields, now, licensed]);
+  }, [all, needle, hays, fields, now, licensed, skillOccs]);
 
   const results = useMemo(() => {
     let r = applyFilters(f);
@@ -243,7 +261,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return (cat: string, probe: Partial<Filters>) => applyFilters({ ...strip(f, cat), ...probe }).length;
     function strip(base: Filters, cat: string): Filters {
       // strip the category's own filter, the probe re-adds its single option
-      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet) };
+      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet), skillSet: new Set(base.skillSet) };
       if (cat === 'field') c.fieldSet = new Set();
       if (cat === 'location') { c.region = ''; c.ctySet = new Set(); c.remoteOnly = false; }
       if (cat === 'pay') { c.minPay = 0; c.hasSalary = false; }
@@ -252,12 +270,13 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       if (cat === 'fresh') c.fresh = '';
       if (cat === 'source') c.srcSet = new Set();
       if (cat === 'license') c.lic = '';
+      if (cat === 'skills') c.skillSet = new Set();
       return c;
     }
   }, [applyFilters, f]);
 
-  const pristine = !needle && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && sort === 'new';
-  const activeCount = f.fieldSet.size + f.ctySet.size + (f.region ? 1 : 0) + (f.minPay ? 1 : 0) + (f.hasSalary ? 1 : 0) + (f.remoteOnly ? 1 : 0) + f.tags.size + (f.fresh ? 1 : 0) + f.srcSet.size + (f.lic ? 1 : 0);
+  const pristine = !needle && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && !f.skillSet.size && sort === 'new';
+  const activeCount = f.fieldSet.size + f.ctySet.size + (f.region ? 1 : 0) + (f.minPay ? 1 : 0) + (f.hasSalary ? 1 : 0) + (f.remoteOnly ? 1 : 0) + f.tags.size + (f.fresh ? 1 : 0) + f.srcSet.size + (f.lic ? 1 : 0) + f.skillSet.size;
   const closeSheet = () => { if (history.state?.jobSheet) history.back(); else setSheetJob(null); };
   const dropFrom = (key: 'fieldSet' | 'ctySet' | 'tags' | 'srcSet', v: string) => {
     const next = new Set(f[key]);
@@ -289,6 +308,13 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       {!pristine && (
         <div className="jb-active" aria-label="Active filters">
           {needle && <button type="button" className="jb-pill" onClick={() => { setQ(''); setNeedle(''); }}>&ldquo;{needle}&rdquo;<span className="jb-x">&times;</span></button>}
+          {f.skillSet.size > 0 && (
+            /* one pill for the whole skill selection: the list can be long, and
+               the sheet is where individual skills are managed */
+            <button type="button" className="jb-pill jb-pill-skills" onClick={() => setSheetOpen(true)}>
+              Skills &middot; {f.skillSet.size}<span className="jb-x" onClick={(e) => { e.stopPropagation(); set({ skillSet: new Set() }); }}>&times;</span>
+            </button>
+          )}
           {[...f.fieldSet].map((x) => <button key={x} type="button" className="jb-pill" onClick={() => dropFrom('fieldSet', x)}>{x}<span className="jb-x">&times;</span></button>)}
           {f.region && <button type="button" className="jb-pill" onClick={() => set({ region: '' })}>{REGION_META[f.region as RegionKey]?.name.replace(/^the /, '')}<span className="jb-x">&times;</span></button>}
           {[...f.ctySet].map((x) => <button key={x} type="button" className="jb-pill" onClick={() => dropFrom('ctySet', x)}>{countryName(x)}<span className="jb-x">&times;</span></button>)}
@@ -335,6 +361,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         hideField={!!scope?.occ}
         sort={sort}
         onSort={setSort}
+        skills={skills ?? []}
       />
       <JobSheet job={sheetJob} onClose={closeSheet} />
     </div>

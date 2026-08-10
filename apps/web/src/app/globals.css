@@ -1741,3 +1741,12 @@ a.jd-skill:hover svg{color:var(--paper)}
   .flt-cat{font-size:13px;padding:9px 8px}
   .jb-searchband{flex-wrap:wrap}
 }
+/* skills inside the filter sheet */
+.flt-panesearch{display:flex;align-items:center;gap:10px;border:1px solid var(--rule);border-radius:var(--r-pill);padding:9px 15px;margin:2px 0 12px;background:#fff}
+.flt-panesearch svg{width:15px;height:15px;color:var(--ink-3);flex:none}
+.flt-panesearch input{flex:1;border:0;background:none;outline:none;font-family:var(--sans);font-size:14.5px;color:var(--ink)}
+.flt-panesearch input::placeholder{color:var(--ink-3)}
+.flt-mark{flex:none;width:18px;height:18px;color:var(--ink-2);display:grid;place-items:center}
+.flt-mark svg{width:16px;height:16px}
+.jb-pill-skills{border-color:var(--accent);color:var(--accent)}
+.jb-pill-skills .jb-x{color:var(--accent)}
