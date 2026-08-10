@@ -435,3 +435,26 @@ These decisions were made against rendered mockups and the running app; they ove
 - **Touchpoints are pills; structure stays sharp.** Chips and toggles (`.jb-chip`, `.jb-toggle`, `.jb-pill`, `.ejf-chip`, `.ew-chip`, `.jd-skill`) take `--r-pill`. Cards, panels, rules, and every structural container remain square. Measured from their CSS: radius is mostly `0`, `rounded-full` reserved for touchpoints — the same rule we had reasoned our way to.
 - **One motion token pair.** `--dur: .15s`, `--ease: cubic-bezier(.4,0,.2,1)`, replacing per-rule ad-hoc timings as surfaces get touched. Their whole system is one duration and one curve; ours was already within noise, so this is consolidation, not correction.
 - **Washes noted, not shipped.** Their accents each exist twice — saturated for marks, ~3% saturation as background washes — and the friendliness is mostly the washes. A wash is paper, not accent, so #6 permits it. Designed direction: a small paper set (Klein wash `--accent-tint`, one warm, one cool) that long pages alternate between. Ship deliberately, not by drift.
+
+## Measure, then hand over the tool (added 2026-08-10)
+
+The site was drifting toward the academic register: measure, present, stop.
+That is half the job. The founding rule stays (numbers over adjectives, no
+motivational vocabulary), and a second rule now sits beside it:
+
+**Every measurement ends in an option.** After the number, the reader gets
+the move: a check they can run, a filter already wired, a deep link that
+applies the finding, a next step with its cost attached. "13.9% of postings
+are stale" is a finding; "here is the one-tap filter that removes them" is
+the site. If a post or page presents a truth and no handle, it is not
+finished.
+
+The deadpan register does not change. What changes is the ending: facts
+close into instructions, links land on pre-filtered surfaces, and the
+instrument is offered where it genuinely answers the question raised. The
+ghost-job post (how-to-spot-a-ghost-job) is the reference implementation:
+five measured checks, each with the share of the market failing it, ending
+in a board link with the checks already applied.
+
+Apply this gradually to existing surfaces as they get touched; do not
+rewrite the site in one pass.

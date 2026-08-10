@@ -58,6 +58,164 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'how-to-spot-a-ghost-job',
+    title: 'How to spot a ghost job: five checks, two minutes',
+    pillar: 'Run It 10,000 Times',
+    date: 'August 2026',
+    dek: 'In one 2026 survey, 61% of job seekers admit inflating their expertise. Employers bluff back: 45% of HR professionals say they post jobs they are not trying to fill. Both sides are catfishing, and the checks that catch a fake posting are fast. Here they are, with how much of the market fails each one.',
+    minutes: 6,
+    takeaways: [
+      'On our own curated board, 13.9% of live postings are more than 60 days old and 74.2% state no salary. 7.5% fail both checks at once, which is the classic ghost-job profile.',
+      'The stalest surface is the one that looks most official: company ATS boards run 43.9% stale, because nothing there auto-expires. Studio careers pages and federal portals sit under 4%.',
+      'Filtering to postings that are under a month old and state a salary leaves about 15% of the board: roughly 3,500 roles that have already passed the two strongest checks.',
+    ],
+    body: (
+      <>
+        <p>
+          The 2026 job market has a trust problem, and it is mutual. In GCheck&rsquo;s
+          Trust in Hiring report, <strong>61 percent</strong> of job seekers admitted
+          exaggerating their expertise to fit a role, and 47 percent said they had
+          inflated a previous job&rsquo;s details. The other side of the table is no
+          better: in a LiveCareer survey of more than 900 HR professionals,{' '}
+          <strong>45 percent</strong> said they post ghost jobs regularly, and in an
+          earlier ResumeBuilder survey, 70 percent of hiring managers called the
+          practice morally acceptable. Candidates catfish employers. Employers
+          catfish candidates. The market runs on titles, and titles are cheap to
+          fake in both directions.
+        </p>
+        <p>
+          We covered why the resulting silence is structural in{' '}
+          <a className="gl" href="/blog/why-recruiters-ghost">the ghosting piece</a>.
+          This one is practical: the checks that catch a fake posting before you
+          spend an application on it, with how much of the market fails each one.
+          We ran them on our own board, 23,420 curated listings, so every number
+          below is measured, not vibes.
+        </p>
+
+        <h2>Check one: the date</h2>
+        <p>
+          A posting&rsquo;s age is the single strongest tell, and it is printed on
+          every card. On our board, <strong>13.9 percent</strong> of live postings
+          are more than 60 days old, and 9.6 percent are past 90. A role that has
+          been &ldquo;open&rdquo; for a quarter either has an impossible hiring bar,
+          a stalled process, or no process at all. None of the three deserves your
+          afternoon. If the board you are on shows no date, that is itself an
+          answer about the board.
+        </p>
+
+        <h2>Check two: the salary</h2>
+        <p>
+          Absence of a number is not proof of a ghost: whole countries post
+          salary-silent by convention, and <strong>74.2 percent</strong> of our
+          board states no figure. But combine the two checks and the profile
+          sharpens. <strong>7.5 percent</strong> of listings are both more than
+          two months old and salary-silent, and that intersection is the classic
+          ghost shape: nobody maintaining it, nobody accountable for it, nothing
+          specific enough in it to go stale. Our{' '}
+          <a className="gl" href="/blog/salary-secrecy-ranking">secrecy ranking</a>{' '}
+          covers who hides pay and why; for triage purposes, old plus silent
+          equals skip.
+        </p>
+
+        <h2>Check three: where the posting lives</h2>
+        <p>
+          Here is the counterintuitive one. We group every listing by where we
+          read it, and then measured staleness per surface. The freshest surfaces
+          are the federal portals (3.1 percent stale) and firms&rsquo; own careers
+          pages (3.8 percent), because both get pruned: officials expire listings,
+          and a studio removes a role from its own site the day it is filled. The
+          stalest surface is the one that looks most official: <strong>company
+          ATS boards, at 43.9 percent stale</strong>. A Greenhouse or Lever board
+          costs nothing to leave up and expires nothing automatically, so postings
+          accumulate there like coats nobody claims.
+        </p>
+        <div className="post-callout"><b>43.9%</b><span>of postings on company ATS boards are more than 60 days old, against under 4 percent on federal portals and studio careers pages. The most corporate-looking surface is the least maintained (PivotHop board, August 2026).</span></div>
+        <p>
+          The practical move: before applying, click through to the source and
+          check the role is still listed there with a recent date. Every card on
+          our board links to the original posting for exactly this reason. Thirty
+          seconds, and it filters the coat rack.
+        </p>
+
+        <h2>Check four: specificity</h2>
+        <p>
+          Real postings name things: the team, the tools, the project, the
+          license. Pipeline-building postings read like horoscopes, accurate about
+          everyone and informative about no one. If a listing for a technical role
+          names no technology, or an architecture role names no project type or
+          software, the employer is describing a category of person rather than a
+          seat that needs filling. The skill chips on our cards are extracted from
+          the posting text itself, so an empty-feeling posting shows itself: fewer
+          named skills, vaguer demands.
+        </p>
+
+        <h2>Check five: the title-to-demands mismatch</h2>
+        <p>
+          The posting-side equivalent of resume inflation is the junior title with
+          senior demands. We documented a &ldquo;Junior Software Engineer&rdquo;
+          posting asking for three or more years of experience in{' '}
+          <a className="gl" href="/blog/pivot-or-start-over">the entry-level piece</a>,
+          and could not measure how common it is without overclaiming, so we will
+          not. But when the title and the requirements disagree, believe the
+          requirements. The title is marketing; the demands are the job.
+        </p>
+
+        <Pull>Old plus silent equals skip. The title is marketing; the demands are the job.</Pull>
+
+        <h2>The two-minute version, built in</h2>
+        <p>
+          We wired the two strongest checks into the board&rsquo;s filters, so you
+          can apply them in one tap instead of per posting:{' '}
+          <a className="gl" href="/jobs?sal=1&fresh=m">postings under a month old
+          that state a salary</a>. That cut currently leaves about{' '}
+          <strong>15 percent</strong> of the board, roughly 3,500 roles, which is
+          the honest size of the market that has already passed both checks. It is
+          a smaller haystack with far fewer ghosts in it, and the needle-to-hay
+          ratio is the thing your application hours actually buy.
+        </p>
+        <p>
+          And the other half of the catfish problem, the 61 percent, has the same
+          fix from your side of the table. Inflating your resume buys interviews
+          you then have to survive; the alternative is applying where your real
+          overlap is already high enough that nothing needs inflating. The{' '}
+          <a className="gl" href="/">instrument</a> measures that overlap against
+          live demand, free, in about a minute. A claimed skill can be bluffed by
+          either side. A measured one cannot.
+        </p>
+        <Go links={[
+          { href: '/jobs?sal=1&fresh=m', label: 'The board, ghost-filtered' },
+          { href: '/blog/why-recruiters-ghost', label: 'Why the silence is structural' },
+          { href: '/', label: 'Measure your real overlap' },
+        ]} />
+        <Sources>
+          <p>
+            Candidate-side inflation: GCheck, 2026 Trust in Hiring report (61
+            percent exaggerated expertise; 47 percent inflated a previous role),
+            as reported by The HR Digest. Employer-side: LiveCareer survey of
+            900+ HR professionals (45 percent post ghost jobs regularly), 2026;
+            ResumeBuilder, May 2024 (40 percent posted a job they were not
+            trying to fill; 70 percent called it acceptable); Greenhouse platform
+            data, 2024 (18 to 22 percent of postings per quarter classed as ghost
+            jobs). Board figures, staleness by source surface, salary-silence,
+            and the fresh-and-salaried share, are measured from the live{' '}
+            <a className="gl" href="/jobs">PivotHop board</a> (23,420 listings,
+            August 10, 2026) and move with the nightly scrape. Postings arrive
+            from employer ATS boards, firm careers pages, federal portals, and
+            licensed remote boards; staleness is computed from each posting&rsquo;s
+            own listed date.
+          </p>
+        </Sources>
+      </>
+    ),
+    faq: [
+      { q: 'How can you tell if a job posting is fake?', a: 'Five fast checks: the posting is more than 60 days old; it states no salary (old plus silent is the classic ghost profile, 7.5% of our board); it no longer appears, or appears undated, on the employer\u2019s own careers page; it names no specific tools, team, or project; and its title disagrees with its stated requirements. Any one is a caution. Two or more, skip it.' },
+      { q: 'How old is too old for a job posting?', a: 'Past 60 days, treat it as suspect. On our curated board 13.9% of listings are older than that, and 9.6% are past 90 days. A role genuinely being filled usually closes or is reposted fresh well inside two months.' },
+      { q: 'Should I apply to jobs that do not list a salary?', a: 'A missing salary alone is weak evidence, since 74% of postings state none and some countries rarely post pay. Combined with age it matters: a listing that is both months old and salary-silent fits the ghost-job profile, and your time is better spent on the 15% of postings that are fresh and priced.' },
+      { q: 'Why do companies leave old job postings up?', a: 'Mostly because nothing forces them down. Company ATS boards auto-expire nothing, which is why 43.9% of the postings we read there are over 60 days old, against under 4% on federal portals and firms\u2019 own careers pages, which get pruned. Add the openly admitted reasons, resume pipelines and growth signaling, and the coat rack fills up.' },
+      { q: 'Is it OK to exaggerate on a resume?', a: 'It is common (61% admit it) and it is a bad trade: inflation buys interviews you then have to survive, and background and skills checks are increasingly automated. The stronger position is applying where your measured skill overlap is already high, which needs no inflating and holds up in the interview.' },
+    ],
+  },
+  {
     slug: 'pivot-or-start-over',
     title: 'Is it easier to switch careers, or to start over in an entry-level job?',
     pillar: 'Career Half-Life',
