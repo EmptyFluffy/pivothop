@@ -15,15 +15,18 @@ import type { Job } from '../jobs/JobCard';
 export const metadata: Metadata = {
   title: 'The Adjacency Index: career mobility, in numbers',
   description:
-    'Headline figures from the PivotHop corpus of 150,418 job postings read: how AI-exposed each field is, how much skill sets overlap between careers, which jobs are most transferable, and the pay behind every route. Computed, dated, and citable — nothing invented.',
+    'Headline figures from the PivotHop corpus of more than 150,000 job postings read: how AI-exposed each field is, how much skill sets overlap between careers, which jobs are most transferable, and the pay behind every route. Computed, dated, and citable — nothing invented.',
   alternates: { canonical: '/adjacency-index' },
 };
 
 const DATA_RUN = 'July 2026'; // the corpus run behind the analytical findings
-// Postings read to date (wc -l apps/scraper/data/postings.ndjson). The live board
-// in all-jobs.json is the fresh slice of this; the two are different measures and
-// the page must never blur them.
-const CORPUS_READ = 150418;
+// Postings read to date, as a floor with a date attached. The source file
+// (apps/scraper/data/postings.ndjson) is gitignored, so the build cannot derive
+// this; a hardcoded exact number would drift the way the FAQ bands did. A floor
+// stays true as the corpus grows. Re-baseline it with:
+//   wc -l apps/scraper/data/postings.ndjson
+const CORPUS_READ_FLOOR = '150,000';
+const CORPUS_READ_AS_OF = 'August 2026';
 
 // Analytical findings — the citable core. Same numbers the blog posts publish.
 // Each is one quotable sentence + the page that proves it.
@@ -32,7 +35,7 @@ const SECTIONS: { h: string; stats: Stat[] }[] = [
   {
     h: 'Scale',
     stats: [
-      { big: '150,418', unit: 'postings read', sentence: 'The corpus is every posting read to date, 150,418 of them, mapped onto 177 standardized occupations. The live board carries the freshest slice, refreshed nightly.', href: '/blog/skills-over-titles', hrefLabel: 'Job titles, deprecated' },
+      { big: '150,000+', unit: 'postings read', sentence: 'The corpus is every posting read to date, more than 150,000 as of August 2026, mapped onto 177 standardized occupations. The live board carries the freshest slice, refreshed nightly.', href: '/blog/skills-over-titles', hrefLabel: 'Job titles, deprecated' },
       { big: '42,254', unit: 'unmapped title strings', sentence: 'In a single month, 42,254 distinct job-title strings mapped to no standard occupation at all — titles fragment while the skill demand under them clusters.', href: '/blog/skills-over-titles', hrefLabel: 'the thesis' },
     ],
   },
@@ -93,7 +96,7 @@ export default function AdjacencyIndex() {
       '@context': 'https://schema.org',
       '@type': 'Dataset',
       name: 'The PivotHop Adjacency Index',
-      description: 'Headline measures of career mobility computed from 150,418 job postings read: AI-skill exposure by field, occupation-to-occupation skill-readiness, transferability, posted salary bands, and licensing gates. Refreshed nightly.',
+      description: 'Headline measures of career mobility computed from more than 150,000 job postings read: AI-skill exposure by field, occupation-to-occupation skill-readiness, transferability, posted salary bands, and licensing gates. Refreshed nightly.',
       url: 'https://www.pivothop.com/adjacency-index',
       creator: { '@type': 'Organization', name: 'PivotHop', url: 'https://www.pivothop.com' },
       isAccessibleForFree: true,
@@ -122,7 +125,7 @@ export default function AdjacencyIndex() {
           <span className="lbl acc">The Adjacency Index</span>
           <h1 className="rt-h1">The job market, in numbers.</h1>
           <p className="rt-dek">
-            {`The findings below are computed from every posting PivotHop has read, ${CORPUS_READ.toLocaleString()} of them, mapped onto standardized occupations. The live board is the freshest slice of that: ${s.listings.toLocaleString()} listings open right now from ${s.companies.toLocaleString()} companies across ${s.countries} countries, refreshed nightly. Data as of ${asOf}. Nothing here is invented; each number links to the page that proves it.`}
+            {`The findings below are computed from every posting PivotHop has read, more than ${CORPUS_READ_FLOOR} of them as of ${CORPUS_READ_AS_OF}, mapped onto standardized occupations. The live board is the freshest slice of that: ${s.listings.toLocaleString()} listings open right now from ${s.companies.toLocaleString()} companies across ${s.countries} countries, refreshed nightly. Data as of ${asOf}. Nothing here is invented; each number links to the page that proves it.`}
           </p>
         </header>
 
