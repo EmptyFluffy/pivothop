@@ -132,7 +132,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'Can an architect become an interior designer?', a: 'Yes, and it is the most common destination in observed US transition data for people leaving architecture. Posted-skill readiness for a typical architect is 66 percent in our corpus; the gap concentrates in FF&E, procurement, and space planning rather than design skills.' },
       { q: 'How long does the architect to interior designer transition take?', a: 'Our estimate from the skill gap is 9 to 16 months to full readiness, shorter for architects who already run interiors packages. Many make the move inside a firm that does both.' },
-      { q: 'Does interior design pay less than architecture?', a: 'The posted bands overlap: 55,000 to 85,000 dollars in our current corpus for interior designer roles, with demand rated high. Senior and workplace-strategy roles exceed that band.' },
+      { q: 'Does interior design pay less than architecture?', a: 'The posted bands overlap: 55,000 to 90,000 dollars in our current corpus for interior designer roles, with demand rated high. Senior and workplace-strategy roles exceed that band.' },
     ],
     related: ['architect-to-industrial-designer', 'architect-to-landscape-architect', 'architect-to-mep-engineer'],
   },
@@ -157,7 +157,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'Can an architect become a landscape architect?', a: 'Yes, and the professions are strongly related in O*NET curated data, but most US states require a separate landscape-architecture license (typically the LARE exam plus experience hours). Posted-skill readiness for architects is 48 percent in our corpus.' },
       { q: 'Do I need a new license to practice landscape architecture?', a: 'In most states, yes. Architecture licensure rarely reciprocates into landscape licensure; check your state board. Unlicensed roles exist inside multidisciplinary firms under a licensed principal.' },
-      { q: 'What does landscape architecture pay?', a: 'Posted bands in our current corpus run 60,000 to 95,000 dollars with high demand. Public-sector and infrastructure work anchors the middle of that band.' },
+      { q: 'What does landscape architecture pay?', a: 'Posted bands in our current corpus run 60,000 to 98,000 dollars with high demand. Public-sector and infrastructure work anchors the middle of that band.' },
     ],
     related: ['architect-to-civil-engineer', 'architect-to-interior-designer', 'architect-to-structural-engineer'],
   },
@@ -182,7 +182,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'Can an architect become a structural engineer?', a: 'It is possible but it is the steepest technical route on this page: posted readiness is 52 percent, carried by project skills rather than analysis. Signing structural work requires PE licensure, and many states expect an accredited engineering degree to sit the exam.' },
       { q: 'Is there a shortcut into structural work without the PE?', a: 'Adjacent seats exist: facade and building-envelope engineering, forensic assessment, and BIM-heavy structural coordination all hire architecture backgrounds and share the analysis burden across a licensed team.' },
-      { q: 'What do structural engineers earn?', a: 'Posted bands in our corpus run 60,000 to 115,000 dollars with high demand; observed transitions from architecture exist in federal survey data but at a modest rate.' },
+      { q: 'What do structural engineers earn?', a: 'Posted bands in our corpus run 64,000 to 112,000 dollars with high demand; observed transitions from architecture exist in federal survey data but at a modest rate.' },
     ],
     related: ['architect-to-civil-engineer', 'architect-to-mep-engineer', 'architect-to-mechanical-engineer'],
   },
@@ -207,7 +207,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'Can an architect move into civil engineering?', a: 'The realistic entry is land development and site design, where posted readiness for architects is 47 percent in our corpus and coordination experience is valued. Responsible charge requires the PE, which assumes engineering coursework in most states.' },
       { q: 'What is the biggest skill gap from architecture to civil?', a: 'Tooling and deliverables: Civil 3D, grading and drainage design, and agency submittal culture. The professional skills, entitlements, coordination, documentation, transfer largely intact.' },
-      { q: 'What does civil engineering pay?', a: 'Posted bands in our corpus run 60,000 to 100,000 dollars with high demand, anchored by public-sector and infrastructure spending.' },
+      { q: 'What does civil engineering pay?', a: 'Posted bands in our corpus run 63,000 to 104,000 dollars with high demand, anchored by public-sector and infrastructure spending.' },
     ],
     related: ['architect-to-structural-engineer', 'architect-to-landscape-architect', 'architect-to-mep-engineer'],
   },
@@ -257,7 +257,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'Can an architect become an industrial designer?', a: 'Observed US transition data says yes at a strong rate, despite a posted-skill readiness of only 15 percent. The gap is toolchain and portfolio, not design ability, and industrial design hires primarily on portfolio.' },
       { q: 'Why is the skill match so low if people actually make this move?', a: 'Because postings describe tools, not craft. Industrial design postings ask for prototyping, mechanical CAD, and KeyShot, words architecture postings never contain, while the shared design fundamentals do not appear in either posting set.' },
-      { q: 'What do industrial designers earn?', a: 'Posted bands in our corpus run 70,000 to 120,000 dollars with moderate demand. Furniture, consumer products, and design-forward hardware firms anchor the range.' },
+      { q: 'What do industrial designers earn?', a: 'Posted bands in our corpus run 67,000 to 112,000 dollars with moderate demand. Furniture, consumer products, and design-forward hardware firms anchor the range.' },
     ],
     related: ['architect-to-interior-designer', 'architect-to-mechanical-engineer', 'architect-to-landscape-architect'],
   },
@@ -282,7 +282,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'Can an architect become a mechanical engineer?', a: 'Toward building mechanical (HVAC, energy, commissioning), realistically yes: posted readiness is 47 percent and the coordination experience transfers. Toward product mechanical engineering, observed transitions are near zero and the path runs through an engineering degree.' },
       { q: 'What mechanical roles hire architecture backgrounds?', a: 'Energy modeling, commissioning, and mechanical BIM coordination. All three value Revit fluency and construction literacy over early-career analysis depth.' },
-      { q: 'What does mechanical engineering pay?', a: 'Posted bands in our corpus run 60,000 to 110,000 dollars with high demand; building-side roles cluster mid-band, product-side roles at the top.' },
+      { q: 'What does mechanical engineering pay?', a: 'Posted bands in our corpus run 62,000 to 107,000 dollars with high demand; building-side roles cluster mid-band, product-side roles at the top.' },
     ],
     related: ['architect-to-mep-engineer', 'architect-to-electrical-engineer', 'architect-to-industrial-designer'],
   },
@@ -356,7 +356,7 @@ export const ROUTES: Record<string, RouteDef> = {
     ],
     faq: [
       { q: 'Can a teacher become an instructional designer?', a: 'It is the most-searched exit from teaching and a well-worn one. The pedagogical skill transfers almost entirely; our corpus reads only 12 percent posted-skill readiness because instructional-design postings screen for authoring tools and corporate learning vocabulary that classroom postings never mention.' },
-      { q: 'Do instructional designers earn more than teachers?', a: 'Usually. Instructional-design roles in our corpus post a 55,000 to 105,000 dollar band; entry-level corporate roles commonly start above the national teacher average and rise past six figures with experience.' },
+      { q: 'Do instructional designers earn more than teachers?', a: 'Usually. Instructional-design roles in our corpus post a 50,000 to 97,000 dollar band; entry-level corporate roles commonly start above the national teacher average and rise past six figures with experience.' },
       { q: 'Is instructional design a remote job?', a: 'More often than most fields: 11 percent of the instructional-design postings in our corpus are fully remote, against near-zero for classroom teaching. It is one of the few adjacent moves that also buys location flexibility.' },
       { q: 'What do teachers need to learn to become instructional designers?', a: 'Not the pedagogy, which they have. The gaps are e-learning authoring tools (Articulate Storyline, Adobe Captivate, Rise), LMS familiarity, and the ADDIE framework vocabulary that corporate hiring screens for. One self-built e-learning sample usually clears all three.' },
     ],
@@ -435,7 +435,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'How do you go from software engineer to solutions architect?', a: 'It is a natural senior step: posted-skill readiness is 60 percent and the cloud and implementation skills transfer directly. The move is mostly about breadth and communication, designing across systems you will not build and selling that design to non-engineers.' },
       { q: 'What is the difference between a software engineer and a solutions architect?', a: 'An engineer is measured by the code they ship; an architect by the systems they enable others to ship and by whether the business accepted the design. Depth versus breadth, and building versus translating.' },
-      { q: 'Does solutions architecture pay more than software engineering?', a: 'Generally yes at the senior level. Solutions-architect roles in our corpus post a 95,000 to 160,000 dollar band, reflecting the seniority and the stakeholder-facing scope.' },
+      { q: 'Does solutions architecture pay more than software engineering?', a: 'Generally yes at the senior level. Solutions-architect roles in our corpus post a 89,000 to 165,000 dollar band, reflecting the seniority and the stakeholder-facing scope.' },
       { q: 'What skill do engineers most need to become architects?', a: 'Translation. Sizing tradeoffs for a budget conversation and explaining a system to non-technical stakeholders is the differentiator; raw technical depth is usually already present in surplus.' },
     ],
     related: ['data-scientist-to-machine-learning-engineer', 'data-analyst-to-data-engineer', 'business-analyst-to-project-manager'],
@@ -526,7 +526,7 @@ export const ROUTES: Record<string, RouteDef> = {
       <>
         <p>Of every route in this batch, this one has the strongest human signal: an observed-flow score of 100, meaning <strong>data engineer</strong> is the single most common place data analysts actually go. The readiness number understates a move the market clearly rewards. Analysts already hold the load-bearing skills, <a className="gl" href="/glossary#sql">SQL</a> (Structured Query Language), Python, and <a className="gl" href="/glossary#etl">ETL</a> (extract, transform, load) are all in the HAVE list, so the pivot is less a new profession than a change in what you are responsible for.</p>
         <p>An analyst queries the data and answers the question. An engineer builds and owns the pipes that deliver the data reliably, on schedule, at scale, so that a hundred analysts can answer their questions without noticing the plumbing. The gap is orchestration and infrastructure: dbt, Airflow, warehouse modeling, and the on-call mindset that comes with owning a pipeline other people depend on. That last part is the real adjustment, analysts ship insights, engineers ship systems that must not break.</p>
-        <p>The pay rewards it, 75,000 to 130,000 in our corpus, above the typical analyst band. <strong>Concrete first step:</strong> take one report you currently refresh by hand and rebuild it as an automated pipeline with dbt and a scheduler, then keep it running for a month and fix whatever fails.</p>
+        <p>The pay rewards it, 66,000 to 129,000 in our corpus, above the typical analyst band. <strong>Concrete first step:</strong> take one report you currently refresh by hand and rebuild it as an automated pipeline with dbt and a scheduler, then keep it running for a month and fix whatever fails.</p>
       </>
     ),
     evidence: [
@@ -539,7 +539,7 @@ export const ROUTES: Record<string, RouteDef> = {
     faq: [
       { q: 'Is data engineer a natural next step for a data analyst?', a: 'It is the most common one on our data: the observed-flow score is 100, the highest destination for analysts who move. SQL, Python, and ETL transfer directly; the readiness reads 42 percent only because orchestration and infrastructure skills are new.' },
       { q: 'What is the difference between a data analyst and a data engineer?', a: 'An analyst queries data to answer questions; an engineer builds and owns the pipelines that deliver data reliably at scale. Insights versus infrastructure, and reports versus systems that must not break.' },
-      { q: 'Does data engineering pay more than data analysis?', a: 'Typically yes. Data-engineer roles in our corpus post a 75,000 to 130,000 dollar band, above the usual analyst range, reflecting the on-call ownership and infrastructure scope.' },
+      { q: 'Does data engineering pay more than data analysis?', a: 'Typically yes. Data-engineer roles in our corpus post a 66,000 to 129,000 dollar band, above the usual analyst range, reflecting the on-call ownership and infrastructure scope.' },
       { q: 'What should a data analyst learn to become a data engineer?', a: 'Pipeline orchestration and warehouse modeling: dbt, Airflow, and the reliability mindset of owning data other teams depend on. Converting one manual report into a scheduled, automated pipeline is the standard first project.' },
     ],
     related: ['data-scientist-to-machine-learning-engineer', 'software-engineer-to-solutions-architect', 'accountant-to-financial-analyst'],

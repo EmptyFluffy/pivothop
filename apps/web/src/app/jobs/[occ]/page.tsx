@@ -11,6 +11,7 @@ import { countryName } from '../countries';
 import { REGION_META, type RegionKey } from '../regions';
 import { postedLabel } from '../JobCard';
 import { originAnchors, pickAnchor } from '../../../lib/site';
+import { article } from '../../../lib/site';
 
 /* One slug space, two kinds of page:
    - an occupation (in jobs-index)      -> the single-occupation board + routes in
@@ -183,14 +184,14 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
     const tops = waysIn.slice(0, 3);
     const originPage = routeOrigins().includes(cat.destOcc);
     out.push({
-      q: `Can I get a ${occTl} job from an adjacent career?`,
+      q: `Can I get ${article(occTl)} ${occTl} job from an adjacent career?`,
       text: `Measurably, yes. The closest measured pivots in: ${tops.map(({ r, om }) => `${om.title.toLowerCase()} (${r!.match}% skill readiness)`).join(', ')}. Each route page lists exactly which skills carry over and which are missing, read from live postings.`,
       jsx: <>Measurably, yes. The closest measured pivots in: {tops.map(({ slug, r, om }, i) => (<span key={slug}>{i > 0 ? ', ' : ''}<Link className="gl" href={`/routes/${slug}`}>{om.title.toLowerCase()}</Link> ({r!.match}% skill readiness)</span>))}. Each route page lists exactly which skills carry over and which are missing.{originPage && <>{' '}Moving out instead: <Link className="gl" href={`/routes/${cat.destOcc}`}>{pickAnchor(originAnchors(occTitle(cat.destOcc)), cat.destOcc, 1).toLowerCase()}</Link>.</>}</>,
     });
   } else if (cat.destOcc && routeOrigins().includes(cat.destOcc)) {
     const occTl = occTitle(cat.destOcc).toLowerCase();
     out.push({
-      q: `What careers can a ${occTl} move into?`,
+      q: `What careers can ${article(occTl)} ${occTl} move into?`,
       text: `Every measured route out of ${occTl}, ranked by skill readiness with the salary and license gate for each, lives on one page: pivothop.com/routes/${cat.destOcc}.`,
       jsx: <>Every measured route out of {occTl}, ranked by skill readiness with the salary and license gate for each: <Link className="gl" href={`/routes/${cat.destOcc}`}>{pickAnchor(originAnchors(occTitle(cat.destOcc)), cat.destOcc).toLowerCase()}</Link>.</>,
     });

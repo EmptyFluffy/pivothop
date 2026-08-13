@@ -89,7 +89,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         </nav>
         <h1 className="rt-h1">{f.title} salary</h1>
         <p className="rt-dek">
-          {`What a ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live job postings blended with the official US `}
+          {`What ${article(f.title)} ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live job postings blended with the official US `}
           <a className="gl" href="/glossary#oews">OEWS</a>
           {` (Occupational Employment and Wage Statistics) wage anchor. Pick a market for its median and range, then read the seniority split, the trend, and the country comparison below. Updated ${f.updated}.`}
         </p>

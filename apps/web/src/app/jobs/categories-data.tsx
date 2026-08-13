@@ -4,6 +4,7 @@ import type { Job } from './JobCard';
 import { occField, occTitle, jobOccupations } from './jobs-data';
 import { countryName } from './countries';
 import { regionOf, regionInName, regionName, regionSlug, type RegionKey } from './regions';
+import { article } from '../../lib/site';
 
 /* Programmatic category pages — the filter/tag axis of the board (the RemoteOK
    move: every tag, and every sensible tag pair, becomes a preloaded, indexed
@@ -240,7 +241,7 @@ export function categoryBlurb(c: Category): string {
     case 'remote':
       return `${n} live fully-remote roles across every field, freshest first. Each is tagged to the skills that reach it and links out to apply at the source.`;
     case 'field':
-      return `${n} live ${c.searchTitle} openings from company career pages and public boards, freshest first${rem}. The roles a ${c.searchTitle} background reaches — each links out to apply at the origin.`;
+      return `${n} live ${c.searchTitle} openings from company career pages and public boards, freshest first${rem}. The roles ${article(c.searchTitle)} ${c.searchTitle} background reaches — each links out to apply at the origin.`;
     case 'country':
       return `${n} live openings in ${c.searchTitle}, from company career pages and public-sector boards, freshest first${rem}. Apply at the original posting.`;
     case 'region':

@@ -15,11 +15,15 @@ import type { Job } from '../jobs/JobCard';
 export const metadata: Metadata = {
   title: 'The Adjacency Index: career mobility, in numbers',
   description:
-    'Headline figures from the PivotHop corpus of 100,000+ live job postings: how AI-exposed each field is, how much skill sets overlap between careers, which jobs are most transferable, and the pay behind every route. Computed, dated, and citable — nothing invented.',
+    'Headline figures from the PivotHop corpus of 150,418 job postings read: how AI-exposed each field is, how much skill sets overlap between careers, which jobs are most transferable, and the pay behind every route. Computed, dated, and citable — nothing invented.',
   alternates: { canonical: '/adjacency-index' },
 };
 
 const DATA_RUN = 'July 2026'; // the corpus run behind the analytical findings
+// Postings read to date (wc -l apps/scraper/data/postings.ndjson). The live board
+// in all-jobs.json is the fresh slice of this; the two are different measures and
+// the page must never blur them.
+const CORPUS_READ = 150418;
 
 // Analytical findings — the citable core. Same numbers the blog posts publish.
 // Each is one quotable sentence + the page that proves it.
@@ -28,7 +32,7 @@ const SECTIONS: { h: string; stats: Stat[] }[] = [
   {
     h: 'Scale',
     stats: [
-      { big: '100,000+', unit: 'live postings', sentence: 'The corpus reads more than 100,000 live job postings and maps them onto 177 standardized occupations, refreshed nightly.', href: '/blog/skills-over-titles', hrefLabel: 'Job titles, deprecated' },
+      { big: '150,418', unit: 'postings read', sentence: 'The corpus is every posting read to date, 150,418 of them, mapped onto 177 standardized occupations. The live board carries the freshest slice, refreshed nightly.', href: '/blog/skills-over-titles', hrefLabel: 'Job titles, deprecated' },
       { big: '42,254', unit: 'unmapped title strings', sentence: 'In a single month, 42,254 distinct job-title strings mapped to no standard occupation at all — titles fragment while the skill demand under them clusters.', href: '/blog/skills-over-titles', hrefLabel: 'the thesis' },
     ],
   },
@@ -89,7 +93,7 @@ export default function AdjacencyIndex() {
       '@context': 'https://schema.org',
       '@type': 'Dataset',
       name: 'The PivotHop Adjacency Index',
-      description: 'Headline measures of career mobility computed from 100,000+ live job postings: AI-skill exposure by field, occupation-to-occupation skill-readiness, transferability, posted salary bands, and licensing gates. Refreshed nightly.',
+      description: 'Headline measures of career mobility computed from 150,418 job postings read: AI-skill exposure by field, occupation-to-occupation skill-readiness, transferability, posted salary bands, and licensing gates. Refreshed nightly.',
       url: 'https://www.pivothop.com/adjacency-index',
       creator: { '@type': 'Organization', name: 'PivotHop', url: 'https://www.pivothop.com' },
       isAccessibleForFree: true,
@@ -118,7 +122,7 @@ export default function AdjacencyIndex() {
           <span className="lbl acc">The Adjacency Index</span>
           <h1 className="rt-h1">The job market, in numbers.</h1>
           <p className="rt-dek">
-            {`Every figure below is computed from the PivotHop corpus — ${s.listings.toLocaleString()} live listings from ${s.companies.toLocaleString()} companies across ${s.countries} countries, mapped onto standardized occupations and refreshed nightly. Data as of ${asOf}. Nothing here is invented; each number links to the page that proves it.`}
+            {`The findings below are computed from every posting PivotHop has read, ${CORPUS_READ.toLocaleString()} of them, mapped onto standardized occupations. The live board is the freshest slice of that: ${s.listings.toLocaleString()} listings open right now from ${s.companies.toLocaleString()} companies across ${s.countries} countries, refreshed nightly. Data as of ${asOf}. Nothing here is invented; each number links to the page that proves it.`}
           </p>
         </header>
 

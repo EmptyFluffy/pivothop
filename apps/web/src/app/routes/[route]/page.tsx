@@ -11,6 +11,7 @@ import { jobCount } from '../../jobs/jobs-data';
 import JobsList from '../../jobs/JobsList';
 import RouteInstrument from '../RouteInstrument';
 import { pickAnchor } from '../../../lib/site';
+import { article } from '../../../lib/site';
 
 /* One slug space, two kinds of page:
    - "architect-to-interior-designer" (has "-to-")  -> the route page
@@ -265,7 +266,7 @@ function OriginPage({ origin }: { origin: string }) {
   if (all.length >= 3 && om.field) {
     findings.push(
       sameField === 0
-        ? `Every measured route leaves ${om.field.toLowerCase()}. There is no adjacent move that keeps a ${ol} inside the same field, which makes this a field change rather than a step sideways.`
+        ? `Every measured route leaves ${om.field.toLowerCase()}. There is no adjacent move that keeps ${article(ol)} ${ol} inside the same field, which makes this a field change rather than a step sideways.`
         : outField === 0
           ? `All ${all.length} routes stay inside ${om.field.toLowerCase()}. The skills that transfer are the ones this field already trains, so none of these moves means starting over.`
           : V([
@@ -328,7 +329,7 @@ function OriginPage({ origin }: { origin: string }) {
 
   const faq = [
     { q: `What are the best alternative careers for ${ol}s?`, a: `Ranked by measured skill readiness from live postings, the closest moves are ${rows.slice(0, 3).map((x) => `${x.r.title.toLowerCase()} (${x.r.match}%)`).join(', ')}. Readiness is the share of the destination's posted skill demand a typical ${ol} profile already covers.` },
-    { q: `How many careers can a ${ol} actually reach?`, a: `We measure ${rows.length} routes out of ${ol} with real skill overlap, from ${om.postings.toLocaleString()} live postings. Most occupation pairs share almost no skills, so a ranked list of ${rows.length} is the honest count, not a limitation.${gated ? ` ${gated} of them are licensed professions where a credential, not the skill gap, sets the timeline.` : ''}` },
+    { q: `How many careers can ${article(ol)} ${ol} actually reach?`, a: `We measure ${rows.length} routes out of ${ol} with real skill overlap, from ${om.postings.toLocaleString()} live postings. Most occupation pairs share almost no skills, so a ranked list of ${rows.length} is the honest count, not a limitation.${gated ? ` ${gated} of them are licensed professions where a credential, not the skill gap, sets the timeline.` : ''}` },
     { q: `Do ${ol} skills transfer to other jobs?`, a: `Yes, measurably${top ? `: the closest destination, ${top.title.toLowerCase()}, is ${top.match}% covered by a typical ${ol} profile before any retraining` : ''}. Each route page lists exactly which skills carry and which are missing, read from the destination's own postings.` },
   ];
 
@@ -343,7 +344,7 @@ function OriginPage({ origin }: { origin: string }) {
           {V([
             `Every career change from ${ol} we can measure, ranked by skill readiness against ${om.postings.toLocaleString()} live postings. No quiz, no vibes: the salary, the transition estimate, and the license gate for each route.`,
             `${rows.length} measured moves out of ${ol}, scored against ${om.postings.toLocaleString()} live postings and ranked by how much of each destination a typical profile already covers. Salary, timeline, and licence gate attached to every one.`,
-            `What a ${ol} can move into, measured rather than suggested: ${rows.length} destinations read from ${om.postings.toLocaleString()} live postings, each with its pay band, its realistic timeline, and whether a credential stands in the way.`,
+            `What ${article(ol)} ${ol} can move into, measured rather than suggested: ${rows.length} destinations read from ${om.postings.toLocaleString()} live postings, each with its pay band, its realistic timeline, and whether a credential stands in the way.`,
           ])}
           {om.separations?.transfer != null ? ` In a typical year ${om.separations.transfer}% of ${ol}s move to a different occupation.` : ''}
         </p>
@@ -360,8 +361,8 @@ function OriginPage({ origin }: { origin: string }) {
           <h2>The routes, ranked</h2>
           <p className="rt-note">{V2([
             `Readiness is the share of the destination's posted skill demand a typical ${ol} profile already covers. Click through for the full skill map, the gap, and the evidence checklist.`,
-            `Each percentage is how much of that role's posted demand a ${ol} profile covers before retraining. The route pages break it down skill by skill.`,
-            `The number is coverage, not a guess: what share of the destination's own postings a ${ol} already answers. Open a route for the full gap.`,
+            `Each percentage is how much of that role's posted demand ${article(ol)} ${ol} profile covers before retraining. The route pages break it down skill by skill.`,
+            `The number is coverage, not a guess: what share of the destination's own postings ${article(ol)} ${ol} already answers. Open a route for the full gap.`,
           ])}</p>
           <ul className="rt-rel">
             {rows.map(({ slug, r }) => (

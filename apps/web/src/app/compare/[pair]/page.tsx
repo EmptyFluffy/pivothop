@@ -6,6 +6,7 @@ import { getPair, compareSlugs, relatedPairs, fmtBand, mid, pairVerdict, type Co
 import { occTitle, occField, jobCount } from '../../jobs/jobs-data';
 import { coverableSlugs } from '../../salary/salary-data';
 import { routePair, routeOrigins } from '../../routes/routes-data';
+import { article } from '../../../lib/site';
 
 export function generateStaticParams() {
   return compareSlugs().map((pair) => ({ pair }));
@@ -77,11 +78,11 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
       a: `${Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0) >= 65 ? 'Close: the skill sets largely overlap in live postings, and the difference is mostly emphasis and title.' : Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0) >= 40 ? 'Related but distinct: postings share a real core and then diverge.' : 'No — despite the similar names, their postings demand mostly different skills.'}${shared.length ? ` Skills both sets of postings ask for: ${shared.slice(0, 5).join(', ')}.` : ''}`,
     },
     ...(p.ab ? [{
-      q: `Can a ${lA} become a ${lB}?`,
+      q: `Can ${article(lA)} ${lA} become ${article(lB)} ${lB}?`,
       a: `Skill readiness is ${p.ab.match} percent: that share of what ${lB} postings demand, a typical ${lA} profile already covers.${p.ab.license ? ` Note the credential gate: ${p.ab.license.label.toLowerCase()}.` : ''}${p.ab.time ? ` Estimated transition: ${p.ab.time}.` : ''}`,
     }] : []),
     ...(p.ba ? [{
-      q: `Can a ${lB} become a ${lA}?`,
+      q: `Can ${article(lB)} ${lB} become ${article(lA)} ${lA}?`,
       a: `Skill readiness is ${p.ba.match} percent in this direction.${p.ba.license ? ` Note the credential gate: ${p.ba.license.label.toLowerCase()}.` : ''}${p.ba.time ? ` Estimated transition: ${p.ba.time}.` : ''}${asym ? ` The asymmetry is the finding: ${asym.from.toLowerCase()} to ${asym.to.toLowerCase()} is the easier direction (${asym.hi}% vs ${asym.lo}%).` : ''}`,
     }] : []),
   ];
