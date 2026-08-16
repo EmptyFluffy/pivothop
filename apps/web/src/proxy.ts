@@ -8,7 +8,7 @@ import type { NextRequest } from 'next/server';
       resends them on every /admin request, so the review console and its server
       actions are both covered.
 
-   2. Swiss visitor detection (docs/32: SUGGEST, NEVER FORCE). Vercel stamps
+   2. Visitor country (docs/32: SUGGEST, NEVER FORCE). Vercel stamps
       x-vercel-ip-country on every request; a CH visitor gets a 30-day cookie
       and a client component offers the Swiss board once, dismissibly. No
       redirect, ever: Google crawls from the US and a forced redirect would
@@ -34,8 +34,16 @@ export default function proxy(req: NextRequest) {
   }
 
   const res = NextResponse.next();
-  if (req.headers.get('x-vercel-ip-country') === 'CH' && !req.cookies.get('ph-ch')) {
+  const cc = req.headers.get('x-vercel-ip-country') || '';
+  if (cc === 'CH' && !req.cookies.get('ph-ch')) {
     res.cookies.set('ph-ch', '1', { maxAge: 60 * 60 * 24 * 30, path: '/', sameSite: 'lax' });
+  }
+  // The same courtesy for everyone else. A board sorted by date alone shows a
+  // US nurse 390 Swiss listings first, because that is where the supply is.
+  // Two letters, readable by the client, never used to redirect or to vary the
+  // prerendered HTML.
+  if (/^[A-Z]{2}$/.test(cc) && req.cookies.get('ph-cc')?.value !== cc) {
+    res.cookies.set('ph-cc', cc, { maxAge: 60 * 60 * 24 * 30, path: '/', sameSite: 'lax' });
   }
   return res;
 }

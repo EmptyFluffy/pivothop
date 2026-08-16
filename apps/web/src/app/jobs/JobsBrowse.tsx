@@ -51,6 +51,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   allRef.current = all;
 
   const set = (patch: Partial<Filters>) => setF((prev) => ({ ...prev, ...patch }));
+  // Visitor country, from the proxy's ph-cc cookie. Read client-side only, so
+  // the prerendered HTML stays byte-identical for crawlers (docs/32).
+  const [geoCC, setGeoCC] = useState('');
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const m = document.cookie.match(/(?:^|; )ph-cc=([A-Z]{2})/);
+    if (m && !localStorage.getItem('ph-cc-dismissed')) setGeoCC(m[1]);
+  }, []);
 
   // Load the corpus once, and read any shared filter state from the URL.
   useEffect(() => {
@@ -305,9 +313,29 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         <span className="lbl jb-count">{all === null ? 'loading' : `${results.length.toLocaleString()} roles`}</span>
         {scope && <Link href={scope.showAllHref ?? '/jobs'} className="jb-showall">{scope.showAllLabel ?? 'Show all jobs'}</Link>}
       </div>
+      {geoCC && !f.ctySet.size && !f.region && (() => {
+        const mine = countries.find((c) => c.code === geoCC);
+        if (!mine || mine.n < 3 || mine.n === (all?.length ?? 0)) return null;
+        return (
+          /* Supply skews to wherever the sources are richest, which is rarely
+             where the reader is standing. Offer their country; never apply it. */
+          <div className="jb-active jb-geo-row">
+            <button type="button" className="jb-pill jb-pill-geo" onClick={() => set({ ctySet: new Set([geoCC]) })}>
+              Show {mine.n.toLocaleString()} in {countryName(geoCC)}
+            </button>
+            <button
+              type="button"
+              className="jb-geo-x"
+              aria-label="Dismiss country suggestion"
+              onClick={() => { localStorage.setItem('ph-cc-dismissed', '1'); setGeoCC(''); }}
+            >&times;</button>
+          </div>
+        );
+      })()}
       {!pristine && (
         <div className="jb-active" aria-label="Active filters">
           {needle && <button type="button" className="jb-pill" onClick={() => { setQ(''); setNeedle(''); }}>&ldquo;{needle}&rdquo;<span className="jb-x">&times;</span></button>}
+
           {f.skillSet.size > 0 && (
             /* one pill for the whole skill selection: the list can be long, and
                the sheet is where individual skills are managed */

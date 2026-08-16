@@ -1597,6 +1597,15 @@ input:focus-visible{outline:none}
 /* Fills black on hover like every other pill on the site (search chips, the
    "Opens paths to" role chips). It used to only tint its border and text to the
    accent, which read as a different kind of control than it is. */
+/* The country suggestion pill: an offer, not a filter already applied. Outlined
+   in the accent so it reads as actionable rather than as an active filter. */
+.jb-pill-geo{border-color:var(--accent);color:var(--accent)}
+.jb-geo-row{display:flex;align-items:center;gap:8px}
+.jb-geo-x{background:none;border:0;color:var(--ink-dim);font-size:18px;line-height:1;cursor:pointer;padding:2px 6px}
+.jb-geo-x:hover{color:var(--ink)}
+.jb-pill-geo:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.jb-pill-geo .jb-x{opacity:.7}
+
 a.jd-skill{text-decoration:none;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
 a.jd-skill:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 a.jd-skill:hover svg{color:var(--paper)}
