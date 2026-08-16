@@ -5,6 +5,7 @@ import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
 import { countryName } from './countries';
+import { useRouter } from 'next/navigation';
 import { regionOf, REGION_META, type RegionKey } from './regions';
 
 /* The global board: one search over every listing, and one filter sheet
@@ -54,6 +55,60 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   // Visitor country, from the proxy's ph-cc cookie. Read client-side only, so
   // the prerendered HTML stays byte-identical for crawlers (docs/32).
   const [geoCC, setGeoCC] = useState('');
+  // ---------- search typeahead (the landing instrument's pattern, docs/26) ----------
+  // Suggest occupations (with their live count on this board) and skills (which
+  // plug into the existing skillSet filter). Free-text search stays the default:
+  // suggestions are an offer, Enter without a highlight searches the words typed.
+  const [taOpen, setTaOpen] = useState(false);
+  const [taIdx, setTaIdx] = useState(-1);
+  const router = useRouter();
+  const occCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    if (all) for (const j of all) m.set(j.occ, (m.get(j.occ) ?? 0) + 1);
+    return m;
+  }, [all]);
+  const taItems = useMemo(() => {
+    const query = q.trim().toLowerCase();
+    if (query.length < 2) return [] as { kind: 'occ' | 'skill'; slug: string; label: string; sub: string; via?: string }[];
+    const wordStart = (text: string, needle: string) => text.split(/[\s/&,-]+/).some((w) => w.startsWith(needle));
+    // occupations: rank title word-starts first, then synonym hits from the
+    // expansion text; same ladder as the landing typeahead
+    const occs = Object.entries(titles)
+      .filter(([slug]) => slug !== scope?.occ)
+      .map(([slug, title]) => {
+        const t = title.toLowerCase();
+        let rank: number | null = null; let via: string | undefined;
+        if (t.startsWith(query)) rank = 0;
+        else if (wordStart(t, query)) rank = 1;
+        else {
+          const syn = (search[slug] ?? '').toLowerCase();
+          const hit = syn.replace(t, '').split(/[\s/&,-]+/).find((w) => w.length > 2 && w.startsWith(query));
+          if (hit) { rank = 2; via = hit; }        // show WHY it matched, or it reads as a bug
+          else if (t.includes(query)) rank = 3;
+        }
+        if (rank == null) return null;
+        const n = occCounts.get(slug) ?? 0;
+        if (!n) return null;                       // never suggest an empty board
+        return { slug, title, rank, n, via };
+      })
+      .filter((x): x is NonNullable<typeof x> => !!x)
+      .sort((a, b) => a.rank - b.rank || b.n - a.n)
+      .slice(0, 5)
+      .map((x) => ({ kind: 'occ' as const, slug: x.slug, label: x.title, sub: `${x.n.toLocaleString()} open`, via: x.via }));
+    // skills: word-start on the term; picking one applies the existing filter
+    const sk = (skills ?? [])
+      .filter((e) => !f.skillSet.has(e.slug) && (e.term.toLowerCase().startsWith(query) || wordStart(e.term.toLowerCase(), query)))
+      .sort((a, b) => (b.unlocks?.length ?? 0) - (a.unlocks?.length ?? 0))
+      .slice(0, 4)
+      .map((e) => ({ kind: 'skill' as const, slug: e.slug, label: e.term, sub: `skill \u00b7 reaches ${e.unlocks?.length ?? 0} occupations`, via: undefined as string | undefined }));
+    return [...occs, ...sk];
+  }, [q, titles, search, occCounts, skills, f.skillSet, scope]);
+  const pickTa = (item: { kind: 'occ' | 'skill'; slug: string }) => {
+    setTaOpen(false); setTaIdx(-1);
+    if (item.kind === 'occ') { router.push(`/jobs/${item.slug}`); return; }
+    setQ(''); setNeedle('');
+    set({ skillSet: new Set([...f.skillSet, item.slug]) });
+  };
   useEffect(() => {
     if (typeof document === 'undefined') return;
     const m = document.cookie.match(/(?:^|; )ph-cc=([A-Z]{2})/);
@@ -301,11 +356,44 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           className="jb-search"
           type="search"
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={(e) => { setQ(e.target.value); setTaOpen(true); setTaIdx(-1); }}
+          onFocus={() => setTaOpen(true)}
+          onBlur={() => setTimeout(() => setTaOpen(false), 140)}
+          onKeyDown={(e) => {
+            if (!taOpen || !taItems.length) return;
+            if (e.key === 'ArrowDown') { e.preventDefault(); setTaIdx((i) => (i + 1) % taItems.length); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); setTaIdx((i) => (i - 1 + taItems.length) % taItems.length); }
+            else if (e.key === 'Enter' && taIdx >= 0) { e.preventDefault(); pickTa(taItems[taIdx]); }
+            else if (e.key === 'Escape') { setTaOpen(false); setTaIdx(-1); }
+          }}
           placeholder={scope ? `Search ${scope.title.toLowerCase()} roles` : 'Role, company, place, or skillset'}
           aria-label={scope ? `Search ${scope.title} listings` : 'Search all listings'}
+          aria-expanded={taOpen && taItems.length > 0}
+          aria-autocomplete="list"
+          role="combobox"
           autoComplete="off"
         />
+        {taOpen && taItems.length > 0 && (
+          <div className="jb-ta" role="listbox" aria-label="Search suggestions">
+            {taItems.map((it, i) => (
+              <button
+                key={`${it.kind}:${it.slug}`}
+                type="button"
+                role="option"
+                aria-selected={i === taIdx}
+                className={`jb-ta-item${i === taIdx ? ' hi' : ''}`}
+                onMouseDown={(e) => { e.preventDefault(); pickTa(it); }}
+                onMouseEnter={() => setTaIdx(i)}
+              >
+                <span className="jb-ta-label">
+                  {it.via && <span className="jb-ta-via lbl">{it.via} &rarr; </span>}
+                  {it.kind === 'skill' ? `+ ${it.label}` : it.label}
+                </span>
+                <span className="jb-ta-sub lbl">{it.sub}</span>
+              </button>
+            ))}
+          </div>
+        )}
         <button type="button" className={`jb-fltbtn${activeCount ? ' on' : ''}`} onClick={() => setSheetOpen(true)}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
           Filters{activeCount > 0 && <span className="jb-fltn">{activeCount}</span>}
