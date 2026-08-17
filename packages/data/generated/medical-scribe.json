@@ -5,11 +5,11 @@
     "title": "Medical Scribe",
     "field": "Healthcare",
     "cluster": "Healthcare",
-    "postings": 87,
+    "postings": 90,
     "salary": "$35k–$50k",
     "salary_band": [
-      34680,
-      49920
+      34656,
+      49400
     ],
     "remote": "2%",
     "separations": {
@@ -31,8 +31,8 @@
         "label": "Certification (CMA/RMA) commonly expected; varies by state"
       },
       "desc": "",
-      "match": 34,
-      "fit": 34,
+      "match": 35,
+      "fit": 35,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -40,8 +40,8 @@
       "mobility_tier": null,
       "salary": "$45k–$60k",
       "salary_band": [
-        43157,
-        58635
+        44105,
+        57909
       ],
       "demand": "High",
       "remote": "1%",
@@ -49,20 +49,20 @@
       "have": [
         "Patient Care",
         "Scheduling",
-        "Clinical Skills",
-        "EHR / EMR"
+        "EHR / EMR",
+        "Clinical Skills"
       ],
       "learn": [
         "Brewing",
-        "Customer Service",
+        "Treatment Planning",
         "CPR / BLS",
-        "Treatment Planning"
+        "Customer Service"
       ],
       "waterfall": [
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 30.5,
+          "pts": 28.2,
           "earned": 0
         },
         {
@@ -74,8 +74,20 @@
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 6.8,
-          "earned": 3.7
+          "pts": 7.1,
+          "earned": 3.5
+        },
+        {
+          "skill": "treatment-planning",
+          "name": "Treatment Planning",
+          "pts": 6.4,
+          "earned": 0
+        },
+        {
+          "skill": "cpr-bls",
+          "name": "CPR / BLS",
+          "pts": 6,
+          "earned": 0
         },
         {
           "skill": "customer-service",
@@ -84,39 +96,27 @@
           "earned": 0
         },
         {
-          "skill": "cpr-bls",
-          "name": "CPR / BLS",
-          "pts": 5.7,
-          "earned": 0
-        },
-        {
-          "skill": "treatment-planning",
-          "name": "Treatment Planning",
-          "pts": 5.6,
-          "earned": 0
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 5.8,
+          "earned": 5.8
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 5,
-          "earned": 5
-        },
-        {
-          "skill": "ehr",
-          "name": "EHR / EMR",
           "pts": 4.7,
-          "earned": 4.7
+          "earned": 4.6
         },
         {
           "skill": "medical-terminology",
           "name": "Medical Terminology",
-          "pts": 4.2,
-          "earned": 3.7
+          "pts": 4.4,
+          "earned": 3.5
         },
         {
           "skill": "vital-signs",
           "name": "Vital Signs",
-          "pts": 4,
+          "pts": 4.4,
           "earned": 0
         },
         {
@@ -128,27 +128,27 @@
         {
           "skill": "triage",
           "name": "Triage",
-          "pts": 2.6,
+          "pts": 2.5,
           "earned": 0
         },
         {
           "skill": "rehabilitation",
           "name": "Rehabilitation",
-          "pts": 2.4,
+          "pts": 2.3,
           "earned": 0
         },
         {
           "skill": "infection-control",
           "name": "Infection Control",
-          "pts": 2.2,
+          "pts": 2.3,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 778,
-        "salaried": 193
+        "postings": 852,
+        "salaried": 207
       }
     },
     {
@@ -163,20 +163,20 @@
         "years": 4
       },
       "desc": "",
-      "match": 32,
-      "fit": 32,
+      "match": 35,
+      "fit": 35,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$70k–$150k",
+      "salary": "$70k–$145k",
       "salary_band": [
-        71526,
-        148910
+        72204,
+        146039
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "3%",
       "time": "4+ yr incl. license",
       "have": [
         "Patient Care",
@@ -187,212 +187,87 @@
         "Medication Administration",
         "Case Management",
         "Customer Service",
-        "Treatment Planning"
+        "Health Education"
       ],
       "waterfall": [
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 23.1,
-          "earned": 23.1
+          "pts": 25.7,
+          "earned": 25.7
         },
         {
           "skill": "medication-administration",
           "name": "Medication Administration",
-          "pts": 11,
+          "pts": 11.9,
           "earned": 0
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 10.4,
+          "pts": 10,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 9.1,
+          "pts": 10,
           "earned": 0
         },
         {
-          "skill": "treatment-planning",
-          "name": "Treatment Planning",
-          "pts": 6.8,
+          "skill": "health-education",
+          "name": "Health Education",
+          "pts": 7.8,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 6.2,
-          "earned": 0
-        },
-        {
-          "skill": "clinical",
-          "name": "Clinical Skills",
-          "pts": 5.5,
-          "earned": 5.5
-        },
-        {
-          "skill": "qa-testing",
-          "name": "QA / Testing",
-          "pts": 4.6,
-          "earned": 0
-        },
-        {
-          "skill": "health-education",
-          "name": "Health Education",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 3.6,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 3.6,
-          "earned": 3.6
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "telehealth",
-          "name": "Telehealth",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "clinical-research",
-          "name": "Clinical Research",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 2.9,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 448,
-        "salaried": 213
-      }
-    },
-    {
-      "id": "dental-hygienist",
-      "title": "Dental Hygienist",
-      "field": "Healthcare",
-      "cluster": "Healthcare",
-      "kind": "lateral",
-      "license": {
-        "req": "required",
-        "label": "State RDH license; accredited dental-hygiene associate degree (~3 yrs)",
-        "years": 3
-      },
-      "desc": "Cleans teeth, takes radiographs, and screens for oral disease alongside a dentist. A licensed clinical profession, one tier above dental assisting.",
-      "match": 32,
-      "fit": 32,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$70k–$100k",
-      "salary_band": [
-        72023,
-        99416
-      ],
-      "demand": "Moderate",
-      "remote": "0%",
-      "time": "3+ yr incl. license",
-      "have": [
-        "Patient Care",
-        "EHR / EMR",
-        "Scheduling"
-      ],
-      "learn": [
-        "Radiography",
-        "Periodontal Care",
-        "Health Education",
-        "Treatment Planning"
-      ],
-      "waterfall": [
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 31.3,
-          "earned": 25.2
-        },
-        {
-          "skill": "radiography",
-          "name": "Radiography",
-          "pts": 19.9,
-          "earned": 0
-        },
-        {
-          "skill": "periodontal-care",
-          "name": "Periodontal Care",
-          "pts": 12.6,
-          "earned": 0
-        },
-        {
-          "skill": "health-education",
-          "name": "Health Education",
-          "pts": 9,
+          "pts": 7.5,
           "earned": 0
         },
         {
           "skill": "treatment-planning",
           "name": "Treatment Planning",
-          "pts": 7.2,
-          "earned": 0
-        },
-        {
-          "skill": "teaching",
-          "name": "Teaching",
           "pts": 6,
           "earned": 0
         },
         {
-          "skill": "infection-control",
-          "name": "Infection Control",
-          "pts": 4.2,
-          "earned": 0
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 5.3,
+          "earned": 5.3
         },
         {
-          "skill": "ehr",
-          "name": "EHR / EMR",
-          "pts": 3.6,
-          "earned": 3.6
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 3,
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 3,
-          "earned": 3
+          "pts": 4.1,
+          "earned": 4.1
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.4,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 243,
-        "salaried": 160
+        "postings": 529,
+        "salaried": 220
       }
     },
     {
@@ -407,17 +282,17 @@
         "years": 7
       },
       "desc": "Diagnoses and treats illness across a specialty, from primary care to surgery. Long training and licensure gate the role.",
-      "match": 29,
-      "fit": 29,
+      "match": 28,
+      "fit": 28,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$80k–$295k",
+      "salary": "$85k–$300k",
       "salary_band": [
-        80878,
-        292500
+        86038,
+        300704
       ],
       "demand": "High",
       "remote": "2%",
@@ -438,38 +313,38 @@
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 33.1,
+          "pts": 33.7,
           "earned": 0
         },
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 17,
-          "earned": 17
+          "pts": 16.8,
+          "earned": 16.8
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 15.4,
+          "pts": 15.2,
           "earned": 0
         },
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 7.2,
+          "pts": 7.1,
+          "earned": 0
+        },
+        {
+          "skill": "treatment-planning",
+          "name": "Treatment Planning",
+          "pts": 4.9,
           "earned": 0
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 4.9,
-          "earned": 4.9
-        },
-        {
-          "skill": "treatment-planning",
-          "name": "Treatment Planning",
           "pts": 4.8,
-          "earned": 0
+          "earned": 4.8
         },
         {
           "skill": "case-management",
@@ -480,33 +355,33 @@
         {
           "skill": "ehr",
           "name": "EHR / EMR",
-          "pts": 3.8,
-          "earned": 3.8
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 3.4,
-          "earned": 3.4
+          "pts": 3.7,
+          "earned": 3.7
         },
         {
           "skill": "telehealth",
           "name": "Telehealth",
-          "pts": 3.3,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "mental-health",
           "name": "Mental Health",
-          "pts": 3.2,
+          "pts": 3.1,
           "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.1,
+          "earned": 3.1
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2983,
-        "salaried": 709
+        "postings": 3380,
+        "salaried": 706
       }
     },
     {
@@ -517,24 +392,24 @@
       "kind": "lateral",
       "license": null,
       "desc": "Runs the heart-lung machine that keeps a patient alive during cardiac surgery. A small field with high stakes and specialized training.",
-      "match": 25,
-      "fit": 25,
+      "match": 24,
+      "fit": 24,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$85k–$135k",
+      "salary": "$95k–$205k",
       "salary_band": [
-        85021,
-        137208
+        95666,
+        206014
       ],
       "demand": "Moderate",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
-        "Patient Care",
         "Scheduling",
+        "Patient Care",
         "Clinical Skills"
       ],
       "learn": [
@@ -545,39 +420,39 @@
         {
           "skill": "perfusion",
           "name": "Perfusion",
-          "pts": 58.1,
+          "pts": 57.4,
           "earned": 0
-        },
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 12.8,
-          "earned": 12.8
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 12.8,
-          "earned": 5.1
+          "pts": 13.9,
+          "earned": 5.2
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 11.9,
+          "earned": 11.9
         },
         {
           "skill": "cpr-bls",
           "name": "CPR / BLS",
-          "pts": 9.3,
+          "pts": 8.9,
           "earned": 0
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 7,
-          "earned": 6.8
+          "pts": 7.9,
+          "earned": 6.9
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 128,
-        "salaried": 99
+        "postings": 158,
+        "salaried": 76
       }
     },
     {
@@ -591,17 +466,17 @@
         "label": "State APRN license + national certification required"
       },
       "desc": "",
-      "match": 23,
-      "fit": 23,
+      "match": 21,
+      "fit": 21,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$75k–$145k",
+      "salary": "$80k–$145k",
       "salary_band": [
-        77198,
-        142802
+        80983,
+        146049
       ],
       "demand": "High",
       "remote": "3%",
@@ -609,8 +484,7 @@
       "have": [
         "Patient Care",
         "Clinical Skills",
-        "Scheduling",
-        "EHR / EMR"
+        "Scheduling"
       ],
       "learn": [
         "Brewing",
@@ -622,55 +496,55 @@
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 30.4,
+          "pts": 31.8,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 21,
+          "pts": 20.9,
           "earned": 0
         },
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 11.7,
-          "earned": 11.7
-        },
-        {
-          "skill": "clinical",
-          "name": "Clinical Skills",
-          "pts": 5.6,
-          "earned": 5.6
+          "pts": 12.1,
+          "earned": 12.1
         },
         {
           "skill": "health-education",
           "name": "Health Education",
-          "pts": 5.3,
+          "pts": 5.7,
           "earned": 0
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 5.5,
+          "earned": 5.5
         },
         {
           "skill": "mental-health",
           "name": "Mental Health",
-          "pts": 4.4,
+          "pts": 4.5,
           "earned": 0
         },
         {
           "skill": "telehealth",
           "name": "Telehealth",
-          "pts": 4.4,
+          "pts": 4.5,
           "earned": 0
         },
         {
           "skill": "treatment-planning",
           "name": "Treatment Planning",
-          "pts": 4.2,
+          "pts": 4.5,
           "earned": 0
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 3.7,
+          "pts": 3.8,
           "earned": 0
         },
         {
@@ -684,19 +558,13 @@
           "name": "Scheduling",
           "pts": 3.2,
           "earned": 3.2
-        },
-        {
-          "skill": "ehr",
-          "name": "EHR / EMR",
-          "pts": 2.6,
-          "earned": 2.6
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1063,
-        "salaried": 276
+        "postings": 1219,
+        "salaried": 257
       }
     },
     {
@@ -711,8 +579,8 @@
         "years": 3
       },
       "desc": "",
-      "match": 15,
-      "fit": 15,
+      "match": 14,
+      "fit": 14,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -720,17 +588,17 @@
       "mobility_tier": null,
       "salary": "$75k–$105k",
       "salary_band": [
-        74943,
+        75000,
         102935
       ],
       "demand": "Moderate",
-      "remote": "19%",
+      "remote": "20%",
       "time": "3+ yr incl. license",
       "have": [
         "EHR / EMR",
         "Clinical Skills",
-        "Patient Care",
-        "Scheduling"
+        "Scheduling",
+        "Patient Care"
       ],
       "learn": [
         "Mental Health",
@@ -742,13 +610,13 @@
         {
           "skill": "mental-health",
           "name": "Mental Health",
-          "pts": 24.8,
+          "pts": 24.4,
           "earned": 0
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 13.8,
+          "pts": 13.9,
           "earned": 0
         },
         {
@@ -760,86 +628,86 @@
         {
           "skill": "treatment-planning",
           "name": "Treatment Planning",
-          "pts": 7.2,
+          "pts": 7.7,
           "earned": 0
         },
         {
           "skill": "ehr",
           "name": "EHR / EMR",
-          "pts": 5.8,
-          "earned": 5.8
+          "pts": 5.7,
+          "earned": 5.7
         },
         {
           "skill": "dbt",
           "name": "dbt",
-          "pts": 5.3,
+          "pts": 5.7,
           "earned": 0
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 4.8,
-          "earned": 1.4
-        },
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 4,
-          "earned": 4
+          "pts": 5.1,
+          "earned": 1.3
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 4,
+          "pts": 4.1,
+          "earned": 1
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "clinical-documentation",
+          "name": "Clinical Documentation",
+          "pts": 3.4,
           "earned": 1
         },
         {
           "skill": "hr-operations",
           "name": "HR Operations",
-          "pts": 3.5,
+          "pts": 3.4,
           "earned": 0
-        },
-        {
-          "skill": "clinical-documentation",
-          "name": "Clinical Documentation",
-          "pts": 3.2,
-          "earned": 1
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 3.2,
+          "pts": 3.1,
           "earned": 0
         },
         {
           "skill": "rendering",
           "name": "Rendering",
-          "pts": 2.2,
+          "pts": 2,
           "earned": 0
         },
         {
           "skill": "design-systems",
           "name": "Design Systems",
-          "pts": 1.9,
+          "pts": 1.8,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 1.4,
+          "pts": 1.6,
           "earned": 0
         },
         {
           "skill": "risk-management",
           "name": "Risk Management",
-          "pts": 1.1,
+          "pts": 1,
           "earned": 0
         },
         {
           "skill": "translation",
           "name": "Translation",
-          "pts": 1,
-          "earned": 1
+          "pts": 0.9,
+          "earned": 0.9
         },
         {
           "skill": "program-management",
@@ -848,23 +716,23 @@
           "earned": 0
         },
         {
-          "skill": "health-education",
-          "name": "Health Education",
+          "skill": "teaching",
+          "name": "Teaching",
           "pts": 0.6,
           "earned": 0
         },
         {
-          "skill": "hipaa",
-          "name": "HIPAA",
+          "skill": "health-education",
+          "name": "Health Education",
           "pts": 0.6,
-          "earned": 0.6
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 184,
-        "salaried": 90
+        "postings": 198,
+        "salaried": 96
       }
     },
     {
@@ -878,17 +746,17 @@
         "label": "State license required for clinical roles (LCSW)"
       },
       "desc": "",
-      "match": 15,
-      "fit": 15,
+      "match": 14,
+      "fit": 14,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$45k–$95k",
+      "salary": "$50k–$95k",
       "salary_band": [
-        47198,
-        97220
+        47857,
+        96156
       ],
       "demand": "High",
       "remote": "4%",
@@ -908,77 +776,192 @@
         {
           "skill": "mental-health",
           "name": "Mental Health",
-          "pts": 28.2,
+          "pts": 26.9,
           "earned": 0
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 25.8,
+          "pts": 25.3,
           "earned": 0
         },
         {
           "skill": "treatment-planning",
           "name": "Treatment Planning",
-          "pts": 12.5,
+          "pts": 12.4,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 9.1,
+          "pts": 8.7,
           "earned": 0
         },
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 7.4,
-          "earned": 7.4
-        },
-        {
-          "skill": "design-systems",
-          "name": "Design Systems",
-          "pts": 4.6,
-          "earned": 0
+          "pts": 7.1,
+          "earned": 7.1
         },
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 4.3,
+          "pts": 4.6,
+          "earned": 0
+        },
+        {
+          "skill": "design-systems",
+          "name": "Design Systems",
+          "pts": 4.2,
           "earned": 0
         },
         {
           "skill": "medical-terminology",
           "name": "Medical Terminology",
-          "pts": 4.2,
-          "earned": 4.2
+          "pts": 3.8,
+          "earned": 3.8
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 3.8,
-          "earned": 3.8
+          "pts": 3.6,
+          "earned": 3.6
+        },
+        {
+          "skill": "health-education",
+          "name": "Health Education",
+          "pts": 3.5,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1311,
-        "salaried": 508
+        "postings": 1475,
+        "salaried": 545
+      }
+    },
+    {
+      "id": "translator",
+      "title": "Translator",
+      "field": "Writing",
+      "cluster": "Media & Writing",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 13,
+      "fit": 13,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$30k–$50k",
+      "salary_band": [
+        31960,
+        50011
+      ],
+      "demand": "High",
+      "remote": "12%",
+      "time": "12–24 mo",
+      "have": [
+        "Translation",
+        "Medical Terminology",
+        "HIPAA",
+        "Scheduling"
+      ],
+      "learn": [
+        "Localization",
+        "Copywriting",
+        "Writing & Editing",
+        "Teaching"
+      ],
+      "waterfall": [
+        {
+          "skill": "translation",
+          "name": "Translation",
+          "pts": 63.4,
+          "earned": 6.5
+        },
+        {
+          "skill": "localization",
+          "name": "Localization",
+          "pts": 11.1,
+          "earned": 0
+        },
+        {
+          "skill": "copywriting",
+          "name": "Copywriting",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "technical-writing",
+          "name": "Technical Writing",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "compliance",
+          "name": "Compliance",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "medical-terminology",
+          "name": "Medical Terminology",
+          "pts": 2.4,
+          "earned": 2.4
+        },
+        {
+          "skill": "hipaa",
+          "name": "HIPAA",
+          "pts": 2.4,
+          "earned": 2.4
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 2.1,
+          "earned": 2.1
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 371,
+        "salaried": 134
       }
     }
   ],
   "next": {
     "medical-assistant": [],
     "pharmacist": [],
-    "dental-hygienist": [],
     "physician": [],
     "perfusionist": [],
     "nurse-practitioner": [],
     "therapist": [
       {
         "t": "Psychologist",
-        "m": 13,
+        "m": 12,
         "slug": "psychologist",
         "field": "Healthcare",
         "cluster": "Healthcare",
@@ -990,7 +973,7 @@
           "Supply Chain"
         ],
         "observed": null,
-        "fit": 13,
+        "fit": 12,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -999,47 +982,25 @@
         "reach": "bridged",
         "via": {
           "parent": "therapist",
-          "readiness_after": 71,
-          "gain": 58
+          "readiness_after": 73,
+          "gain": 61
         }
       }
     ],
-    "social-worker": []
+    "social-worker": [],
+    "translator": []
   },
-  "direct": [
-    {
-      "t": "Translator",
-      "m": 14,
-      "slug": "translator",
-      "field": "Writing",
-      "cluster": "Media & Writing",
-      "kind": "pivot",
-      "gap": [
-        "Localization",
-        "Copywriting",
-        "Writing & Editing",
-        "Compliance"
-      ],
-      "observed": null,
-      "fit": 14,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    }
-  ],
+  "direct": [],
   "cross": [
     [
       "therapist",
       "social-worker",
-      0.91
+      0.92
     ],
     [
       "physician",
       "nurse-practitioner",
-      0.89
+      0.86
     ],
     [
       "medical-assistant",
@@ -1059,14 +1020,14 @@
     [
       "physician",
       "therapist",
-      0.52
+      0.56
     ]
   ],
   "bridges": [
     [
       "social-worker",
       "therapist_0",
-      0.38
+      0.37
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
