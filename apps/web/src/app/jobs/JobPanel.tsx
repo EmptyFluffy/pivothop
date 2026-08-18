@@ -145,16 +145,11 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
 
       <div className="jpane-foot">
         {applyUrl && (
-          <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer">
+          <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer" title={`Opens the original posting at ${j.company}`}>
             Apply now <Arrow45 size={22} />
           </a>
         )}
-        <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`}>Full posting</Link>
-        <span className="jsheet-src lbl">
-          {applyUrl
-            ? `Apply opens the original posting at ${j.company}. Full posting adds routes into this role and similar listings.`
-            : 'The apply link lives on the full posting page.'}
-        </span>
+        <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} title="Routes into this role and similar listings">Full posting</Link>
       </div>
     </aside>
   );

@@ -1182,8 +1182,9 @@ input:focus-visible{outline:none}
 @media (max-width:700px){.jb-ta-item{padding:12px 18px;font-size:14.5px}}
 
 /* ---- the split pane: list left, listing right, desktop only (docs/26) ---- */
-.jb-splitwrap{display:grid;grid-template-columns:minmax(340px,42%) minmax(0,1fr);gap:0;align-items:start;margin-right:-30px}
-.jb-listcol{min-width:0;padding-right:26px}
+.jb-splitwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;align-items:start;margin:0 -30px}
+.jb-listcol{min-width:0;padding-left:30px;padding-right:26px}
+.jb-splitwrap .job-card{padding-left:14px}
 .jb-splitwrap .job-body{flex-direction:column;align-items:stretch;gap:6px}
 .jb-splitwrap .job-side{display:flex;align-items:baseline;gap:12px;text-align:left}
 .jb-splitwrap .job-arrow{display:none}
@@ -1214,14 +1215,14 @@ input:focus-visible{outline:none}
 .jpane-prov{display:block;margin-top:10px;color:var(--ink-3)}
 .jpane-none{margin:20px 0 0;color:var(--ink-2);font-size:14.5px;line-height:1.6;max-width:52ch}
 .jpane .jsheet-facts{margin-top:16px}
-.jpane-foot{flex:none;display:grid;grid-template-columns:1fr auto;gap:10px 12px;align-items:stretch;
-  padding:14px 30px 16px;border-top:1px solid var(--ink);background:var(--card)}
+.jpane-foot{flex:none;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:stretch;
+  padding:12px 30px;border-top:1px solid var(--ink);background:var(--card)}
+.jpane-foot .jpane-ghost:only-child{grid-column:1 / -1}
 .jpane-foot .jsheet-apply{display:flex;align-items:center;justify-content:center;gap:10px}
 .jpane-ghost{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none;
   border:1px solid var(--ink);padding:15px 22px;white-space:nowrap;transition:background var(--dur) var(--ease)}
 .jpane-ghost:hover{background:var(--paper-2)}
-.jpane-foot .jsheet-src{grid-column:1 / -1;white-space:normal;line-height:1.6}
 /* the featured ledger, compacted into the left column while the pane is open */
 .jb-listcol .feat{margin:18px 0 0}
 .jb-listcol .feat-head{padding:16px 16px 12px}
@@ -1230,8 +1231,8 @@ input:focus-visible{outline:none}
 .jb-listcol .feat-side{grid-column:2;text-align:left;display:flex;gap:12px;align-items:baseline;min-width:0}
 .jb-listcol .feat-meta{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (max-width:760px){
-  .jb-splitwrap{display:block;margin-right:0}
-  .jb-listcol{padding-right:0}
+  .jb-splitwrap{display:block;margin:0}
+  .jb-listcol{padding-left:0;padding-right:0}
   .jpane{display:none}
   .jb-splitwrap .job-arrow{display:block}
 }
