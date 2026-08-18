@@ -1174,7 +1174,7 @@ input:focus-visible{outline:none}
 .jb-ta{position:absolute;left:0;right:0;top:100%;margin-top:-1px;z-index:70;background:var(--card);border:1px solid var(--ink);box-shadow:0 18px 36px rgba(21,21,26,.10);max-height:340px;overflow-y:auto}
 .jb-ta-item{display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;text-align:left;background:none;border:none;border-bottom:0.5px solid var(--rule);padding:12px 30px;font:inherit;font-size:15px;color:var(--ink);cursor:pointer}
 .jb-ta-item:last-child{border-bottom:none}
-.jb-ta-item.hi{background:var(--wash)}
+.jb-ta-item.hi{background:var(--paper-2)}
 .jb-ta-label{font-weight:600;letter-spacing:-.01em}
 .jb-ta-sub{white-space:nowrap;color:var(--ink-3)}
 .jb-ta-via{color:var(--ink-3);font-weight:400}
@@ -1187,7 +1187,7 @@ input:focus-visible{outline:none}
 .jb-splitwrap .job-body{flex-direction:column;align-items:stretch;gap:6px}
 .jb-splitwrap .job-side{display:flex;align-items:baseline;gap:12px;text-align:left}
 .jb-splitwrap .job-arrow{display:none}
-.job-card.sel{background:var(--wash)}
+.job-card.sel{background:var(--accent-tint);box-shadow:inset 3px 0 0 var(--accent)}
 .jpane{position:sticky;top:var(--jpane-top,90px);margin-top:18px;display:flex;flex-direction:column;
   max-height:calc(100dvh - var(--jpane-top,90px) - 16px);
   background:var(--card);border:1px solid var(--ink);
@@ -1197,7 +1197,7 @@ input:focus-visible{outline:none}
 @keyframes jpane-fade{from{opacity:0}}
 .jpane-skel{display:flex;flex-direction:column;gap:12px;margin-top:22px}
 .jpane-skel span{display:block;height:12px;border-radius:4px;
-  background:linear-gradient(90deg,var(--wash) 25%,var(--card) 50%,var(--wash) 75%);
+  background:linear-gradient(90deg,var(--paper-2) 25%,var(--card) 50%,var(--paper-2) 75%);
   background-size:200% 100%;animation:jpane-shimmer 1.2s linear infinite}
 @keyframes jpane-shimmer{to{background-position:-200% 0}}
 .jpane-note{margin-top:14px;color:var(--ink-3)}
@@ -1205,14 +1205,28 @@ input:focus-visible{outline:none}
 .jpane-scroll{overflow-y:auto;padding:24px 28px 18px;position:relative;min-height:0}
 .jpane-x{position:absolute;top:10px;right:12px;border:none;background:none;font-size:26px;line-height:1;color:var(--ink-2);cursor:pointer;padding:6px}
 .jpane-x:hover{color:var(--ink)}
-.jpane-title{font-size:23px;line-height:1.15;letter-spacing:-.02em;margin:0 34px 6px 0}
+.jpane-head{display:flex;gap:16px;align-items:flex-start;margin-right:34px}
+.jpane-head .jd-mark{width:46px;height:46px;border-radius:11px;margin-top:3px}
+.jpane-head .jd-mark img{width:30px;height:30px}
+.jpane-head .jd-mono{font-size:21px}
+.jpane-title{font-size:23px;line-height:1.15;letter-spacing:-.02em;margin:0 0 6px}
 .jpane-co{margin:0;color:var(--ink-2);font-size:15px}
 .jpane-prov{display:block;margin-top:10px;color:var(--ink-3)}
 .jpane-none{margin:20px 0 0;color:var(--ink-2);font-size:14.5px;line-height:1.6;max-width:52ch}
 .jpane .jsheet-facts{margin-top:16px}
 .jpane .jsheet-full{display:inline-block;margin:16px 0 4px}
-.jpane-foot{flex:none;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+.jpane-foot{flex:none;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
   padding:14px 28px;border-top:1px solid var(--rule);background:var(--card)}
+.jpane-ghost{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none;
+  border:1px solid var(--ink);padding:14px 20px;white-space:nowrap;transition:background var(--dur) var(--ease)}
+.jpane-ghost:hover{background:var(--paper-2)}
+.jpane-foot .jsheet-src{flex-basis:100%;white-space:normal;line-height:1.6}
+/* the featured ledger, compacted into the left column while the pane is open */
+.jb-listcol .feat{margin-top:18px}
+.jb-listcol .feat-row{grid-template-columns:auto minmax(0,1fr);gap:8px 14px;padding:12px 16px}
+.jb-listcol .feat-side{grid-column:2;text-align:left;display:flex;gap:12px;align-items:baseline;min-width:0}
+.jb-listcol .feat-meta{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (max-width:760px){
   .jb-splitwrap{display:block}
   .jpane{display:none}

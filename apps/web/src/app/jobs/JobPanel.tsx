@@ -10,7 +10,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
-import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, Arrow45 } from './JobCard';
 import { type Listing, loadListing } from './detail';
 
 /* Sources that are the company's own board rather than an aggregator feed.
@@ -63,12 +63,19 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
         <button type="button" className="jpane-x" onClick={onClose} aria-label="Close listing">&times;</button>
         {/* keyed so a swap re-runs the entrance fade */}
         <div className="jpane-body" key={j.id}>
-          <h2 className="jpane-title">{j.title}</h2>
-          <p className="jpane-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
-          <p className="jpane-prov lbl" suppressHydrationWarning>
-            {direct ? 'Direct from the company’s board' : `Indexed from ${sourceName(j.source)}`}
-            {' · first seen '}{agoLabel(j.posted).toLowerCase()}
-          </p>
+          <div className="jpane-head">
+            {j.logo
+              ? <span className="jd-mark"><img src={j.logo} alt="" width={30} height={30} /></span>
+              : <span className="jd-mark jd-mono" aria-hidden="true">{companyInitial(j.company)}</span>}
+            <div>
+              <h2 className="jpane-title">{j.title}</h2>
+              <p className="jpane-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
+              <p className="jpane-prov lbl" suppressHydrationWarning>
+                {direct ? 'Direct from the company’s board' : `Indexed from ${sourceName(j.source)}`}
+                {' · first seen '}{agoLabel(j.posted).toLowerCase()}
+              </p>
+            </div>
+          </div>
 
           <div className="jsheet-facts">
             {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
@@ -121,30 +128,21 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
             </p>
           )}
 
-          {loaded && (
-            <Link className="jsheet-full lbl" href={`/jobs/${j.occ}/${j.id}`}>
-              The PivotHop read: routes into this role, similar listings &rarr;
-            </Link>
-          )}
         </div>
       </div>
 
       <div className="jpane-foot">
-        {applyUrl ? (
-          <>
-            <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer">
-              Apply now <Arrow45 size={22} />
-            </a>
-            <span className="jsheet-src lbl">Opens the original posting at {j.company}</span>
-          </>
-        ) : (
-          <>
-            <Link className="rt-go jsheet-apply" href={`/jobs/${j.occ}/${j.id}`}>
-              Open the full listing <Arrow45 size={22} />
-            </Link>
-            <span className="jsheet-src lbl">The apply link lives on the listing page</span>
-          </>
+        {applyUrl && (
+          <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer">
+            Apply now <Arrow45 size={22} />
+          </a>
         )}
+        <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`}>Full posting</Link>
+        <span className="jsheet-src lbl">
+          {applyUrl
+            ? `Apply opens the original posting at ${j.company}. Full posting adds routes into this role and similar listings.`
+            : 'The apply link lives on the full posting page.'}
+        </span>
       </div>
     </aside>
   );

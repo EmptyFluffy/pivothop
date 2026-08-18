@@ -474,7 +474,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       )}
       </div>
 
-      {pristine && featured}
+      {pristine && !panelJob && featured}
 
       {all === null ? (
         <p className="rt-note jb-loading">Loading the board&hellip;</p>
@@ -482,6 +482,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         <>
           <div className={panelJob ? 'jb-splitwrap' : undefined}>
             <div className="jb-listcol">
+              {pristine && panelJob ? featured : null}
               <ul className="job-list job-list-full">
                 {results.slice(0, shown).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} />)}
               </ul>
