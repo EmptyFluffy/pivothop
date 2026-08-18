@@ -11,12 +11,21 @@
     <string>/Users/carlos/PivotHop/apps/scraper/scripts/daily-run.sh</string>
   </array>
 
-  <!-- Run every day at 07:15 local. If the Mac was asleep, launchd runs it once at next wake. -->
+  <!-- Twice daily, 07:15 and 16:15 local. If the Mac was asleep, launchd runs
+       a missed slot once at next wake. The run script's marker file already
+       makes overlapping runs impossible, and the first-seen ledger keeps ages
+       honest across partial pulls, so a second run is pure increment. -->
   <key>StartCalendarInterval</key>
-  <dict>
-    <key>Hour</key><integer>7</integer>
-    <key>Minute</key><integer>15</integer>
-  </dict>
+  <array>
+    <dict>
+      <key>Hour</key><integer>7</integer>
+      <key>Minute</key><integer>15</integer>
+    </dict>
+    <dict>
+      <key>Hour</key><integer>16</integer>
+      <key>Minute</key><integer>15</integer>
+    </dict>
+  </array>
 
   <key>StandardOutPath</key>
   <string>/Users/carlos/PivotHop/apps/scraper/data/launchd.out.log</string>

@@ -104,7 +104,7 @@ python3 "$REPO/apps/scraper/scripts/build-lastmod.py" >> "$LOG" 2>&1 || echo "bu
 # ── Publish: auto-commit the regenerated data, push -> Vercel deploys ────────
 cd "$REPO"
 git add apps/web/public/data packages/data/generated packages/data/outreach packages/data/fx apps/web/src/lib/data.js apps/scraper/data/first-seen.json 2>> "$LOG"
-git add -u 2>> "$LOG"   # stage any other tracked mod (weekly FX, future writers) so the rebase never aborts on a dirty tree
+git add -u -- apps/web/public/data packages/data apps/scraper/data apps/web/src/lib/data.js 2>> "$LOG"   # data paths only: an unscoped -u once swept uncommitted source edits into a data commit (2026-08-18)
 CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
 if [ "$CHANGED" = "0" ]; then
   echo "publish: no data changes — nothing to deploy" >> "$LOG"

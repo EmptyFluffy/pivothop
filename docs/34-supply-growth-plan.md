@@ -79,3 +79,43 @@ Add a country when Search Console shows impressions from it. GB is the plausible
 We will never beat Indeed on volume and should stop trying. Indeed has millions of listings; the board has 23,877 and always will be smaller.
 
 The product's claim is not "more jobs." It is **"jobs your skills can actually reach."** That claim is broken by a route page with three listings, and it is not improved by a fourth country of software jobs. Depth per role beats total count, every time.
+
+
+---
+
+## Amendments, 2026-08-18
+
+The cadence and the sources moved before phase 1 finished, on an explicit call
+to grow volume faster. What changed:
+
+**Cadence: twice daily.** The launchd agent now fires 07:15 and 16:15. The
+marker file already prevents overlap, the first-seen ledger keeps ages honest
+across partial pulls, and the publish gate is unchanged, so the second run is
+pure increment. The bot's commit step is now scoped to data paths only; its
+unscoped `git add -u` once swept uncommitted source edits into a data commit.
+
+**New source: jobtech (Sweden).** Arbetsformedlingen's open Platsbanken API:
+keyless, JSON, full plain-text descriptions, published as open data. First
+ingest: 932 postings. Earns the slot ahead of Search Console evidence because
+the query rotation targets exactly the thin AEC roles (arkitekt, BIM,
+konstruktor, VVS). Audit alias reach on Swedish titles before trusting the
+role counts (the thin-origins lesson).
+
+**Blocked: Arbeitsagentur (Germany).** The federal Jobsuche API 403s every
+variant (API key header, OAuth client flow, browser UA) from this machine;
+almost certainly geo-fenced to EU traffic. It remains the single best fix for
+DE thinness (millions of ads, full text, strong AEC). Options, in order: run
+that one source from a scheduled GitHub Action with an EU-region runner and
+commit its NDJSON for the local pipeline to ingest; or a modest EU proxy for
+that host only. Neither built yet.
+
+**Fleet: +51 AEC firms queued** across DACH (gmp, HENN, Sauerbruch Hutton,
+sbp, Bollinger+Grohmann, Drees & Sommer...), the Nordics (BIG, Henning Larsen,
+White, Snohetta, COWI, Ramboll...) and the UK (Foster + Partners, ZHA,
+Grimshaw, AHMM, BDP, AKT II, Hoare Lea...). Queue now 369. Same namesake rule:
+hosted-ATS candidates never auto-admit.
+
+**Keyed APIs worth requesting** (each needs a signup or an email, none done):
+CareerOneStop (US Department of Labor, the best US lever), Jooble (broad,
+partner key by email), France Travail (francetravail.io OAuth). GB still has
+no public API; the fleet's UK batch is the GB lever.
