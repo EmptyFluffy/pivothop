@@ -70,7 +70,7 @@ export function companyInitial(company: string): string {
   return m ? m[0].toUpperCase() : '·';
 }
 
-export function JobCard({ j }: { j: Job }) {
+export function JobCard({ j, selected }: { j: Job; selected?: boolean }) {
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   // Paid employer posts aren't statically generated, so they link straight out
@@ -106,7 +106,7 @@ export function JobCard({ j }: { j: Job }) {
     <li>
       {employer
         ? <a href={j.url} target="_blank" rel="nofollow noopener noreferrer" className="job-card">{inner}</a>
-        : <Link href={`/jobs/${j.occ}/${j.id}`} className="job-card">{inner}</Link>}
+        : <Link href={`/jobs/${j.occ}/${j.id}`} className={`job-card${selected ? ' sel' : ''}`}>{inner}</Link>}
     </li>
   );
 }

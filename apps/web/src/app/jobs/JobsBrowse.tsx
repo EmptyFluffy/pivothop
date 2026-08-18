@@ -3,6 +3,8 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
+import JobPanel from './JobPanel';
+import { prefetchDetail } from './detail';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
@@ -47,6 +49,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [shown, setShown] = useState(PAGE);
   const [now] = useState(() => Date.now());
   const [sheetJob, setSheetJob] = useState<Job | null>(null);
+  const [panelJob, setPanelJob] = useState<Job | null>(null);
   const allRef = useRef<Job[] | null>(null);
   allRef.current = all;
 
@@ -160,13 +163,21 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Mobile: intercept a card tap, open the sheet, and push the listing URL so
+  // Intercept a card click and open the listing in place: the bottom sheet on
+  // phones, the split pane on desktop. Either way the listing URL is pushed so
   // the address bar, Back, refresh and sharing all behave as if it were a page.
+  // While the pane is open, a second pick replaces the entry instead of
+  // pushing, so Back always returns to the board in one step.
   useEffect(() => {
     const isPhone = () => window.matchMedia('(max-width: 760px)').matches;
+    const openJob = (j: Job, href: string) => {
+      if (isPhone()) { history.pushState({ jobSheet: true }, '', href); setSheetJob(j); return; }
+      if (history.state?.jobSheet) history.replaceState({ jobSheet: true }, '', href);
+      else history.pushState({ jobSheet: true }, '', href);
+      setPanelJob(j);
+    };
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      if (!isPhone()) return;
       const a = (e.target as HTMLElement)?.closest?.('a.job-card, a.feat-row') as HTMLAnchorElement | null;
       if (!a) return;
       const href = a.getAttribute('href') || '';
@@ -175,25 +186,33 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       e.preventDefault();
       e.stopPropagation();
       const inState = (allRef.current ?? []).find((j) => j.occ === m[1] && j.id === m[2]);
-      if (inState) {
-        history.pushState({ jobSheet: true }, '', href);
-        setSheetJob(inState);
-        return;
-      }
+      if (inState) { openJob(inState, href); return; }
       void (async () => {
         try {
           const r = await fetch('/data/featured-jobs.json');
           const feat: Job[] = r.ok ? await r.json() : [];
           const hit = feat.find((j) => j.occ === m[1] && j.id === m[2]);
-          if (hit) { history.pushState({ jobSheet: true }, '', href); setSheetJob(hit); return; }
+          if (hit) { openJob(hit, href); return; }
         } catch { /* fall through */ }
         window.location.href = href;
       })();
     };
-    const onPop = () => setSheetJob(null);
+    // Warm the occupation's detail file the moment a card is hovered, so the
+    // pane opens with the text already local.
+    const onOver = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement)?.closest?.('a.job-card') as HTMLAnchorElement | null;
+      const m = a && /^\/jobs\/([a-z0-9-]+)\//.exec(a.getAttribute('href') || '');
+      if (m) prefetchDetail(m[1]);
+    };
+    const onPop = () => { setSheetJob(null); setPanelJob(null); };
     document.addEventListener('click', onClick, true);
+    document.addEventListener('mouseover', onOver, { passive: true });
     window.addEventListener('popstate', onPop);
-    return () => { document.removeEventListener('click', onClick, true); window.removeEventListener('popstate', onPop); };
+    return () => {
+      document.removeEventListener('click', onClick, true);
+      document.removeEventListener('mouseover', onOver);
+      window.removeEventListener('popstate', onPop);
+    };
   }, []);
 
   // Debounce the text search; keep the URL shareable.
@@ -339,6 +358,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const pristine = !needle && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && !f.skillSet.size && sort === 'new';
   const activeCount = f.fieldSet.size + f.ctySet.size + (f.region ? 1 : 0) + (f.minPay ? 1 : 0) + (f.hasSalary ? 1 : 0) + (f.remoteOnly ? 1 : 0) + f.tags.size + (f.fresh ? 1 : 0) + f.srcSet.size + (f.lic ? 1 : 0) + f.skillSet.size;
   const closeSheet = () => { if (history.state?.jobSheet) history.back(); else setSheetJob(null); };
+  const closePanel = () => { if (history.state?.jobSheet) history.back(); else setPanelJob(null); };
   const dropFrom = (key: 'fieldSet' | 'ctySet' | 'tags' | 'srcSet', v: string) => {
     const next = new Set(f[key]);
     next.delete(v);
@@ -460,15 +480,20 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         <p className="rt-note jb-loading">Loading the board&hellip;</p>
       ) : (
         <>
-          <ul className="job-list job-list-full">
-            {results.slice(0, shown).map((j) => <JobCard key={j.id} j={j} />)}
-          </ul>
-          {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}
-          {results.length > shown && (
-            <button type="button" className="jb-more" onClick={() => setShown((n) => n + PAGE)}>
-              Show {Math.min(PAGE, results.length - shown)} more &middot; {shown.toLocaleString()} of {results.length.toLocaleString()}
-            </button>
-          )}
+          <div className={panelJob ? 'jb-splitwrap' : undefined}>
+            <div className="jb-listcol">
+              <ul className="job-list job-list-full">
+                {results.slice(0, shown).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} />)}
+              </ul>
+              {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}
+              {results.length > shown && (
+                <button type="button" className="jb-more" onClick={() => setShown((n) => n + PAGE)}>
+                  Show {Math.min(PAGE, results.length - shown)} more &middot; {shown.toLocaleString()} of {results.length.toLocaleString()}
+                </button>
+              )}
+            </div>
+            {panelJob && <JobPanel job={panelJob} onClose={closePanel} />}
+          </div>
         </>
       )}
       <FilterSheet

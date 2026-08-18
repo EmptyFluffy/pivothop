@@ -20,42 +20,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
+import { type Detail, cleanLine, loadDetail, loadJobUrl, loadSkillNames } from './detail';
 
-type Detail = { s: { h: string | null; t: string }[]; k: string[] };
-
-const cache = new Map<string, Record<string, Detail>>();
-let skillNames: Record<string, string> | null = null;
-async function loadSkillNames(): Promise<Record<string, string>> {
-  if (skillNames) return skillNames;
-  try {
-    const r = await fetch('/data/skills-meta.json');
-    skillNames = r.ok ? (await r.json()).names ?? {} : {};
-  } catch { skillNames = {}; }
-  return skillNames ?? {};
-}
-const boardCache = new Map<string, Job[]>();
-async function loadJobUrl(occ: string, id: string): Promise<string | null> {
-  try {
-    if (!boardCache.has(occ)) {
-      const r = await fetch(`/data/jobs/${occ}.json`);
-      boardCache.set(occ, r.ok ? await r.json() : []);
-    }
-    return boardCache.get(occ)?.find((j) => j.id === id)?.url ?? null;
-  } catch {
-    return null;
-  }
-}
-async function loadDetail(occ: string, id: string): Promise<Detail | null> {
-  try {
-    if (!cache.has(occ)) {
-      const r = await fetch(`/data/jobs-detail/${occ}.json`);
-      cache.set(occ, r.ok ? await r.json() : {});
-    }
-    return cache.get(occ)?.[id] ?? null;
-  } catch {
-    return null;
-  }
-}
 
 export default function JobSheet({ job, onClose }: { job: Job | null; onClose: () => void }) {
   const [detail, setDetail] = useState<Detail | null>(null);
@@ -202,7 +168,7 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
               {detail.s.map((sec, i) => (
                 <div key={i}>
                   {sec.h && <h4>{sec.h}</h4>}
-                  {sec.t.split('\n').filter(Boolean).map((line, k) =>
+                  {sec.t.split('\n').map(cleanLine).filter((l): l is string => !!l).map((line, k) =>
                     line.startsWith('· ') ? <li key={k}>{line.slice(2)}</li> : <p key={k}>{line}</p>
                   )}
                 </div>
