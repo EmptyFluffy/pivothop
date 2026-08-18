@@ -100,9 +100,9 @@ export function SiteFooter() {
   );
 }
 
-export function PageShell({ children, active }: { children: React.ReactNode; active?: 'about' | 'employers' }) {
+export function PageShell({ children, active, wide }: { children: React.ReactNode; active?: 'about' | 'employers'; wide?: boolean }) {
   return (
-    <div className="shell">
+    <div className={wide ? 'shell shell-wide' : 'shell'}>
       <div className="main">
         <SwissBanner />
         <SearchOverlay />

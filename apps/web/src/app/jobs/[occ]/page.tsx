@@ -73,7 +73,7 @@ function OccupationBoard({ occ }: { occ: string }) {
   const variants = allCategories().filter((c) => c.destOcc === occ);
 
   return (
-    <PageShell>
+    <PageShell wide>
       <div className="rtp salp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><span>{title}</span>
@@ -254,7 +254,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
   const related = [...rest.filter((c) => c.kind === cat.kind).slice(0, 8), ...rest.filter((c) => c.kind !== cat.kind).slice(0, 8)];
 
   return (
-    <PageShell>
+    <PageShell wide>
       <div className="rtp salp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><span>{cat.title}</span>

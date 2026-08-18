@@ -36,6 +36,8 @@
   .mark svg{display:block;width:100%;height:100%}
 
   .shell{max-width:1280px;margin:0 auto;background:var(--paper);position:relative;border-left:0.5px solid var(--rule);border-right:0.5px solid var(--rule)}
+  /* app surfaces (the board) breathe wider; editorial pages keep the 1280 frame */
+  .shell-wide{max-width:1600px}
   .main{min-width:0}
 
   /* ── nav ── */
@@ -1204,6 +1206,8 @@ input:focus-visible{outline:none}
 .jpane-note{margin-top:14px;color:var(--ink-3)}
 @media (prefers-reduced-motion: reduce){.jpane,.jpane-body,.jpane-skel span{animation:none}}
 .jpane-scroll{overflow-y:auto;padding:26px 30px 18px;position:relative;min-height:0;flex:1}
+/* extra pane width goes to air, never to line length */
+.jpane .jsheet-desc{max-width:72ch}
 .jpane-x{position:absolute;top:10px;right:12px;border:none;background:none;font-size:26px;line-height:1;color:var(--ink-2);cursor:pointer;padding:6px}
 .jpane-x:hover{color:var(--ink)}
 .jpane-head{display:flex;gap:16px;align-items:flex-start;margin-right:34px}
