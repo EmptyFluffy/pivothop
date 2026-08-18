@@ -129,7 +129,6 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
                   )}
                 </div>
               ))}
-              <p className="jpane-note lbl">Excerpt from the original listing. The full, current text lives at the source.</p>
             </div>
           )}
 

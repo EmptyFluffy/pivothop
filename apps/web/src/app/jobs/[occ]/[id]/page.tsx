@@ -122,7 +122,6 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         {skills.length > 0 && (
           <section className="rt-sec jd-skills">
             <h2>Skills in this posting</h2>
-            <p className="lbl jd-skills-cap">Extracted from the posting text by the instrument &mdash; the demand side, read literally.</p>
             <SkillStrip skills={skillEntries(skills)} />
           </section>
         )}
@@ -136,7 +135,6 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
                 <SectionBody t={s.t} />
               </div>
             ))}
-            <p className="rt-note">Excerpt from the original listing. The full, current text lives at the source. <a className="gl" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Read and apply there &rarr;</a></p>
           </section>
         )}
 
@@ -157,7 +155,6 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         {alsoReach.length > 0 && (
           <section className="rt-sec">
             <h2>Where these skills also reach</h2>
-            <p className="lbl jd-skills-cap">Adjacent occupations measured from the same postings &mdash; readiness is what {article(title)} {tl}&rsquo;s profile already covers.</p>
             <ul className="rt-rel">
               {alsoReach.map((r) => (
                 <li key={r.id}>
