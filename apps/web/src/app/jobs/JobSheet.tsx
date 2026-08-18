@@ -20,13 +20,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
-import { type Detail, cleanLine, loadDetail, loadJobUrl, loadSkillNames } from './detail';
+import { type Listing, loadListing } from './detail';
 
 
 export default function JobSheet({ job, onClose }: { job: Job | null; onClose: () => void }) {
-  const [detail, setDetail] = useState<Detail | null>(null);
-  const [names, setNames] = useState<Record<string, string>>({});
-  const [applyUrl, setApplyUrl] = useState<string | null>(null);
+  const [listing, setListing] = useState<Listing | null>(null);
   // The sheet outlives the `job` prop by one transition. Without this it
   // unmounted the instant the parent cleared the job, so it vanished rather
   // than sliding away — the reason dismissing felt abrupt.
@@ -49,17 +47,14 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
       return () => cancelAnimationFrame(r1);
     }
     setShown(false);
-    const t = setTimeout(() => { setLocal(null); setDetail(null); setDrag(0); }, 460);
+    const t = setTimeout(() => { setLocal(null); setListing(null); setDrag(0); }, 460);
     return () => clearTimeout(t);
   }, [job]);
 
   useEffect(() => {
     if (!job) return;
     let live = true;
-    loadDetail(job.occ, job.id).then((d) => { if (live) setDetail(d); });
-    loadSkillNames().then((n) => { if (live) setNames(n); });
-    setApplyUrl(job.url ?? null);
-    if (!job.url) loadJobUrl(job.occ, job.id).then((u) => { if (live) setApplyUrl(u); });
+    loadListing(job.occ, job.id).then((l) => { if (live) setListing(l); });
     return () => { live = false; };
   }, [job]);
 
@@ -151,25 +146,29 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
             <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
           </div>
 
-          {detail?.k?.length ? (
+          {listing?.skills?.length ? (
             <div className="jsheet-sec">
               <h3>Skills in this posting</h3>
               <div className="jd-skillgrid">
-                {detail.k.map((s) => (
-                  <Link key={s} className="jd-skill" href={`/glossary#skill-${s}`}>{names[s] ?? s.replace(/-/g, ' ')}</Link>
+                {listing.skills.map((sk) => (
+                  <Link key={sk.href} className="jd-skill" href={sk.href}>{sk.term}</Link>
                 ))}
               </div>
             </div>
           ) : null}
 
-          {detail?.s?.length ? (
+          {listing?.sections?.length ? (
             <div className="jsheet-sec jsheet-desc">
               <h3>The posting</h3>
-              {detail.s.map((sec, i) => (
+              {listing.sections.map((sec, i) => (
                 <div key={i}>
                   {sec.h && <h4>{sec.h}</h4>}
-                  {sec.t.split('\n').map(cleanLine).filter((l): l is string => !!l).map((line, k) =>
-                    line.startsWith('· ') ? <li key={k}>{line.slice(2)}</li> : <p key={k}>{line}</p>
+                  {sec.parts.map((part, k) =>
+                    'ul' in part
+                      ? <ul className="jd-ul" key={k}>{part.ul.map((li, x) => <li key={x}>{li}</li>)}</ul>
+                      : 'h4' in part
+                        ? <h4 key={k}>{part.h4}</h4>
+                        : <p key={k}>{part.p}</p>
                   )}
                 </div>
               ))}
@@ -182,9 +181,9 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
         </div>
 
         <div className="jsheet-foot">
-          {applyUrl ? (
+          {(listing?.applyUrl ?? j.url) ? (
             <>
-              <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer">
+              <a className="rt-go jsheet-apply" href={listing?.applyUrl ?? j.url} target="_blank" rel="nofollow noopener noreferrer">
                 Apply now <Arrow45 size={22} />
               </a>
               <span className="jsheet-src lbl">Opens the original posting at {j.company}</span>

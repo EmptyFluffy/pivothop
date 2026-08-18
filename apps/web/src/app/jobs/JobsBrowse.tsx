@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
 import JobPanel from './JobPanel';
-import { prefetchDetail } from './detail';
+import { prefetchListing } from './detail';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
@@ -201,8 +201,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     // pane opens with the text already local.
     const onOver = (e: MouseEvent) => {
       const a = (e.target as HTMLElement)?.closest?.('a.job-card') as HTMLAnchorElement | null;
-      const m = a && /^\/jobs\/([a-z0-9-]+)\//.exec(a.getAttribute('href') || '');
-      if (m) prefetchDetail(m[1]);
+      const m = a && /^\/jobs\/([a-z0-9-]+)\/([a-z0-9]+)$/.exec(a.getAttribute('href') || '');
+      if (m) prefetchListing(m[1], m[2]);
     };
     const onPop = () => { setSheetJob(null); setPanelJob(null); };
     document.addEventListener('click', onClick, true);

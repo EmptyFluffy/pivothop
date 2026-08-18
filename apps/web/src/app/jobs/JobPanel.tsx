@@ -5,13 +5,13 @@
 // clicking another card swaps the pane. Non-modal on purpose: no veil, no
 // focus trap, the list keeps scrolling. URL contract matches the phone sheet
 // (pushState to the listing's static page, Back closes), so refresh and
-// sharing land on the same statically generated page either way.
+// sharing land on the same page either way.
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
-import { salaryLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
-import { type Detail, cleanLine, loadDetail, loadJobUrl, loadSkillNames } from './detail';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
+import { type Listing, loadListing } from './detail';
 
 /* Sources that are the company's own board rather than an aggregator feed.
    Saying so on the pane is the provenance line (docs/26): a listing from the
@@ -19,20 +19,15 @@ import { type Detail, cleanLine, loadDetail, loadJobUrl, loadSkillNames } from '
 const DIRECT = new Set(['greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'employer']);
 
 export default function JobPanel({ job, onClose }: { job: Job; onClose: () => void }) {
-  const [detail, setDetail] = useState<Detail | null>(null);
+  const [listing, setListing] = useState<Listing | null>(null);
   const [loaded, setLoaded] = useState(false);
-  const [names, setNames] = useState<Record<string, string>>({});
-  const [applyUrl, setApplyUrl] = useState<string | null>(null);
-  const paneRef = useRef<HTMLDivElement>(null);
+  const paneRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let live = true;
-    setDetail(null); setLoaded(false);
-    loadDetail(job.occ, job.id).then((d) => { if (live) { setDetail(d); setLoaded(true); } });
-    loadSkillNames().then((n) => { if (live) setNames(n); });
-    setApplyUrl(job.url ?? null);
-    if (!job.url) loadJobUrl(job.occ, job.id).then((u) => { if (live) setApplyUrl(u); });
+    setListing(null); setLoaded(false);
+    loadListing(job.occ, job.id).then((l) => { if (live) { setListing(l); setLoaded(true); } });
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
     return () => { live = false; };
   }, [job]);
@@ -57,57 +52,81 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
 
   const j = job;
   const pay = salaryLabel(j.smin, j.smax);
+  const date = postedLabel(j.posted);
+  const remote = j.remote || /\bremote\b/i.test(j.location);
   const direct = DIRECT.has(j.source);
+  const applyUrl = listing?.applyUrl ?? j.url ?? null;
 
   return (
     <aside className="jpane" ref={paneRef} aria-label={`${j.title} at ${j.company}`}>
       <div className="jpane-scroll" ref={scrollRef}>
         <button type="button" className="jpane-x" onClick={onClose} aria-label="Close listing">&times;</button>
-        <h2 className="jpane-title">{j.title}</h2>
-        <p className="jpane-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
-        <p className="jpane-prov lbl" suppressHydrationWarning>
-          {direct ? 'Direct from the company’s board' : `Indexed from ${sourceName(j.source)}`}
-          {' · first seen '}{agoLabel(j.posted).toLowerCase()}
-        </p>
+        {/* keyed so a swap re-runs the entrance fade */}
+        <div className="jpane-body" key={j.id}>
+          <h2 className="jpane-title">{j.title}</h2>
+          <p className="jpane-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
+          <p className="jpane-prov lbl" suppressHydrationWarning>
+            {direct ? 'Direct from the company’s board' : `Indexed from ${sourceName(j.source)}`}
+            {' · first seen '}{agoLabel(j.posted).toLowerCase()}
+          </p>
 
-        <div className="jsheet-facts">
-          {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
-          <div><span className="v">{j.remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
-          <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
-        </div>
+          <div className="jsheet-facts">
+            {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
+            <div><span className="v">{remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
+            {date && <div><span className="v" suppressHydrationWarning>{agoLabel(j.posted)}</span><span className="k">Posted · {date}</span></div>}
+            <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
+          </div>
 
-        {detail?.k?.length ? (
-          <div className="jsheet-sec">
-            <h3>Skills in this posting</h3>
-            <div className="jd-skillgrid">
-              {detail.k.map((s) => (
-                <Link key={s} className="jd-skill" href={`/glossary#skill-${s}`}>{names[s] ?? s.replace(/-/g, ' ')}</Link>
-              ))}
+          {!loaded && (
+            <div className="jpane-skel" aria-hidden="true">
+              <span style={{ width: '42%' }} /><span style={{ width: '96%' }} /><span style={{ width: '88%' }} />
+              <span style={{ width: '93%' }} /><span style={{ width: '60%' }} />
             </div>
-          </div>
-        ) : null}
+          )}
 
-        {detail?.s?.length ? (
-          <div className="jsheet-sec jsheet-desc">
-            <h3>The posting</h3>
-            {detail.s.map((sec, i) => (
-              <div key={i}>
-                {sec.h && <h4>{sec.h}</h4>}
-                {sec.t.split('\n').map(cleanLine).filter((l): l is string => !!l).map((line, k) =>
-                  line.startsWith('· ') ? <li key={k}>{line.slice(2)}</li> : <p key={k}>{line}</p>
-                )}
+          {listing && listing.skills.length > 0 && (
+            <div className="jsheet-sec">
+              <h3>Skills in this posting</h3>
+              <div className="jd-skillgrid">
+                {listing.skills.map((s) => (
+                  <Link key={s.href} className="jd-skill" href={s.href}>{s.term}</Link>
+                ))}
               </div>
-            ))}
-          </div>
-        ) : loaded ? (
-          <p className="jpane-none lbl">The full text lives on the listing page.</p>
-        ) : (
-          <p className="jpane-none lbl">Loading the posting&hellip;</p>
-        )}
+            </div>
+          )}
 
-        <Link className="jsheet-full lbl" href={`/jobs/${j.occ}/${j.id}`}>
-          Open the full listing &rarr;
-        </Link>
+          {listing && listing.sections.length > 0 && (
+            <div className="jsheet-sec jsheet-desc">
+              <h3>The posting</h3>
+              {listing.sections.map((sec, i) => (
+                <div key={i}>
+                  {sec.h && <h4>{sec.h}</h4>}
+                  {sec.parts.map((part, k) =>
+                    'ul' in part
+                      ? <ul className="jd-ul" key={k}>{part.ul.map((li, x) => <li key={x}>{li}</li>)}</ul>
+                      : 'h4' in part
+                        ? <h4 key={k}>{part.h4}</h4>
+                        : <p key={k}>{part.p}</p>
+                  )}
+                </div>
+              ))}
+              <p className="jpane-note lbl">Excerpt from the original listing. The full, current text lives at the source.</p>
+            </div>
+          )}
+
+          {loaded && !listing?.sections.length && (
+            <p className="jpane-none">
+              This source publishes the posting text on its own site only, so the full
+              description is one click away at {j.company}.
+            </p>
+          )}
+
+          {loaded && (
+            <Link className="jsheet-full lbl" href={`/jobs/${j.occ}/${j.id}`}>
+              The PivotHop read: routes into this role, similar listings &rarr;
+            </Link>
+          )}
+        </div>
       </div>
 
       <div className="jpane-foot">
