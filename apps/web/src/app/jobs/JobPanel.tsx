@@ -32,16 +32,28 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
     return () => { live = false; };
   }, [job]);
 
-  // Pin below the sticky search band, whatever height it currently is.
+  // Pin below the sticky search band, and always end at the viewport bottom:
+  // before the band pins, the pane's top rides with the page, so the height is
+  // fitted live rather than fixed, and the Apply footer never leaves the fold.
   useEffect(() => {
     const place = () => {
+      const el = paneRef.current;
+      if (!el) return;
       const band = document.querySelector('.jb-stick');
-      const top = band ? Math.max(59, Math.round(band.getBoundingClientRect().height) + 59) + 14 : 90;
-      paneRef.current?.style.setProperty('--jpane-top', `${top}px`);
+      const top = band ? Math.max(59, Math.round(band.getBoundingClientRect().height) + 59) : 133;
+      el.style.setProperty('--jpane-top', `${top}px`);
+      el.style.height = `${Math.max(320, window.innerHeight - Math.max(top, el.getBoundingClientRect().top))}px`;
+    };
+    let queued = false;
+    const onScroll = () => {
+      if (queued) return; queued = true;
+      requestAnimationFrame(() => { queued = false; place(); });
     };
     place();
-    window.addEventListener('resize', place);
-    return () => window.removeEventListener('resize', place);
+    requestAnimationFrame(place);
+    window.addEventListener('resize', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('resize', onScroll); window.removeEventListener('scroll', onScroll); };
   }, []);
 
   useEffect(() => {
