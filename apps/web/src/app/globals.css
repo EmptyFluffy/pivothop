@@ -37,7 +37,7 @@
 
   .shell{max-width:1280px;margin:0 auto;background:var(--paper);position:relative;border-left:0.5px solid var(--rule);border-right:0.5px solid var(--rule)}
   /* app surfaces (the board) breathe wider; editorial pages keep the 1280 frame */
-  .shell-wide{max-width:1600px}
+  .shell-wide{max-width:clamp(1280px, 94vw, 1600px)}
   .main{min-width:0}
 
   /* ── nav ── */
