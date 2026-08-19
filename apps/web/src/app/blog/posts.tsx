@@ -58,6 +58,178 @@ const Go = ({ links }: { links: { href: string; label: string }[] }) => (
 
 export const POSTS: Post[] = [
   {
+    slug: 'career-change-tax',
+    title: 'The career change tax: what a switch costs, measured',
+    pillar: 'What Carried Over',
+    date: 'August 2026',
+    dek: 'The advice columns price a career change at a 10 to 20 percent pay cut, paid in exchange for a fresh start. We priced it against 966 measured transitions between 163 occupations with live US salary data. The median tax is 2.3 percent, more than half of all switches pay a raise, and the cheapest-looking moves are the ones that cost the most.',
+    minutes: 7,
+    takeaways: [
+      'Across 966 measured transitions with US salary data on both ends, the median career-change tax is 2.3 percent, and 52.5 percent of switches land in an occupation that pays more than the one left behind.',
+      'The tax is small but the moves are not: the median switch shifts advertised pay by 22.8 percent in one direction or the other. Direction is the decision, and it is choosable in advance.',
+      'Transitions with above-median skill overlap carry a median tax of 8.5 percent, while below-median overlap carries a median raise of 8.5 percent. The nearest doors lead to rooms priced like yours; the raises sit one ring out.',
+    ],
+    body: (
+      <>
+        <p>
+          The folk price of a career change is a pay cut. Advice columns quote 10
+          to 20 percent, framed as tuition for the fresh start, and the market
+          data seems to back the mood: by Q4 2025, only <strong>56 percent</strong> of
+          US new hires landed higher pay than their last role, down from 70
+          percent two years earlier (ZipRecruiter, via The Hill). The number
+          everyone repeats is real. It is also about job changes in general, not
+          career changes in particular, and nobody quoting it can tell you what
+          switching from your occupation to a specific other one costs.
+        </p>
+        <p>
+          That second question is computable, so we computed it. Our pipeline
+          holds live US postings with stated salaries for 163 occupations, at
+          least 15 salary-stated listings each, and a skill graph of which
+          occupations are measurably adjacent to which. Cross the two and you get{' '}
+          <strong>966 transitions</strong> with a salary median on both ends: the
+          advertised price of the job you have next to the advertised price of
+          the job you could move into. The gap between them is the career change
+          tax, one transition at a time.
+        </p>
+
+        <h2>The tax is nearly zero. The moves are not.</h2>
+        <p>
+          The median tax across all 966 measured transitions is{' '}
+          <strong>2.3 percent</strong>, a long way from the folk 10 to 20, which
+          on a $90,000 salary is about what a bad parking habit costs a year. And
+          the distribution splits almost evenly. <strong>52.5 percent</strong> of
+          transitions end in an occupation whose advertised median is higher than
+          the origin&rsquo;s. A negative tax turns out to be the slight majority
+          of the graph.
+        </p>
+        <Pull>The median career change is not a pay cut with a dream attached. It is a coin flip with a thumb on the scale.</Pull>
+        <p>
+          What the averages hide is the amplitude. The median switch moves
+          advertised pay by <strong>22.8 percent</strong> in one direction or the
+          other. Career changes are not cheap; they are volatile, and the folk
+          advice mistakes volatility for cost. The people who took the famous 20
+          percent cut and the people who quietly gained 20 percent are both
+          inside that number. The difference between them is not luck. It is
+          which wire they followed, and the wires are visible before you jump.
+        </p>
+
+        <h2>First, the fake raises</h2>
+        <p>
+          Run this analysis naively and the top of the raise table is a parade of
+          mirages. Clinical research coordinator to physician shows a 223 percent
+          raise. Sales representative to lawyer, 158. Event planner to
+          pharmacist, 139. Every one of these is real arithmetic and fake
+          advice, because the destination sits behind a license and, in the
+          physician&rsquo;s case, most of a decade of school. Our graph marks
+          license-gated occupations, so <strong>132</strong> of the 966
+          transitions are excluded from every table below. What remains is the
+          open market: moves where the gate is a hiring manager, not a bar exam.
+        </p>
+
+        <h2>The overlap paradox</h2>
+        <p>
+          Here is the finding we did not expect. Split the open transitions by
+          skill overlap, the share of the destination&rsquo;s demanded skills your
+          occupation already covers, and the comfortable half underperforms.
+          Above-median overlap: a median <strong>tax of 8.5 percent</strong>.
+          Below-median overlap: a median <strong>raise of 8.5 percent</strong>.
+        </p>
+        <p>
+          The mechanism is unglamorous once you see it. Skills cluster inside pay
+          bands, so the occupations most similar to yours tend to be priced like
+          yours or slightly below; support roles neighbor support roles, and
+          coordination jobs neighbor coordination jobs. The raises live one ring
+          further out, where the overlap is real but partial, and the missing
+          skills are the reason the destination pays more in the first place.
+          Familiarity is comfort. It is not upside.
+        </p>
+
+        <h2>Where the raises hide</h2>
+        <p>
+          The useful quadrant is transitions with meaningful overlap and a
+          positive gap: enough carryover that the interview is winnable, enough
+          distance that the pay band changes. A sample from the top of that
+          quadrant, all license-free, all with live listings on the board:
+        </p>
+        <table className="post-table">
+          <caption>Measured raises with above-average skill overlap &middot; US advertised medians, August 2026</caption>
+          <thead><tr><th>From</th><th>To</th><th>Advertised medians</th><th>Gap</th></tr></thead>
+          <tbody>
+            <tr><td>Customer support specialist</td><td>Operations manager</td><td>$60k &rarr; $125k</td><td>+108%</td></tr>
+            <tr><td>Customer support specialist</td><td>Business analyst</td><td>$60k &rarr; $124k</td><td>+108%</td></tr>
+            <tr><td>Corporate trainer</td><td>Developer advocate</td><td>$95k &rarr; $190k</td><td>+99%</td></tr>
+            <tr><td>Sales representative</td><td>Growth marketer</td><td>$71k &rarr; $138k</td><td>+92%</td></tr>
+            <tr><td>Data analyst</td><td>Solutions architect</td><td>$96k &rarr; $164k</td><td>+71%</td></tr>
+            <tr><td>IT support specialist</td><td>Solutions architect</td><td>$96k &rarr; $164k</td><td>+70%</td></tr>
+            <tr><td>Product analyst</td><td>Data scientist</td><td>$95k &rarr; $156k</td><td>+64%</td></tr>
+          </tbody>
+        </table>
+        <p>
+          A gap is not an offer. Customer support to operations manager is a real
+          wire in the graph and still a competitive interview against people
+          already carrying the title. What the number says is narrower and more
+          useful: the market prices these two skill sets 108 percent apart, and
+          part of the bridge is already built. Whether the remaining part takes
+          six months of visible work or two years is written in the skill gap,
+          not the salary gap.
+        </p>
+
+        <h2>The same wire, billed in one direction</h2>
+        <p>
+          Because adjacency is mutual and pay is not, the graph holds{' '}
+          <strong>38 pairs</strong> of occupations measured in both directions
+          where the identical wire pays going one way and charges coming back.
+          Content strategist to developer advocate runs +106 percent; the return
+          trip runs a 52 percent cut. Database administrator to software
+          engineer, +82 out, 45 back. None of this is mysterious, which is what
+          makes it useful. The tax belongs to the direction, not to the act of
+          switching, and direction is the one variable entirely in the
+          switcher&rsquo;s control.
+        </p>
+
+        <h2>Where this leaves you</h2>
+        <p>
+          Three numbers decide a move, and all three are printed before you
+          apply. The overlap says whether the interview is winnable. The salary
+          gap says what the move pays, in either direction. The skill gap names
+          what to build to cross it. If you hold a title and want the priced
+          routes out of it, the <a className="gl" href="/">instrument</a> computes
+          your own row of this table; if you want to see who is hiring on the
+          other end today, the <a className="gl" href="/jobs">board</a> carries
+          the live listings, salary shown where the employer states it. And if
+          the move you are weighing is a deliberate downshift, physician to
+          scribe runs an 84 percent cut and people take it on purpose, the same
+          numbers price the exit honestly too.
+        </p>
+
+        <Sources>
+          <p>
+            All transition figures: the PivotHop pipeline, August 2026 run. US
+            postings with stated salaries give each occupation an advertised
+            median (minimum 15 salary-stated listings; 163 occupations qualify);
+            the skill graph supplies measured adjacency; 966 adjacent pairs have
+            a median on both ends, of which 132 end in license-gated occupations
+            and are excluded from recommendations. Advertised pay, not
+            negotiated pay. New-hire market context: ZipRecruiter Q4 2025
+            figures as reported by The Hill, November 2025 (56 percent of new
+            hires above previous pay, down from 70 percent in 2023).
+          </p>
+        </Sources>
+        <Go links={[
+          { href: '/jobs/solutions-architect', label: 'Solutions architect openings, live' },
+          { href: '/jobs/operations-manager', label: 'Operations manager openings, live' },
+          { href: '/blog/what-is-career-adjacency', label: 'How adjacency is measured' },
+        ]} />
+      </>
+    ),
+    faq: [
+      { q: 'Is there really no pay cut when you change careers?', a: 'There is often a pay cut; it is just not the default. Across 966 measured transitions between occupations with US salary data, the median change in advertised median pay is a 2.3 percent cut, and 52.5 percent of transitions land in an occupation that advertises higher pay. The typical move shifts pay 22.8 percent in one direction or the other, so the honest summary is that switching is volatile, not expensive.' },
+      { q: 'Why do the closest career moves pay worse than bigger jumps?', a: 'Skills cluster inside pay bands. The occupations most similar to yours are usually priced like yours, so high-overlap moves carry a median 8.5 percent cut in our data, while moves with less overlap carry a median 8.5 percent raise. The raises tend to sit one ring out, where enough skills carry over to interview but the missing ones are what the destination pays for.' },
+      { q: 'Which career changes increase salary the most?', a: 'Excluding license-gated destinations, the largest measured gaps with meaningful skill overlap include customer support specialist to operations manager or business analyst (both around +108 percent in advertised US medians), corporate trainer to developer advocate (+99 percent), sales representative to growth marketer (+92 percent), and data analyst or IT support specialist to solutions architect (about +70 percent).' },
+      { q: 'How is the career change tax calculated here?', a: 'From live job postings: US listings with stated salaries, at least 15 per occupation, give each of 163 occupations an advertised median. The skill graph supplies which occupations are measurably adjacent. For each of 966 adjacent pairs, the tax is the percentage difference between the two medians. License-gated destinations are excluded from recommendations, and advertised pay is not negotiated pay.' },
+    ],
+  },
+  {
     slug: 'how-to-spot-a-ghost-job',
     title: 'How to spot a ghost job: five checks, two minutes',
     pillar: 'Run It 10,000 Times',
