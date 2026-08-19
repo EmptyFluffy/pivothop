@@ -12,13 +12,14 @@ import Link from 'next/link';
 import type { Job } from './JobCard';
 import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, Arrow45 } from './JobCard';
 import { type Listing, loadListing } from './detail';
+import SkillStrip, { type SkillEntry } from './SkillStrip';
 
 /* Sources that are the company's own board rather than an aggregator feed.
    Saying so on the pane is the provenance line (docs/26): a listing from the
    company's board dies when the company kills it. */
 const DIRECT = new Set(['greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'employer']);
 
-export default function JobPanel({ job, onClose }: { job: Job; onClose: () => void }) {
+export default function JobPanel({ job, onClose, glossary }: { job: Job; onClose: () => void; glossary?: SkillEntry[] | null }) {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loaded, setLoaded] = useState(false);
   const paneRef = useRef<HTMLElement>(null);
@@ -57,7 +58,11 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
   }, []);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (document.querySelector('.skmodal')) return; // the skill sheet is on top; Esc peels one layer
+      onClose();
+    };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
@@ -103,16 +108,29 @@ export default function JobPanel({ job, onClose }: { job: Job; onClose: () => vo
             </div>
           )}
 
-          {listing && listing.skills.length > 0 && (
-            <div className="jsheet-sec">
-              <h3>Skills in this posting</h3>
-              <div className="jd-skillgrid">
-                {listing.skills.map((s) => (
-                  <Link key={s.href} className="jd-skill" href={s.href}>{s.term}</Link>
-                ))}
+          {listing && listing.skills.length > 0 && (() => {
+            /* the same strip as the listing page: marks, hover, and the
+               definition sheet on click; plain glossary links until the
+               glossary json arrives or for terms outside it */
+            const bySlug = new Map((glossary ?? []).map((e) => [e.slug, e]));
+            const entries = listing.skills
+              .map((s) => bySlug.get(s.href.split('#skill-')[1] ?? ''))
+              .filter((e): e is SkillEntry => !!e);
+            return (
+              <div className="jsheet-sec">
+                <h3>Skills in this posting</h3>
+                {entries.length === listing.skills.length ? (
+                  <SkillStrip skills={entries} />
+                ) : (
+                  <div className="jd-skillgrid">
+                    {listing.skills.map((s) => (
+                      <Link key={s.href} className="jd-skill" href={s.href}>{s.term}</Link>
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {listing && listing.sections.length > 0 && (
             <div className="jsheet-sec jsheet-desc">

@@ -21,9 +21,10 @@ import Link from 'next/link';
 import type { Job } from './JobCard';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
 import { type Listing, loadListing } from './detail';
+import SkillStrip, { type SkillEntry } from './SkillStrip';
 
 
-export default function JobSheet({ job, onClose }: { job: Job | null; onClose: () => void }) {
+export default function JobSheet({ job, onClose, glossary }: { job: Job | null; onClose: () => void; glossary?: SkillEntry[] | null }) {
   const [listing, setListing] = useState<Listing | null>(null);
   // The sheet outlives the `job` prop by one transition. Without this it
   // unmounted the instant the parent cleared the job, so it vanished rather
@@ -82,7 +83,7 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
     restoreFocus.current = document.activeElement as HTMLElement | null;
     sheetRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'Escape') { if (document.querySelector('.skmodal')) return; close(); return; }
       if (e.key !== 'Tab' || !sheetRef.current) return;
       const f = sheetRef.current.querySelectorAll<HTMLElement>(
         'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])'
@@ -146,16 +147,26 @@ export default function JobSheet({ job, onClose }: { job: Job | null; onClose: (
             <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
           </div>
 
-          {listing?.skills?.length ? (
-            <div className="jsheet-sec">
-              <h3>Skills in this posting</h3>
-              <div className="jd-skillgrid">
-                {listing.skills.map((sk) => (
-                  <Link key={sk.href} className="jd-skill" href={sk.href}>{sk.term}</Link>
-                ))}
+          {listing?.skills?.length ? (() => {
+            const bySlug = new Map((glossary ?? []).map((e) => [e.slug, e]));
+            const entries = listing.skills
+              .map((sk) => bySlug.get(sk.href.split('#skill-')[1] ?? ''))
+              .filter((e): e is SkillEntry => !!e);
+            return (
+              <div className="jsheet-sec">
+                <h3>Skills in this posting</h3>
+                {entries.length === listing.skills.length ? (
+                  <SkillStrip skills={entries} />
+                ) : (
+                  <div className="jd-skillgrid">
+                    {listing.skills.map((sk) => (
+                      <Link key={sk.href} className="jd-skill" href={sk.href}>{sk.term}</Link>
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
-          ) : null}
+            );
+          })() : null}
 
           {listing?.sections?.length ? (
             <div className="jsheet-sec jsheet-desc">

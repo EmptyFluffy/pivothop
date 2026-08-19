@@ -493,7 +493,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
                 </button>
               )}
             </div>
-            {panelJob && <JobPanel job={panelJob} onClose={closePanel} />}
+            {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} />}
           </div>
         </>
       )}
@@ -512,7 +512,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         onSort={setSort}
         skills={skills ?? []}
       />
-      <JobSheet job={sheetJob} onClose={closeSheet} />
+      <JobSheet job={sheetJob} onClose={closeSheet} glossary={skills} />
     </div>
   );
 }
