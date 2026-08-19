@@ -79,8 +79,3 @@ export async function loadListing(occ: string, id: string): Promise<Listing | nu
     return null;
   }
 }
-
-/** Warm a listing before it is needed (card hover). */
-export function prefetchListing(occ: string, id: string): void {
-  void loadListing(occ, id);
-}

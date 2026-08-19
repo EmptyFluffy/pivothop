@@ -8,9 +8,26 @@ import path from 'node:path';
 import type { Job } from './JobCard';
 export type { Job };
 
+/* Parsed-JSON LRU. Every ISR listing render used to re-read and re-parse its
+   occupation's data files (the detail file twice: sections and skills), which
+   is what burned the Fluid CPU allotment: thousands of crawler renders times
+   megabytes of JSON.parse each. A warm instance now parses each file once.
+   Bounded so a crawler sweeping all occupations cannot balloon memory. */
+const _readCache = new Map<string, unknown>();
+const READ_CACHE_MAX = 24;
 function read<T>(rel: string): T | null {
-  try { return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', rel), 'utf8')); }
-  catch { return null; }
+  if (_readCache.has(rel)) {
+    const v = _readCache.get(rel);
+    _readCache.delete(rel);
+    _readCache.set(rel, v); // re-insert: keeps the Map in LRU order
+    return v as T;
+  }
+  try {
+    const v = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', rel), 'utf8'));
+    _readCache.set(rel, v);
+    if (_readCache.size > READ_CACHE_MAX) _readCache.delete(_readCache.keys().next().value as string);
+    return v as T;
+  } catch { return null; }
 }
 
 let _idx: Record<string, number> | null = null;

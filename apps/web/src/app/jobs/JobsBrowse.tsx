@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
 import JobPanel from './JobPanel';
-import { prefetchListing } from './detail';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
@@ -197,20 +196,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         window.location.href = href;
       })();
     };
-    // Warm the occupation's detail file the moment a card is hovered, so the
-    // pane opens with the text already local.
-    const onOver = (e: MouseEvent) => {
-      const a = (e.target as HTMLElement)?.closest?.('a.job-card') as HTMLAnchorElement | null;
-      const m = a && /^\/jobs\/([a-z0-9-]+)\/([a-z0-9]+)$/.exec(a.getAttribute('href') || '');
-      if (m) prefetchListing(m[1], m[2]);
-    };
     const onPop = () => { setSheetJob(null); setPanelJob(null); };
     document.addEventListener('click', onClick, true);
-    document.addEventListener('mouseover', onOver, { passive: true });
     window.addEventListener('popstate', onPop);
     return () => {
       document.removeEventListener('click', onClick, true);
-      document.removeEventListener('mouseover', onOver);
       window.removeEventListener('popstate', onPop);
     };
   }, []);
