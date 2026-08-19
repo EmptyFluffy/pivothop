@@ -19,8 +19,9 @@ const QUERIES = [
   'byggnadsingenjör', 'VVS-ingenjör', 'elkonstruktör', 'inredningsarkitekt',
   'architect', 'civil engineer', 'structural engineer',
   'software engineer', 'developer', 'data engineer', 'designer',
+  'projektledare', 'sjuksköterska', 'redovisningsekonom', 'elektriker', 'mekaniker',
 ];
-const PAGES_PER_QUERY = 2;
+const PAGES_PER_QUERY = 4;
 
 export async function fetchRaw({ log }) {
   const rows = [];

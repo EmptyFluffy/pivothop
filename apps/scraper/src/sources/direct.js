@@ -152,7 +152,15 @@ async function extract(prompt, cacheKeyParts) {
     body: JSON.stringify({ model: MODEL, max_tokens: 4000, messages: [{ role: 'user', content: prompt }] }),
     signal: AbortSignal.timeout(60000),
   });
-  if (!res.ok) throw new Error(`anthropic ${res.status}`);
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => '');
+    if (res.status === 400 && /credit balance/i.test(errBody)) {
+      const e = new Error('anthropic credits exhausted');
+      e.creditsExhausted = true;
+      throw e;
+    }
+    throw new Error(`anthropic ${res.status}`);
+  }
   const body = await res.json();
   const text = (body.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
   const parsed = parseLoose(text);
@@ -293,6 +301,10 @@ export async function fetchRaw({ log }) {
       }
       log(`direct:${company} — ${kept} postings`);
     } catch (err) {
+      if (err.creditsExhausted) {
+        log(`direct: ANTHROPIC CREDITS EXHAUSTED — fleet run abandoned at ${company}; top up at console.anthropic.com, nothing else is wrong`);
+        break;
+      }
       log(`direct:${company} — failed: ${String(err.message).slice(0, 120)}`);
     }
     }

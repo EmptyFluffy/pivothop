@@ -31,6 +31,12 @@ const LATAM_TERMS = ['developer', 'designer', 'marketing', 'ventas', 'engineer',
 const CH_DE_TERMS = ['informatiker', 'entwickler', 'ingenieur', 'pflege', 'techniker', 'verkauf', 'marketing', 'buchhaltung', 'projektleiter', 'quereinsteiger'];
 const CH_FR_TERMS = ['développeur', 'ingénieur', 'infirmier', 'technicien', 'vente', 'comptable', 'chef de projet'];
 const CH_EN_TERMS = ['engineer', 'developer', 'designer', 'analyst', 'product manager', 'consultant'];
+// GB + US sweeps (added 2026-08-19, docs/34 amendments): the two thinnest
+// English-language countries, served from the same key and the same terms of
+// use. AEC terms lead because those are the thin roles.
+const EN_TERMS = ['architect', 'civil engineer', 'structural engineer', 'bim', 'landscape architect',
+  'mechanical engineer', 'electrical engineer', 'quantity surveyor',
+  'engineer', 'developer', 'designer', 'analyst', 'nurse', 'accountant', 'project manager', 'consultant'];
 const LOCALES = [
   { code: 'es_MX', ccy: 'MXN', terms: LATAM_TERMS }, { code: 'pt_BR', ccy: 'BRL', terms: LATAM_TERMS },
   { code: 'es_AR', ccy: 'ARS', terms: LATAM_TERMS }, { code: 'es_CO', ccy: 'COP', terms: LATAM_TERMS },
@@ -38,6 +44,8 @@ const LOCALES = [
   { code: 'de_CH', ccy: 'CHF', terms: CH_DE_TERMS },
   { code: 'fr_CH', ccy: 'CHF', terms: CH_FR_TERMS },
   { code: 'en_CH', ccy: 'CHF', terms: CH_EN_TERMS },
+  { code: 'en_GB', ccy: 'GBP', terms: EN_TERMS },
+  { code: 'en_US', ccy: 'USD', terms: EN_TERMS },
 ];
 const PERIOD = { Y: 'year', M: 'month', W: 'week', D: 'day', H: 'hour' };
 

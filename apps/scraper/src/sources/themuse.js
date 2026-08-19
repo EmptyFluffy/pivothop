@@ -6,7 +6,7 @@ import { stripHtml } from '../lib/text.js';
 // https://www.themuse.com/developers/api/v2 — attribution required, polite pacing.
 export const name = 'themuse';
 
-const PAGES = 40; // 20 jobs/page
+const PAGES = 80; // 20 jobs/page; doubled 2026-08-19 for US volume (docs/34)
 
 export async function fetchRaw({ log }) {
   const rows = [];
