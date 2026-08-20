@@ -255,8 +255,9 @@ export default function Research() {
 
         <h3>The SEO architecture — the most copyable thing here</h3>
         <p className="res-lede">
-          Their <code>robots.txt</code> exposes <b>16 sitemaps</b>. Read together they are the whole strategy:
-          three entities, each multiplied by five or six facets they already stored.
+          Their <code>robots.txt</code> exposes <b>22 sitemaps</b> as of 20 Aug 2026, up from 16 when this was
+          first measured. Read together they are the whole strategy: three entities, each multiplied by five or
+          six facets they already stored.
         </p>
         <table className="res-table">
           <thead><tr><th>Entity</th><th>Facets crossed</th><th>Scale</th></tr></thead>
@@ -270,6 +271,67 @@ export default function Research() {
           <li><span className="lbl">Stack</span>They run <b>Rails</b>, not Next. Sprockets asset fingerprints in the HTML. Same lesson as the designboom read — the stack is never the moat.</li>
           <li><span className="lbl">Crawl</span><code>Disallow: /apply</code> — the funnel is blocked, everything else is open.</li>
           <li><span className="lbl">URLs</span><code>/companies/&lt;co&gt;/jobs/&lt;job&gt;</code> nests jobs under the company, so a job page inherits company authority. <code>/talent/&lt;skill&gt;</code> and <code>/talent/countries/&lt;country&gt;/&lt;skill&gt;</code> are the candidate surface. <code>/@handle</code> for people.</li>
+        </ul>
+      </section>
+
+      {/* ── The content-template surface ───────────────────────────── */}
+      <section className="res-sec">
+        <h2>The career-guide surface <span className="lbl">measured 20 Aug 2026 · the second engine, and the one we have not built</span></h2>
+
+        <p className="res-lede">
+          The facet sitemaps above multiply <em>data</em> they already hold. This is the other half, and it is a
+          different machine: one long-form <b>content template</b> filled per occupation. Nobody wrote these by
+          hand. Measured directly: <code>/career-guides</code> paginates to <b>33 pages at 250 links each</b>, so
+          roughly <b>8,126 guides</b>, and the same slug also resolves at <code>/job-descriptions/</code>,{' '}
+          <code>/resumes/</code>, <code>/interview-questions/</code> and <code>/cover-letters/</code> (all 200).
+          One occupation list, five templates: on the order of <b>40,000 pages from a single taxonomy</b>.
+        </p>
+
+        <div className="res-callout">
+          <span className="lbl">How it is made, on the evidence</span>
+          <p>
+            Every guide carries an identical 14-section spine, in the same order, whatever the role: Key Facts
+            &amp; Statistics, What is a X, What does a X do, Skills &amp; Qualifications, How to Become, Education
+            &amp; Training, Salary &amp; Outlook, Career Path, Job Application Toolkit, Global Opportunities,
+            Market Reality, Emerging Specializations, Pros &amp; Cons, FAQ. That rigidity is the tell: a fixed
+            prompt scaffold per section, run over an occupation list, with BLS figures for growth and openings
+            pasted into the facts block. It is <b>LLM-written against a template</b>, not programmatic assembly of
+            stored data, and not hand-authoring. Their own product line makes it near-certain: they sell an AI
+            career coach, AI cover letters, AI mock interviews. The generator was already in the building.
+          </p>
+        </div>
+
+        <h3>Is it indexed, and is it working?</h3>
+        <ul className="res-notes">
+          <li><span className="lbl">Indexed — yes</span>Search for a role plus &ldquo;career guide&rdquo; and they take most of the page. One query returned eight Himalayas URLs across four of the five templates. They rank for the generic head term too: a search about programmatic SEO returned five of their <code>/career-guides/</code> pages.</li>
+          <li><span className="lbl">Not in any sitemap</span>Measured: <code>sitemap-general</code> holds only <b>51</b> URLs, all product pages, and no listed sitemap covers <code>/career-guides/</code>. 8,000 pages discovered by internal linking alone. Either an oversight or deliberate; either way it is a gap we would not repeat.</li>
+          <li><span className="lbl">Traffic — unverified</span>No public number. The 2022 build-in-public updates stop at 41k organic. <b>Do not quote a traffic figure for this surface; nobody published one.</b> What is verifiable is ranking presence, not volume.</li>
+        </ul>
+
+        <h3>Where the template is weak</h3>
+        <ul className="res-notes">
+          <li><span className="lbl">No schema</span>Measured on the 3D Designer guide: the only structured data is <code>BreadcrumbList</code>. No <code>Article</code>, no <code>FAQPage</code>, no <code>HowTo</code>, no <code>Occupation</code> — despite the page carrying an FAQ, a how-to and a salary table. Free rich results, left on the floor.</li>
+          <li><span className="lbl">Weight</span><b>851KB of HTML</b> for one guide, and only <b>5</b> outbound links to sibling guides. Enormous pages, thin interlinking.</li>
+          <li><span className="lbl">Undated and drifting</span>The guide the founder pasted reads &ldquo;Last updated December 21, 2024&rdquo; while its own body is headed &ldquo;2025 Market Reality&rdquo; and cites data &ldquo;current to 2025&rdquo;. Generated once, not maintained.</li>
+          <li><span className="lbl">Unfalsifiable numbers</span>Salary tables by level with no source and no sample size (&ldquo;Junior $50k / Senior $95k&rdquo;). Plausible, unverifiable, and exactly the thing we exist to disprove.</li>
+        </ul>
+
+        <div className="res-warn">
+          <b>The strategic read.</b> This surface is cheap to copy and cheap for anyone else to copy, which means
+          it is not a moat for them and would not be one for us. The asymmetry is the input: theirs is a language
+          model&rsquo;s recollection of an occupation, ours would be <b>25,845 live postings, 360 skills, 47 mined
+          benefits, three mined gates, measured routes and OEWS-anchored pay</b>. Same page shape; one of them can
+          be checked. If we ship this, the differentiator is that every number carries a source and a sample size,
+          and the page changes when the nightly scrape changes.
+        </div>
+
+        <h3>What a PivotHop version would be</h3>
+        <ul className="res-notes">
+          <li><span className="lbl">Surface</span><code>/careers/&lt;occupation&gt;</code> over our <b>158</b> boards, not 8,000 invented ones. Every section computed: what it pays (we have it), what it asks for (skills, and now experience/education/language gates), what it offers (benefits), where it leads (routes), where it hires (countries), how many are open right now.</li>
+          <li><span className="lbl">The part they cannot answer</span>&ldquo;Who already qualifies&rdquo; — the reverse of every guide on the internet. Their guide tells an outsider how to become a 3D designer. Ours can tell a specific reader that their current job already covers 64% of it, and name the gap. That is the section nobody else can generate.</li>
+          <li><span className="lbl">Do differently</span>Ship <code>Occupation</code>, <code>FAQPage</code> and <code>Article</code> schema; put it in a real sitemap; interlink to the board, salary, routes and glossary in every section; carry a visible last-computed date that the nightly run moves.</li>
+          <li><span className="lbl">Honest cost</span>The prose still has to come from somewhere. Ours would be template + real figures, with the judgement paragraphs written once per FIELD (not per occupation) so 158 pages need ~16 pieces of human writing, reused with computed numbers around them. That is the only way this stays defensible under the house rule that every claim traces to data.</li>
+          <li><span className="lbl">Sequencing</span>This is a Phase-C move, after the redesign lands. It is the largest single SEO surface available to us, and it is worth more once the pages it links into look finished.</li>
         </ul>
       </section>
 
