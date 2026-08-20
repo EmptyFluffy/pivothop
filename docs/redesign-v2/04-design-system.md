@@ -12,7 +12,16 @@ huge "Title at Company" line with the connective in grey, one loud color
 The class of design-led boards (It's Nice That, If You Could) shares the
 pattern: type does the layout, chrome stays silent, one color carries value.
 
-**Dual mode (2026-08-20):** dark is the default and the statement; the light
+**Light mode, second pass (2026-08-20):** the deep-gold-on-cream light mode
+was rejected ("contrast colours... pretty bad"). Measured replacements from
+the same world: It's Nice That's dominant accent is electric violet #6219FF
+(126 sampled uses); Creative Boom's light-site yellow is #FFC828 (accent
+moments only, never text). The light mode is now white field, neutral
+#F7F7F5 surface, pale violet #F1EDFF selection, and #6219FF as value, accent
+AND the filled Apply (white ink). Dark keeps gold. Violet/gold is the brand
+pair: one world per mode, both measured.
+
+**Dual mode (first pass):** dark is the default and the statement; the light
 mode is measured from the same world's light citizens (It's Nice That runs
 Bradford on white with #141414 ink; If You Could runs ABC Diatype the same
 way): white field, `--surface #FAF8F2`, the measured CB cream `#FBF7EF` as

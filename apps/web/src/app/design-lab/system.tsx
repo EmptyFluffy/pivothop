@@ -80,3 +80,25 @@ export function Pill({ kind, children }: { kind: 'have' | 'miss'; children: Reac
 export function Stat({ v, k }: { v: React.ReactNode; k: string }) {
   return <div><div className="vv vnum">{v}</div><div className="vk">{k}</div></div>;
 }
+
+
+export function Pager({ pages, current = 1 }: { pages: number; current?: number }) {
+  const seq: (number | '…')[] = pages > 4 ? [1, 2, 3, '…', pages] : Array.from({ length: pages }, (_, i) => i + 1);
+  return (
+    <nav className="vpager" aria-label="Pages">
+      {seq.map((n, i) => n === '…'
+        ? <a key={`d${i}`} className="dots" href="#" aria-hidden="true">…</a>
+        : <a key={n} href="#" className={n === current ? 'cur' : ''} aria-current={n === current ? 'page' : undefined}>{n}</a>)}
+      <a className="fwd" href="#" aria-label="Next page">→</a>
+    </nav>
+  );
+}
+
+export function NavSearch() {
+  return (
+    <span className="vnav-search" role="button" tabIndex={0} aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16.5 16.5 21 21" /></svg>
+      <kbd>⌘K</kbd>
+    </span>
+  );
+}

@@ -10,7 +10,8 @@
   --border:#232220; --border-strong:#403D36;
   --accent:#F0B43C;              /* focus rings and fills */
   --value:#F0B43C;               /* the readable gold: salary, match, measure */
-  --amber:#F0B43C;               /* the fill gold: the one filled Apply */
+  --amber:#F0B43C;               /* the fill: gold in dark, violet in light */
+  --amber-ink:#151310;
   --pos:#8FBF9A; --gap:#E08762;
   --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:32px; --s6:48px; --s7:64px;
   --r:3px;
@@ -21,11 +22,13 @@
   -webkit-font-smoothing:antialiased;
 }
 .v2.vlight{
-  --bg:#FFFFFF; --surface:#FAF8F2; --bg-2:#FBF7EF;
-  --text:#141414; --text-2:#6E6A61;
-  --border:#E9E4D9; --border-strong:#C7C0B0;
-  --value:#A8790E;               /* gold deepened for contrast on white */
-  --pos:#3D7A50; --gap:#C4573A;
+  --bg:#FFFFFF; --surface:#F7F7F5; --bg-2:#F1EDFF;
+  --text:#141414; --text-2:#66646B;
+  --border:#E8E7E3; --border-strong:#C9C7C1;
+  --accent:#6219FF;
+  --value:#6219FF;               /* the measured INT electric violet */
+  --amber:#6219FF; --amber-ink:#FFFFFF;
+  --pos:#2F7A47; --gap:#C4573A;
 }
 .v2 *{ box-sizing:border-box; margin:0; }
 .v2 ::selection{ background:#234BFF22; }
@@ -64,7 +67,7 @@
   background:var(--text); color:var(--bg); padding:10px 20px; font-weight:550; font-size:13.5px;
   letter-spacing:.01em; border-radius:999px; transition:background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.v2 .btn-primary:hover{ background:var(--accent); color:#151310; }
+.v2 .btn-primary:hover{ background:var(--amber); color:var(--amber-ink); }
 .v2 .btn-ghost{
   background:none; color:var(--text); padding:9px 18px; font-size:13.5px; border-radius:999px;
   border:1px solid var(--border-strong); transition:border-color var(--dur);
@@ -249,10 +252,32 @@
 .v2 .vinspect .dotlist i{ width:6px; height:6px; border-radius:50%; flex:none; }
 .v2 .vinspect .dotlist .dhave i{ background:var(--pos); }
 .v2 .vinspect .dotlist .dmiss i{ background:var(--gap); }
-.v2 .vinspect .apply{ display:block; width:100%; background:var(--amber); color:#151310; border:none; cursor:pointer;
+.v2 .vinspect .apply{ display:block; width:100%; background:var(--amber); color:var(--amber-ink); border:none; cursor:pointer;
   font:inherit; font-weight:600; font-size:14px; padding:13px; border-radius:999px; margin-top:20px;
   transition:filter var(--dur) var(--ease); }
 .v2 .vinspect .apply:hover{ filter:brightness(1.08); }
 .v2 .vinspect .paysec{ font-size:30px; font-weight:600; margin-top:16px; color:var(--value); letter-spacing:-.01em; }
 .v2 .vinspect hr{ border:none; border-top:1px solid var(--border); margin:18px 0; }
 @media (max-width:1000px){ .v2 .vapp{ grid-template-columns:1fr; height:auto; } .v2 .vrail,.v2 .vinspect{ border:none; } }
+
+
+/* ---- pagination circles (bottom of the board) ---- */
+.v2 .vpager{ display:flex; align-items:center; gap:12px; padding:36px 0 8px; }
+.v2 .vpager a{ width:44px; height:44px; border-radius:50%; border:1px solid var(--text); display:flex;
+  align-items:center; justify-content:center; font-size:15px; color:var(--text); text-decoration:none;
+  transition:background var(--dur), color var(--dur); }
+.v2 .vpager a:hover{ background:var(--surface); }
+.v2 .vpager .cur{ background:var(--text); color:var(--bg); }
+.v2 .vpager .dots{ border-style:dashed; border-color:var(--border-strong); color:var(--text-2); }
+.v2 .vpager .fwd{ margin-left:auto; border:none; font-size:26px; width:auto; }
+.v2 .vpager .fwd:hover{ background:none; color:var(--value); }
+
+/* ---- nav search: icon + command chip, from the production nav ---- */
+.v2 .vnav-search{ display:flex; align-items:center; gap:8px; }
+.v2 .vnav-search svg{ width:16px; height:16px; }
+.v2 .vnav-search kbd{ font-family:var(--v2-mono),monospace; font-size:10px; letter-spacing:.06em;
+  border:1px solid var(--border-strong); border-radius:5px; padding:2.5px 6px; color:var(--text-2); }
+
+/* ---- footer ---- */
+.v2 .vfoot2{ border-top:1px solid var(--border); padding:22px 32px; display:flex; justify-content:space-between;
+  align-items:baseline; font-size:12.5px; color:var(--text-2); background:var(--bg); }

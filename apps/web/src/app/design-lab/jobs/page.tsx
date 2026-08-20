@@ -1,6 +1,6 @@
 import { getJobs, getJobSkills, occTitle, jobCount } from '../../jobs/jobs-data';
 import { destRole } from '../../routes/routes-data';
-import { LabBar, RouteMeasure, Monogram, SearchUnit, FilterToken, Pill } from '../system';
+import { LabBar, RouteMeasure, Monogram, SearchUnit, FilterToken, Pill, Pager, NavSearch } from '../system';
 import Link from 'next/link';
 
 /* ANCHOR A · the V2 job board, workspace architecture (reference pass):
@@ -43,6 +43,7 @@ export default function LabJobs() {
           ))}
         </span>
         <span className="vnav-right">
+          <NavSearch />
           <a href="#" className="ul" style={{ fontSize: 13.5 }}>Sign in</a>
           <button className="btn btn-primary" type="button">Run the instrument</button>
         </span>
@@ -115,6 +116,7 @@ export default function LabJobs() {
               </article>
             ))}
           </div>
+          <Pager pages={Math.max(2, Math.ceil(occs.reduce((a, o) => a + jobCount(o), 0) / 60))} current={1} />
         </section>
 
         <aside className="vinspect" aria-label="Job inspector">
@@ -163,6 +165,10 @@ export default function LabJobs() {
           </div>
         </aside>
       </div>
+      <footer className="vfoot2">
+        <span>PivotHop · career moves, measured</span>
+        <span><a className="ul" href="#">About</a> &nbsp;&nbsp; <a className="ul" href="#">Employers</a> &nbsp;&nbsp; <a className="ul" href="#">Method</a></span>
+      </footer>
     </>
   );
 }
