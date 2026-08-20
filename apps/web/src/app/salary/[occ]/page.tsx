@@ -82,7 +82,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
     .sort((a, b2) => (a.isUS ? -1 : b2.isUS ? 1 : b2.p50 - a.p50));
 
   return (
-    <PageShell v2>
+    <PageShell v2 active="salaries">
       <div className="rtp salp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><span>{f.title}</span>

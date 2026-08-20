@@ -837,14 +837,16 @@ html.vlight .v2t{ --v-gap:#B24E34; }
   border-radius:999px; padding:8px 14px; cursor:pointer; }
 .v2t .sal-cty-n{ color:var(--v-text2); }
 
-/* the headline number: first fact giant, the rest hold the 28px register */
+/* the headline number: first fact giant, the rest hold the smaller register.
+   On the salary page the figures take the words face per review. */
 .v2t .salp .rt-facts{ align-items:flex-end; }
+.v2t .salp .rt-facts .v{ font-family:var(--sans),sans-serif; font-weight:650; letter-spacing:-.03em; }
 .v2t .salp .rt-facts>div:first-child .v{ font-size:clamp(40px,4.8vw,68px); line-height:1; }
 
 /* trend canvas: the paper instrument face, like the graph */
 .v2t .sal-chartwrap{ margin-top:30px; }
 .v2t .sal-chart-head .lbl{ color:var(--v-text2); }
-.v2t .sal-canvas{ background:var(--paper); border:1px solid var(--v-border); border-radius:8px; }
+.v2t .sal-canvas{ background:var(--v-surface); border:1px solid var(--v-border); border-radius:8px; }
 .v2t .sal-chart-pending{ color:var(--v-text2); border:1px dashed var(--v-border2); border-radius:8px;
   padding:22px; }
 

@@ -71,7 +71,7 @@ export default function ByCountryPage() {
   const topAdj = byAdjusted[0];
 
   return (
-    <PageShell v2>
+    <PageShell v2 active="salaries">
       <div className="rtp salp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><span>By country</span>
