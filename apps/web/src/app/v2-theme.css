@@ -200,8 +200,11 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 .v2t .jb-thead{ display:none; }
 @media (min-width:981px){
   .v2t .rtp{ padding:0 0 44px; }
-  .v2t .jb-work{ display:grid; grid-template-columns:264px minmax(0,1fr); align-items:start; }
-  .v2t .jb-rail{ display:block; border-right:1px solid var(--v-border); padding:22px 22px 36px;
+  .v2t .jb-work{ display:grid; grid-template-columns:264px minmax(0,1fr); align-items:start;
+    position:relative; }
+  .v2t .jb-work::before{ content:""; position:absolute; left:264px; top:0; bottom:0; width:1px;
+    background:var(--v-border); }
+  .v2t .jb-rail{ display:block; padding:22px 22px 36px;
     position:sticky; top:101px; max-height:calc(100dvh - 101px); overflow-y:auto;
     /* scrollable, but no visible bar (the lab treatment) */
     scrollbar-width:none; }
@@ -214,13 +217,18 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
   /* without the inspector, the column does not run to the horizon */
   .v2t .jb-centercol:not(:has(.jpane)) > *{ max-width:1160px; }
   /* the floating mode toggle steps left of the pane instead of covering it */
-  .v2t .jb-centercol .jb-splitwrap{ margin:0; grid-template-columns:minmax(0,1fr) 356px; gap:0; }
+  .v2t .jb-centercol .jb-splitwrap{ margin:0; grid-template-columns:minmax(0,1fr) 356px; gap:0;
+    position:relative; }
+  .v2t .jb-centercol .jb-splitwrap::after{ content:""; position:absolute; right:356px; top:0; bottom:0;
+    width:1px; background:var(--v-border); }
   /* the inspector reaches the workspace top (a measured negative pull) but
      stays sticky INSIDE the split, so it scrolls away with the list exactly
      like the rail does, instead of riding over the footer */
   .v2t .jb-splitwrap .jpane{ position:sticky; top:var(--jpane-top,101px);
     margin-top:var(--jpane-pull,0px); z-index:30; }
   .v2t .jb-centercol .jb-splitwrap .jb-listcol{ padding-left:0; padding-right:26px; }
+  /* the pager centers on the full cell between the dividers, not the padded box */
+  .v2t .jb-centercol .jb-splitwrap .jb-pager{ margin-right:-26px; }
   .v2t .jb-centercol .job-list-full{ margin-left:0; margin-right:0; }
   .v2t .job-list-full .job-card{ padding-left:10px; padding-right:10px; }
 }
@@ -341,8 +349,7 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 .v2t .jb-more:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
 
 /* ---- the inspector pane (lab vinspect) ---- */
-.v2t .jpane{ border:none; border-left:1px solid var(--v-border); border-radius:0;
-  background:var(--v-bg2); box-shadow:none; }
+.v2t .jpane{ border:none; border-radius:0; background:var(--v-bg2); box-shadow:none; }
 .v2t .jpane-v2 .jpane-scroll{ scrollbar-width:none; }
 .v2t .jpane-v2 .jpane-scroll::-webkit-scrollbar{ display:none; }
 .v2t .jv-top{ display:flex; justify-content:space-between; align-items:center; padding:14px 22px;
@@ -396,21 +403,22 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 .v2t .jpane-ghost:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
 
 /* ---- the circle pager (lab vpager) ---- */
-.v2t .jb-pager{ display:flex; align-items:center; gap:12px; padding:36px 0 8px; }
+.v2t .jb-pager{ display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:40px 0; position:relative; }
 .v2t .jb-pg{ width:44px; height:44px; border-radius:50%; border:1.5px solid color-mix(in srgb, var(--v-text) 60%, transparent);
   background:none; color:var(--v-text); font:inherit; font-size:14px; display:flex; align-items:center;
   justify-content:center; cursor:pointer; transition:background .15s, color .15s, border-color .15s; }
 .v2t .jb-pg:hover{ background:var(--v-text); color:var(--v-bg); }
 .v2t .jb-pg.cur{ background:var(--v-text); color:var(--v-bg); }
 .v2t .jb-pg.dots{ border-style:dashed; border-color:var(--v-border2); color:var(--v-text2); }
-.v2t .jb-pg.fwd{ margin-left:auto; border:none; width:auto; }
+.v2t .jb-pg.fwd{ position:absolute; right:10px; margin-left:0; border:none; width:auto; }
 .v2t .jb-pg.fwd:hover{ background:none; color:var(--v-value); }
 .v2t .jb-pg.fwd:disabled{ opacity:.3; cursor:default; color:var(--v-text); }
 
 /* ---- for-employers: a statement, not a black card. Big two-tone headline,
    mono measurements, and the circle CTA in the system's pill language. ---- */
 .v2t .empband{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:48px; align-items:center;
-  background:transparent; color:var(--v-text); margin:72px 0 0; padding:56px 32px 56px;
+  background:transparent; color:var(--v-text); margin:0; padding:56px 32px 56px;
   border-top:1px solid var(--v-border); }
 .v2t .empband .eb-copy{ padding:0; }
 .v2t .eb-eyebrow{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
