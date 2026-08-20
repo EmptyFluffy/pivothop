@@ -168,7 +168,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           </section>
         )}
 
-        <JobsList occ={def.dest} heading={`Open ${r.title.toLowerCase()} roles you could move into`} />
+        <JobsList occ={def.dest} heading={`Open ${r.title.toLowerCase()} roles you could move into`} v2 />
 
         <section className="rt-sec">
           <h2>Related routes</h2>

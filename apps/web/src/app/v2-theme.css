@@ -322,12 +322,13 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
   .v2t .jb-thead{ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px; gap:14px;
     padding:10px 10px; border-bottom:1px solid var(--v-border2); font-family:var(--mono),monospace;
     font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
-  .v2t .job-card{ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px; gap:14px;
-    align-items:center; padding:22px 10px; border-bottom:1px solid var(--v-border); position:relative; }
+  .v2t .job-card:has(.jv-main){ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px;
+    gap:14px; align-items:center; padding:22px 10px; border-bottom:1px solid var(--v-border);
+    position:relative; }
   .v2t .jv-cell{ display:flex; justify-content:flex-end; }
 }
 @media (max-width:980.9px){
-  .v2t .job-card{ display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:14px;
+  .v2t .job-card:has(.jv-main){ display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:14px;
     align-items:center; padding:18px 2px; border-bottom:1px solid var(--v-border); position:relative; }
   .v2t .jv-age, .v2t .jv-cell{ display:none; }
   .v2t .jv-ti{ font-size:17px; }
@@ -821,3 +822,105 @@ html.vlight .v2t{ --v-gap:#B24E34; }
 .v2t .jpane .jd-gates .k{ font-size:11.5px; margin-bottom:3px; }
 .v2t .jpane .jd-gates .v{ font-size:15.5px; }
 .v2t .jpane .jd-gates [data-gate="lang"]{ grid-column:1 / -1; }
+
+/* ============================================================================
+   SALARY: the lab salary anchor. The blended median goes giant inside the
+   facts band, numerals sit right-aligned in one mono register (the tuned
+   table), seniority reads as measure bars, the trend canvas keeps its paper
+   instrument face.
+   ============================================================================ */
+/* market picker: the system select */
+.v2t .sal-cty-head{ display:flex; align-items:center; gap:12px; margin:26px 0 0; }
+.v2t .sal-cty-head .lbl{ color:var(--v-text2); }
+.v2t .sal-cty{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:550;
+  color:var(--v-text); background:transparent; border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
+  border-radius:999px; padding:8px 14px; cursor:pointer; }
+.v2t .sal-cty-n{ color:var(--v-text2); }
+
+/* the headline number: first fact giant, the rest hold the 28px register */
+.v2t .salp .rt-facts{ align-items:flex-end; }
+.v2t .salp .rt-facts>div:first-child .v{ font-size:clamp(40px,4.8vw,68px); line-height:1; }
+
+/* trend canvas: the paper instrument face, like the graph */
+.v2t .sal-chartwrap{ margin-top:30px; }
+.v2t .sal-chart-head .lbl{ color:var(--v-text2); }
+.v2t .sal-canvas{ background:var(--paper); border:1px solid var(--v-border); border-radius:8px; }
+.v2t .sal-chart-pending{ color:var(--v-text2); border:1px dashed var(--v-border2); border-radius:8px;
+  padding:22px; }
+
+/* seniority: measure bars */
+.v2t .sal-bars{ list-style:none; padding:0; margin:14px 0 0; }
+.v2t .sal-bars li{ display:grid; grid-template-columns:150px minmax(0,1fr) 90px; gap:18px;
+  align-items:center; padding:12px 0; border-bottom:1px solid var(--v-border); }
+.v2t .sal-bars .sl{ font-size:15.5px; font-weight:550; color:var(--v-text); }
+.v2t .sal-bars .sbar{ position:relative; display:block; height:2px; background:var(--v-border2); }
+.v2t .sal-bars .sfill{ position:absolute; left:0; top:0; bottom:0; background:var(--v-value); }
+.v2t .sal-bars .sv{ font-family:var(--mono); font-size:14px; font-weight:600; color:var(--v-value);
+  text-align:right; white-space:nowrap; }
+
+/* the by-country table: the tuned register. Country 18/550; numerals mono
+   right-aligned; the median one step up and in the value color */
+.v2t .sal-cthead{ display:grid; grid-template-columns:minmax(0,1fr) 110px 110px 110px; gap:14px;
+  padding:10px 0; border-bottom:1px solid var(--v-border2); font-family:var(--mono);
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .sal-cthead span:not(:first-child){ text-align:right; }
+.v2t .sal-ctable{ list-style:none; padding:0; margin:0; }
+.v2t .sal-ctable li{ display:grid; grid-template-columns:minmax(0,1fr) 110px 110px 110px; gap:14px;
+  padding:16px 0; border-bottom:1px solid var(--v-border); align-items:baseline; }
+.v2t .sal-ctable .c{ font-size:18px; font-weight:550; letter-spacing:-.01em; color:var(--v-text); }
+.v2t .sal-ctable .n{ font-family:var(--mono); font-size:15px; text-align:right; color:var(--v-text); }
+.v2t .sal-ctable .n.m{ font-size:17px; font-weight:600; color:var(--v-value); }
+
+/* states: quiet rows, mono medians right */
+.v2t .sal-states{ list-style:none; padding:0; margin:12px 0 0; max-width:560px; }
+.v2t .sal-states li{ display:flex; justify-content:space-between; align-items:baseline; gap:18px;
+  padding:11px 0; border-bottom:1px solid var(--v-border); }
+.v2t .sal-states .c{ font-size:15.5px; color:var(--v-text); }
+.v2t .sal-states .n{ font-family:var(--mono); font-size:14.5px; font-weight:600; color:var(--v-value); }
+
+/* the Swiss accordion joins the tinted step */
+.v2t .ch-sal{ background:var(--v-bg2); border:none; border-radius:8px; padding:6px 20px; }
+.v2t .ch-sal summary{ color:var(--v-text); }
+.v2t .ch-sal .rt-note{ color:var(--v-text2); }
+.v2t .ch-sal-med{ color:var(--v-text2); }
+
+/* the index: search box in the unit language, ranked rows with mono medians */
+.v2t .ix-search{ position:static; display:flex; align-items:center; gap:12px;
+  background:var(--v-surface); border:1px solid var(--v-border2); border-radius:8px;
+  padding:0 16px; margin:26px 0 8px; }
+.v2t .ix-search input{ height:52px; flex:1; background:none; border:none; font:inherit;
+  font-size:14.5px; color:var(--v-text); outline:none; }
+.v2t .ix-search input::placeholder{ color:var(--v-text2); }
+.v2t .ix-count{ color:var(--v-text2); white-space:nowrap; }
+.v2t .rt-cluster-h{ font-size:26px; font-weight:650; letter-spacing:-.02em; color:var(--v-text);
+  margin:38px 0 6px; }
+.v2t .rt-cluster-h .lbl{ color:var(--v-text2); margin-left:10px; }
+.v2t .rt-index{ list-style:none; padding:0; margin:0; }
+.v2t .rt-index li{ border-bottom:1px solid var(--v-border); }
+.v2t .rt-index a{ display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto auto; gap:3px 24px; align-items:baseline; padding:15px 0;
+  color:var(--v-text); text-decoration:none; }
+.v2t .rt-index .t{ grid-row:1 / 3; align-self:center; }
+.v2t .rt-index .m{ grid-row:1; grid-column:2; }
+.v2t .rt-index .s{ grid-row:2; grid-column:2; }
+.v2t .rt-index .t{ font-size:17px; font-weight:550; letter-spacing:-.01em; }
+.v2t .rt-index a:hover .t{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:2px; }
+.v2t .rt-index .m{ font-family:var(--mono); font-size:14.5px; font-weight:600; color:var(--v-value);
+  text-align:right; white-space:nowrap; }
+.v2t .rt-index .s{ color:var(--v-text2); text-align:right; }
+
+/* the by-country page's table shares the register */
+.v2t .post-table{ border-collapse:collapse; width:100%; }
+.v2t .post-table th{ font-family:var(--mono); font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; font-weight:500; color:var(--v-text2); text-align:left;
+  padding:10px 14px 10px 0; border-bottom:1px solid var(--v-border2); }
+.v2t .post-table th.num{ text-align:right; }
+.v2t .post-table td{ font-size:15.5px; color:var(--v-text); padding:14px 14px 14px 0;
+  border-bottom:1px solid var(--v-border); }
+.v2t .post-table td.num{ font-family:var(--mono); font-size:14.5px; text-align:right; }
+.v2t .post-table td.num:nth-child(2){ font-weight:600; color:var(--v-value); }
+@media (max-width:980.9px){
+  .v2t .sal-ctable li, .v2t .sal-cthead{ grid-template-columns:minmax(0,1fr) 80px 80px 80px; gap:8px; }
+  .v2t .sal-bars li{ grid-template-columns:110px minmax(0,1fr) 80px; gap:10px; }
+}

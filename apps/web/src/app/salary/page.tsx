@@ -27,7 +27,7 @@ export default function SalaryIndex() {
       };
     });
   return (
-    <PageShell>
+    <PageShell v2>
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Salaries</span></nav>
         <h1 className="rt-h1">Salaries, measured.</h1>
