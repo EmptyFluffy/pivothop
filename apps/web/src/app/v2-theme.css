@@ -395,11 +395,11 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
   letter-spacing:-.01em; text-transform:none; color:var(--v-text); }
 
 /* skill pills: bolder ink outline, the words face, marks in ink */
-.v2t .jpane .jd-skill{ font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:550;
+.v2t .jd-skill{ font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:550;
   color:var(--v-text); border:1.5px solid var(--v-text); background:transparent; padding:8px 14px; }
-.v2t .jpane .jd-skill svg{ color:var(--v-text); }
-.v2t .jpane .jd-skill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
-.v2t .jpane .jd-skill:hover svg{ color:var(--v-bg); }
+.v2t .jd-skill svg{ color:var(--v-text); }
+.v2t .jd-skill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .jd-skill:hover svg{ color:var(--v-bg); }
 .v2t .jpane-v2 .jpane-foot{ display:block; border-top:1px solid var(--v-border);
   background:var(--v-bg2); padding:13px 22px 14px; }
 .v2t .jpane-v2 .jpane-foot .jsheet-apply{ width:100%; margin:0 0 10px; }
@@ -751,4 +751,48 @@ html.vlight .v2t{ --v-gap:#B24E34; }
   .v2t .rt2-r-m{ display:inline-block; margin-top:12px; }
   .v2t .rt2-r-s, .v2t .rt2-r-x{ display:inline-block; margin:12px 0 0 14px; }
   .v2t .rt2-cta-t{ font-size:19px; }
+}
+
+/* ============================================================================
+   LISTING: the full job posting. A centered 960 card of the system: bare
+   logo, big balanced title, the facts band, the fill-pill apply row, ink
+   pills for skills, value-dot bullets in the posting body.
+   ============================================================================ */
+.v2t .rtp:has(.jd-head){ max-width:960px; margin:0 auto; }
+.v2t .jd-head{ display:flex; gap:18px; align-items:flex-start; margin-top:12px; }
+.v2t .jd-head .jd-mark{ width:52px; height:52px; flex:none; border:none; background:transparent;
+  box-shadow:none; border-radius:8px; overflow:hidden; display:flex; align-items:center;
+  justify-content:center; margin-top:8px; }
+.v2t .jd-head .jd-mark img{ width:48px; height:48px; object-fit:contain; }
+.v2t .jd-head .jd-mono{ background:var(--v-bg2); color:var(--v-text); font-weight:650;
+  font-size:19px; }
+.v2t .jd-h1{ font-size:clamp(32px,4.4vw,64px); font-weight:650; letter-spacing:-.03em;
+  line-height:1.04; text-wrap:balance; max-width:none; margin-bottom:10px; color:var(--v-text); }
+.v2t .jd-co{ font-size:17px; color:var(--v-text2); }
+
+/* the facts band (also the origin page's): mono figures in the value color */
+.v2t .rt-facts{ display:flex; flex-wrap:wrap; border-top:1px solid var(--v-border);
+  border-bottom:1px solid var(--v-border); margin:30px 0 0; }
+.v2t .rt-facts>div{ flex:1 0 auto; border-right:1px solid var(--v-border); padding:22px 26px 20px; }
+.v2t .rt-facts>div:first-child{ padding-left:0; }
+.v2t .rt-facts>div:last-child{ border-right:none; }
+.v2t .rt-facts .v{ font-family:var(--mono); font-weight:600; font-size:clamp(20px,2.1vw,28px);
+  letter-spacing:-.01em; color:var(--v-value); }
+.v2t .rt-facts .k{ color:var(--v-text2); font-size:9.5px; }
+
+.v2t .jd-applyrow{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-top:28px; }
+.v2t .jd-applyrow .rt-go{ margin-top:0; }
+.v2t .jd-applyrow .lbl{ color:var(--v-text2); max-width:44ch; line-height:1.6; }
+
+.v2t .jd-desc .jd-h3{ font-size:20px; font-weight:650; letter-spacing:-.015em; color:var(--v-text);
+  margin:28px 0 10px; }
+.v2t .jd-desc p{ font-size:17px; line-height:1.7; color:var(--v-text2); max-width:70ch; }
+.v2t .jd-ul{ margin:12px 0; padding:0; list-style:none; }
+.v2t .jd-ul li{ position:relative; font-size:16.5px; line-height:1.65; color:var(--v-text2);
+  padding:6px 0 6px 22px; max-width:68ch; }
+.v2t .jd-ul li::before{ content:""; position:absolute; left:2px; top:16px; width:6px; height:6px;
+  border-radius:50%; background:var(--v-value); }
+@media (max-width:980.9px){
+  .v2t .jd-head{ gap:14px; }
+  .v2t .jd-head .jd-mark{ width:42px; height:42px; margin-top:4px; }
 }

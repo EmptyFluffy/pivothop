@@ -92,7 +92,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const claim = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(`Claim listing: ${j.title} at ${j.company}`)}&body=${encodeURIComponent(`We are the employer behind "${j.title}" (${j.company}) listed on PivotHop. We want to claim it and hear about featured placement.\n\nWork email:\nName:`)}`;
 
   return (
-    <PageShell>
+    <PageShell v2 active="jobs">
       <div className="rtp salp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><Link href={`/jobs/${occ}`}>{title}</Link><span>/</span><span>{j.company}</span>
