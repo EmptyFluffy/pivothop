@@ -19,7 +19,7 @@ export default function LabSalary() {
     <>
       <LabBar on="salary" />
       <V2Nav active="Salaries" />
-      <main className="wrap" style={{ maxWidth: 1080, padding: '0 32px' }}>
+      <main className="wrap" style={{ maxWidth: 1240, padding: '0 32px' }}>
         <section style={{ padding: '44px 0 30px' }}>
           <p className="vmeta">{f.observations.toLocaleString()} salary-stated postings · updated {f.updated}</p>
           <h1 className="vtitle" style={{ marginBottom: 6 }}>What an architect earns.</h1>
@@ -31,7 +31,7 @@ export default function LabSalary() {
               <p className="lab" style={{ marginTop: 10 }}>US median, blended with the OEWS anchor</p>
             </div>
             <div style={{ display: 'flex', gap: 34 }}>
-              {[['p25', 'lower quartile'], ['p75', 'upper quartile'], ['p90', 'top decile']].map(([k, label]) => (
+              {[['p25', 'p25'], ['p75', 'p75'], ['p90', 'p90']].map(([k, label]) => (
                 <div key={k}>
                   <div className="vnum" style={{ fontSize: 26, fontWeight: 600 }}>{fmtk((us ?? g)[k as 'p25'])}</div>
                   <p className="lab" style={{ marginTop: 4 }}>{label}</p>
@@ -43,15 +43,15 @@ export default function LabSalary() {
 
         <section style={{ borderTop: '1px solid var(--border-strong)', paddingTop: 8 }}>
           <div className="vthead" style={{ gridTemplateColumns: 'minmax(0,1fr) 110px 110px 110px 70px' }}>
-            <span>Country</span><span>P25</span><span>Median</span><span>P75</span><span>N</span>
+            <span>Country</span><span style={{ textAlign: 'right' }}>P25</span><span style={{ textAlign: 'right' }}>P50</span><span style={{ textAlign: 'right' }}>P75</span><span style={{ textAlign: 'right' }}>N</span>
           </div>
           {countries.map(({ cc, band }) => (
             <div key={cc} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 110px 110px 110px 70px', gap: 14, padding: '18px 10px', borderBottom: '1px solid var(--border)', alignItems: 'baseline' }}>
               <span style={{ fontSize: 18, fontWeight: 550, letterSpacing: '-.01em' }}>{COUNTRY_NAMES[cc] ?? cc}</span>
-              <span className="vnum" style={{ fontSize: 15 }}>{fmtk(band!.p25)}</span>
-              <span className="vnum" style={{ fontSize: 17, fontWeight: 600, color: 'var(--value)' }}>{fmtk(band!.p50)}</span>
-              <span className="vnum" style={{ fontSize: 15 }}>{fmtk(band!.p75)}</span>
-              <span className="vnum" style={{ fontSize: 12.5, color: 'var(--text-2)' }}>{band!.n ?? '·'}</span>
+              <span className="vnum" style={{ fontSize: 15, textAlign: 'right' }}>{fmtk(band!.p25)}</span>
+              <span className="vnum" style={{ fontSize: 17, fontWeight: 600, color: 'var(--value)', textAlign: 'right' }}>{fmtk(band!.p50)}</span>
+              <span className="vnum" style={{ fontSize: 15, textAlign: 'right' }}>{fmtk(band!.p75)}</span>
+              <span className="vnum" style={{ fontSize: 12.5, color: 'var(--text-2)', textAlign: 'right' }}>{band!.n ?? '·'}</span>
             </div>
           ))}
         </section>

@@ -23,13 +23,13 @@ export default function LabArticle() {
               {p.takeaways.map((t, i) => (
                 <div key={i} style={{ display: 'grid', gridTemplateColumns: '44px 1fr', gap: 16, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
                   <span className="vnum" style={{ color: 'var(--value)', fontSize: 14 }}>{String(i + 1).padStart(2, '0')}</span>
-                  <p style={{ fontSize: 15.5, lineHeight: 1.6 }}>{t}</p>
+                  <p style={{ fontSize: 15.5, lineHeight: 1.6, maxWidth: '70ch' }}>{t}</p>
                 </div>
               ))}
             </section>
           )}
 
-          <div style={{ margin: '40px 0', padding: '30px 0', borderTop: '1px solid var(--border-strong)', borderBottom: '1px solid var(--border-strong)' }}>
+          <div style={{ margin: '40px 0', padding: '30px 0 30px', borderBottom: '1px solid var(--border-strong)' }}>
             <p style={{ fontSize: 'clamp(22px,2.6vw,30px)', fontWeight: 550, letterSpacing: '-.02em', lineHeight: 1.25, maxWidth: '28ch' }}>
               The median career change is not a pay cut with a dream attached. It is a coin flip with a thumb on the scale.
             </p>

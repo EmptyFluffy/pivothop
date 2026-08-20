@@ -18,7 +18,7 @@ export default function LabResearch() {
           <h1 className="vtitle" style={{ maxWidth: '22ch' }}>Research.</h1>
           <article style={{ maxWidth: 760 }}>
             <p className="lab" style={{ color: 'var(--value)', marginBottom: 10 }}>{lead.pillar} · {lead.date}</p>
-            <h2 style={{ fontSize: 'clamp(26px,3vw,38px)', fontWeight: 600, letterSpacing: '-.025em', lineHeight: 1.08 }}>
+            <h2 style={{ fontSize: 'clamp(26px,3vw,38px)', fontWeight: 600, letterSpacing: '-.025em', lineHeight: 1.08, textWrap: 'balance' }}>
               <a className="ul" href="#">{lead.title}</a>
             </h2>
             <p style={{ fontSize: 16, color: 'var(--text-2)', marginTop: 14, lineHeight: 1.6 }}>{lead.dek}</p>
@@ -33,7 +33,7 @@ export default function LabResearch() {
                 <h3 style={{ fontSize: 21, fontWeight: 550, letterSpacing: '-.015em', lineHeight: 1.2 }}>
                   <a className="ul" href="#">{p.title}</a>
                 </h3>
-                <p style={{ fontSize: 14, color: 'var(--text-2)', marginTop: 7, maxWidth: '72ch' }}>{p.dek.slice(0, 150)}{p.dek.length > 150 ? '…' : ''}</p>
+                <p style={{ fontSize: 14, color: 'var(--text-2)', marginTop: 7, maxWidth: '72ch' }}>{p.dek.length > 150 ? p.dek.slice(0, 150).replace(/\s+\S*$/, '') + '…' : p.dek}</p>
               </div>
               <span className="vmeta" style={{ margin: 0, textAlign: 'right' }}>{p.date}<br />{p.minutes} min</span>
               <ArrowUpRight size={18} strokeWidth={1.75} style={{ color: 'var(--text-2)' }} />

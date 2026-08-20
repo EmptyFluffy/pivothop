@@ -56,7 +56,7 @@ export default function LabJobs() {
           <section>
             <h5><i>03</i>Remote</h5>
             {['Remote', 'Hybrid', 'On-site'].map((o) => (
-              <div className="opt" key={o}><label><input type="checkbox" readOnly /> {o}</label></div>
+              <div className="opt" key={o}><label><input type="checkbox" defaultChecked={o === 'Remote'} readOnly /> {o}</label></div>
             ))}
           </section>
           <section>
@@ -67,7 +67,7 @@ export default function LabJobs() {
           </section>
           <div className="vrail-close">
             <div className="big vnum">{occs.reduce((a, o) => a + jobCount(o), 0).toLocaleString()}</div>
-            <div className="lab">live roles in this view</div>
+            <div className="lab">live roles across these occupations</div>
           </div>
         </aside>
 
@@ -93,7 +93,7 @@ export default function LabJobs() {
                 <Monogram name={j.company} />
                 <div>
                   <div className="ti"><a className="ul" href="#">{j.title}</a> <span className="at">at {j.company}</span></div>
-                  <div className="loc">{j.location || 'Location unlisted'}{j.remote ? ' · Remote' : ''}</div>
+                  <div className="loc">{j.location || 'Location unlisted'}{j.remote && !/remote/i.test(j.location) ? ' · Remote' : ''}</div>
                   <div className="skline">
                     {skills.length > 0 && (
                       <span className="vsk">{skills.map((s, i) => <span key={s}>{i > 0 && <i>·</i>}{s.replace(/-/g, ' ')}</span>)}</span>
@@ -129,7 +129,7 @@ export default function LabJobs() {
             </div>
             <h2 style={{ fontSize: 21, letterSpacing: '-.015em', lineHeight: 1.25 }}>{sel.j.title}</h2>
             <p style={{ fontSize: 12.5, color: 'var(--text-2)', marginTop: 4 }}>
-              {sel.j.location}{sel.j.remote ? ' · Remote' : ''} · {occTitle(sel.occ)}<br />
+              {sel.j.location}{sel.j.remote && !/remote/i.test(sel.j.location) ? ' · Remote' : ''} · {occTitle(sel.occ)}<br />
               posted {ago(sel.j.posted)}
             </p>
             {selPay && <div className="paysec vnum">{selPay}</div>}
