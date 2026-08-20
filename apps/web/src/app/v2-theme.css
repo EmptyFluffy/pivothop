@@ -595,9 +595,11 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 }
 
 /* ============================================================================
-   ROUTES: the instrument pages. Giant route headline, facts as a full-bleed
-   mono band, ranked destinations as measure rows (the lab RouteMeasure),
-   evidence rows with state marks, CTAs on the tinted step.
+   ROUTES: the measurement report. Giant route headline with the arrow in the
+   value color, the lab RouteMeasure under the dek, three big stats and a mono
+   meta line, the paper-faced instrument, a two-column have/gap evidence split,
+   ranked destinations as an aligned table with measure bars, and next-step
+   rows in the board's own anatomy.
    ============================================================================ */
 .v2t{ --v-gap:#E08663; }
 html.vlight .v2t{ --v-gap:#B24E34; }
@@ -605,35 +607,56 @@ html.vlight .v2t{ --v-gap:#B24E34; }
 .v2t .rt-crumbs{ color:var(--v-text2); }
 .v2t .rt-crumbs a{ color:var(--v-text2); }
 .v2t .rt-crumbs a:hover{ color:var(--v-text); }
-.v2t .rt-h1{ font-size:clamp(38px,5.4vw,84px); font-weight:650; letter-spacing:-.035em;
-  line-height:1.02; color:var(--v-text); max-width:22ch; }
+.v2t .rt-h1{ font-size:clamp(40px,6vw,100px); font-weight:650; letter-spacing:-.04em;
+  line-height:.98; color:var(--v-text); max-width:none; margin-bottom:22px; }
+.v2t .rt2-arrow{ color:var(--v-value); }
 .v2t .rt-dek{ font-size:19px; line-height:1.6; color:var(--v-text2); max-width:62ch; }
+.v2t .rt-dek strong{ color:var(--v-text); }
 .v2t .rt-dek a, .v2t .rt-note a, .v2t .gl{ color:var(--v-value); }
 .v2t .rt-lic a{ color:var(--v-gap); }
 
-/* facts: hairline band, measurements in the value color */
-.v2t .rt-facts{ border-top:1px solid var(--v-border); border-bottom:1px solid var(--v-border);
-  margin:30px -32px 0; }
-.v2t .rt-facts>div{ border-right:1px solid var(--v-border); padding:22px 26px 20px; }
-.v2t .rt-facts>div:first-child{ padding-left:32px; }
-.v2t .rt-facts .v{ font-family:var(--mono); font-weight:600; font-size:29px; letter-spacing:-.01em;
-  color:var(--v-value); }
-.v2t .rt-facts .k{ color:var(--v-text2); font-size:9.5px; }
-.v2t .rt-sallink{ color:var(--v-value); }
+/* the signature measure: origin, filled line to the match, destination */
+.v2t .rt2-measure{ max-width:680px; margin-top:30px; }
+.v2t .rt2-measure .line{ display:flex; align-items:center; gap:14px; font-size:13.5px;
+  color:var(--v-text); }
+.v2t .rt2-measure .bar{ flex:1; height:2px; background:var(--v-border2); position:relative; }
+.v2t .rt2-measure .bar i{ position:absolute; left:0; top:0; bottom:0; background:var(--v-value); }
+.v2t .rt2-measure .bar::before{ content:""; position:absolute; left:-3px; top:-2.5px; width:7px;
+  height:7px; border-radius:50%; background:var(--v-text); }
+.v2t .rt2-measure .bar::after{ content:""; position:absolute; right:0; top:-5px; height:12px;
+  width:2.5px; background:var(--v-value); }
+.v2t .rt2-measure .pct{ margin-top:10px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--v-value); text-align:right; }
+
+/* three numbers that matter, then everything else in one mono line */
+.v2t .rt2-stats{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:32px;
+  border-top:1px solid var(--v-border2); margin-top:34px; padding-top:28px; }
+.v2t .rt2-stats .v{ display:block; font-family:var(--mono); font-weight:600;
+  font-size:clamp(28px,3.2vw,44px); letter-spacing:-.02em; line-height:1.05; color:var(--v-value);
+  white-space:nowrap; }
+.v2t .rt2-stats .k{ display:block; margin-top:10px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .rt2-meta{ margin-top:20px; color:var(--v-text2); letter-spacing:.12em; }
+.v2t .rt-sallink{ display:inline-block; margin-top:14px; color:var(--v-value); }
 .v2t .rt-hint{ color:var(--v-text2); }
 
 /* the embedded instrument keeps its tuned paper face; in dark it reads as a
    deliberate instrument card (the graph's internals are off-limits) */
 .v2t .route-instrument{ background:var(--paper); border:1px solid var(--v-border);
-  border-radius:8px; }
+  border-radius:8px; margin-top:30px; }
 
 /* sections */
-.v2t .rt-sec{ max-width:none; margin:44px 0 0; }
+.v2t .rt-sec{ max-width:none; margin:52px 0 0; }
 .v2t .rt-sec h2{ font-size:26px; font-weight:650; letter-spacing:-.02em; color:var(--v-text); }
-.v2t .rt-sec p{ text-align:left; color:var(--v-text2); font-size:16.5px; max-width:70ch; }
+.v2t .rt-sec p{ text-align:left; color:var(--v-text2); font-size:17px; max-width:70ch; }
 .v2t .rt-note{ color:var(--v-text2); }
 
-/* evidence rows */
+/* evidence: have left, gap right */
+.v2t .rt2-ev2{ display:grid; grid-template-columns:1fr 1fr; gap:12px 56px; margin-top:22px; }
+.v2t .rt2-evh{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; margin-bottom:6px; }
+.v2t .rt2-evh.have{ color:var(--v-value); }
+.v2t .rt2-evh.gap{ color:var(--v-gap); }
 .v2t .rt-ev{ border-top:1px solid var(--v-border); }
 .v2t .rt-ev li{ border-bottom:1px solid var(--v-border); padding:14px 0; }
 .v2t .rt-ev .lb{ font-size:16.5px; color:var(--v-text); }
@@ -643,40 +666,78 @@ html.vlight .v2t{ --v-gap:#B24E34; }
 .v2t .rt-ev .st{ color:var(--v-text2); }
 .v2t .rt-ev .nt{ color:var(--v-text2); }
 
-/* ranked destinations: measure rows */
-.v2t .rt-rel{ border-top:1px solid var(--v-border); }
-.v2t .rt-rel li{ padding:18px 0; border-bottom:1px solid var(--v-border); }
-.v2t .rt-rel li:has(.rt-bar){ display:grid; grid-template-columns:minmax(0,1fr) minmax(140px,26%) auto;
-  gap:18px; align-items:center; }
-.v2t .rt-rel a, .v2t .rt-rel li > span:first-child{ font-size:19px; font-weight:600;
-  letter-spacing:-.015em; color:var(--v-text); }
+/* related routes: quiet rows, readiness in the value color */
+.v2t .rt-rel{ list-style:none; padding:0; border-top:1px solid var(--v-border); }
+.v2t .rt-rel li{ display:flex; justify-content:space-between; align-items:baseline; gap:18px;
+  padding:16px 0; border-bottom:1px solid var(--v-border); }
+.v2t .rt-rel a{ font-size:17px; font-weight:600; letter-spacing:-.015em; color:var(--v-text);
+  text-decoration:none; }
 .v2t .rt-rel a:hover{ text-decoration:underline; text-decoration-thickness:2px;
-  text-underline-offset:2px; color:var(--v-text); }
-.v2t .rt-rel .lbl{ font-family:var(--mono); font-size:11px; color:var(--v-text2);
-  text-align:right; white-space:normal; max-width:300px; line-height:1.7; }
-.v2t .rt-bar{ position:relative; display:block; height:1px; background:var(--v-border2); }
-.v2t .rt-bar i{ position:absolute; left:0; top:0; bottom:0; background:var(--v-value); }
-.v2t .rt-bar::before{ content:""; position:absolute; left:-2px; top:-2px; width:5px; height:5px;
-  border-radius:50%; background:var(--v-text); }
-.v2t .rt-bar::after{ content:""; position:absolute; right:0; top:-4px; height:9px; width:2px;
-  background:var(--v-value); }
+  text-underline-offset:2px; }
+.v2t .rt-rel .lbl{ font-family:var(--mono); font-size:11px; color:var(--v-value);
+  white-space:nowrap; }
 
-/* CTAs on the tinted step */
-.v2t .rt-cta{ border:none; background:var(--v-bg2); padding:30px 32px; }
-.v2t .rt-cta h2{ font-size:22px; font-weight:650; letter-spacing:-.02em; color:var(--v-text); }
-.v2t .rt-cta p{ color:var(--v-text2); }
-.v2t .rtp .rt-go{ display:inline-flex; align-items:center; gap:10px; background:var(--v-fill);
-  color:var(--v-fill-ink); border-radius:999px; padding:13px 26px; font-weight:600; font-size:15px;
-  font-family:var(--sans),sans-serif; text-transform:none; letter-spacing:0; text-decoration:none;
-  transition:filter .15s; }
+/* ranked destinations: an aligned table, the measure drawn under each title */
+.v2t .rt2-thead{ display:grid; grid-template-columns:minmax(0,1fr) 120px 170px 200px; gap:20px;
+  padding:10px 0; border-bottom:1px solid var(--v-border2); color:var(--v-text2); }
+.v2t .rt2-thead span:not(:first-child){ text-align:right; }
+.v2t .rt2-ranked{ list-style:none; padding:0; margin:0; }
+.v2t .rt2-ranked li{ display:grid; grid-template-columns:minmax(0,1fr) 120px 170px 200px; gap:20px;
+  align-items:center; padding:22px 0; border-bottom:1px solid var(--v-border); }
+.v2t .rt2-r-main{ min-width:0; }
+.v2t .rt2-r-main a, .v2t .rt2-r-dead{ font-size:21px; font-weight:650; letter-spacing:-.015em;
+  color:var(--v-text); text-decoration:none; }
+.v2t .rt2-r-main a:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+.v2t .rt2-r-main .rt-bar{ margin-top:14px; max-width:520px; }
+.v2t .rt-bar{ position:relative; display:block; height:2px; background:var(--v-border2); }
+.v2t .rt-bar i{ position:absolute; left:0; top:0; bottom:0; background:var(--v-value); }
+.v2t .rt-bar::before{ content:""; position:absolute; left:-3px; top:-2px; width:6px; height:6px;
+  border-radius:50%; background:var(--v-text); }
+.v2t .rt-bar::after{ content:""; position:absolute; right:0; top:-4px; height:10px; width:2px;
+  background:var(--v-value); }
+.v2t .rt2-r-m{ font-family:var(--mono); font-size:21px; font-weight:600; letter-spacing:-.01em;
+  color:var(--v-value); text-align:right; white-space:nowrap; }
+.v2t .rt2-r-s, .v2t .rt2-r-x{ font-family:var(--mono); font-size:11.5px; color:var(--v-text2);
+  text-align:right; }
+
+/* findings list */
+.v2t .rt-find{ list-style:none; padding:0; border-top:1px solid var(--v-border); }
+.v2t .rt-find li{ padding:12px 0; border-bottom:1px solid var(--v-border); font-size:16.5px;
+  color:var(--v-text2); max-width:80ch; }
+
+/* next steps in the board's row anatomy */
+.v2t .rt2-ctas{ margin-top:52px; border-top:1px solid var(--v-border); }
+.v2t .rt2-cta{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:center;
+  padding:26px 10px; border-bottom:1px solid var(--v-border); color:var(--v-text);
+  text-decoration:none; transition:background .12s; }
+.v2t .rt2-cta:hover{ background:var(--v-surface); }
+.v2t .rt2-cta:hover .jv-apply{ border-color:var(--v-text); background:var(--v-text);
+  color:var(--v-bg); }
+.v2t .rt2-cta-t{ display:block; font-size:23px; font-weight:650; letter-spacing:-.015em;
+  line-height:1.2; }
+.v2t .rt2-cta-s{ display:block; margin-top:7px; font-size:14px; color:var(--v-text2); }
+
+/* the origin page's closing ask: a statement, with the fill pill */
+.v2t .rt-cta{ display:block; border:none; background:transparent; border-top:1px solid var(--v-border);
+  margin:52px 0 0; padding:44px 0 8px; }
+.v2t .rt-cta h2{ font-size:clamp(26px,3.2vw,42px); font-weight:650; letter-spacing:-.025em;
+  color:var(--v-text); margin-bottom:12px; }
+.v2t .rt-cta p{ color:var(--v-text2); font-size:17px; max-width:64ch; }
+.v2t .rtp .rt-go{ display:inline-flex; align-items:center; gap:10px; margin-top:22px;
+  background:var(--v-fill); color:var(--v-fill-ink); border-radius:999px; padding:14px 28px;
+  font-weight:600; font-size:15px; font-family:var(--sans),sans-serif; text-transform:none;
+  letter-spacing:0; text-decoration:none; transition:filter .15s; }
 .v2t .rtp .rt-go:hover{ filter:brightness(1.08); }
 
 /* the routes index reuses the occupation-index shell inside a padded frame */
 .v2t .rtp:not(:has(.jb)) .jb-byocc{ padding-left:0; padding-right:0; }
 @media (max-width:980.9px){
-  .v2t .rt-facts{ margin:24px -22px 0; }
-  .v2t .rt-facts>div:first-child{ padding-left:22px; }
-  .v2t .rt-rel li:has(.rt-bar){ display:block; }
-  .v2t .rt-bar{ margin:10px 0 6px; }
-  .v2t .rt-rel .lbl{ text-align:left; }
+  .v2t .rt2-stats{ grid-template-columns:1fr; gap:22px; }
+  .v2t .rt2-ev2{ grid-template-columns:1fr; }
+  .v2t .rt2-thead{ display:none; }
+  .v2t .rt2-ranked li{ display:block; }
+  .v2t .rt2-r-m{ display:inline-block; margin-top:12px; }
+  .v2t .rt2-r-s, .v2t .rt2-r-x{ display:inline-block; margin:12px 0 0 14px; }
+  .v2t .rt2-cta-t{ font-size:19px; }
 }

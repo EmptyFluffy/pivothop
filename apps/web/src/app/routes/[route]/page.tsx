@@ -81,21 +81,29 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
             : null}
           <span>{om.title} to {r.title}</span>
         </nav>
-        <h1 className="rt-h1">{om.title} &rarr; {r.title}</h1>
+        <h1 className="rt-h1">{om.title} <span className="rt2-arrow">&rarr;</span> {r.title}</h1>
         <p className="rt-dek">
           Measured from <strong>{om.postings.toLocaleString()}</strong>{` live ${originLc} postings and the destination’s own corpus.`}
           {observed ? ' Corroborated by observed US worker transitions.' : ''} Updated with the nightly scrape.
         </p>
         {r.license && <p className="rt-lic lbl"><Link href={`/licenses#occ-${r.id}`} data-license={r.id}>{r.license.label}</Link></p>}
 
-        <div className="rt-facts">
+        <div className="rt2-measure" aria-hidden="true">
+          <div className="line"><span>{om.title}</span><span className="bar"><i style={{ width: `${Math.max(2, Math.min(100, r.match))}%` }} /></span><span>{r.title}</span></div>
+          <div className="pct">{r.match}% of posted demand covered</div>
+        </div>
+
+        <div className="rt2-stats">
           <div><span className="v">{r.match}%</span><span className="k">Skill readiness</span></div>
           <div><span className="v">{r.salary}</span><span className="k">Posted salary band</span></div>
-          <div><span className="v">{r.time}</span><span className="k">Transition estimate</span></div>
-          <div><span className="v">{r.demand}</span><span className="k">Job demand</span></div>
-          <div><span className="v">{r.remote}</span><span className="k">Fully remote share</span></div>
-          {r.mobility != null && <div><span className="v">{r.mobility}</span><span className="k">{observed ? 'Observed flow (0–100)' : 'Relatedness (0–100)'}</span></div>}
+          {destBoard > 0
+            ? <div><span className="v">{destBoard}</span><span className="k">Live openings today</span></div>
+            : <div><span className="v">{r.time}</span><span className="k">Transition estimate</span></div>}
         </div>
+        <p className="rt2-meta lbl">
+          {r.time} transition &middot; {r.demand} job demand &middot; {r.remote} fully remote
+          {r.mobility != null ? <> &middot; {observed ? 'observed flow' : 'relatedness'} {r.mobility}/100</> : null}
+        </p>
 
         {coverableSlugs().includes(def.dest) && (
           <Link className="rt-sallink lbl" href={`/salary/${def.dest}`}>
@@ -114,16 +122,38 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
         <section className="rt-sec">
           <h2>Evidence checklist</h2>
           <p className="rt-note">{`What ${r.title.toLowerCase()} postings ask for, against what a typical ${originLc} already demonstrates. Drawn from the skill-overlap data, curated by hand.`}</p>
-          <ul className="rt-ev">
-            {def.evidence.map((e) => (
-              <li key={e.label} data-state={e.state}>
-                <span className="mk">{EV[e.state].mark}</span>
-                <span className="lb">{e.label}</span>
-                <span className="st">{EV[e.state].word}</span>
-                <span className="nt">{e.note}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="rt2-ev2">
+            <div>
+              <span className="rt2-evh have">You already have</span>
+              <ul className="rt-ev">
+                {def.evidence.filter((e) => e.state !== 'gap').map((e) => (
+                  <li key={e.label} data-state={e.state}>
+                    <span className="mk">{EV[e.state].mark}</span>
+                    <span className="lb">{e.label}</span>
+                    <span className="st">{EV[e.state].word}</span>
+                    <span className="nt">{e.note}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <span className="rt2-evh gap">The gap</span>
+              {def.evidence.some((e) => e.state === 'gap') ? (
+                <ul className="rt-ev">
+                  {def.evidence.filter((e) => e.state === 'gap').map((e) => (
+                    <li key={e.label} data-state={e.state}>
+                      <span className="mk">{EV[e.state].mark}</span>
+                      <span className="lb">{e.label}</span>
+                      <span className="st">{EV[e.state].word}</span>
+                      <span className="nt">{e.note}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="rt-note">No named gap skills in this route&rsquo;s data; the residual is depth, not breadth.</p>
+              )}
+            </div>
+          </div>
         </section>
 
         {kids.length > 0 && (
@@ -156,23 +186,24 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
             so the board is the next step, not the instrument. Count-gated — a
             route with no live listings falls back to the tool rather than
             promising an empty page. */}
-        {destBoard > 0 ? (
-          <section className="rt-cta">
-            <div>
-              <h2>{r.title} roles are open now.</h2>
-              <p>{`${destBoard} live ${destLc} ${destBoard === 1 ? 'opening' : 'openings'} on the board, with the pay where it is posted. Your ${originLc} profile already covers ${r.match}% of what they ask.`}</p>
-            </div>
-            <Link className="rt-go" href={`/jobs/${def.dest}`}>{destBoard} open {destLc} {destBoard === 1 ? 'role' : 'roles'} &rarr;</Link>
-          </section>
-        ) : (
-          <section className="rt-cta">
-            <div>
-              <h2>Take this route with you.</h2>
-              <p>Run the graph with your own skills, then export the six-page report for this route. Free, no account.</p>
-            </div>
-            <Link className="rt-go" href={`/?from=${def.origin}`}>Run your own numbers &rarr;</Link>
-          </section>
-        )}
+        <section className="rt2-ctas" aria-label="Next steps">
+          {destBoard > 0 && (
+            <Link className="rt2-cta" href={`/jobs/${def.dest}`}>
+              <span className="rt2-cta-main">
+                <span className="rt2-cta-t">{destBoard} open {destLc} {destBoard === 1 ? 'role' : 'roles'} <span className="jv-at">on the board now</span></span>
+                <span className="rt2-cta-s">{`Pay where it is posted. Your ${originLc} profile already covers ${r.match}% of what they ask.`}</span>
+              </span>
+              <span className="jv-apply">Browse</span>
+            </Link>
+          )}
+          <Link className="rt2-cta" href={`/?from=${def.origin}`}>
+            <span className="rt2-cta-main">
+              <span className="rt2-cta-t">Run your own numbers <span className="jv-at">on the instrument</span></span>
+              <span className="rt2-cta-s">Edit the skills, watch the map recompute, export the six-page report for this route. Free, no account.</span>
+            </span>
+            <span className="jv-apply">Open</span>
+          </Link>
+        </section>
 
         {def.faq.length > 0 && (
           <div className="post-faq rt-faq">
@@ -364,14 +395,19 @@ function OriginPage({ origin }: { origin: string }) {
             `Each percentage is how much of that role's posted demand ${article(ol)} ${ol} profile covers before retraining. The route pages break it down skill by skill.`,
             `The number is coverage, not a guess: what share of the destination's own postings ${article(ol)} ${ol} already answers. Open a route for the full gap.`,
           ])}</p>
-          <ul className="rt-rel">
+          <div className="rt2-thead lbl" aria-hidden="true"><span>Route</span><span>Readiness</span><span>Posted band</span><span>Timeline</span></div>
+          <ul className="rt2-ranked">
             {rows.map(({ slug, r }) => (
               <li key={r.id}>
-                {slug
-                  ? <Link href={`/routes/${slug}`}>{om.title} &rarr; {r.title}</Link>
-                  : <span>{om.title} &rarr; {r.title}</span>}
-                <span className="rt-bar" aria-hidden="true"><i style={{ width: `${Math.max(2, Math.min(100, r.match))}%` }} /></span>
-                <span className="lbl">{r.match}% &middot; {r.salary ?? 'salary n/a'} &middot; {r.time}{r.license?.req === 'required' ? ' · license' : ''}</span>
+                <span className="rt2-r-main">
+                  {slug
+                    ? <Link href={`/routes/${slug}`}>{om.title} &rarr; {r.title}</Link>
+                    : <span className="rt2-r-dead">{om.title} &rarr; {r.title}</span>}
+                  <span className="rt-bar" aria-hidden="true"><i style={{ width: `${Math.max(2, Math.min(100, r.match))}%` }} /></span>
+                </span>
+                <span className="rt2-r-m">{r.match}%</span>
+                <span className="rt2-r-s">{r.salary ?? '\u00B7'}</span>
+                <span className="rt2-r-x">{r.time}{r.license?.req === 'required' ? ' \u00B7 license' : ''}</span>
               </li>
             ))}
           </ul>
