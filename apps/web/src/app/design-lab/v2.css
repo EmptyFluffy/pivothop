@@ -182,3 +182,59 @@
   .v2 .row{ grid-template-columns:minmax(0,1fr) 60px; }
   .v2 .row .pay,.v2 .row .age,.v2 .row .save{ display:none; }
 }
+
+
+/* ============================================================
+   WORKSPACE FRAME (reference pass): full-bleed app layout.
+   Three columns under the nav, real dividers, each column owns
+   its scroll. Class names v-prefixed and audited vs globals.
+   ============================================================ */
+.v2 .vapp{ display:grid; grid-template-columns:248px minmax(0,1fr) 356px; height:calc(100vh - 57px - 29px); background:var(--bg); }
+.v2 .vapp > *{ overflow-y:auto; min-height:0; }
+.v2 .vrail{ border-right:1px solid var(--border); padding:20px 20px 32px; }
+.v2 .vmain{ padding:18px 32px 48px; }
+.v2 .vinspect{ border-left:1px solid var(--border); background:var(--surface); padding:0; display:flex; flex-direction:column; }
+
+/* nav active: the small accent dot under the item */
+.v2 .vnav-links a{ position:relative; padding:4px 0; }
+.v2 .vnav-links .von::after{ content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-14px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+
+/* rail */
+.v2 .vrail-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+.v2 .vrail-head h4{ font-size:14px; font-weight:650; }
+.v2 .vrail-head a{ font-size:12px; color:var(--text-2); }
+.v2 .vrail section{ padding:16px 0; border-bottom:1px solid var(--border); }
+.v2 .vrail section:last-child{ border-bottom:none; }
+.v2 .vrail h5{ font-size:12.5px; font-weight:600; margin-bottom:10px; }
+
+/* main column */
+.v2 .vmeta{ font-size:12px; color:var(--text-2); margin-bottom:10px; }
+.v2 .vtitle{ font-size:clamp(24px,2.6vw,32px); font-weight:650; letter-spacing:-.02em; margin:2px 0 18px; }
+.v2 .vthead{ display:grid; grid-template-columns:42px minmax(0,1fr) 52px 110px 56px; gap:14px; padding:10px 10px; border-bottom:1px solid var(--border-strong); font-size:11px; color:var(--text-2); }
+.v2 .vthead .vm{ position:relative; }
+.v2 .vthead .vm::before{ content:""; position:absolute; left:-9px; top:4px; width:4px; height:4px; border-radius:50%; background:var(--accent); }
+.v2 .vrows2 .row{ grid-template-columns:42px minmax(0,1fr) 52px 110px 56px; }
+.v2 .vrows2 .row{ border-bottom:1px solid var(--border); padding:16px 10px; }
+.v2 .vrows2 .row.vsel{ background:var(--surface); }
+.v2 .skline{ display:flex; gap:14px; flex-wrap:wrap; align-items:baseline; margin-top:7px; }
+.v2 .skline .vsk{ margin-top:0; }
+.v2 .skline .gapline{ margin-top:0; }
+
+/* inspector */
+.v2 .vinspect-top{ display:flex; align-items:center; justify-content:space-between; padding:14px 22px; border-bottom:1px solid var(--border); font-size:12px; color:var(--text-2); }
+.v2 .vinspect-top .pg{ display:flex; gap:14px; align-items:center; }
+.v2 .vinspect-top button{ background:none; border:none; cursor:pointer; font-size:14px; color:var(--text-2); padding:2px 4px; }
+.v2 .vinspect-top button:hover{ color:var(--text); }
+.v2 .vinspect-body{ padding:20px 22px 28px; overflow-y:auto; }
+.v2 .vinspect .dotlist{ list-style:none; padding:0; margin:8px 0 0; }
+.v2 .vinspect .dotlist li{ display:flex; gap:10px; align-items:center; font-size:13.5px; padding:4px 0; }
+.v2 .vinspect .dotlist i{ width:6px; height:6px; border-radius:50%; flex:none; }
+.v2 .vinspect .dotlist .dhave i{ background:var(--pos); }
+.v2 .vinspect .dotlist .dmiss i{ background:var(--gap); }
+.v2 .vinspect .apply{ display:block; width:100%; background:var(--accent); color:#fff; border:none; cursor:pointer;
+  font:inherit; font-weight:550; font-size:14px; padding:13px; border-radius:var(--r); margin-top:20px;
+  transition:background var(--dur) var(--ease); }
+.v2 .vinspect .apply:hover{ background:#1a3ad1; }
+.v2 .vinspect .paysec{ font-size:24px; font-weight:500; margin-top:16px; }
+.v2 .vinspect hr{ border:none; border-top:1px solid var(--border); margin:18px 0; }
+@media (max-width:1000px){ .v2 .vapp{ grid-template-columns:1fr; height:auto; } .v2 .vrail,.v2 .vinspect{ border:none; } }
