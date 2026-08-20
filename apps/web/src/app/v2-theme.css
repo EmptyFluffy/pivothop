@@ -147,3 +147,94 @@ html.vlight .v2t{
 
 /* light-mode shadow softening */
 html.vlight .v2t .jb-ta{ box-shadow:0 18px 36px rgba(20,20,20,.12); }
+
+/* ============================================================================
+   STRUCTURE: the lab layout on the real board.
+   Two-tier nav, workspace rail, CB rows, giant footer. Desktop >=981px gets
+   the full workspace; below that the rail hides and mobile keeps its pass.
+   ============================================================================ */
+
+/* ---- two-tier nav: wordmark row over an uppercase tab row ---- */
+@media (min-width:981px){
+  .v2t .nav{ display:grid; grid-template-columns:1fr auto; height:auto; align-items:stretch; }
+  .v2t .nav .brand{ grid-row:1; grid-column:1; height:64px; padding:0 28px; }
+  .v2t .nav .brand .mark{ display:none; }
+  .v2t .nav .brand .wm{ font-size:26px; font-weight:650; letter-spacing:-.025em; }
+  .v2t .nav .nav-menu{ grid-row:2; grid-column:1 / -1; height:46px; align-items:center;
+    border-top:1px solid var(--v-border); padding:0 14px; }
+  .v2t .navlink{ font-size:13px; letter-spacing:.08em; text-underline-offset:2px; }
+  .v2t .nav .cta{ font-size:13px; letter-spacing:.08em; }
+  /* sticky stack re-offset for the taller nav; measured after build, the
+     shared-pixel-row rule from the one-tier nav still applies (stick = navH-1) */
+  .v2t .jb-stick{ top:110px; }
+}
+
+/* ---- workspace: rail | center ---- */
+.v2t .jb-rail{ display:none; }
+@media (min-width:981px){
+  .v2t .jb-work{ display:grid; grid-template-columns:264px minmax(0,1fr); align-items:start; }
+  .v2t .jb-rail{ display:block; border-right:1px solid var(--v-border); padding:22px 24px 36px 2px;
+    position:sticky; top:184px; max-height:calc(100dvh - 184px); overflow-y:auto; }
+  .v2t .jb-centercol{ min-width:0; padding-left:26px; }
+  /* the split pane's full-bleed negatives collide with the rail column: neutralize */
+  .v2t .jb-centercol .jb-splitwrap{ margin:0; }
+  .v2t .jb-centercol .jb-splitwrap .jb-listcol{ padding-left:0; }
+  .v2t .jb-centercol .job-list-full .job-card{ padding-left:10px; }
+}
+
+/* ---- the rail itself (lab vrail, real filters) ---- */
+.v2t .jb-rail-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+.v2t .jb-rail-head h4{ font-size:23px; font-weight:650; letter-spacing:-.02em; margin:0; }
+.v2t .jb-rail-clear{ background:none; border:none; cursor:pointer; font:inherit; font-size:13px;
+  color:var(--v-text2); padding:0; }
+.v2t .jb-rail-clear:hover{ color:var(--v-text); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px; }
+.v2t .jb-rail section{ padding:20px 0; border-bottom:1px solid var(--v-border); }
+.v2t .jb-rail h5{ font-family:var(--mono),monospace; font-size:10px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--v-text2); margin:0 0 12px; }
+.v2t .jb-rail h5 i{ font-style:normal; color:var(--v-value); margin-right:8px; }
+.v2t .jb-opt{ display:flex; justify-content:space-between; align-items:center; font-size:15px;
+  color:var(--v-text2); padding:6px 0; }
+.v2t .jb-opt label{ display:flex; align-items:center; cursor:pointer; color:var(--v-text); min-width:0; }
+.v2t .jb-opt-n{ font-family:var(--mono),monospace; font-size:12.5px; flex:none; padding-left:10px; }
+.v2t .jb-opt input{ appearance:none; -webkit-appearance:none; margin:0 11px 0 0; width:19px; height:19px; flex:none;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:5px; cursor:pointer;
+  display:inline-grid; place-content:center; background:none; transition:background .15s, border-color .15s; }
+.v2t .jb-opt input[type=radio]{ border-radius:50%; }
+.v2t .jb-opt input:checked{ background:var(--v-text); border-color:var(--v-text); }
+.v2t .jb-opt input:checked::before{ content:""; width:10px; height:10px;
+  background:var(--v-bg); clip-path:polygon(14% 44%, 0 62%, 40% 100%, 100% 16%, 84% 2%, 38% 68%); }
+.v2t .jb-opt input[type=radio]:checked::before{ clip-path:none; border-radius:50%; width:8px; height:8px; }
+.v2t .jb-rail-all{ display:block; width:100%; margin-top:22px; background:none; color:var(--v-text);
+  font:inherit; font-size:14px; padding:10px 22px; cursor:pointer;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent); border-radius:999px;
+  transition:border-color .15s, background .15s, color .15s; }
+.v2t .jb-rail-all:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-rail-close{ margin-top:26px; padding-top:18px; border-top:1px solid var(--v-border2); }
+.v2t .jb-rail-big{ font-size:44px; font-weight:600; letter-spacing:-.03em; line-height:1; color:var(--v-text); }
+.v2t .jb-rail-lab{ margin-top:6px; font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+
+/* ---- page head: lab title scale ---- */
+.v2t .jb-head .rt-h1{ font-size:clamp(30px,3.4vw,44px); font-weight:600; letter-spacing:-.025em; }
+
+/* ---- rows at the lab scale ---- */
+.v2t .job-card{ padding:20px 10px 19px; gap:16px; }
+.v2t .job-t{ font-size:18.5px; font-weight:600; letter-spacing:-.015em; }
+.v2t .job-co{ font-size:13.5px; margin-top:3px; }
+
+/* ---- giant footer wordmark ---- */
+.v2t .foot{ padding-top:48px; }
+.v2t .foot::before{ content:"PivotHop"; grid-column:1 / -1;
+  font-size:clamp(64px,9vw,128px); font-weight:650; letter-spacing:-.04em; line-height:.95;
+  color:var(--v-text); }
+
+/* ---- leaks the first screenshot pass caught ---- */
+/* the page ground behind and beyond the wrapper must match the mode */
+body:has(.v2t){ background:#000000; }
+html.vlight body:has(.v2t){ background:#FFFFFF; }
+/* active-filter strip kept the paper card ground */
+.v2t .jb-active{ background:var(--v-bg); border-bottom:1px solid var(--v-border); }
+/* the giant wordmark says it; the small brand row under it is redundant */
+.v2t .foot .brand{ display:none; }
+/* wordmark holds its lab face at every width (mobile nav included) */
+.v2t .nav .brand .wm{ font-size:21px; font-weight:650; letter-spacing:-.025em; }

@@ -29,13 +29,14 @@ const EMPTY: Filters = {
   skillSet: new Set(),
 };
 
-export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope }: {
+export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2 }: {
   fields: Record<string, string>;   // occ slug -> field
   titles: Record<string, string>;   // occ slug -> display title
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
   scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string };
+  v2?: boolean;                     // full workspace layout (rail + lab chrome); /jobs only for now
 }) {
   const [all, setAll] = useState<Job[] | null>(initialJobs ?? null);
   const [q, setQ] = useState('');
@@ -345,6 +346,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     }
   }, [applyFilters, f]);
 
+  // Rail facet counts: every filter except field applied, then counted by field.
+  const fieldCounts = useMemo(() => {
+    const base = applyFilters(f, 'field');
+    const m = new Map<string, number>();
+    for (const j of base) { const fl = fields[j.occ]; if (fl) m.set(fl, (m.get(fl) ?? 0) + 1); }
+    return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+  }, [applyFilters, f, fields]);
+
   const pristine = !needle && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && !f.skillSet.size && sort === 'new';
   const activeCount = f.fieldSet.size + f.ctySet.size + (f.region ? 1 : 0) + (f.minPay ? 1 : 0) + (f.hasSalary ? 1 : 0) + (f.remoteOnly ? 1 : 0) + f.tags.size + (f.fresh ? 1 : 0) + f.srcSet.size + (f.lic ? 1 : 0) + f.skillSet.size;
   const closeSheet = () => { if (history.state?.jobSheet) history.back(); else setSheetJob(null); };
@@ -464,6 +473,54 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       )}
       </div>
 
+      <div className={v2 ? 'jb-work' : undefined}>
+      {v2 && (
+        <aside className="jb-rail" aria-label="Filters">
+          <div className="jb-rail-head"><h4>Filters</h4>
+            <button type="button" className="jb-rail-clear" onClick={() => { setQ(''); setNeedle(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
+          </div>
+          <section>
+            <h5><i>01</i>Field</h5>
+            {fieldCounts.map(([fl, n]) => (
+              <div className="jb-opt" key={fl}>
+                <label>
+                  <input type="checkbox" checked={f.fieldSet.has(fl)} onChange={() => {
+                    const next = new Set(f.fieldSet);
+                    if (next.has(fl)) next.delete(fl); else next.add(fl);
+                    set({ fieldSet: next });
+                  }} /> {fl}
+                </label>
+                <span className="jb-opt-n">{n.toLocaleString()}</span>
+              </div>
+            ))}
+          </section>
+          <section>
+            <h5><i>02</i>Workplace</h5>
+            <div className="jb-opt"><label><input type="checkbox" checked={f.remoteOnly} onChange={() => set({ remoteOnly: !f.remoteOnly })} /> Remote only</label></div>
+          </section>
+          <section>
+            <h5><i>03</i>Pay</h5>
+            <div className="jb-opt"><label><input type="checkbox" checked={f.hasSalary} onChange={() => set({ hasSalary: !f.hasSalary })} /> States a salary</label></div>
+          </section>
+          <section>
+            <h5><i>04</i>Freshness</h5>
+            {([['', 'Any time'], ['d', 'Last 24h'], ['w', 'This week'], ['m', 'This month']] as const).map(([k, label]) => (
+              <div className="jb-opt" key={k || 'any'}>
+                <label><input type="radio" name="jb-fresh" checked={f.fresh === k} onChange={() => set({ fresh: k })} /> {label}</label>
+              </div>
+            ))}
+          </section>
+          <button type="button" className="jb-rail-all" onClick={() => setSheetOpen(true)}>
+            All filters{activeCount > 0 ? ` · ${activeCount}` : ''}
+          </button>
+          <div className="jb-rail-close">
+            <div className="jb-rail-big">{all === null ? '·' : results.length.toLocaleString()}</div>
+            <div className="jb-rail-lab">roles in this view</div>
+          </div>
+        </aside>
+      )}
+      <div className={v2 ? 'jb-centercol' : undefined}>
+
       {pristine && !panelJob && featured}
 
       {all === null ? (
@@ -487,6 +544,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           </div>
         </>
       )}
+      </div>
+      </div>
+
       <FilterSheet
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}

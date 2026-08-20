@@ -43,7 +43,7 @@ export default function JobsHub() {
           </div>
         </div>
 
-        <JobsBrowse fields={fields} titles={titles} search={search} featured={
+        <JobsBrowse v2 fields={fields} titles={titles} search={search} featured={
           featuredJobs().length >= 3 ? (
             <section key="featured" className="feat" aria-label="Featured roles">
               <div className="feat-head">

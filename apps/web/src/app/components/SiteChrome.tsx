@@ -22,10 +22,10 @@ const ArrowIco = () => (
   <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
 );
 
-export function SiteNav({ active }: { active?: 'about' | 'employers' }) {
+export function SiteNav({ active, v2 }: { active?: 'about' | 'employers'; v2?: boolean }) {
   return (
     <header className="nav">
-      <Link href="/" className="brand"><RabbitMark /><span className="wm">PIVOTHOP</span></Link>
+      <Link href="/" className="brand">{v2 ? <span className="wm">PivotHop</span> : <><RabbitMark /><span className="wm">PIVOTHOP</span></>}</Link>
       {/* phones: search lives in the bar, not buried in the menu */}
       <button className="nav-searchbtn-m" type="button" data-search aria-label="Search">
         <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
@@ -113,7 +113,7 @@ export function PageShell({ children, active, wide, v2 }: { children: React.Reac
         <SwissBanner />
         <SearchOverlay />
         <LicenseSheet />
-        <SiteNav active={active} />
+        <SiteNav active={active} v2={v2} />
         <MobileNav />
         {v2 && <V2ThemeToggle />}
         {children}
