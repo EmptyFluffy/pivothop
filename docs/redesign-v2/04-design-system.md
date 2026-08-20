@@ -12,6 +12,16 @@ huge "Title at Company" line with the connective in grey, one loud color
 The class of design-led boards (It's Nice That, If You Could) shares the
 pattern: type does the layout, chrome stays silent, one color carries value.
 
+**Dual mode (2026-08-20):** dark is the default and the statement; the light
+mode is measured from the same world's light citizens (It's Nice That runs
+Bradford on white with #141414 ink; If You Could runs ABC Diatype the same
+way): white field, `--surface #FAF8F2`, the measured CB cream `#FBF7EF` as
+selection fill, and the gold deepened to `#A8790E` for text contrast on white
+(`--value` is the mode-aware readable gold; `--amber #F0B43C` stays the fill
+gold in both modes). The lab bar carries the toggle; the choice persists.
+Panels follow the grammar in both modes: mono uppercase rail labels, gold
+checks, 30px gold salary in the inspector, mono pager, pill filter tokens.
+
 Applied here: black field, `--amber #F0B43C` replaces cobalt as the value
 color (salary, match, measure, active dot, the one filled Apply), pill
 outlines for actions, 23px row titles with the grey "at", and the warmth now

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ThemeToggle } from './ThemeToggle';
 
 /* V2 primitives (docs/redesign-v2/04-design-system.md). Extraction rule per
    the brief: a component exists here only when at least two surfaces use it.
@@ -10,6 +11,7 @@ export function LabBar({ on }: { on: string }) {
     <div className="labbar"><div className="wrap">
       <span>v2 design lab · not production</span>
       {links.map(([href, k]) => <Link key={k} href={href} className={k === on ? 'on' : ''}>{k}</Link>)}
+      <ThemeToggle />
     </div></div>
   );
 }
