@@ -20,7 +20,7 @@ export function V2Nav({ active }: { active?: string }) {
   return (
     <nav className="vnav">
       <div className="vnav-top">
-        <span className="vwordmark"><i />PIVOTHOP</span>
+        <span className="vwordmark">PivotHop</span>
         <span className="vnav-right">
           <a href="#" className="ul" style={{ fontSize: 14 }}>Sign in</a>
           <NavSearch />
