@@ -194,26 +194,65 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 
 /* ---- workspace: full-bleed app frame, rail | center(list | pane) ---- */
 .v2t.shell, .v2t.shell-wide{ max-width:none; border-left:none; border-right:none; }
+.v2t .jb-rail{ display:none; }
 .v2t .jb-thead{ display:none; }
 @media (min-width:981px){
   .v2t .rtp{ padding:0 0 44px; }
+  .v2t .jb-work{ display:grid; grid-template-columns:264px minmax(0,1fr); align-items:start; }
+  .v2t .jb-rail{ display:block; border-right:1px solid var(--v-border); padding:22px 22px 36px;
+    position:sticky; top:101px; max-height:calc(100dvh - 101px); overflow-y:auto;
+    /* scrollable, but no visible bar (the lab treatment) */
+    scrollbar-width:none; }
+  .v2t .jb-rail::-webkit-scrollbar{ display:none; }
   .v2t .jb-centercol{ min-width:0; padding:24px 32px 0 32px; }
   .v2t .jb-centercol:has(.jpane){ padding-right:0; }
   /* with the inspector open, everything above the split stays in the list
      column (the lab's three-column frame): inset by pane width + gutter */
   .v2t .jb-centercol:has(.jpane) > :not(.jb-splitwrap){ margin-right:382px; }
   /* without the inspector, the column does not run to the horizon */
-  .v2t .jb-centercol:not(:has(.jpane)) > *{ max-width:1200px; margin-inline:auto; }
+  .v2t .jb-centercol:not(:has(.jpane)) > *{ max-width:1160px; }
   /* the floating mode toggle steps left of the pane instead of covering it */
   .v2t .jb-centercol .jb-splitwrap{ margin:0; grid-template-columns:minmax(0,1fr) 356px; gap:0; }
   .v2t .jb-centercol .jb-splitwrap .jb-listcol{ padding-left:0; padding-right:26px; }
-  .v2t .jb-centercol .job-list-full{ margin-left:auto; margin-right:auto; }
-  .v2t .jb-centercol .jb-splitwrap .job-list-full{ margin:0; }
+  .v2t .jb-centercol .job-list-full{ margin-left:0; margin-right:0; }
   .v2t .job-list-full .job-card{ padding-left:10px; padding-right:10px; }
 }
 
 /* ---- featured strip: identical rows, a breath of air before the table head ---- */
 .v2t .jb-featlist{ margin-bottom:26px; }
+
+/* ---- the rail (lab vrail, real filters) ---- */
+.v2t .jb-rail-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+.v2t .jb-rail-head h4{ font-size:23px; font-weight:650; letter-spacing:-.02em; margin:0; }
+.v2t .jb-rail-clear{ background:none; border:none; cursor:pointer; font:inherit; font-size:13px;
+  color:var(--v-text2); padding:0; }
+.v2t .jb-rail-clear:hover{ color:var(--v-text); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px; }
+.v2t .jb-rail section{ padding:20px 0; border-bottom:1px solid var(--v-border); }
+.v2t .jb-rail h5{ font-family:var(--mono),monospace; font-size:10px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--v-text2); margin:0 0 12px; }
+.v2t .jb-rail h5 i{ font-style:normal; color:var(--v-value); margin-right:8px; }
+.v2t .jb-opt{ display:flex; justify-content:space-between; align-items:center; font-size:15px;
+  line-height:1.55; color:var(--v-text2); padding:6px 0; }
+.v2t .jb-opt label{ display:flex; align-items:center; cursor:pointer; color:var(--v-text); min-width:0; }
+.v2t .jb-opt-n{ font-family:var(--mono),monospace; font-size:12.5px; letter-spacing:-.01em; flex:none; padding-left:10px; }
+.v2t .jb-opt input{ appearance:none; -webkit-appearance:none; margin:0 11px 0 0; width:19px; height:19px; flex:none;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:5px; cursor:pointer;
+  display:inline-grid; place-content:center; background:none; transition:background .15s, border-color .15s; }
+.v2t .jb-opt input[type=radio]{ border-radius:50%; }
+.v2t .jb-opt input:checked{ background:var(--v-text); border-color:var(--v-text); }
+.v2t .jb-opt input:checked::before{ content:""; width:10px; height:10px;
+  background:var(--v-bg); clip-path:polygon(14% 44%, 0 62%, 40% 100%, 100% 16%, 84% 2%, 38% 68%); }
+.v2t .jb-opt input[type=radio]:checked::before{ clip-path:none; border-radius:50%; width:8px; height:8px; }
+.v2t .jb-rail-all{ display:block; width:100%; margin-top:22px; background:none; color:var(--v-text);
+  font:inherit; font-size:14px; padding:10px 22px; cursor:pointer;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent); border-radius:999px;
+  transition:border-color .15s, background .15s, color .15s; }
+.v2t .jb-rail-all:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-rail-close{ margin-top:26px; padding-top:18px; border-top:1px solid var(--v-border2); }
+.v2t .jb-rail-big{ font-family:var(--mono),monospace; font-size:44px; font-weight:600; letter-spacing:-.03em;
+  line-height:1; color:var(--v-text); }
+.v2t .jb-rail-lab{ margin-top:6px; font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
 
 /* ---- hero: meta line + title inside the column (lab vmeta/vtitle) ---- */
 .v2t .jb-vmeta{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.12em;
