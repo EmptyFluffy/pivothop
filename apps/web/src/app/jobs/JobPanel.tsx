@@ -52,6 +52,16 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
         ? Math.max(0, Math.round(nav.getBoundingClientRect().bottom))
         : band ? Math.max(59, Math.round(band.getBoundingClientRect().height) + 59) : 133;
       el.style.setProperty('--jpane-top', `${top}px`);
+      // v2: pull the pane's flow position up to the workspace top so it starts
+      // at the nav like the rail, while sticky keeps it inside the split.
+      if (el.closest('.v2t')) {
+        const wrap = el.closest('.jb-splitwrap');
+        const work = document.querySelector('.jb-work');
+        if (wrap && work) {
+          const pull = Math.max(0, Math.round(wrap.getBoundingClientRect().top - work.getBoundingClientRect().top));
+          el.style.setProperty('--jpane-pull', `-${pull}px`);
+        }
+      }
       el.style.height = `${Math.max(320, window.innerHeight - Math.max(top, el.getBoundingClientRect().top))}px`;
     };
     let queued = false;

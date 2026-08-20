@@ -213,10 +213,11 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
   .v2t .jb-centercol:not(:has(.jpane)) > *{ max-width:1160px; }
   /* the floating mode toggle steps left of the pane instead of covering it */
   .v2t .jb-centercol .jb-splitwrap{ margin:0; grid-template-columns:minmax(0,1fr) 356px; gap:0; }
-  /* the inspector is a full-height app column like the lab's: fixed from the
-     nav's bottom edge to the viewport bottom, over the space the grid keeps */
-  .v2t .jb-splitwrap .jpane{ position:fixed; top:var(--jpane-top,101px); right:0; width:356px;
-    z-index:30; }
+  /* the inspector reaches the workspace top (a measured negative pull) but
+     stays sticky INSIDE the split, so it scrolls away with the list exactly
+     like the rail does, instead of riding over the footer */
+  .v2t .jb-splitwrap .jpane{ position:sticky; top:var(--jpane-top,101px);
+    margin-top:var(--jpane-pull,0px); z-index:30; }
   .v2t .jb-centercol .jb-splitwrap .jb-listcol{ padding-left:0; padding-right:26px; }
   .v2t .jb-centercol .job-list-full{ margin-left:0; margin-right:0; }
   .v2t .job-list-full .job-card{ padding-left:10px; padding-right:10px; }
