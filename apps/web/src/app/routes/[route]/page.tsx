@@ -69,7 +69,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
   const destLc = r.title.toLowerCase();
 
   return (
-    <PageShell>
+    <PageShell v2 active="routes">
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/routes">Routes</Link><span>/</span>
@@ -334,7 +334,7 @@ function OriginPage({ origin }: { origin: string }) {
   ];
 
   return (
-    <PageShell>
+    <PageShell v2 active="routes">
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/routes">Routes</Link><span>/</span><span>{om.title}</span>
@@ -370,6 +370,7 @@ function OriginPage({ origin }: { origin: string }) {
                 {slug
                   ? <Link href={`/routes/${slug}`}>{om.title} &rarr; {r.title}</Link>
                   : <span>{om.title} &rarr; {r.title}</span>}
+                <span className="rt-bar" aria-hidden="true"><i style={{ width: `${Math.max(2, Math.min(100, r.match))}%` }} /></span>
                 <span className="lbl">{r.match}% &middot; {r.salary ?? 'salary n/a'} &middot; {r.time}{r.license?.req === 'required' ? ' · license' : ''}</span>
               </li>
             ))}
