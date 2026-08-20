@@ -245,11 +245,6 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
               <br />posted <span suppressHydrationWarning>{agoTxt === 'Today' ? 'today' : agoTxt}</span>
             </p>
             {pay && <div className="jv-payg">{pay}</div>}
-            <p className="jv-blurb">
-              {occName ? `${occName} opening` : 'Opening'}
-              {direct ? ', indexed from the company’s own board.' : `, indexed from ${sourceName(j.source)}.`}
-              {listing && listing.skills.length > 0 ? ' The skills below are extracted from the posting text.' : ''}
-            </p>
             <hr className="jv-rule" />
             {skel}
             {skillsBlockV2}

@@ -132,7 +132,6 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         {benefits.length > 0 && (
           <section className="rt-sec jd-benefits">
             <h2>Benefits</h2>
-            <p className="rt-note jd-bnote">Read out of this posting&rsquo;s own text. What it does not state, we do not show.</p>
             <BenefitStrip benefits={benefits} />
           </section>
         )}
