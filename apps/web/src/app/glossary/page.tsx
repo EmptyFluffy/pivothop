@@ -6,6 +6,7 @@ import { PageShell } from '../components/SiteChrome';
 import { GLOSSARY } from './glossary-data';
 import GlossaryTabs from './GlossaryTabs';
 import { SkillMarkSvg } from '../jobs/SkillMark';
+import { BenefitMarkSvg, type BenefitEntry } from '../jobs/BenefitStrip';
 
 export const metadata: Metadata = {
   title: 'Glossary and sources: career-data terms and skills, defined',
@@ -23,6 +24,17 @@ const byTerm = (a: { term: string }, b: { term: string }) => a.term.toLowerCase(
 const TERMS = GLOSSARY.filter((e) => e.cat === 'term').sort(byTerm);
 const SOURCES = GLOSSARY.filter((e) => e.cat === 'source').sort(byTerm);
 const SKILLS = readSkills(); // already sorted by term in the generator
+function readBenefits(): BenefitEntry[] {
+  try { return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'benefits-glossary.json'), 'utf8')); }
+  catch { return []; }
+}
+// The benefit bank, grouped by category and ranked inside it by how many live
+// listings state the benefit. Counts come from the same build that wrote the
+// boards, so the glossary can never quote a figure the board does not hold.
+const BENEFITS = readBenefits();
+const BCATS = [...new Set(BENEFITS.map((b) => b.cat))]
+  .map((cat) => [cat, BENEFITS.filter((b) => b.cat === cat).sort((a, b) => (b.n ?? 0) - (a.n ?? 0))] as const)
+  .sort((a, b) => b[1].reduce((n, x) => n + (x.n ?? 0), 0) - a[1].reduce((n, x) => n + (x.n ?? 0), 0));
 const firstLetter = (t: string) => { const c = t.replace(/[^a-zA-Z0-9]/g, '')[0] || '#'; return /[0-9]/.test(c) ? '#' : c.toUpperCase(); };
 const LETTERS = [...new Set(SKILLS.map((s) => firstLetter(s.term)))].sort();
 
@@ -35,7 +47,7 @@ export default function GlossaryPage() {
         <p className="gloss-dek">
           Every acronym, credential, dataset, and skill the writing and the instrument lean on, defined once and in plain language.
           We assume you know your own field, not ours. Three registers: the terms, the datasets behind the numbers, and the skill
-          bank &mdash; every skill linked to the open roles it unlocks.
+          bank and the benefit bank &mdash; every skill linked to the open roles it unlocks.
         </p>
 
         <GlossaryTabs
@@ -103,6 +115,30 @@ export default function GlossaryPage() {
                                 </div>
                               )}
                             </dd>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              ),
+            },
+            {
+              key: 'benefits', label: 'The benefit bank', count: BENEFITS.length,
+              panel: (
+                <section className="gloss-sec" id="benefits" aria-label="The benefit bank">
+                  <p className="gloss-note">Every benefit the miner reads out of posting text, with how many live listings state it. A posting that does not name a benefit gets no pill for it: silence here means the employer said nothing, not that the benefit is missing.</p>
+                  <dl className="gloss-list">
+                    {BCATS.map(([cat, list]) => (
+                      <div key={cat} className="gloss-letter-group">
+                        <h3 className="gloss-letter" id={`benefit-cat-${cat.toLowerCase()}`}>{cat}</h3>
+                        {list.map((b) => (
+                          <div className="gloss-item gloss-skill" id={`benefit-${b.slug}`} key={b.slug}>
+                            <dt>
+                              <span className="gt"><BenefitMarkSvg glyph={b.glyph} className="gt-mark" />{b.term}</span>
+                              {b.n ? <span className="gf">{b.n.toLocaleString()} listings</span> : null}
+                            </dt>
+                            <dd>{b.def}</dd>
                           </div>
                         ))}
                       </div>

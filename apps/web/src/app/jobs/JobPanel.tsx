@@ -13,14 +13,16 @@ import type { Job } from './JobCard';
 import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45 } from './JobCard';
 import { type Listing, loadListing } from './detail';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
+import BenefitStrip, { type BenefitEntry } from './BenefitStrip';
 
 /* Sources that are the company's own board rather than an aggregator feed.
    Saying so on the pane is the provenance line (docs/26): a listing from the
    company's board dies when the company kills it. */
 const DIRECT = new Set(['greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'employer']);
 
-export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onStep }: {
+export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occName, pos, onStep }: {
   job: Job; onClose: () => void; glossary?: SkillEntry[] | null;
+  benefitBank?: BenefitEntry[] | null;      // definitions + glyphs for the benefit pills
   v2?: boolean;                                  // lab inspector layout
   occName?: string;                              // display title of the occupation
   pos?: { i: number; n: number } | null;         // position within the result set
@@ -156,6 +158,21 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
     );
   })();
 
+  /* The pane is 356px wide: a posting listing a dozen perks would bury the
+     description under pills, so three show and the rest sit behind a count. */
+  const benefitsBlock = listing && listing.benefits && listing.benefits.length > 0 && (() => {
+    const bank = new Map((benefitBank ?? []).map((b) => [b.slug, b]));
+    const entries: BenefitEntry[] = listing.benefits
+      .map((b) => bank.get(b.slug) ?? { slug: b.slug, term: b.term, cat: 'Benefit', def: '' })
+      .sort((a, b) => (b.n ?? 0) - (a.n ?? 0));
+    return (
+      <div className="jsheet-sec">
+        <h3>Benefits</h3>
+        <BenefitStrip benefits={entries} cap={3} />
+      </div>
+    );
+  })();
+
   const makeSections = (title: string) => listing && listing.sections.length > 0 && (
     <div className="jsheet-sec jsheet-desc">
       <h3>{title}</h3>
@@ -236,6 +253,7 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
             <hr className="jv-rule" />
             {skel}
             {skillsBlockV2}
+            {benefitsBlock}
             {makeSections('Posting')}
             {noneBlock}
           </div>

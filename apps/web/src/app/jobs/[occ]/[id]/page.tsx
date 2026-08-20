@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
-import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, skillDisplayName } from '../../jobs-data';
+import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, skillDisplayName } from '../../jobs-data';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
 import SkillStrip from '../../SkillStrip';
+import BenefitStrip from '../../BenefitStrip';
+import { benefitEntries } from '../../benefit-entries';
 import { skillEntries } from '../../skill-entries';
 import { coverableSlugs } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, hasOriginPage, originRoles } from '../../../routes/routes-data';
@@ -65,6 +67,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const tl = title.toLowerCase();
   const sections: JobSection[] = getJobSections(occ, id);
   const skills = getJobSkills(occ, id);
+  const benefits = benefitEntries(getJobBenefits(occ, id));
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   const hasSalary = coverableSlugs().includes(occ);
@@ -123,6 +126,14 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <section className="rt-sec jd-skills">
             <h2>Skills in this posting</h2>
             <SkillStrip skills={skillEntries(skills)} />
+          </section>
+        )}
+
+        {benefits.length > 0 && (
+          <section className="rt-sec jd-benefits">
+            <h2>Benefits</h2>
+            <p className="rt-note jd-bnote">Read out of this posting&rsquo;s own text. What it does not state, we do not show.</p>
+            <BenefitStrip benefits={benefits} />
           </section>
         )}
 

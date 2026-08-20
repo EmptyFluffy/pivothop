@@ -18,7 +18,9 @@ Writes:
   apps/web/public/data/jobs-detail/{role_id}.json  id -> {desc} (detail pages, build-time read)
   apps/web/public/data/jobs-index.json             role_id -> count
 """
-import json, os, collections, hashlib, html, re
+import json, os, collections, hashlib, html, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import benefits as benefits_miner  # zone-aware perk extraction; see benefits.py
 
 # Mojibake repair (mirror of lib/text.js fixMojibake): UTF-8 bytes decoded as
 # Latin-1 give "EspaÃ±a" for "España". The tell is two adjacent high-Latin-1
@@ -299,6 +301,8 @@ FEATURED_COMPANIES = {'coinbase', 'airbnb', 'databricks', 'cloudflare', 'datadog
                       'supabase', 'retool', 'grammarly', 'gitlab', 'dropbox', 'asana'}
 FEATURED_CAP = 12
 
+benefit_counts = collections.Counter()
+
 # 1. Raw index by (source, external_id) for company / location / description.
 raw = {}
 for line in open(RAW):
@@ -372,7 +376,11 @@ for line in open(NORM):
         **({'c': cty} if cty else {}),
     })
     if desc:
-        desc_byocc[role][_id] = {'s': to_sections(desc, DESC_CAP), 'k': list(d.get('skills') or [])}
+        bens = benefits_miner.extract(desc)
+        for b in bens:
+            benefit_counts[b] += 1
+        desc_byocc[role][_id] = {'s': to_sections(desc, DESC_CAP), 'k': list(d.get('skills') or []),
+                                 **({'b': bens} if bens else {})}
 
 # 3. Freshest-first, capped, floored.
 for d in (OUT, DETAIL):
@@ -521,6 +529,22 @@ if remote_occ != remote_all:
 
 json.dump(all_rows, open(ALL, 'w'), ensure_ascii=False)
 json.dump(index, open(INDEX, 'w'), ensure_ascii=False)
+
+# Benefits glossary: every mined benefit with its definition and how many of the
+# listings that shipped state it. Counts come from this run, so the glossary can
+# never quote a number the board does not hold.
+shipped = collections.Counter()
+for role in index:
+    for det in json.load(open(f'{DETAIL}/{role}.json')).values():
+        for b in det.get('b') or []:
+            shipped[b] += 1
+gloss = [{'slug': b['id'], 'term': b['name'], 'cat': b['cat'], 'glyph': b.get('glyph'),
+          'def': b.get('def', ''), 'n': shipped.get(b['id'], 0)}
+         for b in benefits_miner.load()]
+gloss.sort(key=lambda e: (-e['n'], e['term']))
+json.dump(gloss, open('apps/web/public/data/benefits-glossary.json', 'w'), ensure_ascii=False)
+seen_n = sum(1 for e in gloss if e['n'])
+print(f"benefits: {sum(shipped.values())} statements across {seen_n} of {len(gloss)} kinds")
 size_kb = os.path.getsize(ALL) // 1024
 board_total = sum(index.values())
 print(f"emitted {len(index)} occupation boards, {board_total} listings "

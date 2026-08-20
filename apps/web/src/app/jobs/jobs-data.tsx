@@ -76,7 +76,7 @@ export function companyLogo(company: string): string | null {
 export type JobSection = { h: string | null; t: string };
 // Detail rows are {s: sections, k: skill ids}; the bare-array form is the
 // pre-skills shape, still readable so a half-regenerated dataset never breaks.
-type DetailRow = JobSection[] | { s: JobSection[]; k?: string[] };
+type DetailRow = JobSection[] | { s: JobSection[]; k?: string[]; b?: string[] };
 export function getJobSections(occ: string, id: string): JobSection[] {
   const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
   return Array.isArray(v) ? v : v?.s ?? [];
@@ -84,6 +84,12 @@ export function getJobSections(occ: string, id: string): JobSection[] {
 export function getJobSkills(occ: string, id: string): string[] {
   const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
   return Array.isArray(v) ? [] : v?.k ?? [];
+}
+
+/** Benefits the miner read out of this posting (build-jobs, benefits.py). */
+export function getJobBenefits(occ: string, id: string): string[] {
+  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+  return Array.isArray(v) ? [] : v?.b ?? [];
 }
 let _skillNames: Record<string, string> | null = null;
 export function skillDisplayName(id: string): string {

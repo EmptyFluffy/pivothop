@@ -1,0 +1,896 @@
+{
+ "version": 3,
+ "benefits": [
+  {
+   "id": "health-insurance",
+   "name": "Health insurance",
+   "cat": "Health",
+   "glyph": "medcross",
+   "def": "Employer-funded medical cover. The largest non-salary line in US postings; elsewhere it usually tops up public cover.",
+   "strong": [
+    "health insurance",
+    "medical insurance",
+    "health coverage",
+    "medical coverage",
+    "private medical",
+    "health care plan",
+    "healthcare plan",
+    "medical plan",
+    "private healthcare",
+    "health benefits"
+   ],
+   "weak": [
+    "medical cover",
+    "health cover",
+    "bupa",
+    "aok",
+    "krankenversicherung"
+   ],
+   "unless_near": "(licen[cs]e|broker|underwrit|adjuster|claims|agent|sell|selling|policyholder)"
+  },
+  {
+   "id": "dental",
+   "name": "Dental cover",
+   "cat": "Health",
+   "glyph": "tooth",
+   "def": "Dental treatment paid or subsidised by the employer, usually bundled with medical cover.",
+   "strong": [
+    "dental insurance",
+    "dental coverage",
+    "dental plan",
+    "dental cover"
+   ],
+   "weak": [
+    "dental"
+   ],
+   "unless_near": "(hygien|assistant|dentist|practice|chair|patient|clinic)"
+  },
+  {
+   "id": "vision",
+   "name": "Vision cover",
+   "cat": "Health",
+   "glyph": "eye",
+   "def": "Eye tests and glasses paid or subsidised, usually bundled with medical and dental.",
+   "strong": [
+    "vision insurance",
+    "vision coverage",
+    "vision plan",
+    "eye care benefit",
+    "glasses allowance"
+   ],
+   "weak": [
+    "vision",
+    "vision cover",
+    "optical"
+   ],
+   "unless_near": "(computer vision|machine vision|vision system|product vision|company vision|our vision|vision and mission)"
+  },
+  {
+   "id": "mental-health",
+   "name": "Mental health support",
+   "cat": "Health",
+   "glyph": "mind",
+   "def": "Counselling, therapy sessions, or a subscribed service such as Headspace or Spill.",
+   "strong": [
+    "mental health support",
+    "mental health benefit",
+    "mental wellbeing support",
+    "therapy sessions",
+    "counselling benefit",
+    "counseling benefit",
+    "employee assistance program",
+    "employee assistance programme",
+    "\\beap\\b",
+    "headspace",
+    "calm subscription",
+    "spill\\b",
+    "modern health",
+    "lyra health"
+   ],
+   "weak": [
+    "mental health",
+    "wellbeing support",
+    "psychological support"
+   ],
+   "unless_near": "(patient|clinical|counsel(or|lor) role|therapist role|caseload|treat(ing|ment) plan)"
+  },
+  {
+   "id": "life-insurance",
+   "name": "Life insurance",
+   "cat": "Health",
+   "glyph": "shield",
+   "def": "A death-in-service payout to a nominated beneficiary, typically a multiple of salary.",
+   "strong": [
+    "life insurance",
+    "life assurance",
+    "death in service",
+    "\\badnd\\b",
+    "ad&d"
+   ],
+   "weak": [
+    "life cover"
+   ],
+   "unless_near": "(sell|selling|broker|underwrit|licen[cs]e|agent|policyholder)"
+  },
+  {
+   "id": "disability-cover",
+   "name": "Disability cover",
+   "cat": "Health",
+   "glyph": "support",
+   "def": "Income protection if illness or injury stops you working, short or long term.",
+   "strong": [
+    "disability insurance",
+    "income protection",
+    "short.term disability",
+    "long.term disability",
+    "\\bstd/ltd\\b"
+   ],
+   "weak": [
+    "disability cover"
+   ],
+   "unless_near": "(accommodat|accessib|equal opportunit|protected veteran|discriminat)"
+  },
+  {
+   "id": "wellness-stipend",
+   "name": "Wellness stipend",
+   "cat": "Health",
+   "glyph": "heart",
+   "def": "A recurring allowance for gym, fitness, or wellbeing spending, paid whether or not you use a specific provider.",
+   "strong": [
+    "wellness stipend",
+    "wellness allowance",
+    "wellness budget",
+    "fitness stipend",
+    "fitness allowance",
+    "gym stipend",
+    "gym allowance",
+    "gym membership",
+    "wellhub",
+    "gympass",
+    "classpass",
+    "urban sports"
+   ],
+   "weak": [
+    "gym",
+    "fitness classes",
+    "wellness program",
+    "wellness programme"
+   ]
+  },
+  {
+   "id": "health-checks",
+   "name": "Health checks",
+   "cat": "Health",
+   "glyph": "pulse",
+   "def": "Employer-paid screening: annual physicals, eye tests for screen users, or on-site clinics.",
+   "strong": [
+    "annual health check",
+    "health screening",
+    "medical check.?up",
+    "on.site (doctor|clinic|nurse)",
+    "free flu (shot|jab|vaccination)"
+   ],
+   "weak": [
+    "health check"
+   ]
+  },
+  {
+   "id": "retirement-match",
+   "name": "Retirement match",
+   "cat": "Money",
+   "glyph": "piggy",
+   "def": "The employer pays into your retirement account on top of your own contribution. The match rate is the number that matters.",
+   "strong": [
+    "401\\(?k\\)? match",
+    "401k matching",
+    "employer match",
+    "matched pension",
+    "pension match",
+    "company match",
+    "superannuation",
+    "\\brrsp\\b match",
+    "employer contribution"
+   ],
+   "weak": [
+    "401\\(?k\\)?",
+    "pension scheme",
+    "pension plan",
+    "retirement plan",
+    "retirement savings",
+    "betriebliche altersvorsorge"
+   ],
+   "unless_near": "(match (candidates|applicants|the role|your skills)|skill match|match percentage)|payroll|accounting|\\basc ?\\d|administer|administrat|reconcil|journal entr|tax withholding|cap table|equity plan|compliance report|audit(ing|s)? the|process(ing)? (equity|payroll)|benefits? administration|third.party administrator"
+  },
+  {
+   "id": "equity",
+   "name": "Equity",
+   "cat": "Money",
+   "glyph": "chart",
+   "def": "A share of the company: options, RSUs, or a profit-participation scheme.",
+   "strong": [
+    "stock option",
+    "share option",
+    "\\brsus?\\b",
+    "employee stock",
+    "equity package",
+    "equity grant",
+    "equity compensation",
+    "share scheme",
+    "\\besop\\b",
+    "virtual shares",
+    "phantom stock",
+    "employee share"
+   ],
+   "weak": [
+    "equity"
+   ],
+   "unless_near": "(diversity|inclusion|\\\\bdei\\\\b|equity, diversity|health equity|gender equity|pay equity|racial equity|equity and inclusion|brand equity)|payroll|accounting|\\basc ?\\d|administer|administrat|reconcil|journal entr|tax withholding|cap table|equity plan|compliance report|audit(ing|s)? the|process(ing)? (equity|payroll)|benefits? administration|third.party administrator"
+  },
+  {
+   "id": "bonus",
+   "name": "Bonus",
+   "cat": "Money",
+   "glyph": "coin",
+   "def": "Variable pay on top of salary: annual, performance, or company-wide.",
+   "strong": [
+    "annual bonus",
+    "performance bonus",
+    "discretionary bonus",
+    "company bonus",
+    "target bonus",
+    "\\bbonus scheme\\b",
+    "13th month",
+    "fourteenth salary",
+    "profit share",
+    "profit.sharing"
+   ],
+   "weak": [
+    "bonus"
+   ],
+   "unless_near": "(bonus point|nice to have|signing|referral)|payroll|accounting|\\basc ?\\d|administer|administrat|reconcil|journal entr|tax withholding|cap table|equity plan|compliance report|audit(ing|s)? the|process(ing)? (equity|payroll)|benefits? administration|third.party administrator"
+  },
+  {
+   "id": "signing-bonus",
+   "name": "Signing bonus",
+   "cat": "Money",
+   "glyph": "gift",
+   "def": "A one-off payment for joining, sometimes tied to staying a minimum term.",
+   "strong": [
+    "signing bonus",
+    "sign.on bonus",
+    "joining bonus",
+    "welcome bonus",
+    "hiring bonus",
+    "retention bonus"
+   ],
+   "weak": []
+  },
+  {
+   "id": "commission",
+   "name": "Commission",
+   "cat": "Money",
+   "glyph": "trend",
+   "def": "Pay tied to what you sell or close, on top of base salary.",
+   "strong": [
+    "uncapped commission",
+    "commission structure",
+    "commission plan",
+    "\\bote\\b",
+    "on.target earnings"
+   ],
+   "weak": [
+    "commission"
+   ],
+   "unless_near": "(commission(ed|ing) (a |the )?(building|work|art|study|report)|planning commission|european commission)|payroll|accounting|\\basc ?\\d|administer|administrat|reconcil|journal entr|tax withholding|cap table|equity plan|compliance report|audit(ing|s)? the|process(ing)? (equity|payroll)|benefits? administration|third.party administrator"
+  },
+  {
+   "id": "tuition",
+   "name": "Tuition support",
+   "cat": "Money",
+   "glyph": "cap",
+   "def": "The employer pays toward a degree, certification, or course fees.",
+   "strong": [
+    "tuition reimbursement",
+    "tuition assistance",
+    "tuition support",
+    "education reimbursement",
+    "study support",
+    "exam fees paid",
+    "certification reimbursement",
+    "professional fees paid",
+    "student loan (repayment|assistance|contribution)"
+   ],
+   "weak": [
+    "tuition"
+   ]
+  },
+  {
+   "id": "relocation",
+   "name": "Relocation support",
+   "cat": "Money",
+   "glyph": "truck",
+   "def": "Money or logistics for moving to the job's location.",
+   "strong": [
+    "relocation (package|assistance|support|allowance|bonus)",
+    "relocation costs? (paid|covered)",
+    "help(s)? with relocation",
+    "moving expenses"
+   ],
+   "weak": [
+    "relocation"
+   ],
+   "unless_near": "(no relocation|not (offer|provide|cover)|relocation is not)"
+  },
+  {
+   "id": "commuter",
+   "name": "Commuter benefit",
+   "cat": "Money",
+   "glyph": "transit",
+   "def": "A transit pass, parking, mileage, or a cycle-to-work scheme.",
+   "strong": [
+    "commuter benefit",
+    "travel allowance",
+    "transit pass",
+    "transport allowance",
+    "\\bdeutschlandticket\\b",
+    "job ?ticket",
+    "cycle to work",
+    "bike to work",
+    "mileage reimbursement",
+    "parking (paid|provided|allowance)",
+    "\\bsbb\\b (halbtax|ga)",
+    "fuel card"
+   ],
+   "weak": [
+    "commuter",
+    "travel expenses"
+   ]
+  },
+  {
+   "id": "home-office-stipend",
+   "name": "Home-office budget",
+   "cat": "Money",
+   "glyph": "desk",
+   "def": "A one-off or recurring allowance for the desk, chair, and hardware you work from.",
+   "strong": [
+    "home office (stipend|allowance|budget|setup|equipment)",
+    "remote work (stipend|allowance|budget)",
+    "work.from.home (stipend|allowance|budget)",
+    "desk (budget|allowance)",
+    "equipment budget",
+    "internet (stipend|allowance|reimbursement)",
+    "phone (stipend|allowance) "
+   ],
+   "weak": [
+    "home office setup"
+   ]
+  },
+  {
+   "id": "meals",
+   "name": "Meals covered",
+   "cat": "Money",
+   "glyph": "cup",
+   "def": "Free or subsidised food at work: lunch, canteen, or a meal card.",
+   "strong": [
+    "free lunch",
+    "lunch allowance",
+    "meal allowance",
+    "meal voucher",
+    "luncheon voucher",
+    "\\bticket restaurant\\b",
+    "subsidi[sz]ed (lunch|canteen|meals)",
+    "catered lunch",
+    "company canteen",
+    "free (breakfast|dinner|meals)",
+    "\\bswile\\b",
+    "essenszuschuss"
+   ],
+   "weak": [
+    "free coffee"
+   ]
+  },
+  {
+   "id": "discounts",
+   "name": "Employee discounts",
+   "cat": "Money",
+   "glyph": "tag",
+   "def": "Staff pricing on the company's own products, or a perks platform with third-party discounts.",
+   "strong": [
+    "employee discount",
+    "staff discount",
+    "product discount",
+    "corporate discount",
+    "perks platform",
+    "\\bperkbox\\b",
+    "\\bcorporate benefits\\b"
+   ],
+   "weak": [
+    "discounts"
+   ]
+  },
+  {
+   "id": "unlimited-pto",
+   "name": "Unlimited time off",
+   "cat": "Time",
+   "glyph": "infinity",
+   "def": "No fixed leave allowance. Read it carefully: unlimited policies often produce less leave taken, not more.",
+   "strong": [
+    "unlimited (pto|vacation|holiday|time off|leave)",
+    "open (pto|vacation|holiday) policy",
+    "flexible (pto|vacation|time off) policy",
+    "take (the )?time (off )?you need",
+    "discretionary time off"
+   ],
+   "weak": []
+  },
+  {
+   "id": "generous-pto",
+   "name": "Paid time off",
+   "cat": "Time",
+   "glyph": "calendar",
+   "def": "A stated paid leave allowance beyond the statutory minimum.",
+   "strong": [
+    "paid time off",
+    "\\bpto\\b",
+    "paid (vacation|holiday|leave)",
+    "annual leave",
+    "vacation days",
+    "holiday allowance",
+    "\\d{2}\\+? days (of )?(paid )?(leave|holiday|vacation|pto)",
+    "urlaubstage"
+   ],
+   "weak": [
+    "holidays",
+    "vacation"
+   ],
+   "unless_near": "(public holiday|bank holiday|holiday cover|holiday season|holiday period)|unlimited|open (pto|vacation|holiday)|discretionary time off|take what you need"
+  },
+  {
+   "id": "parental-leave",
+   "name": "Paid parental leave",
+   "cat": "Time",
+   "glyph": "stroller",
+   "def": "Paid leave for a new parent, beyond the statutory minimum, usually stated in weeks.",
+   "strong": [
+    "parental leave",
+    "maternity leave",
+    "paternity leave",
+    "adoption leave",
+    "enhanced (maternity|paternity|parental)",
+    "baby bonding",
+    "primary caregiver leave",
+    "elternzeit"
+   ],
+   "weak": [],
+   "unless_near": "(statutory (only|minimum)|as (per|required by) law)"
+  },
+  {
+   "id": "sabbatical",
+   "name": "Sabbatical",
+   "cat": "Time",
+   "glyph": "hourglass",
+   "def": "Extended paid or unpaid leave after a qualifying period, usually measured in months.",
+   "strong": [
+    "sabbatical",
+    "extended leave after",
+    "career break"
+   ],
+   "weak": []
+  },
+  {
+   "id": "four-day-week",
+   "name": "Four-day week",
+   "cat": "Time",
+   "glyph": "fourday",
+   "def": "A compressed or genuinely shortened week: 32 hours, four days, or a nine-day fortnight.",
+   "strong": [
+    "(four|4)[- ]day( work)?[- ]?week",
+    "\\b4x10\\b",
+    "9[- ]day fortnight",
+    "32[- ]hour( work)?[- ]?week",
+    "summer fridays",
+    "half.day friday",
+    "early finish friday"
+   ],
+   "weak": []
+  },
+  {
+   "id": "volunteer-days",
+   "name": "Volunteer days",
+   "cat": "Time",
+   "glyph": "hands",
+   "def": "Paid days off to do charity or community work.",
+   "strong": [
+    "volunteer (day|days|time off)",
+    "charity days?",
+    "giving back days?",
+    "community service (day|leave)",
+    "\\bvto\\b"
+   ],
+   "weak": []
+  },
+  {
+   "id": "sick-leave",
+   "name": "Paid sick leave",
+   "cat": "Time",
+   "glyph": "bed",
+   "def": "Paid absence when you are ill, stated as a policy rather than a statutory floor.",
+   "strong": [
+    "paid sick leave",
+    "sick pay",
+    "company sick pay",
+    "paid sick days",
+    "enhanced sick"
+   ],
+   "weak": [
+    "sick leave"
+   ]
+  },
+  {
+   "id": "birthday-off",
+   "name": "Birthday off",
+   "cat": "Time",
+   "glyph": "cake",
+   "def": "Your birthday as an extra paid day, or a floating personal day.",
+   "strong": [
+    "birthday (off|leave|day off)",
+    "day off (on|for) your birthday",
+    "floating holiday",
+    "personal days?"
+   ],
+   "weak": []
+  },
+  {
+   "id": "flexible-hours",
+   "name": "Flexible hours",
+   "cat": "Flexibility",
+   "glyph": "clock",
+   "def": "You choose when you work, within reason: flexitime, no core hours, or async by default.",
+   "strong": [
+    "flexible (working )?hours",
+    "flexi.?time",
+    "flexible schedule",
+    "no core hours",
+    "async(hronous)? (work|first|by default)",
+    "gleitzeit",
+    "choose your (own )?hours",
+    "flexible start"
+   ],
+   "weak": [
+    "flexibility",
+    "work.life balance"
+   ]
+  },
+  {
+   "id": "part-time-option",
+   "name": "Part-time possible",
+   "cat": "Flexibility",
+   "glyph": "halfcircle",
+   "def": "The role can be done at reduced hours, or a job share is on the table.",
+   "strong": [
+    "part.time (possible|option|available|welcome)",
+    "job.?share",
+    "\\d{2}\\s?-\\s?\\d{2}\\s?%",
+    "teilzeit",
+    "reduced hours"
+   ],
+   "weak": []
+  },
+  {
+   "id": "visa-sponsorship",
+   "name": "Visa sponsorship",
+   "cat": "Flexibility",
+   "glyph": "passport",
+   "def": "The employer will sponsor a work permit. Only counted when the posting never declines it.",
+   "strong": [
+    "visa sponsorship",
+    "sponsor(ship)? (a |an |your |our |the |work )*visa",
+    "h-?1b sponsor",
+    "sponsorship (is )?available",
+    "work permit sponsor"
+   ],
+   "weak": []
+  },
+  {
+   "id": "workation",
+   "name": "Work from abroad",
+   "cat": "Flexibility",
+   "glyph": "plane",
+   "def": "A stated allowance of days working from another country each year.",
+   "strong": [
+    "work(ation)? from abroad",
+    "work from anywhere for \\d",
+    "\\d{2} days abroad",
+    "temporary remote abroad",
+    "workation"
+   ],
+   "weak": []
+  },
+  {
+   "id": "childcare",
+   "name": "Childcare support",
+   "cat": "Family",
+   "glyph": "family",
+   "def": "Nursery places, a childcare allowance, or back-up care when arrangements fail.",
+   "strong": [
+    "childcare (support|allowance|assistance|subsidy|benefit)",
+    "back.?up care",
+    "on.?site (nursery|childcare|daycare)",
+    "kita.?zuschuss",
+    "nursery fees"
+   ],
+   "weak": [
+    "childcare"
+   ]
+  },
+  {
+   "id": "fertility",
+   "name": "Fertility support",
+   "cat": "Family",
+   "glyph": "seed",
+   "def": "Cover for fertility treatment, egg freezing, surrogacy, or adoption costs.",
+   "strong": [
+    "fertility (benefit|support|treatment|coverage)",
+    "\\bivf\\b",
+    "egg freezing",
+    "surrogacy (support|assistance)",
+    "adoption assistance",
+    "\\bcarrot\\b fertility",
+    "\\bmaven\\b"
+   ],
+   "weak": []
+  },
+  {
+   "id": "carer-leave",
+   "name": "Carer's leave",
+   "cat": "Family",
+   "glyph": "hands",
+   "def": "Paid time to care for a dependent adult, or bereavement leave beyond the statutory minimum.",
+   "strong": [
+    "carer'?s leave",
+    "caregiver leave",
+    "compassionate leave",
+    "bereavement leave",
+    "family care leave"
+   ],
+   "weak": []
+  },
+  {
+   "id": "pet-friendly",
+   "name": "Pet friendly",
+   "cat": "Family",
+   "glyph": "paw",
+   "def": "Dogs in the office, or a pet insurance contribution.",
+   "strong": [
+    "dog.friendly",
+    "pet.friendly",
+    "dogs? in the office",
+    "pet insurance",
+    "bring your dog"
+   ],
+   "weak": []
+  },
+  {
+   "id": "learning-budget",
+   "name": "Learning budget",
+   "cat": "Growth",
+   "glyph": "book",
+   "def": "A stated annual sum for courses, books, and training you choose.",
+   "strong": [
+    "learning (budget|allowance|stipend)",
+    "training budget",
+    "development budget",
+    "education budget",
+    "personal development budget",
+    "\\bl&d budget\\b",
+    "udemy",
+    "coursera",
+    "\\bo'?reilly\\b",
+    "pluralsight"
+   ],
+   "weak": [
+    "learning and development",
+    "training opportunities",
+    "professional development"
+   ]
+  },
+  {
+   "id": "conference-budget",
+   "name": "Conference budget",
+   "cat": "Growth",
+   "glyph": "ticket",
+   "def": "Paid attendance at industry conferences, sometimes with speaking support.",
+   "strong": [
+    "conference (budget|allowance|attendance|tickets)",
+    "attend conferences",
+    "industry events? (paid|covered)"
+   ],
+   "weak": [
+    "conferences"
+   ]
+  },
+  {
+   "id": "certification-support",
+   "name": "Certification support",
+   "cat": "Growth",
+   "glyph": "badge",
+   "def": "Exam fees, study leave, and materials for a professional credential.",
+   "strong": [
+    "certification (support|reimbursement|paid|sponsored)",
+    "exam (fees|costs) (paid|covered)",
+    "study leave",
+    "professional membership (paid|covered|fees)",
+    "licen[cs]e renewal paid",
+    "\\bceu\\b",
+    "continuing education"
+   ],
+   "weak": [
+    "certifications"
+   ]
+  },
+  {
+   "id": "mentorship",
+   "name": "Mentorship",
+   "cat": "Growth",
+   "glyph": "compass",
+   "def": "A named mentor, structured buddy scheme, or paid coaching.",
+   "strong": [
+    "mentorship (program|programme|scheme)",
+    "dedicated mentor",
+    "buddy (program|programme|system)",
+    "\\bcoaching (budget|allowance|stipend)\\b",
+    "career coaching (provided|offered)"
+   ],
+   "weak": [
+    "mentoring",
+    "mentorship"
+   ],
+   "unless_near": "(mentor|coach)(ing)? (others|juniors|the team|team members|staff|students|clients)|you will (mentor|coach)|conduct .{0,20}coaching|deliver .{0,20}coaching|provide (coaching|mentoring)|coaching sessions"
+  },
+  {
+   "id": "career-framework",
+   "name": "Career framework",
+   "cat": "Growth",
+   "glyph": "ladder",
+   "def": "A published progression ladder with levels and criteria, rather than ad-hoc promotion.",
+   "strong": [
+    "career (framework|ladder|path(way)?s? defined|progression framework)",
+    "progression framework",
+    "promotion (cycle|track)",
+    "levelling framework",
+    "leveling framework"
+   ],
+   "weak": [
+    "career progression",
+    "career development"
+   ]
+  },
+  {
+   "id": "equipment-choice",
+   "name": "Equipment of your choice",
+   "cat": "Workplace",
+   "glyph": "laptop",
+   "def": "You pick the machine and peripherals, rather than taking the standard issue.",
+   "strong": [
+    "equipment of your choice",
+    "macbook",
+    "laptop of your choice",
+    "choice of (laptop|hardware|equipment)",
+    "top.of.the.line (equipment|hardware)",
+    "hardware of your choice"
+   ],
+   "weak": [
+    "latest equipment"
+   ]
+  },
+  {
+   "id": "team-retreats",
+   "name": "Team retreats",
+   "cat": "Workplace",
+   "glyph": "tent",
+   "def": "Company-paid offsites, usually annual, often somewhere the team flies to.",
+   "strong": [
+    "team retreat",
+    "company retreat",
+    "annual offsite",
+    "offsite(s)? (paid|abroad|每)",
+    "team (event|trip)s? (abroad|paid)",
+    "summer party",
+    "christmas party",
+    "weihnachtsfeier"
+   ],
+   "weak": [
+    "team events",
+    "offsite"
+   ]
+  },
+  {
+   "id": "modern-office",
+   "name": "Central office",
+   "cat": "Workplace",
+   "glyph": "building",
+   "def": "A specific, stated office quality: central location, roof terrace, showers, quiet rooms.",
+   "strong": [
+    "central (office|location)",
+    "modern office",
+    "roof(top)? terrace",
+    "showers? (on.?site|available)",
+    "quiet rooms?",
+    "standing desks?",
+    "height.adjustable desk",
+    "ergonomic (chair|workspace)"
+   ],
+   "weak": [
+    "modern workspace",
+    "great office"
+   ]
+  },
+  {
+   "id": "free-drinks",
+   "name": "Drinks and snacks",
+   "cat": "Workplace",
+   "glyph": "cup",
+   "def": "Coffee, drinks, and snacks provided at the office. The smallest perk that postings still list.",
+   "strong": [
+    "free (drinks|coffee|snacks|beverages)",
+    "snacks and drinks",
+    "fruit basket",
+    "coffee and tea",
+    "obst und getr",
+    "getränke",
+    "barista"
+   ],
+   "weak": [
+    "snacks",
+    "coffee"
+   ]
+  },
+  {
+   "id": "employee-referral",
+   "name": "Referral bonus",
+   "cat": "Workplace",
+   "glyph": "link",
+   "def": "A payment for introducing someone the company then hires.",
+   "strong": [
+    "referral bonus",
+    "refer a friend bonus",
+    "employee referral program"
+   ],
+   "weak": []
+  },
+  {
+   "id": "share-purchase",
+   "name": "Share purchase plan",
+   "cat": "Money",
+   "glyph": "chart",
+   "def": "Buying company stock at a discount through payroll.",
+   "strong": [
+    "employee stock purchase",
+    "\\bespp\\b",
+    "share purchase plan",
+    "share incentive plan",
+    "\\bsip\\b discount"
+   ],
+   "weak": [],
+   "unless_near": "payroll|accounting|\\basc ?\\d|administer|administrat|reconcil|journal entr|tax withholding|cap table|equity plan|compliance report|audit(ing|s)? the|process(ing)? (equity|payroll)|benefits? administration|third.party administrator"
+  },
+  {
+   "id": "insurance-extras",
+   "name": "Extra insurance",
+   "cat": "Health",
+   "glyph": "umbrella",
+   "def": "Additional cover the employer pays for: accident, travel, legal, or supplementary health.",
+   "strong": [
+    "accident insurance",
+    "travel insurance",
+    "legal insurance",
+    "supplementary insurance",
+    "unfallversicherung",
+    "rechtsschutz",
+    "critical illness cover"
+   ],
+   "weak": [],
+   "unless_near": "(sell|selling|broker|underwrit|licen[cs]e|claims adjuster)"
+  }
+ ]
+}

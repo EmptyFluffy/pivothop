@@ -5,6 +5,7 @@ import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
 import JobPanel from './JobPanel';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
+import type { BenefitEntry } from './BenefitStrip';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
 
@@ -48,6 +49,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [sheetOpen, setSheetOpen] = useState(false);
   const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
   const [skills, setSkills] = useState<SkillEntry[] | null>(null);     // the glossary: skill -> occupations it unlocks
+  const [benefits, setBenefits] = useState<BenefitEntry[] | null>(null); // the benefit bank, for the pane's pills
   const [shown, setShown] = useState(PAGE);
   const [page, setPage] = useState(1);          // v2: windowed pages behind the circle pager
   const [now] = useState(() => Date.now());
@@ -149,6 +151,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     fetch('/data/skills-glossary.json').then((r) => r.json())
       .then((d: SkillEntry[]) => setSkills(d))
       .catch(() => setSkills([]));
+    fetch('/data/benefits-glossary.json').then((r) => r.json())
+      .then((d: BenefitEntry[]) => setBenefits(d))
+      .catch(() => setBenefits([]));
     if (scope?.occ) {
       fetch('/api/employer-jobs').then((r) => r.json()).catch(() => [])
         .then((employer: Job[]) => {
@@ -619,7 +624,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
                 </button>
               ))}
             </div>
-            {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} v2={v2} occName={titles[panelJob.occ]} pos={panelIdx >= 0 ? { i: panelIdx, n: results.length } : null} onStep={stepPanel} />}
+            {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} benefitBank={benefits} v2={v2} occName={titles[panelJob.occ]} pos={panelIdx >= 0 ? { i: panelIdx, n: results.length } : null} onStep={stepPanel} />}
           </div>
         </>
       )}
