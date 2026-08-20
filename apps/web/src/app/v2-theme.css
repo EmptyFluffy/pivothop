@@ -477,36 +477,45 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
   .v2t .rt-method{ padding:0 22px; }
 }
 
-/* ---- footer: the giant letters carry it. Links sit beside them as three
-   quiet headerless columns on the wordmark's baseline; tagline and social
-   drop to a small line underneath; the copyright bar below stays. ---- */
-.v2t .foot{ display:grid; grid-template-columns:minmax(0,1fr) auto auto auto;
-  column-gap:clamp(28px,4vw,72px); align-items:end;
-  border-top:1px solid var(--v-border); padding:64px 32px 34px; }
-.v2t .foot::before{ content:"PivotHop"; grid-column:1; grid-row:1;
-  font-size:clamp(56px,9vw,150px); font-weight:650; letter-spacing:-.04em; line-height:.82;
-  color:var(--v-text); }
+/* ---- footer: links first, then the wordmark closes the page.
+   Row one: the tagline on one line, socials as big circle buttons.
+   Row two: three top-aligned link columns at reading scale.
+   Row three: PivotHop across the full width. The copy bar stays below. ---- */
+.v2t .foot{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)) auto; column-gap:32px;
+  align-items:start; border-top:1px solid var(--v-border); padding:56px 32px 30px; }
 .v2t .foot .brand{ display:none; }
 .v2t .foot h5{ display:none; }
 .v2t .foot > div{ display:contents; }
-.v2t .foot ul{ grid-row:1; align-self:end; margin:0; }
-.v2t .foot li{ margin:0 0 7px; }
+.v2t .foot .tg{ grid-row:1; grid-column:1 / 4; margin:0 0 52px; font-size:15.5px;
+  color:var(--v-text); }
+.v2t .foot .tg br{ display:none; }
+.v2t .foot .foot-social{ grid-row:1; grid-column:4; justify-self:end; align-self:center;
+  display:flex; gap:14px; margin:0 0 52px; }
+.v2t .foot .foot-social a{ width:44px; height:44px; border-radius:50%;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 60%, transparent);
+  display:grid; place-items:center; color:var(--v-text);
+  transition:background .15s, color .15s, border-color .15s; }
+.v2t .foot .foot-social a:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .foot .foot-social svg{ width:18px; height:18px; fill:currentColor; }
+.v2t .foot ul{ grid-row:2; margin:0; }
+.v2t .foot li{ margin:0 0 13px; }
 .v2t .foot li:last-child{ margin-bottom:0; }
-.v2t .foot a{ font-size:13px; color:var(--v-text2); transition:color .15s; }
-.v2t .foot a:hover{ color:var(--v-text); }
-.v2t .foot .tg{ grid-column:1; grid-row:2; margin:26px 0 0; font-size:12.5px; color:var(--v-text2); }
-.v2t .foot .foot-social{ grid-column:2 / -1; grid-row:2; justify-self:end; align-self:center;
-  margin:26px 0 0; display:flex; gap:14px; }
-.v2t .foot .foot-social a{ color:var(--v-text2); }
-.v2t .foot .foot-social a:hover{ color:var(--v-text); }
-.v2t .foot .foot-social svg{ width:16px; height:16px; }
+.v2t .foot a{ font-size:16px; font-weight:500; color:var(--v-text); transition:none; }
+.v2t .foot a:hover{ color:var(--v-text); text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:2px; }
+.v2t .foot::before{ content:"PivotHop"; grid-row:3; grid-column:1 / -1; margin-top:72px;
+  font-size:clamp(72px,18.5vw,272px); font-weight:650; letter-spacing:-.045em; line-height:.95;
+  color:var(--v-text); }
 @media (max-width:980.9px){
-  .v2t .foot{ display:block; padding:44px 22px 28px; }
-  .v2t .foot::before{ font-size:clamp(48px,13vw,84px); display:block; margin-bottom:22px; }
+  .v2t .foot{ display:block; padding:44px 22px 24px; }
   .v2t .foot > div{ display:block; }
-  .v2t .foot ul{ display:flex; flex-wrap:wrap; column-gap:16px; row-gap:8px; margin:0 0 14px; }
-  .v2t .foot .tg{ margin:10px 0 0; }
-  .v2t .foot .foot-social{ margin:14px 0 0; }
+  .v2t .foot .tg{ margin:0 0 20px; }
+  .v2t .foot .foot-social{ margin:0 0 28px; }
+  .v2t .foot .foot-social a{ width:40px; height:40px; }
+  .v2t .foot ul{ display:flex; flex-wrap:wrap; column-gap:18px; row-gap:10px; margin:0 0 14px; }
+  .v2t .foot li{ margin:0; }
+  .v2t .foot a{ font-size:14.5px; }
+  .v2t .foot::before{ display:block; margin-top:34px; font-size:clamp(56px,15vw,96px); }
 }
 
 /* the copyright bar under the footer joins the mode */
