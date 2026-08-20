@@ -341,7 +341,9 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 
 /* ---- the inspector pane (lab vinspect) ---- */
 .v2t .jpane{ border:none; border-left:1px solid var(--v-border); border-radius:0;
-  background:var(--v-surface); box-shadow:none; }
+  background:var(--v-bg2); box-shadow:none; }
+.v2t .jpane-v2 .jpane-scroll{ scrollbar-width:none; }
+.v2t .jpane-v2 .jpane-scroll::-webkit-scrollbar{ display:none; }
 .v2t .jv-top{ display:flex; justify-content:space-between; align-items:center; padding:14px 22px;
   border-bottom:1px solid var(--v-border); font-family:var(--mono),monospace; font-size:11px;
   letter-spacing:.08em; color:var(--v-text2); }
@@ -359,17 +361,20 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
   justify-content:center; overflow:hidden; border:1px solid color-mix(in srgb, #000000 6%, transparent); }
 .v2t .jv-cohead .jd-mark img{ width:40px; height:40px; object-fit:contain; }
 .v2t .jv-cohead .jd-mono{ font-weight:650; font-size:14px; }
-.v2t .jv-coname{ font-size:13.5px; color:var(--v-text); }
+.v2t .jv-coname{ font-size:17px; font-weight:600; letter-spacing:-.01em; color:var(--v-text); }
 .v2t .jpane-v2 .jpane-title{ font-size:21px; letter-spacing:-.015em; line-height:1.25; font-weight:700; margin:0; }
 .v2t .jv-meta{ font-size:12.5px; color:var(--v-text2); margin-top:4px; line-height:1.5; }
 .v2t .jv-payg{ font-family:var(--mono),monospace; font-size:30px; font-weight:600; margin-top:16px;
   color:var(--v-value); letter-spacing:-.01em; text-transform:uppercase; }
 .v2t .jv-blurb{ font-size:13.5px; color:var(--v-text2); margin-top:14px; line-height:1.55; }
 .v2t .jv-rule{ border:none; border-top:1px solid var(--v-border); margin:18px 0; }
+.v2t .jv-skmore{ display:block; background:none; border:none; cursor:pointer; padding:0; margin-top:12px;
+  font:inherit; font-size:13px; font-weight:550; color:var(--v-value); }
+.v2t .jv-skmore:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px; }
 .v2t .jpane-v2 .jsheet-sec h3{ font-family:var(--mono),monospace; font-size:10px; font-weight:400;
   letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
 .v2t .jpane-v2 .jpane-foot{ display:block; border-top:1px solid var(--v-border);
-  background:var(--v-surface); padding:13px 22px 14px; }
+  background:var(--v-bg2); padding:13px 22px 14px; }
 .v2t .jpane-v2 .jpane-foot .jsheet-apply{ width:100%; margin:0 0 10px; }
 .v2t .jpane-v2 .jpane-foot .jpane-ghost{ display:block; width:100%; }
 .v2t .jsheet-apply{ background:var(--v-fill); color:var(--v-fill-ink); border-radius:999px;

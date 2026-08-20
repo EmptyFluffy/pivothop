@@ -27,13 +27,14 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
   onStep?: (d: number) => void;                  // pager: swap to the neighbor listing
 }) {
   const [listing, setListing] = useState<Listing | null>(null);
+  const [skillsOpen, setSkillsOpen] = useState(false); // v2: pills collapsed to 3 until asked
   const [loaded, setLoaded] = useState(false);
   const paneRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let live = true;
-    setListing(null); setLoaded(false);
+    setListing(null); setLoaded(false); setSkillsOpen(false);
     loadListing(job.occ, job.id).then((l) => { if (live) { setListing(l); setLoaded(true); } });
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
     return () => { live = false; };
@@ -125,6 +126,36 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
     );
   })();
 
+  const SKILL_LIMIT = 3;
+  const skillsBlockV2 = listing && listing.skills.length > 0 && (() => {
+    const bySlug = new Map((glossary ?? []).map((e) => [e.slug, e]));
+    const entries = listing.skills
+      .map((s) => bySlug.get(s.href.split('#skill-')[1] ?? ''))
+      .filter((e): e is SkillEntry => !!e);
+    const full = entries.length === listing.skills.length;
+    const total = listing.skills.length;
+    const moreN = total - SKILL_LIMIT;
+    return (
+      <div className="jsheet-sec">
+        <h3>Skills in this posting</h3>
+        {full ? (
+          <SkillStrip skills={skillsOpen ? entries : entries.slice(0, SKILL_LIMIT)} />
+        ) : (
+          <div className="jd-skillgrid">
+            {(skillsOpen ? listing.skills : listing.skills.slice(0, SKILL_LIMIT)).map((s) => (
+              <Link key={s.href} className="jd-skill" href={s.href}>{s.term}</Link>
+            ))}
+          </div>
+        )}
+        {moreN > 0 && (
+          <button type="button" className="jv-skmore" onClick={() => setSkillsOpen((o) => !o)}>
+            {skillsOpen ? 'Show fewer skills' : `See ${moreN} more skill${moreN === 1 ? '' : 's'}`}
+          </button>
+        )}
+      </div>
+    );
+  })();
+
   const sectionsBlock = listing && listing.sections.length > 0 && (
     <div className="jsheet-sec jsheet-desc">
       <h3>The posting</h3>
@@ -204,7 +235,7 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
             </p>
             <hr className="jv-rule" />
             {skel}
-            {skillsBlock}
+            {skillsBlockV2}
             {sectionsBlock}
             {noneBlock}
           </div>
