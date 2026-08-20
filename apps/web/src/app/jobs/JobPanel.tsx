@@ -245,6 +245,16 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
               <br />posted <span suppressHydrationWarning>{agoTxt === 'Today' ? 'today' : agoTxt}</span>
             </p>
             {pay && <div className="jv-payg">{pay}</div>}
+            {listing && listing.gates && listing.gates.length > 0 && (
+              <div className="jd-gates" aria-label="What the posting asks for">
+                {listing.gates.map((g) => (
+                  <div key={g.key} data-gate={g.key}>
+                    <span className="k">{g.label}</span>
+                    <span className="v">{g.value}</span>
+                  </div>
+                ))}
+              </div>
+            )}
             <hr className="jv-rule" />
             {skel}
             {skillsBlockV2}

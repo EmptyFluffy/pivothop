@@ -803,3 +803,21 @@ html.vlight .v2t{ --v-gap:#B24E34; }
 .v2t .jd-benefit{ font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:550;
   line-height:1; cursor:pointer; appearance:none; -webkit-appearance:none; }
 .v2t .jd-benefits .jv-skmore{ margin-top:14px; }
+
+/* ---- the gates: what the posting asks of a candidate. Words, not
+   measurements, so they take the sans face rather than the mono the salary
+   band uses. Each cell renders only when the posting states it. ---- */
+.v2t .jd-gates{ display:flex; flex-wrap:wrap; gap:14px 44px; margin:26px 0 4px;
+  padding:20px 0; border-top:1px solid var(--v-border); border-bottom:1px solid var(--v-border); }
+.v2t .jd-gates .k{ display:block; font-family:var(--sans),sans-serif; font-size:12px;
+  font-weight:550; letter-spacing:.01em; color:var(--v-text2); margin-bottom:5px; }
+.v2t .jd-gates .v{ display:block; font-family:var(--sans),sans-serif; font-size:19px;
+  font-weight:650; letter-spacing:-.015em; color:var(--v-text); }
+.v2t .jd-gates [data-gate="edu"] .v{ color:var(--v-value); }
+
+/* in the 356px inspector the same strip stacks and steps down a size */
+.v2t .jpane .jd-gates{ display:grid; grid-template-columns:1fr 1fr; gap:14px 18px;
+  margin:18px 0 0; padding:16px 0 0; border-bottom:none; }
+.v2t .jpane .jd-gates .k{ font-size:11.5px; margin-bottom:3px; }
+.v2t .jpane .jd-gates .v{ font-size:15.5px; }
+.v2t .jpane .jd-gates [data-gate="lang"]{ grid-column:1 / -1; }

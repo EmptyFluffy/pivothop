@@ -21,6 +21,7 @@ Writes:
 import json, os, collections, hashlib, html, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import benefits as benefits_miner  # zone-aware perk extraction; see benefits.py
+import requirements as req_miner   # experience / education / language gates
 
 # Mojibake repair (mirror of lib/text.js fixMojibake): UTF-8 bytes decoded as
 # Latin-1 give "EspaÃ±a" for "España". The tell is two adjacent high-Latin-1
@@ -302,6 +303,7 @@ FEATURED_COMPANIES = {'coinbase', 'airbnb', 'databricks', 'cloudflare', 'datadog
 FEATURED_CAP = 12
 
 benefit_counts = collections.Counter()
+req_counts = collections.Counter()
 
 # 1. Raw index by (source, external_id) for company / location / description.
 raw = {}
@@ -379,8 +381,12 @@ for line in open(NORM):
         bens = benefits_miner.extract(desc)
         for b in bens:
             benefit_counts[b] += 1
+        reqs = req_miner.extract(desc)
+        for k in reqs:
+            req_counts[k] += 1
         desc_byocc[role][_id] = {'s': to_sections(desc, DESC_CAP), 'k': list(d.get('skills') or []),
-                                 **({'b': bens} if bens else {})}
+                                 **({'b': bens} if bens else {}),
+                                 **({'r': reqs} if reqs else {})}
 
 # 3. Freshest-first, capped, floored.
 for d in (OUT, DETAIL):
@@ -545,6 +551,12 @@ gloss.sort(key=lambda e: (-e['n'], e['term']))
 json.dump(gloss, open('apps/web/public/data/benefits-glossary.json', 'w'), ensure_ascii=False)
 seen_n = sum(1 for e in gloss if e['n'])
 print(f"benefits: {sum(shipped.values())} statements across {seen_n} of {len(gloss)} kinds")
+gates = collections.Counter()
+for role in index:
+    for det in json.load(open(f'{DETAIL}/{role}.json')).values():
+        for k in (det.get('r') or {}):
+            gates[k] += 1
+print(f"gates: experience {gates['exp']}, education {gates['edu']}, language {gates['lang']}")
 size_kb = os.path.getsize(ALL) // 1024
 board_total = sum(index.values())
 print(f"emitted {len(index)} occupation boards, {board_total} listings "

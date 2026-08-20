@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import type { Gates } from './gates';
 import path from 'node:path';
 
 /* The job board: backfilled from the scrape (build-jobs.py), one JSON per
@@ -76,7 +77,7 @@ export function companyLogo(company: string): string | null {
 export type JobSection = { h: string | null; t: string };
 // Detail rows are {s: sections, k: skill ids}; the bare-array form is the
 // pre-skills shape, still readable so a half-regenerated dataset never breaks.
-type DetailRow = JobSection[] | { s: JobSection[]; k?: string[]; b?: string[] };
+type DetailRow = JobSection[] | { s: JobSection[]; k?: string[]; b?: string[]; r?: Gates };
 export function getJobSections(occ: string, id: string): JobSection[] {
   const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
   return Array.isArray(v) ? v : v?.s ?? [];
@@ -84,6 +85,12 @@ export function getJobSections(occ: string, id: string): JobSection[] {
 export function getJobSkills(occ: string, id: string): string[] {
   const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
   return Array.isArray(v) ? [] : v?.k ?? [];
+}
+
+/** The gates this posting states: experience, education, language. */
+export function getJobGates(occ: string, id: string): Gates | null {
+  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+  return Array.isArray(v) ? null : v?.r ?? null;
 }
 
 /** Benefits the miner read out of this posting (build-jobs, benefits.py). */

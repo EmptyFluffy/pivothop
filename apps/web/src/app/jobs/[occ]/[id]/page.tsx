@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
-import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, skillDisplayName } from '../../jobs-data';
+import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, getJobGates, skillDisplayName } from '../../jobs-data';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
 import SkillStrip from '../../SkillStrip';
 import BenefitStrip from '../../BenefitStrip';
+import { gateRows } from '../../gates';
 import { benefitEntries } from '../../benefit-entries';
 import { skillEntries } from '../../skill-entries';
 import { coverableSlugs } from '../../../salary/salary-data';
@@ -68,6 +69,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const sections: JobSection[] = getJobSections(occ, id);
   const skills = getJobSkills(occ, id);
   const benefits = benefitEntries(getJobBenefits(occ, id));
+  const gates = gateRows(getJobGates(occ, id));
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   const hasSalary = coverableSlugs().includes(occ);
@@ -121,6 +123,17 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply now <Arrow45 size={24} /></a>
           <span className="lbl">Opens the original posting at {j.company}. PivotHop does not host applications.</span>
         </div>
+
+        {gates.length > 0 && (
+          <div className="jd-gates" aria-label="What the posting asks for">
+            {gates.map((g) => (
+              <div key={g.key} data-gate={g.key}>
+                <span className="k">{g.label}</span>
+                <span className="v">{g.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {skills.length > 0 && (
           <section className="rt-sec jd-skills">
