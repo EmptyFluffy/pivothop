@@ -31,15 +31,11 @@ export default function SalaryIndex() {
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Salaries</span></nav>
         <h1 className="rt-h1">Salaries, measured.</h1>
-        <p className="rt-dek">
-          What each occupation actually pays, from live US postings blended with official{' '}
-          <a className="gl" href="/glossary#oews">OEWS</a> (Occupational Employment and Wage Statistics) wage data from
-          the US <a className="gl" href="/glossary#bls">BLS</a> (Bureau of Labor Statistics), with the trend over time and
-          the split by seniority and country. Not one scraped number, the whole distribution and where it is heading.
-          Starting with the most-searched roles; more added as their data firms up.
-        </p>
-        <p className="rt-dek" style={{ marginTop: '-8px' }}>
-          Comparing one job across markets? See <Link className="gl" href="/salary/by-country">the same job, priced across countries</Link>, nominal and adjusted for cost of living.
+        <p className="rt-dek sal-dek">
+          What each occupation actually pays, from live postings blended with the official{' '}
+          <a className="gl" href="/glossary#oews">OEWS</a> wage anchor. Not one scraped number: the full range, the
+          seniority split, and the trend over time. Comparing markets? See{' '}
+          <Link className="gl" href="/salary/by-country">the same job, priced across countries</Link>.
         </p>
         <IndexSearch rows={rows} placeholder="Search a job title" unit="occupations" />
 
