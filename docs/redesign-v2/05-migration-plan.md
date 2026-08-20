@@ -48,9 +48,9 @@ would touch SEO behavior stops and gets documented first.
   crawlable content survived.
 
 ## Status
-- [ ] Theme bootstrap infra
-- [ ] Phase A: /jobs
-- [ ] Phase A: /jobs/[occ]
+- [x] Theme bootstrap infra (2026-08-20)
+- [x] Phase A: /jobs (2026-08-20, gates green)
+- [x] Phase A: /jobs (2026-08-20, gates green)/[occ]
 - [ ] Phase A: facet pages
-- [ ] Phase A: /jobs/[occ]/[id] + expired states
+- [x] Phase A: /jobs (2026-08-20, gates green)/[occ]/[id] + expired states
 - [ ] Phase A SEO regression sign-off → then B, then C
