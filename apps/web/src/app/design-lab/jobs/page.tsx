@@ -79,9 +79,9 @@ export default function LabJobs() {
           <div className="vthead">
             <span />
             <span>Role</span>
-            <span className="vm">Match</span>
             <span>Salary</span>
             <span>Posted</span>
+            <span />
           </div>
           <div className="vrows vrows2">
             {rows.map(({ j, occ, match, gap, skills }) => (
@@ -97,7 +97,6 @@ export default function LabJobs() {
                     {gap.length > 0 && <span className="gapline">Missing · {gap.join(' · ')}</span>}
                   </div>
                 </div>
-                <div className={`match vnum${(match ?? 0) >= 60 ? ' vhi' : ''}`}>{match ? `${match}%` : '·'}</div>
                 <div className="pay vnum">{pay(j.smin, j.smax)}</div>
                 <div className="age vnum">{ago(j.posted)}</div>
                 <div className="applycell"><button className="pillbtn" type="button">Apply</button></div>
@@ -154,8 +153,11 @@ export default function LabJobs() {
         </aside>
       </div>
       <footer className="vfoot2">
-        <span>PivotHop · career moves, measured</span>
-        <span><a className="ul" href="#">About</a> &nbsp;&nbsp; <a className="ul" href="#">Employers</a> &nbsp;&nbsp; <a className="ul" href="#">Method</a></span>
+        <div className="giant">PivotHop</div>
+        <div className="frow">
+          <span>Career moves, measured</span>
+          <span><a className="ul" href="#">About</a> &nbsp;&nbsp; <a className="ul" href="#">Employers</a> &nbsp;&nbsp; <a className="ul" href="#">Method</a></span>
+        </div>
       </footer>
     </>
   );
