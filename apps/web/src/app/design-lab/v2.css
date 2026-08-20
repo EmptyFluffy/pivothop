@@ -53,6 +53,18 @@
 /* ---- shell + nav ---- */
 .v2 .wrap{ max-width:1240px; margin:0 auto; padding:0 var(--s5); }
 .v2 .vnav{ border-bottom:1px solid var(--border); background:var(--bg); }
+.v2 .vnav-top{ display:flex; align-items:center; justify-content:space-between; padding:0 28px; height:66px; }
+.v2 .vwordmark{ font-size:26px; font-weight:650; letter-spacing:.02em; display:flex; align-items:center; gap:10px; }
+.v2 .vwordmark i{ width:10px; height:10px; background:var(--value); display:inline-block; border-radius:2px; }
+.v2 .vburger{ background:none; border:none; cursor:pointer; display:flex; flex-direction:column; gap:5px; padding:6px; }
+.v2 .vburger i{ width:22px; height:2px; background:var(--text); display:block; }
+.v2 .vnav-tabs{ display:flex; gap:34px; padding:0 28px 14px; }
+.v2 .vnav-tabs a{ font-size:13.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--text); text-decoration:none; position:relative; padding-bottom:3px; }
+.v2 .vnav-tabs a::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:1.5px;
+  background:currentColor; transform:scaleX(0); transform-origin:left center; transition:transform var(--dur) var(--ease); }
+.v2 .vnav-tabs a:hover::after{ transform:scaleX(1); }
+.v2 .vnav-tabs a.von::after{ transform:scaleX(1); }
 .v2 .vnav-in{ display:flex; align-items:center; gap:var(--s5); height:56px; }
 .v2 .vmark{ font-weight:650; font-size:15px; letter-spacing:-.02em; display:flex; align-items:center; gap:8px; }
 .v2 .vmark i{ width:8px; height:8px; background:var(--accent); display:inline-block; border-radius:1px; }
@@ -72,10 +84,10 @@
   background:none; color:var(--text); padding:9px 18px; font-size:13.5px; border-radius:999px;
   border:1px solid var(--border-strong); transition:border-color var(--dur);
 }
-.v2 .btn-ghost:hover{ border-color:var(--text); }
+.v2 .btn-ghost:hover{ border-color:var(--text); background:var(--text); color:var(--bg); }
 .v2 .pillbtn{ background:none; color:var(--text); font:inherit; font-size:14px; padding:10px 22px;
   border:1px solid #57544C; border-radius:999px; cursor:pointer; transition:border-color var(--dur), background var(--dur); }
-.v2 .pillbtn:hover{ border-color:var(--text); background:var(--surface); }
+.v2 .pillbtn:hover{ border-color:var(--text); background:var(--text); color:var(--bg); }
 .v2 .txt-act{ font-size:13.5px; color:var(--text); background:none; border:none; padding:0; cursor:pointer; }
 
 /* ---- search unit ---- */
@@ -100,7 +112,8 @@
   border:1px solid var(--border-strong); border-radius:999px; padding:6px 13px; color:var(--text);
   display:inline-flex; gap:8px; align-items:center; background:none; cursor:pointer;
 }
-.v2 .tok:hover{ border-color:var(--text); }
+.v2 .tok:hover{ border-color:var(--text); background:var(--text); color:var(--text-inv,var(--bg)); }
+.v2 .tok:hover b{ color:inherit; }
 .v2 .tok b{ font-weight:400; color:var(--text-2); }
 
 /* ---- board layout ---- */
@@ -218,7 +231,7 @@
 
 /* nav active: the small accent dot under the item */
 .v2 .vnav-links a{ position:relative; padding:4px 0; }
-.v2 .vnav-links .von::after{ content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-14px; width:5px; height:5px; border-radius:50%; background:var(--value); }
+
 
 /* rail */
 .v2 .vrail-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
@@ -266,7 +279,7 @@
 .v2 .vpager a{ width:44px; height:44px; border-radius:50%; border:1px solid var(--text); display:flex;
   align-items:center; justify-content:center; font-size:15px; color:var(--text); text-decoration:none;
   transition:background var(--dur), color var(--dur); }
-.v2 .vpager a:hover{ background:var(--surface); }
+.v2 .vpager a:hover{ background:var(--text); color:var(--bg); }
 .v2 .vpager .cur{ background:var(--text); color:var(--bg); }
 .v2 .vpager .dots{ border-style:dashed; border-color:var(--border-strong); color:var(--text-2); }
 .v2 .vpager .fwd{ margin-left:auto; border:none; font-size:26px; width:auto; }

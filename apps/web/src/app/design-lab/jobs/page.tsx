@@ -1,6 +1,6 @@
 import { getJobs, getJobSkills, occTitle, jobCount } from '../../jobs/jobs-data';
 import { destRole } from '../../routes/routes-data';
-import { LabBar, RouteMeasure, Monogram, SearchUnit, FilterToken, Pill, Pager, NavSearch } from '../system';
+import { LabBar, V2Nav, RouteMeasure, Monogram, SearchUnit, FilterToken, Pill, Pager } from '../system';
 import Link from 'next/link';
 
 /* ANCHOR A · the V2 job board, workspace architecture (reference pass):
@@ -35,19 +35,7 @@ export default function LabJobs() {
   return (
     <>
       <LabBar on="jobs" />
-      <nav className="vnav"><div className="vnav-in" style={{ padding: '0 24px', display: 'flex', alignItems: 'center', gap: 32, height: 56 }}>
-        <span className="vmark"><i />PivotHop</span>
-        <span className="vnav-links">
-          {['Jobs', 'Routes', 'Salaries', 'Research'].map((l) => (
-            <a key={l} href="#" className={l === 'Jobs' ? 'von' : 'ul'}>{l}</a>
-          ))}
-        </span>
-        <span className="vnav-right">
-          <NavSearch />
-          <a href="#" className="ul" style={{ fontSize: 13.5 }}>Sign in</a>
-          <button className="btn btn-primary" type="button">Run the instrument</button>
-        </span>
-      </div></nav>
+      <V2Nav active="Jobs" />
 
       <div className="vapp">
         <aside className="vrail" aria-label="Filters">

@@ -18,18 +18,22 @@ export function LabBar({ on }: { on: string }) {
 
 export function V2Nav({ active }: { active?: string }) {
   return (
-    <nav className="vnav"><div className="wrap vnav-in">
-      <span className="vmark"><i />PivotHop</span>
-      <span className="vnav-links">
+    <nav className="vnav">
+      <div className="vnav-top">
+        <span className="vwordmark"><i />PIVOTHOP</span>
+        <span className="vnav-right">
+          <a href="#" className="ul" style={{ fontSize: 14 }}>Sign in</a>
+          <NavSearch />
+          <button className="btn btn-primary" type="button">Run the instrument</button>
+          <button className="vburger" type="button" aria-label="Menu"><i /><i /><i /></button>
+        </span>
+      </div>
+      <div className="vnav-tabs">
         {['Jobs', 'Routes', 'Salaries', 'Research'].map((l) => (
-          <a key={l} href="#" className={active === l ? 'on' : 'ul'}>{l}</a>
+          <a key={l} href="#" className={active === l ? 'von' : ''}>{l}</a>
         ))}
-      </span>
-      <span className="vnav-right">
-        <a href="#" className="ul" style={{ fontSize: 13.5 }}>Sign in</a>
-        <button className="btn btn-primary" type="button">Run the instrument</button>
-      </span>
-    </div></nav>
+      </div>
+    </nav>
   );
 }
 
