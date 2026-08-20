@@ -193,7 +193,9 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 }
 
 /* ---- workspace: full-bleed app frame, rail | center(list | pane) ---- */
-.v2t.shell, .v2t.shell-wide{ max-width:none; border-left:none; border-right:none; }
+/* full-bleed up to a MacBook's width; beyond that the whole frame centers,
+   and the matching body ground keeps it reading as one surface */
+.v2t.shell, .v2t.shell-wide{ max-width:1512px; margin:0 auto; border-left:none; border-right:none; }
 .v2t .jb-rail{ display:none; }
 .v2t .jb-thead{ display:none; }
 @media (min-width:981px){
