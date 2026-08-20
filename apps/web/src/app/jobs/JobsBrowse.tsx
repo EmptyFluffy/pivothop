@@ -49,6 +49,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
   const [skills, setSkills] = useState<SkillEntry[] | null>(null);     // the glossary: skill -> occupations it unlocks
   const [shown, setShown] = useState(PAGE);
+  const [page, setPage] = useState(1);          // v2: windowed pages behind the circle pager
   const [now] = useState(() => Date.now());
   const [sheetJob, setSheetJob] = useState<Job | null>(null);
   const [panelJob, setPanelJob] = useState<Job | null>(null);
@@ -232,6 +233,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     const qs = p.toString();
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     setShown(PAGE);
+    setPage(1);
   }, [needle, locQ, f, sort, all]);
 
   const fieldNames = useMemo(() => [...new Set(Object.values(fields))].sort(), [fields]);
@@ -368,6 +370,19 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   // Pager for the v2 inspector: position within the filtered results, and a
   // stepper that swaps the pane while keeping the URL contract (replace, so
   // Back still returns to the board in one step).
+  // v2 pagination: a window of PAGE rows behind the lab's circle pager.
+  const pageCount = Math.max(1, Math.ceil(results.length / PAGE));
+  const curPage = Math.min(page, pageCount);
+  const goPage = (n: number) => {
+    const to = Math.min(Math.max(1, n), pageCount);
+    setPage(to);
+    requestAnimationFrame(() => {
+      const el = document.querySelector('.jb-thead') ?? document.querySelector('.job-list-full');
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 120;
+      if (Math.abs(window.scrollY - y) > 2) window.scrollTo({ top: Math.max(0, y) });
+    });
+  };
   const panelIdx = panelJob ? results.findIndex((x) => x.id === panelJob.id && x.occ === panelJob.occ) : -1;
   const stepPanel = (d: number) => {
     if (panelIdx < 0) return;
@@ -569,14 +584,35 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
                 <div className="jb-thead" aria-hidden="true"><span /><span>Role</span><span>Salary</span><span>Posted</span><span /></div>
               )}
               <ul className="job-list job-list-full">
-                {results.slice(0, shown).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} v2={v2} />)}
+                {(v2 ? results.slice((curPage - 1) * PAGE, curPage * PAGE) : results.slice(0, shown)).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} v2={v2} />)}
               </ul>
               {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}
-              {results.length > shown && (
+              {v2 ? (pageCount > 1 && (() => {
+                const seq: (number | 0)[] = pageCount <= 5
+                  ? Array.from({ length: pageCount }, (_, i) => i + 1)
+                  : curPage <= 3
+                    ? [1, 2, 3, 0, pageCount]
+                    : curPage >= pageCount - 2
+                      ? [1, 0, pageCount - 2, pageCount - 1, pageCount]
+                      : [1, 0, curPage, 0, pageCount];
+                return (
+                  <nav className="jb-pager" aria-label="Pages">
+                    {seq.map((n, i) => n === 0
+                      ? <span key={`d${i}`} className="jb-pg dots" aria-hidden="true">&hellip;</span>
+                      : (
+                        <button key={n} type="button" className={`jb-pg${n === curPage ? ' cur' : ''}`}
+                          aria-current={n === curPage ? 'page' : undefined} onClick={() => goPage(n)}>{n}</button>
+                      ))}
+                    <button type="button" className="jb-pg fwd" aria-label="Next page" disabled={curPage >= pageCount} onClick={() => goPage(curPage + 1)}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                    </button>
+                  </nav>
+                );
+              })()) : (results.length > shown && (
                 <button type="button" className="jb-more" onClick={() => setShown((n) => n + PAGE)}>
                   Show {Math.min(PAGE, results.length - shown)} more &middot; {shown.toLocaleString()} of {results.length.toLocaleString()}
                 </button>
-              )}
+              ))}
             </div>
             {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} v2={v2} occName={titles[panelJob.occ]} pos={panelIdx >= 0 ? { i: panelIdx, n: results.length } : null} onStep={stepPanel} />}
           </div>

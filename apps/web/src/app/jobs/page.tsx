@@ -55,7 +55,7 @@ export default function JobsHub() {
         <section className="empband" aria-label="For employers">
           <div className="eb-copy">
             <span className="lbl eb-eyebrow">For employers</span>
-            <h2>The applicants you never see<br />are already measuring your role.</h2>
+            <h2>The applicants you never see<br /><span className="eb-dim">are already measuring your role.</span></h2>
             <p>
               Every listing here sits on the skill graph. Candidates arrive from adjacent professions with the
               gap itemized before you ever talk to them. Post a role and it is shown first to the people whose
