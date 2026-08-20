@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Blog() {
   return (
-    <PageShell>
+    <PageShell v2 active="blog">
       <div className="about-page">
         <main className="ab-main blog-main">
           <div className="lbl acc" style={{ marginBottom: 18 }}>Blog</div>

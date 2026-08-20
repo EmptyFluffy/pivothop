@@ -22,7 +22,7 @@ const ArrowIco = () => (
   <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
 );
 
-export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs'; v2?: boolean }) {
+export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs' | 'blog'; v2?: boolean }) {
   return (
     <header className="nav">
       <Link href="/" className="brand">{v2 ? <span className="wm">PivotHop</span> : <><RabbitMark /><span className="wm">PIVOTHOP</span></>}</Link>
@@ -51,7 +51,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
         <Link className={`navlink${active === 'jobs' ? ' on' : ''}`} href="/jobs">Jobs</Link>
         <Link className="navlink" href="/routes">Routes</Link>
         <Link className="navlink" href="/#how">Method</Link>
-        <Link className="navlink" href="/blog">Blog</Link>
+        <Link className={`navlink${active === 'blog' ? ' on' : ''}`} href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
         <button className="nav-searchbtn" type="button" data-search aria-label="Search" title="Search — press / or ⌘K">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
@@ -113,7 +113,7 @@ export function SiteFooter() {
   );
 }
 
-export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs'; wide?: boolean; v2?: boolean }) {
+export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs' | 'blog'; wide?: boolean; v2?: boolean }) {
   /* v2: the redesign theme layer (docs/redesign-v2/05). Adds the namespaced
      wrapper class, the no-flash theme bootstrap, and the mode toggle. The
      stylesheet only acts under .v2t, so non-opted templates are untouched. */

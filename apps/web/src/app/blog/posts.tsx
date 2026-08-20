@@ -6,17 +6,15 @@ import { CompareLink } from '../compare/CompareLink';
    or a named public dataset. House rules: deadpan, numbers over adjectives,
    no em dashes, nothing a reader cannot check. */
 
-const P = ({ d }: { d: string }) => (
-  <svg className="px-ico" viewBox="0 0 16 16" aria-hidden="true" shapeRendering="crispEdges">
-    <path d={d} fill="currentColor" />
-  </svg>
+const L = ({ children }: { children: ReactNode }) => (
+  <svg className="lu-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">{children}</svg>
 );
 export const PillarIcons: Record<string, () => ReactNode> = {
-  'Run It 10,000 Times': () => <P d="M2 13h2V7H2v6zm4 0h2V3H6v10zm4 0h2V9h-2v4zm-9 1h14v1H1v-1z" />,
-  'What Carried Over': () => <P d="M1 3h5l1 2h8v1H1V3zm0 3h14v7H1V6zm9 1v2H7v1h3v2l3-2.5L10 7z" />,
-  'Unbundle the Job': () => <P d="M7 1h2v6h6v2H9v6H7V9H1V7h6V1z" />,
-  'Career Half-Life': () => <P d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 2v5l4 2-1 1-4-2V3h1z" />,
-  'Shape of Work': () => <P d="M2 2h5v5H2V2zm7 0h5v5H9V2zM2 9h5v5H2V9zm7 2h5v3H9v-3z" />,
+  'Run It 10,000 Times': () => <L><path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M7 16v-5" /><path d="M12 16V8" /><path d="M17 16v-3" /></L>,
+  'What Carried Over': () => <L><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" /><path d="m14.5 12.5 2-2" /><path d="m11.5 9.5 2-2" /><path d="m8.5 6.5 2-2" /></L>,
+  'Unbundle the Job': () => <L><rect width="8" height="8" x="3" y="3" rx="2" /><path d="M7 11v4a2 2 0 0 0 2 2h4" /><rect width="8" height="8" x="13" y="13" rx="2" /></L>,
+  'Career Half-Life': () => <L><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></L>,
+  'Shape of Work': () => <L><rect width="7" height="7" x="3" y="3" rx="1" /><rect width="7" height="7" x="14" y="3" rx="1" /><rect width="7" height="7" x="3" y="14" rx="1" /><rect width="7" height="7" x="14" y="14" rx="1" /></L>,
 };
 
 export type Post = {
