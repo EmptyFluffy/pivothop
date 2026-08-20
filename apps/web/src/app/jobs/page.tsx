@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs, featuredJobs, boardStats } from './jobs-data';
-import { salaryLabel, Arrow45, agoLabel } from './JobCard';
+import { JobCard } from './JobCard';
 import { routableSlugs } from '../routes/routes-data';
 import JobsBrowse from './JobsBrowse';
 
@@ -39,39 +39,16 @@ export default function JobsHub() {
           </header>
         } fields={fields} titles={titles} search={search} featured={
           featuredJobs().length >= 3 ? (
-            <section key="featured" className="feat" aria-label="Featured roles">
-              <div className="feat-head">
-                <span className="lbl feat-cap">Featured roles</span>
-                <span className="lbl feat-sub">Shown first to the candidates whose skills reach them</span>
-              </div>
-              <ul className="feat-ledger">
-                {/* one role per company first, so the ledger reads as a roster of distinct names */}
-                {(() => {
-                  const all = featuredJobs();
-                  const seen = new Set<string>();
-                  const firsts = all.filter((j) => !seen.has(j.company) && seen.add(j.company) !== undefined);
-                  const rest = all.filter((j) => !firsts.includes(j));
-                  return [...firsts, ...rest].slice(0, 6);
-                })().map((j, i) => (
-                  <li key={j.id}>
-                    <Link href={`/jobs/${j.occ}/${j.id}`} className="feat-row">
-                      {j.logo
-                        ? <span className="feat-logo"><img src={j.logo} alt="" width={30} height={30} loading="lazy" /></span>
-                        : <span className="feat-i">0{i + 1}</span>}
-                      <span className="feat-main">
-                        <span className="feat-co">{j.company}</span>
-                        <span className="feat-t">{j.title}</span>
-                      </span>
-                      <span className="feat-side">
-                        {salaryLabel(j.smin, j.smax) && <b className="feat-pay">{salaryLabel(j.smin, j.smax)}</b>}
-                        <span className="feat-meta lbl">{j.remote ? 'Remote · ' : ''}{titles[j.occ]}{j.posted ? <> · <span suppressHydrationWarning>{agoLabel(j.posted)}</span></> : null}</span>
-                      </span>
-                      <span className="feat-arrow"><Arrow45 size={26} /></span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            <ul key="featured" className="job-list job-list-full jb-featlist" aria-label="Featured roles">
+              {/* one role per company first, so the strip reads as a roster of distinct names */}
+              {(() => {
+                const all = featuredJobs();
+                const seen = new Set<string>();
+                const firsts = all.filter((j) => !seen.has(j.company) && seen.add(j.company) !== undefined);
+                const rest = all.filter((j) => !firsts.includes(j));
+                return [...firsts, ...rest].slice(0, 6);
+              })().map((j) => <JobCard key={j.id} j={j} v2 />)}
+            </ul>
           ) : undefined
         } />
 

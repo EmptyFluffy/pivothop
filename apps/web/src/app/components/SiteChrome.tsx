@@ -32,9 +32,11 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
             <kbd>&#8984;K</kbd>
           </button>
+          <V2ThemeToggle />
           <Link className="nav-run" href="/">Run the instrument</Link>
         </span>
       )}
+      {v2 && <span className="nav-tt-m"><V2ThemeToggle /></span>}
       {/* phones: search lives in the bar, not buried in the menu */}
       <button className="nav-searchbtn-m" type="button" data-search aria-label="Search">
         <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
@@ -124,7 +126,6 @@ export function PageShell({ children, active, wide, v2 }: { children: React.Reac
         <LicenseSheet />
         <SiteNav active={active} v2={v2} />
         <MobileNav />
-        {v2 && <V2ThemeToggle />}
         {children}
         <SiteFooter />
       </div>
