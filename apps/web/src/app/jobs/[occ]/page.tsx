@@ -73,18 +73,20 @@ function OccupationBoard({ occ }: { occ: string }) {
   const variants = allCategories().filter((c) => c.destOcc === occ);
 
   return (
-    <PageShell wide>
+    <PageShell wide v2 active="jobs">
       <div className="rtp salp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><span>{title}</span>
-        </nav>
-        <h1 className="rt-h1">{title} jobs</h1>
-        <p className="rt-dek">
-          {`${jobs.length} live ${tl} openings from company career pages and remote boards, freshest first${remoteN > 0 ? `, ${remoteN} fully remote` : ''}. Apply at the source.`}
-          {hasSalary && <>{' '}What the role pays, across markets and seniority: <Link className="gl" href={`/salary/${occ}`}>{tl} salary</Link>.</>}
-        </p>
-
         <JobsBrowse
+          v2
+          hero={
+            <header className="jb-hero">
+              <p className="jb-vmeta">{jobs.length.toLocaleString()} live roles{remoteN > 0 ? <> &middot; {remoteN.toLocaleString()} fully remote</> : null} &middot; freshest first</p>
+              <h1 className="rt-h1">{title} jobs</h1>
+              <p className="jb-lede">
+                {`Live ${tl} openings from company career pages and remote boards. Apply at the source.`}
+                {hasSalary && <>{' '}What the role pays, across markets and seniority: <Link className="gl" href={`/salary/${occ}`}>{tl} salary</Link>.</>}
+              </p>
+            </header>
+          }
           fields={{ [occ]: occField(occ) }}
           titles={{ [occ]: title }}
           search={{ [occ]: occSearchText(occ) }}
@@ -254,18 +256,20 @@ function CategoryBoard({ cat }: { cat: Category }) {
   const related = [...rest.filter((c) => c.kind === cat.kind).slice(0, 8), ...rest.filter((c) => c.kind !== cat.kind).slice(0, 8)];
 
   return (
-    <PageShell wide>
+    <PageShell wide v2 active="jobs">
       <div className="rtp salp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><span>{cat.title}</span>
-        </nav>
-        <h1 className="rt-h1">{cat.title}</h1>
-        <p className="rt-dek">
-          {categoryBlurb(cat)}{' '}
-          <Link className="gl" href="/">See which of these your skills already reach</Link>.
-        </p>
-
         <JobsBrowse
+          v2
+          hero={
+            <header className="jb-hero">
+              <p className="jb-vmeta">{jobs.length.toLocaleString()} live roles &middot; freshest first</p>
+              <h1 className="rt-h1">{cat.title}</h1>
+              <p className="jb-lede">
+                {categoryBlurb(cat)}{' '}
+                <Link className="gl" href="/">See which of these your skills already reach</Link>.
+              </p>
+            </header>
+          }
           fields={maps.fields}
           titles={maps.titles}
           search={maps.search}

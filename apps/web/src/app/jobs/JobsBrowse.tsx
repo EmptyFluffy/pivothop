@@ -402,11 +402,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   return (
     <div className={`jb${scope ? ' jb-scoped' : ''}`}>
       <div className={v2 ? 'jb-work' : undefined}>
-      {v2 && (
+      {v2 && (() => {
+        const sec = (i: number) => String(fieldCounts.length > 1 ? i : i - 1).padStart(2, '0');
+        return (
         <aside className="jb-rail" aria-label="Filters">
           <div className="jb-rail-head"><h4>Filters</h4>
             <button type="button" className="jb-rail-clear" onClick={() => { setQ(''); setNeedle(''); setLocQ(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
           </div>
+          {fieldCounts.length > 1 && (
           <section>
             <h5><i>01</i>Field</h5>
             {fieldCounts.map(([fl, n]) => (
@@ -422,16 +425,17 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
               </div>
             ))}
           </section>
+          )}
           <section>
-            <h5><i>02</i>Workplace</h5>
+            <h5><i>{sec(2)}</i>Workplace</h5>
             <div className="jb-opt"><label><input type="checkbox" checked={f.remoteOnly} onChange={() => set({ remoteOnly: !f.remoteOnly })} /> Remote only</label></div>
           </section>
           <section>
-            <h5><i>03</i>Pay</h5>
+            <h5><i>{sec(3)}</i>Pay</h5>
             <div className="jb-opt"><label><input type="checkbox" checked={f.hasSalary} onChange={() => set({ hasSalary: !f.hasSalary })} /> States a salary</label></div>
           </section>
           <section>
-            <h5><i>04</i>Freshness</h5>
+            <h5><i>{sec(4)}</i>Freshness</h5>
             {([['', 'Any time'], ['d', 'Last 24h'], ['w', 'This week'], ['m', 'This month']] as const).map(([k, label]) => (
               <div className="jb-opt" key={k || 'any'}>
                 <label><input type="radio" name="jb-fresh" checked={f.fresh === k} onChange={() => set({ fresh: k })} /> {label}</label>
@@ -446,7 +450,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             <div className="jb-rail-lab">roles in this view</div>
           </div>
         </aside>
-      )}
+        );
+      })()}
       <div className={v2 ? 'jb-centercol' : undefined}>
       {v2 && hero}
 
