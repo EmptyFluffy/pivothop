@@ -429,10 +429,11 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 .v2t .jb-byocc .rt-note .gl{ color:var(--v-value); }
 .v2t .jb-occrow{ display:grid; grid-template-columns:230px minmax(0,1fr); gap:26px;
   padding:24px 0; margin:0; border-bottom:1px solid var(--v-border); align-items:baseline; }
-.v2t .jb-occfield{ flex:none; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--v-text2); }
+.v2t .jb-occfield{ flex:none; font-family:var(--sans),sans-serif; font-size:22px; font-weight:650;
+  letter-spacing:-.02em; text-transform:none; color:var(--v-text); }
 .v2t .jb-occfield::before{ counter-increment:occfield;
-  content:counter(occfield, decimal-leading-zero) "  "; color:var(--v-value); white-space:pre; }
+  content:counter(occfield, decimal-leading-zero) "  "; color:var(--v-value); white-space:pre;
+  font-family:var(--mono),monospace; font-size:11px; font-weight:400; letter-spacing:.06em; }
 .v2t .jb-occlinks{ display:flex; flex-wrap:wrap; column-gap:28px; row-gap:13px; }
 .v2t .jb-occlinks a{ font-size:15px; color:var(--v-text); text-decoration:none; border-bottom:none; }
 .v2t .jb-occlinks a:hover{ color:var(--v-text); text-decoration:underline;
