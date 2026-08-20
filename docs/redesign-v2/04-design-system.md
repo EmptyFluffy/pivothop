@@ -1,0 +1,41 @@
+# Redesign V2 · 04 · Design system
+
+*Extracted 2026-08-20 after anchor approval ("too cold, lacks life; as a first step it works"), which is why warmth is a token decision here rather than a later patch. Everything lives in `apps/web/src/app/design-lab/` (`v2.css` + `system.tsx`) until migration begins.*
+
+## Tokens
+
+| Token | Value | Note |
+|---|---|---|
+| `--bg` | `#F7F4ED` | warm cream, warmed from the first pass's `#F8F7F3` |
+| `--surface` | `#FFFEFB` | warm white |
+| `--text` | `#1A1712` | warm near-black |
+| `--text-2` | `#6B665B` | secondary |
+| `--border` / `--border-strong` | `#E1DBCC` / `#B9B1A0` | rules and controls |
+| `--accent` | `#234BFF` | ONE accent: active nav, match emphasis, selection marker, measure tick, brand-value links |
+| `--pos` / `--gap` / `--amber` | `#3D7A50` / `#C4573A` / `#B07C24` | semantic only: overlap, gap, caution |
+| spacing | 4 · 8 · 16 · 24 · 32 · 48 · 64 | `--s1..--s7` |
+| radius | 3px (`--r`) · 6px monogram tiles | low, never pill except legacy contexts |
+| motion | 180ms `cubic-bezier(.3,.7,.3,1)` | underline, row hover, selection |
+
+## Type
+- **Instrument Sans** for all UI (swapped from Inter in the warmth pass: warmer letterforms AND continuity with production's brand face, so V1 and V2 share an identity thread).
+- **JetBrains Mono** only where content is data: figures, `.vnum` tabular columns, `.lab` labels (10px uppercase, sparing).
+- Scale: hero clamp(34..54) 650 · page 24 · job title 15.5/600 · body 15/1.55 · meta 12.5 · label 10.
+
+## Signature gestures (exactly two)
+1. **The measure**: origin dot, 1px rule, accent tick at the target, covered-share fill, mono caption. Appears on inspectors, route pages, and the homepage.
+2. **Monogram tints**: deterministic warm-tinted company tiles (6 muted pairs, hash of the name). This is the "life" in the rows; it also previews how real logos slot in.
+
+## Interaction
+- **Underline** (`.ul`): 1px, 3px below baseline, sweeps left→right in 180ms, overshoots 3px. Near-black default; `.ul-accent` reserved for brand-meaningful actions.
+- Primary button: black, hover → accent. Ghost: hairline border. Text actions for tertiary.
+- Selected row: surface change + 2px accent left marker. Focus: 2px accent outline, offset 2.
+
+## Components (`system.tsx`)
+`V2Nav` · `LabBar` (lab chrome only) · `Monogram` · `RouteMeasure` · `SearchUnit` · `FilterToken` · `Pill(have|miss)` · `Stat`. Row and inspector remain inline in the board page until a second surface needs them (the brief's extraction rule). CSS-only primitives: `.rows/.row`, `.insp`, `.tokens/.tok`, `.sec-rule`, `.vstats`, `.lab`, `.ul`.
+
+## Hard-learned rule for migration
+Production `globals.css` loads on every route, so **every V2 class name must be audited against it before use**; the lab hit collisions twice (`.hero`, `.search`, `.go`, `.sel`, `.on`, `.k`, `.v`...) and now holds zero. During migration the same audit gates every template family, until the day globals.css itself is retired.
+
+## Deliberately not designed yet
+Mobile choreography (bottom-sheet filters, sticky actions), loading/empty/error states, motion beyond the underline, real logo handling, dark contexts. Each lands with its first consuming template, styled from these tokens.

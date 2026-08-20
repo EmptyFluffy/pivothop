@@ -1,4 +1,4 @@
-import { LabBar } from '../LabChrome';
+import { LabBar } from '../system';
 
 export default function LabType() {
   return (

@@ -1,4 +1,4 @@
-import { LabBar } from '../LabChrome';
+import { LabBar } from '../system';
 
 const COLORS: [string, string][] = [
   ['--bg', '#F8F7F3'], ['--surface', '#FFFFFF'], ['--text', '#121212'], ['--text-2', '#686863'],

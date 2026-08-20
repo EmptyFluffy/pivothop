@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { destRole, originMeta } from '../../routes/routes-data';
 import { jobCount, occTitle } from '../../jobs/jobs-data';
-import { LabBar, V2Nav, RouteMeasure } from '../LabChrome';
+import { LabBar, V2Nav, RouteMeasure } from '../system';
 
 function band(slug: string): [number, number] | null {
   try {

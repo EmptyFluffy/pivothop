@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { LabBar } from './LabChrome';
+import { LabBar } from './system';
 
 export default function LabIndex() {
   const items = [

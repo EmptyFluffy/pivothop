@@ -1,6 +1,6 @@
 import { getJobs, getJobSkills, occTitle, jobCount } from '../../jobs/jobs-data';
 import { destRole } from '../../routes/routes-data';
-import { LabBar, V2Nav, RouteMeasure } from '../LabChrome';
+import { LabBar, V2Nav, RouteMeasure, Monogram, SearchUnit, FilterToken, Pill } from '../system';
 
 /* ANCHOR A · the V2 job board (brief §5A, §10-§15).
    Server-rendered prototype on real corpus data. The exemplar profile is
@@ -36,17 +36,11 @@ export default function LabJobs() {
       <V2Nav active="Jobs" />
       <main className="wrap">
         <div style={{ padding: '24px 0 0' }}>
-          <div className="search">
-            <span><input placeholder="Role, company, or skill" aria-label="Search roles" defaultValue="" /></span>
-            <span className="div loc-cell"><input placeholder="Location" aria-label="Location" /></span>
-            <span className="div vgo">
-              <button className="btn btn-ghost" type="button">Filters</button>
-            </span>
-          </div>
+          <SearchUnit primary="Role, company, or skill" secondary="Location" action={<button className="btn btn-ghost" type="button">Filters</button>} />
           <div className="tokens">
-            <button className="tok" type="button">Remote only <b>×</b></button>
-            <button className="tok" type="button">$50K–$200K <b>×</b></button>
-            <button className="tok" type="button">Match &gt;40% <b>×</b></button>
+            <FilterToken>Remote only</FilterToken>
+            <FilterToken>$50K–$200K</FilterToken>
+            <FilterToken>Match &gt;40%</FilterToken>
           </div>
         </div>
 
@@ -84,6 +78,7 @@ export default function LabJobs() {
             <div className="vrows">
               {rows.map(({ j, occ, match, gap, skills }) => (
                 <article className={`row${j.id === sel.j.id ? ' vsel' : ''}`} key={j.id}>
+                  <Monogram name={j.company} />
                   <div>
                     <div className="co">{j.company}</div>
                     <div className="ti"><a className="ul" href="#">{j.title}</a></div>
@@ -103,19 +98,22 @@ export default function LabJobs() {
           </section>
 
           <aside className="insp" aria-label="Job inspector">
-            <div className="co">{sel.j.company}</div>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 8 }}>
+              <Monogram name={sel.j.company} size={40} />
+              <div className="co" style={{ fontSize: 13 }}>{sel.j.company}</div>
+            </div>
             <h2>{sel.j.title}</h2>
             <div className="meta">{sel.j.location}{sel.j.remote ? ' · Remote' : ''} · posted {ago(sel.j.posted)} ago</div>
             {selPay && <div className="pay vnum">{selPay}</div>}
             <p className="sum">{occTitle(sel.occ)} opening, indexed from the company&rsquo;s own board. The skills below are extracted from the posting text.</p>
             <div className="sec">
               <span className="lab">You already have</span>
-              {sel.skills.map((s) => <span className="pill vhave" key={s}>{s.replace(/-/g, ' ')}</span>)}
+              {sel.skills.map((s) => <Pill kind="have" key={s}>{s.replace(/-/g, ' ')}</Pill>)}
             </div>
             {sel.gap.length > 0 && (
               <div className="sec">
                 <span className="lab">The gap</span>
-                {sel.gap.map((s) => <span className="pill miss" key={s}>{s}</span>)}
+                {sel.gap.map((s) => <Pill kind="miss" key={s}>{s}</Pill>)}
               </div>
             )}
             <div className="vcta">

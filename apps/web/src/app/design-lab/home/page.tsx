@@ -1,7 +1,7 @@
 import { jobsIndex, jobOccupations } from '../../jobs/jobs-data';
 import { routableSlugs } from '../../routes/routes-data';
 import { POSTS } from '../../blog/posts';
-import { LabBar, V2Nav, RouteMeasure } from '../LabChrome';
+import { LabBar, V2Nav, RouteMeasure, SearchUnit, Stat } from '../system';
 
 /* ANCHOR B · the V2 homepage (brief §5B). Real counts, the product thesis,
    and the coexistence pattern: workspace UI above the rule, editorial below
@@ -24,18 +24,12 @@ export default function LabHome() {
             reach: the overlap, the gap, the salary on the other side.
           </p>
           <div style={{ maxWidth: 720, marginTop: 32 }}>
-            <div className="search">
-              <span><input placeholder="Your current role, e.g. Architect" aria-label="Your current role" /></span>
-              <span className="div loc-cell"><input placeholder="Where you want to work" /></span>
-              <span className="div vgo">
-                <button className="btn btn-primary" type="button">Measure</button>
-              </span>
-            </div>
+            <SearchUnit primary="Your current role, e.g. Architect" secondary="Where you want to work" action={<button className="btn btn-primary" type="button">Measure</button>} />
           </div>
-          <div className="vstats vnum">
-            <div><div className="vv">{live.toLocaleString()}</div><div className="vk">live openings</div></div>
-            <div><div className="vv">{occs}</div><div className="vk">occupations</div></div>
-            <div><div className="vv">{routes}</div><div className="vk">measured route pages</div></div>
+          <div className="vstats">
+            <Stat v={live.toLocaleString()} k="live openings" />
+            <Stat v={occs} k="occupations" />
+            <Stat v={routes} k="measured route pages" />
           </div>
         </section>
 

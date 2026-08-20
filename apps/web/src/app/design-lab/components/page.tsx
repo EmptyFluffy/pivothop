@@ -1,4 +1,4 @@
-import { LabBar, RouteMeasure } from '../LabChrome';
+import { LabBar, RouteMeasure } from '../system';
 
 export default function LabComponents() {
   return (

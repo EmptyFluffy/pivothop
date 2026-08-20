@@ -5,9 +5,9 @@
    next to them. 90% disciplined product design, 10% signature.
    ============================================================ */
 .v2{
-  --bg:#F8F7F3; --surface:#FFFFFF;
-  --text:#121212; --text-2:#686863;
-  --border:#DEDCD5; --border-strong:#B8B6AF;
+  --bg:#F7F4ED; --surface:#FFFEFB;
+  --text:#1A1712; --text-2:#6B665B;
+  --border:#E1DBCC; --border-strong:#B9B1A0;
   --accent:#234BFF;
   --pos:#3D7A50; --gap:#C4573A; --amber:#B07C24;
   --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:32px; --s6:48px; --s7:64px;
@@ -88,7 +88,7 @@
 .v2 .tok b{ font-weight:400; color:var(--text-2); }
 
 /* ---- board layout ---- */
-.v2 .board{ display:grid; grid-template-columns:200px minmax(0,1fr) 380px; gap:var(--s5); align-items:start; padding:var(--s4) 0 var(--s7); }
+.v2 .board{ display:grid; grid-template-columns:184px minmax(0,1fr) 348px; gap:var(--s4); align-items:start; padding:var(--s4) 0 var(--s7); }
 .v2 .side h4{ font-size:12px; font-weight:600; margin:0 0 10px; }
 .v2 .side section{ padding:var(--s3) 0; border-bottom:1px solid var(--border); }
 .v2 .side section:first-child{ padding-top:0; }
@@ -97,20 +97,25 @@
 .v2 .opt input{ accent-color:var(--accent); margin-right:8px; }
 .v2 .opt label{ display:flex; align-items:center; cursor:pointer; color:var(--text); }
 
+/* ---- monogram: deterministic warm tint per company. The life in the rows. ---- */
+.v2 .mono-tile{ width:34px; height:34px; border-radius:6px; display:flex; align-items:center; justify-content:center;
+  font-weight:650; font-size:14px; flex:none; border:1px solid #00000010; }
+
 /* ---- job rows: rules, not cards ---- */
 .v2 .vrows{ border-top:1px solid var(--border-strong); }
 .v2 .row{
-  display:grid; grid-template-columns:minmax(0,1fr) 64px 110px 44px 34px; gap:var(--s3);
+  display:grid; grid-template-columns:42px minmax(0,1fr) 52px 96px 34px 26px; gap:14px;
   align-items:baseline; padding:14px 10px 15px; border-bottom:1px solid var(--border);
   position:relative; cursor:pointer; transition:background var(--dur) var(--ease);
 }
-.v2 .row:hover{ background:#fff; }
+.v2 .row:hover{ background:#FFFDF6; }
 .v2 .row.vsel{ background:var(--surface); }
 .v2 .row.vsel::before{ content:""; position:absolute; left:0; top:0; bottom:-1px; width:2px; background:var(--accent); }
 .v2 .row .co{ font-size:11.5px; color:var(--text-2); letter-spacing:.02em; }
 .v2 .row .ti{ font-size:15.5px; font-weight:600; letter-spacing:-.012em; margin:1px 0 2px; }
 .v2 .row .loc{ font-size:12.5px; color:var(--text-2); }
 .v2 .row .vsk{ font-size:12px; color:var(--pos); margin-top:6px; }
+.v2 .row .vsk span{ white-space:nowrap; }
 .v2 .row .vsk i{ font-style:normal; color:var(--border-strong); margin:0 5px; }
 .v2 .row .gapline{ font-size:12px; color:var(--gap); margin-top:2px; }
 .v2 .row .match{ font-size:14px; font-weight:500; text-align:right; }
@@ -140,7 +145,8 @@
 .v2 .measure .line{ display:flex; align-items:center; gap:10px; font-size:12.5px; }
 .v2 .measure .bar{ flex:1; height:1px; background:var(--border-strong); position:relative; }
 .v2 .measure .bar i{ position:absolute; left:0; top:0; bottom:0; background:var(--accent); }
-.v2 .measure .bar::after{ content:""; position:absolute; right:0; top:-3px; height:7px; width:1px; background:var(--border-strong); }
+.v2 .measure .bar::before{ content:""; position:absolute; left:-2px; top:-2px; width:5px; height:5px; border-radius:50%; background:var(--text); }
+.v2 .measure .bar::after{ content:""; position:absolute; right:0; top:-4px; height:9px; width:2px; background:var(--accent); }
 .v2 .measure .pct{ font-size:11px; color:var(--accent); margin-top:4px; text-align:center; }
 
 /* ---- page furniture ---- */
