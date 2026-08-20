@@ -24,14 +24,14 @@ html.vlight .v2t{
 .v2t{ border-color:var(--v-border); }
 
 /* ---- the mode toggle ---- */
-.v2t .v2-themetoggle{ position:fixed; right:18px; bottom:18px; z-index:120;
+.v2t .v2-themetoggle{ position:fixed; left:18px; bottom:18px; z-index:120;
   font-family:var(--mono); font-size:10px; letter-spacing:.12em; cursor:pointer;
   background:var(--v-surface); color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent);
   border-radius:999px; padding:9px 16px; }
 .v2t .v2-themetoggle:hover{ background:var(--v-text); color:var(--v-bg); }
 
 /* ---- chrome: the real nav and footer read the tokens ---- */
-.v2t .nav{ background:var(--v-bg); border-color:var(--v-border2); }
+.v2t .nav{ background:var(--v-bg); border-color:var(--v-border); }
 .v2t .nav .brand .mark, .v2t .nav .brand .wm{ color:var(--v-text); }
 .v2t .navlink{ color:var(--v-text); }
 .v2t .navlink:hover, .v2t .navlink.on{ color:var(--v-value); }
@@ -149,40 +149,67 @@ html.vlight .v2t{
 html.vlight .v2t .jb-ta{ box-shadow:0 18px 36px rgba(20,20,20,.12); }
 
 /* ============================================================================
-   STRUCTURE: the lab layout on the real board.
-   Two-tier nav, workspace rail, CB rows, giant footer. Desktop >=981px gets
-   the full workspace; below that the rail hides and mobile keeps its pass.
+   STRUCTURE: the lab layout on the real board (design-lab/v2.css, ported).
+   Two-tier nav with a single rule, workspace rail, in-column search unit,
+   lab rows with a table head, the inspector pane, the giant footer.
+   Desktop >=981px gets the full workspace; mobile keeps its own pass.
    ============================================================================ */
 
-/* ---- two-tier nav: wordmark row over an uppercase tab row ---- */
+/* the page ground behind and beyond the wrapper must match the mode */
+body:has(.v2t){ background:#000000; }
+html.vlight body:has(.v2t){ background:#FFFFFF; }
+
+/* ---- nav: wordmark row over the tab row; one border total ---- */
+.v2t .nav .brand .mark{ display:none; }
+.v2t .nav .brand .wm{ font-size:21px; font-weight:650; letter-spacing:-.025em; }
+.v2t .nav-v2r{ display:none; }
 @media (min-width:981px){
-  .v2t .nav{ display:grid; grid-template-columns:1fr auto; height:auto; align-items:stretch; }
-  .v2t .nav .brand{ grid-row:1; grid-column:1; height:64px; padding:0 28px; }
-  .v2t .nav .brand .mark{ display:none; }
-  .v2t .nav .brand .wm{ font-size:26px; font-weight:650; letter-spacing:-.025em; }
-  .v2t .nav .nav-menu{ grid-row:2; grid-column:1 / -1; height:46px; align-items:center;
-    border-top:1px solid var(--v-border); padding:0 14px; }
-  .v2t .navlink{ font-size:13px; letter-spacing:.08em; text-underline-offset:2px; }
-  .v2t .nav .cta{ font-size:13px; letter-spacing:.08em; }
-  /* sticky stack re-offset for the taller nav; measured after build, the
-     shared-pixel-row rule from the one-tier nav still applies (stick = navH-1) */
-  .v2t .jb-stick{ top:110px; }
+  .v2t .nav{ display:grid; grid-template-columns:1fr auto; height:auto; align-items:center; }
+  .v2t .nav .brand{ grid-row:1; grid-column:1; height:66px; padding:0 28px; }
+  .v2t .nav .brand .wm{ font-size:27px; }
+  .v2t .nav-v2r{ grid-row:1; grid-column:2; display:flex; align-items:center; gap:22px; padding:0 28px; }
+  .v2t .nav-searchbtn-v2{ display:flex; align-items:center; gap:8px; background:none; border:none;
+    cursor:pointer; color:var(--v-text); padding:6px; }
+  .v2t .nav-searchbtn-v2 svg{ width:17px; height:17px; }
+  .v2t .nav-searchbtn-v2 kbd{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.06em;
+    color:var(--v-text2); background:none; border:1px solid var(--v-border2); border-radius:5px;
+    padding:2.5px 6px; }
+  .v2t .nav-run{ background:var(--v-text); color:var(--v-bg); padding:10px 20px; font-weight:550;
+    font-size:13.5px; letter-spacing:.01em; border-radius:999px; text-decoration:none;
+    transition:background .15s, color .15s; }
+  .v2t .nav-run:hover{ background:var(--v-fill); color:var(--v-fill-ink); text-decoration:none; }
+  .v2t .nav .nav-menu{ grid-row:2; grid-column:1 / -1; height:auto; align-items:center;
+    border-top:none; padding:0 28px 14px; gap:34px; }
+  .v2t .navlink{ font-size:13.5px; letter-spacing:.08em; height:auto; padding:0; text-underline-offset:2px; }
+  .v2t .navlink.on{ color:var(--v-text); text-decoration-color:currentColor; }
+  .v2t .nav .nav-menu .nav-searchbtn{ display:none; }
+  .v2t .nav .nav-menu .cta{ display:none; }
 }
 
-/* ---- workspace: rail | center ---- */
+/* ---- workspace: full-bleed app frame, rail | center(list | pane) ---- */
+.v2t.shell, .v2t.shell-wide{ max-width:none; border-left:none; border-right:none; }
 .v2t .jb-rail{ display:none; }
+.v2t .jb-thead{ display:none; }
 @media (min-width:981px){
+  .v2t .rtp{ padding:0 0 44px; }
   .v2t .jb-work{ display:grid; grid-template-columns:264px minmax(0,1fr); align-items:start; }
-  .v2t .jb-rail{ display:block; border-right:1px solid var(--v-border); padding:22px 24px 36px 2px;
-    position:sticky; top:184px; max-height:calc(100dvh - 184px); overflow-y:auto; }
-  .v2t .jb-centercol{ min-width:0; padding-left:26px; }
-  /* the split pane's full-bleed negatives collide with the rail column: neutralize */
-  .v2t .jb-centercol .jb-splitwrap{ margin:0; }
-  .v2t .jb-centercol .jb-splitwrap .jb-listcol{ padding-left:0; }
-  .v2t .jb-centercol .job-list-full .job-card{ padding-left:10px; }
+  .v2t .jb-rail{ display:block; border-right:1px solid var(--v-border); padding:22px 22px 36px;
+    position:sticky; top:101px; max-height:calc(100dvh - 101px); overflow-y:auto; }
+  .v2t .jb-centercol{ min-width:0; padding:24px 32px 0 32px; }
+  .v2t .jb-centercol:has(.jpane){ padding-right:0; }
+  /* with the inspector open, everything above the split stays in the list
+     column (the lab's three-column frame): inset by pane width + gutter */
+  .v2t .jb-centercol:has(.jpane) > :not(.jb-splitwrap){ margin-right:382px; }
+  /* without the inspector, the column does not run to the horizon */
+  .v2t .jb-centercol:not(:has(.jpane)) > *{ max-width:1160px; }
+  /* the floating mode toggle steps left of the pane instead of covering it */
+  .v2t .jb-centercol .jb-splitwrap{ margin:0; grid-template-columns:minmax(0,1fr) 356px; gap:0; }
+  .v2t .jb-centercol .jb-splitwrap .jb-listcol{ padding-left:0; padding-right:26px; }
+  .v2t .jb-centercol .job-list-full{ margin-left:0; margin-right:0; }
+  .v2t .job-list-full .job-card{ padding-left:10px; padding-right:10px; }
 }
 
-/* ---- the rail itself (lab vrail, real filters) ---- */
+/* ---- the rail (lab vrail, real filters) ---- */
 .v2t .jb-rail-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
 .v2t .jb-rail-head h4{ font-size:23px; font-weight:650; letter-spacing:-.02em; margin:0; }
 .v2t .jb-rail-clear{ background:none; border:none; cursor:pointer; font:inherit; font-size:13px;
@@ -193,9 +220,9 @@ html.vlight .v2t .jb-ta{ box-shadow:0 18px 36px rgba(20,20,20,.12); }
   text-transform:uppercase; color:var(--v-text2); margin:0 0 12px; }
 .v2t .jb-rail h5 i{ font-style:normal; color:var(--v-value); margin-right:8px; }
 .v2t .jb-opt{ display:flex; justify-content:space-between; align-items:center; font-size:15px;
-  color:var(--v-text2); padding:6px 0; }
+  line-height:1.55; color:var(--v-text2); padding:6px 0; }
 .v2t .jb-opt label{ display:flex; align-items:center; cursor:pointer; color:var(--v-text); min-width:0; }
-.v2t .jb-opt-n{ font-family:var(--mono),monospace; font-size:12.5px; flex:none; padding-left:10px; }
+.v2t .jb-opt-n{ font-family:var(--mono),monospace; font-size:12.5px; letter-spacing:-.01em; flex:none; padding-left:10px; }
 .v2t .jb-opt input{ appearance:none; -webkit-appearance:none; margin:0 11px 0 0; width:19px; height:19px; flex:none;
   border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:5px; cursor:pointer;
   display:inline-grid; place-content:center; background:none; transition:background .15s, border-color .15s; }
@@ -210,31 +237,145 @@ html.vlight .v2t .jb-ta{ box-shadow:0 18px 36px rgba(20,20,20,.12); }
   transition:border-color .15s, background .15s, color .15s; }
 .v2t .jb-rail-all:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
 .v2t .jb-rail-close{ margin-top:26px; padding-top:18px; border-top:1px solid var(--v-border2); }
-.v2t .jb-rail-big{ font-size:44px; font-weight:600; letter-spacing:-.03em; line-height:1; color:var(--v-text); }
+.v2t .jb-rail-big{ font-family:var(--mono),monospace; font-size:44px; font-weight:600; letter-spacing:-.03em;
+  line-height:1; color:var(--v-text); }
 .v2t .jb-rail-lab{ margin-top:6px; font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
   text-transform:uppercase; color:var(--v-text2); }
 
-/* ---- page head: lab title scale ---- */
-.v2t .jb-head .rt-h1{ font-size:clamp(30px,3.4vw,44px); font-weight:600; letter-spacing:-.025em; }
+/* ---- hero: meta line + title inside the column (lab vmeta/vtitle) ---- */
+.v2t .jb-vmeta{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--v-text2); margin:16px 0 10px; }
+.v2t .jb-vmeta .gl{ color:var(--v-value); }
+.v2t .jb-hero .rt-h1{ font-size:clamp(28px,3.2vw,42px); font-weight:600; letter-spacing:-.025em;
+  line-height:1.55; margin:2px 0 20px; }
+@media (min-width:981px){ .v2t .jb-vmeta{ margin-top:0; } }
 
-/* ---- rows at the lab scale ---- */
-.v2t .job-card{ padding:20px 10px 19px; gap:16px; }
-.v2t .job-t{ font-size:18.5px; font-weight:600; letter-spacing:-.015em; }
-.v2t .job-co{ font-size:13.5px; margin-top:3px; }
+/* ---- search unit: a bordered box in the column, not a full-width band ---- */
+@media (min-width:981px){
+  .v2t .jb-stick{ position:static; margin:0 0 16px; padding:0; border:none; background:transparent; }
+  .v2t .jb-searchband{ margin:0; display:grid; grid-template-columns:auto minmax(0,1fr) 220px auto;
+    align-items:stretch; background:var(--v-surface); border:1px solid var(--v-border2);
+    border-radius:8px; position:relative; padding:0; gap:0; }
+  .v2t .jb-ico{ align-self:center; margin-left:14px; color:var(--v-text2); }
+  .v2t .jb-search{ height:52px; padding:0 14px 0 12px; font-size:14.5px; font-weight:400;
+    letter-spacing:normal; background:none; border:none; }
+  .v2t .jb-locin{ display:block; height:52px; border:none; border-left:1px solid var(--v-border);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23979289' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:14px center; background-size:16px 16px;
+    background-color:transparent; font:inherit; font-size:14.5px; color:var(--v-text); padding:0 16px 0 38px;
+    outline:none; border-radius:0; }
+  .v2t .jb-locin::placeholder{ color:var(--v-text2); }
+  .v2t .jb-fltbtn{ border:none; border-left:1px solid var(--v-border); border-radius:0; background:none;
+    padding:0 24px; font-size:13.5px; color:var(--v-text2); display:flex; align-items:center; gap:8px;
+    height:100%; }
+  .v2t .jb-fltbtn:hover{ color:var(--v-text); }
+  .v2t .jb-fltbtn:hover{ background:var(--v-bg2); }
+  .v2t .jb-ta{ top:calc(100% + 6px); border-radius:8px; }
+}
+.v2t .jb-locin{ display:none; }
+@media (min-width:981px){ .v2t .jb-locin{ display:block; } }
 
-/* ---- giant footer wordmark ---- */
-.v2t .foot{ padding-top:48px; }
-.v2t .foot::before{ content:"PivotHop"; grid-column:1 / -1;
+/* ---- token rows: bare pills under the unit, no band chrome ---- */
+.v2t .jb-active{ background:transparent; border:none; margin:16px 0 18px; padding:0; }
+
+/* ---- table head + rows (lab vthead/vrows2) ---- */
+@media (min-width:981px){
+  .v2t .jb-thead{ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px; gap:14px;
+    padding:10px 10px; border-bottom:1px solid var(--v-border2); font-family:var(--mono),monospace;
+    font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
+  .v2t .job-card{ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px; gap:14px;
+    align-items:center; padding:22px 10px; border-bottom:1px solid var(--v-border); position:relative; }
+  .v2t .jv-cell{ display:flex; justify-content:flex-end; }
+}
+@media (max-width:980.9px){
+  .v2t .job-card{ display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:14px;
+    align-items:center; padding:18px 2px; border-bottom:1px solid var(--v-border); position:relative; }
+  .v2t .jv-age, .v2t .jv-cell{ display:none; }
+  .v2t .jv-ti{ font-size:17px; }
+}
+.v2t .job-card:hover{ background:var(--v-surface); }
+.v2t .job-card.sel{ background:var(--v-bg2); }
+.v2t .job-card.sel::before{ content:""; position:absolute; left:0; top:0; bottom:-1px; width:2px;
+  background:var(--v-value); }
+.v2t .job-logo{ width:34px; height:34px; border-radius:6px; overflow:hidden; }
+.v2t .job-logo img{ width:34px; height:34px; border-radius:6px; object-fit:contain; }
+.v2t .job-mono{ width:34px; height:34px; border-radius:6px; display:flex; align-items:center;
+  justify-content:center; font-weight:600; font-size:15px; }
+.v2t .jv-ti{ display:block; font-size:23px; font-weight:550; letter-spacing:-.015em; line-height:1.15;
+  margin:0 0 6px; color:var(--v-text); }
+.v2t .jv-at{ color:var(--v-text2); font-weight:450; }
+.v2t .jv-loc{ display:block; font-size:12.5px; color:var(--v-text2); }
+.v2t .jv-tags{ display:block; margin-top:6px; font-family:var(--mono),monospace; font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--v-value); }
+.v2t .jv-pay{ font-family:var(--mono),monospace; font-size:16px; font-weight:600; text-align:right;
+  color:var(--v-value); white-space:nowrap; text-transform:uppercase; }
+.v2t .jv-age{ font-family:var(--mono),monospace; font-size:11px; color:var(--v-text2); text-align:right;
+  white-space:nowrap; }
+.v2t .jv-apply{ border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent); border-radius:999px;
+  padding:10px 22px; font-size:14px; color:var(--v-text); white-space:nowrap;
+  transition:border-color .15s, background .15s, color .15s; }
+.v2t .jv-apply:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-more{ background:none; color:var(--v-text); font:inherit; font-size:14px; padding:10px 22px;
+  cursor:pointer; border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
+  border-radius:999px; margin:26px 0; transition:border-color .15s, background .15s, color .15s; }
+.v2t .jb-more:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+
+/* ---- the inspector pane (lab vinspect) ---- */
+.v2t .jpane{ border:none; border-left:1px solid var(--v-border); border-radius:0;
+  background:var(--v-surface); box-shadow:none; }
+.v2t .jv-top{ display:flex; justify-content:space-between; align-items:center; padding:14px 22px;
+  border-bottom:1px solid var(--v-border); font-family:var(--mono),monospace; font-size:11px;
+  letter-spacing:.08em; color:var(--v-text2); }
+.v2t .jv-pg{ display:flex; gap:14px; align-items:center; }
+.v2t .jv-pg button{ background:none; border:none; cursor:pointer; color:var(--v-text2); padding:6px;
+  min-width:28px; min-height:28px; display:grid; place-items:center; }
+.v2t .jv-pg button:hover{ color:var(--v-text); }
+.v2t .jv-pg button:disabled{ opacity:.3; cursor:default; }
+.v2t .jv-pg button:disabled:hover{ color:var(--v-text2); }
+.v2t .jpane-v2 .jpane-scroll{ padding:0; }
+.v2t .jpane-v2 .jpane-body{ padding:20px 22px 28px; }
+.v2t .jv-pos{ font-family:var(--mono),monospace; letter-spacing:-.01em; }
+.v2t .jv-cohead{ display:flex; gap:12px; align-items:center; margin:0 0 10px; }
+.v2t .jv-cohead .jd-mark{ width:40px; height:40px; border-radius:6px; display:flex; align-items:center;
+  justify-content:center; overflow:hidden; border:1px solid color-mix(in srgb, #000000 6%, transparent); }
+.v2t .jv-cohead .jd-mark img{ width:40px; height:40px; object-fit:contain; }
+.v2t .jv-cohead .jd-mono{ font-weight:650; font-size:14px; }
+.v2t .jv-coname{ font-size:13.5px; color:var(--v-text); }
+.v2t .jpane-v2 .jpane-title{ font-size:21px; letter-spacing:-.015em; line-height:1.25; font-weight:700; margin:0; }
+.v2t .jv-meta{ font-size:12.5px; color:var(--v-text2); margin-top:4px; line-height:1.5; }
+.v2t .jv-payg{ font-family:var(--mono),monospace; font-size:30px; font-weight:600; margin-top:16px;
+  color:var(--v-value); letter-spacing:-.01em; text-transform:uppercase; }
+.v2t .jv-blurb{ font-size:13.5px; color:var(--v-text2); margin-top:14px; line-height:1.55; }
+.v2t .jv-rule{ border:none; border-top:1px solid var(--v-border); margin:18px 0; }
+.v2t .jpane-v2 .jsheet-sec h3{ font-family:var(--mono),monospace; font-size:10px; font-weight:400;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .jpane-v2 .jpane-foot{ display:block; border-top:1px solid var(--v-border);
+  background:var(--v-surface); padding:13px 22px 14px; }
+.v2t .jpane-v2 .jpane-foot .jsheet-apply{ width:100%; margin:0 0 10px; }
+.v2t .jpane-v2 .jpane-foot .jpane-ghost{ display:block; width:100%; }
+.v2t .jsheet-apply{ background:var(--v-fill); color:var(--v-fill-ink); border-radius:999px;
+  font-family:var(--sans),sans-serif; text-transform:none; letter-spacing:0; font-weight:600;
+  font-size:14px; padding:13px; justify-content:center; display:flex; align-items:center; gap:8px; }
+.v2t .jsheet-apply:hover{ filter:brightness(1.08); }
+.v2t .jpane-ghost{ border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent);
+  border-radius:999px; font-family:var(--sans),sans-serif; text-transform:none; letter-spacing:0;
+  font-size:13.5px; font-weight:550; color:var(--v-text); background:none; text-align:center;
+  padding:12px; transition:background .15s, color .15s, border-color .15s; }
+.v2t .jpane-ghost:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+
+/* ---- giant footer: the lab band. Wordmark, then tagline left + links right.
+   The link inventory is unchanged (SEO), only flattened out of its columns. ---- */
+.v2t .foot{ display:flex; flex-wrap:wrap; align-items:baseline; column-gap:22px; row-gap:6px;
+  border-top:1px solid var(--v-border); padding:34px 32px 26px; }
+.v2t .foot::before{ content:"PivotHop"; display:block; width:100%;
   font-size:clamp(64px,9vw,128px); font-weight:650; letter-spacing:-.04em; line-height:.95;
-  color:var(--v-text); }
-
-/* ---- leaks the first screenshot pass caught ---- */
-/* the page ground behind and beyond the wrapper must match the mode */
-body:has(.v2t){ background:#000000; }
-html.vlight body:has(.v2t){ background:#FFFFFF; }
-/* active-filter strip kept the paper card ground */
-.v2t .jb-active{ background:var(--v-bg); border-bottom:1px solid var(--v-border); }
-/* the giant wordmark says it; the small brand row under it is redundant */
+  color:var(--v-text); margin-bottom:18px; }
 .v2t .foot .brand{ display:none; }
-/* wordmark holds its lab face at every width (mobile nav included) */
-.v2t .nav .brand .wm{ font-size:21px; font-weight:650; letter-spacing:-.025em; }
+.v2t .foot h5{ display:none; }
+.v2t .foot .foot-social{ display:none; }
+.v2t .foot > div{ display:contents; }
+.v2t .foot .tg{ margin:0 auto 0 0; font-size:12.5px; color:var(--v-text2); }
+.v2t .foot ul{ display:flex; flex-wrap:wrap; column-gap:18px; row-gap:6px; margin:0; }
+.v2t .foot li{ margin:0; }
+.v2t .foot a{ font-size:12.5px; color:var(--v-text2); }
+.v2t .foot a:hover{ color:var(--v-text); }

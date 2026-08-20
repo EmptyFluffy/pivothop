@@ -64,19 +64,52 @@ export function Arrow45({ size = 20 }: { size?: number }) {
   );
 }
 
+/* Warm two-tone tints for monogram tiles, hashed from the company name so a
+   company keeps its color everywhere (lab spec, docs/redesign-v2/04). */
+const TINTS: [string, string][] = [
+  ['#F3E3C8', '#7A5A18'], ['#DDE8D9', '#3D6247'], ['#E5DFF2', '#54467E'],
+  ['#F4DBD2', '#8A4A32'], ['#DCE7EE', '#3A5A70'], ['#EFE1E4', '#7C4653'],
+];
+export function monoTint(name: string): [string, string] {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return TINTS[h % TINTS.length];
+}
+
 /** First letter of the company, for the monogram fallback when no logo resolved. */
 export function companyInitial(company: string): string {
   const m = String(company).match(/[a-z0-9]/i);
   return m ? m[0].toUpperCase() : '·';
 }
 
-export function JobCard({ j, selected }: { j: Job; selected?: boolean }) {
+export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: boolean }) {
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   // Paid employer posts aren't statically generated, so they link straight out
   // to the employer's apply destination rather than an internal detail page.
   const employer = j.source === 'employer' && !!j.url;
-  const inner = (
+  const [tbg, tfg] = monoTint(j.company);
+  const remoteNote = j.remote && !/remote/i.test(j.location || '');
+  const tagline = [employer ? 'Hiring' : null, j.featured ? 'Featured' : null, j.fl?.includes('4d') ? '4-day week' : null]
+    .filter(Boolean).join(' \u00B7 ');
+  const innerV2 = (
+    <>
+      <span className="job-logo">
+        {j.logo
+          ? <img src={j.logo} alt="" width={34} height={34} loading="lazy" />
+          : <span className="job-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(j.company)}</span>}
+      </span>
+      <span className="jv-main">
+        <span className="jv-ti">{j.title} <span className="jv-at">at {j.company}</span></span>
+        <span className="jv-loc">{j.location || 'Location unlisted'}{remoteNote ? ' \u00B7 Remote' : ''}</span>
+        {tagline && <span className="jv-tags">{tagline}</span>}
+      </span>
+      <span className="jv-pay">{pay}</span>
+      <span className="jv-age" suppressHydrationWarning>{agoLabel(j.posted)}</span>
+      <span className="jv-cell"><span className="jv-apply">Apply</span></span>
+    </>
+  );
+  const inner = v2 ? innerV2 : (
     <>
       <span className="job-logo">
         {j.logo

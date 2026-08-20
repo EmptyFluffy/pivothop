@@ -22,10 +22,19 @@ const ArrowIco = () => (
   <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
 );
 
-export function SiteNav({ active, v2 }: { active?: 'about' | 'employers'; v2?: boolean }) {
+export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs'; v2?: boolean }) {
   return (
     <header className="nav">
       <Link href="/" className="brand">{v2 ? <span className="wm">PivotHop</span> : <><RabbitMark /><span className="wm">PIVOTHOP</span></>}</Link>
+      {v2 && (
+        <span className="nav-v2r">
+          <button className="nav-searchbtn-v2" type="button" data-search aria-label="Search" title="Search (press / or &#8984;K)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
+            <kbd>&#8984;K</kbd>
+          </button>
+          <Link className="nav-run" href="/">Run the instrument</Link>
+        </span>
+      )}
       {/* phones: search lives in the bar, not buried in the menu */}
       <button className="nav-searchbtn-m" type="button" data-search aria-label="Search">
         <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
@@ -37,7 +46,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers'; v2?: b
             then editorial, then the company. Routes was promoted out of the
             footer — it is the instrument's own page and was the only core
             surface with no way to reach it from the top of the site. */}
-        <Link className="navlink" href="/jobs">Jobs</Link>
+        <Link className={`navlink${active === 'jobs' ? ' on' : ''}`} href="/jobs">Jobs</Link>
         <Link className="navlink" href="/routes">Routes</Link>
         <Link className="navlink" href="/#how">Method</Link>
         <Link className="navlink" href="/blog">Blog</Link>
@@ -102,7 +111,7 @@ export function SiteFooter() {
   );
 }
 
-export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers'; wide?: boolean; v2?: boolean }) {
+export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs'; wide?: boolean; v2?: boolean }) {
   /* v2: the redesign theme layer (docs/redesign-v2/05). Adds the namespaced
      wrapper class, the no-flash theme bootstrap, and the mode toggle. The
      stylesheet only acts under .v2t, so non-opted templates are untouched. */

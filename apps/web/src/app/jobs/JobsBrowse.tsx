@@ -29,7 +29,7 @@ const EMPTY: Filters = {
   skillSet: new Set(),
 };
 
-export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2 }: {
+export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2, hero }: {
   fields: Record<string, string>;   // occ slug -> field
   titles: Record<string, string>;   // occ slug -> display title
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
@@ -37,12 +37,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
   scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string };
   v2?: boolean;                     // full workspace layout (rail + lab chrome); /jobs only for now
+  hero?: ReactNode;                 // meta line + H1, rendered inside the center column
 }) {
   const [all, setAll] = useState<Job[] | null>(initialJobs ?? null);
   const [q, setQ] = useState('');
   const [needle, setNeedle] = useState('');
   const [f, setF] = useState<Filters>(EMPTY);
   const [sort, setSort] = useState<'new' | 'pay'>('new');
+  const [locQ, setLocQ] = useState('');       // the search unit's Location cell
   const [sheetOpen, setSheetOpen] = useState(false);
   const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
   const [skills, setSkills] = useState<SkillEntry[] | null>(null);     // the glossary: skill -> occupations it unlocks
@@ -230,7 +232,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     const qs = p.toString();
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     setShown(PAGE);
-  }, [needle, f, sort, all]);
+  }, [needle, locQ, f, sort, all]);
 
   const fieldNames = useMemo(() => [...new Set(Object.values(fields))].sort(), [fields]);
   const skillOccs = useMemo(() => {
@@ -281,6 +283,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           return h ? toks.every((t) => tokenHit(h, t)) : false;
         });
       }
+      const locNeedle = locQ.trim().toLowerCase();
+      if (locNeedle.length >= 2) {
+        r = r.filter((j) => (j.location || '').toLowerCase().includes(locNeedle)
+          || (j.c ? countryName(j.c).toLowerCase().includes(locNeedle) : false));
+      }
       if (omit !== 'field' && spec.fieldSet.size) r = r.filter((j) => spec.fieldSet.has(fields[j.occ]));
       if (omit !== 'location') {
         if (spec.region) r = r.filter((j) => regionOf(j.c) === spec.region);
@@ -318,7 +325,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       }
       return r;
     };
-  }, [all, needle, hays, fields, now, licensed, skillOccs]);
+  }, [all, needle, locQ, hays, fields, now, licensed, skillOccs]);
 
   const results = useMemo(() => {
     let r = applyFilters(f);
@@ -354,10 +361,23 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
   }, [applyFilters, f, fields]);
 
-  const pristine = !needle && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && !f.skillSet.size && sort === 'new';
+  const pristine = !needle && !locQ.trim() && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && !f.skillSet.size && sort === 'new';
   const activeCount = f.fieldSet.size + f.ctySet.size + (f.region ? 1 : 0) + (f.minPay ? 1 : 0) + (f.hasSalary ? 1 : 0) + (f.remoteOnly ? 1 : 0) + f.tags.size + (f.fresh ? 1 : 0) + f.srcSet.size + (f.lic ? 1 : 0) + f.skillSet.size;
   const closeSheet = () => { if (history.state?.jobSheet) history.back(); else setSheetJob(null); };
   const closePanel = () => { if (history.state?.jobSheet) history.back(); else setPanelJob(null); };
+  // Pager for the v2 inspector: position within the filtered results, and a
+  // stepper that swaps the pane while keeping the URL contract (replace, so
+  // Back still returns to the board in one step).
+  const panelIdx = panelJob ? results.findIndex((x) => x.id === panelJob.id && x.occ === panelJob.occ) : -1;
+  const stepPanel = (d: number) => {
+    if (panelIdx < 0) return;
+    const nx = results[panelIdx + d];
+    if (!nx) return;
+    const href = `/jobs/${nx.occ}/${nx.id}`;
+    if (history.state?.jobSheet) history.replaceState({ jobSheet: true }, '', href);
+    else history.pushState({ jobSheet: true }, '', href);
+    setPanelJob(nx);
+  };
   const dropFrom = (key: 'fieldSet' | 'ctySet' | 'tags' | 'srcSet', v: string) => {
     const next = new Set(f[key]);
     next.delete(v);
@@ -366,6 +386,55 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
 
   return (
     <div className={`jb${scope ? ' jb-scoped' : ''}`}>
+      <div className={v2 ? 'jb-work' : undefined}>
+      {v2 && (
+        <aside className="jb-rail" aria-label="Filters">
+          <div className="jb-rail-head"><h4>Filters</h4>
+            <button type="button" className="jb-rail-clear" onClick={() => { setQ(''); setNeedle(''); setLocQ(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
+          </div>
+          <section>
+            <h5><i>01</i>Field</h5>
+            {fieldCounts.map(([fl, n]) => (
+              <div className="jb-opt" key={fl}>
+                <label>
+                  <input type="checkbox" checked={f.fieldSet.has(fl)} onChange={() => {
+                    const next = new Set(f.fieldSet);
+                    if (next.has(fl)) next.delete(fl); else next.add(fl);
+                    set({ fieldSet: next });
+                  }} /> {fl}
+                </label>
+                <span className="jb-opt-n">{n.toLocaleString()}</span>
+              </div>
+            ))}
+          </section>
+          <section>
+            <h5><i>02</i>Workplace</h5>
+            <div className="jb-opt"><label><input type="checkbox" checked={f.remoteOnly} onChange={() => set({ remoteOnly: !f.remoteOnly })} /> Remote only</label></div>
+          </section>
+          <section>
+            <h5><i>03</i>Pay</h5>
+            <div className="jb-opt"><label><input type="checkbox" checked={f.hasSalary} onChange={() => set({ hasSalary: !f.hasSalary })} /> States a salary</label></div>
+          </section>
+          <section>
+            <h5><i>04</i>Freshness</h5>
+            {([['', 'Any time'], ['d', 'Last 24h'], ['w', 'This week'], ['m', 'This month']] as const).map(([k, label]) => (
+              <div className="jb-opt" key={k || 'any'}>
+                <label><input type="radio" name="jb-fresh" checked={f.fresh === k} onChange={() => set({ fresh: k })} /> {label}</label>
+              </div>
+            ))}
+          </section>
+          <button type="button" className="jb-rail-all" onClick={() => setSheetOpen(true)}>
+            All filters{activeCount > 0 ? ` · ${activeCount}` : ''}
+          </button>
+          <div className="jb-rail-close">
+            <div className="jb-rail-big">{all === null ? '·' : results.length.toLocaleString()}</div>
+            <div className="jb-rail-lab">roles in this view</div>
+          </div>
+        </aside>
+      )}
+      <div className={v2 ? 'jb-centercol' : undefined}>
+      {v2 && hero}
+
       <div className="jb-stick">
       <div className="jb-searchband">
         <svg className="jb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
@@ -421,8 +490,21 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             ))}
           </div>
         )}
+        {v2 && (
+          <input
+            className="jb-locin"
+            type="search"
+            value={locQ}
+            onChange={(e) => setLocQ(e.target.value)}
+            placeholder="Location"
+            aria-label="Filter by location"
+            autoComplete="off"
+          />
+        )}
         <button type="button" className={`jb-fltbtn${activeCount ? ' on' : ''}`} onClick={() => setSheetOpen(true)}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
+          {v2
+            ? <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4" /></svg>
+            : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>}
           Filters{activeCount > 0 && <span className="jb-fltn">{activeCount}</span>}
         </button>
         {scope && <Link href={scope.showAllHref ?? '/jobs'} className="jb-showall">{scope.showAllLabel ?? 'Show all jobs'}</Link>}
@@ -468,58 +550,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           {[...f.srcSet].map((s) => <button key={s} type="button" className="jb-pill" onClick={() => dropFrom('srcSet', s)}>{SRC_GROUPS.find((g) => g.code === s)?.label ?? s}<span className="jb-x">&times;</span></button>)}
           {f.lic && <button type="button" className="jb-pill" onClick={() => set({ lic: '' })}>{f.lic === 'gated' ? 'Licensed professions' : 'No license required'}<span className="jb-x">&times;</span></button>}
           {sort === 'pay' && <button type="button" className="jb-pill" onClick={() => setSort('new')}>Highest pay<span className="jb-x">&times;</span></button>}
-          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
+          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setLocQ(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
         </div>
       )}
       </div>
 
-      <div className={v2 ? 'jb-work' : undefined}>
-      {v2 && (
-        <aside className="jb-rail" aria-label="Filters">
-          <div className="jb-rail-head"><h4>Filters</h4>
-            <button type="button" className="jb-rail-clear" onClick={() => { setQ(''); setNeedle(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
-          </div>
-          <section>
-            <h5><i>01</i>Field</h5>
-            {fieldCounts.map(([fl, n]) => (
-              <div className="jb-opt" key={fl}>
-                <label>
-                  <input type="checkbox" checked={f.fieldSet.has(fl)} onChange={() => {
-                    const next = new Set(f.fieldSet);
-                    if (next.has(fl)) next.delete(fl); else next.add(fl);
-                    set({ fieldSet: next });
-                  }} /> {fl}
-                </label>
-                <span className="jb-opt-n">{n.toLocaleString()}</span>
-              </div>
-            ))}
-          </section>
-          <section>
-            <h5><i>02</i>Workplace</h5>
-            <div className="jb-opt"><label><input type="checkbox" checked={f.remoteOnly} onChange={() => set({ remoteOnly: !f.remoteOnly })} /> Remote only</label></div>
-          </section>
-          <section>
-            <h5><i>03</i>Pay</h5>
-            <div className="jb-opt"><label><input type="checkbox" checked={f.hasSalary} onChange={() => set({ hasSalary: !f.hasSalary })} /> States a salary</label></div>
-          </section>
-          <section>
-            <h5><i>04</i>Freshness</h5>
-            {([['', 'Any time'], ['d', 'Last 24h'], ['w', 'This week'], ['m', 'This month']] as const).map(([k, label]) => (
-              <div className="jb-opt" key={k || 'any'}>
-                <label><input type="radio" name="jb-fresh" checked={f.fresh === k} onChange={() => set({ fresh: k })} /> {label}</label>
-              </div>
-            ))}
-          </section>
-          <button type="button" className="jb-rail-all" onClick={() => setSheetOpen(true)}>
-            All filters{activeCount > 0 ? ` · ${activeCount}` : ''}
-          </button>
-          <div className="jb-rail-close">
-            <div className="jb-rail-big">{all === null ? '·' : results.length.toLocaleString()}</div>
-            <div className="jb-rail-lab">roles in this view</div>
-          </div>
-        </aside>
-      )}
-      <div className={v2 ? 'jb-centercol' : undefined}>
 
       {pristine && !panelJob && featured}
 
@@ -530,8 +565,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           <div className={panelJob ? 'jb-splitwrap' : undefined}>
             <div className="jb-listcol">
               {pristine && panelJob ? featured : null}
+              {v2 && (
+                <div className="jb-thead" aria-hidden="true"><span /><span>Role</span><span>Salary</span><span>Posted</span><span /></div>
+              )}
               <ul className="job-list job-list-full">
-                {results.slice(0, shown).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} />)}
+                {results.slice(0, shown).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} v2={v2} />)}
               </ul>
               {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}
               {results.length > shown && (
@@ -540,7 +578,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
                 </button>
               )}
             </div>
-            {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} />}
+            {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} v2={v2} occName={titles[panelJob.occ]} pos={panelIdx >= 0 ? { i: panelIdx, n: results.length } : null} onStep={stepPanel} />}
           </div>
         </>
       )}

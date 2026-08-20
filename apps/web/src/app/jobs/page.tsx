@@ -29,21 +29,15 @@ export default function JobsHub() {
   const routeCount = routableSlugs().length;
 
   return (
-    <PageShell wide v2>
+    <PageShell wide v2 active="jobs">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Jobs</span></nav>
-        <div className="jb-head">
-          <div>
-            <h1 className="rt-h1">The job board, by skill.</h1>
-            <p className="rt-dek">
-              {`${total.toLocaleString()} live openings across ${occs.length} occupations, ${remoteN.toLocaleString()} fully remote. Each role is tagged to the skills that reach it and links out to apply at the source. Not sure what to search? Run the `}
-              <Link className="gl" href="/">instrument</Link>
-              {` and it will tell you which of these roles your skills already cover.`}
-            </p>
-          </div>
-        </div>
 
-        <JobsBrowse v2 fields={fields} titles={titles} search={search} featured={
+        <JobsBrowse v2 hero={
+          <header className="jb-hero">
+            <p className="jb-vmeta">{total.toLocaleString()} live roles &middot; {occs.length} occupations &middot; {remoteN.toLocaleString()} fully remote &middot; <Link className="gl" href="/">run the instrument</Link></p>
+            <h1 className="rt-h1">The job board, by skill.</h1>
+          </header>
+        } fields={fields} titles={titles} search={search} featured={
           featuredJobs().length >= 3 ? (
             <section key="featured" className="feat" aria-label="Featured roles">
               <div className="feat-head">

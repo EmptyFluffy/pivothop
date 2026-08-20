@@ -10,7 +10,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
-import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, Arrow45 } from './JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45 } from './JobCard';
 import { type Listing, loadListing } from './detail';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
 
@@ -19,7 +19,13 @@ import SkillStrip, { type SkillEntry } from './SkillStrip';
    company's board dies when the company kills it. */
 const DIRECT = new Set(['greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'employer']);
 
-export default function JobPanel({ job, onClose, glossary }: { job: Job; onClose: () => void; glossary?: SkillEntry[] | null }) {
+export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onStep }: {
+  job: Job; onClose: () => void; glossary?: SkillEntry[] | null;
+  v2?: boolean;                                  // lab inspector layout
+  occName?: string;                              // display title of the occupation
+  pos?: { i: number; n: number } | null;         // position within the result set
+  onStep?: (d: number) => void;                  // pager: swap to the neighbor listing
+}) {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loaded, setLoaded] = useState(false);
   const paneRef = useRef<HTMLElement>(null);
@@ -41,7 +47,10 @@ export default function JobPanel({ job, onClose, glossary }: { job: Job; onClose
       const el = paneRef.current;
       if (!el) return;
       const band = document.querySelector('.jb-stick');
-      const top = band ? Math.max(59, Math.round(band.getBoundingClientRect().height) + 59) : 133;
+      const nav = document.querySelector('.nav');
+      const top = el.closest('.v2t') && nav
+        ? Math.max(0, Math.round(nav.getBoundingClientRect().bottom))
+        : band ? Math.max(59, Math.round(band.getBoundingClientRect().height) + 59) : 133;
       el.style.setProperty('--jpane-top', `${top}px`);
       el.style.height = `${Math.max(320, window.innerHeight - Math.max(top, el.getBoundingClientRect().top))}px`;
     };
@@ -73,6 +82,127 @@ export default function JobPanel({ job, onClose, glossary }: { job: Job; onClose
   const remote = j.remote || /\bremote\b/i.test(j.location);
   const direct = DIRECT.has(j.source);
   const applyUrl = listing?.applyUrl ?? j.url ?? null;
+  const [tbg, tfg] = monoTint(j.company);
+
+  const skel = !loaded && (
+    <div className="jpane-skel" aria-hidden="true">
+      <span style={{ width: '42%' }} /><span style={{ width: '96%' }} /><span style={{ width: '88%' }} />
+      <span style={{ width: '93%' }} /><span style={{ width: '60%' }} />
+    </div>
+  );
+
+  const skillsBlock = listing && listing.skills.length > 0 && (() => {
+    /* the same strip as the listing page: marks, hover, and the definition
+       sheet on click; plain glossary links until the glossary json arrives
+       or for terms outside it */
+    const bySlug = new Map((glossary ?? []).map((e) => [e.slug, e]));
+    const entries = listing.skills
+      .map((s) => bySlug.get(s.href.split('#skill-')[1] ?? ''))
+      .filter((e): e is SkillEntry => !!e);
+    return (
+      <div className="jsheet-sec">
+        <h3>Skills in this posting</h3>
+        {entries.length === listing.skills.length ? (
+          <SkillStrip skills={entries} />
+        ) : (
+          <div className="jd-skillgrid">
+            {listing.skills.map((s) => (
+              <Link key={s.href} className="jd-skill" href={s.href}>{s.term}</Link>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  })();
+
+  const sectionsBlock = listing && listing.sections.length > 0 && (
+    <div className="jsheet-sec jsheet-desc">
+      <h3>The posting</h3>
+      {listing.sections.map((sec, i) => (
+        <div key={i}>
+          {sec.h && <h4>{sec.h}</h4>}
+          {sec.parts.map((part, k) =>
+            'ul' in part
+              ? <ul className="jd-ul" key={k}>{part.ul.map((li, x) => <li key={x}>{li}</li>)}</ul>
+              : 'h4' in part
+                ? <h4 key={k}>{part.h4}</h4>
+                : <p key={k}>{part.p}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+
+  const noneBlock = loaded && !listing?.sections.length && (
+    <p className="jpane-none">
+      This source publishes the posting text on its own site only, so the full
+      description is one click away at {j.company}.
+    </p>
+  );
+
+  const foot = (
+    <div className="jpane-foot">
+      {applyUrl && (
+        <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer" title={`Opens the original posting at ${j.company}`}>
+          Apply now {v2
+            ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+            : <Arrow45 size={22} />}
+        </a>
+      )}
+      <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} title="Routes into this role and similar listings">Full posting</Link>
+    </div>
+  );
+
+  if (v2) {
+    const agoTxt = agoLabel(j.posted);
+    return (
+      <aside className="jpane jpane-v2" ref={paneRef} aria-label={`${j.title} at ${j.company}`}>
+        <div className="jv-top">
+          <span className="jv-pos">{pos && pos.i >= 0 ? `${pos.i + 1} of ${pos.n.toLocaleString()}` : ' '}</span>
+          <span className="jv-pg">
+            {pos && pos.i >= 0 && onStep && (<>
+              <button type="button" aria-label="Previous listing" disabled={pos.i <= 0} onClick={() => onStep(-1)}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <button type="button" aria-label="Next listing" disabled={pos.i >= pos.n - 1} onClick={() => onStep(1)}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </>)}
+            <button type="button" aria-label="Close listing" onClick={onClose}>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            </button>
+          </span>
+        </div>
+        <div className="jpane-scroll" ref={scrollRef}>
+          <div className="jpane-body" key={j.id}>
+            <div className="jv-cohead">
+              {j.logo
+                ? <span className="jd-mark"><img src={j.logo} alt="" width={40} height={40} /></span>
+                : <span className="jd-mark jd-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(j.company)}</span>}
+              <span className="jv-coname">{j.company}</span>
+            </div>
+            <h2 className="jpane-title">{j.title}</h2>
+            <p className="jv-meta">
+              {j.location || 'Location unlisted'}{remote && !/remote/i.test(j.location || '') ? ' · Remote' : ''}{occName ? ` · ${occName}` : ''}
+              <br />posted <span suppressHydrationWarning>{agoTxt === 'Today' ? 'today' : agoTxt}</span>
+            </p>
+            {pay && <div className="jv-payg">{pay}</div>}
+            <p className="jv-blurb">
+              {occName ? `${occName} opening` : 'Opening'}
+              {direct ? ', indexed from the company’s own board.' : `, indexed from ${sourceName(j.source)}.`}
+              {listing && listing.skills.length > 0 ? ' The skills below are extracted from the posting text.' : ''}
+            </p>
+            <hr className="jv-rule" />
+            {skel}
+            {skillsBlock}
+            {sectionsBlock}
+            {noneBlock}
+          </div>
+        </div>
+        {foot}
+      </aside>
+    );
+  }
 
   return (
     <aside className="jpane" ref={paneRef} aria-label={`${j.title} at ${j.company}`}>
@@ -101,73 +231,15 @@ export default function JobPanel({ job, onClose, glossary }: { job: Job; onClose
             <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
           </div>
 
-          {!loaded && (
-            <div className="jpane-skel" aria-hidden="true">
-              <span style={{ width: '42%' }} /><span style={{ width: '96%' }} /><span style={{ width: '88%' }} />
-              <span style={{ width: '93%' }} /><span style={{ width: '60%' }} />
-            </div>
-          )}
-
-          {listing && listing.skills.length > 0 && (() => {
-            /* the same strip as the listing page: marks, hover, and the
-               definition sheet on click; plain glossary links until the
-               glossary json arrives or for terms outside it */
-            const bySlug = new Map((glossary ?? []).map((e) => [e.slug, e]));
-            const entries = listing.skills
-              .map((s) => bySlug.get(s.href.split('#skill-')[1] ?? ''))
-              .filter((e): e is SkillEntry => !!e);
-            return (
-              <div className="jsheet-sec">
-                <h3>Skills in this posting</h3>
-                {entries.length === listing.skills.length ? (
-                  <SkillStrip skills={entries} />
-                ) : (
-                  <div className="jd-skillgrid">
-                    {listing.skills.map((s) => (
-                      <Link key={s.href} className="jd-skill" href={s.href}>{s.term}</Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })()}
-
-          {listing && listing.sections.length > 0 && (
-            <div className="jsheet-sec jsheet-desc">
-              <h3>The posting</h3>
-              {listing.sections.map((sec, i) => (
-                <div key={i}>
-                  {sec.h && <h4>{sec.h}</h4>}
-                  {sec.parts.map((part, k) =>
-                    'ul' in part
-                      ? <ul className="jd-ul" key={k}>{part.ul.map((li, x) => <li key={x}>{li}</li>)}</ul>
-                      : 'h4' in part
-                        ? <h4 key={k}>{part.h4}</h4>
-                        : <p key={k}>{part.p}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-
-          {loaded && !listing?.sections.length && (
-            <p className="jpane-none">
-              This source publishes the posting text on its own site only, so the full
-              description is one click away at {j.company}.
-            </p>
-          )}
+          {skel}
+          {skillsBlock}
+          {sectionsBlock}
+          {noneBlock}
 
         </div>
       </div>
 
-      <div className="jpane-foot">
-        {applyUrl && (
-          <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer" title={`Opens the original posting at ${j.company}`}>
-            Apply now <Arrow45 size={22} />
-          </a>
-        )}
-        <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} title="Routes into this role and similar listings">Full posting</Link>
-      </div>
+      {foot}
     </aside>
   );
 }
