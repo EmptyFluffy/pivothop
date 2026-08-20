@@ -1,5 +1,8 @@
 import Link from 'next/link';
+import { Search, Menu, X, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, MapPin, SlidersHorizontal, Bookmark } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+
+export const Icons = { Search, Menu, X, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, MapPin, SlidersHorizontal, Bookmark };
 
 /* V2 primitives (docs/redesign-v2/04-design-system.md). Extraction rule per
    the brief: a component exists here only when at least two surfaces use it.
@@ -25,7 +28,7 @@ export function V2Nav({ active }: { active?: string }) {
           <a href="#" className="ul" style={{ fontSize: 14 }}>Sign in</a>
           <NavSearch />
           <button className="btn btn-primary" type="button">Run the instrument</button>
-          <button className="vburger" type="button" aria-label="Menu"><i /><i /><i /></button>
+          <button className="vburger" type="button" aria-label="Menu"><Menu size={22} strokeWidth={1.75} /></button>
         </span>
       </div>
       <div className="vnav-tabs">
@@ -66,15 +69,15 @@ export function RouteMeasure({ from, to, pct }: { from: string; to: string; pct:
 export function SearchUnit({ primary, secondary, action }: { primary: string; secondary?: string; action: React.ReactNode }) {
   return (
     <div className="search">
-      <span><input placeholder={primary} aria-label={primary} /></span>
-      {secondary && <span className="div loc-cell"><input placeholder={secondary} aria-label={secondary} /></span>}
+      <span className="cell-ico"><Search size={17} strokeWidth={1.75} /><input placeholder={primary} aria-label={primary} /></span>
+      {secondary && <span className="div loc-cell cell-ico"><MapPin size={16} strokeWidth={1.75} /><input placeholder={secondary} aria-label={secondary} /></span>}
       <span className="div vgo">{action}</span>
     </div>
   );
 }
 
 export function FilterToken({ children }: { children: React.ReactNode }) {
-  return <button className="tok" type="button">{children} <b>×</b></button>;
+  return <button className="tok" type="button">{children} <X size={11} strokeWidth={2} /></button>;
 }
 
 export function Pill({ kind, children }: { kind: 'have' | 'miss'; children: React.ReactNode }) {
@@ -93,7 +96,7 @@ export function Pager({ pages, current = 1 }: { pages: number; current?: number 
       {seq.map((n, i) => n === '…'
         ? <a key={`d${i}`} className="dots" href="#" aria-hidden="true">…</a>
         : <a key={n} href="#" className={n === current ? 'cur' : ''} aria-current={n === current ? 'page' : undefined}>{n}</a>)}
-      <a className="fwd" href="#" aria-label="Next page">→</a>
+      <a className="fwd" href="#" aria-label="Next page"><ArrowRight size={26} strokeWidth={1.75} /></a>
     </nav>
   );
 }
@@ -101,7 +104,7 @@ export function Pager({ pages, current = 1 }: { pages: number; current?: number 
 export function NavSearch() {
   return (
     <span className="vnav-search" role="button" tabIndex={0} aria-label="Search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16.5 16.5 21 21" /></svg>
+      <Search size={17} strokeWidth={1.75} />
       <kbd>⌘K</kbd>
     </span>
   );

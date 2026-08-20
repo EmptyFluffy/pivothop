@@ -1,6 +1,6 @@
 import { getJobs, getJobSkills, occTitle, jobCount } from '../../jobs/jobs-data';
 import { destRole } from '../../routes/routes-data';
-import { LabBar, V2Nav, RouteMeasure, Monogram, SearchUnit, FilterToken, Pill, Pager } from '../system';
+import { LabBar, V2Nav, RouteMeasure, Monogram, SearchUnit, FilterToken, Pill, Pager, Icons } from '../system';
 import Link from 'next/link';
 
 /* ANCHOR A · the V2 job board, workspace architecture (reference pass):
@@ -41,11 +41,11 @@ export default function LabJobs() {
         <aside className="vrail" aria-label="Filters">
           <div className="vrail-head"><h4>Filters</h4><a className="ul" href="#">Clear all</a></div>
           <section>
-            <h5>Profile</h5>
-            <p style={{ fontSize: 13, color: 'var(--text-2)' }}>Matching from<br /><b style={{ color: 'var(--text)' }}>Architect</b></p>
+            <h5><i>01</i>Profile</h5>
+            <p style={{ fontSize: 14.5, color: 'var(--text-2)' }}>Matching from<br /><b style={{ color: 'var(--text)', fontSize: 17 }}>Architect</b></p>
           </section>
           <section>
-            <h5>Occupation</h5>
+            <h5><i>02</i>Occupation</h5>
             {occs.map((o) => (
               <div className="opt" key={o}>
                 <label><input type="checkbox" defaultChecked readOnly /> {occTitle(o)}</label>
@@ -54,23 +54,27 @@ export default function LabJobs() {
             ))}
           </section>
           <section>
-            <h5>Remote</h5>
+            <h5><i>03</i>Remote</h5>
             {['Remote', 'Hybrid', 'On-site'].map((o) => (
               <div className="opt" key={o}><label><input type="checkbox" readOnly /> {o}</label></div>
             ))}
           </section>
           <section>
-            <h5>Freshness</h5>
+            <h5><i>04</i>Freshness</h5>
             {['Last 24h', 'This week', 'This month'].map((o) => (
               <div className="opt" key={o}><label><input type="radio" name="fr" readOnly /> {o}</label></div>
             ))}
           </section>
+          <div className="vrail-close">
+            <div className="big vnum">{occs.reduce((a, o) => a + jobCount(o), 0).toLocaleString()}</div>
+            <div className="lab">live roles in this view</div>
+          </div>
         </aside>
 
         <section className="vmain" aria-label="Results">
           <p className="vmeta vnum">{rows.length} roles · sorted by match</p>
           <h1 className="vtitle">The job board, by skill.</h1>
-          <SearchUnit primary="Role, company, or skill" secondary="Location" action={<button className="btn btn-ghost" type="button">Filters</button>} />
+          <SearchUnit primary="Role, company, or skill" secondary="Location" action={<button className="btn btn-ghost" type="button"><Icons.SlidersHorizontal size={15} strokeWidth={1.75} style={{ verticalAlign: '-2px', marginRight: 7 }} />Filters</button>} />
           <div className="tokens" style={{ marginBottom: 18 }}>
             <FilterToken>Remote only</FilterToken>
             <FilterToken>$50K–$200K</FilterToken>
@@ -99,7 +103,10 @@ export default function LabJobs() {
                 </div>
                 <div className="pay vnum">{pay(j.smin, j.smax)}</div>
                 <div className="age vnum">{ago(j.posted)}</div>
-                <div className="applycell"><button className="pillbtn" type="button">Apply</button></div>
+                <div className="applycell">
+                  <button className="vsave" type="button" aria-label="Save job"><Icons.Bookmark size={18} strokeWidth={1.75} /></button>
+                  <button className="pillbtn" type="button">Apply</button>
+                </div>
               </article>
             ))}
           </div>
@@ -110,9 +117,9 @@ export default function LabJobs() {
           <div className="vinspect-top">
             <span className="vnum">{selIdx + 1} of {rows.length}</span>
             <span className="pg">
-              <button type="button" aria-label="Previous">‹</button>
-              <button type="button" aria-label="Next">›</button>
-              <button type="button" aria-label="Close">×</button>
+              <button type="button" aria-label="Previous"><Icons.ChevronLeft size={17} strokeWidth={1.75} /></button>
+              <button type="button" aria-label="Next"><Icons.ChevronRight size={17} strokeWidth={1.75} /></button>
+              <button type="button" aria-label="Close"><Icons.X size={17} strokeWidth={1.75} /></button>
             </span>
           </div>
           <div className="vinspect-body">
@@ -143,9 +150,10 @@ export default function LabJobs() {
                 </ul>
               </>
             )}
-            <button className="apply" type="button">Apply now →</button>
+            <button className="apply" type="button">Apply now <Icons.ArrowRight size={16} strokeWidth={2} style={{ verticalAlign: '-3px' }} /></button>
+            <button className="savewide" type="button"><Icons.Bookmark size={16} strokeWidth={1.75} /> Save job</button>
             <p style={{ marginTop: 14 }}>
-              <a className="ul" href="#" style={{ fontSize: 13.5 }}>Tailor resume for this role →</a><br />
+              <a className="ul" href="#" style={{ fontSize: 13.5 }}>Tailor resume for this role <Icons.ArrowUpRight size={14} strokeWidth={2} style={{ verticalAlign: '-2px' }} /></a><br />
               <a className="ul" href="#" style={{ fontSize: 13.5, display: 'inline-block', marginTop: 8 }}>Why this match?</a>
             </p>
             {sel.match && <RouteMeasure from="Architect" to={occTitle(sel.occ)} pct={sel.match} />}
