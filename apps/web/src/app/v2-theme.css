@@ -843,10 +843,12 @@ html.vlight .v2t{ --v-gap:#B24E34; }
 .v2t .salp .rt-facts .v{ font-family:var(--sans),sans-serif; font-weight:650; letter-spacing:-.03em; }
 .v2t .salp .rt-facts>div:first-child .v{ font-size:clamp(40px,4.8vw,68px); line-height:1; }
 
-/* trend canvas: the paper instrument face, like the graph */
-.v2t .sal-chartwrap{ margin-top:30px; }
+/* trend canvas: naked on the page ground; the gridlines carry the frame */
+.v2t .sal-chartwrap{ margin:30px 0 44px; padding:0; background:none; background-image:none;
+  border-bottom:none; }
+.v2t .sal-chart-head{ margin-bottom:14px; }
 .v2t .sal-chart-head .lbl{ color:var(--v-text2); }
-.v2t .sal-canvas{ background:var(--v-surface); border:1px solid var(--v-border); border-radius:8px; }
+.v2t .sal-canvas{ background:transparent; border:none; border-radius:0; }
 .v2t .sal-chart-pending{ color:var(--v-text2); border:1px dashed var(--v-border2); border-radius:8px;
   padding:22px; }
 

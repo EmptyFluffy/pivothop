@@ -18,7 +18,7 @@ function readPal(canvas) {
     ink: v('--v-text', '#141414'),
     ink2: v('--v-text2', '#66646B'),
     rule: v('--v-border', '#E4E2DC'),
-    bg: v('--v-surface', '#F7F7F5'),
+    bg: v('--v-bg', '#FFFFFF'),
     value,
     tint: withAlpha(value, 0.10),
     tintFaint: withAlpha(value, 0.05),
@@ -93,7 +93,7 @@ export function initSalaryChart(canvas, data) {
   const Y = (v) => M.t + (1 - (v - lo) / (hi - lo || 1)) * (H - M.t - M.b);
   const clampN = (v, a, b) => Math.max(a, Math.min(b, v));
   const yearAtX = (px) => clampN(yMin + ((px - M.l) / (W - M.l - M.r || 1)) * (yMax - yMin), yMin, yMax);
-  const P = (key) => series.map((p) => ({ x: X(p.year), y: Y(p[key]) }));
+  const P = (key) => pts.map((p) => ({ x: X(p.year), y: Y(p[key]) }));
   function bandAt(yr) {
     if (yr <= pts[0].year) return pts[0];
     for (let i = 0; i < pts.length - 1; i++) {
@@ -148,50 +148,50 @@ export function initSalaryChart(canvas, data) {
     }
 
     const clip = M.l + (W - M.l - M.r) * k;
-    ctx.save();
-    ctx.beginPath(); ctx.rect(0, 0, clip, H); ctx.clip();
+    const lastX = series.length ? X(series[series.length - 1].year) : clip;
 
-    // p25-p75 band, drawn as one curved ribbon
-    if (series.length >= 2) {
-      ctx.fillStyle = pal.tint;
-      ctx.beginPath();
-      curveTo(ctx, P('p75'), true);
-      curveTo(ctx, P('p25').reverse(), false);
-      ctx.closePath(); ctx.fill();
-      ctx.strokeStyle = pal.edge; ctx.lineWidth = 1;
+    // One continuous curved ribbon over ALL points, live read included. The
+    // official years draw solid; past them the same curves continue dashed,
+    // so nothing on the chart is a polygon.
+    const seg = (x0, x1, dash, width, style, drawFn) => {
+      ctx.save();
+      ctx.beginPath(); ctx.rect(x0, 0, Math.max(0, x1 - x0), H); ctx.clip();
+      ctx.setLineDash(dash); ctx.lineWidth = width; ctx.strokeStyle = style;
+      drawFn();
+      ctx.restore();
+    };
+    if (pts.length >= 2) {
+      // the ribbon fill: solid tint through the official years, faint after
+      const ribbon = () => {
+        ctx.beginPath();
+        curveTo(ctx, P('p75'), true);
+        curveTo(ctx, P('p25').reverse(), false);
+        ctx.closePath(); ctx.fill();
+      };
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, Math.min(clip, lastX), H); ctx.clip();
+      ctx.fillStyle = pal.tint; ribbon(); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.rect(lastX, 0, Math.max(0, clip - lastX), H); ctx.clip();
+      ctx.fillStyle = pal.tintFaint; ribbon(); ctx.restore();
+      // band edges
       for (const key of ['p25', 'p75']) {
-        ctx.beginPath(); curveTo(ctx, P(key), true); ctx.stroke();
+        const edge = () => { ctx.beginPath(); curveTo(ctx, P(key), true); ctx.stroke(); };
+        seg(0, Math.min(clip, lastX), [], 1, pal.edge, edge);
+        seg(lastX, clip, [4, 4], 1, pal.edge, edge);
       }
+      // median
+      const med = () => { ctx.beginPath(); ctx.lineJoin = 'round'; curveTo(ctx, P('p50'), true); ctx.stroke(); };
+      seg(0, Math.min(clip, lastX), [], 2.25, pal.value, med);
+      seg(lastX, clip, [4, 4], 1.5, pal.bridge, med);
     }
-
-    // p50 median line
-    ctx.strokeStyle = pal.value; ctx.lineWidth = 2.25; ctx.lineJoin = 'round';
-    ctx.beginPath(); curveTo(ctx, P('p50'), true); ctx.stroke();
+    ctx.setLineDash([]);
     ctx.fillStyle = pal.value;
-    series.forEach((p) => { ctx.beginPath(); ctx.arc(X(p.year), Y(p.p50), 2.6, 0, 6.29); ctx.fill(); });
+    series.forEach((p) => {
+      if (X(p.year) <= clip) { ctx.beginPath(); ctx.arc(X(p.year), Y(p.p50), 2.6, 0, 6.29); ctx.fill(); }
+    });
 
-    ctx.restore();
-
-    // current live point, drawn after the clip so it always shows
+    // the live read: dot, whisker, tag
     if (current && k >= 0.98) {
       const x = X(current.year), y = Y(current.p50);
-      if (series.length) {
-        const last = series[series.length - 1], lx = X(last.year);
-        // the whole band bridges from the last official year to the live read,
-        // faded and dashed: official annual data through here, posting read now
-        ctx.fillStyle = pal.tintFaint;
-        ctx.beginPath();
-        ctx.moveTo(lx, Y(last.p75)); ctx.lineTo(x, Y(current.p75));
-        ctx.lineTo(x, Y(current.p25)); ctx.lineTo(lx, Y(last.p25));
-        ctx.closePath(); ctx.fill();
-        ctx.setLineDash([4, 4]);
-        ctx.strokeStyle = pal.edge; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(lx, Y(last.p25)); ctx.lineTo(x, Y(current.p25)); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(lx, Y(last.p75)); ctx.lineTo(x, Y(current.p75)); ctx.stroke();
-        ctx.strokeStyle = pal.bridge; ctx.lineWidth = 1.5;
-        ctx.beginPath(); ctx.moveTo(lx, Y(last.p50)); ctx.lineTo(x, y); ctx.stroke();
-        ctx.setLineDash([]);
-      }
       ctx.strokeStyle = pal.ink; ctx.lineWidth = 1; ctx.setLineDash([2, 3]); ctx.globalAlpha = 0.6;
       ctx.beginPath(); ctx.moveTo(x, Y(current.p25)); ctx.lineTo(x, Y(current.p75)); ctx.stroke();
       ctx.setLineDash([]); ctx.globalAlpha = 1;
