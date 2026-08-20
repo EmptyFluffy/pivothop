@@ -137,7 +137,7 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
     const moreN = total - SKILL_LIMIT;
     return (
       <div className="jsheet-sec">
-        <h3>Skills in this posting</h3>
+        <h3>Skills</h3>
         {full ? (
           <SkillStrip skills={skillsOpen ? entries : entries.slice(0, SKILL_LIMIT)} />
         ) : (
@@ -156,9 +156,9 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
     );
   })();
 
-  const sectionsBlock = listing && listing.sections.length > 0 && (
+  const makeSections = (title: string) => listing && listing.sections.length > 0 && (
     <div className="jsheet-sec jsheet-desc">
-      <h3>The posting</h3>
+      <h3>{title}</h3>
       {listing.sections.map((sec, i) => (
         <div key={i}>
           {sec.h && <h4>{sec.h}</h4>}
@@ -236,7 +236,7 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
             <hr className="jv-rule" />
             {skel}
             {skillsBlockV2}
-            {sectionsBlock}
+            {makeSections('Posting')}
             {noneBlock}
           </div>
         </div>
@@ -274,7 +274,7 @@ export default function JobPanel({ job, onClose, glossary, v2, occName, pos, onS
 
           {skel}
           {skillsBlock}
-          {sectionsBlock}
+          {makeSections('The posting')}
           {noneBlock}
 
         </div>

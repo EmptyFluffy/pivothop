@@ -316,7 +316,8 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 .v2t .job-card.sel{ background:var(--v-bg2); }
 .v2t .job-card.sel::before{ content:""; position:absolute; left:0; top:0; bottom:-1px; width:2px;
   background:var(--v-value); }
-.v2t .job-logo{ width:34px; height:34px; border-radius:6px; overflow:hidden; }
+.v2t .job-logo{ width:34px; height:34px; border-radius:6px; overflow:hidden;
+  background:transparent; border:none; box-shadow:none; }
 .v2t .job-logo img{ width:34px; height:34px; border-radius:6px; object-fit:contain; }
 .v2t .job-mono{ width:34px; height:34px; border-radius:6px; display:flex; align-items:center;
   justify-content:center; font-weight:600; font-size:15px; }
@@ -358,7 +359,7 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 .v2t .jv-pos{ font-family:var(--mono),monospace; letter-spacing:-.01em; }
 .v2t .jv-cohead{ display:flex; gap:12px; align-items:center; margin:0 0 10px; }
 .v2t .jv-cohead .jd-mark{ width:40px; height:40px; border-radius:6px; display:flex; align-items:center;
-  justify-content:center; overflow:hidden; border:1px solid color-mix(in srgb, #000000 6%, transparent); }
+  justify-content:center; overflow:hidden; border:none; background:transparent; box-shadow:none; }
 .v2t .jv-cohead .jd-mark img{ width:40px; height:40px; object-fit:contain; }
 .v2t .jv-cohead .jd-mono{ font-weight:650; font-size:14px; }
 .v2t .jv-coname{ font-size:17px; font-weight:600; letter-spacing:-.01em; color:var(--v-text); }
@@ -371,8 +372,15 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 .v2t .jv-skmore{ display:block; background:none; border:none; cursor:pointer; padding:0; margin-top:12px;
   font:inherit; font-size:13px; font-weight:550; color:var(--v-value); }
 .v2t .jv-skmore:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px; }
-.v2t .jpane-v2 .jsheet-sec h3{ font-family:var(--mono),monospace; font-size:10px; font-weight:400;
-  letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .jpane-v2 .jsheet-sec h3{ font-family:var(--sans),sans-serif; font-size:14px; font-weight:650;
+  letter-spacing:-.01em; text-transform:none; color:var(--v-text); }
+
+/* skill pills: bolder ink outline, the words face, marks in ink */
+.v2t .jpane .jd-skill{ font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:550;
+  color:var(--v-text); border:1.5px solid var(--v-text); background:transparent; padding:8px 14px; }
+.v2t .jpane .jd-skill svg{ color:var(--v-text); }
+.v2t .jpane .jd-skill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .jpane .jd-skill:hover svg{ color:var(--v-bg); }
 .v2t .jpane-v2 .jpane-foot{ display:block; border-top:1px solid var(--v-border);
   background:var(--v-bg2); padding:13px 22px 14px; }
 .v2t .jpane-v2 .jpane-foot .jsheet-apply{ width:100%; margin:0 0 10px; }
