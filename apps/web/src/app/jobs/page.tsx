@@ -29,7 +29,7 @@ export default function JobsHub() {
   const routeCount = routableSlugs().length;
 
   return (
-    <PageShell wide>
+    <PageShell wide v2>
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Jobs</span></nav>
         <div className="jb-head">

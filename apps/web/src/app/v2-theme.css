@@ -1,0 +1,149 @@
+/* ============================================================================
+   V2 THEME LAYER (docs/redesign-v2/05). Presentation only: restyles the
+   existing, unchanged board markup under the .v2t wrapper. No selector here
+   may act outside .v2t. Dark is the default world (black, gold #F0B43C);
+   html.vlight flips to the light world (white, violet #6219FF). Both sets
+   were measured from the reference sites (04-design-system.md).
+   ============================================================================ */
+.v2t{
+  --v-bg:#000000; --v-surface:#111110; --v-bg2:#1A1917;
+  --v-text:#F5F3EE; --v-text2:#979289;
+  --v-border:#232220; --v-border2:#403D36;
+  --v-value:#F0B43C; --v-fill:#F0B43C; --v-fill-ink:#151310;
+  --v-pos:#8FBF9A; --v-gap:#E08762;
+  background:var(--v-bg); color:var(--v-text);
+}
+html.vlight .v2t{
+  --v-bg:#FFFFFF; --v-surface:#F7F7F5; --v-bg2:#F1EDFF;
+  --v-text:#141414; --v-text2:#66646B;
+  --v-border:#E8E7E3; --v-border2:#C9C7C1;
+  --v-value:#6219FF; --v-fill:#6219FF; --v-fill-ink:#FFFFFF;
+  --v-pos:#2F7A47; --v-gap:#C4573A;
+}
+.v2t, .v2t .main{ background:var(--v-bg); }
+.v2t{ border-color:var(--v-border); }
+
+/* ---- the mode toggle ---- */
+.v2t .v2-themetoggle{ position:fixed; right:18px; bottom:18px; z-index:120;
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em; cursor:pointer;
+  background:var(--v-surface); color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent);
+  border-radius:999px; padding:9px 16px; }
+.v2t .v2-themetoggle:hover{ background:var(--v-text); color:var(--v-bg); }
+
+/* ---- chrome: the real nav and footer read the tokens ---- */
+.v2t .nav{ background:var(--v-bg); border-color:var(--v-border2); }
+.v2t .nav .brand .mark, .v2t .nav .brand .wm{ color:var(--v-text); }
+.v2t .navlink{ color:var(--v-text); }
+.v2t .navlink:hover, .v2t .navlink.on{ color:var(--v-value); }
+.v2t .nav .cta{ color:var(--v-text); }
+.v2t .nav .cta:hover{ color:var(--v-value); text-decoration-color:var(--v-value); }
+.v2t .nav-searchbtn, .v2t .nav-searchbtn-m{ color:var(--v-text); }
+.v2t .nav-searchbtn kbd, .v2t kbd{ background:var(--v-bg2); color:var(--v-text2); border-color:var(--v-border2); }
+.v2t .foot{ background:var(--v-bg); color:var(--v-text2); border-color:var(--v-border2); }
+.v2t .foot a{ color:var(--v-text2); }
+.v2t .foot a:hover{ color:var(--v-text); }
+.v2t .foot .brand .mark, .v2t .foot .brand .wm{ color:var(--v-text); }
+
+/* ---- page head ---- */
+.v2t .rt-crumbs, .v2t .rt-crumbs a{ color:var(--v-text2); }
+.v2t .jb-head{ border-color:var(--v-border2); }
+.v2t .rt-h1{ color:var(--v-text); letter-spacing:-.03em; }
+.v2t .rt-dek{ color:var(--v-text2); }
+
+/* ---- sticky band + search ---- */
+.v2t .jb-stick{ background:var(--v-bg); border-color:var(--v-border2); }
+.v2t .jb-searchband{ background:var(--v-bg); border-color:var(--v-border2); }
+.v2t .jb-search{ color:var(--v-text); }
+.v2t .jb-search::placeholder{ color:var(--v-text2); }
+.v2t .jb-ico{ color:var(--v-text2); }
+.v2t .jb-fltbtn{ color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:999px; }
+.v2t .jb-fltbtn:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .jb-fltbtn.on{ border-color:var(--v-value); }
+.v2t .jb-fltn{ background:var(--v-value); color:var(--v-fill-ink); }
+.v2t .jb-showall{ color:var(--v-text); }
+
+/* ---- typeahead ---- */
+.v2t .jb-ta{ background:var(--v-surface); border-color:var(--v-border2); box-shadow:0 18px 36px rgba(0,0,0,.45); }
+.v2t .jb-ta-item{ color:var(--v-text); border-color:var(--v-border); }
+.v2t .jb-ta-item.hi{ background:var(--v-bg2); }
+.v2t .jb-ta-m{ color:var(--v-text2); }
+.v2t .jb-ta-sub, .v2t .jb-ta-via{ color:var(--v-text2); }
+
+/* ---- pills / active filters ---- */
+.v2t .jb-pill{ font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--v-text); border:1px solid color-mix(in srgb, var(--v-text) 28%, transparent); border-radius:999px; background:none; }
+.v2t .jb-pill:hover{ background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-pill-geo{ border-color:color-mix(in srgb, var(--v-value) 60%, transparent); color:var(--v-value); }
+.v2t .jb-geo-x{ color:var(--v-text2); }
+.v2t .jb-clear{ color:var(--v-text2); }
+
+/* ---- featured strip: from flat blue to a bordered statement ---- */
+.v2t .feat{ background:var(--v-surface); border-top:1px solid var(--v-border2); border-bottom:1px solid var(--v-border2); color:var(--v-text); }
+.v2t .feat-cap{ color:var(--v-value); }
+.v2t .feat-sub{ color:var(--v-text2); }
+.v2t .feat-row{ border-color:var(--v-border); }
+.v2t .feat-row:hover{ background:var(--v-bg2); }
+.v2t .feat-i{ color:var(--v-text2); }
+.v2t .feat-t{ color:var(--v-text); }
+.v2t .feat-co, .v2t .feat-meta{ color:var(--v-text2); }
+.v2t .feat-pay{ color:var(--v-value); }
+.v2t .feat-arrow{ color:var(--v-text); }
+.v2t .feat-row:hover .feat-t, .v2t .feat-row:hover .feat-co, .v2t .feat-row:hover .feat-meta{ color:var(--v-text); }
+.v2t .feat-row:hover .feat-pay, .v2t .feat-row:hover .feat-i, .v2t .feat-row:hover .feat-arrow{ color:var(--v-value); }
+
+/* ---- the rows ---- */
+.v2t .job-list{ border-color:var(--v-border2); }
+.v2t .job-card{ border-color:var(--v-border); }
+.v2t .job-card:hover{ background:var(--v-surface); }
+.v2t .job-card.sel{ background:var(--v-bg2); box-shadow:inset 3px 0 0 var(--v-value); }
+.v2t .job-t{ color:var(--v-text); font-size:18.5px; letter-spacing:-.015em; }
+.v2t .job-card:hover .job-t{ color:var(--v-value); }
+.v2t .job-co{ color:var(--v-text2); }
+.v2t .job-loc{ color:var(--v-text2); }
+.v2t .job-pay{ color:var(--v-value); font-weight:600; }
+.v2t .job-m{ color:var(--v-text2); }
+.v2t .job-tag{ border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); color:var(--v-text); background:none; border-radius:999px; }
+.v2t .job-tag-hire{ border-color:color-mix(in srgb, var(--v-value) 70%, transparent); color:var(--v-value); }
+.v2t .job-mono{ background:var(--v-bg2); color:var(--v-text); border:1px solid var(--v-border2); }
+.v2t .job-logo img{ background:#fff; border-radius:7px; }
+.v2t .job-arrow{ color:var(--v-text2); }
+.v2t .job-card:hover .job-arrow{ color:var(--v-value); }
+.v2t .jb-more{ font:inherit; font-size:13.5px; color:var(--v-text); background:none;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:999px; }
+.v2t .jb-more:hover{ background:var(--v-text); color:var(--v-bg); }
+.v2t .rt-note{ color:var(--v-text2); }
+
+/* ---- split pane inspector ---- */
+.v2t .jpane{ background:var(--v-surface); border-color:var(--v-border2); }
+.v2t .jpane-title{ color:var(--v-text); }
+.v2t .jpane-co, .v2t .jpane-prov, .v2t .jpane-none, .v2t .jpane-note{ color:var(--v-text2); }
+.v2t .jpane-x{ color:var(--v-text2); } .v2t .jpane-x:hover{ color:var(--v-text); }
+.v2t .jsheet-facts div{ background:var(--v-bg2); border-color:var(--v-border); }
+.v2t .jsheet-facts .v{ color:var(--v-text); }
+.v2t .jsheet-facts .k{ color:var(--v-text2); }
+.v2t .jsheet-sec h3, .v2t .jsheet-desc h4{ color:var(--v-text); }
+.v2t .jsheet-desc p, .v2t .jsheet-desc li{ color:var(--v-text2); }
+.v2t .jd-skill{ color:var(--v-text); border-color:color-mix(in srgb, var(--v-text) 30%, transparent); background:none; border-radius:999px; }
+.v2t .jd-skill:hover{ background:var(--v-text); color:var(--v-bg); }
+.v2t .jpane-foot{ background:var(--v-surface); border-color:var(--v-border2); }
+.v2t .rt-go.jsheet-apply, .v2t .jpane-foot .rt-go{ background:var(--v-fill); color:var(--v-fill-ink); border-radius:999px; }
+.v2t .rt-go.jsheet-apply:hover{ filter:brightness(1.08); background:var(--v-fill); }
+.v2t .jpane-ghost{ color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:999px; }
+.v2t .jpane-ghost:hover{ background:var(--v-text); color:var(--v-bg); }
+
+/* ---- mobile sheet ---- */
+.v2t .jsheet{ background:var(--v-bg); color:var(--v-text); }
+.v2t .jsheet-bar{ background:var(--v-border2); }
+.v2t .jsheet-x{ color:var(--v-text2); }
+.v2t .jsheet-title{ color:var(--v-text); }
+.v2t .jsheet-co, .v2t .jsheet-src{ color:var(--v-text2); }
+.v2t .jsheet-foot{ background:var(--v-bg); border-color:var(--v-border2); }
+
+/* ---- filter sheet modal ---- */
+.v2t .flt-sh, .v2t .sksheet{ background:var(--v-bg); color:var(--v-text); border-color:var(--v-border2); }
+.v2t .flt-sh h3, .v2t .sksheet h3{ color:var(--v-text); }
+.v2t .flt-sh label, .v2t .flt-sh button{ color:var(--v-text); }
+.v2t .veil{ background:rgba(0,0,0,.6); }
+
+/* light-mode shadow softening */
+html.vlight .v2t .jb-ta{ box-shadow:0 18px 36px rgba(20,20,20,.12); }

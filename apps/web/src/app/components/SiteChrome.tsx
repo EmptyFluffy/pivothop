@@ -1,3 +1,5 @@
+import { THEME_BOOTSTRAP, V2ThemeToggle } from './V2Theme';
+import '../v2-theme.css';
 import Link from 'next/link';
 import SwissBanner from './SwissBanner';
 import SearchOverlay from './SearchOverlay';
@@ -100,15 +102,20 @@ export function SiteFooter() {
   );
 }
 
-export function PageShell({ children, active, wide }: { children: React.ReactNode; active?: 'about' | 'employers'; wide?: boolean }) {
+export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers'; wide?: boolean; v2?: boolean }) {
+  /* v2: the redesign theme layer (docs/redesign-v2/05). Adds the namespaced
+     wrapper class, the no-flash theme bootstrap, and the mode toggle. The
+     stylesheet only acts under .v2t, so non-opted templates are untouched. */
   return (
-    <div className={wide ? 'shell shell-wide' : 'shell'}>
+    <div className={`${wide ? 'shell shell-wide' : 'shell'}${v2 ? ' v2t' : ''}`}>
+      {v2 && <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />}
       <div className="main">
         <SwissBanner />
         <SearchOverlay />
         <LicenseSheet />
         <SiteNav active={active} />
         <MobileNav />
+        {v2 && <V2ThemeToggle />}
         {children}
         <SiteFooter />
       </div>
