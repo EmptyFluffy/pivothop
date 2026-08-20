@@ -2,6 +2,23 @@
 
 *Extracted 2026-08-20 after anchor approval ("too cold, lacks life; as a first step it works"), which is why warmth is a token decision here rather than a later patch. Everything lives in `apps/web/src/app/design-lab/` (`v2.css` + `system.tsx`) until migration begins.*
 
+## The dark pass (creativeboom.com/jobs, measured 2026-08-20)
+
+Measured, not eyeballed: Creative Boom's site body is white with **Roobert**
+(Displaay) at 60px/500 for H1s, and their new jobs board is a **pure black
+`#000` statement section** inside the light site. Row anatomy from their board:
+huge "Title at Company" line with the connective in grey, one loud color
+(gold) reserved for salary, quiet hairlines, and outlined pill Apply actions.
+The class of design-led boards (It's Nice That, If You Could) shares the
+pattern: type does the layout, chrome stays silent, one color carries value.
+
+Applied here: black field, `--amber #F0B43C` replaces cobalt as the value
+color (salary, match, measure, active dot, the one filled Apply), pill
+outlines for actions, 23px row titles with the grey "at", and the warmth now
+lives in the monogram tints against black. The light tokens below are kept as
+the documented alternate; CB itself proves the hybrid (dark board sections
+inside a light editorial site) is a legitimate end-state to choose later.
+
 ## Tokens
 
 | Token | Value | Note |

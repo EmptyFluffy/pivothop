@@ -99,8 +99,7 @@ export default function LabJobs() {
               <article className={`row${j.id === sel.j.id ? ' vsel' : ''}`} key={j.id}>
                 <Monogram name={j.company} />
                 <div>
-                  <div className="co">{j.company}</div>
-                  <div className="ti"><a className="ul" href="#">{j.title}</a></div>
+                  <div className="ti"><a className="ul" href="#">{j.title}</a> <span className="at">at {j.company}</span></div>
                   <div className="loc">{j.location || 'Location unlisted'}{j.remote ? ' · Remote' : ''}</div>
                   <div className="skline">
                     {skills.length > 0 && (
@@ -112,6 +111,7 @@ export default function LabJobs() {
                 <div className={`match vnum${(match ?? 0) >= 60 ? ' vhi' : ''}`}>{match ? `${match}%` : '·'}</div>
                 <div className="pay vnum">{pay(j.smin, j.smax)}</div>
                 <div className="age vnum">{ago(j.posted)}</div>
+                <div className="applycell"><button className="pillbtn" type="button">Apply</button></div>
               </article>
             ))}
           </div>
