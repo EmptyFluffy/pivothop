@@ -55,19 +55,15 @@ export default function JobsHub() {
         <section className="empband" aria-label="For employers">
           <div className="eb-copy">
             <span className="lbl eb-eyebrow">For employers</span>
-            <h2>The applicants you never see<br /><span className="eb-dim">are already measuring your role.</span></h2>
-            <p>
-              Every listing here sits on the skill graph. Candidates arrive from adjacent professions with the
-              gap itemized before you ever talk to them. Post a role and it is shown first to the people whose
-              skills already cover it.
-            </p>
+            <h2 className="eb-h2"><Link className="eb-post" href="/employers">Post a job</Link></h2>
+            <p className="lbl eb-half">Launch pricing, half off</p>
+            <p className="eb-lede">The applicants you never see are already measuring your role.</p>
             <div className="eb-stats">
               <div><b>{total.toLocaleString()}</b><span className="lbl">live roles</span></div>
               <div><b>{occs.length}</b><span className="lbl">occupations</span></div>
               <div><b>{routeCount}</b><span className="lbl">measured routes in</span></div>
             </div>
           </div>
-          <Link className="eb-cta" href="/employers">Post a job<span className="eb-sub">Launch pricing, half off</span></Link>
         </section>
 
         <section className="rt-sec jb-byocc">
