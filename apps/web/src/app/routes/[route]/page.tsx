@@ -9,7 +9,7 @@ import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks, r
 import { coverableSlugs, getSalary, usBand, fmt } from '../../salary/salary-data';
 import { jobCount } from '../../jobs/jobs-data';
 import JobsList from '../../jobs/JobsList';
-import RouteInstrument from '../RouteInstrument';
+import RouteCloud from '../RouteCloud';
 import { pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
 
@@ -111,8 +111,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           </Link>
         )}
 
-        <RouteInstrument origin={def.origin} focus={def.dest} />
-        <p className="rt-hint lbl">The full instrument, preloaded to this route &middot; click any node to compare &middot; double-click to recenter</p>
+        <RouteCloud origin={def.origin} focus={def.dest} />
 
         <section className="rt-sec">
           <h2>The judgment call</h2>
@@ -387,6 +386,8 @@ function OriginPage({ origin }: { origin: string }) {
           {om.separations?.transfer != null && <div><span className="v">{om.separations.transfer}%</span><span className="k">Switch occupations yearly</span></div>}
           {gated > 0 && <div><span className="v">{gated}</span><span className="k">Routes with a license gate</span></div>}
         </div>
+
+        <RouteCloud origin={origin} />
 
         <section className="rt-sec">
           <h2>The routes, ranked</h2>
