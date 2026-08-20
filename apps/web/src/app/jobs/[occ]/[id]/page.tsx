@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, getJobGates, skillDisplayName } from '../../jobs-data';
-import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard } from '../../JobCard';
 import SkillStrip from '../../SkillStrip';
 import BenefitStrip from '../../BenefitStrip';
 import { gateRows } from '../../gates';
 import { benefitEntries } from '../../benefit-entries';
 import { skillEntries } from '../../skill-entries';
-import { coverableSlugs } from '../../../salary/salary-data';
+import { coverableSlugs, getSalary, usBand, fmtk } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, hasOriginPage, originRoles } from '../../../routes/routes-data';
 import { jobCount } from '../../jobs-data';
 import { SITE_EMAIL, article, originAnchors, pickAnchor } from '../../../../lib/site';
@@ -84,6 +84,9 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   // More of the same role. The obvious next click on any board, and the moment
   // of highest intent — one listing is rarely the right one.
   const siblings = getJobs(occ).filter((s) => s.id !== id).slice(0, 5);
+  // The occupation's own measured median, so a posting that states no pay still
+  // tells a reader what the role goes for, and links to the full salary page.
+  const occMedian = hasSalary ? (usBand(getSalary(occ)!)?.p50 ?? null) : null;
   // Where these skills also reach. The differentiated half: every other board
   // shows more of the same title, we can show adjacent occupations with the
   // readiness attached. Gated on a live board so no one lands on an empty page.
@@ -117,6 +120,12 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <div><span className="v">{j.remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
           {date && <div><span className="v" suppressHydrationWarning>{agoLabel(j.posted)}</span><span className="k">Posted · {date}</span></div>}
           <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
+          {occMedian != null && (
+            <div>
+              <span className="v"><Link href={`/salary/${occ}`}>{fmtk(occMedian)}</Link></span>
+              <span className="k">{tl} median</span>
+            </div>
+          )}
         </div>
 
         <div className="jd-applyrow">
@@ -192,13 +201,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         {siblings.length > 0 && (
           <section className="rt-sec">
             <h2>More {tl} roles</h2>
-            <ul className="rt-rel">
-              {siblings.map((s) => (
-                <li key={s.id}>
-                  <Link href={`/jobs/${occ}/${s.id}`}>{s.title}</Link>
-                  <span className="lbl">{s.company}{s.location ? ` · ${s.location}` : ''}</span>
-                </li>
-              ))}
+            <ul className="job-list job-list-full">
+              {siblings.map((s) => <JobCard key={s.id} j={s} v2 />)}
             </ul>
           </section>
         )}

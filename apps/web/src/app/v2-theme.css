@@ -840,9 +840,9 @@ html.vlight .v2t{ --v-gap:#B24E34; }
 
 /* the headline number: first fact giant, the rest hold the smaller register.
    On the salary page the figures take the words face per review. */
-.v2t .salp .rt-facts{ align-items:flex-end; }
-.v2t .salp .rt-facts .v{ font-family:var(--sans),sans-serif; font-weight:650; letter-spacing:-.03em; }
-.v2t .salp .rt-facts>div:first-child .v{ font-size:clamp(40px,4.8vw,68px); line-height:1; }
+.v2t .sal-facts-wrap .rt-facts{ align-items:flex-end; }
+.v2t .sal-facts-wrap .rt-facts .v{ font-family:var(--sans),sans-serif; font-weight:650; letter-spacing:-.03em; }
+.v2t .sal-facts-wrap .rt-facts>div:first-child .v{ font-size:clamp(40px,4.8vw,68px); line-height:1; }
 
 /* trend canvas: naked on the page ground; the gridlines carry the frame */
 .v2t .sal-chartwrap{ margin:30px 0 44px; padding:0; background:none; background-image:none;
@@ -977,3 +977,9 @@ html.vlight .v2t{ --v-gap:#B24E34; }
   .v2t .rtcloud-t{ position:static; transform:none; }
   .v2t .rtcloud-t .pct{ position:static; transform:none; margin-left:6px; }
 }
+
+/* the median cell links to the salary page and keeps the band's register */
+.v2t .rt-facts .v a{ color:inherit; text-decoration:none; border-bottom:1.5px solid color-mix(in srgb, var(--v-value) 45%, transparent); }
+.v2t .rt-facts .v a:hover{ border-bottom-color:var(--v-value); }
+/* the sibling board rows sit flush inside the posting's column */
+.v2t .rtp:has(.jd-head) .job-list-full{ margin:0; }
