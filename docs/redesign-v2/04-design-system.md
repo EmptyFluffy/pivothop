@@ -6,11 +6,12 @@
 
 | Token | Value | Note |
 |---|---|---|
-| `--bg` | `#F7F4ED` | warm cream, warmed from the first pass's `#F8F7F3` |
-| `--surface` | `#FFFEFB` | warm white |
+| `--bg` | `#FDFCF9` | near-white with a warm hair; the creativeboom.com pass (their body measures #FFFFFF with a #FBF7EF cream accent surface) |
+| `--surface` | `#FFFFFF` | pure white |
+| `--bg-2` | `#FBF7EF` | the measured Creative Boom cream, demoted to supporting surface: selection fill, hovers |
 | `--text` | `#1A1712` | warm near-black |
 | `--text-2` | `#6B665B` | secondary |
-| `--border` / `--border-strong` | `#E1DBCC` / `#B9B1A0` | rules and controls |
+| `--border` / `--border-strong` | `#E9E3D6` / `#C6BFAE` | rules and controls |
 | `--accent` | `#234BFF` | ONE accent: active nav, match emphasis, selection marker, measure tick, brand-value links |
 | `--pos` / `--gap` / `--amber` | `#3D7A50` / `#C4573A` / `#B07C24` | semantic only: overlap, gap, caution |
 | spacing | 4 · 8 · 16 · 24 · 32 · 48 · 64 | `--s1..--s7` |

@@ -5,9 +5,9 @@
    next to them. 90% disciplined product design, 10% signature.
    ============================================================ */
 .v2{
-  --bg:#F7F4ED; --surface:#FFFEFB;
+  --bg:#FDFCF9; --surface:#FFFFFF; --bg-2:#FBF7EF;
   --text:#1A1712; --text-2:#6B665B;
-  --border:#E1DBCC; --border-strong:#B9B1A0;
+  --border:#E9E3D6; --border-strong:#C6BFAE;
   --accent:#234BFF;
   --pos:#3D7A50; --gap:#C4573A; --amber:#B07C24;
   --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:32px; --s6:48px; --s7:64px;
@@ -108,8 +108,8 @@
   align-items:baseline; padding:14px 10px 15px; border-bottom:1px solid var(--border);
   position:relative; cursor:pointer; transition:background var(--dur) var(--ease);
 }
-.v2 .row:hover{ background:#FFFDF6; }
-.v2 .row.vsel{ background:var(--surface); }
+.v2 .row:hover{ background:#FDFAF3; }
+.v2 .row.vsel{ background:var(--bg-2); }
 .v2 .row.vsel::before{ content:""; position:absolute; left:0; top:0; bottom:-1px; width:2px; background:var(--accent); }
 .v2 .row .co{ font-size:11.5px; color:var(--text-2); letter-spacing:.02em; }
 .v2 .row .ti{ font-size:15.5px; font-weight:600; letter-spacing:-.012em; margin:1px 0 2px; }
@@ -190,7 +190,10 @@
    its scroll. Class names v-prefixed and audited vs globals.
    ============================================================ */
 .v2 .vapp{ display:grid; grid-template-columns:248px minmax(0,1fr) 356px; height:calc(100vh - 57px - 29px); background:var(--bg); }
-.v2 .vapp > *{ overflow-y:auto; min-height:0; }
+.v2 .vapp > *{ overflow-y:auto; min-height:0; scrollbar-width:none; }
+.v2 .vapp > *::-webkit-scrollbar{ display:none; }
+.v2 .vinspect-body{ scrollbar-width:none; }
+.v2 .vinspect-body::-webkit-scrollbar{ display:none; }
 .v2 .vrail{ border-right:1px solid var(--border); padding:20px 20px 32px; }
 .v2 .vmain{ padding:18px 32px 48px; }
 .v2 .vinspect{ border-left:1px solid var(--border); background:var(--surface); padding:0; display:flex; flex-direction:column; }
@@ -215,7 +218,7 @@
 .v2 .vthead .vm::before{ content:""; position:absolute; left:-9px; top:4px; width:4px; height:4px; border-radius:50%; background:var(--accent); }
 .v2 .vrows2 .row{ grid-template-columns:42px minmax(0,1fr) 52px 110px 56px; }
 .v2 .vrows2 .row{ border-bottom:1px solid var(--border); padding:16px 10px; }
-.v2 .vrows2 .row.vsel{ background:var(--surface); }
+.v2 .vrows2 .row.vsel{ background:var(--bg-2); }
 .v2 .skline{ display:flex; gap:14px; flex-wrap:wrap; align-items:baseline; margin-top:7px; }
 .v2 .skline .vsk{ margin-top:0; }
 .v2 .skline .gapline{ margin-top:0; }
