@@ -14,7 +14,7 @@ export type CareerFacts = {
   liveOpenings: number;
   remoteSharePct: number;
   postingsRead: number | null;
-  salary: { p25: number; p50: number; p75: number; n: number | null } | null;
+  salary: { p25: number; p50: number; p75: number; n: number | null; scope: 'US' | 'Global'; source: 'blended' | 'posted' | 'global' } | null;
   yearlySwitchPct: number | null;
   topSkills: { skill: string; sharePct: number }[];
   topBenefits: { benefit: string; sharePct: number }[];
@@ -127,7 +127,11 @@ export function careerFacts(occ: string): CareerFacts | null {
   type Sal = { by_country?: Record<string, { blended?: Band; posted?: Band }>; global?: Band };
   type Band = { p25: number; p50: number; p75: number; n?: number };
   const sal = read<Sal>(path.join(WEB, 'salaries', `${occ}.json`), {});
-  const band = sal.by_country?.US?.blended || sal.by_country?.US?.posted || sal.global || null;
+  const usBlended = sal.by_country?.US?.blended;
+  const usPosted = sal.by_country?.US?.posted;
+  const band = usBlended || usPosted || sal.global || null;
+  const salaryScope: 'US' | 'Global' = usBlended || usPosted ? 'US' : 'Global';
+  const salarySource: 'blended' | 'posted' | 'global' = usBlended ? 'blended' : usPosted ? 'posted' : 'global';
 
   const guide = read<{ title: string; generated: string; prose: Prose } | null>(path.join(GUIDES, `${occ}.json`), null);
   const licence = read<Record<string, Licence>>(path.join(WEB, 'license-sheet.json'), {})[occ] ?? null;
@@ -139,7 +143,7 @@ export function careerFacts(occ: string): CareerFacts | null {
     liveOpenings: jobs.length,
     remoteSharePct: share(jobs.filter((j) => j.remote).length, jobs.length),
     postingsRead: gen.origin.postings ?? null,
-    salary: band ? { p25: band.p25, p50: band.p50, p75: band.p75, n: band.n ?? null } : null,
+    salary: band ? { p25: band.p25, p50: band.p50, p75: band.p75, n: band.n ?? null, scope: salaryScope, source: salarySource } : null,
     yearlySwitchPct: gen.origin.separations?.transfer ?? null,
     topSkills: tally((d) => d.k).slice(0, 10).map(([skill, n]) => ({ skill, sharePct: share(n, rows.length) })),
     topBenefits: tally((d) => d.b).slice(0, 6).map(([benefit, n]) => ({ benefit, sharePct: share(n, rows.length) })),

@@ -29,12 +29,11 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const { occ } = await params;
   const f = careerFacts(occ);
   if (!f) return {};
-  const pay = f.salary ? `Median ${fmt(f.salary.p50)}.` : '';
+  const pay = f.salary ? `${f.salary.scope === 'US' ? 'U.S. median' : 'Global median'} ${fmt(f.salary.p50)}.` : '';
   const tl = f.title.toLowerCase();
   return {
-    // The head term for this page is the how-to query, not "career guide".
-    title: `How to become ${article(f.title)} ${tl}: the job, the pay, and the way in`,
-    description: `What ${article(f.title)} ${tl} does day to day, what the work pays, how long it takes to qualify, and which occupations already have most of what it asks for. ${pay} Measured from ${f.liveOpenings.toLocaleString()} live openings and updated nightly.`,
+    title: `How to become ${article(f.title)} ${tl}: salary, skills and steps`,
+    description: `Learn what ${article(f.title)} ${tl} does, how to qualify, what employers ask for and where the career can lead. ${pay} Updated from current PivotHop listings.`,
     alternates: { canonical: `/career-guides/${occ}` },
   };
 }
@@ -59,31 +58,24 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         </nav>
 
         <p className="jb-vmeta">
-          {f.field} &middot; {f.liveOpenings.toLocaleString()} open now
+          {f.field} &middot; {f.liveOpenings.toLocaleString()} open on PivotHop now
           {f.postingsRead ? <> &middot; {f.postingsRead.toLocaleString()} postings read</> : null}
         </p>
-        <h1 className="rt-h1">{f.title}</h1>
+        <h1 className="rt-h1">How to become {article(f.title)} {tl}</h1>
         <p className="cg-summary">{p.summary}</p>
 
         <div className="rt-facts">
-          {f.salary && <div><span className="v">{fmt(f.salary.p50)}</span><span className="k">Median pay</span></div>}
-          <div><span className="v">{f.liveOpenings.toLocaleString()}</span><span className="k">Open right now</span></div>
-          <div><span className="v">{f.remoteSharePct}%</span><span className="k">Fully remote</span></div>
+          {f.salary && <div><span className="v">{fmt(f.salary.p50)}</span><span className="k">{f.salary.scope === 'US' ? 'U.S. median pay' : 'Global median pay'}</span></div>}
+          <div><span className="v">{f.liveOpenings.toLocaleString()}</span><span className="k">Open on PivotHop</span></div>
+          <div><span className="v">{f.remoteSharePct}%</span><span className="k">PivotHop listings remote</span></div>
           {f.gates.expMedianYears != null && (
-            <div><span className="v">{f.gates.expMedianYears}+ yrs</span><span className="k">Experience asked</span></div>
-          )}
-          {f.yearlySwitchPct != null && (
-            <div><span className="v">{f.yearlySwitchPct}%</span><span className="k">Switch out yearly</span></div>
+            <div><span className="v">{f.gates.expMedianYears}+ yrs</span><span className="k">Median stated experience</span></div>
           )}
         </div>
 
         <section className="cg-lead">
-          <h2>What the work looks like</h2>
+          <h2>What the work is like</h2>
           <p>{p.day_to_day}</p>
-        </section>
-
-        <section className="rt-sec">
-          <h2>Where you do it</h2>
           <p className="cg-p">{p.work_environment}</p>
         </section>
 
@@ -91,9 +83,8 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
           <section className="rt-sec">
             <h2>What it pays</h2>
             <p className="rt-note">
-              Blended from live postings and the official OEWS anchor
-              {f.salary.n ? `, ${f.salary.n.toLocaleString()} stated salaries` : ''}. The full picture, by seniority
-              and by market, is on the <Link className="gl" href={`/salary/${occ}`}>{tl} salary page</Link>.
+              This range uses {f.salary.scope === 'US' ? 'U.S.' : 'global'} {f.salary.source === 'blended' ? 'posted salaries blended with the OEWS benchmark' : f.salary.source === 'posted' ? 'posted salaries' : 'salary data'}
+              {f.salary.n ? `, with ${f.salary.n.toLocaleString()} stated salaries` : ''}. See the <Link className="gl" href={`/salary/${occ}`}>{tl} salary page</Link> for seniority and market detail.
             </p>
             <div className="cg-band">
               <div><span className="v">{fmt(f.salary.p25)}</span><span className="k">25th</span></div>
@@ -104,7 +95,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         )}
 
         <section className="rt-sec">
-          <h2>What it asks for</h2>
+          <h2>What employers ask for</h2>
           <p className="rt-note">The skills these postings name most often, and the gates they state.</p>
           <SkillStrip skills={skillEntries(f.topSkills.map((s) => s.skill))} />
           {p.tools && <p className="cg-p cg-tools">{p.tools}</p>}
@@ -112,19 +103,19 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
             {f.gates.expMedianYears != null && (
               <div data-gate="exp">
                 <span className="k">Experience</span>
-                <span className="v">{f.gates.expMedianYears}+ years</span>
+                <span className="v">{f.gates.expMedianYears}+ years <small>stated in {f.gates.expStatedPct}% of analyzed listings</small></span>
               </div>
             )}
             {f.gates.educationTotal > 0 && (
               <div data-gate="edu">
                 <span className="k">Degree</span>
-                <span className="v">{eduPct('required')}% require it</span>
+                <span className="v">{eduPct('required')}% of education mentions require it</span>
               </div>
             )}
             {eduPct('waived') > 0 && (
               <div data-gate="waived">
                 <span className="k">Degree waived</span>
-                <span className="v">{eduPct('waived')}% accept equivalent</span>
+                <span className="v">{eduPct('waived')}% of education mentions accept equivalent experience</span>
               </div>
             )}
             {f.gates.languages.length > 0 && (
@@ -172,7 +163,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         </section>
 
         <section className="rt-sec">
-          <h2>How it progresses</h2>
+          <h2>How the career progresses</h2>
           <p className="cg-p">{p.ladder}</p>
         </section>
 
@@ -187,7 +178,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         {/* The section no competitor's guide can generate. */}
         {f.routesIn.length > 0 && (
           <section className="rt-sec">
-            <h2>Who already qualifies</h2>
+            <h2>Who already has relevant skills</h2>
             <p className="rt-note">{p.who_qualifies}</p>
             <ul className="rt2-ranked cg-in">
               {f.routesIn.map((r) => {
@@ -237,28 +228,33 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         )}
 
         <section className="rt-sec">
-          <h2>Who it suits</h2>
+          <h2>Is this career a good fit?</h2>
           <p className="cg-p">{p.suits}</p>
           {(p.pros?.length || p.cons?.length) ? (
             <div className="cg-pc">
               <div>
-                <span className="lbl good">What is good about it</span>
+                <span className="lbl good">What people tend to value</span>
                 <ul>{p.pros?.map((x) => <li key={x}>{x}</li>)}</ul>
               </div>
               <div>
-                <span className="lbl bad">What is not</span>
+                <span className="lbl bad">Tradeoffs to understand</span>
                 <ul>{p.cons?.map((x) => <li key={x}>{x}</li>)}</ul>
               </div>
             </div>
           ) : null}
+          {p.misconceptions && (
+            <>
+              <h3>One common misconception</h3>
+              <p className="cg-p">{p.misconceptions}</p>
+            </>
+          )}
+          {p.what_the_numbers_miss && (
+            <>
+              <h3>What listings cannot tell you</h3>
+              <p className="rt-note cg-miss">{p.what_the_numbers_miss}</p>
+            </>
+          )}
         </section>
-
-        {p.misconceptions && (
-          <section className="rt-sec">
-            <h2>What people get wrong</h2>
-            <p className="cg-p">{p.misconceptions}</p>
-          </section>
-        )}
 
         {p.industries?.length > 0 && (
           <section className="rt-sec">
@@ -296,10 +292,6 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
           </section>
         )}
 
-        <section className="rt-sec">
-          <h2>What the numbers miss</h2>
-          <p className="rt-note cg-miss">{p.what_the_numbers_miss}</p>
-        </section>
 
         {p.faq?.length > 0 && (
           <div className="post-faq rt-faq">
@@ -313,11 +305,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         <JobsList occ={occ} v2 heading={`Open ${tl} roles`} />
 
         <p className="rt-method lbl">
-          Every figure here is computed from the live corpus at build time and moves with the nightly scrape:
-          pay from posted salaries blended with the official <a className="gl" href="/glossary#oews">OEWS</a> anchor,
-          skills and benefits read from posting text, readiness from measured skill overlap. The judgement,
-          who-qualifies and answers above were written on {f.guide.generated} against those same measurements and
-          are reviewed by hand.
+          Figures are recomputed from the current PivotHop corpus at build time: salaries from posted ranges and the OEWS benchmark where available, skills and benefits from posting text, and career routes from measured skill overlap. Editorial guidance was produced on {f.guide.generated}; live figures update independently as the job corpus changes.
         </p>
       </div>
 

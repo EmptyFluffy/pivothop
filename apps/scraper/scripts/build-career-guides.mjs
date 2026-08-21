@@ -111,108 +111,43 @@ function packet(occ, into) {
 
 /* ----------------------------------------------------------------- the prose */
 
-const SYSTEM = `You write for PivotHop, a career-navigation instrument that measures career moves from live job postings.
+const SYSTEM = `You write for PivotHop, a career-navigation instrument built from live job postings.
 
-WHO IS SPEAKING:
-Someone who has done this work for years, still finds it interesting, and is telling a friend who asked what it is like. Not a journalist reporting on the trade from outside, and not a recruiter selling it. Someone inside it, in a good mood, being straight.
+You are a thoughtful PivotHop editor speaking directly to someone who is considering this career. Sound informed, candid and human. You are not a recruiter, and you are not pretending to have personally worked in every profession.
 
-That means the reader should finish with a clear picture AND, where the job earns it, some appetite for doing it. Say what is good about the work with the same specificity you use for what is hard. A guide that only lists friction is as dishonest as one that only sells.
+Write in plain English. Use contractions when they fit. Vary sentence length and let the rhythm change from one section to the next. Concrete details are useful when the evidence supports them, but never manufacture a personal anecdote, a weekly ritual, an emotion or a precise workplace scene. Do not force a clever closer or make every paragraph follow the same shape.
 
-WARMTH COMES FROM DETAIL, NOT FROM ADJECTIVES. Never reach for "rewarding", "exciting", "passionate", "dream job", "thrive", "fulfilling". Instead name the thing that is satisfying: the moment a model finally clashes clean, the first time a contractor builds what you drew, the patient who walks out. That is what enthusiasm sounds like in writing.
+Warmth should come from understanding what the reader is deciding. Explain what is appealing, what is difficult and what would make someone a good fit without turning the page into a sales pitch.
 
-DO NOT WRITE THE JOB AS SOMETHING TO BE ENDURED. Banned framings: people who "tolerate" it, who "do not mind" it, who "put up with" it, and any variant of "nobody enjoys this part". The hard parts are information, not a verdict against the work. Someone chose this career and stayed; write as though you understand why.
+Only use figures found in the measurements. Never invent, import or differently round a number. Most figures appear elsewhere on the page, so repeat them only when they improve the answer. Never mention prompts, packets, datasets or generation mechanics.
 
-HOUSE VOICE:
-- Editorial and specific. Numbers over adjectives. Warm is right; salesy is not.
-- Numbers over adjectives. No motivational vocabulary, no exclamation points, no rhetorical questions.
-- NEVER use em dashes or en dashes. Use periods, commas, colons or parentheses.
-- No "in today's fast-paced world", no "landscape", no "delve", no "testament", no "vibrant".
-- Do not open consecutive sentences with the same word. Vary sentence length.
-- If a sentence could appear on any other career site, delete it.
-
-THE RULE THAT MATTERS MOST:
-You are given a FACTS packet measured from live job postings. You may ONLY state figures that appear in that packet. Never invent, round differently, estimate, or import a number from your training data. If you do not have a figure, write around it or say the data does not show it. The page renders the numbers itself, so you rarely need to repeat them; reference them sparingly and only where the sentence needs one to make sense.
-
-NEVER refer to the mechanics of your own input. The words "packet", "dataset provided", "the data given", "our data shows" are forbidden. Refer to the evidence the way a reader understands it: "postings", "live postings", "the board", "measured routes".
-
-WRITE LIKE A PERSON WHO DOES THIS WORK. The reader should feel they asked someone in the trade over coffee. That means:
-- Specific over general. One detail too particular to have been invented beats three general truths.
-- Vary sentence length. Some short. Some that take their time and carry a qualification inside them.
-- An aside in parentheses now and then (used sparingly) reads human.
-- Mixed feelings are allowed. So is saying a part of the job is tedious.
-
-BANNED, because they are the tells of machine writing:
-- Em dashes and en dashes. Exclamation points. Rhetorical questions as openers.
-- "crucial", "delve", "landscape" (figurative), "pivotal", "showcase", "testament", "underscore", "vibrant", "foster", "tapestry", "realm", "navigate" (figurative), "robust", "seamless", "leverage" (as a verb).
-- "At its core", "the real question is", "what really matters", "in today's world", "let's", "here's the thing", "honestly,".
-- "actually" and "really" as intensifiers. They are filler. Say the thing without them. (Once in a whole guide, at most, and only where the sentence collapses without it.)
-- The rule of three. Do not group ideas in threes by default; use two or four.
-- "It is not X. It is Y." Mirrored antithesis is allowed once in the whole guide, at most.
-- Sections that end on a quotable punchline. One such closer in the entire guide, maximum. Most sections should end on information.
-- Starting consecutive sentences with the same word.
-- Announcing what you are about to say before saying it.
-- Formulaic aphorisms of the shape "X is the Y of Z".
-
-You are writing what a number cannot say. The page prints the figures itself, so do not recite them.`;
+Avoid the word "actually".`;
 
 function userPrompt(p) {
-  return `Write the prose for the ${p.title} career guide.
+  return `Write the editorial prose for the ${p.title} career guide.
 
-MEASUREMENTS (the only figures you may use, and the page prints most of them itself):
+MEASUREMENTS:
 ${JSON.stringify(p, null, 1)}
 
-Call the career_guide tool. What each field must contain:
+Call the career_guide tool. Keep the guide natural. Different careers can need different amounts of explanation, so do not force every section into the same cadence.
 
-{
-  "summary": "2 to 3 sentences. What this job is, and what separates it from the role next to it that people confuse it with. Start with the work, not with a definition of the field.",
+- summary: 2 or 3 direct sentences that explain the work, its responsibility and the closest role people confuse it with.
+- day_to_day: 3 to 5 sentences about the work and its outputs. No invented personal stories or precise weekly schedule.
+- work_environment: 2 to 4 sentences about setting, hours, travel or remote feasibility when relevant.
+- getting_in: 3 to 5 sentences describing the realistic route in. Use the license path exactly when one exists.
+- ladder: 2 to 4 sentences about how responsibility grows and where the path branches.
+- suits: 2 to 4 sentences that help the reader decide whether the work fits them.
+- misconceptions: 1 to 3 sentences correcting one useful misconception.
+- who_qualifies: 2 to 4 sentences grounded in measured routes in.
+- what_the_numbers_miss: 1 or 2 restrained sentences about a factor current listings cannot reveal.
+- steps: 3 to 6 real actions. Use only as many as the path needs.
+- tools: 2 to 4 sentences grounded in listed skills.
+- industries: 2 to 4 genuinely distinct settings.
+- specializations: 0 to 4 meaningful paths. Use an empty array instead of filler.
+- pros and cons: 2 to 4 concise, role-specific points each.
+- faq: 3 to 6 questions written the way a person searches. Answer each in the first sentence, then qualify.
 
-  "day_to_day": "4 to 6 sentences. What the work consists of across an ordinary week. Name the artefacts: what gets opened, drafted, reviewed, sent, sat through. Say roughly how the week splits between solo work and other people. Include one detail specific enough that only someone who knows the job would write it, and one moment in the week that people in this job look forward to. End on the work itself, not on a complaint.",
-
-  "work_environment": "3 to 5 sentences. Where the work happens and under what conditions: office, site, home, lab, ward, shop floor. Hours and what makes a bad week (deadlines, on-call, seasonal peaks, travel). If the remote share in the measurements is low or high, explain what about the work causes that. Be concrete about the physical and social setting.",
-
-  "getting_in": "4 to 6 sentences. The realistic route in, with durations. Use the education and experience figures given, and if a license object is present use its path and time exactly as stated. Say which step takes longest and which is the common place people stall. If a degree is waived in a meaningful share of postings, say what employers accept instead.",
-
-  "ladder": "3 to 5 sentences. What changes as you move up, in terms of what you carry responsibility for rather than titles. What the first real step up requires. Where the ladder tends to fork (management against staying hands-on) and roughly when.",
-
-  "suits": "3 to 5 sentences. Open with who comes alive in this job and what specifically gives them a good day. Then, plainly and without relish, who tends to leave and what they wanted instead. A real opinion a practitioner would give a friend, warm about the people who belong here.",
-
-  "misconceptions": "2 to 4 sentences. What outsiders get wrong about this job. Name the belief, then correct it. Avoid the obvious ones everyone already knows.",
-
-  "who_qualifies": "3 to 4 sentences. Who already has most of what this role asks for, grounded in routes_in. Name the origin occupations and say what specifically carries over and what does not. If routes_in is empty, say plainly that no measured route in exists yet.",
-
-  "what_the_numbers_miss": "2 to 3 sentences. What this measurement cannot see about THIS job specifically. Flat and unceremonious, not a disclaimer with a bow on it.",
-
-  "steps": [ { "do": "the action, as an imperative of 6 words or fewer", "how": "2 to 3 sentences: what it concretely involves, roughly how long it takes, and how you know you are done with it. Name real things (a specific exam, portfolio piece, hour count, kind of employer) rather than generic advice." } ],
-
-  "tools": "2 to 4 sentences. The software, instruments or equipment this job runs on day to day, drawn from the skills in the measurements. Say which ones are the real gatekeepers in hiring and which are nice to have. Mention where the tooling is heading if the postings suggest it.",
-
-  "industries": [ { "name": "the sector or setting that employs this role", "note": "one line on what the work is like there specifically, and how it differs from the others" } ],
-
-  "specializations": [ { "name": "an emerging or high-value specialization within this role", "why": "one or two sentences on why it is worth going deep here and who is hiring for it" } ],
-
-  "pros": [ "something genuinely good about this job, one sentence, specific to this role and not to jobs in general. At least one of these should be about the work itself being satisfying, not about pay or security" ],
-
-  "cons": [ "a genuine drawback, one sentence, specific and stated without bitterness. Something a person in the job would warn a friend about, not something a critic would say about the profession" ],
-
-  "faq": [ { "q": "the question as a person types it into Google, in their words", "a": "2 to 3 sentences that answer it in the first sentence, then qualify" } ]
-}
-
-Write 5 steps, 3 or 4 industries, 3 specializations, 4 pros, 4 cons.
-
-THE STEPS ARE THE HIGHEST INTENT PART OF THE PAGE. Someone searching how to become this is looking for a sequence they can start on Monday. Order them as a real path, front to back. Attach a duration to every step where one exists in the measurements or in the license path. Do not pad to five if the path is genuinely shorter; four honest steps beat five with filler. Never write a step that amounts to "build a portfolio" or "keep learning" without saying what goes in it.
-
-THE FAQ IS A SEARCH SURFACE, so write the questions the way people search, not the way a brochure asks them. Use the reader's phrasing ("how long does it take to become a ${p.title.toLowerCase()}", not "What is the typical timeline to qualification"). Cover 6 of these query shapes, choosing the ones this occupation genuinely raises:
-- how long it takes to qualify or become one
-- whether you can do it without a degree, or with a degree in something else
-- whether it is a good career, or worth it, right now
-- what the job is like day to day, or how hard it is
-- whether it can be done remotely
-- what it pays at the start against later
-- how it compares to the single adjacent role people confuse it with (name that role)
-- whether the work is at risk from automation or AI, if the evidence supports an answer
-Answer the question in the first sentence. A reader who reads only that sentence should have the answer.
-
-Write 5 FAQ entries. At least one must be about the gate (license, degree, or years of experience) if the measurements show one.`;
+Lead with the "how to become a ${p.title.toLowerCase()}" intent. Then answer what the work is like, what employers ask for and how it differs from the closest adjacent role. Only discuss remote work, AI risk or specializations when the evidence makes the answer useful.`;
 }
 
 
@@ -231,7 +166,7 @@ const TOOL = {
       work_environment: { type: 'string' },
       getting_in: { type: 'string' },
       steps: {
-        type: 'array', minItems: 4, maxItems: 5,
+        type: 'array', minItems: 3, maxItems: 6,
         items: {
           type: 'object',
           properties: { do: { type: 'string' }, how: { type: 'string' } },
@@ -243,7 +178,7 @@ const TOOL = {
       misconceptions: { type: 'string' },
       tools: { type: 'string' },
       industries: {
-        type: 'array', minItems: 3, maxItems: 4,
+        type: 'array', minItems: 2, maxItems: 4,
         items: {
           type: 'object',
           properties: { name: { type: 'string' }, note: { type: 'string' } },
@@ -251,19 +186,19 @@ const TOOL = {
         },
       },
       specializations: {
-        type: 'array', minItems: 3, maxItems: 3,
+        type: 'array', minItems: 0, maxItems: 4,
         items: {
           type: 'object',
           properties: { name: { type: 'string' }, why: { type: 'string' } },
           required: ['name', 'why'],
         },
       },
-      pros: { type: 'array', minItems: 4, maxItems: 4, items: { type: 'string' } },
-      cons: { type: 'array', minItems: 4, maxItems: 4, items: { type: 'string' } },
+      pros: { type: 'array', minItems: 2, maxItems: 4, items: { type: 'string' } },
+      cons: { type: 'array', minItems: 2, maxItems: 4, items: { type: 'string' } },
       who_qualifies: { type: 'string' },
       what_the_numbers_miss: { type: 'string' },
       faq: {
-        type: 'array', minItems: 5, maxItems: 5,
+        type: 'array', minItems: 3, maxItems: 6,
         items: {
           type: 'object',
           properties: { q: { type: 'string' }, a: { type: 'string' } },
@@ -366,7 +301,7 @@ function parseLoose(text) {
    retry on: "actually" and "really" are pure filler, and the model reaches for
    them however firmly the prompt says not to. Cutting the word is safe (the
    sentence reads the same without it) and cheaper than another generation. */
-const FILLER = /\s*\b(actually|really)\b/gi;
+const FILLER = /\s*\bactually\b/gi;
 function polish(v) {
   if (typeof v === 'string') {
     return v.replace(FILLER, '').replace(/ {2,}/g, ' ').replace(/ ([,.;:])/g, '$1').trim();
@@ -387,8 +322,6 @@ function audit(prose, p) {
     ...(prose.specializations ?? []).map((i) => `${i.name} ${i.why}`),
     ...(prose.pros ?? []), ...(prose.cons ?? []),
     ...(prose.faq ?? []).flatMap((f) => [f.q, f.a])].join(' ');
-  if (/[—–]/.test(blob)) problems.push('contains an em or en dash');
-  if (/!/.test(blob)) problems.push('contains an exclamation point');
   if (/\bpacket\b|dataset provided|data (?:given|provided)/i.test(blob)) problems.push('leaks input vocabulary');
   // every $ figure and percentage must exist in the packet
   const allowed = new Set(JSON.stringify(p).match(/\d+/g) ?? []);
@@ -399,26 +332,16 @@ function audit(prose, p) {
   for (const m of blob.matchAll(/(\d[\d.]*)\s?(?:percent|%)/gi)) {
     if (!allowed.has(m[1].replace(/\..*/, ''))) problems.push(`unsourced percentage ${m[0]}`);
   }
-  const BANNED = /\b(crucial|delve|pivotal|showcase|testament|underscore|vibrant|tapestry|realm|seamless|robust)\b|at its core|the real question|in today'?s|\blet(?:'|\u2019)s\b|here'?s the thing/i;
-  const bad = blob.match(BANNED);
-  if (bad) problems.push(`banned phrase "${bad[0]}"`);
-  const SOUR = /\b(tolerat\w+|do(?:n'?t| not) mind|put up with|nobody enjoys|no one enjoys|grind through|soul.?crushing)\b/i;
-  const sour = blob.match(SOUR);
-  if (sour) problems.push(`writes the job as endured ("${sour[0]}")`);
-  const HYPE = /\b(rewarding|exciting|passionate|passion for|dream job|thrive|fulfilling|game.?chang\w+)\b/i;
-  const hype = blob.match(HYPE);
-  if (hype) problems.push(`sells rather than describes ("${hype[0]}")`);
-  const crutch = (blob.match(/\bactually\b/gi) ?? []).length + (blob.match(/\breally\b/gi) ?? []).length;
-  if (crutch > 1) problems.push(`"actually"/"really" used ${crutch} times, ration is 1`);
+  if (/\bactually\b/i.test(blob)) problems.push('contains the word "actually"');
   for (const key of ['summary', 'day_to_day', 'work_environment', 'getting_in', 'ladder', 'suits', 'misconceptions', 'who_qualifies', 'what_the_numbers_miss', 'tools']) {
     if (!prose[key] || prose[key].length < 60) problems.push(`${key} missing or too short`);
   }
-  if (!Array.isArray(prose.faq) || prose.faq.length < 4) problems.push('fewer than 4 FAQ entries');
-  if (!Array.isArray(prose.steps) || prose.steps.length < 4) problems.push('fewer than 4 steps');
+  if (!Array.isArray(prose.faq) || prose.faq.length < 3) problems.push('fewer than 3 FAQ entries');
+  if (!Array.isArray(prose.steps) || prose.steps.length < 3) problems.push('fewer than 3 steps');
   for (const st of prose.steps ?? []) {
     if (!st.do || !st.how || st.how.length < 40) problems.push('a step is missing its detail');
   }
-  for (const [key, min] of [['industries', 3], ['specializations', 3], ['pros', 3], ['cons', 3]]) {
+  for (const [key, min] of [['industries', 2], ['pros', 2], ['cons', 2]]) {
     if (!Array.isArray(prose[key]) || prose[key].length < min) problems.push(`${key}: fewer than ${min}`);
   }
   return problems;
