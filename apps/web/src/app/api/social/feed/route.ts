@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { recentPosts, mark } from '../../../../lib/social/store';
 import { checkOriginalJob, stillLive } from '../../../../lib/social/select';
+import { getJob } from '../../../jobs/jobs-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,6 +45,27 @@ export async function GET(req: NextRequest) {
       continue;
     }
 
+    const job = getJob(r.job_occ, r.job_id);
+    const pay = job?.smin && job?.smax
+      ? `${Math.round(job.smin / 1000)}k–${Math.round(job.smax / 1000)}k`
+      : job?.smin || job?.smax
+        ? `${Math.round((job.smin || job.smax)! / 1000)}k`
+        : null;
+    const place = job?.remote ? 'Remote' : job?.location || null;
+    const previewDescription = [
+      place,
+      pay,
+      'Salary, skills and measured career routes on PivotHop.',
+    ].filter(Boolean).join(' · ');
+    const cardUrl = new URL('/api/social/card', req.nextUrl.origin);
+    cardUrl.searchParams.set('occ', r.job_occ);
+    cardUrl.searchParams.set('id', r.job_id);
+    const cardCopy = r.generated_copy
+      .split('\n')
+      .filter((line) => line.trim() !== r.job_url)
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n');
+
     items.push({
       id: `ph-li-${r.id}`,                    // unique publication id; Zapier dedup key
       publication_id: `ph-li-${r.id}`,
@@ -53,7 +75,14 @@ export async function GET(req: NextRequest) {
       location: null as string | null,        // location and salary live inside the copy; kept for mapping
       salary: null as string | null,
       generated_post_copy: r.generated_copy,
+      card_post_copy: cardCopy,
       job_url: r.job_url,
+      media_url: r.job_url,
+      image_type: 'preview_thumbnail',
+      image: cardUrl.toString(),
+      preview_image_url: cardUrl.toString(),
+      preview_title: `${r.job_title} at ${r.job_company} | PivotHop`,
+      preview_description: previewDescription,
       social_score: r.selection_score,
       selection_reason: r.selection_reason,
       scheduled_at: r.scheduled_at,
