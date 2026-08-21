@@ -1,0 +1,102 @@
+{
+ "slug": "conversation-designer",
+ "title": "Conversation Designer",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A conversation designer builds the actual dialogue an AI system has with a user: the prompts, the fallback paths, the tone rules for when it apologizes versus when it just answers. The role gets confused with prompt engineering, but a prompt engineer is optimizing a single call to a model, while a conversation designer is responsible for the whole exchange over time, including what happens when the user gets annoyed and types 'talk to a human' three times in a row. Most postings now expect fluency in LangChain and product management on top of the writing, which tells you the job has drifted from pure UX writing toward something closer to owning a product surface.",
+  "day_to_day": "The week usually opens with reading transcripts, real ones, where users typed something the flow did not expect and the bot either recovered gracefully or fell apart. You rewrite the branch that broke, test it against a handful of adversarial phrasings, and hand it to an engineer to wire into the LLM pipeline (LangChain shows up in two-thirds of postings for exactly this reason). A chunk of most days goes to a shared doc or Figma-adjacent tool where you're mapping intents and exceptions rather than writing prose, which surprises people who think the job is mostly copywriting. Meetings eat a real slice of the week, maybe a third of it, because product managers and data teams all have opinions about what the bot should say and someone has to reconcile them. The part people look forward to is watching a session recording where the conversation clicks, the user asks a weird follow-up and the flow you built handles it without escalating. The rest of the week is solo drafting, revising against real transcripts, and defending word choices in review.",
+  "work_environment": "This is desk work, almost entirely screen-based, and the tools (chat logs, LLM playgrounds, flow diagrams) don't care where you sit, which is part of why only a third of postings are remote and the rest still cluster in offices anyway: companies want the designer in the room with product and engineering while the system is young and everything is still being argued over. Hours are standard during build phases but compress hard before a launch, when a bot is about to go live and every edge case someone thought of at 6pm needs a fix by morning. There's no shift work or on-call in the clinical sense, but a bad week looks like a launch slipping and three teams wanting the flow changed simultaneously. The job is quieter than it sounds: a lot of solitary reading of transcripts, punctuated by review meetings where you argue about a single sentence for twenty minutes.",
+  "getting_in": "Half of postings state an experience requirement, and the median sits at 3 years, which usually means employers want someone who has already shipped a chatbot or voice flow somewhere, not someone learning conversation design from scratch. There's no license or degree gate in this data: what employers are filtering for is a portfolio of flows plus fluency in the current stack (LangChain and basic LLM concepts show up in the majority of listings). The longest step is usually the first one, getting a flow you designed into production somewhere, because most learning resources teach you to write sample dialogue, not to debug why a real user's phrasing broke your intent classifier. People commonly stall right after that: they have a nice portfolio of scripted conversations but no evidence they've handled the messy, live version. Spanish shows up as a stated language requirement in a small slice of postings, worth noting if you're bilingual and job hunting in that pool.",
+  "ladder": "Early on you own individual flows: the return policy bot, the onboarding sequence, one narrow slice of what the product says. The step up is owning the conversation strategy across a whole product, which means writing the rules other designers follow rather than just following them yourself, and it typically requires having shipped multiple flows that survived contact with real users. From there the ladder forks: one path goes into managing a small design team and spending your days in review and stakeholder alignment, the other stays hands-on and pushes into more technical territory, closer to prompt engineering or solutions architecture, where you're the person who understands both the language and the retrieval system behind it. That fork tends to show up two to three years in, roughly when the experience-median for this role itself gets satisfied.",
+  "suits": "People who come alive here are the ones who find a broken conversation genuinely irritating, the way a good copyeditor can't leave a typo alone, and who get a real charge out of rereading a transcript and seeing the fix land clean on the next test. It rewards someone comfortable being half writer, half systems thinker, because the job is never just prose, it's prose with branching logic and failure states attached. People who tend to leave are the ones who wanted a pure writing job and discovered the role is now mostly product management and pipeline debates (product management skills appear in two-thirds of postings, same rate as LangChain). If you want to write and only write, this will frustrate you inside a year.",
+  "misconceptions": "Outsiders assume the job is scripting a chatbot's personality once and being done with it, but most of the actual work is handling the paths where the conversation goes wrong, not the happy path where it goes right. There's also an assumption that this is a junior, entry-level writing gig; the data says otherwise, with half of postings wanting three years of experience and most wanting real comfort with LLM tooling, not just tone-of-voice guidelines.",
+  "who_qualifies": "AI product managers carry over the most (69% match), because they've already spent time reconciling what different teams want a system to say and do. Prompt engineers (65%) bring the LLM fluency but often need to build the systems-thinking side, the branching and failure-state design that prompt engineering alone doesn't teach. AI engineers and developer advocates also convert well, since both have hands-on experience with the pipelines this role now has to speak the language of; what doesn't carry over automatically from any of these is the editorial ear, the ability to tell why one phrasing of an apology lands and another sounds robotic.",
+  "what_the_numbers_miss": "None of this shows what it feels like to watch your carefully designed flow get overridden by a model update that changes how the LLM interprets your prompts overnight, which happens more than postings would suggest. It also can't capture the specific frustration of a stakeholder meeting where three people argue about whether the bot should say 'sorry' or 'apologies', a conversation that eats real hours and never shows up in a job description.",
+  "steps": [
+   {
+    "do": "Write and test five full conversation flows",
+    "how": "Pick real use cases (returns, booking, tech support) and script the happy path plus at least three failure paths for each. This takes 3-4 weeks if done properly, and you're done when you can show someone the intent map, not just the dialogue."
+   },
+   {
+    "do": "Learn LangChain and one LLM API",
+    "how": "Build a small working bot end to end, not a tutorial copy, using LangChain to wire your flows to an actual model. Budget 4-6 weeks; you're done when you can explain why a specific prompt failed and fix it yourself without asking an engineer."
+   },
+   {
+    "do": "Get a flow into a real product",
+    "how": "Freelance, intern, or volunteer to redesign a conversation flow for an actual live product, even a small one. This is the step that usually takes longest, often 2-3 months of searching plus the work itself, because it's the only thing that proves you can handle real user input, not scripted demos."
+   },
+   {
+    "do": "Build a portfolio around failure recovery",
+    "how": "Document three cases where a conversation broke and show the before/after transcript of your fix, with reasoning. This takes a week to assemble once you have the raw material and is what interviewers ask about, more than the polished happy-path scripts."
+   },
+   {
+    "do": "Target roles listing LangChain and PM skills together",
+    "how": "Filter your search specifically for postings that pair conversational AI with product management language, since that pairing shows up in two-thirds of current listings and signals the employer wants the hybrid skill set this guide describes. Expect the search itself to take 4-8 weeks given how few roles are open at once."
+   }
+  ],
+  "tools": "LangChain and general LLM fluency are the real gatekeepers now, showing up in the majority of postings, and you won't get past a screen without being able to talk through how a retrieval-augmented flow works (RAG appears in a third of listings). Prompt engineering skill and basic data analysis show up often enough to matter, useful for reading transcript logs and quantifying where flows break. Data visualization, formal NLP background, and A/B testing are nice-to-haves that show up in a smaller slice of postings, useful for standing out but not required to get in the door. The tooling is visibly moving toward retrieval-based systems and away from purely rules-based flow builders.",
+  "industries": [
+   {
+    "name": "AI product companies",
+    "note": "Building the conversational layer for a company's core product, often a chatbot or assistant that IS the product, which means high visibility and fast iteration cycles."
+   },
+   {
+    "name": "Enterprise software",
+    "note": "Designing support and onboarding flows bolted onto existing software, usually slower moving, more stakeholders, more legacy conversation debt to untangle."
+   },
+   {
+    "name": "Sales and customer success tooling",
+    "note": "Sales-enablement skills show up in a third of postings here, meaning some of this work is less about user support and more about designing conversations that qualify or convert a lead."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "RAG-based conversation design",
+    "why": "Retrieval-augmented flows are where the harder failure modes live (wrong document retrieved, stale context), and designers who can debug retrieval as well as dialogue are scarce relative to demand."
+   },
+   {
+    "name": "Multilingual and localization flows",
+    "why": "Translation appears in a third of postings and Spanish specifically as a stated requirement; companies hiring in GB, US, and BR simultaneously need designers who can adapt tone and idiom, not just translate text."
+   },
+   {
+    "name": "Sales and conversion-focused design",
+    "why": "Sales-enablement skill appears alongside core conversation design in a meaningful share of postings, and this pays differently because the success metric is revenue, not just satisfaction."
+   }
+  ],
+  "pros": [
+   "There's a specific, visible payoff when a flow you designed handles a user's weird, unscripted question without escalating, and you can watch it happen in the session recording.",
+   "The role sits close to the model itself, so you learn how LLMs behave under real user pressure rather than in a demo, which is knowledge that transfers directly to several adjacent, better-paid roles.",
+   "Equity shows up in a third of postings, which tracks with how many of these roles sit inside early-stage AI product teams rather than large, slow-moving support departments.",
+   "The work rewards obsessive attention to phrasing and failure states, so if that kind of detail satisfies you, the job gives you an excuse to indulge it daily."
+  ],
+  "cons": [
+   "The live opening count is small at any given time, so the job search itself can take longer than the work of qualifying for it.",
+   "A meaningful chunk of the week goes to reconciling stakeholder opinions about tone and wording, which is slower and more political than the writing itself.",
+   "Model updates can silently change how your carefully built prompts behave, meaning flows that worked last month sometimes need to be redebugged with no warning.",
+   "The role has drifted toward product management responsibilities, so someone who wanted a pure writing job may find themselves in roadmap meetings more than expected."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a conversation designer",
+    "a": "Most people need several months to build working flows and learn the current tooling, then typically 2-3 months of searching given how few roles are open at once. Postings show a median experience requirement of 3 years, so breaking in without prior AI or UX writing experience usually means taking a junior or contract role first."
+   },
+   {
+    "q": "do you need a degree to be a conversation designer",
+    "a": "No specific degree shows up as a requirement in current postings. What employers screen for is a portfolio of shipped conversation flows plus working fluency in LangChain and LLM concepts, which you can build without a formal credential."
+   },
+   {
+    "q": "conversation designer vs prompt engineer, what's the difference",
+    "a": "A prompt engineer optimizes a single model call to get the best output; a conversation designer owns the entire multi-turn exchange, including what happens when the user goes off-script. In practice the skill sets overlap heavily (prompt engineering shows up in a third of conversation designer postings) but the conversation designer role carries more product and UX responsibility."
+   },
+   {
+    "q": "can conversation designers work remotely",
+    "a": "About a third of current postings are remote, which is lower than you might expect for a screen-based job. The likely reason is that companies want designers in the room with product and engineering teams while conversational AI products are still being actively shaped, rather than handed off as a finished spec."
+   },
+   {
+    "q": "is conversation design a good career right now",
+    "a": "It's a narrow field at the moment, with a small number of live openings and a low yearly switch rate, so it rewards people who already have adjacent experience (AI product management, prompt engineering) over total beginners. That said, the routes out are strong: people move into developer advocate, solutions architect, and research scientist roles within 1-2 years, several of them at meaningfully higher pay."
+   }
+  ]
+ }
+}

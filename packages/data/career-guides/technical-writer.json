@@ -1,0 +1,106 @@
+{
+ "slug": "technical-writer",
+ "title": "Technical Writer",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A technical writer takes a system that engineers understand and a person who has never seen it, and closes the gap between them: API references, setup guides, release notes, the help docs someone hits at 11pm when something's broken. The role people confuse it with is content marketing, but the split is obvious once you're in it: a content writer is trying to get someone to care, a technical writer is trying to get someone to succeed at a task, and the postings back this up with git and REST APIs sitting right next to plain writing skill.",
+  "day_to_day": "Most weeks split into drafting and interrogating: you sit with a feature that just shipped, read the pull request, and try to describe it accurately before you've fully used it yourself. You'll pull engineers into fifteen-minute calls to ask the question nobody wants to answer in Slack ('what happens if the token expires mid-request'), then go quiet for a stretch to write. Docs live in git now at a lot of shops, so you're branching, committing, and opening pull requests on your own prose the same way a developer would on code. Jira tickets track what's outdated, what's missing, what a support ticket flagged as confusing. The part people look forward to is publishing: the moment a doc goes live and the support queue for that feature drops. Roughly half the week is heads-down writing, the other half is meetings, review comments, and chasing down the one engineer who knows why the old endpoint still half-works.",
+  "work_environment": "This is a desk job almost everywhere it exists, and the 45% remote share reflects that the work travels well: a writer needs access to the codebase, the ticket tracker, and the people who built the thing, not a physical room. Hours are steady most of the year and spike around releases, when a writer might be finishing docs for a feature that's still being debugged the night before launch. Bad weeks come from documentation being the last item on a roadmap and the first thing cut for time, which means you're sometimes writing the manual for something that changed yesterday. Travel is rare; the more common friction is time zones, since docs teams often sit between engineering in one country and support or sales in another.",
+  "getting_in": "There's no license here, but the postings show a real degree preference: 10 require one, 1 prefers one, and only 2 waive it outright, so most employers want a bachelor's, often in English, communications, or a technical field, though what they accept in place of it is a portfolio of live documentation and a demonstrated ability to read a codebase. The median experience asked for is 3 years, and 61% of postings state a number explicitly, which means this is rarely a true entry-level hire; most people get in through a related writing or support role first. The longest step is usually building the writing sample itself: a real API reference or setup guide takes weeks to do well, not days. Where people stall is git: plenty of strong writers have never opened a pull request, and 39% of postings expect it. IT support and helpdesk backgrounds convert unusually well, which the routes-in data confirms.",
+  "ladder": "Junior writers own single documents: one API reference, one onboarding guide, reviewed line by line by someone senior before it ships. The step up is owning a surface area instead of a document, a whole product's docs, its structure, its style guide, and the judgment calls about what to cut. Around the 5 to 7 year mark the ladder forks: one path leads to managing a docs team and spending your day in planning and hiring, the other stays hands-on and moves toward information architecture or docs tooling, often with a title like staff writer or docs lead. Staying individual-contributor for the long run is common in this field in a way it isn't in a lot of others, because the writing itself keeps getting harder in useful ways (bigger systems, messier edge cases) rather than running out of challenge.",
+  "suits": "People who come alive here are the ones who get genuinely bothered by a badly worded error message or a setup guide that skips a step, and who feel a specific satisfaction when a support ticket volume drops after they rewrite something. It rewards someone who likes being the one person in the room asking 'wait, what does this do' without embarrassment. It doesn't suit someone who wants their writing to be the point; the writing here is a tool for someone else's success, and if you want your voice to be the product, you'll feel throttled. People who leave are usually chasing either more creative latitude (they wanted to write, not explain) or a bigger paycheck ceiling, and pivot into content strategy or product roles.",
+  "misconceptions": "People assume technical writers just clean up sentences that engineers already wrote, when in practice the writer is often the first person to use a feature end to end and finds the bugs nobody else noticed. Another common assumption is that it's a soft entry point into tech with no technical bar; the skills list says otherwise, with git and REST APIs showing up in a meaningful share of postings, which means you're expected to read code, not just prose about it.",
+  "who_qualifies": "IT support specialists carry over the strongest, matching at 40%, because they've already spent their days translating a system's behavior into plain language for someone frustrated and in a hurry, which is most of the job. Medical writers match at 17%, bringing the discipline of precision and review cycles but usually needing to pick up git and API literacy from scratch. What doesn't carry over from either background is comfort inside a codebase; that part gets learned on the job or through the writing sample itself.",
+  "what_the_numbers_miss": "The postings can't tell you how much of the job is detective work, tracing a behavior back through three engineers and an old Slack thread to find out why the documentation has been wrong for a year. They also don't show how much a good relationship with one senior engineer changes your daily experience of the job, since that's the person who saves you hours every week and no posting measures that.",
+  "steps": [
+   {
+    "do": "Write one real API or setup doc",
+    "how": "Pick a small open-source tool with thin documentation and write a proper reference or getting-started guide for it, the kind with working code samples. This takes 2 to 4 weeks done properly and is the single piece of evidence hiring managers read."
+   },
+   {
+    "do": "Learn git well enough to contribute",
+    "how": "Get comfortable branching, committing, and opening a pull request, since 39% of postings expect it and most docs now live in the same repo as the code. A weekend with a basic git tutorial plus practicing on your own sample doc is enough to stop being intimidated by it."
+   },
+   {
+    "do": "Get comfortable reading REST API specs",
+    "how": "Work through an OpenAPI/Swagger spec for a public API and write your own plain-English explanation of three endpoints. This shows up in 16% of postings and is the fastest way to signal you can work without hand-holding from engineers."
+   },
+   {
+    "do": "Take a support or IT role first",
+    "how": "If you don't have 3 years of relevant experience yet, a stint in IT support or technical support is the highest-converting entry point measured, at a 40% skills match into this role. Expect 12 to 24 months there before the jump makes sense on a resume."
+   },
+   {
+    "do": "Apply once you can show two writing samples",
+    "how": "One long-form piece (a guide or tutorial) and one reference-style piece (API docs or a config reference) covers what most postings ask to see. This is the stage where the 61% of postings stating an experience number will start including you if your samples are strong enough to offset a shorter resume."
+   }
+  ],
+  "tools": "Git is the real gatekeeper now, showing up in 39% of postings, because docs live and get reviewed the same way code does. Jira (16%) and general project management tools (13%) run the workflow side, tracking what's stale and what's in progress, while REST API familiarity (16%) and basic HTML/CSS (13%) matter most at companies with developer-facing products. Content marketing and data analysis skills show up in a smaller slice of postings, usually at companies where docs and marketing overlap, and that overlap looks to be growing rather than shrinking.",
+  "industries": [
+   {
+    "name": "Developer tools / SaaS",
+    "note": "API references and SDK docs dominate; the writer works closest to engineering and git is non-negotiable here."
+   },
+   {
+    "name": "Enterprise software",
+    "note": "Longer release cycles, more formal review chains, and documentation often needs sign-off from legal or compliance before publishing."
+   },
+   {
+    "name": "Healthcare / med-tech",
+    "note": "Overlaps with medical writing; more regulatory language and stricter accuracy review, slower pace but higher stakes per document."
+   },
+   {
+    "name": "Manufacturing / industrial",
+    "note": "Physical product manuals and safety documentation instead of software docs; less git, more working directly with engineers on hardware."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "API documentation",
+    "why": "REST API familiarity already shows up in 16% of postings and companies with public APIs treat their reference docs as a product surface, paying accordingly for writers who can work directly from a spec."
+   },
+   {
+    "name": "Docs-as-code / tooling",
+    "why": "As more teams move documentation into git alongside code, writers who can set up the pipeline (static site generators, CI checks on docs) become the person the whole team depends on, not just a contributor to it."
+   },
+   {
+    "name": "Regulatory or compliance documentation",
+    "why": "The medical writer route out pays notably higher ($75k to $135k) and rewards the same precision skills technical writers already have, just applied to a stricter review environment."
+   }
+  ],
+  "pros": [
+   "There's a specific, visible payoff when a doc you wrote makes a support ticket disappear from the queue, you can watch the number go down.",
+   "The work stays technically interesting because you're constantly learning how new systems work, often before most of the company has touched them.",
+   "It's one of the few writing jobs where the deliverable is judged by whether someone succeeded at a task, not by taste, which makes feedback concrete instead of subjective.",
+   "Git-based docs workflows mean your work gets the same review rigor as code, so good writing doesn't get buried or overridden by whoever shouts loudest in a meeting."
+  ],
+  "cons": [
+   "Documentation is frequently the last thing scheduled and the first thing cut when a release runs late, so you're often writing under a deadline you didn't set.",
+   "You depend on engineers for accuracy, and a slow or evasive one can stall a doc for weeks with no good way to force the answer.",
+   "The degree bar is real here (10 of the postings measured require one outright), which shuts out some strong writers before they get a look.",
+   "If you want your own voice on the page, this isn't it; the best technical writing is invisible, and that's a strange thing to optimize for if you came from creative writing."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a technical writer",
+    "a": "Most people take 12 to 24 months if they're coming from an adjacent role like IT support, since the median posting asks for 3 years of experience and building a strong writing sample takes several weeks on its own. Coming in cold with no adjacent background takes longer, mainly because you need both the sample and the git fluency before applications get traction."
+   },
+   {
+    "q": "do you need a degree to be a technical writer",
+    "a": "Usually yes on paper: 10 of the measured postings require a degree against only 2 that waive it. In practice, a strong portfolio of real documentation can offset a missing or unrelated degree, especially at smaller companies, but it's the exception, not the norm."
+   },
+   {
+    "q": "technical writer vs content writer, what's the difference",
+    "a": "A technical writer documents how a system works so someone can use it correctly; a content writer writes to persuade or inform an audience that isn't trying to complete a task. The skill overlap is real (both need clean prose) but the daily work diverges fast: one lives in git and API specs, the other lives in campaigns and SEO."
+   },
+   {
+    "q": "can technical writers work remotely",
+    "a": "Yes, and the measured 45% remote share reflects how little the job depends on physical presence, since the source material (code, tickets, specs) is all digital already. Fully in-office roles tend to show up more at companies where docs teams sit embedded with hardware or manufacturing engineers."
+   },
+   {
+    "q": "is technical writing at risk from AI",
+    "a": "The measurements don't speak to this directly, but the job's center of gravity, verifying a system's actual behavior and asking engineers the awkward questions, isn't something a model can do on its own. What's more likely to shift is the first-draft work, with writers spending more time reviewing and correcting than drafting from a blank page."
+   }
+  ]
+ }
+}

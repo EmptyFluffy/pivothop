@@ -1,0 +1,106 @@
+{
+ "slug": "design-systems-lead",
+ "title": "Design Systems Lead",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A Design Systems Lead owns the shared component library, the design tokens, and the documentation that every product team pulls from instead of redrawing a button for the hundredth time. The job sits at the seam between design and engineering: you draw the component in Figma, but you also decide how it ships in React and what happens when a product team wants to override it. People confuse this with Product Designer, but a Product Designer ships one flow well; this role ships the pieces every flow is made of.",
+  "day_to_day": "Most weeks split roughly in half between heads-down component work and sitting with other teams who consume what you build. You open Figma to audit a component against its coded counterpart (they drift, always, and catching the drift before a designer builds on top of the wrong version is half the job). There's usually a pull request to review where an engineer has implemented a new variant, and you're checking it against the accessibility spec line by line, not just eyeballing it. Office hours or a system critique meeting takes a chunk of the week, where teams bring you edge cases their flow needs that the system doesn't support yet. The moment people look forward to is when a component that's been argued over for weeks finally gets adopted without a single support question, because that means the documentation worked. The rest is writing: usage guidelines, migration notes, changelogs nobody reads until they need to.",
+  "work_environment": "This is desk work, almost entirely synchronous with design and engineering teams rather than with users or clients, which is part of why remote setups work for a meaningful share of these roles. Bad weeks come from version migrations, when a token naming change or a breaking component update forces every consuming team to update at once and you're the one fielding the Slack threads. There's no on-call in the traditional sense, but a broken component in production during a release freeze will pull you in outside normal hours. The job is calm most of the time and genuinely disruptive a few times a year, and you learn to tell the difference between a real fire and a designer who just discovered the spacing token doesn't match their mockup.",
+  "getting_in": "There's no license here, but there is a real experience gate: most postings ask for around five years of design or frontend work, and just over half state that requirement outright rather than leaving it implied. A bachelor's degree shows up in the requirements, but the field is one where a strong public system (even a personal one built from scratch) substitutes for it in practice, since the actual bar is whether you can show a system you built or meaningfully rebuilt. The longest stretch is usually the years spent as a Product Designer or Frontend Developer first, because this role rarely hires straight out of school. The common stall point is portfolio-shaped: candidates show pretty components but can't show the documentation, the governance model, or how they handled a breaking change, and that's what interviews probe.",
+  "ladder": "Early on you own components: you draw them, you spec them, you write the first version of the documentation. The step up is owning the system as a product, meaning you set the roadmap for what gets built next, negotiate with product teams over what's core versus custom, and start reporting on adoption metrics rather than just shipping pieces. The real fork comes around the point where you'd otherwise become a manager: some leads move into managing a design systems team, others go the opposite way and go deeper technical, picking up more of the engineering side (tokens pipelines, component APIs, sometimes even maintaining the codebase directly). That fork tends to show up two to four years into the role, once the system itself is stable enough that the job is no longer just keeping it alive.",
+  "suits": "People who come alive here are the ones who get a genuine charge out of consistency, the kind of person who notices that two teams built the same dropdown slightly differently and finds that more interesting than annoying. It suits someone who likes being the reference point other designers check against, rather than someone who needs to own a single flagship product from start to finish. The people who tend to leave are strong product designers who took the role for the title bump and then missed shipping user-facing features, because a system's users are internal, and the feedback loop is slower and less visible. If you want to see a real person use the thing you designed within the week, this isn't that job.",
+  "misconceptions": "The biggest one is that this is mostly a Figma job. In practice a third of the postings ask for REST API knowledge and nearly a quarter want React, because you're specifying how components behave in code, not just how they look. People also assume the job is creative in the way product design is creative; most of the actual craft is in naming, governance, and writing rules that hold up when fifty designers use them differently than you intended.",
+  "who_qualifies": "Product Designers convert most cleanly into this role, carrying over Figma fluency and an instinct for what makes a component usable, though they typically need to build up the engineering-facing half (API awareness, component code review) on the job. Frontend Developers bring the opposite strength: they already think in props and variants, but usually need to develop the visual judgment and documentation habits the design side of the role demands. Design Technologists sit closest to a ready-made fit, since the role already asks them to move between Figma and code, but even they typically need more experience with governance and stakeholder negotiation than their prior role required.",
+  "what_the_numbers_miss": "None of this shows how political the job gets once a system has real adoption; getting three product teams to agree on one button takes longer than building the button. It also can't show what a bad system looks like from the inside (undocumented, half-adopted, forked six ways), which is the actual daily experience in a meaningful share of these roles even when the job title looks the same on paper.",
+  "steps": [
+   {
+    "do": "Work as a product or UI designer first",
+    "how": "Spend two to three years designing real product flows in Figma, ideally somewhere with an existing component library you can learn to use and critique. You'll know you're ready to move when you start noticing inconsistency across a product as a problem worth fixing, not just a detail to work around."
+   },
+   {
+    "do": "Build or rebuild a component library",
+    "how": "Take on ownership of an existing design system at your company, or if none exists, propose and build a small one (even five to ten core components with documented variants counts). This typically takes three to six months of part-time effort alongside your main role and becomes the centerpiece of your portfolio."
+   },
+   {
+    "do": "Learn the engineering handoff cold",
+    "how": "Get hands-on with how your components ship: React or whatever your stack uses, plus enough HTML/CSS to review a pull request without deferring entirely to engineers. Aim to be able to read a component's code and tell whether it matches the Figma spec, not to write production code yourself."
+   },
+   {
+    "do": "Write real documentation, not just files",
+    "how": "Produce usage guidelines, accessibility notes, and a changelog for at least one system you've worked on; this is the artifact hiring managers ask to see and the one most candidates skip. Aim for documentation thorough enough that a new designer could use the system correctly without asking you a single question."
+   },
+   {
+    "do": "Apply once you can show governance decisions",
+    "how": "Target roles once you can talk through a real case where you said no to a one-off component request, or handled a breaking migration across multiple teams. This is usually reachable around the five-year experience mark that most postings state outright, and it's the story that separates candidates in the interview."
+   }
+  ],
+  "tools": "Figma is the daily surface, non-negotiable and the first thing interviewers ask about, alongside a working knowledge of REST APIs since a third of postings expect you to understand how components talk to backend data. React shows up often enough to be a real asset even if you're not writing production code yourself, and basic HTML/CSS fluency is assumed rather than stated. Accessibility tooling and standards knowledge sits just under Figma in importance (over two-thirds of postings name it directly), and a few listings are starting to mention LangChain, suggesting some teams are exploring AI-assisted documentation or component generation, though it's early and not yet a baseline expectation.",
+  "industries": [
+   {
+    "name": "Enterprise software",
+    "note": "Systems here are large and old, often with years of accumulated inconsistency to untangle; the job leans heavily on governance and migration work."
+   },
+   {
+    "name": "Consumer product companies",
+    "note": "Faster-moving, smaller systems, more pressure to keep pace with frequent redesigns without breaking existing product surfaces."
+   },
+   {
+    "name": "Healthcare and wellness platforms",
+    "note": "Accessibility and compliance carry more weight here than elsewhere, given the share of postings in this field mentioning mental health and accessibility together."
+   },
+   {
+    "name": "Agencies and consultancies",
+    "note": "You build systems for multiple clients rather than owning one long-term, so the work is more about fast setup and handoff than years of stewardship."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Accessibility-focused systems work",
+    "why": "Nearly seven in ten postings name accessibility directly, and companies in regulated or health-adjacent spaces are hiring specifically for leads who can own WCAG compliance at the component level."
+   },
+   {
+    "name": "Design technologist crossover",
+    "why": "Roles that expect both Figma and React fluency pay toward the higher end of the range and are hard to fill, since few candidates are equally credible on both sides of the handoff."
+   },
+   {
+    "name": "AI-assisted documentation and generation",
+    "why": "Early mentions of LangChain in postings suggest some teams are experimenting with AI tools to keep documentation current automatically; getting ahead of this now is a bet on where the tedious parts of the job go next."
+   }
+  ],
+  "pros": [
+   "There's a specific satisfaction in watching a component you designed get reused by a team you've never spoken to, correctly, without them needing to ask you anything.",
+   "The problems are genuinely interesting in a puzzle sense: naming conventions, token architecture, and governance rules that have to hold up under pressure from people who didn't write them.",
+   "You get unusually deep exposure to both design and engineering thinking, which makes you hard to box into either discipline later.",
+   "The role rewards long-term craftsmanship over constant context-switching; a system you build well keeps paying off for years instead of being replaced by the next redesign."
+  ],
+  "cons": [
+   "Your users are internal, so the feedback loop is slower and quieter than shipping a feature people click on.",
+   "A meaningful chunk of the job is enforcement: telling a team their one-off request breaks the system, which doesn't make you popular in the moment.",
+   "Migrations and breaking changes can eat a week or more at a time, and they tend to land right when everyone else is trying to ship.",
+   "The role is still rare enough (13 live openings against 79 postings read) that the job market for it is thin compared to Product Designer roles, so switching companies takes patience."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a design systems lead",
+    "a": "Most postings expect around five years of design or frontend experience before this title, which usually means two to three years as a product designer or frontend developer first, followed by direct ownership of a component library. Candidates who already work on a design system informally often move faster than this average."
+   },
+   {
+    "q": "do you need a degree to be a design systems lead",
+    "a": "A degree is commonly listed, but it's one of the fields where a demonstrated system (built, documented, and adopted somewhere) substitutes for it in practice. Hiring managers care more about seeing governance decisions and real documentation than where you studied."
+   },
+   {
+    "q": "design systems lead vs product designer, what's the difference",
+    "a": "A product designer owns a user-facing flow from start to finish; a design systems lead owns the shared components that every flow is built from. The two roles share tools and instincts, but a systems lead spends more time on documentation, governance, and code-level review than on any single user journey."
+   },
+   {
+    "q": "can a design systems lead work remotely",
+    "a": "Yes, in part: 38% of measured postings are remote, which is workable since the job's main collaborators are other designers and engineers rather than users on site. Companies with distributed product teams tend to be more open to it than ones with a single central design org."
+   },
+   {
+    "q": "is design systems lead a good career right now",
+    "a": "It's a solid path if you want depth over breadth: the yearly switch rate out of this role is low (3.7%), suggesting people who land here tend to stay, which usually means the work holds up once you're doing it. The tradeoff is that openings are fewer than in adjacent design roles, so the job search itself takes longer."
+   }
+  ]
+ }
+}

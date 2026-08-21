@@ -1,0 +1,106 @@
+{
+ "slug": "prompt-engineer",
+ "title": "Prompt Engineer",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A prompt engineer builds and hardens the instructions, retrieval pipelines, and evaluation loops that make a large language model behave the same way twice. It sits next to conversation design but the center of gravity is different: a conversation designer writes for how the dialogue feels, a prompt engineer writes for how the system fails, and spends real time in Python and RAG pipelines making sure it doesn't. Most of the job is diagnosis, not authorship.",
+  "day_to_day": "Most weeks start with a look at where the model broke in production: a support bot that hedged when it should have refused, a summarizer that dropped a clause it shouldn't have. You open the eval set before you open anything else, because a prompt change that isn't measured against last week's failures is just a guess with better formatting. There's drafting (the actual prompt or the retrieval query template), there's Python for the harness that runs a hundred variations overnight, and there's a chunk of the week in Slack or a doc with whoever owns the product, explaining why the fix that sounds obvious will break three other cases. Roughly half the week is heads-down, half is meetings and review. The part people look forward to is the moment a rewrite takes a flaky 60% pass rate to something boring and stable, because boring is the whole point. It ends with a prompt or pipeline checked in, not a paragraph of prose admired.",
+  "work_environment": "This is desk work, almost entirely remote (two out of three postings measured don't require an office), because the entire toolchain (the model APIs, the eval scripts, the vector store) lives on a laptop and a cloud account, not in a building. Hours are steady except around a launch, when a bad model update or a new client demo compresses a week of testing into two days. There's no shift work and no travel to speak of. The worst weeks are the ones where a foundation model provider changes behavior underneath you and every prompt that used to work starts drifting, and you're rebuilding trust in the system from scratch while people wait.",
+  "getting_in": "There's no license and no fixed years-of-experience bar; none of the postings measured stated a required years figure, which tells you hiring managers are looking at what you've built more than what you've logged. A relevant degree shows up in a share of postings, but it's not universal, and where it's absent employers are reading a portfolio: prompts and pipelines with before/after eval numbers, not just clever transcripts. The realistic path is a few months of hands-on work with an LLM API, RAG, and Python (the three skills that show up in two-thirds of postings) before you have anything worth showing. The stall point is usually here: people write good one-off prompts but never build the harness that proves the prompt holds up across a hundred inputs, and that harness is what gets you hired. Fine-tuning and LangChain show up in about a third of postings, worth having but not the gate.",
+  "ladder": "Early on you own individual prompts and small pipelines: get this one flow to behave. The next step up is owning an evaluation system for a whole product surface, deciding what counts as a failure and building the tests that catch it before a customer does. Past that the fork appears: one path goes toward AI engineering, owning the model infrastructure and training decisions (a 12 to 24 month move by the routes measured), the other stays close to language and moves toward conversation design or a lead prompt role shaping how a whole team writes and reviews prompts. The first real step up requires you to have shipped something that survived a model version upgrade without a rewrite.",
+  "suits": "People who come alive here are the ones who get a genuine kick out of finding the one input that breaks a system everyone thought was solid, and then fixing it in a way that doesn't just patch that case but the whole family of cases behind it. It rewards a certain patience with ambiguity: the model is a black box that behaves probabilistically, and you're trying to pin down behavior you can't fully see inside. People who leave are usually the ones who wanted to write, in the creative sense, and find that the actual work is closer to debugging with words. If what you wanted was voice and personality, conversation design is the closer fit; if you wanted to build the underlying system, AI engineering is.",
+  "misconceptions": "The outside belief is that this is mostly clever wording, a knack for phrasing. In practice the skill that gets you paid is building the evaluation harness that tells you whether your phrasing helped, across a hundred edge cases, not just the one you tried by hand. The other misconception is that it's a temporary role that AI will automate away; the postings measured show it increasingly overlapping with RAG and fine-tuning work, meaning the job is drifting toward pipeline engineering, not disappearing.",
+  "who_qualifies": "AI engineers convert into this role most cleanly (59% match in the routes measured), because they already carry the Python and RAG background and are mostly trading infrastructure ownership for evaluation ownership. Solutions architects and sales engineers show up too, at lower match, usually bringing the client-facing instinct for what a prompt needs to accomplish in the real world, but they tend to be light on the hands-on eval and scripting work and have to build that up. Conversation designers carry over the language sense but usually need to pick up Python and RAG from closer to zero.",
+  "what_the_numbers_miss": "The postings can't show you what it feels like to watch a prompt that worked perfectly yesterday start failing today because a model provider pushed a silent update, which is a recurring texture of this job that no salary figure captures. They also can't show the difference between a team with a real eval culture and one where prompt engineer means whoever tests things by hand in a chat window; the title covers both.",
+  "steps": [
+   {
+    "do": "Learn one LLM API end to end",
+    "how": "Pick one provider (OpenAI, Anthropic, whichever your target employers use) and build three small projects with it: a classifier, a summarizer, a retrieval-augmented Q&A tool. Two to four weeks if you already write Python. You're done when you can explain why a specific prompt structure changed the output, not just that it did."
+   },
+   {
+    "do": "Build a RAG pipeline from scratch",
+    "how": "Stand up a small vector store, chunk a real document set, and wire retrieval into a prompt. Three to six weeks, since debugging chunking and retrieval quality takes longer than the happy path suggests. Done when you can point to a case where better chunking measurably improved answer accuracy."
+   },
+   {
+    "do": "Write an evaluation harness, not a demo",
+    "how": "Take one of your projects and build a set of 30 to 50 test cases with expected behavior, then script a way to run your prompt against all of them and score the results. This is the artifact that separates a portfolio piece from a toy; budget two to three weeks. Done when you can show a before/after pass-rate number from a prompt change."
+   },
+   {
+    "do": "Break something on purpose",
+    "how": "Take a working prompt and adversarially test it: try to get it to hallucinate, leak instructions, or ignore constraints, and document what worked and how you patched it. A week or two, done alongside the harness step. This is the single artifact hiring managers ask about most, because it shows you think about failure, not just function."
+   },
+   {
+    "do": "Apply with eval numbers, not transcripts",
+    "how": "Target roles that list LLM, RAG, or fine-tuning explicitly (present in two-thirds of postings measured) and lead your portfolio with the pass-rate improvements, not the cleverest single prompt. Expect a few weeks of applications and at least one technical screen that asks you to debug a broken prompt live. You're done with this step once you have an offer or a clear read on what specific gap keeps coming up in feedback."
+   }
+  ],
+  "tools": "The real gatekeepers are an LLM API (100% of postings) and Python plus RAG pipeline work, each showing up in two-thirds of postings measured; without those three, nothing else on the list matters. LangChain and fine-tuning workflows show up in about a third and are worth knowing but rarely the deciding factor. REST APIs and basic data analysis round out the toolkit for wiring prompts into real products. The postings lean toward pipeline and retrieval tooling over raw prompt-writing skill, which is where the field is visibly heading.",
+  "industries": [
+   {
+    "name": "AI product companies",
+    "note": "building the customer-facing chat or copilot feature directly; fastest iteration cycles and the most eval infrastructure to learn from."
+   },
+   {
+    "name": "Enterprise software",
+    "note": "retrofitting an LLM feature into an existing product; more constraints from legacy systems and slower release cycles."
+   },
+   {
+    "name": "Customer service platforms",
+    "note": "prompts here carry real liability (refunds, policy answers), so accuracy and refusal behavior get scrutinized harder than elsewhere."
+   },
+   {
+    "name": "Consulting and agencies",
+    "note": "shorter engagements across many clients, less time to build deep eval systems, more time spent on quick, defensible wins."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "RAG architecture",
+    "why": "Retrieval quality is the single biggest lever on real-world accuracy for most LLM products, and it shows up in two-thirds of postings measured; going deep here makes you useful beyond prompt wording alone."
+   },
+   {
+    "name": "Evaluation and red-teaming",
+    "why": "Companies shipping LLM features are increasingly asked to prove reliability and safety, and someone who can build the test suite that proves it is scarce relative to people who can just write prompts."
+   },
+   {
+    "name": "Fine-tuning and model adaptation",
+    "why": "Present in about a third of postings and growing as teams outgrow prompting alone; worth it if you want to move toward the AI engineer route later, since it shares infrastructure skills with that role."
+   }
+  ],
+  "pros": [
+   "There's a real, checkable moment of success: the eval score moves from flaky to stable and you can point to the exact change that did it.",
+   "The work is almost entirely remote, so you're not tied to a specific city's job market the way most engineering roles still are.",
+   "The skill set (RAG, Python, evaluation) transfers cleanly into AI engineering or data roles if you want to move later, without starting over.",
+   "You're close enough to the model's raw behavior to learn something new about how it fails each week, rather than working several abstraction layers removed from it."
+  ],
+  "cons": [
+   "A prompt that worked perfectly can quietly stop working when the underlying model gets updated, and that's not something you control.",
+   "The role is only three years or so into being a distinct job title, so what it means varies a lot between one employer and the next.",
+   "A meaningful chunk of the work is unglamorous test-writing and edge-case chasing, not the creative prompt-crafting people picture.",
+   "The live opening count is thin right now, so the search itself can take patience even with a strong portfolio."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a prompt engineer",
+    "a": "Most people who already know Python get to a hireable portfolio in two to four months of focused work on LLM APIs, RAG, and an evaluation harness. Without prior coding experience, add a few months to get comfortable with Python first."
+   },
+   {
+    "q": "do you need a degree to be a prompt engineer",
+    "a": "No specific degree is required by most postings measured, and none stated a required years-of-experience figure either. What replaces it is a portfolio showing measured before/after improvements on real prompts and pipelines, which employers can check faster than a transcript."
+   },
+   {
+    "q": "is prompt engineering a good career right now",
+    "a": "It pays well at the median (around $111k) and two-thirds of postings are remote, but the live opening count measured is small, so it's a good career for someone building a strong, specific portfolio rather than casting a wide net. The skill set converts cleanly into AI engineering if the title itself narrows over time."
+   },
+   {
+    "q": "what's the difference between a prompt engineer and a conversation designer",
+    "a": "A conversation designer writes for how a dialogue feels to the person having it; a prompt engineer writes and tests for how the system behaves across hundreds of inputs, with heavier use of Python and RAG. The two roles share a 65% skill match, so people move between them, but the day-to-day center of gravity (voice versus reliability) is different."
+   },
+   {
+    "q": "will AI replace prompt engineers",
+    "a": "Not based on what the postings show right now: the skill set is drifting toward RAG pipelines, fine-tuning, and evaluation work rather than shrinking, which is systems work that doesn't automate itself away. The narrower version of the job (hand-tuning single prompts with no pipeline or eval work) is the part most likely to fade."
+   }
+  ]
+ }
+}

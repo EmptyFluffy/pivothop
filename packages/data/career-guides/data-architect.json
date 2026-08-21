@@ -1,0 +1,106 @@
+{
+ "slug": "data-architect",
+ "title": "Data Architect",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A data architect decides how an organization's data is going to be structured, stored, and moved long before an engineer writes a pipeline to move it. The confusion with data engineer is fair, since 92% of the skill set overlaps, but the architect is accountable for the shape of the system (schemas, governance rules, which warehouse, what talks to what) while the engineer builds and runs the pipes that shape implies. You spend more time in design review and less time debugging a failed job at 2am.",
+  "day_to_day": "Most weeks split into a design half and a people half: you might spend two or three days in a modeling tool or a whiteboard doc laying out how a new data domain should be structured, then the rest fielding questions from engineers who are implementing what you drew last sprint. There's usually a governance review buried in there somewhere, checking that a new pipeline complies with the retention and access rules someone (possibly you) wrote down eight months ago. You'll open a lot of ETL job configs you didn't write, because a good chunk of the job is reading someone else's Spark code and deciding if the shape underneath it is sound. The part people look forward to is the moment a model that took three weeks of arguing with stakeholders finally gets implemented cleanly and a report that used to take four joins and a prayer runs in one query. Cloud architecture decisions (AWS versus Azure versus GCP, and increasingly all three at once) eat a surprising number of meetings. The rest is documentation nobody reads until the day they desperately need it.",
+  "work_environment": "This is desk work, almost entirely screen and meeting, and the 45% remote share reflects that: there's no physical system to stand next to, so plenty of employers don't require you in an office. The bad weeks come from migration deadlines (a warehouse cutover that has to happen over a weekend) and from governance audits that land at the same time as three other things. On-call exists but it's lighter than for engineers, since you're usually consulted when something is architecturally wrong rather than paged when a job fails. Meetings cluster with stakeholders who don't know what a schema is and need the tradeoffs explained in plain terms, which is its own skill separate from the technical one.",
+  "getting_in": "The typical posting wants 7 years of experience, and only 48% state a number explicitly, which tells you the other half are judging by portfolio and interview rather than a hard cutoff. A four-year degree shows up in the clear majority of postings, but this is a field where a strong GitHub of modeling work and a couple of years visibly doing ETL and data engineering can substitute for the pedigree employers ask for on paper. The longest stretch is usually the run-up: two to four years as a data engineer or analyst before anyone will call you architect, because the title implies you've already seen what happens when a schema decision goes wrong at scale. People commonly stall right before the jump, doing senior engineering work for years without anyone handing them architecture-level scope, so the way through is usually to ask for it explicitly on a project rather than wait to be offered it.",
+  "ladder": "Early on you own a single system or domain: one warehouse, one pipeline family, one governance policy you're responsible for keeping current. The first real step up is owning the data strategy for an entire business unit, meaning you're now accountable when three teams' data models don't agree with each other, not just when your own does. From there the ladder forks, usually around the 8 to 10 year mark: one branch goes into engineering management, running the teams who implement your designs, the other stays technical and becomes something like principal architect, where you're the person called in when nobody else can figure out why two systems of record disagree. Both branches pay well; the fork is about whether you want to keep drawing the diagrams yourself or start managing the people who do.",
+  "suits": "People who come alive in this job like the moment a data model finally clicks, when a structure that felt forced for weeks suddenly explains itself, and they like being the person three teams call when their numbers don't match. It suits someone who enjoys explaining a technical tradeoff to someone who has no technical background and watching them get it. People who leave usually wanted to keep building things themselves; architecture pulls you further from the keyboard than they expected, and if what you loved about engineering was writing the code, watching someone else implement your design can feel like a demotion in disguise. If you'd rather be the one debugging the Spark job at 2am than the one who decided how the tables should be structured, data engineer will suit you better.",
+  "misconceptions": "People assume the title means you manage databases day to day, but that's the database administrator's job; an architect is more often found in a design review than in a production incident. There's also an assumption that this is a purely technical role, when in practice a large share of the job is translating stakeholder wants into something a schema can represent, which is closer to negotiation than engineering.",
+  "who_qualifies": "Data engineers are the closest fit by a wide margin, with 92% overlap in the measured skill set, because the ETL, Spark, and cloud platform experience transfers almost directly, what doesn't transfer automatically is the governance and stakeholder-facing judgment the architect role adds on top. BI developers carry over at 55%, usually strong on the data-modeling and reporting side but needing to build out the engineering and infrastructure half. Analysts moving in from either direction should expect the governance and platform-selection parts of the job to be the steepest new learning.",
+  "what_the_numbers_miss": "The postings can't show you what it feels like to defend a schema decision in a room full of people who think 'just add a column' is a small ask. They also don't capture how much of the job is political: whose team's definition of 'customer' wins when two departments disagree.",
+  "steps": [
+   {
+    "do": "Get 2 to 3 years doing ETL work",
+    "how": "Work as a data engineer or analyst building and maintaining actual pipelines, not just querying finished tables. You want hands-on time with the tools that show up constantly in postings (Spark, SQL, a cloud platform) so you're not learning them for the first time in an architecture interview. You'll know you're ready to move on when you're the one other engineers ask to review pipeline design, not just code."
+   },
+   {
+    "do": "Build data-modeling skill deliberately",
+    "how": "Take on the schema design piece of at least two or three real projects, even if it's not formally your job yet. Document the tradeoffs you made and why, since this becomes the portfolio material that gets you considered for architecture roles later. This usually takes a year or two layered on top of engineering work rather than as a separate step."
+   },
+   {
+    "do": "Get fluent in one cloud platform deeply",
+    "how": "Pick AWS, Azure, or GCP based on what your employer or target industry uses and go deep rather than broad at first; postings split fairly evenly across all three (52%, 42%, 42%) so any one is defensible. Aim for real production experience, not just certification, though a certification (three to six months of study alongside work) helps you clear resume screens."
+   },
+   {
+    "do": "Take ownership of a governance decision",
+    "how": "Volunteer to write or revise a data governance or access policy for at least one system, even a small one. This is the piece that separates architect-track engineers from senior engineers who stay senior, and hiring managers ask about it directly in interviews. Expect this to take a few months of real involvement, not a single meeting."
+   },
+   {
+    "do": "Apply for architect roles at the 7-year mark",
+    "how": "Once you have engineering depth, a modeling portfolio, cloud platform fluency, and one governance project you can talk through in detail, start applying; the median experience asked for is 7 years but you'll find postings ranging both above and below that. Be ready to walk through a specific design decision end to end in an interview: what you chose, what you rejected, and what broke later that you didn't anticipate."
+   }
+  ],
+  "tools": "ETL tooling and SQL are the real gatekeepers, showing up in 71% and 42% of postings respectively, along with Spark for anything at scale (48%). A cloud platform is now assumed rather than optional, split fairly evenly across AWS, Azure, and GCP, so depth in one plus working familiarity with another is the practical target. dbt shows up in over a third of postings and is worth learning if you haven't, since it's becoming the default way teams manage transformation logic on top of a warehouse.",
+  "industries": [
+   {
+    "name": "Healthcare and clinical research",
+    "note": "Governance and compliance dominate here (clinical-research appears in 39% of postings), since patient data rules constrain almost every design decision before performance does."
+   },
+   {
+    "name": "Financial services",
+    "note": "Heavier emphasis on auditability and lineage; you'll spend more time proving a number is correct than making it fast."
+   },
+   {
+    "name": "Technology and SaaS companies",
+    "note": "Faster-moving, more willing to adopt new tooling like dbt early, but governance is often thinner and you'll build more of it from scratch."
+   },
+   {
+    "name": "Consulting and systems integration",
+    "note": "You move between client environments every few months, which means less depth on any one system but broader exposure to how different industries structure the same problem."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Data governance architecture",
+    "why": "Regulatory pressure keeps rising and governance shows up in 45% of postings already; specialists who can design compliant systems from the ground up are hired specifically for that skill rather than as a generalist add-on."
+   },
+   {
+    "name": "Cloud data platform migration",
+    "why": "A steady stream of companies are moving off legacy warehouses onto AWS, Azure, or GCP stacks, and architects who've done a full migration end to end are scarce enough to command a premium for repeat engagements."
+   },
+   {
+    "name": "Real-time and streaming architecture",
+    "why": "As more businesses want data decisions made in minutes rather than overnight, architects who can design around Spark streaming and event-driven pipelines rather than batch ETL are increasingly asked for by name."
+   }
+  ],
+  "pros": [
+   "You get to see a design decision you made months ago hold up under real production load, which is a different satisfaction than shipping code that just needs to pass a test.",
+   "The pay band is wide and the top end (p75 at $166k) rewards architecture-level judgment specifically, not just seniority in general.",
+   "You're rarely doing the same task twice; every system has different constraints, so the problem-solving stays genuinely different project to project.",
+   "You end up understood across the whole organization, from engineers to executives, because part of the job is being the translator between technical structure and business need."
+  ],
+  "cons": [
+   "You lose a lot of hands-on building time compared to engineering, and if you miss writing code yourself, this role can feel further from the keyboard than expected.",
+   "Governance and compliance reviews are slow and often circular, and you can't speed them up by working harder, only by waiting them out.",
+   "You inherit blame for schema decisions made years before you arrived, since 'the data model is wrong' becomes your problem regardless of who wrote it.",
+   "Stakeholder meetings eat real hours every week, and some of them will be spent re-explaining a tradeoff you already explained last quarter."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a data architect",
+    "a": "Most postings expect around 7 years of experience, typically 2 to 3 years doing ETL and engineering work followed by a few more years building modeling and governance judgment before the title shows up on offer letters. It can move faster if you get architecture-level responsibility early on a smaller team, since it's the scope that matters more than the calendar time."
+   },
+   {
+    "q": "do you need a degree to be a data architect",
+    "a": "A degree appears in most postings, but the field is skills-heavy enough that strong ETL, cloud, and modeling experience can substitute for it in practice, especially if you can walk through real system designs in an interview. What employers are screening for is judgment under the degree requirement, not the credential itself."
+   },
+   {
+    "q": "data architect vs data engineer, what's the difference",
+    "a": "A data engineer builds and runs the pipelines; a data architect decides how the data should be structured and governed before those pipelines exist. The overlap is heavy (92% by skill match) which is why the two are so often confused, but the architect role adds accountability for the design and the rules, not the day-to-day operation."
+   },
+   {
+    "q": "is data architect a good career right now",
+    "a": "The salary band is strong (median $139k, top quartile $166k) and the skill set (cloud, ETL, governance) is in steady demand across healthcare, finance, and tech. The main tradeoff to weigh is that it's a role you generally grow into after years of engineering, not one you enter directly."
+   },
+   {
+    "q": "can a data architect work remotely",
+    "a": "Yes, close to half of measured postings (45%) are remote, which tracks with the nature of the work: it's design and documentation heavy rather than tied to physical infrastructure. Fully in-office roles tend to cluster where governance or security requirements make remote access to sensitive systems harder to justify."
+   }
+  ]
+ }
+}

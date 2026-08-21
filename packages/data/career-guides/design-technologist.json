@@ -1,0 +1,107 @@
+{
+ "slug": "design-technologist",
+ "title": "Design Technologist",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A design technologist sits between the person who draws the interface and the person who builds it, and spends the day making the drawing work: wiring a prototype so it clicks and animates like the real product, writing the rule in the design system so nobody has to guess again. People confuse it with product design, but a product designer can hand off a static screen and move on; a design technologist is the one who has to make it survive contact with real data, real code, and a screen reader.",
+  "day_to_day": "Most weeks split roughly in half between heads-down building and sitting with other people's problems. You'll open Figma to pull specs, then open a code editor to build the thing Figma can't show: a transition, a live data state, a component that has to behave differently at three breakpoints and two font sizes. There's usually one stakeholder review where you demo a working prototype instead of a deck, and that's the moment people look forward to, because it's the difference between describing an idea and watching someone else use it. Accessibility checks aren't a separate ritual, they're folded into the build (does the focus ring show up, does the screen reader announce the state change). Design-system work eats a chunk of most weeks too: naming a token, documenting a variant, arguing gently about whether a new pattern deserves to exist. By Friday you've usually shipped something small enough that nobody wrote a press release about it, but real enough that someone downstream stopped guessing.",
+  "work_environment": "This is desk work, almost entirely indoors, on a laptop, in a mix of solo focus blocks and calls. The low remote share here isn't about the tools, which travel fine, it's about how much of the job is negotiation: getting a designer, an engineer, and a product manager to agree on a threshold or a naming convention goes faster in a room. Bad weeks come from deadline stacking, usually a launch date that didn't move even though the design changed twice, or a stakeholder review that gets rescheduled three times and eats a whole afternoon each time. There's no on-call and no seasonal peak in the way retail or tax work has one, but there is crunch right before a major release when prototypes need to look finished for an executive demo.",
+  "getting_in": "The common path is a design or human-computer-interaction background plus a few years of hands-on building, since a two-year degree threshold shows up but most postings care far more about what you've shipped. Experience is the real gate: the median is 5 years, and two-thirds of postings state a specific requirement, so this rarely reads as an entry-level title. The step that eats the most time is building fluency in both design tools and a scripting language (commonly Python) well enough to own a prototype end to end rather than handing it off. People stall at the handoff point itself: they can design well or code well, but the job wants someone who moves between the two without waiting for a translator. Employers who waive the degree usually accept a strong portfolio of interactive prototypes and a design-systems case study in its place.",
+  "ladder": "Early on you're responsible for individual components and prototypes: you build what's asked, cleanly, and you flag when a design won't hold up in code. The first real step up is owning a system, not a screen, meaning you're the one who decides what a button variant is allowed to look like across an entire product, and you defend that decision in front of people who disagree. From there the ladder forks: one path goes toward staying hands-on and deep in tooling (this is where computational design and creative technology roles pull people), the other toward managing a team of designers and technologists and spending most of your week in review and negotiation rather than in the editor. That fork tends to show up somewhere in year four or five, roughly when the experience gates on senior postings start asking for it.",
+  "suits": "People who come alive here are the ones who get a genuine charge out of watching a static comp start moving, who'll spend an extra hour making an animation ease correctly because the wrongness of it would bother them all day. It suits someone who doesn't mind living in the gap between two disciplines and being the translator, rather than wanting to be the sole author of either the design or the code. The people who leave are usually those who wanted to be judged purely on visual taste, the brand-designer instinct, and found the accessibility audits and token-naming meetings tedious rather than satisfying; they tend to move toward brand or creative director roles where craft is the whole job. If what pulls you is the click of a prototype finally matching its spec, this holds your attention for a long time.",
+  "misconceptions": "Outsiders assume this is a design job with some coding sprinkled on top, but the postings ask for real engineering literacy (Python, mechanical CAD, BIM tools show up depending on industry) alongside design tools, not a light gloss of HTML. There's also an assumption that the output is always software UI; in practice a meaningful share of these roles sit in architecture and product-hardware contexts using Revit or Rhino, where the 'interface' being prototyped is a building system or a physical assembly.",
+  "who_qualifies": "Product designers convert into this role most easily, since the daily tools overlap and the gap is mostly deepening code fluency and systems thinking. UX designers carry over research instincts and interaction sense but usually need to build actual prototyping chops rather than annotated wireframes. Creative technologists and design-systems leads already speak half the job's language (the former brings code-first thinking, the latter brings governance experience) but each is missing the other half. Brand designers and creative directors have the weakest overlap: their craft is real but the hands-on build habit usually has to be learned from close to zero.",
+  "what_the_numbers_miss": "Postings can't show you what it feels like to be the person a designer and an engineer both partially trust and partially second-guess, which is most of the emotional texture of the job. They also don't capture how much the actual toolkit varies by industry: a design technologist at a hardware company and one at a software product company are doing recognizably different jobs that happen to share a title.",
+  "steps": [
+   {
+    "do": "Learn one scripting language well",
+    "how": "Python shows up in a third of postings, so pick that unless your target industry points elsewhere. Spend 2 to 3 months building small interactive tools or data-driven prototypes with it, not just tutorials. You're done when you can wire a prototype to real (not fake) data without help."
+   },
+   {
+    "do": "Get fluent in a design tool and one build tool",
+    "how": "Figma for the design side, plus whichever adjacent tool your target industry runs on (Rhino or Revit if it's architecture-adjacent, mechanical CAD if it's hardware). This runs parallel to the scripting work, so budget another 2 to 3 months if starting from nothing. Done means you can move a component from Figma into a working build without a handoff meeting."
+   },
+   {
+    "do": "Build three shippable prototypes, not mockups",
+    "how": "Each should be something a stranger can click through and that behaves correctly, not a static comp with hotspots. Include one that demonstrates an accessibility fix (keyboard navigation, screen-reader labeling) since that shows up in a third of postings. Budget 3 to 6 weeks per prototype if you're doing this alongside other work."
+   },
+   {
+    "do": "Document one design-system contribution",
+    "how": "Take a real or self-initiated project and write the kind of documentation a design-systems team would publish: a component's states, tokens, and accessibility rules. This is the artifact that proves you can operate at the systems level the job wants, not just the screen level. One solid write-up, done properly, beats five shallow ones.",
+    "duration": null
+   },
+   {
+    "do": "Target roles at 3 to 5 years' experience",
+    "how": "Given the median experience requirement sits at 5 years and two-thirds of postings state one explicitly, apply once you have 3 years of adjacent design or engineering work plus the portfolio above. Expect the first offer conversation to focus heavily on your prototypes, not your resume. This is usually the longest step, often 1 to 2 years from a standing start in an adjacent field."
+   }
+  ],
+  "tools": "Prototyping tools and Figma are the daily instrument, but the real gatekeepers in hiring are the harder skills layered on top: accessibility knowledge, design-systems experience, and Python each show up in a third of postings, which tells you employers expect you to code and audit, not just draw. Depending on industry, you'll also meet Rhino, Revit, BIM, or mechanical CAD, tools that belong to architecture and hardware contexts rather than software UI. The direction of travel in these postings is toward more code fluency expected up front, less tolerance for designers who only draw.",
+  "industries": [
+   {
+    "name": "Software product companies",
+    "note": "Prototypes are interfaces and interaction states; the design system is the product's visual law, and most of your collaborators are engineers and product managers."
+   },
+   {
+    "name": "Architecture and building design",
+    "note": "Revit and BIM replace Figma as the daily tool; you're prototyping spatial and systems logic rather than screens, often alongside actual architects."
+   },
+   {
+    "name": "Hardware and industrial design",
+    "note": "Rhino and mechanical CAD dominate; prototyping means physical form and mechanism, and the feedback loop with a workshop or manufacturer is part of the week."
+   },
+   {
+    "name": "Agencies and consultancies",
+    "note": "Faster-moving, more client-facing stakeholder work, and a wider range of problems since every project is a new industry's design system."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Computational design",
+    "why": "Pays at the top of the range measured here and pulls in people who want to write code that generates or optimizes designs rather than hand-crafting each one; hiring shows up wherever parametric or generative work is part of the product."
+   },
+   {
+    "name": "Design systems architecture",
+    "why": "This is where the systems-thinking half of the job becomes the whole job: you own the tokens, the governance, and the documentation that other designers and engineers build on top of, and it's a common landing spot for people who liked that part of the daily work best."
+   },
+   {
+    "name": "Creative technology",
+    "why": "For people who want the code-first end of the spectrum, building interactive installations or experimental prototypes rather than production UI; it shares nearly half its skill set with this role and often pays comparably."
+   }
+  ],
+  "pros": [
+   "You get to see your work run, not just get approved in a review, which is a different kind of satisfaction than shipping a static comp.",
+   "The role sits at the exact point where design decisions get tested against reality, so you're rarely stuck debating something purely on opinion.",
+   "The pay range tops out well above general design roles, reflecting how few people can genuinely do both halves of the job.",
+   "Design-system work gives you a lasting artifact: rules and components other people build on for years, not a one-off deliverable that gets replaced next quarter."
+  ],
+  "cons": [
+   "You're often the last line of defense between an idealized design and what code can do, which means you inherit problems nobody else wanted to solve.",
+   "The accessibility and systems documentation work is unglamorous and rarely gets credited the way a flashy prototype demo does.",
+   "Because the role sits between two disciplines, you can end up reporting to a design lead who undervalues the engineering half or an engineering lead who undervalues the design half.",
+   "Stakeholder reviews can get rescheduled repeatedly before a launch, and that churn eats disproportionate time relative to the actual building."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a design technologist",
+    "a": "Most people arrive after 3 to 5 years in an adjacent design or engineering role, since the median experience requirement in postings is 5 years. The bottleneck isn't credentialing, since there's no license or exam, it's accumulating genuine fluency in both a design tool and a coding language."
+   },
+   {
+    "q": "can you become a design technologist without a design degree",
+    "a": "Yes, a two-year degree threshold shows up but most postings care far more about a portfolio of working prototypes than the credential itself. Coming from an engineering or computer-science background with self-taught design skills is just as viable as the reverse."
+   },
+   {
+    "q": "design technologist vs product designer, what's the difference",
+    "a": "A product designer's job usually ends at a polished, well-specified screen; a design technologist's job continues from there into building something that functions, animates, and passes an accessibility check. The two roles share a lot of the same tools, but a design technologist is expected to write real code, not just annotate a handoff."
+   },
+   {
+    "q": "can design technologist work be done remotely",
+    "a": "Sometimes, but only about a third of measured postings are remote. The rest lean in-person because so much of the job is live negotiation between design and engineering that moves faster in a room than in a thread."
+   },
+   {
+    "q": "what does a design technologist get paid starting out versus later",
+    "a": "Entry-level pay in this role sits far below the mid-career figure, with the lower quarter of postings around $80k against a median near $138k. The jump reflects how much the job rewards the rare combination of skills once you've proven you can do both halves of it."
+   }
+  ]
+ }
+}

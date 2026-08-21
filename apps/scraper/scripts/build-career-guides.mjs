@@ -161,7 +161,7 @@ function userPrompt(p) {
 MEASUREMENTS (the only figures you may use, and the page prints most of them itself):
 ${JSON.stringify(p, null, 1)}
 
-Return ONLY valid JSON, no markdown fence, with exactly these keys:
+Call the career_guide tool. What each field must contain:
 
 {
   "summary": "2 to 3 sentences. What this job is, and what separates it from the role next to it that people confuse it with. Start with the work, not with a definition of the field.",
@@ -215,6 +215,68 @@ Answer the question in the first sentence. A reader who reads only that sentence
 Write 5 FAQ entries. At least one must be about the gate (license, degree, or years of experience) if the measurements show one.`;
 }
 
+
+/* The guide's shape, enforced by the API. Asking for JSON in the prompt cost 11
+   of the first 16 failures in the first batch: long responses came back with an
+   unterminated string or a missing brace, and a whole paid generation was lost
+   to a syntax error. A forced tool call cannot come back malformed. */
+const TOOL = {
+  name: 'career_guide',
+  description: 'The written sections of one career guide.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      summary: { type: 'string' },
+      day_to_day: { type: 'string' },
+      work_environment: { type: 'string' },
+      getting_in: { type: 'string' },
+      steps: {
+        type: 'array', minItems: 4, maxItems: 5,
+        items: {
+          type: 'object',
+          properties: { do: { type: 'string' }, how: { type: 'string' } },
+          required: ['do', 'how'],
+        },
+      },
+      ladder: { type: 'string' },
+      suits: { type: 'string' },
+      misconceptions: { type: 'string' },
+      tools: { type: 'string' },
+      industries: {
+        type: 'array', minItems: 3, maxItems: 4,
+        items: {
+          type: 'object',
+          properties: { name: { type: 'string' }, note: { type: 'string' } },
+          required: ['name', 'note'],
+        },
+      },
+      specializations: {
+        type: 'array', minItems: 3, maxItems: 3,
+        items: {
+          type: 'object',
+          properties: { name: { type: 'string' }, why: { type: 'string' } },
+          required: ['name', 'why'],
+        },
+      },
+      pros: { type: 'array', minItems: 4, maxItems: 4, items: { type: 'string' } },
+      cons: { type: 'array', minItems: 4, maxItems: 4, items: { type: 'string' } },
+      who_qualifies: { type: 'string' },
+      what_the_numbers_miss: { type: 'string' },
+      faq: {
+        type: 'array', minItems: 5, maxItems: 5,
+        items: {
+          type: 'object',
+          properties: { q: { type: 'string' }, a: { type: 'string' } },
+          required: ['q', 'a'],
+        },
+      },
+    },
+    required: ['summary', 'day_to_day', 'work_environment', 'getting_in', 'steps', 'ladder',
+      'suits', 'misconceptions', 'tools', 'industries', 'specializations', 'pros', 'cons',
+      'who_qualifies', 'what_the_numbers_miss', 'faq'],
+  },
+};
+
 async function generate(p, key, attempt = 1, fixes = null) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -227,6 +289,8 @@ async function generate(p, key, attempt = 1, fixes = null) {
       // with it off the same guide cost $0.08 and read better, being more
       // concrete. Set GUIDE_THINKING=on to compare again.
       ...(process.env.GUIDE_THINKING === 'on' ? {} : { thinking: { type: 'disabled' } }),
+      tools: [TOOL],
+      tool_choice: { type: 'tool', name: TOOL.name },
       system: SYSTEM,
       messages: [{
         role: 'user',
@@ -268,14 +332,14 @@ async function generate(p, key, attempt = 1, fixes = null) {
     err.creditsExhausted = /credit|billing|quota/i.test(msg);
     throw err;
   }
-  const text = (j.content ?? []).filter((c) => c.type === 'text').map((c) => c.text ?? '').join('').trim();
-  if (process.env.DEBUG_RAW) {
-    fs.writeFileSync('/tmp/guide-raw.txt', text);
-    console.log(`  [debug] ${text.length} chars, stop=${j.stop_reason}, out=${j.usage?.output_tokens}`);
-  }
   if (j.stop_reason === 'max_tokens') throw new Error('response hit the token ceiling');
-  const clean = text.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
-  return { parsed: parseLoose(clean), usage: j.usage ?? {} };
+  const call = (j.content ?? []).find((c) => c.type === 'tool_use' && c.name === TOOL.name);
+  if (!call) throw new Error(`no ${TOOL.name} call in the response`);
+  if (process.env.DEBUG_RAW) {
+    fs.writeFileSync('/tmp/guide-raw.txt', JSON.stringify(call.input, null, 1));
+    console.log(`  [debug] stop=${j.stop_reason}, out=${j.usage?.output_tokens}`);
+  }
+  return { parsed: call.input, usage: j.usage ?? {} };
 }
 
 /* Models occasionally emit a literal newline inside a JSON string, which is

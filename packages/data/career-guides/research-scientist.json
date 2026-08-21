@@ -1,0 +1,106 @@
+{
+ "slug": "research-scientist",
+ "title": "Research Scientist",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A research scientist in this market is mostly running machine learning experiments end to end: framing a question, building the model or pipeline, and defending the result in front of people who will use it. What separates it from a data scientist role is the expectation that some of the work hasn't been done before, you're not just applying a known method to a new dataset, you're deciding whether the method exists yet. The LLM and deep-learning shares in the postings tell you where the frontier currently sits.",
+  "day_to_day": "Most weeks split into a few days of heads-down work (writing code, running training jobs, reading the two or three papers that came out since you last checked) and a day or two of talking to other people about what you found. You'll open a notebook or a script more often than a slide deck, but the slide deck is what determines whether the project continues, so it gets real attention when it's due. There's usually one meeting where you present results to a team that includes people who don't share your background, and translating a confidence interval into a decision they'll act on is its own skill. The moment people look forward to is usually smaller than a launch: the run that finally converges, the ablation that confirms your hunch was right instead of just plausible. Event planning and presentation show up in the numbers because a fair number of research scientist postings expect you to run or speak at internal seminars, not just publish internally. The rest of the week is your own, which is either the best or the loneliest part depending on the day.",
+  "work_environment": "This is desk work, almost entirely: a laptop, a GPU cluster you access remotely, and a Slack or Teams channel for the team you're collaborating with, who may be in a different building or a different country. Only about a fifth of postings are remote, which is lower than you'd expect for a job this computer-bound, and it's because the employers hiring most heavily (Switzerland accounts for the largest share of postings here) tend to want people on-site for lab access, compute security, or just proximity to the rest of the research group. Hours are steady most of the year with spikes before conference deadlines or product launches, when a week can mean several long nights compressed before a submission date rather than a sustained crunch. Travel is occasional (a conference, a workshop, a site visit) rather than constant.",
+  "getting_in": "Most postings ask for a graduate credential: education is required in the large majority of listings, waived in only a handful, so the standard route still runs through a master's or PhD, typically 2 to 6 years depending on the degree and field. The waived cases tend to accept a strong publication record or a portfolio of shipped models in place of the credential, which is a real door but a narrow one. Where people stall is the gap between finishing a degree and having the specific stack (Python, the ML frameworks, some LLM exposure) that postings ask for, since academic training doesn't always cover production tooling. Experience requirements are modest on top of that: the median stated is 3 years, and only about a quarter of postings even specify a number, so the degree is doing more gatekeeping than tenure is. The fastest path in practice is a thesis or postdoc project that produces a public artifact, code, a paper, a benchmark result, that a hiring manager can look at.",
+  "ladder": "Early on you own a piece of a project: a model, an experiment, a dataset. The step up is owning the question itself, deciding what's worth running before anyone assigns it to you, and that shift usually happens once you've shipped a couple of projects that held up under scrutiny. Past that, the ladder forks: one branch keeps you hands-on and senior technically, setting research direction for a small group without managing headcount, the other moves you into managing other researchers' time and output, which is a different job wearing the same job title. Most people feel that fork within 4 to 6 years of starting, and it's worth deciding on purpose rather than drifting into management because it was offered.",
+  "suits": "People who come alive here are the ones who enjoy being wrong in public: you propose a hypothesis, the data doesn't cooperate, and figuring out why is the actual job, not a delay before the real job. If you like the moment a result finally holds up under a skeptical colleague's questions more than you like the moment it first works on your own machine, this fits. The people who leave tend to be the ones who wanted more certainty in their days than research offers, or who wanted to build one thing well and ship it, rather than run six things and kill four of them. If you want your work to be used by name within the month, look at engineering roles instead; if you want to know whether an idea is even true, this is the job.",
+  "misconceptions": "Outsiders assume the job is mostly reading papers and having ideas, but the postings lean hard on Python, data analysis, and prototyping, meaning most of the week is building and debugging things, not theorizing. People also assume it's academic in tone, but only a small share of routes out lead to a professor role, and the pay in this measurement is well above typical academic salaries, so most of this work happens inside companies solving product problems, not universities pursuing pure inquiry.",
+  "who_qualifies": "Data scientists convert into this role most easily, carrying over the statistics and Python work almost directly and mainly adding depth in experimental design and deep learning. Computer vision engineers and economists also transfer well, the former bringing the modeling instinct, the latter the comfort with causal reasoning and messy real-world data, though both usually need to pick up more of the current LLM tooling to be competitive. What doesn't carry over cleanly from either background is the tolerance for ambiguous, open-ended questions with no clear deliverable date, which is closer to a temperament than a skill.",
+  "what_the_numbers_miss": "The postings can tell you the required degree and the median salary, but not what it feels like to spend three weeks on an approach that turns out to be a dead end, which is a normal month in this job, not a failure of it. They also can't show you the difference between a lab that lets you publish and one that treats every result as proprietary the moment it's produced, and that difference matters more to day-to-day satisfaction than almost anything else on the page.",
+  "steps": [
+   {
+    "do": "Finish a relevant graduate degree",
+    "how": "A master's or PhD in a quantitative field (CS, statistics, physics, applied math) takes 2 to 6 years and is what the large majority of postings require. Use the thesis to produce something concrete: a public repository, a workshop paper, a benchmark you built, not just a grade."
+   },
+   {
+    "do": "Build a portfolio of working models",
+    "how": "Two or three projects that go from a raw dataset to a trained, evaluated model, ideally touching the deep learning or LLM tooling that shows up in current postings. This takes a few months alongside coursework and is done when you can walk someone through your design choices, not just your results."
+   },
+   {
+    "do": "Get comfortable presenting uncertain results",
+    "how": "Practice explaining a null result or a partial one to a non-specialist audience, since postings weight presentation and event participation more than people expect. Lab meetings, a local meetup talk, or a workshop poster all count; you're done when you can defend a result you're only 70% sure of without overselling it."
+   },
+   {
+    "do": "Target one industry before applying broadly",
+    "how": "Pick a sector (pharma, finance, a tech company's research arm) and tailor two projects to problems that sector cares about, since research scientist hiring is uneven across industries and a generic ML portfolio competes with everyone else's generic ML portfolio. This narrows your applications but raises your interview rate."
+   },
+   {
+    "do": "Interview for research-adjacent roles too",
+    "how": "Apply in parallel to data scientist and computer vision roles, since those are the strongest measured entry points into research scientist positions later and can get your foot in the door faster than a research-only search. Expect this stage to take a few months of active applying once your portfolio is ready."
+   }
+  ],
+  "tools": "Python and the standard ML frameworks are non-negotiable, they show up in a quarter or more of postings and are assumed baseline rather than a differentiator. Machine learning and deep learning skills broadly, plus specific LLM experience, are what's currently separating candidates in interviews, while statistics and data analysis are the quieter foundation that everything else sits on. Prototyping tools and presentation skills matter more than people expect going in, since a result nobody can act on doesn't count as finished. The center of gravity is visibly shifting toward LLM-specific tooling, fine-tuning, evaluation harnesses, prompt-based experimentation, faster than most degree programs have caught up to.",
+  "industries": [
+   {
+    "name": "Tech / software companies",
+    "note": "Fastest iteration cycles and the most LLM-heavy work; research is expected to connect to a product roadmap within a year or two, not stay purely exploratory."
+   },
+   {
+    "name": "Pharma and biotech",
+    "note": "Longer timelines, heavier regulatory context, and research questions tied to drug discovery or clinical data rather than user-facing products."
+   },
+   {
+    "name": "Finance",
+    "note": "Emphasis on statistics and causal inference over deep learning specifically, with results often judged by backtested performance rather than benchmark scores."
+   },
+   {
+    "name": "Academia and public research institutes",
+    "note": "Smallest pay ceiling of the group but the most publication freedom; better fit for people who want their name on the paper more than on the product."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "LLM evaluation and alignment research",
+    "why": "Appears across 17% of postings already and is one of the few subfields growing faster than the general ML labor pool; companies shipping LLM products need people who can measure whether the thing behaves, not just whether it works."
+   },
+   {
+    "name": "Applied computer vision",
+    "why": "Strong crossover with robotics and manufacturing employers, and one of the highest-match routes into this role, meaning the skill transfers both directions between research scientist and computer vision engineer titles."
+   },
+   {
+    "name": "Causal inference and experimentation",
+    "why": "Underrepresented relative to demand from product and economics-adjacent teams; the economist route into this role suggests employers value people who can say why something happened, not just predict that it will."
+   }
+  ],
+  "pros": [
+   "You get paid to find out whether an idea is true, and the moment an ablation confirms your hunch is a genuinely good feeling that doesn't show up on a resume.",
+   "The top of the salary range in this field clears $196k, and that ceiling is reachable without moving into management.",
+   "The work changes every few months because the field itself moves that fast, so the second year rarely looks like the first.",
+   "You get real ownership early: a project with your name on the results, not just a ticket closed in someone else's sprint."
+  ],
+  "cons": [
+   "Most experiments don't work, and you need to be able to walk into a meeting and say so without it feeling like a personal failure.",
+   "On-site expectations are real here, remote roles are a minority, so relocation or a long commute is often part of the deal, especially with Switzerland absorbing the largest share of postings.",
+   "The gap between an academic thesis and what employers want (production-grade code, LLM tooling, fast iteration) can add months to your job search even with a strong degree.",
+   "Deadlines cluster around conference and launch dates, so a normal year has two or three stretches of genuinely long weeks rather than a steady pace."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a research scientist",
+    "a": "Most people need 2 to 6 years for a relevant master's or PhD, since education is required in the large majority of postings. On top of the degree, expect a few more months to build the specific portfolio (working models, a presented result) that hiring managers screen for."
+   },
+   {
+    "q": "can you become a research scientist without a PhD",
+    "a": "Yes, but it's uncommon: only a small share of postings waive the degree requirement, and those usually want a strong publication record or shipped models in its place. A master's degree with a solid project portfolio is a more realistic minimum than skipping graduate education entirely."
+   },
+   {
+    "q": "research scientist vs data scientist, what's the difference",
+    "a": "Data scientist is the single strongest feeder role into research scientist, so the overlap is real, but research scientist postings lean harder on deep learning, LLMs, and open-ended experimentation rather than applying known methods to business questions. If you want defined deliverables and faster turnaround, data scientist is the closer fit."
+   },
+   {
+    "q": "can research scientists work remotely",
+    "a": "Rarely as a default: only about a fifth of postings are remote. Most employers, especially the labs and companies driving hiring in Switzerland, want people on-site for compute access and closer collaboration with the research group."
+   },
+   {
+    "q": "is research scientist a good career right now",
+    "a": "The pay is strong (the median sits at $142k with the top quarter above $196k) and the field is moving fast enough that the work stays interesting year over year. The tradeoffs are a long credentialing path and a job market concentrated in a handful of countries, so it's a good career if you're willing to relocate or already live where the hiring is."
+   }
+  ]
+ }
+}
