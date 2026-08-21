@@ -10,6 +10,7 @@ import BenefitStrip from '../../jobs/BenefitStrip';
 import JobsList from '../../jobs/JobsList';
 import { COUNTRY_NAMES } from '../../salary/salary-data';
 import { hasOriginPage, routePair } from '../../routes/routes-data';
+import { article } from '../../../lib/site';
 
 /* The career guide. Everything numeric on this page is computed at request time
    from the live corpus (facts.ts); only the judgement prose comes from the
@@ -29,9 +30,11 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const f = careerFacts(occ);
   if (!f) return {};
   const pay = f.salary ? `Median ${fmt(f.salary.p50)}.` : '';
+  const tl = f.title.toLowerCase();
   return {
-    title: `${f.title} career guide: pay, skills, and the routes in and out`,
-    description: `What a ${f.title.toLowerCase()} is paid, what postings ask for, and which occupations already qualify. ${pay} Measured from ${f.liveOpenings.toLocaleString()} live openings, updated with the nightly scrape.`,
+    // The head term for this page is the how-to query, not "career guide".
+    title: `How to become ${article(f.title)} ${tl}: the job, the pay, and the way in`,
+    description: `What ${article(f.title)} ${tl} does day to day, what the work pays, how long it takes to qualify, and which occupations already have most of what it asks for. ${pay} Measured from ${f.liveOpenings.toLocaleString()} live openings and updated nightly.`,
     alternates: { canonical: `/careers/${occ}` },
   };
 }
@@ -75,7 +78,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         </div>
 
         <section className="cg-lead">
-          <h2>What the work is actually like</h2>
+          <h2>What the work looks like</h2>
           <p>{p.day_to_day}</p>
         </section>
 
@@ -134,7 +137,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         </section>
 
         <section className="rt-sec">
-          <h2>Getting in</h2>
+          <h2>How to become {article(f.title)} {tl}</h2>
           <p className="cg-p">{p.getting_in}</p>
           {f.licence && (
             <div className="cg-lic">

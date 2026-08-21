@@ -9,7 +9,7 @@
  *            from the live corpus, so a guide re-prices itself with the nightly
  *            scrape and can never quote a figure the board does not hold.
  *   PROSE    is generated once per occupation from a facts packet, and holds
- *            only what a number cannot say: what the role actually is, the
+ *            only what a number cannot say: what the role is day to day, the
  *            honest read on it, who already qualifies, and what the data misses.
  *
  * The model is given the packet and forbidden to invent a figure. Anything it
@@ -136,6 +136,7 @@ BANNED, because they are the tells of machine writing:
 - Em dashes and en dashes. Exclamation points. Rhetorical questions as openers.
 - "crucial", "delve", "landscape" (figurative), "pivotal", "showcase", "testament", "underscore", "vibrant", "foster", "tapestry", "realm", "navigate" (figurative), "robust", "seamless", "leverage" (as a verb).
 - "At its core", "the real question is", "what really matters", "in today's world", "let's", "here's the thing", "honestly,".
+- "actually" and "really" as intensifiers. They are filler. Say the thing without them. (Once in a whole guide, at most, and only where the sentence collapses without it.)
 - The rule of three. Do not group ideas in threes by default; use two or four.
 - "It is not X. It is Y." Mirrored antithesis is allowed once in the whole guide, at most.
 - Sections that end on a quotable punchline. One such closer in the entire guide, maximum. Most sections should end on information.
@@ -156,13 +157,13 @@ Return ONLY valid JSON, no markdown fence, with exactly these keys:
 {
   "summary": "2 to 3 sentences. What this job is, and what separates it from the role next to it that people confuse it with. Start with the work, not with a definition of the field.",
 
-  "day_to_day": "4 to 6 sentences. What the work actually consists of across an ordinary week. Name the artefacts: what gets opened, drafted, reviewed, sent, sat through. Say roughly how the week splits between solo work and other people. Include one detail specific enough that only someone who knows the job would write it. Do not list responsibilities in parallel clauses; write it as prose someone in the job would recognise.",
+  "day_to_day": "4 to 6 sentences. What the work consists of across an ordinary week. Name the artefacts: what gets opened, drafted, reviewed, sent, sat through. Say roughly how the week splits between solo work and other people. Include one detail specific enough that only someone who knows the job would write it. Do not list responsibilities in parallel clauses; write it as prose someone in the job would recognise.",
 
   "work_environment": "3 to 5 sentences. Where the work happens and under what conditions: office, site, home, lab, ward, shop floor. Hours and what makes a bad week (deadlines, on-call, seasonal peaks, travel). If the remote share in the measurements is low or high, explain what about the work causes that. Be concrete about the physical and social setting.",
 
   "getting_in": "4 to 6 sentences. The realistic route in, with durations. Use the education and experience figures given, and if a license object is present use its path and time exactly as stated. Say which step takes longest and which is the common place people stall. If a degree is waived in a meaningful share of postings, say what employers accept instead.",
 
-  "ladder": "3 to 5 sentences. What changes as you move up, in terms of what you are actually responsible for rather than titles. What the first real step up requires. Where the ladder tends to fork (management against staying hands-on) and roughly when.",
+  "ladder": "3 to 5 sentences. What changes as you move up, in terms of what you carry responsibility for rather than titles. What the first real step up requires. Where the ladder tends to fork (management against staying hands-on) and roughly when.",
 
   "suits": "3 to 5 sentences. Who tends to do well in this job and who tends to leave it, based on the character of the work you just described. Be willing to say something unflattering. This replaces a generic pros-and-cons list, so make it a real opinion a practitioner would give a friend, not a balanced summary.",
 
@@ -182,23 +183,39 @@ Return ONLY valid JSON, no markdown fence, with exactly these keys:
 
   "cons": [ "a genuine drawback, one sentence, specific and unflinching" ],
 
-  "faq": [ { "q": "a question someone considering this actually types", "a": "2 to 3 sentences" } ]
+  "faq": [ { "q": "the question as a person types it into Google, in their words", "a": "2 to 3 sentences that answer it in the first sentence, then qualify" } ]
 }
 
 Write 3 or 4 industries, 3 specializations, 4 pros, 4 cons.
 
+THE FAQ IS A SEARCH SURFACE, so write the questions the way people search, not the way a brochure asks them. Use the reader's phrasing ("how long does it take to become a ${p.title.toLowerCase()}", not "What is the typical timeline to qualification"). Cover 6 of these query shapes, choosing the ones this occupation genuinely raises:
+- how long it takes to qualify or become one
+- whether you can do it without a degree, or with a degree in something else
+- whether it is a good career, or worth it, right now
+- what the job is like day to day, or how hard it is
+- whether it can be done remotely
+- what it pays at the start against later
+- how it compares to the single adjacent role people confuse it with (name that role)
+- whether the work is at risk from automation or AI, if the evidence supports an answer
+Answer the question in the first sentence. A reader who reads only that sentence should have the answer.
+
 Write 5 FAQ entries. At least one must be about the gate (license, degree, or years of experience) if the measurements show one.`;
 }
 
-async function generate(p, key, attempt = 1) {
+async function generate(p, key, attempt = 1, fixes = null) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: 8000,
+      max_tokens: 12000,
       system: SYSTEM,
-      messages: [{ role: 'user', content: userPrompt(p) }],
+      messages: [{
+        role: 'user',
+        content: fixes
+          ? `${userPrompt(p)}\n\nA previous draft was rejected for: ${fixes.join('; ')}. Rewrite the whole thing without those faults.`
+          : userPrompt(p),
+      }],
     }),
   }).catch(async (e) => {
     // transient network failures are common over a long batch; back off twice
@@ -222,7 +239,12 @@ async function generate(p, key, attempt = 1) {
     err.creditsExhausted = /credit|billing|quota/i.test(msg);
     throw err;
   }
-  const text = (j.content ?? []).map((c) => c.text ?? '').join('').trim();
+  const text = (j.content ?? []).filter((c) => c.type === 'text').map((c) => c.text ?? '').join('').trim();
+  if (process.env.DEBUG_RAW) {
+    fs.writeFileSync('/tmp/guide-raw.txt', text);
+    console.log(`  [debug] ${text.length} chars, stop=${j.stop_reason}, out=${j.usage?.output_tokens}`);
+  }
+  if (j.stop_reason === 'max_tokens') throw new Error('response hit the token ceiling');
   const clean = text.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
   return { parsed: parseLoose(clean), usage: j.usage ?? {} };
 }
@@ -247,6 +269,20 @@ function parseLoose(text) {
   return JSON.parse(out);
 }
 
+/* Deterministic cleanup before the audit. Some faults are not worth spending a
+   retry on: "actually" and "really" are pure filler, and the model reaches for
+   them however firmly the prompt says not to. Cutting the word is safe (the
+   sentence reads the same without it) and cheaper than another generation. */
+const FILLER = /\s*\b(actually|really)\b/gi;
+function polish(v) {
+  if (typeof v === 'string') {
+    return v.replace(FILLER, '').replace(/ {2,}/g, ' ').replace(/ ([,.;:])/g, '$1').trim();
+  }
+  if (Array.isArray(v)) return v.map(polish);
+  if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, polish(x)]));
+  return v;
+}
+
 /* A generated guide has to survive the same scrutiny as a scraped number. */
 function audit(prose, p) {
   const problems = [];
@@ -269,9 +305,11 @@ function audit(prose, p) {
   for (const m of blob.matchAll(/(\d[\d.]*)\s?(?:percent|%)/gi)) {
     if (!allowed.has(m[1].replace(/\..*/, ''))) problems.push(`unsourced percentage ${m[0]}`);
   }
-  const BANNED = /\b(crucial|delve|pivotal|showcase|testament|underscore|vibrant|tapestry|realm|seamless|robust)\b|at its core|the real question|in today'?s|let'?s |here'?s the thing/i;
+  const BANNED = /\b(crucial|delve|pivotal|showcase|testament|underscore|vibrant|tapestry|realm|seamless|robust)\b|at its core|the real question|in today'?s|\blet(?:'|\u2019)s\b|here'?s the thing/i;
   const bad = blob.match(BANNED);
   if (bad) problems.push(`banned phrase "${bad[0]}"`);
+  const crutch = (blob.match(/\bactually\b/gi) ?? []).length + (blob.match(/\breally\b/gi) ?? []).length;
+  if (crutch > 1) problems.push(`"actually"/"really" used ${crutch} times, ration is 1`);
   for (const key of ['summary', 'day_to_day', 'work_environment', 'getting_in', 'ladder', 'suits', 'misconceptions', 'who_qualifies', 'what_the_numbers_miss', 'tools']) {
     if (!prose[key] || prose[key].length < 60) problems.push(`${key} missing or too short`);
   }
@@ -314,9 +352,19 @@ for (const occ of targets) {
   const dest = path.join(OUT, `${occ}.json`);
   if (fs.existsSync(dest) && !process.env.FORCE) { skipped++; continue; }
   try {
-    const { parsed, usage } = await generate(p, key);
+    let { parsed, usage } = await generate(p, key);
     inTok += usage.input_tokens ?? 0; outTok += usage.output_tokens ?? 0;
-    const problems = audit(parsed, p);
+    parsed = polish(parsed);
+    let problems = audit(parsed, p);
+    if (problems.length) {
+      // One repair pass: hand the failures back rather than throwing away a
+      // guide that is otherwise good. A second failure is a real reject.
+      console.log(`  fix  ${occ}: ${problems.join('; ')}`);
+      const fix = await generate(p, key, 1, problems);
+      inTok += fix.usage.input_tokens ?? 0; outTok += fix.usage.output_tokens ?? 0;
+      parsed = polish(fix.parsed);
+      problems = audit(parsed, p);
+    }
     if (problems.length) {
       console.log(`  FAIL ${occ}: ${problems.join('; ')}`);
       failed++;
