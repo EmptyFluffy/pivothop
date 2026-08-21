@@ -11,7 +11,7 @@ One platform-independent engine in `apps/web/src/lib/social/`:
 - `store.ts` · `social_posts` in Supabase over raw REST (the admin/data.ts pattern). `unique (platform, job_id)` plus compare-and-set status transitions make duplicate publication impossible.
 - `linkedin.ts` · the future direct provider, unwired.
 
-Flow: **15 Vercel crons across the UTC day** → `/api/social/cron` selects one job → row lands as `scheduled` → **Zapier** polls `/api/social/feed`, publishes to the LinkedIn page, then POSTs `/api/social/consume` → row becomes `published`. Five slots cover Asia business hours, four cover Europe, and six cover the Americas. The 15:15 UTC slot first looks for a source-verified remote architecture job, then falls back to the general pool if none exists. The feed drops expired jobs (board presence is the liveness check) before any publisher sees them.
+Flow: **15 Vercel crons across the UTC day** → `/api/social/cron` selects one job → row lands as `scheduled` → **Zapier** polls `/api/social/feed`, publishes to the LinkedIn page, then POSTs `/api/social/consume` → row becomes `published`. Five slots cover Asia business hours, four cover Europe, and six cover the Americas. The 15:15 UTC slot first looks for a source-verified remote architecture job. If that attempt falls back to the general pool, the four later Americas slots retry architecture until one is queued that UTC day. The feed drops expired jobs (board presence is the liveness check) before any publisher sees them.
 
 Automatic scheduling is the default. Set `SOCIAL_AUTO_APPROVE=false` only when an emergency review mode is needed. Existing manual controls remain available in `/admin/social` for old drafts, skips, regeneration, and immediate replacements.
 
@@ -51,7 +51,7 @@ After deployment:
 
 - Default frequency: up to 15 posts/day inside Zapier's poll cadence.
 - `SOCIAL_POSTS_PER_DAY` caps selection; its default is 15. The daily count and cron schedule use UTC so the Asia, Europe and Americas slots share one predictable quota.
-- The 15:15 UTC run prioritizes remote architecture roles. It never repeats a job or bypasses source verification; when no eligible architecture listing exists, it falls back to the general pool.
+- The 15:15 UTC run prioritizes remote architecture roles. If it cannot queue one, the four later slots retry until architecture succeeds or the UTC day ends. Every attempt preserves deduplication and source verification, and each failed architecture attempt falls back to a verified general role for that run.
 - To pause publication immediately, turn the Zap off.
 - To restore manual review mode, set `SOCIAL_AUTO_APPROVE=false` and redeploy.
 - Hashtags are derived from the role, occupation and remote status in `copy.ts`.
