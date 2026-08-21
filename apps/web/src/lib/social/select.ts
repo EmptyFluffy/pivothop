@@ -10,6 +10,11 @@ import { recentPosts } from './store';
 
 const GENERIC_TITLES = /^(senior |junior |lead )?(software engineer|developer|engineer|manager|analyst|consultant|assistant|specialist)$/i;
 
+export type SocialJobFilter = {
+  remoteOnly?: boolean;
+  occupations?: readonly string[];
+};
+
 function mid(smin: number | null, smax: number | null): number | null {
   const v = [smin, smax].filter((x): x is number => !!x);
   return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
@@ -70,8 +75,9 @@ export function scoreJob(j: {
   };
 }
 
-export async function selectSocialJob(platform: Platform): Promise<{ pick: Candidate | null; pool: number; considered: Candidate[] }> {
+export async function selectSocialJob(platform: Platform, filter?: SocialJobFilter): Promise<{ pick: Candidate | null; pool: number; considered: Candidate[] }> {
   const dedupDays = Number(process.env.SOCIAL_DEDUP_DAYS || 45);
+  const allowedOccupations = filter?.occupations ? new Set(filter.occupations) : null;
   const recent = await recentPosts(platform, 40);
   const cutoff = Date.now() - dedupDays * 864e5;
   const postedIds = new Set(recent.filter((r) => Date.parse(r.created_at) > cutoff || r.status === 'published').map((r) => r.job_id));
@@ -91,6 +97,8 @@ export async function selectSocialJob(platform: Platform): Promise<{ pick: Candi
       /* Board presence is the first liveness gate. A source-URL verification
          runs on the shortlisted candidates immediately before queueing. */
       if (j.source === 'employer') continue; // employer posts link out; no internal page to send people to
+      if (filter?.remoteOnly && !j.remote) continue;
+      if (allowedOccupations && !allowedOccupations.has(j.occ)) continue;
       if (!j.title?.trim() || !j.company?.trim() || j.company === 'Name') continue;
       if (daysAgo(j.posted) > 60) continue;
       if (postedIds.has(j.id)) continue;
