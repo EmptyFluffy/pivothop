@@ -21,8 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     # Cold-cache runs are long (every board fetch hits the network at polite
     # spacing); warm runs are ~20-30 min. The first 50-min cap cancelled a cold
-    # run mid-ingest — hence the headroom.
-    timeout-minutes: 150
+    # run mid-ingest, and the 150-min cap cancelled 2026-08-19 at exactly 2h30m.
+    # The direct fleet is growing ~20-50 studios/night now, so headroom again.
+    timeout-minutes: 210
     steps:
       - uses: actions/checkout@v4
 

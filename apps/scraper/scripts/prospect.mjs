@@ -75,11 +75,19 @@ if (!batch.length) {
 
 const browser = await chromium.launch();
 let admitted = 0;
-for (const [name, home0] of batch) {
+
+// Workers: 4 concurrent pages. The gate spends its time waiting on other
+// people's servers (28s nav timeouts, 2s paint waits), so four in flight is
+// ~4x throughput for the same politeness per firm — each firm still gets
+// exactly one visit at exactly the old pacing. All bookkeeping (state.tried,
+// auto.companies, fleetDomains) stays single-threaded on the event loop.
+const WORKERS = Math.max(1, Math.min(6, Number(process.env.PROSPECT_WORKERS || 4)));
+
+async function tryOne([name, home0]) {
   let home = home0;
   const rec = { date: new Date().toISOString().slice(0, 10), outcome: 'failed', detail: '' };
   state.tried[name] = rec;
-  if (fleetDomains.has(regDomain(home))) { rec.outcome = 'duplicate'; console.log(`prospect: ${name.padEnd(28)} duplicate (already in fleet)`); continue; }
+  if (fleetDomains.has(regDomain(home))) { rec.outcome = 'duplicate'; console.log(`prospect: ${name.padEnd(28)} duplicate (already in fleet)`); return; }
   const page = await browser.newPage({
     userAgent: 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)',
   });
@@ -104,7 +112,7 @@ for (const [name, home0] of batch) {
         .map((l) => l.href));
     const rank = (u) => (/career|vacan|job|stellen|karriere|hiring|position|opening|employ/i.test(u) ? 2 : /join|opportunit|work|talent|recruit/i.test(u) ? 1 : 0);
     const target = [...new Set(cands)].sort((a, b) => rank(b) - rank(a))[0];
-    if (!target) { rec.outcome = 'no-careers-link'; await page.close(); continue; }
+    if (!target) { rec.outcome = 'no-careers-link'; return; }
     await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 28000 }).catch(() => {});
     await page.waitForTimeout(2400);
     const landed = page.url();
@@ -130,9 +138,11 @@ for (const [name, home0] of batch) {
       if (!pathOk && !softOk) {
         rec.outcome = 'not-careers-page';       // award pages, news articles, contact pages
         rec.detail = `${landed} verbs~${verbs.size}`;
-        await page.close();
-        continue;
+        return;
       }
+      // Re-check under concurrency: a sibling worker may have admitted the
+      // same registrable domain while this one was navigating.
+      if (fleetDomains.has(regDomain(landed))) { rec.outcome = 'duplicate'; return; }
       const jobs = (text.match(/\b(architekt|architect|designer|artist|engineer|producer|director|developer|intern|praktik|manager|lead)\b/gi) || []).length;
       auto.companies.push({ name, careers: landed.replace(/[?].*$/, ''), admitted: rec.date, jobsSignal: jobs });
       fleetDomains.add(regDomain(landed));
@@ -142,10 +152,16 @@ for (const [name, home0] of batch) {
     }
   } catch (e) {
     rec.detail = String(e.message).slice(0, 60);
+  } finally {
+    await page.close().catch(() => {});
+    console.log(`prospect: ${name.padEnd(28)} ${state.tried[name].outcome.padEnd(16)} ${state.tried[name].detail}`);
   }
-  await page.close();
-  console.log(`prospect: ${name.padEnd(28)} ${state.tried[name].outcome.padEnd(16)} ${state.tried[name].detail}`);
 }
+
+let cursor = 0;
+await Promise.all(Array.from({ length: WORKERS }, async () => {
+  while (cursor < batch.length) await tryOne(batch[cursor++]);
+}));
 await browser.close();
 
 fs.writeFileSync(AUTO, JSON.stringify(auto, null, 1));
