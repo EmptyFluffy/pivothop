@@ -1,17 +1,17 @@
 # 35 · Social autoposter
 
-*Written 2026-08-19. Updated 2026-08-20. LinkedIn publishing via Zapier, selection via the corpus. The direct Posts API adapter exists (`lib/social/linkedin.ts`) but is deliberately unwired: Zapier needs no LinkedIn API approval, and swapping it out later touches only the publisher, never the selection engine.*
+*Written 2026-08-19. Updated 2026-08-21. LinkedIn publishing via Zapier, selection via the corpus. The direct Posts API adapter exists (`lib/social/linkedin.ts`) but is deliberately unwired: Zapier needs no LinkedIn API approval, and swapping it out later touches only the publisher, never the selection engine.*
 
 ## Architecture
 
 One platform-independent engine in `apps/web/src/lib/social/`:
 
-- `select.ts` · eligibility (live on the board, has an internal page, title+company sane, under 60 days old, not posted before, not a near-duplicate) then a deterministic `social_score` 0..100 with a stored plain-text reason, then diversity constraints against the recent ledger (no company from the last 5 posts, no occupation from the last 3). Same corpus, same run, same pick: no randomness, no model.
-- `copy.ts` · six restrained templates rotated by a hash of the job id; regenerate bumps the variant. The adjacency template only fires when a measured route with match ≥ 60 exists. Social copy uses the branded `/j/{job-id}` URL; the redirect adds UTM attribution (`linkedin / organic_social / daily_jobs / occ-id`). Hashtags come from `SOCIAL_HASHTAGS`, max 4.
+- `select.ts` · eligibility (live on the board, has an internal page, title+company sane, under 60 days old, not posted before, not a near-duplicate) then a deterministic `social_score` 0..100 with a stored plain-text reason, then diversity constraints against the recent ledger (no company from the last 5 posts, no occupation from the last 3). The selector also accepts a remote and occupation filter for the dedicated architecture slot. Same corpus, same run, same pick: no randomness, no model.
+- `copy.ts` · six alert-style templates rotated by a hash of the job id; regenerate bumps the variant. Social copy uses the branded `/j/{job-id}` URL; the redirect adds UTM attribution (`linkedin / organic_social / daily_jobs / occ-id`). Hashtags are derived from the job title and occupation, with role, modality and specialty tags capped at 5.
 - `store.ts` · `social_posts` in Supabase over raw REST (the admin/data.ts pattern). `unique (platform, job_id)` plus compare-and-set status transitions make duplicate publication impossible.
 - `linkedin.ts` · the future direct provider, unwired.
 
-Flow: **Vercel cron** (08:45 · 12:45 · 16:45 Costa Rica) → `/api/social/cron` selects one job → row lands as `scheduled` → **Zapier** polls `/api/social/feed`, publishes to the LinkedIn page, then POSTs `/api/social/consume` → row becomes `published`. The feed drops expired jobs (board presence is the liveness check) before any publisher sees them.
+Flow: **15 Vercel crons across the UTC day** → `/api/social/cron` selects one job → row lands as `scheduled` → **Zapier** polls `/api/social/feed`, publishes to the LinkedIn page, then POSTs `/api/social/consume` → row becomes `published`. Five slots cover Asia business hours, four cover Europe, and six cover the Americas. The 15:15 UTC slot first looks for a source-verified remote architecture job, then falls back to the general pool if none exists. The feed drops expired jobs (board presence is the liveness check) before any publisher sees them.
 
 Automatic scheduling is the default. Set `SOCIAL_AUTO_APPROVE=false` only when an emergency review mode is needed. Existing manual controls remain available in `/admin/social` for old drafts, skips, regeneration, and immediate replacements.
 
@@ -19,7 +19,7 @@ Automatic scheduling is the default. Set `SOCIAL_AUTO_APPROVE=false` only when a
 
 1. Run the migration `supabase/migrations/0006_social_posts.sql` in the Supabase SQL editor.
 2. Vercel env vars: `CRON_SECRET` (long random; Vercel sends it automatically on cron calls) and `SOCIAL_FEED_TOKEN` (long random, different).
-3. Deploy. The three crons in `apps/web/vercel.json` activate on their own. No auto-approval environment variable is required.
+3. Deploy. The 15 daily crons in `apps/web/vercel.json` activate on their own. No auto-approval environment variable is required.
 
 ## Zapier connection
 
@@ -49,11 +49,12 @@ After deployment:
 
 ## Operations
 
-- Default frequency: about 3 posts/day inside Zapier's poll cadence.
-- `SOCIAL_POSTS_PER_DAY` caps selection; cron times live in `apps/web/vercel.json` (UTC; Costa Rica is UTC−6).
+- Default frequency: up to 15 posts/day inside Zapier's poll cadence.
+- `SOCIAL_POSTS_PER_DAY` caps selection; its default is 15. The daily count and cron schedule use UTC so the Asia, Europe and Americas slots share one predictable quota.
+- The 15:15 UTC run prioritizes remote architecture roles. It never repeats a job or bypasses source verification; when no eligible architecture listing exists, it falls back to the general pool.
 - To pause publication immediately, turn the Zap off.
 - To restore manual review mode, set `SOCIAL_AUTO_APPROVE=false` and redeploy.
-- To change hashtags, set `SOCIAL_HASHTAGS` (space-separated, max 4) and redeploy.
+- Hashtags are derived from the role, occupation and remote status in `copy.ts`.
 
 ## Later: direct API
 
