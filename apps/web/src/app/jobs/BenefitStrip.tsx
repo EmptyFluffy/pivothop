@@ -8,6 +8,7 @@
 // point.
 
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { BENEFIT_ICON_PATHS } from './benefit-icons';
 
@@ -18,6 +19,7 @@ export type BenefitEntry = {
   glyph?: string;
   def: string;
   n?: number;          // listings on the board stating it, for the glossary
+  i?: number;          // taxonomy index — the key rows use in their compact 'b' arrays
 };
 
 export function BenefitMarkSvg({ glyph, className }: { glyph?: string; className?: string }) {
@@ -68,8 +70,8 @@ export default function BenefitStrip({ benefits, cap }: { benefits: BenefitEntry
         </button>
       )}
 
-      {open && (
-        <div className={`skmodal open${closing ? ' closing' : ''}`} role="dialog" aria-modal="true" aria-label={`${open.term} definition`}>
+      {open && createPortal(
+        <div className={`skmodal v2t open${closing ? ' closing' : ''}`} role="dialog" aria-modal="true" aria-label={`${open.term} definition`}>
           <div className="veil" onClick={close} />
           <div className="sksheet" tabIndex={-1} ref={(el) => el?.focus()}>
             <button className="xclose sk-close" aria-label="Close" onClick={close}>&times;</button>
@@ -79,9 +81,15 @@ export default function BenefitStrip({ benefits, cap }: { benefits: BenefitEntry
               <span>{open.term}</span>
             </div>
             <p className="sk-def">{open.def}</p>
+            {!!open.n && (
+              <div className="sk-spec" aria-label="Measured from the board">
+                <div className="spec-row"><span className="spec-k">Stated in</span><span className="spec-lead" /><span className="spec-v">{open.n.toLocaleString()} postings</span></div>
+              </div>
+            )}
             <Link className="lbl sk-gloss" href={`/glossary#benefit-${open.slug}`}>Show in glossary &rarr;</Link>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

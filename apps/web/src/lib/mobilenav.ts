@@ -10,6 +10,11 @@ export function wireMobileNav(): void {
     if (!nav) return;
     const menu = nav.querySelector('.nav-menu');
     const set = (open: boolean) => {
+      // No-op unless the state changes. The document-level close listeners fire
+      // on EVERY outside click; unconditionally writing body overflow here was
+      // silently erasing the scroll lock other modals (the filter sheet) had
+      // just taken. Only the transition that this nav itself causes may touch it.
+      if (nav.classList.contains('open') === open) return;
       nav.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', String(open));
       burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');

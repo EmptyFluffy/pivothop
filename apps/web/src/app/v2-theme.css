@@ -1066,3 +1066,271 @@ html.vlight .v2t{ --v-gap:#B24E34; }
   .v2t .cgx li{ grid-template-columns:minmax(0,1fr) auto; }
   .v2t .cgx .s{ display:none; }
 }
+
+/* ============================================================================
+   MODALS ON THE SYSTEM (filter sheet, search palette, skill/benefit/license
+   sheets). The old skins were the newspaper's: cream paper, 16px radii, soft
+   gray text, accent-filled checkboxes. Here they become instruments — white or
+   black ground, one hard 1px text-ink frame, sharp corners, Instrument Sans
+   carrying the words in real weights, mono only where something is measured
+   (counts, category labels). The accent stays with the data and the single
+   CTA, exactly as docs/01 demands. Interactions are the board's: ink-fill pill
+   hovers, the bg2 + 3px value bar selection idiom from .job-card.sel.
+   ============================================================================ */
+
+/* ---- shared shell: every sheet sits in the same frame ---- */
+.v2t.skmodal{ background:none; }             /* the portal root carries .v2t for tokens only */
+.v2t .sksheet, .v2t.skmodal .sksheet{
+  background:var(--v-bg); color:var(--v-text);
+  border:1px solid var(--v-text); border-radius:0;
+  box-shadow:0 32px 90px rgba(0,0,0,.62); }
+html.vlight .v2t .sksheet, html.vlight .v2t.skmodal .sksheet{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
+.v2t .veil, .v2t.skmodal .veil{ background:rgba(0,0,0,.6); }
+html.vlight .v2t .veil, html.vlight .v2t.skmodal .veil{ background:rgba(20,20,20,.32); }
+.v2t .xclose{ color:var(--v-text2); }
+.v2t .xclose:hover{ color:var(--v-text); }
+.v2t .sk-close{ width:34px; height:34px; border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent);
+  border-radius:999px; display:grid; place-items:center; font-size:19px;
+  background:none; color:var(--v-text); }
+.v2t .sk-close:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+
+/* ---- the definition sheet (skills, benefits, licenses) ---- */
+.v2t .sksheet{ width:min(540px,94vw); padding:34px 38px 30px; }
+.v2t .sksheet > .lbl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .sk-term{ font-family:var(--sans),sans-serif; font-weight:800; font-size:33px;
+  letter-spacing:-.03em; color:var(--v-text); gap:13px; margin:10px 0 12px; }
+.v2t .sk-mark svg{ width:30px; height:30px; color:var(--v-text); }
+.v2t .sk-def{ font-size:15.5px; line-height:1.65; color:var(--v-text2); }
+.v2t .sksheet .gloss-unlocks{ margin-top:24px; }
+.v2t .sksheet .gloss-unlocks .lbl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); margin-bottom:12px; }
+.v2t .gu-list{ gap:8px; }
+.v2t .gu-link{
+  font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:600; letter-spacing:-.01em;
+  color:var(--v-text); background:none; border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent);
+  border-radius:999px; padding:8px 15px; gap:9px; transition:none; }
+.v2t .gu-link:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .gu-n{ font-family:var(--sans),sans-serif; font-size:12px; font-weight:500; color:var(--v-text2); }
+.v2t .gu-link:hover .gu-n{ color:var(--v-bg); }
+.v2t .sksheet .sk-gloss{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--v-value); margin-top:26px; transition:none; text-underline-offset:3px; }
+.v2t .sksheet .sk-gloss:hover{ color:var(--v-value); text-decoration:underline; text-decoration-thickness:2px; }
+
+/* ---- the filter sheet ---- */
+.v2t .flt-sh{ padding:0; width:min(880px,94vw); }
+.v2t .flt-head{ border-bottom:1px solid var(--v-text); padding:18px 20px 16px 26px; }
+.v2t .flt-head .flt-ico{ color:var(--v-text); width:20px; height:20px; }
+.v2t .flt-head input{ font-family:var(--sans),sans-serif; font-size:19px; font-weight:600;
+  letter-spacing:-.015em; color:var(--v-text); }
+.v2t .flt-head input::placeholder{ color:var(--v-text2); font-weight:500; }
+.v2t .flt-body{ background:var(--v-bg); }
+.v2t .flt-rail{ border-right:1px solid var(--v-border2); padding:14px 0; gap:0; }
+.v2t .flt-cat{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:700;
+  letter-spacing:-.015em; color:var(--v-text2); padding:11px 18px 11px 22px; border-radius:0;
+  transition:none; }
+.v2t .flt-cat:hover{ background:var(--v-surface); color:var(--v-text); }
+.v2t .flt-cat.on{ background:var(--v-bg2); color:var(--v-text); font-weight:700;
+  box-shadow:inset 3px 0 0 var(--v-value); }
+/* the old layer used ::before as an accent bar; here it is the number.
+   Neutralize the bar geometry, keep the counter, turn it accent when active. */
+.v2t .flt-cat.on::before{ position:static; width:auto; background:none;
+  border-radius:0; top:auto; bottom:auto; left:auto; }
+.v2t .flt-badge{ font-family:var(--mono); font-size:10.5px; background:var(--v-value);
+  color:var(--v-fill-ink); border-radius:999px; }
+.v2t .flt-pane{ padding:18px 26px 22px; }
+.v2t .flt-note{ font-size:13px; line-height:1.55; color:var(--v-text2); margin:2px 0 14px; }
+.v2t .flt-group{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); margin:20px 0 8px; }
+.v2t .flt-opt{ border-radius:0; padding:10px 10px; gap:13px; transition:none; }
+.v2t .flt-opt:hover{ background:var(--v-surface); }
+.v2t .flt-box{ width:18px; height:18px; border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
+  border-radius:3px; color:var(--v-bg); transition:none; }
+.v2t .flt-opt.on .flt-box{ background:var(--v-text); border-color:var(--v-text); }
+.v2t .flt-opt.on:hover .flt-box{ background:var(--v-text); }
+.v2t .flt-lab{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-text); }
+.v2t .flt-sub{ font-size:12.5px; font-weight:400; color:var(--v-text2); margin-top:2px; }
+.v2t .flt-n{ font-family:var(--mono); font-size:12px; color:var(--v-text2); }
+.v2t .flt-mark{ display:grid; place-items:center; }
+.v2t .flt-mark svg{ width:17px; height:17px; color:var(--v-text); }
+.v2t .flt-panesearch{ display:flex; align-items:center; gap:11px;
+  border:1px solid color-mix(in srgb, var(--v-text) 35%, transparent); border-radius:0;
+  padding:10px 14px; margin:0 0 14px; }
+.v2t .flt-panesearch svg{ width:16px; height:16px; color:var(--v-text2); flex:none; }
+.v2t .flt-panesearch input{ flex:1; border:0; background:none; outline:none;
+  font-family:var(--sans),sans-serif; font-size:14.5px; font-weight:500; color:var(--v-text); }
+.v2t .flt-panesearch input::placeholder{ color:var(--v-text2); }
+.v2t .flt-foot{ border-top:1px solid var(--v-text); padding:15px 22px; }
+.v2t .flt-sh .flt-clear{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .flt-sh .flt-clear:hover{ color:var(--v-text); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .flt-sh .flt-show{ font-family:var(--sans),sans-serif; font-size:16px; font-weight:700;
+  letter-spacing:-.015em; background:var(--v-fill); color:var(--v-fill-ink);
+  border-radius:0; padding:15px 30px; transition:none; }
+.v2t .flt-sh .flt-show:hover{ filter:brightness(1.08); }
+
+/* ---- the search palette ---- */
+.v2t .srch{ background:rgba(0,0,0,.6); }
+html.vlight .v2t .srch{ background:rgba(20,20,20,.32); }
+.v2t .srch-panel{ background:var(--v-bg); border:1px solid var(--v-text); border-radius:0;
+  box-shadow:0 32px 90px rgba(0,0,0,.62); padding:0 0 20px; }
+html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
+.v2t .srch-row{ border-bottom:1px solid var(--v-border2); padding:16px 18px; }
+.v2t .srch-mark{ color:var(--v-text); }
+.v2t .srch-mark svg{ width:21px; height:21px; }
+.v2t .srch-row input{ font-family:var(--sans),sans-serif; font-size:22px; font-weight:600;
+  letter-spacing:-.02em; color:var(--v-text); }
+.v2t .srch-row input::placeholder{ color:var(--v-text2); font-weight:500; }
+.v2t .srch-x{ border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent);
+  color:var(--v-text); transition:none; }
+.v2t .srch-x:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .srch-hint{ font-family:var(--sans),sans-serif; font-size:19px; font-weight:600;
+  letter-spacing:-.02em; color:var(--v-text); }
+.v2t .srch-esc{ color:var(--v-text2); }
+.v2t .srch-esc kbd{ font-family:var(--mono); background:var(--v-bg2); color:var(--v-text2);
+  border:1px solid var(--v-border2); }
+.v2t .srch-results a{ border-radius:0; color:var(--v-text); }
+.v2t .srch-results a.on{ background:var(--v-bg2); box-shadow:inset 3px 0 0 var(--v-value); }
+.v2t .srch-k{ font-family:var(--mono); font-size:10px; letter-spacing:.13em; color:var(--v-text2); }
+.v2t .srch-t{ font-weight:600; letter-spacing:-.01em; }
+.v2t .srch-s{ color:var(--v-text2); }
+.v2t .srch-none{ color:var(--v-text2); }
+
+/* ---- the license sheet, same frame, its own anatomy ---- */
+.v2t .lic-sh-head h3{ font-family:var(--sans),sans-serif; font-weight:800; font-size:26px;
+  letter-spacing:-.025em; color:var(--v-text); }
+.v2t .lic-sh-occ{ color:var(--v-text2); }
+.v2t .lic-sh-occ b{ color:var(--v-text); font-weight:700; }
+.v2t .lic-sh dt{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lic-sh dd{ color:var(--v-text); }
+
+/* ---- audit fixes (measured 2026-08-21): the old layer bleeding through ---- */
+/* license badge kept the newspaper accent (#002FA6 — blue-on-black in dark).
+   Requirement is GAP data, so it takes the gap token; softer for partial. */
+.v2t .lic-req, .v2t .lic-req.required{ color:var(--v-gap); }
+.v2t .lic-req.partial{ color:var(--v-text2); }
+/* license footer: old ink-3 links and the warm #D5CFBF hairline */
+.v2t .lic-sh-foot{ border-top:1px solid var(--v-border2); }
+.v2t .lic-sh-ch{ border-top:1px solid var(--v-border2); }
+.v2t .lic-sh-foot a.lbl{ color:var(--v-text2); }
+.v2t .lic-sh-foot a.lbl:hover{ color:var(--v-text); }
+/* the term scale is one family: license gate names sit on the sk-term scale */
+.v2t .lic-sh-head h3{ font-size:33px; letter-spacing:-.03em; }
+/* counts are measurements everywhere else on the system — mono here too */
+.v2t .gu-n{ font-family:var(--mono),monospace; font-size:11px; font-weight:400; }
+/* skill-search input carried a hardcoded #fff into dark mode */
+.v2t .flt-panesearch{ background:var(--v-bg); }
+.v2t .flt-panesearch input{ background:none; color:var(--v-text); }
+/* the palette close button rendered its glyph in Arial at 50% radius */
+.v2t .srch-x{ font-family:var(--sans),sans-serif; border-radius:999px; }
+/* centered text is not the house's — the empty state reads left like the rest */
+.v2t .srch-empty{ text-align:left; padding:30px 24px 10px; }
+/* latent old ink on the glyph wrapper; make the token explicit */
+.v2t .flt-mark{ color:var(--v-text); }
+/* the options list folds mid-row at the footer; fade the fold so it reads as
+   a scroll edge, not clipped text */
+.v2t .flt-pane{ -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 16px),transparent);
+  mask-image:linear-gradient(180deg,#000 calc(100% - 16px),transparent); }
+
+/* ============================================================================
+   ELEVATION PASS (research 2026-08-21): the modals as instruments.
+   Machined controls, distribution bars, numbered sections, a state readout,
+   registration marks, spec leaders. Interaction rule: state changes are
+   instant; only exits fade; nothing springs.
+   ============================================================================ */
+
+/* ---- registration marks: measured artifact, not floating dialog ---- */
+.v2t .sksheet::after, .v2t .flt-sh::after, .v2t .srch-panel::after{
+  content:""; position:absolute; inset:-5px; pointer-events:none;
+  background:
+    linear-gradient(var(--v-text2),var(--v-text2)) left top / 9px 1px,
+    linear-gradient(var(--v-text2),var(--v-text2)) left top / 1px 9px,
+    linear-gradient(var(--v-text2),var(--v-text2)) right top / 9px 1px,
+    linear-gradient(var(--v-text2),var(--v-text2)) right top / 1px 9px,
+    linear-gradient(var(--v-text2),var(--v-text2)) left bottom / 9px 1px,
+    linear-gradient(var(--v-text2),var(--v-text2)) left bottom / 1px 9px,
+    linear-gradient(var(--v-text2),var(--v-text2)) right bottom / 9px 1px,
+    linear-gradient(var(--v-text2),var(--v-text2)) right bottom / 1px 9px;
+  background-repeat:no-repeat; opacity:.6; }
+
+/* ---- entrance: translate only, no scale — an instrument answers, it doesn't pop */
+@keyframes v2SheetIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+.v2t.skmodal.open .sksheet, .v2t .skmodal.open .sksheet{ animation:v2SheetIn .18s ease-out; }
+.v2t .srch-panel{ animation:v2SheetIn .18s ease-out; }
+
+/* ---- the state readout: one machine sentence under the head ---- */
+.v2t .flt-readout{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--v-text2); padding:9px 26px;
+  border-bottom:1px solid var(--v-border2); white-space:nowrap; overflow:hidden;
+  text-overflow:ellipsis; font-variant-numeric:tabular-nums; flex:none; }
+
+/* ---- numbered rail: the sheet is a document with a total order ---- */
+.v2t .flt-rail{ counter-reset:cat; }
+.v2t .flt-cat::before{ counter-increment:cat; content:counter(cat, decimal-leading-zero);
+  font-family:var(--mono),monospace; font-size:9.5px; letter-spacing:.08em;
+  color:var(--v-text2); margin-right:9px; font-weight:400; }
+.v2t .flt-cat.on::before{ color:var(--v-value); }
+
+/* ---- machined checkbox: square in square; the state is the geometry ---- */
+.v2t .flt-box{ border-radius:0; background:var(--v-bg); }
+.v2t .flt-box svg{ display:none; }
+.v2t .flt-opt.on .flt-box{ background:var(--v-text); border-color:var(--v-text);
+  box-shadow:inset 0 0 0 3px var(--v-bg); }
+.v2t .flt-opt:focus-visible{ outline:1px solid var(--v-value); outline-offset:2px; }
+
+/* ---- tabular count column with a distribution bar behind it ---- */
+.v2t .flt-opt{ position:relative; }
+.v2t .flt-n{ font-variant-numeric:tabular-nums; min-width:6ch; text-align:right; }
+.v2t .flt-opt[style*="--w"]::after{ content:""; position:absolute; right:10px; bottom:5px;
+  width:calc(var(--w) * .56); max-width:56%; height:2px;
+  background:color-mix(in srgb, var(--v-value) 55%, transparent); pointer-events:none; }
+.v2t .flt-opt.on[style*="--w"]::after{ background:var(--v-value); }
+
+/* ---- exclusion chips ---- */
+.v2t .flt-chips{ display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 6px; }
+.v2t .flt-chip{ display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--sans),sans-serif; font-size:13px; font-weight:600; line-height:1;
+  color:var(--v-text); background:none; border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent);
+  border-radius:999px; padding:8px 13px; cursor:pointer; }
+.v2t .flt-chip span{ color:var(--v-text2); font-size:14px; }
+.v2t .flt-chip:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .flt-chip:hover span{ color:var(--v-bg); }
+
+/* ---- zero-state: the button yields, the culprit line explains ---- */
+.v2t .flt-culprit{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--v-gap); margin-left:auto; padding-right:14px; }
+.v2t .flt-sh .flt-show.none{ background:var(--v-surface); color:var(--v-text2); cursor:default; }
+.v2t .flt-sh .flt-show.none:hover{ filter:none; }
+
+/* ---- spec rows: dotted leaders bind label to measurement ---- */
+.v2t .sk-spec{ margin-top:18px; display:grid; gap:8px; }
+.v2t .spec-row{ display:flex; align-items:baseline; gap:10px; }
+.v2t .spec-k{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--v-text2); flex:none; }
+.v2t .spec-lead{ flex:1; border-bottom:1px dotted color-mix(in srgb, var(--v-text) 35%, transparent);
+  transform:translateY(-3px); }
+.v2t .spec-v{ font-family:var(--mono),monospace; font-size:12px; color:var(--v-text);
+  font-variant-numeric:tabular-nums; flex:none; }
+
+/* ---- palette: grouped sections, recents, keycap footer ---- */
+.v2t .srch-body{ padding:4px 0 0; }
+.v2t .srch-group{ margin-top:10px; }
+.v2t .srch-gh{ display:block; font-family:var(--mono),monospace; font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--v-text2);
+  padding:0 18px 6px; border-bottom:1px solid var(--v-border); margin-bottom:2px;
+  font-variant-numeric:tabular-nums; }
+.v2t .srch-results a{ grid-template-columns:1fr auto; padding:9px 18px; }
+.v2t .srch-recent{ margin-bottom:22px; }
+.v2t .srch-recent .srch-results a{ grid-template-columns:64px 1fr auto; }
+.v2t .srch-foot{ display:flex; gap:16px; align-items:center; padding:12px 18px 0;
+  border-top:1px solid var(--v-border2); margin-top:14px;
+  font-family:var(--mono),monospace; font-size:10px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .srch-foot kbd{ font-family:var(--mono),monospace; font-size:10px;
+  border:1px solid var(--v-border2); border-radius:3px; padding:2px 6px;
+  background:var(--v-bg2); color:var(--v-text2); margin-right:2px; }
+.v2t .srch-empty{ padding-top:16px; }
+.v2t .srch-empty .srch-hint{ padding:14px 24px 0; }

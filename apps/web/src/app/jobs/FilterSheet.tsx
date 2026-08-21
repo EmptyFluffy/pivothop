@@ -1,7 +1,8 @@
 'use client';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { countryName } from './countries';
 import { SkillMarkSvg } from './SkillMark';
+import { BenefitMarkSvg, type BenefitEntry } from './BenefitStrip';
 import { REGION_META, type RegionKey } from './regions';
 
 /* The filter sheet (docs/26: HiringCafe's one good interaction, on our design
@@ -34,6 +35,12 @@ export type Filters = {
   fresh: '' | 'd' | 'w' | 'm';
   srcSet: Set<string>;      // studio federal ats boards
   lic: '' | 'open' | 'gated';
+  benSet: Set<number>;      // benefit taxonomy indices; a role must STATE every ticked one
+  xp: '' | 'none' | 'le2' | 'y35' | 'ge6';   // years-of-experience band, mined from the text
+  edu: '' | 'nodeg' | 'waived';              // education gate, mined; 'waived' is the strong signal
+  langNot: Set<string>;     // language codes the posting must NOT demand (de fr en...)
+  exQ: Set<string>;         // exclude: title keywords
+  exCo: Set<string>;        // exclude: companies, lowercased
 };
 
 export const SRC_GROUPS: { code: string; label: string; sub: string }[] = [
@@ -56,9 +63,20 @@ const FRESH: { code: Filters['fresh']; label: string }[] = [
 ];
 const TAG_META: Record<string, string> = { s: 'Senior', e: 'Entry level', '4d': 'Four-day week', eq: 'Equity offered', vi: 'Visa sponsorship' };
 
-type CatKey = 'skills' | 'field' | 'location' | 'seniority' | 'pay' | 'perks' | 'fresh' | 'source' | 'license' | 'sortby';
+function ExcludeInput({ placeholder, onAdd }: { placeholder: string; onAdd: (v: string) => void }) {
+  const [v, setV] = useState('');
+  return (
+    <div className="flt-panesearch">
+      <input value={v} placeholder={placeholder} aria-label={placeholder} autoComplete="off"
+        onChange={(e) => setV(e.target.value)}
+        onKeyDown={(e) => { if (e.key === 'Enter' && v.trim()) { onAdd(v.trim()); setV(''); } }} />
+    </div>
+  );
+}
 
-export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField, sort, onSort, skills }: {
+type CatKey = 'skills' | 'field' | 'location' | 'seniority' | 'pay' | 'benefits' | 'require' | 'perks' | 'fresh' | 'source' | 'exclude' | 'license' | 'sortby';
+
+export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField, sort, onSort, skills, benefits, readout, culprit, hiddenByExclusion }: {
   open: boolean;
   onClose: () => void;
   f: Filters;
@@ -73,6 +91,10 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
   sort: 'new' | 'pay';
   onSort: (s: 'new' | 'pay') => void;
   skills: SkillEntry[];
+  benefits: BenefitEntry[];
+  readout: string;                     // the mono state sentence, composed by the board
+  culprit: string | null;              // at zero results: which single filter to loosen, and what it returns
+  hiddenByExclusion: number;           // rows the exclude facet is currently hiding
 }) {
   const [cat, setCat] = useState<CatKey>('skills');
   const [skillQ, setSkillQ] = useState('');
@@ -102,6 +124,9 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     source: f.srcSet.size,
     license: f.lic ? 1 : 0,
     sortby: sort === 'pay' ? 1 : 0,
+    benefits: f.benSet.size,
+    require: (f.xp ? 1 : 0) + (f.edu ? 1 : 0) + f.langNot.size,
+    exclude: f.exQ.size + f.exCo.size,
   };
 
   const CATS: { key: CatKey; label: string }[] = useMemo(() => [
@@ -110,9 +135,12 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     { key: 'location', label: 'Location' },
     { key: 'seniority', label: 'Seniority' },
     { key: 'pay', label: 'Pay' },
+    { key: 'benefits', label: 'Benefits' },
+    { key: 'require', label: 'Requirements' },
     { key: 'perks', label: 'Perks & eligibility' },
     { key: 'fresh', label: 'Date posted' },
     { key: 'source', label: 'Where we read it' },
+    { key: 'exclude', label: 'Exclude' },
     { key: 'license', label: 'License gates' },
     { key: 'sortby', label: 'Sort' },
   ], [hideField]);
@@ -131,6 +159,9 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
       ['perks', Object.values(TAG_META)],
       ['fresh', FRESH.map((x) => x.label)],
       ['source', SRC_GROUPS.map((s) => s.label)],
+      ['benefits', benefits.map((b) => b.term)],
+      ['require', ['experience', 'years', 'degree', 'education', 'language', 'german', 'french']],
+      ['exclude', ['exclude', 'hide', 'block']],
       ['license', ['license', 'no license required', 'licensed professions']],
       ['sortby', ['sort', 'newest first', 'highest pay']],
     ];
@@ -156,10 +187,14 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     set({ [key]: next } as Partial<Filters>);
   };
 
-  const Opt = ({ on, label, sub, n, onClick }: { on: boolean; label: string; sub?: string; n?: number; onClick: () => void }) => (
+  // The count cell carries a hairline data bar (--w): the facet list doubles as
+  // a distribution chart of the corpus, which is what the counts are for.
+  const Opt = ({ on, label, sub, n, nMax, mark, onClick }: { on: boolean; label: string; sub?: string; n?: number; nMax?: number; mark?: ReactNode; onClick: () => void }) => (
     match(label) ? (
-      <button type="button" className={`flt-opt${on ? ' on' : ''}`} aria-pressed={on} onClick={onClick}>
-        <span className="flt-box" aria-hidden="true">{on && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round"><path d="M5 13l4 4L19 7" /></svg>}</span>
+      <button type="button" className={`flt-opt${on ? ' on' : ''}`} aria-pressed={on} onClick={onClick}
+        style={n !== undefined && nMax ? { '--w': `${Math.max(2, Math.round((n / nMax) * 100))}%` } as React.CSSProperties : undefined}>
+        <span className="flt-box" aria-hidden="true" />
+        {mark && <span className="flt-mark">{mark}</span>}
         <span className="flt-lab">{label}{sub && <span className="flt-sub">{sub}</span>}</span>
         {n !== undefined && <span className="flt-n">{n.toLocaleString()}</span>}
       </button>
@@ -182,6 +217,8 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
           />
           <button className="xclose sk-close" aria-label="Close" onClick={close}>&times;</button>
         </div>
+        {/* The state readout: filter state as one machine sentence. Screenshot-able, trustable. */}
+        <div className="flt-readout" aria-live="polite">{readout}</div>
         <div className="flt-body">
           <nav className="flt-rail" aria-label="Filter categories">
             {CATS.map((c) => (
@@ -208,7 +245,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
                 </div>
                 {skillRows.sel.map((sk) => (
                   <button key={sk.slug} type="button" className="flt-opt on" aria-pressed="true" onClick={() => toggleIn('skillSet', sk.slug)}>
-                    <span className="flt-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round"><path d="M5 13l4 4L19 7" /></svg></span>
+                    <span className="flt-box" aria-hidden="true" />
                     <span className="flt-mark"><SkillMarkSvg id={sk.slug} /></span>
                     <span className="flt-lab">{sk.term}<span className="flt-sub">{sk.unlocks.slice(0, 3).map((u) => u.title).join(' · ')}{sk.unlocks.length > 3 ? ` · +${sk.unlocks.length - 3}` : ''}</span></span>
                     <span className="flt-n">{count('skills', { skillSet: new Set([sk.slug]) }).toLocaleString()}</span>
@@ -226,16 +263,19 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
                 {skillRows.hidden > 0 && <p className="flt-note">{skillRows.hidden} more &mdash; keep typing to narrow.</p>}
               </>
             )}
-            {cat === 'field' && (
-              <>
-                <p className="flt-note">Fields group our occupations. Tick several to browse across them.</p>
-                {fieldNames.map((name) => (
-                  <Opt key={name} on={f.fieldSet.has(name)} label={name}
-                    n={count('field', { fieldSet: new Set([name]) })}
-                    onClick={() => toggleIn('fieldSet', name)} />
-                ))}
-              </>
-            )}
+            {cat === 'field' && (() => {
+              const rows = fieldNames.map((name) => ({ name, n: count('field', { fieldSet: new Set([name]) }) }));
+              const nMax = Math.max(1, ...rows.map((r) => r.n));
+              return (
+                <>
+                  <p className="flt-note">Fields group our occupations. Tick several to browse across them.</p>
+                  {rows.map(({ name, n }) => (
+                    <Opt key={name} on={f.fieldSet.has(name)} label={name} n={n} nMax={nMax}
+                      onClick={() => toggleIn('fieldSet', name)} />
+                  ))}
+                </>
+              );
+            })()}
             {cat === 'location' && (
               <>
                 <Opt on={f.remoteOnly} label="Remote" sub="marked remote by the employer" n={count('location', { remoteOnly: true, region: '', ctySet: new Set() })} onClick={() => set({ remoteOnly: !f.remoteOnly })} />
@@ -301,6 +341,76 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
                 ))}
               </>
             )}
+            {cat === 'benefits' && (
+              <>
+                <p className="flt-note">Mined nightly from the posting text, never employer tags. A count is postings that STATE the benefit; absence of the tag is not absence of the benefit. Roles must state every benefit you tick.</p>
+                {(['Money', 'Time', 'Flexibility', 'Health', 'Family', 'Growth', 'Workplace'] as const).map((catName) => {
+                  const group = benefits.filter((b) => b.cat === catName && b.i !== undefined && (b.n ?? 0) > 0);
+                  if (!group.length) return null;
+                  const nMax = Math.max(...group.map((b) => b.n ?? 0));
+                  return (
+                    <div key={catName}>
+                      <div className="flt-group">{catName}</div>
+                      {group.map((b) => (
+                        <Opt key={b.slug} on={f.benSet.has(b.i!)} label={b.term} nMax={nMax}
+                          mark={<BenefitMarkSvg glyph={b.glyph} />}
+                          n={count('benefits', { benSet: new Set([...f.benSet, b.i!]) })}
+                          onClick={() => { const next = new Set(f.benSet); if (next.has(b.i!)) next.delete(b.i!); else next.add(b.i!); set({ benSet: next }); }} />
+                      ))}
+                    </div>
+                  );
+                })}
+              </>
+            )}
+            {cat === 'require' && (
+              <>
+                <p className="flt-note">Read from the posting text, not the employer&rsquo;s seniority tag. A posting that states nothing stays visible unless you filter it out.</p>
+                <div className="flt-group">Years of experience asked</div>
+                {([['none', 'No figure stated', 'the text names no years requirement'], ['le2', 'Asks 2 years or less', ''], ['y35', 'Asks 3–5 years', ''], ['ge6', 'Asks 6 or more', '']] as const).map(([code, label, sub]) => (
+                  <Opt key={code} on={f.xp === code} label={label} sub={sub || undefined}
+                    n={count('require', { xp: code, edu: f.edu, langNot: f.langNot })}
+                    onClick={() => set({ xp: f.xp === code ? '' : code })} />
+                ))}
+                <div className="flt-group">Education</div>
+                <Opt on={f.edu === 'nodeg'} label="No degree demanded" sub="nothing in the text requires a bachelor's or higher"
+                  n={count('require', { edu: 'nodeg', xp: f.xp, langNot: f.langNot })}
+                  onClick={() => set({ edu: f.edu === 'nodeg' ? '' : 'nodeg' })} />
+                <Opt on={f.edu === 'waived'} label="Degree explicitly waived" sub={'the posting says so: "or equivalent experience"'}
+                  n={count('require', { edu: 'waived', xp: f.xp, langNot: f.langNot })}
+                  onClick={() => set({ edu: f.edu === 'waived' ? '' : 'waived' })} />
+                <div className="flt-group">Languages</div>
+                {([['de', 'German not demanded'], ['fr', 'French not demanded'], ['en', 'English not demanded']] as const).map(([code, label]) => (
+                  <Opt key={code} on={f.langNot.has(code)} label={label}
+                    n={count('require', { langNot: new Set([...f.langNot, code]), xp: f.xp, edu: f.edu })}
+                    onClick={() => { const next = new Set(f.langNot); if (next.has(code)) next.delete(code); else next.add(code); set({ langNot: next }); }} />
+                ))}
+              </>
+            )}
+            {cat === 'exclude' && (
+              <>
+                <p className="flt-note">The filter every other board is missing: say no. Hidden roles are counted, never silently dropped{hiddenByExclusion > 0 ? ` — ${hiddenByExclusion.toLocaleString()} hidden right now` : ''}.</p>
+                <div className="flt-group">Titles containing</div>
+                <ExcludeInput placeholder={'Type a word and press Enter — "senior", "principal"…'}
+                  onAdd={(v) => { const next = new Set(f.exQ); next.add(v.toLowerCase()); set({ exQ: next }); }} />
+                <div className="flt-chips">
+                  {[...f.exQ].map((k) => (
+                    <button key={k} type="button" className="flt-chip" onClick={() => { const next = new Set(f.exQ); next.delete(k); set({ exQ: next }); }}>
+                      {k}<span aria-hidden="true">&times;</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="flt-group">Companies</div>
+                <ExcludeInput placeholder="Type a company name and press Enter"
+                  onAdd={(v) => { const next = new Set(f.exCo); next.add(v.toLowerCase()); set({ exCo: next }); }} />
+                <div className="flt-chips">
+                  {[...f.exCo].map((k) => (
+                    <button key={k} type="button" className="flt-chip" onClick={() => { const next = new Set(f.exCo); next.delete(k); set({ exCo: next }); }}>
+                      {k}<span aria-hidden="true">&times;</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
             {cat === 'sortby' && (
               <>
                 <p className="flt-note">One order at a time. Highest pay puts the postings that state a number first.</p>
@@ -318,10 +428,11 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
           </div>
         </div>
         <div className="flt-foot">
-          <button type="button" className="flt-clear lbl" onClick={() => set({ fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false, minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '', skillSet: new Set() })}>
+          <button type="button" className="flt-clear lbl" onClick={() => set({ fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false, minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '', skillSet: new Set(), benSet: new Set(), xp: '', edu: '', langNot: new Set(), exQ: new Set(), exCo: new Set() })}>
             Clear all
           </button>
-          <button type="button" className="flt-show" onClick={close}>
+          {resultCount === 0 && culprit && <span className="flt-culprit">{culprit}</span>}
+          <button type="button" className={`flt-show${resultCount === 0 ? ' none' : ''}`} onClick={close} disabled={resultCount === 0}>
             Show {resultCount.toLocaleString()} roles
           </button>
         </div>

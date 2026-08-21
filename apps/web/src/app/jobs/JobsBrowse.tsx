@@ -28,6 +28,7 @@ const EMPTY: Filters = {
   fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false,
   minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '',
   skillSet: new Set(),
+  benSet: new Set(), xp: '', edu: '', langNot: new Set(), exQ: new Set(), exCo: new Set(),
 };
 
 export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2, hero }: {
@@ -141,6 +142,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       srcSet: new Set((p.get('src') ?? '').split(',').filter(Boolean)),
       lic: p.get('lic') === 'open' || p.get('lic') === 'gated' ? (p.get('lic') as 'open' | 'gated') : '',
       skillSet: new Set((p.get('sk') ?? '').split(',').filter(Boolean)),
+      benSet: new Set((p.get('ben') ?? '').split(',').filter(Boolean).map(Number).filter((n) => !Number.isNaN(n))),
+      xp: (['none', 'le2', 'y35', 'ge6'].includes(p.get('xp') ?? '') ? p.get('xp') : '') as Filters['xp'],
+      edu: (['nodeg', 'waived'].includes(p.get('edu') ?? '') ? p.get('edu') : '') as Filters['edu'],
+      langNot: new Set((p.get('lnot') ?? '').split(',').filter(Boolean)),
+      // exclusions persist: the URL wins, else the standing local set (they are
+      // preferences, not queries — a blocked company stays blocked next visit)
+      exQ: new Set((p.get('not') ?? localStorage.getItem('ph-ex-q') ?? '').split(',').filter(Boolean)),
+      exCo: new Set((p.get('notco') ?? localStorage.getItem('ph-ex-co') ?? '').split(',').filter(Boolean)),
     });
     if (p.get('sort') === 'pay') setSort('pay');
     // the license registry is small and powers the license filter
@@ -234,6 +243,16 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (f.srcSet.size) p.set('src', [...f.srcSet].join(','));
     if (f.lic) p.set('lic', f.lic);
     if (f.skillSet.size) p.set('sk', [...f.skillSet].join(','));
+    if (f.benSet.size) p.set('ben', [...f.benSet].join(','));
+    if (f.xp) p.set('xp', f.xp);
+    if (f.edu) p.set('edu', f.edu);
+    if (f.langNot.size) p.set('lnot', [...f.langNot].join(','));
+    if (f.exQ.size) p.set('not', [...f.exQ].join(','));
+    if (f.exCo.size) p.set('notco', [...f.exCo].join(','));
+    try {
+      localStorage.setItem('ph-ex-q', [...f.exQ].join(','));
+      localStorage.setItem('ph-ex-co', [...f.exCo].join(','));
+    } catch { /* private mode */ }
     if (sort === 'pay') p.set('sort', 'pay');
     const qs = p.toString();
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
@@ -325,6 +344,23 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       if (omit !== 'license' && spec.lic && licensed) {
         r = spec.lic === 'gated' ? r.filter((j) => licensed.has(j.occ)) : r.filter((j) => !licensed.has(j.occ));
       }
+      if (omit !== 'benefits' && spec.benSet.size) {
+        r = r.filter((j) => !!j.b && [...spec.benSet].every((i) => j.b!.includes(i)));
+      }
+      if (omit !== 'require') {
+        if (spec.xp === 'none') r = r.filter((j) => j.g?.x === undefined);
+        if (spec.xp === 'le2') r = r.filter((j) => j.g?.x !== undefined && j.g.x <= 2);
+        if (spec.xp === 'y35') r = r.filter((j) => j.g?.x !== undefined && j.g.x >= 3 && j.g.x <= 5);
+        if (spec.xp === 'ge6') r = r.filter((j) => (j.g?.x ?? 0) >= 6);
+        // 'nodeg': nothing in the text REQUIRES a bachelor's or higher (b/m/d + required)
+        if (spec.edu === 'nodeg') r = r.filter((j) => { const d = j.g?.d; return !d || !('bmd'.includes(d[0]) && d[1] === 'r'); });
+        if (spec.edu === 'waived') r = r.filter((j) => j.g?.d?.[1] === 'w');
+        if (spec.langNot.size) r = r.filter((j) => !j.g?.l?.some((c) => spec.langNot.has(c)));
+      }
+      if (omit !== 'exclude') {
+        if (spec.exQ.size) r = r.filter((j) => { const tl = j.title.toLowerCase(); return ![...spec.exQ].some((k) => tl.includes(k)); });
+        if (spec.exCo.size) r = r.filter((j) => !spec.exCo.has(j.company.toLowerCase()));
+      }
       if (omit !== 'skills' && spec.skillSet.size && skillOccs.size) {
         const reach = new Set<string>();
         for (const sk of spec.skillSet) for (const occ of skillOccs.get(sk) ?? []) reach.add(occ);
@@ -340,13 +376,59 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return r;
   }, [applyFilters, f, sort]);
 
+  // The machine sentence: active filter state as one mono readout. Reads like
+  // the top line of an instrument, doubles as the screenshot-able spec of the
+  // current view. Numbers stay exact; separators are slashes; count trails.
+  const readout = useMemo(() => {
+    const parts: string[] = [];
+    if (needle) parts.push(`"${needle.toUpperCase()}"`);
+    for (const fd of f.fieldSet) parts.push(fd.toUpperCase());
+    for (const sk of f.skillSet) { const e = (skills ?? []).find((x) => x.slug === sk); if (e) parts.push(e.term.toUpperCase()); }
+    if (f.region) parts.push(REGION_META[f.region as RegionKey]?.name.replace(/^the /, '').toUpperCase() ?? f.region.toUpperCase());
+    for (const c of f.ctySet) parts.push(countryName(c).toUpperCase());
+    if (f.remoteOnly) parts.push('REMOTE');
+    if (f.tags.has('s')) parts.push('SENIOR');
+    if (f.tags.has('e')) parts.push('ENTRY');
+    if (f.minPay) parts.push(`$${f.minPay}K+`);
+    if (f.hasSalary) parts.push('STATES PAY');
+    if (f.benSet.size) parts.push(`${f.benSet.size} BENEFIT${f.benSet.size > 1 ? 'S' : ''}`);
+    if (f.xp) parts.push({ none: 'NO EXP STATED', le2: '≤2 YRS', y35: '3–5 YRS', ge6: '6+ YRS' }[f.xp]);
+    if (f.edu === 'nodeg') parts.push('NO DEGREE');
+    if (f.edu === 'waived') parts.push('DEGREE WAIVED');
+    for (const l of f.langNot) parts.push(`NO ${l.toUpperCase()}`);
+    if (f.fresh) parts.push({ d: '24H', w: '7D', m: '30D' }[f.fresh]);
+    if (f.exQ.size + f.exCo.size) parts.push(`${f.exQ.size + f.exCo.size} EXCLUSION${f.exQ.size + f.exCo.size > 1 ? 'S' : ''}`);
+    const head = parts.length ? parts.join(' / ') : 'ALL ROLES';
+    return `${head} — ${results.length.toLocaleString()}`;
+  }, [f, needle, results.length, skills]);
+
+  // What the exclusions are hiding right now — counted, never silent.
+  const hiddenByExclusion = useMemo(() => {
+    if (!f.exQ.size && !f.exCo.size) return 0;
+    return applyFilters(f, 'exclude').length - results.length;
+  }, [applyFilters, f, results.length]);
+
+  // At zero results, name the single filter whose removal returns the most.
+  const culprit = useMemo(() => {
+    if (results.length > 0) return null;
+    const cats: [string, string][] = [['skills', 'your skills'], ['field', 'field'], ['location', 'location'],
+      ['pay', 'pay'], ['seniority', 'seniority'], ['perks', 'perks'], ['fresh', 'date posted'],
+      ['source', 'source'], ['license', 'license'], ['benefits', 'benefits'], ['require', 'requirements'], ['exclude', 'exclusions']];
+    let best: { label: string; n: number } | null = null;
+    for (const [cat, label] of cats) {
+      const n = applyFilters(f, cat).length;
+      if (n > 0 && (!best || n > best.n)) best = { label, n };
+    }
+    return best ? `0 roles — removing ${best.label} returns ${best.n.toLocaleString()}` : null;
+  }, [applyFilters, f, results.length]);
+
   // Faceted count for the sheet: the category's own filter is stripped, the
   // probe stands in for the option being counted, every other filter applies.
   const count = useMemo(() => {
     return (cat: string, probe: Partial<Filters>) => applyFilters({ ...strip(f, cat), ...probe }).length;
     function strip(base: Filters, cat: string): Filters {
       // strip the category's own filter, the probe re-adds its single option
-      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet), skillSet: new Set(base.skillSet) };
+      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet), skillSet: new Set(base.skillSet), benSet: new Set(base.benSet), langNot: new Set(base.langNot), exQ: new Set(base.exQ), exCo: new Set(base.exCo) };
       if (cat === 'field') c.fieldSet = new Set();
       if (cat === 'location') { c.region = ''; c.ctySet = new Set(); c.remoteOnly = false; }
       if (cat === 'pay') { c.minPay = 0; c.hasSalary = false; }
@@ -356,6 +438,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       if (cat === 'source') c.srcSet = new Set();
       if (cat === 'license') c.lic = '';
       if (cat === 'skills') c.skillSet = new Set();
+      if (cat === 'benefits') c.benSet = new Set();
+      if (cat === 'require') { c.xp = ''; c.edu = ''; c.langNot = new Set(); }
+      if (cat === 'exclude') { c.exQ = new Set(); c.exCo = new Set(); }
       return c;
     }
   }, [applyFilters, f]);
@@ -637,6 +722,10 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         f={f}
         set={set}
         count={(cat, probe) => count(cat, probe)}
+        benefits={benefits ?? []}
+        readout={readout}
+        culprit={culprit}
+        hiddenByExclusion={hiddenByExclusion}
         fieldNames={fieldNames}
         countries={countries}
         regionsList={regionsList}
