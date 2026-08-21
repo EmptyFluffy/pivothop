@@ -121,13 +121,13 @@ Warmth should come from understanding what the reader is deciding. Explain what 
 
 Only use figures found in the measurements. Never invent, import or differently round a number. Most figures appear elsewhere on the page, so repeat them only when they improve the answer. Never mention prompts, packets, datasets or generation mechanics.
 
-Avoid the word "actually".`;
+Avoid the word "actually". Never use an em dash. Use a comma, colon or full stop instead.`;
 
 function userPrompt(p) {
   return `Write the editorial prose for the ${p.title} career guide.
 
 MEASUREMENTS:
-${JSON.stringify(p, null, 1)}
+${JSON.stringify(p)}
 
 Call the career_guide tool. Keep the guide natural. Different careers can need different amounts of explanation, so do not force every section into the same cadence.
 
@@ -145,7 +145,7 @@ Call the career_guide tool. Keep the guide natural. Different careers can need d
 - industries: 2 to 4 genuinely distinct settings.
 - specializations: 0 to 4 meaningful paths. Use an empty array instead of filler.
 - pros and cons: 2 to 4 concise, role-specific points each.
-- faq: 3 to 6 questions written the way a person searches. Answer each in the first sentence, then qualify.
+- faq: 3 to 6 questions written the way a person searches. Give the useful answer in the first sentence, then qualify it. For a timeline question, start with a supported number or range. For a yes-or-no question, begin with Yes, No, Usually or Rarely. Never answer only with "it depends" or "it varies".
 
 Lead with the "how to become a ${p.title.toLowerCase()}" intent. Then answer what the work is like, what employers ask for and how it differs from the closest adjacent role. Only discuss remote work, AI risk or specializations when the evidence makes the answer useful.`;
 }
@@ -218,7 +218,7 @@ async function generate(p, key, attempt = 1, fixes = null) {
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: Number(process.env.GUIDE_MAX_TOKENS || 8000),
+      max_tokens: Number(process.env.GUIDE_MAX_TOKENS || 6000),
       // Thinking is OFF by default. Measured on the architect guide: with it on,
       // 17,203 of 25,312 output tokens were thinking and the call cost $0.41;
       // with it off the same guide cost $0.08 and read better, being more
@@ -304,7 +304,7 @@ function parseLoose(text) {
 const FILLER = /\s*\bactually\b/gi;
 function polish(v) {
   if (typeof v === 'string') {
-    return v.replace(FILLER, '').replace(/ {2,}/g, ' ').replace(/ ([,.;:])/g, '$1').trim();
+    return v.replace(FILLER, '').replace(/\s*—\s*/g, ', ').replace(/ {2,}/g, ' ').replace(/ ([,.;:])/g, '$1').trim();
   }
   if (Array.isArray(v)) return v.map(polish);
   if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, polish(x)]));
@@ -333,6 +333,18 @@ function audit(prose, p) {
     if (!allowed.has(m[1].replace(/\..*/, ''))) problems.push(`unsourced percentage ${m[0]}`);
   }
   if (/\bactually\b/i.test(blob)) problems.push('contains the word "actually"');
+  if (/—/.test(blob)) problems.push('contains an em dash');
+  for (const item of prose.faq ?? []) {
+    const question = String(item.q ?? '').trim();
+    const first = String(item.a ?? '').trim().split(/(?<=[.!?])\s+/)[0] ?? '';
+    if (/\b(how long|how many years)\b/i.test(question) && !/(\d|no fixed timeline)/i.test(first)) {
+      problems.push(`timeline FAQ does not give a range in its first sentence: ${question}`);
+    }
+    if (/^(can|could|do|does|is|are|will|should)\b/i.test(question)
+        && !/^(yes|no|usually|rarely|sometimes|it can|they can|some)\b/i.test(first)) {
+      problems.push(`yes-or-no FAQ is indirect in its first sentence: ${question}`);
+    }
+  }
   for (const key of ['summary', 'day_to_day', 'work_environment', 'getting_in', 'ladder', 'suits', 'misconceptions', 'who_qualifies', 'what_the_numbers_miss', 'tools']) {
     if (!prose[key] || prose[key].length < 60) problems.push(`${key} missing or too short`);
   }

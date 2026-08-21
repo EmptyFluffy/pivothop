@@ -67,6 +67,16 @@ function read<T>(p: string, fb: T): T {
 }
 const share = (n: number, d: number) => (d ? Math.round((n / d) * 100) : 0);
 
+/** Keep generated editorial text free of em dashes, including older guides. */
+function normalizeGuideText<T>(value: T): T {
+  if (typeof value === 'string') return value.replace(/\s*—\s*/g, ', ') as T;
+  if (Array.isArray(value)) return value.map((item) => normalizeGuideText(item)) as T;
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeGuideText(item)])) as T;
+  }
+  return value;
+}
+
 let _into: Map<string, { from: string; fromTitle: string; matchPct: number }[]> | null = null;
 /** Who reaches an occupation. Built once per process across every origin file. */
 function routesInto(): Map<string, { from: string; fromTitle: string; matchPct: number }[]> {
@@ -133,7 +143,8 @@ export function careerFacts(occ: string): CareerFacts | null {
   const salaryScope: 'US' | 'Global' = usBlended || usPosted ? 'US' : 'Global';
   const salarySource: 'blended' | 'posted' | 'global' = usBlended ? 'blended' : usPosted ? 'posted' : 'global';
 
-  const guide = read<{ title: string; generated: string; prose: Prose } | null>(path.join(GUIDES, `${occ}.json`), null);
+  const guideRaw = read<{ title: string; generated: string; prose: Prose } | null>(path.join(GUIDES, `${occ}.json`), null);
+  const guide = guideRaw ? normalizeGuideText(guideRaw) : null;
   const licence = read<Record<string, Licence>>(path.join(WEB, 'license-sheet.json'), {})[occ] ?? null;
 
   return {

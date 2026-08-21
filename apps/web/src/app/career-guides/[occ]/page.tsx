@@ -228,7 +228,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         )}
 
         <section className="rt-sec">
-          <h2>Is this career a good fit?</h2>
+          <h2>Who this career tends to suit</h2>
           <p className="cg-p">{p.suits}</p>
           {(p.pros?.length || p.cons?.length) ? (
             <div className="cg-pc">
