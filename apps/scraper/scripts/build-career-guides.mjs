@@ -221,8 +221,12 @@ async function generate(p, key, attempt = 1, fixes = null) {
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: Number(process.env.GUIDE_MAX_TOKENS || 20000),
-      ...(process.env.GUIDE_THINKING === 'off' ? { thinking: { type: 'disabled' } } : {}),
+      max_tokens: Number(process.env.GUIDE_MAX_TOKENS || 8000),
+      // Thinking is OFF by default. Measured on the architect guide: with it on,
+      // 17,203 of 25,312 output tokens were thinking and the call cost $0.41;
+      // with it off the same guide cost $0.08 and read better, being more
+      // concrete. Set GUIDE_THINKING=on to compare again.
+      ...(process.env.GUIDE_THINKING === 'on' ? {} : { thinking: { type: 'disabled' } }),
       system: SYSTEM,
       messages: [{
         role: 'user',
