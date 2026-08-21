@@ -1,12 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { firstVerifiedCandidate, selectSocialJob } from '../../../../lib/social/select';
 import { generateSocialPost, jobUrl } from '../../../../lib/social/copy';
-import { insertDraft, publishedOrScheduledToday } from '../../../../lib/social/store';
+import { insertDraft, publishedOrScheduledToday, recentPosts } from '../../../../lib/social/store';
+import { getJob } from '../../../jobs/jobs-data';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 const REMOTE_ARCHITECTURE_SCHEDULE = '15 15 * * *';
+const REMOTE_ARCHITECTURE_RETRY_SCHEDULES = new Set([
+  REMOTE_ARCHITECTURE_SCHEDULE,
+  '45 16 * * *',
+  '15 18 * * *',
+  '15 20 * * *',
+  '15 22 * * *',
+]);
 const REMOTE_ARCHITECTURE_OCCUPATIONS = [
   'architect',
   'architectural-drafter',
@@ -38,14 +46,27 @@ export async function GET(req: NextRequest) {
   const configuredPerDay = Number(process.env.SOCIAL_POSTS_PER_DAY || 15);
   const perDay = Number.isFinite(configuredPerDay) && configuredPerDay > 0 ? configuredPerDay : 15;
   const autoApprove = process.env.SOCIAL_AUTO_APPROVE !== 'false';
-  const remoteArchitectureSlot =
-    req.nextUrl.searchParams.get('focus') === 'remote-architecture' ||
-    req.headers.get('x-vercel-cron') === REMOTE_ARCHITECTURE_SCHEDULE;
+  const forceRemoteArchitecture = req.nextUrl.searchParams.get('focus') === 'remote-architecture';
+  const cronSchedule = req.headers.get('x-vercel-cron');
+  const architectureRetryWindow = cronSchedule ? REMOTE_ARCHITECTURE_RETRY_SCHEDULES.has(cronSchedule) : false;
 
   const today = await publishedOrScheduledToday('linkedin', 'UTC');
   if (today >= perDay) {
     return NextResponse.json({ ok: true, action: 'skip', reason: `daily cap reached (${today}/${perDay})` });
   }
+
+  let remoteArchitectureAlreadyQueued = false;
+  if (architectureRetryWindow && !forceRemoteArchitecture) {
+    const recent = await recentPosts('linkedin', 20);
+    const utcDay = new Intl.DateTimeFormat('en-CA', { timeZone: 'UTC' }).format(new Date());
+    remoteArchitectureAlreadyQueued = recent.some((row) => {
+      if (row.status !== 'scheduled' && row.status !== 'published') return false;
+      const rowDay = new Intl.DateTimeFormat('en-CA', { timeZone: 'UTC' }).format(new Date(row.created_at));
+      if (rowDay !== utcDay || !REMOTE_ARCHITECTURE_OCCUPATIONS.includes(row.job_occ as typeof REMOTE_ARCHITECTURE_OCCUPATIONS[number])) return false;
+      return Boolean(getJob(row.job_occ, row.job_id)?.remote);
+    });
+  }
+  const remoteArchitectureSlot = forceRemoteArchitecture || (architectureRetryWindow && !remoteArchitectureAlreadyQueued);
 
   let selection = await selectSocialJob('linkedin', remoteArchitectureSlot ? {
     remoteOnly: true,
@@ -57,9 +78,9 @@ export async function GET(req: NextRequest) {
   let pool = selection.pool;
   const usedRemoteArchitectureSlot = remoteArchitectureSlot && Boolean(live);
 
-  /* Preserve the 15-post cadence if the dedicated slot has no eligible,
-     source-verified architecture listing. It falls back to the general pool
-     instead of repeating a job or publishing an unverified source. */
+  /* Preserve the 15-post cadence if an architecture attempt has no eligible,
+     source-verified listing. It falls back to the general pool for this run;
+     later slots retry architecture until one is queued that UTC day. */
   if (!live && remoteArchitectureSlot) {
     const attempted = new Set(checks.map((check) => check.id));
     selection = await selectSocialJob('linkedin');
