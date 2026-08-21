@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
     // The head term for this page is the how-to query, not "career guide".
     title: `How to become ${article(f.title)} ${tl}: the job, the pay, and the way in`,
     description: `What ${article(f.title)} ${tl} does day to day, what the work pays, how long it takes to qualify, and which occupations already have most of what it asks for. ${pay} Measured from ${f.liveOpenings.toLocaleString()} live openings and updated nightly.`,
-    alternates: { canonical: `/careers/${occ}` },
+    alternates: { canonical: `/career-guides/${occ}` },
   };
 }
 
@@ -55,7 +55,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
     <PageShell v2 active="careers">
       <div className="rtp cg">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/careers">Careers</Link><span>/</span><span>{f.title}</span>
+          <Link href="/">Instrument</Link><span>/</span><Link href="/career-guides">Careers</Link><span>/</span><span>{f.title}</span>
         </nav>
 
         <p className="jb-vmeta">
@@ -139,6 +139,19 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         <section className="rt-sec">
           <h2>How to become {article(f.title)} {tl}</h2>
           <p className="cg-p">{p.getting_in}</p>
+          {p.steps?.length > 0 && (
+            <ol className="cg-steps">
+              {p.steps.map((st, i) => (
+                <li key={st.do}>
+                  <span className="n">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="b">
+                    <span className="t">{st.do}</span>
+                    <span className="d">{st.how}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          )}
           {f.licence && (
             <div className="cg-lic">
               <span className="lbl">The credential gate</span>
@@ -312,8 +325,8 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
         {
           '@context': 'https://schema.org', '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Careers', item: 'https://www.pivothop.com/careers' },
-            { '@type': 'ListItem', position: 2, name: f.title, item: `https://www.pivothop.com/careers/${occ}` },
+            { '@type': 'ListItem', position: 1, name: 'Career guides', item: 'https://www.pivothop.com/career-guides' },
+            { '@type': 'ListItem', position: 2, name: f.title, item: `https://www.pivothop.com/career-guides/${occ}` },
           ],
         },
         {

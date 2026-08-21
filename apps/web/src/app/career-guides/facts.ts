@@ -41,6 +41,7 @@ export type Prose = {
   suits: string;
   misconceptions: string;
   tools: string;
+  steps: { do: string; how: string }[];
   who_qualifies: string;
   what_the_numbers_miss: string;
   industries: { name: string; note: string }[];

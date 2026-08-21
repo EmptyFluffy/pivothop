@@ -173,6 +173,8 @@ Return ONLY valid JSON, no markdown fence, with exactly these keys:
 
   "what_the_numbers_miss": "2 to 3 sentences. What this measurement cannot see about THIS job specifically. Flat and unceremonious, not a disclaimer with a bow on it.",
 
+  "steps": [ { "do": "the action, as an imperative of 6 words or fewer", "how": "2 to 3 sentences: what it concretely involves, roughly how long it takes, and how you know you are done with it. Name real things (a specific exam, portfolio piece, hour count, kind of employer) rather than generic advice." } ],
+
   "tools": "2 to 4 sentences. The software, instruments or equipment this job runs on day to day, drawn from the skills in the measurements. Say which ones are the real gatekeepers in hiring and which are nice to have. Mention where the tooling is heading if the postings suggest it.",
 
   "industries": [ { "name": "the sector or setting that employs this role", "note": "one line on what the work is like there specifically, and how it differs from the others" } ],
@@ -186,7 +188,9 @@ Return ONLY valid JSON, no markdown fence, with exactly these keys:
   "faq": [ { "q": "the question as a person types it into Google, in their words", "a": "2 to 3 sentences that answer it in the first sentence, then qualify" } ]
 }
 
-Write 3 or 4 industries, 3 specializations, 4 pros, 4 cons.
+Write 5 steps, 3 or 4 industries, 3 specializations, 4 pros, 4 cons.
+
+THE STEPS ARE THE HIGHEST INTENT PART OF THE PAGE. Someone searching how to become this is looking for a sequence they can start on Monday. Order them as a real path, front to back. Attach a duration to every step where one exists in the measurements or in the license path. Do not pad to five if the path is genuinely shorter; four honest steps beat five with filler. Never write a step that amounts to "build a portfolio" or "keep learning" without saying what goes in it.
 
 THE FAQ IS A SEARCH SURFACE, so write the questions the way people search, not the way a brochure asks them. Use the reader's phrasing ("how long does it take to become a ${p.title.toLowerCase()}", not "What is the typical timeline to qualification"). Cover 6 of these query shapes, choosing the ones this occupation genuinely raises:
 - how long it takes to qualify or become one
@@ -289,6 +293,7 @@ function audit(prose, p) {
   const KEYS = ['summary', 'day_to_day', 'work_environment', 'getting_in', 'ladder', 'suits',
     'misconceptions', 'who_qualifies', 'what_the_numbers_miss', 'tools'];
   const blob = [...KEYS.map((k) => prose[k] ?? ''), prose.tools ?? '',
+    ...(prose.steps ?? []).map((i) => `${i.do} ${i.how}`),
     ...(prose.industries ?? []).map((i) => `${i.name} ${i.note}`),
     ...(prose.specializations ?? []).map((i) => `${i.name} ${i.why}`),
     ...(prose.pros ?? []), ...(prose.cons ?? []),
@@ -314,6 +319,10 @@ function audit(prose, p) {
     if (!prose[key] || prose[key].length < 60) problems.push(`${key} missing or too short`);
   }
   if (!Array.isArray(prose.faq) || prose.faq.length < 4) problems.push('fewer than 4 FAQ entries');
+  if (!Array.isArray(prose.steps) || prose.steps.length < 4) problems.push('fewer than 4 steps');
+  for (const st of prose.steps ?? []) {
+    if (!st.do || !st.how || st.how.length < 40) problems.push('a step is missing its detail');
+  }
   for (const [key, min] of [['industries', 3], ['specializations', 3], ['pros', 3], ['cons', 3]]) {
     if (!Array.isArray(prose[key]) || prose[key].length < min) problems.push(`${key}: fewer than ${min}`);
   }

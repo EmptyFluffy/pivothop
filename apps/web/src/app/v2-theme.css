@@ -1037,3 +1037,32 @@ html.vlight .v2t{ --v-gap:#B24E34; }
   .v2t .cg-pc, .v2t .cg-list li{ grid-template-columns:1fr; }
   .v2t .cg-lic-meta{ gap:24px; flex-wrap:wrap; }
 }
+
+/* the step path: the answer to "how do I become one", numbered like the rail */
+.v2t .cg-steps{ list-style:none; margin:28px 0 0; padding:0; counter-reset:cgstep; }
+.v2t .cg-steps li{ display:grid; grid-template-columns:56px minmax(0,1fr); gap:20px;
+  padding:22px 0; border-top:1px solid var(--v-border); }
+.v2t .cg-steps li:last-child{ border-bottom:1px solid var(--v-border); }
+.v2t .cg-steps .n{ font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--v-value);
+  padding-top:5px; }
+.v2t .cg-steps .t{ display:block; font-size:20px; font-weight:650; letter-spacing:-.02em;
+  color:var(--v-text); margin-bottom:8px; }
+.v2t .cg-steps .d{ display:block; font-size:16.5px; line-height:1.65; color:var(--v-text2); max-width:70ch; }
+
+/* the index */
+.v2t .cgx-sec h2{ font-size:26px; font-weight:650; letter-spacing:-.02em; }
+.v2t .cgx{ list-style:none; margin:14px 0 0; padding:0; }
+.v2t .cgx li{ display:grid; grid-template-columns:minmax(0,1fr) 110px 110px; gap:24px; align-items:baseline;
+  padding:20px 0; border-bottom:1px solid var(--v-border); }
+.v2t .cgx a{ text-decoration:none; color:var(--v-text); min-width:0; }
+.v2t .cgx .t{ display:block; font-size:22px; font-weight:650; letter-spacing:-.02em; }
+.v2t .cgx a:hover .t{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .cgx .d{ display:block; margin-top:6px; font-size:15.5px; line-height:1.55; color:var(--v-text2);
+  max-width:78ch; }
+.v2t .cgx .m{ font-family:var(--mono); font-size:17px; font-weight:600; color:var(--v-value); text-align:right; }
+.v2t .cgx .s{ color:var(--v-text2); text-align:right; }
+@media (max-width:980.9px){
+  .v2t .cg-steps li{ grid-template-columns:38px minmax(0,1fr); gap:12px; }
+  .v2t .cgx li{ grid-template-columns:minmax(0,1fr) auto; }
+  .v2t .cgx .s{ display:none; }
+}

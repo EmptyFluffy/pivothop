@@ -53,6 +53,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
         {v2
           ? <Link className={`navlink${active === 'salaries' ? ' on' : ''}`} href="/salary">Salaries</Link>
           : <Link className="navlink" href="/#how">Method</Link>}
+        {v2 && <Link className={`navlink${active === 'careers' ? ' on' : ''}`} href="/career-guides">Guides</Link>}
         <Link className={`navlink${active === 'blog' ? ' on' : ''}`} href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
         <button className="nav-searchbtn" type="button" data-search aria-label="Search" title="Search — press / or ⌘K">
