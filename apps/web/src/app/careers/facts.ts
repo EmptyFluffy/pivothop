@@ -28,15 +28,32 @@ export type CareerFacts = {
   countries: { country: string; n: number }[];
   routesOut: { id: string; to: string; matchPct: number; salary: string | null; time: string | null; licensed: boolean }[];
   routesIn: { from: string; fromTitle: string; matchPct: number }[];
+  licence: Licence | null;
   guide: { title: string; generated: string; prose: Prose } | null;
 };
 
 export type Prose = {
   summary: string;
-  judgement: string;
+  day_to_day: string;
+  work_environment: string;
+  getting_in: string;
+  ladder: string;
+  suits: string;
+  misconceptions: string;
+  tools: string;
   who_qualifies: string;
   what_the_numbers_miss: string;
+  industries: { name: string; note: string }[];
+  specializations: { name: string; why: string }[];
+  pros: string[];
+  cons: string[];
   faq: { q: string; a: string }[];
+};
+
+/** The credential gate, where one exists: the real path and how long it takes. */
+export type Licence = {
+  gate: string; path: string; time: string; note?: string;
+  body?: { name: string; url: string }; anchor?: string; req?: string;
 };
 
 const REPO = path.join(process.cwd(), '..', '..');
@@ -112,6 +129,7 @@ export function careerFacts(occ: string): CareerFacts | null {
   const band = sal.by_country?.US?.blended || sal.by_country?.US?.posted || sal.global || null;
 
   const guide = read<{ title: string; generated: string; prose: Prose } | null>(path.join(GUIDES, `${occ}.json`), null);
+  const licence = read<Record<string, Licence>>(path.join(WEB, 'license-sheet.json'), {})[occ] ?? null;
 
   return {
     slug: occ,
@@ -137,6 +155,7 @@ export function careerFacts(occ: string): CareerFacts | null {
       licensed: r.license?.req === 'required',
     })),
     routesIn: (routesInto().get(occ) ?? []).slice(0, 6),
+    licence,
     guide,
   };
 }

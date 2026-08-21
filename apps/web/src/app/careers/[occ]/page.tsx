@@ -74,10 +74,14 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
           )}
         </div>
 
-        {/* The section that is ours: the honest read. */}
-        <section className="cg-judgement">
-          <h2>The judgement call</h2>
-          <p>{p.judgement}</p>
+        <section className="cg-lead">
+          <h2>What the work is actually like</h2>
+          <p>{p.day_to_day}</p>
+        </section>
+
+        <section className="rt-sec">
+          <h2>Where you do it</h2>
+          <p className="cg-p">{p.work_environment}</p>
         </section>
 
         {f.salary && (
@@ -100,6 +104,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
           <h2>What it asks for</h2>
           <p className="rt-note">The skills these postings name most often, and the gates they state.</p>
           <SkillStrip skills={skillEntries(f.topSkills.map((s) => s.skill))} />
+          {p.tools && <p className="cg-p cg-tools">{p.tools}</p>}
           <div className="jd-gates" aria-label="Stated gates">
             {f.gates.expMedianYears != null && (
               <div data-gate="exp">
@@ -126,6 +131,33 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
               </div>
             )}
           </div>
+        </section>
+
+        <section className="rt-sec">
+          <h2>Getting in</h2>
+          <p className="cg-p">{p.getting_in}</p>
+          {f.licence && (
+            <div className="cg-lic">
+              <span className="lbl">The credential gate</span>
+              <h3>{f.licence.gate}</h3>
+              <p className="cg-lic-path">{f.licence.path}</p>
+              <div className="cg-lic-meta">
+                <div><span className="k">How long</span><span className="v">{f.licence.time}</span></div>
+                {f.licence.body && (
+                  <div><span className="k">Awarded by</span><span className="v">
+                    <a href={f.licence.body.url} target="_blank" rel="noopener noreferrer">{f.licence.body.name}</a>
+                  </span></div>
+                )}
+              </div>
+              {f.licence.note && <p className="cg-lic-note">{f.licence.note}</p>}
+              <Link className="gl" href={`/licenses#${f.licence.anchor ?? `occ-${occ}`}`}>Full licence detail</Link>
+            </div>
+          )}
+        </section>
+
+        <section className="rt-sec">
+          <h2>How it progresses</h2>
+          <p className="cg-p">{p.ladder}</p>
         </section>
 
         {f.topBenefits.length > 0 && (
@@ -184,6 +216,52 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
                   </li>
                 );
               })}
+            </ul>
+          </section>
+        )}
+
+        <section className="rt-sec">
+          <h2>Who it suits</h2>
+          <p className="cg-p">{p.suits}</p>
+          {(p.pros?.length || p.cons?.length) ? (
+            <div className="cg-pc">
+              <div>
+                <span className="lbl good">What is good about it</span>
+                <ul>{p.pros?.map((x) => <li key={x}>{x}</li>)}</ul>
+              </div>
+              <div>
+                <span className="lbl bad">What is not</span>
+                <ul>{p.cons?.map((x) => <li key={x}>{x}</li>)}</ul>
+              </div>
+            </div>
+          ) : null}
+        </section>
+
+        {p.misconceptions && (
+          <section className="rt-sec">
+            <h2>What people get wrong</h2>
+            <p className="cg-p">{p.misconceptions}</p>
+          </section>
+        )}
+
+        {p.industries?.length > 0 && (
+          <section className="rt-sec">
+            <h2>Where the work sits</h2>
+            <ul className="cg-list">
+              {p.industries.map((i) => (
+                <li key={i.name}><span className="t">{i.name}</span><span className="d">{i.note}</span></li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {p.specializations?.length > 0 && (
+          <section className="rt-sec">
+            <h2>Where to go deep</h2>
+            <ul className="cg-list">
+              {p.specializations.map((i) => (
+                <li key={i.name}><span className="t">{i.name}</span><span className="d">{i.why}</span></li>
+              ))}
             </ul>
           </section>
         )}

@@ -82,6 +82,7 @@ function packet(occ, into) {
   for (const j of jobs) if (j.c) countries[j.c] = (countries[j.c] ?? 0) + 1;
 
   const band = sal ? (sal.by_country?.US?.blended || sal.by_country?.US?.posted || sal.global) : null;
+  const lic = readJson(path.join(WEB, 'license-sheet.json'), {})[occ] ?? null;
 
   return {
     slug: occ,
@@ -92,6 +93,7 @@ function packet(occ, into) {
     postings_read: gen.origin.postings ?? null,
     salary: band ? { p25: k(band.p25), p50: k(band.p50), p75: k(band.p75), n: band.n ?? null } : null,
     yearly_switch_rate_pct: gen.origin.separations?.transfer ?? null,
+    license: lic ? { gate: lic.gate, path: lic.path, time: lic.time, note: lic.note, body: lic.body?.name } : null,
     top_skills: skills.map(([s, n]) => ({ skill: s, share_pct: pct(n, rows.length) })),
     top_benefits: benefits.map(([b, n]) => ({ benefit: b, share_pct: pct(n, rows.length) })),
     gates: {
@@ -124,27 +126,68 @@ You are given a FACTS packet measured from live job postings. You may ONLY state
 
 NEVER refer to the mechanics of your own input. The words "packet", "dataset provided", "the data given", "our data shows" are forbidden. Refer to the evidence the way a reader understands it: "postings", "live postings", "the board", "measured routes".
 
-You are writing the judgement a human expert would add on top of the measurements, not a summary of them.`;
+WRITE LIKE A PERSON WHO DOES THIS WORK. The reader should feel they asked someone in the trade over coffee. That means:
+- Specific over general. One detail too particular to have been invented beats three general truths.
+- Vary sentence length. Some short. Some that take their time and carry a qualification inside them.
+- An aside in parentheses now and then (used sparingly) reads human.
+- Mixed feelings are allowed. So is saying a part of the job is tedious.
+
+BANNED, because they are the tells of machine writing:
+- Em dashes and en dashes. Exclamation points. Rhetorical questions as openers.
+- "crucial", "delve", "landscape" (figurative), "pivotal", "showcase", "testament", "underscore", "vibrant", "foster", "tapestry", "realm", "navigate" (figurative), "robust", "seamless", "leverage" (as a verb).
+- "At its core", "the real question is", "what really matters", "in today's world", "let's", "here's the thing", "honestly,".
+- The rule of three. Do not group ideas in threes by default; use two or four.
+- "It is not X. It is Y." Mirrored antithesis is allowed once in the whole guide, at most.
+- Sections that end on a quotable punchline. One such closer in the entire guide, maximum. Most sections should end on information.
+- Starting consecutive sentences with the same word.
+- Announcing what you are about to say before saying it.
+- Formulaic aphorisms of the shape "X is the Y of Z".
+
+You are writing what a number cannot say. The page prints the figures itself, so do not recite them.`;
 
 function userPrompt(p) {
-  return `Write the prose sections for the ${p.title} career guide.
+  return `Write the prose for the ${p.title} career guide.
 
-FACTS PACKET (the only figures you may use):
+MEASUREMENTS (the only figures you may use, and the page prints most of them itself):
 ${JSON.stringify(p, null, 1)}
 
 Return ONLY valid JSON, no markdown fence, with exactly these keys:
 
 {
-  "summary": "2 to 3 sentences. What this job actually is, in plain words, and what distinguishes it from the roles next to it. No preamble.",
-  "judgement": "3 to 4 sentences. THE honest read on this occupation right now, the thing a friend in the trade would tell you. Use the packet: what the pay, the gates, the switch rate or the route data actually imply for someone considering it. Say the uncomfortable part if the data supports one.",
-  "who_qualifies": "3 to 4 sentences. Who already has most of what this role asks for, grounded in routes_in. Name the origin occupations and what specifically carries over. If routes_in is empty, say plainly that no measured route into it exists yet and why that might be.",
-  "what_the_numbers_miss": "2 to 3 sentences. The honest limitation. What this measurement cannot see about the job (a posting states requirements, not what the work feels like, what the team is, whether the pay is negotiable). Be specific to THIS occupation, not generic.",
-  "faq": [
-    { "q": "a real question someone considering this role asks", "a": "2 to 3 sentences, grounded in the packet" }
-  ]
+  "summary": "2 to 3 sentences. What this job is, and what separates it from the role next to it that people confuse it with. Start with the work, not with a definition of the field.",
+
+  "day_to_day": "4 to 6 sentences. What the work actually consists of across an ordinary week. Name the artefacts: what gets opened, drafted, reviewed, sent, sat through. Say roughly how the week splits between solo work and other people. Include one detail specific enough that only someone who knows the job would write it. Do not list responsibilities in parallel clauses; write it as prose someone in the job would recognise.",
+
+  "work_environment": "3 to 5 sentences. Where the work happens and under what conditions: office, site, home, lab, ward, shop floor. Hours and what makes a bad week (deadlines, on-call, seasonal peaks, travel). If the remote share in the measurements is low or high, explain what about the work causes that. Be concrete about the physical and social setting.",
+
+  "getting_in": "4 to 6 sentences. The realistic route in, with durations. Use the education and experience figures given, and if a license object is present use its path and time exactly as stated. Say which step takes longest and which is the common place people stall. If a degree is waived in a meaningful share of postings, say what employers accept instead.",
+
+  "ladder": "3 to 5 sentences. What changes as you move up, in terms of what you are actually responsible for rather than titles. What the first real step up requires. Where the ladder tends to fork (management against staying hands-on) and roughly when.",
+
+  "suits": "3 to 5 sentences. Who tends to do well in this job and who tends to leave it, based on the character of the work you just described. Be willing to say something unflattering. This replaces a generic pros-and-cons list, so make it a real opinion a practitioner would give a friend, not a balanced summary.",
+
+  "misconceptions": "2 to 4 sentences. What outsiders get wrong about this job. Name the belief, then correct it. Avoid the obvious ones everyone already knows.",
+
+  "who_qualifies": "3 to 4 sentences. Who already has most of what this role asks for, grounded in routes_in. Name the origin occupations and say what specifically carries over and what does not. If routes_in is empty, say plainly that no measured route in exists yet.",
+
+  "what_the_numbers_miss": "2 to 3 sentences. What this measurement cannot see about THIS job specifically. Flat and unceremonious, not a disclaimer with a bow on it.",
+
+  "tools": "2 to 4 sentences. The software, instruments or equipment this job runs on day to day, drawn from the skills in the measurements. Say which ones are the real gatekeepers in hiring and which are nice to have. Mention where the tooling is heading if the postings suggest it.",
+
+  "industries": [ { "name": "the sector or setting that employs this role", "note": "one line on what the work is like there specifically, and how it differs from the others" } ],
+
+  "specializations": [ { "name": "an emerging or high-value specialization within this role", "why": "one or two sentences on why it is worth going deep here and who is hiring for it" } ],
+
+  "pros": [ "a genuine advantage of this job, one sentence, specific to this role and not to jobs in general" ],
+
+  "cons": [ "a genuine drawback, one sentence, specific and unflinching" ],
+
+  "faq": [ { "q": "a question someone considering this actually types", "a": "2 to 3 sentences" } ]
 }
 
-Write 4 FAQ entries. Make at least one of them about the gap or the gate (experience, degree, licence, language) if the packet shows one.`;
+Write 3 or 4 industries, 3 specializations, 4 pros, 4 cons.
+
+Write 5 FAQ entries. At least one must be about the gate (license, degree, or years of experience) if the measurements show one.`;
 }
 
 async function generate(p, key, attempt = 1) {
@@ -153,7 +196,7 @@ async function generate(p, key, attempt = 1) {
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: 4000,
+      max_tokens: 8000,
       system: SYSTEM,
       messages: [{ role: 'user', content: userPrompt(p) }],
     }),
@@ -181,14 +224,38 @@ async function generate(p, key, attempt = 1) {
   }
   const text = (j.content ?? []).map((c) => c.text ?? '').join('').trim();
   const clean = text.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
-  const parsed = JSON.parse(clean);
-  return { parsed, usage: j.usage ?? {} };
+  return { parsed: parseLoose(clean), usage: j.usage ?? {} };
+}
+
+/* Models occasionally emit a literal newline inside a JSON string, which is
+   invalid and would throw away a whole generation. Escape control characters
+   that sit INSIDE string literals (structural whitespace is left alone) and
+   parse again. */
+function parseLoose(text) {
+  try { return JSON.parse(text); } catch { /* repair below */ }
+  let out = '', inStr = false, esc = false;
+  for (const ch of text) {
+    if (esc) { out += ch; esc = false; continue; }
+    if (ch === '\\' && inStr) { out += ch; esc = true; continue; }
+    if (ch === '"') { inStr = !inStr; out += ch; continue; }
+    if (inStr && ch < ' ') {
+      out += ch === '\n' ? '\\n' : ch === '\t' ? '\\t' : ch === '\r' ? '\\r' : '';
+      continue;
+    }
+    out += ch;
+  }
+  return JSON.parse(out);
 }
 
 /* A generated guide has to survive the same scrutiny as a scraped number. */
 function audit(prose, p) {
   const problems = [];
-  const blob = [prose.summary, prose.judgement, prose.who_qualifies, prose.what_the_numbers_miss,
+  const KEYS = ['summary', 'day_to_day', 'work_environment', 'getting_in', 'ladder', 'suits',
+    'misconceptions', 'who_qualifies', 'what_the_numbers_miss', 'tools'];
+  const blob = [...KEYS.map((k) => prose[k] ?? ''), prose.tools ?? '',
+    ...(prose.industries ?? []).map((i) => `${i.name} ${i.note}`),
+    ...(prose.specializations ?? []).map((i) => `${i.name} ${i.why}`),
+    ...(prose.pros ?? []), ...(prose.cons ?? []),
     ...(prose.faq ?? []).flatMap((f) => [f.q, f.a])].join(' ');
   if (/[—–]/.test(blob)) problems.push('contains an em or en dash');
   if (/!/.test(blob)) problems.push('contains an exclamation point');
@@ -202,10 +269,16 @@ function audit(prose, p) {
   for (const m of blob.matchAll(/(\d[\d.]*)\s?(?:percent|%)/gi)) {
     if (!allowed.has(m[1].replace(/\..*/, ''))) problems.push(`unsourced percentage ${m[0]}`);
   }
-  for (const key of ['summary', 'judgement', 'who_qualifies', 'what_the_numbers_miss']) {
+  const BANNED = /\b(crucial|delve|pivotal|showcase|testament|underscore|vibrant|tapestry|realm|seamless|robust)\b|at its core|the real question|in today'?s|let'?s |here'?s the thing/i;
+  const bad = blob.match(BANNED);
+  if (bad) problems.push(`banned phrase "${bad[0]}"`);
+  for (const key of ['summary', 'day_to_day', 'work_environment', 'getting_in', 'ladder', 'suits', 'misconceptions', 'who_qualifies', 'what_the_numbers_miss', 'tools']) {
     if (!prose[key] || prose[key].length < 60) problems.push(`${key} missing or too short`);
   }
-  if (!Array.isArray(prose.faq) || prose.faq.length < 3) problems.push('fewer than 3 FAQ entries');
+  if (!Array.isArray(prose.faq) || prose.faq.length < 4) problems.push('fewer than 4 FAQ entries');
+  for (const [key, min] of [['industries', 3], ['specializations', 3], ['pros', 3], ['cons', 3]]) {
+    if (!Array.isArray(prose[key]) || prose[key].length < min) problems.push(`${key}: fewer than ${min}`);
+  }
   return problems;
 }
 

@@ -4,26 +4,80 @@
  "model": "claude-sonnet-5",
  "generated": "2026-08-21",
  "prose": {
-  "summary": "An architect turns a client's program and budget into construction documents that a contractor can actually build, then stays on through construction administration to make sure the built thing matches the drawings. That last part is what separates the role from an architectural drafter, who produces the documents but rarely owns the client relationship or the code compliance. Revit and construction administration together account for a third of what these postings ask for, which tells you the job is drawing plus oversight, not drawing alone.",
-  "judgement": "The pay band is wide: a quarter of postings land at $76k or below, a quarter at $121k or above, and the difference tracks firm size and licensure more than raw skill. A 3.3 percent yearly switch rate is low for a design field, meaning people who get in tend to stay, for better or worse. Education is a hard filter here (60 percent of postings require it outright), and remote work barely exists at 12 percent, so this is still a drafting-table-adjacent, in-office trade whatever the software stack suggests. The honest part: if you want out, the fast lateral moves (Interior Designer, Architectural Drafter) pay less than what you're leaving, and the ones that pay comparably (Structural Engineer, Civil Engineer) want another license and another year or two first.",
-  "who_qualifies": "Interior Designers and Architectural Drafters carry the highest measured match into this role, both around 54 percent, because they already speak in construction documents, code references, and client presentations. MEP Engineers (45 percent) and BIM Manager (41 percent) bring the model-coordination half of the job, Revit and BIM specifically, without the design-authorship half. Structural and Civil Engineers show up lower, at 33 and 32 percent, which fits: they know the building codes and the construction administration but not the presentation or design development work architects are also measured on.",
-  "what_the_numbers_miss": "A posting can tell you a firm wants Revit and five years of experience; it cannot tell you whether the studio culture rewards design ambition or just punches out permit sets. None of the tracked skills capture the licensing exam sequence itself, which is the actual bottleneck for anyone trying to move into the licensed roles this data shows as exits. And a listed salary band says nothing about whether a small firm's $76k is negotiable or a hard ceiling.",
+  "summary": "An architect designs buildings and stamps the drawings that let them get built, which is the one thing nobody else in the office is legally allowed to do. Interior designers and drafters do much of the same daily work: sketching, modeling, revising, sitting through client meetings. What separates the architect is the registration number on the permit set and the liability that comes attached to it.",
+  "day_to_day": "Most days open in Revit, moving between a floor plan that needs revising and a set of construction documents somebody flagged in Bluebeam overnight. A chunk of the week goes to coordination: calls with the structural engineer about a beam that won't fit above the ceiling line, emails to the MEP consultant who hasn't sent ductwork clashes back yet. Client presentations happen in bursts, usually right before a submission deadline, and involve explaining why the budget doesn't stretch to the stone facade anyone actually wanted. Construction administration pulls people out of the office for site walks, checking that what got built resembles what got drawn (it rarely does exactly). Solo drafting time gets carved out early morning or after five, once the meetings stop. Code research is its own quiet tax on the week, and nobody enjoys it.",
+  "work_environment": "The work is office based, with site visits layered on top once a project moves into construction. Remote share sits at 12 percent, low for a design job, because coordination meetings and markup sessions still tend to happen around a shared screen or a physical set of drawings, and site visits obviously require a body on site. Hours run long near permit submissions and competition deadlines; a bad week means redlines at 9pm and a site visit at 7am the same day. A meaningful share of the measured openings sit outside the US, in Switzerland especially, where studio hours run steadier but the stamp requirements are no lighter.",
+  "getting_in": "The standard route runs through an accredited professional degree, then roughly 3,700 documented hours of experience under the AXP framework, then six divisions of the ARE exam, administered through NCARB or a state board. That stretch after the degree typically takes two to five years, and it's set by how fast someone logs hours and clears exam divisions, not by how good they are at the job. The degree is required in 60 percent of postings and preferred in another 14 percent; the 10 percent where it's waived usually still want a portfolio and years of unlicensed production experience to substitute. Most people stall at the AXP hour count, not the exam itself, especially if their firm doesn't structure work to hit the required categories. Median stated experience across postings is 5 years, and 46 percent of listings spell out a number rather than leaving it vague.",
+  "ladder": "Early on the job is almost entirely production: drawings, models, redlines, following someone else's design decisions. The first real step up, usually tied to getting licensed, brings ownership of a project's coordination and direct client contact instead of just documentation. From there the ladder forks: one path stays hands-on as a technical or project architect who owns the hardest drawings on every job, the other moves into studio management and business development with less time at a desk modeling anything. That fork tends to open five to eight years in, once licensure removes the ceiling on what someone's allowed to sign.",
+  "suits": "People who tolerate slow, bureaucratic timelines and don't mind that a stamped set of drawings carries legal weight tend to last here; the job rewards patience with code books more than it rewards raw design talent. It suits someone who can sit in a coordination call for an hour discussing a duct routing problem without losing the thread of why the building looks the way it does. People who leave are usually the ones who wanted the sketching and model-building parts of design school and didn't budget for how much of the career is redlines, liability, and consultant chasing.",
+  "misconceptions": "Outsiders assume the job is mostly sketching and creative direction; most weeks it's code compliance, consultant coordination, and drawing revisions, with design decisions front-loaded into a small fraction of a project's life. There's also a common belief that you need the license to do architectural design work at all. You don't: unlicensed designers do the bulk of the drafting and modeling in most firms, and only the title and the final signature are actually restricted.",
+  "who_qualifies": "Interior designers and architectural drafters carry over the most, at 54 percent match each, mainly the drafting fluency and the client-revision reflexes. MEP engineers and BIM managers bring real technical or software depth (45 and 41 percent) but usually lack the design authorship and code-compliance judgment that gets built up over years of running a set from schematic to permit. Structural and civil engineers land lower still, useful for the technical coordination instinct but starting mostly from scratch on the design side.",
+  "what_the_numbers_miss": "None of this shows how much a given week depends on which consultants are slow to respond, or how much of construction administration is just waiting on someone else's stamp before a permit set can move. It also can't tell you whether a firm's culture treats unlicensed staff as future architects or permanent drafters.",
+  "tools": "Revit is the real gatekeeper, showing up in a third of postings, with AutoCAD and general BIM fluency close behind as baseline expectations. Rhino and ArchiCAD matter more at design-forward or international firms; Bluebeam is the default for markup and hasn't been displaced. LEED credentials show up as a plus rather than a requirement, useful but not decisive in hiring.",
+  "industries": [
+   {
+    "name": "Commercial and corporate architecture firms",
+    "note": "Large teams, heavy Revit standardization, and coordination-heavy projects with tight consultant schedules."
+   },
+   {
+    "name": "Residential and boutique design studios",
+    "note": "Smaller teams, more design latitude per project, but thinner margins and less structured AXP hour tracking for staff pursuing licensure."
+   },
+   {
+    "name": "Institutional work (healthcare, education)",
+    "note": "Longer project timelines, code-heavy design driven by regulatory requirements specific to the building type."
+   },
+   {
+    "name": "Landscape and urban design practices",
+    "note": "Runs a parallel licensing track through CLARB rather than NCARB, with different exam structure but overlapping software use."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Healthcare architecture",
+    "why": "Code and infection-control requirements are dense enough that firms pay a premium for people who already know the regulatory terrain."
+   },
+   {
+    "name": "Computational and parametric design",
+    "why": "Rhino-based workflows are showing up more in design-forward firms chasing complex geometry that standard Revit workflows handle poorly."
+   },
+   {
+    "name": "Construction administration specialist",
+    "why": "Firms increasingly split CA into its own role since it requires site fluency and consultant patience that production staff often lack."
+   }
+  ],
+  "pros": [
+   "The license, once earned, is portable across firms and gives long-term job security that unlicensed design roles don't have.",
+   "The range of building types and scales you touch over a career is wide, from single-family renovations to institutional work.",
+   "Project management experience built here transfers cleanly into adjacent fields if you want out of pure design.",
+   "Generous PTO shows up in 16 percent of postings, higher than most of the other benefits measured for this role."
+  ],
+  "cons": [
+   "The path to the title takes two to five years past the degree and is gated by hour-logging and exam pass rates rather than skill.",
+   "Remote work is rare (12 percent) because coordination and site visits keep pulling people back into a shared room.",
+   "Entry-level pay (p25 at $76k) is modest given the years of unpaid or underpaid production work most people put in first.",
+   "Signing your name to drawings means carrying legal liability for construction defects that are often someone else's fault."
+  ],
   "faq": [
    {
-    "q": "Do I need a professional degree to get hired as an architect?",
-    "a": "Yes, in most cases: 60 percent of postings state it as a requirement outright, with another 14 percent listing it as preferred. Only 10 percent waive it, so this is one of the firmer gates in the field rather than something experience alone substitutes for."
+    "q": "Do I need the license to call myself an architect?",
+    "a": "Yes, and it's the only thing actually gated. Unlicensed staff do design, drafting, and even client-facing work in most firms, but the title and the stamp on construction documents require NCARB registration."
    },
    {
-    "q": "Which software should I prioritize if I'm trying to get noticed?",
-    "a": "Revit shows up in 34 percent of postings, well ahead of anything else, so it's the baseline expectation rather than a differentiator. Rhino, Bluebeam, and ArchiCAD each sit around 14 percent and function more as tie-breakers once Revit is assumed."
+    "q": "How long does licensure actually take after school?",
+    "a": "Two to five years, driven by the roughly 3,700 documented experience hours (AXP) and the six divisions of the ARE exam. Most delays happen at the hour-logging stage, not the test itself."
    },
    {
-    "q": "Can I do this job remotely?",
-    "a": "Not typically. Only 12 percent of live postings offer remote work, which tracks with a role that includes construction administration and site visits as core duties, not occasional ones."
+    "q": "Can I skip the accredited degree?",
+    "a": "About 10 percent of postings waive it, usually in exchange for a strong portfolio and several years of unlicensed production experience. It's the exception, not a common path."
    },
    {
-    "q": "If I want to leave architecture, what's the fastest realistic move?",
-    "a": "Interior Designer is the quickest and highest-match exit, at 64 percent match and 9 to 16 months, with no license required, though the pay band ($55k to $90k) sits below typical architect salaries. Moves into licensed adjacent fields like Civil or Structural Engineer pay closer to what you're likely earning now, but they run 12 to 24 months plus a separate license."
+    "q": "What's the fastest way out of architecture if I want a change?",
+    "a": "Interior design carries the highest match (64 percent) and takes 9 to 16 months, with no license required. Civil or structural engineering pay more but add another license process on top."
+   },
+   {
+    "q": "Is the work as design-focused as it looks in school?",
+    "a": "Not really. Most weeks lean toward code compliance, consultant coordination, and redlines, with concentrated design decision-making happening in a smaller window early in a project."
    }
   ]
  }
