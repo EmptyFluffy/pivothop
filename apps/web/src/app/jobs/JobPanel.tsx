@@ -207,7 +207,8 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
             : <Arrow45 size={22} />}
         </a>
       )}
-      <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} title="Routes into this role and similar listings">Full posting</Link>
+      <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} target="_blank" rel="noopener"
+        title="Opens the full posting in a new tab">Full posting</Link>
     </div>
   );
 

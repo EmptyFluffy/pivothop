@@ -113,8 +113,17 @@ function packet(occ, into) {
 
 const SYSTEM = `You write for PivotHop, a career-navigation instrument that measures career moves from live job postings.
 
-HOUSE VOICE, absolute:
-- Deadpan, editorial. The register of a careful trade journalist who happens to own the dataset.
+WHO IS SPEAKING:
+Someone who has done this work for years, still finds it interesting, and is telling a friend who asked what it is like. Not a journalist reporting on the trade from outside, and not a recruiter selling it. Someone inside it, in a good mood, being straight.
+
+That means the reader should finish with a clear picture AND, where the job earns it, some appetite for doing it. Say what is good about the work with the same specificity you use for what is hard. A guide that only lists friction is as dishonest as one that only sells.
+
+WARMTH COMES FROM DETAIL, NOT FROM ADJECTIVES. Never reach for "rewarding", "exciting", "passionate", "dream job", "thrive", "fulfilling". Instead name the thing that is satisfying: the moment a model finally clashes clean, the first time a contractor builds what you drew, the patient who walks out. That is what enthusiasm sounds like in writing.
+
+DO NOT WRITE THE JOB AS SOMETHING TO BE ENDURED. Banned framings: people who "tolerate" it, who "do not mind" it, who "put up with" it, and any variant of "nobody enjoys this part". The hard parts are information, not a verdict against the work. Someone chose this career and stayed; write as though you understand why.
+
+HOUSE VOICE:
+- Editorial and specific. Numbers over adjectives. Warm is right; salesy is not.
 - Numbers over adjectives. No motivational vocabulary, no exclamation points, no rhetorical questions.
 - NEVER use em dashes or en dashes. Use periods, commas, colons or parentheses.
 - No "in today's fast-paced world", no "landscape", no "delve", no "testament", no "vibrant".
@@ -157,7 +166,7 @@ Return ONLY valid JSON, no markdown fence, with exactly these keys:
 {
   "summary": "2 to 3 sentences. What this job is, and what separates it from the role next to it that people confuse it with. Start with the work, not with a definition of the field.",
 
-  "day_to_day": "4 to 6 sentences. What the work consists of across an ordinary week. Name the artefacts: what gets opened, drafted, reviewed, sent, sat through. Say roughly how the week splits between solo work and other people. Include one detail specific enough that only someone who knows the job would write it. Do not list responsibilities in parallel clauses; write it as prose someone in the job would recognise.",
+  "day_to_day": "4 to 6 sentences. What the work consists of across an ordinary week. Name the artefacts: what gets opened, drafted, reviewed, sent, sat through. Say roughly how the week splits between solo work and other people. Include one detail specific enough that only someone who knows the job would write it, and one moment in the week that people in this job look forward to. End on the work itself, not on a complaint.",
 
   "work_environment": "3 to 5 sentences. Where the work happens and under what conditions: office, site, home, lab, ward, shop floor. Hours and what makes a bad week (deadlines, on-call, seasonal peaks, travel). If the remote share in the measurements is low or high, explain what about the work causes that. Be concrete about the physical and social setting.",
 
@@ -165,7 +174,7 @@ Return ONLY valid JSON, no markdown fence, with exactly these keys:
 
   "ladder": "3 to 5 sentences. What changes as you move up, in terms of what you carry responsibility for rather than titles. What the first real step up requires. Where the ladder tends to fork (management against staying hands-on) and roughly when.",
 
-  "suits": "3 to 5 sentences. Who tends to do well in this job and who tends to leave it, based on the character of the work you just described. Be willing to say something unflattering. This replaces a generic pros-and-cons list, so make it a real opinion a practitioner would give a friend, not a balanced summary.",
+  "suits": "3 to 5 sentences. Open with who comes alive in this job and what specifically gives them a good day. Then, plainly and without relish, who tends to leave and what they wanted instead. A real opinion a practitioner would give a friend, warm about the people who belong here.",
 
   "misconceptions": "2 to 4 sentences. What outsiders get wrong about this job. Name the belief, then correct it. Avoid the obvious ones everyone already knows.",
 
@@ -181,9 +190,9 @@ Return ONLY valid JSON, no markdown fence, with exactly these keys:
 
   "specializations": [ { "name": "an emerging or high-value specialization within this role", "why": "one or two sentences on why it is worth going deep here and who is hiring for it" } ],
 
-  "pros": [ "a genuine advantage of this job, one sentence, specific to this role and not to jobs in general" ],
+  "pros": [ "something genuinely good about this job, one sentence, specific to this role and not to jobs in general. At least one of these should be about the work itself being satisfying, not about pay or security" ],
 
-  "cons": [ "a genuine drawback, one sentence, specific and unflinching" ],
+  "cons": [ "a genuine drawback, one sentence, specific and stated without bitterness. Something a person in the job would warn a friend about, not something a critic would say about the profession" ],
 
   "faq": [ { "q": "the question as a person types it into Google, in their words", "a": "2 to 3 sentences that answer it in the first sentence, then qualify" } ]
 }
@@ -212,7 +221,8 @@ async function generate(p, key, attempt = 1, fixes = null) {
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: 12000,
+      max_tokens: Number(process.env.GUIDE_MAX_TOKENS || 20000),
+      ...(process.env.GUIDE_THINKING === 'off' ? { thinking: { type: 'disabled' } } : {}),
       system: SYSTEM,
       messages: [{
         role: 'user',
@@ -229,12 +239,23 @@ async function generate(p, key, attempt = 1, fixes = null) {
     }
     throw e;
   });
-  if (res.__retry) return generate(p, key, attempt + 1);
-  const j = await res.json();
+  if (res.__retry) return generate(p, key, attempt + 1, fixes);
+  const raw = await res.text();
+  let j;
+  try {
+    j = JSON.parse(raw);
+  } catch {
+    // gateways sometimes answer with an HTML error page; that is retryable
+    if (attempt < 3) {
+      await new Promise((r) => setTimeout(r, 2000 * attempt));
+      return generate(p, key, attempt + 1, fixes);
+    }
+    throw new Error(`${res.status} non-JSON response from the API`);
+  }
   if (res.status === 429 || res.status >= 500) {
     if (attempt < 3) {
       await new Promise((r) => setTimeout(r, 2000 * attempt));
-      return generate(p, key, attempt + 1);
+      return generate(p, key, attempt + 1, fixes);
     }
   }
   if (res.status !== 200) {
@@ -313,6 +334,12 @@ function audit(prose, p) {
   const BANNED = /\b(crucial|delve|pivotal|showcase|testament|underscore|vibrant|tapestry|realm|seamless|robust)\b|at its core|the real question|in today'?s|\blet(?:'|\u2019)s\b|here'?s the thing/i;
   const bad = blob.match(BANNED);
   if (bad) problems.push(`banned phrase "${bad[0]}"`);
+  const SOUR = /\b(tolerat\w+|do(?:n'?t| not) mind|put up with|nobody enjoys|no one enjoys|grind through|soul.?crushing)\b/i;
+  const sour = blob.match(SOUR);
+  if (sour) problems.push(`writes the job as endured ("${sour[0]}")`);
+  const HYPE = /\b(rewarding|exciting|passionate|passion for|dream job|thrive|fulfilling|game.?chang\w+)\b/i;
+  const hype = blob.match(HYPE);
+  if (hype) problems.push(`sells rather than describes ("${hype[0]}")`);
   const crutch = (blob.match(/\bactually\b/gi) ?? []).length + (blob.match(/\breally\b/gi) ?? []).length;
   if (crutch > 1) problems.push(`"actually"/"really" used ${crutch} times, ration is 1`);
   for (const key of ['summary', 'day_to_day', 'work_environment', 'getting_in', 'ladder', 'suits', 'misconceptions', 'who_qualifies', 'what_the_numbers_miss', 'tools']) {
@@ -353,7 +380,7 @@ console.log(`career guides: ${targets.length} of ${all.length} occupations, mode
 fs.mkdirSync(OUT, { recursive: true });
 const into = reverseRoutes(all);
 
-let wrote = 0, skipped = 0, failed = 0, inTok = 0, outTok = 0;
+let wrote = 0, skipped = 0, failed = 0, inTok = 0, outTok = 0, thinkTok = 0;
 for (const occ of targets) {
   const p = packet(occ, into);
   if (!p) { console.log(`  skip ${occ}: no route data`); skipped++; continue; }
@@ -363,6 +390,7 @@ for (const occ of targets) {
   try {
     let { parsed, usage } = await generate(p, key);
     inTok += usage.input_tokens ?? 0; outTok += usage.output_tokens ?? 0;
+    thinkTok += usage.output_tokens_details?.thinking_tokens ?? 0;
     parsed = polish(parsed);
     let problems = audit(parsed, p);
     if (problems.length) {
@@ -371,6 +399,7 @@ for (const occ of targets) {
       console.log(`  fix  ${occ}: ${problems.join('; ')}`);
       const fix = await generate(p, key, 1, problems);
       inTok += fix.usage.input_tokens ?? 0; outTok += fix.usage.output_tokens ?? 0;
+      thinkTok += fix.usage.output_tokens_details?.thinking_tokens ?? 0;
       parsed = polish(fix.parsed);
       problems = audit(parsed, p);
     }
@@ -394,4 +423,9 @@ for (const occ of targets) {
 }
 const cost = (inTok / 1e6) * 3 + (outTok / 1e6) * 15;  // sonnet list price
 console.log(`\nwrote ${wrote}, skipped ${skipped}, failed ${failed}`);
-console.log(`tokens in ${inTok.toLocaleString()}, out ${outTok.toLocaleString()} (~$${cost.toFixed(2)} at Sonnet list)`);
+console.log(`tokens in ${inTok.toLocaleString()}, out ${outTok.toLocaleString()}`
+  + (thinkTok ? ` (of which ${thinkTok.toLocaleString()} thinking)` : '')
+  + ` (~$${cost.toFixed(2)} at Sonnet list)`);
+if (thinkTok > outTok * 0.4) {
+  console.log('note: thinking dominates the bill. Re-run with GUIDE_THINKING=off to compare.');
+}
