@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { recentPosts, mark } from '../../../../lib/social/store';
-import { stillLive } from '../../../../lib/social/select';
+import { checkOriginalJob, stillLive } from '../../../../lib/social/select';
 
 export const dynamic = 'force-dynamic';
 
 /* The Zapier-facing queue. Returns approved (`scheduled`) items as a JSON
    array, newest first, each with a stable unique `id` · Zapier's polling
    trigger deduplicates on that key, so an item fires exactly one Zap run even
-   though the feed keeps returning it until consumed. Expired jobs are flipped
-   to `skipped` here, before any publisher can see them.
+   though the feed keeps returning it until consumed. Board retirement and a
+   definite source-page expiry both remove an item before the publisher sees it.
 
    Auth: SOCIAL_FEED_TOKEN as ?token= (Zapier-friendly) or a Bearer header.
    Provider-agnostic on purpose: replacing Zapier with LinkedIn's direct API
@@ -27,9 +27,23 @@ export async function GET(req: NextRequest) {
   for (const r of rows) {
     if (r.status !== 'scheduled') continue;
     if (!stillLive(r.job_occ, r.job_id)) {
-      await mark(r.id, { status: 'skipped', last_error: 'expired before publication' });
+      await mark(r.id, { status: 'skipped', last_error: 'expired before publication: missing from board' });
       continue;
     }
+
+    const source = await checkOriginalJob(r.job_occ, r.job_id);
+    if (source.state === 'expired') {
+      await mark(r.id, { status: 'skipped', last_error: `expired before publication: ${source.reason}` });
+      continue;
+    }
+    /* New rows were source-verified by the cron. If the second check is
+       transiently blocked, preserve that recent verification. Old unverified
+       rows are held back rather than guessed live. */
+    if (source.state === 'unverified' && !r.selection_reason.includes('source verified live')) {
+      await mark(r.id, { status: 'skipped', last_error: `source unverified before publication: ${source.reason}` });
+      continue;
+    }
+
     items.push({
       id: `ph-li-${r.id}`,                    // unique publication id; Zapier dedup key
       publication_id: `ph-li-${r.id}`,

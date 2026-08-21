@@ -19,6 +19,18 @@ function payLine(c: Candidate): string | null {
   const v = c.smin || c.smax;
   return v ? k(v) : null;
 }
+function cleanText(value: string): string {
+  return value.replace(/\\s+/g, ' ').replace(/\\s*,\\s*/g, ', ').trim();
+}
+function normalizeCandidate(c: Candidate): Candidate {
+  const location = cleanText(c.location);
+  return {
+    ...c,
+    title: cleanText(c.title),
+    company: cleanText(c.company),
+    location: c.remote ? location.replace(/^remote(?:,\\s*)?/i, '').trim() : location,
+  };
+}
 function placeLine(c: Candidate): string {
   if (c.remote && c.location) return `Remote · ${c.location}`;
   if (c.remote) return 'Remote';
@@ -147,8 +159,9 @@ function djb2(s: string): number {
 }
 
 export function generateSocialPost(c: Candidate, _platform: Platform, variant = 0): { copy: string; variant: number } {
-  const idx = (djb2(c.id) + variant) % TEMPLATES.length;
-  const body = TEMPLATES[idx](c);
+  const normalized = normalizeCandidate(c);
+  const idx = (djb2(normalized.id) + variant) % TEMPLATES.length;
+  const body = TEMPLATES[idx](normalized);
   const tags = hashtags();
   return { copy: tags ? `${body}\n\n${tags}` : body, variant };
 }
