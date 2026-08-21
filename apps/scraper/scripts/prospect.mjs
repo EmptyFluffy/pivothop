@@ -76,12 +76,12 @@ if (!batch.length) {
 const browser = await chromium.launch();
 let admitted = 0;
 
-// Workers: 4 concurrent pages. The gate spends its time waiting on other
-// people's servers (28s nav timeouts, 2s paint waits), so four in flight is
-// ~4x throughput for the same politeness per firm — each firm still gets
+// Workers: 6 concurrent pages. The gate spends its time waiting on other
+// people's servers (28s nav timeouts, 2s paint waits), so six in flight is
+// ~6x throughput for the same politeness per firm — each firm still gets
 // exactly one visit at exactly the old pacing. All bookkeeping (state.tried,
 // auto.companies, fleetDomains) stays single-threaded on the event loop.
-const WORKERS = Math.max(1, Math.min(6, Number(process.env.PROSPECT_WORKERS || 4)));
+const WORKERS = Math.max(1, Math.min(6, Number(process.env.PROSPECT_WORKERS || 6)));
 
 async function tryOne([name, home0]) {
   let home = home0;

@@ -40,8 +40,8 @@ const CURATED = path.join(CONFIG, 'direct-companies.json');
 
 // Keep the queue at least this deep in UNTRIED candidates. At PROSPECT_PER_NIGHT
 // this is the runway in nights; below it, we harvest.
-const MIN_DEPTH = Number(process.env.TOPUP_MIN || 400);
-const REGIONS_PER_RUN = Number(process.env.TOPUP_REGIONS || 3);
+const MIN_DEPTH = Number(process.env.TOPUP_MIN || 900);
+const REGIONS_PER_RUN = Number(process.env.TOPUP_REGIONS || 6);
 const FORCE = process.argv.includes('--force');
 const ONLY = (process.argv.find((a) => a.startsWith('--regions=')) || '').slice(10)
   .split(',').map((s) => s.trim()).filter(Boolean);

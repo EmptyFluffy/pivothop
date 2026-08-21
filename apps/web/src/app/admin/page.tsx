@@ -79,6 +79,7 @@ export default async function Admin() {
         <span className="lbl">{error ? error : `${rows.length} total · ${open} new`}</span>
       </header>
       <nav className="otr-nav">
+        <Link href="/admin/studios">Studio fleet →</Link>
         <Link href="/admin/outreach">Outreach queue →</Link>
         <Link href="/admin/research">Competitor research →</Link>
       </nav>

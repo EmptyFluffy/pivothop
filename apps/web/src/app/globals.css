@@ -1856,3 +1856,14 @@ a.jd-skill:hover svg{color:var(--paper)}
 .flt-mark svg{width:16px;height:16px}
 .jb-pill-skills{border-color:var(--accent);color:var(--accent)}
 .jb-pill-skills .jb-x{color:var(--accent)}
+
+/* ── /admin/studios — the fleet registry ─────────────────────────── */
+.stf-row{border-bottom:0.5px solid var(--rule)}
+.stf-row summary{display:flex;align-items:baseline;gap:14px;padding:10px 0;cursor:pointer;list-style:none}
+.stf-row summary::-webkit-details-marker{display:none}
+.stf-row summary::before{content:'+';font-family:var(--mono);color:var(--ink-3);width:12px;flex:none}
+.stf-row[open] summary::before{content:'–'}
+.stf-name{font-weight:700;letter-spacing:-.01em}
+.stf-link{margin-left:auto}
+.stf-count{font-family:var(--mono);font-size:11px;color:var(--ink-2);flex:none;min-width:56px;text-align:right}
+.stf-row .res-table{margin:0 0 14px 26px;width:calc(100% - 26px)}
