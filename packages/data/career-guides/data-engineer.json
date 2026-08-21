@@ -4,15 +4,15 @@
  "model": "gpt-5.6-sol",
  "generated": "2026-08-21",
  "prose": {
-  "summary": "Data engineers build the pipelines, models and platforms that move data into reliable use. They make raw events and source systems available to analysts, products and machine-learning teams. The role is closer to software and infrastructure than to interpreting a dashboard.",
+  "summary": "Data engineers build the pipelines, models and platforms that move data into reliable use. They make raw events and upstream systems available to analysts, products and machine-learning teams. The role is closer to software and infrastructure than to interpreting a dashboard.",
   "day_to_day": "The work includes writing transformations, scheduling pipelines, reviewing schemas and tracing why data arrived late or changed shape. Engineers manage storage, permissions and interfaces between operational systems and analytical consumers. They also test data quality and plan changes that do not silently break downstream work. The output is dependable data with known meaning and ownership.",
-  "work_environment": "The current openings include substantial remote hiring alongside office and hybrid roles across many countries. Much of the work is digital, but production support and coordination with source-system owners can create fixed response expectations. Senior titles dominate the visible live sample.",
+  "work_environment": "The current openings include substantial remote hiring alongside office and hybrid roles across many countries. Much of the work is digital, but production support and coordination with upstream-system owners can create fixed response expectations. Senior titles dominate the visible live sample.",
   "getting_in": "Start with SQL and Python, then build a pipeline that ingests, transforms, tests and serves data on a schedule. Add one cloud platform and show how you handled schema change, retries and observability. Backend, BI and database backgrounds transition best when they can prove reliable pipeline ownership.",
-  "ladder": "Early engineers own jobs, tables and contained data flows. Responsibility grows toward platform architecture, shared models, reliability and standards across teams. The route evidence also points toward data architecture, BI, backend work and database administration.",
+  "ladder": "Early engineers own jobs, tables and contained data flows. Responsibility grows toward platform architecture, shared models, reliability and standards across teams. Common branches include data architecture, BI, backend work and database administration.",
   "suits": "This work suits people who enjoy systems whose success is quiet, repeated and measurable. It rewards patience with dependencies, schemas and failures that originate in another team's service. It is a poor fit if you only enjoy analysis after the data is already clean.",
   "misconceptions": "Data engineering is not simply writing SQL and it is not data science without models. The measured routes center on ETL, cloud platforms, Spark, orchestration, databases and the operational behavior of data systems.",
   "who_qualifies": "Backend developers, BI developers, database administrators and analysts with strong engineering practice bring adjacent foundations. They need to show scheduled, tested and observable data movement. A collection of queries does not prove that reliability.",
-  "what_the_numbers_miss": "Listings cannot show how many undocumented pipelines a team already owns or whether source teams announce changes. Those conditions determine how much work is engineering versus recovery.",
+  "what_the_numbers_miss": "Listings cannot show how many undocumented pipelines a team already owns or whether upstream teams announce changes. Those conditions determine how much work is engineering versus recovery.",
   "steps": [
    {
     "do": "Master SQL and Python",
@@ -20,7 +20,7 @@
    },
    {
     "do": "Build a scheduled pipeline",
-    "how": "Ingest a source, transform it, validate the output and publish it for a specific downstream consumer."
+    "how": "Ingest an input dataset, transform it, validate the output and publish it for a specific downstream consumer."
    },
    {
     "do": "Handle failure explicitly",
@@ -31,7 +31,7 @@
     "how": "Use AWS, Azure or another target platform and document permissions, storage and operating tradeoffs."
    }
   ],
-  "tools": "SQL, Python, ETL, data engineering, Spark, AWS, Azure, dbt and Airflow appear across the route evidence. CI/CD and observability make pipelines safer to change. The important capability is operating the path after the first successful run.",
+  "tools": "SQL, Python, ETL, Spark, AWS, Azure, dbt and Airflow form the practical stack. CI/CD and observability make pipelines safer to change. The important capability is operating the path after the first successful run.",
   "industries": [
    {
     "name": "Software and data products",
