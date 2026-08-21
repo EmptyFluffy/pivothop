@@ -117,7 +117,12 @@ for (const [name, home0] of batch) {
       rec.outcome = 'off-domain';               // the junk-link class
     } else {
       const text = await page.evaluate(() => document.body.innerText).catch(() => '');
-      const pathOk = CAREERS_PATH.test(new URL(landed).pathname + new URL(landed).hash);
+      // Segment-wise, not substring: a news slug like
+      // "stirling-prizes-...-misses-an-opportunity-the-observer" contains
+      // "opportunit" and admitted Feilden Fowles on an article (2026-08-21).
+      // A real careers segment is short; a prose slug is not.
+      const segs = (new URL(landed).pathname + ' ' + new URL(landed).hash).split(/[\/#]/).filter(Boolean);
+      const pathOk = segs.some((s) => s.length <= 32 && CAREERS_PATH.test(s));
       // hiring verbs, not job nouns: an awards page says "architect" often and
       // "apply" never. Two distinct verbs is the bar for a soft path.
       const verbs = new Set((text.match(/\b(apply|applications?|hiring|we are looking|we're looking|open positions?|current openings?|join our|send your (?:cv|resume|portfolio)|cover letter|bewerbung|bewerben)\b/gi) || []).map((v) => v.toLowerCase()));

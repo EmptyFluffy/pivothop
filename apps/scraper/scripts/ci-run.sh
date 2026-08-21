@@ -47,11 +47,23 @@ if [ "$(date +%u)" = "1" ]; then npm run --silent scrape -- fx:update || true; f
 # computed over a large accumulated corpus and barely moves; re-emitting nightly
 # shuffled route numbers for no reader benefit and made the sitemap's
 # "changed today" signal meaningless.
-# Prospector: drains the firm queue a few candidates per night, auto-admits
-# careers pages that pass the wave rules (same-domain + careers-ish URL; ATS
-# hits held for manual namesake checks). Non-fatal: a broken prospect run
-# must never cost the night's scrape.
-node apps/scraper/scripts/prospect.mjs || echo "::warning::prospect failed (non-fatal)"
+# Prospector: drains the firm queue, auto-admits careers pages that pass the
+# wave rules (same-domain + careers-ish URL; ATS hits held for manual namesake
+# checks). The top-up refills the queue from OpenStreetMap when it runs shallow
+# (below 400 untried), region-rotated and deduped against the whole fleet, so
+# discovery never silently stops when the hand-built queue drains — which it
+# was ten nights from doing when the top-up landed (2026-08-21). 40/night at
+# ~7.5s a candidate is ~5 min of the run; the laptop bot is retired, so this
+# is the only discovery stream left. Both steps non-fatal: a broken prospect
+# run must never cost the night's scrape.
+node apps/scraper/scripts/prospect-topup.mjs || echo "::warning::prospect-topup failed (non-fatal)"
+PROSPECT_PER_NIGHT="${PROSPECT_PER_NIGHT:-40}" node apps/scraper/scripts/prospect.mjs || echo "::warning::prospect failed (non-fatal)"
+# Sundays: re-try the transient-failure pool (429s, DNS blips, detector misses —
+# 96 firms deep when this landed). Without it a studio lost to one bad night is
+# lost permanently; RETRYABLE in prospect.mjs already excludes settled outcomes.
+if [ "$(date +%u)" = "7" ]; then
+  RETRY=1 PROSPECT_PER_NIGHT="${PROSPECT_PER_NIGHT:-40}" node apps/scraper/scripts/prospect.mjs || echo "::warning::prospect retry pass failed (non-fatal)"
+fi
 npm run --silent scrape -- ingest all || echo "::warning::ingest exited non-zero (continuing to the gate)"
 npm run --silent scrape -- normalize  || echo "::warning::normalize exited non-zero"
 npm run --silent scrape -- aggregate  || echo "::warning::aggregate exited non-zero"
