@@ -28,7 +28,7 @@ function normalizeCandidate(c: Candidate): Candidate {
     ...c,
     title: cleanText(c.title),
     company: cleanText(c.company),
-    location: c.remote ? location.replace(/^remote(?:,\\s*)?/i, '').trim() : location,
+    location: c.remote ? location.replace(/^remote(?:,\s*)?/i, '').trim() : location,
   };
 }
 function placeLine(c: Candidate): string {
@@ -36,16 +36,26 @@ function placeLine(c: Candidate): string {
   if (c.remote) return 'Remote';
   return c.location || 'On-site';
 }
-function searchText(c: Candidate): string {
-  return `${c.title} ${c.occ} ${c.skills.join(' ')}`.replace(/[-_]/g, ' ').toLowerCase();
+
+/* Hashtags intentionally use the role title and occupation only. Skills can
+   be incidental to a posting and previously produced misleading tags such as
+   #AIJobs or #ProductManagementJobs for an SDR role. */
+function roleSearchText(c: Candidate): string {
+  return `${c.title} ${c.occ}`.replace(/[-_]/g, ' ').toLowerCase();
 }
 function roleHashtag(c: Candidate): string {
-  const text = searchText(c);
+  const text = roleSearchText(c);
   const roles: Array<[RegExp, string]> = [
+    [/\bsales development representative\b|\bsdr\b/, '#SDRJobs'],
+    [/\baccount executive\b/, '#AccountExecutiveJobs'],
+    [/\bcustomer success manager\b/, '#CustomerSuccessJobs'],
+    [/\bproduct designer\b/, '#ProductDesignJobs'],
+    [/\bux\/?ui\b|\bux designer\b|\buser experience designer\b/, '#UXDesignJobs'],
     [/\bfull\s*stack\b/, '#FullStackJobs'],
     [/\bback\s*end\b/, '#BackendDeveloperJobs'],
     [/\bfront\s*end\b/, '#FrontendDeveloperJobs'],
     [/\bsoftware (?:engineer|developer|engineering)\b/, '#SoftwareEngineerJobs'],
+    [/\bdata engineer\b/, '#DataEngineeringJobs'],
     [/\bdata scientist\b/, '#DataScienceJobs'],
     [/\bdata analyst\b/, '#DataAnalystJobs'],
     [/\bproduct manager|product management\b/, '#ProductManagementJobs'],
@@ -54,7 +64,6 @@ function roleHashtag(c: Candidate): string {
     [/\bcustomer success\b/, '#CustomerSuccessJobs'],
     [/\baccountant|accounting\b/, '#AccountingJobs'],
     [/\bfinancial analyst\b/, '#FinancialAnalystJobs'],
-    [/\bux|user experience\b/, '#UXDesignJobs'],
     [/\barchitect|architecture\b/, '#ArchitectureJobs'],
     [/\brecruiter|talent acquisition|human resources\b/, '#HRJobs'],
     [/\bcybersecurity|information security\b/, '#CybersecurityJobs'],
@@ -78,20 +87,20 @@ function roleHashtag(c: Candidate): string {
   return fallback && fallback.length <= 24 ? `#${fallback}Jobs` : '#JobOpening';
 }
 function sectorHashtag(c: Candidate): string | null {
-  const text = searchText(c);
-  if (/\bsoftware|developer|data|devops|cloud|product manager|cybersecurity\b/.test(text)) return '#TechJobs';
+  const text = roleSearchText(c);
+  if (/\bsoftware|developer|data|devops|cloud|product manager|cybersecurity|engineer\b/.test(text)) return '#TechJobs';
   if (/\bfinance|financial|accounting|accountant|banking\b/.test(text)) return '#FinanceJobs';
   if (/\bhealthcare|clinical|medical|nurse|nursing\b/.test(text)) return '#HealthcareJobs';
   if (/\bmarketing|growth|content|seo\b/.test(text)) return '#MarketingJobs';
-  if (/\bsales|business development|account executive\b/.test(text)) return '#SalesJobs';
+  if (/\bsales|business development|account executive|sdr\b/.test(text)) return '#SalesJobs';
   if (/\bdesigner|design|ux|user experience\b/.test(text)) return '#DesignJobs';
   if (/\barchitect|architecture\b/.test(text)) return '#ArchitectureJobs';
   if (/\bhuman resources|recruiter|talent acquisition\b/.test(text)) return '#HRJobs';
   return null;
 }
 function specialtyHashtag(c: Candidate): string | null {
-  const text = searchText(c);
-  if (/\bcodex|artificial intelligence|machine learning|generative ai|large language model|llm\b/.test(text)) return '#AIJobs';
+  const text = roleSearchText(c);
+  if (/\bai\b|\bartificial intelligence\b|\bmachine learning engineer\b|\bgenerative ai\b|\bllm\b/.test(text)) return '#AIJobs';
   if (/\bcybersecurity|information security|application security\b/.test(text)) return '#CybersecurityJobs';
   if (/\bdevops|site reliability|kubernetes|cloud infrastructure\b/.test(text)) return '#DevOpsJobs';
   if (/\bfintech|financial technology\b/.test(text)) return '#FinTechJobs';
@@ -101,122 +110,71 @@ function specialtyHashtag(c: Candidate): string | null {
 function hashtags(c: Candidate): string {
   const tags: Array<string | null> = [
     '#Hiring',
-    c.remote ? '#RemoteJobs' : null,
+    c.remote ? '#RemoteJobs' : '#JobOpening',
+    c.remote ? '#RemoteWork' : null,
     sectorHashtag(c),
     roleHashtag(c),
     specialtyHashtag(c),
   ];
   return [...new Set(tags.filter((tag): tag is string => Boolean(tag)))].slice(0, 5).join(' ');
 }
-function displaySkills(skills: string[], limit = 4): string {
-  return skills.slice(0, limit).map(skillDisplayName).join(' · ');
-}
-function naturalList(items: string[]): string {
-  if (items.length <= 1) return items[0] ?? '';
-  return `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
-}
-const REASON_LABELS: Record<string, string> = {
-  'salary disclosed': 'salary disclosed',
-  'pays above the occupation median': 'pay above the occupation median',
-  remote: 'remote',
-  'first seen this week': 'first seen this week',
-  recent: 'recent',
-  'strong skill data': 'clear skill data',
-  'full posting text': 'the full posting',
-  'measured route in': 'a measured career route in',
-};
-function reasonText(c: Candidate): string | null {
-  const reasons = c.reasons.slice(0, 3).map((reason) => REASON_LABELS[reason] ?? reason);
-  return reasons.length ? naturalList(reasons) : null;
-}
-function fact(c: Candidate): string | null {
-  if (c.skills.length >= 2) return `Skills in the posting: ${displaySkills(c.skills)}.`;
-  if (c.sectionCount >= 2) return 'The full posting is available on the listing.';
-  const age = Math.floor((Date.now() - Date.parse(c.posted)) / 864e5);
-  if (age <= 2) return 'First seen on the board this week.';
-  return null;
+function skillLines(skills: string[], limit = 4): string[] {
+  return skills.slice(0, limit).map((skill) => `✓ ${skillDisplayName(skill)}`);
 }
 function post(lines: Array<string | null>): string {
   return lines.filter((line): line is string => line !== null).join('\n');
 }
 
+const REMOTE_HOOKS = [
+  '🚨 REMOTE JOB ALERT',
+  '📌 REMOTE JOB ALERT',
+  '📣 REMOTE JOB ALERT',
+  '🔥 REMOTE JOB ALERT',
+  '🔔 REMOTE JOB ALERT',
+  '⚡ REMOTE JOB ALERT',
+];
+const LOCAL_HOOKS = [
+  '🚨 JOB ALERT',
+  '📌 JOB OPENING',
+  '📣 NOW HIRING',
+  '🔥 NOW HIRING',
+  '🔔 JOB ALERT',
+  '⚡ JOB OPENING',
+];
+const CTAS = [
+  'See the role, salary + skill context →',
+  'View the full job details →',
+  'See if this role fits your next move →',
+  'Explore the role on PivotHop →',
+  'See the job + career context →',
+  'Open the full listing →',
+];
+
+function template(c: Candidate, variant: number): string {
+  const hook = (c.remote ? REMOTE_HOOKS : LOCAL_HOOKS)[variant % REMOTE_HOOKS.length];
+  const skills = skillLines(c.skills);
+  return post([
+    `${hook}: ${c.title.toUpperCase()}`,
+    `🏢 ${c.company}`,
+    `📍 ${placeLine(c)}`,
+    payLine(c) ? `💰 ${payLine(c)}` : null,
+    skills.length ? '' : null,
+    skills.length ? 'Key skills:' : null,
+    ...skills,
+    '',
+    CTAS[variant % CTAS.length],
+    jobUrl(c.occ, c.id),
+  ]);
+}
+
 type Tpl = (c: Candidate) => string;
 const TEMPLATES: Tpl[] = [
-  (c) => post([
-    `🚨 Job alert: ${c.title}`,
-    `🏢 ${c.company}`,
-    `📍 ${placeLine(c)}`,
-    payLine(c) ? `💰 ${payLine(c)}` : null,
-    '',
-    reasonText(c) ? `Why it stood out: ${reasonText(c)}.` : null,
-    fact(c),
-    '',
-    'See the role + salary and skill context →',
-    jobUrl(c.occ, c.id),
-  ]),
-  (c) => post([
-    `💼 New job opening at ${c.company}`,
-    '',
-    c.title,
-    `📍 ${placeLine(c)}`,
-    payLine(c) ? `💰 ${payLine(c)}` : null,
-    '',
-    c.skills.length >= 2 ? `Skills named in the posting: ${displaySkills(c.skills)}.` : null,
-    reasonText(c) ? `Why it surfaced: ${reasonText(c)}.` : null,
-    '',
-    'Read the full listing →',
-    jobUrl(c.occ, c.id),
-  ]),
-  (c) => post([
-    `🔎 Now hiring: ${c.title}`,
-    `🏢 ${c.company}`,
-    `📍 ${placeLine(c)}`,
-    payLine(c) ? `💰 ${payLine(c)}` : null,
-    '',
-    reasonText(c) ? `The signal: ${reasonText(c)}.` : null,
-    fact(c),
-    '',
-    'See the numbers behind the role →',
-    jobUrl(c.occ, c.id),
-  ]),
-  (c) => post([
-    c.remote ? '📌 Remote job alert' : '📌 Job opening',
-    '',
-    `${c.title} at ${c.company}`,
-    `📍 ${placeLine(c)}`,
-    payLine(c) ? `💰 Posted pay: ${payLine(c)}` : null,
-    '',
-    fact(c),
-    '',
-    'Role, pay and skill context →',
-    jobUrl(c.occ, c.id),
-  ]),
-  (c) => post([
-    payLine(c) ? `💰 Job opening with salary disclosed` : `💼 Job opportunity`,
-    '',
-    `${c.title} at ${c.company}`,
-    `📍 ${placeLine(c)}`,
-    payLine(c) ? `Posted range: ${payLine(c)}` : null,
-    '',
-    reasonText(c) ? `Why it made the cut: ${reasonText(c)}.` : null,
-    c.skills.length >= 2 ? `Skills requested: ${displaySkills(c.skills)}.` : null,
-    '',
-    'Open the listing →',
-    jobUrl(c.occ, c.id),
-  ]),
-  (c) => c.adjacency && c.adjacency.match >= 60 ? post([
-    `🚨 Job alert: ${c.title}`,
-    `🏢 ${c.company}`,
-    `📍 ${placeLine(c)}`,
-    payLine(c) ? `💰 ${payLine(c)}` : null,
-    '',
-    `🔀 Possible pivot: ${c.adjacency.originTitle} → ${c.title}`,
-    `${c.adjacency.match}% skill overlap`,
-    c.adjacency.gap.length ? `Main gaps: ${displaySkills(c.adjacency.gap, 3)}.` : null,
-    '',
-    'See the route into the role →',
-    jobUrl(c.occ, c.id),
-  ]) : TEMPLATES[0](c),
+  (c) => template(c, 0),
+  (c) => template(c, 1),
+  (c) => template(c, 2),
+  (c) => template(c, 3),
+  (c) => template(c, 4),
+  (c) => template(c, 5),
 ];
 
 function djb2(s: string): number {
