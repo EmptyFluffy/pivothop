@@ -22,7 +22,7 @@ const ArrowIco = () => (
   <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
 );
 
-export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries'; v2?: boolean }) {
+export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers'; v2?: boolean }) {
   return (
     <header className="nav">
       <Link href="/" className="brand">{v2 ? <span className="wm">PivotHop</span> : <><RabbitMark /><span className="wm">PIVOTHOP</span></>}</Link>
@@ -115,7 +115,7 @@ export function SiteFooter() {
   );
 }
 
-export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries'; wide?: boolean; v2?: boolean }) {
+export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers'; wide?: boolean; v2?: boolean }) {
   /* v2: the redesign theme layer (docs/redesign-v2/05). Adds the namespaced
      wrapper class, the no-flash theme bootstrap, and the mode toggle. The
      stylesheet only acts under .v2t, so non-opted templates are untouched. */

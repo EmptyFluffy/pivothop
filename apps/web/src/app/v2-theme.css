@@ -983,3 +983,23 @@ html.vlight .v2t{ --v-gap:#B24E34; }
 .v2t .rt-facts .v a:hover{ border-bottom-color:var(--v-value); }
 /* the sibling board rows sit flush inside the posting's column */
 .v2t .rtp:has(.jd-head) .job-list-full{ margin:0; }
+
+/* ---- career guides: the judgement layer. Computed figures in the system's
+   registers; the judgement itself gets the one piece of emphasis on the page. ---- */
+.v2t .cg .jb-vmeta{ margin-top:6px; }
+.v2t .cg-summary{ font-size:21px; line-height:1.55; color:var(--v-text2); max-width:64ch; margin:18px 0 0; }
+.v2t .cg .rt-facts{ margin-top:34px; }
+.v2t .cg-judgement{ margin:44px 0 0; padding:34px 32px 36px; background:var(--v-bg2); }
+.v2t .cg-judgement h2{ font-size:22px; font-weight:650; letter-spacing:-.02em; color:var(--v-text);
+  margin:0 0 12px; }
+.v2t .cg-judgement p{ font-size:19px; line-height:1.6; color:var(--v-text); max-width:70ch; margin:0; }
+.v2t .cg-band{ display:flex; gap:56px; margin-top:20px; }
+.v2t .cg-band .v{ display:block; font-family:var(--mono); font-size:26px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-text2); }
+.v2t .cg-band .mid .v{ font-size:34px; color:var(--v-value); }
+.v2t .cg-band .k{ display:block; margin-top:6px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .cg .jd-gates{ margin-top:26px; }
+.v2t .cg-in .rt2-r-s{ color:var(--v-text2); }
+.v2t .cg-countries{ max-width:420px; }
+.v2t .cg-miss{ max-width:70ch; }
