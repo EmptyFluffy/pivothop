@@ -6,12 +6,6 @@ import { getJob } from '../../../jobs/jobs-data';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-/* One-time authenticated publication test requested for 1:00 p.m. Costa Rica
-   on 2026-08-22. It becomes inert after ten minutes and can queue at most one
-   row because every later poll sees the row created during this window. */
-const ONE_PM_TEST_START = Date.parse('2026-08-22T19:00:00Z');
-const ONE_PM_TEST_END = Date.parse('2026-08-22T19:20:00Z');
-
 /* The Zapier-facing queue. Returns approved (`scheduled`) items as a JSON
    array, newest first, each with a stable unique `id` · Zapier's polling
    trigger deduplicates on that key, so an item fires exactly one Zap run even
@@ -30,27 +24,7 @@ function authorized(req: NextRequest): boolean {
 
 export async function GET(req: NextRequest) {
   if (!authorized(req)) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
-  let rows = await recentPosts('linkedin', 30);
-  const now = Date.now();
-  const testAlreadyQueued = rows.some((row) =>
-    (row.status === 'scheduled' || row.status === 'published') &&
-    Date.parse(row.created_at) >= ONE_PM_TEST_START,
-  );
-  if (now >= ONE_PM_TEST_START && now < ONE_PM_TEST_END && !testAlreadyQueued) {
-    const cronSecret = process.env.CRON_SECRET;
-    if (cronSecret) {
-      const cronUrl = new URL('/api/social/cron', req.nextUrl.origin);
-      const cronResponse = await fetch(cronUrl, {
-        headers: { Authorization: `Bearer ${cronSecret}` },
-        cache: 'no-store',
-      });
-      const outcome = await cronResponse.text();
-      console.log(`[social] 1pm test trigger: status=${cronResponse.status} outcome=${outcome.slice(0, 1000)}`);
-      rows = await recentPosts('linkedin', 30);
-    } else {
-      console.warn('[social] 1pm test trigger skipped: CRON_SECRET is missing');
-    }
-  }
+  const rows = await recentPosts('linkedin', 30);
   const items = [];
   for (const r of rows) {
     if (r.status !== 'scheduled') continue;
