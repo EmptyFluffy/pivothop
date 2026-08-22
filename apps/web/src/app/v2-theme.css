@@ -1520,3 +1520,11 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 /* capture + xmodal accents through the bridge already; the report CTA: */
 .v2t .v2h .xgo{ background:var(--v-fill); color:var(--v-fill-ink); }
 .v2t .v2h .xgo:hover{ filter:brightness(1.08); background:var(--v-fill); }
+
+/* ---- the typographic instrument (founder call 2026-08-22): no wires, no
+   dots — the text is the graph, sized by match. The elements stay in the DOM
+   and keep simulating (hit-testing is mathematical); only paint goes. The
+   YOU knockout keeps the ground clear behind the wordmark. ---- */
+.v2t .v2h #graph .edge,
+.v2t .v2h #graph circle.node,
+.v2t .v2h #graph .leader{ display:none; }

@@ -21,6 +21,17 @@ export function mountInstrument(DATA,HOOKS){
      label width is what the edge repulsion (non-negotiable #3) keeps text clear
      of — so the symptom would be text crossing wires, not anything font-shaped. */
   var GLYPH_W=0.6;
+  /* TYPOGRAPHIC MODE (the V2 landing, 2026-08-22): no wires, no dots — the
+     text IS the graph, sized by match strength (the routes cloud's curve,
+     in viewBox units). Physics, hit-testing and interactions are untouched:
+     edges and node circles still exist and simulate; CSS hides them under
+     .v2h only. Everything below gates on TYPO so any non-V2 mount renders
+     byte-identically to the tuned original. */
+  var TYPO=false;
+  function typoSize(match){
+    var m=Math.max(0,Math.min(100,match||0));
+    return 9+Math.pow(m/100,1.6)*22;   // match 40 -> ~14.1, 70 -> ~21.3, 90 -> ~28.5
+  }
   var LABEL_FONT='Instrument Sans, system-ui, sans-serif';
 
   function derive(){
@@ -41,10 +52,19 @@ export function mountInstrument(DATA,HOOKS){
     GNODES.forEach(function(n){
       var t=n.label;
       if(n.type==='you'){n.lblW=PILL_W;n.lblH=PILL_H;}
-      else if(n.type==='first'){n.lblW=Math.max(t.length*12.5*GLYPH_W,9*9.5*0.72)+8;n.lblH=30;}
-      else{n.lblW=t.length*10.5*GLYPH_W+8;n.lblH=16;}
+      else if(n.type==='first'){
+        n.fs=TYPO?typoSize(n.match):12.5;
+        n.lblW=Math.max(t.length*n.fs*GLYPH_W,9*(TYPO?n.fs*0.55:9.5)*0.72)+8;
+        n.lblH=TYPO?n.fs*1.76+8:30;
+      }
+      else{
+        n.fs=TYPO?Math.max(9,typoSize(n.match)*0.82):10.5;
+        n.lblW=t.length*n.fs*GLYPH_W+8;
+        n.lblH=TYPO?n.fs*1.52:16;
+      }
     });
   }
+  TYPO=!!document.querySelector('.v2h');
   derive();
   // Real board counts (re-displayable open roles per occupation) drive the
   // "open roles" stat and the search-bar CTA; fetched once, looked up by slug.
@@ -490,15 +510,15 @@ export function mountInstrument(DATA,HOOKS){
       leader.style.stroke='var(--g-cross, #b8b0a0)';
       g.appendChild(leader);
       if(n.type==='first'){
-        var name=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':500,'font-size':12.5,x:0,y:0});
+        var name=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':TYPO?600:500,'font-size':n.fs||12.5,x:0,y:0});
         name.style.fill='var(--g-ink, #15151a)';
         name.textContent=n.label;g.appendChild(name);
-        var match=svgEl('text',{'text-anchor':'middle','font-family':'Space Mono','font-size':9.5,'letter-spacing':1,x:0,y:0});
+        var match=svgEl('text',{'text-anchor':'middle','font-family':'Space Mono','font-size':TYPO?(n.fs*0.5):9.5,'letter-spacing':1,x:0,y:0});
         match.style.fill='var(--g-ink3, #8a8a93)';
         match.textContent=n.match+'% MATCH';g.appendChild(match);
         el.labelTexts[n.id]={name:name,match:match};
       }else{
-        var name2=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':400,'font-size':10.5,x:0,y:0});
+        var name2=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':TYPO?500:400,'font-size':n.fs||10.5,x:0,y:0});
         name2.style.fill='var(--g-ink2, #56565e)';
         name2.textContent=n.label;g.appendChild(name2);
         el.labelTexts[n.id]={name:name2};
@@ -556,10 +576,11 @@ export function mountInstrument(DATA,HOOKS){
       leader.setAttribute('x2',endX);leader.setAttribute('y2',endY);
       var texts=el.labelTexts[n.id];
       if(n.type==='first'){
-        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly-3);
-        texts.match.setAttribute('x',n.lx);texts.match.setAttribute('y',n.ly+11);
+        var fs1=n.fs||12.5;
+        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly-(TYPO?fs1*0.24:3));
+        texts.match.setAttribute('x',n.lx);texts.match.setAttribute('y',n.ly+(TYPO?fs1*0.88:11));
       }else{
-        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly+3.5);
+        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly+(TYPO?(n.fs||10.5)*0.33:3.5));
       }
     });
   }
