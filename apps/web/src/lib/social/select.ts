@@ -213,6 +213,7 @@ export async function firstVerifiedCandidate(
   maxChecks = 10,
 ): Promise<{ candidate: Candidate | null; checks: Array<{ id: string; state: SourceCheck['state']; reason: string }> }> {
   const checks: Array<{ id: string; state: SourceCheck['state']; reason: string }> = [];
+  let unverifiedFallback: Candidate | null = null;
   let attempted = 0;
   for (const candidate of candidates) {
     if (!candidate || !stillLive(candidate.occ, candidate.id)) continue;
@@ -221,6 +222,10 @@ export async function firstVerifiedCandidate(
     const check = await checkOriginalJob(candidate.occ, candidate.id);
     checks.push({ id: candidate.id, state: check.state, reason: check.reason });
     if (check.state === 'live') return { candidate, checks };
+    if (check.state === 'unverified' && !unverifiedFallback) unverifiedFallback = candidate;
   }
-  return { candidate: null, checks };
+  /* A bot block or timeout is not evidence that the vacancy expired. After
+     checking the shortlist, preserve cadence with the best candidate still
+     present in PivotHop; explicit 404/410/closed results never reach here. */
+  return { candidate: unverifiedFallback, checks };
 }
