@@ -135,6 +135,29 @@ PivotHop indexes for search and does not train models on postings, which is
 the use those signals permit. We honor named disallows of OUR UA, all
 `Disallow` paths, and stated crawl delays.
 
+**Measured results (2026-08-22, first live sweeps):**
+
+- Careerjet: the key finally exists (referer header + REAL public `user_ip`
+  both required — placeholder IPs are rejected now). First full sweep:
+  **2,042 rows across 12 locales in 3.6 min** — 222 CRC Costa Rica, and the
+  Swiss (340 CHF), GB (320) and US (320) sweeps that had been silently
+  skipping since the adapter shipped came alive as a side effect. IP-bound to
+  the founder's machine → production absorbs it via the SIDELOAD channel
+  (`apps/scraper/sideload/*.ndjson`, tracked; `scripts/sideload.mjs --export`
+  on the laptop, absorbed by ci-run.sh before normalize). Refresh cadence is
+  manual; stale rows age out through freshness caps.
+- Jooble is DUAL-SITE (keys are site-bound; a global key 400s on
+  cr.jooble.org): the CR key sweeps Spanish terms with country pinned CR
+  (**1,360 distinct**), the global key sweeps ONLY thin-market AEC/trades
+  terms (**2,307 distinct**) so it fills gaps rather than duplicating
+  Adzuna/ATS bulk. The CR host 400s on empty keywords — every term is real.
+- Combined first-day arsenal: ANE 1,916 + Jooble 3,667 + Careerjet 2,042 +
+  Amazon 68 + 15 Workday tenants + 32 CR employers at the prospect queue head.
+
+**Morning-after audits owed:** (1) Spanish-title alias reach — ANE's
+Salonero/Bodeguero tier only reaches the board if the lexicon maps it;
+(2) triple-listing dedup (Jooble and Careerjet both aggregate Computrabajo).
+
 **CR pipeline cautions:** dedup pressure (Jooble + Careerjet + a direct board
 can triple-list one Computrabajo posting — unresolved country defeats dedup,
 so `country:'CR'` rides on every CR-source row); CRC salaries (the fx table
