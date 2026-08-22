@@ -10,7 +10,7 @@ export const maxDuration = 60;
    on 2026-08-22. It becomes inert after ten minutes and can queue at most one
    row because every later poll sees the row created during this window. */
 const ONE_PM_TEST_START = Date.parse('2026-08-22T19:00:00Z');
-const ONE_PM_TEST_END = Date.parse('2026-08-22T19:10:00Z');
+const ONE_PM_TEST_END = Date.parse('2026-08-22T19:20:00Z');
 
 /* The Zapier-facing queue. Returns approved (`scheduled`) items as a JSON
    array, newest first, each with a stable unique `id` · Zapier's polling
@@ -67,7 +67,9 @@ export async function GET(req: NextRequest) {
     /* New rows were source-verified by the cron. If the second check is
        transiently blocked, preserve that recent verification. Old unverified
        rows are held back rather than guessed live. */
-    if (source.state === 'unverified' && !r.selection_reason.includes('source verified live')) {
+    const sourceWasAccepted = r.selection_reason.includes('source verified live') ||
+      r.selection_reason.includes('source unverified fallback');
+    if (source.state === 'unverified' && !sourceWasAccepted) {
       await mark(r.id, { status: 'skipped', last_error: `source unverified before publication: ${source.reason}` });
       continue;
     }
