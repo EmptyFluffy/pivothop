@@ -92,4 +92,9 @@ jobs:
           # Gates the `direct` source (studio careers pages read via Claude
           # extraction). Absent, that source logs loudly and reads nothing.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # CR aggregator APIs (2026-08-22): both sources skip silently until
+          # the secrets exist — sign up at careerjet.com/partners and
+          # jooble.org/api/about, then add the repo secrets.
+          CAREERJET_API_KEY: ${{ secrets.CAREERJET_API_KEY }}
+          JOOBLE_API_KEY: ${{ secrets.JOOBLE_API_KEY }}
         run: bash apps/scraper/scripts/ci-run.sh
