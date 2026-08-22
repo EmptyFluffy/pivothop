@@ -4,10 +4,13 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprot
 import { TOOLS as CAREER_TOOLS, configure as configureCareerTools } from '../../../../../mcp/src/tools.js';
 import { JOB_TOOLS, configureJobTools } from '../../../../../mcp/src/job-tools.js';
 
+// tools.js is plain JavaScript shared with the published stdio package. Keep the
+// TypeScript boundary deliberately narrow here: the MCP SDK validates the wire
+// request, while each tool owns its runtime argument handling.
 type McpTool = {
   name: string;
   description: string;
-  inputSchema: unknown;
+  inputSchema: Record<string, unknown>;
   annotations?: Record<string, unknown>;
   handler: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
 };
@@ -113,7 +116,7 @@ function createServer() {
       description: tool.description,
       inputSchema: tool.inputSchema,
       annotations: reviewAnnotations(tool),
-    })),
+    })) as never,
   }));
 
   server.setRequestHandler(CallToolRequestSchema, async (req) => {
