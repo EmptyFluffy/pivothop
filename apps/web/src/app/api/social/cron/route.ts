@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { firstVerifiedCandidate, selectSocialJob } from '../../../../lib/social/select';
 import { generateSocialPost, jobUrl } from '../../../../lib/social/copy';
-import { insertDraft, publishedOrScheduledToday, recentPosts } from '../../../../lib/social/store';
+import { insertDraft, recentPosts } from '../../../../lib/social/store';
 import { getJob } from '../../../jobs/jobs-data';
 
 export const dynamic = 'force-dynamic';
@@ -44,19 +44,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
 
-  /* Keep the production cadence aligned with the 15 cron slots. A stale
-     SOCIAL_POSTS_PER_DAY value must not silently throttle the queue. */
-  const perDay = 15;
   const autoApprove = process.env.SOCIAL_AUTO_APPROVE !== 'false';
   const forceRemoteArchitecture = req.nextUrl.searchParams.get('focus') === 'remote-architecture';
   const cronSchedule = req.headers.get('x-vercel-cron');
   const architectureRetryWindow = cronSchedule ? REMOTE_ARCHITECTURE_RETRY_SCHEDULES.has(cronSchedule) : false;
 
-  const today = await publishedOrScheduledToday('linkedin', 'UTC');
-  if (today >= perDay) {
-    console.log(`[social] skip: daily cap reached (${today}/${perDay})`);
-    return NextResponse.json({ ok: true, action: 'skip', reason: `daily cap reached (${today}/${perDay})` });
-  }
 
   let remoteArchitectureAlreadyQueued = false;
   if (architectureRetryWindow && !forceRemoteArchitecture) {
