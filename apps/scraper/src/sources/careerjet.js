@@ -37,7 +37,12 @@ const CH_EN_TERMS = ['engineer', 'developer', 'designer', 'analyst', 'product ma
 const EN_TERMS = ['architect', 'civil engineer', 'structural engineer', 'bim', 'landscape architect',
   'mechanical engineer', 'electrical engineer', 'quantity surveyor',
   'engineer', 'developer', 'designer', 'analyst', 'nurse', 'accountant', 'project manager', 'consultant'];
+const CR_TERMS = ['ventas', 'ingeniero', 'desarrollador', 'contabilidad', 'operario',
+  'servicio al cliente', 'administrativo', 'enfermeria', 'bilingue', 'soporte', 'analista', 'marketing'];
 const LOCALES = [
+  // Costa Rica first (2026-08-22, the founder's home market): es_CR is a
+  // confirmed locale in Careerjet's own client constants; CRC salaries.
+  { code: 'es_CR', ccy: 'CRC', terms: CR_TERMS },
   { code: 'es_MX', ccy: 'MXN', terms: LATAM_TERMS }, { code: 'pt_BR', ccy: 'BRL', terms: LATAM_TERMS },
   { code: 'es_AR', ccy: 'ARS', terms: LATAM_TERMS }, { code: 'es_CO', ccy: 'COP', terms: LATAM_TERMS },
   { code: 'es_CL', ccy: 'CLP', terms: LATAM_TERMS }, { code: 'es_PE', ccy: 'PEN', terms: LATAM_TERMS },

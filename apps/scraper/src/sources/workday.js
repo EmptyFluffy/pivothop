@@ -38,14 +38,17 @@ function extractSalary(text) {
 export async function fetchRaw({ log }) {
   const tenants = readJson(path.join(CONFIG_DIR, 'workday-companies.json'))?.tenants ?? [];
   const rows = [];
-  for (const { tenant, wd, site, company } of tenants) {
+  for (const { tenant, wd, site, company, searchText } of tenants) {
     const base = `https://${tenant}.${wd}.myworkdayjobs.com/wday/cxs/${tenant}/${site}`;
     const posts = [];
     for (let offset = 0; offset < MAX_JOBS; offset += PAGE) {
       const body = await fetchJson(`${base}/jobs`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'user-agent': UA },
-        body: JSON.stringify({ limit: PAGE, offset, searchText: '' }),
+        // per-tenant searchText: on 800–2000-posting multinationals the flat
+        // 200-cap fills with non-CR roles before Costa Rica ever appears;
+        // "Costa Rica" as the query keeps the cap spent on the right market.
+        body: JSON.stringify({ limit: PAGE, offset, searchText: searchText ?? '' }),
         minIntervalMs: 1500,
       }).catch(() => null);
       const page = body?.jobPostings ?? [];

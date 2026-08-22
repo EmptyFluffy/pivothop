@@ -134,7 +134,9 @@ async function tryOne([name, home0]) {
       // hiring verbs, not job nouns: an awards page says "architect" often and
       // "apply" never. Two distinct verbs is the bar for a soft path.
       const verbs = new Set((text.match(/\b(apply|applications?|hiring|we are looking|we're looking|open positions?|current openings?|join our|send your (?:cv|resume|portfolio)|cover letter|bewerbung|bewerben)\b/gi) || []).map((v) => v.toLowerCase()));
-      const softOk = SOFT_PATH.test(new URL(landed).pathname) && verbs.size >= 2;
+      // segment-wise like pathOk: a 90-char news slug containing "join" or
+      // "people" is prose, not a careers path (Overland Partners, 2026-08-22)
+      const softOk = segs.some((s) => s.length <= 32 && SOFT_PATH.test(s)) && verbs.size >= 2;
       if (!pathOk && !softOk) {
         rec.outcome = 'not-careers-page';       // award pages, news articles, contact pages
         rec.detail = `${landed} verbs~${verbs.size}`;
