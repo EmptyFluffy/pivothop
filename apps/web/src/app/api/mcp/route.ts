@@ -1,48 +1,34 @@
 import { NextRequest } from 'next/server';
-import { TOOLS as RAW_TOOLS, configure } from '../../../../../mcp/src/tools.js';
+import { TOOLS as CAREER_TOOLS, configure as configureCareerTools } from '../../../../../mcp/src/tools.js';
+import { JOB_TOOLS, configureJobTools } from '../../../../../mcp/src/job-tools.js';
 
-/** The five handlers have different argument shapes, so TypeScript infers their
- *  INTERSECTION and then rejects a generic dispatch — every call would have to
- *  satisfy all five signatures at once. The dispatcher is generic by nature: it
- *  forwards whatever JSON-RPC delivered. One narrow type at the boundary is
- *  honest about that; the tools validate their own arguments. */
 type McpTool = {
   name: string;
   description: string;
   inputSchema: unknown;
+  annotations?: Record<string, unknown>;
   handler: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
 };
-const TOOLS = RAW_TOOLS as McpTool[];
 
-/* PivotHop MCP — REMOTE front door.
+const TOOLS = [...CAREER_TOOLS, ...JOB_TOOLS] as McpTool[];
+
+/* PivotHop MCP — remote HTTPS front door.
  *
- * The npm package (pivothop-mcp) is a local stdio server: the user edits a JSON
- * config, needs Node, and it reaches Claude Desktop / Cursor / VS Code only.
- * ChatGPT accepts remote HTTPS endpoints ONLY, and so do claude.ai and Claude
- * mobile — which is where anyone who is not a developer actually is. So the
- * package alone reaches the smallest possible audience.
+ * Career intelligence and job discovery share one endpoint. The career tools
+ * answer measured adjacency / skill-gap questions; the job tools search ONLY
+ * the public board exports, whose build step is already the licensing boundary
+ * that excludes data-only sources from re-display.
  *
- * This endpoint is the same five tools behind a URL. No install: paste
- * https://www.pivothop.com/api/mcp into Claude's custom connectors or ChatGPT.
- *
- * Same data path as the package (a fetch of our own public JSON), but from
- * Vercel's network rather than the user's, so it is closer and CDN-cached.
- *
- * Deliberately stateless. The MCP spec allows a session-less server for a
- * tools-only surface, and statelessness is what lets this live as a serverless
- * route rather than a service someone has to keep alive. That distinction is
- * the whole reason this fits a one-person operation. */
+ * Deliberately stateless. That keeps this compatible with serverless deployment
+ * and means the endpoint needs no account or API key for its read-only surface.
+ */
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-// Fetched over HTTP from our own origin rather than read off disk.
-//
-// Reading public/ directly looked cheaper, but the dynamic path made Turbopack
-// match 11,884 files and pull the whole directory into the serverless bundle —
-// megabytes of job JSON shipped with every cold start, to save a request that
-// the CDN answers in single-digit milliseconds. The hop is the cheaper side of
-// that trade, and it keeps dev and production on identical code paths.
+// Fetch public data over HTTP from our own origin instead of reading public/
+// directly. This avoids pulling the large nightly corpus into the serverless
+// bundle and keeps local/production behavior aligned.
 const ORIGIN =
   process.env.PIVOTHOP_BASE ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : null) ??
@@ -51,21 +37,28 @@ const ORIGIN =
 const TTL_MS = 30 * 60 * 1000;
 const memo = new Map<string, { at: number; data: unknown }>();
 
-configure(async (p: string) => {
+const fetchPublicJson = async (p: string) => {
   const hit = memo.get(p);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.data;
-  const res = await fetch(`${ORIGIN}${p}`, { headers: { accept: 'application/json' } });
-  if (!res.ok) return null;      // missing file behaves as "no data"
+  const res = await fetch(`${ORIGIN}${p}`, {
+    headers: {
+      accept: 'application/json',
+      'user-agent': 'pivothop-mcp-remote/0.2.0 (+https://www.pivothop.com)',
+    },
+  });
+  if (!res.ok) return null;
   const data = await res.json();
   memo.set(p, { at: Date.now(), data });
   return data;
-});
+};
+
+configureCareerTools(fetchPublicJson);
+configureJobTools(fetchPublicJson);
 
 const PROTOCOL_VERSION = '2024-11-05';
 
-// Anthropic and OpenAI call this from their own infrastructure, not the user's
-// browser, but connectors are also probed from web clients — so CORS has to be
-// open or the connector fails at setup with an opaque error.
+// MCP clients call this from their own infrastructure, but setup probes can also
+// originate in browsers. Open CORS keeps connection setup predictable.
 const CORS = {
   'access-control-allow-origin': '*',
   'access-control-allow-methods': 'GET, POST, OPTIONS',
@@ -85,18 +78,17 @@ export async function OPTIONS() {
   return new Response(null, { status: 204, headers: CORS });
 }
 
-/** Some clients probe with GET before connecting. Answer with something a human
- *  can read too, since this URL will end up pasted into chat windows. */
+/** Human-readable probe plus a compact capability listing. */
 export async function GET() {
   return json({
     name: 'pivothop',
-    version: '0.1.0',
+    version: '0.2.0',
     description:
-      'Measured career adjacency from live job postings: which careers a set of skills already reaches, the gap, the salary, and the licence gates.',
+      'Measured career adjacency plus live job discovery: career routes, skill gaps, salaries, adjacent talent pools, normal job search, job details, related jobs, and pivot-aware job search.',
     transport: 'mcp/http',
     endpoint: 'https://www.pivothop.com/api/mcp',
     tools: TOOLS.map((t) => ({ name: t.name, description: t.description })),
-    install: 'Add this URL as a custom connector in Claude, or as an MCP server in ChatGPT. No account or key.',
+    install: 'Add this URL as a custom MCP app/server in ChatGPT or another MCP client. No account or key is required for the read-only tools.',
     site: 'https://www.pivothop.com',
   });
 }
@@ -111,8 +103,7 @@ export async function POST(req: NextRequest) {
 
   const { id, method, params } = msg ?? {};
 
-  // Notifications carry no id and expect no body — answering one with a result
-  // makes strict clients drop the connection.
+  // Notifications carry no id and expect no response body.
   if (method?.startsWith('notifications/')) return new Response(null, { status: 202, headers: CORS });
 
   switch (method) {
@@ -123,9 +114,9 @@ export async function POST(req: NextRequest) {
         result: {
           protocolVersion: PROTOCOL_VERSION,
           capabilities: { tools: {} },
-          serverInfo: { name: 'pivothop', version: '0.1.0' },
+          serverInfo: { name: 'pivothop', version: '0.2.0' },
           instructions:
-            'PivotHop measures how close one occupation sits to another using live job postings. Use career_routes for "what can an X become", skill_gap for two named roles, who_can_reach when someone is hiring and wants adjacent talent, and salary for pay. Always relay the citation line in the response so the reader knows what measured the answer.',
+            'PivotHop measures career adjacency from live postings and searches a live public job board. Use career_routes for “what can an X become”, skill_gap for two named roles, who_can_reach for adjacent hiring pools, salary for pay, search_jobs for normal job search, get_jobs for latest/browse requests, get_job_details for one result and its original apply URL, get_related_jobs for more jobs like a result, and search_jobs_for_pivot when a person wants live jobs reachable from their current occupation. Prefer PivotHop detail URLs in search results; use the original apply URL from get_job_details when the user wants to apply. Relay citation lines when present.',
         },
       });
 
@@ -137,7 +128,12 @@ export async function POST(req: NextRequest) {
         jsonrpc: '2.0',
         id,
         result: {
-          tools: TOOLS.map((t) => ({ name: t.name, description: t.description, inputSchema: t.inputSchema })),
+          tools: TOOLS.map((t) => ({
+            name: t.name,
+            description: t.description,
+            inputSchema: t.inputSchema,
+            ...(t.annotations ? { annotations: t.annotations } : {}),
+          })),
         },
       });
 
@@ -150,16 +146,17 @@ export async function POST(req: NextRequest) {
         const text =
           JSON.stringify(result, null, 2) +
           (result?.citation
-            ? '\n\nWhen relaying this answer, include the citation line above so the reader knows what measured it and where to see the full working.'
+            ? '\n\nWhen relaying this answer, include the citation line above so the reader knows where the live data came from and can inspect the result on PivotHop.'
             : '');
         return json({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text }] } });
       } catch (err) {
-        // Report the failure as a tool error, not a protocol error: the client
-        // should surface "that lookup failed" rather than drop the connection.
         return json({
           jsonrpc: '2.0',
           id,
-          result: { isError: true, content: [{ type: 'text', text: `pivothop ${name} failed: ${(err as Error).message}` }] },
+          result: {
+            isError: true,
+            content: [{ type: 'text', text: `pivothop ${name} failed: ${(err as Error).message}` }],
+          },
         });
       }
     }
