@@ -9,8 +9,12 @@ import { stripHtml } from '../lib/text.js';
 // IS the attribution their terms ask for. Feeds counts, titles, locations.
 export const name = 'jooble';
 
-const TERMS = ['', 'ventas', 'ingeniero', 'desarrollador', 'contabilidad', 'servicio al cliente',
-  'operario', 'administrativo', 'enfermeria', 'marketing', 'soporte', 'bilingue'];
+// the CR host 400s on an empty keywords field, so every sweep term is real;
+// broad nouns cover the blue/white-collar spread the CR market actually posts
+const TERMS = ['ventas', 'ingeniero', 'desarrollador', 'contabilidad', 'servicio al cliente',
+  'operario', 'administrativo', 'enfermeria', 'marketing', 'soporte', 'bilingue',
+  'asistente', 'tecnico', 'conductor', 'cocinero', 'bodeguero', 'vendedor', 'agente',
+  'analista', 'supervisor', 'gerente', 'recepcionista', 'seguridad', 'limpieza'];
 
 export async function fetchRaw({ log }) {
   const key = process.env.JOOBLE_API_KEY;
@@ -28,7 +32,7 @@ export async function fetchRaw({ log }) {
         body = await fetchJson(`https://cr.jooble.org/api/${key}`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ keywords: kw, location: 'Costa Rica', page: String(page) }),
+          body: JSON.stringify({ keywords: kw, location: '', page: String(page) }),
         });
       } catch { break; }
       const jobs = body?.jobs ?? [];
