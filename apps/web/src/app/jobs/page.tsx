@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
+import { allCategories } from './categories-data';
 import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs, featuredJobs, boardStats } from './jobs-data';
 import { JobCard } from './JobCard';
 import { routableSlugs } from '../routes/routes-data';
@@ -69,16 +70,25 @@ export default function JobsHub() {
         <section className="rt-sec jb-byocc">
           <h2>Browse by occupation</h2>
           <p className="rt-note">Or browse by filter — remote, location, seniority, pay, and combinations: <Link className="gl" href="/jobs/browse">all preloaded searches</Link>.</p>
-          {fieldGroups.map(([field, list]) => (
-            <div key={field} className="jb-occrow">
-              <span className="lbl jb-occfield">{field}</span>
-              <span className="jb-occlinks">
-                {list.sort((a, b) => idx[b] - idx[a]).map((o) => (
-                  <Link key={o} href={`/jobs/${o}`}>{titles[o]} <span className="lbl">{idx[o]}</span></Link>
-                ))}
-              </span>
-            </div>
-          ))}
+          {fieldGroups.map(([field, list]) => {
+            // this field's rows on /jobs/browse/fields — the count states
+            // exactly what the link lands on, nothing broader
+            const FIELD_KINDS = new Set(['field', 'level-field', 'pay-field', 'flag-field', 'field-region']);
+            const nSearches = allCategories().filter((c) => FIELD_KINDS.has(c.kind) && c.title.includes(field)).length;
+            return (
+              <div key={field} className="jb-occrow">
+                <span className="lbl jb-occfield">{field}</span>
+                <span className="jb-occlinks">
+                  {list.sort((a, b) => idx[b] - idx[a]).map((o) => (
+                    <Link key={o} href={`/jobs/${o}`}>{titles[o]} <span className="lbl">{idx[o]}</span></Link>
+                  ))}
+                  {nSearches > 0 && (
+                    <Link className="jb-occall" href="/jobs/browse/fields">All {nSearches} {field} searches &rarr;</Link>
+                  )}
+                </span>
+              </div>
+            );
+          })}
         </section>
 
         <p className="rt-method lbl">
