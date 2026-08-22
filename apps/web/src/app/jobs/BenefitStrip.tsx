@@ -81,11 +81,6 @@ export default function BenefitStrip({ benefits, cap }: { benefits: BenefitEntry
               <span>{open.term}</span>
             </div>
             <p className="sk-def">{open.def}</p>
-            {!!open.n && (
-              <div className="sk-spec" aria-label="Measured from the board">
-                <div className="spec-row"><span className="spec-k">Stated in</span><span className="spec-lead" /><span className="spec-v">{open.n.toLocaleString()} postings</span></div>
-              </div>
-            )}
             <Link className="lbl sk-gloss" href={`/glossary#benefit-${open.slug}`}>Show in glossary &rarr;</Link>
           </div>
         </div>,

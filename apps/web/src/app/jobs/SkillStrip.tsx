@@ -72,12 +72,6 @@ export default function SkillStrip({ skills }: { skills: SkillEntry[] }) {
             </div>
             <p className="sk-def">{open.def}</p>
             {open.unlocks.length > 0 && (
-              <div className="sk-spec" aria-label="Measured from the board">
-                <div className="spec-row"><span className="spec-k">Unlocks</span><span className="spec-lead" /><span className="spec-v">{open.unlocks.length} occupation{open.unlocks.length === 1 ? '' : 's'}</span></div>
-                <div className="spec-row"><span className="spec-k">Open roles</span><span className="spec-lead" /><span className="spec-v">{open.unlocks.reduce((s, u) => s + u.count, 0).toLocaleString()}</span></div>
-              </div>
-            )}
-            {open.unlocks.length > 0 && (
               <div className="gloss-unlocks">
                 <span className="lbl">Open roles it unlocks</span>
                 <span className="gu-list">
