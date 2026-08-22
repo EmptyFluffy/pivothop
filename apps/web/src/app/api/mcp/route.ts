@@ -1,4 +1,6 @@
-import { NextRequest } from 'next/server';
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { TOOLS as CAREER_TOOLS, configure as configureCareerTools } from '../../../../../mcp/src/tools.js';
 import { JOB_TOOLS, configureJobTools } from '../../../../../mcp/src/job-tools.js';
 
@@ -12,33 +14,47 @@ type McpTool = {
 
 const TOOLS = [...CAREER_TOOLS, ...JOB_TOOLS] as McpTool[];
 
-// Every current PivotHop tool is retrieval/computation only. OpenAI's public
-// plugin review scans these values from tools/list, so return explicit metadata
-// for the older career tools too rather than relying on defaults.
-const DEFAULT_READ_ONLY_ANNOTATIONS = {
+const TOOL_TITLES: Record<string, string> = {
+  career_routes: 'Find reachable careers',
+  skill_gap: 'Measure a career skill gap',
+  who_can_reach: 'Find adjacent talent pools',
+  salary: 'Get salary data',
+  list_occupations: 'List tracked occupations',
+  search_jobs: 'Search live jobs',
+  get_jobs: 'Get latest jobs',
+  get_job_details: 'Get job details',
+  get_related_jobs: 'Find related jobs',
+  search_jobs_for_pivot: 'Find jobs you can pivot into',
+};
+
+// Every current PivotHop tool is retrieval/computation only. `openWorldHint`
+// describes whether a tool can AFFECT public/external systems; these cannot.
+// Explicit metadata matters because OpenAI's public-plugin scanner reads it
+// directly from tools/list.
+const reviewAnnotations = (tool: McpTool) => ({
+  ...(tool.annotations ?? {}),
+  title: TOOL_TITLES[tool.name] ?? tool.name,
   readOnlyHint: true,
   destructiveHint: false,
   idempotentHint: true,
-  openWorldHint: true,
-};
+  openWorldHint: false,
+});
 
-/* PivotHop MCP — remote HTTPS front door.
+/* PivotHop MCP — production Streamable HTTP front door.
  *
- * Career intelligence and job discovery share one endpoint. The career tools
- * answer measured adjacency / skill-gap questions; the job tools search ONLY
- * the public board exports, whose build step is already the licensing boundary
- * that excludes data-only sources from re-display.
+ * Career intelligence and job discovery share one endpoint. Job tools search
+ * ONLY the public board exports, whose build step is the licensing boundary
+ * excluding data-only sources from re-display.
  *
- * Deliberately stateless. That keeps this compatible with serverless deployment
- * and means the endpoint needs no account or API key for its read-only surface.
+ * The server and transport are created fresh per request: all tools are
+ * read-only and self-contained, so no session state needs to survive between
+ * requests. That is a clean fit for Vercel serverless and avoids sticky-session
+ * infrastructure.
  */
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-// Fetch public data over HTTP from our own origin instead of reading public/
-// directly. This avoids pulling the large nightly corpus into the serverless
-// bundle and keeps local/production behavior aligned.
 const ORIGIN =
   process.env.PIVOTHOP_BASE ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : null) ??
@@ -50,6 +66,7 @@ const memo = new Map<string, { at: number; data: unknown }>();
 const fetchPublicJson = async (p: string) => {
   const hit = memo.get(p);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.data;
+
   const res = await fetch(`${ORIGIN}${p}`, {
     headers: {
       accept: 'application/json',
@@ -57,6 +74,7 @@ const fetchPublicJson = async (p: string) => {
     },
   });
   if (!res.ok) return null;
+
   const data = await res.json();
   memo.set(p, { at: Date.now(), data });
   return data;
@@ -65,113 +83,95 @@ const fetchPublicJson = async (p: string) => {
 configureCareerTools(fetchPublicJson);
 configureJobTools(fetchPublicJson);
 
-const PROTOCOL_VERSION = '2024-11-05';
-
-// MCP clients call this from their own infrastructure, but setup probes can also
-// originate in browsers. Open CORS keeps connection setup predictable.
-const CORS = {
+const CORS_HEADERS: Record<string, string> = {
   'access-control-allow-origin': '*',
-  'access-control-allow-methods': 'GET, POST, OPTIONS',
-  'access-control-allow-headers': 'content-type, authorization, mcp-session-id, mcp-protocol-version',
+  'access-control-allow-methods': 'GET, POST, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept, authorization, mcp-session-id, mcp-protocol-version',
+  'access-control-expose-headers': 'mcp-session-id',
 };
 
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { 'content-type': 'application/json', 'cache-control': 'no-store', ...CORS },
-  });
-
-const rpcError = (id: unknown, code: number, message: string) =>
-  json({ jsonrpc: '2.0', id: id ?? null, error: { code, message } });
-
-export async function OPTIONS() {
-  return new Response(null, { status: 204, headers: CORS });
-}
-
-/** Human-readable probe plus a compact capability listing. */
-export async function GET() {
-  return json({
-    name: 'pivothop',
-    version: '0.2.0',
-    description:
-      'Measured career adjacency plus live job discovery: career routes, skill gaps, salaries, adjacent talent pools, normal job search, job details, related jobs, and pivot-aware job search.',
-    transport: 'mcp/http',
-    endpoint: 'https://www.pivothop.com/api/mcp',
-    tools: TOOLS.map((t) => ({ name: t.name, description: t.description })),
-    install: 'Add this URL as a custom MCP app/server in ChatGPT or another MCP client. No account or key is required for the read-only tools.',
-    site: 'https://www.pivothop.com',
+function withCors(response: Response): Response {
+  const headers = new Headers(response.headers);
+  for (const [key, value] of Object.entries(CORS_HEADERS)) headers.set(key, value);
+  headers.set('cache-control', 'no-store');
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
   });
 }
 
-export async function POST(req: NextRequest) {
-  let msg: { jsonrpc?: string; id?: unknown; method?: string; params?: Record<string, unknown> };
-  try {
-    msg = await req.json();
-  } catch {
-    return rpcError(null, -32700, 'Parse error');
-  }
+function createServer() {
+  const server = new Server(
+    { name: 'pivothop', version: '0.2.0' },
+    { capabilities: { tools: {} } },
+  );
 
-  const { id, method, params } = msg ?? {};
+  server.setRequestHandler(ListToolsRequestSchema, async () => ({
+    tools: TOOLS.map((tool) => ({
+      name: tool.name,
+      description: tool.description,
+      inputSchema: tool.inputSchema,
+      annotations: reviewAnnotations(tool),
+    })),
+  }));
 
-  // Notifications carry no id and expect no response body.
-  if (method?.startsWith('notifications/')) return new Response(null, { status: 202, headers: CORS });
-
-  switch (method) {
-    case 'initialize':
-      return json({
-        jsonrpc: '2.0',
-        id,
-        result: {
-          protocolVersion: PROTOCOL_VERSION,
-          capabilities: { tools: {} },
-          serverInfo: { name: 'pivothop', version: '0.2.0' },
-          instructions:
-            'PivotHop measures career adjacency from live postings and searches a live public job board. Use career_routes for “what can an X become”, skill_gap for two named roles, who_can_reach for adjacent hiring pools, salary for pay, search_jobs for normal job search, get_jobs for latest/browse requests, get_job_details for one result and its original apply URL, get_related_jobs for more jobs like a result, and search_jobs_for_pivot when a person wants live jobs reachable from their current occupation. Prefer PivotHop detail URLs in search results; use the original apply URL from get_job_details when the user wants to apply. Relay citation lines when present.',
-        },
-      });
-
-    case 'ping':
-      return json({ jsonrpc: '2.0', id, result: {} });
-
-    case 'tools/list':
-      return json({
-        jsonrpc: '2.0',
-        id,
-        result: {
-          tools: TOOLS.map((t) => ({
-            name: t.name,
-            description: t.description,
-            inputSchema: t.inputSchema,
-            annotations: t.annotations ?? DEFAULT_READ_ONLY_ANNOTATIONS,
-          })),
-        },
-      });
-
-    case 'tools/call': {
-      const name = params?.name as string;
-      const tool = TOOLS.find((t) => t.name === name);
-      if (!tool) return rpcError(id, -32602, `Unknown tool: ${name}`);
-      try {
-        const result = await tool.handler((params?.arguments as Record<string, unknown>) ?? {});
-        const text =
-          JSON.stringify(result, null, 2) +
-          (result?.citation
-            ? '\n\nWhen relaying this answer, include the citation line above so the reader knows where the live data came from and can inspect the result on PivotHop.'
-            : '');
-        return json({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text }] } });
-      } catch (err) {
-        return json({
-          jsonrpc: '2.0',
-          id,
-          result: {
-            isError: true,
-            content: [{ type: 'text', text: `pivothop ${name} failed: ${(err as Error).message}` }],
-          },
-        });
-      }
+  server.setRequestHandler(CallToolRequestSchema, async (req) => {
+    const tool = TOOLS.find((t) => t.name === req.params.name);
+    if (!tool) {
+      return {
+        isError: true,
+        content: [{ type: 'text' as const, text: `Unknown tool: ${req.params.name}` }],
+      };
     }
 
-    default:
-      return rpcError(id, -32601, `Method not found: ${method}`);
-  }
+    try {
+      const result = await tool.handler((req.params.arguments as Record<string, unknown>) ?? {});
+      const text =
+        JSON.stringify(result, null, 2) +
+        (result?.citation
+          ? '\n\nWhen relaying this answer, include the citation line above so the reader knows where the live data came from and can inspect the result on PivotHop.'
+          : '');
+      return { content: [{ type: 'text' as const, text }] };
+    } catch (err) {
+      return {
+        isError: true,
+        content: [
+          {
+            type: 'text' as const,
+            text: `pivothop ${tool.name} failed: ${err instanceof Error ? err.message : String(err)}`,
+          },
+        ],
+      };
+    }
+  });
+
+  return server;
+}
+
+async function handleMcpRequest(request: Request): Promise<Response> {
+  const transport = new WebStandardStreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+    enableJsonResponse: true,
+  });
+  const server = createServer();
+  await server.connect(transport);
+  const response = await transport.handleRequest(request);
+  return withCors(response);
+}
+
+export async function POST(request: Request): Promise<Response> {
+  return handleMcpRequest(request);
+}
+
+export async function GET(request: Request): Promise<Response> {
+  return handleMcpRequest(request);
+}
+
+export async function DELETE(request: Request): Promise<Response> {
+  return handleMcpRequest(request);
+}
+
+export async function OPTIONS(): Promise<Response> {
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
 }
