@@ -83,7 +83,7 @@ export default function JobsHub() {
                     <Link key={o} href={`/jobs/${o}`}>{titles[o]} <span className="lbl">{idx[o]}</span></Link>
                   ))}
                   {nSearches > 0 && (
-                    <Link className="jb-occall" href="/jobs/browse/fields">All {nSearches} {field} searches &rarr;</Link>
+                    <Link className="jb-occall" href="/jobs/browse/fields">All {nSearches} {field.toLowerCase()} searches &rarr;</Link>
                   )}
                 </span>
               </div>

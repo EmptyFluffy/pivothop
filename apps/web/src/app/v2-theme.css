@@ -1340,9 +1340,11 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
   letter-spacing:-.01em; margin:0 0 8px; padding-bottom:8px;
   border-bottom:1px solid var(--v-text); }
 
-/* the per-field bridge into the browse spine — the words face, not mono
-   (founder call), quiet until hover */
+/* the per-field bridge into the browse spine — the words face, not mono, in
+   the house accent, on its own line bottom-left under the field's links
+   (founder calls, 2026-08-21/22) */
 .v2t .jb-occall{ font-family:var(--sans),sans-serif; font-size:14px; font-weight:600;
-  letter-spacing:-.01em; color:var(--v-text2) !important; }
+  letter-spacing:-.01em; color:var(--v-value) !important;
+  flex-basis:100%; margin-top:6px; }
 .v2t .jb-occlinks a.jb-occall:hover{ color:var(--v-value); text-decoration:underline;
   text-decoration-thickness:2px; text-underline-offset:2px; }
