@@ -30,6 +30,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: BASE, ...mod('/'), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE}/about`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/support`, changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${BASE}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${BASE}/terms`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/employers`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/fairelephant`, changeFrequency: 'daily', priority: 0.8 },
     { url: `${BASE}/blog`, changeFrequency: 'weekly', priority: 0.8 },
