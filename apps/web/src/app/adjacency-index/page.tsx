@@ -117,7 +117,7 @@ export default function AdjacencyIndex() {
   ];
 
   return (
-    <PageShell>
+    <PageShell v2>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div className="axi">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Adjacency Index</span></nav>

@@ -57,7 +57,7 @@ export default function Employers() {
   }
 
   return (
-    <PageShell active="employers">
+    <PageShell v2 active="employers">
       <div className="emp-post">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Post a job</span></nav>
         <header className="emp-post-head">

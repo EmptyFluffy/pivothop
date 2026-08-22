@@ -1408,3 +1408,69 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 
 /* the licenses FAQ block reuses post-faq's v2 skin; rt-faq only adjusts scope */
 .v2t .rt-faq h2{ color:var(--v-text); }
+
+/* ============================================================================
+   /employers + /compare + /adjacency-index on the V2 system (2026-08-22).
+   Same discipline as glossary/licenses: geometry survives, ink changes.
+   ============================================================================ */
+
+/* ---- employers ---- */
+.v2t .emp-post-head h1{ font-size:clamp(40px,6vw,64px); font-weight:800;
+  letter-spacing:-.035em; color:var(--v-text); }
+.v2t .emp-post-head p{ color:var(--v-text2); }
+.v2t .emp-post-head .lbl.acc{ color:var(--v-value); }
+.v2t .wl-status{ color:var(--v-text2); }
+.v2t .wl-row input{ border-bottom:2px solid var(--v-text); color:var(--v-text); }
+.v2t .wl-row input::placeholder{ color:var(--v-text2); }
+.v2t .wl-row input:focus{ border-bottom-color:var(--v-value); }
+.v2t .wl-go{ background:var(--v-fill); border-color:var(--v-fill); color:var(--v-fill-ink);
+  border-radius:999px; font-weight:700; transition:none; }
+.v2t .wl-go:hover{ background:var(--v-fill); border-color:var(--v-fill); filter:brightness(1.08); }
+.v2t .wl-done{ color:var(--v-text); font-weight:700; letter-spacing:-.03em; }
+.v2t .wl-note, .v2t .wl-alt{ color:var(--v-text2); }
+/* the full form behind the waitlist flag: a token pass so flipping the flag
+   never lands on newspaper ink */
+.v2t .ejf-form input, .v2t .ejf-form select, .v2t .ejf-form textarea,
+.v2t .ef-field input, .v2t .ef-field select, .v2t .ef-field textarea{
+  background:none; color:var(--v-text); border-color:var(--v-border2); }
+.v2t .ejf-chip{ font-family:var(--sans),sans-serif; font-weight:600; color:var(--v-text);
+  border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); border-radius:999px;
+  background:none; }
+.v2t .ejf-submit, .v2t .ef-send{ background:var(--v-fill); color:var(--v-fill-ink);
+  border-radius:999px; font-weight:700; }
+
+/* ---- compare ---- */
+.v2t .cmp-col h2, .v2t .cmp-dir h3{ color:var(--v-text); font-weight:700; letter-spacing:-.02em; }
+.v2t .d-match .n{ font-family:var(--sans),sans-serif; font-weight:800; font-size:44px;
+  letter-spacing:-.03em; color:var(--v-value); }
+.v2t .d-match .u{ color:var(--v-text2); }
+.v2t .drow{ border-top:1px solid var(--v-border); }
+.v2t .drow .k{ color:var(--v-text2); }
+.v2t .drow .v{ color:var(--v-text); font-weight:600; }
+.v2t .tag, .v2t a.tag{ font-family:var(--sans),sans-serif; font-size:12.5px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-text); background:none;
+  border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); border-radius:999px;
+  transition:none; }
+.v2t .tag.have{ border-color:var(--v-text); }
+.v2t a.tag:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .cmp-links a{ color:var(--v-text); }
+
+/* ---- adjacency index: the citable stats read in the words face ---- */
+.v2t .axi-head{ border-bottom:1px solid var(--v-text); }
+.v2t .axi-head .lbl.acc{ color:var(--v-value); }
+.v2t .axi-h2{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.14em;
+  color:var(--v-text2); font-weight:400; }
+.v2t .axi-big{ font-family:var(--sans),sans-serif; font-weight:800; letter-spacing:-.035em;
+  color:var(--v-value); }
+.v2t .axi-unit{ color:var(--v-text2); }
+.v2t .axi-sentence{ color:var(--v-text2); }
+.v2t .axi-src{ color:var(--v-text2); }
+.v2t .axi-src a{ color:var(--v-text2); }
+.v2t .axi-src a:hover{ color:var(--v-value); }
+.v2t .axi-method p{ color:var(--v-text2); }
+.v2t .axi-cite{ color:var(--v-text2); }
+.v2t .axi-cite code{ background:var(--v-bg2); color:var(--v-text); border:1px solid var(--v-border2); }
+.v2t .axi-sec{ border-color:var(--v-border2); }
+.v2t .axi-links{ border-color:var(--v-border2); }
+.v2t .axi-links a{ color:var(--v-text2); }
+.v2t .axi-links a:hover{ color:var(--v-value); }
