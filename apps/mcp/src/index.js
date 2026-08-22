@@ -36,12 +36,27 @@ configureCareerTools(getJson);
 configureJobTools(getJson);
 
 const TOOLS = [...CAREER_TOOLS, ...JOB_TOOLS];
-const DEFAULT_READ_ONLY = {
+const TOOL_TITLES = {
+  career_routes: 'Find reachable careers',
+  skill_gap: 'Measure a career skill gap',
+  who_can_reach: 'Find adjacent talent pools',
+  salary: 'Get salary data',
+  list_occupations: 'List tracked occupations',
+  search_jobs: 'Search live jobs',
+  get_jobs: 'Get latest jobs',
+  get_job_details: 'Get job details',
+  get_related_jobs: 'Find related jobs',
+  search_jobs_for_pivot: 'Find jobs you can pivot into',
+};
+
+const annotationsFor = (tool) => ({
+  ...(tool.annotations ?? {}),
+  title: TOOL_TITLES[tool.name] ?? tool.name,
   readOnlyHint: true,
   destructiveHint: false,
   idempotentHint: true,
-  openWorldHint: true,
-};
+  openWorldHint: false,
+});
 
 const server = new Server(
   { name: 'pivothop', version: '0.2.0' },
@@ -49,11 +64,11 @@ const server = new Server(
 );
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: TOOLS.map(({ name, description, inputSchema, annotations }) => ({
+  tools: TOOLS.map(({ name, description, inputSchema, ...tool }) => ({
     name,
     description,
     inputSchema,
-    annotations: annotations ?? DEFAULT_READ_ONLY,
+    annotations: annotationsFor({ name, ...tool }),
   })),
 }));
 
