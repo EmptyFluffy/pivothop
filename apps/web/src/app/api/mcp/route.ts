@@ -12,6 +12,16 @@ type McpTool = {
 
 const TOOLS = [...CAREER_TOOLS, ...JOB_TOOLS] as McpTool[];
 
+// Every current PivotHop tool is retrieval/computation only. OpenAI's public
+// plugin review scans these values from tools/list, so return explicit metadata
+// for the older career tools too rather than relying on defaults.
+const DEFAULT_READ_ONLY_ANNOTATIONS = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: true,
+};
+
 /* PivotHop MCP — remote HTTPS front door.
  *
  * Career intelligence and job discovery share one endpoint. The career tools
@@ -132,7 +142,7 @@ export async function POST(req: NextRequest) {
             name: t.name,
             description: t.description,
             inputSchema: t.inputSchema,
-            ...(t.annotations ? { annotations: t.annotations } : {}),
+            annotations: t.annotations ?? DEFAULT_READ_ONLY_ANNOTATIONS,
           })),
         },
       });
