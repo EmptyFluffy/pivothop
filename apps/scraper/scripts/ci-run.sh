@@ -65,6 +65,9 @@ if [ "$(date +%u)" = "7" ]; then
   RETRY=1 PROSPECT_PER_NIGHT="${PROSPECT_PER_NIGHT:-300}" node apps/scraper/scripts/prospect.mjs || echo "::warning::prospect retry pass failed (non-fatal)"
 fi
 npm run --silent scrape -- ingest all || echo "::warning::ingest exited non-zero (continuing to the gate)"
+# Absorb tracked sideload snapshots (careerjet: IP-bound to the founder's
+# machine, exported there, committed; see scripts/sideload.mjs).
+node apps/scraper/scripts/sideload.mjs || echo "::warning::sideload failed (non-fatal)"
 npm run --silent scrape -- normalize  || echo "::warning::normalize exited non-zero"
 npm run --silent scrape -- aggregate  || echo "::warning::aggregate exited non-zero"
 # Graph re-scores weekly (Mondays) — but ALSO whenever adjacency.json is absent.

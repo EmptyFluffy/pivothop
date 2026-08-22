@@ -97,4 +97,5 @@ jobs:
           # jooble.org/api/about, then add the repo secrets.
           CAREERJET_API_KEY: ${{ secrets.CAREERJET_API_KEY }}
           JOOBLE_API_KEY: ${{ secrets.JOOBLE_API_KEY }}
+          JOOBLE_US_API_KEY: ${{ secrets.JOOBLE_US_API_KEY }}
         run: bash apps/scraper/scripts/ci-run.sh

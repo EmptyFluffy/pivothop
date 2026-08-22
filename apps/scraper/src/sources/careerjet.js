@@ -65,13 +65,28 @@ export async function fetchRaw({ log }) {
   if (!key) { log('careerjet: no CAREERJET_API_KEY set — skipping (free key at careerjet.com/partners; IP allow-list required)'); return []; }
   const auth = `Basic ${Buffer.from(`${key}:`).toString('base64')}`;
 
+  // Careerjet validates user_ip (a bogus placeholder is rejected outright,
+  // 2026-08-22) and the account is IP-allow-listed besides, so the honest
+  // value is this machine's real public address, resolved once per run.
+  let userIp = process.env.CAREERJET_USER_IP || '';
+  if (!userIp) {
+    try {
+      userIp = (await (await fetch('https://api.ipify.org', { signal: AbortSignal.timeout(10000) })).text()).trim();
+    } catch { /* fall through */ }
+  }
+  if (!/^\d+\.\d+\.\d+\.\d+$/.test(userIp)) {
+    log('careerjet: could not resolve the public IP (set CAREERJET_USER_IP) — skipping');
+    return [];
+  }
+
   const byId = new Map();
   for (const { code, ccy, terms } of LOCALES) {
     for (const kw of terms) {
       const url = `${ENDPOINT}?locale_code=${code}&keywords=${encodeURIComponent(kw)}`
-        + `&page_size=100&sort=date&user_ip=1.1.1.1&user_agent=${encodeURIComponent('PivotHopScraper/0.1')}`;
+        + `&page_size=100&sort=date&user_ip=${userIp}&user_agent=${encodeURIComponent('PivotHopScraper/0.1')}`;
       const body = await fetchJson(url, {
-        headers: { Authorization: auth, 'user-agent': 'PivotHopScraper/0.1 (career adjacency; cvinocoura@gmail.com)' },
+        headers: { Authorization: auth, Referer: 'https://www.pivothop.com',
+          'user-agent': 'PivotHopScraper/0.1 (career adjacency; cvinocoura@gmail.com)' },
         minIntervalMs: 2000,
       }).catch(() => null);
       if (body?.type !== 'JOBS') continue; // skip LOCATIONS mode / errors
