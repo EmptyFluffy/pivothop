@@ -67,7 +67,7 @@ export default function LicensesPage() {
     { q: 'How is Switzerland different from the US?', a: 'Switzerland keeps one federal list of regulated professions and runs formal recognition procedures for foreign credentials, which matters in a country where a quarter of the workforce is foreign-born. Some gates are stricter than the US equivalent (independent electrical installation needs a federal permit) and some are looser: in most cantons, architect is not a protected practice at all.' },
   ];
   return (
-    <PageShell>
+    <PageShell v2>
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>License gates</span></nav>
         <h1 className="rt-h1">License gates, stated plainly.</h1>

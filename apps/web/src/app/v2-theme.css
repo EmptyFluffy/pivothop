@@ -1348,3 +1348,63 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
   flex-basis:100%; margin-top:6px; }
 .v2t .jb-occlinks a.jb-occall:hover{ color:var(--v-value); text-decoration:underline;
   text-decoration-thickness:2px; text-underline-offset:2px; }
+
+/* ============================================================================
+   /glossary + /licenses on the V2 system (2026-08-22). The geometry of both
+   pages survives from the old layer; this re-inks it: tokens, real weights,
+   the pill/rule/mono idioms, instant hovers. gu-link pills and .lic-req were
+   already re-inked for the definition sheets and apply here unchanged.
+   ============================================================================ */
+
+/* ---- glossary head: the rt scale ---- */
+.v2t .gloss-h1{ font-size:clamp(40px,6vw,64px); font-weight:800; letter-spacing:-.035em;
+  color:var(--v-text); }
+.v2t .gloss-dek{ color:var(--v-text2); }
+.v2t .gloss-note{ color:var(--v-text2); }
+
+/* ---- the tab bar: mono tabs on one ink rule, active takes the 2px edge ---- */
+.v2t .gloss-tabbar{ border-bottom:1px solid var(--v-text); }
+.v2t .gloss-tab{ color:var(--v-text2); transition:none; }
+.v2t .gloss-tab:hover{ color:var(--v-text); }
+.v2t .gloss-tab.on{ color:var(--v-text); border-bottom:2px solid var(--v-value); }
+.v2t .gtab-n{ color:var(--v-text2); font-variant-numeric:tabular-nums; }
+.v2t .gloss-tab.on .gtab-n{ color:var(--v-value); }
+
+/* ---- entries ---- */
+.v2t .gloss-item{ border-bottom:1px solid var(--v-border); }
+.v2t .gloss-item .gt{ color:var(--v-text); font-weight:700; }
+.v2t .gloss-item .gf{ color:var(--v-text2); }
+.v2t .gloss-item dd{ color:var(--v-text2); }
+.v2t .gloss-item:target .gt{ color:var(--v-value); }
+.v2t .gt-mark{ color:var(--v-text); }
+.v2t .gloss-src{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--v-value); text-decoration:none; }
+.v2t .gloss-src:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+
+/* ---- A–Z strip + letter markers ---- */
+.v2t .gloss-az{ border-bottom:1px solid var(--v-border2); }
+.v2t .gloss-az a{ color:var(--v-text2); transition:none; }
+.v2t .gloss-az a:hover{ color:var(--v-value); }
+.v2t .gloss-letter{ font-family:var(--sans),sans-serif; font-size:22px; font-weight:800;
+  letter-spacing:-.02em; text-transform:none; color:var(--v-text); }
+
+/* ---- licenses: cards on the soft-rounded family ---- */
+.v2t .lic-grid{ gap:22px; }
+.v2t .lic-card{ background:var(--v-bg); border:1px solid var(--v-border2); border-radius:10px; }
+.v2t .lic-card h3{ color:var(--v-text); font-weight:700; letter-spacing:-.02em; }
+.v2t .lic-facts dt{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lic-facts dd{ color:var(--v-text); }
+.v2t .lic-facts a{ color:var(--v-text); text-underline-offset:3px; }
+.v2t .lic-facts a:hover{ color:var(--v-value); text-decoration-thickness:2px; }
+.v2t .lic-occs li{ border-top:1px solid var(--v-border); }
+.v2t .lic-occ-head b{ color:var(--v-text); font-weight:600; }
+.v2t .lic-occ-label{ color:var(--v-text2); }
+.v2t .lic-occ-links a{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--v-text2); text-decoration:none; }
+.v2t .lic-occ-links a:hover{ color:var(--v-value); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:3px; }
+
+/* the licenses FAQ block reuses post-faq's v2 skin; rt-faq only adjusts scope */
+.v2t .rt-faq h2{ color:var(--v-text); }

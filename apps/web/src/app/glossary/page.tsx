@@ -40,7 +40,7 @@ const LETTERS = [...new Set(SKILLS.map((s) => firstLetter(s.term)))].sort();
 
 export default function GlossaryPage() {
   return (
-    <PageShell>
+    <PageShell v2>
       <div className="gloss">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Glossary</span></nav>
         <h1 className="gloss-h1">Glossary &amp; sources</h1>
