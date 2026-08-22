@@ -99,6 +99,10 @@ export async function GET(req: NextRequest) {
     });
   }
 
+  const selectedCheck = checks.find((check) => check.id === live.id);
+  const verificationReason = selectedCheck?.state === 'live'
+    ? 'source verified live'
+    : 'source unverified fallback';
   const { copy, variant } = generateSocialPost(live, 'linkedin');
   const row = await insertDraft({
     platform: 'linkedin',
@@ -110,8 +114,8 @@ export async function GET(req: NextRequest) {
       ...live.reasons,
       usedRemoteArchitectureSlot ? 'dedicated remote architecture slot' : null,
       remoteArchitectureSlot && !usedRemoteArchitectureSlot ? 'remote architecture slot fallback' : null,
-      'source verified live',
-    ].filter(Boolean).join(' + ') || 'source verified live',
+      verificationReason,
+    ].filter(Boolean).join(' + ') || verificationReason,
     status: autoApprove ? 'scheduled' : 'draft',
     scheduled_at: new Date().toISOString(),
   });
