@@ -254,7 +254,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
             <h2>Is your offer fair?</h2>
             <p>Run a specific number through FairElephant, which weighs it against this data, your location, and remote market rates.</p>
           </div>
-          <Link className="rt-go" href={`/fairelephant?role=${occ}`}>Check an offer &rarr;</Link>
+          <Link className="rt-go" href={`/salary/calculator?role=${occ}`}>Check an offer &rarr;</Link>
         </section>
 
         {def.routes.filter((r) => routableSlugs().includes(r)).length > 0 && (

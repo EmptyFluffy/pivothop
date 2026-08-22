@@ -81,7 +81,7 @@ export default function ByCountryPage() {
           What an occupation pays in the four markets our sources post in, the United States, United Kingdom, Canada, and
           Australia, from live job postings. Two numbers for each: the headline pay, and the same pay adjusted for cost of
           living, which is the one that tells you where a salary actually goes further. Pricing a specific remote offer
-          against a location is <Link className="gl" href="/fairelephant">FairElephant</Link>&rsquo;s job.
+          against a location is the <Link className="gl" href="/salary/calculator">remote salary calculator</Link>&rsquo;s job.
         </p>
 
         <section className="rt-sec">
@@ -140,7 +140,7 @@ export default function ByCountryPage() {
             <h2>Weighing a remote offer?</h2>
             <p>A number in one country is not the same number in another. FairElephant prices a specific offer against location, cost of living, and remote-market rates.</p>
           </div>
-          <Link className="rt-go" href="/fairelephant">Run the numbers &rarr;</Link>
+          <Link className="rt-go" href="/salary/calculator">Run the numbers &rarr;</Link>
         </section>
 
         <section className="rt-sec">

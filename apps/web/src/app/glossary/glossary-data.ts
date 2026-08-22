@@ -150,7 +150,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   },
   {
     id: 'ppp', term: 'PPP', full: 'Purchasing Power Parity', cat: 'term',
-    def: 'The exchange rate at which a basket of goods costs the same in two countries, as opposed to the market rate. FairElephant uses World Bank price levels derived from PPP to compare pay across countries by what money actually buys.',
+    def: 'The exchange rate at which a basket of goods costs the same in two countries, as opposed to the market rate. The remote salary calculator uses World Bank price levels derived from PPP to compare pay across countries by what money actually buys.',
   },
   {
     id: 'cc-by', term: 'CC BY', full: 'Creative Commons Attribution license', cat: 'term',
@@ -180,11 +180,11 @@ export const GLOSSARY: GlossaryEntry[] = [
   // ── Sources and data ──
   {
     id: 'bls', term: 'BLS', full: 'US Bureau of Labor Statistics', cat: 'source', url: 'https://www.bls.gov',
-    def: 'The federal statistical agency behind most of the labor data PivotHop and FairElephant rest on: wage percentiles (OEWS), employment projections and occupational-transfer rates, and the Current Population Survey. BLS material is public domain, which is part of why it anchors so much of the instrument.',
+    def: 'The federal statistical agency behind most of the labor data PivotHop and the salary calculator rest on: wage percentiles (OEWS), employment projections and occupational-transfer rates, and the Current Population Survey. BLS material is public domain, which is part of why it anchors so much of the instrument.',
   },
   {
     id: 'oews', term: 'OEWS', full: 'Occupational Employment and Wage Statistics', cat: 'source', url: 'https://www.bls.gov/oes/',
-    def: 'The BLS survey that reports wage percentiles, the 10th through the 90th, for every occupation, nationally and by state. FairElephant blends OEWS anchors with live-posting pay so a salary estimate is grounded in official numbers rather than only what employers happen to advertise. Public domain.',
+    def: 'The BLS survey that reports wage percentiles, the 10th through the 90th, for every occupation, nationally and by state. The remote salary calculator blends OEWS anchors with live-posting pay so a salary estimate is grounded in official numbers rather than only what employers happen to advertise. Public domain.',
   },
   {
     id: 'cps', term: 'CPS', full: 'Current Population Survey', cat: 'source', url: 'https://www.census.gov/programs-surveys/cps.html',
@@ -212,7 +212,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   },
   {
     id: 'worldbank-icp', term: 'World Bank ICP', full: 'International Comparison Program', cat: 'source', url: 'https://www.worldbank.org/en/programs/icp',
-    def: 'The World Bank program that measures price levels across countries, the basis for purchasing-power comparisons. FairElephant uses ICP-derived price levels to convert pay between countries by what it actually buys, not the market exchange rate.',
+    def: 'The World Bank program that measures price levels across countries, the basis for purchasing-power comparisons. The remote salary calculator uses ICP-derived price levels to convert pay between countries by what it actually buys, not the market exchange rate.',
   },
   {
     id: 'jobhop', term: 'JobHop', full: 'JobHop career-trajectory dataset', cat: 'source', url: 'https://esco.ec.europa.eu/en/about-esco/publications',

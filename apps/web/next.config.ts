@@ -11,6 +11,12 @@ import { fileURLToPath } from "node:url";
 const REPO_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      // FairElephant retired 2026-08-22; the calculator lives in the salary silo
+      { source: '/fairelephant', destination: '/salary/calculator', permanent: true },
+    ];
+  },
   // First-party proxy for PostHog ingestion (api_host '/ingest' in PostHogInit):
   // events flow through our own domain, so ad-blockers don't null the data.
   async rewrites() {

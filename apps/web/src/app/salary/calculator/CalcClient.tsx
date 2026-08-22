@@ -2,9 +2,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { WORLDMAP } from './worldmap';
 
-/* FairElephant, live. Same instrument philosophy as PivotHop: every number
-   traces to postings or a named public dataset, method switches shown honestly
-   (housing and savings lenses are OFF until we have open rent data). */
+/* The remote salary calculator (was FairElephant until 2026-08-22). Same
+   instrument philosophy as the rest of the site: every number traces to
+   postings or a named public dataset. UX per the calculator research:
+   ZERO-GATE (the page loads computed; inputs edit the result), URL state
+   (?role&live&hire&offer so a result is pasteable), locale-guessed defaults,
+   per-lens sample sizes, percentile ticks, the equivalence sentence, and a
+   count-gated CTA into the board after the answer. */
 
 type Band = { n?: number; p10?: number; p25?: number; p50?: number; p75?: number; p90?: number; basis?: string };
 type SalDoc = {
@@ -35,6 +39,9 @@ const M49: Record<string, [string, string]> = {
   '554': ['NZ', 'New Zealand'],
 };
 const ISO2NAME = Object.fromEntries(Object.values(M49));
+// countries English gives a definite article (same convention as the board)
+const THE = new Set(['US', 'GB', 'NL', 'AE', 'PH']);
+const inName = (iso: string) => (THE.has(iso) ? `the ${ISO2NAME[iso]}` : ISO2NAME[iso]);
 const fmt = (v: number | null | undefined) => (v == null ? '—' : '$' + Math.round(v).toLocaleString());
 const fmtK = (v: number | null | undefined) => (v == null ? '—' : '$' + Math.round(v / 1000) + 'k');
 
@@ -57,16 +64,16 @@ function computeLenses(doc: SalDoc | null, levels: Levels, cur: string, hire: st
   return {
     lenses: [
       ...(dropLocal ? [] : [{ name: 'Local market salary', sub: (ISO2NAME[cur] || cur) + (localEst ? ' · estimated via price level' : ' · live postings'), v: localP50 }]),
-      { name: 'Purchasing-power par', sub: 'World Bank ICP', v: ppPar },
+      { name: 'Purchasing-power par', sub: 'World Bank ICP · 2023 round', v: ppPar },
       { name: 'Ethical band midpoint', sub: 'blended', v: ethical },
-      { name: 'Remote market median', sub: doc.remote ? 'live remote postings' : 'live postings, all', v: remoteP50, hot: true },
-      { name: 'Employer-country rate', sub: (ISO2NAME[hire] || hire) + (hireEst ? ' · estimated via price level' : ' · postings + official'), v: hireP50 },
-    ].filter((l) => l.v != null) as { name: string; sub: string; v: number; hot?: boolean }[],
+      { name: 'Remote market median', sub: `${doc.remote ? 'live remote postings' : 'live postings, all'} · n=${(doc.remote?.remote?.n ?? doc.global?.n ?? doc.observations).toLocaleString()}`, v: remoteP50, hot: true, band: doc.remote?.remote ?? doc.global ?? undefined },
+      { name: 'Employer-country rate', sub: (ISO2NAME[hire] || hire) + (hireEst ? ' · estimated via price level' : ` · postings + official · n=${(hireEntry?.posted?.n ?? 0).toLocaleString()}`), v: hireP50, band: hireEntry?.blended ?? hireEntry?.posted ?? undefined },
+    ].filter((l) => l.v != null) as { name: string; sub: string; v: number; hot?: boolean; band?: Band }[],
     fair, usP50,
   };
 }
 
-export function FEClient() {
+export function CalcClient() {
   const [index, setIndex] = useState<{ slug: string; title: string; observations: number; fe_viable?: boolean }[]>([]);
   const [levels, setLevels] = useState<Levels>({});
   const [slug, setSlug] = useState('ux-designer');
@@ -74,28 +81,45 @@ export function FEClient() {
   const [cur, setCur] = useState('CR');
   const [hire, setHire] = useState('US');
   const [salary, setSalary] = useState(80000);
-  const [ran, setRan] = useState(false);
+  const [ran, setRan] = useState(true);  // zero-gate: computed on load
   const [mode, setMode] = useState<'local' | 'remote' | 'gap'>('local');
   const [pinned, setPinned] = useState<string | null>(null);
   const [openLens, setOpenLens] = useState<string | null>(null);
   const mapRef = useRef<HTMLDivElement>(null);
+  const [themeTick, setThemeTick] = useState(0);   // repaint the ramp when the mode flips
+  useEffect(() => {
+    const ob = new MutationObserver(() => setThemeTick((n) => n + 1));
+    ob.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => ob.disconnect();
+  }, []);
   const lbodyRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [poleLeft, setPoleLeft] = useState<number | null>(null);
   const dragScale = useRef<{ lo: number; hi: number } | null>(null);
 
   useEffect(() => {
-    document.querySelectorAll('.fe-root .hero, .fe-root .calcwrap, .fe-root .method .mrow, .fe-root .manif, .fe-root .atlas, .fe-root .foot').forEach((el) => el.classList.add('rv'));
-    import('../../lib/reveal.js').then((r) => (r as { mountReveal: () => void }).mountReveal());
     fetch('/data/salaries/index.json').then((r) => r.json()).then((d) => {
       const occ = d.occupations || [];
       setIndex(occ);
       // Preload an occupation handed over from a salary page (?role=slug), so
       // clicking "check an offer" lands here with that occupation already loaded.
-      const role = new URLSearchParams(window.location.search).get('role');
-      if (role && occ.some((o: { slug: string }) => o.slug === role)) { setSlug(role); return; }
-      const viable = occ.filter((o: { fe_viable?: boolean; observations: number }) => o.fe_viable && o.observations >= 50);
-      if (!viable.some((o: { slug: string }) => o.slug === 'ux-designer') && viable[0]) setSlug(viable[0].slug);
+      const p = new URLSearchParams(window.location.search);
+      const role = p.get('role');
+      if (role && occ.some((o: { slug: string }) => o.slug === role)) setSlug(role);
+      else {
+        const viable = occ.filter((o: { fe_viable?: boolean; observations: number }) => o.fe_viable && o.observations >= 50);
+        if (!viable.some((o: { slug: string }) => o.slug === 'ux-designer') && viable[0]) setSlug(viable[0].slug);
+      }
+      // shareable state: the URL is the result's address
+      if (p.get('live') && ISO2NAME[p.get('live')!]) setCur(p.get('live')!);
+      else {
+        // locale guess: es-CR -> CR. Styled as a default, cleared on touch.
+        const region = (navigator.language.split('-')[1] || '').toUpperCase();
+        if (ISO2NAME[region]) setCur(region);
+      }
+      if (p.get('hire') && ISO2NAME[p.get('hire')!]) setHire(p.get('hire')!);
+      const offer = parseInt(p.get('offer') || '', 10);
+      if (!isNaN(offer) && offer > 1000) setSalary(offer);
     });
     fetch('/data/price-levels.json').then((r) => r.json()).then((d) => setLevels(d.levels || {}));
   }, []);
@@ -103,6 +127,12 @@ export function FEClient() {
     setDoc(null);
     fetch(`/data/salaries/${slug}.json`).then((r) => (r.ok ? r.json() : null)).then(setDoc).catch(() => setDoc(null));
   }, [slug]);
+
+  useEffect(() => {
+    const p = new URLSearchParams();
+    p.set('role', slug); p.set('live', cur); p.set('hire', hire); p.set('offer', String(salary));
+    window.history.replaceState(null, '', '?' + p.toString());
+  }, [slug, cur, hire, salary]);
 
   const L = useMemo(() => computeLenses(doc, levels, cur, hire), [doc, levels, cur, hire]);
   const lensScale = useMemo(() => {
@@ -129,6 +159,27 @@ export function FEClient() {
     score >= 70 ? 'Good match for the remote market.' :
     score >= 50 ? 'Below fair for this work.' : 'Well below the measured band.';
   const delta = L?.fair ? Math.round(100 * (L.fair - salary) / salary) : null;
+
+  // The equivalence sentence: the single most quotable artifact a comparison
+  // tool produces (Numbeo's lesson). Buying power of $S located in `cur`,
+  // expressed in employer-country terms via ICP price levels.
+  const equiv = useMemo(() => {
+    const plc = levels[cur]?.price_level, plh = levels[hire]?.price_level;
+    if (!plc || !plh || cur === hire) return null;
+    const inHire = Math.round((salary * plh) / plc / 500) * 500;
+    return { inHire };
+  }, [levels, cur, hire, salary]);
+
+  // Count-gated CTA into the board: remote openings for this occupation,
+  // fetched lazily after the answer is on screen.
+  const [remoteOpen, setRemoteOpen] = useState<number | null>(null);
+  useEffect(() => {
+    setRemoteOpen(null);
+    fetch(`/data/jobs/${slug}.json`).then((r) => (r.ok ? r.json() : null)).then((d) => {
+      if (Array.isArray(d)) setRemoteOpen(d.filter((j: { remote?: boolean }) => j.remote).length);
+      else if (d?.jobs) setRemoteOpen((d.jobs as { remote?: boolean }[]).filter((j) => j.remote).length);
+    }).catch(() => {});
+  }, [slug]);
 
   // atlas values per ISO for the selected occupation
   const atlas = useMemo(() => {
@@ -159,15 +210,20 @@ export function FEClient() {
       // NB: set fill via inline style, not setAttribute — a CSS rule
       // (#worldmap path{fill:...}) overrides the fill *attribute*, but not
       // inline style. Attribute-based fills silently render beige.
-      if (v == null || !isFinite(lo)) { p.classList.add('nodata'); p.style.fill = '#f1eee6'; return; }
+      if (v == null || !isFinite(lo)) {
+        p.classList.add('nodata');
+        p.style.fill = document.documentElement.classList.contains('vlight') ? '#F1F1EF' : '#1A1917';
+        return;
+      }
       p.classList.remove('nodata');
       const t = hiV > lo ? (v - lo) / (hiV - lo) : 0.5;
-      // oxblood ramp on paper
-      const a = 0.08 + t * 0.80;
-      p.style.fill = `rgba(138,47,30,${a.toFixed(3)})`;
+      // the accent ramp follows the theme: violet on white, gold on black
+      const light = document.documentElement.classList.contains('vlight');
+      const a = 0.10 + t * 0.80;
+      p.style.fill = light ? `rgba(98,25,255,${a.toFixed(3)})` : `rgba(240,180,60,${a.toFixed(3)})`;
       p.classList.toggle('pinned', !!m && pinned === m[0]);
     });
-  }, [atlas, mode, pinned]);
+  }, [atlas, mode, pinned, themeTick]);
 
   useEffect(() => {
     const host = mapRef.current;
@@ -239,6 +295,12 @@ export function FEClient() {
               <div className="big">{fmt(L.fair)}</div>
               <span className="delta">{delta != null && delta !== 0 ? (delta > 0 ? `+${delta}% vs your number` : `${delta}% vs your number`) : 'matches your number'}</span>
               <div className="sub">The remote market median for this occupation, from {doc?.observations.toLocaleString()} salary observations.</div>
+              {equiv && (
+                <p className="equiv">
+                  <b>{fmt(salary)}</b> from {hire === 'US' ? 'a US employer' : `an employer in ${inName(hire)}`} buys
+                  in {inName(cur)} what <b>{fmt(equiv.inHire)}</b> buys in {inName(hire)}.
+                </p>
+              )}
             </div>
             <div className="rcol">
               <span className="cap">Method</span>
@@ -290,7 +352,12 @@ export function FEClient() {
                     onClick={() => setOpenLens(openLens === l.name ? null : l.name)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenLens(openLens === l.name ? null : l.name); } }}>
                     <div className="nm">{l.name}<small>{l.sub}</small></div>
-                    <div className="ltrack" ref={i === 0 ? trackRef : undefined}><i className="base"></i><b className="dot" style={{ left: `${X(l.v)}%` }}></b></div>
+                    <div className="ltrack" ref={i === 0 ? trackRef : undefined}>
+                      <i className="base"></i>
+                      {l.band?.p25 != null && <span className="ltick" style={{ left: `${X(l.band.p25)}%` }} title={'p25 ' + fmt(l.band.p25)} />}
+                      {l.band?.p75 != null && <span className="ltick" style={{ left: `${X(l.band.p75)}%` }} title={'p75 ' + fmt(l.band.p75)} />}
+                      <b className="dot" style={{ left: `${X(l.v)}%` }}></b>
+                    </div>
                     <div><div className="val">{fmt(l.v)}</div><div className="rd">{l.v >= salary * 1.05 ? 'above your number' : l.v <= salary * 0.95 ? 'below your number' : 'at your number'}</div></div>
                   </div>
                   {openLens === l.name && (
@@ -307,6 +374,9 @@ export function FEClient() {
                 </div>
               )}
             </div>
+            {remoteOpen != null && remoteOpen > 0 && (
+              <a className="calc-cta" href={`/jobs/${slug}?r=1`}>View {remoteOpen.toLocaleString()} open remote {doc?.title.toLowerCase()} roles &rarr;</a>
+            )}
           </section>
         );
       })()}

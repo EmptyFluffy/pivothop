@@ -1905,7 +1905,7 @@ export const POSTS: Post[] = [
           every route and flags the third on every licensed profession. A 70
           percent match into a plus 20 percent unlicensed role is often a better
           bet than a 55 percent match into a plus 100 percent licensed one,
-          because the second bet includes years and tuition that the salary line does not show. The <a className="gl" href="/salary">salary pages</a> carry the full distribution behind each of these figures, and <a className="gl" href="/fairelephant">FairElephant</a> prices a specific offer.
+          because the second bet includes years and tuition that the salary line does not show. The <a className="gl" href="/salary">salary pages</a> carry the full distribution behind each of these figures, and the <a className="gl" href="/salary/calculator">remote salary calculator</a> prices a specific offer.
         </p>
         <Sources>
           <p>
@@ -3694,7 +3694,7 @@ export const POSTS: Post[] = [
         <h2>Reading pay without the myth</h2>
         <p>
           If you are negotiating a remote offer, use occupation-level
-          anchors rather than remote-market headlines: the blended bands on <a className="gl" href="/salary">our salary pages</a> start from official statistics and declare their posting bias, and <a className="gl" href="/fairelephant">FairElephant</a> will weigh a specific number against your location and remote rates. If you are choosing remote work expecting an
+          anchors rather than remote-market headlines: the blended bands on <a className="gl" href="/salary">our salary pages</a> start from official statistics and declare their posting bias, and the <a className="gl" href="/salary/calculator">remote salary calculator</a> will weigh a specific number against your location and remote rates. If you are choosing remote work expecting an
           automatic 87 percent raise, expect instead a wider set of
           employers competing for you, which is worth plenty and is not the
           same thing. We will rerun the within-source test as general

@@ -89,7 +89,7 @@ export function SiteFooter() {
             <li><Link href="/routes">Career routes</Link></li>
             <li><Link href="/compare">Compare careers</Link></li>
             <li><Link href="/salary">Salaries</Link></li>
-            <li><a href="/fairelephant">FairElephant <ArrowIco /></a></li>
+            <li><a href="/salary/calculator">Salary calculator <ArrowIco /></a></li>
           </ul>
         </div>
         <div>

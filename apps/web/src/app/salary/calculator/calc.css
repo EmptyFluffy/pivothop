@@ -1,3 +1,39 @@
+/* The remote salary calculator (was FairElephant, renamed 2026-08-22).
+   Geometry preserved from the companion instrument; the palette is a token
+   BRIDGE: the old scope variables now resolve to the V2 tokens, so light and
+   dark both work and the oxblood is retired. Scoped under .fe-root inside
+   the page's .v2t wrapper. */
+.v2t .fe-root{
+  --ink:var(--v-text); --ink-2:var(--v-text2); --ink-3:var(--v-text2);
+  --paper:var(--v-bg); --paper-2:var(--v-surface); --card:var(--v-bg);
+  --rule:var(--v-border); --rule-2:var(--v-border2);
+  --accent:var(--v-value); --accent-press:var(--v-value);
+  --accent-tint:color-mix(in srgb, var(--v-value) 16%, transparent);
+  --black:var(--v-text);
+  background:var(--v-bg); color:var(--v-text);
+}
+.v2t .fe-root .manif{ background:var(--v-fill); color:var(--v-fill-ink); }
+.v2t .fe-root .manif .lbl{ color:color-mix(in srgb, var(--v-fill-ink) 60%, transparent); }
+.v2t .fe-root .manif p{ color:color-mix(in srgb, var(--v-fill-ink) 85%, transparent); }
+.v2t .fe-root .go{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:700;
+  letter-spacing:-.01em; text-transform:none; color:var(--v-fill-ink); transition:none; }
+.v2t .fe-root .go:hover{ filter:brightness(1.08); background:var(--accent); }
+.v2t .fe-root .rcol .big{ font-family:var(--sans),sans-serif; }
+.v2t .fe-root #worldmap path.nodata, .v2t .fe-root .maplegend .nd i{ fill:var(--v-surface); background:var(--v-surface); }
+.v2t .fe-root .equiv{ margin-top:14px; font-size:14.5px; line-height:1.55; color:var(--v-text2); max-width:44ch; }
+.v2t .fe-root .equiv b{ font-family:var(--mono),monospace; font-weight:400; color:var(--v-text);
+  font-variant-numeric:tabular-nums; font-size:13px; }
+.v2t .fe-root .lens-n{ display:block; font-family:var(--mono),monospace; font-size:9px;
+  letter-spacing:.06em; color:var(--v-text2); margin-top:3px; font-variant-numeric:tabular-nums; }
+.v2t .fe-root .ltick{ position:absolute; top:50%; width:1px; height:11px; transform:translate(-50%,-50%);
+  background:color-mix(in srgb, var(--v-text) 35%, transparent); }
+.v2t .fe-root .calc-cta{ display:inline-block; margin-top:26px; font-family:var(--mono),monospace;
+  font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--v-value);
+  text-decoration:none; }
+.v2t .fe-root .calc-cta:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .fe-root .cfield select:focus-visible, .v2t .fe-root .cfield input:focus-visible{
+  box-shadow:inset 0 -2px 0 var(--v-value); }
+
 /* FairElephant reference styles, scoped under .fe-root (generated) */
 
   .fe-root{
@@ -20,29 +56,10 @@
   .fe-root .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
   .fe-root .mark svg{display:block;width:100%;height:100%}
 
-  .fe-root .shell{max-width:1280px;margin:0 auto;background:var(--paper);position:relative;border-left:0.5px solid var(--rule);border-right:0.5px solid var(--rule)}
 
   
-  .fe-root .nav{display:grid;grid-template-columns:270px repeat(5,1fr) 250px;align-items:stretch;border-bottom:1px solid var(--ink);height:60px;position:sticky;top:0;z-index:60;background:var(--paper)}
-  .fe-root .nav .brand{display:flex;align-items:center;gap:12px;padding:0 26px}
-  .fe-root .nav .brand .mark{width:30px;height:26px;color:var(--ink)}
-  .fe-root .nav .brand .wm{font-weight:700;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
-  .fe-root .navlink{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);text-align:center;padding:0 6px;transition:color .15s}
-  .fe-root .navlink:hover{color:var(--ink)}
-  .fe-root .nav .cta{background:var(--black);color:#f4f4f6;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 26px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;transition:background .2s}
-  .fe-root .nav .cta:hover{background:#05050b}
-  .fe-root .nav-menu{display:contents}
-  .fe-root .nav-burger{display:none;align-items:center;justify-content:center;background:none;border:none;color:var(--ink);cursor:pointer;padding:0 22px;height:100%}
-  .fe-root .nav-burger svg{width:25px;height:25px}
-  .fe-root .nav-burger .i-close{display:none}
-  .fe-root .nav.open .nav-burger .i-open{display:none}
-  .fe-root .nav.open .nav-burger .i-close{display:block}
 
   
-  .fe-root .hero{padding:104px 30px 88px}
-  .fe-root .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:34px}
-  .fe-root .hero h1{font-weight:500;font-size:clamp(60px,9.4vw,132px);line-height:.96;letter-spacing:-.04em;max-width:12ch}
-  .fe-root .hero h1 .em{font-weight:700}
 
   
   .fe-root .instr{position:relative}
@@ -166,9 +183,6 @@
   .fe-root .manif p{margin-top:36px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.85);max-width:52ch}
 
   
-  .fe-root .capture{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;padding:96px 30px;border-bottom:1px solid var(--ink);align-items:center}
-  .fe-root .capture h3{font-weight:600;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.025em;line-height:1.05;margin-top:14px}
-  .fe-root .capture .txt p{margin-top:16px;font-size:15.5px;color:var(--ink-2);max-width:44ch}
   .fe-root .cap-row{display:flex;border-bottom:1px solid var(--ink)}
   .fe-root .cap-row input{flex:1;border:none;background:transparent;padding:16px 2px;font-size:16px;outline:none;color:var(--ink)}
   .fe-root .cap-row input::placeholder{color:var(--ink-3)}
@@ -177,28 +191,9 @@
   .fe-root .cap-note{display:block;margin-top:18px;font-size:12.5px;color:var(--ink-3);line-height:1.5}
 
   
-  .fe-root .foot{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;padding:60px 30px 54px}
-  .fe-root .foot .brand{display:flex;align-items:center;gap:12px}
-  .fe-root .foot .brand .mark{width:28px;height:24px;color:var(--ink)}
-  .fe-root .foot .brand .wm{font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
-  .fe-root .foot .tg{margin-top:16px;font-size:13.5px;color:var(--ink-3);line-height:1.55}
-  .fe-root .foot .ppro{margin-top:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-  .fe-root .foot h5{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:400;margin-bottom:14px}
-  .fe-root .foot ul{list-style:none}
-  .fe-root .foot li{margin-bottom:9px}
-  .fe-root .foot a{font-size:13.5px;color:var(--ink-2);transition:color .15s}
-  .fe-root .foot a:hover{color:var(--ink)}
-  .fe-root .copy{display:flex;justify-content:space-between;padding:16px 30px;border-top:0.5px solid var(--rule);font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
 
   
   @media (max-width:980px){
-    .fe-root .nav{grid-template-columns:1fr auto;height:56px}
-    .fe-root .nav-burger{display:flex}
-    .fe-root .nav-menu{display:none}
-    .fe-root .nav.open .nav-menu{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--ink);box-shadow:0 16px 30px rgba(21,21,26,.10);z-index:59;max-height:calc(100vh - 56px);overflow-y:auto}
-    .fe-root .nav.open .nav-menu .navlink{height:auto;justify-content:flex-start;padding:16px 24px;border-bottom:0.5px solid var(--rule);font-size:12px;gap:8px}
-    .fe-root .nav.open .nav-menu .cta{justify-content:flex-start;padding:18px 24px;height:auto;gap:10px}
-    .fe-root .hero{padding:64px 22px 44px}
     .fe-root .calcwrap{position:static}
     .fe-root .calc{grid-template-columns:1fr;height:auto}
     .fe-root .cdiv{display:none}
@@ -213,8 +208,6 @@
     .fe-root .m-ico{width:50px;height:50px}
     .fe-root .m-ico svg{width:28px;height:28px}
     .fe-root .m-slot{justify-content:flex-start}
-    .fe-root .capture{grid-template-columns:1fr;gap:36px}
-    .fe-root .foot{grid-template-columns:1fr 1fr;gap:32px}
   }
 
 /* lens expanders + row affordance */
@@ -230,9 +223,13 @@
 
 /* swiss selects: no browser chrome, ink caret, tabular alignment */
 .fe-root .cfield select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315151a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 2px center;background-size:13px;
   padding-right:22px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.fe-root .cfield{position:relative}
+.fe-root .cfield::after{content:"";position:absolute;right:22px;top:50%;width:13px;height:13px;transform:translateY(-30%);
+  background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  pointer-events:none}
 .fe-root .cfield select:hover{color:var(--accent-press)}
 .fe-root .cfield select:focus-visible{outline:none;box-shadow:inset 0 -2px 0 var(--accent)}
 .fe-root .cfield input:focus-visible{outline:none;box-shadow:inset 0 -2px 0 var(--accent)}
