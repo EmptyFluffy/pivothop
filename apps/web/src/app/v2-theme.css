@@ -1474,3 +1474,49 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 .v2t .axi-links{ border-color:var(--v-border2); }
 .v2t .axi-links a{ color:var(--v-text2); }
 .v2t .axi-links a:hover{ color:var(--v-value); }
+
+/* ============================================================================
+   THE LANDING on V2 (2026-08-22) — the last surface. The instrument's physics,
+   markup and GLYPH_W are untouched (non-negotiables 1–5, 7). Three moves:
+   (1) the .v2h wrapper BRIDGES the landing's old tokens to the V2 palette, so
+   every section (searchbar, band, rail, proof, how, faq, capture, xmodal)
+   re-inks through the CSS it already has; (2) the graph reads --g-* vars set
+   here (inline-style var() with the old hex as fallback — buildDOM only);
+   (3) the sticky searchbar offset reads the measured nav height (--navh, set
+   once on mount) because the V2 nav is two-tier and font-metric-sized.
+   ============================================================================ */
+.v2t .v2h{
+  --ink:var(--v-text); --ink-2:var(--v-text2); --ink-3:var(--v-text2);
+  --paper:var(--v-bg); --paper-2:var(--v-surface); --card:var(--v-bg);
+  --rule:var(--v-border); --rule-2:var(--v-border2);
+  --accent:var(--v-value); --accent-press:var(--v-value);
+  --accent-tint:color-mix(in srgb, var(--v-value) 14%, transparent);
+  --black:var(--v-text);
+  /* the graph's paint */
+  --g-primary:var(--v-value);
+  --g-kid:color-mix(in srgb, var(--v-value) 62%, var(--v-text2));
+  --g-cross:var(--v-border2);
+  --g-ink:var(--v-text);
+  --g-ink2:var(--v-text2);
+  --g-ink3:var(--v-text2);
+  --g-halo:var(--v-bg);
+  background:var(--v-bg); color:var(--v-text);
+}
+/* the shared-pixel rule, nav-height-aware */
+.v2t .v2h .searchwrap{ top:calc(var(--navh, 60px) - 1px); }
+/* hero: the em takes the accent through the bridge; keep the landing's own
+   scale — it is the product's front door, not an rt template */
+.v2t .v2h .hero h1 .em{ color:var(--v-value); }
+/* the accent band: fieldband moves from the old blue to the fill token; the
+   cloud canvas draws white (onblue palette) which reads on violet and gold */
+.v2t .v2h .fieldband{ background:var(--v-fill); color:var(--v-fill-ink); }
+.v2t .v2h .fieldband h3, .v2t .v2h .fieldband p{ color:var(--v-fill-ink); }
+.v2t .v2h .fieldband .lbl, .v2t .v2h .fieldband .fb-hint{
+  color:color-mix(in srgb, var(--v-fill-ink) 62%, transparent); }
+.v2t .v2h .fieldband .fb-stats{ color:var(--v-fill-ink); }
+/* the one CTA of the band under the fill stays legible */
+.v2t .v2h .go{ background:var(--v-fill); color:var(--v-fill-ink); transition:none; }
+.v2t .v2h .go:hover{ filter:brightness(1.08); background:var(--v-fill); }
+/* capture + xmodal accents through the bridge already; the report CTA: */
+.v2t .v2h .xgo{ background:var(--v-fill); color:var(--v-fill-ink); }
+.v2t .v2h .xgo:hover{ filter:brightness(1.08); background:var(--v-fill); }

@@ -2,12 +2,9 @@
 import { useEffect, useRef } from 'react';
 import posthog from 'posthog-js';
 import { SHELL } from '@/lib/shell';
-import SwissBanner from './components/SwissBanner';
-import SearchOverlay from './components/SearchOverlay';
-import LicenseSheet from './components/LicenseSheet';
+import { PageShell } from './components/SiteChrome';
 import { DATA } from '@/lib/data';
 import { seedChips, rankPersonalized } from '@/lib/personalize';
-import { wireMobileNav } from '@/lib/mobilenav';
 
 type Origin = { slug: string; title: string; field: string; postings: number; ok: boolean; syn: string[] };
 type Controller = { loadOrigin: (d: unknown) => void };
@@ -27,7 +24,16 @@ export default function Home() {
     if (mounted.current || !ref.current) return;
     mounted.current = true;
     ref.current.innerHTML = SHELL;
-    wireMobileNav();
+    // The V2 nav is two-tier and its height is font-metric-dependent, so the
+    // shared-pixel sticky rule (nav border and search border share a row)
+    // reads the real height once instead of hardcoding 59px. Positions are
+    // measured outside any loop; nothing here runs per-frame.
+    const setNavH = () => {
+      const nav = document.querySelector('.v2t .nav') as HTMLElement | null;
+      if (nav && ref.current) ref.current.style.setProperty('--navh', `${nav.getBoundingClientRect().height}px`);
+    };
+    setNavH();
+    window.addEventListener('resize', setNavH);
     import('@/lib/cloud.js').then((m) => {
       const c = document.getElementById('cloudCanvas') as HTMLCanvasElement | null;
       if (c) (m as { initCloud: (c: HTMLCanvasElement, cap: HTMLElement | null) => void }).initCloud(c, document.getElementById('cloudCap'));
@@ -42,7 +48,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <PageShell v2 wide>
       {/* The homepage is a client component, so it cannot export `metadata` and
           therefore cannot declare its canonical the normal way. React 19 hoists
           a rendered <link> into <head>, which gets us the tag without splitting
@@ -51,11 +57,10 @@ export default function Home() {
           mount, and anything inside it would go with it. Absolute URL because
           hoisting does not resolve against metadataBase. */}
       <link rel="canonical" href="https://www.pivothop.com/" />
-      {/* Sibling of the wiped div on purpose — anything inside it dies on mount. */}
-      <SwissBanner />
-      <SearchOverlay />
-      <LicenseSheet />
-      <div ref={ref} suppressHydrationWarning>
+      {/* PageShell provides the chrome (nav, footer, banner, search, license
+          sheet). The v2h wrapper bridges the landing's old tokens to the V2
+          palette — every section and the graph itself re-ink through it. */}
+      <div ref={ref} className="v2h" suppressHydrationWarning>
         {/* Server-rendered boot state: real brand copy + links to the key pages,
             so the initial HTML is crawlable and the homepage passes structure to
             Google (the graph replaces this on mount; it also serves as the no-JS
@@ -85,7 +90,7 @@ export default function Home() {
         '@type': 'FAQPage',
         mainEntity: LANDING_FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
       }) }} />
-    </>
+    </PageShell>
   );
 }
 
