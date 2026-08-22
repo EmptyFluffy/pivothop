@@ -15,12 +15,17 @@ const TERMS = ['', 'ventas', 'ingeniero', 'desarrollador', 'contabilidad', 'serv
 export async function fetchRaw({ log }) {
   const key = process.env.JOOBLE_API_KEY;
   if (!key) { log('jooble: no JOOBLE_API_KEY set — skipping (free key at jooble.org/api/about)'); return []; }
+  // The CR inventory lives on cr.jooble.org and Jooble keys are SITE-BOUND:
+  // a key issued on the global site 400s here (probed 2026-08-22 — the global
+  // index has zero Heredia results and matches "Costa Rica" to Costa, WV).
+  // Request the key from cr.jooble.org/api/about, or pick Costa Rica in the
+  // signup form. A wrong-site key fails the first call and skips cleanly.
   const byId = new Map();
   for (const kw of TERMS) {
     for (let page = 1; page <= 5; page++) {
       let body;
       try {
-        body = await fetchJson(`https://jooble.org/api/${key}`, {
+        body = await fetchJson(`https://cr.jooble.org/api/${key}`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ keywords: kw, location: 'Costa Rica', page: String(page) }),
