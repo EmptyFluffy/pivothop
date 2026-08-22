@@ -76,7 +76,7 @@ function ExcludeInput({ placeholder, onAdd }: { placeholder: string; onAdd: (v: 
 
 type CatKey = 'skills' | 'field' | 'location' | 'seniority' | 'pay' | 'benefits' | 'require' | 'perks' | 'fresh' | 'source' | 'exclude' | 'license' | 'sortby';
 
-export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField, sort, onSort, skills, benefits, readout, culprit, hiddenByExclusion }: {
+export default function FilterSheet({ open, onClose, f, set, count, fieldNames, countries, regionsList, resultCount, hideField, sort, onSort, skills, benefits, culprit, hiddenByExclusion }: {
   open: boolean;
   onClose: () => void;
   f: Filters;
@@ -92,7 +92,6 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
   onSort: (s: 'new' | 'pay') => void;
   skills: SkillEntry[];
   benefits: BenefitEntry[];
-  readout: string;                     // the mono state sentence, composed by the board
   culprit: string | null;              // at zero results: which single filter to loosen, and what it returns
   hiddenByExclusion: number;           // rows the exclude facet is currently hiding
 }) {
@@ -187,12 +186,9 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
     set({ [key]: next } as Partial<Filters>);
   };
 
-  // The count cell carries a hairline data bar (--w): the facet list doubles as
-  // a distribution chart of the corpus, which is what the counts are for.
-  const Opt = ({ on, label, sub, n, nMax, mark, onClick }: { on: boolean; label: string; sub?: string; n?: number; nMax?: number; mark?: ReactNode; onClick: () => void }) => (
+  const Opt = ({ on, label, sub, n, mark, onClick }: { on: boolean; label: string; sub?: string; n?: number; mark?: ReactNode; onClick: () => void }) => (
     match(label) ? (
-      <button type="button" className={`flt-opt${on ? ' on' : ''}`} aria-pressed={on} onClick={onClick}
-        style={n !== undefined && nMax ? { '--w': `${Math.max(2, Math.round((n / nMax) * 100))}%` } as React.CSSProperties : undefined}>
+      <button type="button" className={`flt-opt${on ? ' on' : ''}`} aria-pressed={on} onClick={onClick}>
         <span className="flt-box" aria-hidden="true" />
         {mark && <span className="flt-mark">{mark}</span>}
         <span className="flt-lab">{label}{sub && <span className="flt-sub">{sub}</span>}</span>
@@ -217,8 +213,6 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
           />
           <button className="xclose sk-close" aria-label="Close" onClick={close}>&times;</button>
         </div>
-        {/* The state readout: filter state as one machine sentence. Screenshot-able, trustable. */}
-        <div className="flt-readout" aria-live="polite">{readout}</div>
         <div className="flt-body">
           <nav className="flt-rail" aria-label="Filter categories">
             {CATS.map((c) => (
@@ -263,19 +257,15 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
                 {skillRows.hidden > 0 && <p className="flt-note">{skillRows.hidden} more &mdash; keep typing to narrow.</p>}
               </>
             )}
-            {cat === 'field' && (() => {
-              const rows = fieldNames.map((name) => ({ name, n: count('field', { fieldSet: new Set([name]) }) }));
-              const nMax = Math.max(1, ...rows.map((r) => r.n));
-              return (
-                <>
-                  <p className="flt-note">Fields group our occupations. Tick several to browse across them.</p>
-                  {rows.map(({ name, n }) => (
-                    <Opt key={name} on={f.fieldSet.has(name)} label={name} n={n} nMax={nMax}
-                      onClick={() => toggleIn('fieldSet', name)} />
-                  ))}
-                </>
-              );
-            })()}
+            {cat === 'field' && (
+              <>
+                <p className="flt-note">Fields group our occupations. Tick several to browse across them.</p>
+                {fieldNames.map((name) => (
+                  <Opt key={name} on={f.fieldSet.has(name)} label={name}
+                    onClick={() => toggleIn('fieldSet', name)} />
+                ))}
+              </>
+            )}
             {cat === 'location' && (
               <>
                 <Opt on={f.remoteOnly} label="Remote" sub="marked remote by the employer" n={count('location', { remoteOnly: true, region: '', ctySet: new Set() })} onClick={() => set({ remoteOnly: !f.remoteOnly })} />
@@ -347,12 +337,11 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
                 {(['Money', 'Time', 'Flexibility', 'Health', 'Family', 'Growth', 'Workplace'] as const).map((catName) => {
                   const group = benefits.filter((b) => b.cat === catName && b.i !== undefined && (b.n ?? 0) > 0);
                   if (!group.length) return null;
-                  const nMax = Math.max(...group.map((b) => b.n ?? 0));
                   return (
                     <div key={catName}>
                       <div className="flt-group">{catName}</div>
                       {group.map((b) => (
-                        <Opt key={b.slug} on={f.benSet.has(b.i!)} label={b.term} nMax={nMax}
+                        <Opt key={b.slug} on={f.benSet.has(b.i!)} label={b.term}
                           mark={<BenefitMarkSvg glyph={b.glyph} />}
                           n={count('benefits', { benSet: new Set([...f.benSet, b.i!]) })}
                           onClick={() => { const next = new Set(f.benSet); if (next.has(b.i!)) next.delete(b.i!); else next.add(b.i!); set({ benSet: next }); }} />

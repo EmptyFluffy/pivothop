@@ -1,10 +1,7 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-/* Global search: a command-palette overlay. The mark is the same magnifier
-   the board's search unit uses (the rabbit went with the rest of the old
-   brand marks).
-   Opened from the nav button (any
+/* Global search: a command-palette overlay opened from the nav button (any
    element carrying data-search: the landing's vanilla nav and the React nav
    share this via event delegation), the / key, or Cmd/Ctrl-K. The index is a
    compact prebuilt JSON of every searchable surface, fetched lazily on first
@@ -57,16 +54,7 @@ export default function SearchOverlay() {
   const [index, setIndex] = useState<Entry[] | null>(null);
   const [hint, setHint] = useState(() => Math.floor(Math.random() * HINTS.length));
   const [sel, setSel] = useState(0);
-  const [recents, setRecents] = useState<Entry[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const remember = (e: Entry) => {
-    try {
-      const cur: Entry[] = JSON.parse(localStorage.getItem('ph-recents') || '[]');
-      const next = [e, ...cur.filter((x) => x.h !== e.h)].slice(0, 5);
-      localStorage.setItem('ph-recents', JSON.stringify(next));
-    } catch { /* private mode */ }
-  };
 
   const closeIt = useCallback(() => {
     setClosing(true);
@@ -74,7 +62,6 @@ export default function SearchOverlay() {
   }, []);
   const openIt = useCallback(() => {
     setClosing(false); setOpen(true); setQ(''); setSel(0);
-    try { setRecents(JSON.parse(localStorage.getItem('ph-recents') || '[]')); } catch { setRecents([]); }
     if (!index) fetch('/data/search-index.json').then((r) => r.json()).then(setIndex).catch(() => setIndex([]));
   }, [index]);
 
@@ -100,27 +87,15 @@ export default function SearchOverlay() {
     return () => clearInterval(id);
   }, [open, q]);
 
-  // Grouped, not flat: a palette over content lives on scannability. Sections
-  // in kind order, capped, each header carrying the kind's total match count.
-  const { results, groups } = useMemo(() => {
+  const results = useMemo(() => {
     const query = q.trim().toLowerCase();
-    if (!query || !index) return { results: [] as Entry[], groups: [] as { k: string; total: number; items: Entry[] }[] };
-    const hits = index
+    if (!query || !index) return [];
+    return index
       .map((e) => ({ e, sc: score(query, e) }))
       .filter((x) => x.sc > 0)
-      .sort((a, b) => b.sc - a.sc || (KIND_W[b.e.k] ?? 0) - (KIND_W[a.e.k] ?? 0));
-    const byKind = new Map<string, { total: number; items: Entry[] }>();
-    for (const { e } of hits) {
-      if (!byKind.has(e.k)) byKind.set(e.k, { total: 0, items: [] });
-      const g = byKind.get(e.k)!;
-      g.total += 1;
-      if (g.items.length < 4) g.items.push(e);
-    }
-    const groups = [...byKind.entries()]
-      .sort((a, b) => (KIND_W[b[0]] ?? 0) - (KIND_W[a[0]] ?? 0))
-      .map(([k, g]) => ({ k, ...g }))
-      .slice(0, 4);
-    return { results: groups.flatMap((g) => g.items), groups };
+      .sort((a, b) => b.sc - a.sc || (KIND_W[b.e.k] ?? 0) - (KIND_W[a.e.k] ?? 0))
+      .slice(0, 8)
+      .map((x) => x.e);
   }, [q, index]);
 
   useEffect(() => { setSel(0); }, [q]);
@@ -131,7 +106,7 @@ export default function SearchOverlay() {
       <div className="srch-panel">
         <div className="srch-row">
           <span className="srch-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
+            <svg viewBox="0 0 123.3 100" width="26" height="21"><g fill="currentColor"><path d="M31.9 0 A25.3 15 0 0 0 82.5 0 Z" /><path fillRule="evenodd" d="M83.3 0 L92 0 C104 0 116 8 121 20 C124 27 123 34 119 38 C112 41 100 40 90 40 L83.3 40 Z M103.3 20 a3.7 3.7 0 1 0 0.01 0 Z" /><path d="M83.1 40 L83.1 76 C91 76 99 82 102 90 C103.5 94 103 98 101.5 99.7 L24 99.7 C23.5 92 25 84 28.6 75 C32 64 40 53 58.9 45 C67 41 73 40 78.6 40 Z" /><circle cx="10" cy="89.5" r="10" /></g></svg>
           </span>
           <input
             ref={inputRef} value={q} placeholder="Search…" aria-label="Search the site"
@@ -139,55 +114,30 @@ export default function SearchOverlay() {
             onKeyDown={(e) => {
               if (e.key === 'ArrowDown') { e.preventDefault(); setSel((s) => Math.min(s + 1, results.length - 1)); }
               if (e.key === 'ArrowUp') { e.preventDefault(); setSel((s) => Math.max(s - 1, 0)); }
-              if (e.key === 'Enter' && results[sel]) { remember(results[sel]); window.location.href = results[sel].h; }
+              if (e.key === 'Enter' && results[sel]) window.location.href = results[sel].h;
             }}
           />
           <button className="srch-x" aria-label="Close" onClick={closeIt}>&times;</button>
         </div>
         {q.trim() === '' ? (
           <div className="srch-empty">
-            {recents.length > 0 && (
-              <div className="srch-recent">
-                <span className="srch-gh lbl">Recent</span>
-                <ul className="srch-results">
-                  {recents.map((r) => (
-                    <li key={r.h}>
-                      <a href={r.h} onClick={() => remember(r)}>
-                        <span className="srch-k lbl">{KIND[r.k] ?? r.k}</span>
-                        <span className="srch-t">{r.t}</span>
-                        <span className="srch-s lbl">{r.s}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
             <p className="srch-hint" key={hint}>{HINTS[hint]}</p>
+            <p className="srch-esc lbl">Tap outside or press <kbd>Esc</kbd> to close</p>
           </div>
         ) : (
-          <div className="srch-body">
-            {results.length === 0 && <p className="srch-none">No match{index ? ` in ${index.length.toLocaleString()} indexed entries` : ''}. Try a job title, a skill, or a country.</p>}
-            {groups.map((g) => (
-              <div key={g.k} className="srch-group">
-                <span className="srch-gh lbl">{KIND[g.k] ?? g.k} — {g.total.toLocaleString()}</span>
-                <ul className="srch-results">
-                  {g.items.map((r) => {
-                    const i = results.indexOf(r);
-                    return (
-                      <li key={r.h + r.t}>
-                        <a href={r.h} className={i === sel ? 'on' : ''} onMouseEnter={() => setSel(i)} onClick={() => remember(r)}>
-                          <span className="srch-t">{r.t}</span>
-                          <span className="srch-s lbl">{r.s}</span>
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+          <ul className="srch-results">
+            {results.length === 0 && <li className="srch-none">Nothing by that name. Try a job title, a skill, or a country.</li>}
+            {results.map((r, i) => (
+              <li key={r.h + r.t}>
+                <a href={r.h} className={i === sel ? 'on' : ''} onMouseEnter={() => setSel(i)}>
+                  <span className="srch-k lbl">{KIND[r.k] ?? r.k}</span>
+                  <span className="srch-t">{r.t}</span>
+                  <span className="srch-s lbl">{r.s}</span>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
-        <div className="srch-foot lbl"><kbd>&#8629;</kbd> open <kbd>&#8593;&#8595;</kbd> move <kbd>esc</kbd> close</div>
       </div>
     </div>
   );

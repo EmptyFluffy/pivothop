@@ -376,32 +376,6 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return r;
   }, [applyFilters, f, sort]);
 
-  // The machine sentence: active filter state as one mono readout. Reads like
-  // the top line of an instrument, doubles as the screenshot-able spec of the
-  // current view. Numbers stay exact; separators are slashes; count trails.
-  const readout = useMemo(() => {
-    const parts: string[] = [];
-    if (needle) parts.push(`"${needle.toUpperCase()}"`);
-    for (const fd of f.fieldSet) parts.push(fd.toUpperCase());
-    for (const sk of f.skillSet) { const e = (skills ?? []).find((x) => x.slug === sk); if (e) parts.push(e.term.toUpperCase()); }
-    if (f.region) parts.push(REGION_META[f.region as RegionKey]?.name.replace(/^the /, '').toUpperCase() ?? f.region.toUpperCase());
-    for (const c of f.ctySet) parts.push(countryName(c).toUpperCase());
-    if (f.remoteOnly) parts.push('REMOTE');
-    if (f.tags.has('s')) parts.push('SENIOR');
-    if (f.tags.has('e')) parts.push('ENTRY');
-    if (f.minPay) parts.push(`$${f.minPay}K+`);
-    if (f.hasSalary) parts.push('STATES PAY');
-    if (f.benSet.size) parts.push(`${f.benSet.size} BENEFIT${f.benSet.size > 1 ? 'S' : ''}`);
-    if (f.xp) parts.push({ none: 'NO EXP STATED', le2: '≤2 YRS', y35: '3–5 YRS', ge6: '6+ YRS' }[f.xp]);
-    if (f.edu === 'nodeg') parts.push('NO DEGREE');
-    if (f.edu === 'waived') parts.push('DEGREE WAIVED');
-    for (const l of f.langNot) parts.push(`NO ${l.toUpperCase()}`);
-    if (f.fresh) parts.push({ d: '24H', w: '7D', m: '30D' }[f.fresh]);
-    if (f.exQ.size + f.exCo.size) parts.push(`${f.exQ.size + f.exCo.size} EXCLUSION${f.exQ.size + f.exCo.size > 1 ? 'S' : ''}`);
-    const head = parts.length ? parts.join(' / ') : 'ALL ROLES';
-    return `${head} — ${results.length.toLocaleString()}`;
-  }, [f, needle, results.length, skills]);
-
   // What the exclusions are hiding right now — counted, never silent.
   const hiddenByExclusion = useMemo(() => {
     if (!f.exQ.size && !f.exCo.size) return 0;
@@ -723,7 +697,6 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         set={set}
         count={(cat, probe) => count(cat, probe)}
         benefits={benefits ?? []}
-        readout={readout}
         culprit={culprit}
         hiddenByExclusion={hiddenByExclusion}
         fieldNames={fieldNames}
