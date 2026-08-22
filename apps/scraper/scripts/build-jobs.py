@@ -63,6 +63,12 @@ OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
       # links back to their own posting. workday/personio are hosted-ATS feeds,
       # `direct` is the studio careers pages we render.
       'workday', 'personio', 'direct',
+      # CR expansion (2026-08-22): amazon.jobs is the employer's own public
+      # board; ANE is Costa Rica's public employment service (statutory
+      # dissemination, the CR Job-Room); Jooble's partner API exists for
+      # re-display with the redirect link AS the attribution (same contract
+      # shape as Careerjet, which has sat in this set since the CH pivot).
+      'amazon', 'ane', 'jooble',
       # Job-Room is SECO's public federal portal (docs/32). Ads are employer
       # vacancy notices, many mandated by the Stellenmeldepflicht, and every
       # card links back to job-room.ch or the employer's own externalUrl. This
