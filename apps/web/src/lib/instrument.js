@@ -30,7 +30,7 @@ export function mountInstrument(DATA,HOOKS){
   var TYPO=false;
   function typoSize(match){
     var m=Math.max(0,Math.min(100,match||0));
-    return 9+Math.pow(m/100,1.6)*22;   // match 40 -> ~14.1, 70 -> ~21.3, 90 -> ~28.5
+    return 12+Math.pow(m/100,1.6)*34;  // match 40 -> ~19.9, 70 -> ~31.4, 90 -> ~40.7
   }
   var LABEL_FONT='Instrument Sans, system-ui, sans-serif';
 
@@ -58,7 +58,7 @@ export function mountInstrument(DATA,HOOKS){
         n.lblH=TYPO?n.fs*1.76+8:30;
       }
       else{
-        n.fs=TYPO?Math.max(9,typoSize(n.match)*0.82):10.5;
+        n.fs=TYPO?Math.max(11,typoSize(n.match)*0.82):10.5;
         n.lblW=t.length*n.fs*GLYPH_W+8;
         n.lblH=TYPO?n.fs*1.52:16;
       }
