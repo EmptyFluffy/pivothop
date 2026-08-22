@@ -12,6 +12,7 @@ const REMOTE_ARCHITECTURE_RETRY_SCHEDULES = new Set([
   REMOTE_ARCHITECTURE_SCHEDULE,
   '45 16 * * *',
   '15 18 * * *',
+  '45 18 * * *',
   '15 20 * * *',
   '15 22 * * *',
 ]);
@@ -53,6 +54,7 @@ export async function GET(req: NextRequest) {
 
   const today = await publishedOrScheduledToday('linkedin', 'UTC');
   if (today >= perDay) {
+    console.log(`[social] skip: daily cap reached (${today}/${perDay})`);
     return NextResponse.json({ ok: true, action: 'skip', reason: `daily cap reached (${today}/${perDay})` });
   }
 
@@ -94,6 +96,7 @@ export async function GET(req: NextRequest) {
   }
 
   if (!live) {
+    console.warn(`[social] none: no source-verified candidate (focus=${remoteArchitectureSlot ? 'remote-architecture' : 'general'}, pool=${pool}, checks=${JSON.stringify(checks)})`);
     return NextResponse.json({
       ok: true,
       action: 'none',
@@ -120,7 +123,10 @@ export async function GET(req: NextRequest) {
     status: autoApprove ? 'scheduled' : 'draft',
     scheduled_at: new Date().toISOString(),
   });
-  if (!row) return NextResponse.json({ ok: true, action: 'none', reason: 'insert failed or already queued' });
+  if (!row) {
+    console.warn(`[social] none: insert failed or already queued (job=${live.id}, title=${live.title}, company=${live.company})`);
+    return NextResponse.json({ ok: true, action: 'none', reason: 'insert failed or already queued' });
+  }
 
   console.log(`[social] queued ${row.status}: ${live.title} at ${live.company} (score ${live.score})`);
   return NextResponse.json({
