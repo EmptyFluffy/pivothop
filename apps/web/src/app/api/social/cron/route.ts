@@ -43,8 +43,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
 
-  const configuredPerDay = Number(process.env.SOCIAL_POSTS_PER_DAY || 15);
-  const perDay = Number.isFinite(configuredPerDay) && configuredPerDay > 0 ? configuredPerDay : 15;
+  /* Keep the production cadence aligned with the 15 cron slots. A stale
+     SOCIAL_POSTS_PER_DAY value must not silently throttle the queue. */
+  const perDay = 15;
   const autoApprove = process.env.SOCIAL_AUTO_APPROVE !== 'false';
   const forceRemoteArchitecture = req.nextUrl.searchParams.get('focus') === 'remote-architecture';
   const cronSchedule = req.headers.get('x-vercel-cron');
