@@ -1291,3 +1291,51 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 .v2t .feat-pay{ font-family:var(--sans),sans-serif; font-weight:700; letter-spacing:-.02em; }
 .v2t .jv-payg{ font-family:var(--sans),sans-serif; font-weight:700; letter-spacing:-.025em; }
 .v2t .jsheet-facts .v{ font-family:var(--sans),sans-serif; font-weight:700; letter-spacing:-.015em; }
+
+/* ============================================================================
+   /jobs/browse — the browse spine as an almanac index (research 2026-08-21).
+   Ledger rows: name, dotted leader, tabular mono count; full-row instant
+   hover; combination pages nested in per-parent cells on the sub-hubs.
+   ============================================================================ */
+.v2t .bh-jump{ display:flex; gap:22px; margin:26px 0 4px; font-family:var(--mono),monospace;
+  font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; }
+.v2t .bh-jump a{ color:var(--v-text2); text-decoration:none; }
+.v2t .bh-jump a:hover{ color:var(--v-text); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:4px; }
+
+.v2t .bh-sec h2{ font-size:26px; font-weight:700; letter-spacing:-.02em; }
+.v2t .bh ul{ list-style:none; margin:0; padding:0; }
+
+.v2t .bh-row a{ display:flex; align-items:baseline; gap:10px;
+  padding:6px 10px; margin:0 -10px; text-decoration:none; color:var(--v-text); }
+.v2t .bh-row a:hover{ background:color-mix(in srgb, var(--v-value) 7%, transparent); }
+.v2t .bh-row .bh-t{ font-family:var(--sans),sans-serif; font-size:14.5px; font-weight:500;
+  letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.v2t .bh-row .bh-lead{ flex:1; min-width:16px;
+  border-bottom:1px dotted color-mix(in srgb, var(--v-text) 30%, transparent);
+  transform:translateY(-3px); }
+.v2t .bh-row .bh-n{ font-family:var(--mono),monospace; font-size:11.5px;
+  font-variant-numeric:tabular-nums; color:var(--v-text2); flex:none; }
+.v2t .bh-row a:hover .bh-n{ color:var(--v-value); }
+
+/* the curated head band: the same ledger at display scale, on the dek's measure */
+.v2t .bh-band{ max-width:860px; }
+.v2t .bh-band .bh-big a{ padding:10px 12px; margin:0 -12px; }
+.v2t .bh-band .bh-big .bh-t{ font-size:21px; font-weight:700; letter-spacing:-.02em; }
+.v2t .bh-band .bh-big .bh-n{ font-size:13px; }
+
+/* hub facet lists: two columns of ledger rows on wide screens */
+.v2t .bh-list{ columns:22rem; column-gap:56px; }
+.v2t .bh-list .bh-row{ break-inside:avoid; }
+.v2t .bh-all{ display:inline-block; margin-top:16px; font-family:var(--mono),monospace;
+  font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-value);
+  text-decoration:none; }
+.v2t .bh-all:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:4px; }
+
+/* sub-hub: heading-over-list cells, the column boundary is the taxonomy */
+.v2t .bh-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(19rem, 1fr));
+  gap:34px 56px; margin-top:40px; }
+.v2t .bh-cell h3{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:700;
+  letter-spacing:-.01em; margin:0 0 8px; padding-bottom:8px;
+  border-bottom:1px solid var(--v-text); }
