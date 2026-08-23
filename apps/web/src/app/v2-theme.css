@@ -1625,15 +1625,7 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
   border:1px solid var(--v-border2); border-radius:10px; text-decoration:none;
   background:var(--v-bg); transition:none; }
 .v2t .lp-tool:hover{ border-color:var(--v-text); }
-/* the lead instrument card commits to the fill (impeccable: identical card
-   grids are the template smell; one drenched + one outlined is a hierarchy).
-   This is the landing's accent block — the manifesto exemption. */
-.v2t .lp-tool-lead{ background:var(--v-fill); border-color:var(--v-fill); }
-.v2t .lp-tool-lead > .lbl{ color:color-mix(in srgb, var(--v-fill-ink) 65%, transparent); }
-.v2t .lp-tool-lead h3, .v2t .lp-tool-lead p{ color:var(--v-fill-ink); }
-.v2t .lp-tool-lead p{ opacity:.85; }
-.v2t .lp-tool-lead .lp-tool-go{ color:var(--v-fill-ink); }
-.v2t .lp-tool-lead:hover{ border-color:var(--v-fill); filter:brightness(1.05); }
+
 .v2t .lp-tool > .lbl{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
   text-transform:uppercase; color:var(--v-text2); }
 .v2t .lp-tool h3{ font-size:clamp(22px,2.6vw,30px); font-weight:700; letter-spacing:-.025em;
@@ -1643,6 +1635,17 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
   letter-spacing:.13em; text-transform:uppercase; color:var(--v-value); }
 .v2t .lp-tool:hover .lp-tool-go{ text-decoration:underline; text-decoration-thickness:2px;
   text-underline-offset:3px; }
+
+/* the lead instrument card commits to the fill (impeccable: identical card
+   grids are the template smell; one drenched + one outlined is a hierarchy).
+   This is the landing's accent block — the manifesto exemption. */
+.v2t .lp-tool-lead{ background:var(--v-fill); border-color:var(--v-fill); }
+.v2t .lp-tool-lead > .lbl{ color:color-mix(in srgb, var(--v-fill-ink) 65%, transparent); }
+.v2t .lp-tool-lead h3, .v2t .lp-tool-lead p{ color:var(--v-fill-ink); }
+.v2t .lp-tool-lead p{ opacity:.85; }
+.v2t .lp-tool-lead .lp-tool-go{ color:var(--v-fill-ink); }
+.v2t .lp-tool-lead:hover{ border-color:var(--v-fill); filter:brightness(1.05); }
+.v2t .lp-tool-lead:hover .lp-tool-go{ color:var(--v-fill-ink); }
 
 /* the rest of the product, one ruled row */
 .v2t .lp-more{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
@@ -1663,3 +1666,7 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
   .v2t .lp-sfield{ border-bottom:1px solid var(--v-border); padding:14px 18px; }
   .v2t .lp-go{ padding:16px 22px; justify-content:center; }
 }
+
+/* dark mode: the scout is drawn for paper — hide her and let the hero breathe */
+html:not(.vlight) .v2t .lp-hero{ grid-template-columns:1fr; }
+html:not(.vlight) .v2t .lp-hero-art{ display:none; }
