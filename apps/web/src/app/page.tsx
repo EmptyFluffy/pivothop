@@ -4,7 +4,7 @@ import { PageShell } from './components/SiteChrome';
 import { jobsIndex, occList, boardStats } from './jobs/jobs-data';
 import { allCategories, categoryJobs, getCategory } from './jobs/categories-data';
 import { getJobs } from './jobs/jobs-data';
-import { salaryLabel, type Job } from './jobs/JobCard';
+import { salaryLabel, companyInitial, monoTint, type Job } from './jobs/JobCard';
 import { routableSlugs } from './routes/routes-data';
 
 /* The front door (2026-08-22, research-backed): a server-rendered product
@@ -45,7 +45,7 @@ export default function Home() {
   const pickJobs = (jobs: Job[], n = 4): Job[] => {
     const picked = [...jobs]
       .sort((a, b) => (b.posted || '').localeCompare(a.posted || ''))
-      .sort((a, b) => Number(!!b.smin || !!b.smax) - Number(!!a.smin || !!a.smax))
+      .sort((a, b) => (Number(!!b.smin || !!b.smax) + Number(!!b.logo)) - (Number(!!a.smin || !!a.smax) + Number(!!a.logo)))
       .filter((j) => !used.has(j.id))
       .slice(0, n);
     for (const j of picked) used.add(j.id);
@@ -121,6 +121,11 @@ export default function Home() {
               <div className="lp-cards">
                 {b.jobs.map((j) => (
                   <Link key={`${j.occ}-${j.id}`} className="lp-card" href={`/jobs/${j.occ}/${j.id}`}>
+                    <span className="lp-card-logo" aria-hidden="true">
+                      {j.logo
+                        ? <img src={j.logo} alt="" width={34} height={34} loading="lazy" />
+                        : (() => { const [bg, fg] = monoTint(j.company); return <i style={{ background: bg, color: fg }}>{companyInitial(j.company)}</i>; })()}
+                    </span>
                     <span className="lp-card-t">{j.title}</span>
                     <span className="lp-card-co">{j.company}</span>
                     <span className="lp-card-m lbl">{j.location || (j.remote ? 'Remote' : '')}</span>

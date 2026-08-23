@@ -1670,3 +1670,11 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 /* dark mode: the scout is drawn for paper — hide her and let the hero breathe */
 html:not(.vlight) .v2t .lp-hero{ grid-template-columns:1fr; }
 html:not(.vlight) .v2t .lp-hero-art{ display:none; }
+
+/* ---- the card mark: one quiet circle, logo or monogram ---- */
+.v2t .lp-card-logo{ display:block; width:36px; height:36px; margin-bottom:4px; }
+.v2t .lp-card-logo img{ width:100%; height:100%; border-radius:999px; object-fit:contain;
+  background:#fff; border:1px solid var(--v-border2); padding:4px; box-sizing:border-box; }
+.v2t .lp-card-logo i{ display:grid; place-items:center; width:100%; height:100%;
+  border-radius:999px; font-style:normal; font-family:var(--sans),sans-serif;
+  font-size:15px; font-weight:700; color:var(--v-text); border:1px solid var(--v-border2); }
