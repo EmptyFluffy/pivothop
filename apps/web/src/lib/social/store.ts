@@ -32,6 +32,23 @@ export async function queue(limit = 60): Promise<SocialPostRow[]> {
   return res.ok ? ((await res.json()) as SocialPostRow[]) : [];
 }
 
+export async function findSocialPostByJobId(jobId: string): Promise<Pick<SocialPostRow, 'job_id' | 'job_occ'> | null> {
+  const b = base();
+  if (!b) return null;
+  const query = new URLSearchParams({
+    select: 'job_id,job_occ',
+    job_id: `eq.${jobId}`,
+    order: 'created_at.desc',
+    limit: '1',
+  });
+  const res = await fetch(`${b.url}/rest/v1/social_posts?${query}`, {
+    headers: headers(b.key), cache: 'no-store',
+  });
+  if (!res.ok) return null;
+  const rows = (await res.json()) as Array<Pick<SocialPostRow, 'job_id' | 'job_occ'>>;
+  return rows[0] ?? null;
+}
+
 export async function insertDraft(row: Omit<SocialPostRow, 'id' | 'created_at' | 'updated_at' | 'published_at' | 'external_post_id' | 'attempts' | 'last_error'>): Promise<SocialPostRow | null> {
   const b = base();
   if (!b) return null;
@@ -77,7 +94,7 @@ export async function publishedOrScheduledToday(platform: Platform, tz = 'Americ
   const rows = await recentPosts(platform, 20);
   const today = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(new Date());
   return rows.filter((r) =>
-    (r.status === 'published' || r.status === 'scheduled' || r.status === 'draft') &&
+    (r.status === 'published' || r.status === 'scheduled') &&
     new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(new Date(r.created_at)) === today,
   ).length;
 }

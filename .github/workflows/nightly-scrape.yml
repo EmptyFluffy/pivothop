@@ -21,8 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     # Cold-cache runs are long (every board fetch hits the network at polite
     # spacing); warm runs are ~20-30 min. The first 50-min cap cancelled a cold
-    # run mid-ingest — hence the headroom.
-    timeout-minutes: 150
+    # run mid-ingest, and the 150-min cap cancelled 2026-08-19 at exactly 2h30m.
+    # The direct fleet is growing ~20-50 studios/night now, so headroom again.
+    timeout-minutes: 210
     steps:
       - uses: actions/checkout@v4
 
@@ -91,4 +92,10 @@ jobs:
           # Gates the `direct` source (studio careers pages read via Claude
           # extraction). Absent, that source logs loudly and reads nothing.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # CR aggregator APIs (2026-08-22): both sources skip silently until
+          # the secrets exist — sign up at careerjet.com/partners and
+          # jooble.org/api/about, then add the repo secrets.
+          CAREERJET_API_KEY: ${{ secrets.CAREERJET_API_KEY }}
+          JOOBLE_API_KEY: ${{ secrets.JOOBLE_API_KEY }}
+          JOOBLE_US_API_KEY: ${{ secrets.JOOBLE_US_API_KEY }}
         run: bash apps/scraper/scripts/ci-run.sh

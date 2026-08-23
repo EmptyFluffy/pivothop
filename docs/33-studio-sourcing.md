@@ -106,3 +106,62 @@ nightly log says so — top it up with a new candidate list any session.
 
 First live batch: LMN Architects admitted (7-job signal), Olson Kundig held
 as ats-candidate, three duplicates correctly skipped.
+
+## Costa Rica expansion (2026-08-22)
+
+Research verdicts (2-lens sweep, robots.txt fetched live; full report in the
+session that built this):
+
+- **Ingesting**: ANE ane.cr (public employment service, 1,916 vacancies,
+  server-rendered, robots 404s — the `ane` source), amazon.jobs search JSON
+  (`amazon` source, robots-allowed), 15 verified Workday CR tenants with
+  per-tenant `searchText:"Costa Rica"` (the 200-cap otherwise fills with
+  non-CR roles), Careerjet `es_CR` locale + `jooble` source (both key-gated).
+- **Skipped on ToS**: elempleo (explicit written scraping prohibition in
+  robots.txt), Computrabajo direct (bot walls; its inventory arrives legally
+  via the Jooble and Careerjet APIs, which aggregate it), LinkedIn/Indeed.
+- **Deferred pending probes**: tecoloco (163 listings, robots `User-agent: *`
+  allows listings), unmejorempleo (~363, robots asks `Crawl-delay: 4` only),
+  buscojobs.cr (Cloudflare, needs Playwright probe), empleos.net.
+- **Equifax Workday excluded on judgment**: robots disallows its /External/
+  HTML pages; the CXS API isn't named but the intent is arguable.
+
+**UA/robots policy, made explicit:** the fleet crawls as
+`PivotHopScraper/0.1 (+https://www.pivothop.com; hello@pivothop.com)` and
+stands on each site's `User-agent: *` grant. Several sites (tecoloco,
+getonbrd, buscojobs.cr) block the named UA `ClaudeBot` via Cloudflare's
+managed AI list while granting `*` and signaling `search=yes, ai-train=no`:
+PivotHop indexes for search and does not train models on postings, which is
+the use those signals permit. We honor named disallows of OUR UA, all
+`Disallow` paths, and stated crawl delays.
+
+**Measured results (2026-08-22, first live sweeps):**
+
+- Careerjet: the key finally exists (referer header + REAL public `user_ip`
+  both required — placeholder IPs are rejected now). First full sweep:
+  **2,042 rows across 12 locales in 3.6 min** — 222 CRC Costa Rica, and the
+  Swiss (340 CHF), GB (320) and US (320) sweeps that had been silently
+  skipping since the adapter shipped came alive as a side effect. IP-bound to
+  the founder's machine → production absorbs it via the SIDELOAD channel
+  (`apps/scraper/sideload/*.ndjson`, tracked; `scripts/sideload.mjs --export`
+  on the laptop, absorbed by ci-run.sh before normalize). Refresh cadence is
+  manual; stale rows age out through freshness caps.
+- Jooble is DUAL-SITE (keys are site-bound; a global key 400s on
+  cr.jooble.org): the CR key sweeps Spanish terms with country pinned CR
+  (**1,360 distinct**), the global key sweeps ONLY thin-market AEC/trades
+  terms (**2,307 distinct**) so it fills gaps rather than duplicating
+  Adzuna/ATS bulk. The CR host 400s on empty keywords — every term is real.
+- Combined first-day arsenal: ANE 1,916 + Jooble 3,667 + Careerjet 2,042 +
+  Amazon 68 + 15 Workday tenants + 32 CR employers at the prospect queue head.
+
+**Morning-after audits owed:** (1) Spanish-title alias reach — ANE's
+Salonero/Bodeguero tier only reaches the board if the lexicon maps it;
+(2) triple-listing dedup (Jooble and Careerjet both aggregate Computrabajo).
+
+**CR pipeline cautions:** dedup pressure (Jooble + Careerjet + a direct board
+can triple-list one Computrabajo posting — unresolved country defeats dedup,
+so `country:'CR'` rides on every CR-source row); CRC salaries (the fx table
+carries CRC; sanitization needs a millions-of-colones eye when ANE ever adds
+pay); Spanish blue-collar titles (ANE's SALONERO/Bodeguero tier) need a
+lexicon-alias audit before their volume shows on the board — vocabulary
+starvation, not sourcing starvation, is the failure mode to watch.

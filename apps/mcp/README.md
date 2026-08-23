@@ -1,26 +1,20 @@
 # PivotHop MCP server
 
-**Measured career adjacency for AI assistants.** Which careers a person's skills
-already reach, the gap, the salary, the licence gates — computed nightly from
-more than 250,000 live job postings, not guessed from prose.
+**Measured career adjacency plus live job discovery for AI assistants.** Which careers a person's skills already reach, the gap, the salary, the licence gates, and current jobs in reachable destinations — computed from live postings rather than guessed from prose.
 
-Ask an assistant *"what can an architect become?"* and today the answer is
-assembled from whatever it read on the web. This makes it come from measurement.
+Ask an assistant *"I'm an architect — what remote jobs could I realistically pivot into without starting over?"* PivotHop can measure the route first, then search current openings in the reachable occupations.
 
-## Install
-
-### Easiest — no install (Claude web/desktop/mobile, ChatGPT)
-
-Add this as a **custom connector**:
+## Remote endpoint
 
 ```
 https://www.pivothop.com/api/mcp
 ```
 
-Claude → Settings → Connectors → Add custom connector. ChatGPT accepts remote
-HTTPS endpoints only, so this is the *only* option there.
+This is the production endpoint for MCP clients that accept remote HTTPS servers, including the server submitted for a public ChatGPT/Codex plugin. No account or API key is required for the read-only tools.
 
-### Local package (Claude Desktop, Claude Code, Cursor, VS Code)
+## Local package
+
+Claude Desktop, Claude Code, Cursor, VS Code, and other stdio MCP clients can use:
 
 ```json
 {
@@ -33,59 +27,57 @@ HTTPS endpoints only, so this is the *only* option there.
 }
 ```
 
-**Anything else that speaks MCP over stdio:**
+Or:
 
 ```bash
 npx -y pivothop-mcp
 ```
 
-No API key. No account. Reads public data from pivothop.com.
-
 ## Tools
+
+### Career intelligence
 
 | Tool | Answers |
 |---|---|
-| `career_routes` | *"What can a UX designer become?"* — destinations with readiness, skills you have and lack, salary, transition time, licence gates |
-| `skill_gap` | *"How far is architect from interior designer?"* — the measured gap between two specific roles |
-| `who_can_reach` | *"Who else could do this job?"* — the employer question: which occupations already cover a role you're hiring for |
-| `salary` | Posted band (p25 / median / p75) per occupation, optionally per country |
-| `list_occupations` | All 180 tracked occupations, and which have measured routes |
+| `career_routes` | *"What can a UX designer become?"* — measured destinations with readiness, transferable/missing skills, salary, transition time, and licence gates |
+| `skill_gap` | *"How far is architect from interior designer?"* — the measured gap between two roles |
+| `who_can_reach` | *"Who else could do this job?"* — adjacent talent pools for an employer |
+| `salary` | Posted p25 / median / p75 for an occupation, optionally per country |
+| `list_occupations` | All tracked occupations and which have measured routes |
+
+### Live jobs
+
+| Tool | Answers |
+|---|---|
+| `search_jobs` | Normal live-job search by keywords, occupation, country, remote status, level, salary, equity, visa sponsorship, or four-day week |
+| `get_jobs` | Freshest live jobs, optionally for one occupation |
+| `get_job_details` | Full details for one result, including extracted skills, description sections, and the original apply URL |
+| `get_related_jobs` | More current openings similar to a selected job |
+| `search_jobs_for_pivot` | *"I'm an architect — show me remote jobs I can realistically pivot into"* — measures reachable occupations first, then searches jobs inside them |
 
 ## What "readiness" means
 
-The share of a destination's typical posting requirements already covered by the
-origin occupation's skills, measured from live postings.
+Readiness is the share of a destination occupation's typical posting requirements already covered by the origin occupation's measured skill profile.
 
-It is **not** a probability of being hired, and **not** a share of candidates. A
-66% architect→interior-designer readiness means two thirds of what interior
-design postings ask for is already in the architect skill profile.
+It is **not** a probability of being hired and **not** a share of candidates. A 66% architect → interior designer readiness means roughly two thirds of what interior-design postings typically ask for already appears in the architect skill profile.
 
 ## The honesty rule
 
-**Some occupations have no measured routes** — they sit below the 50-posting
-floor needed for a defensible number, and the count moves as the corpus and its
-cleaning improve. Those return an explicit `insufficient_data` answer saying so.
-`list_occupations` reports the live split rather than a number baked in here.
+Some occupations do not clear the minimum live-posting floor required for a defensible career route. Those return explicit `insufficient_data` responses rather than invented numbers. Licence gates are treated as hard gates when the occupation legally requires a credential.
 
-The server will not guess. A tool that invents a confident answer gets caught
-once and distrusted forever; one that says *"I don't have enough data on
-brewmasters"* stays useful. Licence gates work the same way: a required
-credential is reported as a hard gate, because no amount of skill overlap
-shortens a degree.
+The job tools follow the same rule. They read only PivotHop's public board exports. Sources that PivotHop uses for aggregate analysis but is not cleared to re-display are excluded upstream and therefore cannot appear through the MCP job tools.
 
-## Data
+## Data and attribution
 
-Live from `pivothop.com`, cached 30 minutes in-process. The corpus is
-re-scraped and re-scored nightly, so answers track the current market rather
-than a snapshot frozen at publish time.
+The server reads current public data from `pivothop.com` and caches it for 30 minutes in-process. The underlying corpus is refreshed on the site's regular data pipeline.
 
-Sources: ~15 job boards and public APIs, plus US BLS OEWS wage data and observed
-occupational mobility flows.
+PivotHop URLs returned by the MCP carry `utm_source=mcp`, allowing MCP click-throughs to be measured separately from normal search/referral traffic. Job search results link to PivotHop detail pages; `get_job_details` exposes the original employer/source apply URL when the user wants to apply.
 
 ## Links
 
 - Site — https://www.pivothop.com
-- The Adjacency Index (citable numbers) — https://www.pivothop.com/adjacency-index
+- Jobs — https://www.pivothop.com/jobs
+- The Adjacency Index — https://www.pivothop.com/adjacency-index
 - Method and glossary — https://www.pivothop.com/glossary
 
 MIT.

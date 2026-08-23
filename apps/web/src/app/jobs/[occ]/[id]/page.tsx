@@ -28,9 +28,22 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const { occ, id } = await params;
   const j = getJob(occ, id);
   if (!j) return {};
+  const title = `${j.title} at ${j.company} | PivotHop jobs`;
+  const description = `${j.title} at ${j.company}${j.location ? `, ${j.location}` : ''}. Live ${occTitle(occ).toLowerCase()} opening with the pay, the posting, and the skill routes that lead into the role.`;
+  const url = `https://www.pivothop.com/jobs/${encodeURIComponent(occ)}/${encodeURIComponent(id)}`;
+  const image = `https://www.pivothop.com/api/social/card?occ=${encodeURIComponent(occ)}&id=${encodeURIComponent(id)}`;
   return {
-    title: `${j.title} at ${j.company} | PivotHop jobs`,
-    description: `${j.title} at ${j.company}${j.location ? `, ${j.location}` : ''}. Live ${occTitle(occ).toLowerCase()} opening with the pay, the posting, and the skill routes that lead into the role.`,
+    title,
+    description,
+    openGraph: {
+      type: 'website',
+      siteName: 'PivotHop',
+      url,
+      title,
+      description,
+      images: [{ url: image, width: 1200, height: 627, alt: `${j.title} at ${j.company}` }],
+    },
+    twitter: { card: 'summary_large_image', title, description, images: [image] },
     // Backfilled descriptions are the source's words; keep them out of the index
     // so the board's own pages carry the site's content signal.
     robots: { index: false, follow: true },

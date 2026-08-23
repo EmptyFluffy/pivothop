@@ -10,6 +10,11 @@ import { recentPosts } from './store';
 
 const GENERIC_TITLES = /^(senior |junior |lead )?(software engineer|developer|engineer|manager|analyst|consultant|assistant|specialist)$/i;
 
+export type SocialJobFilter = {
+  remoteOnly?: boolean;
+  occupations?: readonly string[];
+};
+
 function mid(smin: number | null, smax: number | null): number | null {
   const v = [smin, smax].filter((x): x is number => !!x);
   return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
@@ -70,8 +75,9 @@ export function scoreJob(j: {
   };
 }
 
-export async function selectSocialJob(platform: Platform): Promise<{ pick: Candidate | null; pool: number; considered: Candidate[] }> {
+export async function selectSocialJob(platform: Platform, filter?: SocialJobFilter): Promise<{ pick: Candidate | null; pool: number; considered: Candidate[] }> {
   const dedupDays = Number(process.env.SOCIAL_DEDUP_DAYS || 45);
+  const allowedOccupations = filter?.occupations ? new Set(filter.occupations) : null;
   const recent = await recentPosts(platform, 40);
   const cutoff = Date.now() - dedupDays * 864e5;
   const postedIds = new Set(recent.filter((r) => Date.parse(r.created_at) > cutoff || r.status === 'published').map((r) => r.job_id));
@@ -88,10 +94,11 @@ export async function selectSocialJob(platform: Platform): Promise<{ pick: Candi
     const mids = jobs.map((j) => mid(j.smin, j.smax)).filter((x): x is number => !!x).sort((a, b) => a - b);
     const occMedian = mids.length >= 8 ? mids[Math.floor(mids.length / 2)] : null;
     for (const j of jobs) {
-      /* Eligibility. The board only carries live listings (nightly retirement,
-         first-seen ledger), so presence here IS the live check; everything
-         below narrows to postable. */
+      /* Board presence is the first liveness gate. A source-URL verification
+         runs on the shortlisted candidates immediately before queueing. */
       if (j.source === 'employer') continue; // employer posts link out; no internal page to send people to
+      if (filter?.remoteOnly && !j.remote) continue;
+      if (allowedOccupations && !allowedOccupations.has(j.occ)) continue;
       if (!j.title?.trim() || !j.company?.trim() || j.company === 'Name') continue;
       if (daysAgo(j.posted) > 60) continue;
       if (postedIds.has(j.id)) continue;
@@ -108,9 +115,117 @@ export async function selectSocialJob(platform: Platform): Promise<{ pick: Candi
   return { pick: candidates[0] ?? null, pool: candidates.length, considered: candidates.slice(0, 12) };
 }
 
-/* Final pre-publish liveness check: the job must still exist on the board the
-   CURRENT deployment carries. If it retired between selection and publish, the
-   caller skips it and selects again. */
+/* The job must still exist on the board carried by the current deployment. */
 export function stillLive(occ: string, id: string): boolean {
   return getJobs(occ).some((j) => j.id === id);
+}
+
+export type SourceCheck = {
+  state: 'live' | 'expired' | 'unverified';
+  reason: string;
+  status: number | null;
+};
+
+const EXPIRED_SOURCE_PATTERNS: RegExp[] = [
+  /\bthis (?:job|position|vacancy|posting) is no longer available\b/i,
+  /\bthis (?:job|position|vacancy|posting) has (?:expired|been filled|been closed)\b/i,
+  /\b(?:job|position|vacancy|posting) (?:is|has) (?:expired|closed)\b/i,
+  /\bno longer accepting applications\b/i,
+  /\bapplications? (?:are|is) (?:now )?closed\b/i,
+  /\bthe (?:job|position) you (?:are|were|'re) looking for (?:is no longer available|has been filled)\b/i,
+  /\b(?:job|position|vacancy) not found\b/i,
+];
+
+async function responsePrefix(res: Response, limit = 256_000): Promise<string> {
+  if (!res.body) return '';
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let text = '';
+  try {
+    while (text.length < limit) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      text += decoder.decode(value, { stream: true });
+    }
+    text += decoder.decode();
+  } finally {
+    await reader.cancel().catch(() => undefined);
+  }
+  return text.slice(0, limit);
+}
+
+/* Confirm the original application URL immediately before queueing. A definite
+   404/410 or an explicit expiry message blocks publication. Network failures,
+   bot blocks, and rate limits are reported as unverified so the selector can
+   try the next candidate instead of guessing. */
+export async function checkOriginalJob(occ: string, id: string): Promise<SourceCheck> {
+  const job = getJobs(occ).find((j) => j.id === id);
+  if (!job) return { state: 'expired', reason: 'missing from current board', status: null };
+  if (!job.url) return { state: 'unverified', reason: 'missing original URL', status: null };
+
+  try {
+    const res = await fetch(job.url, {
+      method: 'GET',
+      redirect: 'follow',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(8_000),
+      headers: {
+        Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.7',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'User-Agent': 'Mozilla/5.0 (compatible; PivotHopJobVerifier/1.0; +https://www.pivothop.com)',
+      },
+    });
+
+    if (res.status === 404 || res.status === 410) {
+      return { state: 'expired', reason: `source returned ${res.status}`, status: res.status };
+    }
+    if (!res.ok) {
+      return { state: 'unverified', reason: `source returned ${res.status}`, status: res.status };
+    }
+
+    const contentType = res.headers.get('content-type') ?? '';
+    if (contentType && !contentType.includes('text/html') && !contentType.includes('text/plain')) {
+      return { state: 'live', reason: `source returned ${res.status}`, status: res.status };
+    }
+
+    const raw = await responsePrefix(res);
+    const visible = raw
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ');
+
+    const expiredPattern = EXPIRED_SOURCE_PATTERNS.find((pattern) => pattern.test(visible));
+    if (expiredPattern) {
+      return { state: 'expired', reason: 'source page reports the job closed', status: res.status };
+    }
+    return { state: 'live', reason: `source verified ${res.status}`, status: res.status };
+  } catch (error) {
+    const reason = error instanceof Error && error.name === 'TimeoutError'
+      ? 'source verification timed out'
+      : 'source verification failed';
+    return { state: 'unverified', reason, status: null };
+  }
+}
+
+export async function firstVerifiedCandidate(
+  candidates: Array<Candidate | null>,
+  maxChecks = 10,
+): Promise<{ candidate: Candidate | null; checks: Array<{ id: string; state: SourceCheck['state']; reason: string }> }> {
+  const checks: Array<{ id: string; state: SourceCheck['state']; reason: string }> = [];
+  let unverifiedFallback: Candidate | null = null;
+  let attempted = 0;
+  for (const candidate of candidates) {
+    if (!candidate || !stillLive(candidate.occ, candidate.id)) continue;
+    if (attempted >= maxChecks) break;
+    attempted += 1;
+    const check = await checkOriginalJob(candidate.occ, candidate.id);
+    checks.push({ id: candidate.id, state: check.state, reason: check.reason });
+    if (check.state === 'live') return { candidate, checks };
+    if (check.state === 'unverified' && !unverifiedFallback) unverifiedFallback = candidate;
+  }
+  /* A bot block or timeout is not evidence that the vacancy expired. After
+     checking the shortlist, preserve cadence with the best candidate still
+     present in PivotHop; explicit 404/410/closed results never reach here. */
+  return { candidate: unverifiedFallback, checks };
 }
