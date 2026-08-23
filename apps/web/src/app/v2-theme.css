@@ -1716,11 +1716,15 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 .v2t .lp-dd button.on{ background:var(--v-bg2); box-shadow:inset 3px 0 0 var(--v-value); }
 
 /* ---- trending as five quiet pills ---- */
-.v2t .lp-pill{ display:inline-block; font-family:var(--sans),sans-serif; font-size:13px;
+/* pills wear the search bar's own outline (full ink); the hover selector
+   carries three classes because .lp-trend a:hover (element+2) was beating
+   the two-class pill rule and painting ink on ink */
+.v2t .lp-trend .lp-pill{ display:inline-block; font-family:var(--sans),sans-serif; font-size:13px;
   font-weight:600; letter-spacing:-.01em; color:var(--v-text); text-decoration:none;
-  border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); border-radius:999px;
+  border:1px solid var(--v-text); border-radius:999px;
   padding:8px 16px; line-height:1; transition:none; }
-.v2t .lp-pill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .lp-trend .lp-pill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text);
+  text-decoration:none; }
 .v2t .lp-trend{ justify-content:center; gap:10px; margin-top:22px; align-items:center; }
 .v2t .lp-trend .lp-all{ margin-left:6px; }
 
@@ -1741,4 +1745,3 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
   border-left:1px solid var(--v-border); }
 .v2t .jb-locwrap .jb-locin{ border-left:none; width:100%; }
 .v2t .jb-locwrap .lp-dd{ left:8px; right:8px; }
-.v2t .jb-locico{ width:16px; height:16px; color:var(--v-text2); flex:none; margin-left:14px; }

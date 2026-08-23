@@ -78,7 +78,15 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   }, [all]);
   const taItems = useMemo(() => {
     const query = q.trim().toLowerCase();
-    if (query.length < 2) return [] as { kind: 'occ' | 'skill'; slug: string; label: string; via?: string }[];
+    if (query.length < 2) {
+      // predictive on focus: before anyone types, the biggest boards are the
+      // suggestion (the landing cell's behavior, mirrored)
+      return [...occCounts.entries()]
+        .filter(([slug]) => slug !== scope?.occ)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8)
+        .map(([slug]) => ({ kind: 'occ' as const, slug, label: titles[slug] ?? slug, via: undefined as string | undefined }));
+    }
     const wordStart = (text: string, needle: string) => text.split(/[\s/&,-]+/).some((w) => w.startsWith(needle));
     // occupations: rank title word-starts first, then synonym hits from the
     // expansion text; same ladder as the landing typeahead
@@ -584,7 +592,6 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             .slice(0, 8);
           return (
             <span className="jb-locwrap">
-              <svg className="jb-locico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
               <input
                 className="jb-locin"
                 type="search"
