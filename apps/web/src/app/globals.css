@@ -17,20 +17,25 @@
     --black:#0c0c14;
     --railw:300px;
     --sans:var(--font-sans),"Instrument Sans",system-ui,sans-serif;
-    --mono:var(--font-mono),"Space Mono",ui-monospace,monospace;
+    --mono:var(--font-mono),"Chivo Mono",ui-monospace,monospace;
     /* ADOPTED 2026-07-31. The trial ran Instrument Sans on the hero and nav only,
      against real Space Mono, and it is now the word face everywhere — Space
      Grotesk is gone. --display stays as a named alias so the ~40 rules that ask
      for the display face keep reading intentionally, and so a future display
      cut can be introduced in one line without touching them.
-     Still TWO typefaces (non-negotiable #7): Instrument Sans + Space Mono. */
+     Still TWO typefaces (non-negotiable #7): Instrument Sans + Chivo Mono
+     (Chivo replaced Space Mono 2026-08-23; same role, less-saturated face). */
   --display:var(--sans);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5;font-size:16px}
   a{color:inherit;text-decoration:none}
-  .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  /* THE MONO DIET (2026-08-23): the base label is the WORD face now — tiny
+   tracked mono labels over every section were the AI-scaffolding fingerprint
+   (impeccable's own flag). Mono is reserved for measurements: counts, dates,
+   readouts re-declare var(--mono) explicitly where the data lives. */
+.lbl{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
   .lbl.acc{color:var(--accent)}
   .mark{display:inline-block;color:var(--accent)}
   .mark svg{display:block;width:100%;height:100%}

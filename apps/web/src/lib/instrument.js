@@ -513,7 +513,7 @@ export function mountInstrument(DATA,HOOKS){
         var name=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':TYPO?600:500,'font-size':n.fs||12.5,x:0,y:0});
         name.style.fill='var(--g-ink, #15151a)';
         name.textContent=n.label;g.appendChild(name);
-        var match=svgEl('text',{'text-anchor':'middle','font-family':'Space Mono','font-size':TYPO?(n.fs*0.5):9.5,'letter-spacing':1,x:0,y:0});
+        var match=svgEl('text',{'text-anchor':'middle','font-family':'Chivo Mono, monospace','font-size':TYPO?(n.fs*0.5):9.5,'letter-spacing':1,x:0,y:0});
         match.style.fill='var(--g-ink3, #8a8a93)';
         match.textContent=n.match+'% MATCH';g.appendChild(match);
         el.labelTexts[n.id]={name:name,match:match};
