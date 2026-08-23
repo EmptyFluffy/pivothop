@@ -49,6 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/career-guides`, ...mod('/career-guides'), changeFrequency: 'weekly', priority: 0.7 },
     ...guidedSlugs().map((s) => ({ url: `${BASE}/career-guides/${s}`, ...mod(`/career-guides/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
     { url: `${BASE}/jobs`, ...mod('/jobs'), changeFrequency: 'daily', priority: 0.8 },
+    { url: `${BASE}/instrument`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE}/jobs/browse`, ...mod('/jobs/browse'), changeFrequency: 'daily', priority: 0.7 },
     // the five facet sub-hubs (tier 2 of the browse spine) rank on their own
     ...['remote', 'fields', 'countries', 'seniority', 'pay'].map((f) => (

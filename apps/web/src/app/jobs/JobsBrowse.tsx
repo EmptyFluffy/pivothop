@@ -126,6 +126,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     setQ(p.get('q') ?? ''); setNeedle((p.get('q') ?? '').toLowerCase());
+    setLocQ(p.get('loc') ?? '');   // the landing's location cell posts here
     const t = new Set((p.get('t') ?? '').split(',').filter(Boolean));
     // legacy: the old 'new this week' lived in t; it is a freshness setting now
     const fresh = (p.get('fresh') ?? (t.has('new') ? 'w' : '')) as Filters['fresh'];
@@ -232,6 +233,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (all === null) return;
     const p = new URLSearchParams();
     if (needle) p.set('q', needle);
+    if (locQ.trim()) p.set('loc', locQ.trim());
     if (f.fieldSet.size) p.set('f', [...f.fieldSet].join(','));
     if (f.ctySet.size) p.set('c', [...f.ctySet].join(','));
     if (f.region) p.set('region', f.region);

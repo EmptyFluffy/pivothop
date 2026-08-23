@@ -33,7 +33,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
             <kbd>&#8984;K</kbd>
           </button>
           <V2ThemeToggle />
-          <Link className="nav-run" href="/">Run the instrument</Link>
+          <Link className="nav-run" href="/instrument">Run the instrument</Link>
         </span>
       )}
       {v2 && <span className="nav-tt-m"><V2ThemeToggle /></span>}
@@ -52,7 +52,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
         <Link className={`navlink${active === 'routes' ? ' on' : ''}`} href="/routes">Routes</Link>
         {v2
           ? <Link className={`navlink${active === 'salaries' ? ' on' : ''}`} href="/salary">Salaries</Link>
-          : <Link className="navlink" href="/#how">Method</Link>}
+          : <Link className="navlink" href="/instrument#how">Method</Link>}
         {v2 && <Link className={`navlink${active === 'careers' ? ' on' : ''}`} href="/career-guides">Guides</Link>}
         <Link className={`navlink${active === 'blog' ? ' on' : ''}`} href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
@@ -83,7 +83,7 @@ export function SiteFooter() {
         <div>
           <h5>Product</h5>
           <ul>
-            <li><Link href="/#how">Method</Link></li>
+            <li><Link href="/instrument#how">Method</Link></li>
             <li><Link href="/jobs">Job board</Link></li>
             <li><Link href="/jobs/browse">Browse jobs</Link></li>
             <li><Link href="/routes">Career routes</Link></li>
@@ -99,7 +99,7 @@ export function SiteFooter() {
             <li><Link href="/adjacency-index">Adjacency Index</Link></li>
             <li><Link href="/glossary">Glossary &amp; sources</Link></li>
             <li><Link href="/licenses">License gates</Link></li>
-            <li><Link href="/#faq">FAQ</Link></li>
+            <li><Link href="/instrument#faq">FAQ</Link></li>
           </ul>
         </div>
         <div>

@@ -1528,3 +1528,92 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 .v2t .v2h #graph .edge,
 .v2t .v2h #graph circle.node,
 .v2t .v2h #graph .leader{ display:none; }
+
+/* ============================================================================
+   THE LANDING, v2 (2026-08-22): a server-rendered product landing. Count-led
+   hero, a real search that posts into /jobs, the trending links into the
+   programmatic tier, the instruments as cards. All plain HTML — this page's
+   job is brand, conversion, and the shortest crawl path to the product.
+   ============================================================================ */
+.v2t .lp{ padding:0 32px 90px; }
+.v2t .lp-hero{ padding:96px 0 0; max-width:1080px; }
+.v2t .lp-hero h1{ font-size:clamp(56px,8.4vw,116px); font-weight:800; line-height:.98;
+  letter-spacing:-.04em; color:var(--v-text); margin:0 0 30px; max-width:14ch; }
+.v2t .lp-hero h1 .em{ color:var(--v-value); }
+.v2t .lp-sub{ font-size:17.5px; line-height:1.6; color:var(--v-text2); max-width:58ch; margin:0 0 18px; }
+.v2t .lp-proof{ display:block; font-family:var(--mono),monospace; font-size:11px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); margin:0 0 44px;
+  font-variant-numeric:tabular-nums; }
+
+/* the search unit: the board's own anatomy, one action to /jobs */
+.v2t .lp-search{ display:grid; grid-template-columns:1.6fr 1px 1fr auto;
+  border:1px solid var(--v-text); border-radius:10px; overflow:hidden;
+  background:var(--v-bg); max-width:980px; }
+.v2t .lp-sfield{ display:flex; flex-direction:column; justify-content:center; gap:5px;
+  padding:16px 22px; min-width:0; }
+.v2t .lp-sfield .l{ font-family:var(--mono),monospace; font-size:9.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lp-sfield input{ border:none; background:none; outline:none;
+  font-family:var(--sans),sans-serif; font-size:17px; font-weight:500; color:var(--v-text); width:100%; }
+.v2t .lp-sfield input::placeholder{ color:var(--v-text2); font-weight:400; }
+.v2t .lp-sdiv{ background:var(--v-border2); width:1px; }
+.v2t .lp-go{ display:flex; align-items:center; gap:12px; border:none; cursor:pointer;
+  background:var(--v-fill); color:var(--v-fill-ink); font-family:var(--sans),sans-serif;
+  font-size:15.5px; font-weight:700; letter-spacing:-.01em; padding:0 28px; transition:none;
+  white-space:nowrap; }
+.v2t .lp-go:hover{ filter:brightness(1.08); }
+.v2t .lp-go svg{ width:17px; height:17px; }
+
+/* trending: plain crawlable links, counts in mono */
+.v2t .lp-trend{ display:flex; flex-wrap:wrap; align-items:baseline; gap:9px 22px;
+  margin:26px 0 0; max-width:980px; }
+.v2t .lp-trend > .lbl{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--v-text2); margin-right:2px; }
+.v2t .lp-trend a{ font-size:14px; font-weight:500; letter-spacing:-.01em; color:var(--v-text);
+  text-decoration:none; }
+.v2t .lp-trend a:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+.v2t .lp-n{ font-family:var(--mono),monospace; font-size:10.5px; color:var(--v-text2);
+  font-variant-numeric:tabular-nums; }
+.v2t .lp-trend a:hover .lp-n{ color:var(--v-value); }
+.v2t .lp-all{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--v-value) !important; }
+
+/* the instruments */
+.v2t .lp-tools{ margin-top:100px; }
+.v2t .lp-tools h2{ font-size:clamp(28px,3.6vw,44px); font-weight:800; letter-spacing:-.03em;
+  color:var(--v-text); margin:0 0 34px; }
+.v2t .lp-toolgrid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+  gap:22px; max-width:1080px; }
+.v2t .lp-tool{ display:flex; flex-direction:column; gap:14px; padding:34px 34px 30px;
+  border:1px solid var(--v-border2); border-radius:10px; text-decoration:none;
+  background:var(--v-bg); transition:none; }
+.v2t .lp-tool:hover{ border-color:var(--v-text); }
+.v2t .lp-tool > .lbl{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lp-tool h3{ font-size:clamp(22px,2.6vw,30px); font-weight:700; letter-spacing:-.025em;
+  line-height:1.08; color:var(--v-text); margin:0; }
+.v2t .lp-tool p{ font-size:14.5px; line-height:1.55; color:var(--v-text2); margin:0; }
+.v2t .lp-tool-go{ margin-top:auto; font-family:var(--mono),monospace; font-size:10.5px;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--v-value); }
+.v2t .lp-tool:hover .lp-tool-go{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+
+/* the rest of the product, one ruled row */
+.v2t .lp-more{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:34px 44px; margin-top:90px; padding-top:44px; border-top:1px solid var(--v-border2);
+  max-width:1080px; }
+.v2t .lp-more h4{ font-size:16px; font-weight:700; letter-spacing:-.015em; margin:0 0 8px; }
+.v2t .lp-more h4 a{ color:var(--v-text); text-decoration:none; }
+.v2t .lp-more h4 a:hover{ color:var(--v-value); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .lp-more p{ font-size:13.5px; line-height:1.5; color:var(--v-text2); margin:0; }
+
+@media (max-width:860px){
+  .v2t .lp{ padding:0 22px 60px; }
+  .v2t .lp-hero{ padding-top:56px; }
+  .v2t .lp-search{ grid-template-columns:1fr; }
+  .v2t .lp-sdiv{ display:none; }
+  .v2t .lp-sfield{ border-bottom:1px solid var(--v-border); padding:14px 18px; }
+  .v2t .lp-go{ padding:16px 22px; justify-content:center; }
+}
