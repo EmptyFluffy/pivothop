@@ -35,7 +35,8 @@ export default function Home() {
   // links — the crawl path into the programmatic tier (finding 4 of the SEO
   // sweep: ship 10–20 links into pSEO, not just one link to /jobs).
   const cats = allCategories();
-  const trending = [...cats].sort((a, b) => b.count - a.count).slice(0, 14);
+  // seven, not fourteen: the trending row reads as one quiet line
+  const trending = [...cats].sort((a, b) => b.count - a.count).slice(0, 7);
 
   // The Wellfound move, on our data: a few live cards per interesting
   // category (never "senior jobs"). Freshest first, salary-and-logo-carrying
@@ -135,7 +136,7 @@ export default function Home() {
         <section className="lp-tools" aria-label="The instruments">
           <h2>The instruments.</h2>
           <div className="lp-toolgrid">
-            <Link className="lp-tool" href="/instrument">
+            <Link className="lp-tool lp-tool-lead" href="/instrument">
               <span className="lbl">Career instrument</span>
               <h3>Map the careers your skills already reach.</h3>
               <p>Name your role and skills; it returns every adjacent move with the match percentage, the salary band, the skill gap, and the honest odds. {routes.toLocaleString()} routes measured from live postings.</p>
