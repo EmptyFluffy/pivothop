@@ -376,7 +376,12 @@ for line in open(NORM):
     if s not in OK:
         continue
     role, url = d.get('role_id'), d.get('url')
-    if not role or not url or url in seen_url:
+    # Shared-portal sources (ANE: applying needs an account, every row links
+    # the portal itself) share ONE url across all postings — keying dedup and
+    # the job id on the bare url collapsed 496 ANE rows to 1 (found in the
+    # 2026-08-23 merge regeneration). Their identity is url#external_id.
+    ukey = f"{url}#{d.get('external_id')}" if s in ('ane',) else url
+    if not role or not url or ukey in seen_url:
         continue
     r = raw.get((s, str(d.get('external_id'))), {})
     company = fix_mojibake((r.get('company') or '')).strip()
@@ -386,9 +391,9 @@ for line in open(NORM):
     ct = (company.lower(), title.lower())
     if not title or ct in seen_ct:
         continue
-    seen_url.add(url); seen_ct.add(ct)
+    seen_url.add(ukey); seen_ct.add(ct)
     remote = str(d.get('remote_flag')) == 'True'
-    _id = jid(url)
+    _id = jid(ukey)
     desc = clean_desc(fix_mojibake(r.get('description_text') or ''))
     fl, lv = derive_flags(title, desc)
     loc = fix_mojibake((r.get('location') or '')).strip()
