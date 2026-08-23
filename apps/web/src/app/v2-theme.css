@@ -1550,8 +1550,12 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 
 /* the search band: centered, iconed, one action to /jobs */
 .v2t .lp-searchband{ max-width:1160px; margin:56px auto 0; }
+/* NO overflow:hidden here — the predictive dropdowns hang below the unit and
+   a clipping context swallowed them whole (found live 2026-08-23; the DOM
+   probes passed because the nodes exist, just invisibly). The CTA rounds its
+   own right corners instead. */
 .v2t .lp-search{ display:grid; grid-template-columns:1.6fr 1px 1fr auto;
-  border:1px solid var(--v-text); border-radius:10px; overflow:hidden;
+  border:1px solid var(--v-text); border-radius:10px;
   background:var(--v-bg); }
 .v2t .lp-sfield{ display:flex; flex-direction:row; align-items:center; gap:14px;
   padding:14px 20px; min-width:0; }
@@ -1564,6 +1568,7 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 .v2t .lp-sfield input::placeholder{ color:var(--v-text2); font-weight:400; }
 .v2t .lp-sdiv{ background:var(--v-border2); width:1px; }
 .v2t .lp-go{ display:flex; align-items:center; gap:12px; border:none; cursor:pointer;
+  border-radius:0 9px 9px 0;
   background:var(--v-fill); color:var(--v-fill-ink); font-family:var(--sans),sans-serif;
   font-size:15.5px; font-weight:700; letter-spacing:-.01em; padding:0 28px; transition:none;
   white-space:nowrap; }
@@ -1730,11 +1735,11 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 
 /* ---- the board's search band takes the landing unit's clothes ---- */
 @media (min-width:981px){
-  .v2t .jb-searchband{ border:1px solid var(--v-text); border-radius:10px; overflow:hidden;
-    background:var(--v-bg); }
+  .v2t .jb-searchband{ border:1px solid var(--v-text); border-radius:10px;
+    background:var(--v-bg); }   /* no overflow:hidden — the typeahead hangs below */
   .v2t .jb-fltbtn{ background:var(--v-fill); color:var(--v-fill-ink); border:none;
     font-family:var(--sans),sans-serif; font-size:15px; font-weight:700; letter-spacing:-.01em;
-    padding:0 26px; height:52px; border-radius:0; transition:none; }
+    padding:0 26px; height:52px; border-radius:0 9px 9px 0; transition:none; }
   .v2t .jb-fltbtn:hover{ background:var(--v-fill); color:var(--v-fill-ink); filter:brightness(1.08); }
   .v2t .jb-fltbtn.on{ border:none; }
   .v2t .jb-fltn{ background:var(--v-fill-ink); color:var(--v-fill); }
