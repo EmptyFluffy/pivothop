@@ -1,0 +1,104 @@
+{
+ "slug": "software-engineer",
+ "title": "Software Engineer",
+ "model": "claude-sonnet-5-editorial-pilot",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "Software engineers design, build and maintain the systems behind digital products. Writing code is central, but the role also includes deciding how a feature should work, testing it, reviewing changes and keeping it reliable after release. Backend, frontend and infrastructure roles narrow that responsibility to a particular part of the system.",
+  "day_to_day": "The work usually moves between understanding a problem, reading existing code, writing a change and proving that the change behaves as intended. Pull requests, tests, technical discussions and production monitoring are part of the same job, not separate administrative work. Junior engineers tend to receive narrower tasks, while experienced engineers spend more time defining the solution and reviewing decisions that affect other teams. Maintenance matters too: many valuable changes improve an existing system rather than create something new.",
+  "work_environment": "Software engineering can be done from an office, remotely or in a hybrid team because most of the work is digital. Remote availability still depends on how a company handles collaboration, security, time zones and onboarding. Hours are often predictable, though teams responsible for live systems may rotate on-call coverage or respond to incidents outside the normal day.",
+  "getting_in": "A computer science degree remains a common route, but it is not the only one. Employers that waive the degree usually need stronger proof elsewhere: deployed projects, professional experience, open-source work or a clear record of shipping reliable software. The hardest step is often the first role because personal projects demonstrate coding, while employers also want evidence that you can work inside an existing codebase with other people.",
+  "ladder": "Early-career engineers are usually responsible for well-scoped changes. Mid-level engineers own features from design through release, and senior engineers take responsibility for larger systems, technical risk and the work of other contributors. Later, the path can split between staff-level technical leadership and engineering management.",
+  "suits": "You may enjoy this work if you like turning ambiguous problems into precise behavior and can stay patient while debugging something that resists the obvious answer. It also rewards people who can explain tradeoffs and accept review without treating code as personal territory. If you need every day to produce a visible physical result, the abstraction can feel distant.",
+  "misconceptions": "Software engineering is not simply writing new code alone. Reading, reviewing, testing, documenting and changing existing systems safely take a large share of the work, especially as you become more senior.",
+  "who_qualifies": "Backend developers have the most direct route because APIs, databases and deployment work already overlap. Data and infrastructure specialists also bring useful foundations, but may need broader product experience or deeper application-development skills depending on the role.",
+  "what_the_numbers_miss": "A listing rarely reveals the health of the codebase, the quality of technical leadership or how often engineers are interrupted. Those conditions can matter more to the daily experience than the language named in the requirements.",
+  "steps": [
+   {
+    "do": "Learn one language and build with it",
+    "how": "Pick Python or JavaScript and spend 3 to 6 months building small, complete programs, not tutorials you copy. You know you're done when you can build something from a blank file without looking up basic syntax every ten minutes."
+   },
+   {
+    "do": "Build three projects that solve real problems",
+    "how": "Not to-do apps: something that touches a real API, stores data in a real database, and has a user other than you. Two to four months, run mostly evenings and weekends, and each one should be deployed somewhere live, not just sitting in a repo."
+   },
+   {
+    "do": "Learn git and basic CI/CD workflow",
+    "how": "Version control and at least a simple automated test-and-deploy pipeline show up in 29% and 32% of postings respectively, and employers assume you already know both. This takes a few weeks if you're deliberate about it: set up a pipeline for one of your own projects rather than reading about how they work."
+   },
+   {
+    "do": "Apply broadly, expect a numbers game",
+    "how": "Plan on this stage taking 2 to 4 months and dozens of applications; the first offer is the hardest one to get. Tailor for roles that name your actual stack rather than applying to everything, and expect at least one technical screen involving live coding."
+   },
+   {
+    "do": "Take the first job, then specialize later",
+    "how": "The first 12 to 18 months on the job teach you more than any amount of solo study, particularly what production code under real constraints looks like. Use this window to figure out whether you gravitate toward backend systems, front-end product work, or infrastructure, since that shapes the next move."
+   }
+  ],
+  "tools": "Version control, APIs, databases and automated testing form the common layer across many roles. Languages and frameworks vary, so employers often care less about collecting every tool than about whether you can understand an existing system, make a safe change and explain the tradeoffs.",
+  "industries": [
+   {
+    "name": "Finance and banking",
+    "note": "Code here touches money directly, so review processes are heavier and mistakes are expensive; Switzerland's strong presence in these postings reflects this sector specifically."
+   },
+   {
+    "name": "Enterprise software (B2B SaaS)",
+    "note": "Slower release cycles than consumer apps, more emphasis on backward compatibility since a change can break a client's entire workflow."
+   },
+   {
+    "name": "Early-stage startups",
+    "note": "Fewer processes, more ownership per person, and the codebase changes shape every few months as the product itself is still being figured out."
+   },
+   {
+    "name": "Consulting and agencies",
+    "note": "You move between client codebases every few months, which builds range fast but means less time to see the long-term consequences of your own decisions."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Platform and infrastructure engineering",
+    "why": "As companies scale, someone has to own the systems other engineers build on top of; this pairs the CI/CD and cloud skills already common in postings with deeper systems design, and pays well because mistakes here affect everyone."
+   },
+   {
+    "name": "Backend systems at scale",
+    "why": "Microservices architecture already shows up in a fifth of postings, and companies handling serious traffic pay a premium for engineers who understand distributed systems failure modes, not just how to write a service that works on one machine."
+   },
+   {
+    "name": "Developer tooling and internal platforms",
+    "why": "Someone has to build the tools other engineers use daily, and doing it well means understanding the whole engineering organization's pain points; it's a smaller market but a loyal one once you're good at it."
+   }
+  ],
+  "pros": [
+   "The feedback loop between a change and its result can be fast.",
+   "Technical career paths can remain hands-on at senior levels.",
+   "Core engineering skills transfer across many industries."
+  ],
+  "cons": [
+   "Maintenance and debugging can occupy more time than building from scratch.",
+   "Some roles include on-call responsibility for production systems.",
+   "Tools change quickly enough that learning remains part of the job."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a software engineer",
+    "a": "There is no single timeline. A degree provides a structured route, while self-taught and bootcamp paths depend on how quickly you can build credible projects and convert them into professional experience."
+   },
+   {
+    "q": "can you become a software engineer without a degree",
+    "a": "Yes, but you need convincing evidence that replaces the degree signal. Deployed projects, professional collaboration and experience maintaining real software are stronger than a portfolio made only of tutorials."
+   },
+   {
+    "q": "is software engineering still a good career",
+    "a": "It remains a strong career for people who can build reliable systems and keep learning, but entry-level hiring is competitive. The outlook is better when you can show ownership of real work rather than familiarity with a long list of tools."
+   },
+   {
+    "q": "can software engineers work remotely",
+    "a": "Yes, many can, although remote availability varies by company and specialty. Security requirements, collaboration style, time zones and on-call coverage all influence whether a role is fully remote."
+   },
+   {
+    "q": "software engineer vs backend developer, what is the difference",
+    "a": "Backend development is usually a specialization within software engineering focused on servers, APIs and databases. A broader software engineer title may cover frontend, backend, infrastructure or ownership across several layers."
+   }
+  ]
+ }
+}

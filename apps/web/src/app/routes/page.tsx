@@ -42,7 +42,7 @@ export default function RoutesIndex() {
   const total = rows.length;
 
   return (
-    <PageShell>
+    <PageShell v2 active="routes">
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Routes</span></nav>
         <h1 className="rt-h1">Career pivots, measured.</h1>

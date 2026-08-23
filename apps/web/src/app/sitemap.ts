@@ -4,6 +4,7 @@ import path from 'node:path';
 import { POSTS } from './blog/posts';
 import { routableSlugs, routeOrigins } from './routes/routes-data';
 import { coverableSlugs } from './salary/salary-data';
+import { guidedSlugs } from './career-guides/facts';
 import { jobOccupations } from './jobs/jobs-data';
 import { categorySlugs } from './jobs/categories-data';
 import { compareSlugs } from './compare/compare-data';
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/terms`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/employers`, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/fairelephant`, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${BASE}/salary/calculator`, changeFrequency: 'daily', priority: 0.8 },
     { url: `${BASE}/blog`, changeFrequency: 'weekly', priority: 0.8 },
     ...POSTS.map((p) => ({ url: `${BASE}/blog/${p.slug}`, changeFrequency: 'monthly' as const, priority: 0.7 })),
     { url: `${BASE}/adjacency-index`, ...mod('/adjacency-index'), changeFrequency: 'daily', priority: 0.9 },
@@ -48,8 +49,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/salary`, ...mod('/salary'), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/salary/by-country`, ...mod('/salary'), changeFrequency: 'weekly', priority: 0.7 },
     ...coverableSlugs().map((s) => ({ url: `${BASE}/salary/${s}`, ...mod(`/salary/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
+    { url: `${BASE}/career-guides`, ...mod('/career-guides'), changeFrequency: 'weekly', priority: 0.7 },
+    ...guidedSlugs().map((s) => ({ url: `${BASE}/career-guides/${s}`, ...mod(`/career-guides/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
     { url: `${BASE}/jobs`, ...mod('/jobs'), changeFrequency: 'daily', priority: 0.8 },
+    { url: `${BASE}/instrument`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE}/jobs/browse`, ...mod('/jobs/browse'), changeFrequency: 'daily', priority: 0.7 },
+    // the five facet sub-hubs (tier 2 of the browse spine) rank on their own
+    ...['remote', 'fields', 'countries', 'seniority', 'pay'].map((f) => (
+      { url: `${BASE}/jobs/browse/${f}`, ...mod(`/jobs/browse/${f}`), changeFrequency: 'daily' as const, priority: 0.65 }
+    )),
     ...jobOccupations().map((s) => ({ url: `${BASE}/jobs/${s}`, ...mod(`/jobs/${s}`), changeFrequency: 'daily' as const, priority: 0.7 })),
     ...categorySlugs().map((s) => ({ url: `${BASE}/jobs/${s}`, ...mod(`/jobs/${s}`), changeFrequency: 'daily' as const, priority: 0.6 })),
   ];

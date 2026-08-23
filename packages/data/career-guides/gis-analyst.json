@@ -1,0 +1,106 @@
+{
+ "slug": "gis-analyst",
+ "title": "GIS Analyst",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A GIS analyst turns raw spatial data, points, parcels, elevation scans, into maps and layers that other people make decisions from. The role sits closer to data work than to cartography: you spend more time in attribute tables and coordinate systems than laying out a finished map for print. That distinction is what separates it from Cartographer, a role people confuse it with constantly, but which leans harder into the visual output rather than the data pipeline behind it.",
+  "day_to_day": "Most weeks split between building or cleaning layers in a GIS platform and meeting with whoever asked for the map in the first place, a planner, an engineer, a field crew lead. You open a project file, check that the coordinate reference system matches what everyone else on the job is using (this sounds trivial until it isn't and a bridge centerline is off by four feet), and start joining new field data to existing parcels or infrastructure records. Point-cloud data from lidar or drone scans shows up often enough that cleaning it up, classifying ground versus vegetation versus structure, becomes its own recurring task. Statistics get run to check that a spatial pattern is real and not sampling noise before it goes in front of a client. The part people look forward to is the moment a new dataset finally overlays cleanly onto the base map and a pattern that was invisible in a spreadsheet becomes obvious as a shape. The rest of the week is quieter: exporting, documenting projections, sitting in review meetings where someone points at the screen and asks why a road is missing.",
+  "work_environment": "Most of this work happens at a desk, in an office, with two monitors and a GIS platform open on one of them. Remote share sits around a quarter of postings, lower than a lot of desk jobs, because a good share of the data (drone flights, boundary surveys, utility inspections) still gets collected by someone in the field who then hands it to the analyst, and coordination on active projects favors being in the same building. Bad weeks come from deadline stacking: a client wants revised maps ahead of a public hearing, or a point-cloud dataset from a fall drone survey needs to be processed before winter access closes a site. Hours are mostly standard, with occasional site visits or field days that break the desk routine.",
+  "getting_in": "The standard route runs through a four-year degree, most postings ask for one, paired with roughly four years of hands-on GIS experience by the time someone is hired at median level, though half the postings don't spell out a specific year requirement at all, meaning strong project work can substitute for a long resume. There's no license gate here, so the bottleneck isn't a test, it's building a body of real project work: a semester internship, a municipal GIS department, a stint doing survey support for an engineering firm. The step that eats the most time is accumulating that experience, since GIS skill compounds slowly through repeated exposure to messy real-world data rather than through coursework alone. People commonly stall right after school, holding a degree and a few class projects but no live dataset they've taken from raw import to final delivery.",
+  "ladder": "Early on you're handed defined tasks: clean this layer, generate this map, run this query. As you move up you start owning the data model itself, deciding how a whole project's spatial data should be structured before the first file is even imported, and that shift is the real marker of seniority, more than a title change. The first step up usually means being trusted to talk directly to the client or field team about what data is needed, rather than just processing what arrives. Past that point the ladder forks: some analysts move into managing a GIS team and project timelines, others go deeper technical, picking up Python scripting and point-cloud specialization and staying the person everyone routes the hard data problems to. That fork tends to show up somewhere in the four-to-seven-year range, once someone has enough project scars to know which direction they'd rather keep having.",
+  "suits": "People who like this work tend to be the type who notice when two datasets don't quite line up and can't leave it alone until they figure out why, whether it's a projection mismatch or a survey error from three years back. It suits someone who's fine spending a morning on attribute table cleanup because they know the afternoon payoff is a map that answers the question someone asked. The people who leave are usually those who wanted more visual, design-forward work, the cartography and layout side, and found themselves instead knee-deep in coordinate systems and spreadsheet joins. If what drew you in was making beautiful maps rather than making correct ones, this role will feel like the wrong half of the job.",
+  "misconceptions": "People assume this is mostly making maps, when a lot of the actual week is spent verifying that the underlying data is trustworthy before anything gets drawn. Another common assumption is that it's a software-only desk job disconnected from the physical world, but a fair share of projects trace back to a drone flight or a survey crew, and the analyst is often the one who has to know whether that field data was collected correctly.",
+  "who_qualifies": "There's no measured pipeline of people moving into this role from an adjacent one on record, so the honest answer is that most GIS analysts arrive through geography, environmental science, or civil engineering programs rather than a lateral move from another job. What carries over from those backgrounds is comfort with spatial reasoning and, from engineering specifically, familiarity with survey and CAD conventions. What doesn't transfer automatically is fluency in the GIS platform itself, that part gets built through direct project hours, not coursework alone.",
+  "what_the_numbers_miss": "None of this shows how much of the job depends on institutional knowledge of a specific place, knowing that a particular county's parcel data has a known error in one township, or that a utility's old maps use a projection nobody documented. That kind of knowledge doesn't show up in a skills list, and it's often what makes one analyst more valuable to an employer than someone with a stronger resume on paper.",
+  "steps": [
+   {
+    "do": "Get a four-year degree in a spatial field",
+    "how": "Geography, environmental science, and civil engineering programs all cover this ground, and most postings for this role list a four-year degree as the expectation. Look for programs with a dedicated GIS course sequence, not just one elective, since that's where you'll get repeated hands-on time with real datasets rather than a single semester project."
+   },
+   {
+    "do": "Build one full project end to end",
+    "how": "Take a raw dataset (public parcel data, a city's open GIS portal, a drone point cloud if you can get access) and carry it through import, cleaning, analysis, and a finished map or dashboard. This single project, done properly with documented projections and a clear write-up, does more for a resume than a semester of disconnected assignments."
+   },
+   {
+    "do": "Learn the core GIS platform properly",
+    "how": "Since GIS shows up in effectively all postings for this role, fluency in a major GIS platform is non-negotiable. Budget a few months of steady use, not just tutorials, working through real layers, joins, and coordinate system conversions until you stop having to look up basic operations."
+   },
+   {
+    "do": "Get exposure to point-cloud data",
+    "how": "Half of postings ask for point-cloud experience, so find a way to touch lidar or drone-derived data before you're hired, even through a free public dataset or a university lab. Learn to classify ground versus non-ground points and understand how noise gets filtered, since this is the part of the job least like a typical desk task."
+   },
+   {
+    "do": "Land an entry role or internship",
+    "how": "Municipal planning departments, utility companies, and engineering firms are common entry points and often hire analysts with under two years of experience if the project work is solid. Expect this stage to run alongside or right after school, and treat the first year as the point where your GIS speed and judgment catch up to your coursework."
+   }
+  ],
+  "tools": "GIS platforms are the real gatekeeper here, since essentially every posting expects fluency in one, most commonly ArcGIS specifically named in a quarter of them. Statistics knowledge and comfort with Excel are close behind and get used constantly for validating and summarizing spatial data before it goes into a map. Python shows up in a quarter of postings and is where the field is clearly heading, since scripting repetitive GIS tasks (batch reprojecting files, automating exports) is becoming an expected skill rather than a bonus one. Point-cloud processing tools are increasingly part of the stack as drone and lidar data collection gets cheaper.",
+  "industries": [
+   {
+    "name": "Local government and municipal planning",
+    "note": "Steady, cycle-driven work tied to zoning, permitting, and public infrastructure projects, often with public meetings attached to the output."
+   },
+   {
+    "name": "Civil and environmental engineering firms",
+    "note": "Project-based work supporting site design, utility routing, and environmental assessments, with heavier point-cloud and survey data involvement."
+   },
+   {
+    "name": "Utilities",
+    "note": "Long-lived infrastructure maps that get updated over decades, with a premium on knowing the history and quirks of the existing data."
+   },
+   {
+    "name": "Natural resources and conservation",
+    "note": "More fieldwork exposure and seasonal project peaks tied to survey and monitoring windows, often smaller teams than corporate settings."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Point-cloud and lidar processing",
+    "why": "Half of current postings already ask for it and drone survey costs keep dropping, so employers who used to outsource this are starting to want it in-house."
+   },
+   {
+    "name": "GIS automation with Python",
+    "why": "Teams drowning in repetitive data-cleaning tasks are actively hiring analysts who can script the boring parts, and it's one of the clearer paths toward the technical side of the ladder fork."
+   },
+   {
+    "name": "Spatial statistics and analysis",
+    "why": "Three quarters of postings already list statistics as a skill, and going deeper here (spatial regression, hotspot analysis) is what separates an analyst who makes maps from one who answers harder questions with them."
+   }
+  ],
+  "pros": [
+   "There's a specific, visible payoff to the work: watching a messy pile of field data resolve into a map that answers the question someone asked.",
+   "The skill compounds. A coordinate system quirk you debug once saves you hours the next five times you see it.",
+   "The work touches enough different sectors, government, engineering, utilities, conservation, that you can change industries without changing your core skill set.",
+   "It rewards the kind of person who notices small inconsistencies, and that trait gets more useful with time rather than less."
+  ],
+  "cons": [
+   "A meaningful chunk of the job is unglamorous cleanup: joining tables, fixing null values, reconciling two datasets that should agree and don't.",
+   "Remote work is less available here than in a lot of desk-based tech roles, since coordination with field data collection often favors being on-site.",
+   "The entry bar leans on both a degree and several years of practical GIS time, so the on-ramp is longer than it looks from outside.",
+   "Point-cloud and lidar work in particular can involve large files and slow processing runs that eat an afternoon with little to show for it until the job finishes."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a gis analyst",
+    "a": "Most people combine a four-year degree with a few years of hands-on GIS project work, and postings for this role show a median of around four years of experience expected by the time someone is hired at typical level. The fastest path runs through internships or a municipal GIS role during or right after school rather than waiting to accumulate experience afterward."
+   },
+   {
+    "q": "can you become a gis analyst without a degree",
+    "a": "It's uncommon but not impossible, since most postings do list a four-year degree as an expectation. What substitutes, when it happens, is a strong portfolio of real project work plus enough practical GIS platform experience to convince an employer the degree isn't the gap."
+   },
+   {
+    "q": "gis analyst vs cartographer, what's the difference",
+    "a": "A GIS analyst spends most of the week in data, cleaning, joining, and analyzing spatial datasets, while a cartographer focuses more on the finished visual product, the map itself as a designed artifact. The two roles share about 58% skill overlap, which is why people move between them, but the day-to-day center of gravity is genuinely different."
+   },
+   {
+    "q": "is gis analyst a good career right now",
+    "a": "It's a stable, specialized niche rather than a fast-growing one, with a relatively low yearly switch rate suggesting people who get into it tend to stay. The pay range is solid but not spectacular, and the appeal is more about steady, varied project work than rapid upward mobility."
+   },
+   {
+    "q": "can a gis analyst work remotely",
+    "a": "Some can, but only about a quarter of postings offer it, lower than many desk-based tech roles. That's largely because GIS work often connects to field-collected data and on-site coordination with survey or engineering teams, which pulls the job back toward an office or hybrid setup."
+   }
+  ]
+ }
+}

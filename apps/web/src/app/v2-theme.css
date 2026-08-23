@@ -1,0 +1,1752 @@
+/* ============================================================================
+   V2 THEME LAYER (docs/redesign-v2/05). Presentation only: restyles the
+   existing, unchanged board markup under the .v2t wrapper. No selector here
+   may act outside .v2t. Dark is the default world (black, gold #F0B43C);
+   html.vlight flips to the light world (white, violet #6219FF). Both sets
+   were measured from the reference sites (04-design-system.md).
+   ============================================================================ */
+.v2t{
+  --v-bg:#000000; --v-surface:#111110; --v-bg2:#1A1917;
+  --v-text:#F5F3EE; --v-text2:#979289;
+  --v-border:#232220; --v-border2:#403D36;
+  --v-value:#F0B43C; --v-fill:#F0B43C; --v-fill-ink:#151310;
+  --v-pos:#8FBF9A; --v-gap:#E08762;
+  background:var(--v-bg); color:var(--v-text);
+}
+html.vlight .v2t{
+  --v-bg:#FFFFFF; --v-surface:#F7F7F5; --v-bg2:#F1EDFF;
+  --v-text:#141414; --v-text2:#66646B;
+  --v-border:#E8E7E3; --v-border2:#C9C7C1;
+  --v-value:#6219FF; --v-fill:#6219FF; --v-fill-ink:#FFFFFF;
+  --v-pos:#2F7A47; --v-gap:#C4573A;
+}
+.v2t, .v2t .main{ background:var(--v-bg); }
+.v2t{ border-color:var(--v-border); }
+
+/* ---- the mode toggle: a bare icon in the nav bar ----
+   CSS picks the glyph from html.vlight, so the first paint is already right. */
+.v2t .v2-themetoggle{ background:none; border:none; cursor:pointer; color:var(--v-text);
+  padding:6px; display:grid; place-items:center; }
+.v2t .v2-themetoggle svg{ width:17px; height:17px; }
+.v2t .v2-themetoggle .tt-moon{ display:none; }
+html.vlight .v2t .v2-themetoggle .tt-sun{ display:none; }
+html.vlight .v2t .v2-themetoggle .tt-moon{ display:block; }
+.v2t .nav-tt-m{ display:none; }
+@media (max-width:980.9px){
+  .v2t .nav-tt-m{ display:flex; align-items:center; padding:0 4px; }
+}
+
+/* ---- chrome: the real nav and footer read the tokens ---- */
+.v2t .nav{ background:var(--v-bg); border-color:var(--v-border); }
+.v2t .nav .brand .mark, .v2t .nav .brand .wm{ color:var(--v-text); }
+.v2t .navlink{ color:var(--v-text); }
+.v2t .navlink:hover, .v2t .navlink.on{ color:var(--v-value); }
+.v2t .nav .cta{ color:var(--v-text); }
+.v2t .nav .cta:hover{ color:var(--v-value); text-decoration-color:var(--v-value); }
+.v2t .nav-searchbtn, .v2t .nav-searchbtn-m{ color:var(--v-text); }
+.v2t .nav-searchbtn kbd, .v2t kbd{ background:var(--v-bg2); color:var(--v-text2); border-color:var(--v-border2); }
+.v2t .foot{ background:var(--v-bg); color:var(--v-text2); border-color:var(--v-border2); }
+.v2t .foot a{ color:var(--v-text2); }
+.v2t .foot a:hover{ color:var(--v-text); }
+.v2t .foot .brand .mark, .v2t .foot .brand .wm{ color:var(--v-text); }
+
+/* ---- page head ---- */
+.v2t .rt-crumbs, .v2t .rt-crumbs a{ color:var(--v-text2); }
+.v2t .jb-head{ border-color:var(--v-border2); }
+.v2t .rt-h1{ color:var(--v-text); letter-spacing:-.03em; }
+.v2t .rt-dek{ color:var(--v-text2); }
+
+/* ---- sticky band + search ---- */
+.v2t .jb-stick{ background:var(--v-bg); border-color:var(--v-border2); }
+.v2t .jb-searchband{ background:var(--v-bg); border-color:var(--v-border2); }
+.v2t .jb-search{ color:var(--v-text); }
+.v2t .jb-search::placeholder{ color:var(--v-text2); }
+.v2t .jb-ico{ color:var(--v-text2); }
+.v2t .jb-fltbtn{ color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:999px; }
+.v2t .jb-fltbtn:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .jb-fltbtn.on{ border-color:var(--v-value); }
+.v2t .jb-fltn{ background:var(--v-value); color:var(--v-fill-ink); }
+.v2t .jb-showall{ color:var(--v-text); }
+
+/* ---- typeahead ---- */
+.v2t .jb-ta{ background:var(--v-surface); border-color:var(--v-border2); box-shadow:0 18px 36px rgba(0,0,0,.45); }
+.v2t .jb-ta-item{ color:var(--v-text); border-color:var(--v-border); }
+.v2t .jb-ta-item.hi{ background:var(--v-bg2); }
+.v2t .jb-ta-m{ color:var(--v-text2); }
+.v2t .jb-ta-sub, .v2t .jb-ta-via{ color:var(--v-text2); }
+
+/* ---- pills / active filters ---- */
+.v2t .jb-pill{ font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--v-text); border:1px solid color-mix(in srgb, var(--v-text) 28%, transparent); border-radius:999px; background:none; }
+.v2t .jb-pill:hover{ background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-pill-geo{ border-color:color-mix(in srgb, var(--v-value) 60%, transparent); color:var(--v-value); }
+.v2t .jb-geo-x{ color:var(--v-text2); }
+.v2t .jb-clear{ color:var(--v-text2); }
+
+/* ---- featured strip: from flat blue to a bordered statement ---- */
+.v2t .feat{ background:var(--v-surface); border-top:1px solid var(--v-border2); border-bottom:1px solid var(--v-border2); color:var(--v-text); }
+.v2t .feat-cap{ color:var(--v-value); }
+.v2t .feat-sub{ color:var(--v-text2); }
+.v2t .feat-row{ border-color:var(--v-border); }
+.v2t .feat-row:hover{ background:var(--v-bg2); }
+.v2t .feat-i{ color:var(--v-text2); }
+.v2t .feat-t{ color:var(--v-text); }
+.v2t .feat-co, .v2t .feat-meta{ color:var(--v-text2); }
+.v2t .feat-pay{ color:var(--v-value); }
+.v2t .feat-arrow{ color:var(--v-text); }
+.v2t .feat-row:hover .feat-t, .v2t .feat-row:hover .feat-co, .v2t .feat-row:hover .feat-meta{ color:var(--v-text); }
+.v2t .feat-row:hover .feat-pay, .v2t .feat-row:hover .feat-i, .v2t .feat-row:hover .feat-arrow{ color:var(--v-value); }
+
+/* ---- the rows ---- */
+.v2t .job-list{ border-color:var(--v-border2); }
+.v2t .job-card{ border-color:var(--v-border); }
+.v2t .job-card:hover{ background:var(--v-surface); }
+.v2t .job-card.sel{ background:var(--v-bg2); box-shadow:inset 3px 0 0 var(--v-value); }
+.v2t .job-t{ color:var(--v-text); font-size:18.5px; letter-spacing:-.015em; }
+.v2t .job-card:hover .job-t{ color:var(--v-value); }
+.v2t .job-co{ color:var(--v-text2); }
+.v2t .job-loc{ color:var(--v-text2); }
+.v2t .job-pay{ color:var(--v-value); font-weight:600; }
+.v2t .job-m{ color:var(--v-text2); }
+.v2t .job-tag{ border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); color:var(--v-text); background:none; border-radius:999px; }
+.v2t .job-tag-hire{ border-color:color-mix(in srgb, var(--v-value) 70%, transparent); color:var(--v-value); }
+.v2t .job-mono{ background:var(--v-bg2); color:var(--v-text); border:1px solid var(--v-border2); }
+.v2t .job-logo img{ background:#fff; border-radius:7px; }
+.v2t .job-arrow{ color:var(--v-text2); }
+.v2t .job-card:hover .job-arrow{ color:var(--v-value); }
+.v2t .jb-more{ font:inherit; font-size:13.5px; color:var(--v-text); background:none;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:999px; }
+.v2t .jb-more:hover{ background:var(--v-text); color:var(--v-bg); }
+.v2t .rt-note{ color:var(--v-text2); }
+
+/* ---- split pane inspector ---- */
+.v2t .jpane{ background:var(--v-surface); border-color:var(--v-border2); }
+.v2t .jpane-title{ color:var(--v-text); }
+.v2t .jpane-co, .v2t .jpane-prov, .v2t .jpane-none, .v2t .jpane-note{ color:var(--v-text2); }
+.v2t .jpane-x{ color:var(--v-text2); } .v2t .jpane-x:hover{ color:var(--v-text); }
+.v2t .jsheet-facts div{ background:var(--v-bg2); border-color:var(--v-border); }
+.v2t .jsheet-facts .v{ color:var(--v-text); }
+.v2t .jsheet-facts .k{ color:var(--v-text2); }
+.v2t .jsheet-sec h3, .v2t .jsheet-desc h4{ color:var(--v-text); }
+.v2t .jsheet-desc p, .v2t .jsheet-desc li{ color:var(--v-text2); }
+.v2t .jd-skill{ color:var(--v-text); border-color:color-mix(in srgb, var(--v-text) 30%, transparent); background:none; border-radius:999px; }
+.v2t .jd-skill:hover{ background:var(--v-text); color:var(--v-bg); }
+.v2t .jpane-foot{ background:var(--v-surface); border-color:var(--v-border2); }
+.v2t .rt-go.jsheet-apply, .v2t .jpane-foot .rt-go{ background:var(--v-fill); color:var(--v-fill-ink); border-radius:999px; }
+.v2t .rt-go.jsheet-apply:hover{ filter:brightness(1.08); background:var(--v-fill); }
+.v2t .jpane-ghost{ color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:999px; }
+.v2t .jpane-ghost:hover{ background:var(--v-text); color:var(--v-bg); }
+
+/* ---- mobile sheet ---- */
+.v2t .jsheet{ background:var(--v-bg); color:var(--v-text); }
+.v2t .jsheet-bar{ background:var(--v-border2); }
+.v2t .jsheet-x{ color:var(--v-text2); }
+.v2t .jsheet-title{ color:var(--v-text); }
+.v2t .jsheet-co, .v2t .jsheet-src{ color:var(--v-text2); }
+.v2t .jsheet-foot{ background:var(--v-bg); border-color:var(--v-border2); }
+
+/* ---- filter sheet modal ---- */
+.v2t .flt-sh, .v2t .sksheet{ background:var(--v-bg); color:var(--v-text); border-color:var(--v-border2); }
+.v2t .flt-sh h3, .v2t .sksheet h3{ color:var(--v-text); }
+.v2t .flt-sh label, .v2t .flt-sh button{ color:var(--v-text); }
+.v2t .veil{ background:rgba(0,0,0,.6); }
+
+/* light-mode shadow softening */
+html.vlight .v2t .jb-ta{ box-shadow:0 18px 36px rgba(20,20,20,.12); }
+
+/* ============================================================================
+   STRUCTURE: the lab layout on the real board (design-lab/v2.css, ported).
+   Two-tier nav with a single rule, workspace rail, in-column search unit,
+   lab rows with a table head, the inspector pane, the giant footer.
+   Desktop >=981px gets the full workspace; mobile keeps its own pass.
+   ============================================================================ */
+
+/* the page ground behind and beyond the wrapper must match the mode */
+body:has(.v2t){ background:#000000; }
+html.vlight body:has(.v2t){ background:#FFFFFF; }
+
+/* ---- nav: wordmark row over the tab row; one border total ---- */
+.v2t .nav .brand .mark{ display:none; }
+.v2t .nav .brand .wm{ font-size:21px; font-weight:650; letter-spacing:-.025em; }
+.v2t .nav-v2r{ display:none; }
+@media (min-width:981px){
+  .v2t .nav{ display:grid; grid-template-columns:1fr auto; height:auto; align-items:center; }
+  .v2t .nav .brand{ grid-row:1; grid-column:1; height:66px; padding:0 28px; }
+  .v2t .nav .brand .wm{ font-size:27px; }
+  .v2t .nav-v2r{ grid-row:1; grid-column:2; display:flex; align-items:center; gap:22px; padding:0 28px; }
+  .v2t .nav-searchbtn-v2{ display:flex; align-items:center; gap:8px; background:none; border:none;
+    cursor:pointer; color:var(--v-text); padding:6px; }
+  .v2t .nav-searchbtn-v2 svg{ width:17px; height:17px; }
+  .v2t .nav-searchbtn-v2 kbd{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.06em;
+    color:var(--v-text2); background:none; border:1px solid var(--v-border2); border-radius:5px;
+    padding:2.5px 6px; }
+  .v2t .nav-run{ background:var(--v-text); color:var(--v-bg); padding:10px 20px; font-weight:550;
+    font-size:13.5px; letter-spacing:.01em; border-radius:999px; text-decoration:none;
+    transition:background .15s, color .15s; }
+  .v2t .nav-run:hover{ background:var(--v-fill); color:var(--v-fill-ink); text-decoration:none; }
+  .v2t .nav .nav-menu{ grid-row:2; grid-column:1 / -1; height:auto; align-items:center;
+    border-top:none; padding:0 28px 14px; gap:34px; }
+  .v2t .navlink{ font-size:13.5px; letter-spacing:.08em; height:auto; padding:0; text-underline-offset:2px; }
+  .v2t .navlink.on{ color:var(--v-text); text-decoration-color:currentColor; }
+  .v2t .nav .nav-menu .nav-searchbtn{ display:none; }
+  .v2t .nav .nav-menu .cta{ display:none; }
+}
+
+/* ---- workspace: full-bleed app frame, rail | center(list | pane) ---- */
+/* full-bleed up to a MacBook's width; beyond that the whole frame centers,
+   and the matching body ground keeps it reading as one surface */
+.v2t.shell, .v2t.shell-wide{ max-width:1512px; margin:0 auto; border-left:none; border-right:none; }
+.v2t .jb-rail{ display:none; }
+.v2t .jb-thead{ display:none; }
+@media (min-width:981px){
+  .v2t .rtp{ padding:34px 32px 72px; }
+  .v2t .rtp:has(.jb){ padding:0 0 44px; }
+  .v2t .jb-work{ display:grid; grid-template-columns:264px minmax(0,1fr); align-items:start;
+    position:relative; }
+  .v2t .jb-work::before{ content:""; position:absolute; left:264px; top:0; bottom:0; width:1px;
+    background:var(--v-border); }
+  .v2t .jb-rail{ display:block; padding:22px 22px 36px;
+    position:sticky; top:101px; max-height:calc(100dvh - 101px); overflow-y:auto;
+    /* scrollable, but no visible bar (the lab treatment) */
+    scrollbar-width:none; }
+  .v2t .jb-rail::-webkit-scrollbar{ display:none; }
+  .v2t .jb-centercol{ min-width:0; padding:24px 32px 0 32px; }
+  .v2t .jb-centercol:has(.jpane){ padding-right:0; }
+  /* with the inspector open, everything above the split stays in the list
+     column (the lab's three-column frame): inset by pane width + gutter */
+  .v2t .jb-centercol:has(.jpane) > :not(.jb-splitwrap){ margin-right:382px; }
+  /* without the inspector, the column does not run to the horizon */
+  .v2t .jb-centercol:not(:has(.jpane)) > *{ max-width:1160px; }
+  /* the floating mode toggle steps left of the pane instead of covering it */
+  .v2t .jb-centercol .jb-splitwrap{ margin:0; grid-template-columns:minmax(0,1fr) 356px; gap:0;
+    position:relative; }
+  .v2t .jb-centercol .jb-splitwrap::after{ content:""; position:absolute; right:356px; top:0; bottom:0;
+    width:1px; background:var(--v-border); }
+  /* the inspector reaches the workspace top (a measured negative pull) but
+     stays sticky INSIDE the split, so it scrolls away with the list exactly
+     like the rail does, instead of riding over the footer */
+  .v2t .jb-splitwrap .jpane{ position:sticky; top:var(--jpane-top,101px);
+    margin-top:var(--jpane-pull,0px); z-index:30; }
+  .v2t .jb-centercol .jb-splitwrap .jb-listcol{ padding-left:0; padding-right:26px; }
+  /* the pager centers on the full cell between the dividers, not the padded box */
+  .v2t .jb-centercol .jb-splitwrap .jb-pager{ margin-right:-26px; }
+  .v2t .jb-centercol .job-list-full{ margin-left:0; margin-right:0; }
+  .v2t .job-list-full .job-card{ padding-left:10px; padding-right:10px; }
+}
+
+/* ---- featured strip: identical rows, a breath of air before the table head ---- */
+.v2t .jb-featlist{ margin-bottom:26px; }
+
+/* ---- the rail (lab vrail, real filters) ---- */
+.v2t .jb-rail-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+.v2t .jb-rail-head h4{ font-size:23px; font-weight:650; letter-spacing:-.02em; margin:0; }
+.v2t .jb-rail-clear{ background:none; border:none; cursor:pointer; font:inherit; font-size:13px;
+  color:var(--v-text2); padding:0; }
+.v2t .jb-rail-clear:hover{ color:var(--v-text); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px; }
+.v2t .jb-rail section{ padding:20px 0; border-bottom:1px solid var(--v-border); }
+.v2t .jb-rail h5{ font-family:var(--mono),monospace; font-size:10px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--v-text2); margin:0 0 12px; }
+.v2t .jb-rail h5 i{ font-style:normal; color:var(--v-value); margin-right:8px; }
+.v2t .jb-opt{ display:flex; justify-content:space-between; align-items:center; font-size:15px;
+  line-height:1.55; color:var(--v-text2); padding:6px 0; }
+.v2t .jb-opt label{ display:flex; align-items:center; cursor:pointer; color:var(--v-text); min-width:0; }
+.v2t .jb-opt-n{ font-family:var(--mono),monospace; font-size:12.5px; letter-spacing:-.01em; flex:none; padding-left:10px; }
+.v2t .jb-opt input{ appearance:none; -webkit-appearance:none; margin:0 11px 0 0; width:19px; height:19px; flex:none;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:5px; cursor:pointer;
+  display:inline-grid; place-content:center; background:none; transition:background .15s, border-color .15s; }
+.v2t .jb-opt input[type=radio]{ border-radius:50%; }
+.v2t .jb-opt input:checked{ background:var(--v-text); border-color:var(--v-text); }
+.v2t .jb-opt input:checked::before{ content:""; width:10px; height:10px;
+  background:var(--v-bg); clip-path:polygon(14% 44%, 0 62%, 40% 100%, 100% 16%, 84% 2%, 38% 68%); }
+.v2t .jb-opt input[type=radio]:checked::before{ clip-path:none; border-radius:50%; width:8px; height:8px; }
+.v2t .jb-rail-all{ display:block; width:100%; margin-top:22px; background:none; color:var(--v-text);
+  font:inherit; font-size:14px; padding:10px 22px; cursor:pointer;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent); border-radius:999px;
+  transition:border-color .15s, background .15s, color .15s; }
+.v2t .jb-rail-all:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-rail-close{ margin-top:26px; padding-top:18px; border-top:1px solid var(--v-border2); }
+.v2t .jb-rail-big{ font-family:var(--mono),monospace; font-size:44px; font-weight:600; letter-spacing:-.03em;
+  line-height:1; color:var(--v-text); }
+.v2t .jb-rail-lab{ margin-top:6px; font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+
+/* ---- hero: meta line + title inside the column (lab vmeta/vtitle) ---- */
+.v2t .jb-vmeta{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--v-text2); margin:16px 0 10px; }
+.v2t .jb-vmeta .gl{ color:var(--v-value); }
+.v2t .jb-hero .rt-h1{ font-size:clamp(28px,3.2vw,42px); font-weight:600; letter-spacing:-.025em;
+  line-height:1.55; margin:2px 0 20px; }
+.v2t .jb-lede{ font-size:16.5px; line-height:1.6; color:var(--v-text2); max-width:70ch;
+  margin:-6px 0 26px; }
+.v2t .jb-lede .gl{ color:var(--v-value); }
+@media (min-width:981px){
+  .v2t .rtp:has(.jb) .rt-sec, .v2t .rtp:has(.jb) > .rt-method{ padding-left:32px; padding-right:32px; }
+}
+@media (min-width:981px){ .v2t .jb-vmeta{ margin-top:0; } }
+
+/* ---- search unit: a bordered box in the column, not a full-width band ---- */
+@media (min-width:981px){
+  .v2t .jb-stick{ position:static; margin:0 0 16px; padding:0; border:none; background:transparent; }
+  .v2t .jb-searchband{ margin:0; display:grid; grid-template-columns:auto minmax(0,1fr) 220px auto auto;
+    align-items:stretch; background:var(--v-surface); border:1px solid var(--v-border2);
+    border-radius:8px; position:relative; padding:0; gap:0; }
+  .v2t .jb-ico{ align-self:center; margin-left:14px; color:var(--v-text2); }
+  .v2t .jb-search{ height:52px; padding:0 14px 0 12px; font-size:14.5px; font-weight:400;
+    letter-spacing:normal; background:none; border:none; }
+  .v2t .jb-locin{ display:block; height:52px; border:none; border-left:1px solid var(--v-border);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23979289' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:14px center; background-size:16px 16px;
+    background-color:transparent; font:inherit; font-size:14.5px; color:var(--v-text); padding:0 16px 0 38px;
+    outline:none; border-radius:0; }
+  .v2t .jb-locin::placeholder{ color:var(--v-text2); }
+  .v2t .jb-fltbtn{ border:none; border-left:1px solid var(--v-border); border-radius:0; background:none;
+    padding:0 24px; font-size:13.5px; color:var(--v-text2); display:flex; align-items:center; gap:8px;
+    height:100%; }
+  .v2t .jb-fltbtn:hover{ color:var(--v-text); }
+  .v2t .jb-fltbtn:hover{ background:var(--v-bg2); }
+  .v2t .jb-ta{ top:calc(100% + 6px); border-radius:8px; }
+  .v2t .jb-showall{ display:flex; align-items:center; align-self:stretch; height:100%;
+    background:none; border:none; border-left:1px solid var(--v-border); border-radius:0;
+    margin:0; padding:0 22px; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--v-value); white-space:nowrap; text-decoration:none; }
+  .v2t .jb-showall:hover{ color:var(--v-text); }
+}
+.v2t .jb-locin{ display:none; }
+@media (min-width:981px){ .v2t .jb-locin{ display:block; } }
+
+/* ---- token rows: bare pills under the unit, no band chrome ---- */
+.v2t .jb-active{ background:transparent; border:none; margin:16px 0 18px; padding:0; }
+
+/* ---- table head + rows (lab vthead/vrows2) ---- */
+@media (min-width:981px){
+  .v2t .jb-thead{ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px; gap:14px;
+    padding:10px 10px; border-bottom:1px solid var(--v-border2); font-family:var(--mono),monospace;
+    font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
+  .v2t .job-card:has(.jv-main){ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px;
+    gap:14px; align-items:center; padding:22px 10px; border-bottom:1px solid var(--v-border);
+    position:relative; }
+  .v2t .jv-cell{ display:flex; justify-content:flex-end; }
+}
+@media (max-width:980.9px){
+  .v2t .job-card:has(.jv-main){ display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:14px;
+    align-items:center; padding:18px 2px; border-bottom:1px solid var(--v-border); position:relative; }
+  .v2t .jv-age, .v2t .jv-cell{ display:none; }
+  .v2t .jv-ti{ font-size:17px; }
+}
+.v2t .job-card:hover{ background:var(--v-surface); }
+.v2t .job-card.sel{ background:var(--v-bg2); }
+.v2t .job-card.sel::before{ content:""; position:absolute; left:0; top:0; bottom:-1px; width:2px;
+  background:var(--v-value); }
+.v2t .job-logo{ width:34px; height:34px; border-radius:6px; overflow:hidden;
+  background:transparent; border:none; box-shadow:none; }
+.v2t .job-logo img{ width:34px; height:34px; border-radius:6px; object-fit:contain; }
+.v2t .job-mono{ width:34px; height:34px; border-radius:6px; display:flex; align-items:center;
+  justify-content:center; font-weight:600; font-size:15px; }
+.v2t .jv-ti{ display:block; font-size:23px; font-weight:550; letter-spacing:-.015em; line-height:1.15;
+  margin:0 0 6px; color:var(--v-text); }
+.v2t .jv-at{ color:var(--v-text2); font-weight:450; }
+.v2t .jv-loc{ display:block; font-size:12.5px; color:var(--v-text2); }
+.v2t .jv-tags{ display:block; margin-top:6px; font-family:var(--mono),monospace; font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--v-value); }
+.v2t .jv-pay{ font-family:var(--mono),monospace; font-size:16px; font-weight:600; text-align:right;
+  color:var(--v-value); white-space:nowrap; text-transform:uppercase; }
+.v2t .jv-age{ font-family:var(--mono),monospace; font-size:11px; color:var(--v-text2); text-align:right;
+  white-space:nowrap; }
+.v2t .jv-apply{ border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent); border-radius:999px;
+  padding:10px 22px; font-size:14px; color:var(--v-text); white-space:nowrap;
+  transition:border-color .15s, background .15s, color .15s; }
+.v2t .jv-apply:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-more{ background:none; color:var(--v-text); font:inherit; font-size:14px; padding:10px 22px;
+  cursor:pointer; border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
+  border-radius:999px; margin:26px 0; transition:border-color .15s, background .15s, color .15s; }
+.v2t .jb-more:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+
+/* ---- the inspector pane (lab vinspect) ---- */
+.v2t .jpane{ border:none; border-radius:0; background:var(--v-bg2); box-shadow:none; }
+.v2t .jpane-v2 .jpane-scroll{ scrollbar-width:none; }
+.v2t .jpane-v2 .jpane-scroll::-webkit-scrollbar{ display:none; }
+.v2t .jv-top{ display:flex; justify-content:space-between; align-items:center; padding:14px 22px;
+  border-bottom:1px solid var(--v-border); font-family:var(--mono),monospace; font-size:11px;
+  letter-spacing:.08em; color:var(--v-text2); }
+.v2t .jv-pg{ display:flex; gap:14px; align-items:center; }
+.v2t .jv-pg button{ background:none; border:none; cursor:pointer; color:var(--v-text2); padding:6px;
+  min-width:28px; min-height:28px; display:grid; place-items:center; }
+.v2t .jv-pg button:hover{ color:var(--v-text); }
+.v2t .jv-pg button:disabled{ opacity:.3; cursor:default; }
+.v2t .jv-pg button:disabled:hover{ color:var(--v-text2); }
+.v2t .jpane-v2 .jpane-scroll{ padding:0; }
+.v2t .jpane-v2 .jpane-body{ padding:20px 22px 28px; }
+.v2t .jv-pos{ font-family:var(--mono),monospace; letter-spacing:-.01em; }
+.v2t .jv-cohead{ display:flex; gap:12px; align-items:center; margin:0 0 10px; }
+.v2t .jv-cohead .jd-mark{ width:40px; height:40px; border-radius:6px; display:flex; align-items:center;
+  justify-content:center; overflow:hidden; border:none; background:transparent; box-shadow:none; }
+.v2t .jv-cohead .jd-mark img{ width:40px; height:40px; object-fit:contain; }
+.v2t .jv-cohead .jd-mono{ font-weight:650; font-size:14px; }
+.v2t .jv-coname{ font-size:17px; font-weight:600; letter-spacing:-.01em; color:var(--v-text); }
+.v2t .jpane-v2 .jpane-title{ font-size:21px; letter-spacing:-.015em; line-height:1.25; font-weight:700; margin:0; }
+.v2t .jv-meta{ font-size:12.5px; color:var(--v-text2); margin-top:4px; line-height:1.5; }
+.v2t .jv-payg{ font-family:var(--mono),monospace; font-size:30px; font-weight:600; margin-top:16px;
+  color:var(--v-value); letter-spacing:-.01em; text-transform:uppercase; }
+.v2t .jv-blurb{ font-size:13.5px; color:var(--v-text2); margin-top:14px; line-height:1.55; }
+.v2t .jv-rule{ border:none; border-top:1px solid var(--v-border); margin:18px 0; }
+.v2t .jv-skmore{ display:block; background:none; border:none; cursor:pointer; padding:0; margin-top:12px;
+  font:inherit; font-size:13px; font-weight:550; color:var(--v-value); }
+.v2t .jv-skmore:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px; }
+.v2t .jpane-v2 .jsheet-sec h3{ font-family:var(--sans),sans-serif; font-size:14px; font-weight:650;
+  letter-spacing:-.01em; text-transform:none; color:var(--v-text); }
+
+/* skill pills: bolder ink outline, the words face, marks in ink */
+.v2t .jd-skill{ font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:550;
+  color:var(--v-text); border:1.5px solid var(--v-text); background:transparent; padding:8px 14px; }
+.v2t .jd-skill svg{ color:var(--v-text); }
+.v2t .jd-skill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .jd-skill:hover svg{ color:var(--v-bg); }
+.v2t .jpane-v2 .jpane-foot{ display:block; border-top:1px solid var(--v-border);
+  background:var(--v-bg2); padding:13px 22px 14px; }
+.v2t .jpane-v2 .jpane-foot .jsheet-apply{ width:100%; margin:0 0 10px; }
+.v2t .jpane-v2 .jpane-foot .jpane-ghost{ display:block; width:100%; }
+.v2t .jsheet-apply{ background:var(--v-fill); color:var(--v-fill-ink); border-radius:999px;
+  font-family:var(--sans),sans-serif; text-transform:none; letter-spacing:0; font-weight:600;
+  font-size:14px; padding:13px; justify-content:center; display:flex; align-items:center; gap:8px; }
+.v2t .jsheet-apply:hover{ filter:brightness(1.08); }
+.v2t .jpane-ghost{ border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent);
+  border-radius:999px; font-family:var(--sans),sans-serif; text-transform:none; letter-spacing:0;
+  font-size:13.5px; font-weight:550; color:var(--v-text); background:none; text-align:center;
+  padding:12px; transition:background .15s, color .15s, border-color .15s; }
+.v2t .jpane-ghost:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+
+/* ---- the circle pager (lab vpager) ---- */
+.v2t .jb-pager{ display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:40px 0; position:relative; }
+.v2t .jb-pg{ width:44px; height:44px; border-radius:50%; border:1.5px solid color-mix(in srgb, var(--v-text) 60%, transparent);
+  background:none; color:var(--v-text); font:inherit; font-size:14px; display:flex; align-items:center;
+  justify-content:center; cursor:pointer; transition:background .15s, color .15s, border-color .15s; }
+.v2t .jb-pg:hover{ background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-pg.cur{ background:var(--v-text); color:var(--v-bg); }
+.v2t .jb-pg.dots{ border-style:dashed; border-color:var(--v-border2); color:var(--v-text2); }
+.v2t .jb-pg.fwd{ position:absolute; right:10px; margin-left:0; border:none; width:auto; }
+.v2t .jb-pg.fwd:hover{ background:none; color:var(--v-value); }
+.v2t .jb-pg.fwd:disabled{ opacity:.3; cursor:default; color:var(--v-text); }
+
+/* ---- for-employers: the ask is the headline. Giant Post-a-job as the
+   link itself, the applicants line as the lede beneath it. ---- */
+.v2t .empband{ display:block; background:transparent; color:var(--v-text); margin:0;
+  padding:56px 32px 56px; border-top:1px solid var(--v-border); }
+.v2t .empband .eb-copy{ padding:0; }
+.v2t .eb-eyebrow{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--v-text2); margin-bottom:20px; }
+.v2t .eb-h2{ margin:0; }
+.v2t .eb-post{ display:inline-block; font-size:clamp(56px,8.5vw,132px); font-weight:650;
+  letter-spacing:-.045em; line-height:.95; color:var(--v-text); text-decoration:none;
+  transition:color .15s; }
+.v2t .eb-post:hover{ color:var(--v-value); }
+.v2t .eb-half{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--v-text2); margin:14px 0 0; }
+.v2t .eb-lede{ max-width:44ch; font-size:19px; line-height:1.5; color:var(--v-text2); margin:22px 0 0; }
+.v2t .eb-stats{ display:flex; gap:40px; margin-top:30px; }
+.v2t .eb-stats b{ display:block; font-family:var(--mono); font-size:28px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-value); }
+.v2t .eb-stats .lbl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+@media (max-width:980.9px){
+  .v2t .empband{ margin:0; padding:40px 22px 44px; }
+}
+
+/* ---- the occupation index: numbered mono field labels (the rail's
+   language), full-width hairline rows, links at reading scale with the
+   instant underline, counts in mono. Every link stays. ---- */
+.v2t .jb-byocc{ margin:0; padding:56px 32px 8px; border-top:1px solid var(--v-border);
+  max-width:none; counter-reset:occfield; }
+.v2t .jb-byocc h2{ font-size:clamp(28px,3vw,44px); font-weight:650; letter-spacing:-.025em;
+  color:var(--v-text); margin:0 0 10px; }
+.v2t .jb-byocc .rt-note{ font-size:14px; color:var(--v-text2); margin:0 0 30px; }
+.v2t .jb-byocc .rt-note .gl{ color:var(--v-value); }
+.v2t .jb-occrow{ display:grid; grid-template-columns:230px minmax(0,1fr); gap:26px;
+  padding:24px 0; margin:0; border-bottom:1px solid var(--v-border); align-items:baseline; }
+.v2t .jb-occfield{ flex:none; font-family:var(--sans),sans-serif; font-size:26px; font-weight:650;
+  letter-spacing:-.02em; text-transform:none; color:var(--v-text); }
+.v2t .jb-occlinks{ display:flex; flex-wrap:wrap; column-gap:28px; row-gap:13px; }
+.v2t .jb-occlinks a{ font-size:15px; color:var(--v-text); text-decoration:none; border-bottom:none; }
+.v2t .jb-occlinks a:hover{ color:var(--v-text); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:2px; }
+.v2t .jb-occlinks a .lbl{ font-family:var(--mono); font-size:11px; letter-spacing:-.01em;
+  color:var(--v-text2); margin-left:2px; font-variant-numeric:tabular-nums; }
+.v2t .jb-occlinks a:hover .lbl{ color:var(--v-value); }
+.v2t .rt-method{ padding:0 32px; margin-top:36px; color:var(--v-text2); max-width:none; }
+@media (max-width:980.9px){
+  .v2t .jb-byocc{ padding:40px 22px 8px; }
+  .v2t .jb-occrow{ display:block; padding:18px 0; }
+  .v2t .jb-occfield{ display:block; margin-bottom:10px; }
+  .v2t .rt-method{ padding:0 22px; }
+}
+
+/* ---- footer: links first, then the wordmark closes the page.
+   Row one: the tagline on one line, socials as big circle buttons.
+   Row two: three top-aligned link columns at reading scale.
+   Row three: PivotHop across the full width. The copy bar stays below. ---- */
+.v2t .foot{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)) auto; column-gap:32px;
+  align-items:start; border-top:1px solid var(--v-border); padding:56px 32px 30px; }
+.v2t .foot .brand{ display:none; }
+.v2t .foot h5{ display:none; }
+.v2t .foot > div{ display:contents; }
+.v2t .foot .tg{ grid-row:4; grid-column:1 / -1; margin:28px 0 0; font-size:15.5px;
+  color:var(--v-text); }
+.v2t .foot .tg br{ display:none; }
+.v2t .foot .foot-social{ grid-row:1; grid-column:1 / 4; justify-self:start; align-self:center;
+  display:flex; gap:14px; margin:0 0 52px; }
+.v2t .foot .foot-social a{ width:44px; height:44px; border-radius:50%;
+  border:1.5px solid color-mix(in srgb, var(--v-text) 60%, transparent);
+  display:grid; place-items:center; color:var(--v-text);
+  transition:background .15s, color .15s, border-color .15s; }
+.v2t .foot .foot-social a:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .foot .foot-social svg{ width:18px; height:18px; fill:currentColor; }
+.v2t .foot ul{ grid-row:2; margin:0; }
+.v2t .foot li{ margin:0 0 13px; }
+.v2t .foot li:last-child{ margin-bottom:0; }
+.v2t .foot a{ font-size:16px; font-weight:500; color:var(--v-text); transition:none; }
+.v2t .foot a:hover{ color:var(--v-text); text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:2px; }
+.v2t .foot::before{ content:"PivotHop"; grid-row:3; grid-column:1 / -1; margin-top:72px;
+  font-size:clamp(72px,18.5vw,272px); font-weight:650; letter-spacing:-.045em; line-height:.95;
+  color:var(--v-text); }
+@media (max-width:980.9px){
+  .v2t .foot{ display:block; padding:44px 22px 24px; }
+  .v2t .foot > div{ display:block; }
+  .v2t .foot .tg{ margin:0 0 20px; }
+  .v2t .foot .foot-social{ margin:0 0 28px; }
+  .v2t .foot .foot-social a{ width:40px; height:40px; }
+  .v2t .foot ul{ display:flex; flex-wrap:wrap; column-gap:18px; row-gap:10px; margin:0 0 14px; }
+  .v2t .foot li{ margin:0; }
+  .v2t .foot a{ font-size:14.5px; }
+  .v2t .foot::before{ display:block; margin-top:34px; font-size:clamp(56px,15vw,96px); }
+}
+
+/* the copyright bar under the footer joins the mode */
+.v2t .copy{ background:var(--v-bg); color:var(--v-text2); border-color:var(--v-border); }
+
+/* ============================================================================
+   ABOUT: the editorial template. Giant statement H1 (the INT mission-first
+   pattern), then sections as the label-left / prose-right hairline grid the
+   occupation index established. Reading text steps up to 18px on a wide span.
+   ============================================================================ */
+.v2t .about-page{ background:transparent; }
+.v2t .ab-main{ width:auto; max-width:none; margin:0; padding:34px 32px 84px; }
+.v2t .ab-main .lbl.acc{ color:var(--v-text2); letter-spacing:.16em; }
+.v2t .ab-h1{ font-size:clamp(44px,6.4vw,96px); font-weight:650; letter-spacing:-.04em;
+  line-height:1.0; max-width:14ch; margin-bottom:72px; color:var(--v-text); }
+.v2t .ab-sec{ display:grid; grid-template-columns:300px minmax(0,1fr); gap:16px 26px;
+  align-items:start; margin:0; padding:38px 0; border-top:1px solid var(--v-border); }
+.v2t .ab-sec h2{ grid-column:1; display:flex; align-items:center; gap:13px; margin:0;
+  font-size:26px; font-weight:650; letter-spacing:-.02em; color:var(--v-text); }
+.v2t .ab-sec h2 .lu-ico{ width:21px; height:21px; flex:none; color:var(--v-text); }
+.v2t .ab-sec p{ grid-column:2; font-size:18px; line-height:1.65; color:var(--v-text2);
+  max-width:66ch; margin:0 0 16px; }
+.v2t .ab-sec p:last-child{ margin-bottom:0; }
+.v2t .ab-sec a{ color:var(--v-value); text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:2px; }
+.v2t .ab-contact{ border:none; padding:38px 0; }
+@media (max-width:980.9px){
+  .v2t .ab-main{ padding:24px 22px 64px; }
+  .v2t .ab-h1{ margin-bottom:44px; }
+  .v2t .ab-sec{ display:block; padding:30px 0; }
+  .v2t .ab-sec h2{ margin-bottom:14px; }
+}
+
+/* ============================================================================
+   BLOG: the index as CB-style rows, the article as a centered editorial
+   column. Reading text steps up; accents carry the meta.
+   ============================================================================ */
+/* generic within v2: accent labels read in the value color */
+.v2t .lbl.acc{ color:var(--v-value); }
+
+/* ---- index ---- */
+.v2t .emp-lead{ font-size:19px; line-height:1.55; color:var(--v-text2); max-width:56ch; }
+.v2t .blog-list{ margin-top:30px; }
+.v2t .blog-card{ border-top:1px solid var(--v-border); color:var(--v-text); padding:32px 0 36px; }
+.v2t .bc-meta .lbl{ color:var(--v-text2); }
+.v2t .bc-dot{ color:var(--v-border2); }
+.v2t .bc-ico .lu-ico{ width:17px; height:17px; color:var(--v-value); display:block; }
+.v2t .blog-card h2{ font-size:clamp(24px,2.6vw,34px); font-weight:650; letter-spacing:-.02em;
+  line-height:1.15; margin:12px 0 10px; max-width:32ch; color:var(--v-text); }
+.v2t .blog-card:hover h2{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+.v2t .blog-card p{ font-size:16.5px; line-height:1.6; color:var(--v-text2); max-width:70ch; }
+.v2t .bc-read{ color:var(--v-value); }
+
+/* ---- article: a centered reading column ---- */
+.v2t .post-main{ max-width:880px; margin:0 auto; padding:34px 32px 84px; }
+.v2t .post-h1{ font-size:clamp(34px,4.8vw,64px); font-weight:650; letter-spacing:-.03em;
+  line-height:1.04; max-width:24ch; text-wrap:balance; color:var(--v-text); margin-bottom:20px; }
+.v2t .post-dek{ font-size:20px; line-height:1.55; color:var(--v-text2);
+  border-bottom:1px solid var(--v-border); padding-bottom:28px; margin-bottom:34px; max-width:62ch; }
+.v2t .post-tldr{ border:none; background:var(--v-bg2); padding:22px 26px 24px; margin:32px 0 8px; }
+.v2t .post-tldr .lbl{ color:var(--v-text2); }
+.v2t .post-body p{ font-size:17.5px; line-height:1.7; color:var(--v-text2); text-align:left;
+  max-width:70ch; }
+.v2t .post-body h2{ font-size:26px; font-weight:650; letter-spacing:-.02em; color:var(--v-text);
+  margin:44px 0 14px; }
+.v2t .post-body h3{ font-size:20px; font-weight:650; letter-spacing:-.015em; color:var(--v-text); }
+.v2t .post-body b, .v2t .post-body strong{ color:var(--v-text); }
+.v2t .post-body code{ background:var(--v-surface); border-color:var(--v-border2); color:var(--v-text); }
+.v2t .post-body a{ color:var(--v-value); }
+.v2t .post-body table{ border-color:var(--v-border); }
+.v2t .post-body th{ color:var(--v-text2); border-color:var(--v-border2); }
+.v2t .post-body td{ color:var(--v-text2); border-color:var(--v-border); }
+.v2t .post-faq{ border-top:1px solid var(--v-border); }
+.v2t .post-faq h2{ font-size:26px; font-weight:650; letter-spacing:-.02em; }
+.v2t .post-faq details{ border-color:var(--v-border); }
+.v2t .post-faq summary{ font-size:16px; color:var(--v-text); }
+.v2t .post-faq summary:hover{ color:var(--v-value); }
+.v2t .post-faq summary:hover::after{ color:var(--v-value); }
+.v2t .post-faq details p{ font-size:15px; color:var(--v-text2); }
+.v2t .post-foot{ border-top:1px solid var(--v-border); }
+.v2t .post-foot .lbl{ color:var(--v-text2); }
+.v2t .post-foot .lbl.acc{ color:var(--v-value); }
+@media (max-width:980.9px){
+  .v2t .post-main{ padding:24px 22px 64px; }
+}
+
+/* ============================================================================
+   ROUTES: the measurement report. Giant route headline with the arrow in the
+   value color, the lab RouteMeasure under the dek, three big stats and a mono
+   meta line, the paper-faced instrument, a two-column have/gap evidence split,
+   ranked destinations as an aligned table with measure bars, and next-step
+   rows in the board's own anatomy.
+   ============================================================================ */
+.v2t{ --v-gap:#E08663; }
+html.vlight .v2t{ --v-gap:#B24E34; }
+
+.v2t .rt-crumbs{ color:var(--v-text2); }
+.v2t .rt-crumbs a{ color:var(--v-text2); }
+.v2t .rt-crumbs a:hover{ color:var(--v-text); }
+.v2t .rt-h1{ font-size:clamp(40px,6vw,100px); font-weight:650; letter-spacing:-.04em;
+  line-height:.98; color:var(--v-text); max-width:none; margin-bottom:22px; }
+.v2t .rt2-arrow{ color:var(--v-value); }
+.v2t .rt-dek{ font-size:19px; line-height:1.6; color:var(--v-text2); max-width:62ch; }
+.v2t .sal-dek{ max-width:88ch; }
+.v2t .rt-dek strong{ color:var(--v-text); }
+.v2t .rt-dek a, .v2t .rt-note a, .v2t .gl{ color:var(--v-value); }
+.v2t .rt-lic a{ color:var(--v-gap); }
+
+/* the signature measure: origin, filled line to the match, destination */
+.v2t .rt2-measure{ max-width:680px; margin-top:30px; }
+.v2t .rt2-measure .line{ display:flex; align-items:center; gap:14px; font-size:13.5px;
+  color:var(--v-text); }
+.v2t .rt2-measure .bar{ flex:1; height:2px; background:var(--v-border2); position:relative; }
+.v2t .rt2-measure .bar i{ position:absolute; left:0; top:0; bottom:0; background:var(--v-value); }
+.v2t .rt2-measure .bar::before{ content:""; position:absolute; left:-3px; top:-2.5px; width:7px;
+  height:7px; border-radius:50%; background:var(--v-text); }
+.v2t .rt2-measure .bar::after{ content:""; position:absolute; right:0; top:-5px; height:12px;
+  width:2.5px; background:var(--v-value); }
+.v2t .rt2-measure .pct{ margin-top:10px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--v-value); text-align:right; }
+
+/* three numbers that matter, then everything else in one mono line */
+.v2t .rt2-stats{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:32px;
+  border-top:1px solid var(--v-border2); margin-top:34px; padding-top:28px; }
+.v2t .rt2-stats .v{ display:block; font-family:var(--mono); font-weight:600;
+  font-size:clamp(28px,3.2vw,44px); letter-spacing:-.02em; line-height:1.05; color:var(--v-value);
+  white-space:nowrap; }
+.v2t .rt2-stats .k{ display:block; margin-top:10px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .rt2-meta{ margin-top:20px; color:var(--v-text2); letter-spacing:.12em; }
+.v2t .rt-sallink{ display:inline-block; margin-top:14px; color:var(--v-value); }
+.v2t .rt-hint{ color:var(--v-text2); }
+
+/* the embedded instrument keeps its tuned paper face; in dark it reads as a
+   deliberate instrument card (the graph's internals are off-limits) */
+.v2t .route-instrument{ background:var(--paper); border:1px solid var(--v-border);
+  border-radius:8px; margin-top:30px; }
+
+/* sections */
+.v2t .rt-sec{ max-width:none; margin:52px 0 0; }
+.v2t .rt-sec h2{ font-size:26px; font-weight:650; letter-spacing:-.02em; color:var(--v-text); }
+.v2t .rt-sec p{ text-align:left; color:var(--v-text2); font-size:17px; max-width:70ch; }
+.v2t .rt-note{ color:var(--v-text2); }
+
+/* evidence: have left, gap right */
+.v2t .rt2-ev2{ display:grid; grid-template-columns:1fr 1fr; gap:12px 56px; margin-top:22px; }
+.v2t .rt2-evh{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; margin-bottom:6px; }
+.v2t .rt2-evh.have{ color:var(--v-value); }
+.v2t .rt2-evh.gap{ color:var(--v-gap); }
+.v2t .rt-ev{ border-top:1px solid var(--v-border); }
+.v2t .rt-ev li{ border-bottom:1px solid var(--v-border); padding:14px 0; }
+.v2t .rt-ev .lb{ font-size:16.5px; color:var(--v-text); }
+.v2t .rt-ev li[data-state="have"] .mk{ color:var(--v-value); }
+.v2t .rt-ev li[data-state="partial"] .mk{ color:var(--v-text2); }
+.v2t .rt-ev li[data-state="gap"] .mk{ color:var(--v-gap); }
+.v2t .rt-ev .st{ color:var(--v-text2); }
+.v2t .rt-ev .nt{ color:var(--v-text2); }
+
+/* related routes: quiet rows, readiness in the value color */
+.v2t .rt-rel{ list-style:none; padding:0; border-top:1px solid var(--v-border); }
+.v2t .rt-rel li{ display:flex; justify-content:space-between; align-items:baseline; gap:18px;
+  padding:16px 0; border-bottom:1px solid var(--v-border); }
+.v2t .rt-rel a{ font-size:17px; font-weight:600; letter-spacing:-.015em; color:var(--v-text);
+  text-decoration:none; }
+.v2t .rt-rel a:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:2px; }
+.v2t .rt-rel .lbl{ font-family:var(--mono); font-size:11px; color:var(--v-value);
+  white-space:nowrap; }
+
+/* ranked destinations: an aligned table, the measure drawn under each title */
+.v2t .rt2-thead{ display:grid; grid-template-columns:minmax(0,1fr) 120px 170px 200px; gap:20px;
+  padding:10px 0; border-bottom:1px solid var(--v-border2); color:var(--v-text2); }
+.v2t .rt2-thead span:not(:first-child){ text-align:right; }
+.v2t .rt2-ranked{ list-style:none; padding:0; margin:0; }
+.v2t .rt2-ranked li{ display:grid; grid-template-columns:minmax(0,1fr) 120px 170px 200px; gap:20px;
+  align-items:center; padding:22px 0; border-bottom:1px solid var(--v-border); }
+.v2t .rt2-r-main{ min-width:0; }
+.v2t .rt2-r-main a, .v2t .rt2-r-dead{ font-size:21px; font-weight:650; letter-spacing:-.015em;
+  color:var(--v-text); text-decoration:none; }
+.v2t .rt2-r-main a:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+.v2t .rt2-r-main .rt-bar{ margin-top:14px; max-width:520px; }
+.v2t .rt-bar{ position:relative; display:block; height:2px; background:var(--v-border2); }
+.v2t .rt-bar i{ position:absolute; left:0; top:0; bottom:0; background:var(--v-value); }
+.v2t .rt-bar::before{ content:""; position:absolute; left:-3px; top:-2px; width:6px; height:6px;
+  border-radius:50%; background:var(--v-text); }
+.v2t .rt-bar::after{ content:""; position:absolute; right:0; top:-4px; height:10px; width:2px;
+  background:var(--v-value); }
+.v2t .rt2-r-m{ font-family:var(--mono); font-size:21px; font-weight:600; letter-spacing:-.01em;
+  color:var(--v-value); text-align:right; white-space:nowrap; }
+.v2t .rt2-r-s, .v2t .rt2-r-x{ font-family:var(--mono); font-size:11.5px; color:var(--v-text2);
+  text-align:right; }
+
+/* findings list */
+.v2t .rt-find{ list-style:none; padding:0; border-top:1px solid var(--v-border); }
+.v2t .rt-find li{ padding:12px 0; border-bottom:1px solid var(--v-border); font-size:16.5px;
+  color:var(--v-text2); max-width:80ch; }
+
+/* next steps in the board's row anatomy */
+.v2t .rt2-ctas{ margin-top:52px; border-top:1px solid var(--v-border); }
+.v2t .rt2-cta{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:center;
+  padding:26px 10px; border-bottom:1px solid var(--v-border); color:var(--v-text);
+  text-decoration:none; transition:background .12s; }
+.v2t .rt2-cta:hover{ background:var(--v-surface); }
+.v2t .rt2-cta:hover .jv-apply{ border-color:var(--v-text); background:var(--v-text);
+  color:var(--v-bg); }
+.v2t .rt2-cta-t{ display:block; font-size:23px; font-weight:650; letter-spacing:-.015em;
+  line-height:1.2; }
+.v2t .rt2-cta-s{ display:block; margin-top:7px; font-size:14px; color:var(--v-text2); }
+
+/* the origin page's closing ask: a statement, with the fill pill */
+.v2t .rt-cta{ display:block; border:none; background:transparent; border-top:1px solid var(--v-border);
+  margin:52px 0 0; padding:44px 0 8px; }
+.v2t .rt-cta h2{ font-size:clamp(26px,3.2vw,42px); font-weight:650; letter-spacing:-.025em;
+  color:var(--v-text); margin-bottom:12px; }
+.v2t .rt-cta p{ color:var(--v-text2); font-size:17px; max-width:64ch; }
+.v2t .rtp .rt-go{ display:inline-flex; align-items:center; gap:10px; margin-top:22px;
+  background:var(--v-fill); color:var(--v-fill-ink); border-radius:999px; padding:14px 28px;
+  font-weight:600; font-size:15px; font-family:var(--sans),sans-serif; text-transform:none;
+  letter-spacing:0; text-decoration:none; transition:filter .15s; }
+.v2t .rtp .rt-go:hover{ filter:brightness(1.08); }
+
+/* the routes index reuses the occupation-index shell inside a padded frame */
+.v2t .rtp:not(:has(.jb)) .jb-byocc{ padding-left:0; padding-right:0; }
+@media (max-width:980.9px){
+  .v2t .rt2-stats{ grid-template-columns:1fr; gap:22px; }
+  .v2t .rt2-ev2{ grid-template-columns:1fr; }
+  .v2t .rt2-thead{ display:none; }
+  .v2t .rt2-ranked li{ display:block; }
+  .v2t .rt2-r-m{ display:inline-block; margin-top:12px; }
+  .v2t .rt2-r-s, .v2t .rt2-r-x{ display:inline-block; margin:12px 0 0 14px; }
+  .v2t .rt2-cta-t{ font-size:19px; }
+}
+
+/* ============================================================================
+   LISTING: the full job posting. A centered 960 card of the system: bare
+   logo, big balanced title, the facts band, the fill-pill apply row, ink
+   pills for skills, value-dot bullets in the posting body.
+   ============================================================================ */
+.v2t .rtp:has(.jd-head){ max-width:960px; margin:0 auto; }
+.v2t .jd-head{ display:flex; gap:18px; align-items:flex-start; margin-top:12px; }
+.v2t .jd-head .jd-mark{ width:52px; height:52px; flex:none; border:none; background:transparent;
+  box-shadow:none; border-radius:8px; overflow:hidden; display:flex; align-items:center;
+  justify-content:center; margin-top:8px; }
+.v2t .jd-head .jd-mark img{ width:48px; height:48px; object-fit:contain; }
+.v2t .jd-head .jd-mono{ background:var(--v-bg2); color:var(--v-text); font-weight:650;
+  font-size:19px; }
+.v2t .jd-h1{ font-size:clamp(32px,4.4vw,64px); font-weight:650; letter-spacing:-.03em;
+  line-height:1.04; text-wrap:balance; max-width:none; margin-bottom:10px; color:var(--v-text); }
+.v2t .jd-co{ font-size:17px; color:var(--v-text2); }
+
+/* the facts band (also the origin page's): mono figures in the value color */
+.v2t .rt-facts{ display:flex; flex-wrap:wrap; border-top:1px solid var(--v-border);
+  border-bottom:1px solid var(--v-border); margin:30px 0 0; }
+.v2t .rt-facts>div{ flex:1 0 auto; border-right:1px solid var(--v-border); padding:22px 26px 20px; }
+.v2t .rt-facts>div:first-child{ padding-left:0; }
+.v2t .rt-facts>div:last-child{ border-right:none; }
+.v2t .rt-facts .v{ font-family:var(--mono); font-weight:600; font-size:clamp(20px,2.1vw,28px);
+  letter-spacing:-.01em; color:var(--v-value); }
+.v2t .rt-facts .k{ color:var(--v-text2); font-size:9.5px; }
+
+.v2t .jd-applyrow{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-top:28px; }
+.v2t .jd-applyrow .rt-go{ margin-top:0; }
+.v2t .jd-applyrow .lbl{ color:var(--v-text2); max-width:44ch; line-height:1.6; }
+
+.v2t .jd-desc .jd-h3{ font-size:20px; font-weight:650; letter-spacing:-.015em; color:var(--v-text);
+  margin:28px 0 10px; }
+.v2t .jd-desc p{ font-size:17px; line-height:1.7; color:var(--v-text2); max-width:70ch; }
+.v2t .jd-ul{ margin:12px 0; padding:0; list-style:none; }
+.v2t .jd-ul li{ position:relative; font-size:16.5px; line-height:1.65; color:var(--v-text2);
+  padding:6px 0 6px 22px; max-width:68ch; }
+.v2t .jd-ul li::before{ content:""; position:absolute; left:2px; top:16px; width:6px; height:6px;
+  border-radius:50%; background:var(--v-value); }
+@media (max-width:980.9px){
+  .v2t .jd-head{ gap:14px; }
+  .v2t .jd-head .jd-mark{ width:42px; height:42px; margin-top:4px; }
+}
+
+/* ---- benefit pills: the skill pill's anatomy, one register quieter.
+   They are buttons rather than links (a benefit has a definition, not a page),
+   so they need the button reset the anchor never did. ---- */
+.v2t .jd-benefit{ font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:550;
+  line-height:1; cursor:pointer; appearance:none; -webkit-appearance:none; }
+.v2t .jd-benefits .jv-skmore{ margin-top:14px; }
+
+/* ---- the gates: what the posting asks of a candidate. Words, not
+   measurements, so they take the sans face rather than the mono the salary
+   band uses. Each cell renders only when the posting states it. ---- */
+.v2t .jd-gates{ display:flex; flex-wrap:wrap; gap:14px 44px; margin:26px 0 4px;
+  padding:20px 0; border-top:1px solid var(--v-border); border-bottom:1px solid var(--v-border); }
+.v2t .jd-gates .k{ display:block; font-family:var(--sans),sans-serif; font-size:12px;
+  font-weight:550; letter-spacing:.01em; color:var(--v-text2); margin-bottom:5px; }
+.v2t .jd-gates .v{ display:block; font-family:var(--sans),sans-serif; font-size:19px;
+  font-weight:650; letter-spacing:-.015em; color:var(--v-text); }
+.v2t .jd-gates [data-gate="edu"] .v{ color:var(--v-value); }
+
+/* in the 356px inspector the same strip stacks and steps down a size */
+.v2t .jpane .jd-gates{ display:grid; grid-template-columns:1fr 1fr; gap:14px 18px;
+  margin:18px 0 0; padding:16px 0 0; border-bottom:none; }
+.v2t .jpane .jd-gates .k{ font-size:11.5px; margin-bottom:3px; }
+.v2t .jpane .jd-gates .v{ font-size:15.5px; }
+.v2t .jpane .jd-gates [data-gate="lang"]{ grid-column:1 / -1; }
+
+/* ============================================================================
+   SALARY: the lab salary anchor. The blended median goes giant inside the
+   facts band, numerals sit right-aligned in one mono register (the tuned
+   table), seniority reads as measure bars, the trend canvas keeps its paper
+   instrument face.
+   ============================================================================ */
+/* market picker: the system select */
+.v2t .sal-cty-head{ display:flex; align-items:center; gap:12px; margin:26px 0 0; }
+.v2t .sal-cty-head .lbl{ color:var(--v-text2); }
+.v2t .sal-cty{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:550;
+  color:var(--v-text); background:transparent; border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
+  border-radius:999px; padding:8px 14px; cursor:pointer; }
+.v2t .sal-cty-n{ color:var(--v-text2); }
+
+/* the headline number: first fact giant, the rest hold the smaller register.
+   On the salary page the figures take the words face per review. */
+.v2t .sal-facts-wrap .rt-facts{ align-items:flex-end; }
+.v2t .sal-facts-wrap .rt-facts .v{ font-family:var(--sans),sans-serif; font-weight:650; letter-spacing:-.03em; }
+.v2t .sal-facts-wrap .rt-facts>div:first-child .v{ font-size:clamp(40px,4.8vw,68px); line-height:1; }
+
+/* trend canvas: naked on the page ground; the gridlines carry the frame */
+.v2t .sal-chartwrap{ margin:30px 0 44px; padding:0; background:none; background-image:none;
+  border-bottom:none; }
+.v2t .sal-chart-head{ margin-bottom:14px; }
+.v2t .sal-chart-head .lbl{ color:var(--v-text2); }
+.v2t .sal-canvas{ background:transparent; border:none; border-radius:0; }
+.v2t .sal-chart-pending{ color:var(--v-text2); border:1px dashed var(--v-border2); border-radius:8px;
+  padding:22px; }
+
+/* seniority: measure bars */
+.v2t .sal-bars{ list-style:none; padding:0; margin:14px 0 0; }
+.v2t .sal-bars li{ display:grid; grid-template-columns:150px minmax(0,1fr) 90px; gap:18px;
+  align-items:center; padding:12px 0; border-bottom:1px solid var(--v-border); }
+.v2t .sal-bars .sl{ font-size:15.5px; font-weight:550; color:var(--v-text); }
+.v2t .sal-bars .sbar{ position:relative; display:block; height:2px; background:var(--v-border2); }
+.v2t .sal-bars .sfill{ position:absolute; left:0; top:0; bottom:0; background:var(--v-value); }
+.v2t .sal-bars .sv{ font-family:var(--mono); font-size:14px; font-weight:600; color:var(--v-value);
+  text-align:right; white-space:nowrap; }
+
+/* the by-country table: the tuned register. Country 18/550; numerals mono
+   right-aligned; the median one step up and in the value color */
+.v2t .sal-cthead{ display:grid; grid-template-columns:minmax(0,1fr) 110px 110px 110px; gap:14px;
+  padding:10px 0; border-bottom:1px solid var(--v-border2); font-family:var(--mono);
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .sal-cthead span:not(:first-child){ text-align:right; }
+.v2t .sal-ctable{ list-style:none; padding:0; margin:0; }
+.v2t .sal-ctable li{ display:grid; grid-template-columns:minmax(0,1fr) 110px 110px 110px; gap:14px;
+  padding:16px 0; border-bottom:1px solid var(--v-border); align-items:baseline; }
+.v2t .sal-ctable .c{ font-size:18px; font-weight:550; letter-spacing:-.01em; color:var(--v-text); }
+.v2t .sal-ctable .n{ font-family:var(--mono); font-size:15px; text-align:right; color:var(--v-text); }
+.v2t .sal-ctable .n.m{ font-size:17px; font-weight:600; color:var(--v-value); }
+
+/* states: quiet rows, mono medians right */
+.v2t .sal-states{ list-style:none; padding:0; margin:12px 0 0; max-width:560px; }
+.v2t .sal-states li{ display:flex; justify-content:space-between; align-items:baseline; gap:18px;
+  padding:11px 0; border-bottom:1px solid var(--v-border); }
+.v2t .sal-states .c{ font-size:15.5px; color:var(--v-text); }
+.v2t .sal-states .n{ font-family:var(--mono); font-size:14.5px; font-weight:600; color:var(--v-value); }
+
+/* the Swiss accordion joins the tinted step */
+.v2t .ch-sal{ background:var(--v-bg2); border:none; border-radius:8px; padding:6px 20px; }
+.v2t .ch-sal summary{ color:var(--v-text); }
+.v2t .ch-sal .rt-note{ color:var(--v-text2); }
+.v2t .ch-sal-med{ color:var(--v-text2); }
+
+/* the index: search box in the unit language, ranked rows with mono medians */
+.v2t .ix-search{ position:static; display:flex; align-items:center; gap:12px;
+  background:var(--v-surface); border:1px solid var(--v-border2); border-radius:8px;
+  padding:0 16px; margin:26px 0 8px; }
+.v2t .ix-search input{ height:52px; flex:1; background:none; border:none; font:inherit;
+  font-size:14.5px; color:var(--v-text); outline:none; }
+.v2t .ix-search input::placeholder{ color:var(--v-text2); }
+.v2t .ix-count{ color:var(--v-text2); white-space:nowrap; }
+.v2t .rt-cluster-h{ font-size:26px; font-weight:650; letter-spacing:-.02em; color:var(--v-text);
+  margin:38px 0 6px; }
+.v2t .rt-cluster-h .lbl{ color:var(--v-text2); margin-left:10px; }
+.v2t .rt-index{ list-style:none; padding:0; margin:0; }
+.v2t .rt-index li{ border-bottom:1px solid var(--v-border); }
+.v2t .rt-index a{ display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto auto; gap:4px 28px; align-items:baseline; padding:20px 0;
+  color:var(--v-text); text-decoration:none; }
+.v2t .rt-index .t{ grid-row:1 / 3; align-self:center; }
+.v2t .rt-index .m{ grid-row:1; grid-column:2; }
+.v2t .rt-index .s{ grid-row:2; grid-column:2; }
+.v2t .rt-index .t{ font-size:26px; font-weight:650; letter-spacing:-.025em; }
+.v2t .rt-index a:hover .t{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:2px; }
+.v2t .rt-index .m{ font-family:var(--sans),sans-serif; font-size:28px; font-weight:650;
+  letter-spacing:-.03em; color:var(--v-value); text-align:right; white-space:nowrap; }
+.v2t .rt-index .s{ color:var(--v-text2); text-align:right; }
+
+/* the by-country page's table shares the register */
+.v2t .post-table{ border-collapse:collapse; width:100%; }
+.v2t .post-table th{ font-family:var(--mono); font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; font-weight:500; color:var(--v-text2); text-align:left;
+  padding:10px 14px 10px 0; border-bottom:1px solid var(--v-border2); }
+.v2t .post-table th.num{ text-align:right; }
+.v2t .post-table td{ font-size:15.5px; color:var(--v-text); padding:14px 14px 14px 0;
+  border-bottom:1px solid var(--v-border); }
+.v2t .post-table td.num{ font-family:var(--mono); font-size:14.5px; text-align:right; }
+.v2t .post-table td.num:nth-child(2){ font-weight:600; color:var(--v-value); }
+@media (max-width:980.9px){
+  .v2t .sal-ctable li, .v2t .sal-cthead{ grid-template-columns:minmax(0,1fr) 80px 80px 80px; gap:8px; }
+  .v2t .sal-bars li{ grid-template-columns:110px minmax(0,1fr) 80px; gap:10px; }
+}
+
+/* ---- the route cloud: the graph's arrangement in pure typography.
+   Origin centered; destinations placed radially, readiness pulling them
+   closer and larger. No nodes, edges or ground. The rail lists the same
+   routes in the system's language. ---- */
+.v2t .rtcloud{ margin:44px 0 8px; }
+.v2t .rtcloud-head{ display:flex; justify-content:space-between; align-items:baseline; gap:18px;
+  padding-bottom:14px; border-bottom:1px solid var(--v-border); color:var(--v-text2); }
+.v2t .rtcloud-head b{ font-weight:600; color:var(--v-text); }
+.v2t .rtcloud-body{ display:grid; grid-template-columns:250px minmax(0,1fr); }
+.v2t .rtcloud-rail{ border-right:1px solid var(--v-border); padding:24px 22px 24px 0; }
+.v2t .rtcloud-rail h5{ font-family:var(--mono),monospace; font-size:10px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--v-text2); margin:0 0 14px; }
+.v2t .rtcloud-rail ul{ list-style:none; margin:0; padding:0; }
+.v2t .rtcloud-rail li{ margin:0; }
+.v2t .rtcloud-rail li a, .v2t .rtcloud-rail li .dead{ display:flex; justify-content:space-between;
+  align-items:baseline; gap:14px; padding:8px 0; color:var(--v-text); text-decoration:none; }
+.v2t .rtcloud-rail .t{ font-size:15.5px; font-weight:550; letter-spacing:-.01em; }
+.v2t .rtcloud-rail .m{ font-family:var(--mono),monospace; font-size:12px; color:var(--v-text2); }
+.v2t .rtcloud-rail li a:hover .t{ color:var(--v-value); }
+.v2t .rtcloud-rail li a:hover .m{ color:var(--v-value); }
+.v2t .rtcloud-rail li.on .t, .v2t .rtcloud-rail li.on .m{ color:var(--v-value); }
+.v2t .rtcloud-hint{ margin-top:22px; color:var(--v-text2); line-height:1.8; max-width:24ch; }
+.v2t .rtcloud-field{ position:relative; min-height:clamp(420px,44vw,600px); }
+.v2t .rtcloud-center{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:var(--sans),sans-serif; font-size:clamp(22px,2.2vw,32px); font-weight:700;
+  letter-spacing:.02em; text-transform:uppercase; color:var(--v-text); white-space:nowrap; }
+.v2t .rtcloud-t{ position:absolute; left:var(--x); top:var(--y); transform:translate(-50%,-50%);
+  font-family:var(--sans),sans-serif; font-weight:650; letter-spacing:-.03em; line-height:1.05;
+  color:var(--v-text); text-decoration:none; white-space:nowrap;
+  transition:color .15s, opacity .15s; cursor:pointer; }
+.v2t .rtcloud-t .pct{ position:absolute; top:-0.42em; right:-0.14em; transform:translateX(100%);
+  font-size:.38em; font-weight:550; letter-spacing:0; color:var(--v-value); opacity:0;
+  transition:opacity .15s; white-space:nowrap; }
+.v2t .rtcloud-t:hover, .v2t .rtcloud-t:focus-visible, .v2t .rtcloud-t.on{ color:var(--v-value); }
+.v2t .rtcloud-t:hover .pct, .v2t .rtcloud-t:focus-visible .pct, .v2t .rtcloud-t.on .pct{ opacity:1; }
+/* while one name is read, the others step back (the center holds) */
+.v2t .rtcloud-field:hover .rtcloud-t:not(:hover):not(.on){ opacity:.38; }
+@media (max-width:980.9px){
+  .v2t .rtcloud-body{ display:block; }
+  .v2t .rtcloud-rail{ border-right:none; border-bottom:1px solid var(--v-border); padding:20px 0; }
+  .v2t .rtcloud-hint{ max-width:none; }
+  .v2t .rtcloud-field{ min-height:0; padding:30px 0 10px; display:flex; flex-wrap:wrap;
+    align-items:baseline; column-gap:20px; row-gap:10px; }
+  .v2t .rtcloud-center{ position:static; transform:none; width:100%; margin-bottom:8px; }
+  .v2t .rtcloud-t{ position:static; transform:none; }
+  .v2t .rtcloud-t .pct{ position:static; transform:none; margin-left:6px; }
+}
+
+/* the median cell links to the salary page and keeps the band's register */
+.v2t .rt-facts .v a{ color:inherit; text-decoration:none; border-bottom:1.5px solid color-mix(in srgb, var(--v-value) 45%, transparent); }
+.v2t .rt-facts .v a:hover{ border-bottom-color:var(--v-value); }
+/* the sibling board rows sit flush inside the posting's column */
+.v2t .rtp:has(.jd-head) .job-list-full{ margin:0; }
+
+/* ---- career guides: the judgement layer. Computed figures in the system's
+   registers; the judgement itself gets the one piece of emphasis on the page. ---- */
+.v2t .cg .jb-vmeta{ margin-top:6px; }
+.v2t .cg-summary{ font-size:21px; line-height:1.55; color:var(--v-text2); max-width:64ch; margin:18px 0 0; }
+.v2t .cg .rt-facts{ margin-top:34px; }
+.v2t .cg-judgement{ margin:44px 0 0; padding:34px 32px 36px; background:var(--v-bg2); }
+.v2t .cg-judgement h2{ font-size:22px; font-weight:650; letter-spacing:-.02em; color:var(--v-text);
+  margin:0 0 12px; }
+.v2t .cg-judgement p{ font-size:19px; line-height:1.6; color:var(--v-text); max-width:70ch; margin:0; }
+.v2t .cg-band{ display:flex; gap:56px; margin-top:20px; }
+.v2t .cg-band .v{ display:block; font-family:var(--mono); font-size:26px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-text2); }
+.v2t .cg-band .mid .v{ font-size:34px; color:var(--v-value); }
+.v2t .cg-band .k{ display:block; margin-top:6px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .cg .jd-gates{ margin-top:26px; }
+.v2t .cg-in .rt2-r-s{ color:var(--v-text2); }
+.v2t .cg-countries{ max-width:420px; }
+.v2t .cg-miss{ max-width:70ch; }
+
+/* career guide: the human sections */
+.v2t .cg-lead{ margin:44px 0 0; padding:34px 32px 36px; background:var(--v-bg2); }
+.v2t .cg-lead h2{ font-size:22px; font-weight:650; letter-spacing:-.02em; color:var(--v-text); margin:0 0 12px; }
+.v2t .cg-lead p{ font-size:19px; line-height:1.65; color:var(--v-text); max-width:74ch; margin:0; }
+.v2t .cg-p{ font-size:17px; line-height:1.7; color:var(--v-text2); max-width:74ch; }
+.v2t .cg-tools{ margin-top:22px; }
+.v2t .cg-lic{ margin-top:26px; padding:24px 26px 22px; border:1px solid var(--v-border2); border-radius:8px; }
+.v2t .cg-lic .lbl{ color:var(--v-value); }
+.v2t .cg-lic h3{ font-size:21px; font-weight:650; letter-spacing:-.02em; color:var(--v-text); margin:8px 0 10px; }
+.v2t .cg-lic-path{ font-size:16px; line-height:1.65; color:var(--v-text2); max-width:70ch; margin:0; }
+.v2t .cg-lic-meta{ display:flex; gap:44px; margin:20px 0 0; }
+.v2t .cg-lic-meta .k{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); margin-bottom:6px; }
+.v2t .cg-lic-meta .v{ display:block; font-size:16px; font-weight:600; color:var(--v-text); }
+.v2t .cg-lic-meta .v a{ color:var(--v-value); }
+.v2t .cg-lic-note{ font-size:15px; line-height:1.6; color:var(--v-text2); margin:18px 0 14px; max-width:70ch; }
+.v2t .cg-pc{ display:grid; grid-template-columns:1fr 1fr; gap:20px 48px; margin-top:26px; }
+.v2t .cg-pc .lbl.good{ color:var(--v-value); }
+.v2t .cg-pc .lbl.bad{ color:var(--v-gap); }
+.v2t .cg-pc ul{ list-style:none; margin:12px 0 0; padding:0; }
+.v2t .cg-pc li{ font-size:16px; line-height:1.6; color:var(--v-text2); padding:9px 0 9px 20px;
+  position:relative; border-bottom:1px solid var(--v-border); }
+.v2t .cg-pc li::before{ content:""; position:absolute; left:2px; top:17px; width:6px; height:6px;
+  border-radius:50%; background:currentColor; opacity:.5; }
+.v2t .cg-list{ list-style:none; margin:16px 0 0; padding:0; }
+.v2t .cg-list li{ display:grid; grid-template-columns:230px minmax(0,1fr); gap:24px; align-items:baseline;
+  padding:16px 0; border-bottom:1px solid var(--v-border); }
+.v2t .cg-list .t{ font-size:18px; font-weight:650; letter-spacing:-.015em; color:var(--v-text); }
+.v2t .cg-list .d{ font-size:16px; line-height:1.6; color:var(--v-text2); }
+@media (max-width:980.9px){
+  .v2t .cg-pc, .v2t .cg-list li{ grid-template-columns:1fr; }
+  .v2t .cg-lic-meta{ gap:24px; flex-wrap:wrap; }
+}
+
+/* the step path: the answer to "how do I become one", numbered like the rail */
+.v2t .cg-steps{ list-style:none; margin:28px 0 0; padding:0; counter-reset:cgstep; }
+.v2t .cg-steps li{ display:grid; grid-template-columns:56px minmax(0,1fr); gap:20px;
+  padding:22px 0; border-top:1px solid var(--v-border); }
+.v2t .cg-steps li:last-child{ border-bottom:1px solid var(--v-border); }
+.v2t .cg-steps .n{ font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--v-value);
+  padding-top:5px; }
+.v2t .cg-steps .t{ display:block; font-size:20px; font-weight:650; letter-spacing:-.02em;
+  color:var(--v-text); margin-bottom:8px; }
+.v2t .cg-steps .d{ display:block; font-size:16.5px; line-height:1.65; color:var(--v-text2); max-width:70ch; }
+
+/* the index */
+.v2t .cgx-sec h2{ font-size:26px; font-weight:650; letter-spacing:-.02em; }
+.v2t .cgx{ list-style:none; margin:14px 0 0; padding:0; }
+.v2t .cgx li{ display:grid; grid-template-columns:minmax(0,1fr) 110px 110px; gap:24px; align-items:baseline;
+  padding:20px 0; border-bottom:1px solid var(--v-border); }
+.v2t .cgx a{ text-decoration:none; color:var(--v-text); min-width:0; }
+.v2t .cgx .t{ display:block; font-size:22px; font-weight:650; letter-spacing:-.02em; }
+.v2t .cgx a:hover .t{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .cgx .d{ display:block; margin-top:6px; font-size:15.5px; line-height:1.55; color:var(--v-text2);
+  max-width:78ch; }
+.v2t .cgx .m{ font-family:var(--mono); font-size:17px; font-weight:600; color:var(--v-value); text-align:right; }
+.v2t .cgx .s{ color:var(--v-text2); text-align:right; }
+@media (max-width:980.9px){
+  .v2t .cg-steps li{ grid-template-columns:38px minmax(0,1fr); gap:12px; }
+  .v2t .cgx li{ grid-template-columns:minmax(0,1fr) auto; }
+  .v2t .cgx .s{ display:none; }
+}
+
+/* ============================================================================
+   MODALS ON THE SYSTEM (filter sheet, search palette, skill/benefit/license
+   sheets). The old skins were the newspaper's: cream paper, 16px radii, soft
+   gray text, accent-filled checkboxes. Here they become instruments — white or
+   black ground, one hard 1px text-ink frame, sharp corners, Instrument Sans
+   carrying the words in real weights, mono only where something is measured
+   (counts, category labels). The accent stays with the data and the single
+   CTA, exactly as docs/01 demands. Interactions are the board's: ink-fill pill
+   hovers, the bg2 + 3px value bar selection idiom from .job-card.sel.
+   ============================================================================ */
+
+/* ---- shared shell: every sheet sits in the same frame ---- */
+.v2t.skmodal{ background:none; }             /* the portal root carries .v2t for tokens only */
+.v2t .sksheet, .v2t.skmodal .sksheet{
+  background:var(--v-bg); color:var(--v-text);
+  border:1px solid var(--v-text); border-radius:10px;
+  box-shadow:0 32px 90px rgba(0,0,0,.62); }
+html.vlight .v2t .sksheet, html.vlight .v2t.skmodal .sksheet{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
+.v2t .veil, .v2t.skmodal .veil{ background:rgba(0,0,0,.6); }
+html.vlight .v2t .veil, html.vlight .v2t.skmodal .veil{ background:rgba(20,20,20,.32); }
+.v2t .xclose{ color:var(--v-text2); }
+.v2t .xclose:hover{ color:var(--v-text); }
+.v2t .sk-close{ width:34px; height:34px; border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent);
+  border-radius:999px; display:grid; place-items:center; font-size:19px;
+  background:none; color:var(--v-text); }
+.v2t .sk-close:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+
+/* ---- the definition sheet (skills, benefits, licenses) ---- */
+.v2t .sksheet{ width:min(540px,94vw); padding:34px 38px 30px; }
+.v2t .sksheet > .lbl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .sk-term{ font-family:var(--sans),sans-serif; font-weight:800; font-size:33px;
+  letter-spacing:-.03em; color:var(--v-text); gap:13px; margin:10px 0 12px; }
+.v2t .sk-mark svg{ width:30px; height:30px; color:var(--v-text); }
+.v2t .sk-def{ font-size:15.5px; line-height:1.65; color:var(--v-text2); }
+.v2t .sksheet .gloss-unlocks{ margin-top:24px; }
+.v2t .sksheet .gloss-unlocks .lbl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); margin-bottom:12px; }
+.v2t .gu-list{ gap:8px; }
+.v2t .gu-link{
+  font-family:var(--sans),sans-serif; font-size:13.5px; font-weight:600; letter-spacing:-.01em;
+  color:var(--v-text); background:none; border:1px solid var(--v-text);
+  border-radius:999px; padding:8px 15px; gap:9px; transition:none; }
+.v2t .gu-link:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .gu-n{ font-family:var(--sans),sans-serif; font-size:12px; font-weight:500; color:var(--v-text2); }
+.v2t .gu-link:hover .gu-n{ color:var(--v-bg); }
+.v2t .sksheet .sk-gloss{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--v-value); margin-top:26px; transition:none; text-underline-offset:3px; }
+.v2t .sksheet .sk-gloss:hover{ color:var(--v-value); text-decoration:underline; text-decoration-thickness:2px; }
+
+/* ---- the filter sheet ---- */
+.v2t .flt-sh{ padding:0; width:min(880px,94vw); }
+.v2t .flt-head{ border-bottom:1px solid var(--v-text); padding:18px 20px 16px 26px; }
+.v2t .flt-head .flt-ico{ color:var(--v-text); width:20px; height:20px; }
+.v2t .flt-head input{ font-family:var(--sans),sans-serif; font-size:19px; font-weight:600;
+  letter-spacing:-.015em; color:var(--v-text); }
+.v2t .flt-head input::placeholder{ color:var(--v-text2); font-weight:500; }
+.v2t .flt-body{ background:var(--v-bg); }
+.v2t .flt-rail{ border-right:1px solid var(--v-border2); padding:14px 0; gap:0; }
+.v2t .flt-cat{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:600;
+  letter-spacing:-.015em; color:var(--v-text2); padding:11px 18px 11px 22px; border-radius:0;
+  transition:none; }
+.v2t .flt-cat:hover{ background:var(--v-surface); color:var(--v-text); }
+.v2t .flt-cat.on{ background:var(--v-bg2); color:var(--v-text); font-weight:600;
+  box-shadow:inset 3px 0 0 var(--v-value); }
+/* the old layer used ::before as an accent bar; here it is the number.
+   Neutralize the bar geometry, keep the counter, turn it accent when active. */
+.v2t .flt-cat.on::before{ position:static; width:auto; background:none;
+  border-radius:0; top:auto; bottom:auto; left:auto; }
+.v2t .flt-badge{ font-family:var(--mono); font-size:10.5px; background:var(--v-value);
+  color:var(--v-fill-ink); border-radius:999px; }
+.v2t .flt-pane{ padding:18px 26px 22px; }
+.v2t .flt-note{ font-size:13px; line-height:1.55; color:var(--v-text2); margin:2px 0 14px; }
+.v2t .flt-group{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); margin:20px 0 8px; }
+.v2t .flt-opt{ border-radius:0; padding:10px 10px; gap:13px; transition:none; }
+.v2t .flt-opt:hover{ background:var(--v-surface); }
+.v2t .flt-box{ width:18px; height:18px; border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
+  border-radius:3px; color:var(--v-bg); transition:none; }
+.v2t .flt-opt.on .flt-box{ background:var(--v-text); border-color:var(--v-text); }
+.v2t .flt-opt.on:hover .flt-box{ background:var(--v-text); }
+.v2t .flt-lab{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-text); }
+.v2t .flt-sub{ font-size:12.5px; font-weight:400; color:var(--v-text2); margin-top:2px; }
+.v2t .flt-n{ font-family:var(--mono); font-size:12px; color:var(--v-text2); }
+.v2t .flt-mark{ display:grid; place-items:center; }
+.v2t .flt-mark svg{ width:17px; height:17px; color:var(--v-text); }
+.v2t .flt-panesearch{ display:flex; align-items:center; gap:11px;
+  border:1px solid color-mix(in srgb, var(--v-text) 35%, transparent); border-radius:0;
+  padding:10px 14px; margin:0 0 14px; }
+.v2t .flt-panesearch svg{ width:16px; height:16px; color:var(--v-text2); flex:none; }
+.v2t .flt-panesearch input{ flex:1; border:0; background:none; outline:none;
+  font-family:var(--sans),sans-serif; font-size:14.5px; font-weight:500; color:var(--v-text); }
+.v2t .flt-panesearch input::placeholder{ color:var(--v-text2); }
+.v2t .flt-foot{ border-top:1px solid var(--v-text); padding:15px 22px; }
+.v2t .flt-sh .flt-clear{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .flt-sh .flt-clear:hover{ color:var(--v-text); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .flt-sh .flt-show{ font-family:var(--sans),sans-serif; font-size:16px; font-weight:700;
+  letter-spacing:-.015em; background:var(--v-fill); color:var(--v-fill-ink);
+  border-radius:999px; padding:15px 30px; transition:none; }
+.v2t .flt-sh .flt-show:hover{ filter:brightness(1.08); }
+
+/* ---- the search palette ---- */
+.v2t .srch{ background:rgba(0,0,0,.6); }
+html.vlight .v2t .srch{ background:rgba(20,20,20,.32); }
+.v2t .srch-panel{ background:var(--v-bg); border:1px solid var(--v-text); border-radius:10px;
+  box-shadow:0 32px 90px rgba(0,0,0,.62); padding:0 0 20px; }
+html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
+.v2t .srch-row{ border-bottom:1px solid var(--v-border2); padding:16px 18px; }
+.v2t .srch-mark{ color:var(--v-text); }
+.v2t .srch-mark svg{ width:21px; height:21px; }
+.v2t .srch-row input{ font-family:var(--sans),sans-serif; font-size:22px; font-weight:600;
+  letter-spacing:-.02em; color:var(--v-text); }
+.v2t .srch-row input::placeholder{ color:var(--v-text2); font-weight:500; }
+.v2t .srch-x{ border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent);
+  color:var(--v-text); transition:none; }
+.v2t .srch-x:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .srch-hint{ font-family:var(--sans),sans-serif; font-size:19px; font-weight:600;
+  letter-spacing:-.02em; color:var(--v-text); }
+.v2t .srch-esc{ color:var(--v-text2); }
+.v2t .srch-esc kbd{ font-family:var(--mono); background:var(--v-bg2); color:var(--v-text2);
+  border:1px solid var(--v-border2); }
+.v2t .srch-results a{ border-radius:0; color:var(--v-text); }
+.v2t .srch-results a.on{ background:var(--v-bg2); box-shadow:inset 3px 0 0 var(--v-value); }
+.v2t .srch-k{ font-family:var(--mono); font-size:10px; letter-spacing:.13em; color:var(--v-text2); }
+.v2t .srch-t{ font-weight:600; letter-spacing:-.01em; }
+.v2t .srch-s{ color:var(--v-text2); }
+.v2t .srch-none{ color:var(--v-text2); }
+
+/* ---- the license sheet, same frame, its own anatomy ---- */
+.v2t .lic-sh-head h3{ font-family:var(--sans),sans-serif; font-weight:800; font-size:26px;
+  letter-spacing:-.025em; color:var(--v-text); }
+.v2t .lic-sh-occ{ color:var(--v-text2); }
+.v2t .lic-sh-occ b{ color:var(--v-text); font-weight:700; }
+.v2t .lic-sh dt{ font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lic-sh dd{ color:var(--v-text); }
+
+/* ---- audit fixes (measured 2026-08-21): the old layer bleeding through ---- */
+/* license badge kept the newspaper accent (#002FA6 — blue-on-black in dark).
+   Requirement is GAP data, so it takes the gap token; softer for partial. */
+.v2t .lic-req, .v2t .lic-req.required{ color:var(--v-gap); }
+.v2t .lic-req.partial{ color:var(--v-text2); }
+/* license footer: old ink-3 links and the warm #D5CFBF hairline */
+.v2t .lic-sh-foot{ border-top:1px solid var(--v-border2); }
+.v2t .lic-sh-ch{ border-top:1px solid var(--v-border2); }
+.v2t .lic-sh-foot a.lbl{ color:var(--v-text2); }
+.v2t .lic-sh-foot a.lbl:hover{ color:var(--v-text); }
+/* the term scale is one family: license gate names sit on the sk-term scale */
+.v2t .lic-sh-head h3{ font-size:33px; letter-spacing:-.03em; }
+/* counts are measurements everywhere else on the system — mono here too */
+.v2t .gu-n{ font-family:var(--mono),monospace; font-size:11px; font-weight:400; }
+/* skill-search input carried a hardcoded #fff into dark mode */
+.v2t .flt-panesearch{ background:var(--v-bg); }
+.v2t .flt-panesearch input{ background:none; color:var(--v-text); }
+/* the palette close button rendered its glyph in Arial at 50% radius */
+.v2t .srch-x{ font-family:var(--sans),sans-serif; border-radius:999px; }
+/* centered text is not the house's — the empty state reads left like the rest */
+.v2t .srch-empty{ text-align:left; padding:30px 24px 10px; }
+/* latent old ink on the glyph wrapper; make the token explicit */
+.v2t .flt-mark{ color:var(--v-text); }
+/* the options list folds mid-row at the footer; fade the fold so it reads as
+   a scroll edge, not clipped text */
+.v2t .flt-pane{ -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 16px),transparent);
+  mask-image:linear-gradient(180deg,#000 calc(100% - 16px),transparent); }
+
+/* ============================================================================
+   ELEVATION PASS (research 2026-08-21): the modals as instruments.
+   Machined controls and spec leaders survived the founder's edit; the
+   numbering, distribution bars, state readout and registration marks were
+   walked back on review (2026-08-21) — rounded 10px shells, hidden
+   scrollbars, one weight across the sheet. Interaction rule stands: state
+   changes are instant; only exits fade; nothing springs.
+   ============================================================================ */
+
+/* ---- entrance: translate only, no scale — an instrument answers, it doesn't pop */
+@keyframes v2SheetIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+.v2t.skmodal.open .sksheet, .v2t .skmodal.open .sksheet{ animation:v2SheetIn .18s ease-out; }
+.v2t .srch-panel{ animation:v2SheetIn .18s ease-out; }
+
+/* the old layer's ::before accent bar on the active category stays dead */
+.v2t .flt-cat::before, .v2t .flt-cat.on::before{ display:none; }
+
+/* ---- machined checkbox: square in square; the state is the geometry ---- */
+.v2t .flt-box{ border-radius:0; background:var(--v-bg); }
+.v2t .flt-box svg{ display:none; }
+.v2t .flt-opt.on .flt-box{ background:var(--v-text); border-color:var(--v-text);
+  box-shadow:inset 0 0 0 3px var(--v-bg); }
+.v2t .flt-opt:focus-visible{ outline:1px solid var(--v-value); outline-offset:2px; }
+
+/* ---- tabular count column ---- */
+.v2t .flt-n{ font-variant-numeric:tabular-nums; min-width:6ch; text-align:right; }
+
+/* ---- exclusion chips ---- */
+.v2t .flt-chips{ display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 6px; }
+.v2t .flt-chip{ display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--sans),sans-serif; font-size:13px; font-weight:600; line-height:1;
+  color:var(--v-text); background:none; border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent);
+  border-radius:999px; padding:8px 13px; cursor:pointer; }
+.v2t .flt-chip span{ color:var(--v-text2); font-size:14px; }
+.v2t .flt-chip:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .flt-chip:hover span{ color:var(--v-bg); }
+
+/* ---- zero-state: the button yields, the culprit line explains ---- */
+.v2t .flt-culprit{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--v-gap); margin-left:auto; padding-right:14px; }
+.v2t .flt-sh .flt-show.none{ background:var(--v-surface); color:var(--v-text2); cursor:default; }
+.v2t .flt-sh .flt-show.none:hover{ filter:none; }
+
+/* ---- de-clutter: no visible scrollbars inside the sheet; the fold fade
+   already marks the scroll edge ---- */
+.v2t .flt-pane, .v2t .flt-rail, .v2t .sksheet{ scrollbar-width:none; }
+.v2t .flt-pane::-webkit-scrollbar, .v2t .flt-rail::-webkit-scrollbar,
+.v2t .sksheet::-webkit-scrollbar{ display:none; }
+
+/* ---- salary figures in the words face (founder call, 2026-08-21): the money
+   on the board rows, the featured strip, the pane headline figure and the
+   fact tiles reads Instrument Sans bold, not mono ---- */
+.v2t .job-pay, .v2t .jv-pay{ font-family:var(--sans),sans-serif; font-weight:700; letter-spacing:-.02em; }
+.v2t .feat-pay{ font-family:var(--sans),sans-serif; font-weight:700; letter-spacing:-.02em; }
+.v2t .jv-payg{ font-family:var(--sans),sans-serif; font-weight:700; letter-spacing:-.025em; }
+.v2t .jsheet-facts .v{ font-family:var(--sans),sans-serif; font-weight:700; letter-spacing:-.015em; }
+
+/* ============================================================================
+   /jobs/browse — the browse spine as an almanac index (research 2026-08-21).
+   Ledger rows: name, dotted leader, tabular mono count; full-row instant
+   hover; combination pages nested in per-parent cells on the sub-hubs.
+   ============================================================================ */
+.v2t .bh-jump{ display:flex; gap:22px; margin:26px 0 4px; font-family:var(--mono),monospace;
+  font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; }
+.v2t .bh-jump a{ color:var(--v-text2); text-decoration:none; }
+.v2t .bh-jump a:hover{ color:var(--v-text); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:4px; }
+
+.v2t .bh-sec h2{ font-size:26px; font-weight:700; letter-spacing:-.02em; }
+.v2t .bh ul{ list-style:none; margin:0; padding:0; }
+
+.v2t .bh-row a{ display:flex; align-items:baseline; gap:10px;
+  padding:6px 10px; margin:0 -10px; text-decoration:none; color:var(--v-text); }
+.v2t .bh-row a:hover{ background:color-mix(in srgb, var(--v-value) 7%, transparent); }
+.v2t .bh-row .bh-t{ font-family:var(--sans),sans-serif; font-size:14.5px; font-weight:500;
+  letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.v2t .bh-row .bh-lead{ flex:1; min-width:16px;
+  border-bottom:1px dotted color-mix(in srgb, var(--v-text) 30%, transparent);
+  transform:translateY(-3px); }
+.v2t .bh-row .bh-n{ font-family:var(--mono),monospace; font-size:11.5px;
+  font-variant-numeric:tabular-nums; color:var(--v-text2); flex:none; }
+.v2t .bh-row a:hover .bh-n{ color:var(--v-value); }
+
+/* the curated head band: the same ledger at display scale, on the dek's measure */
+.v2t .bh-band{ max-width:860px; }
+.v2t .bh-band .bh-big a{ padding:10px 12px; margin:0 -12px; }
+.v2t .bh-band .bh-big .bh-t{ font-size:21px; font-weight:700; letter-spacing:-.02em; }
+.v2t .bh-band .bh-big .bh-n{ font-size:13px; }
+
+/* hub facet lists: two columns of ledger rows on wide screens */
+.v2t .bh-list{ columns:22rem; column-gap:56px; }
+.v2t .bh-list .bh-row{ break-inside:avoid; }
+.v2t .bh-all{ display:inline-block; margin-top:16px; font-family:var(--mono),monospace;
+  font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-value);
+  text-decoration:none; }
+.v2t .bh-all:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:4px; }
+
+/* sub-hub: heading-over-list cells, the column boundary is the taxonomy */
+.v2t .bh-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(19rem, 1fr));
+  gap:34px 56px; margin-top:40px; }
+.v2t .bh-cell h3{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:700;
+  letter-spacing:-.01em; margin:0 0 8px; padding-bottom:8px;
+  border-bottom:1px solid var(--v-text); }
+
+/* the per-field bridge into the browse spine — the words face, not mono, in
+   the house accent, on its own line bottom-left under the field's links
+   (founder calls, 2026-08-21/22) */
+.v2t .jb-occall{ font-family:var(--sans),sans-serif; font-size:14px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-value) !important;
+  flex-basis:100%; margin-top:6px; }
+.v2t .jb-occlinks a.jb-occall:hover{ color:var(--v-value); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:2px; }
+
+/* ============================================================================
+   /glossary + /licenses on the V2 system (2026-08-22). The geometry of both
+   pages survives from the old layer; this re-inks it: tokens, real weights,
+   the pill/rule/mono idioms, instant hovers. gu-link pills and .lic-req were
+   already re-inked for the definition sheets and apply here unchanged.
+   ============================================================================ */
+
+/* ---- glossary head: the rt scale ---- */
+.v2t .gloss-h1{ font-size:clamp(40px,6vw,64px); font-weight:800; letter-spacing:-.035em;
+  color:var(--v-text); }
+.v2t .gloss-dek{ color:var(--v-text2); }
+.v2t .gloss-note{ color:var(--v-text2); }
+
+/* ---- the tab bar: mono tabs on one ink rule, active takes the 2px edge ---- */
+.v2t .gloss-tabbar{ border-bottom:1px solid var(--v-text); }
+.v2t .gloss-tab{ color:var(--v-text2); transition:none; }
+.v2t .gloss-tab:hover{ color:var(--v-text); }
+.v2t .gloss-tab.on{ color:var(--v-text); border-bottom:2px solid var(--v-value); }
+.v2t .gtab-n{ color:var(--v-text2); font-variant-numeric:tabular-nums; }
+.v2t .gloss-tab.on .gtab-n{ color:var(--v-value); }
+
+/* ---- entries ---- */
+.v2t .gloss-item{ border-bottom:1px solid var(--v-border); }
+.v2t .gloss-item .gt{ color:var(--v-text); font-weight:700; }
+.v2t .gloss-item .gf{ color:var(--v-text2); }
+.v2t .gloss-item dd{ color:var(--v-text2); }
+.v2t .gloss-item:target .gt{ color:var(--v-value); }
+.v2t .gt-mark{ color:var(--v-text); }
+.v2t .gloss-src{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--v-value); text-decoration:none; }
+.v2t .gloss-src:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+
+/* ---- A–Z strip + letter markers ---- */
+.v2t .gloss-az{ border-bottom:1px solid var(--v-border2); }
+.v2t .gloss-az a{ color:var(--v-text2); transition:none; }
+.v2t .gloss-az a:hover{ color:var(--v-value); }
+.v2t .gloss-letter{ font-family:var(--sans),sans-serif; font-size:22px; font-weight:800;
+  letter-spacing:-.02em; text-transform:none; color:var(--v-text); }
+
+/* ---- licenses: cards on the soft-rounded family ---- */
+.v2t .lic-grid{ gap:22px; }
+.v2t .lic-card{ background:var(--v-bg); border:1px solid var(--v-border2); border-radius:10px; }
+.v2t .lic-card h3{ color:var(--v-text); font-weight:700; letter-spacing:-.02em; }
+.v2t .lic-facts dt{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lic-facts dd{ color:var(--v-text); }
+.v2t .lic-facts a{ color:var(--v-text); text-underline-offset:3px; }
+.v2t .lic-facts a:hover{ color:var(--v-value); text-decoration-thickness:2px; }
+.v2t .lic-occs li{ border-top:1px solid var(--v-border); }
+.v2t .lic-occ-head b{ color:var(--v-text); font-weight:600; }
+.v2t .lic-occ-label{ color:var(--v-text2); }
+.v2t .lic-occ-links a{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--v-text2); text-decoration:none; }
+.v2t .lic-occ-links a:hover{ color:var(--v-value); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:3px; }
+
+/* the licenses FAQ block reuses post-faq's v2 skin; rt-faq only adjusts scope */
+.v2t .rt-faq h2{ color:var(--v-text); }
+
+/* ============================================================================
+   /employers + /compare + /adjacency-index on the V2 system (2026-08-22).
+   Same discipline as glossary/licenses: geometry survives, ink changes.
+   ============================================================================ */
+
+/* ---- employers ---- */
+.v2t .emp-post-head h1{ font-size:clamp(40px,6vw,64px); font-weight:800;
+  letter-spacing:-.035em; color:var(--v-text); }
+.v2t .emp-post-head p{ color:var(--v-text2); }
+.v2t .emp-post-head .lbl.acc{ color:var(--v-value); }
+.v2t .wl-status{ color:var(--v-text2); }
+.v2t .wl-row input{ border-bottom:2px solid var(--v-text); color:var(--v-text); }
+.v2t .wl-row input::placeholder{ color:var(--v-text2); }
+.v2t .wl-row input:focus{ border-bottom-color:var(--v-value); }
+.v2t .wl-go{ background:var(--v-fill); border-color:var(--v-fill); color:var(--v-fill-ink);
+  border-radius:999px; font-weight:700; transition:none; }
+.v2t .wl-go:hover{ background:var(--v-fill); border-color:var(--v-fill); filter:brightness(1.08); }
+.v2t .wl-done{ color:var(--v-text); font-weight:700; letter-spacing:-.03em; }
+.v2t .wl-note, .v2t .wl-alt{ color:var(--v-text2); }
+/* the full form behind the waitlist flag: a token pass so flipping the flag
+   never lands on newspaper ink */
+.v2t .ejf-form input, .v2t .ejf-form select, .v2t .ejf-form textarea,
+.v2t .ef-field input, .v2t .ef-field select, .v2t .ef-field textarea{
+  background:none; color:var(--v-text); border-color:var(--v-border2); }
+.v2t .ejf-chip{ font-family:var(--sans),sans-serif; font-weight:600; color:var(--v-text);
+  border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); border-radius:999px;
+  background:none; }
+.v2t .ejf-submit, .v2t .ef-send{ background:var(--v-fill); color:var(--v-fill-ink);
+  border-radius:999px; font-weight:700; }
+
+/* ---- compare ---- */
+.v2t .cmp-col h2, .v2t .cmp-dir h3{ color:var(--v-text); font-weight:700; letter-spacing:-.02em; }
+.v2t .d-match .n{ font-family:var(--sans),sans-serif; font-weight:800; font-size:44px;
+  letter-spacing:-.03em; color:var(--v-value); }
+.v2t .d-match .u{ color:var(--v-text2); }
+.v2t .drow{ border-top:1px solid var(--v-border); }
+.v2t .drow .k{ color:var(--v-text2); }
+.v2t .drow .v{ color:var(--v-text); font-weight:600; }
+.v2t .tag, .v2t a.tag{ font-family:var(--sans),sans-serif; font-size:12.5px; font-weight:600;
+  letter-spacing:-.01em; color:var(--v-text); background:none;
+  border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); border-radius:999px;
+  transition:none; }
+.v2t .tag.have{ border-color:var(--v-text); }
+.v2t a.tag:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .cmp-links a{ color:var(--v-text); }
+
+/* ---- adjacency index: the citable stats read in the words face ---- */
+.v2t .axi-head{ border-bottom:1px solid var(--v-text); }
+.v2t .axi-head .lbl.acc{ color:var(--v-value); }
+.v2t .axi-h2{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.14em;
+  color:var(--v-text2); font-weight:400; }
+.v2t .axi-big{ font-family:var(--sans),sans-serif; font-weight:800; letter-spacing:-.035em;
+  color:var(--v-value); }
+.v2t .axi-unit{ color:var(--v-text2); }
+.v2t .axi-sentence{ color:var(--v-text2); }
+.v2t .axi-src{ color:var(--v-text2); }
+.v2t .axi-src a{ color:var(--v-text2); }
+.v2t .axi-src a:hover{ color:var(--v-value); }
+.v2t .axi-method p{ color:var(--v-text2); }
+.v2t .axi-cite{ color:var(--v-text2); }
+.v2t .axi-cite code{ background:var(--v-bg2); color:var(--v-text); border:1px solid var(--v-border2); }
+.v2t .axi-sec{ border-color:var(--v-border2); }
+.v2t .axi-links{ border-color:var(--v-border2); }
+.v2t .axi-links a{ color:var(--v-text2); }
+.v2t .axi-links a:hover{ color:var(--v-value); }
+
+/* ============================================================================
+   THE LANDING on V2 (2026-08-22) — the last surface. The instrument's physics,
+   markup and GLYPH_W are untouched (non-negotiables 1–5, 7). Three moves:
+   (1) the .v2h wrapper BRIDGES the landing's old tokens to the V2 palette, so
+   every section (searchbar, band, rail, proof, how, faq, capture, xmodal)
+   re-inks through the CSS it already has; (2) the graph reads --g-* vars set
+   here (inline-style var() with the old hex as fallback — buildDOM only);
+   (3) the sticky searchbar offset reads the measured nav height (--navh, set
+   once on mount) because the V2 nav is two-tier and font-metric-sized.
+   ============================================================================ */
+.v2t .v2h{
+  --ink:var(--v-text); --ink-2:var(--v-text2); --ink-3:var(--v-text2);
+  --paper:var(--v-bg); --paper-2:var(--v-surface); --card:var(--v-bg);
+  --rule:var(--v-border); --rule-2:var(--v-border2);
+  --accent:var(--v-value); --accent-press:var(--v-value);
+  --accent-tint:color-mix(in srgb, var(--v-value) 14%, transparent);
+  --black:var(--v-text);
+  /* the graph's paint */
+  --g-primary:var(--v-value);
+  --g-kid:color-mix(in srgb, var(--v-value) 62%, var(--v-text2));
+  --g-cross:var(--v-border2);
+  --g-ink:var(--v-text);
+  --g-ink2:var(--v-text2);
+  --g-ink3:var(--v-text2);
+  --g-halo:var(--v-bg);
+  background:var(--v-bg); color:var(--v-text);
+}
+/* the shared-pixel rule, nav-height-aware */
+.v2t .v2h .searchwrap{ top:calc(var(--navh, 60px) - 1px); }
+/* hero: the em takes the accent through the bridge; keep the landing's own
+   scale — it is the product's front door, not an rt template */
+.v2t .v2h .hero h1 .em{ color:var(--v-value); }
+/* the accent band: fieldband moves from the old blue to the fill token; the
+   cloud canvas draws white (onblue palette) which reads on violet and gold */
+.v2t .v2h .fieldband{ background:var(--v-fill); color:var(--v-fill-ink); }
+.v2t .v2h .fieldband h3, .v2t .v2h .fieldband p{ color:var(--v-fill-ink); }
+.v2t .v2h .fieldband .lbl, .v2t .v2h .fieldband .fb-hint{
+  color:color-mix(in srgb, var(--v-fill-ink) 62%, transparent); }
+.v2t .v2h .fieldband .fb-stats{ color:var(--v-fill-ink); }
+/* the one CTA of the band under the fill stays legible */
+.v2t .v2h .go{ background:var(--v-fill); color:var(--v-fill-ink); transition:none; }
+.v2t .v2h .go:hover{ filter:brightness(1.08); background:var(--v-fill); }
+/* capture + xmodal accents through the bridge already; the report CTA: */
+.v2t .v2h .xgo{ background:var(--v-fill); color:var(--v-fill-ink); }
+.v2t .v2h .xgo:hover{ filter:brightness(1.08); background:var(--v-fill); }
+
+/* ---- the typographic instrument (founder call 2026-08-22): no wires, no
+   dots — the text is the graph, sized by match. The elements stay in the DOM
+   and keep simulating (hit-testing is mathematical); only paint goes. The
+   YOU knockout keeps the ground clear behind the wordmark. ---- */
+.v2t .v2h #graph .edge,
+.v2t .v2h #graph circle.node,
+.v2t .v2h #graph .leader{ display:none; }
+
+/* ============================================================================
+   THE LANDING, v2 (2026-08-22): a server-rendered product landing. Count-led
+   hero, a real search that posts into /jobs, the trending links into the
+   programmatic tier, the instruments as cards. All plain HTML — this page's
+   job is brand, conversion, and the shortest crawl path to the product.
+   ============================================================================ */
+.v2t .lp{ padding:0 32px 90px; }
+.v2t .lp-hero{ padding:64px 0 0; max-width:1160px; margin:0 auto;
+  display:grid; grid-template-columns:1.7fr 1fr; gap:40px; align-items:center; }
+.v2t .lp-hero h1{ font-size:clamp(52px,6.2vw,88px); font-weight:800; line-height:1;
+  letter-spacing:-.04em; color:var(--v-text); margin:0 0 26px; max-width:12ch; }
+.v2t .lp-hero h1 .em{ color:var(--v-value); }
+.v2t .lp-hero-art{ width:100%; max-width:330px; height:auto; justify-self:end; align-self:center;
+  transform:translateX(-12%); }
+.v2t .lp-sub{ font-size:16.5px; line-height:1.6; color:var(--v-text2); max-width:54ch; margin:0 0 16px; }
+.v2t .lp-proof{ display:block; font-family:var(--mono),monospace; font-size:10.5px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); margin:0;
+  font-variant-numeric:tabular-nums; }
+
+/* the search band: centered, iconed, one action to /jobs */
+.v2t .lp-searchband{ max-width:1160px; margin:56px auto 0; }
+/* NO overflow:hidden here — the predictive dropdowns hang below the unit and
+   a clipping context swallowed them whole (found live 2026-08-23; the DOM
+   probes passed because the nodes exist, just invisibly). The CTA rounds its
+   own right corners instead. */
+.v2t .lp-search{ display:grid; grid-template-columns:1.6fr 1px 1fr auto;
+  border:1px solid var(--v-text); border-radius:10px;
+  background:var(--v-bg); }
+.v2t .lp-sfield{ display:flex; flex-direction:row; align-items:center; gap:14px;
+  padding:14px 20px; min-width:0; }
+.v2t .lp-fico{ width:19px; height:19px; color:var(--v-text2); flex:none; }
+.v2t .lp-fwrap{ display:flex; flex-direction:column; gap:4px; min-width:0; flex:1; }
+.v2t .lp-sfield .l{ font-family:var(--mono),monospace; font-size:9.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lp-sfield input{ border:none; background:none; outline:none;
+  font-family:var(--sans),sans-serif; font-size:17px; font-weight:500; color:var(--v-text); width:100%; }
+.v2t .lp-sfield input::placeholder{ color:var(--v-text2); font-weight:400; }
+.v2t .lp-sdiv{ background:var(--v-border2); width:1px; }
+.v2t .lp-go{ display:flex; align-items:center; gap:12px; border:none; cursor:pointer;
+  border-radius:0 9px 9px 0;
+  background:var(--v-fill); color:var(--v-fill-ink); font-family:var(--sans),sans-serif;
+  font-size:15.5px; font-weight:700; letter-spacing:-.01em; padding:0 28px; transition:none;
+  white-space:nowrap; }
+.v2t .lp-go:hover{ filter:brightness(1.08); }
+.v2t .lp-go svg{ width:17px; height:17px; }
+
+/* trending: plain crawlable links, counts in mono */
+.v2t .lp-trend{ display:flex; flex-wrap:wrap; align-items:baseline;
+  gap:8px 20px; margin:18px 0 0; }
+.v2t .lp-trend > .lbl{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--v-text2); margin-right:2px; }
+.v2t .lp-trend a{ font-size:13px; font-weight:500; letter-spacing:-.01em; color:var(--v-text2);
+  text-decoration:none; }
+.v2t .lp-trend a:hover{ color:var(--v-text); }
+.v2t .lp-trend a:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+.v2t .lp-n{ font-family:var(--mono),monospace; font-size:10.5px; color:var(--v-text2);
+  font-variant-numeric:tabular-nums; }
+.v2t .lp-trend a:hover .lp-n{ color:var(--v-value); }
+.v2t .lp-all{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--v-value) !important; }
+
+/* live cards per category */
+.v2t .lp-bands{ max-width:1160px; margin:84px auto 0; display:grid; gap:64px; }
+.v2t .lp-band-head{ display:flex; align-items:baseline; justify-content:space-between;
+  gap:18px; margin-bottom:18px; }
+.v2t .lp-band-head h2{ font-size:clamp(22px,2.6vw,30px); font-weight:800;
+  letter-spacing:-.025em; margin:0; }
+.v2t .lp-band-head h2 a{ color:var(--v-text); text-decoration:none; }
+.v2t .lp-band-head h2 a:hover{ color:var(--v-value); }
+.v2t .lp-band-all{ font-family:var(--mono),monospace; font-size:10.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--v-value); text-decoration:none; white-space:nowrap;
+  font-variant-numeric:tabular-nums; }
+.v2t .lp-band-all:hover{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+.v2t .lp-cards{ display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:16px; }
+.v2t .lp-card{ display:flex; flex-direction:column; gap:6px; padding:20px 22px 18px;
+  border:1px solid var(--v-border2); border-radius:10px; text-decoration:none;
+  background:var(--v-bg); transition:none; min-width:0; }
+.v2t .lp-card:hover{ border-color:var(--v-text); }
+.v2t .lp-card-t{ font-size:15.5px; font-weight:700; letter-spacing:-.015em; line-height:1.25;
+  color:var(--v-text); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  overflow:hidden; }
+.v2t .lp-card:hover .lp-card-t{ color:var(--v-value); }
+.v2t .lp-card-co{ font-size:13px; font-weight:500; color:var(--v-text2);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.v2t .lp-card-m{ font-family:var(--mono),monospace; font-size:9.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--v-text2); white-space:nowrap; overflow:hidden;
+  text-overflow:ellipsis; }
+.v2t .lp-card-pay{ margin-top:4px; font-family:var(--sans),sans-serif; font-size:14px;
+  font-weight:700; letter-spacing:-.02em; color:var(--v-value); }
+
+/* the instruments */
+.v2t .lp-tools{ margin-top:130px; max-width:1160px; margin-left:auto; margin-right:auto; }
+.v2t .lp-tools h2{ font-size:clamp(28px,3.6vw,44px); font-weight:800; letter-spacing:-.03em;
+  color:var(--v-text); margin:0 0 34px; }
+.v2t .lp-toolgrid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+  gap:22px; }
+.v2t .lp-tool{ display:flex; flex-direction:column; gap:14px; padding:34px 34px 30px;
+  border:1px solid var(--v-border2); border-radius:10px; text-decoration:none;
+  background:var(--v-bg); transition:none; }
+.v2t .lp-tool:hover{ border-color:var(--v-text); }
+
+.v2t .lp-tool > .lbl{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--v-text2); }
+.v2t .lp-tool h3{ font-size:clamp(22px,2.6vw,30px); font-weight:700; letter-spacing:-.025em;
+  line-height:1.08; color:var(--v-text); margin:0; }
+.v2t .lp-tool p{ font-size:14.5px; line-height:1.55; color:var(--v-text2); margin:0; }
+.v2t .lp-tool-go{ margin-top:auto; font-family:var(--mono),monospace; font-size:10.5px;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--v-value); }
+.v2t .lp-tool:hover .lp-tool-go{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:3px; }
+
+/* the lead instrument card commits to the fill (impeccable: identical card
+   grids are the template smell; one drenched + one outlined is a hierarchy).
+   This is the landing's accent block — the manifesto exemption. */
+.v2t .lp-tool-lead{ background:var(--v-fill); border-color:var(--v-fill); }
+.v2t .lp-tool-lead > .lbl{ color:color-mix(in srgb, var(--v-fill-ink) 65%, transparent); }
+.v2t .lp-tool-lead h3, .v2t .lp-tool-lead p{ color:var(--v-fill-ink); }
+.v2t .lp-tool-lead p{ opacity:.85; }
+.v2t .lp-tool-lead .lp-tool-go{ color:var(--v-fill-ink); }
+.v2t .lp-tool-lead:hover{ border-color:var(--v-fill); filter:brightness(1.05); }
+.v2t .lp-tool-lead:hover .lp-tool-go{ color:var(--v-fill-ink); }
+
+/* the rest of the product, one ruled row */
+.v2t .lp-more{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:34px 44px; margin:90px auto 0; padding-top:44px; border-top:1px solid var(--v-border2);
+  max-width:1160px; }
+.v2t .lp-more h4{ font-size:16px; font-weight:700; letter-spacing:-.015em; margin:0 0 8px; }
+.v2t .lp-more h4 a{ color:var(--v-text); text-decoration:none; }
+.v2t .lp-more h4 a:hover{ color:var(--v-value); text-decoration:underline;
+  text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .lp-more p{ font-size:13.5px; line-height:1.5; color:var(--v-text2); margin:0; }
+
+@media (max-width:860px){
+  .v2t .lp{ padding:0 22px 60px; }
+  .v2t .lp-hero{ padding-top:44px; grid-template-columns:1fr; gap:22px; }
+  .v2t .lp-hero-art{ max-width:250px; justify-self:center; order:-1; }
+  .v2t .lp-search{ grid-template-columns:1fr; }
+  .v2t .lp-sdiv{ display:none; }
+  .v2t .lp-sfield{ border-bottom:1px solid var(--v-border); padding:14px 18px; }
+  .v2t .lp-go{ padding:16px 22px; justify-content:center; }
+}
+
+/* dark mode: the scout is drawn for paper — hide her and let the hero breathe */
+html:not(.vlight) .v2t .lp-hero{ grid-template-columns:1fr; }
+html:not(.vlight) .v2t .lp-hero-art{ display:none; }
+
+/* ---- the card mark: one quiet circle, logo or monogram ---- */
+.v2t .lp-card-logo{ display:block; width:36px; height:36px; margin-bottom:4px; }
+.v2t .lp-card-logo img{ width:100%; height:100%; border-radius:999px; object-fit:contain;
+  background:#fff; border:1px solid var(--v-border2); padding:4px; box-sizing:border-box; }
+.v2t .lp-card-logo i{ display:grid; place-items:center; width:100%; height:100%;
+  border-radius:999px; font-style:normal; font-family:var(--sans),sans-serif;
+  font-size:15px; font-weight:700; color:var(--v-text); border:1px solid var(--v-border2); }
+
+/* ============================================================================
+   THE MONO DIET (2026-08-23). The tell was never the font; it was tiny
+   tracked mono labels as section grammar. Word-only microlabels move to the
+   word face at 600; mono (now Chivo) stays wherever a number, date, count or
+   readout lives. Same size and tracking, so nothing reflows.
+   ============================================================================ */
+.v2t .flt-group{ font-family:var(--sans),sans-serif; font-weight:600; letter-spacing:.09em; }
+.v2t .flt-clear{ font-family:var(--sans),sans-serif; font-weight:600; letter-spacing:.09em; }
+.v2t .spec-k{ font-family:var(--sans),sans-serif; font-weight:600; letter-spacing:.09em; }
+.v2t .bh-jump{ font-family:var(--sans),sans-serif; font-weight:600; letter-spacing:.09em; }
+.v2t .gloss-tab{ font-family:var(--sans),sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.09em; }
+.v2t .gtab-n{ font-family:var(--mono),monospace; }
+.v2t .lic-facts dt{ font-family:var(--sans),sans-serif; font-weight:600; letter-spacing:.09em; }
+.v2t .lp-sfield .l{ font-family:var(--sans),sans-serif; font-weight:600; letter-spacing:.09em; }
+.v2t .lp-trend > .lbl{ font-family:var(--sans),sans-serif; font-weight:600; letter-spacing:.09em; }
+.v2t .lp-tool > .lbl, .v2t .lp-tool-lead > .lbl{ font-family:var(--sans),sans-serif; font-weight:650; letter-spacing:.09em; }
+.v2t .srch-esc{ font-family:var(--sans),sans-serif; }
+.v2t .flt-readout{ font-family:var(--mono),monospace; }  /* readout carries numbers: stays */
+/* counts and readouts that lean on .lbl now re-declare their face */
+.v2t .lp-proof{ font-family:var(--mono),monospace; }
+.v2t .lp-band-all, .v2t .lp-n, .v2t .lp-card-m{ font-family:var(--mono),monospace; }
+.v2t .bh-row .bh-n, .v2t .flt-n, .v2t .flt-badge{ font-family:var(--mono),monospace; }
+.v2t .gu-n, .v2t .srch-k{ font-family:var(--mono),monospace; }
+
+/* ---- hybrid cells: the dropdown under each search field ---- */
+.v2t .lp-sfield{ position:relative; }
+.v2t .lp-dd{ position:absolute; top:calc(100% + 6px); left:12px; right:12px; z-index:30;
+  background:var(--v-bg); border:1px solid var(--v-border2); border-radius:10px;
+  overflow:hidden; box-shadow:0 18px 44px rgba(0,0,0,.14); padding:6px 0; }
+html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
+.v2t .lp-dd button{ display:block; width:100%; text-align:left; border:none; background:none;
+  cursor:pointer; font-family:var(--sans),sans-serif; font-size:14px; font-weight:500;
+  letter-spacing:-.01em; color:var(--v-text); padding:9px 16px; transition:none; }
+.v2t .lp-dd button.on{ background:var(--v-bg2); box-shadow:inset 3px 0 0 var(--v-value); }
+
+/* ---- trending as five quiet pills ---- */
+/* pills wear the search bar's own outline (full ink); the hover selector
+   carries three classes because .lp-trend a:hover (element+2) was beating
+   the two-class pill rule and painting ink on ink */
+.v2t .lp-trend .lp-pill{ display:inline-block; font-family:var(--sans),sans-serif; font-size:13px;
+  font-weight:600; letter-spacing:-.01em; color:var(--v-text); text-decoration:none;
+  border:1px solid var(--v-text); border-radius:999px;
+  padding:8px 16px; line-height:1; transition:none; }
+.v2t .lp-trend .lp-pill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text);
+  text-decoration:none; }
+.v2t .lp-trend{ justify-content:center; gap:10px; margin-top:22px; align-items:center; }
+.v2t .lp-trend .lp-all{ margin-left:6px; }
+
+/* ---- the board's search band takes the landing unit's clothes ---- */
+@media (min-width:981px){
+  .v2t .jb-searchband{ border:1px solid var(--v-text); border-radius:10px;
+    background:var(--v-bg); }   /* no overflow:hidden — the typeahead hangs below */
+  .v2t .jb-fltbtn{ background:var(--v-fill); color:var(--v-fill-ink); border:none;
+    font-family:var(--sans),sans-serif; font-size:15px; font-weight:700; letter-spacing:-.01em;
+    padding:0 26px; height:52px; border-radius:0 9px 9px 0; transition:none; }
+  .v2t .jb-fltbtn:hover{ background:var(--v-fill); color:var(--v-fill-ink); filter:brightness(1.08); }
+  .v2t .jb-fltbtn.on{ border:none; }
+  .v2t .jb-fltn{ background:var(--v-fill-ink); color:var(--v-fill); }
+}
+
+/* ---- the board's location dropdown reuses the landing panel ---- */
+.v2t .jb-locwrap{ position:relative; display:flex; align-items:center; min-width:0;
+  border-left:1px solid var(--v-border); }
+.v2t .jb-locwrap .jb-locin{ border-left:none; width:100%; }
+.v2t .jb-locwrap .lp-dd{ left:8px; right:8px; }

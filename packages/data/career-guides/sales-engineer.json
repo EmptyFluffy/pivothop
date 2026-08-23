@@ -1,0 +1,106 @@
+{
+ "slug": "sales-engineer",
+ "title": "Sales Engineer",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A sales engineer sits in the deal, not next to it: you're the one who gets the API working live on a prospect's laptop while the account executive watches the clock. The line people confuse it with is product management, but a PM owns the roadmap and you own the room, you're measured on whether the demo closed, not whether the feature was right.",
+  "day_to_day": "Most weeks split roughly in half between building and being watched build. You'll spend a morning in a sandbox environment reproducing a prospect's actual data schema so the demo doesn't feel generic, then an afternoon on a call walking a skeptical VP of Engineering through why your REST API won't choke on their volume. There's usually one technical deep-dive a week with a champion inside the account, the kind of call where you get to solve their problem instead of pitching around it, and that's the one people look forward to. Proposals and security questionnaires eat the rest: filling out the same SOC 2 answers in a slightly different format for the fourth time this month. You'll sit in on sales forecast calls even though you don't own the number, because your read on technical risk changes whether the deal is real. By Friday you've usually rebuilt at least one demo script because the prospect's use case shifted mid-week.",
+  "work_environment": "Close to half the postings are remote, which tracks: once the demo environment and the video call work, geography stops mattering much, and companies would rather hire the person who's great on camera with a prospect in Frankfurt than someone mediocre who happens to sit in the office. The travel comes in bursts, on-site proof-of-concepts, a customer conference, a week visiting three accounts in the same region, then nothing for a month. A bad week is back-to-back demos across time zones with no buffer, where you're troubleshooting a broken integration at 7am for a European prospect and pitching a fresh one at 6pm for someone on the West Coast. Otherwise it's a laptop, a decent headset, and whatever CRM and demo tooling your company standardized on.",
+  "getting_in": "The degree isn't the gate most people think it is: it's required in a majority of postings but waived in a third, and where it's waived companies are accepting a technical background instead, a CS-adjacent certificate, a bootcamp, or just proven work as a support or implementation engineer who can talk to customers. The real gate is the five-year median experience bar, which almost nobody hits by going straight into sales engineering. Most people arrive via two or three years in a technical support, solutions consulting, or developer role, then move sideways once they've proven they can explain technical tradeoffs to a non-technical buyer. The stall point is usually there, at the sideways move, because hiring managers want to see you've already stood in front of a customer under pressure, not just that you know the product. Language matters more than people expect if you're targeting Europe: German and Spanish show up often enough in postings that bilingual candidates have a real edge for DACH or LatAm territories.",
+  "ladder": "Early on you're handed a single product line and a quota of demos to support; you're judged on whether deals with your fingerprints on them close. The first real step up is territory or vertical ownership, where you stop reacting to whatever deal lands on your desk and start shaping which deals your AE team even chases, usually two to three years in. From there the ladder forks: one path goes into sales engineering management, where your job becomes coaching other SEs' demo instincts and forecasting technical win rates; the other stays hands-on and moves into principal or field CTO roles, where you're the technical voice on the biggest, weirdest accounts the company has. Both forks tend to open around the five to seven year mark, and the hands-on path pays comparably well at senior levels without requiring you to manage people.",
+  "suits": "People who come alive here are the ones who like the fifteen minutes right after a technical objection lands, the recalculating-in-real-time feeling of proving a skeptic wrong with a live system instead of a slide. If you liked being the person in engineering who could also explain things to your manager's boss, this is that instinct turned into a career. The people who leave are usually strong engineers who wanted to build things that last past a single sales cycle, and found that a demo you rebuild every three months doesn't scratch that itch. Others leave because they wanted the commission-heavy upside of a full sales role without carrying someone else's quota conversation.",
+  "misconceptions": "Outsiders assume it's a technical support role with a nicer title, but support reacts to problems that already exist and sales engineering exists to prevent problems before a contract is signed. The other common mistake is assuming you need to be a strong coder: Python shows up in a third of postings, but it's usually for scripting a demo or a proof-of-concept integration, not for shipping production code, and plenty of successful SEs write barely any of it day to day.",
+  "who_qualifies": "No measured route into this role from another occupation is strong enough to name here; the pipeline is broader and less codified than that, drawing from technical support, implementation consulting, and individual contributor engineering roles who've shown they can present. What carries over from those backgrounds is the technical fluency and the ability to sit with an unhappy or skeptical customer; what doesn't carry over automatically is the sales instinct, reading when a prospect's objection is about budget and not about the product, which most people pick up on the job rather than before it.",
+  "what_the_numbers_miss": "The numbers can't tell you how much of the job is emotional labor during a deal that's stalling for reasons that have nothing to do with your demo, budget freezes, internal politics, a champion who got laid off. They also don't capture how much variance there is between selling a $10k SaaS tool and a seven-figure infrastructure contract; the title's the same but the job barely resembles itself across that range.",
+  "steps": [
+   {
+    "do": "Get technical fluency in one product domain",
+    "how": "Spend 1-2 years as a support engineer, implementation consultant, or backend developer working directly with customer-facing systems. You're done when you can explain how the product breaks under edge cases, not just how it works when the demo goes right."
+   },
+   {
+    "do": "Build a demo you can defend live",
+    "how": "Pick a real API or SaaS product (many candidates use a company's public sandbox) and build a working demo that solves a specific, named use case, then present it to someone who'll ask hard questions. This takes a few weekends, and you're done when you can handle three follow-up objections without opening a script."
+   },
+   {
+    "do": "Get in front of customers, even informally",
+    "how": "Ask to shadow or co-run one customer call a month if you're not yet in a customer-facing role. Six months of this gives you concrete stories for interviews about handling a skeptical stakeholder, which matters more than certifications."
+   },
+   {
+    "do": "Target roles that waive the degree requirement",
+    "how": "About a third of postings don't require a degree; filter for these explicitly and lead your application with your technical project and customer-facing experience instead of credentials. This shortens your search by weeks because you're not competing against degree-holders on paper alone."
+   },
+   {
+    "do": "Learn one cloud platform to fluency",
+    "how": "Pick AWS, Azure, or GCP based on what your target companies run on (all three show up in a quarter or more of postings) and get comfortable enough to talk deployment, security, and cost tradeoffs. Two to three months of hands-on use, including a personal project deployed live, is usually enough to hold your own in a technical interview."
+   }
+  ],
+  "tools": "The real gatekeepers are cloud platforms (AWS, Azure, GCP all appear in a quarter or more of postings) and REST API fluency, because most demos are built by wiring a product into a prospect's existing stack live. Python shows up often enough to matter for scripting demos and quick integrations, though it's rarely production-grade code. Presentation skill and sales-enablement tooling (content libraries, competitive battlecards) round out the day-to-day, and langchain's appearance in a fifth of postings signals that AI-product SEs increasingly need to demo systems with less predictable output than a traditional SaaS tool.",
+  "industries": [
+   {
+    "name": "Enterprise SaaS",
+    "note": "Long sales cycles, security questionnaires, and demos built around a prospect's actual data; the work rewards patience and thoroughness over speed."
+   },
+   {
+    "name": "Cloud infrastructure",
+    "note": "Technical bar is higher, buyers are often engineers themselves, and proof-of-concepts can run for weeks against real production-like workloads."
+   },
+   {
+    "name": "AI/ML platforms",
+    "note": "Demos are less predictable because model output varies, so the job shifts toward explaining and managing uncertainty rather than showing a fixed feature set."
+   },
+   {
+    "name": "Fintech and regulated software",
+    "note": "Procurement and compliance conversations dominate; you'll spend more time on security and audit questions than on the product's actual features."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "AI/ML solutions engineering",
+    "why": "Langchain appears in a fifth of postings already, and companies shipping AI products need SEs who can explain probabilistic behavior to buyers used to deterministic software, a skill set still rare enough to command a premium."
+   },
+   {
+    "name": "Public sector or regulated-industry SE",
+    "why": "Procurement shows up in over a fifth of postings; SEs who can navigate government or healthcare buying cycles and compliance requirements face far less competition than generalist SaaS SEs."
+   },
+   {
+    "name": "Platform/infrastructure SE",
+    "why": "Selling to engineers who'll run the system in production requires deeper cloud and API depth than product-led SaaS sales, and it pays toward the top of the range because the technical bar filters out weaker candidates."
+   }
+  ],
+  "pros": [
+   "You get the satisfaction of solving a real, specific technical problem in front of the person who has it, in real time, instead of shipping something into a backlog and hoping it lands.",
+   "The role sits close enough to revenue that your technical judgment changes business outcomes, which is a different kind of weight than being one engineer among fifty.",
+   "Compensation includes commission in a meaningful share of postings, so strong quarters show up in your paycheck rather than just in a performance review.",
+   "The variety is real: no two prospects have the same stack, the same objections, or the same reason a deal is stalling, so the puzzle changes even when the product doesn't."
+  ],
+  "cons": [
+   "You'll rebuild the same demo more times than feels reasonable because prospects' environments and objections shift constantly, and there's no version that stays finished.",
+   "Deals die for reasons that have nothing to do with your work, a budget freeze, a champion leaving, and you rarely get closure on why.",
+   "Travel comes in unpredictable bursts, a week of back-to-back on-sites followed by a month of nothing, which is hard to plan a life around.",
+   "You carry technical credibility for deals you don't ultimately control, so a sales team's overpromising becomes your problem to walk back live."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a sales engineer",
+    "a": "Most people take two to three years in a technical support, implementation, or engineering role before moving sideways into sales engineering, since the median job posting asks for five years of experience overall. There's no fast track that skips the customer-facing time; it's the part hiring managers check for."
+   },
+   {
+    "q": "do you need a degree to be a sales engineer",
+    "a": "Not always: about a third of postings waive the degree requirement outright, usually in favor of proven technical experience or a certificate. Where it's required, it's rarely a specific major, most companies care whether you can explain an API to a non-technical buyer, not what your transcript says."
+   },
+   {
+    "q": "is sales engineering a good career right now",
+    "a": "The switch rate into the role sits around 5.6% a year, and pay at the midpoint clears $157k, which suggests steady rather than explosive demand. It suits people who like variety and customer contact more than people chasing hypergrowth headlines."
+   },
+   {
+    "q": "can sales engineers work remotely",
+    "a": "Yes, close to half of postings are remote, since the core work (demos, technical calls, proposal writing) happens over video and a shared screen as easily as in person. Travel still shows up for on-site proof-of-concepts and major accounts, so remote doesn't mean zero travel."
+   },
+   {
+    "q": "sales engineer vs product manager, what's the difference",
+    "a": "A product manager owns what gets built and when; a sales engineer owns whether a specific prospect understands and trusts what's already built. They overlap on product knowledge, but a PM is measured on roadmap outcomes and an SE is measured on deal outcomes."
+   }
+  ]
+ }
+}

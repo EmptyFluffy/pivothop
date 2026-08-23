@@ -2,11 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
-import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, skillDisplayName } from '../../jobs-data';
-import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from '../../JobCard';
+import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, getJobGates, skillDisplayName } from '../../jobs-data';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard } from '../../JobCard';
 import SkillStrip from '../../SkillStrip';
+import BenefitStrip from '../../BenefitStrip';
+import { gateRows } from '../../gates';
+import { benefitEntries } from '../../benefit-entries';
 import { skillEntries } from '../../skill-entries';
-import { coverableSlugs } from '../../../salary/salary-data';
+import { coverableSlugs, getSalary, usBand, fmtk } from '../../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, hasOriginPage, originRoles } from '../../../routes/routes-data';
 import { jobCount } from '../../jobs-data';
 import { SITE_EMAIL, article, originAnchors, pickAnchor } from '../../../../lib/site';
@@ -78,6 +81,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const tl = title.toLowerCase();
   const sections: JobSection[] = getJobSections(occ, id);
   const skills = getJobSkills(occ, id);
+  const benefits = benefitEntries(getJobBenefits(occ, id));
+  const gates = gateRows(getJobGates(occ, id));
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   const hasSalary = coverableSlugs().includes(occ);
@@ -92,6 +97,9 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   // More of the same role. The obvious next click on any board, and the moment
   // of highest intent — one listing is rarely the right one.
   const siblings = getJobs(occ).filter((s) => s.id !== id).slice(0, 5);
+  // The occupation's own measured median, so a posting that states no pay still
+  // tells a reader what the role goes for, and links to the full salary page.
+  const occMedian = hasSalary ? (usBand(getSalary(occ)!)?.p50 ?? null) : null;
   // Where these skills also reach. The differentiated half: every other board
   // shows more of the same title, we can show adjacent occupations with the
   // readiness attached. Gated on a live board so no one lands on an empty page.
@@ -105,7 +113,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const claim = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(`Claim listing: ${j.title} at ${j.company}`)}&body=${encodeURIComponent(`We are the employer behind "${j.title}" (${j.company}) listed on PivotHop. We want to claim it and hear about featured placement.\n\nWork email:\nName:`)}`;
 
   return (
-    <PageShell>
+    <PageShell v2 active="jobs">
       <div className="rtp salp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><Link href={`/jobs/${occ}`}>{title}</Link><span>/</span><span>{j.company}</span>
@@ -125,6 +133,12 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <div><span className="v">{j.remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
           {date && <div><span className="v" suppressHydrationWarning>{agoLabel(j.posted)}</span><span className="k">Posted · {date}</span></div>}
           <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
+          {occMedian != null && (
+            <div>
+              <span className="v"><Link href={`/salary/${occ}`}>{fmtk(occMedian)}</Link></span>
+              <span className="k">{tl} median</span>
+            </div>
+          )}
         </div>
 
         <div className="jd-applyrow">
@@ -132,10 +146,28 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <span className="lbl">Opens the original posting at {j.company}. PivotHop does not host applications.</span>
         </div>
 
+        {gates.length > 0 && (
+          <div className="jd-gates" aria-label="What the posting asks for">
+            {gates.map((g) => (
+              <div key={g.key} data-gate={g.key}>
+                <span className="k">{g.label}</span>
+                <span className="v">{g.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         {skills.length > 0 && (
           <section className="rt-sec jd-skills">
             <h2>Skills in this posting</h2>
             <SkillStrip skills={skillEntries(skills)} />
+          </section>
+        )}
+
+        {benefits.length > 0 && (
+          <section className="rt-sec jd-benefits">
+            <h2>Benefits</h2>
+            <BenefitStrip benefits={benefits} />
           </section>
         )}
 
@@ -182,13 +214,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         {siblings.length > 0 && (
           <section className="rt-sec">
             <h2>More {tl} roles</h2>
-            <ul className="rt-rel">
-              {siblings.map((s) => (
-                <li key={s.id}>
-                  <Link href={`/jobs/${occ}/${s.id}`}>{s.title}</Link>
-                  <span className="lbl">{s.company}{s.location ? ` · ${s.location}` : ''}</span>
-                </li>
-              ))}
+            <ul className="job-list job-list-full">
+              {siblings.map((s) => <JobCard key={s.id} j={s} v2 />)}
             </ul>
           </section>
         )}

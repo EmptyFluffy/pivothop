@@ -1,0 +1,106 @@
+{
+ "slug": "systems-administrator",
+ "title": "Systems Administrator",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A systems administrator keeps the servers, storage, identity systems, and network gear that everyone else's work depends on running. Where an IT support specialist fixes the laptop in front of them, the sysadmin is patching the domain controller at 2am so three hundred laptops never notice anything happened. The job is closer to maintenance engineering than to helpdesk work: you are responsible for uptime, not for being liked.",
+  "day_to_day": "Most weeks split between routine upkeep and the thing that just broke. You are patching Linux boxes, checking backup logs, reviewing access requests in the ticketing queue, and updating documentation nobody reads until the day they desperately need it. There is usually one recurring meeting with the network or security team, and one afternoon lost to a vendor call that should have taken twenty minutes. The satisfying part of the week is usually the same: the migration that finishes clean overnight, or the alert that fires and resolves itself because the runbook you wrote six months ago worked. Roughly a third of the week is coordinating with other teams; the rest is heads-down, terminal open, one monitor on logs. The job rewards people who like fixing things quietly more than people who like presenting fixes.",
+  "work_environment": "Most of this work happens on-site or in a hybrid pattern, which is part of why the remote share sits around a quarter of postings: server rooms, network closets, and hardware that occasionally needs a hand on it don't work over a webcam. Hours are steady until they aren't. A bad week is a failed migration during a change window, a ransomware scare, or being the one person on call when the primary storage array throws errors at 3am. Swiss and German postings dominate the hiring list here, and on-site presence tends to matter more in those markets than in fully cloud-native shops. The physical setting ranges from a quiet office with a rack in the basement to a data center floor with badge access and cold aisles.",
+  "getting_in": "The typical path runs through a computer science or IT degree (required in the large majority of postings) plus around three years of hands-on experience, though a meaningful slice of employers waive the degree entirely if you can show real Linux and networking skills, often from a help desk or NOC background. The degree, if you go that route, is the first two to four years; the experience requirement is where most people stall, because entry-level sysadmin postings are rarer than the job title suggests and most three-year requirements assume you've already touched production systems. A common on-ramp is IT support for twelve to eighteen months, using it to get comfortable with Active Directory, ticketing, and basic scripting, then moving laterally into a junior sysadmin seat. German language shows up as a real gate in a chunk of the European postings, worth knowing before you apply broadly.",
+  "ladder": "Early on you're responsible for keeping systems patched and tickets closed. The next step up hands you ownership of a domain: identity and access, or the network layer, or the virtualization stack, and with it the authority to make architecture calls instead of just executing someone else's. That jump usually asks for the kind of cloud and infrastructure-as-code exposure that Azure and Terraform postings are pointing at, since a growing share of sysadmin work is hybrid infrastructure work now. The ladder forks around the five-year mark: one branch goes into IT management, budgets, and vendor relationships; the other goes deeper into infrastructure engineering and stays hands-on, often drifting toward DevOps or network engineering titles.",
+  "suits": "People who like this job tend to like knowing exactly why something broke, and they get a real charge out of a clean root-cause writeup after an outage that could have been much worse. It suits someone who doesn't need daily praise, because the best weeks are the quiet ones where nothing happened and nobody notices you. People who leave are usually the ones who wanted to build new things constantly. Sysadmin work is mostly maintaining and hardening what already exists, and if you find that tedious rather than satisfying, DevOps or a straight engineering role will feel less like waiting for the next fire.",
+  "misconceptions": "The outside view treats this as a stepping-stone job you do before something better comes along. In practice a lot of senior sysadmins have been doing exactly this for a decade and have no interest in becoming managers or developers; the depth of knowledge about one organization's infrastructure is itself the career. Another one: people assume the cloud replaced this job. It changed the tools (more Azure, more Terraform) but somebody still owns the servers, the identity system, and the 3am pager, cloud or not.",
+  "who_qualifies": "DevOps engineers carry over the most, since the infrastructure-as-code and cloud skills map almost directly onto modern sysadmin work. Security engineers bring access control and hardening experience that transfers cleanly, though they'll need to pick up more day-to-day operational patching. IT support specialists have the most common route in: strong on ticketing and end-user systems, usually thinner on networking and scripting, which is the gap to close first. Network engineers and database administrators bring adjacent depth but tend to need ramp-up on the parts of the job outside their specialty.",
+  "what_the_numbers_miss": "None of this shows what it's like to be the only sysadmin at a two-hundred-person company versus one of forty at a bank; the title is the same but the job is not. It also can't capture how much of the role is institutional memory, knowing why a particular server was configured strangely five years ago, which doesn't show up in any skills list.",
+  "steps": [
+   {
+    "do": "Get comfortable with Linux and networking basics",
+    "how": "Build a home lab or use a free-tier cloud account to run a Linux server, configure DNS and a basic firewall, and break things on purpose so you learn to fix them. Six to twelve months of steady tinkering, alongside a CompTIA Network+ or Linux Foundation course if you want structure, is enough to be dangerous in an interview."
+   },
+   {
+    "do": "Take an entry-level IT support or NOC role",
+    "how": "Spend twelve to eighteen months on a help desk or network operations seat handling tickets, resets, and basic troubleshooting. You're done with this step when you're the person others escalate to, not the one escalating."
+   },
+   {
+    "do": "Learn one cloud platform in depth",
+    "how": "Azure shows up in a quarter of postings, so pick it unless your target employer clearly runs AWS or GCP. Work toward the associate-level admin certification (a few months of study alongside your job) and build one real project, like migrating a small workload or standing up infrastructure with Terraform."
+   },
+   {
+    "do": "Apply for junior systems administrator roles",
+    "how": "Target postings that list two to three years of experience rather than five, since the median asked for across the field is three. Lead your resume with specific systems you've kept running (a domain, a backup pipeline, a VPN) rather than a list of tools."
+   },
+   {
+    "do": "Take ownership of one full domain",
+    "how": "Once in the role, volunteer to own identity and access management or the network layer end to end. This is what separates a two-year sysadmin from a five-year one, and it's the credential that gets you promoted or hired into infrastructure engineering next."
+   }
+  ],
+  "tools": "Linux is the real gatekeeper here, showing up in nearly half of postings, followed by general networking know-how at a third. Azure has become close to table stakes for anyone touching cloud infrastructure, and Terraform is the clearest signal that a shop wants infrastructure managed as code rather than by hand. Python, Docker, and Kubernetes show up less often but mark the postings that are hybrid sysadmin/DevOps roles, which is where the field is drifting.",
+  "industries": [
+   {
+    "name": "Financial services",
+    "note": "Heavy on compliance and change control; every patch goes through a formal window and an audit trail, which slows things down but makes outages rarer."
+   },
+   {
+    "name": "Higher education and research",
+    "note": "Wide variety of legacy and modern systems side by side, often with a smaller team than the scope demands, so generalist skills matter more than depth."
+   },
+   {
+    "name": "Managed service providers",
+    "note": "You support several clients' infrastructure at once, which means more context-switching and a faster read on unfamiliar environments."
+   },
+   {
+    "name": "Manufacturing and industrial",
+    "note": "Systems here often bridge office IT and factory floor equipment, so uptime failures have a physical, immediate cost that's harder to paper over."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Cloud infrastructure and IaC",
+    "why": "Terraform and Azure demand in postings signals employers are hiring sysadmins who can codify infrastructure, not just click through consoles; this is the fastest route toward DevOps-adjacent pay."
+   },
+   {
+    "name": "Identity and access management",
+    "why": "Every org with hybrid work and compliance obligations needs someone who owns this properly, and it's a specialty that ages well since it rarely gets automated away."
+   },
+   {
+    "name": "Systems security hardening",
+    "why": "With cybersecurity showing up in roughly one in nine postings, sysadmins who can speak fluently to hardening, patch cadence, and incident response move easily into security engineering roles later."
+   }
+  ],
+  "pros": [
+   "There's a specific satisfaction in a migration that finishes overnight with zero tickets the next morning, which is the clearest sign you did the planning right.",
+   "The job rarely runs out of problems worth solving, since infrastructure never finishes being infrastructure.",
+   "You get to see the whole organization's technical spine, not just one application, which makes the work harder to get bored of over a decade.",
+   "Good documentation and runbooks you write get reused for years, so the effort compounds instead of resetting with each incident."
+  ],
+  "cons": [
+   "On-call rotations mean your evening plans sometimes end the moment a pager goes off, and there's no elegant way around that in most shops.",
+   "A lot of the job is invisible: nobody emails to say thanks for the outage that didn't happen.",
+   "Vendor support calls can eat half a day for a problem you already diagnosed correctly an hour in.",
+   "The stated three-year experience median makes the first real job harder to land than the title 'administrator' suggests it should be."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a systems administrator",
+    "a": "Most people take two to three years, usually starting in IT support or a NOC role for twelve to eighteen months before stepping into a junior sysadmin seat. The credential that matters more than a timeline is hands-on Linux and networking experience, which is why the field's median asks for three years already worked."
+   },
+   {
+    "q": "can you become a systems administrator without a degree",
+    "a": "Yes, though a degree is listed as required in the large majority of postings measured here. Employers who waive it are looking for demonstrated Linux, networking, and troubleshooting ability, usually proven through a help desk background or hands-on certifications rather than a diploma."
+   },
+   {
+    "q": "is systems administrator a good career right now",
+    "a": "It's a stable one: the job doesn't disappear when a company has a bad quarter the way some roles do, since someone has to keep the infrastructure running regardless. The tradeoff is that the switch rate is low, under 3% a year by current measurement, meaning it's not a role people jump in and out of quickly, which suits people looking for depth over churn."
+   },
+   {
+    "q": "systems administrator vs network engineer, what's the difference",
+    "a": "A systems administrator owns servers, storage, and identity systems; a network engineer owns the routers, switches, and traffic between them. The two overlap heavily in smaller shops, and it's the most common next step for sysadmins moving up, with a strong measured match between the two roles."
+   },
+   {
+    "q": "can a systems administrator work remotely",
+    "a": "Some of the time, but it's not the norm: remote share sits around a quarter of postings. The job often involves physical hardware, badge-access server rooms, or on-site network gear, which keeps a meaningful share of the role tied to a location even as more infrastructure moves to the cloud."
+   }
+  ]
+ }
+}

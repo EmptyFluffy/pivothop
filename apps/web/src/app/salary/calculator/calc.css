@@ -1,0 +1,236 @@
+/* The remote salary calculator (was FairElephant, renamed 2026-08-22).
+   Geometry preserved from the companion instrument; the palette is a token
+   BRIDGE: the old scope variables now resolve to the V2 tokens, so light and
+   dark both work and the oxblood is retired. Scoped under .fe-root inside
+   the page's .v2t wrapper. */
+.v2t .fe-root{
+  --ink:var(--v-text); --ink-2:var(--v-text2); --ink-3:var(--v-text2);
+  --paper:var(--v-bg); --paper-2:var(--v-surface); --card:var(--v-bg);
+  --rule:var(--v-border); --rule-2:var(--v-border2);
+  --accent:var(--v-value); --accent-press:var(--v-value);
+  --accent-tint:color-mix(in srgb, var(--v-value) 16%, transparent);
+  --black:var(--v-text);
+  background:var(--v-bg); color:var(--v-text);
+}
+.v2t .fe-root .manif{ background:var(--v-fill); color:var(--v-fill-ink); }
+.v2t .fe-root .manif .lbl{ color:color-mix(in srgb, var(--v-fill-ink) 60%, transparent); }
+.v2t .fe-root .manif p{ color:color-mix(in srgb, var(--v-fill-ink) 85%, transparent); }
+.v2t .fe-root .go{ font-family:var(--sans),sans-serif; font-size:15px; font-weight:700;
+  letter-spacing:-.01em; text-transform:none; color:var(--v-fill-ink); transition:none; }
+.v2t .fe-root .go:hover{ filter:brightness(1.08); background:var(--accent); }
+.v2t .fe-root .rcol .big{ font-family:var(--sans),sans-serif; }
+.v2t .fe-root #worldmap path.nodata, .v2t .fe-root .maplegend .nd i{ fill:var(--v-surface); background:var(--v-surface); }
+.v2t .fe-root .equiv{ margin-top:14px; font-size:14.5px; line-height:1.55; color:var(--v-text2); max-width:44ch; }
+.v2t .fe-root .equiv b{ font-family:var(--mono),monospace; font-weight:400; color:var(--v-text);
+  font-variant-numeric:tabular-nums; font-size:13px; }
+.v2t .fe-root .lens-n{ display:block; font-family:var(--mono),monospace; font-size:9px;
+  letter-spacing:.06em; color:var(--v-text2); margin-top:3px; font-variant-numeric:tabular-nums; }
+.v2t .fe-root .ltick{ position:absolute; top:50%; width:1px; height:11px; transform:translate(-50%,-50%);
+  background:color-mix(in srgb, var(--v-text) 35%, transparent); }
+.v2t .fe-root .calc-cta{ display:inline-block; margin-top:26px; font-family:var(--mono),monospace;
+  font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--v-value);
+  text-decoration:none; }
+.v2t .fe-root .calc-cta:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+.v2t .fe-root .cfield select:focus-visible, .v2t .fe-root .cfield input:focus-visible{
+  box-shadow:inset 0 -2px 0 var(--v-value); }
+
+/* FairElephant reference styles, scoped under .fe-root (generated) */
+
+  .fe-root{
+    --ink:#15151a;--ink-2:#56565e;--ink-3:#8a8a93;
+    --paper:#f5f3ed;--paper-2:#eae7df;--card:#faf9f5;
+    --rule:#d5cfbf;--rule-2:#b8b0a0;
+    --accent:#8a2f1e;--accent-press:#6e2416;--accent-tint:#f4e3dd;
+    --black:#0c0c14;
+    /* Same face as PivotHop — --font-sans is set on <html> by next/font.
+       Was "Space Grotesk"; that font is no longer loaded (2026-07-31), so a
+       literal name here would silently fall back to system-ui. */
+    --sans:var(--font-sans),"Instrument Sans",system-ui,sans-serif;
+    --mono:"Chivo Mono",ui-monospace,monospace;
+  }
+  .fe-root *{box-sizing:border-box;margin:0;padding:0}
+  .fe-root{scroll-behavior:smooth}
+  .fe-root{font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5;font-size:16px}
+  .fe-root a{color:inherit;text-decoration:none}
+  .fe-root input, .fe-root select, .fe-root button{font-family:inherit;font-size:inherit;color:inherit}
+  .fe-root .lbl{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+  .fe-root .mark svg{display:block;width:100%;height:100%}
+
+
+  
+
+  
+
+  
+  .fe-root .instr{position:relative}
+  .fe-root .calcwrap{padding:0;position:sticky;top:59px;z-index:40}
+  .fe-root .calc{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr 250px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--card);height:78px}
+  .fe-root .cfield{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 24px;min-width:0}
+  .fe-root .cfield .l{font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .fe-root .cfield input, .fe-root .cfield select{border:none;background:transparent;font-family:var(--sans);font-size:16.5px;font-weight:400;color:var(--ink);outline:none;width:100%;appearance:none;cursor:pointer;padding:0}
+  .fe-root .cfield input::placeholder{color:var(--ink-3)}
+  .fe-root .cdiv{background:var(--rule);width:1px;height:100%}
+  .fe-root .go{background:var(--accent);border:none;color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:14px;transition:background .18s}
+  .fe-root .go:hover{background:var(--accent-press)}
+  .fe-root .go svg{width:17px;height:17px;stroke:currentColor;stroke-width:2;fill:none}
+
+  
+  .fe-root .band{border-bottom:1px solid var(--ink);background:var(--card)}
+  .fe-root .band-head{display:flex;justify-content:space-between;align-items:baseline;padding:18px 30px;border-bottom:0.5px solid var(--rule);gap:16px;flex-wrap:wrap}
+  .fe-root .band-head .src{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .fe-root .rgrid{display:grid;grid-template-columns:1fr 1fr 1fr}
+  .fe-root .rcol{padding:34px 30px 38px}
+  .fe-root .rcol + .rcol{border-left:0.5px solid var(--rule)}
+  .fe-root .rcol .cap{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .fe-root .rcol .big{font-size:64px;font-weight:700;letter-spacing:-.04em;line-height:1;margin-top:18px;font-variant-numeric:tabular-nums}
+  .fe-root .rcol .big small{font-size:22px;font-weight:400;color:var(--ink-3);letter-spacing:0}
+  .fe-root .rcol .sub{margin-top:12px;font-size:13.5px;color:var(--ink-2);line-height:1.5;max-width:30ch}
+  .fe-root .rcol .delta{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.04em}
+  .fe-root .scorebar{position:relative;height:5px;background:var(--paper-2);margin-top:22px;overflow:hidden}
+  .fe-root .scorebar > i{position:absolute;left:0;top:0;bottom:0;width:82%;background:var(--accent)}
+  .fe-root .scoreticks{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--mono);font-size:9.5px;color:var(--ink-3);letter-spacing:.06em}
+  .fe-root .methodlist{margin-top:20px;display:flex;flex-direction:column}
+  .fe-root .methodlist > div{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-top:0.5px solid var(--rule);font-size:13.5px;color:var(--ink-2)}
+  .fe-root .methodlist .on{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+
+  
+  .fe-root .lenses{padding:96px 30px 90px;border-bottom:1px solid var(--ink)}
+  .fe-root .lenses .h-cap{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:26px}
+  .fe-root .lenses h2{font-weight:600;font-size:clamp(30px,3.8vw,48px);letter-spacing:-.025em;line-height:1.05;max-width:22ch}
+  .fe-root .lenses .sub{margin:16px 0 44px;font-size:15.5px;color:var(--ink-2);max-width:52ch}
+  .fe-root .lscale{display:grid;grid-template-columns:200px 1fr 96px;gap:0 20px;padding:12px 0 8px;font-family:var(--mono);font-size:9.5px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+  .fe-root .lscale .rng{display:flex;justify-content:space-between}
+  .fe-root .lscale .ra{text-align:right}
+  .fe-root .lrow{display:grid;grid-template-columns:200px 1fr 96px;gap:0 20px;align-items:center;padding:15px 0;border-top:0.5px solid var(--rule)}
+  .fe-root .lrow .nm{font-size:14px;font-weight:500;line-height:1.2}
+  .fe-root .lrow .nm small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase;margin-top:4px}
+  .fe-root .ltrack{position:relative;height:22px}
+  .fe-root .ltrack .base{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--rule);transform:translateY(-50%)}
+  .fe-root .ltrack .range{position:absolute;top:50%;height:7px;transform:translateY(-50%);background:var(--paper-2)}
+  .fe-root .lrow.hot .ltrack .range{background:var(--accent-tint)}
+  .fe-root .ltrack .dot{position:absolute;top:50%;left:0;width:9px;height:9px;background:var(--ink);transform:translate(-50%,-50%);transition:left .8s cubic-bezier(.3,.7,.3,1)}
+  .fe-root .lrow.hot .dot{background:var(--accent)}
+  .fe-root .lrow.hot .val{color:var(--accent)}
+  .fe-root .lrow .val{text-align:right;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .fe-root .lrow .rd{text-align:right;font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--ink-3);margin-top:4px;font-variant-numeric:tabular-nums}
+  .fe-root .lrow .rd.low{color:var(--accent)}
+  
+  .fe-root .lbody{position:relative}
+  .fe-root .offerline{position:absolute;top:0;bottom:0;width:1px;background:var(--ink);cursor:ew-resize;touch-action:none;z-index:3}
+  .fe-root .offerline::before{content:"";position:absolute;left:-9px;right:-9px;top:0;bottom:0}
+  .fe-root .offerline .grip{position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:11px;height:11px;background:var(--paper);border:1px solid var(--ink);cursor:ew-resize}
+  .fe-root .offerline .tag{position:absolute;top:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:0.5px solid var(--ink);padding:4px 8px;font-variant-numeric:tabular-nums}
+  .fe-root .offerline.dragging .tag{border-color:var(--accent);color:var(--accent)}
+  .fe-root .offerline.dragging .grip{border-color:var(--accent)}
+  .fe-root .loffer-cap{padding:16px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase;display:flex;gap:9px;align-items:center}
+  .fe-root .loffer-cap i{display:inline-block;width:1px;height:12px;background:var(--ink)}
+
+
+  
+  .fe-root .atlas{padding:96px 30px 90px;border-bottom:1px solid var(--ink)}
+  .fe-root .atlas .h-cap{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:26px}
+  .fe-root .atlas h2{font-weight:600;font-size:clamp(30px,3.8vw,48px);letter-spacing:-.025em;line-height:1.05;max-width:22ch}
+  .fe-root .atlas .sub{margin:16px 0 34px;font-size:15.5px;color:var(--ink-2);max-width:52ch}
+  .fe-root .modebar{display:inline-flex;border:0.5px solid var(--rule-2);margin-bottom:28px}
+  .fe-root .modebar .mode{background:none;border:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:11px 20px;cursor:pointer;transition:background .15s,color .15s}
+  .fe-root .modebar .mode + .mode{border-left:0.5px solid var(--rule-2)}
+  .fe-root .modebar .mode:hover{color:var(--ink)}
+  .fe-root .modebar .mode.on{background:var(--ink);color:var(--paper)}
+  .fe-root .mapwrap{position:relative}
+  .fe-root #worldmap{width:100%;height:auto;display:block}
+  .fe-root #worldmap{shape-rendering:geometricPrecision}
+  .fe-root #worldmap path{fill:#f1eee6;stroke:var(--paper);stroke-width:0.9;vector-effect:non-scaling-stroke;stroke-linejoin:round;transition:fill 260ms ease-out;cursor:pointer}
+  .fe-root #worldmap path.nodata{cursor:default}
+  .fe-root #worldmap path:hover{stroke:var(--ink);stroke-width:1.4}
+  .fe-root #worldmap path.pinned{stroke:var(--ink);stroke-width:1.6}
+  @media (prefers-reduced-motion:reduce){.fe-root #worldmap path{transition:none}}
+  .fe-root .maptip{position:absolute;pointer-events:none;background:var(--paper);border:0.5px solid var(--ink);padding:9px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;line-height:1.7;white-space:nowrap;z-index:5;font-variant-numeric:tabular-nums}
+  .fe-root .maptip b{display:block;font-family:var(--sans);font-weight:600;font-size:12.5px;letter-spacing:0;margin-bottom:2px}
+  .fe-root .mapfoot{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;margin-top:26px;flex-wrap:wrap}
+  .fe-root .maplegend{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+  .fe-root .maplegend .sw{display:flex;flex-direction:column;gap:6px}
+  .fe-root .maplegend .sw i{display:block;width:64px;height:9px}
+  .fe-root .maplegend .sw span{font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .fe-root .maplegend .nd{margin-left:20px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--ink-3)}
+  .fe-root .maplegend .nd i{display:block;width:18px;height:9px;background:#f1eee6;border:0.5px solid var(--rule)}
+  .fe-root .mapfocus{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-2);text-align:right;line-height:1.9;font-variant-numeric:tabular-nums;min-height:38px}
+  .fe-root .mapfocus b{font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:0;color:var(--ink)}
+  .fe-root .mapfocus .mf-hint{color:var(--ink-3);text-transform:uppercase;font-size:9.5px}
+  .fe-root .mapfocus .gpos{color:var(--accent)}
+  @media (max-width:980px){
+    .fe-root .atlas{padding:64px 22px 60px}
+    .fe-root .mapfoot{flex-direction:column}
+    .fe-root .mapfocus{text-align:left}
+  }
+
+  
+  .fe-root .method{padding:96px 30px 100px;border-bottom:1px solid var(--ink)}
+  .fe-root .method .h-cap{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:44px}
+  .fe-root .mrow{display:grid;grid-template-columns:170px 300px 1fr;gap:28px;align-items:center;padding:24px 0;border-top:0.5px solid var(--rule)}
+  .fe-root .mrow:first-of-type{border-top:none;padding-top:0}
+  .fe-root .m-slot{display:flex;justify-content:center;align-items:center}
+  .fe-root .m-ico{width:60px;height:60px;display:grid;place-items:center;border:1px solid var(--ink);color:var(--ink);background:transparent;transition:background .14s ease,color .14s ease}
+  .fe-root .m-ico svg{width:30px;height:30px;shape-rendering:crispEdges;display:block}
+  .fe-root .mrow:hover .m-ico{background:var(--ink);color:var(--paper)}
+  .fe-root .mrow h4{font-weight:600;font-size:20px;letter-spacing:-.01em}
+  .fe-root .mrow p{font-size:15px;color:var(--ink-2);max-width:52ch}
+
+  
+  .fe-root .manif{background:var(--accent);color:#fff;padding:110px 30px 116px}
+  .fe-root .manif .lbl{color:rgba(255,255,255,.6);display:block;margin-bottom:36px}
+  .fe-root .manif h3{font-weight:500;font-size:clamp(38px,5.4vw,72px);line-height:1.02;letter-spacing:-.03em;max-width:20ch}
+  .fe-root .manif h3 .em{font-weight:700}
+  .fe-root .manif p{margin-top:36px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.85);max-width:52ch}
+
+  
+  .fe-root .cap-row{display:flex;border-bottom:1px solid var(--ink)}
+  .fe-root .cap-row input{flex:1;border:none;background:transparent;padding:16px 2px;font-size:16px;outline:none;color:var(--ink)}
+  .fe-root .cap-row input::placeholder{color:var(--ink-3)}
+  .fe-root .cap-row button{background:none;border:none;color:var(--ink);font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:0 4px;white-space:nowrap;transition:color .15s}
+  .fe-root .cap-row button:hover{color:var(--accent)}
+  .fe-root .cap-note{display:block;margin-top:18px;font-size:12.5px;color:var(--ink-3);line-height:1.5}
+
+  
+
+  
+  @media (max-width:980px){
+    .fe-root .calcwrap{position:static}
+    .fe-root .calc{grid-template-columns:1fr;height:auto}
+    .fe-root .cdiv{display:none}
+    .fe-root .cfield{padding:16px 20px;border-bottom:0.5px solid var(--rule)}
+    .fe-root .go{height:60px}
+    .fe-root .rgrid{grid-template-columns:1fr}
+    .fe-root .rcol + .rcol{border-left:none;border-top:0.5px solid var(--rule)}
+    .fe-root .lscale{display:none}
+    .fe-root .lrow{grid-template-columns:1fr 96px;gap:8px 14px}
+    .fe-root .lrow .ltrack{grid-column:1 / -1;order:3}
+    .fe-root .mrow{grid-template-columns:1fr;gap:8px}
+    .fe-root .m-ico{width:50px;height:50px}
+    .fe-root .m-ico svg{width:28px;height:28px}
+    .fe-root .m-slot{justify-content:flex-start}
+  }
+
+/* lens expanders + row affordance */
+.fe-root .lrow{cursor:pointer}
+.fe-root .lrow:hover .nm{color:var(--ink)}
+.fe-root .lrow.open .nm{color:var(--accent)}
+.fe-root .lexp{border-top:0.5px dashed var(--rule);padding:12px 0 16px;max-width:70ch}
+.fe-root .lexp p{font-size:13px;line-height:1.6;color:var(--ink-2)}
+/* pole confined + above rows */
+.fe-root .offerline{pointer-events:auto}
+/* generous drag hit-zone around the 1px pole */
+.fe-root .offerline::before{content:"";position:absolute;top:0;bottom:0;left:-9px;right:-9px}
+
+/* swiss selects: no browser chrome, ink caret, tabular alignment */
+.fe-root .cfield select{
+  padding-right:22px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.fe-root .cfield{position:relative}
+.fe-root .cfield::after{content:"";position:absolute;right:22px;top:50%;width:13px;height:13px;transform:translateY(-30%);
+  background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  pointer-events:none}
+.fe-root .cfield select:hover{color:var(--accent-press)}
+.fe-root .cfield select:focus-visible{outline:none;box-shadow:inset 0 -2px 0 var(--accent)}
+.fe-root .cfield input:focus-visible{outline:none;box-shadow:inset 0 -2px 0 var(--accent)}
+.fe-root .cfield select option{font-family:var(--sans)}

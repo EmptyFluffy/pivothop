@@ -33,7 +33,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!post) notFound();
   const Icon = PillarIcons[post.pillar];
   return (
-    <PageShell>
+    <PageShell v2 active="blog">
       <div className="about-page">
         <main className="ab-main post-main">
           <div className="bc-meta" style={{ marginBottom: 20 }}>

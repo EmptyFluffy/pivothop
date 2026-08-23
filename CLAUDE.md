@@ -61,7 +61,7 @@ Every one of these was learned by building the wrong thing first. Reversing any 
 
 **6. The accent belongs to the data.** Graph geometry, one CTA per viewport, the manifesto block. Nothing else. This is the difference between the current design and the "bland and noisy" one it replaced.
 
-**7. Two typefaces.** **Instrument Sans** (words) + Space Mono (measurements). Archivo is gone. Do not add a third.
+**7. Two typefaces.** **Instrument Sans** (words) + Chivo Mono (measurements; replaced Space Mono 2026-08-23 — same role, less-saturated face, and the mono is DIETED: word-only microlabels are sans 600, mono appears only where a number, date, count or readout lives). Archivo is gone. Do not add a third.
 
 *Space Grotesk held the words slot until 2026-07-31; Instrument Sans replaced it after a live trial on the hero and nav. The rule is unchanged — still exactly two — and `--display` is now an alias of `--sans` so the ~40 rules asking for the display face keep reading intentionally. **If you change the sans again, re-measure `GLYPH_W` in `instrument.js`.** Graph label widths come from character counts, not measurement (see #1), so that ratio is per-font, and label width is what the edge repulsion in #3 keeps text clear of.*
 

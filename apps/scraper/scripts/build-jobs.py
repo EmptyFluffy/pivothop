@@ -18,7 +18,10 @@ Writes:
   apps/web/public/data/jobs-detail/{role_id}.json  id -> {desc} (detail pages, build-time read)
   apps/web/public/data/jobs-index.json             role_id -> count
 """
-import json, os, collections, hashlib, html, re
+import json, os, collections, hashlib, html, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import benefits as benefits_miner  # zone-aware perk extraction; see benefits.py
+import requirements as req_miner   # experience / education / language gates
 
 # Mojibake repair (mirror of lib/text.js fixMojibake): UTF-8 bytes decoded as
 # Latin-1 give "EspaÃ±a" for "España". The tell is two adjacent high-Latin-1
@@ -305,6 +308,45 @@ FEATURED_COMPANIES = {'coinbase', 'airbnb', 'databricks', 'cloudflare', 'datadog
                       'supabase', 'retool', 'grammarly', 'gitlab', 'dropbox', 'asana'}
 FEATURED_CAP = 12
 
+benefit_counts = collections.Counter()
+# Rows carry benefits as TAXONOMY-ORDER indices ('b': [3,17]) and gates as a
+# compact 'g' object — the filter sheet reads them without per-job fetches.
+# Taxonomy order is stable across runs (the glossary re-sorts by count, so its
+# order is NOT an encoding key; each glossary entry ships its taxonomy index
+# 'i' instead). Measured cost on the 2026-08 corpus: +99KB gzipped on ALL.
+BEN_IDX = {b['id']: i for i, b in enumerate(benefits_miner.load())}
+LANG_CODE = {'german': 'de', 'english': 'en', 'french': 'fr', 'italian': 'it',
+             'spanish': 'es', 'portuguese': 'pt', 'dutch': 'nl', 'swedish': 'sv',
+             'danish': 'da', 'norwegian': 'no', 'polish': 'pl', 'japanese': 'ja',
+             'mandarin': 'zh', 'chinese': 'zh', 'arabic': 'ar', 'russian': 'ru'}
+
+
+def gate_row(reqs):
+    """The row-sized gate encoding: x = years asked, d = education
+    level+state initials ('br' bachelor required, 'bw' waived...), l = language
+    codes. Absence of a key means the posting text states nothing."""
+    g = {}
+    if 'exp' in reqs:
+        try:
+            g['x'] = int(reqs['exp'])
+        except (TypeError, ValueError):
+            pass
+    edu = reqs.get('edu') or {}
+    # distinct level codes: apprenticeship and associate both start with 'a'
+    _LVL = {'apprenticeship': 'p', 'associate': 'a', 'bachelor': 'b', 'master': 'm', 'doctorate': 'd', 'phd': 'd'}
+    if edu.get('level') and edu.get('state'):
+        lvl = _LVL.get(edu['level'], edu['level'][0])
+        g['d'] = lvl + edu['state'][0]
+    langs = []
+    for name in (reqs.get('lang') or []):
+        code = LANG_CODE.get(str(name).split(' (')[0].split(' ')[0].strip().lower())
+        if code and code not in langs:
+            langs.append(code)
+    if langs:
+        g['l'] = langs
+    return g
+req_counts = collections.Counter()
+
 # 1. Raw index by (source, external_id) for company / location / description.
 raw = {}
 for line in open(RAW):
@@ -334,7 +376,12 @@ for line in open(NORM):
     if s not in OK:
         continue
     role, url = d.get('role_id'), d.get('url')
-    if not role or not url or url in seen_url:
+    # Shared-portal sources (ANE: applying needs an account, every row links
+    # the portal itself) share ONE url across all postings — keying dedup and
+    # the job id on the bare url collapsed 496 ANE rows to 1 (found in the
+    # 2026-08-23 merge regeneration). Their identity is url#external_id.
+    ukey = f"{url}#{d.get('external_id')}" if s in ('ane',) else url
+    if not role or not url or ukey in seen_url:
         continue
     r = raw.get((s, str(d.get('external_id'))), {})
     company = fix_mojibake((r.get('company') or '')).strip()
@@ -344,9 +391,9 @@ for line in open(NORM):
     ct = (company.lower(), title.lower())
     if not title or ct in seen_ct:
         continue
-    seen_url.add(url); seen_ct.add(ct)
+    seen_url.add(ukey); seen_ct.add(ct)
     remote = str(d.get('remote_flag')) == 'True'
-    _id = jid(url)
+    _id = jid(ukey)
     desc = clean_desc(fix_mojibake(r.get('description_text') or ''))
     fl, lv = derive_flags(title, desc)
     loc = fix_mojibake((r.get('location') or '')).strip()
@@ -360,6 +407,9 @@ for line in open(NORM):
         smin = None
     disp_co = display_company(company)[:80]
     logo_slug = re.sub(r'[^a-z0-9]', '', disp_co.lower())
+    bens = benefits_miner.extract(desc) if desc else []
+    reqs = req_miner.extract(desc) if desc else {}
+    grow = gate_row(reqs)
     byocc[role].append({
         'id': _id,
         'occ': role,
@@ -376,9 +426,17 @@ for line in open(NORM):
         **({'fl': fl} if fl else {}),
         **({'lv': lv} if lv else {}),
         **({'c': cty} if cty else {}),
+        **({'b': sorted(BEN_IDX[x] for x in bens if x in BEN_IDX)} if bens else {}),
+        **({'g': grow} if grow else {}),
     })
     if desc:
-        desc_byocc[role][_id] = {'s': to_sections(desc, DESC_CAP), 'k': list(d.get('skills') or [])}
+        for b in bens:
+            benefit_counts[b] += 1
+        for k in reqs:
+            req_counts[k] += 1
+        desc_byocc[role][_id] = {'s': to_sections(desc, DESC_CAP), 'k': list(d.get('skills') or []),
+                                 **({'b': bens} if bens else {}),
+                                 **({'r': reqs} if reqs else {})}
 
 # 3. Freshest-first, capped, floored.
 for d in (OUT, DETAIL):
@@ -527,6 +585,28 @@ if remote_occ != remote_all:
 
 json.dump(all_rows, open(ALL, 'w'), ensure_ascii=False)
 json.dump(index, open(INDEX, 'w'), ensure_ascii=False)
+
+# Benefits glossary: every mined benefit with its definition and how many of the
+# listings that shipped state it. Counts come from this run, so the glossary can
+# never quote a number the board does not hold.
+shipped = collections.Counter()
+for role in index:
+    for det in json.load(open(f'{DETAIL}/{role}.json')).values():
+        for b in det.get('b') or []:
+            shipped[b] += 1
+gloss = [{'slug': b['id'], 'term': b['name'], 'cat': b['cat'], 'glyph': b.get('glyph'),
+          'def': b.get('def', ''), 'n': shipped.get(b['id'], 0), 'i': BEN_IDX[b['id']]}
+         for b in benefits_miner.load()]
+gloss.sort(key=lambda e: (-e['n'], e['term']))
+json.dump(gloss, open('apps/web/public/data/benefits-glossary.json', 'w'), ensure_ascii=False)
+seen_n = sum(1 for e in gloss if e['n'])
+print(f"benefits: {sum(shipped.values())} statements across {seen_n} of {len(gloss)} kinds")
+gates = collections.Counter()
+for role in index:
+    for det in json.load(open(f'{DETAIL}/{role}.json')).values():
+        for k in (det.get('r') or {}):
+            gates[k] += 1
+print(f"gates: experience {gates['exp']}, education {gates['edu']}, language {gates['lang']}")
 size_kb = os.path.getsize(ALL) // 1024
 board_total = sum(index.values())
 print(f"emitted {len(index)} occupation boards, {board_total} listings "

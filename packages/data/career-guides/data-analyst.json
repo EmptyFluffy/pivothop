@@ -1,0 +1,106 @@
+{
+ "slug": "data-analyst",
+ "title": "Data Analyst",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A data analyst pulls numbers out of somewhere unhelpful (a warehouse, a spreadsheet someone abandoned in 2022, a Salesforce export) and turns them into a chart someone else will act on. The line people confuse this with is data scientist: an analyst answers 'what happened and why,' usually in SQL and a BI tool, where a data scientist builds the model that predicts what happens next. If you like a clean dashboard more than a clever model, this is the job.",
+  "day_to_day": "Most weeks open with a stand-up or a Slack thread asking why a number moved, and you spend the first hour just confirming the number is real before you explain it. SQL is where you live: pulling a query, checking it against a source table, then pushing it into Tableau or Looker so someone in marketing or product doesn't have to think about joins. There's usually one recurring report that's half-automated and half held together by a pivot table you inherited from someone who left. The part people look forward to is the ad hoc question that has a clean answer: someone asks whether a change worked, you check, and it did, and for twenty minutes the whole company is glad you exist. Two or three days lean solo (query, clean, chart), the rest go to reviews, a stakeholder walkthrough, or defending a number in a meeting where nobody read the deck beforehand. By Friday you've usually shipped one dashboard update and killed one bad assumption.",
+  "work_environment": "This is desk work, almost always at a laptop, and the remote share sitting around a third makes sense: the inputs (databases, ticketing systems, BI tools) are all cloud-based, so there's no physical reason to be in an office except meetings. Hours are steady in most shops, but end of quarter or a board deck deadline can turn a normal week into three late nights of reconciling numbers that don't match. On-call isn't standard, but if a dashboard breaks on a Monday morning, you're the one who hears about it first. The social load is heavier than people expect going in: you're translating between engineers who built the data and executives who want a headline, often in the same afternoon.",
+  "getting_in": "Half of postings state a required degree and the experience bar sits around four years, but that's a median across a mix of junior and senior listings, not a hard floor for your first job. The waived-degree slice (8%) tends to go to people who can show SQL and a visualization tool cold, usually through a portfolio of real queries rather than a certificate. The step that eats the most time is usually the first 12 to 18 months in an adjacent role (support, ops, marketing) where you quietly become the person who pulls the numbers, because that's often how the title gets attached retroactively. Stalling happens most at the SQL-plus-Python combination: people learn one and assume the other is optional, and it isn't for roughly half the postings on the board. A bootcamp or self-taught path works if you finish it with a genuine dataset, not a walkthrough tutorial.",
+  "ladder": "Early on you own a report: someone asks for it, you build it, you defend the numbers when questioned. Mid-career you own a domain, meaning you're the analyst other analysts ask about a specific area (retention, pricing, logistics) and you're expected to catch a wrong number before anyone else does. The first real step up is usually being handed a question with no defined metric and having to decide what to measure, not just how. Past that, the ladder forks: one path goes into analytics management (headcount, roadmap, other people's dashboards), the other stays hands-on and goes deeper technical, often toward data engineering or a senior IC analyst role with more architecture input. That fork tends to show up around year four or five, roughly where the experience median in postings sits.",
+  "suits": "People who like this work tend to be the ones who find a mismatched number more interesting than annoying, the kind who'll stay twenty minutes past the meeting just to figure out why two reports disagree. It suits someone who likes being right in public and can say 'the data doesn't support that' to a VP without flinching. The ones who leave usually wanted to build things that ship (models, products, pipelines) rather than explain things that already happened, and they drift toward data engineering or data science once they notice the pattern in themselves. If you want your work read by three people instead of used by three hundred, this job will feel small; if you like being the one source of truth in a room full of opinions, it won't.",
+  "misconceptions": "People assume the job is mostly building dashboards, but most of the actual time goes into figuring out whether the underlying numbers are trustworthy before anything gets visualized. There's also a belief that this is a stepping stone role with no ceiling of its own; in practice a senior analyst who owns a domain well can out-earn a junior data scientist, per the salary spread here, without ever touching a model.",
+  "who_qualifies": "BI developers carry over the most (82% match): the SQL, the dashboarding, the instinct to ask what a stakeholder needs before building anything. Data scientists and data engineers also transfer well, usually trading down some modeling or pipeline depth for more stakeholder-facing work. Product analysts and business analysts overlap less than you'd expect (50% and 38%) because their SQL is often lighter and more tool-specific (Amplitude, Mixpanel) than the general-purpose querying this role expects.",
+  "what_the_numbers_miss": "None of this shows how much of the job is politics disguised as analysis: whose metric wins when two teams define 'active user' differently. It also can't capture how much a single messy data source (a CRM nobody cleaned, a legacy table with three naming conventions) can define your entire day-to-day regardless of what the job description said.",
+  "steps": [
+   {
+    "do": "Learn SQL past the tutorial stage",
+    "how": "Work through joins, window functions, and CTEs against a real public dataset (not a toy table), until you can answer a messy question without looking up syntax. Most people get functional in 6 to 10 weeks of steady practice. You're done when you can write a multi-table query from a plain-English ask without a reference open."
+   },
+   {
+    "do": "Build one dashboard end to end",
+    "how": "Take a public dataset, clean it, and build a Tableau or Looker dashboard that answers a specific business question (not just a pretty chart). This takes 2 to 4 weeks part-time. It's the single artifact hiring managers click through, so make the question sharper than the visuals."
+   },
+   {
+    "do": "Add Python for the messy parts",
+    "how": "Learn pandas well enough to clean data SQL can't (nested JSON, inconsistent formats, merging sources). Three to four weeks gets you functional if you already know SQL. You'll know you're done when you stop copy-pasting from Stack Overflow for basic cleaning tasks."
+   },
+   {
+    "do": "Get a foot in through an adjacent role",
+    "how": "Apply to ops, support, or marketing roles that involve reporting, where analyst duties tend to accumulate informally. This is often the fastest real path in, taking 9 to 16 months before the analyst title lands, based on how often that transition shows up on this board. Track every report you build as portfolio evidence, even the boring ones."
+   },
+   {
+    "do": "Apply once your query and dashboard hold up",
+    "how": "Target postings that name SQL and one visualization tool explicitly, since those two skills clear 75% and 61% of listings respectively. Have two work samples ready: one query you're proud of, one dashboard you can explain in under two minutes. You're ready when you can defend both under questioning, not just present them."
+   }
+  ],
+  "tools": "SQL and a visualization tool (Tableau or Looker, both sitting well ahead of Power BI here) are the real gatekeepers, showing up in most postings and screened for directly in interviews. Python and basic statistics come next, expected for the messier cleaning and testing work rather than for building models. Excel hasn't gone anywhere (still requested in a third of postings) mostly for quick one-off asks that don't justify a full pipeline. Spark shows up in a minority of listings, usually where the analyst sits closer to the data engineering side.",
+  "industries": [
+   {
+    "name": "Tech / SaaS",
+    "note": "Fast iteration, lots of A/B test analysis, and dashboards tied directly to product metrics; expect Looker or a homegrown BI tool over Tableau."
+   },
+   {
+    "name": "Finance",
+    "note": "Heavier on Excel and formal reporting cadence, more regulatory context to learn, slower release cycles for anything customer-facing."
+   },
+   {
+    "name": "Retail / E-commerce",
+    "note": "Seasonal spikes (holiday quarters) drive real crunch, and inventory and pricing questions dominate over user behavior ones."
+   },
+   {
+    "name": "Healthcare / Insurance",
+    "note": "Slower-moving data infrastructure, more compliance friction, but the questions (claims, outcomes) tend to matter in a way that's hard to fake interest in."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Product analytics",
+    "why": "Companies want analysts who can own A/B testing and funnel metrics specifically, and it's the most direct route into a product analyst title, which shows the strongest overlap (64%) of any exit path from this role."
+   },
+   {
+    "name": "Analytics engineering",
+    "why": "Sits between analyst and data engineer, building the ETL and data models other analysts query against; worth it if you liked the SQL more than the stakeholder meetings."
+   },
+   {
+    "name": "Experimentation / A/B testing",
+    "why": "A narrower, technical specialty (appearing in a fifth of postings) that pays well once you can design a test correctly, not just read the results of one someone else set up."
+   }
+  ],
+  "pros": [
+   "There's a real, visible moment most weeks where a question you can't answer becomes one you can, and someone acts on it the same day.",
+   "The skill set (SQL, a visualization tool, basic Python) transfers cleanly across industries, so switching from retail to healthcare doesn't mean starting over.",
+   "You get to be the person in the room who knows what's true, which is a strange kind of quiet authority once you've earned it.",
+   "The path in doesn't require a specific degree for a meaningful share of roles, so a portfolio can substitute for credentials in a way it can't in more gated fields."
+  ],
+  "cons": [
+   "A good chunk of the job is defending a correct number against someone who simply prefers a different one.",
+   "Data quality problems are constant and rarely yours to fix, so you spend real time working around messes you didn't make.",
+   "The role can plateau fast if you're the only analyst at a small company and there's no one senior to push your thinking.",
+   "Recurring reports have a way of multiplying, and cleaning up report debt is unglamorous work nobody schedules time for."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a data analyst",
+    "a": "With steady part-time study, SQL plus a visualization tool takes about 2 to 3 months to reach a functional level, and a portfolio dashboard adds another few weeks. Landing the first title often takes longer than the skills do, commonly 9 to 16 months if you're coming in through an adjacent role like ops or marketing rather than applying cold."
+   },
+   {
+    "q": "do you need a degree to be a data analyst",
+    "a": "No, though half of postings state one as required, so it helps more than it's strictly necessary. Employers who waive it (8% of postings here) generally want to see the SQL and dashboard work directly, meaning a portfolio piece can substitute if it's specific and defensible under questioning."
+   },
+   {
+    "q": "data analyst vs data scientist, what's the difference",
+    "a": "A data analyst explains what happened using SQL and dashboards; a data scientist predicts what happens next using statistical models, usually in Python or R. The overlap is real (both need SQL, both need to understand the data before touching it), but the daily tools and the questions they're paid to answer diverge quickly."
+   },
+   {
+    "q": "can data analysts work remotely",
+    "a": "Some can. Around a third of postings here are remote, which tracks with how much of the actual work (querying, building dashboards, presenting on a call) doesn't require being anywhere in particular, though plenty of employers still want you in the room for stakeholder meetings."
+   },
+   {
+    "q": "will AI replace data analysts",
+    "a": "AI tools are already writing basic SQL and cleaning data faster than a junior analyst can, which is shifting the job toward judgment (which question matters, whether a number is trustworthy) rather than query-writing itself. The postings here still ask heavily for SQL and statistics, which suggests employers aren't betting on that judgment being automatable soon."
+   }
+  ]
+ }
+}

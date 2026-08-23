@@ -1,0 +1,86 @@
+{
+ "slug": "database-administrator",
+ "title": "Database Administrator",
+ "model": "gpt-5.6-sol",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "Database administrators keep databases available, secure, recoverable and fast enough for the systems that depend on them. They manage the operational state of data rather than defining business dashboards. The role overlaps with database engineering, cloud infrastructure and systems administration.",
+  "day_to_day": "The work includes access changes, backups, restores, performance checks, upgrades and investigation of failed jobs or queries. Administrators plan changes carefully because a small mistake can affect many applications at once. Current openings emphasize Oracle, SQL, Linux, cloud platforms, Terraform and security. Senior roles add architecture, automation and coordination with application teams.",
+  "work_environment": "The current sample includes many remote openings as well as site-based enterprise and government work. On-call or change-window expectations may matter more than office location because databases support live systems. Regulated or cleared environments can narrow remote flexibility.",
+  "getting_in": "Start with SQL and one database platform, then learn installation, permissions, backup and restore, monitoring and performance diagnosis. Build a lab where you can fail a database and recover it without guessing. Systems, cloud and data backgrounds transition well when they can show operational responsibility.",
+  "ladder": "Early administrators handle routine changes, monitoring and recovery tasks. Responsibility grows toward high availability, automation, security, architecture and ownership of several database estates. The path can branch into database engineering, cloud platform work, systems administration or data engineering.",
+  "suits": "This work suits people who like controlled changes, deep troubleshooting and systems that must remain boring in production. It rewards caution, documentation and comfort working during planned maintenance windows. It is a poor fit if you dislike on-call responsibility or repetitive reliability work.",
+  "misconceptions": "A DBA is not only a person who writes SQL. The current skills point to Linux, cloud platforms, Terraform, cybersecurity, CI/CD and observability around the database engine.",
+  "who_qualifies": "Systems administrators, data engineers, backend developers and cloud engineers bring adjacent foundations. They need to prove backup, recovery, permissions and database-specific diagnosis. Query experience alone does not establish operational readiness.",
+  "what_the_numbers_miss": "Listings cannot show whether backups have been restored successfully under pressure or only marked green by a dashboard. Recovery practice is the difference between confidence and optimism.",
+  "steps": [
+   {
+    "do": "Choose one database platform",
+    "how": "Learn its storage, users, transactions, logs and common failure modes deeply enough to diagnose behavior."
+   },
+   {
+    "do": "Build backup and restore practice",
+    "how": "Create recoverable backups, delete or corrupt a test database and prove that you can restore service."
+   },
+   {
+    "do": "Add monitoring and security",
+    "how": "Track capacity, performance and access while documenting who can change what and how alerts are handled."
+   },
+   {
+    "do": "Automate a controlled change",
+    "how": "Use scripts or infrastructure tooling to make a repeatable database task reviewable and reversible."
+   }
+  ],
+  "tools": "SQL, Linux, Azure, AWS, Terraform, ETL, NoSQL, cybersecurity, CI/CD and observability lead the current evidence. Oracle and PL/SQL appear prominently in live titles and descriptions. Recovery skill remains more important than a long vendor list.",
+  "industries": [
+   {
+    "name": "Enterprise IT",
+    "note": "DBAs support business applications with long-lived databases and strict change control."
+   },
+   {
+    "name": "Government systems",
+    "note": "Work emphasizes security, availability, clearance constraints and formal procedures."
+   },
+   {
+    "name": "Cloud software",
+    "note": "Database engineers automate managed infrastructure and support fast-changing applications."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Oracle administration",
+    "why": "It focuses on Oracle estates, PL/SQL, upgrades and enterprise recovery."
+   },
+   {
+    "name": "Cloud database engineering",
+    "why": "It combines managed services, infrastructure code and application reliability."
+   },
+   {
+    "name": "Database security",
+    "why": "It owns access, auditing and protection of sensitive data stores."
+   }
+  ],
+  "pros": [
+   "The role develops deep operational and recovery expertise.",
+   "Database knowledge transfers into cloud, systems and data engineering."
+  ],
+  "cons": [
+   "Maintenance windows and incidents can occur outside normal hours.",
+   "Careful preventive work receives little attention until it is missing."
+  ],
+  "faq": [
+   {
+    "q": "how do you become a database administrator?",
+    "a": "Learn one database platform deeply and prove you can secure, monitor, back up and restore it. A recovery exercise is stronger evidence than query practice alone."
+   },
+   {
+    "q": "can database administrators work remotely?",
+    "a": "Yes. Many current openings are remote, although regulated systems, clearance requirements and change windows can still constrain where and when the work happens."
+   },
+   {
+    "q": "what is the difference between a database administrator and a data engineer?",
+    "a": "A database administrator owns availability, security and recovery of database systems, while a data engineer builds pipelines and analytical data flows. Cloud teams may combine parts of both."
+   }
+  ]
+ }
+}

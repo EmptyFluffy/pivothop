@@ -5,6 +5,7 @@ import { JobCard, type Job } from './JobCard';
 import JobSheet from './JobSheet';
 import JobPanel from './JobPanel';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
+import type { BenefitEntry } from './BenefitStrip';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
 
@@ -27,25 +28,33 @@ const EMPTY: Filters = {
   fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false,
   minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '',
   skillSet: new Set(),
+  benSet: new Set(), xp: '', edu: '', langNot: new Set(), exQ: new Set(), exCo: new Set(),
 };
 
-export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope }: {
+export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2, hero }: {
   fields: Record<string, string>;   // occ slug -> field
   titles: Record<string, string>;   // occ slug -> display title
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
   scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string };
+  v2?: boolean;                     // full workspace layout (rail + lab chrome); /jobs only for now
+  hero?: ReactNode;                 // meta line + H1, rendered inside the center column
 }) {
   const [all, setAll] = useState<Job[] | null>(initialJobs ?? null);
   const [q, setQ] = useState('');
   const [needle, setNeedle] = useState('');
   const [f, setF] = useState<Filters>(EMPTY);
   const [sort, setSort] = useState<'new' | 'pay'>('new');
+  const [locQ, setLocQ] = useState('');       // the search unit's Location cell
+  const [locOpen, setLocOpen] = useState(false);
+  const [locIdx, setLocIdx] = useState(-1);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
   const [skills, setSkills] = useState<SkillEntry[] | null>(null);     // the glossary: skill -> occupations it unlocks
+  const [benefits, setBenefits] = useState<BenefitEntry[] | null>(null); // the benefit bank, for the pane's pills
   const [shown, setShown] = useState(PAGE);
+  const [page, setPage] = useState(1);          // v2: windowed pages behind the circle pager
   const [now] = useState(() => Date.now());
   const [sheetJob, setSheetJob] = useState<Job | null>(null);
   const [panelJob, setPanelJob] = useState<Job | null>(null);
@@ -69,7 +78,15 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   }, [all]);
   const taItems = useMemo(() => {
     const query = q.trim().toLowerCase();
-    if (query.length < 2) return [] as { kind: 'occ' | 'skill'; slug: string; label: string; via?: string }[];
+    if (query.length < 2) {
+      // predictive on focus: before anyone types, the biggest boards are the
+      // suggestion (the landing cell's behavior, mirrored)
+      return [...occCounts.entries()]
+        .filter(([slug]) => slug !== scope?.occ)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8)
+        .map(([slug]) => ({ kind: 'occ' as const, slug, label: titles[slug] ?? slug, via: undefined as string | undefined }));
+    }
     const wordStart = (text: string, needle: string) => text.split(/[\s/&,-]+/).some((w) => w.startsWith(needle));
     // occupations: rank title word-starts first, then synonym hits from the
     // expansion text; same ladder as the landing typeahead
@@ -119,6 +136,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     setQ(p.get('q') ?? ''); setNeedle((p.get('q') ?? '').toLowerCase());
+    setLocQ(p.get('loc') ?? '');   // the landing's location cell posts here
     const t = new Set((p.get('t') ?? '').split(',').filter(Boolean));
     // legacy: the old 'new this week' lived in t; it is a freshness setting now
     const fresh = (p.get('fresh') ?? (t.has('new') ? 'w' : '')) as Filters['fresh'];
@@ -135,6 +153,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       srcSet: new Set((p.get('src') ?? '').split(',').filter(Boolean)),
       lic: p.get('lic') === 'open' || p.get('lic') === 'gated' ? (p.get('lic') as 'open' | 'gated') : '',
       skillSet: new Set((p.get('sk') ?? '').split(',').filter(Boolean)),
+      benSet: new Set((p.get('ben') ?? '').split(',').filter(Boolean).map(Number).filter((n) => !Number.isNaN(n))),
+      xp: (['none', 'le2', 'y35', 'ge6'].includes(p.get('xp') ?? '') ? p.get('xp') : '') as Filters['xp'],
+      edu: (['nodeg', 'waived'].includes(p.get('edu') ?? '') ? p.get('edu') : '') as Filters['edu'],
+      langNot: new Set((p.get('lnot') ?? '').split(',').filter(Boolean)),
+      // exclusions persist: the URL wins, else the standing local set (they are
+      // preferences, not queries — a blocked company stays blocked next visit)
+      exQ: new Set((p.get('not') ?? localStorage.getItem('ph-ex-q') ?? '').split(',').filter(Boolean)),
+      exCo: new Set((p.get('notco') ?? localStorage.getItem('ph-ex-co') ?? '').split(',').filter(Boolean)),
     });
     if (p.get('sort') === 'pay') setSort('pay');
     // the license registry is small and powers the license filter
@@ -145,6 +171,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     fetch('/data/skills-glossary.json').then((r) => r.json())
       .then((d: SkillEntry[]) => setSkills(d))
       .catch(() => setSkills([]));
+    fetch('/data/benefits-glossary.json').then((r) => r.json())
+      .then((d: BenefitEntry[]) => setBenefits(d))
+      .catch(() => setBenefits([]));
     if (scope?.occ) {
       fetch('/api/employer-jobs').then((r) => r.json()).catch(() => [])
         .then((employer: Job[]) => {
@@ -214,6 +243,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (all === null) return;
     const p = new URLSearchParams();
     if (needle) p.set('q', needle);
+    if (locQ.trim()) p.set('loc', locQ.trim());
     if (f.fieldSet.size) p.set('f', [...f.fieldSet].join(','));
     if (f.ctySet.size) p.set('c', [...f.ctySet].join(','));
     if (f.region) p.set('region', f.region);
@@ -225,11 +255,22 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (f.srcSet.size) p.set('src', [...f.srcSet].join(','));
     if (f.lic) p.set('lic', f.lic);
     if (f.skillSet.size) p.set('sk', [...f.skillSet].join(','));
+    if (f.benSet.size) p.set('ben', [...f.benSet].join(','));
+    if (f.xp) p.set('xp', f.xp);
+    if (f.edu) p.set('edu', f.edu);
+    if (f.langNot.size) p.set('lnot', [...f.langNot].join(','));
+    if (f.exQ.size) p.set('not', [...f.exQ].join(','));
+    if (f.exCo.size) p.set('notco', [...f.exCo].join(','));
+    try {
+      localStorage.setItem('ph-ex-q', [...f.exQ].join(','));
+      localStorage.setItem('ph-ex-co', [...f.exCo].join(','));
+    } catch { /* private mode */ }
     if (sort === 'pay') p.set('sort', 'pay');
     const qs = p.toString();
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     setShown(PAGE);
-  }, [needle, f, sort, all]);
+    setPage(1);
+  }, [needle, locQ, f, sort, all]);
 
   const fieldNames = useMemo(() => [...new Set(Object.values(fields))].sort(), [fields]);
   const skillOccs = useMemo(() => {
@@ -280,6 +321,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           return h ? toks.every((t) => tokenHit(h, t)) : false;
         });
       }
+      const locNeedle = locQ.trim().toLowerCase();
+      if (locNeedle.length >= 2) {
+        r = r.filter((j) => (j.location || '').toLowerCase().includes(locNeedle)
+          || (j.c ? countryName(j.c).toLowerCase().includes(locNeedle) : false));
+      }
       if (omit !== 'field' && spec.fieldSet.size) r = r.filter((j) => spec.fieldSet.has(fields[j.occ]));
       if (omit !== 'location') {
         if (spec.region) r = r.filter((j) => regionOf(j.c) === spec.region);
@@ -310,6 +356,23 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       if (omit !== 'license' && spec.lic && licensed) {
         r = spec.lic === 'gated' ? r.filter((j) => licensed.has(j.occ)) : r.filter((j) => !licensed.has(j.occ));
       }
+      if (omit !== 'benefits' && spec.benSet.size) {
+        r = r.filter((j) => !!j.b && [...spec.benSet].every((i) => j.b!.includes(i)));
+      }
+      if (omit !== 'require') {
+        if (spec.xp === 'none') r = r.filter((j) => j.g?.x === undefined);
+        if (spec.xp === 'le2') r = r.filter((j) => j.g?.x !== undefined && j.g.x <= 2);
+        if (spec.xp === 'y35') r = r.filter((j) => j.g?.x !== undefined && j.g.x >= 3 && j.g.x <= 5);
+        if (spec.xp === 'ge6') r = r.filter((j) => (j.g?.x ?? 0) >= 6);
+        // 'nodeg': nothing in the text REQUIRES a bachelor's or higher (b/m/d + required)
+        if (spec.edu === 'nodeg') r = r.filter((j) => { const d = j.g?.d; return !d || !('bmd'.includes(d[0]) && d[1] === 'r'); });
+        if (spec.edu === 'waived') r = r.filter((j) => j.g?.d?.[1] === 'w');
+        if (spec.langNot.size) r = r.filter((j) => !j.g?.l?.some((c) => spec.langNot.has(c)));
+      }
+      if (omit !== 'exclude') {
+        if (spec.exQ.size) r = r.filter((j) => { const tl = j.title.toLowerCase(); return ![...spec.exQ].some((k) => tl.includes(k)); });
+        if (spec.exCo.size) r = r.filter((j) => !spec.exCo.has(j.company.toLowerCase()));
+      }
       if (omit !== 'skills' && spec.skillSet.size && skillOccs.size) {
         const reach = new Set<string>();
         for (const sk of spec.skillSet) for (const occ of skillOccs.get(sk) ?? []) reach.add(occ);
@@ -317,7 +380,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       }
       return r;
     };
-  }, [all, needle, hays, fields, now, licensed, skillOccs]);
+  }, [all, needle, locQ, hays, fields, now, licensed, skillOccs]);
 
   const results = useMemo(() => {
     let r = applyFilters(f);
@@ -325,13 +388,33 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return r;
   }, [applyFilters, f, sort]);
 
+  // What the exclusions are hiding right now — counted, never silent.
+  const hiddenByExclusion = useMemo(() => {
+    if (!f.exQ.size && !f.exCo.size) return 0;
+    return applyFilters(f, 'exclude').length - results.length;
+  }, [applyFilters, f, results.length]);
+
+  // At zero results, name the single filter whose removal returns the most.
+  const culprit = useMemo(() => {
+    if (results.length > 0) return null;
+    const cats: [string, string][] = [['skills', 'your skills'], ['field', 'field'], ['location', 'location'],
+      ['pay', 'pay'], ['seniority', 'seniority'], ['perks', 'perks'], ['fresh', 'date posted'],
+      ['source', 'source'], ['license', 'license'], ['benefits', 'benefits'], ['require', 'requirements'], ['exclude', 'exclusions']];
+    let best: { label: string; n: number } | null = null;
+    for (const [cat, label] of cats) {
+      const n = applyFilters(f, cat).length;
+      if (n > 0 && (!best || n > best.n)) best = { label, n };
+    }
+    return best ? `0 roles — removing ${best.label} returns ${best.n.toLocaleString()}` : null;
+  }, [applyFilters, f, results.length]);
+
   // Faceted count for the sheet: the category's own filter is stripped, the
   // probe stands in for the option being counted, every other filter applies.
   const count = useMemo(() => {
     return (cat: string, probe: Partial<Filters>) => applyFilters({ ...strip(f, cat), ...probe }).length;
     function strip(base: Filters, cat: string): Filters {
       // strip the category's own filter, the probe re-adds its single option
-      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet), skillSet: new Set(base.skillSet) };
+      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet), skillSet: new Set(base.skillSet), benSet: new Set(base.benSet), langNot: new Set(base.langNot), exQ: new Set(base.exQ), exCo: new Set(base.exCo) };
       if (cat === 'field') c.fieldSet = new Set();
       if (cat === 'location') { c.region = ''; c.ctySet = new Set(); c.remoteOnly = false; }
       if (cat === 'pay') { c.minPay = 0; c.hasSalary = false; }
@@ -341,14 +424,51 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       if (cat === 'source') c.srcSet = new Set();
       if (cat === 'license') c.lic = '';
       if (cat === 'skills') c.skillSet = new Set();
+      if (cat === 'benefits') c.benSet = new Set();
+      if (cat === 'require') { c.xp = ''; c.edu = ''; c.langNot = new Set(); }
+      if (cat === 'exclude') { c.exQ = new Set(); c.exCo = new Set(); }
       return c;
     }
   }, [applyFilters, f]);
 
-  const pristine = !needle && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && !f.skillSet.size && sort === 'new';
+  // Rail facet counts: every filter except field applied, then counted by field.
+  const fieldCounts = useMemo(() => {
+    const base = applyFilters(f, 'field');
+    const m = new Map<string, number>();
+    for (const j of base) { const fl = fields[j.occ]; if (fl) m.set(fl, (m.get(fl) ?? 0) + 1); }
+    return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+  }, [applyFilters, f, fields]);
+
+  const pristine = !needle && !locQ.trim() && !f.fieldSet.size && !f.ctySet.size && !f.region && !f.remoteOnly && !f.minPay && !f.hasSalary && !f.tags.size && !f.fresh && !f.srcSet.size && !f.lic && !f.skillSet.size && sort === 'new';
   const activeCount = f.fieldSet.size + f.ctySet.size + (f.region ? 1 : 0) + (f.minPay ? 1 : 0) + (f.hasSalary ? 1 : 0) + (f.remoteOnly ? 1 : 0) + f.tags.size + (f.fresh ? 1 : 0) + f.srcSet.size + (f.lic ? 1 : 0) + f.skillSet.size;
   const closeSheet = () => { if (history.state?.jobSheet) history.back(); else setSheetJob(null); };
   const closePanel = () => { if (history.state?.jobSheet) history.back(); else setPanelJob(null); };
+  // Pager for the v2 inspector: position within the filtered results, and a
+  // stepper that swaps the pane while keeping the URL contract (replace, so
+  // Back still returns to the board in one step).
+  // v2 pagination: a window of PAGE rows behind the lab's circle pager.
+  const pageCount = Math.max(1, Math.ceil(results.length / PAGE));
+  const curPage = Math.min(page, pageCount);
+  const goPage = (n: number) => {
+    const to = Math.min(Math.max(1, n), pageCount);
+    setPage(to);
+    requestAnimationFrame(() => {
+      const el = document.querySelector('.jb-thead') ?? document.querySelector('.job-list-full');
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 120;
+      if (Math.abs(window.scrollY - y) > 2) window.scrollTo({ top: Math.max(0, y) });
+    });
+  };
+  const panelIdx = panelJob ? results.findIndex((x) => x.id === panelJob.id && x.occ === panelJob.occ) : -1;
+  const stepPanel = (d: number) => {
+    if (panelIdx < 0) return;
+    const nx = results[panelIdx + d];
+    if (!nx) return;
+    const href = `/jobs/${nx.occ}/${nx.id}`;
+    if (history.state?.jobSheet) history.replaceState({ jobSheet: true }, '', href);
+    else history.pushState({ jobSheet: true }, '', href);
+    setPanelJob(nx);
+  };
   const dropFrom = (key: 'fieldSet' | 'ctySet' | 'tags' | 'srcSet', v: string) => {
     const next = new Set(f[key]);
     next.delete(v);
@@ -357,6 +477,60 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
 
   return (
     <div className={`jb${scope ? ' jb-scoped' : ''}`}>
+      <div className={v2 ? 'jb-work' : undefined}>
+      {v2 && (() => {
+        const sec = (i: number) => String(fieldCounts.length > 1 ? i : i - 1).padStart(2, '0');
+        return (
+        <aside className="jb-rail" aria-label="Filters">
+          <div className="jb-rail-head"><h4>Filters</h4>
+            <button type="button" className="jb-rail-clear" onClick={() => { setQ(''); setNeedle(''); setLocQ(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
+          </div>
+          {fieldCounts.length > 1 && (
+          <section>
+            <h5><i>01</i>Field</h5>
+            {fieldCounts.map(([fl, n]) => (
+              <div className="jb-opt" key={fl}>
+                <label>
+                  <input type="checkbox" checked={f.fieldSet.has(fl)} onChange={() => {
+                    const next = new Set(f.fieldSet);
+                    if (next.has(fl)) next.delete(fl); else next.add(fl);
+                    set({ fieldSet: next });
+                  }} /> {fl}
+                </label>
+                <span className="jb-opt-n">{n.toLocaleString()}</span>
+              </div>
+            ))}
+          </section>
+          )}
+          <section>
+            <h5><i>{sec(2)}</i>Workplace</h5>
+            <div className="jb-opt"><label><input type="checkbox" checked={f.remoteOnly} onChange={() => set({ remoteOnly: !f.remoteOnly })} /> Remote only</label></div>
+          </section>
+          <section>
+            <h5><i>{sec(3)}</i>Pay</h5>
+            <div className="jb-opt"><label><input type="checkbox" checked={f.hasSalary} onChange={() => set({ hasSalary: !f.hasSalary })} /> States a salary</label></div>
+          </section>
+          <section>
+            <h5><i>{sec(4)}</i>Freshness</h5>
+            {([['', 'Any time'], ['d', 'Last 24h'], ['w', 'This week'], ['m', 'This month']] as const).map(([k, label]) => (
+              <div className="jb-opt" key={k || 'any'}>
+                <label><input type="radio" name="jb-fresh" checked={f.fresh === k} onChange={() => set({ fresh: k })} /> {label}</label>
+              </div>
+            ))}
+          </section>
+          <button type="button" className="jb-rail-all" onClick={() => setSheetOpen(true)}>
+            All filters{activeCount > 0 ? ` · ${activeCount}` : ''}
+          </button>
+          <div className="jb-rail-close">
+            <div className="jb-rail-big">{all === null ? '·' : results.length.toLocaleString()}</div>
+            <div className="jb-rail-lab">roles in this view</div>
+          </div>
+        </aside>
+        );
+      })()}
+      <div className={v2 ? 'jb-centercol' : undefined}>
+      {v2 && hero}
+
       <div className="jb-stick">
       <div className="jb-searchband">
         <svg className="jb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
@@ -412,8 +586,50 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             ))}
           </div>
         )}
+        {v2 && (() => {
+          const locOpts = ['Remote', ...countries.map((c) => countryName(c.code))]
+            .filter((n) => !locQ.trim() || n.toLowerCase().includes(locQ.trim().toLowerCase()))
+            .slice(0, 8);
+          return (
+            <span className="jb-locwrap">
+              <input
+                className="jb-locin"
+                type="search"
+                value={locQ}
+                onChange={(e) => { setLocQ(e.target.value); setLocOpen(true); setLocIdx(-1); }}
+                onFocus={() => setLocOpen(true)}
+                onBlur={() => setTimeout(() => setLocOpen(false), 140)}
+                onKeyDown={(e) => {
+                  if (!locOpen || !locOpts.length) return;
+                  if (e.key === 'ArrowDown') { e.preventDefault(); setLocIdx((i) => (i + 1) % locOpts.length); }
+                  else if (e.key === 'ArrowUp') { e.preventDefault(); setLocIdx((i) => (i - 1 + locOpts.length) % locOpts.length); }
+                  else if (e.key === 'Enter' && locIdx >= 0) { e.preventDefault(); setLocQ(locOpts[locIdx] === 'Remote' ? 'remote' : locOpts[locIdx]); setLocOpen(false); setLocIdx(-1); }
+                  else if (e.key === 'Escape') { setLocOpen(false); setLocIdx(-1); }
+                }}
+                placeholder="Location"
+                aria-label="Filter by location"
+                role="combobox"
+                aria-expanded={locOpen && locOpts.length > 0}
+                autoComplete="off"
+              />
+              {locOpen && locOpts.length > 0 && (
+                <div className="lp-dd" role="listbox">
+                  {locOpts.map((n, i) => (
+                    <button key={n} type="button" role="option" aria-selected={i === locIdx}
+                      className={i === locIdx ? 'on' : ''}
+                      onMouseDown={(e) => { e.preventDefault(); setLocQ(n === 'Remote' ? 'remote' : n); setLocOpen(false); setLocIdx(-1); }}
+                      onMouseEnter={() => setLocIdx(i)}
+                    >{n}</button>
+                  ))}
+                </div>
+              )}
+            </span>
+          );
+        })()}
         <button type="button" className={`jb-fltbtn${activeCount ? ' on' : ''}`} onClick={() => setSheetOpen(true)}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
+          {v2
+            ? <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4" /></svg>
+            : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M7 12h10M11 18h2" /></svg>}
           Filters{activeCount > 0 && <span className="jb-fltn">{activeCount}</span>}
         </button>
         {scope && <Link href={scope.showAllHref ?? '/jobs'} className="jb-showall">{scope.showAllLabel ?? 'Show all jobs'}</Link>}
@@ -459,10 +675,11 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           {[...f.srcSet].map((s) => <button key={s} type="button" className="jb-pill" onClick={() => dropFrom('srcSet', s)}>{SRC_GROUPS.find((g) => g.code === s)?.label ?? s}<span className="jb-x">&times;</span></button>)}
           {f.lic && <button type="button" className="jb-pill" onClick={() => set({ lic: '' })}>{f.lic === 'gated' ? 'Licensed professions' : 'No license required'}<span className="jb-x">&times;</span></button>}
           {sort === 'pay' && <button type="button" className="jb-pill" onClick={() => setSort('new')}>Highest pay<span className="jb-x">&times;</span></button>}
-          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
+          <button type="button" className="jb-clear lbl" onClick={() => { setQ(''); setNeedle(''); setLocQ(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
         </div>
       )}
       </div>
+
 
       {pristine && !panelJob && featured}
 
@@ -473,26 +690,56 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
           <div className={panelJob ? 'jb-splitwrap' : undefined}>
             <div className="jb-listcol">
               {pristine && panelJob ? featured : null}
+              {v2 && (
+                <div className="jb-thead" aria-hidden="true"><span /><span>Role</span><span>Salary</span><span>Posted</span><span /></div>
+              )}
               <ul className="job-list job-list-full">
-                {results.slice(0, shown).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} />)}
+                {(v2 ? results.slice((curPage - 1) * PAGE, curPage * PAGE) : results.slice(0, shown)).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} v2={v2} />)}
               </ul>
               {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}
-              {results.length > shown && (
+              {v2 ? (pageCount > 1 && (() => {
+                const seq: (number | 0)[] = pageCount <= 5
+                  ? Array.from({ length: pageCount }, (_, i) => i + 1)
+                  : curPage <= 3
+                    ? [1, 2, 3, 0, pageCount]
+                    : curPage >= pageCount - 2
+                      ? [1, 0, pageCount - 2, pageCount - 1, pageCount]
+                      : [1, 0, curPage, 0, pageCount];
+                return (
+                  <nav className="jb-pager" aria-label="Pages">
+                    {seq.map((n, i) => n === 0
+                      ? <span key={`d${i}`} className="jb-pg dots" aria-hidden="true">&hellip;</span>
+                      : (
+                        <button key={n} type="button" className={`jb-pg${n === curPage ? ' cur' : ''}`}
+                          aria-current={n === curPage ? 'page' : undefined} onClick={() => goPage(n)}>{n}</button>
+                      ))}
+                    <button type="button" className="jb-pg fwd" aria-label="Next page" disabled={curPage >= pageCount} onClick={() => goPage(curPage + 1)}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                    </button>
+                  </nav>
+                );
+              })()) : (results.length > shown && (
                 <button type="button" className="jb-more" onClick={() => setShown((n) => n + PAGE)}>
                   Show {Math.min(PAGE, results.length - shown)} more &middot; {shown.toLocaleString()} of {results.length.toLocaleString()}
                 </button>
-              )}
+              ))}
             </div>
-            {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} />}
+            {panelJob && <JobPanel job={panelJob} onClose={closePanel} glossary={skills} benefitBank={benefits} v2={v2} occName={titles[panelJob.occ]} pos={panelIdx >= 0 ? { i: panelIdx, n: results.length } : null} onStep={stepPanel} />}
           </div>
         </>
       )}
+      </div>
+      </div>
+
       <FilterSheet
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}
         f={f}
         set={set}
         count={(cat, probe) => count(cat, probe)}
+        benefits={benefits ?? []}
+        culprit={culprit}
+        hiddenByExclusion={hiddenByExclusion}
         fieldNames={fieldNames}
         countries={countries}
         regionsList={regionsList}

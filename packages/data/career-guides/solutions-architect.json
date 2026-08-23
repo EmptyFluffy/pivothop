@@ -1,0 +1,106 @@
+{
+ "slug": "solutions-architect",
+ "title": "Solutions Architect",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A solutions architect takes a customer's or a business unit's problem and turns it into a system design that other engineers can build, then stays close enough to the build to catch it when reality disagrees with the diagram. The confusion is usually with software architect: that role optimizes one codebase, this one sits between sales, engineering, and a client who has opinions about budget and timeline. You spend as much time defending a design in a room as you spent drawing it.",
+  "day_to_day": "Mornings tend to start with whatever broke overnight in a client environment or a staging pipeline, which you triage before it becomes someone else's escalation. A good chunk of the week goes into diagrams: sequence flows, cost estimates for AWS versus Azure versus GCP, and a slide deck that has to survive questions from someone who controls the budget. You sit in discovery calls where a client describes what they want and you translate it into what's buildable in the time they've allotted, which is rarely what they think they've allotted. Wednesdays and Thursdays are usually heaviest on meetings, review sessions with engineering leads, a working session with a product manager, maybe a training session for a team adopting something you designed. The part people look forward to is the moment a proof of concept clears the objection that killed the last three proposals. Solo time, usually mornings or evenings, is for the writing: architecture decision records, runbooks, the document that explains why you chose one queueing pattern over another so nobody re-litigates it in eight months.",
+  "work_environment": "This is desk work, almost entirely: laptop, whiteboard tool, video calls, and a cloud console open in another tab. Close to half of postings are remote, which tracks: the deliverable is documents and design reviews, not physical presence, and clients are frequently in other time zones anyway. The bad weeks come from proposal deadlines that land the same week as a production incident, or from travel: on-site workshops with enterprise clients still happen, usually in short, intense bursts rather than constant road time. Hours are steady most of the year but compress hard around contract renewals and quarterly business reviews, when everyone wants the roadmap slide finished by Friday.",
+  "getting_in": "Most postings ask for around seven years of relevant experience, and roughly a fifth mention a specific number outright, so this is not an entry-level title anywhere it's posted. A four-year degree is required in about two-thirds of listings that mention education at all, but over half of all postings don't gate on a degree, and the ones that skip it usually accept a strong AWS or Azure certification plus a track record of shipped systems instead. The longest stretch is usually the years spent as a backend or cloud engineer before anyone hands you client-facing design authority; that's where most people stall, waiting for a manager to trust them with a proposal instead of just the implementation. Certifications (AWS Solutions Architect, Azure Solutions Architect Expert) compress that wait somewhat because they give a hiring manager evidence before you've built the relationship. Expect the jump to come from inside: someone watches you explain a design clearly in a meeting and decides you're ready to own the next one.",
+  "ladder": "Early on you own a component of someone else's design: you get handed the database layer or the API contract and you make sure it holds. The first real step up is owning the whole design for a mid-sized engagement end to end, including the parts you'd rather not think about, like cost projections and what happens if the client's data volume triples. From there the ladder forks: staff or principal architect tracks that stay technical and pull you into the hardest, highest-stakes designs across the company, or a move into architecture leadership where you're reviewing other people's diagrams more than drawing your own. That fork usually shows up somewhere around the eight-to-ten-year mark, roughly when the certifications stop mattering and the reference list of things you've shipped starts doing the talking.",
+  "suits": "People who like this job tend to like the moment a client stops arguing because the diagram finally answers their real objection, the one they hadn't said out loud yet. It suits someone who can hold a technical detail and a budget constraint in their head at the same time and doesn't resent being asked to explain the same tradeoff three different ways to three different audiences. The people who leave are usually the ones who wanted to keep writing code all day; this role trades a lot of hands-on building for talking, reviewing, and defending decisions other people will execute. If sitting in a room negotiating scope sounds like the tedious part rather than the interesting part, a straight engineering role will suit you better.",
+  "misconceptions": "Outsiders assume this is a senior engineering title with a fancier name, but the actual differentiator is client and stakeholder fluency: you can be a weaker coder than the engineers you design for as long as your judgment about what will work is sound. Another common assumption is that the job is mostly PowerPoint. It isn't; the deck is downstream of real technical decisions, and if those decisions are wrong the deck just makes the failure more legible sooner.",
+  "who_qualifies": "Data engineers carry over the most (roughly six in ten of what the role asks for): they already think in pipelines, storage costs, and system boundaries, they just haven't had to defend those choices to a non-technical stakeholder yet. Data architects and MLOps engineers are close behind, bringing the systems-design instinct but often needing to build out the client-facing and proposal-writing muscle. Backend developers convert too, though at a lower match, usually because they're strong on implementation and light on the cost-and-tradeoff conversations that fill an architect's week.",
+  "what_the_numbers_miss": "None of this shows how much of the job is reading a room: knowing when a client's stated requirement isn't their real constraint, or when to stop optimizing a design because the person paying for it has stopped caring about elegance and started caring about the invoice. It also can't capture how much a given architect's week is shaped by which two or three accounts they're currently assigned to.",
+  "steps": [
+   {
+    "do": "Spend 3-5 years as a cloud or backend engineer",
+    "how": "Work directly on systems that touch AWS, Azure, or GCP so you have real deployments to point to, not just tutorials. You know you're ready to move on when you're the person others ask which service to use and why, not just how to configure it."
+   },
+   {
+    "do": "Earn an AWS or Azure solutions architect certification",
+    "how": "Both AWS Solutions Architect Associate/Professional and Azure Solutions Architect Expert take most candidates two to four months of study alongside a full-time job. This matters most for candidates without a required degree, since it's the credential employers accept in its place."
+   },
+   {
+    "do": "Take ownership of one client-facing design",
+    "how": "Volunteer for or angle toward a project where you present the architecture directly to a client or internal stakeholder, not just to your team. This is the step that converts an engineer's resume into an architect's resume, and it usually takes one full project cycle, three to nine months, to have a story worth telling."
+   },
+   {
+    "do": "Build a small portfolio of decision records",
+    "how": "Write two or three architecture decision documents from real projects: the problem, the options considered, the tradeoff, the outcome. Interviewers for this role ask for exactly this artifact more often than they ask for code samples."
+   },
+   {
+    "do": "Apply to hybrid roles before pure-architect titles",
+    "how": "Look for titles like 'cloud architect' or 'technical lead' that blend hands-on work with design authority; they're easier to land with 5-7 years of experience than a pure Solutions Architect title, which skews toward the 7-year median. Use one as the bridge role for a year or two before targeting the title directly."
+   }
+  ],
+  "tools": "AWS and Azure are close to interchangeable as gatekeepers, each showing up in around a third of postings, and most architects end up fluent in whichever cloud their employer or client has already committed to; GCP shows up often enough that it's worth a working knowledge even if it's not your primary. Python and SQL cover the scripting and data-pulling you'll do to validate a design or build a quick proof of concept. REST API design and general data analysis are baseline expectations rather than differentiators. LLM and AI-adjacent skills now appear in a fifth of postings, which tracks with clients asking architects to design around a model API the same way they used to ask about a database.",
+  "industries": [
+   {
+    "name": "Enterprise software and SaaS vendors",
+    "note": "You design the reference architecture customers deploy your product into, and a lot of the job is making that architecture flexible enough for wildly different client environments."
+   },
+   {
+    "name": "Cloud consulting and systems integrators",
+    "note": "Fastest pace of client turnover; you might run three or four distinct engagements a year, each with a different industry's constraints and compliance requirements."
+   },
+   {
+    "name": "Financial services and healthcare",
+    "note": "Slower moving, heavier on compliance and data governance, and designs get reviewed by security and legal before they get reviewed by engineering."
+   },
+   {
+    "name": "In-house at a large non-tech company",
+    "note": "One employer, one long-running system, and the job leans more toward maintaining and extending an existing architecture than pitching new ones."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "AI/LLM solutions architecture",
+    "why": "Companies bolting model APIs onto existing products need someone who can design around latency, cost per call, and data privacy in a way a generic cloud architect hasn't had to before; this is the fastest-growing ask in the postings."
+   },
+   {
+    "name": "Multi-cloud and migration architecture",
+    "why": "Enterprises straddling AWS, Azure, and GCP simultaneously (common enough that all three show up heavily in postings) need architects who can design for portability rather than lock-in, which is a narrower and better-paid skill than single-cloud expertise."
+   },
+   {
+    "name": "Industry-vertical architecture (healthcare, finance)",
+    "why": "Clinical research and compliance-heavy skills show up often enough to matter; an architect who also understands HIPAA or financial regulatory constraints gets pulled into deals a generalist can't close alone."
+   }
+  ],
+  "pros": [
+   "You get to see a design go from whiteboard sketch to something a client's team is running in production, and that arc rarely takes more than a few months.",
+   "The pay band is wide and the top end is real: the difference between a $127k and a $208k offer often comes down to which cloud and which industry you've specialized in, both of which are learnable.",
+   "Close to half the postings are remote, so you can do this work without relocating for a specific employer's office.",
+   "The job forces you to keep learning new services and patterns because clients keep showing up with different stacks, which keeps the work from going stale the way a single-codebase job sometimes does."
+  ],
+  "cons": [
+   "You'll spend real hours on proposals and slide decks that get rejected before a single line of infrastructure gets built, and that work doesn't disappear from your week just because it didn't ship.",
+   "Being the one who explains a delay to a client is part of the job, even when the delay wasn't your call.",
+   "The seven-year experience expectation means there's no fast lane in; you largely wait for someone to hand you client-facing authority.",
+   "Travel for on-site workshops still happens with enterprise clients, and it tends to cluster right when you'd rather be heads-down on a design."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a solutions architect",
+    "a": "Most people take five to seven years, spent first as a cloud or backend engineer before moving into client-facing design work. A certification can shorten the wait for a title change, but it doesn't replace the years of hands-on systems experience employers are asking for."
+   },
+   {
+    "q": "can you become a solutions architect without a degree",
+    "a": "Yes: just over half of postings don't require one. Employers who waive the degree typically want an AWS or Azure certification plus a demonstrable track record of systems you've built or designed instead."
+   },
+   {
+    "q": "solutions architect vs software architect, what's the difference",
+    "a": "A software architect owns the technical design of one product or codebase; a solutions architect designs across systems for a specific client or business problem and spends much more time in front of stakeholders who aren't engineers. If you'd rather go deep on one codebase than manage a portfolio of client relationships, software architect is the closer fit."
+   },
+   {
+    "q": "is solutions architect a good career right now",
+    "a": "The pay band (roughly $127k to $208k across the middle of the market) and the fact that under half the field even mentions a specific experience floor suggest steady, broad demand rather than a narrow specialist niche. The tradeoff is that it's not an entry point; you build into it from an engineering role first."
+   },
+   {
+    "q": "can solutions architects work remotely",
+    "a": "Often, yes: about 45% of postings are remote. The parts of the job that resist remote work are on-site enterprise workshops and in-person contract negotiations, which still happen but tend to be scheduled as short trips rather than constant office presence."
+   }
+  ]
+ }
+}

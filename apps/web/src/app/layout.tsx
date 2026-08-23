@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Space_Mono, Instrument_Sans } from 'next/font/google';
+import { Chivo_Mono, Instrument_Sans } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
@@ -12,7 +12,7 @@ import './globals.css';
 // Instrument Sans (Rodrigo Fuenzalida) replaces Space Grotesk as the word face.
 // Variable across weight AND width, which is the argument: the hero clamps
 // 46->104px, and type sized right at 46 is a touch wide at 104. Space Grotesk
-// cannot do that. Still two typefaces — Instrument Sans + Space Mono — so
+// cannot do that. Still two typefaces — Instrument Sans + Chivo Mono — so
 // non-negotiable #7 holds; only the sans changed.
 const sans = Instrument_Sans({
   subsets: ['latin'],
@@ -25,9 +25,12 @@ const sans = Instrument_Sans({
   variable: '--font-sans',
   display: 'swap',
 });
-const mono = Space_Mono({
+// Chivo Mono replaced Space Mono 2026-08-23: the measurement face, chosen
+// off the saturated-defaults list — grotesque bones fit the Swiss system,
+// variable weights carry the bold data numerals Space Mono did.
+const mono = Chivo_Mono({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: 'variable',
   variable: '--font-mono',
   display: 'swap',
 });

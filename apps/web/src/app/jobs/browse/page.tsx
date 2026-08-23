@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../../components/SiteChrome';
-import { allCategories, type CategoryKind } from '../categories-data';
+import { allCategories } from '../categories-data';
+import { FACETS, facetCats, Row } from './shared';
 
-/* The directory hub: every preloaded search in one place, grouped. The long-tail
-   index + the internal-linking spine (so no category page is orphaned) + the
-   human browse surface. A static segment, so it wins over /jobs/[occ]. */
+/* The thin hub (tier 1 of the browse spine). A curated head band for humans,
+   the top of each facet with a link into its exhaustive sub-hub, ~90 links
+   total. The 2,000-page tail lives on the five sub-hubs; nothing is orphaned
+   because every category appears on exactly one of them. */
 
 export const metadata: Metadata = {
   title: 'Browse the job board: every filter, preloaded | PivotHop',
@@ -14,45 +16,57 @@ export const metadata: Metadata = {
   alternates: { canonical: '/jobs/browse' },
 };
 
-const GROUPS: { title: string; note: string; kinds: CategoryKind[] }[] = [
-  { title: 'Remote & flexible', note: 'Work-from-anywhere roles — whole board, by field, by role, and by country.', kinds: ['remote', 'remote-field', 'remote-occ', 'remote-country', 'remote-field-country', 'remote-occ-country'] },
-  { title: 'By field', note: 'Every field, and the same split by seniority.', kinds: ['field', 'level-field'] },
-  { title: 'By location', note: 'Where the roles are — whole country, by field, by role, and by seniority.', kinds: ['country', 'field-country', 'occ-country', 'level-field-country', 'level-occ-country'] },
-  { title: 'By level', note: 'Senior and entry-level — overall, and by role.', kinds: ['level', 'level-occ'] },
-  { title: 'By pay & benefits', note: 'Salary floors by field, role, and country — plus equity and visa sponsorship.', kinds: ['pay', 'pay-field', 'pay-occ', 'pay-country', 'flag', 'flag-field', 'flag-country'] },
-];
+const TOP_PER_FACET = 12;
 
 export default function JobsBrowseHub() {
   const cats = allCategories();
-  const byKinds = (ks: CategoryKind[]) => cats.filter((c) => ks.includes(c.kind)).sort((a, b) => b.count - a.count);
+  const head = [...cats].sort((a, b) => b.count - a.count).slice(0, 8);
 
   return (
-    <PageShell>
-      <div className="rtp">
+    <PageShell v2 active="jobs">
+      <div className="rtp bh">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><span>Browse</span></nav>
-        <h1 className="rt-h1">Browse the board</h1>
+        <h1 className="rt-h1">Browse the board.</h1>
         <p className="rt-dek">
-          {`${cats.length} preloaded searches across the live board — remote, by field, by country, by seniority, by pay, and the useful combinations. Each is a page of real openings, tagged to the skills that reach them and refreshed with the nightly scrape.`}
+          {cats.length.toLocaleString()} preloaded searches across the live board. Each is a page of real openings,
+          tagged to the skills that reach them and refreshed with the nightly scrape. A search only becomes a page
+          once it clears a threshold of open roles, so none of these are empty.
         </p>
 
-        {GROUPS.map((g) => {
-          const list = byKinds(g.kinds);
+        <nav className="bh-jump lbl" aria-label="Sections">
+          {FACETS.map((f) => <a key={f.slug} href={`#${f.slug}`}>{f.short}</a>)}
+        </nav>
+
+        <section className="rt-sec bh-sec" aria-label="The biggest searches">
+          <h2>The head of the board</h2>
+          <p className="rt-note">The eight densest searches tonight, by open roles.</p>
+          <ul className="bh-band">
+            {head.map((c) => (
+              <Row key={c.slug} href={`/jobs/${c.slug}`} label={c.title} count={c.count} big />
+            ))}
+          </ul>
+        </section>
+
+        {FACETS.map((f) => {
+          const list = facetCats(f).sort((a, b) => b.count - a.count);
           if (!list.length) return null;
+          const top = list.slice(0, TOP_PER_FACET);
           return (
-            <section key={g.title} className="rt-sec jb-byocc">
-              <h2>{g.title}</h2>
-              <p className="rt-note">{g.note}</p>
-              <span className="jb-occlinks">
-                {list.map((c) => (
-                  <Link key={c.slug} href={`/jobs/${c.slug}`}>{c.title} <span className="lbl">{c.count.toLocaleString()}</span></Link>
+            <section key={f.slug} id={f.slug} className="rt-sec bh-sec">
+              <h2>{f.title}</h2>
+              <p className="rt-note">{f.note} {list.length.toLocaleString()} pages; the largest holds {list[0].count.toLocaleString()} roles.</p>
+              <ul className="bh-list">
+                {top.map((c) => (
+                  <Row key={c.slug} href={`/jobs/${c.slug}`} label={c.title} count={c.count} />
                 ))}
-              </span>
+              </ul>
+              <Link className="bh-all lbl" href={`/jobs/browse/${f.slug}`}>All {list.length.toLocaleString()} {f.title.replace(/^By /, '').toLowerCase()} searches &rarr;</Link>
             </section>
           );
         })}
 
         <p className="rt-method lbl">
-          A search only becomes a page once it clears a real threshold of open roles, so none of these are empty. Not sure which of them your skills reach? <Link className="gl" href="/">Run the instrument</Link> and it maps the roles your current skills already cover.
+          Not sure which of these your skills reach? <Link className="gl" href="/">Run the instrument</Link> and it maps the roles your current skills already cover.
         </p>
       </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

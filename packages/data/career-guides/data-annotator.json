@@ -1,0 +1,106 @@
+{
+ "slug": "data-annotator",
+ "title": "Data Annotator",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "A data annotator labels and judges the examples that machine learning systems train and test on: marking whether a model's answer was right, ranking two responses against each other, flagging where a translation drifted or a chatbot got weird. The job people confuse it with is QA testing, but QA checks whether software works and this checks whether a model's output is good, which is a judgment call more than a bug report.",
+  "day_to_day": "Most days start in a queue: a batch of model outputs, transcripts, or translated pairs waiting for a verdict, each with a rubric attached that you apply and sometimes have to argue with. A chunk of the week is solo, head down, working through items at a pace someone is timing even if they don't say so. The rest is calibration: sitting with three or four other annotators comparing why you rated the same response differently, which is where the real standard for the project gets set. Slack or a ticket queue is where disagreements get resolved, and you'll write short justifications for edge cases that go into a shared doc other annotators read later. The moment people look forward to is when a model that's been consistently bad on some category finally starts getting it right, and you can see your batch of corrections in the pattern. The rest of the time, it's the queue.",
+  "work_environment": "This is a laptop job almost everywhere it's posted, which is part of why remote share on these postings runs so high (91%): there's no equipment tying you to a location, just a labeling tool, a document, and a rubric. Hours are generally standard business hours, though some projects run in shifts to cover model training pipelines that don't stop overnight. The bad weeks come from volume spikes ahead of a model release, when the queue triples and turnaround windows shrink to same-day. Social contact is real but scheduled: calibration calls, review syncs, the occasional dispute over a rubric that needs a manager to settle, all set against long stretches of quiet, individual work.",
+  "getting_in": "Most postings don't specify years of experience at all, and where they do, the median is just one year, so this is a role people move into rather than credential toward. A four-year degree is requested in most listings but far from universal, and where it isn't, employers substitute a strong writing sample, a language credential, or direct experience with the subject matter (customer support, translation, teaching) that shows you can make consistent judgment calls. English fluency, often at a C1 level specifically, shows up more often in the language requirements than any technical skill does. The slow part isn't the hiring process, it's building a track record: your first few projects are where you learn to apply a rubric the way the team wants it applied, and that calibration period is where people either settle in or bounce.",
+  "ladder": "The first jump is from working a queue to writing the rubric other annotators work from, which usually means you've caught enough edge cases and disagreements to know where the instructions are vague. From there the role forks: some annotators move into leading a team of labelers on a specific model or language, others move sideways into the research or engineering side, building the evaluation sets rather than scoring them. The fork tends to show up in year two, once you've been through a full project cycle or two. Staying hands-on usually means specializing in a harder judgment category (safety, factuality, tone) rather than managing people.",
+  "suits": "People who do well here like being handed ambiguous material and a rule for judging it, then defending their call when someone disagrees. It suits someone who reads carefully, notices when a rubric doesn't cover a real case, and doesn't mind writing three sentences explaining a decision that took ten seconds to make. The people who leave usually wanted to build the model rather than judge its output, and found the queue repetitive once the novelty of seeing raw model behavior wore off. If you need to see a project through from idea to shipped thing, this isn't that; you're improving a system from the outside, one judgment at a time.",
+  "misconceptions": "The biggest one is that this is unskilled clicking work, when in practice the hard part is consistency: applying the same standard to the four-hundredth example as the first, especially on subjective categories like tone or helpfulness. People also assume it's a dead-end gig job, but the postings show real progression into conversation design, prompt engineering, and research roles once you understand model behavior from the inside.",
+  "who_qualifies": "The strongest matches come from people already inside AI development: AI engineers and prompt engineers show the closest overlap, because they already think in terms of what a model should have said. Data scientists and MLOps engineers carry over the analytical rigor and comfort with ambiguous data, though they'll need to adjust to judgment-based work rather than metric-based work. What doesn't carry over from any of these is patience for repetitive queue work at volume, which is its own skill regardless of technical background.",
+  "what_the_numbers_miss": "The postings can't show you what it feels like to disagree with a rubric you think is wrong and have to apply it anyway, which happens more than people expect. They also don't capture how much the job varies by what you're labeling: judging chatbot tone all day is a different job from checking translation accuracy, even though both post under the same title.",
+  "steps": [
+   {
+    "do": "Build a writing or judgment sample",
+    "how": "Put together three or four short pieces that show careful, consistent judgment: a rubric you wrote for something (even informally), an edited piece of writing with your reasoning noted, or a comparison of two pieces of text with your reasoning spelled out. This takes a weekend and is what stands in for a portfolio here."
+   },
+   {
+    "do": "Get comfortable with one language pair or domain",
+    "how": "Pick a specific strength, whether that's a second language at a C1 level, a technical field you know well, or teaching experience, since postings consistently ask for one of these over generic 'attention to detail.' This is background you likely already have; the step is naming it clearly on your application rather than building it from scratch."
+   },
+   {
+    "do": "Apply to project-based roles first",
+    "how": "Look for contract or project-based annotation work rather than holding out for a permanent title, since most hiring happens this way and it's the fastest way to get real rubric experience. Expect the first project to run a few weeks to a few months."
+   },
+   {
+    "do": "Get through one calibration cycle",
+    "how": "Your first project will involve at least one round where your ratings are compared against other annotators or a gold standard and you adjust. This usually happens in the first one to two weeks of a new project and is the actual qualifying moment, more than any application step."
+   },
+   {
+    "do": "Specialize once you have a track record",
+    "how": "After six months to a year, start choosing projects in a category you want to go deeper on (safety review, multilingual QA, technical documentation review) since that specialization is what routes cleanly into higher-paying adjacent roles like conversation design or research support."
+   }
+  ],
+  "tools": "The real gatekeeper skill on these postings is judgment with LLM output specifically and QA-style testing discipline, both showing up in a quarter of listings; the tools themselves (labeling platforms, spreadsheets, ticket queues) vary by employer and are usually taught on the job. Python and general data analysis show up often enough to matter for higher-paying roles, useful if you want to move toward the research or engineering side rather than staying purely in annotation. Translation, localization, and teaching backgrounds appear frequently too, reflecting how much of this work is language and communication judgment rather than software skill. The tooling is shifting toward prompt-engineering-adjacent work as more projects involve evaluating and refining model prompts rather than just scoring fixed outputs.",
+  "industries": [
+   {
+    "name": "AI labs and model developers",
+    "note": "The core of the market: fast-moving projects tied to model release cycles, with volume spikes and tight turnaround windows before a launch."
+   },
+   {
+    "name": "Localization and translation firms",
+    "note": "Steadier pace, work centers on language pairs and cultural accuracy rather than model behavior broadly."
+   },
+   {
+    "name": "EdTech and teaching-adjacent companies",
+    "note": "Draws directly on teaching backgrounds, annotation here often means grading model tutoring responses or curriculum-aligned content."
+   },
+   {
+    "name": "Enterprise software companies",
+    "note": "Smaller annotation teams supporting an internal AI feature, less specialized but often more stable hours."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Safety and factuality review",
+    "why": "Harder judgment calls that require more training and are harder to automate away, which keeps these roles higher-paid and more durable as general annotation gets more tooling around it."
+   },
+   {
+    "name": "Multilingual and localization QA",
+    "why": "Language pairs beyond English are consistently sought (German shows up specifically in current postings) and pay a premium for fluency plus judgment together."
+   },
+   {
+    "name": "Prompt and conversation evaluation",
+    "why": "Sits closest to prompt engineering and conversation design, both measured as strong next steps, and lets you move from judging output to shaping the input that produces it."
+   }
+  ],
+  "pros": [
+   "You see model behavior up close, months before most people encounter the shipped product, which makes the work feel current in a way a lot of tech jobs don't.",
+   "The path in doesn't require a specific degree, so people from teaching, translation, and writing backgrounds get a real foothold in AI work without retraining from scratch.",
+   "The moment a rubric you helped refine visibly improves a model's outputs is a concrete, checkable win, not an abstract one.",
+   "Remote work is the default rather than the exception, so location isn't a constraint on finding a good project."
+  ],
+  "cons": [
+   "The queue can get repetitive fast, especially on projects with narrow, high-volume categories rather than varied judgment calls.",
+   "Volume spikes ahead of model releases mean some weeks are genuinely heavier, with same-day turnaround expectations.",
+   "Contract and project-based hiring is common, so income and project continuity can be less steady than a standard salaried role.",
+   "Disagreeing with a rubric you think is flawed and having to apply it anyway is a real, recurring part of the job, not a rare exception."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a data annotator",
+    "a": "Most people start within weeks, since the median stated experience requirement is just one year and many postings don't require prior experience at all. The real ramp-up is the first project's calibration period, typically the first one to two weeks, where you align your judgment to the team's standard."
+   },
+   {
+    "q": "do you need a degree to be a data annotator",
+    "a": "Not always: a four-year degree is requested in most postings but is not universal, and where it's skipped, employers look for strong writing samples, language fluency, or direct experience in teaching, translation, or a technical field instead. A degree helps but isn't the gate that experience or language ability is."
+   },
+   {
+    "q": "is data annotation a good career right now",
+    "a": "It's a solid entry point into AI work, especially for people coming from teaching, translation, or writing rather than engineering, and it routes into higher-paying roles like conversation design or research support within twelve to twenty-four months. It's not a career to stand still in, since annotation work itself is contract-heavy and better treated as a stepping stone than a destination."
+   },
+   {
+    "q": "can data annotation be done remotely",
+    "a": "Yes, overwhelmingly: 91% of measured postings are remote, since the work only requires a laptop and a labeling platform, not physical presence anywhere. Some shift-based projects exist to cover round-the-clock model training pipelines, but even those are typically done from home."
+   },
+   {
+    "q": "data annotator vs QA tester, what's the difference",
+    "a": "A QA tester checks whether software behaves as designed and looks for bugs; a data annotator judges whether a model's output is good, which is a subjective call guided by a rubric rather than a pass or fail test. The two skills overlap enough that they show up together often in postings, but annotation leans more on language and judgment, QA more on process and reproducibility."
+   }
+  ]
+ }
+}

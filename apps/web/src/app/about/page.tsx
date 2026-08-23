@@ -10,35 +10,33 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
 };
 
-/* 1-bit pixel icons, System-7 spirit, drawn on a 16px grid. Original artwork,
-   currentColor, crisp edges. One per section, quiet. */
-const P = ({ d }: { d: string }) => (
-  <svg className="px-ico" viewBox="0 0 16 16" aria-hidden="true" shapeRendering="crispEdges">
-    <path d={d} fill="currentColor" />
-  </svg>
+/* Stroked section marks in the v2 icon language (lucide geometry, 1.75
+   stroke, currentColor). One per section, quiet. */
+const L = ({ children }: { children: React.ReactNode }) => (
+  <svg className="lu-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">{children}</svg>
 );
 const IconFolder = () => (
-  <P d="M1 3h5l1 2h8v1H1V3zm0 3h14v7H1V6z" />
+  <L><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" /><path d="m14.5 12.5 2-2" /><path d="m11.5 9.5 2-2" /><path d="m8.5 6.5 2-2" /><path d="m17.5 15.5 2-2" /></L>
 );
 const IconCompass = () => (
-  <P d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 1a6 6 0 110 12A6 6 0 018 2zm3 2l-2 5-3 2 2-5 3-2zM8 7a1 1 0 100 2 1 1 0 000-2z" />
+  <L><circle cx="12" cy="12" r="10" /><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36z" /></L>
 );
 const IconFloppy = () => (
-  <P d="M2 2h10l2 2v10H2V2zm2 1v3h7V3H4zm4 0v3h2V3H8zM4 9h8v4H4V9zm1 1v2h6v-2H5z" />
+  <L><rect width="8" height="8" x="3" y="3" rx="2" /><path d="M7 11v4a2 2 0 0 0 2 2h4" /><rect width="8" height="8" x="13" y="13" rx="2" /></L>
 );
 const IconPerson = () => (
-  <P d="M6 2h4v1h1v3h-1v1H6V6H5V3h1V2zm-2 7h8v1h1v4H3v-4h1V9z" />
+  <L><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></L>
 );
 const IconTrash = () => (
-  <P d="M6 1h4v1h4v1H2V2h4V1zM3 4h10v11H3V4zm2 2v7h1V6H5zm3 0v7h1V6H8zm3 0v7h1V6h-1z" />
+  <L><circle cx="12" cy="12" r="10" /><path d="m4.9 4.9 14.2 14.2" /></L>
 );
 const IconMail = () => (
-  <P d="M1 3h14v10H1V3zm1 1v1l6 4 6-4V4H2zm12 2l-6 4-6-4v6h12V6z" />
+  <L><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></L>
 );
 
 export default function About() {
   return (
-    <PageShell active="about">
+    <PageShell v2 active="about">
     <div className="about-page">
       <main className="ab-main">
         <div className="lbl acc" style={{ marginBottom: 18 }}>About</div>

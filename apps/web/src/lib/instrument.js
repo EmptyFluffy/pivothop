@@ -21,6 +21,17 @@ export function mountInstrument(DATA,HOOKS){
      label width is what the edge repulsion (non-negotiable #3) keeps text clear
      of — so the symptom would be text crossing wires, not anything font-shaped. */
   var GLYPH_W=0.6;
+  /* TYPOGRAPHIC MODE (the V2 landing, 2026-08-22): no wires, no dots — the
+     text IS the graph, sized by match strength (the routes cloud's curve,
+     in viewBox units). Physics, hit-testing and interactions are untouched:
+     edges and node circles still exist and simulate; CSS hides them under
+     .v2h only. Everything below gates on TYPO so any non-V2 mount renders
+     byte-identically to the tuned original. */
+  var TYPO=false;
+  function typoSize(match){
+    var m=Math.max(0,Math.min(100,match||0));
+    return 12+Math.pow(m/100,1.6)*34;  // match 40 -> ~19.9, 70 -> ~31.4, 90 -> ~40.7
+  }
   var LABEL_FONT='Instrument Sans, system-ui, sans-serif';
 
   function derive(){
@@ -41,10 +52,19 @@ export function mountInstrument(DATA,HOOKS){
     GNODES.forEach(function(n){
       var t=n.label;
       if(n.type==='you'){n.lblW=PILL_W;n.lblH=PILL_H;}
-      else if(n.type==='first'){n.lblW=Math.max(t.length*12.5*GLYPH_W,9*9.5*0.72)+8;n.lblH=30;}
-      else{n.lblW=t.length*10.5*GLYPH_W+8;n.lblH=16;}
+      else if(n.type==='first'){
+        n.fs=TYPO?typoSize(n.match):12.5;
+        n.lblW=Math.max(t.length*n.fs*GLYPH_W,9*(TYPO?n.fs*0.55:9.5)*0.72)+8;
+        n.lblH=TYPO?n.fs*1.76+8:30;
+      }
+      else{
+        n.fs=TYPO?Math.max(11,typoSize(n.match)*0.82):10.5;
+        n.lblW=t.length*n.fs*GLYPH_W+8;
+        n.lblH=TYPO?n.fs*1.52:16;
+      }
     });
   }
+  TYPO=!!document.querySelector('.v2h');
   derive();
   // Real board counts (re-displayable open roles per occupation) drive the
   // "open roles" stat and the search-bar CTA; fetched once, looked up by slug.
@@ -421,15 +441,20 @@ export function mountInstrument(DATA,HOOKS){
     SVG.innerHTML='';
     var edgesG=svgEl('g',{});
     GEDGES.forEach(function(e,i){
+      /* COLOR goes through CSS vars (inline style beats the attribute) so the
+         V2 landing themes the graph without touching build or physics; the
+         fallback hex is the original tuned palette, byte-identical anywhere
+         the vars are absent. State logic only ever writes opacities. */
       var stroke,sw,dash=null;
-      if(e.k==='primary'){stroke='#002FA6';sw=0.6+e.w*0.8;}
-      else if(e.k==='kid'){stroke='#4b60c9';sw=0.4+e.w*0.5;}
-      else if(e.k==='cross'){stroke='#b8b0a0';sw=0.35+e.w*0.4;}
-      else{stroke='#002FA6';sw=0.3+e.w*0.4;dash='2 3';}
-      var attrs={'class':'edge',x1:e.a.x,y1:e.a.y,x2:e.b.x,y2:e.b.y,stroke:stroke,
+      if(e.k==='primary'){stroke='var(--g-primary, #002FA6)';sw=0.6+e.w*0.8;}
+      else if(e.k==='kid'){stroke='var(--g-kid, #4b60c9)';sw=0.4+e.w*0.5;}
+      else if(e.k==='cross'){stroke='var(--g-cross, #b8b0a0)';sw=0.35+e.w*0.4;}
+      else{stroke='var(--g-primary, #002FA6)';sw=0.3+e.w*0.4;dash='2 3';}
+      var attrs={'class':'edge',x1:e.a.x,y1:e.a.y,x2:e.b.x,y2:e.b.y,
         'stroke-width':sw,'stroke-opacity':0.15,'stroke-linecap':'round','pointer-events':'none'};
       if(dash)attrs['stroke-dasharray']=dash;
       var line=svgEl('line',attrs);
+      line.style.stroke=stroke;
       edgesG.appendChild(line);el.edges[i]=line;
     });
     SVG.appendChild(edgesG);
@@ -438,23 +463,28 @@ export function mountInstrument(DATA,HOOKS){
     GNODES.forEach(function(n){
       if(n.type!=='first')return;
       var c=svgEl('circle',{'class':'node node-first','data-id':n.id,'data-type':'first',
-        'data-grabbable':'',cx:n.x,cy:n.y,r:nodeRadius(n),fill:'#002FA6',opacity:1});
+        'data-grabbable':'',cx:n.x,cy:n.y,r:nodeRadius(n),opacity:1});
+      c.style.fill='var(--g-primary, #002FA6)';
       nodesG.appendChild(c);el.firstNodes[n.id]=c;
     });
     GNODES.forEach(function(n){
       if(n.type!=='kid')return;
       var c=svgEl('circle',{'class':'node node-kid','data-id':n.id,'data-type':'kid',
-        'data-grabbable':'',cx:n.x,cy:n.y,r:2.8,fill:'#15151a',opacity:1});
+        'data-grabbable':'',cx:n.x,cy:n.y,r:2.8,opacity:1});
+      c.style.fill='var(--g-ink, #15151a)';
       nodesG.appendChild(c);el.kidNodes[n.id]=c;
     });
     var you=NODE_BY_ID['you'];
     var youG=svgEl('g',{'class':'you-mark','data-id':'you'});
     /* Paper-colored knockout so edges terminating at center don't
        visually pass through the wordmark. Type is the mark. */
-    youG.appendChild(svgEl('rect',{x:you.x-52,y:you.y-11,width:104,height:22,
-      fill:'#faf9f5',stroke:'none','pointer-events':'none'}));
+    var knock=svgEl('rect',{x:you.x-52,y:you.y-11,width:104,height:22,
+      stroke:'none','pointer-events':'none'});
+    knock.style.fill='var(--g-halo, #faf9f5)';
+    youG.appendChild(knock);
     var pt=svgEl('text',{x:you.x,y:you.y+5,'text-anchor':'middle','font-family':LABEL_FONT,
-      'font-size':15,'letter-spacing':1.8,'font-weight':700,fill:'#15151a','pointer-events':'none'});
+      'font-size':15,'letter-spacing':1.8,'font-weight':700,'pointer-events':'none'});
+    pt.style.fill='var(--g-ink, #15151a)';
     pt.textContent=(you.label||'').toUpperCase();
     youG.appendChild(pt);
     nodesG.appendChild(youG);
@@ -476,16 +506,20 @@ export function mountInstrument(DATA,HOOKS){
     GNODES.forEach(function(n){
       if(n.type==='you')return;
       var g=svgEl('g',{'class':'label-grp','data-id':n.id,opacity:n.type==='first'?1:0,'pointer-events':'none'});
-      var leader=svgEl('line',{'class':'leader',stroke:'#b8b0a0','stroke-width':0.5,'stroke-opacity':0.75,x1:0,y1:0,x2:0,y2:0});
+      var leader=svgEl('line',{'class':'leader','stroke-width':0.5,'stroke-opacity':0.75,x1:0,y1:0,x2:0,y2:0});
+      leader.style.stroke='var(--g-cross, #b8b0a0)';
       g.appendChild(leader);
       if(n.type==='first'){
-        var name=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':500,'font-size':12.5,fill:'#15151a',x:0,y:0});
+        var name=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':TYPO?600:500,'font-size':n.fs||12.5,x:0,y:0});
+        name.style.fill='var(--g-ink, #15151a)';
         name.textContent=n.label;g.appendChild(name);
-        var match=svgEl('text',{'text-anchor':'middle','font-family':'Space Mono','font-size':9.5,'letter-spacing':1,fill:'#8a8a93',x:0,y:0});
+        var match=svgEl('text',{'text-anchor':'middle','font-family':'Chivo Mono, monospace','font-size':TYPO?(n.fs*0.5):9.5,'letter-spacing':1,x:0,y:0});
+        match.style.fill='var(--g-ink3, #8a8a93)';
         match.textContent=n.match+'% MATCH';g.appendChild(match);
         el.labelTexts[n.id]={name:name,match:match};
       }else{
-        var name2=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':400,'font-size':10.5,fill:'#56565e',x:0,y:0});
+        var name2=svgEl('text',{'text-anchor':'middle','font-family':LABEL_FONT,'font-weight':TYPO?500:400,'font-size':n.fs||10.5,x:0,y:0});
+        name2.style.fill='var(--g-ink2, #56565e)';
         name2.textContent=n.label;g.appendChild(name2);
         el.labelTexts[n.id]={name:name2};
       }
@@ -542,10 +576,11 @@ export function mountInstrument(DATA,HOOKS){
       leader.setAttribute('x2',endX);leader.setAttribute('y2',endY);
       var texts=el.labelTexts[n.id];
       if(n.type==='first'){
-        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly-3);
-        texts.match.setAttribute('x',n.lx);texts.match.setAttribute('y',n.ly+11);
+        var fs1=n.fs||12.5;
+        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly-(TYPO?fs1*0.24:3));
+        texts.match.setAttribute('x',n.lx);texts.match.setAttribute('y',n.ly+(TYPO?fs1*0.88:11));
       }else{
-        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly+3.5);
+        texts.name.setAttribute('x',n.lx);texts.name.setAttribute('y',n.ly+(TYPO?(n.fs||10.5)*0.33:3.5));
       }
     });
   }

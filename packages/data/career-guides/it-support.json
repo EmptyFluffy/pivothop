@@ -1,0 +1,106 @@
+{
+ "slug": "it-support",
+ "title": "IT Support Specialist",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "IT support specialists are the people who pick up when a login fails or a laptop won't image, and they either fix it in the first call or route it to someone who can. The role sits closer to customer service than people expect: 47% of postings name it directly, more than any technical skill listed. What separates this from systems administration is scope. A sysadmin owns the servers; support owns the ticket queue and the person on the other end of it.",
+  "day_to_day": "The week runs on a ticketing system (Jira shows up in 12% of postings, though plenty of shops run Zendesk or ServiceNow instead), and most days start by triaging whatever came in overnight. You're on calls or chat a good chunk of the day, walking someone through a password reset or explaining why the VPN dropped, and the rest is heads-down: patching, provisioning new laptops, writing up a knowledge base article so the next person doesn't have to ask. Roughly half the week is direct contact with users, the other half is solo troubleshooting or documentation. The satisfying part is the ticket that's been open for three days finally closing, especially if it turned out to be something dumb (a cable, a setting nobody checked). Fridays tend to be lighter, which is when people catch up on the scripts and shortcuts that make next week's version of this easier.",
+  "work_environment": "Most of this happens in an office or a hybrid setup near the people you're supporting, which is part of why remote share sits at 24%, lower than a lot of tech roles. Hands-on hardware work (swapping a drive, setting up a conference room system) still requires someone physically present, and a lot of shops want support staff visible for walk-ups. Hours are standard business hours unless you're on a rotation that covers off-hours outages, and a bad week usually means a system-wide issue landing right before a deadline or during a product launch, when the ticket volume triples. It's a desk job with interruptions built in by design.",
+  "getting_in": "Most postings don't demand a specific track: the experience median is just 1 year, and 44% of listings state a requirement at all, meaning plenty don't. Education requirements appear in 116 postings, but 21 waive them outright, and employers accepting the waiver usually want a CompTIA A+ or Network+ certification instead (each roughly 1-3 months of study) or a portfolio of home-lab work. The longest stretch is usually the first job itself, since entry-level support roles want at least six months of some kind of hands-on troubleshooting, even unpaid or informal. People stall not on skills but on getting past the applicant tracking system with no title on their resume yet; a help desk contract role or IT volunteer gig at a nonprofit is the common way through.",
+  "ladder": "The jump from tier-1 to tier-2 support is mostly about what you're trusted to touch without asking first: network configs, server access, security tooling. First real step up usually means owning an area (identity management, endpoint security) rather than just closing tickets faster. Around the two-year mark the ladder splits: one path goes toward systems administration or network engineering, hands-on and deeper into infrastructure, the other toward team lead and eventually IT management, which is less about the machines and more about staffing the queue. Cybersecurity is also a live branch, since 22% of postings already ask for it.",
+  "suits": "People who like this job tend to like puzzles with a person attached to them, the kind where you're diagnosing a problem and managing someone's stress about it at the same time. The good day is the one where a frustrated user hangs up calm, or where you write a fix into the knowledge base and watch the same ticket type stop coming in. People who leave usually wanted to work on systems, not with people, and found the constant context-switching between tickets wearing rather than energizing; they're often happier once they land in something like network engineering where the work is more heads-down.",
+  "misconceptions": "People assume this is just tech-savviness, that anyone good with computers at home could do it. The real skill is explaining a fix to someone who doesn't want a lesson, just their email working again, which is closer to teaching than to engineering. Another one: that it's a dead-end job. The postings show clear routes out into network engineering, QA, and technical writing within twelve to twenty-four months, so it functions more as a launching point than a ceiling.",
+  "who_qualifies": "Customer support specialists carry over the most (38% match): the patience and phone manner transfer directly, though they'll need to build the technical vocabulary from scratch. Systems administrators and DevOps engineers moving into IT support (34% and 35% match) usually take a pay cut for a role with heavier user contact than they're used to, trading depth for breadth. Security engineers and penetration testers occasionally move in during a career reset, bringing sharper technical instincts than the role strictly requires.",
+  "what_the_numbers_miss": "The postings can't tell you how much of the job is tone of voice, staying level when someone's yelling about a printer. They also don't capture the shop-specific tooling: a hospital's IT desk and a fintech startup's desk look nothing alike day to day, even if both list the same skills.",
+  "steps": [
+   {
+    "do": "Build a home lab or volunteer setup",
+    "how": "Set up a small network, a couple of virtual machines, maybe a Linux server, and break things on purpose so you have to fix them. Takes 4-6 weeks of evenings. You're done when you can explain, out loud, what happened and why, not just that you fixed it."
+   },
+   {
+    "do": "Get CompTIA A+ certified",
+    "how": "Two exams, roughly 1-3 months of study depending on your starting point, and it's the credential employers most often accept in place of a degree (21% of postings waive education entirely). Study guides and practice exams from CompTIA's own materials are enough; you don't need a bootcamp for this one."
+   },
+   {
+    "do": "Take any hands-on tech role first",
+    "how": "A retail Geek Squad job, a campus IT desk, a contract help-desk gig, anything that puts you on tickets. This is the step people skip and then stall on; six months here is worth more on a resume than another certification."
+   },
+   {
+    "do": "Apply directly to tier-1 support openings",
+    "how": "With a cert and some hands-on time, target postings that list under 2 years experience (the median asked is 1). Expect the process to include a practical troubleshooting test, not just an interview; know how to talk through your reasoning out loud."
+   },
+   {
+    "do": "Pick a technical specialty within the first year",
+    "how": "Once you're in, start leaning toward networking, security, or scripting depending on what you like fixing most. This is what sets up the move to systems administration or network engineering at the 12-24 month mark rather than staying in tier-1 indefinitely."
+   }
+  ],
+  "tools": "Ticketing systems (Jira and its competitors) and a customer service instinct are the real gatekeepers since they show up in nearly half of postings. Linux (20%) and SQL (17%) come next and matter more the further you get from pure help-desk work; cloud platforms like Azure (14%) and basic Python (16%) are increasingly expected for anyone touching cloud-hosted systems. The direction of hiring is clearly toward some scripting ability, since manual repetitive fixes are the first thing automated away.",
+  "industries": [
+   {
+    "name": "Corporate IT (finance, professional services)",
+    "note": "Structured ticket queues, defined SLAs, and a lot of onboarding/offboarding work as headcount changes."
+   },
+   {
+    "name": "Healthcare systems",
+    "note": "Higher stakes around uptime (a broken workstation can delay patient care) and heavier compliance requirements around data access."
+   },
+   {
+    "name": "SaaS and tech companies",
+    "note": "Often blends into internal tooling support, higher remote share, and closer contact with engineering teams when something breaks upstream."
+   },
+   {
+    "name": "Managed service providers (MSPs)",
+    "note": "You support multiple client companies at once, which means more variety but less depth in any one environment."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "IT security support",
+    "why": "22% of postings already ask for cybersecurity skills, and companies are pushing basic security triage (phishing reports, endpoint alerts) down to the support tier rather than escalating everything."
+   },
+   {
+    "name": "Cloud platform support (Azure/AWS)",
+    "why": "As more infrastructure moves off-prem, support roles that can troubleshoot cloud identity and access issues (not just local hardware) are increasingly separated out and paid at the higher end of the range."
+   },
+   {
+    "name": "Technical documentation and knowledge base ownership",
+    "why": "16% of postings ask for technical writing, and someone who's good at turning recurring tickets into clear self-serve articles becomes the person who reduces the whole team's ticket volume, which gets noticed."
+   }
+  ],
+  "pros": [
+   "There's a clean, visible win almost every day: the ticket closes, the person can log in, the printer works, and you know immediately whether you did your job.",
+   "It's one of the few technical roles that takes people with a year or less of experience and no degree, so the door is genuinely open.",
+   "The variety keeps it from getting stale; you might fix a printer at 10am and untangle a VPN routing issue at 2pm.",
+   "The routes out are real and fast: twelve to twenty-four months of solid tier-1 work opens doors to network engineering, security, or systems administration at meaningfully higher pay."
+  ],
+  "cons": [
+   "The interruptions never stop, so deep focus work has to happen in the gaps between tickets, which some people find hard to plan around.",
+   "You take the emotional weight of other people's bad days (a crashed laptop right before a deadline) even when the fix itself is simple.",
+   "Pay at the entry level is modest ($63k at the 25th percentile) and the jump to real money mostly happens after you move into a specialized or senior role.",
+   "Remote options are limited compared to other tech work (24% here versus higher in adjacent roles), since a lot of employers still want support staff on-site for hardware issues."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become an IT support specialist",
+    "a": "Most people are hired within 3-6 months of starting, since a CompTIA A+ certification takes 1-3 months and the median experience employers ask for is just 1 year. The slower part is usually landing that first hands-on role, since some ticket-handling experience (even informal) makes the difference in getting past initial screening."
+   },
+   {
+    "q": "do you need a degree to work in IT support",
+    "a": "No, not for most postings: 21% waive education requirements outright, and a CompTIA A+ certification is commonly accepted instead. Where a degree is preferred rather than required, it's usually a general nod to a computer science or IT background rather than a hard requirement."
+   },
+   {
+    "q": "can IT support be done remotely",
+    "a": "Sometimes, but it's less common than in other tech roles: only 24% of postings are remote. Hardware troubleshooting and walk-up support tend to keep the role tied to an office or site, though software-only support desks (especially at SaaS companies) skew more remote-friendly."
+   },
+   {
+    "q": "IT support specialist vs help desk technician, what's the difference",
+    "a": "In practice, they're often the same job with different titles, though 'help desk' sometimes implies a narrower, more scripted tier-1 role. 'IT support specialist' postings more often expect broader troubleshooting (Linux, SQL, some security work) rather than following a fixed script."
+   },
+   {
+    "q": "is IT support a good career or just a stepping stone",
+    "a": "Both, honestly: plenty of people build a full career in it, but the numbers also show it functions well as a launch point, with clear 12-24 month routes into network engineering, systems administration, or security at higher pay. Whether it's a stepping stone or a destination depends mostly on whether you want to stay close to users or move deeper into infrastructure."
+   }
+  ]
+ }
+}

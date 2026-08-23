@@ -10,6 +10,8 @@ export type ListingSection = { h: string | null; parts: ListingPart[] };
 export type Listing = {
   applyUrl: string | null;
   skills: { term: string; href: string }[];
+  benefits: { slug: string; term: string }[];
+  gates: { key: string; label: string; value: string }[];
   sections: ListingSection[];
 };
 
@@ -31,6 +33,15 @@ export async function loadListing(occ: string, id: string): Promise<Listing | nu
       term: a.textContent?.trim() ?? '',
       href: a.getAttribute('href') ?? '#',
     })).filter((s) => s.term);
+    const gates = Array.from(doc.querySelectorAll('.jd-gates [data-gate]')).map((el) => ({
+      key: el.getAttribute('data-gate') ?? '',
+      label: el.querySelector('.k')?.textContent?.trim() ?? '',
+      value: el.querySelector('.v')?.textContent?.trim() ?? '',
+    })).filter((g) => g.key && g.value);
+    const benefits = Array.from(doc.querySelectorAll('.jd-benefits .jd-benefit')).map((el) => ({
+      slug: el.getAttribute('data-benefit') ?? '',
+      term: (el.textContent ?? '').trim(),
+    })).filter((b) => b.slug && b.term);
     const sections: ListingSection[] = Array.from(doc.querySelectorAll('.jd-desc .jd-sec')).map((sec) => {
       const parts: ListingPart[] = [];
       let ul: string[] | null = null;
@@ -72,7 +83,7 @@ export async function loadListing(occ: string, id: string): Promise<Listing | nu
       flush();
       return { h: sec.querySelector('.jd-h3')?.textContent?.trim() ?? null, parts };
     }).filter((s) => s.parts.length);
-    const out = { applyUrl, skills, sections };
+    const out = { applyUrl, skills, benefits, gates, sections };
     cache.set(key, out);
     return out;
   } catch {

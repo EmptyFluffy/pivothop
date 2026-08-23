@@ -82,7 +82,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
     .sort((a, b2) => (a.isUS ? -1 : b2.isUS ? 1 : b2.p50 - a.p50));
 
   return (
-    <PageShell>
+    <PageShell v2 active="salaries">
       <div className="rtp salp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><span>{f.title}</span>
@@ -121,7 +121,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           {def.editorial}
         </section>
 
-        <JobsList occ={occ} />
+        <JobsList occ={occ} v2 />
 
         {seniority.length >= 2 && (
           <section className="rt-sec">
@@ -145,9 +145,15 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         {countries.length >= 2 && (
           <section className="rt-sec">
             <h2>By country</h2>
-            <ul className="rt-rel sal-countries">
+            <div className="sal-cthead" aria-hidden="true"><span>Country</span><span>P25</span><span>Median</span><span>P75</span></div>
+            <ul className="sal-ctable">
               {countries.map((c) => (
-                <li key={c.code}><span>{COUNTRY_NAMES[c.code] || c.code}</span><span className="lbl">{fmt(c.band!.p25)} &ndash; {fmt(c.band!.p75)} &middot; median {fmt(c.band!.p50)}</span></li>
+                <li key={c.code}>
+                  <span className="c">{COUNTRY_NAMES[c.code] || c.code}</span>
+                  <span className="n">{fmt(c.band!.p25)}</span>
+                  <span className="n m">{fmt(c.band!.p50)}</span>
+                  <span className="n">{fmt(c.band!.p75)}</span>
+                </li>
               ))}
             </ul>
           </section>
@@ -193,9 +199,9 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
           <section className="rt-sec">
             <h2>Top-paying US states</h2>
             <p className="rt-note">OEWS median by state, highest first.</p>
-            <ul className="rt-rel sal-countries">
+            <ul className="sal-states">
               {states.map((s) => (
-                <li key={s.code}><span>{US_STATE_NAMES[s.code] || s.code}</span><span className="lbl">median {fmt(s.band!.p50)}</span></li>
+                <li key={s.code}><span className="c">{US_STATE_NAMES[s.code] || s.code}</span><span className="n">{fmt(s.band!.p50)}</span></li>
               ))}
             </ul>
           </section>
@@ -248,7 +254,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
             <h2>Is your offer fair?</h2>
             <p>Run a specific number through FairElephant, which weighs it against this data, your location, and remote market rates.</p>
           </div>
-          <Link className="rt-go" href={`/fairelephant?role=${occ}`}>Check an offer &rarr;</Link>
+          <Link className="rt-go" href={`/salary/calculator?role=${occ}`}>Check an offer &rarr;</Link>
         </section>
 
         {def.routes.filter((r) => routableSlugs().includes(r)).length > 0 && (

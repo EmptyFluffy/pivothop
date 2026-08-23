@@ -24,7 +24,7 @@ export default function CompareHub() {
   const groups = [...byField.entries()].sort((a, b) => b[1].length - a[1].length);
 
   return (
-    <PageShell>
+    <PageShell v2>
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Compare</span></nav>
         <h1 className="rt-h1">Careers, compared.</h1>

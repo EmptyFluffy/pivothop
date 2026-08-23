@@ -1,0 +1,106 @@
+{
+ "slug": "electrical-engineer",
+ "title": "Electrical Engineer",
+ "model": "claude-sonnet-5",
+ "generated": "2026-08-21",
+ "prose": {
+  "summary": "An electrical engineer designs the systems that move power and signal through a building, a machine, or a product, then makes sure the drawings match what gets built. The role people confuse it with is the MEP engineer, but MEP treats electrical as one of three coordinated systems alongside mechanical and plumbing, while a dedicated electrical role owns the panel schedules, load calcs, and single-line diagrams outright. Most postings here run on SAP as the backbone system of record, which tells you this is as much about tracking and documenting as it is about circuits.",
+  "day_to_day": "A typical week has you moving between SAP for equipment and change data, AutoCAD or Revit for the drawings themselves, and a set of markups that come back from a contractor or a reviewer with questions you have to answer by Thursday. You will spend a couple of hours in a coordination meeting where mechanical, structural, and electrical scopes get reconciled on screen, and the rest of the week is heads-down: sizing conductors, checking a panel schedule against a load calc, redlining a set before it goes out for permit. Roughly half the week is solo drafting and calculation, the other half is meetings, RFIs, and site questions routed through email or a project portal. The moment people wait for is when a contractor builds exactly what you drew and the inspection passes clean on the first walk, no punch list, no rework. There is a real satisfaction in watching a one-line diagram you built from scratch become a breaker panel someone can open and read. The rest of the week is the price of getting there.",
+  "work_environment": "Most of this work happens in an office in front of two monitors, one running the CAD software and one running everything else, with periodic trips to a site or a shop floor to check as-built conditions against the drawing set. Remote share sits at 8 percent, low because half the job is checking your design against something physical: conduit routing in a ceiling, a panel that got installed six inches off from the plan, a contractor who wants to talk through a change order in person. Deadlines cluster around permit submissions and construction milestones, and a bad week is one where a submittal deadline and a site visit land on the same two days. Hours are steady outside of those crunches, closer to standard business hours than the on-call rhythm of, say, a controls engineer.",
+  "getting_in": "The standard route is an ABET-accredited engineering degree, which shows up as required in the large majority of postings, followed by the FE exam and roughly four years working under a licensed engineer before you can sit for the PE. The experience clock is the actual bottleneck, not the exams themselves: four to six years typically pass between graduation and licensure, and most of that is just accruing supervised hours on real projects. People stall less on the exams and more on finding a firm willing to give them signing-adjacent work early, since the four years have to be under someone already licensed. A meaningful share of postings waive the degree requirement outright, and in those cases employers are looking at years of hands-on electrical systems work, often through a trade or technician path, in place of the diploma. Licensure itself only matters if you want to stamp drawings; plenty of product and coordination seats hire unlicensed engineers for the entire span of a career.",
+  "ladder": "Early on you own pieces of a design: a panel schedule, a lighting layout, a load calc someone else checks. The first real step up is when you start signing off on your own coordination decisions without a senior engineer reviewing every line, which usually tracks with getting your PE or with three-plus years of unlicensed but trusted output. After that the ladder forks: one path stays technical and takes on more complex or larger-scale systems (a hospital instead of a strip mall), the other moves into managing a team of drafters and junior engineers and spends more time in coordination meetings than in the drawing itself. That fork tends to show up somewhere around year five to eight, once you have enough completed projects that people start asking whether you want to run them or keep drawing them.",
+  "suits": "People who come alive here are the ones who like the moment a drawing survives contact with a contractor: the panel gets installed the way it was drawn, the inspector signs off, and there is a specific, checkable reason it worked. If you like problems with a right answer that you can verify against a code book, this fits. People who leave usually wanted more variety in what they were solving day to day, or found the review cycles (drawing, redline, re-drawing, resubmit) slower and more repetitive than they expected from an engineering title. If you want to build something new every quarter, this is probably not it; most of the work is applying a known method carefully to a new building or product, not inventing the method.",
+  "misconceptions": "Outsiders assume the PE license is required to work as an electrical engineer at all, when in practice most of the roles measured here hire unlicensed engineers for product design, coordination, and drafting work, and only require the stamp for the person taking responsible charge. Another one: people think the job is mostly circuits and math, but a large share of the actual week is document control and coordination, tracking revisions in SAP and making sure five different consultants are working from the same version of a drawing.",
+  "who_qualifies": "MEP engineers carry the highest overlap, since they already do electrical scope as part of a broader coordination role and mostly need to narrow focus rather than learn new skills. BIM managers and architectural drafters bring the Revit and AutoCAD fluency but usually need to build up the calculation side, load calcs, panel sizing, code compliance, that a pure drafting role does not require. Mechanical and structural engineers carry over the coordination habits and the comfort with a stamped drawing set, but need to pick up electrical-specific codes and software conventions from scratch.",
+  "what_the_numbers_miss": "The postings can tell you SAP shows up in half the listings, but they cannot tell you whether a given firm's SAP instance is a clean, well-maintained system or a decade of undocumented workarounds someone has to reverse-engineer. They also do not capture how much of the job is chasing down a subcontractor's as-built drawings that were never quite as-built.",
+  "steps": [
+   {
+    "do": "Finish an ABET-accredited engineering degree",
+    "how": "This is the standard entry credential and shows up as required in the large majority of postings. It typically takes four years and includes circuits, electromagnetics, and a senior design project you can point to later as your first real work sample."
+   },
+   {
+    "do": "Pass the FE exam before or at graduation",
+    "how": "The Fundamentals of Engineering exam is the first of the two licensure exams and most people sit for it in their final year of school while the coursework is still fresh. Passing it makes you an EIT (engineer in training), which is what most entry-level electrical postings expect even before you have work experience."
+   },
+   {
+    "do": "Work under a licensed engineer for four years",
+    "how": "This is the actual bottleneck in the path: roughly four years of documented experience under a PE, doing real design work you can log hour by hour. Look for firms doing panel design, load calcs, or coordination sets, since that is what will count toward your license application later."
+   },
+   {
+    "do": "Sit the PE exam in your discipline",
+    "how": "Taken through NCEES once your four years are logged, this is discipline-specific to electrical and covers the calculations and code knowledge you have been applying on the job. Passing it lets you sign and seal drawings, which is what most senior electrical postings require."
+   },
+   {
+    "do": "Build a set of stamped or near-stamped drawings",
+    "how": "Assemble two or three complete project sets (a one-line diagram, a panel schedule, a lighting plan) that went from design through construction, ideally with the as-built photos to match. This is what a hiring manager looks at, more than the resume line about the degree."
+   }
+  ],
+  "tools": "SAP is the real gatekeeper here, showing up in roughly half of postings as the system for tracking equipment, change orders, and documentation, so fluency with it matters more to hiring than any single design tool. AutoCAD and Revit are the drawing environments you will live in day to day, and FEA software comes up when the role touches thermal or structural load work on top of pure electrical design. Python shows up in a smaller but growing share of postings, mostly for automating repetitive calculations rather than replacing the design work itself.",
+  "industries": [
+   {
+    "name": "Building and construction (MEP-adjacent)",
+    "note": "Panel schedules, lighting layouts, and coordination with mechanical and structural trades on a fixed permit timeline. This is the largest and most standardized slice of the work."
+   },
+   {
+    "name": "Manufacturing and industrial equipment",
+    "note": "Design work here is closer to product electrical systems: wiring harnesses, control panels, prototyping cycles that move faster than a building permit schedule."
+   },
+   {
+    "name": "Utilities and power systems",
+    "note": "Larger-scale distribution and grid-adjacent work, often more regulated and slower-moving, with heavier emphasis on code compliance and long project timelines."
+   },
+   {
+    "name": "Consulting engineering firms",
+    "note": "You touch a wider variety of building types and clients than an in-house role, at the cost of less continuity on any single project."
+   }
+  ],
+  "specializations": [
+   {
+    "name": "Building envelope and energy systems",
+    "why": "This pays well relative to standard electrical design work and is being pulled by tightening energy codes; firms need people who can integrate electrical load reduction with a building's overall envelope performance."
+   },
+   {
+    "name": "Power systems and grid interconnection",
+    "why": "Utility-scale and distributed generation projects need engineers who can handle interconnection studies and protection coordination, a narrower skill set than general building electrical."
+   },
+   {
+    "name": "Controls and automation integration",
+    "why": "Overlaps with the python and system-design skills showing up in postings, and manufacturing employers are actively hiring for people who can bridge electrical design with programmable control systems."
+   }
+  ],
+  "pros": [
+   "There is a clean, checkable end state to most projects: the drawing either matches what got built or it does not, and you find out for certain.",
+   "The unlicensed path is genuinely open here, so you can do real design work for years before deciding whether the PE is worth pursuing.",
+   "The skill set (load calcs, coordination, code compliance) transfers cleanly into adjacent roles like MEP or building envelope consulting if you want a change without starting over.",
+   "Panel schedules and one-line diagrams are durable artifacts; a building you designed the electrical for will still be running on your work fifteen years later."
+  ],
+  "cons": [
+   "The four-year experience clock toward licensure is fixed and cannot be shortened by working harder or taking more exams.",
+   "A lot of the week is document control and revision tracking in SAP, not the calculation work that drew people to engineering in the first place.",
+   "Coordination meetings with mechanical and structural teams can eat a full day, and scheduling them around three other disciplines is its own recurring headache.",
+   "Remote work is genuinely limited on this role, since checking a design against physical, as-built conditions is a real part of the job, not a formality."
+  ],
+  "faq": [
+   {
+    "q": "how long does it take to become a licensed electrical engineer",
+    "a": "Typically four to six years from graduation to PE license, and the limiting factor is the roughly four years of required supervised experience, not the exams themselves. The FE exam is usually passed around graduation, and the PE exam comes after the experience requirement is met."
+   },
+   {
+    "q": "can you be an electrical engineer without a degree",
+    "a": "A small share of postings waive the degree requirement, usually in favor of substantial hands-on electrical systems experience through a technician or trade path. The large majority still list an ABET-accredited degree as required, and licensure (the PE) always requires one."
+   },
+   {
+    "q": "electrical engineer vs mep engineer, what's the difference",
+    "a": "An MEP engineer coordinates mechanical, electrical, and plumbing systems together on a single project, while a dedicated electrical engineer owns the electrical scope in depth: panel schedules, load calcs, single-line diagrams. MEP roles show the highest overlap with electrical engineering of any measured route, so moving between them is common and fast."
+   },
+   {
+    "q": "do you need a pe license to work as an electrical engineer",
+    "a": "No, not for most roles: the PE only gates responsible charge, meaning who is legally allowed to sign and seal drawings. Plenty of product design and coordination seats hire unlicensed engineers for an entire career, and the license only becomes necessary if you want to stamp your own work."
+   },
+   {
+    "q": "can electrical engineering be done remotely",
+    "a": "Rarely, at 8 percent of postings, because a real part of the job is checking a design against physical, as-built conditions on site. Drafting and calculation work can happen from anywhere, but coordination meetings and site visits pull most roles back into an office or onto a job site."
+   }
+  ]
+ }
+}

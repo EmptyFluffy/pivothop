@@ -18,10 +18,11 @@ export default function GlossaryTabs({ tabs, sourceIds }: { tabs: Tab[]; sourceI
     const fromHash = () => {
       const h = decodeURIComponent(window.location.hash.slice(1));
       if (!h) return;
-      if (h === 'skills' || h.startsWith('skill-')) setActive(2);
+      if (h === 'benefits' || h.startsWith('benefit-')) setActive(3);
+      else if (h === 'skills' || h.startsWith('skill-')) setActive(2);
       else if (h === 'sources' || sourceIds.includes(h)) setActive(1);
       else setActive(0);
-      if (h !== 'terms' && h !== 'sources' && h !== 'skills') setTarget(h);
+      if (!['terms', 'sources', 'skills', 'benefits'].includes(h)) setTarget(h);
     };
     fromHash();
     window.addEventListener('hashchange', fromHash);
