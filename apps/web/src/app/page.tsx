@@ -6,6 +6,7 @@ import { allCategories, categoryJobs, getCategory } from './jobs/categories-data
 import { getJobs } from './jobs/jobs-data';
 import { salaryLabel, companyInitial, monoTint, type Job } from './jobs/JobCard';
 import { routableSlugs } from './routes/routes-data';
+import LandingSearch from './components/LandingSearch';
 
 /* The front door (2026-08-22, research-backed): a server-rendered product
    landing, not the instrument. Zero of twelve audited winners lead with a
@@ -35,8 +36,16 @@ export default function Home() {
   // links — the crawl path into the programmatic tier (finding 4 of the SEO
   // sweep: ship 10–20 links into pSEO, not just one link to /jobs).
   const cats = allCategories();
-  // seven, not fourteen: the trending row reads as one quiet line
-  const trending = [...cats].sort((a, b) => b.count - a.count).slice(0, 7);
+  // five pills, titles only — the trending row is an appetizer, not a menu
+  const trending = [...cats].sort((a, b) => b.count - a.count).slice(0, 5);
+  // dropdown feeds: occupations by live volume; countries from the category tier
+  const roles = occList()
+    .map((o) => ({ t: o.title, slug: o.slug, n: idx[o.slug] ?? 0 }))
+    .sort((a, b) => b.n - a.n)
+    .map(({ t, slug }) => ({ t, slug }));
+  const locations = ['Remote', ...cats.filter((c) => c.kind === 'country')
+    .sort((a, b) => b.count - a.count)
+    .map((c) => c.title.replace(/^Jobs in (the )?/, ''))];
 
   // The Wellfound move, on our data: a few live cards per interesting
   // category (never "senior jobs"). Freshest first, salary-and-logo-carrying
@@ -78,33 +87,13 @@ export default function Home() {
         </section>
 
         {/* the real search, centered: one action from the front door into the board */}
+        {/* the real search, centered: hybrid cells (type or pick) */}
         <section className="lp-searchband">
-          <form className="lp-search" action="/jobs" method="get" role="search" aria-label="Search the job board">
-            <label className="lp-sfield">
-              <svg className="lp-fico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M16 16l5 5" /></svg>
-              <span className="lp-fwrap">
-                <span className="l">Role, company, or skill</span>
-                <input type="text" name="q" placeholder="Architect, Python, Philips…" autoComplete="off" />
-              </span>
-            </label>
-            <span className="lp-sdiv" aria-hidden="true" />
-            <label className="lp-sfield lp-sloc">
-              <svg className="lp-fico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
-              <span className="lp-fwrap">
-                <span className="l">Location</span>
-                <input type="text" name="loc" placeholder="Anywhere" autoComplete="off" />
-              </span>
-            </label>
-            <button className="lp-go" type="submit">
-              Search {total.toLocaleString()} roles
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-            </button>
-          </form>
+          <LandingSearch total={total} roles={roles} locations={locations} />
 
           <nav className="lp-trend" aria-label="Popular searches">
-            <span className="lbl">Trending</span>
             {trending.map((c) => (
-              <Link key={c.slug} href={`/jobs/${c.slug}`}>{c.title} <span className="lp-n">{c.count.toLocaleString()}</span></Link>
+              <Link key={c.slug} className="lp-pill" href={`/jobs/${c.slug}`}>{c.title}</Link>
             ))}
             <Link className="lp-all" href="/jobs/browse">All {cats.length.toLocaleString()} searches &rarr;</Link>
           </nav>

@@ -47,6 +47,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [f, setF] = useState<Filters>(EMPTY);
   const [sort, setSort] = useState<'new' | 'pay'>('new');
   const [locQ, setLocQ] = useState('');       // the search unit's Location cell
+  const [locOpen, setLocOpen] = useState(false);
+  const [locIdx, setLocIdx] = useState(-1);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
   const [skills, setSkills] = useState<SkillEntry[] | null>(null);     // the glossary: skill -> occupations it unlocks
@@ -576,17 +578,47 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             ))}
           </div>
         )}
-        {v2 && (
-          <input
-            className="jb-locin"
-            type="search"
-            value={locQ}
-            onChange={(e) => setLocQ(e.target.value)}
-            placeholder="Location"
-            aria-label="Filter by location"
-            autoComplete="off"
-          />
-        )}
+        {v2 && (() => {
+          const locOpts = ['Remote', ...countries.map((c) => countryName(c.code))]
+            .filter((n) => !locQ.trim() || n.toLowerCase().includes(locQ.trim().toLowerCase()))
+            .slice(0, 8);
+          return (
+            <span className="jb-locwrap">
+              <svg className="jb-locico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+              <input
+                className="jb-locin"
+                type="search"
+                value={locQ}
+                onChange={(e) => { setLocQ(e.target.value); setLocOpen(true); setLocIdx(-1); }}
+                onFocus={() => setLocOpen(true)}
+                onBlur={() => setTimeout(() => setLocOpen(false), 140)}
+                onKeyDown={(e) => {
+                  if (!locOpen || !locOpts.length) return;
+                  if (e.key === 'ArrowDown') { e.preventDefault(); setLocIdx((i) => (i + 1) % locOpts.length); }
+                  else if (e.key === 'ArrowUp') { e.preventDefault(); setLocIdx((i) => (i - 1 + locOpts.length) % locOpts.length); }
+                  else if (e.key === 'Enter' && locIdx >= 0) { e.preventDefault(); setLocQ(locOpts[locIdx] === 'Remote' ? 'remote' : locOpts[locIdx]); setLocOpen(false); setLocIdx(-1); }
+                  else if (e.key === 'Escape') { setLocOpen(false); setLocIdx(-1); }
+                }}
+                placeholder="Location"
+                aria-label="Filter by location"
+                role="combobox"
+                aria-expanded={locOpen && locOpts.length > 0}
+                autoComplete="off"
+              />
+              {locOpen && locOpts.length > 0 && (
+                <div className="lp-dd" role="listbox">
+                  {locOpts.map((n, i) => (
+                    <button key={n} type="button" role="option" aria-selected={i === locIdx}
+                      className={i === locIdx ? 'on' : ''}
+                      onMouseDown={(e) => { e.preventDefault(); setLocQ(n === 'Remote' ? 'remote' : n); setLocOpen(false); setLocIdx(-1); }}
+                      onMouseEnter={() => setLocIdx(i)}
+                    >{n}</button>
+                  ))}
+                </div>
+              )}
+            </span>
+          );
+        })()}
         <button type="button" className={`jb-fltbtn${activeCount ? ' on' : ''}`} onClick={() => setSheetOpen(true)}>
           {v2
             ? <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4" /></svg>

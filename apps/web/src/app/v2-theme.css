@@ -1541,7 +1541,8 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 .v2t .lp-hero h1{ font-size:clamp(52px,6.2vw,88px); font-weight:800; line-height:1;
   letter-spacing:-.04em; color:var(--v-text); margin:0 0 26px; max-width:12ch; }
 .v2t .lp-hero h1 .em{ color:var(--v-value); }
-.v2t .lp-hero-art{ width:100%; max-width:330px; height:auto; justify-self:end; align-self:center; }
+.v2t .lp-hero-art{ width:100%; max-width:330px; height:auto; justify-self:end; align-self:center;
+  transform:translateX(-12%); }
 .v2t .lp-sub{ font-size:16.5px; line-height:1.6; color:var(--v-text2); max-width:54ch; margin:0 0 16px; }
 .v2t .lp-proof{ display:block; font-family:var(--mono),monospace; font-size:10.5px;
   letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); margin:0;
@@ -1702,3 +1703,42 @@ html:not(.vlight) .v2t .lp-hero-art{ display:none; }
 .v2t .lp-band-all, .v2t .lp-n, .v2t .lp-card-m{ font-family:var(--mono),monospace; }
 .v2t .bh-row .bh-n, .v2t .flt-n, .v2t .flt-badge{ font-family:var(--mono),monospace; }
 .v2t .gu-n, .v2t .srch-k{ font-family:var(--mono),monospace; }
+
+/* ---- hybrid cells: the dropdown under each search field ---- */
+.v2t .lp-sfield{ position:relative; }
+.v2t .lp-dd{ position:absolute; top:calc(100% + 6px); left:12px; right:12px; z-index:30;
+  background:var(--v-bg); border:1px solid var(--v-border2); border-radius:10px;
+  overflow:hidden; box-shadow:0 18px 44px rgba(0,0,0,.14); padding:6px 0; }
+html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
+.v2t .lp-dd button{ display:block; width:100%; text-align:left; border:none; background:none;
+  cursor:pointer; font-family:var(--sans),sans-serif; font-size:14px; font-weight:500;
+  letter-spacing:-.01em; color:var(--v-text); padding:9px 16px; transition:none; }
+.v2t .lp-dd button.on{ background:var(--v-bg2); box-shadow:inset 3px 0 0 var(--v-value); }
+
+/* ---- trending as five quiet pills ---- */
+.v2t .lp-pill{ display:inline-block; font-family:var(--sans),sans-serif; font-size:13px;
+  font-weight:600; letter-spacing:-.01em; color:var(--v-text); text-decoration:none;
+  border:1px solid color-mix(in srgb, var(--v-text) 30%, transparent); border-radius:999px;
+  padding:8px 16px; line-height:1; transition:none; }
+.v2t .lp-pill:hover{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .lp-trend{ justify-content:center; gap:10px; margin-top:22px; align-items:center; }
+.v2t .lp-trend .lp-all{ margin-left:6px; }
+
+/* ---- the board's search band takes the landing unit's clothes ---- */
+@media (min-width:981px){
+  .v2t .jb-searchband{ border:1px solid var(--v-text); border-radius:10px; overflow:hidden;
+    background:var(--v-bg); }
+  .v2t .jb-fltbtn{ background:var(--v-fill); color:var(--v-fill-ink); border:none;
+    font-family:var(--sans),sans-serif; font-size:15px; font-weight:700; letter-spacing:-.01em;
+    padding:0 26px; height:52px; border-radius:0; transition:none; }
+  .v2t .jb-fltbtn:hover{ background:var(--v-fill); color:var(--v-fill-ink); filter:brightness(1.08); }
+  .v2t .jb-fltbtn.on{ border:none; }
+  .v2t .jb-fltn{ background:var(--v-fill-ink); color:var(--v-fill); }
+}
+
+/* ---- the board's location dropdown reuses the landing panel ---- */
+.v2t .jb-locwrap{ position:relative; display:flex; align-items:center; min-width:0;
+  border-left:1px solid var(--v-border); }
+.v2t .jb-locwrap .jb-locin{ border-left:none; width:100%; }
+.v2t .jb-locwrap .lp-dd{ left:8px; right:8px; }
+.v2t .jb-locico{ width:16px; height:16px; color:var(--v-text2); flex:none; margin-left:14px; }
