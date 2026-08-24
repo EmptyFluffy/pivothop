@@ -8,7 +8,7 @@ import { benefitEntries } from '../../jobs/benefit-entries';
 import SkillStrip from '../../jobs/SkillStrip';
 import BenefitStrip from '../../jobs/BenefitStrip';
 import JobsList from '../../jobs/JobsList';
-import { COUNTRY_NAMES } from '../../salary/salary-data';
+import { COUNTRY_NAMES, coverable } from '../../salary/salary-data';
 import { hasOriginPage, routePair } from '../../routes/routes-data';
 import { article } from '../../../lib/site';
 
@@ -84,7 +84,9 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
             <h2>What it pays</h2>
             <p className="rt-note">
               This range uses {f.salary.scope === 'US' ? 'U.S.' : 'global'} {f.salary.source === 'blended' ? 'posted salaries blended with the OEWS benchmark' : f.salary.source === 'posted' ? 'posted salaries' : 'salary data'}
-              {f.salary.n ? `, with ${f.salary.n.toLocaleString()} stated salaries` : ''}. See the <Link className="gl" href={`/salary/${occ}`}>{tl} salary page</Link> for seniority and market detail.
+              {f.salary.n ? `, with ${f.salary.n.toLocaleString()} stated salaries` : ''}.
+              {/* the salary page only builds for coverable slugs — link with the same gate, or the link gate catches a 404 */}
+              {coverable(occ) && <> See the <Link className="gl" href={`/salary/${occ}`}>{tl} salary page</Link> for seniority and market detail.</>}
             </p>
             <div className="cg-band">
               <div><span className="v">{fmt(f.salary.p25)}</span><span className="k">25th</span></div>
