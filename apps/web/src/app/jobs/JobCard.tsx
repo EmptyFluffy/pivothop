@@ -110,8 +110,7 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
       </span>
       <span className="jv-pay">{pay}</span>
       <span className="jv-age" suppressHydrationWarning>{agoLabel(j.posted)}</span>
-      <span className="jv-cell jv-cell-save"><SaveButton j={j} /></span>
-      <span className="jv-cell"><span className="jv-apply">Apply</span></span>
+      <span className="jv-cell"><SaveButton j={j} /><span className="jv-apply">Apply</span></span>
     </>
   );
   const inner = v2 ? innerV2 : (

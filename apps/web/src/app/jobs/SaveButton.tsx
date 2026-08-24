@@ -12,9 +12,9 @@ import { upsertSave, removeSave } from '../dashboard/actions';
    later merges the list. Renders unsaved on the server and corrects after
    mount, so prerendered HTML stays identical for every visitor. */
 
-function Bookmark({ filled }: { filled: boolean }) {
+function Bookmark({ filled, size = 20 }: { filled: boolean; size?: number }) {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z" />
     </svg>
   );
@@ -62,7 +62,7 @@ export default function SaveButton({ j, label }: { j: Job; label?: boolean }) {
       title={saved ? 'Saved' : 'Save'}
       onClick={onClick}
     >
-      <Bookmark filled={saved} />
+      <Bookmark filled={saved} size={label ? 17 : 20} />
       {label && <span>{saved ? 'Saved' : 'Save'}</span>}
     </button>
   );

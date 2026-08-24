@@ -319,13 +319,13 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
 
 /* ---- table head + rows (lab vthead/vrows2) ---- */
 @media (min-width:981px){
-  .v2t .jb-thead{ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px; gap:14px;
+  .v2t .jb-thead{ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 158px; gap:14px;
     padding:10px 10px; border-bottom:1px solid var(--v-border2); font-family:var(--mono),monospace;
     font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--v-text2); }
-  .v2t .job-card:has(.jv-main){ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 126px;
+  .v2t .job-card:has(.jv-main){ display:grid; grid-template-columns:42px minmax(0,1fr) 116px 72px 158px;
     gap:14px; align-items:center; padding:22px 10px; border-bottom:1px solid var(--v-border);
     position:relative; }
-  .v2t .jv-cell{ display:flex; justify-content:flex-end; }
+  .v2t .jv-cell{ display:flex; justify-content:flex-end; align-items:center; gap:8px; }
 }
 @media (max-width:980.9px){
   .v2t .job-card:has(.jv-main){ display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:14px;
@@ -1755,18 +1755,18 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 /* Save toggle. Card variant is icon-only (a labeled pill per row is noise at
    60 rows); panel/sheet variants carry the Save/Saved label. Saved state
    fills the bookmark with the accent — the accent belongs to the data. */
-.v2t .jv-save{ display:inline-flex; align-items:center; gap:7px; background:none; cursor:pointer;
-  color:var(--v-text2); border:1.5px solid transparent; border-radius:999px; padding:8px;
-  transition:color .15s, border-color .15s; }
-.v2t .jv-save:hover{ color:var(--v-text); }
+.v2t .jv-save{ display:inline-flex; align-items:center; justify-content:center; gap:7px;
+  background:none; cursor:pointer; color:var(--v-text2); flex:none;
+  border:1.5px solid transparent; border-radius:999px; width:42px; height:42px; padding:0;
+  transition:color .15s, border-color .15s, background .15s; }
+.v2t .jv-save:hover{ color:var(--v-text); border-color:color-mix(in srgb, var(--v-text) 45%, transparent); }
 .v2t .jv-save.on{ color:var(--v-value); }
-.v2t .jv-save-lbl{ border-color:color-mix(in srgb, var(--v-text) 45%, transparent);
+.v2t .jv-save.on:hover{ border-color:color-mix(in srgb, var(--v-value) 55%, transparent); }
+.v2t .jv-save-lbl{ width:auto; height:auto; border-color:color-mix(in srgb, var(--v-text) 45%, transparent);
   color:var(--v-text); padding:10px 18px; font:inherit; font-size:14px; white-space:nowrap; }
 .v2t .jv-save-lbl:hover{ border-color:var(--v-text); }
 .v2t .jv-save-lbl.on{ color:var(--v-value); border-color:color-mix(in srgb, var(--v-value) 55%, transparent); }
-.v2t .jv-cell-save{ flex:none; }
-.job-card .jv-save{ opacity:0; }
-.job-card:hover .jv-save, .job-card .jv-save.on, .job-card .jv-save:focus-visible{ opacity:1; }
+
 
 /* Rail: the Saved section link follows the .jb-opt row grammar. */
 .v2t .jb-opt-link{ text-decoration:none; color:var(--v-text); }
@@ -1864,3 +1864,10 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
   .v2t .dash-row{ gap:10px; }
   .v2t .dash-date{ display:none; }
 }
+
+/* save placement: panel header (always visible, beside the pager) and the
+   phone sheet's footer row (icon beside the full-width Apply) */
+.v2t .jv-top .jv-save{ width:36px; height:36px; margin-right:2px; }
+.v2t .jsheet-foot{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.v2t .jsheet-foot .jsheet-apply{ flex:1 1 auto; }
+.v2t .jsheet-foot .jsheet-src{ flex-basis:100%; }

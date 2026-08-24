@@ -208,7 +208,6 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
             : <Arrow45 size={22} />}
         </a>
       )}
-      <SaveButton j={j} label />
       <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} target="_blank" rel="noopener"
         title="Opens the full posting in a new tab">Full posting</Link>
     </div>
@@ -221,6 +220,7 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
         <div className="jv-top">
           <span className="jv-pos">{pos && pos.i >= 0 ? `${pos.i + 1} of ${pos.n.toLocaleString()}` : ' '}</span>
           <span className="jv-pg">
+            <SaveButton j={j} />
             {pos && pos.i >= 0 && onStep && (<>
               <button type="button" aria-label="Previous listing" disabled={pos.i <= 0} onClick={() => onStep(-1)}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
