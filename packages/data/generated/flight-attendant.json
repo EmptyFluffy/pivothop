@@ -5,13 +5,13 @@
     "title": "Flight Attendant",
     "field": "Hospitality",
     "cluster": "Service",
-    "postings": 71,
+    "postings": 91,
     "salary": "$50k–$85k",
     "salary_band": [
       52426,
       84950
     ],
-    "remote": "1%",
+    "remote": "3%",
     "separations": {
       "transfer": 7.1,
       "exit": 6.4,
@@ -31,8 +31,8 @@
         "label": "Food-safety certification (ServSafe) typically required"
       },
       "desc": "",
-      "match": 15,
-      "fit": 21,
+      "match": 13,
+      "fit": 19,
       "capability": 37,
       "mobility": null,
       "mobility_source": null,
@@ -40,8 +40,8 @@
       "mobility_tier": null,
       "salary": "$40k–$60k",
       "salary_band": [
-        40916,
-        58487
+        42346,
+        59135
       ],
       "demand": "High",
       "remote": "0%",
@@ -55,43 +55,37 @@
         "Kitchen Management",
         "Food Safety",
         "Food & Beverage",
-        "Menu Development"
+        "Baking & Pastry"
       ],
       "waterfall": [
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 40.7,
-          "earned": 7.2
+          "pts": 40.3,
+          "earned": 6.8
         },
         {
           "skill": "kitchen-management",
           "name": "Kitchen Management",
+          "pts": 13,
+          "earned": 0
+        },
+        {
+          "skill": "food-safety",
+          "name": "Food Safety",
           "pts": 12.5,
           "earned": 0
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 12.1,
-          "earned": 5.4
-        },
-        {
-          "skill": "food-safety",
-          "name": "Food Safety",
           "pts": 11.9,
-          "earned": 0
+          "earned": 4.1
         },
         {
           "skill": "food-beverage",
           "name": "Food & Beverage",
-          "pts": 6,
-          "earned": 0
-        },
-        {
-          "skill": "menu-development",
-          "name": "Menu Development",
-          "pts": 5,
+          "pts": 5.9,
           "earned": 0
         },
         {
@@ -101,9 +95,15 @@
           "earned": 0
         },
         {
+          "skill": "menu-development",
+          "name": "Menu Development",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
           "skill": "guest-relations",
           "name": "Guest Relations",
-          "pts": 4.2,
+          "pts": 4,
           "earned": 0
         },
         {
@@ -116,114 +116,16 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1612,
-        "salaried": 743
-      }
-    },
-    {
-      "id": "cook",
-      "title": "Cook",
-      "field": "Hospitality",
-      "cluster": "Hospitality",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Prepares and plates food to order on a working line, under time and consistency pressure. Distinct from the chef who runs the kitchen.",
-      "match": 14,
-      "fit": 14,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$30k–$45k",
-      "salary_band": [
-        29684,
-        45197
-      ],
-      "demand": "High",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Food Service",
-        "Catering & Banquet",
-        "Customer Service"
-      ],
-      "learn": [
-        "Line Cooking",
-        "Food Safety",
-        "Food & Beverage",
-        "Brewing"
-      ],
-      "waterfall": [
-        {
-          "skill": "food-service",
-          "name": "Food Service",
-          "pts": 35.2,
-          "earned": 6.8
-        },
-        {
-          "skill": "line-cooking",
-          "name": "Line Cooking",
-          "pts": 24.9,
-          "earned": 0
-        },
-        {
-          "skill": "food-safety",
-          "name": "Food Safety",
-          "pts": 21.3,
-          "earned": 0
-        },
-        {
-          "skill": "catering",
-          "name": "Catering & Banquet",
-          "pts": 6,
-          "earned": 5.1
-        },
-        {
-          "skill": "food-beverage",
-          "name": "Food & Beverage",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 3.3,
-          "earned": 0
-        },
-        {
-          "skill": "kitchen-management",
-          "name": "Kitchen Management",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 2.5,
-          "earned": 2.5
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 2650,
-        "salaried": 876
+        "postings": 1756,
+        "salaried": 775
       }
     }
   ],
   "next": {
-    "chef": [],
-    "cook": []
+    "chef": []
   },
   "direct": [],
-  "cross": [
-    [
-      "chef",
-      "cook",
-      0.65
-    ]
-  ],
+  "cross": [],
   "bridges": [],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }
