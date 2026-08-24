@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import SaveButton from './SaveButton';
 
-/* Pure presentation: no fs, importable from both server and client components. */
+/* Pure presentation: no fs, importable from both server and client components.
+   (SaveButton is a client island; it hydrates inside the server-rendered card.) */
 
 export type Job = {
   id: string; occ: string;
@@ -108,6 +110,7 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
       </span>
       <span className="jv-pay">{pay}</span>
       <span className="jv-age" suppressHydrationWarning>{agoLabel(j.posted)}</span>
+      <span className="jv-cell jv-cell-save"><SaveButton j={j} /></span>
       <span className="jv-cell"><span className="jv-apply">Apply</span></span>
     </>
   );

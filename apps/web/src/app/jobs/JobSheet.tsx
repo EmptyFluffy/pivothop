@@ -19,6 +19,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
+import SaveButton from './SaveButton';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
 import { type Listing, loadListing } from './detail';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
@@ -192,6 +193,7 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
         </div>
 
         <div className="jsheet-foot">
+          <SaveButton j={j} label />
           {(listing?.applyUrl ?? j.url) ? (
             <>
               <a className="rt-go jsheet-apply" href={listing?.applyUrl ?? j.url} target="_blank" rel="nofollow noopener noreferrer">

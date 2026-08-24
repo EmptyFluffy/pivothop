@@ -8,6 +8,7 @@ import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from
 import type { BenefitEntry } from './BenefitStrip';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
+import { savedCount, onSavedChange } from '../../lib/saved';
 
 /* The global board: one search over every listing, and one filter sheet
    (FilterSheet.tsx, docs/26) instead of a bar of dropdowns. The bar keeps only
@@ -50,6 +51,13 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   const [locOpen, setLocOpen] = useState(false);
   const [locIdx, setLocIdx] = useState(-1);
   const [sheetOpen, setSheetOpen] = useState(false);
+  // live count for the rail's Saved section (guest saves included)
+  const [nSaved, setNSaved] = useState(0);
+  useEffect(() => {
+    const sync = () => setNSaved(savedCount());
+    sync();
+    return onSavedChange(sync);
+  }, []);
   const [licensed, setLicensed] = useState<Set<string> | null>(null); // occ slugs with a license gate
   const [skills, setSkills] = useState<SkillEntry[] | null>(null);     // the glossary: skill -> occupations it unlocks
   const [benefits, setBenefits] = useState<BenefitEntry[] | null>(null); // the benefit bank, for the pane's pills
@@ -206,6 +214,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     };
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      // capture phase fires before the save button's own handler can
+      // preventDefault, so the save control opts out by class instead
+      if ((e.target as HTMLElement)?.closest?.('.jv-save')) return;
       const a = (e.target as HTMLElement)?.closest?.('a.job-card, a.feat-row') as HTMLAnchorElement | null;
       if (!a) return;
       const href = a.getAttribute('href') || '';
@@ -517,6 +528,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
                 <label><input type="radio" name="jb-fresh" checked={f.fresh === k} onChange={() => set({ fresh: k })} /> {label}</label>
               </div>
             ))}
+          </section>
+          <section>
+            <h5><i>{sec(5)}</i>Saved</h5>
+            <Link className="jb-opt jb-opt-link" href="/dashboard">
+              <span>Saved jobs</span>
+              <span className="jb-opt-n">{nSaved.toLocaleString()}</span>
+            </Link>
+            {nSaved > 0 && <Link className="jb-keep" href="/signin">Sign in to keep them</Link>}
           </section>
           <button type="button" className="jb-rail-all" onClick={() => setSheetOpen(true)}>
             All filters{activeCount > 0 ? ` · ${activeCount}` : ''}

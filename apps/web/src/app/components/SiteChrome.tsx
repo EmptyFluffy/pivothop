@@ -5,6 +5,7 @@ import SwissBanner from './SwissBanner';
 import SearchOverlay from './SearchOverlay';
 import LicenseSheet from './LicenseSheet';
 import { MobileNav, NavBurger } from './MobileNav';
+import SavedNavLink from './SavedNavLink';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
    footer inside the landing's exact .shell frame. One source, so the pages can
@@ -33,6 +34,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
             <kbd>&#8984;K</kbd>
           </button>
           <V2ThemeToggle />
+          <SavedNavLink />
           <Link className="nav-run" href="/instrument">Run the instrument</Link>
         </span>
       )}
@@ -56,6 +58,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
         {v2 && <Link className={`navlink${active === 'careers' ? ' on' : ''}`} href="/career-guides">Guides</Link>}
         <Link className={`navlink${active === 'blog' ? ' on' : ''}`} href="/blog">Blog</Link>
         <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
+        {v2 && <SavedNavLink menu />}
         <button className="nav-searchbtn" type="button" data-search aria-label="Search" title="Search — press / or ⌘K">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
           <kbd aria-hidden="true">⌘K</kbd>

@@ -1750,3 +1750,117 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
   border-left:1px solid var(--v-border); }
 .v2t .jb-locwrap .jb-locin{ border-left:none; width:100%; }
 .v2t .jb-locwrap .lp-dd{ left:8px; right:8px; }
+
+/* ============ saved jobs: the save toggle, rail entry, nav badge ============ */
+/* Save toggle. Card variant is icon-only (a labeled pill per row is noise at
+   60 rows); panel/sheet variants carry the Save/Saved label. Saved state
+   fills the bookmark with the accent — the accent belongs to the data. */
+.v2t .jv-save{ display:inline-flex; align-items:center; gap:7px; background:none; cursor:pointer;
+  color:var(--v-text2); border:1.5px solid transparent; border-radius:999px; padding:8px;
+  transition:color .15s, border-color .15s; }
+.v2t .jv-save:hover{ color:var(--v-text); }
+.v2t .jv-save.on{ color:var(--v-value); }
+.v2t .jv-save-lbl{ border-color:color-mix(in srgb, var(--v-text) 45%, transparent);
+  color:var(--v-text); padding:10px 18px; font:inherit; font-size:14px; white-space:nowrap; }
+.v2t .jv-save-lbl:hover{ border-color:var(--v-text); }
+.v2t .jv-save-lbl.on{ color:var(--v-value); border-color:color-mix(in srgb, var(--v-value) 55%, transparent); }
+.v2t .jv-cell-save{ flex:none; }
+.job-card .jv-save{ opacity:0; }
+.job-card:hover .jv-save, .job-card .jv-save.on, .job-card .jv-save:focus-visible{ opacity:1; }
+
+/* Rail: the Saved section link follows the .jb-opt row grammar. */
+.v2t .jb-opt-link{ text-decoration:none; color:var(--v-text); }
+.v2t .jb-opt-link:hover span:first-child{ text-decoration:underline; text-underline-offset:3px; }
+.v2t .jb-keep{ display:block; margin-top:6px; font-size:13px; color:var(--v-text2); text-decoration:none; }
+.v2t .jb-keep:hover{ color:var(--v-text); text-decoration:underline; text-underline-offset:3px; }
+
+/* Nav: bookmark with a count badge, sits with the search/theme controls. */
+.v2t .nav-saved{ position:relative; display:inline-flex; align-items:center; color:var(--v-text2);
+  padding:7px; border-radius:8px; transition:color .15s; }
+.v2t .nav-saved:hover{ color:var(--v-text); }
+.v2t .nav-saved-n{ position:absolute; top:-2px; right:-4px; font-family:var(--mono),monospace;
+  font-style:normal; font-size:9.5px; line-height:1; padding:2.5px 4px; border-radius:999px;
+  background:var(--v-fill); color:var(--v-fill-ink); }
+
+/* ============ auth pages (sign-in + confirm interstitial) ============ */
+.v2t .auth-wrap{ max-width:430px; margin:0 auto; padding:72px 20px 110px; }
+.v2t .auth-wrap h1{ font-size:clamp(30px,4.5vw,40px); letter-spacing:-.02em; margin:0 0 14px; }
+.v2t .auth-sub{ color:var(--v-text2); font-size:15.5px; line-height:1.55; margin:0 0 26px; }
+.v2t .auth-field{ display:block; margin:0 0 16px; }
+.v2t .auth-field span{ display:block; font-size:12px; font-weight:600; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--v-text2); margin-bottom:7px; }
+.v2t .auth-field input{ width:100%; box-sizing:border-box; background:var(--v-surface);
+  color:var(--v-text); border:1.5px solid var(--v-border2); border-radius:10px;
+  font:inherit; font-size:16px; padding:13px 15px; }
+.v2t .auth-field input:focus{ outline:none; border-color:var(--v-text); }
+.v2t .auth-go{ width:100%; box-sizing:border-box; background:var(--v-fill); color:var(--v-fill-ink);
+  border:1.5px solid var(--v-fill); border-radius:999px; font:inherit; font-size:15px; font-weight:600;
+  padding:13px 22px; cursor:pointer; transition:opacity .15s; }
+.v2t .auth-go:hover{ opacity:.88; }
+.v2t .auth-go[disabled]{ opacity:.55; cursor:default; }
+.v2t .auth-err{ color:var(--v-text); background:var(--v-surface); border:1.5px solid var(--v-border2);
+  border-radius:10px; padding:12px 15px; font-size:14px; line-height:1.5; margin:16px 0 0; }
+.v2t .auth-sent p{ font-size:15.5px; line-height:1.6; color:var(--v-text); }
+.v2t .auth-alt{ margin-top:14px; font-size:14px; color:var(--v-text2); }
+.v2t .auth-alt a, .v2t .auth-sent a{ color:inherit; text-underline-offset:3px; }
+
+/* ============ dashboard ============ */
+.v2t .dash{ max-width:980px; margin:0 auto; padding:52px 20px 120px; }
+.v2t .dash-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:18px;
+  flex-wrap:wrap; margin-bottom:30px; }
+.v2t .dash-head h1{ font-size:clamp(30px,4.5vw,40px); letter-spacing:-.02em; margin:0 0 8px; }
+.v2t .dash-sub{ color:var(--v-text2); font-size:15px; margin:0; }
+.v2t .dash-auth{ display:flex; align-items:center; gap:14px; }
+.v2t .dash-who{ font-size:14px; color:var(--v-text2); }
+.v2t .dash-signin{ font-size:14px; color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
+  border-radius:999px; padding:9px 18px; text-decoration:none; white-space:nowrap;
+  transition:border-color .15s, background .15s, color .15s; }
+.v2t .dash-signin:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
+.v2t .dash-empty{ border:1.5px dashed var(--v-border2); border-radius:14px; padding:56px 24px;
+  text-align:center; color:var(--v-text2); font-size:15.5px; }
+.v2t .dash-cta{ display:inline-block; margin-top:18px; background:var(--v-fill); color:var(--v-fill-ink);
+  border-radius:999px; padding:11px 26px; font-size:15px; font-weight:600; text-decoration:none; }
+.v2t .dash-tabs{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+.v2t .dash-tabs button{ background:none; font:inherit; font-size:13.5px; color:var(--v-text2);
+  border:1.5px solid color-mix(in srgb, var(--v-text) 28%, transparent); border-radius:999px;
+  padding:7px 14px; cursor:pointer; transition:border-color .15s, color .15s, background .15s; }
+.v2t .dash-tabs button:hover{ color:var(--v-text); border-color:var(--v-text); }
+.v2t .dash-tabs button.on{ background:var(--v-text); color:var(--v-bg); border-color:var(--v-text); }
+.v2t .dash-tabs button i{ font-style:normal; font-family:var(--mono),monospace; font-size:11.5px; margin-left:5px; }
+.v2t .dash-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--v-border); }
+.v2t .dash-row{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:15px 4px;
+  border-bottom:1px solid var(--v-border); }
+.v2t .dash-row.dead{ opacity:.62; }
+.v2t .dash-logo{ flex:none; width:30px; height:30px; border-radius:8px; overflow:hidden; }
+.v2t .dash-logo img{ display:block; width:100%; height:100%; object-fit:contain; }
+.v2t .dash-logo i{ display:grid; place-content:center; width:100%; height:100%;
+  font-style:normal; font-size:13px; font-weight:600; }
+.v2t .dash-main{ flex:1 1 240px; min-width:0; }
+.v2t .dash-t{ display:block; color:var(--v-text); font-size:15.5px; font-weight:600;
+  text-decoration:none; letter-spacing:-.01em; }
+.v2t a.dash-t:hover{ text-decoration:underline; text-underline-offset:3px; }
+.v2t .dash-co{ display:block; color:var(--v-text2); font-size:13.5px; margin-top:2px; }
+.v2t .dash-dead-tag{ font-style:normal; margin-left:8px; font-size:11px; font-weight:600;
+  letter-spacing:.07em; text-transform:uppercase; color:var(--v-text2); }
+.v2t .dash-pay{ font-size:14px; color:var(--v-text); white-space:nowrap; }
+.v2t .dash-date{ font-family:var(--mono),monospace; font-size:12px; color:var(--v-text2); white-space:nowrap; }
+.v2t .dash-status{ background:var(--v-surface); color:var(--v-text); font:inherit; font-size:13.5px;
+  border:1.5px solid var(--v-border2); border-radius:999px; padding:7px 12px; cursor:pointer; }
+.v2t .dash-ghost{ background:none; font:inherit; font-size:13.5px; color:var(--v-text2);
+  border:1.5px solid transparent; border-radius:999px; padding:7px 12px; cursor:pointer;
+  transition:color .15s, border-color .15s; }
+.v2t .dash-ghost:hover{ color:var(--v-text); border-color:color-mix(in srgb, var(--v-text) 35%, transparent); }
+.v2t .dash-ghost.has{ color:var(--v-text); }
+.v2t .dash-x{ background:none; border:none; color:var(--v-text2); cursor:pointer; padding:7px;
+  border-radius:8px; transition:color .15s; }
+.v2t .dash-x:hover{ color:var(--v-text); }
+.v2t .dash-notes{ flex-basis:100%; box-sizing:border-box; min-height:74px; resize:vertical;
+  background:var(--v-surface); color:var(--v-text); border:1.5px solid var(--v-border2);
+  border-radius:10px; font:inherit; font-size:14px; line-height:1.5; padding:11px 13px; }
+.v2t .dash-notes:focus{ outline:none; border-color:var(--v-text); }
+.v2t .dash-keep{ margin-top:22px; font-size:14px; color:var(--v-text2); }
+.v2t .dash-keep a{ color:inherit; text-underline-offset:3px; }
+@media (max-width:760px){
+  .v2t .dash-row{ gap:10px; }
+  .v2t .dash-date{ display:none; }
+}

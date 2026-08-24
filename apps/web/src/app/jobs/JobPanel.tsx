@@ -10,6 +10,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
+import SaveButton from './SaveButton';
 import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45 } from './JobCard';
 import { type Listing, loadListing } from './detail';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
@@ -207,6 +208,7 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
             : <Arrow45 size={22} />}
         </a>
       )}
+      <SaveButton j={j} label />
       <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} target="_blank" rel="noopener"
         title="Opens the full posting in a new tab">Full posting</Link>
     </div>
