@@ -6,6 +6,7 @@ import SearchOverlay from './SearchOverlay';
 import LicenseSheet from './LicenseSheet';
 import { MobileNav, NavBurger } from './MobileNav';
 import SavedNavLink from './SavedNavLink';
+import AuthNavButton from './AuthNavButton';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
    footer inside the landing's exact .shell frame. One source, so the pages can
@@ -35,7 +36,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
           </button>
           <V2ThemeToggle />
           <SavedNavLink />
-          <Link className="nav-run" href="/instrument">Run the instrument</Link>
+          <AuthNavButton />
         </span>
       )}
       {v2 && <span className="nav-tt-m"><V2ThemeToggle /></span>}
@@ -52,6 +53,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
             surface with no way to reach it from the top of the site. */}
         <Link className={`navlink${active === 'jobs' ? ' on' : ''}`} href="/jobs">Jobs</Link>
         <Link className={`navlink${active === 'routes' ? ' on' : ''}`} href="/routes">Routes</Link>
+        {v2 && <Link className="navlink" href="/instrument">Instrument</Link>}
         {v2
           ? <Link className={`navlink${active === 'salaries' ? ' on' : ''}`} href="/salary">Salaries</Link>
           : <Link className="navlink" href="/instrument#how">Method</Link>}

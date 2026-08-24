@@ -529,9 +529,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
               </div>
             ))}
           </section>
-          <section>
-            <h5><i>{sec(5)}</i>Saved</h5>
-            <Link className="jb-opt jb-opt-link" href="/dashboard">
+          <section className="jb-saved">
+            <Link className="jb-saved-link" href="/dashboard">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z" /></svg>
               <span>Saved jobs</span>
               <span className="jb-opt-n">{nSaved.toLocaleString()}</span>
             </Link>
