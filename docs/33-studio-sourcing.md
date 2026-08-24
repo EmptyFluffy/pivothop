@@ -165,3 +165,7 @@ carries CRC; sanitization needs a millions-of-colones eye when ANE ever adds
 pay); Spanish blue-collar titles (ANE's SALONERO/Bodeguero tier) need a
 lexicon-alias audit before their volume shows on the board — vocabulary
 starvation, not sourcing starvation, is the failure mode to watch.
+
+## Laptop sideload automation (2026-08-24)
+
+The manual sideload channel is now a scheduled job. `apps/scraper/scripts/sideload-refresh.sh` runs daily at 20:15 local via launchd (`~/Library/LaunchAgents/com.pivothop.sideload.plist`, label `com.pivothop.sideload`): it ingests ANE and Careerjet from the residential IP, exports both sideload NDJSON files, and commits only those two paths. Guards: refuses to run if the git index holds staged work (the retired 2026 bot's sweep bug), rebases onto origin/main before committing, and runs six hours before the CI cron so the nightly absorbs a fresh export with no push race. Logs: `~/Library/Logs/pivothop-sideload.log`. The laptop must be awake at 20:15; a missed day just means CI reuses yesterday's export.
