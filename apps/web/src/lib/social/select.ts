@@ -2,7 +2,7 @@ import 'server-only';
 import { getJobs, getJobSkills, getJobSections, jobOccupations, occTitle } from '../../app/jobs/jobs-data';
 import { routableSlugs, routePair, destRole } from '../../app/routes/routes-data';
 import type { Candidate, Platform } from './types';
-import { recentPosts } from './store';
+import { recentPosts, usedJobIds } from './store';
 
 /* Deterministic selection. No model calls, no randomness: the same corpus and
    the same ledger always pick the same job, so a rerun after a crash cannot
@@ -76,11 +76,11 @@ export function scoreJob(j: {
 }
 
 export async function selectSocialJob(platform: Platform, filter?: SocialJobFilter): Promise<{ pick: Candidate | null; pool: number; considered: Candidate[] }> {
-  const dedupDays = Number(process.env.SOCIAL_DEDUP_DAYS || 45);
   const allowedOccupations = filter?.occupations ? new Set(filter.occupations) : null;
-  const recent = await recentPosts(platform, 40);
-  const cutoff = Date.now() - dedupDays * 864e5;
-  const postedIds = new Set(recent.filter((r) => Date.parse(r.created_at) > cutoff || r.status === 'published').map((r) => r.job_id));
+  const [recent, postedIds] = await Promise.all([
+    recentPosts(platform, 40),
+    usedJobIds(platform),
+  ]);
   const postedPairs = new Set(recent.map((r) => `${r.job_company}::${r.job_title}`.toLowerCase()));
   const lastRows = recent.filter((r) => r.status !== 'skipped' && r.status !== 'failed');
   const lastCompanies = new Set(lastRows.slice(0, 5).map((r) => r.job_company.toLowerCase()));
