@@ -1357,33 +1357,6 @@
     ],
     "sales-representative": [
       {
-        "t": "Project Manager",
-        "m": 23,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Project Management",
-          "Program Management",
-          "Agile",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 23,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "sales-representative",
-          "readiness_after": 48,
-          "gain": 25
-        }
-      },
-      {
         "t": "Real Estate Agent",
         "m": 23,
         "slug": "real-estate-agent",
@@ -1408,6 +1381,33 @@
           "parent": "sales-representative",
           "readiness_after": 71,
           "gain": 48
+        }
+      },
+      {
+        "t": "Corporate Trainer",
+        "m": 22,
+        "slug": "corporate-trainer",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "pivot",
+        "gap": [
+          "Sales Enablement",
+          "Training & Facilitation",
+          "Instructional Design",
+          "Customer Service"
+        ],
+        "observed": null,
+        "fit": 22,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "sales-representative",
+          "readiness_after": 31,
+          "gain": 9
         }
       }
     ],
@@ -1626,20 +1626,20 @@
       "reach": "direct"
     },
     {
-      "t": "Corporate Trainer",
-      "m": 22,
-      "slug": "corporate-trainer",
-      "field": "Education",
-      "cluster": "Education",
-      "kind": "pivot",
+      "t": "Project Manager",
+      "m": 20,
+      "slug": "project-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
       "gap": [
-        "Sales Enablement",
-        "Training & Facilitation",
-        "Instructional Design",
-        "Customer Service"
+        "Project Management",
+        "Program Management",
+        "Agile",
+        "Lean / Six Sigma"
       ],
       "observed": null,
-      "fit": 22,
+      "fit": 20,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1705,7 +1705,7 @@
   "bridges": [
     [
       "real-estate-developer",
-      "sales-representative_1",
+      "sales-representative_0",
       0.57
     ],
     [

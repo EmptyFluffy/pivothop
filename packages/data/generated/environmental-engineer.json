@@ -864,8 +864,8 @@
           "earned": 0
         },
         {
-          "skill": "saas",
-          "name": "SaaS",
+          "skill": "account-management",
+          "name": "Account Management",
           "pts": 2.9,
           "earned": 0
         }
@@ -873,7 +873,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 8301,
+        "postings": 8303,
         "salaried": 2198
       }
     },
@@ -898,7 +898,7 @@
       "salary": "$60k–$110k",
       "salary_band": [
         61396,
-        109275
+        109222
       ],
       "demand": "High",
       "remote": "3%",
@@ -912,13 +912,13 @@
         "Revit",
         "AutoCAD",
         "BIM",
-        "ArchiCAD"
+        "Construction Documentation"
       ],
       "waterfall": [
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 13.9,
+          "pts": 14,
           "earned": 0
         },
         {
@@ -930,7 +930,7 @@
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 8.3,
+          "pts": 8.4,
           "earned": 0
         },
         {
@@ -940,14 +940,14 @@
           "earned": 0
         },
         {
-          "skill": "archicad",
-          "name": "ArchiCAD",
-          "pts": 7.1,
+          "skill": "construction-documents",
+          "name": "Construction Documentation",
+          "pts": 7,
           "earned": 0
         },
         {
-          "skill": "construction-documents",
-          "name": "Construction Documentation",
+          "skill": "archicad",
+          "name": "ArchiCAD",
           "pts": 7,
           "earned": 0
         },
@@ -978,7 +978,7 @@
         {
           "skill": "building-codes",
           "name": "Building Codes",
-          "pts": 3.6,
+          "pts": 3.5,
           "earned": 0
         },
         {
@@ -1002,8 +1002,8 @@
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3,
-          "earned": 3
+          "pts": 2.9,
+          "earned": 2.9
         },
         {
           "skill": "rhino",
@@ -1039,8 +1039,8 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1930,
-        "salaried": 563
+        "postings": 1933,
+        "salaried": 565
       }
     }
   ],
@@ -1074,8 +1074,7 @@
         }
       }
     ],
-    "structural-engineer": [],
-    "aerospace-engineer": [
+    "structural-engineer": [
       {
         "t": "Mechanical Engineer",
         "m": 15,
@@ -1087,7 +1086,7 @@
           "Mechanical CAD",
           "Prototyping",
           "FEA / Simulation",
-          "MEP"
+          "Plumbing"
         ],
         "observed": null,
         "fit": 21,
@@ -1098,11 +1097,13 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "aerospace-engineer",
-          "readiness_after": 34,
-          "gain": 19
+          "parent": "structural-engineer",
+          "readiness_after": 32,
+          "gain": 17
         }
-      },
+      }
+    ],
+    "aerospace-engineer": [
       {
         "t": "Electrical Engineer",
         "m": 14,
@@ -1128,6 +1129,33 @@
           "parent": "aerospace-engineer",
           "readiness_after": 28,
           "gain": 14
+        }
+      },
+      {
+        "t": "Research Scientist",
+        "m": 10,
+        "slug": "research-scientist",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "Machine Learning",
+          "LLMs / Generative AI",
+          "Data Analysis",
+          "Python"
+        ],
+        "observed": null,
+        "fit": 10,
+        "capability": 13,
+        "mobility": 6,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "aerospace-engineer",
+          "readiness_after": 28,
+          "gain": 18
         }
       }
     ],
@@ -1188,33 +1216,6 @@
           "readiness_after": 40,
           "gain": 27
         }
-      },
-      {
-        "t": "Research Scientist",
-        "m": 10,
-        "slug": "research-scientist",
-        "field": "Science",
-        "cluster": "Science",
-        "kind": "pivot",
-        "gap": [
-          "Machine Learning",
-          "LLMs / Generative AI",
-          "Data Analysis",
-          "Python"
-        ],
-        "observed": null,
-        "fit": 10,
-        "capability": 13,
-        "mobility": 6,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "project-manager",
-          "readiness_after": 18,
-          "gain": 8
-        }
       }
     ],
     "architect": []
@@ -1259,19 +1260,19 @@
       0.34
     ],
     [
-      "structural-engineer",
-      "aerospace-engineer_0",
-      0.29
-    ],
-    [
       "aerospace-engineer",
-      "project-manager_1",
-      0.28
+      "structural-engineer_0",
+      0.32
     ],
     [
       "building-envelope-consultant",
-      "aerospace-engineer_1",
+      "aerospace-engineer_0",
       0.26
+    ],
+    [
+      "facilities-manager",
+      "project-manager_0",
+      0.23
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

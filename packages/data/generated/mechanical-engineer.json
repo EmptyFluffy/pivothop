@@ -5,7 +5,7 @@
     "title": "Mechanical Engineer",
     "field": "Engineering",
     "cluster": "Engineering & Manufacturing",
-    "postings": 2181,
+    "postings": 2183,
     "salary": "$60k–$105k",
     "salary_band": [
       61396,
@@ -31,8 +31,8 @@
         "label": "PE required for public-facing/utility sign-off; not for product roles"
       },
       "desc": "",
-      "match": 32,
-      "fit": 40,
+      "match": 36,
+      "fit": 42,
       "capability": 72,
       "mobility": 30,
       "mobility_source": "observed-flow-us",
@@ -68,7 +68,7 @@
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 19.7,
+          "pts": 19.6,
           "earned": 0
         },
         {
@@ -86,7 +86,7 @@
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 6.7,
+          "pts": 6.6,
           "earned": 0
         },
         {
@@ -116,8 +116,8 @@
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 4.4,
-          "earned": 0
+          "pts": 4.5,
+          "earned": 3.4
         },
         {
           "skill": "system-design",
@@ -128,8 +128,8 @@
         {
           "skill": "fea",
           "name": "FEA / Simulation",
-          "pts": 4.1,
-          "earned": 4.1
+          "pts": 4,
+          "earned": 4
         },
         {
           "skill": "supply-chain",
@@ -141,7 +141,7 @@
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 2392,
+        "postings": 2393,
         "salaried": 801
       }
     },
@@ -452,7 +452,7 @@
           "skill": "sustainability",
           "name": "Sustainability",
           "pts": 7.2,
-          "earned": 3.7
+          "earned": 3.8
         },
         {
           "skill": "presentation",
@@ -533,8 +533,8 @@
         "label": "PE license required for sign-off roles"
       },
       "desc": "",
-      "match": 12,
-      "fit": 35,
+      "match": 13,
+      "fit": 36,
       "capability": 100,
       "mobility": null,
       "mobility_source": null,
@@ -551,74 +551,74 @@
       "have": [
         "MEP",
         "Plumbing",
-        "Project Management",
-        "AutoCAD"
+        "Revit",
+        "Project Management"
       ],
       "learn": [
-        "Revit",
         "BIM",
+        "Electrical Systems",
         "Construction Administration",
-        "Electrical Systems"
+        "Maintenance"
       ],
       "waterfall": [
         {
           "skill": "mep",
           "name": "MEP",
-          "pts": 44.3,
-          "earned": 2
+          "pts": 42.5,
+          "earned": 1.9
         },
         {
           "skill": "plumbing",
           "name": "Plumbing",
-          "pts": 18.1,
-          "earned": 2
+          "pts": 17.7,
+          "earned": 1.9
         },
         {
           "skill": "revit",
           "name": "Revit",
           "pts": 7.7,
-          "earned": 0
+          "earned": 1.3
         },
         {
           "skill": "project-management",
           "name": "Project Management",
           "pts": 7,
-          "earned": 3.5
+          "earned": 3.4
         },
         {
           "skill": "bim",
           "name": "BIM",
-          "pts": 5.2,
+          "pts": 5,
           "earned": 0
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 3.5,
-          "earned": 1.5
+          "pts": 3.3,
+          "earned": 1.4
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 3,
+          "earned": 0
         },
         {
           "skill": "hvac-systems",
           "name": "HVAC Systems",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 1.5
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 2.8,
-          "earned": 0
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 2.8,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 2.4,
+          "pts": 2.3,
           "earned": 0
         },
         {
@@ -632,13 +632,138 @@
           "name": "Sustainability",
           "pts": 1.7,
           "earned": 1.7
+        },
+        {
+          "skill": "electrical-wiring",
+          "name": "Electrical Wiring",
+          "pts": 1.3,
+          "earned": 0
+        },
+        {
+          "skill": "building-codes",
+          "name": "Building Codes",
+          "pts": 1.3,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 194,
+        "postings": 195,
         "salaried": 103
+      }
+    },
+    {
+      "id": "structural-engineer",
+      "title": "Structural Engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "PE license required to sign/seal structural work"
+      },
+      "desc": "",
+      "match": 22,
+      "fit": 35,
+      "capability": 55,
+      "mobility": 47,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 9,
+      "mobility_tier": null,
+      "salary": "$65k–$115k",
+      "salary_band": [
+        64896,
+        113515
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Project Management",
+        "FEA / Simulation",
+        "Revit",
+        "Sustainability"
+      ],
+      "learn": [
+        "Structural Analysis",
+        "Steel Design",
+        "Training & Facilitation",
+        "ETABS / SAP2000"
+      ],
+      "waterfall": [
+        {
+          "skill": "structural-analysis",
+          "name": "Structural Analysis",
+          "pts": 36.4,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 13.9,
+          "earned": 8.3
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 10.5,
+          "earned": 6
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 6.2,
+          "earned": 3.3
+        },
+        {
+          "skill": "steel-design",
+          "name": "Steel Design",
+          "pts": 5.7,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 5.2,
+          "earned": 4.3
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "etabs",
+          "name": "ETABS / SAP2000",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "building-codes",
+          "name": "Building Codes",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 3.5,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1195,
+        "salaried": 441
       }
     },
     {
@@ -683,7 +808,7 @@
           "skill": "project-management",
           "name": "Project Management",
           "pts": 20.4,
-          "earned": 10.4
+          "earned": 10.5
         },
         {
           "skill": "autocad",
@@ -719,7 +844,7 @@
           "skill": "sustainability",
           "name": "Sustainability",
           "pts": 6.3,
-          "earned": 5.3
+          "earned": 5.4
         },
         {
           "skill": "training",
@@ -751,118 +876,6 @@
       "provenance": {
         "postings": 1550,
         "salaried": 706
-      }
-    },
-    {
-      "id": "structural-engineer",
-      "title": "Structural Engineer",
-      "field": "Engineering",
-      "cluster": "Built Environment",
-      "kind": "pivot",
-      "license": {
-        "req": "required",
-        "label": "PE license required to sign/seal structural work"
-      },
-      "desc": "",
-      "match": 18,
-      "fit": 33,
-      "capability": 55,
-      "mobility": 47,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 9,
-      "mobility_tier": null,
-      "salary": "$65k–$115k",
-      "salary_band": [
-        64896,
-        113515
-      ],
-      "demand": "High",
-      "remote": "2%",
-      "time": "12–24 mo + license",
-      "have": [
-        "Project Management",
-        "FEA / Simulation",
-        "Sustainability"
-      ],
-      "learn": [
-        "Structural Analysis",
-        "Revit",
-        "Steel Design",
-        "Training & Facilitation"
-      ],
-      "waterfall": [
-        {
-          "skill": "structural-analysis",
-          "name": "Structural Analysis",
-          "pts": 36.4,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 13.9,
-          "earned": 8.2
-        },
-        {
-          "skill": "fea",
-          "name": "FEA / Simulation",
-          "pts": 10.5,
-          "earned": 6
-        },
-        {
-          "skill": "revit",
-          "name": "Revit",
-          "pts": 6.2,
-          "earned": 0
-        },
-        {
-          "skill": "steel-design",
-          "name": "Steel Design",
-          "pts": 5.7,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 5.2,
-          "earned": 4.2
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 5.2,
-          "earned": 0
-        },
-        {
-          "skill": "etabs",
-          "name": "ETABS / SAP2000",
-          "pts": 5,
-          "earned": 0
-        },
-        {
-          "skill": "construction-administration",
-          "name": "Construction Administration",
-          "pts": 4.4,
-          "earned": 0
-        },
-        {
-          "skill": "building-codes",
-          "name": "Building Codes",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "bim",
-          "name": "BIM",
-          "pts": 3.5,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1195,
-        "salaried": 441
       }
     },
     {
@@ -1001,8 +1014,63 @@
     }
   ],
   "next": {
-    "electrical-engineer": [],
+    "electrical-engineer": [
+      {
+        "t": "Maintenance Technician",
+        "m": 20,
+        "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Maintenance",
+          "Brewing",
+          "Customer Service",
+          "Facilities Operations"
+        ],
+        "observed": null,
+        "fit": 19,
+        "capability": 33,
+        "mobility": 6,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 17,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "electrical-engineer",
+          "readiness_after": 38,
+          "gain": 18
+        }
+      }
+    ],
     "industrial-engineer": [
+      {
+        "t": "Facilities Manager",
+        "m": 19,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Facilities Operations",
+          "Maintenance",
+          "Operations",
+          "Procurement"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": 33,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 34,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "industrial-engineer",
+          "readiness_after": 27,
+          "gain": 8
+        }
+      },
       {
         "t": "Mobility Planner",
         "m": 16,
@@ -1027,33 +1095,6 @@
           "parent": "industrial-engineer",
           "readiness_after": 26,
           "gain": 10
-        }
-      },
-      {
-        "t": "Project Manager",
-        "m": 10,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Program Management",
-          "Agile",
-          "Stakeholder Management",
-          "Data Analysis"
-        ],
-        "observed": null,
-        "fit": 8,
-        "capability": null,
-        "mobility": 4,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 34,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "industrial-engineer",
-          "readiness_after": 26,
-          "gain": 16
         }
       }
     ],
@@ -1088,6 +1129,33 @@
     ],
     "industrial-designer": [
       {
+        "t": "Interior Designer",
+        "m": 14,
+        "slug": "interior-designer",
+        "field": "Design",
+        "cluster": "Design",
+        "kind": "pivot",
+        "gap": [
+          "Space Planning",
+          "Presentation",
+          "Construction Documentation",
+          "SketchUp"
+        ],
+        "observed": null,
+        "fit": 22,
+        "capability": 42,
+        "mobility": 25,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "industrial-designer",
+          "readiness_after": 27,
+          "gain": 13
+        }
+      },
+      {
         "t": "Urban Planner",
         "m": 12,
         "slug": "urban-planner",
@@ -1117,47 +1185,20 @@
     ],
     "mep-engineer": [
       {
-        "t": "Facilities Manager",
-        "m": 19,
-        "slug": "facilities-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Facilities Operations",
-          "Maintenance",
-          "Operations",
-          "Procurement"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": 33,
-        "mobility": 3,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 34,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mep-engineer",
-          "readiness_after": 29,
-          "gain": 10
-        }
-      },
-      {
         "t": "Architectural Drafter",
-        "m": 18,
+        "m": 19,
         "slug": "architectural-drafter",
         "field": "Architecture",
         "cluster": "Built Environment",
         "kind": "pivot",
         "gap": [
-          "Revit",
           "BIM",
           "ArchiCAD",
-          "Drafting"
+          "Drafting",
+          "Construction Documentation"
         ],
         "observed": null,
-        "fit": 27,
+        "fit": 28,
         "capability": 65,
         "mobility": 17,
         "mobility_source": "observed-flow-us",
@@ -1166,54 +1207,55 @@
         "reach": "bridged",
         "via": {
           "parent": "mep-engineer",
-          "readiness_after": 43,
-          "gain": 25
+          "readiness_after": 42,
+          "gain": 23
         }
-      }
-    ],
-    "civil-engineer": [
+      },
       {
-        "t": "Environmental Engineer",
-        "m": 15,
-        "slug": "environmental-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "lateral",
+        "t": "Construction Manager",
+        "m": 19,
+        "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
         "gap": [
-          "Safety / OSHA",
-          "Criminal Investigation",
-          "Compliance",
-          "Training & Facilitation"
+          "Construction Administration",
+          "Brewing",
+          "Scheduling",
+          "Procurement"
         ],
         "observed": null,
-        "fit": 19,
-        "capability": 51,
-        "mobility": 4,
-        "mobility_source": "observed-flow-eu",
+        "fit": 17,
+        "capability": 28,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
         "mobility_eu": 4,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "civil-engineer",
-          "readiness_after": 33,
-          "gain": 18
+          "parent": "mep-engineer",
+          "readiness_after": 62,
+          "gain": 43
         }
-      },
+      }
+    ],
+    "structural-engineer": [],
+    "civil-engineer": [
       {
         "t": "Architect",
-        "m": 11,
+        "m": 13,
         "slug": "architect",
         "field": "Architecture",
         "cluster": "Built Environment",
         "kind": "pivot",
         "gap": [
-          "Revit",
           "BIM",
+          "Construction Documentation",
           "ArchiCAD",
-          "Construction Documentation"
+          "Construction Administration"
         ],
         "observed": null,
-        "fit": 17,
+        "fit": 18,
         "capability": 54,
         "mobility": 1,
         "mobility_source": "observed-flow-us",
@@ -1222,64 +1264,35 @@
         "reach": "bridged",
         "via": {
           "parent": "civil-engineer",
-          "readiness_after": 30,
+          "readiness_after": 32,
           "gain": 19
-        }
-      }
-    ],
-    "structural-engineer": [
-      {
-        "t": "Landscape Architect",
-        "m": 18,
-        "slug": "landscape-architect",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "pivot",
-        "gap": [
-          "Urban Design",
-          "Construction Documentation",
-          "Business Development",
-          "Revit"
-        ],
-        "observed": null,
-        "fit": 20,
-        "capability": 49,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "structural-engineer",
-          "readiness_after": 36,
-          "gain": 18
         }
       },
       {
-        "t": "Interior Designer",
-        "m": 12,
-        "slug": "interior-designer",
-        "field": "Design",
-        "cluster": "Design",
+        "t": "Project Manager",
+        "m": 10,
+        "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Space Planning",
-          "Revit",
-          "Presentation",
-          "Construction Documentation"
+          "Program Management",
+          "Agile",
+          "Stakeholder Management",
+          "Data Analysis"
         ],
         "observed": null,
-        "fit": 21,
-        "capability": 42,
-        "mobility": 25,
+        "fit": 8,
+        "capability": null,
+        "mobility": 4,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
+        "mobility_eu": 34,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "structural-engineer",
-          "readiness_after": 26,
-          "gain": 14
+          "parent": "civil-engineer",
+          "readiness_after": 18,
+          "gain": 8
         }
       }
     ],
@@ -1312,30 +1325,30 @@
         }
       },
       {
-        "t": "Building Envelope Consultant",
-        "m": 16,
-        "slug": "building-envelope-consultant",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "pivot",
+        "t": "Environmental Engineer",
+        "m": 15,
+        "slug": "environmental-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "lateral",
         "gap": [
+          "Safety / OSHA",
           "Criminal Investigation",
-          "Account Management",
-          "Energy Modeling",
-          "QA / Testing"
+          "Compliance",
+          "Training & Facilitation"
         ],
         "observed": null,
-        "fit": 26,
-        "capability": null,
-        "mobility": 47,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 9,
+        "fit": 19,
+        "capability": 51,
+        "mobility": 4,
+        "mobility_source": "observed-flow-eu",
+        "mobility_eu": 4,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "aerospace-engineer",
-          "readiness_after": 34,
-          "gain": 18
+          "readiness_after": 43,
+          "gain": 28
         }
       }
     ]
@@ -1343,23 +1356,45 @@
   "direct": [
     {
       "t": "BIM Manager",
-      "m": 11,
+      "m": 12,
       "slug": "bim-manager",
       "field": "Architecture",
       "cluster": "Built Environment",
       "kind": "pivot",
       "gap": [
         "BIM",
-        "Revit",
         "Navisworks",
-        "Clash Detection"
+        "Clash Detection",
+        "Construction Documentation"
       ],
       "observed": null,
-      "fit": 23,
+      "fit": 24,
       "capability": 54,
       "mobility": 26,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 72,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Design Technologist",
+      "m": 11,
+      "slug": "design-technologist",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "Design Systems",
+        "Figma",
+        "LLMs / Generative AI",
+        "LangChain / Agents"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": null,
+      "mobility": 25,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 6,
       "mobility_tier": null,
       "reach": "direct"
     }
@@ -1371,41 +1406,41 @@
       0.5
     ],
     [
-      "civil-engineer",
       "structural-engineer",
+      "civil-engineer",
       0.39
+    ],
+    [
+      "mep-engineer",
+      "structural-engineer",
+      0.35
     ],
     [
       "electrical-engineer",
       "mep-engineer",
       0.33
-    ],
-    [
-      "mep-engineer",
-      "structural-engineer",
-      0.32
     ]
   ],
   "bridges": [
     [
-      "aerospace-engineer",
+      "civil-engineer",
+      "mep-engineer_1",
+      0.54
+    ],
+    [
+      "mep-engineer",
       "civil-engineer_0",
-      0.43
+      0.44
     ],
     [
       "mep-engineer",
-      "civil-engineer_1",
-      0.41
+      "electrical-engineer_0",
+      0.37
     ],
     [
       "mep-engineer",
-      "structural-engineer_1",
-      0.35
-    ],
-    [
-      "mep-engineer",
-      "structural-engineer_0",
-      0.34
+      "industrial-designer_0",
+      0.36
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

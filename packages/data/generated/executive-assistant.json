@@ -5,7 +5,7 @@
     "title": "Executive Assistant",
     "field": "Business",
     "cluster": "Business",
-    "postings": 3210,
+    "postings": 3212,
     "salary": "$45k–$80k",
     "salary_band": [
       46940,
@@ -514,7 +514,7 @@
           "skill": "customer-service",
           "name": "Customer Service",
           "pts": 10.9,
-          "earned": 3.7
+          "earned": 3.8
         },
         {
           "skill": "project-management",
@@ -1059,7 +1059,7 @@
           "skill": "customer-service",
           "name": "Customer Service",
           "pts": 3.4,
-          "earned": 2.1
+          "earned": 2.2
         },
         {
           "skill": "business-development",
@@ -1068,8 +1068,8 @@
           "earned": 0
         },
         {
-          "skill": "saas",
-          "name": "SaaS",
+          "skill": "account-management",
+          "name": "Account Management",
           "pts": 2.9,
           "earned": 0
         }
@@ -1077,7 +1077,7 @@
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 8301,
+        "postings": 8303,
         "salaried": 2198
       }
     }
@@ -1168,35 +1168,6 @@
         }
       },
       {
-        "t": "Market Researcher",
-        "m": 13,
-        "slug": "market-researcher",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "lateral",
-        "gap": [
-          "Market Research",
-          "Data Analysis",
-          "Statistics",
-          "Research"
-        ],
-        "observed": null,
-        "fit": 15,
-        "capability": 30,
-        "mobility": 6,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 67,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "recruiter",
-          "readiness_after": 21,
-          "gain": 8
-        }
-      }
-    ],
-    "event-planner": [
-      {
         "t": "Operations Manager",
         "m": 13,
         "slug": "operations-manager",
@@ -1218,11 +1189,13 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "event-planner",
+          "parent": "recruiter",
           "readiness_after": 23,
           "gain": 10
         }
-      },
+      }
+    ],
+    "event-planner": [
       {
         "t": "Grant Writer",
         "m": 12,
@@ -1452,6 +1425,28 @@
   },
   "direct": [
     {
+      "t": "Market Researcher",
+      "m": 14,
+      "slug": "market-researcher",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "lateral",
+      "gap": [
+        "Market Research",
+        "Data Analysis",
+        "Statistics",
+        "Research"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": 30,
+      "mobility": 6,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 67,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
       "t": "Urban Planner",
       "m": 13,
       "slug": "urban-planner",
@@ -1547,13 +1542,13 @@
     [
       "recruiter",
       "project-manager",
-      0.35
+      0.37
     ]
   ],
   "bridges": [
     [
       "business-analyst",
-      "event-planner_0",
+      "recruiter_1",
       0.45
     ],
     [

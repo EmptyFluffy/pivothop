@@ -508,7 +508,7 @@
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 8585,
+        "postings": 8587,
         "salaried": 2496
       }
     },
@@ -1305,33 +1305,6 @@
     ],
     "qa-engineer": [
       {
-        "t": "Project Manager",
-        "m": 17,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Project Management",
-          "Program Management",
-          "Lean / Six Sigma",
-          "Stakeholder Management"
-        ],
-        "observed": null,
-        "fit": 14,
-        "capability": null,
-        "mobility": 8,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 25,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "qa-engineer",
-          "readiness_after": 30,
-          "gain": 13
-        }
-      },
-      {
         "t": "Product Manager",
         "m": 16,
         "slug": "product-manager",
@@ -1357,9 +1330,7 @@
           "readiness_after": 29,
           "gain": 13
         }
-      }
-    ],
-    "software-engineer": [
+      },
       {
         "t": "Penetration Tester",
         "m": 14,
@@ -1382,9 +1353,38 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "software-engineer",
+          "parent": "qa-engineer",
           "readiness_after": 28,
           "gain": 14
+        }
+      }
+    ],
+    "software-engineer": [
+      {
+        "t": "AI Product Manager",
+        "m": 13,
+        "slug": "ai-product-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Product Management",
+          "LLMs / Generative AI",
+          "LangChain / Agents",
+          "A/B Testing"
+        ],
+        "observed": null,
+        "fit": 11,
+        "capability": null,
+        "mobility": 8,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 25,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "software-engineer",
+          "readiness_after": 21,
+          "gain": 8
         }
       },
       {
@@ -1585,20 +1585,20 @@
         }
       },
       {
-        "t": "AI Product Manager",
-        "m": 13,
-        "slug": "ai-product-manager",
+        "t": "Project Manager",
+        "m": 14,
+        "slug": "project-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Product Management",
-          "LLMs / Generative AI",
-          "LangChain / Agents",
-          "A/B Testing"
+          "Project Management",
+          "Program Management",
+          "Lean / Six Sigma",
+          "Stakeholder Management"
         ],
         "observed": null,
-        "fit": 11,
+        "fit": 12,
         "capability": null,
         "mobility": 8,
         "mobility_source": "observed-flow-us",
@@ -1607,8 +1607,8 @@
         "reach": "bridged",
         "via": {
           "parent": "design-systems-lead",
-          "readiness_after": 24,
-          "gain": 11
+          "readiness_after": 22,
+          "gain": 8
         }
       }
     ],
@@ -1755,12 +1755,12 @@
     ],
     [
       "ai-engineer",
-      "design-systems-lead_1",
+      "software-engineer_0",
       0.5
     ],
     [
       "devops-engineer",
-      "software-engineer_0",
+      "qa-engineer_1",
       0.43
     ],
     [

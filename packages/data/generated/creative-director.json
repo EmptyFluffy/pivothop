@@ -1194,6 +1194,33 @@
     "set-designer": [],
     "design-technologist": [
       {
+        "t": "Social Media Manager",
+        "m": 23,
+        "slug": "social-media-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Content Marketing",
+          "Data Analysis",
+          "SEM / Paid Media",
+          "B2B"
+        ],
+        "observed": null,
+        "fit": 19,
+        "capability": 30,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 100,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "design-technologist",
+          "readiness_after": 31,
+          "gain": 8
+        }
+      },
+      {
         "t": "Management Consultant",
         "m": 17,
         "slug": "management-consultant",
@@ -1219,36 +1246,36 @@
           "readiness_after": 25,
           "gain": 8
         }
-      },
-      {
-        "t": "Human Factors Engineer",
-        "m": 16,
-        "slug": "human-factors-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering",
-        "kind": "pivot",
-        "gap": [
-          "Usability Testing",
-          "Accessibility",
-          "User Research",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 16,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "design-technologist",
-          "readiness_after": 40,
-          "gain": 24
-        }
       }
     ],
     "product-designer": [
+      {
+        "t": "Project Manager",
+        "m": 24,
+        "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Program Management",
+          "Agile",
+          "Lean / Six Sigma",
+          "Supply Chain"
+        ],
+        "observed": "Primary-Short",
+        "fit": 18,
+        "capability": null,
+        "mobility": 5,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 19,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "product-designer",
+          "readiness_after": 33,
+          "gain": 9
+        }
+      },
       {
         "t": "UX Writer",
         "m": 24,
@@ -1275,63 +1302,9 @@
           "readiness_after": 64,
           "gain": 40
         }
-      },
-      {
-        "t": "Social Media Manager",
-        "m": 23,
-        "slug": "social-media-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Content Marketing",
-          "Data Analysis",
-          "SEM / Paid Media",
-          "B2B"
-        ],
-        "observed": null,
-        "fit": 19,
-        "capability": 30,
-        "mobility": 1,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 100,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "product-designer",
-          "readiness_after": 32,
-          "gain": 9
-        }
       }
     ],
     "ux-designer": [
-      {
-        "t": "Project Manager",
-        "m": 21,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Program Management",
-          "Agile",
-          "Lean / Six Sigma",
-          "Supply Chain"
-        ],
-        "observed": "Primary-Short",
-        "fit": 16,
-        "capability": null,
-        "mobility": 5,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 19,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "ux-designer",
-          "readiness_after": 31,
-          "gain": 10
-        }
-      },
       {
         "t": "UX Researcher",
         "m": 19,
@@ -1357,6 +1330,33 @@
           "parent": "ux-designer",
           "readiness_after": 47,
           "gain": 28
+        }
+      },
+      {
+        "t": "Human Factors Engineer",
+        "m": 16,
+        "slug": "human-factors-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering",
+        "kind": "pivot",
+        "gap": [
+          "Usability Testing",
+          "Accessibility",
+          "User Research",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "ux-designer",
+          "readiness_after": 72,
+          "gain": 56
         }
       }
     ],
@@ -1541,18 +1541,18 @@
   ],
   "bridges": [
     [
-      "ux-designer",
-      "design-technologist_1",
-      0.72
+      "product-designer",
+      "ux-designer_1",
+      0.67
     ],
     [
       "ux-designer",
-      "product-designer_0",
+      "product-designer_1",
       0.64
     ],
     [
       "product-designer",
-      "ux-designer_1",
+      "ux-designer_0",
       0.55
     ],
     [

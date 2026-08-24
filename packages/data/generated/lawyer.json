@@ -456,8 +456,8 @@
         {
           "skill": "risk-management",
           "name": "Risk Management",
-          "pts": 14,
-          "earned": 12.6
+          "pts": 14.1,
+          "earned": 12.5
         },
         {
           "skill": "data-analysis",
@@ -480,8 +480,8 @@
         {
           "skill": "criminal-investigation",
           "name": "Criminal Investigation",
-          "pts": 5.3,
-          "earned": 5.3
+          "pts": 5.4,
+          "earned": 5.4
         },
         {
           "skill": "supply-chain",
@@ -504,8 +504,8 @@
         {
           "skill": "cybersecurity",
           "name": "Cybersecurity",
-          "pts": 4,
-          "earned": 4
+          "pts": 4.1,
+          "earned": 4.1
         },
         {
           "skill": "training",
@@ -516,13 +516,13 @@
         {
           "skill": "financial-modeling",
           "name": "Financial Modeling",
-          "pts": 3.5,
+          "pts": 3.4,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 3.5,
+          "pts": 3.4,
           "earned": 0
         },
         {
@@ -541,7 +541,7 @@
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 1585,
+        "postings": 1586,
         "salaried": 530
       }
     },
@@ -1089,30 +1089,30 @@
     ],
     "management-consultant": [
       {
-        "t": "Sales Representative",
-        "m": 24,
-        "slug": "sales-representative",
+        "t": "Project Manager",
+        "m": 23,
+        "slug": "project-manager",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Sales",
-          "CRM",
-          "B2B",
-          "Salesforce"
+          "Project Management",
+          "Program Management",
+          "Agile",
+          "Supply Chain"
         ],
         "observed": null,
-        "fit": 22,
-        "capability": 30,
-        "mobility": 10,
+        "fit": 25,
+        "capability": null,
+        "mobility": 30,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": null,
+        "mobility_eu": 18,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "management-consultant",
-          "readiness_after": 55,
-          "gain": 31
+          "readiness_after": 68,
+          "gain": 45
         }
       },
       {
@@ -1462,6 +1462,11 @@
       0.59
     ],
     [
+      "product-manager",
+      "management-consultant_0",
+      0.53
+    ],
+    [
       "management-consultant",
       "product-manager_1",
       0.51
@@ -1470,11 +1475,6 @@
       "management-consultant",
       "product-manager_0",
       0.43
-    ],
-    [
-      "product-manager",
-      "management-consultant_0",
-      0.39
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
