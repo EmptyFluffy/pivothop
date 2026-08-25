@@ -30,7 +30,11 @@ function rowFrom(p: JobPayload) {
     contact_name: p.contact_name || null,
     apply_url: p.apply_url || null,
     apply_email: p.apply_email || null,
-    status: 'pending_review',
+    // 'new' is the review vocabulary from migration 0002 (new | reviewing |
+    // posted | declined) — the statuses /admin can actually set. A row written
+    // outside it can never be moved to 'posted', so the listing would sit in
+    // the table forever. tier:'free' + amount:0 already mark it as free.
+    status: 'new',
     amount: 0,
   };
 }

@@ -493,6 +493,14 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         const sec = (i: number) => String(fieldCounts.length > 1 ? i : i - 1).padStart(2, '0');
         return (
         <aside className="jb-rail" aria-label="Filters">
+          <div className="jb-saved">
+            <Link className="jb-saved-link" href="/dashboard">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z" /></svg>
+              <span>Saved jobs</span>
+              <span className="jb-opt-n">{nSaved.toLocaleString()}</span>
+            </Link>
+            {nSaved > 0 && <Link className="jb-keep" href="/signin">Sign in to keep them</Link>}
+          </div>
           <div className="jb-rail-head"><h4>Filters</h4>
             <button type="button" className="jb-rail-clear" onClick={() => { setQ(''); setNeedle(''); setLocQ(''); setF(EMPTY); setSort('new'); }}>Clear all</button>
           </div>
@@ -528,14 +536,6 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
                 <label><input type="radio" name="jb-fresh" checked={f.fresh === k} onChange={() => set({ fresh: k })} /> {label}</label>
               </div>
             ))}
-          </section>
-          <section className="jb-saved">
-            <Link className="jb-saved-link" href="/dashboard">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z" /></svg>
-              <span>Saved jobs</span>
-              <span className="jb-opt-n">{nSaved.toLocaleString()}</span>
-            </Link>
-            {nSaved > 0 && <Link className="jb-keep" href="/signin">Sign in to keep them</Link>}
           </section>
           <button type="button" className="jb-rail-all" onClick={() => setSheetOpen(true)}>
             All filters{activeCount > 0 ? ` · ${activeCount}` : ''}

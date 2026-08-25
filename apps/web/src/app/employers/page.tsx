@@ -25,6 +25,17 @@ export const metadata: Metadata = {
   alternates: { canonical: '/employers' },
 };
 
+/* The benefit taxonomy the BOARD itself uses (47 terms, categorised), not a
+   hand-kept list. An employer picking from it means their stated benefits
+   become the same filterable pills as the scraped ones. */
+export type BenefitOpt = { term: string; cat: string; n: number };
+function benefitBank(): BenefitOpt[] {
+  try {
+    const g = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/data/benefits-glossary.json'), 'utf8')) as BenefitOpt[];
+    return g.map((b) => ({ term: b.term, cat: b.cat, n: b.n ?? 0 }));
+  } catch { return []; }
+}
+
 function skillBank(): string[] {
   try {
     const m = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/data/skills-meta.json'), 'utf8'));
@@ -76,7 +87,7 @@ export default function Employers() {
 
         {WAITLIST
           ? <Waitlist pricing={{ std: PRICING.std.launch, feat: PRICING.feat.launch }} />
-          : <EmployerForm occs={occs} fan={fan} skills={skillBank()} salaryHints={salaryHints} pricing={PRICING} />}
+          : <EmployerForm occs={occs} fan={fan} skills={skillBank()} benefitBank={benefitBank()} salaryHints={salaryHints} pricing={PRICING} />}
       </div>
     </PageShell>
   );

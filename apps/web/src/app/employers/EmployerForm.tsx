@@ -28,11 +28,12 @@ const TYPES = ['Full-time', 'Part-time', 'Contract', 'Internship'];
 const MODES: { key: Mode; label: string }[] = [
   { key: 'onsite', label: 'On-site' }, { key: 'hybrid', label: 'Hybrid' }, { key: 'remote', label: 'Remote' },
 ];
-const BENEFITS = [
-  'Equity', '4-day week', 'Visa sponsorship', 'Unlimited PTO', 'Health insurance',
-  '401(k) / pension', 'Learning budget', 'Home-office budget', 'Async', 'Flexible hours',
-  'Company retreats', 'Profit sharing', 'Parental leave', 'Equipment provided', 'No whiteboard interview',
-];
+/* Benefits come from the board's own taxonomy (passed in as benefitBank), not
+   a list kept by hand here: 47 terms across 7 categories, so what an employer
+   states becomes the same filterable pill a scraped listing gets. Categories
+   render in this order — money first, because that is what people scan for. */
+export type BenefitOpt = { term: string; cat: string; n: number };
+const BEN_CATS = ['Money', 'Health', 'Time', 'Flexibility', 'Family', 'Growth', 'Workplace'];
 const BRACKETS: { label: string; min: number | null; max: number | null }[] = [
   { label: 'Under $50k', min: null, max: 50000 },
   { label: '$50k – $75k', min: 50000, max: 75000 },
@@ -83,8 +84,9 @@ function parseJD(text: string, bank: string[]) {
 }
 
 type Tier = { name: string; full: number; launch: number };
-export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
-  occs: Occ[]; fan: Record<string, FanIn>; skills: string[]; salaryHints: Record<string, { lo: number; hi: number }>; pricing: { std: Tier; feat: Tier };
+export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pricing }: {
+  occs: Occ[]; fan: Record<string, FanIn>; skills: string[]; benefitBank: BenefitOpt[];
+  salaryHints: Record<string, { lo: number; hi: number }>; pricing: { std: Tier; feat: Tier };
 }) {
   const [f, setF] = useState({
     role: '', region: '', smin: '', smax: '',
@@ -97,6 +99,8 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   const [chosen, setChosen] = useState<string[]>([]);
   const [skillList, setSkillList] = useState<string[]>([]);
   const [skillQ, setSkillQ] = useState('');
+  const [benQ, setBenQ] = useState('');
+  const [benOpen, setBenOpen] = useState(false);
   const [salaryPick, setSalaryPick] = useState('');   // '' | '0'..'7' | 'custom'
   const [jd, setJd] = useState('');
   const [importUrl, setImportUrl] = useState('');
@@ -137,6 +141,21 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
     const ql = q.toLowerCase();
     return skills.filter((s) => s.toLowerCase().includes(ql) && !skillList.includes(s)).slice(0, 5);
   }, [q, skills, skillList]);
+  /* Grouped benefit matches. Empty query = the ones employers actually state
+     most often, by live count; typing searches the whole taxonomy plus its
+     category names, so "family" surfaces the Family group. */
+  const benGroups = useMemo(() => {
+    const bq = benQ.trim().toLowerCase();
+    const pool = benefitBank.filter((b) => !chosen.includes(b.term));
+    const hit = bq
+      ? pool.filter((b) => b.term.toLowerCase().includes(bq) || b.cat.toLowerCase().startsWith(bq))
+      : [...pool].sort((a, b) => b.n - a.n).slice(0, 10);
+    const by = new Map<string, BenefitOpt[]>();
+    for (const b of hit) { const g = by.get(b.cat) ?? []; g.push(b); by.set(b.cat, g); }
+    return BEN_CATS.filter((c) => by.has(c)).map((c) => ({ cat: c, items: by.get(c)! }));
+  }, [benQ, benefitBank, chosen]);
+  const benCount = benGroups.reduce((n, g) => n + g.items.length, 0);
+
   const canCustom = q.length > 1 && !skillMatches.some((s) => s.toLowerCase() === q.toLowerCase()) && !skillList.some((s) => s.toLowerCase() === q.toLowerCase());
   const addSkill = (s: string) => { const v = s.trim(); if (v && !skillList.includes(v)) setSkillList((p) => [...p, v]); setSkillQ(''); };
   const toggleBenefit = (b: string) => setChosen((p) => (p.includes(b) ? p.filter((x) => x !== b) : [...p, b]));
@@ -199,7 +218,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
     id: 'preview', occ: occSlug || 'preview', title: f.role.trim() || 'Your role title',
     company: f.company.trim() || 'Your company', location, remote: mode === 'remote',
     smin: sv.min, smax: sv.max, source: 'employer', posted: '', featured: true,
-    fl: chosen.includes('4-day week') ? ['4d'] : undefined,
+    fl: chosen.includes('Four-day week') ? ['4d'] : undefined,
     // url makes JobCard render the employer outbound link, not an internal
     // /jobs/preview/preview route that doesn't exist (the link-integrity gate).
     url: f.applyUrl.trim() || 'https://www.pivothop.com/employers',
@@ -352,8 +371,37 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
           <label className="ef-field"><span className="efl">Qualifications, one per line <em className="ejf-opt">Optional</em></span><textarea rows={4} value={f.quals} onChange={set('quals')} placeholder={'3+ years with SQL\nNice to have: dbt'} /></label>
           <div className="ejf-block">
             <span className="efl">Benefits &amp; perks <em className="ejf-opt">Optional</em></span>
-            <span className="ef-hint">The first few become filters candidates can search on. Pick what is true.</span>
-            <div className="ejf-chips">{BENEFITS.map((b) => (<button key={b} type="button" className={`ejf-chip${chosen.includes(b) ? ' on' : ''}`} onClick={() => toggleBenefit(b)}>{b}</button>))}</div>
+            <span className="ef-hint">Search {benefitBank.length} benefits candidates already filter the board by. Pick what is true.</span>
+            {chosen.length > 0 && (
+              <div className="ejf-chips ejf-skill-tags">{chosen.map((b) => (
+                <button key={b} type="button" className="ejf-chip on" onClick={() => toggleBenefit(b)}>{b}<span className="ejf-x">&times;</span></button>
+              ))}</div>
+            )}
+            <div className="ejf-skillbox">
+              <input value={benQ} onChange={(e) => { setBenQ(e.target.value); setBenOpen(true); }}
+                onFocus={() => setBenOpen(true)}
+                onBlur={() => setTimeout(() => setBenOpen(false), 140)}
+                placeholder="Search benefits, e.g. health, remote, parental"
+                role="combobox" aria-expanded={benOpen && benCount > 0} aria-autocomplete="list" autoComplete="off"
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); const first = benGroups[0]?.items[0]; if (first) { toggleBenefit(first.term); setBenQ(''); } } else if (e.key === 'Escape') setBenOpen(false); }} />
+              {benOpen && benCount > 0 && (
+                <div className="ejf-skill-dd ejf-ben-dd" role="listbox">
+                  {!benQ.trim() && <span className="ejf-ben-lead">Most stated on the board</span>}
+                  {benGroups.map((g) => (
+                    <div key={g.cat} className="ejf-ben-grp">
+                      <span className="ejf-ben-cat">{g.cat}</span>
+                      {g.items.map((b) => (
+                        <button key={b.term} type="button" role="option" aria-selected={false}
+                          onMouseDown={(e) => { e.preventDefault(); toggleBenefit(b.term); setBenQ(''); }}>
+                          <span>{b.term}</span>
+                          {b.n > 0 && <em className="ejf-ben-n">{b.n.toLocaleString()}</em>}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
