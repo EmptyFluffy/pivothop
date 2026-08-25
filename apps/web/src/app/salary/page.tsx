@@ -35,7 +35,8 @@ export default function SalaryIndex() {
           What each occupation actually pays, from live postings blended with the official{' '}
           <a className="gl" href="/glossary#oews">OEWS</a> wage anchor. Not one scraped number: the full range, the
           seniority split, and the trend over time. Comparing markets? See{' '}
-          <Link className="gl" href="/salary/by-country">the same job, priced across countries</Link>.
+          <Link className="gl" href="/salary/by-country">the same job, priced across countries</Link>. Hiring in Latin America? Our first deep local-market layer is the{' '}
+          <Link className="gl" href="/salary/by-country/costa-rica">Costa Rica salary guide</Link>, where local employee pay, multinational total comp and remote foreign-employer rates stay separate.
         </p>
         <IndexSearch rows={rows} placeholder="Search a job title" unit="occupations" />
 
@@ -69,7 +70,7 @@ export default function SalaryIndex() {
           );
         })()}
 
-        <p className="rt-method lbl">Every page blends live postings with the official OEWS anchor for the occupation. US numbers refresh with the nightly scrape; the Swiss bands come from the federal wage survey.</p>
+        <p className="rt-method lbl">Every page blends live postings with the official OEWS anchor for the occupation. US numbers refresh with the nightly scrape; the Swiss bands come from the federal wage survey. Country-specific guides state their own sources and methods rather than inheriting the US model.</p>
       </div>
     </PageShell>
   );
