@@ -66,9 +66,7 @@ export const CR_BENCHMARKS: CostaRicaRoleBenchmark[] = [
   {
     slug: 'product-designer',
     title: 'Product Designer',
-    cocrCodes: ['2163'],
-    cocrLabel: 'Diseñadores de productos y de prendas',
-    cocrNote: 'COCR 2163 is the closest official product-design category, but digital product design may also be coded elsewhere depending on actual tasks. Treat the mapping as approximate until validated against the microdata and coding manual.',
+    cocrNote: 'Digital Product Designer does not map cleanly to one COCR-2011 code from title alone. COCR 2163 covers industrial/product and garment design while 2166 covers graphic and multimedia design. PivotHop should validate actual task mappings before publishing an INEC Product Designer median.',
     sources: [
       {
         id: 'levels', label: 'Levels.fyi', lens: 'multinational-total-comp',
