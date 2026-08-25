@@ -1,1 +1,0 @@
-Temporary branch note: `unused-temp-check` and `unused-temp-check-2` were created during connector validation and contain no unique work. They can be deleted safely after this feature branch is merged or closed.
