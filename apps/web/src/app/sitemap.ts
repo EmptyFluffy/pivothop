@@ -4,6 +4,7 @@ import path from 'node:path';
 import { POSTS } from './blog/posts';
 import { routableSlugs, routeOrigins } from './routes/routes-data';
 import { coverableSlugs } from './salary/salary-data';
+import { CR_BENCHMARKS } from './salary/by-country/costa-rica/benchmarks';
 import { guidedSlugs } from './career-guides/facts';
 import { jobOccupations } from './jobs/jobs-data';
 import { categorySlugs } from './jobs/categories-data';
@@ -48,6 +49,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...compareSlugs().map((s) => ({ url: `${BASE}/compare/${s}`, ...mod('/compare'), changeFrequency: 'weekly' as const, priority: 0.7 })),
     { url: `${BASE}/salary`, ...mod('/salary'), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/salary/by-country`, ...mod('/salary'), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${BASE}/salary/by-country/costa-rica`, changeFrequency: 'weekly', priority: 0.8 },
+    ...CR_BENCHMARKS.map((r) => ({ url: `${BASE}/salary/by-country/costa-rica/${r.slug}`, changeFrequency: 'monthly' as const, priority: 0.7 })),
     ...coverableSlugs().map((s) => ({ url: `${BASE}/salary/${s}`, ...mod(`/salary/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
     { url: `${BASE}/career-guides`, ...mod('/career-guides'), changeFrequency: 'weekly', priority: 0.7 },
     ...guidedSlugs().map((s) => ({ url: `${BASE}/career-guides/${s}`, ...mod(`/career-guides/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
