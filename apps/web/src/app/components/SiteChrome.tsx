@@ -57,15 +57,16 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
         {v2
           ? <Link className={`navlink${active === 'salaries' ? ' on' : ''}`} href="/salary">Salaries</Link>
           : <Link className="navlink" href="/instrument#how">Method</Link>}
-        {v2 && <Link className={`navlink${active === 'careers' ? ' on' : ''}`} href="/career-guides">Guides</Link>}
-        <Link className={`navlink${active === 'blog' ? ' on' : ''}`} href="/blog">Blog</Link>
-        <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>
+        {/* Guides, Blog and About live in the footer on v2 — the nav keeps the
+            product surfaces only (research pass 2026-08-24) */}
+        {!v2 && <Link className={`navlink${active === 'blog' ? ' on' : ''}`} href="/blog">Blog</Link>}
+        {!v2 && <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>}
         {v2 && <SavedNavLink menu />}
         <button className="nav-searchbtn" type="button" data-search aria-label="Search" title="Search — press / or ⌘K">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
           <kbd aria-hidden="true">⌘K</kbd>
         </button>
-        <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">Join the waitlist</Link>
+        <Link className={`cta${active === 'employers' ? ' on' : ''}`} href="/employers">{v2 ? 'Post a job' : 'Join the waitlist'}</Link>
       </div>
     </header>
   );
@@ -100,6 +101,7 @@ export function SiteFooter() {
         <div>
           <h5>Resources</h5>
           <ul>
+            <li><Link href="/career-guides">Career guides</Link></li>
             <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/adjacency-index">Adjacency Index</Link></li>
             <li><Link href="/glossary">Glossary &amp; sources</Link></li>

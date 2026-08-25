@@ -2,7 +2,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import posthog from 'posthog-js';
 import { JobCard, type Job } from '../jobs/JobCard';
-import { startCheckout, type JobPayload } from './actions';
+import type { JobPayload } from './actions';
+import { submitFreeJob } from './free-actions';
+import { importJobFromUrl } from './import-job';
 import { SITE_EMAIL } from '../../lib/site';
 
 /* Post a job — third pass, friction-first. People hate forms, so:
@@ -97,8 +99,12 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   const [skillQ, setSkillQ] = useState('');
   const [salaryPick, setSalaryPick] = useState('');   // '' | '0'..'7' | 'custom'
   const [jd, setJd] = useState('');
+  const [importUrl, setImportUrl] = useState('');
+  const [importing, setImporting] = useState(false);
   const [filled, setFilled] = useState('');
-  const [tier, setTier] = useState<'std' | 'feat'>('feat');
+  // tier stays in state so buildPayload keeps emitting it; the picker UI is
+  // gone while posting is free (payments later re-add it).
+  const [tier] = useState<'std' | 'feat'>('std');
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState<'' | 'paid' | 'queued'>('');   // '' none, paid (checkout), queued (concierge)
   const [submitError, setSubmitError] = useState('');
@@ -142,8 +148,8 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   }
   function useTypical() { if (hint) { setF((p) => ({ ...p, smin: String(hint.lo), smax: String(hint.hi) })); setSalaryPick('custom'); } }
 
-  function applyJD() {
-    const p = parseJD(jd, skills);
+  function applyJD(text?: string) {
+    const p = parseJD(text ?? jd, skills);
     setF((prev) => ({
       ...prev,
       role: prev.role || p.title,
@@ -157,6 +163,32 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
     if (p.skills.length) setSkillList((prev) => [...prev, ...p.skills.filter((s) => !prev.includes(s))]);
     const got = [p.title && 'title', (p.smin || p.smax) && 'salary', p.about && 'summary', p.resp && 'responsibilities', p.quals && 'qualifications', p.skills.length && `${p.skills.length} skill${p.skills.length === 1 ? '' : 's'}`].filter(Boolean);
     setFilled(got.length ? `Filled ${got.join(', ')}. Review and edit below.` : 'Nothing obvious to pull — fill it in below, it is quick.');
+  }
+
+  async function importUrlNow() {
+    if (!importUrl.trim() || importing) return;
+    setImporting(true); setFilled('');
+    const r = await importJobFromUrl(importUrl);
+    setImporting(false);
+    if (!r.job) { setFilled(r.error || 'Could not read that job page.'); return; }
+    const j = r.job;
+    if (j.description) { setJd(j.description); applyJD(j.description); }
+    setF((prev) => ({
+      ...prev,
+      role: j.title || prev.role,
+      company: j.company || prev.company,
+      logo: j.logo || prev.logo,
+      region: j.region || prev.region,
+      applyUrl: j.applyUrl || prev.applyUrl,
+      smin: (j.salaryCurrency === 'USD' && j.salaryMin) ? String(j.salaryMin) : prev.smin,
+      smax: (j.salaryCurrency === 'USD' && j.salaryMax) ? String(j.salaryMax) : prev.smax,
+    }));
+    if (j.workplace) setMode(j.workplace);
+    if (j.employmentType && TYPES.includes(j.employmentType)) setEtype(j.employmentType);
+    if (j.salaryCurrency === 'USD' && (j.salaryMin || j.salaryMax)) setSalaryPick('custom');
+    const salaryNote = j.salaryCurrency && j.salaryCurrency !== 'USD' ? ` Salary was listed in ${j.salaryCurrency}; review it below rather than silently converting it.` : '';
+    setFilled(`Imported from ${j.sourceHost || 'the job page'}. Review anything we could not verify.${salaryNote}`);
+    posthog.capture('employer_job_imported', { source_host: j.sourceHost || null });
   }
 
   const sv = salVals();
@@ -206,7 +238,7 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
       skillList.length ? `Required skills: ${skillList.join(', ')}` : '', chosen.length ? `Benefits: ${chosen.join(', ')}` : '',
       f.applyUrl ? `Apply URL: ${f.applyUrl}` : '', f.applyEmail ? `Apply email: ${f.applyEmail}` : '',
       f.about ? `\nAbout the role:\n${f.about}` : '', f.resp ? `\nResponsibilities:\n${f.resp}` : '', f.quals ? `\nQualifications:\n${f.quals}` : '',
-      '', `Tier: ${pricing[tier].name} (launch rate $${pricing[tier].launch}/30 days).`,
+      '', 'Free early-access post, review before publication.',
     ].filter((l) => l !== '').join('\n');
     window.location.href = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
@@ -221,17 +253,13 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   async function send() {
     setSubmitError(''); setSubmitting(true);
     const payload = buildPayload();
-    const r = await startCheckout(payload);
-    if (r.url) {
-      posthog.capture('employer_checkout_started', { tier: payload.tier, occupation_slug: payload.occupation_slug });
-      window.location.href = r.url; return;
-    }
+    const r = await submitFreeJob(payload);
     setSubmitting(false);
-    if (r.error === 'ls-not-configured') {
-      posthog.capture('employer_job_queued', { tier: payload.tier, occupation_slug: payload.occupation_slug });
+    if (r.ok) {
+      posthog.capture('employer_job_queued', { tier: 'free', occupation_slug: payload.occupation_slug });
       setDone('queued'); window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (r.error === 'not-configured') { mailto(); }
-    else { setSubmitError('Could not start checkout just now — opening email as a fallback.'); mailto(); }
+    else { setSubmitError('Could not submit just now — opening email as a fallback.'); mailto(); }
   }
 
   if (done) {
@@ -245,8 +273,8 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
           </>
         ) : (
           <>
-            <h2>Sent. Your role is in the queue.</h2>
-            <p>We&rsquo;ll review and post it within two days, then send a payment link. A real person replies to {f.email.trim() || 'your email'}.</p>
+            <h2>Submitted.</h2>
+            <p>A real person reviews every listing before it publishes, typically within 1 business day. We email {f.email.trim() || 'you'} either way.</p>
           </>
         )}
         <div className="ejf-done-card"><ul className="job-list"><JobCard j={previewJob} /></ul></div>
@@ -256,99 +284,97 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
   }
 
   return (
-    <>
+    <div className="ejf-layout">
       <div className="ejf-form">
-        {/* Choose placement — the two tiers, selectable */}
-        <div className="ejf-tiers" role="radiogroup" aria-label="Placement">
-          {(['std', 'feat'] as const).map((t) => {
-            const tp = pricing[t]; const on = tier === t;
-            return (
-              <button key={t} type="button" role="radio" aria-checked={on} className={`ejf-tier ejf-tier-pick${t === 'feat' ? ' ejf-tier-feat' : ''}${on ? ' on' : ''}`} onClick={() => setTier(t)}>
-                <span className="ejf-tier-name">{tp.name}{t === 'feat' && <span className="ejf-tier-badge">Most pick this</span>}</span>
-                <span className="ejf-tier-price"><s>${tp.full}</s>${tp.launch}</span>
-                <span className="ejf-tier-per">per 30-day post &middot; launch rate</span>
-                <p className="ejf-tier-desc">{t === 'feat' ? 'Everything in Standard, shown first: top of the board, the adjacency spotlight on route and salary pages, and priority in matching.' : 'Your role, posted and tagged to the skill graph, matched to adjacent candidates, listed 30 days, linking out to apply.'}</p>
-                <span className="ejf-tier-select" aria-hidden="true">{on ? '✓ Selected' : 'Select'}</span>
-              </button>
-            );
-          })}
-        </div>
-        <p className="ejf-launch-note">Launch pricing, half off for every employer while the board fills and the traffic proves out. No card is charged until we review and post your role &mdash; you will see the numbers before it moves to full price.</p>
-
-        {/* Shortcut: paste an existing JD */}
+        {/* Accelerator: paste an existing posting, the form below prefills.
+            Never a separate mode — the manual form is always on screen. */}
         <div className="ejf-paste">
-          <div className="ejf-paste-head"><span className="lbl acc">Shortcut</span><span>Already wrote the job post? Paste it and we fill in what we can.</span></div>
-          <textarea className="ejf-paste-box" value={jd} onChange={(e) => setJd(e.target.value)} rows={jd ? 5 : 2} placeholder="Paste your existing job description here…" />
+          <p className="ejf-paste-lead">Already posted elsewhere? Import it and the form below fills itself.</p>
+          <div className="ejf-import-row">
+            <input value={importUrl} onChange={(e) => setImportUrl(e.target.value)} inputMode="url"
+              placeholder="https://boards.greenhouse.io/&hellip;"
+              onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); void importUrlNow(); } }} />
+            <button type="button" className="ejf-paste-go" disabled={!importUrl.trim() || importing} onClick={() => void importUrlNow()}>{importing ? 'Importing\u2026' : 'Import'}</button>
+          </div>
+          <p className="ejf-paste-sub">Greenhouse, Lever, Ashby, Workday and most public job pages expose structured data we can read. URL not working? Paste the description instead:</p>
+          <textarea className="ejf-paste-box" value={jd} onChange={(e) => setJd(e.target.value)} rows={jd ? 5 : 2} placeholder="Paste the job description&hellip;" />
           <div className="ejf-paste-actions">
-            <button type="button" className="ejf-paste-go" disabled={!jd.trim()} onClick={applyJD}>Autofill the form ↓</button>
-            {filled && <span className="lbl ejf-paste-msg">{filled}</span>}
+            <button type="button" className="ejf-paste-go" disabled={!jd.trim()} onClick={() => applyJD()}>Prefill the form</button>
+            {filled && <span className="ejf-paste-msg">{filled}</span>}
           </div>
         </div>
 
         {/* 01 — The role */}
         <section className="ejf-sec">
           <div className="ejf-sec-h"><span className="ejf-num">01</span><h2>The role</h2></div>
-          <label className={`ef-field${err(noRole)}`}><span className="lbl">Role title <span className="ejf-req">Required</span></span>
-            <input value={f.role} onChange={(e) => { set('role')(e); setOccSlug(''); }} placeholder="e.g. Senior Product Designer" autoFocus />
+          <label className={`ef-field${err(noRole)}`}><span className="efl">Role title <em className="ejf-req">Required</em></span>
+            <input value={f.role} onChange={(e) => { set('role')(e); setOccSlug(''); }} placeholder="e.g. Senior Product Designer" />
             <span className="ef-hint">One role, the way it reads on a listing. Posting several? One job per post.</span></label>
           {suggestions.length > 0 && (
             <div className="ejf-suggest">
-              <span className="lbl">Closest occupation on our graph{occ ? '' : ' — pick one to see who it reaches'}</span>
+              <span className="efl">Closest occupation on our graph{occ ? '' : ' — pick one to see who it reaches'}</span>
               <div className="ejf-chips">{suggestions.map((o) => (<button key={o.slug} type="button" className={`ejf-chip${occSlug === o.slug ? ' on' : ''}`} onClick={() => setOccSlug(occSlug === o.slug ? '' : o.slug)}>{o.title}</button>))}</div>
             </div>
           )}
-          {occ && (
-            <aside className="ejf-fanbox">
-              {info && info.n > 0 ? (
-                <>
-                  <p className="ew-fan-lead">{`${occ.title} sits on ${info.n} measured route${info.n === 1 ? '' : 's'} in our skill graph. Your listing shows on each, to candidates arriving with the gap already itemized:`}</p>
-                  <ul className="ew-fan-list">{info.top.map((x) => (<li key={x.t}><span>{x.t} &rarr; {occ.title}</span><span className="lbl">{x.m}% ready</span></li>))}</ul>
-                  {info.live > 0 && <p className="ew-fan-note lbl">{`Joins ${info.live} live ${occ.title.toLowerCase()} listings, featured above all of them.`}</p>}
-                </>
-              ) : (<p className="ew-fan-lead">{`${occ.title} listings appear on its board, its salary page, and everywhere the instrument ranks it for a candidate's skills.`}</p>)}
-            </aside>
-          )}
-          <div className="ejf-block"><span className="lbl">Employment type</span>
+          <div className="ejf-block"><span className="efl">Employment type</span>
             <div className="ejf-chips">{TYPES.map((t) => (<button key={t} type="button" className={`ejf-chip${etype === t ? ' on' : ''}`} onClick={() => setEtype(t)}>{t}</button>))}</div></div>
-          <div className="ejf-block"><span className="lbl">Workplace</span>
+          <div className="ejf-block"><span className="efl">Workplace</span>
             <div className="ejf-chips">{MODES.map((m) => (<button key={m.key} type="button" className={`ejf-chip${mode === m.key ? ' on' : ''}`} onClick={() => setMode(m.key)}>{m.label}</button>))}</div></div>
-          <label className="ef-field"><span className="lbl">{mode === 'remote' ? 'Where can they work from?' : mode === 'hybrid' ? 'Where is the office?' : 'Location'}</span>
+          <label className="ef-field"><span className="efl">{mode === 'remote' ? 'Where can they work from?' : mode === 'hybrid' ? 'Where is the office?' : 'Location'}</span>
             <input value={f.region} onChange={set('region')} placeholder={mode === 'remote' ? 'e.g. Worldwide, or US time zones' : 'e.g. Austin, TX'} />
             <span className="ef-hint">{mode === 'remote' ? 'Worldwide reaches the most candidates and ranks higher.' : mode === 'hybrid' ? 'City the hybrid role reports to, and days on-site if fixed.' : 'City or region the role sits in.'}</span></label>
         </section>
 
-        {/* 02 — Compensation */}
+        {/* 02 — Pay & details */}
         <section className="ejf-sec">
-          <div className="ejf-sec-h"><span className="ejf-num">02</span><h2>Compensation</h2></div>
+          <div className="ejf-sec-h"><span className="ejf-num">02</span><h2>Pay &amp; details</h2></div>
           {hint && salaryPick === '' && (
             <button type="button" className="ejf-hintchip" onClick={useTypical}>
-              Typical for {occ!.title}: {fmtK(hint.lo)}–{fmtK(hint.hi)} <span>&mdash; use it</span>
+              Typical for {occ!.title}: {fmtK(hint.lo)}&ndash;{fmtK(hint.hi)} <span>&mdash; use it</span>
             </button>
           )}
-          <label className="ef-field"><span className="lbl">Salary range, USD / year</span>
+          <label className="ef-field"><span className="efl">Salary range, USD / year</span>
             <select value={salaryPick} onChange={(e) => setSalaryPick(e.target.value)}>
               <option value="">Prefer not to say</option>
               {BRACKETS.map((b, i) => <option key={b.label} value={i}>{b.label}</option>)}
-              <option value="custom">Custom range…</option>
-            </select></label>
+              <option value="custom">Custom range&hellip;</option>
+            </select>
+            <span className="ef-hint">Listings without a salary band get limited distribution.</span></label>
           {salaryPick === 'custom' && (
             <div className="ejf-salary">
-              <label className="ef-field"><span className="lbl">Minimum</span><input value={f.smin} onChange={set('smin')} inputMode="numeric" placeholder="95000" /></label>
+              <label className="ef-field"><span className="efl">Minimum</span><input value={f.smin} onChange={set('smin')} inputMode="numeric" placeholder="95000" /></label>
               <span className="ejf-dash">&ndash;</span>
-              <label className="ef-field"><span className="lbl">Maximum</span><input value={f.smax} onChange={set('smax')} inputMode="numeric" placeholder="130000" /></label>
+              <label className="ef-field"><span className="efl">Maximum</span><input value={f.smax} onChange={set('smax')} inputMode="numeric" placeholder="130000" /></label>
             </div>
           )}
-          <p className="ef-hint ejf-wide">Listings with a stated salary get indexed by Google, rank higher on our board, and draw more of the right applicants. Optional, strongly encouraged.</p>
+          <label className="ef-field"><span className="efl">About the role <em className="ejf-opt">Optional</em></span><textarea rows={3} value={f.about} onChange={set('about')} placeholder="Two or three sentences on what the role is and why it exists." /></label>
+          <label className="ef-field"><span className="efl">Responsibilities, one per line <em className="ejf-opt">Optional</em></span><textarea rows={4} value={f.resp} onChange={set('resp')} placeholder={'Own the reporting pipeline\nRun the weekly planning'} /></label>
+          <label className="ef-field"><span className="efl">Qualifications, one per line <em className="ejf-opt">Optional</em></span><textarea rows={4} value={f.quals} onChange={set('quals')} placeholder={'3+ years with SQL\nNice to have: dbt'} /></label>
+          <div className="ejf-block">
+            <span className="efl">Benefits &amp; perks <em className="ejf-opt">Optional</em></span>
+            <span className="ef-hint">The first few become filters candidates can search on. Pick what is true.</span>
+            <div className="ejf-chips">{BENEFITS.map((b) => (<button key={b} type="button" className={`ejf-chip${chosen.includes(b) ? ' on' : ''}`} onClick={() => toggleBenefit(b)}>{b}</button>))}</div>
+          </div>
         </section>
 
-        {/* 03 — The posting */}
+        {/* 03 — Who sees it: the adjacency section, the part no other board has */}
         <section className="ejf-sec">
-          <div className="ejf-sec-h"><span className="ejf-num">03</span><h2>The posting</h2></div>
-          <label className="ef-field"><span className="lbl">About the role</span><textarea rows={3} value={f.about} onChange={set('about')} placeholder="Two or three sentences on what the role is and why it exists." /></label>
-          <label className="ef-field"><span className="lbl">Responsibilities, one per line</span><textarea rows={4} value={f.resp} onChange={set('resp')} placeholder={'Own the reporting pipeline\nRun the weekly planning'} /></label>
-          <label className="ef-field"><span className="lbl">Qualifications, one per line</span><textarea rows={4} value={f.quals} onChange={set('quals')} placeholder={'3+ years with SQL\nNice to have: dbt'} /></label>
+          <div className="ejf-sec-h"><span className="ejf-num">03</span><h2>Who sees it</h2></div>
+          {occ ? (
+            <aside className="ejf-fanbox">
+              {info && info.n > 0 ? (
+                <>
+                  <p className="ew-fan-lead">{`${occ.title} sits on ${info.n} measured route${info.n === 1 ? '' : 's'} in our skill graph. Your listing shows on each, to candidates arriving with the gap already itemized:`}</p>
+                  <ul className="ew-fan-list">{info.top.map((x) => (<li key={x.t}><span>{x.t} &rarr; {occ.title}</span><span className="ew-fan-m">{x.m}% ready</span></li>))}</ul>
+                  {info.live > 0 && <p className="ew-fan-note">{`Joins ${info.live} live ${occ.title.toLowerCase()} listings, featured above all of them.`}</p>}
+                </>
+              ) : (<p className="ew-fan-lead">{`${occ.title} listings appear on its board, its salary page, and everywhere the instrument ranks it for a candidate's skills.`}</p>)}
+            </aside>
+          ) : (
+            <p className="ef-hint">Type the role title above and pick the closest occupation — this section then shows the measured routes your listing appears on.</p>
+          )}
           <div className="ejf-block">
-            <span className="lbl">Required skills</span>
+            <span className="efl">Required skills <em className="ejf-opt">Optional</em></span>
             <span className="ef-hint">We match your role to people who already hold these, from adjacent professions. Search our bank, or add your own.</span>
             {skillList.length > 0 && (<div className="ejf-chips ejf-skill-tags">{skillList.map((s) => (<button key={s} type="button" className="ejf-chip on" onClick={() => setSkillList((p) => p.filter((x) => x !== s))}>{s}<span className="ejf-x">&times;</span></button>))}</div>)}
             <div className="ejf-skillbox">
@@ -356,56 +382,61 @@ export function EmployerForm({ occs, fan, skills, salaryHints, pricing }: {
               {(skillMatches.length > 0 || canCustom) && (<div className="ejf-skill-dd">{skillMatches.map((s) => <button key={s} type="button" onClick={() => addSkill(s)}>{s}</button>)}{canCustom && <button type="button" className="ejf-skill-add" onClick={() => addSkill(q)}>Add &ldquo;{q}&rdquo; as a new skill</button>}</div>)}
             </div>
           </div>
-          <div className="ejf-block">
-            <span className="lbl">Benefits &amp; perks</span>
-            <span className="ef-hint">The first few become filters candidates can search on. Pick what is true.</span>
-            <div className="ejf-chips">{BENEFITS.map((b) => (<button key={b} type="button" className={`ejf-chip${chosen.includes(b) ? ' on' : ''}`} onClick={() => toggleBenefit(b)}>{b}</button>))}</div>
+        </section>
+
+        {/* 04 — How to apply */}
+        <section className="ejf-sec">
+          <div className="ejf-sec-h"><span className="ejf-num">04</span><h2>How to apply</h2></div>
+          <div className="ef-row2">
+            <label className={`ef-field${err(noApply)}`}><span className="efl">Apply URL <em className="ejf-req">Required</em></span><input value={f.applyUrl} onChange={set('applyUrl')} placeholder="https://&hellip;" inputMode="url" /></label>
+            <label className={`ef-field${err(noApply)}`}><span className="efl">or apply email</span><input type="email" value={f.applyEmail} onChange={set('applyEmail')} placeholder="jobs@company.com" /></label>
+          </div>
+          <p className="ef-hint ejf-wide">Every listing links out to you. One of these is required; a link to your own form pulls more, cleaner applicants than an email.</p>
+        </section>
+
+        {/* 05 — The company */}
+        <section className="ejf-sec">
+          <div className="ejf-sec-h"><span className="ejf-num">05</span><h2>The company</h2></div>
+          <div className="ef-row2">
+            <label className={`ef-field${err(noCompany)}`}><span className="efl">Company name <em className="ejf-req">Required</em></span><input value={f.company} onChange={set('company')} autoComplete="organization" placeholder="Your brand name, no Inc. / Ltd." /></label>
+            <label className="ef-field"><span className="efl">Logo URL <em className="ejf-opt">Optional</em></span><input value={f.logo} onChange={set('logo')} placeholder="https://&hellip;/logo.png" inputMode="url" /></label>
           </div>
         </section>
 
-        {/* 04 — The company */}
+        {/* 06 — Your email */}
         <section className="ejf-sec">
-          <div className="ejf-sec-h"><span className="ejf-num">04</span><h2>The company</h2></div>
+          <div className="ejf-sec-h"><span className="ejf-num">06</span><h2>Your email</h2></div>
           <div className="ef-row2">
-            <label className={`ef-field${err(noCompany)}`}><span className="lbl">Company name <span className="ejf-req">Required</span></span><input value={f.company} onChange={set('company')} autoComplete="organization" placeholder="Your brand name, no Inc. / Ltd." /></label>
-            <label className={`ef-field${err(noEmail)}`}><span className="lbl">Work email <span className="ejf-req">Required</span></span><input type="email" value={f.email} onChange={set('email')} autoComplete="email" placeholder="you@company.com" /><span className="ef-hint">Private. Used to reach you and send the edit link, never shown.</span></label>
-          </div>
-          <div className="ef-row2">
-            <label className="ef-field"><span className="lbl">Logo URL (optional)</span><input value={f.logo} onChange={set('logo')} placeholder="https://…/logo.png" inputMode="url" /><span className="ef-hint">Shown on your listing&rsquo;s page. The board itself stays typographic.</span></label>
-            <label className="ef-field"><span className="lbl">Your name (optional)</span><input value={f.name} onChange={set('name')} autoComplete="name" /></label>
+            <label className={`ef-field${err(noEmail)}`}><span className="efl">Work email <em className="ejf-req">Required</em></span><input type="email" value={f.email} onChange={set('email')} autoComplete="email" placeholder="you@company.com" /><span className="ef-hint">Private. Where we send the review result.</span></label>
+            <label className="ef-field"><span className="efl">Your name <em className="ejf-opt">Optional</em></span><input value={f.name} onChange={set('name')} autoComplete="name" /></label>
           </div>
         </section>
 
-        {/* 05 — How to apply */}
-        <section className="ejf-sec">
-          <div className="ejf-sec-h"><span className="ejf-num">05</span><h2>How to apply</h2></div>
-          <div className="ef-row2">
-            <label className={`ef-field${err(noApply)}`}><span className="lbl">Apply URL <span className="ejf-req">Required</span></span><input value={f.applyUrl} onChange={set('applyUrl')} placeholder="https://…" inputMode="url" /></label>
-            <label className={`ef-field${err(noApply)}`}><span className="lbl">or apply email</span><input type="email" value={f.applyEmail} onChange={set('applyEmail')} placeholder="jobs@company.com" /></label>
-          </div>
-          <p className="ef-hint ejf-wide">Where candidates go to apply &mdash; every listing links out to you. One of these is required; a link to your own form pulls more, cleaner applicants than an email.</p>
-        </section>
+        {/* phones: the same live preview, inline before the submit */}
+        <div className="ejf-prev ejf-prev-inline" aria-label="Listing preview">
+          <span className="ejf-prev-cap">Preview</span>
+          <ul className="job-list"><JobCard j={previewJob} v2 /></ul>
+        </div>
 
         <div className="ejf-submit">
-          <ol className="ejf-nextrow" aria-label="What happens next">
-            <li>Pay securely with Stripe.</li>
-            <li>Your listing goes live on the board immediately.</li>
-            <li>Featured to the candidates whose skills already reach it.</li>
-          </ol>
-          <button className="ef-send ejf-send" disabled={submitting} onClick={attemptSend}>
-            <span>{submitting ? 'Starting checkout…' : `Post the job — pay $${pricing[tier].launch} (${pricing[tier].name.toLowerCase()})`}</span>
+          <button className="ejf-send" disabled={submitting} onClick={attemptSend}>
+            <span>{submitting ? 'Submitting\u2026' : 'Submit for review'}</span>
             <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
           </button>
-          {tried && !ok && <p className="ejf-errbox">Before you can post, add {missing.join(', ')} &mdash; the fields marked Required above.</p>}
+          {tried && !ok && <p className="ejf-errbox">Before you can submit, add {missing.join(', ')} &mdash; the fields marked Required above.</p>}
           {submitError && <p className="ejf-errbox">{submitError}</p>}
-          <p className="ef-note">Secure payment by Stripe; you go straight to a hosted checkout. Launch pricing is half off while the board fills &mdash; ${pricing.feat.launch} featured, ${pricing.std.launch} standard, per 30-day post. Questions first? <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.</p>
+          <p className="ejf-note">Free during early access &mdash; no card, no account.</p>
+          <p className="ejf-note">Reviewed within 1 business day. You get an email either way. Questions first? <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.</p>
         </div>
       </div>
 
-      <div className="ejf-dock" aria-label="Listing preview">
-        <div className="ejf-dock-cap"><span className="lbl">Preview &mdash; your card on the board</span><span className="lbl ejf-dock-note">Updates as you type</span></div>
-        <ul className="ejf-dock-list"><JobCard j={previewJob} /></ul>
-      </div>
-    </>
+      <aside className="ejf-rail" aria-label="Listing preview">
+        <div className="ejf-prev">
+          <span className="ejf-prev-cap">Preview</span>
+          <ul className="job-list"><JobCard j={previewJob} v2 /></ul>
+          <span className="ejf-prev-note">Your card on the board, as you type.</span>
+        </div>
+      </aside>
+    </div>
   );
 }
