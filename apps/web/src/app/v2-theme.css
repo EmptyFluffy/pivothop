@@ -180,17 +180,26 @@ html.vlight body:has(.v2t){ background:#FFFFFF; }
   .v2t .nav-searchbtn-v2 kbd{ font-family:var(--mono),monospace; font-size:10px; letter-spacing:.06em;
     color:var(--v-text2); background:none; border:1px solid var(--v-border2); border-radius:5px;
     padding:2.5px 6px; }
-  .v2t .nav-run{ background:var(--v-text); color:var(--v-bg); padding:10px 20px; font-weight:550;
+  .v2t .nav-run{ background:var(--v-text); color:var(--v-bg); padding:8.5px 18.5px;
+    border:1.5px solid var(--v-text); font-weight:550;
     font-size:13.5px; letter-spacing:.01em; border-radius:999px; text-decoration:none;
-    transition:background .15s, color .15s; }
-  .v2t .nav-run:hover{ background:var(--v-fill); color:var(--v-fill-ink); text-decoration:none; }
+    transition:background .15s, color .15s, border-color .15s; }
+  .v2t .nav-run:hover{ background:var(--v-fill); border-color:var(--v-fill); color:var(--v-fill-ink); text-decoration:none; }
   .v2t .nav .nav-menu{ grid-row:2; grid-column:1 / -1; height:auto; align-items:center;
     border-top:none; padding:0 28px 14px; gap:34px; }
   .v2t .navlink{ font-size:13.5px; letter-spacing:.08em; height:auto; padding:0; text-underline-offset:2px; }
   .v2t .navlink.on{ color:var(--v-text); text-decoration-color:currentColor; }
   .v2t .nav .nav-menu .nav-searchbtn{ display:none; }
-  /* the menu CTA (Post a job) rides at the row's right edge on desktop */
-  .v2t .nav .nav-menu .cta{ margin-left:auto; }
+  /* desktop: the Post-a-job pill lives in the top-right cluster (.nav-post),
+     so the menu-row CTA stays burger-only */
+  .v2t .nav .nav-menu .cta{ display:none; }
+  /* outline twin of the filled Sign-in pill: same geometry, quieter weight,
+     so the pair reads as one control group without competing */
+  .v2t .nav-post{ border:1.5px solid color-mix(in srgb, var(--v-text) 55%, transparent);
+    color:var(--v-text); padding:8.5px 18.5px; font-weight:550; font-size:13.5px;
+    letter-spacing:.01em; border-radius:999px; text-decoration:none;
+    transition:border-color .15s, background .15s, color .15s; }
+  .v2t .nav-post:hover{ border-color:var(--v-text); background:var(--v-text); color:var(--v-bg); }
 }
 
 /* ---- workspace: full-bleed app frame, rail | center(list | pane) ---- */
@@ -1445,14 +1454,15 @@ html.vlight .v2t .srch-panel{ box-shadow:0 32px 90px rgba(20,20,20,.22); }
 
 /* paste accelerator */
 .v2t .ejf-paste{ border:1.5px solid var(--v-border2); border-radius:14px; padding:20px;
-  margin-bottom:40px; background:var(--v-surface); }
+  margin:0 0 40px; background:var(--v-surface); border-left-width:1.5px; }
 .v2t .ejf-paste-lead{ margin:0 0 12px; font-size:14.5px; color:var(--v-text); font-weight:600; }
 .v2t .ejf-paste-box{ width:100%; box-sizing:border-box; background:var(--v-bg);
   color:var(--v-text); border:1.5px solid var(--v-border2); border-radius:10px;
   font:inherit; font-size:14.5px; line-height:1.5; padding:11px 13px; resize:vertical; }
 .v2t .ejf-paste-box:focus{ outline:none; border-color:var(--v-text); }
 .v2t .ejf-paste-actions{ display:flex; align-items:center; gap:14px; margin-top:12px; flex-wrap:wrap; }
-.v2t .ejf-paste-go{ background:none; font:inherit; font-size:13.5px; font-weight:600;
+.v2t .ejf-paste-go{ background:none; font:inherit; font-family:var(--sans),sans-serif;
+  font-size:13.5px; font-weight:600; letter-spacing:0; text-transform:none;
   color:var(--v-text); border:1.5px solid color-mix(in srgb, var(--v-text) 45%, transparent);
   border-radius:999px; padding:9px 18px; cursor:pointer;
   transition:border-color .15s, background .15s, color .15s; }
@@ -2008,7 +2018,8 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 .v2t .nav .cta:hover, .v2t .nav .cta.on{ background:var(--v-text); color:var(--v-bg); }
 
 /* import-from-URL row inside the accelerator */
-.v2t .ejf-import-row{ display:flex; gap:10px; margin-bottom:12px; }
+.v2t .ejf-import-row{ display:flex; align-items:stretch; gap:10px; margin-bottom:12px; }
+.v2t .ejf-import-row .ejf-paste-go{ flex:none; }
 .v2t .ejf-import-row input{ flex:1; box-sizing:border-box; background:var(--v-bg);
   color:var(--v-text); border:1.5px solid var(--v-border2); border-radius:10px;
   font:inherit; font-size:14.5px; padding:11px 13px; }

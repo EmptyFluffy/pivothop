@@ -36,6 +36,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
           </button>
           <V2ThemeToggle />
           <SavedNavLink />
+          <Link className="nav-post" href="/employers">Post a job</Link>
           <AuthNavButton />
         </span>
       )}
