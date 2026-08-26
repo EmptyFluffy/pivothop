@@ -108,7 +108,7 @@ CAP = 600        # freshest N per occupation (per-occupation board + detail)
 # file (1,530). Full board is 2.74MB raw but 430KB gzipped, which is what
 # actually crosses the wire, so completeness is affordable and consistency is
 # not optional. ALL_CAP exists only as an escape hatch if that stops being true.
-ALL_CAP = CAP  # MUST equal CAP: the consistency canary compares index sums against per-role files; a lower value aborts the build
+ALL_CAP = CAP  # reported only. The global file now emits the per-occupation universe verbatim (no second slice), so the two outputs cannot disagree by construction.
 FLOOR = 3        # skip occupations with fewer than this (no board)
 DESC_CAP = 7000  # chars of description on the detail page
 
@@ -452,12 +452,32 @@ for d in (OUT, DETAIL):
 # rule is now symmetric. Occupations with single-country supply still fill
 # to CAP: the ceiling only bites while spill from other countries exists.
 COUNTRY_SHARE = 0.65
+# Studio postings never lose a slot to an aggregator row. `direct` is the fleet
+# of architecture and design studios we crawl ourselves: supply that sits on no
+# other board, and the whole reason the architecture boards are worth reading.
+# An aggregator listing is commodity — the same job is on every competitor — so
+# when an occupation is full it is the commodity row that gives way.
+# Measured 2026-08-26: `architect` sat at exactly CAP with 296 Jooble + 196
+# Job-Room rows and ZERO studio postings, while 230 studios had 1,135 live
+# openings and only 177 of them reached the board. The cap was never meant to
+# ration the differentiated supply; it exists to bound the browser payload,
+# which these rows barely move (~1k rows against 33.8k).
+# They are counted in the country ceiling so the CH balance stays honest, but
+# are never evicted by it.
+PRIORITY_SOURCES = {'direct'}
 kept_byocc = {}
+# How much live supply the cap turns away, per occupation. Printed so the cost
+# of CAP is a measured number rather than a guess the next time it is argued.
+_capped_away = {}
 for role, jobs in byocc.items():
     jobs.sort(key=lambda j: j['posted'] or '', reverse=True)
     country_cap = int(CAP * COUNTRY_SHARE)
-    picked, spill, per_c = [], [], collections.Counter()
+    picked = [j for j in jobs if j['source'] in PRIORITY_SOURCES]
+    per_c = collections.Counter((j.get('c') or 'none') for j in picked)
+    spill = []
     for j in jobs:
+        if j['source'] in PRIORITY_SOURCES:
+            continue                    # already kept, above the cap
         if len(picked) >= CAP:
             break
         c = j.get('c') or 'none'
@@ -470,6 +490,7 @@ for role, jobs in byocc.items():
             break
         picked.append(j)
     picked.sort(key=lambda j: j['posted'] or '', reverse=True)
+    _capped_away[role] = len(jobs) - len(picked)
     if len(picked) >= FLOOR:
         kept_byocc[role] = picked
 
@@ -487,7 +508,7 @@ _excess = _c_tot['CH'] - int(BALANCE_RATIO * _c_tot['US'])
 if _excess > 0:
     # oldest CH rows across the board, grouped so each occupation keeps >= FLOOR
     ch_rows = [(j['posted'] or '', role, j['id']) for role, jobs in kept_byocc.items()
-               for j in jobs if j.get('c') == 'CH']
+               for j in jobs if j.get('c') == 'CH' and j['source'] not in PRIORITY_SOURCES]
     ch_rows.sort()  # oldest first
     drop = set()
     room = {role: len(jobs) - FLOOR for role, jobs in kept_byocc.items()}
@@ -503,6 +524,13 @@ if _excess > 0:
             del kept_byocc[role]
     _after = collections.Counter(j.get('c') or 'none' for jobs in kept_byocc.values() for j in jobs)
     print(f"balance: CH {_c_tot['CH']} -> {_after['CH']} (<= {BALANCE_RATIO} x US {_c_tot['US']}), dropped {len(drop)}")
+
+_worst = sorted(_capped_away.items(), key=lambda kv: -kv[1])[:8]
+if _worst and _worst[0][1] > 0:
+    print('cap: turned away ' + str(sum(_capped_away.values())) + ' live rows · worst: '
+          + ', '.join(f'{r} −{n}' for r, n in _worst if n > 0))
+_ndirect = sum(1 for jobs in kept_byocc.values() for j in jobs if j['source'] in PRIORITY_SOURCES)
+print(f'priority: {_ndirect} studio postings published (never capped)')
 
 # Featured strip: recognizable employers, salary-stated first, freshest,
 # max two per company. Flag the original rows and emit the strip.
@@ -556,10 +584,13 @@ for role, jobs in kept_byocc.items():
     details = {i: v for i, v in desc_byocc[role].items() if i in kept}
     json.dump(details, open(f'{DETAIL}/{role}.json', 'w'), ensure_ascii=False)
     index[role] = len(jobs)
-    # global search rows: the freshest ALL_CAP per occupation, and drop the
-    # outbound URL (only detail pages need it; it is the heaviest field) —
-    # browse links internally via occ + id.
-    all_rows.extend({k: v for k, v in j.items() if k != 'url'} for j in jobs[:ALL_CAP])
+    # global search rows: the SAME universe as the per-occupation file (never a
+    # second slice — priority rows can push an occupation past CAP, and a
+    # re-slice here would make index[role] and the global file disagree, which
+    # is exactly the two-numbers-for-one-thing bug ALL_CAP was warning about).
+    # The outbound URL is dropped (detail pages only; heaviest field) — browse
+    # links internally via occ + id.
+    all_rows.extend({k: v for k, v in j.items() if k != 'url'} for j in jobs)
 all_rows.sort(key=lambda j: j['posted'] or '', reverse=True)
 
 # Mojibake canary: no displayed field may ship the two-high-byte corruption
