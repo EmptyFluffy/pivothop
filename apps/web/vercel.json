@@ -1,4 +1,5 @@
 {
+  "ignoreCommand": "git rev-parse HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- :/apps/web :/packages :/package.json :/package-lock.json",
   "crons": [
     {
       "path": "/api/social/cron",
