@@ -23,7 +23,13 @@ jobs:
     # spacing); warm runs are ~20-30 min. The first 50-min cap cancelled a cold
     # run mid-ingest, and the 150-min cap cancelled 2026-08-19 at exactly 2h30m.
     # The direct fleet is growing ~20-50 studios/night now, so headroom again.
-    timeout-minutes: 210
+    # 330, not 210: the 2026-09-01 catch-up run hit the old ceiling at exactly
+    # 211 minutes and was killed one step before publishing. Six days of
+    # backlog meant ~35k new postings in one pass (jobroom +11.7k, adzuna
+    # +12.5k), and the cancel also discarded the cache, so the next attempt
+    # repeats the whole fetch. A ceiling only costs minutes when a run
+    # actually needs them; a run killed before `publish` costs the whole run.
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
 
