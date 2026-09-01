@@ -581,7 +581,16 @@ export const ROUTE_SLUGS = Object.keys(ROUTES);
    numbers (match, the carried and missing skills, salary, demand, time, observed
    flow), an evidence checklist selected from the extracted skills, and a
    data-driven FAQ. Gated by a match and posting floor so nothing thin ships. */
-const MATCH_FLOOR = 45, ORIGIN_POST_FLOOR = 60, DEST_CAP = 2;
+/* DEST_CAP raised 2 -> 3 on 2026-09-01, from measurement rather than appetite.
+   MATCH_FLOOR is the quality gate and every destination clears it regardless of
+   rank; the cap only decides how deep down an already-qualified list we publish.
+   Measured across the 169 eligible origins: destination #1 median match 55,
+   #2 median 54, #3 median 50 — a 4-point drop, same 45 floor, and #3 tops out
+   at 74. Volume is no longer the binding constraint on this surface (160
+   origins already cleared ORIGIN_POST_FLOOR back in August), so the cap was.
+   #4 measures the same as #3 (median 50) and is the next step if Search
+   Console shows these indexing and earning impressions. */
+const MATCH_FLOOR = 45, ORIGIN_POST_FLOOR = 60, DEST_CAP = 3;
 const NON_OCC = new Set(['occ-meta', 'origins', 'skill-profiles', 'skills-meta', 'skill-cooccur', 'cloud', 'price-levels', 'data']);
 let _routable: Map<string, { origin: string; dest: string }> | null = null;
 function loadRoutable(): Map<string, { origin: string; dest: string }> {
@@ -616,7 +625,7 @@ export function routePair(slug: string): { origin: string; dest: string } | null
 
 /** Origins that earn a per-origin page ("Alternative careers for architects"):
     enough measured roles in the payload to be a real ranked list. Route PAGES
-    are capped at the best two per origin (DEST_CAP); the origin page lists the
+    are capped at the best few per origin (DEST_CAP); the origin page lists the
     full measured set and links the ones that have pages. */
 export function routeOrigins(): string[] {
   const out: string[] = [];
