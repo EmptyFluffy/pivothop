@@ -5,6 +5,7 @@ import path from 'node:path';
 import { PageShell } from '../components/SiteChrome';
 import { GLOSSARY } from './glossary-data';
 import GlossaryTabs from './GlossaryTabs';
+import { hasSkillPage } from '../skills/skills-data';
 import { SkillMarkSvg } from '../jobs/SkillMark';
 import { BenefitMarkSvg, type BenefitEntry } from '../jobs/BenefitStrip';
 
@@ -101,7 +102,7 @@ export default function GlossaryPage() {
                         <h3 className="gloss-letter" id={`skill-letter-${letter}`}>{letter}</h3>
                         {SKILLS.filter((s) => firstLetter(s.term) === letter).map((s) => (
                           <div className="gloss-item gloss-skill" id={`skill-${s.slug}`} key={s.slug}>
-                            <dt><span className="gt"><SkillMarkSvg id={s.slug} className="gt-mark" />{s.term}</span>{s.field && <span className="gf">{s.field}</span>}</dt>
+                            <dt><span className="gt"><SkillMarkSvg id={s.slug} className="gt-mark" />{hasSkillPage(s.slug) ? <Link className="gl" href={`/skills/${s.slug}`}>{s.term}</Link> : s.term}</span>{s.field && <span className="gf">{s.field}</span>}</dt>
                             <dd>
                               {s.def}
                               {s.unlocks.length > 0 && (

@@ -9,6 +9,7 @@ import { guidedSlugs } from './career-guides/facts';
 import { jobOccupations } from './jobs/jobs-data';
 import { categorySlugs } from './jobs/categories-data';
 import { compareSlugs } from './compare/compare-data';
+import { skillPageSlugs } from './skills/skills-data';
 
 const BASE = 'https://www.pivothop.com';
 
@@ -42,6 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/adjacency-index`, ...mod('/adjacency-index'), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/routes`, ...mod('/routes'), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/glossary`, ...mod('/glossary'), changeFrequency: 'monthly', priority: 0.6 },
+    ...skillPageSlugs().map((s) => ({ url: `${BASE}/skills/${s}`, changeFrequency: 'weekly' as const, priority: 0.7 })),
     { url: `${BASE}/licenses`, ...mod('/licenses'), changeFrequency: 'monthly', priority: 0.7 },
     ...routableSlugs().map((s) => ({ url: `${BASE}/routes/${s}`, ...mod(`/routes/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
     ...routeOrigins().map((s) => ({ url: `${BASE}/routes/${s}`, ...mod(`/routes/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
