@@ -67,7 +67,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   });
 
   return (
-    <PageShell v2 active="jobs">
+    <PageShell v2 active="companies">
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">PivotHop</Link><span>/</span>

@@ -24,7 +24,7 @@ const ArrowIco = () => (
   <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
 );
 
-export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers'; v2?: boolean }) {
+export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers' | 'companies'; v2?: boolean }) {
   return (
     <header className="nav">
       <Link href="/" className="brand">{v2 ? <span className="wm">PivotHop</span> : <><RabbitMark /><span className="wm">PIVOTHOP</span></>}</Link>
@@ -54,7 +54,9 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
             surface with no way to reach it from the top of the site. */}
         <Link className={`navlink${active === 'jobs' ? ' on' : ''}`} href="/jobs">Jobs</Link>
         <Link className={`navlink${active === 'routes' ? ' on' : ''}`} href="/routes">Routes</Link>
-        {v2 && <Link className="navlink" href="/instrument">Instrument</Link>}
+        {/* Instrument demoted to the footer until it is fully functional
+            (2026-09-02); Companies takes its slot. */}
+        {v2 && <Link className={`navlink${active === 'companies' ? ' on' : ''}`} href="/companies">Companies</Link>}
         {v2
           ? <Link className={`navlink${active === 'salaries' ? ' on' : ''}`} href="/salary">Salaries</Link>
           : <Link className="navlink" href="/instrument#how">Method</Link>}
@@ -90,6 +92,7 @@ export function SiteFooter() {
         <div>
           <h5>Product</h5>
           <ul>
+            <li><Link href="/instrument">Career instrument</Link></li>
             <li><Link href="/instrument#how">Method</Link></li>
             <li><Link href="/jobs">Job board</Link></li>
             <li><Link href="/jobs/browse">Browse jobs</Link></li>
@@ -128,7 +131,7 @@ export function SiteFooter() {
   );
 }
 
-export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers'; wide?: boolean; v2?: boolean }) {
+export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers' | 'companies'; wide?: boolean; v2?: boolean }) {
   /* v2: the redesign theme layer (docs/redesign-v2/05). Adds the namespaced
      wrapper class, the no-flash theme bootstrap, and the mode toggle. The
      stylesheet only acts under .v2t, so non-opted templates are untouched. */

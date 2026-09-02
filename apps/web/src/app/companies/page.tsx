@@ -16,7 +16,7 @@ export default function CompaniesHub() {
   const strong = cos.filter((c) => c.count >= 20);
   const rest = cos.filter((c) => c.count < 20).sort((a, b) => a.name.localeCompare(b.name));
   return (
-    <PageShell v2 active="jobs">
+    <PageShell v2 active="companies">
       <div className="rtp">
         <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
           <Link href="/">PivotHop</Link><span>/</span><span>Companies</span>
