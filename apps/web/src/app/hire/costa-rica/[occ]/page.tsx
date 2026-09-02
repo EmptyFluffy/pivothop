@@ -7,7 +7,8 @@ import { occTitle } from '../../../jobs/jobs-data';
 import { careerFacts } from '../../../career-guides/facts';
 import { getSalary, usBand, coverableSlugs } from '../../../salary/salary-data';
 import { CR_BENCHMARKS } from '../../../salary/by-country/costa-rica/benchmarks';
-import { salaryLabel, postedLabel } from '../../../jobs/JobCard';
+import { postedLabel } from '../../../jobs/JobCard';
+import JobsList from '../../../jobs/JobsList';
 
 /* Per-role employer page for Costa Rica. The two-figure comparison (CR posted
    vs US) shows both numbers with their sources and sample sizes and lets the
@@ -140,17 +141,15 @@ export default async function HireOccPage({ params }: { params: Promise<{ occ: s
           </section>
         )}
 
-        <section className="rt-sec">
-          <h2>The live CR postings</h2>
-          <ul className="rt-rel">
-            {jobs.slice(0, 8).map((j) => (
-              <li key={`${j.occ}-${j.id}`}>
-                <Link href={`/jobs/${j.occ}/${j.id}`}>{j.title}</Link>
-                <span className="lbl">{[j.company, salaryLabel(j.smin, j.smax), postedLabel(j.posted)].filter(Boolean).join(' · ')}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <JobsList
+          jobs={jobs}
+          limit={8}
+          total={jobs.length}
+          heading="The live CR postings"
+          note={`Every ${tl} posting located in Costa Rica on this board, freshest first. Apply at the source.`}
+          allHref={`/jobs/${occ}?c=CR`}
+          allLabel={`All ${jobs.length} Costa Rican ${tl} postings on the board`}
+        />
 
         <section className="rt-cta">
           <div>

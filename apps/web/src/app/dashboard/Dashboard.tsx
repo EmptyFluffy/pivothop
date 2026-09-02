@@ -138,7 +138,10 @@ export default function Dashboard() {
             ))}
           </nav>
 
-          <ul className="dash-list">
+          {/* The board's card anatomy (logo, title at company, location, pay,
+              date) with the tracker's controls in the cell where the board
+              keeps save + Apply: one job, drawn one way everywhere. */}
+          <ul className="job-list dash-list">
             {rows.map((s) => {
               const key = `${s.occ}/${s.id}`;
               const alive = live === null ? true : live.has(key);
@@ -146,38 +149,42 @@ export default function Dashboard() {
               const [tbg, tfg] = monoTint(s.company);
               return (
                 <li key={key} className={`dash-row${alive ? '' : ' dead'}`}>
-                  <span className="dash-logo" aria-hidden="true">
-                    {s.logo
-                      ? <img src={s.logo} alt="" width={30} height={30} loading="lazy" />
-                      : <i style={{ background: tbg, color: tfg }}>{companyInitial(s.company)}</i>}
-                  </span>
-                  <span className="dash-main">
-                    {alive
-                      ? <Link className="dash-t" href={`/jobs/${s.occ}/${s.id}`}>{s.title}</Link>
-                      : <span className="dash-t">{s.title}</span>}
-                    <span className="dash-co">
-                      {s.company}{s.location ? ` · ${s.location}` : ''}
-                      {!alive && <em className="dash-dead-tag">No longer listed</em>}
+                  <div className="job-card dash-card">
+                    <span className="job-logo" aria-hidden="true">
+                      {s.logo
+                        ? <img src={s.logo} alt="" width={34} height={34} loading="lazy" />
+                        : <span className="job-mono" style={{ background: tbg, color: tfg }}>{companyInitial(s.company)}</span>}
                     </span>
-                  </span>
-                  {pay && <span className="dash-pay">{pay}</span>}
-                  <span className="dash-date">{s.posted ? postedLabel(s.posted) : ''}</span>
-                  <select
-                    className="dash-status"
-                    value={s.status}
-                    aria-label="Application status"
-                    onChange={(e) => setStatus(s, e.target.value as SavedStatus)}
-                  >
-                    {STATUSES.map((o) => <option key={o.key} value={o.key}>{o.label}</option>)}
-                  </select>
-                  <button
-                    type="button"
-                    className={`dash-ghost${(s.notes || notesOpen === key) ? ' has' : ''}`}
-                    onClick={() => setNotesOpen(notesOpen === key ? null : key)}
-                  >Notes</button>
-                  <button type="button" className="dash-x" aria-label={`Remove ${s.title}`} onClick={() => remove(s)}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                  </button>
+                    <span className="jv-main">
+                      {alive
+                        ? <Link className="jv-ti" href={`/jobs/${s.occ}/${s.id}`}>{s.title} <span className="jv-at">at {s.company}</span></Link>
+                        : <span className="jv-ti">{s.title} <span className="jv-at">at {s.company}</span></span>}
+                      <span className="jv-loc">
+                        {s.location || 'Location unlisted'}
+                        {!alive && <em className="dash-dead-tag">No longer listed</em>}
+                      </span>
+                    </span>
+                    <span className="jv-pay">{pay}</span>
+                    <span className="jv-age">{s.posted ? postedLabel(s.posted) : ''}</span>
+                    <span className="jv-cell dash-ctl">
+                      <select
+                        className="dash-status"
+                        value={s.status}
+                        aria-label="Application status"
+                        onChange={(e) => setStatus(s, e.target.value as SavedStatus)}
+                      >
+                        {STATUSES.map((o) => <option key={o.key} value={o.key}>{o.label}</option>)}
+                      </select>
+                      <button
+                        type="button"
+                        className={`dash-ghost${(s.notes || notesOpen === key) ? ' has' : ''}`}
+                        onClick={() => setNotesOpen(notesOpen === key ? null : key)}
+                      >Notes</button>
+                      <button type="button" className="dash-x" aria-label={`Remove ${s.title}`} onClick={() => remove(s)}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                      </button>
+                    </span>
+                  </div>
                   {notesOpen === key && (
                     <textarea
                       className="dash-notes"

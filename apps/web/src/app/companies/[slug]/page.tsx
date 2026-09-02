@@ -5,7 +5,8 @@ import { PageShell } from '../../components/SiteChrome';
 import { getCompany, companySlugs } from '../companies-data';
 import { occTitle } from '../../jobs/jobs-data';
 import { countryName } from '../../jobs/countries';
-import { salaryLabel, postedLabel, companyInitial, monoTint } from '../../jobs/JobCard';
+import { postedLabel, companyInitial, monoTint } from '../../jobs/JobCard';
+import JobsList from '../../jobs/JobsList';
 
 /* A company page computed entirely from its live postings: what it is hiring
    for, where, what it declares in benefits, what it posts in pay. Nothing is
@@ -120,20 +121,15 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        <section className="rt-sec">
-          <h2>Latest openings</h2>
-          <ul className="rt-rel">
-            {c.jobs.slice(0, 10).map((j) => (
-              <li key={`${j.occ}-${j.id}`}>
-                <Link href={`/jobs/${j.occ}/${j.id}`}>{j.title}</Link>
-                <span className="lbl">{[j.location || (j.remote ? 'Remote' : ''), salaryLabel(j.smin, j.smax), postedLabel(j.posted)].filter(Boolean).join(' · ')}</span>
-              </li>
-            ))}
-          </ul>
-          {c.count > 10 && (
-            <p className="rt-note">All {c.count.toLocaleString()} roles, filterable: <Link className="gl" href={`/jobs?q=${encodeURIComponent(c.name)}`}>{c.name} on the board</Link>.</p>
-          )}
-        </section>
+        <JobsList
+          jobs={c.jobs}
+          limit={10}
+          total={c.count}
+          heading="Latest openings"
+          note={`${c.name}'s live postings on this board, freshest first. Apply at the source.`}
+          allHref={`/jobs?q=${encodeURIComponent(c.name)}`}
+          allLabel={`All ${c.count.toLocaleString()} ${c.name} roles, filterable`}
+        />
 
         {c.benefits.length >= 2 && (
           <section className="rt-sec">
