@@ -39,11 +39,11 @@ export default function CostaRicaSalaryGuide() {
         <section className="rt-sec">
           <h2>The live market we can see</h2>
           <p className="rt-note">Current Costa Rica-located listings in PivotHop. These counts move with the board and are not used as a substitute for official wage statistics.</p>
-          <table className="post-table">
+          <div className="occ-tblwrap"><table className="post-table">
             <caption>PivotHop Costa Rica job market · refreshed with the board</caption>
             <thead><tr><th>Live listings</th><th className="num">Companies</th><th className="num">Remote</th><th className="num">With stated pay</th></tr></thead>
             <tbody><tr><td><strong>{market.total.toLocaleString()}</strong></td><td className="num">{market.companies.toLocaleString()}</td><td className="num">{market.remote.toLocaleString()}</td><td className="num">{market.withSalary.toLocaleString()}</td></tr></tbody>
-          </table>
+          </table></div>
         </section>
 
         <section className="rt-sec">
@@ -51,7 +51,7 @@ export default function CostaRicaSalaryGuide() {
           <p className="rt-note">
             Total comp is shown in CRC; remote-for-foreign-employer figures are generally USD annual pay. Read across, not as if the columns were interchangeable. Each role page shows the source ledger and what each figure measures.
           </p>
-          <table className="post-table">
+          <div className="occ-tblwrap"><table className="post-table">
             <caption>Selected roles with direct Costa Rica benchmark coverage · source dates shown on role pages</caption>
             <thead><tr><th>Role</th><th className="num">Multinational total comp</th><th className="num">Remote foreign employer</th><th className="num">Live CR jobs</th></tr></thead>
             <tbody>
@@ -69,7 +69,7 @@ export default function CostaRicaSalaryGuide() {
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
         </section>
 
         <section className="rt-sec">

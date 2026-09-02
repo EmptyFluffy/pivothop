@@ -149,7 +149,7 @@ export const POSTS: Post[] = [
           distance that the pay band changes. A sample from the top of that
           quadrant, all license-free, all with live listings on the board:
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Measured raises with above-average skill overlap &middot; US advertised medians, August 2026</caption>
           <thead><tr><th>From</th><th>To</th><th>Advertised medians</th><th>Gap</th></tr></thead>
           <tbody>
@@ -161,7 +161,7 @@ export const POSTS: Post[] = [
             <tr><td>IT support specialist</td><td>Solutions architect</td><td>$96k &rarr; $164k</td><td>+70%</td></tr>
             <tr><td>Product analyst</td><td>Data scientist</td><td>$95k &rarr; $156k</td><td>+64%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           A gap is not an offer. Customer support to operations manager is a real
           wire in the graph and still a competitive interview against people
@@ -623,7 +623,7 @@ export const POSTS: Post[] = [
           Our data can&rsquo;t tell you whether a robot will ever swing a hammer. But it can tell you something adjacent and concrete: whether employers are rewriting a job <em>around</em> AI, by whether their postings now ask for AI skills. Across 100,000-plus live postings, we tagged which occupations name LLM or agent tooling in their top-20 skill demand. The split is stark.
         </p>
         <div className="post-callout"><b>100% vs 37%</b><span>Every occupation we track in <strong>Trades, Healthcare, Construction, Hospitality, and Transport</strong> shows zero AI-skill demand. In <strong>Technology</strong>, only 37% are AI-free. The hands-on economy isn&rsquo;t being rewritten around AI; the knowledge economy is.</span></div>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Share of a field&rsquo;s occupations with no AI-skill demand in their top-20 &middot; July 2026</caption>
           <thead><tr><th>Field</th><th>AI-free</th></tr></thead>
           <tbody>
@@ -634,7 +634,7 @@ export const POSTS: Post[] = [
             <tr><td>Business</td><td>56%</td></tr>
             <tr><td>Technology</td><td>37%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The limit, stated plainly: &ldquo;no AI-skill demand&rdquo; means employers aren&rsquo;t asking electricians to prompt a model, not that a machine could never rewire a panel. It&rsquo;s a demand-side signal, not a robotics forecast. But it points the same way Karp does, and it stacks with a second moat. The safest occupations we track pair the manual work with a <strong>license</strong>: <a className="gl" href="/jobs/electrician">electrician</a>, <a className="gl" href="/jobs/plumber">plumber</a>, HVAC technician, <a className="gl" href="/jobs/registered-nurse">registered nurse</a>, physical therapist, paramedic: every one shows no AI-skill demand <em>and</em> a required credential.
         </p>
@@ -729,7 +729,7 @@ export const POSTS: Post[] = [
         <p>
           Every major chatbot has now had a version of this incident, and the ledger reads best in order. <strong>Google Bard, September 2023</strong>: shared chats indexed; Google&rsquo;s own search liaison conceded &ldquo;we don&rsquo;t intend for these shared chats to be indexed&rdquo; and blocked them within a day. <strong>ChatGPT, July 2025</strong>: a share-dialog checkbox labeled &ldquo;make this chat discoverable&rdquo; put nearly 4,500 conversations into Google before Fast Company noticed; OpenAI&rsquo;s security chief killed the feature within two days, calling it &ldquo;a short-lived experiment,&rdquo; and a researcher later counted roughly <strong>100,000</strong> indexed conversations: NDAs, contract drafts, and a resume-rewrite chat a reporter traced to a real person&rsquo;s LinkedIn. <strong>Grok, August 2025</strong>: over <strong>370,000</strong> conversations indexed by Google&rsquo;s estimate. <strong>Claude</strong> has now had it twice: just under 600 conversations in September 2025 by Google&rsquo;s count, and this weekend&rsquo;s rerun.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Share-page indexing posture, checked directly, July 27, 2026</caption>
           <thead><tr><th>Product</th><th>Crawler access</th><th>Page instruction</th><th>Net effect</th></tr></thead>
           <tbody>
@@ -738,7 +738,7 @@ export const POSTS: Post[] = [
             <tr><td>Claude</td><td>Blocked</td><td>noindex, invisible to crawlers</td><td>URL-only indexing stays possible</td></tr>
             <tr><td>Grok</td><td>Allowed</td><td><strong>index, follow</strong></td><td>Shared chats remain indexable today</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <h2>Why this is a careers story</h2>
         <p>
@@ -895,7 +895,7 @@ export const POSTS: Post[] = [
         <p>
           Count each occupation&rsquo;s routes out at 45 percent readiness or better and the market sorts itself. The wide-exit careers share a shape: either a <strong>data core</strong> (analysis, SQL, statistics travel almost everywhere) or a <strong>coordination core</strong> (the operations-and-stakeholders bundle that every industry buys).
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Routes out at &ge;45% readiness &middot; occupations with 100+ postings &middot; July 2026</caption>
           <thead><tr><th>Career</th><th>Routes out</th><th>The portable core</th></tr></thead>
           <tbody>
@@ -908,7 +908,7 @@ export const POSTS: Post[] = [
             <tr><td><a className="gl" href="/routes/data-analyst">Data analyst</a></td><td>6</td><td>SQL, visualization, statistics</td></tr>
             <tr><td><a className="gl" href="/routes/medical-assistant">Medical assistant</a></td><td>6</td><td>Clinical floor skills, patient ops</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           At the other end, a set of large occupations show <strong>zero</strong> routes out at 45 percent in our matrix: copywriter, creative director, social media manager, executive assistant, recruiter, translator, paralegal, UX writer. Two readings, and both matter. First, craft careers run on deep, narrow vocabularies the wider market does not post for by name, so their exits really are harder at full readiness. Second, our instrument reads posted skill demand, and postings under-specify craft depth; a copywriter&rsquo;s judgment shows up in postings as a thin skill list. The lock is real, and it is also partly a measurement shadow. We say so rather than pretend the number is complete.
         </p>
@@ -926,7 +926,7 @@ export const POSTS: Post[] = [
         <p>
           If the market&rsquo;s unit is the skill, the highest-leverage question becomes: which skills appear in the most occupations&rsquo; demand? From the top-20 posted-demand profiles of all 177 occupations:
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Occupations (of 177) whose top-20 posted demand includes the skill &middot; July 2026</caption>
           <thead><tr><th>Skill</th><th>Occupations</th></tr></thead>
           <tbody>
@@ -941,7 +941,7 @@ export const POSTS: Post[] = [
             <tr><td>Python</td><td>29</td></tr>
             <tr><td>SQL</td><td>26</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           Two things stand out. Data analysis is the market&rsquo;s reserve currency, demanded in a third of everything. And the 2026 story is already in the table: <strong>agent and LLM tooling sits in the top-20 demand of roughly a third of occupations</strong>, two years after those phrases barely existed in postings. A bridge skill is leverage precisely because one investment moves your readiness across dozens of destinations at once; the instrument prices that for your specific starting point.
         </p>
@@ -1228,7 +1228,7 @@ export const POSTS: Post[] = [
         <p>
           Demand is what employers want next. It is not the same as what workers actually did. The third signal is observed mobility: real occupation-to-occupation transitions, from government and resume data. We use three sources, chained by strength.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>The observed-flow layer &middot; all Creative-Commons-licensed, so a product that charges can legally use them</caption>
           <thead><tr><th>Source</th><th>What it is</th><th>Signal</th></tr></thead>
           <tbody>
@@ -1236,7 +1236,7 @@ export const POSTS: Post[] = [
             <tr><td>EU resume trajectories</td><td>JobHop career paths, finer on design and creative roles</td><td>Real worker flows</td></tr>
             <tr><td><a className="gl" href="/glossary#onet">O*NET</a> related occupations</td><td>Curated expert relatedness, US Dept of Labor</td><td>Baseline, last resort</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The rule for this layer is fixed: <strong>corroboration, never ranking.</strong> Postings measure where demand is going; flow measures where people already went; when the two disagree, that disagreement is the interesting part, not an error to average away. A route the skills model loves but nobody has ever walked is a different animal from one that is both skill-close and well-trodden, and we keep them distinct.
         </p>
@@ -1244,7 +1244,7 @@ export const POSTS: Post[] = [
         <p>
           The method leans on public datasets, and the field is thick with initials. Here is every one this instrument touches, in plain language.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Every acronym in the method</caption>
           <thead><tr><th>Term</th><th>Full name</th><th>What it does here</th></tr></thead>
           <tbody>
@@ -1256,7 +1256,7 @@ export const POSTS: Post[] = [
             <tr><td><strong><a className="gl" href="/glossary#jaccard">Jaccard</a></strong></td><td>Jaccard index</td><td>Shared skills divided by all distinct skills across two roles. The tiebreaker after coverage.</td></tr>
             <tr><td><strong>CC BY</strong></td><td>Creative Commons Attribution</td><td>The license that lets a product which charges money legally reuse the mobility datasets.</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <h2>What the numbers say: adjacency is rare</h2>
         <p>
           Run the coverage score across every pair in the taxonomy and the shape is stark. We scored <strong>7,946 origin-to-destination routes</strong> in the July run. Sorted into readiness bands, as a share of all routes:
@@ -1276,7 +1276,7 @@ export const POSTS: Post[] = [
         <p>
           At the top of the distribution, the strong non-licensed moves, the ones where the skills genuinely carry and no credential stands in the way:
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>High-readiness routes without a licensing gate &middot; PivotHop July 2026 run</caption>
           <thead><tr><th>From</th><th>To</th><th className="num">Readiness</th><th className="num">Shared skills</th></tr></thead>
           <tbody>
@@ -1286,7 +1286,7 @@ export const POSTS: Post[] = [
             <tr><td>Accountant</td><td>Bookkeeper</td><td className="num">75%</td><td className="num">15</td></tr>
             <tr><td>Software engineer</td><td>Backend developer</td><td className="num">73%</td><td className="num">15</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <h2>The rules that keep the number honest</h2>
         <p>
           A readiness score is easy to fake and easy to misread, so the method is fenced by a few non-negotiable rules.
@@ -1354,7 +1354,7 @@ export const POSTS: Post[] = [
         <p>
           Here is the phrase doing both jobs, verbatim from the corpus. The words are identical. The instruction is reversed.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>The phrase &ldquo;visa sponsorship&rdquo; in real postings &middot; verbatim, PivotHop corpus, July 2026</caption>
           <thead><tr><th>What the posting says</th><th className="num">Means</th></tr></thead>
           <tbody>
@@ -1363,7 +1363,7 @@ export const POSTS: Post[] = [
             <tr><td>&ldquo;This role is not eligible for visa sponsorship.&rdquo;</td><td className="num">No</td></tr>
             <tr><td>&ldquo;We are unable to offer visa sponsorship for this role.&rdquo;</td><td className="num">No</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           A filter that reads the phrase as a yes is right about half the time. For most searches that would be mediocre. For this one it is the worst kind of wrong, because the person leaning on it is the person who cannot take the job without sponsorship, and half the time it hands them the exact posting that rules them out.
         </p>
@@ -1375,7 +1375,7 @@ export const POSTS: Post[] = [
           43 out of 4,196. About one in a hundred. Sponsorship is not a filter you apply to a job search. It is a property of a small, specific set of employers, and the open board is the wrong place to go looking for it.
         </p>
         <h2>Where the offers actually are</h2>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Live listings that genuinely offer visa sponsorship, by field &middot; PivotHop board, July 2026</caption>
           <thead><tr><th>Field</th><th className="num">Sponsor-offering listings</th></tr></thead>
           <tbody>
@@ -1386,7 +1386,7 @@ export const POSTS: Post[] = [
             <tr><td>Finance</td><td className="num">2</td></tr>
             <tr><td>Engineering</td><td className="num">2</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The raw count hides a geography twist. The offers skew hard to the United States: <strong>34 of the 43 sit in US postings</strong>, and not because American employers sponsor more. They are legally required to address it. A US posting names H-1B status to screen applicants; a German or Singaporean posting for the same role often says nothing, because the local work-permit process is routine and unstated. The phrase tracks how loud a country&rsquo;s immigration paperwork is, not how open its employers are. Read the absence of the words as ambiguity, not a no.
         </p>
@@ -1424,7 +1424,7 @@ export const POSTS: Post[] = [
         <p>
           The first group is healthcare, and it is the one the surveys get exactly right. The helping jobs that score highest on meaning also carry among the lowest exit rates we track.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Fulfilling careers, and how many leave the occupation each year &middot; occupational transfer rate, BLS Employment Projections 2024&ndash;34</caption>
           <thead><tr><th>Career</th><th className="num">Leave the occupation per year</th></tr></thead>
           <tbody>
@@ -1438,7 +1438,7 @@ export const POSTS: Post[] = [
             <tr><td>Social worker</td><td className="num">4.5%</td></tr>
             <tr><td><strong>Tutor</strong></td><td className="num">8.1%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           A physical therapist has a 1.5 percent chance of leaving the occupation in a given year; a registered nurse, 2.1 percent. These are people who found the work meaningful and stayed in it. When a survey says healthcare is fulfilling, the retention data agrees without an asterisk: the meaning is real, and it is durable.
         </p>
@@ -1455,7 +1455,7 @@ export const POSTS: Post[] = [
         <p>
           Line the exit rates up against pay and the pattern sharpens. The careers people leave fastest are, with two telling exceptions, the ones that ask for the most meaning and return the least money.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Exit rate against pay &middot; transfer rate from BLS Employment Projections, median from live US postings &middot; PivotHop, July 2026</caption>
           <thead><tr><th>Career</th><th className="num">Leave per year</th><th className="num">Median pay</th></tr></thead>
           <tbody>
@@ -1469,7 +1469,7 @@ export const POSTS: Post[] = [
             <tr><td>Lawyer</td><td className="num">1.4%</td><td className="num">$166,000</td></tr>
             <tr><td><strong>Pharmacist</strong></td><td className="num">1.3%</td><td className="num">$153,000</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The high-flight roles at the top sit between 50,000 and 65,000 dollars. The sticky ones at the bottom run from 97,000 past 166,000. Meaning is not handed out by pay, but staying largely is: when a career asks people to accept purpose in place of money, enough of them eventually decline. The sharpest case is the medical assistant, leaving at 7.4 percent a year on 52,000 dollars, many of them climbing the exact healthcare ladder that keeps nurses in place, because the nurse&rsquo;s pay sits on the far side of it.
         </p>
@@ -1519,7 +1519,7 @@ export const POSTS: Post[] = [
         <p>
           Start with what AI made. The new roles are in our corpus now, and they sort into two piles: the builders, well-paid and growing, and the support-and-hype layer, thin and already fading.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>AI-era occupations in our corpus, by volume and posted median &middot; PivotHop, July 2026</caption>
           <thead><tr><th>Role</th><th className="num">Postings</th><th className="num">Median</th><th>Demand</th></tr></thead>
           <tbody>
@@ -1530,7 +1530,7 @@ export const POSTS: Post[] = [
             <tr><td>Prompt engineer</td><td className="num">74</td><td className="num">$110,000</td><td>Low</td></tr>
             <tr><td>Data annotator</td><td className="num">61</td><td className="num">$63,000</td><td>Low</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The builders, AI engineer and machine-learning engineer and computer vision engineer, are real software-engineering jobs with an AI specialty, and they pay for it: computer vision clears 149,000 dollars. The bottom two are the ones the headlines named. Prompt engineer and data annotator are both low-demand, and the annotator, the human who labels the data that trains the models, sits at 63,000 dollars, the price the market puts on feeding AI rather than building it.
         </p>
@@ -1542,7 +1542,7 @@ export const POSTS: Post[] = [
         <p>
           For the shrinking side we defer to the <a className="gl" href="/glossary#bls">BLS</a> (US Bureau of Labor Statistics) Employment Projections, which have named the decliners for years: cashiers, data-entry keyers, telemarketers, word processors, the routine roles automation reaches first. Our corpus mostly cannot see them, because the roles it carries are the ones still hiring. But for the occupations everyone calls automation-exposed, our adjacency graph shows something the decline projections never do: where the skills already go.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Highest-coverage adjacent move into a high-demand role &middot; PivotHop, July 2026</caption>
           <thead><tr><th>Automation-exposed role</th><th>The nearest durable move</th><th className="num">Coverage</th></tr></thead>
           <tbody>
@@ -1555,7 +1555,7 @@ export const POSTS: Post[] = [
             <tr><td>Recruiter</td><td>HR manager (high demand)</td><td className="num">35%</td></tr>
             <tr><td>Paralegal</td><td>Lawyer (licensed)</td><td className="num">33%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           These are not consolation prizes. A medical assistant, in one of the fastest-churning jobs in the country, already covers 76 percent of what a nurse-practitioner posting asks for, the exact ladder that turns an automation-exposed role into one of the stickiest careers there is. An IT-support worker covers 54 percent of a network engineer; a bookkeeper, 55 percent of a financial controller. The move is up and sideways at once, and it is measurable today, before any decline forces it. Notice the shape: the strongest escapes stay inside the same world, healthcare into healthcare, tech support into tech, because that is where the skills already overlap.
         </p>
@@ -1605,7 +1605,7 @@ export const POSTS: Post[] = [
         <div className="post-callout"><b>3</b><span>sommelier postings in 79,257. Six brewmasters. Fourteen ethical hackers. <strong>Zero</strong> perfusionists. The rarer the job, the blinder the data.</span></div>
         <h2>The ones we could price</h2>
         <p>The visible edge of the weird first, with the count attached so you know how much to trust each line:</p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Posted medians for offbeat occupations &middot; PivotHop, July 2026. Counts under 30 are thin; read them as signals, not settled figures.</caption>
           <thead><tr><th>Job</th><th className="num">Posted median</th><th className="num">Postings</th><th>The part that surprises</th></tr></thead>
           <tbody>
@@ -1618,7 +1618,7 @@ export const POSTS: Post[] = [
             <tr><td>Medical scribe</td><td className="num">$46,000</td><td className="num">23</td><td>The pre-med grind, priced accordingly</td></tr>
             <tr><td><strong>Brewmaster</strong></td><td className="num">$36,000</td><td className="num">6</td><td>The Friday fantasy, priced like the tasting room</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The ethical hacker number is the one that stops you. Breaking into systems, with permission, posts a median near <strong>$182,000</strong> in our data, and the open market runs higher still. The bug-bounty platform HackerOne has paid ethical hackers over $300 million all told; thirty of them have cleared a million dollars each, one has passed four, and the single largest bounty on record was $100,050, paid by a crypto firm for one flaw. The nearest ordinary job to it, security engineer, is a short skills hop away, which is the whole point of the <a className="gl" href="/">instrument</a>.
         </p>
@@ -1688,7 +1688,7 @@ export const POSTS: Post[] = [
         <p>
           The panic articles miss the move. When you cannot enter a field at the bottom, you enter an adjacent field where your skills already reach, and you pivot on coverage rather than seniority. Our whole instrument measures exactly this: how much of one occupation&rsquo;s demanded skills another occupation&rsquo;s people already hold. Where that coverage is high, the crossing does not need a junior rung, because you are not starting over. You are arriving with most of the job already done.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>High-coverage crossings that do not require a junior rung &middot; PivotHop, July 2026</caption>
           <thead><tr><th>Side door</th><th className="num">Skill coverage</th><th>What it means</th></tr></thead>
           <tbody>
@@ -1698,7 +1698,7 @@ export const POSTS: Post[] = [
             <tr><td>Data analyst &rarr; Business-intelligence developer</td><td className="num">51%</td><td>The reporting stack, one seat over</td></tr>
             <tr><td>Data analyst &rarr; Product analyst</td><td className="num">47%</td><td>Analyst skills, pointed at a product team</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           None of these is a fantasy leap. They are the crossings where our corpus says the skills mostly transfer already, so the move is a matter of naming and evidence, not of starting at the bottom of a ladder that no longer has a bottom. The <a className="gl" href="/routes">route pages</a> lay out the exact gap for the most-searched crossings, and the graph on the <a className="gl" href="/">front page</a> runs it for any starting point you give it.
         </p>
@@ -1736,7 +1736,7 @@ export const POSTS: Post[] = [
         <p>
           The fields with the most gravity are not the ones you would guess from a salary table.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Highest skill-gravity destinations, by number of fields that can reach them at 40 percent coverage or more &middot; PivotHop, July 2026</caption>
           <thead><tr><th>Destination</th><th className="num">Reachable from</th><th>Demand</th><th className="num">Posted band</th></tr></thead>
           <tbody>
@@ -1747,7 +1747,7 @@ export const POSTS: Post[] = [
             <tr><td>Nurse practitioner</td><td className="num">8 fields</td><td>High</td><td className="num">$40k&ndash;$125k</td></tr>
             <tr><td>Database administrator</td><td className="num">8 fields</td><td>High</td><td className="num">$70k&ndash;$110k</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           Every one of the top fifteen is rated high demand: all fifteen, not most. So we split the map in two and compared: the strong absorbers, the eighteen occupations reachable from six or more fields, against the weak ones reachable from two or fewer.
         </p>
@@ -1801,7 +1801,7 @@ export const POSTS: Post[] = [
           Optionality is bimodal. A large group of professions, 60 of 153, is boxed in at the strict coverage bar we set: their skill bundle does not cover 40 percent of any other single occupation&rsquo;s demands. A smaller group ranges across the map. Most people sit in the middle, one door open. The generalist advantage is real, but it is a minority position, and it is a property of your skills, not your temperament.
         </p>
         <h2>Who is wide, and who is boxed in</h2>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Widest and narrowest skill reach, doors open at 40 percent coverage &middot; PivotHop, July 2026</caption>
           <thead><tr><th>Occupation</th><th className="num">Fields reachable</th><th>Shape</th></tr></thead>
           <tbody>
@@ -1812,7 +1812,7 @@ export const POSTS: Post[] = [
             <tr><td>Software engineer</td><td className="num">9</td><td>Portable technical core</td></tr>
             <tr><td>Copywriter, paralegal, creative director</td><td className="num">0</td><td>Deep, specific, boxed in</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The wide occupations share a shape. Operations manager, business analyst, sales engineer, project manager: these are bundles of coordination, analysis, and communication, the skills that recur across the most fields. The narrow ones, copywriter, paralegal, creative director, are deep and specific, and their depth is exactly what does not cover another occupation&rsquo;s demand list. This is the <a className="gl" href="/blog/most-transferable-skills">transferable-skills</a> finding seen from the other direction: the skills that travel are the general ones, so the people who hold more of them travel further.
         </p>
@@ -1871,7 +1871,7 @@ export const POSTS: Post[] = [
         <p>
           The top of the table, with the licensing reality attached:
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Largest pay premiums among strong adjacencies · PivotHop, July 2026</caption>
           <thead><tr><th>Move</th><th>Skill match</th><th className="num">Pay delta</th><th>The gate</th></tr></thead>
           <tbody>
@@ -1881,7 +1881,7 @@ export const POSTS: Post[] = [
             <tr><td>Customer support → Flight attendant</td><td>71%</td><td className="num">+69%</td><td><a className="gl" href="/glossary#faa">FAA</a> (the Federal Aviation Administration) certification</td></tr>
             <tr><td>Architect → <strong>Electrical engineer</strong></td><td>58%</td><td className="num">+67%</td><td><a className="gl" href="/glossary#pe-license">PE</a> (the professional-engineer license) for sign-off roles only</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           Now the catch: the biggest premiums sit behind licenses. Pharmacist requires a doctorate and a
           state license. Physical therapist requires a licensure exam. Flight
@@ -2045,7 +2045,7 @@ export const POSTS: Post[] = [
           qualified phrases, currently about <strong>600 synonyms</strong>, and the matcher takes
           the longest specific phrase before it ever considers a generic word.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Contested words in our taxonomy · July 2026</caption>
           <thead><tr><th>The word</th><th className="num">Professions claiming it</th><th>Example collision</th></tr></thead>
           <tbody>
@@ -2055,7 +2055,7 @@ export const POSTS: Post[] = [
             <tr><td>Analyst</td><td className="num">5</td><td>Financial vs data vs business</td></tr>
             <tr><td>Manager</td><td className="num">dozens</td><td>Everything, always</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The scale of the collision is visible in our own counts: the
           building profession holds <strong>1,178 postings</strong> in the
@@ -2121,7 +2121,7 @@ export const POSTS: Post[] = [
           the flashing problem, is quality control and building surveying in
           waiting.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>The seven threads and where each travels · PivotHop, July 2026</caption>
           <thead><tr><th>The thread</th><th>Where it goes alone</th><th className="num">Graph score</th></tr></thead>
           <tbody>
@@ -2133,7 +2133,7 @@ export const POSTS: Post[] = [
             <tr><td>The visualizer</td><td>3D, rendering, product imagery</td><td className="num">portfolio-led</td></tr>
             <tr><td>The detail conscience</td><td>QC, building surveying</td><td className="num">36%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p style={{ fontSize: 12, color: 'var(--ink-3)' }}>
           *Personalized score with energy modeling and LEED added to the
           skill vector; the seed profile alone scores lower.
@@ -2195,7 +2195,7 @@ export const POSTS: Post[] = [
           almost entirely open, which is one unglamorous reason technology
           careers move faster: the exits have no tollbooths.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Two rings, two licensing worlds · PivotHop, July 2026</caption>
           <thead><tr><th>Registered nurse's top exits</th><th>Gate</th><th>Software engineer's top exits</th><th>Gate</th></tr></thead>
           <tbody>
@@ -2205,7 +2205,7 @@ export const POSTS: Post[] = [
             <tr><td>Therapist (67%)</td><td><strong>License</strong></td><td>Backend developer</td><td>none</td></tr>
             <tr><td>Pharmacist (65%)</td><td><strong>License</strong></td><td>Security engineer</td><td>none</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           A caution on geography before anyone books an exam: the licensing
           map is state-shaped. Interior design is title-regulated in some
@@ -2529,7 +2529,7 @@ export const POSTS: Post[] = [
           skill demand it already covers. Machine learning engineer leads, no
           surprise. Then comes the surprise in row two:
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Skill coverage toward AI engineer, by origin profession · PivotHop, July 2026</caption>
           <thead><tr><th>Coming from</th><th className="num">Coverage</th></tr></thead>
           <tbody>
@@ -2542,7 +2542,7 @@ export const POSTS: Post[] = [
             <tr><td>Research scientist</td><td className="num">34%</td></tr>
             <tr><td>Product manager</td><td className="num">31%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           A sales job, half way to the hottest engineering title of the decade.
           It stops being strange when you read what AI engineer postings
@@ -3258,7 +3258,7 @@ export const POSTS: Post[] = [
           Because Pink Floyd is not an isolated case. It is the loudest entry
           in a pattern.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>The architecture-to-music roster · verified public accounts</caption>
           <thead><tr><th>Person</th><th>Studied</th><th>Became</th></tr></thead>
           <tbody>
@@ -3267,7 +3267,7 @@ export const POSTS: Post[] = [
             <tr><td><strong>Chris Lowe</strong></td><td>Architecture, Liverpool University</td><td>Pet Shop Boys</td></tr>
             <tr><td><strong>Ice Cube</strong></td><td>Architectural drafting certificate, Phoenix Institute of Technology</td><td>N.W.A, then Hollywood</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <h2>Coincidence, or a legible transfer</h2>
         <p>
           The lazy reading is that art schools of every kind leak musicians.
@@ -3451,7 +3451,7 @@ export const POSTS: Post[] = [
           have produced this year.
         </p>
         <div className="post-callout"><b>44% vs 98%</b><span>share of postings that state pay: <strong>sales engineering</strong> at the secretive end, <strong>police work</strong> at the transparent end. Same economy, same month.</span></div>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Most secretive professions, 150+ postings each · PivotHop, July 2026</caption>
           <thead><tr><th>Profession</th><th className="num">States pay</th></tr></thead>
           <tbody>
@@ -3462,8 +3462,8 @@ export const POSTS: Post[] = [
             <tr><td>Sales representative</td><td className="num">50%</td></tr>
             <tr><td>Security engineer</td><td className="num">52%</td></tr>
           </tbody>
-        </table>
-        <table className="post-table">
+        </table></div>
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Most transparent professions, same corpus</caption>
           <thead><tr><th>Profession</th><th className="num">States pay</th></tr></thead>
           <tbody>
@@ -3474,7 +3474,7 @@ export const POSTS: Post[] = [
             <tr><td><a className="gl" href="/glossary#ux">UX</a> (user-experience design) researcher</td><td className="num">92%</td></tr>
             <tr><td>Therapist / counselor</td><td className="num">90%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <h2>The pattern is negotiation, not money</h2>
         <p>
           A first guess would be that high salaries hide and low salaries
@@ -3504,7 +3504,7 @@ export const POSTS: Post[] = [
           at <strong>55 percent</strong>, Ashby at <strong>50</strong>, and
           Lever at <strong>7 percent</strong>.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Share of postings stating pay, by source · PivotHop, July 2026</caption>
           <thead><tr><th>Source</th><th className="num">States pay</th><th className="num">Postings</th></tr></thead>
           <tbody>
@@ -3515,7 +3515,7 @@ export const POSTS: Post[] = [
             <tr><td>Ashby (startup ATS)</td><td className="num">50%</td><td className="num">1,258</td></tr>
             <tr><td>Lever (startup ATS)</td><td className="num"><strong>7%</strong></td><td className="num">1,025</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           Seven percent. The companies most likely to describe themselves as
           transparent, mission-driven, and disruptive publish salary at
@@ -3605,7 +3605,7 @@ export const POSTS: Post[] = [
           make a lovely headline, and we drafted one.
         </p>
         <p>Then we tried to break it, because that is the house rule.</p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Apparent remote premium, posted medians · PivotHop, July 2026</caption>
           <thead><tr><th>Occupation</th><th className="num">Remote n</th><th className="num">Onsite n</th><th className="num">Apparent premium</th></tr></thead>
           <tbody>
@@ -3620,7 +3620,7 @@ export const POSTS: Post[] = [
             <tr><td>Machine learning engineer</td><td className="num">51</td><td className="num">525</td><td className="num">+72%</td></tr>
             <tr><td>Data scientist</td><td className="num">55</td><td className="num">491</td><td className="num">+61%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <h2>The break attempt</h2>
         <p>
           The problem hiding in that table is where each column comes from.
@@ -3736,7 +3736,7 @@ export const POSTS: Post[] = [
           toward places you could not go directly. We started calling them
           bridge roles, counted them, and the census surprised us.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Occupations most often serving as the bridge in two-hop routes · PivotHop, July 2026</caption>
           <thead><tr><th>Bridge role</th><th className="num">Routes it enables</th></tr></thead>
           <tbody>
@@ -3749,7 +3749,7 @@ export const POSTS: Post[] = [
             <tr><td>Chemical engineer</td><td className="num">34</td></tr>
             <tr><td>Dietitian</td><td className="num">33</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <h2>Why coordination roles dominate</h2>
         <p>
           Construction management enabling 79 onward routes was not the
@@ -3779,7 +3779,7 @@ export const POSTS: Post[] = [
           attached. In each case, the direct jump scores poorly and the
           bridge roughly triples it.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Two-hop routes and their readiness lift · PivotHop, July 2026</caption>
           <thead><tr><th>Route</th><th className="num">Direct</th><th className="num">Via the bridge</th></tr></thead>
           <tbody>
@@ -3788,7 +3788,7 @@ export const POSTS: Post[] = [
             <tr><td>Librarian → Project manager → <strong>Facilities manager</strong></td><td className="num">18%</td><td className="num">62%</td></tr>
             <tr><td><a className="gl" href="/glossary#hvac">HVAC</a> (heating, ventilation, and air conditioning) technician → Mechanical engineer → Electrical engineer</td><td className="num">19%</td><td className="num">58%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           A librarian is 18 percent of a facilities manager on paper.
           A librarian who has run projects is 62 percent of one, and the
@@ -3872,7 +3872,7 @@ export const POSTS: Post[] = [
           is not yet a thing employers commit to in the job ad.
         </p>
         <h2>The four species, because they are not one thing</h2>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Four-day formats and what an hour earns · definitions per UK pilot and scheduling literature</caption>
           <thead><tr><th>Format</th><th>Hours</th><th>Pay</th><th>Your hourly rate</th></tr></thead>
           <tbody>
@@ -3881,7 +3881,7 @@ export const POSTS: Post[] = [
             <tr><td>9-day fortnight</td><td>~72 in 9 days</td><td>Full</td><td>Rises ~11%</td></tr>
             <tr><td>Reduced hours</td><td>32 or 36</td><td>Often prorated</td><td>Check the letter</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The distinction matters more than the branding. The celebrated UK
           pilot ran on 100-80-100: <strong>61 companies</strong>, full pay
@@ -4001,7 +4001,7 @@ export const POSTS: Post[] = [
           famous employers, which makes them louder than their actual
           share of hiring.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>The two experiments, side by side · July 2026</caption>
           <thead><tr><th></th><th>Mandate camp</th><th>Flexibility camp</th></tr></thead>
           <tbody>
@@ -4010,7 +4010,7 @@ export const POSTS: Post[] = [
             <tr><td>Stated reason</td><td>Collaboration, culture</td><td>Retention, health, demographics</td></tr>
             <tr><td>Share of market</td><td>Loud minority</td><td>Quiet majority (hybrid ~67%)</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <h2>What it does to the job landscape</h2>
         <p>
           For candidates, the divergence converts location policy into a
@@ -4137,7 +4137,7 @@ export const POSTS: Post[] = [
           constant, official BLS medians, same year, and rank a few
           professions against the schooling they demand:
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Official US medians vs required credentials · BLS <a className="gl" href="/glossary#oews">Occupational Employment and Wage Statistics survey</a> (OEWS), May 2024</caption>
           <thead><tr><th>Profession</th><th>Paper the law or market demands</th><th className="num">Median</th></tr></thead>
           <tbody>
@@ -4150,7 +4150,7 @@ export const POSTS: Post[] = [
             <tr><td>Librarian</td><td><strong>Master's degree</strong></td><td className="num">$64,320</td></tr>
             <tr><td>Teacher (median)</td><td>Degree + certification</td><td className="num">$62,340</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The person who learned to code from free videos and ships working
           software sits at the top of that table. The veterinarian below
@@ -4254,7 +4254,7 @@ export const POSTS: Post[] = [
           waved off, under 35 percent posted-skill overlap, that rank at or
           near the top of where people from that origin actually land.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Moves people make that skill overlap underrates · PivotHop + CPS/SIPP-derived flows, July 2026</caption>
           <thead><tr><th>Move</th><th className="num">Skill match</th><th className="num">Observed flow</th></tr></thead>
           <tbody>
@@ -4266,7 +4266,7 @@ export const POSTS: Post[] = [
             <tr><td>Motion designer → Game designer</td><td className="num">12%</td><td className="num">100</td></tr>
             <tr><td>Medical assistant → Registered nurse</td><td className="num">34%</td><td className="num">100</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           The flow score is origin-relative: 100 means this is the single
           most common destination we can resolve for people leaving that
@@ -4289,7 +4289,7 @@ export const POSTS: Post[] = [
           Sixteen pairs qualify. Eleven of the twelve strongest point at a
           destination that requires a license.
         </p>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>High-overlap moves people rarely make · same sources</caption>
           <thead><tr><th>Move</th><th className="num">Skill match</th><th className="num">Observed flow</th><th>The wall</th></tr></thead>
           <tbody>
@@ -4299,7 +4299,7 @@ export const POSTS: Post[] = [
             <tr><td>Psychologist → Nurse practitioner</td><td className="num">62%</td><td className="num">2</td><td>Different license entirely</td></tr>
             <tr><td>Nurse practitioner → Physical therapist</td><td className="num">63%</td><td className="num">0</td><td>Doctorate + licensure</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div className="post-callout"><b>11 of 12</b><span>of the strongest “skills say yes, people say no” routes end at a <strong>licensed</strong> occupation. The wall the skill math cannot see is almost always a credential.</span></div>
         <p>
           If you are healthcare-adjacent, this is the row to remember. The
@@ -4419,7 +4419,7 @@ export const POSTS: Post[] = [
           odds that a given colleague is gone next year.
         </p>
         <h2>The stickiest careers in our set</h2>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Lowest annual occupational-transfer rates · BLS EP 2024–34 × PivotHop corpus medians, July 2026</caption>
           <thead><tr><th>Occupation</th><th className="num">Transfer /yr</th><th className="num">Exit /yr</th><th className="num">Posted median</th></tr></thead>
           <tbody>
@@ -4431,7 +4431,7 @@ export const POSTS: Post[] = [
             <tr><td>Psychologist</td><td className="num">2.2%</td><td className="num">2.7%</td><td className="num">$119,728</td></tr>
             <tr><td>Actuary</td><td className="num">2.6%</td><td className="num">1.8%</td><td className="num">$122,291</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           Every one of those is licensed, and not casually licensed:
           doctorates, bar exams, actuarial exam sequences that take most of
@@ -4442,7 +4442,7 @@ export const POSTS: Post[] = [
           not only the credential.
         </p>
         <h2>The revolving doors</h2>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Highest annual occupational-transfer rates · same sources</caption>
           <thead><tr><th>Occupation</th><th className="num">Transfer /yr</th><th className="num">Exit /yr</th></tr></thead>
           <tbody>
@@ -4454,7 +4454,7 @@ export const POSTS: Post[] = [
             <tr><td>Paralegal</td><td className="num">7.2%</td><td className="num">3.2%</td></tr>
             <tr><td>Flight attendant</td><td className="num">7.1%</td><td className="num">6.4%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           Tutors turn over almost completely: 8.1 percent transfer out and
           another 9 percent exit the labor force every year, which is what
@@ -4563,7 +4563,7 @@ export const POSTS: Post[] = [
           report closer to 12.
         </p>
         <h2>The ranking</h2>
-        <table className="post-table">
+        <div className="occ-tblwrap"><table className="post-table">
           <caption>Share of postings fully remote, by occupation · PivotHop corpus, July 2026, occupations with 100+ postings</caption>
           <thead><tr><th>Occupation</th><th className="num">Remote share</th><th className="num">Postings</th></tr></thead>
           <tbody>
@@ -4580,7 +4580,7 @@ export const POSTS: Post[] = [
             <tr><td>Recruiter</td><td className="num">9.4%</td><td className="num">520</td></tr>
             <tr><td>Lawyer</td><td className="num">8.6%</td><td className="num">408</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>
           Two surprises before the pattern. First, the most remote job in
           the corpus is a sales job. Sales engineering is technical

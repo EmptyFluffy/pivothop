@@ -90,7 +90,7 @@ export default function ByCountryPage() {
             so the comparison is like with like. Cost of living is a price-level index against the United States at 1.00;
             the adjusted column is pay divided by that index, in US-equivalent purchasing power.
           </p>
-          <table className="post-table">
+          <div className="occ-tblwrap"><table className="post-table">
             <caption>Cross-market pay, common-basket median &middot; PivotHop, July 2026</caption>
             <thead><tr><th>Country</th><th className="num">Median pay</th><th className="num">Cost of living</th><th className="num">Adjusted</th><th className="num">Occupations</th></tr></thead>
             <tbody>
@@ -104,7 +104,7 @@ export default function ByCountryPage() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
           {top && topAdj && (
             <p>
               {`${COUNTRY_NAMES[top.c]} posts the highest headline pay. `}
@@ -119,7 +119,7 @@ export default function ByCountryPage() {
           <section className="rt-sec">
             <h2>The same job, four markets</h2>
             <p className="rt-note">Median posted pay for one occupation across the four markets. Click a role for its full distribution, seniority curve, and trend.</p>
-            <table className="post-table">
+            <div className="occ-tblwrap"><table className="post-table">
               <caption>Median pay by occupation and market &middot; PivotHop, July 2026</caption>
               <thead><tr><th>Occupation</th>{CO.map((c) => <th key={c} className="num">{COUNTRY_NAMES[c]}</th>)}</tr></thead>
               <tbody>
@@ -130,7 +130,7 @@ export default function ByCountryPage() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           </section>
         )}
 

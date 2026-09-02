@@ -2196,3 +2196,30 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
   .v2t .rt-titlerow{ gap:12px; }
   .v2t .rt-titlerow .co-logo{ width:40px; height:40px; margin-top:2px; }
 }
+
+/* ---- audit pass 4: nothing bleeds off a phone ----
+   Measured culprits at 360 and 390px: the nowrap mono label on .rt-rel rows,
+   .post-table headers (nowrap numerals), the glossary tab row, and a five-deep
+   breadcrumb. Tables scroll inside their own wrapper (.occ-tblwrap); labels
+   wrap; the crumb wraps; tabs scroll. */
+.v2t .rt-crumbs{ flex-wrap:wrap; row-gap:4px; }
+.v2t .rt-rel .lbl{ white-space:normal; text-align:right; flex:0 1 auto; }
+.v2t .ch-sal-med{ white-space:normal; }
+.v2t .occ-tblwrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin; }
+.v2t .occ-tblwrap > .post-table, .v2t .occ-tblwrap > .occ-tbl{ min-width:100%; }
+.v2t .gloss-tabbar{ flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; }
+.v2t .gloss-tabbar::-webkit-scrollbar{ display:none; }
+.v2t .gloss-tab{ white-space:nowrap; flex:none; }
+@media (max-width:980.9px){
+  .v2t .rt-rel li{ flex-direction:column; align-items:flex-start; gap:4px; }
+  .v2t .rt-rel .lbl{ text-align:left; }
+  .v2t .post-table th, .v2t .post-table td{ white-space:nowrap; }
+}
+/* 360px: three fixed-gap flex rows and a 340px card minimum */
+.v2t .lp-toolgrid{ grid-template-columns:repeat(auto-fit, minmax(min(340px, 100%), 1fr)); }
+.v2t .eb-stats{ flex-wrap:wrap; gap:18px 40px; }
+.v2t .cg-band{ flex-wrap:wrap; gap:18px 56px; }
+.v2t .cg-lic-meta{ flex-wrap:wrap; }
+/* a long unbreakable title (German compounds, slashes) widens the page on a
+   360px phone: let titles break anywhere rather than push the column */
+.v2t .rt-h1, .v2t .jv-ti, .v2t .jpane-title, .v2t .jsheet-title{ overflow-wrap:anywhere; }

@@ -53,7 +53,7 @@ export default async function CostaRicaRoleSalaryPage({ params }: { params: Prom
 
         <section className="rt-sec">
           <h2>The benchmarks</h2>
-          <table className="post-table">
+          <div className="occ-tblwrap"><table className="post-table">
             <caption>{role.title} · Costa Rica · source ledger</caption>
             <thead><tr><th>Market lens</th><th>Source</th><th>Benchmark</th><th>As of</th></tr></thead>
             <tbody>
@@ -66,7 +66,7 @@ export default async function CostaRicaRoleSalaryPage({ params }: { params: Prom
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
           {role.sources.map((s) => s.note ? <p className="rt-note" key={`${s.id}-note`}><strong>{s.label}:</strong> {s.note}</p> : null)}
         </section>
 
@@ -87,11 +87,11 @@ export default async function CostaRicaRoleSalaryPage({ params }: { params: Prom
 
         <section className="rt-sec">
           <h2>What PivotHop sees right now</h2>
-          <table className="post-table">
+          <div className="occ-tblwrap"><table className="post-table">
             <caption>Current Costa Rica-located listings tagged to {role.title}</caption>
             <thead><tr><th>Live jobs</th><th className="num">Remote</th><th className="num">With stated pay</th><th>Advertised-pay median</th></tr></thead>
             <tbody><tr><td><strong>{live.jobs}</strong></td><td className="num">{live.remote}</td><td className="num">{live.withSalary}</td><td>{live.salaryMedian != null ? `${usd(live.salaryMedian)}/yr` : 'Not enough stated-pay observations'}</td></tr></tbody>
-          </table>
+          </table></div>
           {live.companies.length > 0 && <p className="rt-note">Companies in the current sample include {live.companies.join(', ')}.</p>}
           <p className="rt-note">PivotHop only publishes an advertised-pay median here when at least 10 current Costa Rica listings for this occupation state pay. That figure describes open job ads, not the entire workforce.</p>
         </section>
