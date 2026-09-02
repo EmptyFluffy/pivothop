@@ -9,7 +9,8 @@ import { routableSlugs, routePair, destRole, originMeta, routeOrigins } from '..
 import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShowAll, categoryStats, slugifyName, allCategories, type Category } from '../categories-data';
 import { countryName } from '../countries';
 import { REGION_META, type RegionKey } from '../regions';
-import { postedLabel } from '../JobCard';
+import { postedLabel, type Job } from '../JobCard';
+import { careerFacts } from '../../career-guides/facts';
 import { originAnchors, pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
 
@@ -26,9 +27,16 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const { occ } = await params;
   if (jobCount(occ) > 0) {
     const title = occTitle(occ);
+    // Salary in the title and the week's intake in the description — both
+    // computed, both regenerated nightly. The band comes from careerFacts
+    // (blended with official stats where available), which moves less night
+    // to night than the raw posted band, so the title does not churn.
+    const f = careerFacts(occ);
+    const sal = f?.salary ? ` ($${Math.round(f.salary.p25 / 1000)}k–$${Math.round(f.salary.p75 / 1000)}k)` : '';
+    const wk = freshness(getJobs(occ)).week;
     return {
-      title: `${title} jobs: ${jobCount(occ)} open roles`,
-      description: `${jobCount(occ)} live ${title.toLowerCase()} openings from company career pages and remote boards, with salary where posted, plus the adjacent routes that lead into the role.`,
+      title: `${title} jobs: ${jobCount(occ)} open roles${sal}`,
+      description: `${jobCount(occ)} live ${title.toLowerCase()} openings${wk > 0 ? `, ${wk} added this week` : ''}. Pay by seniority, the skills postings actually name, and the adjacent routes in — refreshed nightly.`,
       alternates: { canonical: `/jobs/${occ}` },
     };
   }
@@ -60,6 +68,66 @@ function routesInto(occ: string) {
     .slice(0, 5);
 }
 
+/* ── The four data blocks (2026-09-01, the deepening pass) ──────────────────
+   Every figure below is computed from this occupation's live rows or from
+   careerFacts (which reads the same nightly aggregates the guides quote), and
+   every figure carries its sample size. GSC measured 2026-09-01: the pages
+   Google indexes eagerly (career-guides, 85%) are the content-dense ones;
+   the list-only pages sit at ~30%. These blocks are the difference. */
+
+const DAY = 864e5;
+// careerFacts hands back skill KEYS (revit, construction-documents); the
+// glossary owns the display names (Revit, Construction Documentation).
+let _skillNames: Map<string, string> | null = null;
+function skillName(slug: string): string {
+  if (!_skillNames) {
+    _skillNames = new Map();
+    try {
+      const fs = require('node:fs') as typeof import('node:fs');
+      const path = require('node:path') as typeof import('node:path');
+      const g = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/data/skills-glossary.json'), 'utf8')) as { slug: string; term: string }[];
+      for (const e of g) if (e.slug && e.term) _skillNames.set(e.slug, e.term);
+    } catch { /* fall through to the humanized slug */ }
+  }
+  return _skillNames.get(slug) ?? slug.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
+}
+function midOf(j: Job): number | null {
+  if (!j.smin && !j.smax) return null;
+  return ((j.smin ?? j.smax ?? 0) + (j.smax ?? j.smin ?? 0)) / 2;
+}
+function band(jobs: Job[]): { n: number; p25: number; p75: number } | null {
+  const mids = jobs.map(midOf).filter((v): v is number => v != null).sort((a, b) => a - b);
+  if (mids.length < 5) return null;
+  const q = (p: number) => Math.round(mids[Math.floor((mids.length - 1) * p)] / 1000);
+  return { n: mids.length, p25: q(0.25), p75: q(0.75) };
+}
+function tierStats(jobs: Job[]) {
+  const tiers: { key: string; label: string; match: (j: Job) => boolean }[] = [
+    { key: 'e', label: 'Entry', match: (j) => j.lv === 'e' },
+    { key: 'm', label: 'Untagged (mid)', match: (j) => !j.lv },
+    { key: 's', label: 'Senior / lead', match: (j) => j.lv === 's' },
+  ];
+  return tiers
+    .map((t) => { const rows = jobs.filter(t.match); return { ...t, n: rows.length, band: band(rows) }; })
+    .filter((t) => t.n > 0);
+}
+function topCompanies(jobs: Job[], k = 6): [string, number][] {
+  const m = new Map<string, number>();
+  for (const j of jobs) m.set(j.company, (m.get(j.company) ?? 0) + 1);
+  return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, k);
+}
+function freshness(jobs: Job[]) {
+  const now = Date.now();
+  const ages = jobs
+    .map((j) => { const t = Date.parse(`${(j.posted || '').slice(0, 10)}T12:00:00Z`); return Number.isFinite(t) ? Math.max(0, Math.floor((now - t) / DAY)) : null; })
+    .filter((v): v is number => v != null)
+    .sort((a, b) => a - b);
+  return {
+    week: ages.filter((d) => d <= 7).length,
+    medianDays: ages.length ? ages[Math.floor(ages.length / 2)] : null,
+  };
+}
+
 function OccupationBoard({ occ }: { occ: string }) {
   const jobs = getJobs(occ);
   if (jobs.length === 0) notFound();
@@ -71,6 +139,36 @@ function OccupationBoard({ occ }: { occ: string }) {
   // This occupation's preloaded searches (remote, by country, by level, by pay) —
   // the internal-link mesh that surfaces the category long tail.
   const variants = allCategories().filter((c) => c.destOcc === occ);
+  const facts = careerFacts(occ);
+  const tiers = tierStats(jobs);
+  const paid = band(jobs);
+  const companies = topCompanies(jobs);
+  const fresh = freshness(jobs);
+  const skills = (facts?.topSkills ?? []).slice(0, 8);
+
+  // The occupation FAQ: every answer is a figure this build computed, with the
+  // deeper surface linked. FAQPage schema below mirrors the visible text.
+  const faq: { q: string; text: string; jsx: React.ReactNode }[] = [];
+  faq.push({
+    q: `How many ${tl} jobs are open right now?`,
+    text: `${jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape${fresh.week > 0 ? `; ${fresh.week} arrived in the last 7 days` : ''}.${remoteN > 0 ? ` ${remoteN.toLocaleString()} are fully remote.` : ''}`,
+    jsx: <>{jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape{fresh.week > 0 ? <>; {fresh.week} arrived in the last 7 days</> : null}.{remoteN > 0 ? <> {remoteN.toLocaleString()} are fully remote — <Link className="gl" href={`/jobs/remote-${occ}`}>remote {tl} jobs</Link>.</> : null}</>,
+  });
+  if (paid) faq.push({
+    q: `How much do ${tl} jobs pay?`,
+    text: `Of the ${jobs.length.toLocaleString()} openings, ${paid.n.toLocaleString()} state a salary; the posted middle band runs $${paid.p25}k–$${paid.p75}k a year. Only postings that state pay are counted; nothing is inferred.`,
+    jsx: <>Of the {jobs.length.toLocaleString()} openings, {paid.n.toLocaleString()} state a salary; the posted middle band runs ${paid.p25}k–${paid.p75}k a year. Only postings that state pay are counted; nothing is inferred.{hasSalary && <>{' '}By seniority and country: <Link className="gl" href={`/salary/${occ}`}>{tl} salary</Link>.</>}</>,
+  });
+  if (skills.length >= 3) faq.push({
+    q: `What skills do ${tl} postings ask for?`,
+    text: `Across the postings read for this role, the most-named skills are ${skills.slice(0, 3).map((x) => `${skillName(x.skill)} (${x.sharePct}%)`).join(', ')}. Percentages are the share of postings naming each skill.`,
+    jsx: <>Across the postings read for this role, the most-named skills are {skills.slice(0, 3).map((x) => `${skillName(x.skill)} (${x.sharePct}%)`).join(', ')}. Percentages are the share of postings naming each skill. Every skill, defined: <Link className="gl" href="/glossary">the skills glossary</Link>.</>,
+  });
+  if (waysIn.length > 0) faq.push({
+    q: `Can I move into ${tl} work from an adjacent role?`,
+    text: `${waysIn.length} measured routes lead here. The closest is ${waysIn[0].om.title}, whose typical profile already covers ${waysIn[0].r!.match}% of what ${tl} postings ask for.`,
+    jsx: <>{waysIn.length} measured routes lead here. The closest is {waysIn[0].om.title}, whose typical profile already covers {waysIn[0].r!.match}% of what {tl} postings ask for: <Link className="gl" href={`/routes/${waysIn[0].slug}`}>{waysIn[0].om.title} &rarr; {title}</Link>.</>,
+  });
 
   return (
     <PageShell wide v2 active="jobs">
@@ -93,6 +191,52 @@ function OccupationBoard({ occ }: { occ: string }) {
           initialJobs={jobs}
           scope={{ occ, title }}
         />
+
+        <section className="rt-sec occ-facts">
+          <h2>What {jobs.length.toLocaleString()} postings say</h2>
+          <p className="rt-note">
+            Computed from the live board on the date of the nightly build{fresh.week > 0 ? <> &middot; <span className="lbl">{fresh.week}</span> added in the last 7 days</> : null}{fresh.medianDays != null ? <> &middot; median listing is <span className="lbl">{fresh.medianDays}</span> days old</> : null}.
+          </p>
+          {tiers.length > 1 && (
+            <div className="occ-tblwrap">
+              <table className="occ-tbl">
+                <thead><tr><th>Seniority</th><th>Live roles</th><th>State pay</th><th>Posted band</th></tr></thead>
+                <tbody>
+                  {tiers.map((t) => (
+                    <tr key={t.key}>
+                      <td>{t.label}</td>
+                      <td className="n">{t.n.toLocaleString()}</td>
+                      <td className="n">{t.band ? t.band.n.toLocaleString() : (jobs.filter((j) => (t.key === 'm' ? !j.lv : j.lv === t.key)).filter((j) => j.smin || j.smax).length || '—')}</td>
+                      <td className="n">{t.band ? `$${t.band.p25}k–$${t.band.p75}k` : '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="rt-note occ-tbl-note">Seniority is read from posting titles; roles with no level in the title are counted as mid. Bands cover only postings that state pay, and only where five or more do.</p>
+            </div>
+          )}
+          {skills.length >= 3 && (
+            <div className="occ-skills">
+              <h3>Skills named most</h3>
+              <ul>
+                {skills.map((x) => (
+                  <li key={x.skill}><span>{skillName(x.skill)}</span><span className="n">{x.sharePct}%</span></li>
+                ))}
+              </ul>
+              <p className="rt-note occ-tbl-note">Share of postings naming each skill, from the posting text itself.</p>
+            </div>
+          )}
+          {companies.length >= 3 && (
+            <div className="occ-cos">
+              <h3>Hiring the most right now</h3>
+              <ul>
+                {companies.map(([co, n]) => (
+                  <li key={co}><span>{co}</span><span className="n">{n}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
 
         {waysIn.length > 0 && (
           <section className="rt-sec">
@@ -126,6 +270,15 @@ function OccupationBoard({ occ }: { occ: string }) {
           <Link className="rt-go" href="/employers">Feature a role &rarr;</Link>
         </section>
 
+        {faq.length > 0 && (
+          <div className="post-faq rt-faq">
+            <h2>Quick answers</h2>
+            {faq.map((f) => (
+              <details key={f.q} name="pagefaq"><summary>{f.q}</summary><p>{f.jsx}</p></details>
+            ))}
+          </div>
+        )}
+
         <p className="rt-method lbl">
           Listings backfilled from re-displayable sources (company career pages, remote-job boards, and public-sector postings), freshest first, refreshed with the nightly scrape. Each links out to apply at the original posting; PivotHop does not host applications. Salary shown where the posting states it.
         </p>
@@ -140,6 +293,13 @@ function OccupationBoard({ occ }: { occ: string }) {
           { '@type': 'ListItem', position: 3, name: `${title} jobs`, item: `https://www.pivothop.com/jobs/${occ}` },
         ],
       }) }} />
+      {faq.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.text } })),
+        }) }} />
+      )}
     </PageShell>
   );
 }
