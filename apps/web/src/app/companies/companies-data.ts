@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Job } from '../jobs/JobCard';
+import { occField } from '../jobs/jobs-data';
 
 /* The company-pages family (/companies/<slug>), plan family 3, first tranche
    2026-09-02. One company record feeds the profile page, its computed FAQ,
@@ -27,6 +28,13 @@ export type CompanyPage = {
   count: number;
   remoteN: number;
   logo: string | null;
+  /* How the company describes itself, mined from its own postings: the
+     140-700-char paragraph repeated across 2+ of its live postings that names
+     the company with a descriptor verb (or sits under an About heading).
+     Task lists, EEO text, interview/benefit boilerplate are vetoed — a wrong
+     "what they do" quote is worse than none, so misses omit the section. */
+  blurb: { text: string; n: number } | null;
+  fields: [string, number][];         // dominant hiring fields, jobs each
   countries: [string, number][];      // ISO code, jobs
   occs: [string, number][];           // occ slug, jobs
   benefits: [string, number][];       // taxonomy term, postings declaring it
@@ -72,6 +80,73 @@ function band(jobs: Job[]): CompanyPage['band'] {
   return { n: mids.length, p25: q(0.25), p75: q(0.75) };
 }
 
+/* ── the blurb miner ─────────────────────────────────────────────────────────
+   Detail files are loaded ONE OCCUPATION AT A TIME and released — the store
+   is 124MB and parsing it whole would balloon the build. Precision over
+   recall, measured 2026-09-02 on the top-20 tranche companies: every emitted
+   blurb was a genuine self-description; roughly half the companies (Swiss
+   staffing agencies especially) carry none and get no section. */
+const ABOUT_RE = /\babout\b|who we are|company overview|acerca de|über uns|wer wir sind|qui sommes/i;
+const VETO_RE = /equal opportunit|discriminat|interview|onboarding|work.?life balance|hiring process|what we offer|benefits|apply now|privacy/i;
+const BULLET_RE = /(^|\n)\s*[+*•-]\s|###/;
+// Recruiting hype reads wrong on a deadpan page even as a quotation: emoji,
+// shouted words, stacked exclamation points all disqualify (Accenture's
+// "🚀 DARE TO BE A PART OF THE CHALLENGE!" was rank 1 without this).
+const HYPE_RE = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
+const shouty = (t: string) => (t.match(/!/g) ?? []).length >= 2 || (t.match(/\b[A-Z]{3,}\b/g) ?? []).length >= 4;
+const normPara = (t: string) => t.replace(/\s+/g, ' ').trim().toLowerCase();
+
+function mineBlurbs(tranche: Map<string, Job[]>): Map<string, { text: string; n: number }> {
+  // group tranche jobs by occupation so each detail file is read once
+  const byOcc = new Map<string, { co: string; id: string }[]>();
+  for (const [co, js] of tranche) {
+    for (const j of js.slice(0, 40)) {
+      const arr = byOcc.get(j.occ) ?? [];
+      arr.push({ co, id: j.id });
+      byOcc.set(j.occ, arr);
+    }
+  }
+  type Cand = { ids: Set<string>; text: string; head: string };
+  const cands = new Map<string, Map<string, Cand>>(); // company -> norm -> cand
+  for (const [occ, refs] of byOcc) {
+    let detail: Record<string, { s?: { h?: string | null; t?: string }[] }>;
+    try {
+      detail = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'jobs-detail', `${occ}.json`), 'utf8'));
+    } catch { continue; }
+    for (const { co, id } of refs) {
+      const secs = detail[id]?.s ?? [];
+      for (const sec of secs) {
+        const t = (sec.t ?? '').trim();
+        if (t.length < 140 || t.length > 700) continue;
+        const n = normPara(t);
+        const m = cands.get(co) ?? new Map<string, Cand>();
+        const c = m.get(n) ?? { ids: new Set<string>(), text: t, head: sec.h ?? '' };
+        c.ids.add(id);
+        m.set(n, c); cands.set(co, m);
+      }
+    }
+  }
+  const out = new Map<string, { text: string; n: number }>();
+  for (const [co, m] of cands) {
+    const name0 = co.split(/\s+/)[0].toLowerCase().replace(/[.,]$/, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const desc = new RegExp(`${name0}[’'a-z]*\\s+(is|are|ist|es|builds|provides|operates|helps|makes|develops|delivers|exists|was founded|creates|offers)\\b`);
+    const missionDesc = new RegExp(`${name0}[^.]{0,40}\\bmission is\\b`);
+    let best: { text: string; n: number } | null = null; let score = -1;
+    for (const [n, c] of m) {
+      if (c.ids.size < 2 || VETO_RE.test(n) || BULLET_RE.test(c.text)) continue;
+      if (HYPE_RE.test(c.text) || shouty(c.text)) continue;
+      const hasName = n.includes(name0.replace(/\\/g, ''));
+      const hasDesc = desc.test(n) || missionDesc.test(n);
+      const aboutH = ABOUT_RE.test(c.head) || ABOUT_RE.test(c.text.slice(0, 40));
+      if (!(hasDesc || (aboutH && hasName))) continue;
+      const sc = c.ids.size * 4 + (hasDesc ? 40 : 0) + (aboutH ? 25 : 0);
+      if (sc > score) { score = sc; best = { text: c.text.replace(/\s+/g, ' ').trim(), n: c.ids.size }; }
+    }
+    if (best) out.set(co, best);
+  }
+  return out;
+}
+
 let _pages: Map<string, CompanyPage> | null = null;
 function build(): Map<string, CompanyPage> {
   if (_pages) return _pages;
@@ -86,6 +161,7 @@ function build(): Map<string, CompanyPage> {
   const taken = new Set<string>();
   const entries = [...byCo.entries()].filter(([, js]) => js.length >= COMPANY_FLOOR)
     .sort((a, b) => b[1].length - a[1].length);
+  const blurbs = mineBlurbs(new Map(entries));
   for (const [name, js] of entries) {
     let slug = slugify(name);
     if (!slug) continue;
@@ -110,6 +186,8 @@ function build(): Map<string, CompanyPage> {
       countries: top((j) => j.c).slice(0, 5),
       occs: top((j) => j.occ).slice(0, 8),
       benefits: [...ben.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10),
+      blurb: blurbs.get(name) ?? null,
+      fields: top((j) => { const f = occField(j.occ); return f === 'Other' ? undefined : f; }).slice(0, 2) as [string, number][],
       band: band(js),
       jobs: js,
       newest: js[0]?.posted ?? '',

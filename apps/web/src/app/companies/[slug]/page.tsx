@@ -34,13 +34,22 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   if (!c) notFound();
   const [tbg, tfg] = monoTint(c.name);
 
-  const faq: { q: string; text: string; jsx: React.ReactNode }[] = [
+  const faq: { q: string; text: string; jsx: React.ReactNode }[] = [];
+  if (c.blurb) {
+    const short = c.blurb.text.length > 300 ? `${c.blurb.text.slice(0, c.blurb.text.lastIndexOf('.', 300) + 1 || 300)}` : c.blurb.text;
+    faq.push({
+      q: `What does ${c.name} do?`,
+      text: `In its own words, from ${c.blurb.n} of its live postings: "${short}"`,
+      jsx: <>In its own words, from {c.blurb.n} of its live postings: &ldquo;{short}&rdquo;</>,
+    });
+  }
+  faq.push(
     {
       q: `How many open roles does ${c.name} have?`,
       text: `${c.count.toLocaleString()} live openings on this board, refreshed nightly; the newest was posted ${postedLabel(c.newest)}. The largest group is ${occTitle(c.occs[0][0])} (${c.occs[0][1]}).`,
       jsx: <>{c.count.toLocaleString()} live openings on this board, refreshed nightly; the newest was posted {postedLabel(c.newest)}. The largest group is <Link className="gl" href={`/jobs/${c.occs[0][0]}`}>{occTitle(c.occs[0][0])}</Link> ({c.occs[0][1]}).</>,
     },
-  ];
+  );
   if (c.remoteN > 0) faq.push({
     q: `Does ${c.name} hire remote?`,
     text: `${c.remoteN.toLocaleString()} of its ${c.count.toLocaleString()} live roles are fully remote (${Math.round((100 * c.remoteN) / c.count)}%).`,
@@ -77,10 +86,22 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
               <span className="lbl">{c.count.toLocaleString()}</span> live roles
               {c.remoteN > 0 && <> &middot; <span className="lbl">{c.remoteN.toLocaleString()}</span> fully remote</>}
               {c.countries.length > 0 && <> &middot; hiring in {c.countries.slice(0, 3).map(([cc]) => countryName(cc)).join(', ')}</>}
+              {c.fields.length > 0 && <> &middot; mostly {c.fields.map(([f]) => f.toLowerCase()).join(' and ')}</>}
               {' '}&middot; newest {postedLabel(c.newest)}
             </p>
           </div>
         </header>
+
+        {c.blurb && (
+          <section className="rt-sec">
+            <h2>In its own words</h2>
+            <blockquote className="co-blurb">{c.blurb.text}</blockquote>
+            <p className="rt-note occ-tbl-note">
+              How {c.name} describes itself — the same paragraph appears in {c.blurb.n} of its live postings.
+              Quoted, not written by us.
+            </p>
+          </section>
+        )}
 
         <section className="rt-sec">
           <h2>What it is hiring for</h2>
