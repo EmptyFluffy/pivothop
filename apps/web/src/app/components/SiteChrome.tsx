@@ -24,7 +24,21 @@ const ArrowIco = () => (
   <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
 );
 
-export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers' | 'companies'; v2?: boolean }) {
+/* Which page family a template belongs to. The nav shows five tabs plus the
+   employer pill; families outside those map onto the tab they sit under
+   (audit pass 3, 2026-09-02): compare and the adjacency index under Routes,
+   guides, glossary, licenses and skills under Jobs, hire under Post a job.
+   Blog, about and the legal pages sit under no tab. */
+export type NavActive = 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers' | 'companies'
+  | 'compare' | 'adjacency' | 'glossary' | 'licenses' | 'skills' | 'hire';
+const NAV_TAB: Partial<Record<NavActive, NavActive>> = {
+  compare: 'routes', adjacency: 'routes',
+  careers: 'jobs', glossary: 'jobs', licenses: 'jobs', skills: 'jobs',
+  hire: 'employers',
+};
+
+export function SiteNav({ active: family, v2 }: { active?: NavActive; v2?: boolean }) {
+  const active = family ? (NAV_TAB[family] ?? family) : undefined;
   return (
     <header className="nav">
       <Link href="/" className="brand">{v2 ? <span className="wm">PivotHop</span> : <><RabbitMark /><span className="wm">PIVOTHOP</span></>}</Link>
@@ -36,7 +50,7 @@ export function SiteNav({ active, v2 }: { active?: 'about' | 'employers' | 'jobs
           </button>
           <V2ThemeToggle />
           <SavedNavLink />
-          <Link className="nav-post" href="/employers">Post a job</Link>
+          <Link className={`nav-post${active === 'employers' ? ' on' : ''}`} href="/employers">Post a job</Link>
           <AuthNavButton />
         </span>
       )}
@@ -131,7 +145,7 @@ export function SiteFooter() {
   );
 }
 
-export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: 'about' | 'employers' | 'jobs' | 'blog' | 'routes' | 'salaries' | 'careers' | 'companies'; wide?: boolean; v2?: boolean }) {
+export function PageShell({ children, active, wide, v2 }: { children: React.ReactNode; active?: NavActive; wide?: boolean; v2?: boolean }) {
   /* v2: the redesign theme layer (docs/redesign-v2/05). Adds the namespaced
      wrapper class, the no-flash theme bootstrap, and the mode toggle. The
      stylesheet only acts under .v2t, so non-opted templates are untouched. */

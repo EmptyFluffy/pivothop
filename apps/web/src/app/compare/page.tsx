@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { comparePairs } from './compare-data';
 import { occTitle, occField } from '../jobs/jobs-data';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Careers compared: salary, skills, and overlap, measured | PivotHop',
@@ -24,12 +25,12 @@ export default function CompareHub() {
   const groups = [...byField.entries()].sort((a, b) => b[1].length - a[1].length);
 
   return (
-    <PageShell v2>
+    <PageShell v2 active="compare">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Compare</span></nav>
+        <Crumbs trail={[{ label: 'Compare' }]} />
         <h1 className="rt-h1">Careers, compared.</h1>
         <p className="rt-dek">
-          {`${pairs.length} side-by-side comparisons, each measured from both occupations' own live postings: the posted salary bands, skill readiness in both directions, the shared core, and which way the switch is easier. No quiz logic — the same numbers the instrument runs on.`}
+          {`${pairs.length} side-by-side comparisons, each measured from both occupations' own live postings: the posted salary bands, skill readiness in both directions, the shared core, and which way the switch is easier. No quiz logic: the same numbers the instrument runs on.`}
         </p>
 
         {groups.map(([field, list]) => (

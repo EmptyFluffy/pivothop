@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { PageShell } from '../components/SiteChrome';
 import { SITE_EMAIL } from '../../lib/site';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Support | PivotHop',
@@ -12,7 +13,7 @@ export default function SupportPage() {
   return (
     <PageShell v2>
       <main className="ab-main">
-        <div className="lbl acc" style={{ marginBottom: 18 }}>Support</div>
+        <Crumbs trail={[{ label: 'Support' }]} />
         <h1 className="ab-h1">Something not adding up?</h1>
 
         <section className="ab-sec">

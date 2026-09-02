@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { PageShell } from '../../components/SiteChrome';
 import { allCategories } from '../categories-data';
 import { FACETS, facetCats, Row } from './shared';
+import { Crumbs } from '../../components/Crumbs';
 
 /* The thin hub (tier 1 of the browse spine). A curated head band for humans,
    the top of each facet with a link into its exhaustive sub-hub, ~90 links
@@ -25,7 +26,7 @@ export default function JobsBrowseHub() {
   return (
     <PageShell v2 active="jobs">
       <div className="rtp bh">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><span>Browse</span></nav>
+        <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: 'Browse' }]} />
         <h1 className="rt-h1">Browse the board.</h1>
         <p className="rt-dek">
           {cats.length.toLocaleString()} preloaded searches across the live board. Each is a page of real openings,

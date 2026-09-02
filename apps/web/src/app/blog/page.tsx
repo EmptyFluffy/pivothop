@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { POSTS, PillarIcons } from './posts';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Blog | PivotHop',
@@ -15,7 +16,7 @@ export default function Blog() {
     <PageShell v2 active="blog">
       <div className="about-page">
         <main className="ab-main blog-main">
-          <div className="lbl acc" style={{ marginBottom: 18 }}>Blog</div>
+          <Crumbs trail={[{ label: 'Blog' }]} />
           <h1 className="ab-h1">Career moves, written up.</h1>
           <p className="emp-lead">
             Five pillars, one rule: every claim traces to the same live posting

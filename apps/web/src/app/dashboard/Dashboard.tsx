@@ -9,6 +9,7 @@ import {
 } from '../../lib/saved';
 import { supabaseBrowser } from '../../lib/supabase-browser';
 import { mergeSaved, updateSave, removeSave } from './actions';
+import { Crumbs } from '../components/Crumbs';
 
 /* The saved-jobs dashboard. One list, status tabs over it — no kanban, no
    contacts, no reminders (the V1 cut every tracker research pass agreed on).
@@ -97,6 +98,7 @@ export default function Dashboard() {
 
   return (
     <div className="dash">
+      <Crumbs trail={[{ label: 'Saved jobs' }]} />
       <header className="dash-head">
         <div>
           <h1>Saved jobs.</h1>

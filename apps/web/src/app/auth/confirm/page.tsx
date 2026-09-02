@@ -12,7 +12,7 @@ import ConfirmForm from './ConfirmForm';
    opened on the phone. */
 
 export const metadata: Metadata = {
-  title: 'Confirm sign-in — PivotHop',
+  title: 'Confirm sign-in | PivotHop',
   robots: { index: false },
 };
 

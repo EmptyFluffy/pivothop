@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { SITE_EMAIL } from '../../lib/site';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'About | PivotHop',
@@ -39,7 +40,7 @@ export default function About() {
     <PageShell v2 active="about">
     <div className="about-page">
       <main className="ab-main">
-        <div className="lbl acc" style={{ marginBottom: 18 }}>About</div>
+        <Crumbs trail={[{ label: 'About' }]} />
         <h1 className="ab-h1">A measuring instrument for career moves.</h1>
 
         <section className="ab-sec">

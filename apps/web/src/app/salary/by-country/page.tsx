@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { PageShell } from '../../components/SiteChrome';
 import { COUNTRY_NAMES, fmt } from '../salary-data';
+import { Crumbs } from '../../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'The same job, priced across countries | PivotHop salaries',
@@ -73,9 +74,7 @@ export default function ByCountryPage() {
   return (
     <PageShell v2 active="salaries">
       <div className="rtp salp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><span>By country</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Salaries', href: '/salary' }, { label: 'By country' }]} />
         <h1 className="rt-h1">The same job, priced across countries</h1>
         <p className="rt-dek">
           What an occupation pays in the four markets our sources post in, the United States, United Kingdom, Canada, and

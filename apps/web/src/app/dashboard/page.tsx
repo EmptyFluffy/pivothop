@@ -7,7 +7,7 @@ import Dashboard from './Dashboard';
    guest saves from localStorage, account saves after the merge action. */
 
 export const metadata: Metadata = {
-  title: 'Saved jobs — PivotHop',
+  title: 'Saved jobs | PivotHop',
   description: 'The jobs you saved, with where each application stands.',
   robots: { index: false },
 };

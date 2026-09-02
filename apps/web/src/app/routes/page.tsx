@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { IndexSearch, type IxRow, type IxGroup } from '../components/IndexSearch';
 import { routableSlugs, routePair, occField, originMeta, destRole, routeOrigins, originRoles } from './routes-data';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Career pivots, measured from live job postings | PivotHop',
@@ -44,7 +45,7 @@ export default function RoutesIndex() {
   return (
     <PageShell v2 active="routes">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Routes</span></nav>
+        <Crumbs trail={[{ label: 'Routes' }]} />
         <h1 className="rt-h1">Career pivots, measured.</h1>
         <p className="rt-dek">
           {`${total} routes across every field our data covers, each a saved state of the working instrument: the readiness number, the posted salary band, the exact skill gap, and the observed-transition data behind it. Not advice in the abstract, the specific places a specific starting point can reach.`}

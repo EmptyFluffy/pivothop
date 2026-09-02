@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { PageShell } from '../../../../components/SiteChrome';
 import { CR_BENCHMARKS, CR_BY_SLUG, type BenchmarkSource } from '../benchmarks';
 import { crRoleStats } from '../live-data';
+import { Crumbs } from '../../../../components/Crumbs';
+import { PageHead } from '../../../../components/PageHead';
 
 export function generateStaticParams() {
   return CR_BENCHMARKS.map((r) => ({ occ: r.slug }));
@@ -46,14 +48,8 @@ export default async function CostaRicaRoleSalaryPage({ params }: { params: Prom
   return (
     <PageShell v2 active="salaries">
       <div className="rtp salp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><Link href="/salary/by-country">By country</Link><span>/</span><Link href="/salary/by-country/costa-rica">Costa Rica</Link><span>/</span><span>{role.title}</span>
-        </nav>
-        <span className="lbl acc">Costa Rica · {role.title}</span>
-        <h1 className="rt-h1">{role.title} salary in Costa Rica</h1>
-        <p className="rt-dek">
-          There is no honest single number for this market. Below, each benchmark stays attached to the market it actually measures so a local salary is not quietly averaged with equity-heavy total compensation or a remote US-company budget.
-        </p>
+        <Crumbs trail={[{ label: 'Salaries', href: '/salary' }, { label: 'By country', href: '/salary/by-country' }, { label: 'Costa Rica', href: '/salary/by-country/costa-rica' }, { label: role.title }]} />
+        <PageHead kicker={<>Costa Rica · {role.title}</>} title={<>{role.title} salary in Costa Rica</>} lede={<>There is no honest single number for this market. Below, each benchmark stays attached to the market it actually measures so a local salary is not quietly averaged with equity-heavy total compensation or a remote US-company budget.</>} />
 
         <section className="rt-sec">
           <h2>The benchmarks</h2>

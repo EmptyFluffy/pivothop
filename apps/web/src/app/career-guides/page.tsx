@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { careerFacts, guidedSlugs } from './facts';
+import { Crumbs } from '../components/Crumbs';
 
 /* The index. Grouped by field rather than alphabetically, because someone
    arriving from a search for one occupation is usually weighing the ones beside
@@ -35,9 +36,7 @@ export default function CareerGuidesIndex() {
   return (
     <PageShell v2 active="careers">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><span>Career guides</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Career guides' }]} />
         <h1 className="rt-h1">Career guides.</h1>
         <p className="rt-dek sal-dek">
           What a job is like week to week, what it pays, how long it takes to qualify, and which occupations already

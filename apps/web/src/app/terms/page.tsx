@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { PageShell } from '../components/SiteChrome';
 import { SITE_EMAIL } from '../../lib/site';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Terms | PivotHop',
@@ -12,7 +13,7 @@ export default function TermsPage() {
   return (
     <PageShell v2>
       <main className="ab-main">
-        <div className="lbl acc" style={{ marginBottom: 18 }}>Terms</div>
+        <Crumbs trail={[{ label: 'Terms' }]} />
         <h1 className="ab-h1">Terms of use.</h1>
         <p>Effective August 22, 2026.</p>
 

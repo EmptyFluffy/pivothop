@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import type { Category } from '../../categories-data';
 import { FACETS, facetCats, Row, Cell, shortLabel, countryOf } from '../shared';
+import { Crumbs } from '../../../components/Crumbs';
 
 /* Tier 2 of the browse spine: one exhaustive page per facet, every category
    of its kinds server-rendered, combinations nested under their parent so a
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ facet: st
   const f = FACETS.find((x) => x.slug === facet);
   if (!f) return {};
   return {
-    title: `${f.title} — every preloaded search | PivotHop`,
+    title: `${f.title}: every preloaded search | PivotHop`,
     description: `${f.note} Live counts, refreshed nightly.`,
     alternates: { canonical: `/jobs/browse/${facet}` },
   };
@@ -92,10 +93,7 @@ export default async function BrowseFacet({ params }: { params: Promise<{ facet:
   return (
     <PageShell v2 active="jobs">
       <div className="rtp bh">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span>
-          <Link href="/jobs/browse">Browse</Link><span>/</span><span>{f.title.replace(/^By /, '')}</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: 'Browse', href: '/jobs/browse' }, { label: f.title.replace(/^By /, '') }]} />
         <h1 className="rt-h1">{f.h1}</h1>
         <p className="rt-dek">
           {f.note} {list.length.toLocaleString()} live pages; the largest holds {list[0]?.count.toLocaleString()} open roles.

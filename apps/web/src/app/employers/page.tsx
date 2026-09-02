@@ -9,6 +9,7 @@ import { jobsIndex, occList } from '../jobs/jobs-data';
 import { routableSlugs, routePair, destRole, originMeta } from '../routes/routes-data';
 import { getSalary, usBand } from '../salary/salary-data';
 import { PRICING } from './pricing';
+import { Crumbs } from '../components/Crumbs';
 
 // Posting is FREE during early access: submissions go to the review queue
 // (actions.ts 'ls-not-configured' branch) and publish after a human pass.
@@ -73,11 +74,11 @@ export default function Employers() {
   return (
     <PageShell v2 active="employers">
       <div className="emp-post">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Post a job</span></nav>
-        <header className="emp-post-head">
-          <span className="lbl acc">For employers</span>
-          <h1>Post a job.</h1>
-          <p>
+        <Crumbs trail={[{ label: 'Post a job' }]} />
+        <header className="emp-post-head rt-head">
+          <p className="lbl acc">For employers</p>
+          <h1 className="rt-h1">Post a job.</h1>
+          <p className="rt-dek">
             Every listing is matched to the candidates whose skills already reach it, from adjacent
             professions no title-based board surfaces.
           </p>

@@ -8,10 +8,11 @@ import GlossaryTabs from './GlossaryTabs';
 import { hasSkillPage } from '../skills/skills-data';
 import { SkillMarkSvg } from '../jobs/SkillMark';
 import { BenefitMarkSvg, type BenefitEntry } from '../jobs/BenefitStrip';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Glossary and sources: career-data terms and skills, defined',
-  description: 'Plain-language definitions of every acronym, dataset, and skill behind PivotHop, from SOC codes and OEWS wage data to Python, Revit, and FP&A — each skill linked to the open roles it unlocks.',
+  description: 'Plain-language definitions of every acronym, dataset, and skill behind PivotHop, from SOC codes and OEWS wage data to Python, Revit, and FP&A, each skill linked to the open roles it unlocks.',
   alternates: { canonical: '/glossary' },
 };
 
@@ -41,14 +42,14 @@ const LETTERS = [...new Set(SKILLS.map((s) => firstLetter(s.term)))].sort();
 
 export default function GlossaryPage() {
   return (
-    <PageShell v2>
+    <PageShell v2 active="glossary">
       <div className="gloss">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Glossary</span></nav>
+        <Crumbs trail={[{ label: 'Glossary' }]} />
         <h1 className="gloss-h1">Glossary &amp; sources</h1>
         <p className="gloss-dek">
           Every acronym, credential, dataset, and skill the writing and the instrument lean on, defined once and in plain language.
           We assume you know your own field, not ours. Three registers: the terms, the datasets behind the numbers, and the skill
-          bank and the benefit bank &mdash; every skill linked to the open roles it unlocks.
+          bank and the benefit bank, every skill linked to the open roles it unlocks.
         </p>
 
         <GlossaryTabs

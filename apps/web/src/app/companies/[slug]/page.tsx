@@ -7,6 +7,8 @@ import { occTitle } from '../../jobs/jobs-data';
 import { countryName } from '../../jobs/countries';
 import { postedLabel, companyInitial, monoTint } from '../../jobs/JobCard';
 import JobsList from '../../jobs/JobsList';
+import { Crumbs } from '../../components/Crumbs';
+import { PageHead } from '../../components/PageHead';
 
 /* A company page computed entirely from its live postings: what it is hiring
    for, where, what it declares in benefits, what it posts in pay. Nothing is
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const sal = c.band ? ` ($${c.band.p25}k–$${c.band.p75}k posted)` : '';
   return {
     title: `Jobs at ${c.name}: ${c.count} open roles${sal}`,
-    description: `${c.count} live openings at ${c.name}${c.remoteN > 0 ? `, ${c.remoteN} fully remote` : ''}. What it hires for, where, the benefits its postings declare, and posted pay — computed nightly from the listings themselves.`,
+    description: `${c.count} live openings at ${c.name}${c.remoteN > 0 ? `, ${c.remoteN} fully remote` : ''}. What it hires for, where, the benefits its postings declare, and posted pay, computed nightly from the listings themselves.`,
     alternates: { canonical: `/companies/${slug}` },
   };
 }
@@ -70,35 +72,27 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   return (
     <PageShell v2 active="companies">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">PivotHop</Link><span>/</span>
-          <Link href="/companies">Companies</Link><span>/</span>
-          <span>{c.name}</span>
-        </nav>
-        <header className="rt-head co-head">
-          <span className="co-logo" aria-hidden="true">
-            {c.logo
-              ? <img src={c.logo} alt="" width={52} height={52} />
-              : <i style={{ background: tbg, color: tfg }}>{companyInitial(c.name)}</i>}
-          </span>
-          <div>
-            <h1 className="rt-h1">Jobs at {c.name}</h1>
-            <p className="jb-vmeta">
-              <span className="lbl">{c.count.toLocaleString()}</span> live roles
-              {c.remoteN > 0 && <> &middot; <span className="lbl">{c.remoteN.toLocaleString()}</span> fully remote</>}
-              {c.countries.length > 0 && <> &middot; hiring in {c.countries.slice(0, 3).map(([cc]) => countryName(cc)).join(', ')}</>}
-              {c.fields.length > 0 && <> &middot; mostly {c.fields.map(([f]) => f.toLowerCase()).join(' and ')}</>}
-              {' '}&middot; newest {postedLabel(c.newest)}
-            </p>
-          </div>
-        </header>
+        <Crumbs trail={[{ label: 'Companies', href: '/companies' }, { label: c.name }]} />
+        <PageHead
+          mark={c.logo
+            ? <img src={c.logo} alt="" width={52} height={52} />
+            : <i style={{ background: tbg, color: tfg }}>{companyInitial(c.name)}</i>}
+          title={<>Jobs at {c.name}</>}
+          meta={<>
+            <span className="lbl">{c.count.toLocaleString()}</span> live roles
+            {c.remoteN > 0 && <> &middot; <span className="lbl">{c.remoteN.toLocaleString()}</span> fully remote</>}
+            {c.countries.length > 0 && <> &middot; hiring in {c.countries.slice(0, 3).map(([cc]) => countryName(cc)).join(', ')}</>}
+            {c.fields.length > 0 && <> &middot; mostly {c.fields.map(([f]) => f.toLowerCase()).join(' and ')}</>}
+            {' '}&middot; newest {postedLabel(c.newest)}
+          </>}
+        />
 
         {c.blurb && (
           <section className="rt-sec">
             <h2>In its own words</h2>
             <blockquote className="co-blurb">{c.blurb.text}</blockquote>
             <p className="rt-note occ-tbl-note">
-              How {c.name} describes itself — the same paragraph appears in {c.blurb.n} of its live postings.
+              How {c.name} describes itself: the same paragraph appears in {c.blurb.n} of its live postings.
               Quoted, not written by us.
             </p>
           </section>
@@ -148,7 +142,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             <h2>Is this your company?</h2>
             <p>
               This profile is computed from your public postings. Claim it to post roles free during early
-              access and, as claimed profiles grow, to add what postings cannot say — the page keeps its data
+              access and, as claimed profiles grow, to add what postings cannot say. The page keeps its data
               honest either way.
             </p>
           </div>

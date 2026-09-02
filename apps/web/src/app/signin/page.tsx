@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { PageShell } from '../components/SiteChrome';
 import SignInForm from './SignInForm';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
-  title: 'Sign in — PivotHop',
+  title: 'Sign in | PivotHop',
   description: 'Sign in with a magic link to keep your saved jobs across devices. No password.',
   alternates: { canonical: '/signin' },
 };
@@ -12,6 +13,7 @@ export default function SignInPage() {
   return (
     <PageShell v2>
       <div className="auth-wrap">
+        <Crumbs trail={[{ label: 'Sign in' }]} />
         <h1>Sign in.</h1>
         <p className="auth-sub">
           No password. Enter your email and we send a one-time link; the same

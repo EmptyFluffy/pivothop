@@ -5,6 +5,8 @@ import { PageShell } from '../../components/SiteChrome';
 import { getSkillPage, skillPageSlugs, hasSkillPage } from '../skills-data';
 import { occTitle } from '../../jobs/jobs-data';
 import { coverableSlugs } from '../../salary/salary-data';
+import { Crumbs } from '../../components/Crumbs';
+import { PageHead } from '../../components/PageHead';
 
 /* A skill landing page: the definition, the occupations the skill unlocks
    (with live counts — the adjacency data no other board measures), the skills
@@ -53,25 +55,19 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   }
 
   return (
-    <PageShell v2 active="jobs">
+    <PageShell v2 active="skills">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">PivotHop</Link><span>/</span>
-          <Link href="/glossary">Glossary</Link><span>/</span>
-          <span>{s.term}</span>
-        </nav>
-        <header className="rt-head">
-          <p className="lbl acc">{s.field} skill</p>
-          <h1 className="rt-h1">{s.term} jobs</h1>
-          <p className="jb-lede">
-            {s.def} Below: the {s.unlocks.length} occupations it unlocks on this board, live counts included,
-            and the skills that show up beside it in real postings.
-          </p>
-          <p className="jb-vmeta">
+        <Crumbs trail={[{ label: 'Glossary', href: '/glossary' }, { label: s.term }]} />
+        <PageHead
+          kicker={`${s.field} skill`}
+          title={`${s.term} jobs`}
+          lede={<>{s.def} Below: the {s.unlocks.length} occupations it unlocks on this board, live counts included,
+            and the skills that show up beside it in real postings.</>}
+          meta={<>
             <span className="lbl">{s.reach.toLocaleString()}</span> live roles reachable &middot;{' '}
             <Link className="gl" href={`/jobs?sk=${s.slug}`}>see them all on the board</Link>
-          </p>
-        </header>
+          </>}
+        />
 
         <section className="rt-sec">
           <h2>What {s.term} unlocks</h2>

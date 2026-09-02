@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { POSTS, PillarIcons } from '../posts';
+import { Crumbs } from '../../components/Crumbs';
 
 // E-E-A-T + freshness signals for answer engines: a named author, per-post
 // publish dates, and a modified date that tracks the nightly data refresh.
@@ -36,6 +37,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     <PageShell v2 active="blog">
       <div className="about-page">
         <main className="ab-main post-main">
+          <Crumbs trail={[{ label: 'Blog', href: '/blog' }, { label: post.title }]} />
           <div className="bc-meta" style={{ marginBottom: 20 }}>
             <span className="bc-ico"><Icon /></span>
             <span className="lbl acc">{post.pillar}</span>

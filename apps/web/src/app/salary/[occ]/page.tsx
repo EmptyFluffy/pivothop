@@ -9,6 +9,7 @@ import SalaryChart from '../SalaryChart';
 import { article } from '../../../lib/site';
 import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
 import JobsList from '../../jobs/JobsList';
+import { Crumbs } from '../../components/Crumbs';
 
 export function generateStaticParams() {
   return coverableSlugs().map((occ) => ({ occ }));
@@ -84,9 +85,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
   return (
     <PageShell v2 active="salaries">
       <div className="rtp salp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><span>{f.title}</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Salaries', href: '/salary' }, { label: f.title }]} />
         <h1 className="rt-h1">{f.title} salary</h1>
         <p className="rt-dek">
           {`What ${article(f.title)} ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live job postings blended with the official US `}
@@ -208,7 +207,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         )}
 
         {/* Someone who just read what this role earns is one thought from "can I
-            earn more?" — and the adjacency data answers it with roles they can
+            earn more?", and the adjacency data answers it with roles they can
             actually reach, on boards that have openings today. That belongs
             above the offer-checker, which sends warm traffic to a side product. */}
         {payMore.length > 0 && (

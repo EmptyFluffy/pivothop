@@ -13,6 +13,7 @@ import { postedLabel, type Job } from '../JobCard';
 import { careerFacts } from '../../career-guides/facts';
 import { originAnchors, pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
+import { Crumbs } from '../../components/Crumbs';
 
 /* One slug space, two kinds of page:
    - an occupation (in jobs-index)      -> the single-occupation board + routes in
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
     const wk = freshness(getJobs(occ)).week;
     return {
       title: `${title} jobs: ${jobCount(occ)} open roles${sal}`,
-      description: `${jobCount(occ)} live ${title.toLowerCase()} openings${wk > 0 ? `, ${wk} added this week` : ''}. Pay by seniority, the skills postings actually name, and the adjacent routes in — refreshed nightly.`,
+      description: `${jobCount(occ)} live ${title.toLowerCase()} openings${wk > 0 ? `, ${wk} added this week` : ''}. Pay by seniority, the skills postings actually name, and the adjacent routes in, refreshed nightly.`,
       alternates: { canonical: `/jobs/${occ}` },
     };
   }
@@ -157,7 +158,7 @@ function OccupationBoard({ occ }: { occ: string }) {
   faq.push({
     q: `How many ${tl} jobs are open right now?`,
     text: `${jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape${fresh.week > 0 ? `; ${fresh.week} arrived in the last 7 days` : ''}.${remoteN > 0 ? ` ${remoteN.toLocaleString()} are fully remote.` : ''}`,
-    jsx: <>{jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape{fresh.week > 0 ? <>; {fresh.week} arrived in the last 7 days</> : null}.{remoteN > 0 ? <> {remoteN.toLocaleString()} are fully remote{hasRemotePage ? <> — <Link className="gl" href={`/jobs/remote-${occ}`}>remote {tl} jobs</Link></> : null}.</> : null}</>,
+    jsx: <>{jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape{fresh.week > 0 ? <>; {fresh.week} arrived in the last 7 days</> : null}.{remoteN > 0 ? <> {remoteN.toLocaleString()} are fully remote{hasRemotePage ? <>: <Link className="gl" href={`/jobs/remote-${occ}`}>remote {tl} jobs</Link></> : null}.</> : null}</>,
   });
   if (paid) faq.push({
     q: `How much do ${tl} jobs pay?`,
@@ -182,6 +183,7 @@ function OccupationBoard({ occ }: { occ: string }) {
           v2
           hero={
             <header className="jb-hero">
+              <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: title }]} />
               <p className="jb-vmeta">{jobs.length.toLocaleString()} live roles{remoteN > 0 ? <> &middot; {remoteN.toLocaleString()} fully remote</> : null} &middot; freshest first</p>
               <h1 className="rt-h1">{title} jobs</h1>
               <p className="jb-lede">
@@ -372,8 +374,8 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
   } else if (qs.get('t') === 'vi') {
     out.push({
       q: 'Are these visa-sponsorship offers verified?',
-      text: 'The flag is read from the posting text with negation checks, so a line like "no visa sponsorship" never counts as an offer. Boards change fast, though — confirm on the original posting before you plan around it. Every card here links to the source.',
-      jsx: <>The flag is read from the posting text with negation checks, so a line like &ldquo;no visa sponsorship&rdquo; never counts as an offer. Boards change fast, though &mdash; confirm on the original posting before you plan around it. Every card links to the source.</>,
+      text: 'The flag is read from the posting text with negation checks, so a line like "no visa sponsorship" never counts as an offer. Boards change fast, though. Confirm on the original posting before you plan around it. Every card here links to the source.',
+      jsx: <>The flag is read from the posting text with negation checks, so a line like &ldquo;no visa sponsorship&rdquo; never counts as an offer. Boards change fast, though. Confirm on the original posting before you plan around it. Every card links to the source.</>,
     });
   } else if (ccode && s.topFields.length > 0) {
     const name = countryName(ccode);
@@ -407,8 +409,8 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
   // 4. The funnel into the instrument.
   out.push({
     q: 'Which of these jobs do my skills already reach?',
-    text: 'Run the instrument with your current role and it measures your readiness for every occupation on this board from live postings — the same data these listings are tagged with. Free, no account.',
-    jsx: <>Run <Link className="gl" href="/">the instrument</Link> with your current role and it measures your readiness for every occupation on this board from live postings &mdash; the same data these listings are tagged with. Free, no account.</>,
+    text: 'Run the instrument with your current role and it measures your readiness for every occupation on this board from live postings, the same data these listings are tagged with. Free, no account.',
+    jsx: <>Run <Link className="gl" href="/">the instrument</Link> with your current role and it measures your readiness for every occupation on this board from live postings, the same data these listings are tagged with. Free, no account.</>,
   });
 
   return out;
@@ -434,6 +436,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
           v2
           hero={
             <header className="jb-hero">
+              <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: cat.title }]} />
               <p className="jb-vmeta">{jobs.length.toLocaleString()} live roles &middot; freshest first</p>
               <h1 className="rt-h1">{cat.title}</h1>
               <p className="jb-lede">

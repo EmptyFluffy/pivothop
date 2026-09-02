@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { IndexSearch, type IxRow } from '../components/IndexSearch';
 import { coverableSlugs, getSalary, usBand, fmt, getSwissFile, fmtChf } from './salary-data';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Salaries by occupation, measured from live postings | PivotHop',
@@ -29,7 +30,7 @@ export default function SalaryIndex() {
   return (
     <PageShell v2 active="salaries">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Salaries</span></nav>
+        <Crumbs trail={[{ label: 'Salaries' }]} />
         <h1 className="rt-h1">Salaries, measured.</h1>
         <p className="rt-dek sal-dek">
           What each occupation actually pays, from live postings blended with the official{' '}

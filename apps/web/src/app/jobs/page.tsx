@@ -6,6 +6,7 @@ import { jobsIndex, jobOccupations, occTitle, occField, occSearchText, getJobs, 
 import { JobCard } from './JobCard';
 import { routableSlugs } from '../routes/routes-data';
 import JobsBrowse from './JobsBrowse';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Job board: live roles across every field, searchable | PivotHop',
@@ -35,6 +36,7 @@ export default function JobsHub() {
 
         <JobsBrowse v2 hero={
           <header className="jb-hero">
+            <Crumbs trail={[{ label: 'Jobs' }]} />
             <p className="jb-vmeta">{total.toLocaleString()} live roles &middot; {occs.length} occupations &middot; {remoteN.toLocaleString()} fully remote &middot; <Link className="gl" href="/">run the instrument</Link></p>
             <h1 className="rt-h1">The job board, by skill.</h1>
           </header>
@@ -69,7 +71,7 @@ export default function JobsHub() {
 
         <section className="rt-sec jb-byocc">
           <h2>Browse by occupation</h2>
-          <p className="rt-note">Or browse by filter — remote, location, seniority, pay, and combinations: <Link className="gl" href="/jobs/browse">all preloaded searches</Link>.</p>
+          <p className="rt-note">Or browse by filter: remote, location, seniority, pay, and combinations: <Link className="gl" href="/jobs/browse">all preloaded searches</Link>.</p>
           {fieldGroups.map(([field, list]) => {
             // this field's rows on /jobs/browse/fields — the count states
             // exactly what the link lands on, nothing broader

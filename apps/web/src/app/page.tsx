@@ -19,7 +19,7 @@ import LandingSearch from './components/LandingSearch';
    for tool queries and meet visitors who arrived wanting it. */
 
 export const metadata: Metadata = {
-  title: 'PivotHop — Career moves, measured.',
+  title: 'PivotHop: Career moves, measured.',
   description:
     'A career-navigation instrument built on live job postings: a job board tagged by the skills that reach each role, a career-change instrument that maps every adjacent move, and a remote salary calculator. Numbers, not vibes.',
   alternates: { canonical: '/' },

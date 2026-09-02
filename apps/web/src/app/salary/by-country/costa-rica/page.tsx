@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { PageShell } from '../../../components/SiteChrome';
 import { CR_BENCHMARKS, type BenchmarkSource } from './benchmarks';
 import { crMarketStats, crRoleStats } from './live-data';
+import { Crumbs } from '../../../components/Crumbs';
+import { PageHead } from '../../../components/PageHead';
 
 export const metadata: Metadata = {
   title: 'Costa Rica Salary Guide 2026 | Local, remote and total compensation',
@@ -29,16 +31,10 @@ export default function CostaRicaSalaryGuide() {
   return (
     <PageShell v2 active="salaries">
       <div className="rtp salp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><Link href="/salary/by-country">By country</Link><span>/</span><span>Costa Rica</span>
-        </nav>
-        <span className="lbl acc">Costa Rica salary guide · 2026</span>
-        <h1 className="rt-h1">One country. Several salary markets.</h1>
-        <p className="rt-dek">
-          A local payroll salary, multinational total compensation, a remote US-company offer and a contractor rate are not
+        <Crumbs trail={[{ label: 'Salaries', href: '/salary' }, { label: 'By country', href: '/salary/by-country' }, { label: 'Costa Rica' }]} />
+        <PageHead kicker={<>Costa Rica salary guide · 2026</>} title={<>One country. Several salary markets.</>} lede={<>A local payroll salary, multinational total compensation, a remote US-company offer and a contractor rate are not
           the same number. This guide keeps them separate, names the source behind each one, and adds the live Costa Rica
-          market visible in PivotHop instead of averaging incompatible benchmarks into a fake median.
-        </p>
+          market visible in PivotHop instead of averaging incompatible benchmarks into a fake median.</>} />
 
         <section className="rt-sec">
           <h2>The live market we can see</h2>

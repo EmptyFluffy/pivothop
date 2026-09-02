@@ -7,6 +7,7 @@ import { occTitle, occField, jobCount } from '../../jobs/jobs-data';
 import { coverableSlugs } from '../../salary/salary-data';
 import { routePair, routeOrigins } from '../../routes/routes-data';
 import { article } from '../../../lib/site';
+import { Crumbs } from '../../components/Crumbs';
 
 export function generateStaticParams() {
   return compareSlugs().map((pair) => ({ pair }));
@@ -88,13 +89,11 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
   ];
 
   return (
-    <PageShell v2>
+    <PageShell v2 active="compare">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/compare">Compare</Link><span>/</span><span>{tA} vs {tB}</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Compare', href: '/compare' }, { label: `${tA} vs ${tB}` }]} />
         <h1 className="rt-h1">{tA} vs {tB}</h1>
-        <p className="rt-dek">{pairVerdict(p)} Salary bands, both switching directions, and the shared skills below — every number from live postings, refreshed nightly.</p>
+        <p className="rt-dek">{pairVerdict(p)} Salary bands, both switching directions, and the shared skills below, every number from live postings, refreshed nightly.</p>
 
         <div className="cmp-grid">
           <div className="cmp-col">

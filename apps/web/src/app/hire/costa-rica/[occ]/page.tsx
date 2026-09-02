@@ -9,6 +9,8 @@ import { getSalary, usBand, coverableSlugs } from '../../../salary/salary-data';
 import { CR_BENCHMARKS } from '../../../salary/by-country/costa-rica/benchmarks';
 import { postedLabel } from '../../../jobs/JobCard';
 import JobsList from '../../../jobs/JobsList';
+import { Crumbs } from '../../../components/Crumbs';
+import { PageHead } from '../../../components/PageHead';
 
 /* Per-role employer page for Costa Rica. The two-figure comparison (CR posted
    vs US) shows both numbers with their sources and sample sizes and lets the
@@ -52,11 +54,11 @@ export default async function HireOccPage({ params }: { params: Promise<{ occ: s
   ];
   if (h.band) faq.push({
     q: `What does a ${tl} cost in Costa Rica?`,
-    text: `Of the ${h.n} live CR postings, ${h.band.n} state pay; the posted middle band runs $${h.band.p25}k–$${h.band.p75}k a year. That is what employers are offering in public postings right now — not an estimate.`,
+    text: `Of the ${h.n} live CR postings, ${h.band.n} state pay; the posted middle band runs $${h.band.p25}k–$${h.band.p75}k a year. That is what employers are offering in public postings right now, not an estimate.`,
   });
   if (skills.length >= 3) faq.push({
     q: `What skills should a ${tl} job description ask for?`,
-    text: `Across the postings this board reads for the role, the most-named skills are ${skills.slice(0, 3).map((s) => s.skill.replace(/-/g, ' ')).join(', ')} — board-wide shares, a starting point for a realistic description.`,
+    text: `Across the postings this board reads for the role, the most-named skills are ${skills.slice(0, 3).map((s) => s.skill.replace(/-/g, ' ')).join(', ')}: board-wide shares, a starting point for a realistic description.`,
   });
   faq.push({
     q: 'Does the time zone work with a US or European team?',
@@ -64,25 +66,17 @@ export default async function HireOccPage({ params }: { params: Promise<{ occ: s
   });
 
   return (
-    <PageShell v2 active="employers">
+    <PageShell v2 active="hire">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">PivotHop</Link><span>/</span>
-          <Link href="/hire/costa-rica">Hire in Costa Rica</Link><span>/</span>
-          <span>{title}</span>
-        </nav>
-        <header className="rt-head">
-          <p className="lbl acc">For employers &middot; Costa Rica</p>
-          <h1 className="rt-h1">Hire {tl}s in Costa Rica</h1>
-          <p className="jb-lede">
-            The live market, measured: what Costa Rican {tl} postings pay, who is already hiring, and what the
-            postings ask for. Every figure carries its sample size and regenerates nightly.
-          </p>
-          <p className="jb-vmeta">
-            <span className="lbl">{h.n}</span> live CR postings &middot;{' '}
-            <span className="lbl">{h.remote}</span> remote &middot; newest {postedLabel(h.newest)}
-          </p>
-        </header>
+        <Crumbs trail={[{ label: 'Employers', href: '/employers' }, { label: 'Hire in Costa Rica', href: '/hire/costa-rica' }, { label: title }]} />
+        <PageHead
+          kicker={<>For employers &middot; Costa Rica</>}
+          title={<>Hire {tl}s in Costa Rica</>}
+          lede={<>The live market, measured: what Costa Rican {tl} postings pay, who is already hiring, and what the
+            postings ask for. Every figure carries its sample size and regenerates nightly.</>}
+          meta={<><span className="lbl">{h.n}</span> live CR postings &middot;{' '}
+            <span className="lbl">{h.remote}</span> remote &middot; newest {postedLabel(h.newest)}</>}
+        />
 
         {(h.band || us) && (
           <section className="rt-sec">
@@ -110,7 +104,7 @@ export default async function HireOccPage({ params }: { params: Promise<{ occ: s
               <p className="rt-note occ-tbl-note">
                 Two different measures, shown side by side on purpose: the CR figure is pay posted in Costa
                 Rica listings on this board; the US figure is the same role&rsquo;s US band. No percentage
-                claim is computed between them — subtract for yourself.
+                claim is computed between them. Subtract for yourself.
                 {bench && <>{' '}Sourced CR benchmarks for this role, with lenses and dates: <Link className="gl" href={`/salary/by-country/costa-rica/${occ}`}>{tl} salary in Costa Rica</Link>.</>}
               </p>
             </div>
@@ -132,7 +126,7 @@ export default async function HireOccPage({ params }: { params: Promise<{ occ: s
         {skills.length >= 3 && (
           <section className="rt-sec">
             <h2>What the postings ask for</h2>
-            <p className="rt-note">The skills most named in {tl} postings across this board (board-wide shares) — a base for writing a description that reads like the market.</p>
+            <p className="rt-note">The skills most named in {tl} postings across this board (board-wide shares), a base for writing a description that reads like the market.</p>
             <ul className="rt-rel">
               {skills.map((s) => (
                 <li key={s.skill}><span>{s.skill.replace(/-/g, ' ')}</span><span className="lbl">{s.sharePct}% of postings</span></li>
@@ -154,7 +148,7 @@ export default async function HireOccPage({ params }: { params: Promise<{ occ: s
         <section className="rt-cta">
           <div>
             <h2>Post your {tl} role</h2>
-            <p>Free during early access, reviewed by a person, and shown to the candidates whose skills already reach it — including the Costa Rican audience on this board.</p>
+            <p>Free during early access, reviewed by a person, and shown to the candidates whose skills already reach it, including the Costa Rican audience on this board.</p>
           </div>
           <Link className="rt-go" href="/employers">Post a job &rarr;</Link>
         </section>
@@ -168,7 +162,7 @@ export default async function HireOccPage({ params }: { params: Promise<{ occ: s
 
         <p className="rt-method lbl">
           Computed nightly from live Costa Rica postings on re-displayable sources. PivotHop is a job board,
-          not an employer of record or an agency, and offers no legal or tax guidance — for statutory
+          not an employer of record or an agency, and offers no legal or tax guidance. For statutory
           questions, start at the MTSS.
         </p>
       </div>

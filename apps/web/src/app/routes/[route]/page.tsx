@@ -12,6 +12,7 @@ import JobsList from '../../jobs/JobsList';
 import RouteCloud from '../RouteCloud';
 import { pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
+import { Crumbs } from '../../components/Crumbs';
 
 /* One slug space, two kinds of page:
    - "architect-to-interior-designer" (has "-to-")  -> the route page
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ route: st
     const top = roles[0];
     return {
       title: `Alternative careers for ${om.title.toLowerCase()}s: ${roles.length} measured routes`,
-      description: `Every career change from ${om.title.toLowerCase()} we can measure, ranked by skill readiness from ${om.postings.toLocaleString()} live postings${top ? ` — starting with ${top.title.toLowerCase()} at ${top.match}%` : ''}. Salary, transition time, and license gates for each.`,
+      description: `Every career change from ${om.title.toLowerCase()} we can measure, ranked by skill readiness from ${om.postings.toLocaleString()} live postings${top ? `, starting with ${top.title.toLowerCase()} at ${top.match}%` : ''}. Salary, transition time, and license gates for each.`,
       alternates: { canonical: `/routes/${route}` },
     };
   }
@@ -71,19 +72,14 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
   return (
     <PageShell v2 active="routes">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/routes">Routes</Link><span>/</span>
-          {/* The origin hub belongs in the trail: a pair page is a child of
-              "alternative careers for X", and this was the only surface that
-              never linked back to it. Guarded — the origin set is gated. */}
-          {hasOriginPage(def.origin)
-            ? <><Link href={`/routes/${def.origin}`}>{om.title}</Link><span>/</span></>
-            : null}
-          <span>{om.title} to {r.title}</span>
-        </nav>
+        <Crumbs trail={[
+          { label: 'Routes', href: '/routes' },
+          ...(hasOriginPage(def.origin) ? [{ label: om.title, href: `/routes/${def.origin}` }] : []),
+          { label: `${om.title} to ${r.title}` },
+        ]} />
         <h1 className="rt-h1">{om.title} <span className="rt2-arrow">&rarr;</span> {r.title}</h1>
         <p className="rt-dek">
-          Measured from <strong>{om.postings.toLocaleString()}</strong>{` live ${originLc} postings and the destination’s own corpus.`}
+          Measured from {om.postings.toLocaleString()}{` live ${originLc} postings and the destination’s own corpus.`}
           {observed ? ' Corroborated by observed US worker transitions.' : ''} Updated with the nightly scrape.
         </p>
         {r.license && <p className="rt-lic lbl"><Link href={`/licenses#occ-${r.id}`} data-license={r.id}>{r.license.label}</Link></p>}
@@ -366,9 +362,7 @@ function OriginPage({ origin }: { origin: string }) {
   return (
     <PageShell v2 active="routes">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/routes">Routes</Link><span>/</span><span>{om.title}</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Routes', href: '/routes' }, { label: om.title }]} />
         <h1 className="rt-h1">Alternative careers for {ol}s</h1>
         <p className="rt-dek">
           {V([
@@ -446,7 +440,7 @@ function OriginPage({ origin }: { origin: string }) {
             <Link className="gl" href={`/jobs/${reachBest.id}`}>
               {reachBest.n} open {reachBest.title.toLowerCase()} {reachBest.n === 1 ? 'role' : 'roles'}
             </Link>
-            {` — the largest live board among them, at ${reachBest.match}% readiness from ${ol}.`}
+            {`, the largest live board among them, at ${reachBest.match}% readiness from ${ol}.`}
           </p>
         )}
 

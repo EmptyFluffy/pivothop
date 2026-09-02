@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { PageShell } from '../components/SiteChrome';
 import type { Job } from '../jobs/JobCard';
+import { Crumbs } from '../components/Crumbs';
 
 /* The Adjacency Index — the citable data hub. One page of headline numbers, each
    written as a clean, extractable sentence with its proof page, so an answer
@@ -15,7 +16,7 @@ import type { Job } from '../jobs/JobCard';
 export const metadata: Metadata = {
   title: 'The Adjacency Index: career mobility, in numbers',
   description:
-    'Headline figures from the PivotHop corpus of more than 150,000 job postings read: how AI-exposed each field is, how much skill sets overlap between careers, which jobs are most transferable, and the pay behind every route. Computed, dated, and citable — nothing invented.',
+    'Headline figures from the PivotHop corpus of more than 150,000 job postings read: how AI-exposed each field is, how much skill sets overlap between careers, which jobs are most transferable, and the pay behind every route. Computed, dated, and citable. Nothing invented.',
   alternates: { canonical: '/adjacency-index' },
 };
 
@@ -49,7 +50,7 @@ const SECTIONS: { h: string; stats: Stat[] }[] = [
   {
     h: 'Adjacency',
     stats: [
-      { big: '55%', unit: 'of career pairs under 20% overlap', sentence: 'Of the 3,521 scored occupation-to-occupation pairs, 55% sit under 20% skill readiness. Skills are specific, not a universal solvent — which is exactly why measuring their reach matters.', href: '/routes', hrefLabel: 'every measured route' },
+      { big: '55%', unit: 'of career pairs under 20% overlap', sentence: 'Of the 3,521 scored occupation-to-occupation pairs, 55% sit under 20% skill readiness. Skills are specific, not a universal solvent, which is exactly why measuring their reach matters.', href: '/routes', hrefLabel: 'every measured route' },
       { big: '13', unit: 'routes out (widest exits)', sentence: 'The most transferable careers have a data core or a coordination core: sales engineer and operations manager each reach 13 destinations at 45%+ readiness; data scientist reaches 12.', href: '/blog/skills-over-titles', hrefLabel: 'the widest-exit ranking' },
     ],
   },
@@ -57,8 +58,8 @@ const SECTIONS: { h: string; stats: Stat[] }[] = [
     h: 'The confused pairs',
     stats: [
       { big: '24%', unit: 'product vs project manager', sentence: 'A typical project manager’s skills cover only 24% of what product-manager postings demand; the reverse shares too few skills to score. Same first word, different jobs.', href: '/compare/product-manager-vs-project-manager', hrefLabel: 'compared' },
-      { big: '13% / 12%', unit: 'graphic vs UX designer', sentence: 'Graphic designers and UX designers share 13% and 12% of a skill set in each direction, against posted bands of $42k–$73k versus $74k–$151k — the most expensively confused pair in design.', href: '/compare/graphic-designer-vs-ux-designer', hrefLabel: 'compared' },
-      { big: '94% + a license', unit: 'registered nurse to nurse practitioner', sentence: 'A registered nurse reads 94% ready for nurse-practitioner work on skills alone — and no skill overlap shortens the graduate degree and license between the two titles.', href: '/compare/nurse-practitioner-vs-registered-nurse', hrefLabel: 'compared' },
+      { big: '13% / 12%', unit: 'graphic vs UX designer', sentence: 'Graphic designers and UX designers share 13% and 12% of a skill set in each direction, against posted bands of $42k–$73k versus $74k–$151k: the most expensively confused pair in design.', href: '/compare/graphic-designer-vs-ux-designer', hrefLabel: 'compared' },
+      { big: '94% + a license', unit: 'registered nurse to nurse practitioner', sentence: 'A registered nurse reads 94% ready for nurse-practitioner work on skills alone, and no skill overlap shortens the graduate degree and license between the two titles.', href: '/compare/nurse-practitioner-vs-registered-nurse', hrefLabel: 'compared' },
     ],
   },
   {
@@ -117,12 +118,12 @@ export default function AdjacencyIndex() {
   ];
 
   return (
-    <PageShell v2>
+    <PageShell v2 active="adjacency">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div className="axi">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>Adjacency Index</span></nav>
-        <header className="axi-head">
-          <span className="lbl acc">The Adjacency Index</span>
+        <Crumbs trail={[{ label: 'Adjacency Index' }]} />
+        <header className="axi-head rt-head">
+          <p className="lbl acc">The Adjacency Index</p>
           <h1 className="rt-h1">The job market, in numbers.</h1>
           <p className="rt-dek">
             {`The findings below are computed from every posting PivotHop has read, more than ${CORPUS_READ_FLOOR} of them as of ${CORPUS_READ_AS_OF}, mapped onto standardized occupations. The live board is the freshest slice of that: ${s.listings.toLocaleString()} listings open right now from ${s.companies.toLocaleString()} companies across ${s.countries} countries, refreshed nightly. Data as of ${asOf}. Nothing here is invented; each number links to the page that proves it.`}

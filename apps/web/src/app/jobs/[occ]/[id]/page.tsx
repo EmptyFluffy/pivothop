@@ -13,6 +13,7 @@ import { coverableSlugs, getSalary, usBand, fmtk } from '../../../salary/salary-
 import { routableSlugs, routePair, destRole, originMeta, hasOriginPage, originRoles } from '../../../routes/routes-data';
 import { jobCount } from '../../jobs-data';
 import { SITE_EMAIL, article, originAnchors, pickAnchor } from '../../../../lib/site';
+import { Crumbs } from '../../../components/Crumbs';
 
 // ON DEMAND, NOT PREBUILT. These pages are deliberately noindexed (below), so
 // prerendering bought nothing — and at 14,504 listings it produced enough
@@ -115,9 +116,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   return (
     <PageShell v2 active="jobs">
       <div className="rtp salp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/jobs">Jobs</Link><span>/</span><Link href={`/jobs/${occ}`}>{title}</Link><span>/</span><span>{j.company}</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: title, href: `/jobs/${occ}` }, { label: j.company }]} />
         <div className="jd-head">
           {logo
             ? <span className="jd-mark"><img src={logo} alt="" width={40} height={40} /></span>

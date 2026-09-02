@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { PageShell } from '../components/SiteChrome';
 import { SITE_EMAIL } from '../../lib/site';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Privacy | PivotHop',
@@ -12,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <PageShell v2>
       <main className="ab-main">
-        <div className="lbl acc" style={{ marginBottom: 18 }}>Privacy</div>
+        <Crumbs trail={[{ label: 'Privacy' }]} />
         <h1 className="ab-h1">Privacy policy.</h1>
         <p>Effective August 22, 2026.</p>
 

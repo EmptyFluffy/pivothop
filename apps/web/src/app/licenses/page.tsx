@@ -5,10 +5,11 @@ import GATES from '../../../../../packages/data/taxonomy/license-gates.json';
 import TAX from '../../../../../packages/data/taxonomy/occupations.json';
 import { jobCount, occTitle } from '../jobs/jobs-data';
 import { coverableSlugs } from '../salary/salary-data';
+import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'License gates: which careers require a license, in the US and Switzerland',
-  description: 'Every licensed profession we track, with the credential it actually takes: issuing body, honest timeline, what is gated (the title, the signature, or the job itself) — for the US and Switzerland. No amount of skill overlap shortens a credential.',
+  description: 'Every licensed profession we track, with the credential it actually takes: issuing body, honest timeline, what is gated (the title, the signature, or the job itself), for the US and Switzerland. No amount of skill overlap shortens a credential.',
   alternates: { canonical: '/licenses' },
 };
 
@@ -67,9 +68,9 @@ export default function LicensesPage() {
     { q: 'How is Switzerland different from the US?', a: 'Switzerland keeps one federal list of regulated professions and runs formal recognition procedures for foreign credentials, which matters in a country where a quarter of the workforce is foreign-born. Some gates are stricter than the US equivalent (independent electrical installation needs a federal permit) and some are looser: in most cantons, architect is not a protected practice at all.' },
   ];
   return (
-    <PageShell v2>
+    <PageShell v2 active="licenses">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb"><Link href="/">Instrument</Link><span>/</span><span>License gates</span></nav>
+        <Crumbs trail={[{ label: 'License gates' }]} />
         <h1 className="rt-h1">License gates, stated plainly.</h1>
         <p className="rt-dek">
           {gatedOccs} of the {(TAX as { occupations: unknown[] }).occupations.length} occupations we track carry a legal gate: a license,

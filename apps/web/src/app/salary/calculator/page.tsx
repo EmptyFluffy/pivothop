@@ -3,6 +3,8 @@ import Link from 'next/link';
 import './calc.css';
 import { PageShell } from '../../components/SiteChrome';
 import { CalcClient } from './CalcClient';
+import { Crumbs } from '../../components/Crumbs';
+import { PageHead } from '../../components/PageHead';
 
 /* The remote salary calculator — FairElephant, renamed and moved into the
    salary silo (research 2026-08-22: "remote salary calculator" is the winnable
@@ -11,7 +13,7 @@ import { CalcClient } from './CalcClient';
    /fairelephant 301s here. The deadpan H1 survives the rename. */
 
 export const metadata: Metadata = {
-  title: 'Remote Salary Calculator — fair pay by occupation and country',
+  title: 'Remote Salary Calculator: fair pay by occupation and country',
   description:
     'What a remote role should pay, computed: live postings, BLS OEWS wage statistics, and World Bank purchasing power, across 158 occupations and 60+ countries. Test an offer, no sign-up.',
   alternates: { canonical: '/salary/calculator' },
@@ -29,16 +31,10 @@ export default function SalaryCalculator() {
   return (
     <PageShell v2 active="salaries">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/salary">Salaries</Link><span>/</span><span>Calculator</span>
-        </nav>
-        <span className="lbl acc">Remote salary calculator</span>
-        <h1 className="rt-h1">Fair pay, computed.</h1>
-        <p className="rt-dek">
-          What a remote role should pay, read four ways: live postings, official wage statistics, and World Bank
+        <Crumbs trail={[{ label: 'Salaries', href: '/salary' }, { label: 'Calculator' }]} />
+        <PageHead kicker={<>Remote salary calculator</>} title={<>Fair pay, computed.</>} lede={<>What a remote role should pay, read four ways: live postings, official wage statistics, and World Bank
           purchasing power, across 158 occupations. Test an offer against the measured bands. No sign-up, and the
-          method is on the page.
-        </p>
+          method is on the page.</>} />
       </div>
 
       <div className="fe-root">

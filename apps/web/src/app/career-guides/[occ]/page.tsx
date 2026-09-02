@@ -11,6 +11,8 @@ import JobsList from '../../jobs/JobsList';
 import { COUNTRY_NAMES, coverable } from '../../salary/salary-data';
 import { hasOriginPage, routePair } from '../../routes/routes-data';
 import { article } from '../../../lib/site';
+import { Crumbs } from '../../components/Crumbs';
+import { PageHead } from '../../components/PageHead';
 
 /* The career guide. Everything numeric on this page is computed at request time
    from the live corpus (facts.ts); only the judgement prose comes from the
@@ -53,16 +55,17 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
   return (
     <PageShell v2 active="careers">
       <div className="rtp cg">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">Instrument</Link><span>/</span><Link href="/career-guides">Careers</Link><span>/</span><span>{f.title}</span>
-        </nav>
+        <Crumbs trail={[{ label: 'Career guides', href: '/career-guides' }, { label: f.title }]} />
 
-        <p className="jb-vmeta">
-          {f.field} &middot; {f.liveOpenings.toLocaleString()} open on PivotHop now
-          {f.postingsRead ? <> &middot; {f.postingsRead.toLocaleString()} postings read</> : null}
-        </p>
-        <h1 className="rt-h1">How to become {article(f.title)} {tl}</h1>
-        <p className="cg-summary">{p.summary}</p>
+        <PageHead
+          kicker={f.field}
+          title={<>How to become {article(f.title)} {tl}</>}
+          lede={p.summary}
+          meta={<>
+            <span className="lbl">{f.liveOpenings.toLocaleString()}</span> open on PivotHop now
+            {f.postingsRead ? <> &middot; <span className="lbl">{f.postingsRead.toLocaleString()}</span> postings read</> : null}
+          </>}
+        />
 
         <div className="rt-facts">
           {f.salary && <div><span className="v">{fmt(f.salary.p50)}</span><span className="k">{f.salary.scope === 'US' ? 'U.S. median pay' : 'Global median pay'}</span></div>}

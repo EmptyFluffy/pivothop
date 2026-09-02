@@ -3,10 +3,12 @@ import Link from 'next/link';
 import { PageShell } from '../components/SiteChrome';
 import { companiesRanked } from './companies-data';
 import { companyInitial, monoTint } from '../jobs/JobCard';
+import { Crumbs } from '../components/Crumbs';
+import { PageHead } from '../components/PageHead';
 
 export const metadata: Metadata = {
   title: 'Companies hiring now: live roles, benefits and posted pay',
-  description: 'Every company with live openings on the board: what each is hiring for, where, the benefits its postings declare, and posted pay — computed nightly from the listings themselves.',
+  description: 'Every company with live openings on the board: what each is hiring for, where, the benefits its postings declare, and posted pay, computed nightly from the listings themselves.',
   alternates: { canonical: '/companies' },
 };
 
@@ -18,19 +20,15 @@ export default function CompaniesHub() {
   return (
     <PageShell v2 active="companies">
       <div className="rtp">
-        <nav className="rt-crumbs lbl" aria-label="Breadcrumb">
-          <Link href="/">PivotHop</Link><span>/</span><span>Companies</span>
-        </nav>
-        <header className="rt-head">
-          <p className="lbl acc">The employers, measured</p>
-          <h1 className="rt-h1">Companies hiring now</h1>
-          <p className="jb-lede">
-            {cos.length.toLocaleString()} companies with live openings on the board — {total.toLocaleString()} roles
+        <Crumbs trail={[{ label: 'Companies' }]} />
+        <PageHead
+          kicker="The employers, measured"
+          title="Companies hiring now"
+          lede={<>{cos.length.toLocaleString()} companies with live openings on the board, {total.toLocaleString()} roles
             between them. Each profile is computed nightly from the company&rsquo;s own postings: occupations,
             countries, declared benefits, posted pay. Nothing self-reported, and a company can claim its
-            profile from its own page.
-          </p>
-        </header>
+            profile from its own page.</>}
+        />
         <ul className="co-grid">
           {strong.map((c) => {
             const [tbg, tfg] = monoTint(c.name);
