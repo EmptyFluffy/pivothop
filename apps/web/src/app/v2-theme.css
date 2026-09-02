@@ -2223,3 +2223,11 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 /* a long unbreakable title (German compounds, slashes) widens the page on a
    360px phone: let titles break anywhere rather than push the column */
 .v2t .rt-h1, .v2t .jv-ti, .v2t .jpane-title, .v2t .jsheet-title{ overflow-wrap:anywhere; }
+/* ---- audit pass 5: the instrument page joins the hero tier. Its hero title
+   kept the old landing's face (104px at weight 440); the graph beneath it is
+   untouched (label widths come from GLYPH_W, not from this rule). ---- */
+.v2t .v2h .hero h1{ font-family:var(--sans),sans-serif; font-weight:650; font-size:clamp(44px,6vw,88px);
+  letter-spacing:-.04em; line-height:1; }
+.v2t .home-boot h1{ font-weight:650; letter-spacing:-.03em; }
+.v2t .v2h .capture > *{ min-width:0; }
+.v2t .v2h .cap-row input{ min-width:0; }

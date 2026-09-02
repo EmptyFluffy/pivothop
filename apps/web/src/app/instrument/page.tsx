@@ -73,8 +73,8 @@ export default function Instrument() {
           <span className="home-boot-mark" aria-hidden="true">
             <svg viewBox="0 0 123.3 100"><g fill="currentColor"><path d="M31.9 0 A25.3 15 0 0 0 82.5 0 Z" /><path fillRule="evenodd" d="M83.3 0 L92 0 C104 0 116 8 121 20 C124 27 123 34 119 38 C112 41 100 40 90 40 L83.3 40 Z M103.3 20 a3.7 3.7 0 1 0 0.01 0 Z" /><path d="M83.1 40 L83.1 76 C91 76 99 82 102 90 C103.5 94 103 98 101.5 99.7 L24 99.7 C23.5 92 25 84 28.6 75 C32 64 40 53 58.9 45 C67 41 73 40 78.6 40 Z" /><circle cx="10" cy="89.5" r="10" /></g></svg>
           </span>
-          <h1>The career instrument — map the careers your skills already reach.</h1>
-          <p>A career-navigation instrument. It reads live job postings and returns the routes your skills can actually reach — with the salary, the skill gap, and the honest odds attached.</p>
+          <h1>The career instrument: map the careers your skills already reach.</h1>
+          <p>A career-navigation instrument. It reads live job postings and returns the routes your skills can actually reach, with the salary, the skill gap, and the honest odds attached.</p>
           <nav className="home-boot-nav" aria-label="PivotHop">
             <a href="/jobs">Job board</a>
             <a href="/routes">Career routes</a>
@@ -154,7 +154,7 @@ function pickDemos(n: number): typeof DEMO_POOL {
 function emptyHtml(picks: typeof DEMO_POOL): string {
   return '<span class="ge-mark"><svg viewBox="0 0 123.3 100" aria-hidden="true"><use href="#rabbit"/></svg></span>' +
     '<h3>Map your next move.</h3>' +
-    '<p>Name your current role in the search above. The graph draws every career your skills can already reach — with the salary, the gap, and the odds attached.</p>' +
+    '<p>Name your current role in the search above. The graph draws every career your skills can already reach, with the salary, the gap, and the odds attached.</p>' +
     '<div class="ge-eg"><span class="lbl">Or start from</span>' +
     picks.map((p) => `<button data-slug="${p.slug}" data-title="${p.title}">${p.title}</button>`).join('') +
     '</div>';
@@ -447,7 +447,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   function renderPanel(addQuery = '', animateId?: string) {
     const chipHtml = chips.map((c) =>
       `<button class="chip${c === animateId ? ' chip-in' : ''}" data-id="${c}" title="Remove">${skillNames[c] || c}<span aria-hidden="true">&times;</span></button>`
-    ).join('') || '<span style="font-size:12.5px;color:var(--ink-3)">No skills — add some below</span>';
+    ).join('') || '<span style="font-size:12.5px;color:var(--ink-3)">No skills. Add some below</span>';
     const sugg = suggestions(addQuery);
     const suggHtml = sugg.map((s) =>
       `<button class="sugg" data-id="${s.id}">+ ${s.name}</button>`

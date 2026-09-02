@@ -74,8 +74,11 @@ const SITE_LD = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  // suppressHydrationWarning on <html>: the theme bootstrap stamps `vlight` on
+  // the root before React hydrates, so its class list legitimately differs
+  // from the server's; without it every page logged a hydration mismatch.
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         {/* Favicons come from app/icon.svg (vector, for browser tabs + Google's
             SVG support) and app/favicon.ico (multi-size ICO fallback). Both are
