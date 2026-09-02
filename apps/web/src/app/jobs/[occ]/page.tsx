@@ -149,10 +149,15 @@ function OccupationBoard({ occ }: { occ: string }) {
   // The occupation FAQ: every answer is a figure this build computed, with the
   // deeper surface linked. FAQPage schema below mirrors the visible text.
   const faq: { q: string; text: string; jsx: React.ReactNode }[] = [];
+  // Link the remote sub-board only where it exists: the category page is
+  // gated at 6 live remote roles, so an occupation with 1-5 gets the figure
+  // without the link. The 2026-09-02 nightly failed its link gate on exactly
+  // this — 25 boards linking a remote page their remote count never earned.
+  const hasRemotePage = variants.some((c) => c.slug === `remote-${occ}`);
   faq.push({
     q: `How many ${tl} jobs are open right now?`,
     text: `${jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape${fresh.week > 0 ? `; ${fresh.week} arrived in the last 7 days` : ''}.${remoteN > 0 ? ` ${remoteN.toLocaleString()} are fully remote.` : ''}`,
-    jsx: <>{jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape{fresh.week > 0 ? <>; {fresh.week} arrived in the last 7 days</> : null}.{remoteN > 0 ? <> {remoteN.toLocaleString()} are fully remote — <Link className="gl" href={`/jobs/remote-${occ}`}>remote {tl} jobs</Link>.</> : null}</>,
+    jsx: <>{jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape{fresh.week > 0 ? <>; {fresh.week} arrived in the last 7 days</> : null}.{remoteN > 0 ? <> {remoteN.toLocaleString()} are fully remote{hasRemotePage ? <> — <Link className="gl" href={`/jobs/remote-${occ}`}>remote {tl} jobs</Link></> : null}.</> : null}</>,
   });
   if (paid) faq.push({
     q: `How much do ${tl} jobs pay?`,
