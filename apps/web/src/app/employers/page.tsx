@@ -83,6 +83,9 @@ export default function Employers() {
           </p>
           <p className="ejf-gate">Free during early access. Every listing is reviewed before it
             publishes, typically within 1 business day.</p>
+          <p className="ejf-gate" style={{ borderLeftColor: 'transparent', paddingLeft: 14 }}>
+            Hiring in Costa Rica? The live market, measured: <Link className="gl" href="/hire/costa-rica">hire remote talent in Costa Rica</Link>.
+          </p>
         </header>
 
         {WAITLIST
