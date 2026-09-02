@@ -20,6 +20,41 @@ import { article } from '../../lib/site';
 const THRESHOLD = 6;    // a page must clear this many live jobs to be generated
 const CATEGORY_MAX = 120; // SSR sample cap; the full set is one click away on /jobs
 
+/* GRACE WINDOW (2026-09-02). A filter that holds 6 roles today and 5 tomorrow
+   used to delete its page overnight, and the page came back the day after —
+   churn that shows up in Search Console as 404s (100 of them on 2026-08-27)
+   and teaches Google the URL is unreliable. Measured 26 Aug -> 1 Sep: 4 pages
+   vanished on the stable axes alone; the small multi-axis cells churn harder.
+
+   So a page that has cleared the bar keeps its URL for GRACE_DAYS after it
+   drops below, as long as it still has at least one live role — an empty page
+   is genuinely thin and still goes. Retirement becomes a slow, deliberate
+   decision instead of a nightly flap, and a graced page says so in its own
+   copy rather than repeating the "always clears the bar" line, which would be
+   false on exactly those pages.
+
+   The ledger records, per slug, the last date it cleared THRESHOLD on merit.
+   It is written during the CI build (PAGE_GRACE_WRITE=1) and committed with
+   the nightly data, so it persists across builds. Content is a pure function
+   of all-jobs.json, so the parallel build workers all write identical bytes;
+   the write is atomic (tmp + rename) and therefore race-safe. */
+const GRACE_DAYS = 30;
+const GRACE_FILE = 'page-grace.json';
+
+let _grace: Record<string, string> | null = null;
+function graceLedger(): Record<string, string> {
+  if (!_grace) {
+    try {
+      _grace = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', GRACE_FILE), 'utf8'));
+    } catch { _grace = {}; }
+  }
+  return _grace!;
+}
+const daysSince = (iso: string) => {
+  const t = Date.parse(`${iso}T12:00:00Z`);
+  return Number.isFinite(t) ? Math.floor((Date.now() - t) / 864e5) : Infinity;
+};
+
 let _all: Job[] | null = null;
 function allJobs(): Job[] {
   if (!_all) {
@@ -48,6 +83,7 @@ export type Category = {
   noun?: string;         // combos: natural phrase for the blurb ("fully-remote design roles")
   showAllBase?: string;  // combos on one occupation: "/jobs/<occ>" instead of "/jobs"
   destOcc?: string;      // occupation-scoped combos: the destination occupation slug
+  graced?: boolean;      // below THRESHOLD today, kept alive by the grace window
 };
 
 // NFKD + diacritic strip so "Türkiye" -> "turkiye", not "t-rkiye".
@@ -177,16 +213,45 @@ export function allCategories(): Category[] {
   const occSet = new Set(jobOccupations()); // never shadow a real occupation slug
   const seen = new Set<string>();
   const out: Category[] = [];
+  const ledger = graceLedger();
+  const today = new Date().toISOString().slice(0, 10);
+  const merit: Record<string, string> = {};
   for (const c of candidates()) {
     if (occSet.has(c.slug) || seen.has(c.slug)) continue;
     const matched = jobs.filter(c.match);
-    if (matched.length < THRESHOLD) continue;
+    const clears = matched.length >= THRESHOLD;
+    if (clears) merit[c.slug] = today;
+    // grace: below the bar but recently above it, and not empty
+    const graced = !clears && matched.length > 0
+      && !!ledger[c.slug] && daysSince(ledger[c.slug]) <= GRACE_DAYS;
+    if (!clears && !graced) continue;
     seen.add(c.slug);
-    out.push({ ...c, count: matched.length, remoteN: matched.filter((j) => j.remote).length });
+    out.push({ ...c, count: matched.length, remoteN: matched.filter((j) => j.remote).length, graced });
   }
   out.sort((a, b) => b.count - a.count);
   _cats = out;
+  writeGrace(ledger, merit);
   return out;
+}
+
+/* Merge today's merit dates into the ledger and persist. Only the CI build
+   writes (PAGE_GRACE_WRITE=1) — that build's output is what gets committed;
+   Vercel and local dev read the committed file and never advance it. Slugs
+   that fall out of the ledger's window are dropped so the file cannot grow
+   without bound. */
+function writeGrace(ledger: Record<string, string>, merit: Record<string, string>): void {
+  if (process.env.PAGE_GRACE_WRITE !== '1') return;
+  const next: Record<string, string> = {};
+  for (const [slug, date] of Object.entries({ ...ledger, ...merit })) {
+    if (daysSince(date) <= GRACE_DAYS) next[slug] = date;
+  }
+  const sorted = Object.fromEntries(Object.entries(next).sort(([a], [b]) => a.localeCompare(b)));
+  const dir = path.join(process.cwd(), 'public', 'data');
+  const tmp = path.join(dir, `${GRACE_FILE}.tmp-${process.pid}`);
+  try {
+    fs.writeFileSync(tmp, `${JSON.stringify(sorted, null, 0)}\n`);
+    fs.renameSync(tmp, path.join(dir, GRACE_FILE));
+  } catch { try { fs.unlinkSync(tmp); } catch { /* nothing to clean */ } }
 }
 
 export function categorySlugs(): string[] { return allCategories().map((c) => c.slug); }

@@ -328,8 +328,15 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
   const fresh = s.newest ? `; the newest was posted ${postedLabel(s.newest)}` : '';
   out.push({
     q: `How many ${tl} are open right now?`,
-    text: `${cat.count.toLocaleString()} live openings, refreshed with the nightly scrape${fresh}. A page like this only exists while it clears a minimum of live listings, so the count is real inventory, never padding.`,
-    jsx: <>{cat.count.toLocaleString()} live openings, refreshed with the nightly scrape{fresh}. A page like this only exists while it clears a minimum of live listings, so the count is real inventory, never padding. Every preloaded search: <Link className="gl" href="/jobs/browse">browse the board</Link>.</>,
+    // A graced page (below the bar, inside the 30-day window) must not repeat
+    // the "always clears the bar" line — it would be false on exactly the
+    // pages where it is quoted.
+    text: cat.graced
+      ? `${cat.count.toLocaleString()} live openings, refreshed with the nightly scrape${fresh}. This filter is running below its usual volume; the page stays up for a month after a quiet spell rather than disappearing and returning, so the link keeps working. The count is live inventory either way.`
+      : `${cat.count.toLocaleString()} live openings, refreshed with the nightly scrape${fresh}. A page like this only exists while it clears a minimum of live listings, so the count is real inventory, never padding.`,
+    jsx: cat.graced
+      ? <>{cat.count.toLocaleString()} live openings, refreshed with the nightly scrape{fresh}. This filter is running below its usual volume; the page stays up for a month after a quiet spell rather than disappearing and returning, so the link keeps working. The count is live inventory either way. Every preloaded search: <Link className="gl" href="/jobs/browse">browse the board</Link>.</>
+      : <>{cat.count.toLocaleString()} live openings, refreshed with the nightly scrape{fresh}. A page like this only exists while it clears a minimum of live listings, so the count is real inventory, never padding. Every preloaded search: <Link className="gl" href="/jobs/browse">browse the board</Link>.</>,
   });
 
   // 2. Pay, from this filter's own postings.
