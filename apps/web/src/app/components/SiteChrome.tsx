@@ -102,6 +102,7 @@ export function SiteFooter() {
         <div>
           <h5>Resources</h5>
           <ul>
+            <li><Link href="/companies">Companies hiring</Link></li>
             <li><Link href="/career-guides">Career guides</Link></li>
             <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/adjacency-index">Adjacency Index</Link></li>
