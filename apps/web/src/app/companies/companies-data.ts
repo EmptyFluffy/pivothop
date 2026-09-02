@@ -8,8 +8,14 @@ import { occField } from '../jobs/jobs-data';
    and the hub — the Himalayas hub-asset pattern, built from postings alone:
    nothing here is self-reported.
 
-   TRANCHE GATE: 20+ live roles admits ~200 companies. Same reasoning as the
-   skills tranche — the discovered-not-crawled queue punishes bulk drops.
+   TWO GATES, ON PURPOSE (2026-09-02, profile expansion). PAGE_FLOOR=3 mints
+   a page — the same floor an occupation needs for a board, and enough rows
+   to say something true. SITEMAP_FLOOR=20 decides which pages we push at
+   Google; the rest exist, interlink and are discoverable, but do not join
+   the sitemap — the Himalayas pattern (their 41k editorial pages live
+   outside their sitemaps) and the answer to the discovered-not-crawled
+   queue. Thin pages degrade section by section and carry the claim CTA:
+   these are the seed of claimed employer profiles.
 
    EXCLUSIONS, measured 2026-09-02 and each a documented data artifact, not
    an editorial call: 'Name' (167 rows, a parser bug upstream — the company
@@ -19,7 +25,8 @@ import { occField } from '../jobs/jobs-data';
    stay: they are the real hiring contact for their listings. Both artifacts
    belong on the scraper QA backlog; fixing them upstream retires this list. */
 
-const COMPANY_FLOOR = 20;
+const PAGE_FLOOR = 3;
+const SITEMAP_FLOOR = 20;
 const EXCLUDE = new Set(['Name', 'Jobup']);
 
 export type CompanyPage = {
@@ -159,7 +166,7 @@ function build(): Map<string, CompanyPage> {
   }
   _pages = new Map();
   const taken = new Set<string>();
-  const entries = [...byCo.entries()].filter(([, js]) => js.length >= COMPANY_FLOOR)
+  const entries = [...byCo.entries()].filter(([, js]) => js.length >= PAGE_FLOOR)
     .sort((a, b) => b[1].length - a[1].length);
   const blurbs = mineBlurbs(new Map(entries));
   for (const [name, js] of entries) {
@@ -197,6 +204,10 @@ function build(): Map<string, CompanyPage> {
 }
 
 export function companySlugs(): string[] { return [...build().keys()]; }
+/** Only the strong pages join the sitemap; the rest are link-discovered. */
+export function companySitemapSlugs(): string[] {
+  return [...build().values()].filter((c) => c.count >= SITEMAP_FLOOR).map((c) => c.slug);
+}
 export function getCompany(slug: string): CompanyPage | null { return build().get(slug) ?? null; }
 export function companiesRanked(): CompanyPage[] {
   return [...build().values()].sort((a, b) => b.count - a.count);

@@ -6,13 +6,15 @@ import { companyInitial, monoTint } from '../jobs/JobCard';
 
 export const metadata: Metadata = {
   title: 'Companies hiring now: live roles, benefits and posted pay',
-  description: 'Every company with 20 or more live openings on the board: what each is hiring for, where, the benefits its postings declare, and posted pay — computed nightly from the listings themselves.',
+  description: 'Every company with live openings on the board: what each is hiring for, where, the benefits its postings declare, and posted pay — computed nightly from the listings themselves.',
   alternates: { canonical: '/companies' },
 };
 
 export default function CompaniesHub() {
   const cos = companiesRanked();
   const total = cos.reduce((s, c) => s + c.count, 0);
+  const strong = cos.filter((c) => c.count >= 20);
+  const rest = cos.filter((c) => c.count < 20).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <PageShell v2 active="jobs">
       <div className="rtp">
@@ -23,13 +25,14 @@ export default function CompaniesHub() {
           <p className="lbl acc">The employers, measured</p>
           <h1 className="rt-h1">Companies hiring now</h1>
           <p className="jb-lede">
-            The {cos.length} companies with 20 or more live openings on the board — {total.toLocaleString()} roles
-            between them. Each page is computed nightly from the company&rsquo;s own postings: occupations,
-            countries, declared benefits, posted pay. Nothing self-reported.
+            {cos.length.toLocaleString()} companies with live openings on the board — {total.toLocaleString()} roles
+            between them. Each profile is computed nightly from the company&rsquo;s own postings: occupations,
+            countries, declared benefits, posted pay. Nothing self-reported, and a company can claim its
+            profile from its own page.
           </p>
         </header>
         <ul className="co-grid">
-          {cos.map((c) => {
+          {strong.map((c) => {
             const [tbg, tfg] = monoTint(c.name);
             return (
               <li key={c.slug}>
@@ -46,9 +49,21 @@ export default function CompaniesHub() {
             );
           })}
         </ul>
+        {rest.length > 0 && (
+          <section className="rt-sec">
+            <h2>Every other company hiring</h2>
+            <p className="rt-note">{rest.length.toLocaleString()} more companies with live roles, A to Z.</p>
+            <p className="co-az">
+              {rest.map((c) => (
+                <Link key={c.slug} href={`/companies/${c.slug}`}>{c.name}<span className="lbl"> {c.count}</span></Link>
+              ))}
+            </p>
+          </section>
+        )}
+
         <p className="rt-method lbl">
-          A company appears here while it holds 20 or more live roles on the board; the list re-ranks with the
-          nightly scrape. PivotHop is not affiliated with any company listed.
+          A profile appears while the company holds live roles on the board (three or more) and re-ranks with
+          the nightly scrape. PivotHop is not affiliated with any company listed.
         </p>
       </div>
     </PageShell>

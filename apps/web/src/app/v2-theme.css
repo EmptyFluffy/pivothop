@@ -2084,3 +2084,10 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 /* company self-description: quoted material, visibly a quotation */
 .v2t .co-blurb{ margin:0; padding:4px 0 4px 20px; border-left:3px solid var(--v-value);
   font-size:16px; line-height:1.65; color:var(--v-text); max-width:66ch; }
+
+/* the long tail of the companies hub: a compact inline A-Z */
+.v2t .co-az{ max-width:none; line-height:2.1; }
+.v2t .co-az a{ display:inline-block; margin-right:18px; color:var(--v-text);
+  font-size:13.5px; text-decoration:none; }
+.v2t .co-az a:hover{ text-decoration:underline; text-underline-offset:3px; }
+.v2t .co-az .lbl{ color:var(--v-text2); font-size:11px; }

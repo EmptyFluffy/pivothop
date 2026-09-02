@@ -147,6 +147,18 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           </section>
         )}
 
+        <section className="rt-cta">
+          <div>
+            <h2>Is this your company?</h2>
+            <p>
+              This profile is computed from your public postings. Claim it to post roles free during early
+              access and, as claimed profiles grow, to add what postings cannot say — the page keeps its data
+              honest either way.
+            </p>
+          </div>
+          <Link className="rt-go" href={`/employers?company=${encodeURIComponent(c.name)}&src=claim`}>Claim this profile &rarr;</Link>
+        </section>
+
         <div className="post-faq rt-faq">
           <h2>Quick answers</h2>
           {faq.map((f) => (

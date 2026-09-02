@@ -116,6 +116,9 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
   // Returning from checkout: ?paid=1 shows the live confirmation, ?canceled=1 a gentle note.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
+    // claim-profile landings arrive with ?company= — prefill, never overwrite
+    const claimed = p.get('company');
+    if (claimed) setF((prev) => (prev.company ? prev : { ...prev, company: claimed }));
     if (p.get('paid') === '1') { setDone('paid'); window.history.replaceState(null, '', '/employers'); }
     else if (p.get('canceled') === '1') { setSubmitError('Payment was canceled — nothing charged. Your details are still here; submit again when ready.'); window.history.replaceState(null, '', '/employers'); }
   }, []);
