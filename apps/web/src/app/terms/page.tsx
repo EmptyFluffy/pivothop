@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <PageShell>
+    <PageShell v2>
       <main className="ab-main">
         <div className="lbl acc" style={{ marginBottom: 18 }}>Terms</div>
         <h1 className="ab-h1">Terms of use.</h1>

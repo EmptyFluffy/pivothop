@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function SupportPage() {
   return (
-    <PageShell>
+    <PageShell v2>
       <main className="ab-main">
         <div className="lbl acc" style={{ marginBottom: 18 }}>Support</div>
         <h1 className="ab-h1">Something not adding up?</h1>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <PageShell>
+    <PageShell v2>
       <main className="ab-main">
         <div className="lbl acc" style={{ marginBottom: 18 }}>Privacy</div>
         <h1 className="ab-h1">Privacy policy.</h1>
