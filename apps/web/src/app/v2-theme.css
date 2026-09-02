@@ -2091,3 +2091,96 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
   font-size:13.5px; text-decoration:none; }
 .v2t .co-az a:hover{ text-decoration:underline; text-underline-offset:3px; }
 .v2t .co-az .lbl{ color:var(--v-text2); font-size:11px; }
+
+/* ============================================================================
+   TEMPLATE AUDIT, PASS 1 (2026-09-02): one type scale, two columns.
+   Measured before this block: 8 H1 sizes (40 to 101px) across 4 weights,
+   7 content widths (430 to 1376px), body copy from 13.5 to 17.5px, FAQ text
+   smaller than the body beside it. Everything here wins by source order over
+   the per-template rules above; those stay only until the markup they dress
+   is retired in later passes.
+
+   Scale   H1 hero clamp(44,6vw,88) (landing, about) / page clamp(36,4.6vw,60)
+           / tool 40 (board, categories, dashboard, sign in). All 650.
+           H2 26/650. Lede 20/1.5. Body 17/1.6. UI 15. Note 14. FAQ 19 / 17.
+   Columns data 1160 (rt pages, hubs, adjacency); reading 880 (blog, job
+           detail, employers, glossary, about, legal, dashboard). Gutter 32
+           desktop, 22 phone. Inside a column: running text 70ch, tables and
+           short lists 760px, rows and cards the full column. One measure.
+   ============================================================================ */
+.v2t{ --col-data:1160px; --col-read:880px; --gutter:32px; }
+
+/* ---- H1: three tiers ---- */
+.v2t .rt-h1, .v2t .post-h1, .v2t .jd-h1, .v2t .gloss-h1, .v2t .emp-post-head h1, .v2t .ab-h1{
+  font-size:clamp(36px,4.6vw,60px); font-weight:650; letter-spacing:-.035em; line-height:1.02;
+  text-wrap:balance; color:var(--v-text); }
+.v2t .about-page .ab-main:not(.blog-main) .ab-h1{ font-size:clamp(44px,6vw,88px); letter-spacing:-.04em;
+  line-height:1; }
+.v2t .jb-hero .rt-h1{ font-size:clamp(28px,3.2vw,40px); font-weight:650; letter-spacing:-.03em;
+  line-height:1.15; }
+.v2t .dash-head h1, .v2t .auth-wrap h1{ font-size:clamp(30px,4.5vw,40px); font-weight:650;
+  letter-spacing:-.03em; line-height:1.1; }
+
+/* ---- H2: one size for every section heading ---- */
+.v2t .rt-sec h2, .v2t .jb-byocc h2, .v2t .blog-card h2, .v2t .ejf-sec-h h2, .v2t .ejf-done h2,
+.v2t .cg-judgement h2, .v2t .cg-lead h2, .v2t .rt-cta h2, .v2t .bh-sec h2, .v2t .post-body h2,
+.v2t .post-faq h2, .v2t .ab-sec h2, .v2t .cgx-sec h2, .v2t .cmp-col h2, .v2t .rt-cluster-h{
+  font-size:26px; font-weight:650; letter-spacing:-.02em; line-height:1.2; }
+
+/* ---- ledes ---- */
+.v2t .rt-dek, .v2t .post-dek, .v2t .cg-summary, .v2t .emp-lead, .v2t .eb-lede, .v2t .gloss-dek,
+.v2t .emp-post-head p, .v2t .axi-head .rt-dek{ font-size:20px; line-height:1.5; }
+.v2t .jb-lede{ font-size:17px; line-height:1.6; }
+
+/* ---- body 17 ---- */
+.v2t .post-body p, .v2t .post-body li, .v2t .ab-sec p, .v2t .cg-judgement p, .v2t .cg-lead p,
+.v2t .rt-sec p, .v2t .jd-desc p, .v2t .jd-ul li, .v2t .cg-p, .v2t .cg-steps .d, .v2t .cg-list .d,
+.v2t .cg-pc li, .v2t .cg-lic-path, .v2t .rt-find li, .v2t .co-blurb, .v2t .axi-method p,
+.v2t .gloss-item dd, .v2t .rt-cta p, .v2t .blog-card p, .v2t .dash-empty, .v2t .auth-sent p{
+  font-size:17px; line-height:1.6; }
+/* labels inside a section keep their own register */
+.v2t .rt-sec p.lbl, .v2t .rt-sec .rt-method{ font-size:10.5px; line-height:1.9; }
+/* UI 15 and notes 14 */
+.v2t .axi-sentence, .v2t .dash-sub, .v2t .auth-sub{ font-size:15px; }
+.v2t .cg-lic-note, .v2t .ejf-note, .v2t .dash-keep, .v2t .auth-alt{ font-size:14px; }
+
+/* ---- FAQ: one component on 14 templates; question 19, answer at body size ---- */
+.v2t .post-faq{ margin-top:52px; padding-top:24px; border-top:1px solid var(--v-border2); }
+.v2t .post-faq h2{ margin:0 0 6px; }
+.v2t .post-faq details{ border-bottom:1px solid var(--v-border); }
+.v2t .post-faq summary{ font-size:19px; font-weight:600; letter-spacing:-.015em; line-height:1.35;
+  padding:18px 0; color:var(--v-text); }
+.v2t .post-faq details p{ font-size:17px; line-height:1.6; color:var(--v-text2); max-width:70ch;
+  padding:0 0 20px; }
+
+/* ---- columns ---- */
+@media (min-width:981px){
+  .v2t .rtp:not(:has(.jb)){ max-width:calc(var(--col-data) + 2*var(--gutter)); margin:0 auto;
+    padding:34px var(--gutter) 72px; }
+  .v2t .rtp:has(.jd-head){ max-width:calc(var(--col-read) + 2*var(--gutter)); }
+  .v2t .post-main, .v2t .ab-main, .v2t .gloss, .v2t .emp-post, .v2t .dash{
+    width:auto; max-width:calc(var(--col-read) + 2*var(--gutter)); margin:0 auto;
+    padding-left:var(--gutter); padding-right:var(--gutter); }
+  .v2t .axi{ width:auto; max-width:calc(var(--col-data) + 2*var(--gutter)); margin:0 auto;
+    padding:34px var(--gutter) 60px; }
+  .v2t .gloss, .v2t .emp-post{ padding-top:34px; }
+}
+@media (max-width:980.9px){
+  .v2t .rtp, .v2t .post-main, .v2t .ab-main, .v2t .gloss, .v2t .emp-post, .v2t .axi, .v2t .dash{
+    width:auto; max-width:none; padding-left:22px; padding-right:22px; }
+  .v2t .rtp{ padding-top:24px; padding-bottom:64px; }
+}
+/* inside a column: text 70ch, tables and short lists 760, rows full width */
+.v2t .rt-sec, .v2t .rt-faq, .v2t .rt-cta, .v2t .rt-method{ max-width:none; }
+.v2t .occ-tbl, .v2t .sal-states, .v2t .cg-countries, .v2t .bh-band, .v2t .occ-skills ul,
+.v2t .occ-cos ul{ max-width:760px; }
+/* stragglers the measurement turned up: notes outside a section, legal prose,
+   form hints, and the calculator's editorial half (FairElephant's own css) */
+.v2t .rt-note{ font-size:17px; line-height:1.6; }
+.v2t .ab-main p:not(.lbl){ font-size:17px; line-height:1.6; }
+.v2t .ef-hint, .v2t .ejf-paste-sub{ font-size:14px; }
+.v2t .ejf-paste-lead{ font-size:15px; }
+.v2t .fe-root .lenses h2, .v2t .fe-root .atlas h2{ font-size:26px; font-weight:650;
+  letter-spacing:-.02em; line-height:1.2; }
+.v2t .fe-root .lenses .sub, .v2t .fe-root .atlas .sub{ font-size:17px; line-height:1.6; max-width:70ch; }
+.v2t .fe-root .equiv{ font-size:15px; }
