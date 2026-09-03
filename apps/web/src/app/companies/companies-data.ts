@@ -41,6 +41,10 @@ export type CompanyPage = {
      Task lists, EEO text, interview/benefit boilerplate are vetoed — a wrong
      "what they do" quote is worse than none, so misses omit the section. */
   blurb: { text: string; n: number } | null;
+  /* What the company does, from Wikipedia (scripts/company-desc.mjs): the
+     first sentences of the article whose title matches the company name and
+     whose description says it is an organization. Attributed on the page. */
+  about: { text: string; title: string; url: string } | null;
   fields: [string, number][];         // dominant hiring fields, jobs each
   countries: [string, number][];      // ISO code, jobs
   occs: [string, number][];           // occ slug, jobs
@@ -63,6 +67,18 @@ function allJobs(): Job[] {
     } catch { _all = []; }
   }
   return _all;
+}
+
+type Desc = { t: string; d: string; x: string; u: string; at: string } | { miss: true; at: string };
+let _desc: Record<string, Desc> | null = null;
+function aboutFor(name: string): CompanyPage['about'] {
+  if (!_desc) {
+    try { _desc = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'company-desc.json'), 'utf8')); }
+    catch { _desc = {}; }
+  }
+  const r = _desc![name];
+  if (!r || 'miss' in r) return null;
+  return { text: r.x, title: r.t, url: r.u };
 }
 
 let _benTerms: Map<number, string> | null = null;
@@ -136,8 +152,15 @@ function mineBlurbs(tranche: Map<string, Job[]>): Map<string, { text: string; n:
   const out = new Map<string, { text: string; n: number }>();
   for (const [co, m] of cands) {
     const name0 = co.split(/\s+/)[0].toLowerCase().replace(/[.,]$/, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const desc = new RegExp(`${name0}[’'a-z]*\\s+(is|are|ist|es|builds|provides|operates|helps|makes|develops|delivers|exists|was founded|creates|offers)\\b`);
-    const missionDesc = new RegExp(`${name0}[^.]{0,40}\\bmission is\\b`);
+    // STRICT (2026-09-02): the sentence that describes the company must open
+    // the paragraph and name the company as its subject, verb right after the
+    // name. The looser "anywhere in the paragraph" rule let one team's job ad
+    // describe OpenAI as a hardware shop. Wikipedia is now the primary source
+    // (about); this quote is the company's own voice, second.
+    const full = co.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+    const VERB = '(is|are|ist|es|builds|provides|operates|helps|makes|develops|delivers|exists|was founded|creates|offers)';
+    const desc = new RegExp(`^(about\\s+(us\\s+)?)?(the\\s+)?(${full}|${name0})[’'a-z]*(\\s+(inc|ag|gmbh|ltd|llc|sa)\\.?)?\\s+${VERB}\\b`);
+    const missionDesc = new RegExp(`^(about\\s+(us\\s+)?)?(${full}|${name0})[^.]{0,40}\\bmission is\\b`);
     let best: { text: string; n: number } | null = null; let score = -1;
     for (const [n, c] of m) {
       if (c.ids.size < 2 || VETO_RE.test(n) || BULLET_RE.test(c.text)) continue;
@@ -145,7 +168,7 @@ function mineBlurbs(tranche: Map<string, Job[]>): Map<string, { text: string; n:
       const hasName = n.includes(name0.replace(/\\/g, ''));
       const hasDesc = desc.test(n) || missionDesc.test(n);
       const aboutH = ABOUT_RE.test(c.head) || ABOUT_RE.test(c.text.slice(0, 40));
-      if (!(hasDesc || (aboutH && hasName))) continue;
+      if (!(hasDesc && hasName)) continue;
       const sc = c.ids.size * 4 + (hasDesc ? 40 : 0) + (aboutH ? 25 : 0);
       if (sc > score) { score = sc; best = { text: c.text.replace(/\s+/g, ' ').trim(), n: c.ids.size }; }
     }
@@ -194,6 +217,7 @@ function build(): Map<string, CompanyPage> {
       occs: top((j) => j.occ).slice(0, 8),
       benefits: [...ben.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10),
       blurb: blurbs.get(name) ?? null,
+      about: aboutFor(name),
       fields: top((j) => { const f = occField(j.occ); return f === 'Other' ? undefined : f; }).slice(0, 2) as [string, number][],
       band: band(js),
       jobs: js,

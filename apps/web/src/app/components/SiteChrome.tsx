@@ -133,6 +133,7 @@ export function SiteFooter() {
           <ul>
             <li><Link href="/about">About us</Link></li>
             <li><Link href="/employers">For employers</Link></li>
+            <li><Link href="/hire/costa-rica">Hire in Costa Rica</Link></li>
             <li><Link href="/support">Support</Link></li>
             <li><Link href="/privacy">Privacy</Link></li>
             <li><Link href="/terms">Terms</Link></li>

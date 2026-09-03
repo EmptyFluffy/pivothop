@@ -353,10 +353,16 @@ function OriginPage({ origin }: { origin: string }) {
     ]));
   }
 
+  /* Answers for the person asking, in full sentences (founder note,
+     2026-09-02): the number, then what it means for them. */
+  const top3 = rows.slice(0, 3);
+  const top3Text = top3.length === 3
+    ? `${top3[0].r.title.toLowerCase()} (${top3[0].r.match}% ready), ${top3[1].r.title.toLowerCase()} (${top3[1].r.match}%) and ${top3[2].r.title.toLowerCase()} (${top3[2].r.match}%)`
+    : top3.map((x) => `${x.r.title.toLowerCase()} (${x.r.match}% ready)`).join(' and ');
   const faq = [
-    { q: `What are the best alternative careers for ${ol}s?`, a: `Ranked by measured skill readiness from live postings, the closest moves are ${rows.slice(0, 3).map((x) => `${x.r.title.toLowerCase()} (${x.r.match}%)`).join(', ')}. Readiness is the share of the destination's posted skill demand a typical ${ol} profile already covers.` },
-    { q: `How many careers can ${article(ol)} ${ol} actually reach?`, a: `We measure ${rows.length} routes out of ${ol} with real skill overlap, from ${om.postings.toLocaleString()} live postings. Most occupation pairs share almost no skills, so a ranked list of ${rows.length} is the honest count, not a limitation.${gated ? ` ${gated} of them are licensed professions where a credential, not the skill gap, sets the timeline.` : ''}` },
-    { q: `Do ${ol} skills transfer to other jobs?`, a: `Yes, measurably${top ? `: the closest destination, ${top.title.toLowerCase()}, is ${top.match}% covered by a typical ${ol} profile before any retraining` : ''}. Each route page lists exactly which skills carry and which are missing, read from the destination's own postings.` },
+    { q: `What are the best alternative careers for ${ol}s?`, a: `Going by what employers actually post, the closest moves for ${article(ol)} ${ol} right now are ${top3Text}. That percentage is how much of the destination's posted skill demand a typical ${ol} profile already covers, so the higher it is, the less you have to learn before you are competitive.` },
+    { q: `How many careers can ${article(ol)} ${ol} actually reach?`, a: `We can measure ${rows.length} routes out of ${ol} with real skill overlap, read from ${om.postings.toLocaleString()} live postings. That may sound like a short list, but most pairs of occupations share almost no skills at all, so ${rows.length} realistic destinations is the honest picture rather than a limitation.${gated ? ` ${gated} of them are licensed professions, where the credential sets the timeline no matter how good the skill match is.` : ''}` },
+    { q: `Do ${ol} skills transfer to other jobs?`, a: `Yes, and we can put a number on it${top ? `: the closest destination, ${top.title.toLowerCase()}, is already ${top.match}% covered by a typical ${ol} profile before any retraining` : ''}. Each route page shows you exactly which of your skills carry over and which ones you would still need, read from the destination's own postings.` },
   ];
 
   return (

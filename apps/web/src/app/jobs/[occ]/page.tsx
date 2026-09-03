@@ -155,25 +155,29 @@ function OccupationBoard({ occ }: { occ: string }) {
   // without the link. The 2026-09-02 nightly failed its link gate on exactly
   // this — 25 boards linking a remote page their remote count never earned.
   const hasRemotePage = variants.some((c) => c.slug === `remote-${occ}`);
+  const remoteJsx = remoteN > 0
+    ? <> {remoteN.toLocaleString()} of them are fully remote{hasRemotePage ? <> (<Link className="gl" href={`/jobs/remote-${occ}`}>remote {tl} jobs</Link>)</> : null}.</>
+    : <> None are marked fully remote at the moment.</>;
+  const remoteText = remoteN > 0 ? ` ${remoteN.toLocaleString()} of them are fully remote.` : ' None are marked fully remote at the moment.';
   faq.push({
     q: `How many ${tl} jobs are open right now?`,
-    text: `${jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape${fresh.week > 0 ? `; ${fresh.week} arrived in the last 7 days` : ''}.${remoteN > 0 ? ` ${remoteN.toLocaleString()} are fully remote.` : ''}`,
-    jsx: <>{jobs.length.toLocaleString()} live openings, refreshed with the nightly scrape{fresh.week > 0 ? <>; {fresh.week} arrived in the last 7 days</> : null}.{remoteN > 0 ? <> {remoteN.toLocaleString()} are fully remote{hasRemotePage ? <>: <Link className="gl" href={`/jobs/remote-${occ}`}>remote {tl} jobs</Link></> : null}.</> : null}</>,
+    text: `Right now there are ${jobs.length.toLocaleString()} ${tl} openings on our board${fresh.week > 0 ? `, and ${fresh.week} of them arrived in the last seven days` : ''}.${remoteText} The board refreshes every night, so the count moves with the market.`,
+    jsx: <>Right now there are {jobs.length.toLocaleString()} {tl} openings on our board{fresh.week > 0 ? <>, and {fresh.week} of them arrived in the last seven days</> : null}.{remoteJsx} The board refreshes every night, so the count moves with the market.</>,
   });
   if (paid) faq.push({
     q: `How much do ${tl} jobs pay?`,
-    text: `Of the ${jobs.length.toLocaleString()} openings, ${paid.n.toLocaleString()} state a salary; the posted middle band runs $${paid.p25}k–$${paid.p75}k a year. Only postings that state pay are counted; nothing is inferred.`,
-    jsx: <>Of the {jobs.length.toLocaleString()} openings, {paid.n.toLocaleString()} state a salary; the posted middle band runs ${paid.p25}k–${paid.p75}k a year. Only postings that state pay are counted; nothing is inferred.{hasSalary && <>{' '}By seniority and country: <Link className="gl" href={`/salary/${occ}`}>{tl} salary</Link>.</>}</>,
+    text: `${paid.n.toLocaleString()} of the ${jobs.length.toLocaleString()} openings state a salary. Across those, the middle half of posted pay runs from $${paid.p25}k to $${paid.p75}k a year. We only count postings that state pay, so this is what employers are advertising today, not an estimate.`,
+    jsx: <>{paid.n.toLocaleString()} of the {jobs.length.toLocaleString()} openings state a salary. Across those, the middle half of posted pay runs from ${paid.p25}k to ${paid.p75}k a year. We only count postings that state pay, so this is what employers are advertising today, not an estimate.{hasSalary && <>{' '}For the fuller picture by seniority and market, see the <Link className="gl" href={`/salary/${occ}`}>{tl} salary page</Link>.</>}</>,
   });
   if (skills.length >= 3) faq.push({
     q: `What skills do ${tl} postings ask for?`,
-    text: `Across the postings read for this role, the most-named skills are ${skills.slice(0, 3).map((x) => `${skillName(x.skill)} (${x.sharePct}%)`).join(', ')}. Percentages are the share of postings naming each skill.`,
-    jsx: <>Across the postings read for this role, the most-named skills are {skills.slice(0, 3).map((x) => `${skillName(x.skill)} (${x.sharePct}%)`).join(', ')}. Percentages are the share of postings naming each skill. Every skill, defined: <Link className="gl" href="/glossary">the skills glossary</Link>.</>,
+    text: `The three skills ${tl} postings name most often are ${skillName(skills[0].skill)} (${skills[0].sharePct}% of postings), ${skillName(skills[1].skill)} (${skills[1].sharePct}%) and ${skillName(skills[2].skill)} (${skills[2].sharePct}%). Those percentages are simply how many of the postings we read mention each one, so you can see which are near-universal and which are nice to have.`,
+    jsx: <>The three skills {tl} postings name most often are {skillName(skills[0].skill)} ({skills[0].sharePct}% of postings), {skillName(skills[1].skill)} ({skills[1].sharePct}%) and {skillName(skills[2].skill)} ({skills[2].sharePct}%). Those percentages are simply how many of the postings we read mention each one, so you can see which are near-universal and which are nice to have. Every skill, defined: <Link className="gl" href="/glossary">the glossary</Link>.</>,
   });
   if (waysIn.length > 0) faq.push({
     q: `Can I move into ${tl} work from an adjacent role?`,
-    text: `${waysIn.length} measured routes lead here. The closest is ${waysIn[0].om.title}, whose typical profile already covers ${waysIn[0].r!.match}% of what ${tl} postings ask for.`,
-    jsx: <>{waysIn.length} measured routes lead here. The closest is {waysIn[0].om.title}, whose typical profile already covers {waysIn[0].r!.match}% of what {tl} postings ask for: <Link className="gl" href={`/routes/${waysIn[0].slug}`}>{waysIn[0].om.title} &rarr; {title}</Link>.</>,
+    text: `Yes, and we can tell you from where. ${waysIn.length} measured routes lead into ${tl} work. The closest is from ${waysIn[0].om.title.toLowerCase()}: a typical ${waysIn[0].om.title.toLowerCase()} profile already covers ${waysIn[0].r!.match}% of what ${tl} postings ask for, and the route page lists the exact skills that make up the rest.`,
+    jsx: <>Yes, and we can tell you from where. {waysIn.length} measured routes lead into {tl} work. The closest is from {waysIn[0].om.title.toLowerCase()}: a typical {waysIn[0].om.title.toLowerCase()} profile already covers {waysIn[0].r!.match}% of what {tl} postings ask for, and <Link className="gl" href={`/routes/${waysIn[0].slug}`}>the route page</Link> lists the exact skills that make up the rest.</>,
   });
 
   return (

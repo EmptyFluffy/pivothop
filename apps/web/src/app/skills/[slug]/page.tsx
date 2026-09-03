@@ -33,16 +33,17 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const s = getSkillPage(slug);
   if (!s) notFound();
 
+  const big = s.unlocks[0];
   const faq: { q: string; text: string; jsx: React.ReactNode }[] = [
     {
       q: `What is ${s.term}?`,
-      text: `${s.def} On this board it is a ${s.field.toLowerCase()} skill, extracted from posting text by the nightly scrape.`,
-      jsx: <>{s.def} On this board it is a {s.field.toLowerCase()} skill, extracted from posting text by the nightly scrape. Every skill, defined: <Link className="gl" href="/glossary">the glossary</Link>.</>,
+      text: `${s.def} On our board ${s.term} counts as a ${s.field.toLowerCase()} skill, and we pull it straight from the text of live postings every night, so the numbers on this page are what employers are asking for right now.`,
+      jsx: <>{s.def} On our board {s.term} counts as a {s.field.toLowerCase()} skill, and we pull it straight from the text of live postings every night, so the numbers on this page are what employers are asking for right now. Every skill, defined in plain language: <Link className="gl" href="/glossary">the glossary</Link>.</>,
     },
     {
       q: `How many jobs ask for ${s.term}?`,
-      text: `${s.term} unlocks ${s.unlocks.length} occupations on this board, with ${s.reach.toLocaleString()} live roles across them right now. The largest is ${s.unlocks[0].title} (${s.unlocks[0].count.toLocaleString()} open).`,
-      jsx: <>{s.term} unlocks {s.unlocks.length} occupations on this board, with {s.reach.toLocaleString()} live roles across them right now. The largest is <Link className="gl" href={`/jobs/${s.unlocks[0].slug}`}>{s.unlocks[0].title}</Link> ({s.unlocks[0].count.toLocaleString()} open).</>,
+      text: `Quite a few. Right now ${s.reach.toLocaleString()} open roles on our board sit in the ${s.unlocks.length} occupations where ${s.term} shows up in postings. The biggest of those is ${big.title}, with ${big.count.toLocaleString()} open roles today.`,
+      jsx: <>Quite a few. Right now {s.reach.toLocaleString()} open roles on our board sit in the {s.unlocks.length} occupations where {s.term} shows up in postings. The biggest of those is <Link className="gl" href={`/jobs/${big.slug}`}>{big.title}</Link>, with {big.count.toLocaleString()} open roles today.</>,
     },
   ];
   if (s.related.length >= 2) {

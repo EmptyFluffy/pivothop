@@ -37,36 +37,55 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   if (!c) notFound();
   const [tbg, tfg] = monoTint(c.name);
 
+  /* The answers are written for a person asking, not as data readouts
+     (founder note, 2026-09-02): "Spotify has 34 open roles on our board right
+     now", not "34 live jobs". Each one is a complete, warm sentence that still
+     says exactly where the number comes from. */
+  const top = c.occs[0];
+  const field = c.fields[0]?.[0]?.toLowerCase() ?? null;
   const faq: { q: string; text: string; jsx: React.ReactNode }[] = [];
-  if (c.blurb) {
+  if (c.about) {
+    faq.push({
+      q: `What does ${c.name} do?`,
+      text: `${c.about.text} That description comes from Wikipedia. What we add is the live picture: right now ${c.name} has ${c.count.toLocaleString()} open roles on our board${field ? `, mostly in ${field}` : ''}.`,
+      jsx: <>{c.about.text} That description comes from <a className="gl" href={c.about.url} target="_blank" rel="noopener noreferrer">Wikipedia</a>. What we add is the live picture: right now {c.name} has {c.count.toLocaleString()} open roles on our board{field ? <>, mostly in {field}</> : null}.</>,
+    });
+  } else if (c.blurb) {
     const short = c.blurb.text.length > 300 ? `${c.blurb.text.slice(0, c.blurb.text.lastIndexOf('.', 300) + 1 || 300)}` : c.blurb.text;
     faq.push({
       q: `What does ${c.name} do?`,
-      text: `In its own words, from ${c.blurb.n} of its live postings: "${short}"`,
-      jsx: <>In its own words, from {c.blurb.n} of its live postings: &ldquo;{short}&rdquo;</>,
+      text: `Here is how ${c.name} puts it in its own postings: "${short}" We quote rather than paraphrase, and right now it has ${c.count.toLocaleString()} open roles on our board.`,
+      jsx: <>Here is how {c.name} puts it in its own postings: &ldquo;{short}&rdquo; We quote rather than paraphrase, and right now it has {c.count.toLocaleString()} open roles on our board.</>,
     });
   }
-  faq.push(
-    {
-      q: `How many open roles does ${c.name} have?`,
-      text: `${c.count.toLocaleString()} live openings on this board, refreshed nightly; the newest was posted ${postedLabel(c.newest)}. The largest group is ${occTitle(c.occs[0][0])} (${c.occs[0][1]}).`,
-      jsx: <>{c.count.toLocaleString()} live openings on this board, refreshed nightly; the newest was posted {postedLabel(c.newest)}. The largest group is <Link className="gl" href={`/jobs/${c.occs[0][0]}`}>{occTitle(c.occs[0][0])}</Link> ({c.occs[0][1]}).</>,
-    },
-  );
-  if (c.remoteN > 0) faq.push({
+  faq.push({
+    q: `How many open roles does ${c.name} have?`,
+    text: `${c.name} has ${c.count.toLocaleString()} open roles on our board right now, and the list refreshes every night. The newest one went up ${postedLabel(c.newest)}. Most of them are ${occTitle(top[0]).toLowerCase()} roles (${top[1]}); the full breakdown by occupation is in the table above.`,
+    jsx: <>{c.name} has {c.count.toLocaleString()} open roles on our board right now, and the list refreshes every night. The newest one went up {postedLabel(c.newest)}. Most of them are <Link className="gl" href={`/jobs/${top[0]}`}>{occTitle(top[0]).toLowerCase()}</Link> roles ({top[1]}); the full breakdown by occupation is in the table above.</>,
+  });
+  faq.push(c.remoteN > 0 ? {
     q: `Does ${c.name} hire remote?`,
-    text: `${c.remoteN.toLocaleString()} of its ${c.count.toLocaleString()} live roles are fully remote (${Math.round((100 * c.remoteN) / c.count)}%).`,
-    jsx: <>{c.remoteN.toLocaleString()} of its {c.count.toLocaleString()} live roles are fully remote ({Math.round((100 * c.remoteN) / c.count)}%).</>,
+    text: `Yes. ${c.remoteN.toLocaleString()} of ${c.name}'s ${c.count.toLocaleString()} open roles are fully remote right now, about ${Math.round((100 * c.remoteN) / c.count)}% of what it is hiring for. The rest name a city or say on-site, and every card above tells you which.`,
+    jsx: <>Yes. {c.remoteN.toLocaleString()} of {c.name}&rsquo;s {c.count.toLocaleString()} open roles are fully remote right now, about {Math.round((100 * c.remoteN) / c.count)}% of what it is hiring for. The rest name a city or say on-site, and every card above tells you which.</>,
+  } : {
+    q: `Does ${c.name} hire remote?`,
+    text: `Not at the moment. None of ${c.name}'s ${c.count.toLocaleString()} open roles are marked fully remote; they name a city or say on-site. That can change with the nightly refresh, so it is worth checking back.`,
+    jsx: <>Not at the moment. None of {c.name}&rsquo;s {c.count.toLocaleString()} open roles are marked fully remote; they name a city or say on-site. That can change with the nightly refresh, so it is worth checking back.</>,
   });
-  if (c.benefits.length >= 2) faq.push({
-    q: `What benefits does ${c.name} declare?`,
-    text: `Its current postings state ${c.benefits.length >= 10 ? '10 or more' : c.benefits.length} distinct benefits; the most-declared are ${c.benefits.slice(0, 3).map(([t, n]) => `${t} (${n} postings)`).join(', ')}. Counted only where the posting text states the benefit.`,
-    jsx: <>Its current postings state {c.benefits.length >= 10 ? '10 or more' : c.benefits.length} distinct benefits; the most-declared are {c.benefits.slice(0, 3).map(([t, n]) => `${t} (${n} postings)`).join(', ')}. Counted only where the posting text states the benefit.</>,
-  });
+  if (c.benefits.length >= 2) {
+    const [b1, b2, b3] = c.benefits;
+    const named = [b1, b2, b3].filter(Boolean).map(([t]) => t.toLowerCase());
+    const list = named.length === 3 ? `${named[0]}, ${named[1]} and ${named[2]}` : named.join(' and ');
+    faq.push({
+      q: `What benefits does ${c.name} offer?`,
+      text: `Its postings spell some out. Across ${c.name}'s current listings we found ${c.benefits.length >= 10 ? 'ten or more' : c.benefits.length} distinct benefits, and the ones it mentions most are ${list}. We only count a benefit when the posting text states it, so anything missing here is unstated rather than absent.`,
+      jsx: <>Its postings spell some out. Across {c.name}&rsquo;s current listings we found {c.benefits.length >= 10 ? 'ten or more' : c.benefits.length} distinct benefits, and the ones it mentions most are {list}. We only count a benefit when the posting text states it, so anything missing here is unstated rather than absent.</>,
+    });
+  }
   if (c.band) faq.push({
     q: `What does ${c.name} pay?`,
-    text: `${c.band.n.toLocaleString()} of its live postings state a salary; the posted middle band runs $${c.band.p25}k–$${c.band.p75}k a year. Nothing is inferred from postings that stay silent.`,
-    jsx: <>{c.band.n.toLocaleString()} of its live postings state a salary; the posted middle band runs ${c.band.p25}k–${c.band.p75}k a year. Nothing is inferred from postings that stay silent.</>,
+    text: `${c.band.n.toLocaleString()} of ${c.name}'s open roles state a salary. Across those, the middle half of posted pay runs from $${c.band.p25}k to $${c.band.p75}k a year. We do not guess for postings that stay silent, so read this as what ${c.name} is publicly offering right now, not a company-wide average.`,
+    jsx: <>{c.band.n.toLocaleString()} of {c.name}&rsquo;s open roles state a salary. Across those, the middle half of posted pay runs from ${c.band.p25}k to ${c.band.p75}k a year. We do not guess for postings that stay silent, so read this as what {c.name} is publicly offering right now, not a company-wide average.</>,
   });
 
   return (
@@ -87,13 +106,22 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           </>}
         />
 
+        {c.about && (
+          <section className="rt-sec">
+            <h2>What {c.name} does</h2>
+            <p className="co-about">{c.about.text}</p>
+            <span className="co-src lbl">
+              Source: <a href={c.about.url} target="_blank" rel="noopener noreferrer">Wikipedia, &ldquo;{c.about.title}&rdquo;</a> (CC BY-SA). Not written by PivotHop.
+            </span>
+          </section>
+        )}
+
         {c.blurb && (
           <section className="rt-sec">
-            <h2>In its own words</h2>
+            <h2>How it describes itself</h2>
             <blockquote className="co-blurb">{c.blurb.text}</blockquote>
-            <p className="rt-note occ-tbl-note">
-              How {c.name} describes itself: the same paragraph appears in {c.blurb.n} of its live postings.
-              Quoted, not written by us.
+            <p className="rt-note">
+              Quoted from {c.name}&rsquo;s own postings: this opening paragraph appears in {c.blurb.n} of its live listings.
             </p>
           </section>
         )}

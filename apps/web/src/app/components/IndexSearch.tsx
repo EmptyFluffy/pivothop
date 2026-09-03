@@ -2,12 +2,17 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 
-/* A search bar over an .rt-index list, shared by the salary and route indexes.
-   Rows are built server-side (so every link is in the SSR HTML for crawlers)
-   and filtered client-side as you type. Optionally grouped into .rt-cluster
-   sections. The bar sticks below the nav while the list scrolls. */
+/* A search bar over an .rt-index list, shared by the salary, route and
+   company indexes. Rows are built server-side (so every link is in the SSR
+   HTML for crawlers) and filtered client-side as you type. Optionally grouped
+   into .rt-cluster sections. Rows may carry a mark (a company logo or a
+   tinted monogram) ahead of the title. The bar sticks below the nav while the
+   list scrolls. */
 
-export type IxRow = { slug: string; href: string; t: string; m: string; s: string; hay: string; group?: string };
+export type IxRow = {
+  slug: string; href: string; t: string; m: string; s: string; hay: string; group?: string;
+  logo?: string | null; initial?: string; tint?: [string, string];
+};
 export type IxGroup = { key: string; label: string; unit: string };
 
 export function IndexSearch({ rows, groups, placeholder, unit }: {
@@ -27,7 +32,14 @@ export function IndexSearch({ rows, groups, placeholder, unit }: {
     <ul className="rt-index">
       {rs.map((r) => (
         <li key={r.slug}>
-          <Link href={r.href}>
+          <Link href={r.href} className={r.initial ? 'ix-marked' : undefined}>
+            {r.initial && (
+              <span className="ix-mark" aria-hidden="true">
+                {r.logo
+                  ? <img src={r.logo} alt="" width={34} height={34} loading="lazy" />
+                  : <i style={r.tint ? { background: r.tint[0], color: r.tint[1] } : undefined}>{r.initial}</i>}
+              </span>
+            )}
             <span className="t">{r.t}</span>
             <span className="m">{r.m}</span>
             <span className="s lbl">{r.s}</span>

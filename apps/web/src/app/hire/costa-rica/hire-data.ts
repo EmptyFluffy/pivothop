@@ -81,3 +81,11 @@ export function getHireOcc(occ: string): HireOcc | null { return build().get(occ
 export function crJobsFor(occ: string): Job[] {
   return allJobs().filter((j) => j.c === 'CR' && j.occ === occ);
 }
+
+/** The companies with the most live Costa Rica postings on the board, for
+    the hub's "who is already hiring here" list. */
+export function crTopCompanies(limit = 12): [string, number][] {
+  const m = new Map<string, number>();
+  for (const j of allJobs()) if (j.c === 'CR' && j.company && j.company !== 'Name' && j.company !== 'Jobup') m.set(j.company, (m.get(j.company) ?? 0) + 1);
+  return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, limit);
+}

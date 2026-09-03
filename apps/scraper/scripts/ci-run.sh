@@ -113,7 +113,7 @@ python3 apps/scraper/scripts/build-outreach-targets.py || { echo "::error::build
 python3 apps/scraper/scripts/build-lastmod.py        || echo "::warning::build-lastmod failed (non-fatal)"
 
 # web build + link-integrity gate before anything is committed
-( cd apps/web && PAGE_GRACE_WRITE=1 npm run build && npm run --silent check:links && node scripts/report-check.mjs ) || { echo "::error::web build, link gate or report gold set failed"; exit 2; }
+( cd apps/web && node scripts/company-desc.mjs; PAGE_GRACE_WRITE=1 npm run build && npm run --silent check:links && node scripts/report-check.mjs ) || { echo "::error::web build, link gate or report gold set failed"; exit 2; }
 
 # ── publish: commit the regenerated data, push (Vercel deploys) ──────────────────
 # Vercel (Hobby) only auto-deploys commits AUTHORED by the account owner —

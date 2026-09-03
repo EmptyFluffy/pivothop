@@ -69,22 +69,23 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
     : null;
   const related = relatedPairs(pair);
 
+  const hi = Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0);
   const faq = [
     {
       q: `Which pays more, ${lA} or ${lB}?`,
-      a: `Posted mid-bands from each occupation's own corpus: ${tA} ${fmtBand(p.bandA) ?? 'not enough stated salaries'}, ${tB} ${fmtBand(p.bandB) ?? 'not enough stated salaries'}.${mA && mB ? ` At the midpoint that favors the ${(mA >= mB ? lA : lB)} by about $${Math.round(Math.abs(mA - mB) / 1000)}k a year.` : ''} Only postings that state pay are counted.`,
+      a: `${mA && mB ? `${mA >= mB ? tA : tB}, by about $${Math.round(Math.abs(mA - mB) / 1000)}k a year at the midpoint. ` : ''}Going by postings that state pay, the posted middle band for ${article(lA)} ${lA} runs ${fmtBand(p.bandA) ?? 'too few stated salaries to say'}, and for ${article(lB)} ${lB} it runs ${fmtBand(p.bandB) ?? 'too few stated salaries to say'}. We only count postings that state a salary, so these are advertised figures rather than estimates.`,
     },
     {
       q: `Are ${lA} and ${lB} the same job?`,
-      a: `${Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0) >= 65 ? 'Close: the skill sets largely overlap in live postings, and the difference is mostly emphasis and title.' : Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0) >= 40 ? 'Related but distinct: postings share a real core and then diverge.' : 'No — despite the similar names, their postings demand mostly different skills.'}${shared.length ? ` Skills both sets of postings ask for: ${shared.slice(0, 5).join(', ')}.` : ''}`,
+      a: `${hi >= 65 ? `Close to it. Their postings ask for largely the same skills, and the difference is mostly emphasis and title.` : hi >= 40 ? `They are related but not the same. The postings share a real core of skills and then diverge.` : `No. Despite the similar names, their postings ask for mostly different skills.`}${shared.length ? ` The skills both sets of postings want are ${shared.slice(0, 5).join(', ')}.` : ''}`,
     },
     ...(p.ab ? [{
       q: `Can ${article(lA)} ${lA} become ${article(lB)} ${lB}?`,
-      a: `Skill readiness is ${p.ab.match} percent: that share of what ${lB} postings demand, a typical ${lA} profile already covers.${p.ab.license ? ` Note the credential gate: ${p.ab.license.label.toLowerCase()}.` : ''}${p.ab.time ? ` Estimated transition: ${p.ab.time}.` : ''}`,
+      a: `Yes, and a typical ${lA} profile already covers ${p.ab.match}% of what ${lB} postings ask for.${p.ab.license ? ` One thing to know first: ${p.ab.license.label.toLowerCase()}, and no amount of skill overlap shortens a credential.` : ''}${p.ab.time ? ` Our estimate for the transition is ${p.ab.time}.` : ''} The route page lists the exact skills that make up the gap.`,
     }] : []),
     ...(p.ba ? [{
       q: `Can ${article(lB)} ${lB} become ${article(lA)} ${lA}?`,
-      a: `Skill readiness is ${p.ba.match} percent in this direction.${p.ba.license ? ` Note the credential gate: ${p.ba.license.label.toLowerCase()}.` : ''}${p.ba.time ? ` Estimated transition: ${p.ba.time}.` : ''}${asym ? ` The asymmetry is the finding: ${asym.from.toLowerCase()} to ${asym.to.toLowerCase()} is the easier direction (${asym.hi}% vs ${asym.lo}%).` : ''}`,
+      a: `In this direction a typical ${lB} profile covers ${p.ba.match}% of what ${lA} postings ask for.${p.ba.license ? ` Keep in mind: ${p.ba.license.label.toLowerCase()}.` : ''}${p.ba.time ? ` Our estimate for the transition is ${p.ba.time}.` : ''}${asym ? ` It is worth noticing that the two directions are not symmetric: ${asym.from.toLowerCase()} to ${asym.to.toLowerCase()} is the easier move (${asym.hi}% against ${asym.lo}%).` : ''}`,
     }] : []),
   ];
 

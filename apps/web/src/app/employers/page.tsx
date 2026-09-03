@@ -84,10 +84,14 @@ export default function Employers() {
           </p>
           <p className="ejf-gate">Free during early access. Every listing is reviewed before it
             publishes, typically within 1 business day.</p>
-          <p className="ejf-gate" style={{ borderLeftColor: 'transparent', paddingLeft: 14 }}>
-            Hiring in Costa Rica? The live market, measured: <Link className="gl" href="/hire/costa-rica">hire remote talent in Costa Rica</Link>.
-          </p>
         </header>
+        <aside className="ejf-cr">
+          <div>
+            <b>Hiring in Costa Rica?</b>
+            <span>Same working hours as Chicago, 400-plus multinationals already operating there, and live posted pay by role. We show you the market before you write the job description.</span>
+          </div>
+          <Link className="gl" href="/hire/costa-rica">See the Costa Rica market &rarr;</Link>
+        </aside>
 
         {WAITLIST
           ? <Waitlist pricing={{ std: PRICING.std.launch, feat: PRICING.feat.launch }} />

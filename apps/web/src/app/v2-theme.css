@@ -2127,7 +2127,7 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 
 /* ---- ledes ---- */
 .v2t .rt-dek, .v2t .post-dek, .v2t .cg-summary, .v2t .emp-lead, .v2t .eb-lede, .v2t .gloss-dek,
-.v2t .emp-post-head p, .v2t .axi-head .rt-dek{ font-size:20px; line-height:1.5; }
+.v2t .emp-post-head p:not(.lbl), .v2t .axi-head .rt-dek{ font-size:20px; line-height:1.5; }
 .v2t .jb-lede{ font-size:17px; line-height:1.6; }
 
 /* ---- body 17 ---- */
@@ -2206,7 +2206,7 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 .v2t .rt-rel .lbl{ white-space:normal; text-align:right; flex:0 1 auto; }
 .v2t .ch-sal-med{ white-space:normal; }
 .v2t .occ-tblwrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin; }
-.v2t .occ-tblwrap > .post-table, .v2t .occ-tblwrap > .occ-tbl{ min-width:100%; }
+/* (a min-width:100% here overrode the 760px table measure from pass 1; removed 2026-09-02) */
 .v2t .gloss-tabbar{ flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; }
 .v2t .gloss-tabbar::-webkit-scrollbar{ display:none; }
 .v2t .gloss-tab{ white-space:nowrap; flex:none; }
@@ -2231,3 +2231,33 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 .v2t .home-boot h1{ font-weight:650; letter-spacing:-.03em; }
 .v2t .v2h .capture > *{ min-width:0; }
 .v2t .v2h .cap-row input{ min-width:0; }
+
+/* ---- the company index: marks on index rows (companies hub, 2026-09-02) ---- */
+.v2t .rt-index a.ix-marked{ grid-template-columns:34px minmax(0,1fr) auto; }
+.v2t .rt-index .ix-mark{ grid-row:1 / 3; align-self:center; width:34px; height:34px; border-radius:8px; overflow:hidden; }
+.v2t .rt-index .ix-mark img{ display:block; width:100%; height:100%; object-fit:contain; background:#fff; }
+.v2t .rt-index .ix-mark i{ display:grid; place-content:center; width:100%; height:100%; font-style:normal; font-weight:700; font-size:15px; }
+.v2t .rt-index a.ix-marked .t{ grid-column:2; font-size:21px; }
+.v2t .rt-index a.ix-marked .m{ grid-column:3; font-size:22px; }
+.v2t .rt-index a.ix-marked .s{ grid-column:3; }
+/* what the company does: attributed, quiet */
+.v2t .co-about{ font-size:17px; line-height:1.6; color:var(--v-text); max-width:70ch; margin:0; }
+.v2t .co-src{ display:block; margin-top:10px; }
+.v2t .co-src a{ color:var(--v-text2); text-decoration:underline; text-underline-offset:3px; }
+/* the hire hub: reasons with a figure and a source each */
+.v2t .why{ list-style:none; margin:18px 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:0 40px; border-top:1px solid var(--v-border2); }
+.v2t .why li{ padding:22px 0 24px; border-bottom:1px solid var(--v-border); }
+.v2t .why .v{ display:block; font-family:var(--mono),monospace; font-weight:600; font-size:30px; letter-spacing:-.02em; line-height:1; color:var(--v-value); }
+.v2t .why .k{ display:block; margin-top:8px; font-size:17px; font-weight:600; letter-spacing:-.015em; color:var(--v-text); }
+.v2t .why p{ margin:8px 0 0; font-size:15px; line-height:1.55; color:var(--v-text2); }
+.v2t .why .src{ display:block; margin-top:8px; }
+.v2t .why .src a{ color:var(--v-text2); text-decoration:underline; text-underline-offset:3px; }
+.v2t .rt-head-cta{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin:24px 0 0; }
+.v2t .rt-head-cta .rt-go{ margin-top:0; }
+.v2t .rt-head-cta .gl{ font-size:15px; font-weight:600; }
+.v2t .ejf-cr{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:center;
+  margin:28px 0 0; padding:20px 22px; border:1.5px solid var(--v-border2); border-radius:14px; }
+.v2t .ejf-cr b{ display:block; font-size:17px; font-weight:650; letter-spacing:-.015em; color:var(--v-text); }
+.v2t .ejf-cr span{ display:block; margin-top:4px; font-size:14.5px; color:var(--v-text2); }
+.v2t .ejf-cr a{ white-space:nowrap; }
+@media (max-width:640px){ .v2t .ejf-cr{ grid-template-columns:1fr; } }
