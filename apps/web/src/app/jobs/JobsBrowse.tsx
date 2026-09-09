@@ -416,7 +416,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       const n = applyFilters(f, cat).length;
       if (n > 0 && (!best || n > best.n)) best = { label, n };
     }
-    return best ? `0 roles — removing ${best.label} returns ${best.n.toLocaleString()}` : null;
+    return best ? `0 roles. Removing ${best.label} returns ${best.n.toLocaleString()}` : null;
   }, [applyFilters, f, results.length]);
 
   // Faceted count for the sheet: the category's own filter is stripped, the

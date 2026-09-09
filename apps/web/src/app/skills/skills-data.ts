@@ -4,7 +4,7 @@ import path from 'node:path';
 /* The skill-pages family (/skills/<slug>), plan family 4, first tranche
    2026-09-01. A skill page is honest exactly the way the board's skill filter
    is honest: a skill maps to the occupations it unlocks (the adjacency data),
-   and the live inventory is the jobs on those boards — never a keyword match
+   and the live inventory is the jobs on those boards, never a keyword match
    over titles.
 
    TRANCHE GATE. 360 skills qualify by data; shipping all of them at once onto

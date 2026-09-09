@@ -2261,3 +2261,7 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 .v2t .ejf-cr span{ display:block; margin-top:4px; font-size:14.5px; color:var(--v-text2); }
 .v2t .ejf-cr a{ white-space:nowrap; }
 @media (max-width:640px){ .v2t .ejf-cr{ grid-template-columns:1fr; } }
+
+/* career guides (2026-09-08): the prose now has paragraphs; give them air */
+.v2t .cg-lead p + p{ margin-top:14px; }
+.v2t .cg-lead p.cg-p{ margin-top:18px; }

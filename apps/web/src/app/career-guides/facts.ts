@@ -69,7 +69,7 @@ const share = (n: number, d: number) => (d ? Math.round((n / d) * 100) : 0);
 
 /** Keep generated editorial text free of em dashes, including older guides. */
 function normalizeGuideText<T>(value: T): T {
-  if (typeof value === 'string') return value.replace(/\s*—\s*/g, ', ') as T;
+  if (typeof value === 'string') return value.replace(/\s*\u2014\s*/g, ', ') as T;
   if (Array.isArray(value)) return value.map((item) => normalizeGuideText(item)) as T;
   if (value && typeof value === 'object') {
     return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeGuideText(item)])) as T;

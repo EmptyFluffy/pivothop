@@ -26,7 +26,7 @@ export type Post = {
   minutes: number;
   body: ReactNode;
   faq?: { q: string; a: string }[];
-  takeaways?: string[];   // the short version — scannable, each a self-contained quotable fact (LLM extraction + reader)
+  takeaways?: string[];   // the short version, scannable, each a self-contained quotable fact (LLM extraction + reader)
 };
 
 const Sources = ({ children }: { children: ReactNode }) => (
@@ -402,7 +402,7 @@ export const POSTS: Post[] = [
     body: (
       <>
         <p>
-          You want out of your job. Not in a dramatic way &mdash; you have simply
+          You want out of your job. Not in a dramatic way; you have simply
           worked out that the next ten years of doing this will look a lot like
           the last three, and that is not a thing you want. So you start looking,
           and almost immediately you hit the same fork everyone hits.
@@ -414,8 +414,8 @@ export const POSTS: Post[] = [
         </p>
         <p>
           <strong>Door two: move sideways.</strong> Find the job that is adjacent
-          to what you already do &mdash; close enough that most of your skills
-          come with you &mdash; and go in at your own level. This one feels like
+          to what you already do, close enough that most of your skills
+          come with you, and go in at your own level. This one feels like
           cheating. Like you are claiming credit for experience you have not
           really earned in that field.
         </p>
@@ -433,14 +433,14 @@ export const POSTS: Post[] = [
           in our corpus, the ones whose title actually says{' '}
           <em>entry-level</em>, <em>junior</em>, <em>graduate</em> or{' '}
           <em>trainee</em> come to <strong>1,373</strong>. That is{' '}
-          <strong>1.16 percent</strong> &mdash; about <strong>one job in 86</strong>.
+          <strong>1.16 percent</strong>, about <strong>one job in 86</strong>.
         </p>
         <p>
           And it is not spread evenly. Design is the most open front door we
           measure at <strong>2.76 percent</strong>, with Engineering at 1.63 and
           Finance at 1.61. Then it falls off a cliff. Education posts entry-level
           roles at <strong>0.26 percent</strong> and Healthcare at{' '}
-          <strong>0.23 percent</strong> &mdash; roughly one in four hundred. If
+          <strong>0.23 percent</strong>, roughly one in four hundred. If
           you were planning to retrain into care work or teaching by applying for
           the junior version, there is very nearly no junior version to apply for.
         </p>
@@ -454,7 +454,7 @@ export const POSTS: Post[] = [
           success manager, data architect, dental hygienist, dietitian,
           facilities manager</strong> and eight more. Thousands of open jobs
           between them. Zero front doors. These are not professions that are
-          closed &mdash; people plainly do become facilities managers. They are
+          closed: people plainly do become facilities managers. They are
           professions you do not enter at the bottom, because the bottom is not
           advertised.
         </p>
@@ -476,7 +476,7 @@ export const POSTS: Post[] = [
         <h2>Door two: you are further along than you think</h2>
         <p>
           Here is the part that surprises people. Moving sideways is not starting
-          from nothing &mdash; and we can put a number on how much of it you
+          from nothing, and we can put a number on how much of it you
           already have.
         </p>
         <p>
@@ -518,14 +518,14 @@ export const POSTS: Post[] = [
           entry-level when its <em>title</em> says so, because titles are the one
           field no job board truncates. Plenty of genuinely junior roles never
           use the word. The true share of the market open to a true beginner is
-          somewhat higher than 1.16 percent &mdash; it is just not{' '}
+          somewhat higher than 1.16 percent, it is just not{' '}
           <em>much</em> higher, and it is nowhere near the other door.
         </p>
         <p>
           And some destinations are gated no matter how much your skills overlap.
           A licence is a licence. Our own numbers put architect to civil engineer
-          at <strong>53 percent</strong> readiness &mdash; one of the strongest
-          routes we measure &mdash; and it still requires a PE licence to take
+          at <strong>53 percent</strong> readiness, one of the strongest
+          routes we measure, and it still requires a PE licence to take
           responsible charge of the work. The overlap is real and the gate does
           not move. Every route we publish that hits a credential says so on its
           face, with the time cost attached.
@@ -535,7 +535,7 @@ export const POSTS: Post[] = [
         <p>
           Stop looking for permission to skip the bottom rung and go find out
           which sideways moves are already open to you. The question is not
-          &ldquo;what do I want to be&rdquo; &mdash; it is &ldquo;what does the
+          &ldquo;what do I want to be&rdquo;; it is &ldquo;what does the
           market already think I am qualified for.&rdquo; Those are different
           questions and only one of them has an answer you can check.
         </p>
@@ -561,7 +561,7 @@ export const POSTS: Post[] = [
           characters, so any body-text count would be biased toward the sources
           that ship full text. An earlier draft of this article measured
           entry-level from description text and produced a much more dramatic
-          finding &mdash; that the median entry-level ad demands four years of
+          finding, that the median entry-level ad demands four years of
           experience. Spot-checking killed it: the ads were titled &ldquo;Senior
           Software Engineer&rdquo; and matched only because the word{' '}
           <em>junior</em> appeared somewhere in a long description. That number
@@ -587,19 +587,19 @@ export const POSTS: Post[] = [
     title: 'Alex Karp says the trades are AI-proof. We checked.',
     pillar: 'Shape of Work',
     date: 'July 2026',
-    dek: 'Palantir’s CEO says two groups have a future as AI accelerates: people with vocational training, and the neurodivergent. One of those claims we can check against 100,000 job postings, and it holds hard — every hands-on field shows zero demand for AI skills, while technology shows the most. The other is a thesis with a fellowship attached. Both land on the same two things a machine still can’t do.',
+    dek: 'Palantir’s CEO says two groups have a future as AI accelerates: people with vocational training, and the neurodivergent. One of those claims we can check against 100,000 job postings, and it holds hard, every hands-on field shows zero demand for AI skills, while technology shows the most. The other is a thesis with a fellowship attached. Both land on the same two things a machine still can’t do.',
     minutes: 9,
     takeaways: [
       "Palantir CEO Alex Karp says two kinds of worker have a future as AI accelerates: those with vocational training, and the neurodivergent.",
-      "Every hands-on field in our corpus — Trades, Healthcare, Construction, Transport — shows zero AI-skill demand; in Technology, only 37% do.",
-      "The AI data-center build-out is projected to need 300,000+ new electricians this decade — the machine rewriting knowledge work can’t wire its own buildings.",
+      "Every hands-on field in our corpus: Trades, Healthcare, Construction, Transport, shows zero AI-skill demand; in Technology, only 37% do.",
+      "The AI data-center build-out is projected to need 300,000+ new electricians this decade, the machine rewriting knowledge work can’t wire its own buildings.",
     ],
     faq: [
       { q: 'What did Alex Karp say about AI-proof jobs?', a: 'On the tech show TBPN (March 2026), Palantir CEO Alex Karp said: "There are basically two ways to know you have a future. One, you have some vocational training, or two, you\'re neurodivergent. And when I say neurodivergent, I mean broadly defined." Karp, who is dyslexic, means people with hands-on trade skills and people who think differently. "Non-linear thinkers" and "ADHD" are how commentators paraphrased the second group; his own word was neurodivergent.' },
-      { q: 'Which jobs are safest from AI automation?', a: 'By what postings actually demand: hands-on work. In the PivotHop corpus, every occupation in Trades, Healthcare, Construction, Hospitality, and Transport shows zero demand for AI skills in its top-20 — 100% "AI-free" — while only 37% of Technology occupations are. The safest are the ones that combine manual work with a license: electrician, plumber, HVAC technician, registered nurse, physical therapist, paramedic all pair no AI-skill demand with a required credential — two moats, not one.' },
+      { q: 'Which jobs are safest from AI automation?', a: 'By what postings actually demand: hands-on work. In the PivotHop corpus, every occupation in Trades, Healthcare, Construction, Hospitality, and Transport shows zero demand for AI skills in its top-20, 100% "AI-free", while only 37% of Technology occupations are. The safest are the ones that combine manual work with a license: electrician, plumber, HVAC technician, registered nurse, physical therapist, paramedic all pair no AI-skill demand with a required credential, two moats, not one.' },
       { q: 'Are the skilled trades a good career in the AI era?', a: 'The demand data is blunt. The US Bureau of Labor Statistics projects roughly 80,000 new electrician openings a year, and electrician employment is set to grow 9% (about 820,000 to 896,000 by 2034) against 3% for all jobs. The driver is the AI build-out itself: data-center construction, where electrical work is 45–70% of the cost, needs an estimated 300,000+ new electricians this decade. The machine rewriting knowledge work cannot wire its own buildings.' },
-      { q: 'Is ADHD or neurodivergence actually an advantage at work?', a: 'For some things, and it is double-edged. Peer-reviewed work (Wiklund and colleagues, Journal of Business Venturing, 2016–2017) finds ADHD traits — impulsivity, hyperfocus, action-over-planning, risk tolerance — align with entrepreneurship, and adults with ADHD are over-represented in self-employment. That is a real fit for specific roles, not a blanket superpower; ADHD is a recognized disability with real costs. Karp’s claim that the neurodivergent "will disproportionately shape America’s future" is a thesis he is betting on, not an established fact.' },
-      { q: 'Why can’t AI do skilled trades?', a: 'The 2013 Frey-Osborne study named three barriers to automation: perception and manipulation (physical dexterity), creativity, and social intelligence. Skilled trades sit on the first — non-routine physical work in unpredictable spaces (Moravec’s paradox: the things easiest for humans are hardest for machines). Notably, Karp’s two groups map onto two of those three barriers: vocational training is the dexterity moat, neurodivergence the creativity one.' },
+      { q: 'Is ADHD or neurodivergence actually an advantage at work?', a: 'For some things, and it is double-edged. Peer-reviewed work (Wiklund and colleagues, Journal of Business Venturing, 2016–2017) finds ADHD traits, impulsivity, hyperfocus, action-over-planning, risk tolerance, align with entrepreneurship, and adults with ADHD are over-represented in self-employment. That is a real fit for specific roles, not a blanket superpower; ADHD is a recognized disability with real costs. Karp’s claim that the neurodivergent "will disproportionately shape America’s future" is a thesis he is betting on, not an established fact.' },
+      { q: 'Why can’t AI do skilled trades?', a: 'The 2013 Frey-Osborne study named three barriers to automation: perception and manipulation (physical dexterity), creativity, and social intelligence. Skilled trades sit on the first, non-routine physical work in unpredictable spaces (Moravec’s paradox: the things easiest for humans are hardest for machines). Notably, Karp’s two groups map onto two of those three barriers: vocational training is the dexterity moat, neurodivergence the creativity one.' },
     ],
     body: (
       <>
@@ -654,10 +654,10 @@ export const POSTS: Post[] = [
 
         <h2>Group two: a thesis, a fellowship, and a caveat</h2>
         <p>
-          The second claim is harder, and it deserves more care than the viral version gave it. Karp&rsquo;s wager is that <strong>neurodivergence</strong> &mdash; dyslexia, ADHD, autism, &ldquo;broadly defined&rdquo; &mdash; becomes an edge precisely as AI commoditizes the linear, in-distribution thinking it does best. Palantir put money on it: the Neurodivergent Fellowship drew over a thousand applications, and Karp framed it flatly &mdash; &ldquo;the neurally divergent (like myself) will disproportionately shape America&rsquo;s future.&rdquo;
+          The second claim is harder, and it deserves more care than the viral version gave it. Karp&rsquo;s wager is that <strong>neurodivergence</strong>, dyslexia, ADHD, autism, &ldquo;broadly defined&rdquo;, becomes an edge precisely as AI commoditizes the linear, in-distribution thinking it does best. Palantir put money on it: the Neurodivergent Fellowship drew over a thousand applications, and Karp framed it flatly, &ldquo;the neurally divergent (like myself) will disproportionately shape America&rsquo;s future.&rdquo;
         </p>
         <p>
-          There is real research under the mindset half of this, and it is specific, not a superpower story. Johan Wiklund and colleagues, across the <em>Journal of Business Venturing</em> (2016&ndash;2017), find that ADHD traits &mdash; impulsivity, hyperfocus, a bias toward action over planning, tolerance for risk &mdash; align unusually well with <strong>entrepreneurship</strong>, and that adults with ADHD are over-represented in self-employment. Which maps onto Frey and Osborne&rsquo;s second moat, creativity: divergent, cross-domain thinking is the thing generative models, trained to complete the most probable next token, are structurally weakest at.
+          There is real research under the mindset half of this, and it is specific, not a superpower story. Johan Wiklund and colleagues, across the <em>Journal of Business Venturing</em> (2016&ndash;2017), find that ADHD traits, impulsivity, hyperfocus, a bias toward action over planning, tolerance for risk, align unusually well with <strong>entrepreneurship</strong>, and that adults with ADHD are over-represented in self-employment. Which maps onto Frey and Osborne&rsquo;s second moat, creativity: divergent, cross-domain thinking is the thing generative models, trained to complete the most probable next token, are structurally weakest at.
         </p>
         <p>
           The caveat is non-negotiable and the serious brands say it: ADHD is a recognized disability with real daily costs, not a hack. The research shows fit for <em>particular</em> roles (founder, creative, high-stimulation, crisis-response), not blanket immunity to automation. Karp is stating a bet, not a finding. But it&rsquo;s a bet pointed at the same target as the trades: the two human capacities, the hands and the leap, that the current machines don&rsquo;t have.
@@ -665,7 +665,7 @@ export const POSTS: Post[] = [
 
         <h2>What to do with two AI-proof groups</h2>
         <p>
-          Neither group is a place you simply are or aren&rsquo;t. Vocational training is a route &mdash; often a short, well-paid, license-gated one, that a surprising range of backgrounds can reach, and the instrument on this site measures which trades your current skills already sit closest to. The neurodivergent edge is a working style you can lean into by choosing roles that reward it: founder over functionary, the job with novelty and stakes over the one with a checklist. Both of Karp&rsquo;s answers reduce to the same instruction the rest of our data keeps giving: stop optimizing for the roles a model is quietly learning to do, and move toward the two things it still can&rsquo;t: dexterity and genuine divergence.
+          Neither group is a place you simply are or aren&rsquo;t. Vocational training is a route, often a short, well-paid, license-gated one, that a surprising range of backgrounds can reach, and the instrument on this site measures which trades your current skills already sit closest to. The neurodivergent edge is a working style you can lean into by choosing roles that reward it: founder over functionary, the job with novelty and stakes over the one with a checklist. Both of Karp&rsquo;s answers reduce to the same instruction the rest of our data keeps giving: stop optimizing for the roles a model is quietly learning to do, and move toward the two things it still can&rsquo;t: dexterity and genuine divergence.
         </p>
         <Go links={[
           { href: '/jobs/trades', label: 'The trades board, live' },
@@ -676,7 +676,7 @@ export const POSTS: Post[] = [
 
         <Sources>
           <p>
-            Karp&rsquo;s quote: TBPN, via <a className="gl" href="https://x.com/tbpn/status/2032208844622033294">TBPN&rsquo;s own clip</a> and <a className="gl" href="https://fortune.com/2026/03/24/palantir-ceo-alex-karp-two-people-successful-in-ai-era-vocational-skills-neurodivergence-gen-z-career-advice">Fortune</a> (March 24, 2026). The <a className="gl" href="https://x.com/PalantirTech/status/1997720487187636260">Palantir Neurodivergent Fellowship</a> (launched Dec 7, 2025; $110k&ndash;$200k; 1,000+ applications) and Karp&rsquo;s &ldquo;neurally divergent&rdquo; statement from Palantir&rsquo;s own posts. Automation barriers: Frey &amp; Osborne, &ldquo;The Future of Employment&rdquo; (Oxford, 2013) &mdash; perception/manipulation, creativity, social intelligence. Trades demand: US Bureau of Labor Statistics electrician projections; data-center electrical-labor estimates and the &ldquo;$1 trillion&rdquo; framing via Fortune (April 2026). ADHD and entrepreneurship: Wiklund, Patzelt &amp; Dimov, &ldquo;how ADHD can be productively harnessed&rdquo; (J. Business Venturing Insights, 2016) and Wiklund et al., &ldquo;ADHD, impulsivity, and entrepreneurship&rdquo; (J. Business Venturing, 2017); adult ADHD prevalence ~4.4% (NIMH). PivotHop figures &mdash; the share of each field&rsquo;s occupations with no AI-skill demand, and the licensed-trade overlap &mdash; are computed from the July 2026 corpus (method in <a className="gl" href="/blog/skills-over-titles">Job titles, deprecated</a>) and recompute with the nightly scrape. Where Karp states a bet rather than a finding, the text says so.
+            Karp&rsquo;s quote: TBPN, via <a className="gl" href="https://x.com/tbpn/status/2032208844622033294">TBPN&rsquo;s own clip</a> and <a className="gl" href="https://fortune.com/2026/03/24/palantir-ceo-alex-karp-two-people-successful-in-ai-era-vocational-skills-neurodivergence-gen-z-career-advice">Fortune</a> (March 24, 2026). The <a className="gl" href="https://x.com/PalantirTech/status/1997720487187636260">Palantir Neurodivergent Fellowship</a> (launched Dec 7, 2025; $110k&ndash;$200k; 1,000+ applications) and Karp&rsquo;s &ldquo;neurally divergent&rdquo; statement from Palantir&rsquo;s own posts. Automation barriers: Frey &amp; Osborne, &ldquo;The Future of Employment&rdquo; (Oxford, 2013), perception/manipulation, creativity, social intelligence. Trades demand: US Bureau of Labor Statistics electrician projections; data-center electrical-labor estimates and the &ldquo;$1 trillion&rdquo; framing via Fortune (April 2026). ADHD and entrepreneurship: Wiklund, Patzelt &amp; Dimov, &ldquo;how ADHD can be productively harnessed&rdquo; (J. Business Venturing Insights, 2016) and Wiklund et al., &ldquo;ADHD, impulsivity, and entrepreneurship&rdquo; (J. Business Venturing, 2017); adult ADHD prevalence ~4.4% (NIMH). PivotHop figures, the share of each field&rsquo;s occupations with no AI-skill demand, and the licensed-trade overlap, are computed from the July 2026 corpus (method in <a className="gl" href="/blog/skills-over-titles">Job titles, deprecated</a>) and recompute with the nightly scrape. Where Karp states a bet rather than a finding, the text says so.
           </p>
         </Sources>
       </>
@@ -697,8 +697,8 @@ export const POSTS: Post[] = [
     faq: [
       { q: 'Are Claude conversations public?', a: 'Not unless you share them. A Claude chat becomes a public web page only when you press Share, which mints a claude.ai/share link; anyone holding that link can read the snapshot. The July 2026 incident involved those deliberately shared links surfacing in Google results, where strangers could find them without being handed the link. Regular, unshared chats were never involved.' },
       { q: 'How do I check whether my AI chats are in Google?', a: 'Search site:claude.ai/share, site:chatgpt.com/share, or site:grok.com/share together with your name or a distinctive phrase from the conversation, and repeat on Bing and Brave, which cleared more slowly than Google in the Claude case. If a link of yours appears: unshare at the source first, then use Google’s Refresh Outdated Content tool to clear the result.' },
-      { q: 'How do I remove a shared Claude or ChatGPT link?', a: 'In Claude: Settings, then Privacy, then Shared chats, then Unshare (or flip the chat’s visibility from Public to Private). In ChatGPT: Settings, then Data Controls, then Shared Links, then delete — note that deleting the chat from your history does not delete the shared copy. Revoking the link kills public access immediately; the search listing takes longer to fall out.' },
-      { q: 'Is the Claude indexing issue fixed?', a: 'For Google chat results, effectively yes: listings were purged between Saturday night and Monday, July 25–27, 2026, and the site: query then returned nothing. Three caveats reported at the time: some Artifact pages were still findable on Monday, Bing and Brave lagged Google, and Anthropic had made no public statement, so the exact fix is unconfirmed. The structural quirk that produced the incident — share pages hidden from crawlers, so their noindex is invisible — remained in place.' },
+      { q: 'How do I remove a shared Claude or ChatGPT link?', a: 'In Claude: Settings, then Privacy, then Shared chats, then Unshare (or flip the chat’s visibility from Public to Private). In ChatGPT: Settings, then Data Controls, then Shared Links, then delete, note that deleting the chat from your history does not delete the shared copy. Revoking the link kills public access immediately; the search listing takes longer to fall out.' },
+      { q: 'Is the Claude indexing issue fixed?', a: 'For Google chat results, effectively yes: listings were purged between Saturday night and Monday, July 25–27, 2026, and the site: query then returned nothing. Three caveats reported at the time: some Artifact pages were still findable on Monday, Bing and Brave lagged Google, and Anthropic had made no public statement, so the exact fix is unconfirmed. The structural quirk that produced the incident, share pages hidden from crawlers, so their noindex is invisible, remained in place.' },
       { q: 'Can a deleted AI chat still be found somewhere?', a: 'Yes. De-indexed is not deleted: after the ChatGPT episode, roughly 110,000 shared conversations remained readable in the Internet Archive, and researchers later counted 143,000 archived chats across Claude, ChatGPT, Grok, and others. Third-party scrapes exist too. Treat a share link as publishing, because that is what it is.' },
     ],
     body: (
@@ -745,11 +745,11 @@ export const POSTS: Post[] = [
           Look at what actually leaked, across all four platforms: resumes, performance reviews, staff names and emails in work transcripts, NDA texts, LinkedIn drafts. People do their <em>work</em> in these tools, and the numbers say so: Harmonic Security&rsquo;s analysis of 22 million enterprise prompts found sensitive data in roughly one prompt in forty, with employee records among the top categories, and a 2025 National Cybersecurity Alliance survey found <strong>43 percent of workers admit sharing sensitive workplace information with AI tools</strong> without their employer knowing. A job search runs on exactly this material: the resume with your address on it, the negotiation strategy, the honest assessment of why you left. A share link mints a public URL for all of it.
         </p>
         <Pull>A share link is a publish button wearing a different label.</Pull>
-        <div className="post-callout"><b>De-indexed &ne; deleted</b><span>After the ChatGPT purge, ~110,000 shared conversations remained readable in the Internet Archive &mdash; which honored no bulk removal request, its director confirmed &mdash; and researchers later counted <strong>143,000</strong> archived chats across Claude, ChatGPT, Grok and others. Third-party scrapes exist besides.</span></div>
+        <div className="post-callout"><b>De-indexed &ne; deleted</b><span>After the ChatGPT purge, ~110,000 shared conversations remained readable in the Internet Archive, which honored no bulk removal request, its director confirmed, and researchers later counted <strong>143,000</strong> archived chats across Claude, ChatGPT, Grok and others. Third-party scrapes exist besides.</span></div>
 
         <h2>What to actually do</h2>
         <p>
-          Three moves, none dramatic. <strong>Check yourself</strong>: run <code>site:claude.ai/share</code>, <code>site:chatgpt.com/share</code>, and <code>site:grok.com/share</code> with your name or a phrase you remember, on Google and on Bing, which cleared slower. <strong>Revoke at the source</strong>: Claude keeps the list under Settings &rarr; Privacy &rarr; Shared chats; ChatGPT under Settings &rarr; Data Controls &rarr; Shared Links, and deleting a chat from history does not delete its shared copy; then Google&rsquo;s Refresh Outdated Content tool for a listing that lingers. <strong>Change the mental model</strong>: a share link is publishing, so anything you would not put on a public profile &mdash; career material above all &mdash; should not travel through one. The instrument on this site runs without an account and stores nothing, which, after a weekend like that one, is just the obvious design.
+          Three moves, none dramatic. <strong>Check yourself</strong>: run <code>site:claude.ai/share</code>, <code>site:chatgpt.com/share</code>, and <code>site:grok.com/share</code> with your name or a phrase you remember, on Google and on Bing, which cleared slower. <strong>Revoke at the source</strong>: Claude keeps the list under Settings &rarr; Privacy &rarr; Shared chats; ChatGPT under Settings &rarr; Data Controls &rarr; Shared Links, and deleting a chat from history does not delete its shared copy; then Google&rsquo;s Refresh Outdated Content tool for a listing that lingers. <strong>Change the mental model</strong>: a share link is publishing, so anything you would not put on a public profile, career material above all, should not travel through one. The instrument on this site runs without an account and stores nothing, which, after a weekend like that one, is just the obvious design.
         </p>
         <Go links={[
           { href: '/', label: 'Run your numbers, nothing stored' },
@@ -770,19 +770,19 @@ export const POSTS: Post[] = [
     title: 'Sam Altman says AI made more jobs than it took. Checked.',
     pillar: 'Shape of Work',
     date: 'July 2026',
-    dek: 'Sam Altman now says he was wrong about AI eliminating entry-level jobs. His neighbor at Anthropic predicted half of them would go. Anthropic’s own index charts where AI is actually used; payroll studies measure who is actually hurting. We keep a fourth ledger — live posting demand — and it says the reallocation is already visible: 4.9 percent of postings now demand AI-agent skills, across 43 occupations including lawyers and recruiters.',
+    dek: 'Sam Altman now says he was wrong about AI eliminating entry-level jobs. His neighbor at Anthropic predicted half of them would go. Anthropic’s own index charts where AI is actually used; payroll studies measure who is actually hurting. We keep a fourth ledger, live posting demand, and it says the reallocation is already visible: 4.9 percent of postings now demand AI-agent skills, across 43 occupations including lawyers and recruiters.',
     minutes: 7,
     takeaways: [
-      "Sam Altman posted in July 2026 that he is “pretty sure AI has been net job-creating” — a reversal from his 2025 warnings.",
+      "Sam Altman posted in July 2026 that he is “pretty sure AI has been net job-creating”, a reversal from his 2025 warnings.",
       "4.9% of all job postings now demand LLM or agent skills, across 43 of 177 occupations including lawyer, recruiter, and motion designer.",
       "Stanford found a 16% relative employment drop for workers aged 22–25 in the most AI-exposed jobs, while Yale finds no economy-wide disruption yet.",
     ],
     faq: [
       { q: 'Did Sam Altman say AI created more jobs than it destroyed?', a: 'Very nearly, and in his own words. On July 11, 2026 he posted on X: "so far at least, i\'m pretty sure AI has been net job-creating. this was not what i expected." Six weeks earlier, at a Commonwealth Bank event in Sydney (May 26, 2026), he said: "I\'m delighted to be wrong about this. I thought there would have been more impact on entry-level white-collar jobs being eliminated by now than has actually happened." Note the hedges doing real work: "so far at least," "pretty sure." He cited no dataset either time.' },
-      { q: 'What does the Anthropic Economic Index actually show?', a: 'Where one AI assistant gets used, mapped to occupational tasks. In its first report (February 2025): 37.2 percent of Claude conversations mapped to computer and mathematical work, about 36 percent of jobs showed AI use on at least a quarter of their tasks, only about 4 percent on three-quarters or more, and the split ran 57 percent augmentation to 43 percent automation, with usage peaking in mid-to-high-wage technical work. Later editions report the mix tilting toward automation. It measures usage — which is not the same thing as job loss.' },
-      { q: 'Is AI actually taking entry-level jobs?', a: 'The best payroll evidence says: narrowly, yes; economy-wide, not visibly yet. Stanford researchers using ADP payroll data found a 16 percent relative employment decline for workers aged 22–25 in the most AI-exposed occupations, concentrated where AI automates rather than augments — while experienced workers held steady, and Yale’s Budget Lab found no discernible economy-wide disruption in the first three years. Both can be true: a specific rung is burning while the aggregate stays quiet.' },
-      { q: 'Which jobs is AI creating right now?', a: 'The ones you can count in postings. The PivotHop corpus currently holds roughly 2,350 live postings across nine AI-native occupations that barely existed three years ago — AI engineer (932), machine learning engineer (741), MLOps engineer (220), computer vision engineer (180), data annotator (134), prompt engineer (75), conversation designer (38), and smaller others. And demand for AI skills has spread far beyond them: 43 of our 177 occupations now carry LLM or agent tooling in their top-20 posted demand, including lawyer, recruiter, corporate trainer, and motion designer.' },
-      { q: 'What should a job seeker do with all this?', a: 'Ignore the forecasts and read the demand. AI tooling is already a bridge skill — present in the posted demand of roughly a third of occupations — so learning it raises readiness across whole regions of the market at once. And the AI-era titles are measurably the most open doors: they are young enough to have no credential wall, so they hire on demonstrated skills. The instrument measures your specific overlap for free.' },
+      { q: 'What does the Anthropic Economic Index actually show?', a: 'Where one AI assistant gets used, mapped to occupational tasks. In its first report (February 2025): 37.2 percent of Claude conversations mapped to computer and mathematical work, about 36 percent of jobs showed AI use on at least a quarter of their tasks, only about 4 percent on three-quarters or more, and the split ran 57 percent augmentation to 43 percent automation, with usage peaking in mid-to-high-wage technical work. Later editions report the mix tilting toward automation. It measures usage, which is not the same thing as job loss.' },
+      { q: 'Is AI actually taking entry-level jobs?', a: 'The best payroll evidence says: narrowly, yes; economy-wide, not visibly yet. Stanford researchers using ADP payroll data found a 16 percent relative employment decline for workers aged 22–25 in the most AI-exposed occupations, concentrated where AI automates rather than augments, while experienced workers held steady, and Yale’s Budget Lab found no discernible economy-wide disruption in the first three years. Both can be true: a specific rung is burning while the aggregate stays quiet.' },
+      { q: 'Which jobs is AI creating right now?', a: 'The ones you can count in postings. The PivotHop corpus currently holds roughly 2,350 live postings across nine AI-native occupations that barely existed three years ago, AI engineer (932), machine learning engineer (741), MLOps engineer (220), computer vision engineer (180), data annotator (134), prompt engineer (75), conversation designer (38), and smaller others. And demand for AI skills has spread far beyond them: 43 of our 177 occupations now carry LLM or agent tooling in their top-20 posted demand, including lawyer, recruiter, corporate trainer, and motion designer.' },
+      { q: 'What should a job seeker do with all this?', a: 'Ignore the forecasts and read the demand. AI tooling is already a bridge skill, present in the posted demand of roughly a third of occupations, so learning it raises readiness across whole regions of the market at once. And the AI-era titles are measurably the most open doors: they are young enough to have no credential wall, so they hire on demonstrated skills. The instrument measures your specific overlap for free.' },
     ],
     body: (
       <>
@@ -793,7 +793,7 @@ export const POSTS: Post[] = [
           The reversal has a timeline. February 2025: Altman writes that AI agents will &ldquo;eventually feel like virtual co-workers.&rdquo; May 2025: Anthropic&rsquo;s Dario Amodei tells Axios that AI could eliminate <strong>half of all entry-level white-collar jobs</strong> and push unemployment to 10&ndash;20 percent within one to five years, telling the industry to stop &ldquo;sugarcoating&rdquo; it. June 2025: asked on Hard Fork whether he agrees with that halving prediction, Altman answers, &ldquo;No, I don&rsquo;t.&rdquo;
         </p>
         <p>
-          July 2025, on stage at a Federal Reserve conference: &ldquo;there are cases where entire classes of jobs will go away,&rdquo; immediately followed by &ldquo;there are entirely new classes of jobs that will come&rdquo; &mdash; customer support being the class he called effectively gone. June 2026, on CNBC: &ldquo;The companies that I know that have adopted AI the most are also the ones hiring the most,&rdquo; and blaming AI for layoffs is &ldquo;a convenient way&rdquo; to explain them. Then the July post. Same industry, same data access, forecasts pointing everywhere. So put the forecasts down and read the ledgers.
+          July 2025, on stage at a Federal Reserve conference: &ldquo;there are cases where entire classes of jobs will go away,&rdquo; immediately followed by &ldquo;there are entirely new classes of jobs that will come&rdquo;, customer support being the class he called effectively gone. June 2026, on CNBC: &ldquo;The companies that I know that have adopted AI the most are also the ones hiring the most,&rdquo; and blaming AI for layoffs is &ldquo;a convenient way&rdquo; to explain them. Then the July post. Same industry, same data access, forecasts pointing everywhere. So put the forecasts down and read the ledgers.
         </p>
         <Pull>Forecasts are free. Payrolls and postings pay rent.</Pull>
         <Go links={[
@@ -811,7 +811,7 @@ export const POSTS: Post[] = [
         </p>
 
         <h2>Ledger two: who is measurably hurting</h2>
-        <div className="post-callout"><b>&minus;16%</b><span>relative employment decline for workers aged 22&ndash;25 in the most AI-exposed occupations, in Stanford&rsquo;s analysis of ADP payroll data &mdash; concentrated where AI automates rather than augments. Experienced workers in the same fields: stable or growing.</span></div>
+        <div className="post-callout"><b>&minus;16%</b><span>relative employment decline for workers aged 22&ndash;25 in the most AI-exposed occupations, in Stanford&rsquo;s analysis of ADP payroll data, concentrated where AI automates rather than augments. Experienced workers in the same fields: stable or growing.</span></div>
         <p>
           The displacement ledger is payroll data, and the sharpest entry is the Stanford &ldquo;canaries in the coal mine&rdquo; work on ADP records: the figure was 13 percent in the August 2025 draft and grew to 16 as data extended, with software developers aged 22&ndash;25 down nearly 20 percent from their late-2022 peak. The adjustment shows up as <strong>headcount, not wages</strong>, concentrated where AI automates rather than augments, and it is genuinely contested: Google economists argue the timing tracks interest rates, not AI; the authors published a rebuttal; that argument is what real findings look like. Meanwhile Yale&rsquo;s Budget Lab, looking economy-wide, keeps finding no discernible aggregate disruption (&ldquo;AI is probably not yet the reason for labor-market weakening,&rdquo; May 2026), and of the 1.21 million US job cuts announced in 2025, employers explicitly attributed about <strong>5 percent</strong> to AI (Challenger, Gray &amp; Christmas). The readings are compatible: a specific rung is burning while the aggregate stays quiet. Altman&rsquo;s &ldquo;delighted to be wrong&rdquo; and a 22-year-old&rsquo;s rescinded offer are both in the data.
         </p>
@@ -825,13 +825,13 @@ export const POSTS: Post[] = [
           Independent posting data now points the same direction: Indeed&rsquo;s Hiring Lab found the exposure gradient <strong>flipped</strong> between 2025 and 2026: the most AI-exposed occupations went from declining fastest to rebounding fastest, US software postings rose about 15 percent from early 2025 while overall postings fell, and 37 percent of the net new software postings carried AI in the title. Demand is not leaving the exposed occupations; it is being rewritten inside them.
         </p>
         <p>
-          Two things about those created jobs are measurable and worth more than the headline fight. First, they are real volume but not yet mass employment: 2,350 postings is a visible new wing of the market, not a replacement for what the canaries lost. Second, and better: <strong>the AI-era titles are the most skill-open doors we measure</strong>. Conversation designer and solutions architect are each reachable at 45 percent readiness from 8 different origins, prompt engineer from 6 &mdash; the widest openness scores in the matrix, because titles this young have no guild and no credential wall. The market&rsquo;s newest jobs are also its most meritocratic on skills, for now. That window is the actionable part.
+          Two things about those created jobs are measurable and worth more than the headline fight. First, they are real volume but not yet mass employment: 2,350 postings is a visible new wing of the market, not a replacement for what the canaries lost. Second, and better: <strong>the AI-era titles are the most skill-open doors we measure</strong>. Conversation designer and solutions architect are each reachable at 45 percent readiness from 8 different origins, prompt engineer from 6, the widest openness scores in the matrix, because titles this young have no guild and no credential wall. The market&rsquo;s newest jobs are also its most meritocratic on skills, for now. That window is the actionable part.
         </p>
         <Pull>Usage is not displacement, and displacement is not demand.</Pull>
 
         <h2>Reconciling the ledgers</h2>
         <p>
-          Hold all three up and the contradiction dissolves. Anthropic&rsquo;s index says adoption is deep in technical work and spreading. Payroll data says the burn is real but narrow: the youngest workers in the most automatable seats. Posting data says demand is reallocating &mdash; toward AI-skilled versions of existing jobs and a small, fast-growing set of new ones. Altman&rsquo;s &ldquo;net job-creating&rdquo; (a claim about the aggregate, so far, with his own hedges attached) and Amodei&rsquo;s warning (a claim about one rung&rsquo;s exposure) are rows in different ledgers, and both rows currently check out. What does not check out is the compressed headline version on either side.
+          Hold all three up and the contradiction dissolves. Anthropic&rsquo;s index says adoption is deep in technical work and spreading. Payroll data says the burn is real but narrow: the youngest workers in the most automatable seats. Posting data says demand is reallocating, toward AI-skilled versions of existing jobs and a small, fast-growing set of new ones. Altman&rsquo;s &ldquo;net job-creating&rdquo; (a claim about the aggregate, so far, with his own hedges attached) and Amodei&rsquo;s warning (a claim about one rung&rsquo;s exposure) are rows in different ledgers, and both rows currently check out. What does not check out is the compressed headline version on either side.
         </p>
         <p>
           For one person deciding what to do on a Tuesday, the ledgers agree on the move: <strong>learn the bridge skill before the argument resolves</strong>. LLM and agent tooling already sits in the posted demand of roughly a third of occupations, which makes it the highest-leverage single investment our data can see, whatever the macro turns out to be. Where your own skills land against all of it is measurable in about a minute, free, on the <a className="gl" href="/">instrument</a>.
@@ -860,7 +860,7 @@ export const POSTS: Post[] = [
     minutes: 7,
     takeaways: [
       "In one month, 42,254 distinct job-title strings mapped to no standard occupation, while 100,000+ postings collapsed onto just 177.",
-      "55% of the 3,521 scored career pairs share under 20% of a skill set — skills are specific, not a universal solvent.",
+      "55% of the 3,521 scored career pairs share under 20% of a skill set, skills are specific, not a universal solvent.",
       "The most skill-open careers are the AI-era titles; the widest exits are sales engineer and operations manager, each reaching 13 destinations.",
     ],
     faq: [
@@ -920,7 +920,7 @@ export const POSTS: Post[] = [
         <p>
           The two lists hide an asymmetry: executive assistant and customer success manager are among the easiest doors <strong>in</strong> (6 origins each) and among the hardest doors <strong>out</strong> (zero routes at 45 percent). A career can be skill-friendly to enter and skill-locked to leave. If you are choosing a landing spot for a pivot, that difference is worth more than the title on the door.
         </p>
-        <div className="post-callout"><b>8 origins</b><span>can reach <strong>nurse practitioner</strong> at &ge;45% skill readiness &mdash; and every one of them still faces the APRN license. Skills open the door; credentials own the lock. The two axes are not the same, and we display them separately on purpose.</span></div>
+        <div className="post-callout"><b>8 origins</b><span>can reach <strong>nurse practitioner</strong> at &ge;45% skill readiness, and every one of them still faces the APRN license. Skills open the door; credentials own the lock. The two axes are not the same, and we display them separately on purpose.</span></div>
 
         <h2>The passports: skills that cross the most borders</h2>
         <p>
@@ -974,16 +974,16 @@ export const POSTS: Post[] = [
     dek: 'Product manager and project manager share 24 percent of a skill set. Graphic designers and UX designers share 13 percent and a doubled salary band. We measured the eight most-confused title pairs from each occupation’s own live postings: the overlap, the pay gap, and which direction the switch actually runs.',
     minutes: 6,
     takeaways: [
-      "A typical project manager’s skills cover only 24% of what product-manager postings demand — and the reverse shares too few skills to score.",
+      "A typical project manager’s skills cover only 24% of what product-manager postings demand, and the reverse shares too few skills to score.",
       "Graphic and UX designers share 13% and 12% of a skill set, against posted bands of $42k–$73k versus $74k–$151k.",
-      "Product designer to UX reads 91% ready; the reverse only 40% — one title contains the other.",
+      "Product designer to UX reads 91% ready; the reverse only 40%, one title contains the other.",
     ],
     faq: [
       { q: 'Is a product manager the same as a project manager?', a: 'No, and the data is blunt about it: a typical project manager’s skills cover only 24 percent of what product-manager postings demand, and the reverse direction shares too few skills to score at all. The pay reflects it: posted mid-bands run $86k–$170k for product managers against $75k–$130k for project managers. Same first word, different jobs.' },
-      { q: 'Is UX design the same as graphic design?', a: 'They are the most expensively confused pair we measure. Graphic-designer skills cover 13 percent of UX-designer posting demand, and the reverse is 12 percent — near-strangers professionally — while the posted bands run $42k–$73k for graphic design against $74k–$151k for UX. The shared core is essentially Figma and motion design; the actual work diverges from there.' },
-      { q: 'Can a data analyst become a data scientist?', a: 'This pair runs one way. A data scientist’s skills cover 65 percent of data-analyst demand, but an analyst covers only 31 percent of data-science demand — the gap is machine learning, generative AI, deep learning, and NLP. The shared core (SQL, Python, statistics, visualization) is real, which is why the analyst-to-scientist route is popular; the missing third is why it takes 9–16 months, not a title change.' },
-      { q: 'What is the difference between a lawyer and a paralegal?', a: 'A license, mostly — and the market prices it. A lawyer’s skills cover 74 percent of paralegal posting demand, but a paralegal covers only 24 percent of lawyer demand, and the gate between them is a law degree and the bar, not a skill gap. Posted bands: $94k–$189k for lawyers, $40k–$74k for paralegals.' },
-      { q: 'How is career overlap measured?', a: 'From live postings. For each occupation we extract the skills its postings demand; the overlap number is the share of one occupation’s posted skill demand that a typical profile from the other already covers. It is directional — A covering B does not mean B covers A — which is exactly what the confused pairs show. Full method on the comparison pages and in the career-adjacency piece.' },
+      { q: 'Is UX design the same as graphic design?', a: 'They are the most expensively confused pair we measure. Graphic-designer skills cover 13 percent of UX-designer posting demand, and the reverse is 12 percent, near-strangers professionally, while the posted bands run $42k–$73k for graphic design against $74k–$151k for UX. The shared core is essentially Figma and motion design; the actual work diverges from there.' },
+      { q: 'Can a data analyst become a data scientist?', a: 'This pair runs one way. A data scientist’s skills cover 65 percent of data-analyst demand, but an analyst covers only 31 percent of data-science demand, the gap is machine learning, generative AI, deep learning, and NLP. The shared core (SQL, Python, statistics, visualization) is real, which is why the analyst-to-scientist route is popular; the missing third is why it takes 9–16 months, not a title change.' },
+      { q: 'What is the difference between a lawyer and a paralegal?', a: 'A license, mostly, and the market prices it. A lawyer’s skills cover 74 percent of paralegal posting demand, but a paralegal covers only 24 percent of lawyer demand, and the gate between them is a law degree and the bar, not a skill gap. Posted bands: $94k–$189k for lawyers, $40k–$74k for paralegals.' },
+      { q: 'How is career overlap measured?', a: 'From live postings. For each occupation we extract the skills its postings demand; the overlap number is the share of one occupation’s posted skill demand that a typical profile from the other already covers. It is directional, A covering B does not mean B covers A, which is exactly what the confused pairs show. Full method on the comparison pages and in the career-adjacency piece.' },
     ],
     body: (
       <>
@@ -1003,7 +1003,7 @@ export const POSTS: Post[] = [
         </p>
 
         <h2>Graphic designer vs UX designer</h2>
-        <div className="post-callout"><b>13% / 12%</b><span>mutual overlap &mdash; near-strangers professionally &mdash; while the posted bands run $42k&ndash;$73k against $74k&ndash;$151k.</span></div>
+        <div className="post-callout"><b>13% / 12%</b><span>mutual overlap, near-strangers professionally, while the posted bands run $42k&ndash;$73k against $74k&ndash;$151k.</span></div>
         <p>
           The most expensive confusion on the list. The shared core is essentially <strong>Figma</strong> and motion design; from there the jobs diverge into branding and production on one side, interaction design, prototyping, and user research on the other. Treating UX as &ldquo;graphic design, newer&rdquo; is how a doubled salary band gets left on the table. <CompareLink slug="graphic-designer-vs-ux-designer">The measured pair</CompareLink> shows the exact gap lists.
         </p>
@@ -1013,7 +1013,7 @@ export const POSTS: Post[] = [
         <h2>Data analyst vs data scientist</h2>
         <div className="post-callout"><b>65% &darr; / 31% &uarr;</b><span>a scientist mostly covers an analyst&rsquo;s demand; an analyst covers a third of a scientist&rsquo;s. The ladder runs one way.</span></div>
         <p>
-          The closest pair here, and still directional. The shared core is real &mdash; SQL, Python, statistics, visualization, ETL &mdash; which is why this is one of the most-walked routes on the instrument. The missing two-thirds is machine learning, generative AI, deep learning, and NLP, and it prices in: <strong>$56k&ndash;$95k</strong> posted for analysts against <strong>$84k&ndash;$163k</strong> for scientists. Estimated transition, 9&ndash;16 months of deliberate work, not a resume rewrite. <a className="gl" href="/compare/data-analyst-vs-data-scientist">Compare them</a>, or start from the <a className="gl" href="/routes/data-analyst">full data-analyst route map</a>.
+          The closest pair here, and still directional. The shared core is real: SQL, Python, statistics, visualization, ETL, which is why this is one of the most-walked routes on the instrument. The missing two-thirds is machine learning, generative AI, deep learning, and NLP, and it prices in: <strong>$56k&ndash;$95k</strong> posted for analysts against <strong>$84k&ndash;$163k</strong> for scientists. Estimated transition, 9&ndash;16 months of deliberate work, not a resume rewrite. <a className="gl" href="/compare/data-analyst-vs-data-scientist">Compare them</a>, or start from the <a className="gl" href="/routes/data-analyst">full data-analyst route map</a>.
         </p>
 
         <h2>Product designer vs UX designer</h2>
@@ -1023,19 +1023,19 @@ export const POSTS: Post[] = [
         </p>
 
         <h2>Backend vs frontend developer</h2>
-        <div className="post-callout"><b>21% / 13%</b><span>&ldquo;full-stack&rdquo; is a hiring word for two jobs that share REST, Java, AWS, CI/CD &mdash; and little else.</span></div>
+        <div className="post-callout"><b>21% / 13%</b><span>&ldquo;full-stack&rdquo; is a hiring word for two jobs that share REST, Java, AWS, CI/CD, and little else.</span></div>
         <p>
           The shared core is the plumbing every developer touches. The divergence is everything that fills a working week: JavaScript, TypeScript, and the browser on one side; microservices, Python, SQL, and Kubernetes on the other. Posted bands: <strong>$87k&ndash;$146k</strong> backend, <strong>$57k&ndash;$127k</strong> frontend. <a className="gl" href="/compare/backend-developer-vs-frontend-developer">Side by side</a>.
         </p>
 
         <h2>Registered nurse vs nurse practitioner</h2>
-        <div className="post-callout"><b>94% + a license</b><span>an RN&rsquo;s skills nearly cover NP posting demand &mdash; and none of that shortens the graduate degree and state licensure between the titles.</span></div>
+        <div className="post-callout"><b>94% + a license</b><span>an RN&rsquo;s skills nearly cover NP posting demand, and none of that shortens the graduate degree and state licensure between the titles.</span></div>
         <p>
           The pair that shows why we display credential gates separately from skill readiness. On skills alone an RN reads 94 percent ready for nurse-practitioner work; the transition line still says &ldquo;+ license,&rdquo; because an APRN license and the degree behind it stand regardless. The reward for the years: posted NP bands reach <strong>$135k</strong> against an RN&rsquo;s <strong>$59k&ndash;$109k</strong>. <a className="gl" href="/compare/nurse-practitioner-vs-registered-nurse">The comparison</a> carries both gates.
         </p>
 
         <h2>Lawyer vs paralegal</h2>
-        <div className="post-callout"><b>74% / 24%</b><span>a lawyer mostly covers paralegal demand; a paralegal covers a quarter of lawyer demand &mdash; and the bar exam is the wall between the bands.</span></div>
+        <div className="post-callout"><b>74% / 24%</b><span>a lawyer mostly covers paralegal demand; a paralegal covers a quarter of lawyer demand, and the bar exam is the wall between the bands.</span></div>
         <p>
           Shared vocabulary (contracts, case management, procurement) and a licensing wall. The posted bands tell the rest: <strong>$94k&ndash;$189k</strong> against <strong>$40k&ndash;$74k</strong>. This is the cleanest example of a pair where the skill number is not the story; the credential is. <a className="gl" href="/compare/lawyer-vs-paralegal">Measured here</a>.
         </p>

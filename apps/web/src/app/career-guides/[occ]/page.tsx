@@ -78,8 +78,9 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
 
         <section className="cg-lead">
           <h2>What the work is like</h2>
-          <p>{p.day_to_day}</p>
-          <p className="cg-p">{p.work_environment}</p>
+          {/* prose carries paragraph breaks as blank lines (2026-09-08): render each as its own <p> */}
+          {p.day_to_day.split(/\n\s*\n/).map((para, i) => <p key={`d${i}`}>{para}</p>)}
+          {p.work_environment.split(/\n\s*\n/).map((para, i) => <p key={`w${i}`} className="cg-p">{para}</p>)}
         </section>
 
         {f.salary && (

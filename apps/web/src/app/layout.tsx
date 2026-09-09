@@ -82,7 +82,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         {/* Favicons come from app/icon.svg (vector, for browser tabs + Google's
             SVG support) and app/favicon.ico (multi-size ICO fallback). Both are
-            crawlable file URLs — a data: URI here was uncrawlable for Google. */}
+            crawlable file URLs, a data: URI here was uncrawlable for Google. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_LD) }} />
       </head>
       <body>{children}<Analytics /></body>

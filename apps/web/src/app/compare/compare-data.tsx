@@ -12,7 +12,7 @@ import { occTitle } from '../jobs/jobs-data';
    Pair sources:
    - report/{origin}.json roles  -> rich direction (match, band, time, waterfall)
    - {origin}.json next/direct   -> thin direction (readiness + gap) beyond top-8
-   Qualification: mutual pairs (both directions measured, ANY overlap — the
+   Qualification: mutual pairs (both directions measured, ANY overlap, the
    low-overlap "everyone confuses them" pairs are the best pages), one-way pairs
    at >=45 readiness, plus a small seed list of high-search pairs kept honest by
    requiring at least one measured direction. */
@@ -41,7 +41,7 @@ export type ComparePair = {
 // High-search pairs worth a page whenever at least one direction is measured.
 /* A comparison page is a SEARCH surface, so a pair must be one a human would
    actually weigh: same field, same industry cluster, or on this curated list.
-   Adjacency measurement alone is NOT enough — the matrix knows drone pilots
+   Adjacency measurement alone is NOT enough, the matrix knows drone pilots
    share camera skills with photographers, but nobody searches that "vs".
    Cross-field pairs live ONLY here; keys are alphabetically sorted (a|b). */
 const SEED_PAIRS = new Set([

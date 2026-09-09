@@ -44,7 +44,7 @@ export function postedLabel(posted: string): string {
 
 /** Relative freshness ("Today", "3d ago", "2w ago"), falling back to the absolute
     date past four weeks. Dates are honest first-seen dates (a repost cannot reset
-    them — the ledger), so the label means what it says. Computed at render: build
+    them, the ledger), so the label means what it says. Computed at render: build
     time on the server, live on the client; the span carries
     suppressHydrationWarning so the client value wins without a mismatch warning. */
 export function agoLabel(posted: string): string {

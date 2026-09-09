@@ -10,7 +10,7 @@ import { article } from '../../lib/site';
    move: every tag, and every sensible tag pair, becomes a preloaded, indexed
    landing page). Each category is a filter over the full board with its own copy
    and a deep-link to the live board. Derived entirely from all-jobs.json at build
-   time, so the set regenerates with the scrape — no separate generator.
+   time, so the set regenerates with the scrape, no separate generator.
 
    The discipline that keeps this out of thin-content territory: a page only
    exists if it clears THRESHOLD live jobs. Every dimension maps to an existing
@@ -21,13 +21,13 @@ const THRESHOLD = 6;    // a page must clear this many live jobs to be generated
 const CATEGORY_MAX = 120; // SSR sample cap; the full set is one click away on /jobs
 
 /* GRACE WINDOW (2026-09-02). A filter that holds 6 roles today and 5 tomorrow
-   used to delete its page overnight, and the page came back the day after —
+   used to delete its page overnight, and the page came back the day after, 
    churn that shows up in Search Console as 404s (100 of them on 2026-08-27)
    and teaches Google the URL is unreliable. Measured 26 Aug -> 1 Sep: 4 pages
    vanished on the stable axes alone; the small multi-axis cells churn harder.
 
    So a page that has cleared the bar keeps its URL for GRACE_DAYS after it
-   drops below, as long as it still has at least one live role — an empty page
+   drops below, as long as it still has at least one live role, an empty page
    is genuinely thin and still goes. Retirement becomes a slow, deliberate
    decision instead of a nightly flap, and a graced page says so in its own
    copy rather than repeating the "always clears the bar" line, which would be
@@ -235,7 +235,7 @@ export function allCategories(): Category[] {
 }
 
 /* Merge today's merit dates into the ledger and persist. Only the CI build
-   writes (PAGE_GRACE_WRITE=1) — that build's output is what gets committed;
+   writes (PAGE_GRACE_WRITE=1), that build's output is what gets committed;
    Vercel and local dev read the committed file and never advance it. Slugs
    that fall out of the ledger's window are dropped so the file cannot grow
    without bound. */
@@ -306,24 +306,24 @@ export function categoryBlurb(c: Category): string {
     case 'remote':
       return `${n} live fully-remote roles across every field, freshest first. Each is tagged to the skills that reach it and links out to apply at the source.`;
     case 'field':
-      return `${n} live ${c.searchTitle} openings from company career pages and public boards, freshest first${rem}. The roles ${article(c.searchTitle)} ${c.searchTitle} background reaches — each links out to apply at the origin.`;
+      return `${n} live ${c.searchTitle} openings from company career pages and public boards, freshest first${rem}. The roles ${article(c.searchTitle)} ${c.searchTitle} background reaches; each links out to apply at the origin.`;
     case 'country':
       return `${n} live openings in ${c.searchTitle}, from company career pages and public-sector boards, freshest first${rem}. Apply at the original posting.`;
     case 'region':
-      return `${n} live openings across ${c.searchTitle}, aggregated from company career pages, remote-first boards and public-sector feeds, freshest first${rem}. One region, every country we track in it — apply at the source.`;
+      return `${n} live openings across ${c.searchTitle}, aggregated from company career pages, remote-first boards and public-sector feeds, freshest first${rem}. One region, every country we track in it. Apply at the source.`;
     case 'level':
       return c.slug === 'senior'
         ? `${n} live senior and lead roles, freshest first${rem}. Openings that ask for depth, each tagged to the skills that reach it.`
-        : `${n} live entry-level and junior roles, freshest first${rem}. Openings that hire on potential over tenure — apply at the source.`;
+        : `${n} live entry-level and junior roles, freshest first${rem}. Openings that hire on potential over tenure. Apply at the source.`;
     case 'flag':
       if (c.slug === 'with-equity') return `${n} live roles that include equity, freshest first${rem}. Ownership on top of salary, read straight from the posting.`;
-      if (c.slug === 'visa-sponsorship') return `${n} live roles that state visa sponsorship, freshest first${rem}. Read from the posting text, not employer-flagged — verify at the source before you count on it.`;
-      return `${n} live four-day-week roles, freshest first${rem}. A shorter week, stated in the posting — apply at the origin.`;
+      if (c.slug === 'visa-sponsorship') return `${n} live roles that state visa sponsorship, freshest first${rem}. Read from the posting text, not employer-flagged, so verify at the source before you count on it.`;
+      return `${n} live four-day-week roles, freshest first${rem}. A shorter week, stated in the posting. Apply at the origin.`;
     case 'pay':
-      return `${n} live roles posting pay of ${c.searchTitle.replace('+', ' or more')}, freshest first. Only postings that state a salary are counted here — apply at the source.`;
+      return `${n} live roles posting pay of ${c.searchTitle.replace('+', ' or more')}, freshest first. Only postings that state a salary are counted here. Apply at the source.`;
     default: { // the 2-dim combos
       const crem = c.remoteN > 0 && !/remote/.test(c.noun || '') ? `, ${c.remoteN.toLocaleString()} fully remote` : '';
-      return `${n} live ${c.noun || `${c.searchTitle} roles`}, freshest first${crem}. Backfilled from company career pages and public boards, refreshed nightly — each links out to apply at the source.`;
+      return `${n} live ${c.noun || `${c.searchTitle} roles`}, freshest first${crem}. Backfilled from company career pages and public boards, refreshed nightly; each links out to apply at the source.`;
     }
   }
 }

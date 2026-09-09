@@ -3,7 +3,7 @@
 
    Grouping follows the pragmatic job-board convention (the way Himalayas / We
    Work Remotely / RemoteOK cut the world), tuned to how people search, not to
-   strict UN M49 — most relevantly, Mexico sits in Latin America, not North
+   strict UN M49, most relevantly, Mexico sits in Latin America, not North
    America, because that is the labor market people mean by "LATAM". Turkey and
    Israel are the usual EMEA edge cases; Turkey -> Europe, Israel -> Middle East,
    per common tech-hiring usage. */

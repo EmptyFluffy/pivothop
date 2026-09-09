@@ -5,20 +5,20 @@ import { occField } from '../jobs/jobs-data';
 
 /* The company-pages family (/companies/<slug>), plan family 3, first tranche
    2026-09-02. One company record feeds the profile page, its computed FAQ,
-   and the hub — the Himalayas hub-asset pattern, built from postings alone:
+   and the hub, the Himalayas hub-asset pattern, built from postings alone:
    nothing here is self-reported.
 
    TWO GATES, ON PURPOSE (2026-09-02, profile expansion). PAGE_FLOOR=3 mints
-   a page — the same floor an occupation needs for a board, and enough rows
+   a page, the same floor an occupation needs for a board, and enough rows
    to say something true. SITEMAP_FLOOR=20 decides which pages we push at
    Google; the rest exist, interlink and are discoverable, but do not join
-   the sitemap — the Himalayas pattern (their 41k editorial pages live
+   the sitemap, the Himalayas pattern (their 41k editorial pages live
    outside their sitemaps) and the answer to the discovered-not-crawled
    queue. Thin pages degrade section by section and carry the claim CTA:
    these are the seed of claimed employer profiles.
 
    EXCLUSIONS, measured 2026-09-02 and each a documented data artifact, not
-   an editorial call: 'Name' (167 rows, a parser bug upstream — the company
+   an editorial call: 'Name' (167 rows, a parser bug upstream, the company
    field literally says "Name") and 'Jobup' (730 rows; it is a Swiss job
    PLATFORM appearing as publisher on Job-Room rows, so a "Jobs at Jobup"
    page would attribute other employers' openings to it). Staffing agencies
@@ -38,7 +38,7 @@ export type CompanyPage = {
   /* How the company describes itself, mined from its own postings: the
      140-700-char paragraph repeated across 2+ of its live postings that names
      the company with a descriptor verb (or sits under an About heading).
-     Task lists, EEO text, interview/benefit boilerplate are vetoed — a wrong
+     Task lists, EEO text, interview/benefit boilerplate are vetoed, a wrong
      "what they do" quote is worse than none, so misses omit the section. */
   blurb: { text: string; n: number } | null;
   /* What the company does, from Wikipedia (scripts/company-desc.mjs): the
@@ -104,7 +104,7 @@ function band(jobs: Job[]): CompanyPage['band'] {
 }
 
 /* ── the blurb miner ─────────────────────────────────────────────────────────
-   Detail files are loaded ONE OCCUPATION AT A TIME and released — the store
+   Detail files are loaded ONE OCCUPATION AT A TIME and released, the store
    is 124MB and parsing it whole would balloon the build. Precision over
    recall, measured 2026-09-02 on the top-20 tranche companies: every emitted
    blurb was a genuine self-description; roughly half the companies (Swiss

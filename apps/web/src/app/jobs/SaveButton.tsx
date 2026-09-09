@@ -8,7 +8,7 @@ import { upsertSave, removeSave } from '../dashboard/actions';
 
 /* The save toggle. Bookmark glyph, never a heart (hearts read as social
    likes; every major board converged on bookmark + Save/Saved). Guest-first:
-   the toggle writes localStorage and works with no account — signing in
+   the toggle writes localStorage and works with no account, signing in
    later merges the list. Renders unsaved on the server and corrects after
    mount, so prerendered HTML stays identical for every visitor. */
 

@@ -11,7 +11,7 @@ import type { Job } from '../../jobs/JobCard';
    no employer-cost buildups, no tax brackets, no severance/notice matrices,
    no work-permit guidance, no hiring-speed or vetting claims, no EOR
    recommendations. Statutory context is CITED AND LINKED (MTSS, INEC), never
-   restated as our own guidance — a wrong number in a compliance table is the
+   restated as our own guidance, a wrong number in a compliance table is the
    dental-hygienist bug wearing employer clothes. */
 
 const HIRE_FLOOR = 6; // same threshold the category pages use

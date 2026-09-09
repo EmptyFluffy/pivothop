@@ -1037,7 +1037,7 @@ export function getSalaryDef(occ: string): SalaryDef | null {
 
 /* ── Switzerland: official federal wage bands (BFS LSE) ─────────────────────
    Swiss ads post no salaries (0 of 31,096 Job-Room ads carry pay), so the CH
-   numbers come from the Lohnstrukturerhebung instead — the federal wage
+   numbers come from the Lohnstrukturerhebung instead, the federal wage
    survey, per ISCO-08 group and percentile. Joined slug -> ISCO-4 -> ISCO-2
    via the taxonomy crosswalk; coarser than the occupation, and the UI says so.
    Built by apps/scraper/scripts/build-salary-ch.py. */

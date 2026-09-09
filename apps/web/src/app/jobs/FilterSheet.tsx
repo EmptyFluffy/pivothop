@@ -9,7 +9,7 @@ import { REGION_META, type RegionKey } from './regions';
    system). A category rail on the left, options with live counts on the right,
    a search box over the filter names, and one accent button that closes the
    sheet and shows the results. Same paper, veil, blur and in/out animation as
-   the search and skill sheets — this is the first surface of the slow
+   the search and skill sheets, this is the first surface of the slow
    modernization pass, so the skin must stay the system's.
 
    Every option is computed from the posting data, never employer-self-tagged:
@@ -254,7 +254,7 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
                     <span className="flt-n">{count('skills', { skillSet: new Set([...f.skillSet, sk.slug]) }).toLocaleString()}</span>
                   </button>
                 ))}
-                {skillRows.hidden > 0 && <p className="flt-note">{skillRows.hidden} more &mdash; keep typing to narrow.</p>}
+                {skillRows.hidden > 0 && <p className="flt-note">{skillRows.hidden} more; keep typing to narrow.</p>}
               </>
             )}
             {cat === 'field' && (
@@ -377,9 +377,9 @@ export default function FilterSheet({ open, onClose, f, set, count, fieldNames, 
             )}
             {cat === 'exclude' && (
               <>
-                <p className="flt-note">The filter every other board is missing: say no. Hidden roles are counted, never silently dropped{hiddenByExclusion > 0 ? ` — ${hiddenByExclusion.toLocaleString()} hidden right now` : ''}.</p>
+                <p className="flt-note">The filter every other board is missing: say no. Hidden roles are counted, never silently dropped{hiddenByExclusion > 0 ? ` (${hiddenByExclusion.toLocaleString()} hidden right now)` : ''}.</p>
                 <div className="flt-group">Titles containing</div>
-                <ExcludeInput placeholder={'Type a word and press Enter — "senior", "principal"…'}
+                <ExcludeInput placeholder={'Type a word and press Enter: "senior", "principal"…'}
                   onAdd={(v) => { const next = new Set(f.exQ); next.add(v.toLowerCase()); set({ exQ: next }); }} />
                 <div className="flt-chips">
                   {[...f.exQ].map((k) => (

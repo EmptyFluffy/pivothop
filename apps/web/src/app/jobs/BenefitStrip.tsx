@@ -19,7 +19,7 @@ export type BenefitEntry = {
   glyph?: string;
   def: string;
   n?: number;          // listings on the board stating it, for the glossary
-  i?: number;          // taxonomy index — the key rows use in their compact 'b' arrays
+  i?: number;          // taxonomy index, the key rows use in their compact 'b' arrays
 };
 
 export function BenefitMarkSvg({ glyph, className }: { glyph?: string; className?: string }) {

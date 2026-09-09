@@ -55,7 +55,7 @@ export default function Instrument() {
       {/* The homepage is a client component, so it cannot export `metadata` and
           therefore cannot declare its canonical the normal way. React 19 hoists
           a rendered <link> into <head>, which gets us the tag without splitting
-          this file — the graph must keep mounting exactly as it does. Kept a
+          this file, the graph must keep mounting exactly as it does. Kept a
           sibling of the ref'd div on purpose: that div's innerHTML is wiped on
           mount, and anything inside it would go with it. Absolute URL because
           hoisting does not resolve against metadataBase. */}
@@ -63,7 +63,7 @@ export default function Instrument() {
           page is a client component and cannot export it */}
       {/* PageShell provides the chrome (nav, footer, banner, search, license
           sheet). The v2h wrapper bridges the landing's old tokens to the V2
-          palette — every section and the graph itself re-ink through it. */}
+          palette, every section and the graph itself re-ink through it. */}
       <div ref={ref} className="v2h" suppressHydrationWarning>
         {/* Server-rendered boot state: real brand copy + links to the key pages,
             so the initial HTML is crawlable and the homepage passes structure to
@@ -173,7 +173,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   if (!roleInput || !skillInput) return;
 
   // Fresh example combo every load; the first pick also seeds the placeholders.
-  const demos = pickDemos(3);   // 3, not 4 — four wrapped to a second row and read as a menu
+  const demos = pickDemos(3);   // 3, not 4, four wrapped to a second row and read as a menu
   roleInput.placeholder = demos[0].title;
   skillInput.placeholder = demos[0].skills;
 
@@ -321,7 +321,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
   }
 
   /* The landing spot is where the SEARCH BAR meets the nav — i.e. the moment the
-     search reaches its sticky position — not where the band clears the sticky
+     search reaches its sticky position, not where the band clears the sticky
      stack. scrollIntoView({block:'start'}) put the band top at viewport 0, which
      the sticky nav + search then covered: it overshot by the height of the whole
      stack, and on a 13" MacBook that ate the top of the instrument.
@@ -330,7 +330,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
      that scrollIntoView puts the target under the sticky stack. This call site
      was still using it. Now computed, reading the sticky offset from the element
      rather than hardcoding it (59px desktop, 55/51 at the two mobile breakpoints
-     — see #8: the nav border and the search border share a pixel row).
+, see #8: the nav border and the search border share a pixel row).
 
      Guarded by the 2px no-op check #9 requires, so an already-correct position
      never triggers a pointless smooth scroll. */
@@ -453,7 +453,7 @@ function wireSearch(mount: (d: unknown, h: Hooks) => Controller) {
       `<button class="sugg" data-id="${s.id}">+ ${s.name}</button>`
     ).join('') || '<span style="font-size:11.5px;color:var(--ink-3)">Type to search the skill dictionary</span>';
     panel.innerHTML =
-      `<div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px">Your skills — the graph derives from these</div>` +
+      `<div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px">Your skills, the graph derives from these</div>` +
       `<div>${chipHtml}</div>` +
       `<input id="chipAdd" type="text" placeholder="Add a skill…" value="${addQuery.replace(/"/g, '')}" autocomplete="off" style="width:100%;background:none;border:none;border-bottom:1px solid var(--ink);font:inherit;font-size:14px;padding:8px 0;margin:10px 0 10px;outline:none;color:var(--ink)"/>` +
       `<div style="font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px">${addQuery ? 'Matches' : 'People with your skills also list'}</div>` +

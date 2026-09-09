@@ -4,7 +4,7 @@ import { STATUS_ORDER, type SavedJob, type SavedStatus } from '../../lib/saved';
 
 /* Saved-jobs server actions. All of them run under the signed-in user's JWT
    through the anon-key client, so the per-user RLS policies in
-   0010_accounts.sql are the authorization — no user_id ever comes from the
+   0010_accounts.sql are the authorization, no user_id ever comes from the
    client. Every action degrades to a null/ok:false result when Supabase is
    absent or nobody is signed in; the guest localStorage flow carries on. */
 

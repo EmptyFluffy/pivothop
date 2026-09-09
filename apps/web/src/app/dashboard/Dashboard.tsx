@@ -17,7 +17,7 @@ import { Crumbs } from '../components/Crumbs';
    account with the furthest-progressed status winning.
 
    A saved job that rotated out of the nightly build renders from its stored
-   snapshot tagged "No longer listed" — never auto-deleted; knowing a lead
+   snapshot tagged "No longer listed", never auto-deleted; knowing a lead
    died is information. */
 
 const STATUSES: { key: SavedStatus; label: string }[] = [

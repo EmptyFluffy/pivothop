@@ -3,7 +3,7 @@ import { PageShell } from '../../components/SiteChrome';
 import ConfirmForm from './ConfirmForm';
 
 /* The magic-link interstitial. The email links HERE with ?token_hash=...;
-   this GET renders a form and nothing else — corporate mail scanners and
+   this GET renders a form and nothing else, corporate mail scanners and
    Outlook SafeLinks prefetch every URL in an email, and a GET that verified
    the token would let the scanner consume it before the human clicks. Only
    the form's POST (auto-submitted on load, with a visible button as the

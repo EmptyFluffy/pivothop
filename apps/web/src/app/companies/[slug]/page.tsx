@@ -7,12 +7,15 @@ import { occTitle } from '../../jobs/jobs-data';
 import { countryName } from '../../jobs/countries';
 import { postedLabel, companyInitial, monoTint } from '../../jobs/JobCard';
 import JobsList from '../../jobs/JobsList';
+
+/* quoted third-party text keeps its words but not its em dashes (house style, site-wide) */
+const plain = (t: string) => t.replace(/\s*\u2014\s*/g, ', ').replace(/\s*–\s*/g, ' to ');
 import { Crumbs } from '../../components/Crumbs';
 import { PageHead } from '../../components/PageHead';
 
 /* A company page computed entirely from its live postings: what it is hiring
    for, where, what it declares in benefits, what it posts in pay. Nothing is
-   self-reported and nothing is written by hand — the FAQ answers are the
+   self-reported and nothing is written by hand, the FAQ answers are the
    page's own figures (the Himalayas company-record pattern, done honestly). */
 
 export function generateStaticParams() {
@@ -47,11 +50,11 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   if (c.about) {
     faq.push({
       q: `What does ${c.name} do?`,
-      text: `${c.about.text} That description comes from Wikipedia. What we add is the live picture: right now ${c.name} has ${c.count.toLocaleString()} open roles on our board${field ? `, mostly in ${field}` : ''}.`,
-      jsx: <>{c.about.text} That description comes from <a className="gl" href={c.about.url} target="_blank" rel="noopener noreferrer">Wikipedia</a>. What we add is the live picture: right now {c.name} has {c.count.toLocaleString()} open roles on our board{field ? <>, mostly in {field}</> : null}.</>,
+      text: `${plain(c.about.text)} That description comes from Wikipedia. What we add is the live picture: right now ${c.name} has ${c.count.toLocaleString()} open roles on our board${field ? `, mostly in ${field}` : ''}.`,
+      jsx: <>{plain(c.about.text)} That description comes from <a className="gl" href={c.about.url} target="_blank" rel="noopener noreferrer">Wikipedia</a>. What we add is the live picture: right now {c.name} has {c.count.toLocaleString()} open roles on our board{field ? <>, mostly in {field}</> : null}.</>,
     });
   } else if (c.blurb) {
-    const short = c.blurb.text.length > 300 ? `${c.blurb.text.slice(0, c.blurb.text.lastIndexOf('.', 300) + 1 || 300)}` : c.blurb.text;
+    const short = plain(c.blurb.text).length > 300 ? `${c.blurb.text.slice(0, c.blurb.text.lastIndexOf('.', 300) + 1 || 300)}` : c.blurb.text;
     faq.push({
       q: `What does ${c.name} do?`,
       text: `Here is how ${c.name} puts it in its own postings: "${short}" We quote rather than paraphrase, and right now it has ${c.count.toLocaleString()} open roles on our board.`,
@@ -109,7 +112,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         {c.about && (
           <section className="rt-sec">
             <h2>What {c.name} does</h2>
-            <p className="co-about">{c.about.text}</p>
+            <p className="co-about">{plain(c.about.text)}</p>
             <span className="co-src lbl">
               Source: <a href={c.about.url} target="_blank" rel="noopener noreferrer">Wikipedia, &ldquo;{c.about.title}&rdquo;</a> (CC BY-SA). Not written by PivotHop.
             </span>
@@ -119,7 +122,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         {c.blurb && (
           <section className="rt-sec">
             <h2>How it describes itself</h2>
-            <blockquote className="co-blurb">{c.blurb.text}</blockquote>
+            <blockquote className="co-blurb">{plain(c.blurb.text)}</blockquote>
             <p className="rt-note">
               Quoted from {c.name}&rsquo;s own postings: this opening paragraph appears in {c.blurb.n} of its live listings.
             </p>

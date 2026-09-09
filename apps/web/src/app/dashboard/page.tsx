@@ -3,7 +3,7 @@ import { PageShell } from '../components/SiteChrome';
 import Dashboard from './Dashboard';
 
 /* Thin static shell: the page prerenders identically for everyone (the
-   static-posture doctrine), and every per-user pixel hydrates client-side —
+   static-posture doctrine), and every per-user pixel hydrates client-side, 
    guest saves from localStorage, account saves after the merge action. */
 
 export const metadata: Metadata = {

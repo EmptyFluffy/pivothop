@@ -31,7 +31,7 @@ const MODES: { key: Mode; label: string }[] = [
 /* Benefits come from the board's own taxonomy (passed in as benefitBank), not
    a list kept by hand here: 47 terms across 7 categories, so what an employer
    states becomes the same filterable pill a scraped listing gets. Categories
-   render in this order — money first, because that is what people scan for. */
+   render in this order, money first, because that is what people scan for. */
 export type BenefitOpt = { term: string; cat: string; n: number };
 const BEN_CATS = ['Money', 'Health', 'Time', 'Flexibility', 'Family', 'Growth', 'Workplace'];
 const BRACKETS: { label: string; min: number | null; max: number | null }[] = [
@@ -120,7 +120,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
     const claimed = p.get('company');
     if (claimed) setF((prev) => (prev.company ? prev : { ...prev, company: claimed }));
     if (p.get('paid') === '1') { setDone('paid'); window.history.replaceState(null, '', '/employers'); }
-    else if (p.get('canceled') === '1') { setSubmitError('Payment was canceled — nothing charged. Your details are still here; submit again when ready.'); window.history.replaceState(null, '', '/employers'); }
+    else if (p.get('canceled') === '1') { setSubmitError('Payment was canceled and nothing was charged. Your details are still here; submit again when ready.'); window.history.replaceState(null, '', '/employers'); }
   }, []);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setF((p) => ({ ...p, [k]: e.target.value }));
 
@@ -184,7 +184,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
     if ((p.smin || p.smax) && salaryPick === '') setSalaryPick('custom');
     if (p.skills.length) setSkillList((prev) => [...prev, ...p.skills.filter((s) => !prev.includes(s))]);
     const got = [p.title && 'title', (p.smin || p.smax) && 'salary', p.about && 'summary', p.resp && 'responsibilities', p.quals && 'qualifications', p.skills.length && `${p.skills.length} skill${p.skills.length === 1 ? '' : 's'}`].filter(Boolean);
-    setFilled(got.length ? `Filled ${got.join(', ')}. Review and edit below.` : 'Nothing obvious to pull — fill it in below, it is quick.');
+    setFilled(got.length ? `Filled ${got.join(', ')}. Review and edit below.` : 'Nothing obvious to pull. Fill it in below; it is quick.');
   }
 
   async function importUrlNow() {
@@ -255,7 +255,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
     const body = [
       `Company: ${f.company}`, `Work email: ${f.email}`, f.name ? `Contact: ${f.name}` : '', f.logo ? `Logo: ${f.logo}` : '', '',
       `Role: ${f.role}`, occ ? `Occupation match: ${occ.title} (${occ.slug})` : 'Occupation match: (unmatched)',
-      `Type: ${etype}`, `Workplace: ${modeLabel}${f.region ? ` — ${f.region}` : ''}`,
+      `Type: ${etype}`, `Workplace: ${modeLabel}${f.region ? `, ${f.region}` : ''}`,
       salTxt ? `Salary: ${salTxt} /yr` : 'Salary: (not stated)',
       skillList.length ? `Required skills: ${skillList.join(', ')}` : '', chosen.length ? `Benefits: ${chosen.join(', ')}` : '',
       f.applyUrl ? `Apply URL: ${f.applyUrl}` : '', f.applyEmail ? `Apply email: ${f.applyEmail}` : '',
@@ -281,7 +281,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
       posthog.capture('employer_job_queued', { tier: 'free', occupation_slug: payload.occupation_slug });
       setDone('queued'); window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (r.error === 'not-configured') { mailto(); }
-    else { setSubmitError('Could not submit just now — opening email as a fallback.'); mailto(); }
+    else { setSubmitError('Could not submit just now. Opening email as a fallback.'); mailto(); }
   }
 
   if (done) {
@@ -291,7 +291,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
         {done === 'paid' ? (
           <>
             <h2>Paid. Your job is live.</h2>
-            <p>Your listing is on the board now &mdash; featured to the candidates whose skills already reach it. A receipt is on its way to your email. Edit or take it down any time by replying to that email.</p>
+            <p>Your listing is on the board now, featured to the candidates whose skills already reach it. A receipt is on its way to your email. Edit or take it down any time by replying to that email.</p>
           </>
         ) : (
           <>
@@ -309,7 +309,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
     <div className="ejf-layout">
       <div className="ejf-form">
         {/* Accelerator: paste an existing posting, the form below prefills.
-            Never a separate mode — the manual form is always on screen. */}
+            Never a separate mode, the manual form is always on screen. */}
         <div className="ejf-paste">
           <p className="ejf-paste-lead">Already posted elsewhere? Import it and the form below fills itself.</p>
           <div className="ejf-import-row">
@@ -334,7 +334,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
             <span className="ef-hint">One role, the way it reads on a listing. Posting several? One job per post.</span></label>
           {suggestions.length > 0 && (
             <div className="ejf-suggest">
-              <span className="efl">Closest occupation on our graph{occ ? '' : ' — pick one to see who it reaches'}</span>
+              <span className="efl">Closest occupation on our graph{occ ? '' : ' (pick one to see who it reaches)'}</span>
               <div className="ejf-chips">{suggestions.map((o) => (<button key={o.slug} type="button" className={`ejf-chip${occSlug === o.slug ? ' on' : ''}`} onClick={() => setOccSlug(occSlug === o.slug ? '' : o.slug)}>{o.title}</button>))}</div>
             </div>
           )}
@@ -352,7 +352,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
           <div className="ejf-sec-h"><span className="ejf-num">02</span><h2>Pay &amp; details</h2></div>
           {hint && salaryPick === '' && (
             <button type="button" className="ejf-hintchip" onClick={useTypical}>
-              Typical for {occ!.title}: {fmtK(hint.lo)}&ndash;{fmtK(hint.hi)} <span>&mdash; use it</span>
+              Typical for {occ!.title}: {fmtK(hint.lo)}&ndash;{fmtK(hint.hi)} <span>(use it)</span>
             </button>
           )}
           <label className="ef-field"><span className="efl">Salary range, USD / year</span>
@@ -422,7 +422,7 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
               ) : (<p className="ew-fan-lead">{`${occ.title} listings appear on its board, its salary page, and everywhere the instrument ranks it for a candidate's skills.`}</p>)}
             </aside>
           ) : (
-            <p className="ef-hint">Type the role title above and pick the closest occupation — this section then shows the measured routes your listing appears on.</p>
+            <p className="ef-hint">Type the role title above and pick the closest occupation; this section then shows the measured routes your listing appears on.</p>
           )}
           <div className="ejf-block">
             <span className="efl">Required skills <em className="ejf-opt">Optional</em></span>
@@ -474,9 +474,9 @@ export function EmployerForm({ occs, fan, skills, benefitBank, salaryHints, pric
             <span>{submitting ? 'Submitting\u2026' : 'Submit for review'}</span>
             <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
           </button>
-          {tried && !ok && <p className="ejf-errbox">Before you can submit, add {missing.join(', ')} &mdash; the fields marked Required above.</p>}
+          {tried && !ok && <p className="ejf-errbox">Before you can submit, add {missing.join(', ')}: the fields marked Required above.</p>}
           {submitError && <p className="ejf-errbox">{submitError}</p>}
-          <p className="ejf-note">Free during early access &mdash; no card, no account.</p>
+          <p className="ejf-note">Free during early access: no card, no account.</p>
           <p className="ejf-note">Reviewed within 1 business day. You get an email either way. Questions first? <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.</p>
         </div>
       </div>

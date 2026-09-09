@@ -12,7 +12,7 @@ import LandingSearch from './components/LandingSearch';
    landing, not the instrument. Zero of twelve audited winners lead with a
    novel interaction; the ones with data moats lead with the COUNT. The
    homepage's SEO job is brand + link equity + a short crawl path to the 27k
-   programmatic pages — a landing does all three better than a JS graph
+   programmatic pages, a landing does all three better than a JS graph
    (Mueller: importance decays with click-distance from home). The search box
    is real and posts straight into /jobs (the Wellfound hybrid: demonstrate,
    don't describe). The instrument lives at /instrument now, where it can rank

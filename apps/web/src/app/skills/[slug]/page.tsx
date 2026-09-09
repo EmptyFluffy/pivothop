@@ -9,7 +9,7 @@ import { Crumbs } from '../../components/Crumbs';
 import { PageHead } from '../../components/PageHead';
 
 /* A skill landing page: the definition, the occupations the skill unlocks
-   (with live counts — the adjacency data no other board measures), the skills
+   (with live counts, the adjacency data no other board measures), the skills
    that co-occur with it in real postings, and the filtered board one click
    away. Everything computed; the FAQ answers are the page's own figures. */
 
@@ -86,7 +86,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                     <td className="n">{u.count.toLocaleString()}</td>
                     <td>{coverableSlugs().includes(u.slug)
                       ? <Link className="gl" href={`/salary/${u.slug}`}>salary</Link>
-                      : <span className="lbl">—</span>}</td>
+                      : <span className="lbl">, </span>}</td>
                   </tr>
                 ))}
               </tbody>

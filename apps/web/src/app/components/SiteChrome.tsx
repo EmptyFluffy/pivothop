@@ -64,7 +64,7 @@ export function SiteNav({ active: family, v2 }: { active?: NavActive; v2?: boole
         {/* Ordered by what a first visit wants, not alphabetically: the product
             surfaces first (the board, then the instrument), then how it works,
             then editorial, then the company. Routes was promoted out of the
-            footer — it is the instrument's own page and was the only core
+            footer, it is the instrument's own page and was the only core
             surface with no way to reach it from the top of the site. */}
         <Link className={`navlink${active === 'jobs' ? ' on' : ''}`} href="/jobs">Jobs</Link>
         <Link className={`navlink${active === 'routes' ? ' on' : ''}`} href="/routes">Routes</Link>
@@ -79,7 +79,7 @@ export function SiteNav({ active: family, v2 }: { active?: NavActive; v2?: boole
         {!v2 && <Link className={`navlink${active === 'blog' ? ' on' : ''}`} href="/blog">Blog</Link>}
         {!v2 && <Link className={`navlink${active === 'about' ? ' on' : ''}`} href="/about">About</Link>}
         {v2 && <SavedNavLink menu />}
-        <button className="nav-searchbtn" type="button" data-search aria-label="Search" title="Search — press / or ⌘K">
+        <button className="nav-searchbtn" type="button" data-search aria-label="Search" title="Search (press / or ⌘K)">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
           <kbd aria-hidden="true">⌘K</kbd>
         </button>

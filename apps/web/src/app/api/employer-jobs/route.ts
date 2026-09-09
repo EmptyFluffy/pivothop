@@ -8,9 +8,9 @@ export const dynamic = 'force-dynamic';
    shape. The board fetches this and merges it with the static scraped jobs, so
    an approved post appears instantly.
 
-   Published statuses are 'posted' (a human approved it in /admin — the free
+   Published statuses are 'posted' (a human approved it in /admin, the free
    early-access path) and 'paid' (the Lemon Squeezy webhook, kept for when
-   payments return). Anything else — new, reviewing, declined — stays off the
+   payments return). Anything else, new, reviewing, declined, stays off the
    board, so declining in /admin removes a listing. */
 type Row = {
   id: number; tier: string; role: string; company: string; occupation_slug: string | null;

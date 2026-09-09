@@ -3,7 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 
 /* The landing's search unit with hybrid cells: type freely, or pick from the
    dropdown that opens under each cell (the board's typeahead idiom, in the
-   landing's clothes). Plain form semantics survive — no JS still submits
+   landing's clothes). Plain form semantics survive, no JS still submits
    whatever was typed to /jobs. */
 
 type Role = { t: string; slug: string };

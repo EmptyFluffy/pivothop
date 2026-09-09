@@ -15,7 +15,7 @@ import { PageHead } from '../../../components/PageHead';
 
 /* Per-role employer page for Costa Rica. The two-figure comparison (CR posted
    vs US) shows both numbers with their sources and sample sizes and lets the
-   reader subtract — it never computes a "% cheaper" claim, because the two
+   reader subtract, it never computes a "% cheaper" claim, because the two
    figures measure different things and pretending otherwise is the
    "directional" agency-table trick this family exists to beat. */
 

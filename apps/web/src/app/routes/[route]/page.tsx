@@ -178,7 +178,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
         </section>
 
         {/* Intent is legible here: this reader has already chosen a destination,
-            so the board is the next step, not the instrument. Count-gated — a
+            so the board is the next step, not the instrument. Count-gated, a
             route with no live listings falls back to the tool rather than
             promising an empty page. */}
         <section className="rt2-ctas" aria-label="Next steps">

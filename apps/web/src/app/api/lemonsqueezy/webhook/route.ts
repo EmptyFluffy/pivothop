@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         properties: { submission_id: id, ls_order_id: String(payload.data?.id ?? '') },
       });
       await ph.shutdown();
-    } catch { /* PostHog not configured — no-op */ }
+    } catch { /* PostHog not configured, no-op */ }
   }
   return new Response('ok', { status: 200 });
 }

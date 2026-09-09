@@ -18,7 +18,7 @@ export function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PivotHop — the blog</title>
+    <title>PivotHop: the blog</title>
     <link>${BASE}/blog</link>
     <atom:link href="${BASE}/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Career moves, measured. Findings and method from the PivotHop posting corpus: career adjacency, salaries, ghost jobs, and the honest odds of switching fields.</description>

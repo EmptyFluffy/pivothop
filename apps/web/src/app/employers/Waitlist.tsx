@@ -5,7 +5,7 @@ import { joinWaitlist } from './actions';
 import { SITE_EMAIL } from '../../lib/site';
 
 /* The gate in front of the post-a-job form while checkout isn't wired.
-   One status line, one field, one button — the hero above already made the
+   One status line, one field, one button, the hero above already made the
    pitch, so this block only states the deal and takes the email. The full
    EmployerForm stays built behind the WAITLIST flag on the page. */
 
@@ -49,7 +49,7 @@ export function Waitlist({ pricing }: { pricing: { std: number; feat: number } }
       {state === 'err' && <p className="wl-note lbl">That email doesn&rsquo;t look right.</p>}
       {state === 'mail' && (
         <p className="wl-note lbl">
-          Could not save just now &mdash; email <a className="gl" href={`mailto:${SITE_EMAIL}?subject=Job%20post%20waitlist`}>{SITE_EMAIL}</a> and you&rsquo;re on the list.
+          Could not save just now. Email <a className="gl" href={`mailto:${SITE_EMAIL}?subject=Job%20post%20waitlist`}>{SITE_EMAIL}</a> and you&rsquo;re on the list.
         </p>
       )}
       <p className="wl-alt lbl">

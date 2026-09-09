@@ -37,13 +37,13 @@ const SECTIONS: { h: string; stats: Stat[] }[] = [
     h: 'Scale',
     stats: [
       { big: '150,000+', unit: 'postings read', sentence: 'The corpus is every posting read to date, more than 150,000 as of August 2026, mapped onto 177 standardized occupations. The live board carries the freshest slice, refreshed nightly.', href: '/blog/skills-over-titles', hrefLabel: 'Job titles, deprecated' },
-      { big: '42,254', unit: 'unmapped title strings', sentence: 'In a single month, 42,254 distinct job-title strings mapped to no standard occupation at all — titles fragment while the skill demand under them clusters.', href: '/blog/skills-over-titles', hrefLabel: 'the thesis' },
+      { big: '42,254', unit: 'unmapped title strings', sentence: 'In a single month, 42,254 distinct job-title strings mapped to no standard occupation at all. Titles fragment while the skill demand under them clusters.', href: '/blog/skills-over-titles', hrefLabel: 'the thesis' },
     ],
   },
   {
     h: 'AI exposure',
     stats: [
-      { big: '4.9%', unit: 'of postings demand AI skills', sentence: '4.9% of all postings now demand LLM or agent-tooling skills by name, across 43 of 177 occupations — including lawyer, recruiter, and motion designer.', href: '/blog/ai-jobs-three-ledgers', hrefLabel: 'AI and jobs, checked' },
+      { big: '4.9%', unit: 'of postings demand AI skills', sentence: '4.9% of all postings now demand LLM or agent-tooling skills by name, across 43 of 177 occupations, including lawyer, recruiter, and motion designer.', href: '/blog/ai-jobs-three-ledgers', hrefLabel: 'AI and jobs, checked' },
       { big: '100% vs 37%', unit: 'AI-free, hands-on vs tech', sentence: 'Every occupation in Trades, Healthcare, Construction, and Transport shows zero AI-skill demand; in Technology, only 37% do. The hands-on economy is not being rewritten around AI.', href: '/blog/karp-two-safe-workers', hrefLabel: 'the two AI-proof workers' },
     ],
   },
@@ -65,7 +65,7 @@ const SECTIONS: { h: string; stats: Stat[] }[] = [
   {
     h: 'Bridge skills',
     stats: [
-      { big: '62 of 177', unit: 'occupations demand data analysis', sentence: 'Data analysis is the market’s reserve currency — in the top-20 posted demand of 62 of 177 occupations. LLM and agent tooling already sits in roughly a third.', href: '/blog/skills-over-titles', hrefLabel: 'the bridge-skill table' },
+      { big: '62 of 177', unit: 'occupations demand data analysis', sentence: 'Data analysis is the market’s reserve currency: it sits in the top-20 posted demand of 62 of 177 occupations. LLM and agent tooling already sits in roughly a third.', href: '/blog/skills-over-titles', hrefLabel: 'the bridge-skill table' },
     ],
   },
 ];
@@ -151,7 +151,7 @@ export default function AdjacencyIndex() {
         <section className="axi-sec axi-method">
           <h2 className="axi-h2">Method, in one paragraph</h2>
           <p>
-            Skill readiness is the share of a destination occupation’s posted skill demand that a typical origin profile already covers, measured directionally from live postings; pairs sharing fewer than three skills are left unscored rather than guessed. Salary bands are posted 25th–75th percentiles, stated salaries only. A required license is shown as a gate and floors the transition estimate — a 90% skill overlap does not shorten a three-year degree. The full method is in <Link className="gl" href="/blog/what-is-career-adjacency">What is career adjacency</Link>, and every number recomputes with the nightly scrape.
+            Skill readiness is the share of a destination occupation’s posted skill demand that a typical origin profile already covers, measured directionally from live postings; pairs sharing fewer than three skills are left unscored rather than guessed. Salary bands are posted 25th–75th percentiles, stated salaries only. A required license is shown as a gate and floors the transition estimate, a 90% skill overlap does not shorten a three-year degree. The full method is in <Link className="gl" href="/blog/what-is-career-adjacency">What is career adjacency</Link>, and every number recomputes with the nightly scrape.
           </p>
           <p className="lbl axi-cite">
             Cite as: PivotHop Adjacency Index, {asOf} (pivothop.com/adjacency-index).

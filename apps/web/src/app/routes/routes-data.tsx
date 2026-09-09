@@ -7,7 +7,7 @@ import path from 'node:path';
    pivot. Numbers render at build time from the SAME per-origin payload the
    graph loads at runtime (apps/web/public/data/{origin}.json), so the page
    and the instrument can never disagree. Any origin with confident scrape
-   data can carry routes — architecture is just the first batch.
+   data can carry routes, architecture is just the first batch.
    The editorial block is the judgment layer, drafted for Carlos to rewrite
    in his own voice before launch traffic (docs/05, non-negotiable #2).
    Evidence lists are hand-curated FROM the data: we select which extracted
@@ -585,7 +585,7 @@ export const ROUTE_SLUGS = Object.keys(ROUTES);
    MATCH_FLOOR is the quality gate and every destination clears it regardless of
    rank; the cap only decides how deep down an already-qualified list we publish.
    Measured across the 169 eligible origins: destination #1 median match 55,
-   #2 median 54, #3 median 50 — a 4-point drop, same 45 floor, and #3 tops out
+   #2 median 54, #3 median 50, a 4-point drop, same 45 floor, and #3 tops out
    at 74. Volume is no longer the binding constraint on this surface (160
    origins already cleared ORIGIN_POST_FLOOR back in August), so the cap was.
    #4 measures the same as #3 (median 50) and is the next step if Search
@@ -644,7 +644,7 @@ export function routeOrigins(): string[] {
 }
 /** Does this occupation have a per-origin page to link at? Callers on other
     surfaces (job detail, salary, route pairs) use this to add the contextual
-    "alternative careers" link only where the target actually exists — the
+    "alternative careers" link only where the target actually exists, the
     origin set is threshold-gated, so linking blind would mint 404s. Memoised:
     routeOrigins() walks the data dir, and this is called on 4,000+ pages. */
 let _originSet: Set<string> | null = null;

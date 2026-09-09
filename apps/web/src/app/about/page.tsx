@@ -147,7 +147,7 @@ export default function About() {
               '@id': 'https://www.pivothop.com/about#person',
               name: 'Carlos Alvarez',
               jobTitle: 'Architect and founder',
-              description: 'Architect who made the career pivot himself and built PivotHop to measure the moves — the working expertise behind the instrument and its writing.',
+              description: 'Architect who made the career pivot himself and built PivotHop to measure the moves: the working expertise behind the instrument and its writing.',
               url: 'https://www.pivothop.com/about',
               worksFor: { '@type': 'Organization', name: 'PivotHop', url: 'https://www.pivothop.com' },
               knowsAbout: ['career mobility', 'skills-based hiring', 'labor-market data', 'architecture', 'occupational adjacency'],

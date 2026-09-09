@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 /* The Swiss suggestion (docs/32: suggest, never force). Renders only when the
-   proxy set the ph-ch cookie — i.e. Vercel geolocated the visitor to
-   Switzerland — and the visitor has not dismissed it. Client-side entirely, so
+   proxy set the ph-ch cookie, i.e. Vercel geolocated the visitor to
+   Switzerland, and the visitor has not dismissed it. Client-side entirely, so
    every prerendered page stays byte-identical for crawlers and non-Swiss
    visitors; there is nothing here for SEO to see. Dismissal is remembered in
    localStorage, not the cookie, so the proxy never needs to re-decide. */

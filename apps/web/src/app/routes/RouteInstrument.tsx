@@ -9,7 +9,7 @@ type Payload = { originSlug: string; originLabel: string };
 
 /* The instrument band as a saved state (docs/05): full graph for THIS route's
    origin, its destination already in click-focus. Reuses the landing's markup
-   by extracting only the instrument section from SHELL — physics and label
+   by extracting only the instrument section from SHELL, physics and label
    state stay in the vanilla module, untouched (porting non-negotiables). No
    search bar here: a route page is one state; changing origin happens on the
    instrument home. Hop navigation (double-click) still works via lite hooks so

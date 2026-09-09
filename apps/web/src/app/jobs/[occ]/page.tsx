@@ -517,7 +517,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
         numberOfItems: cat.count,
         itemListElement: jobs.slice(0, 20).map((j, i) => ({
           '@type': 'ListItem', position: i + 1,
-          name: `${j.title} — ${j.company}`,
+          name: `${j.title} at ${j.company}`,
           url: `https://www.pivothop.com/jobs/${j.occ}/${j.id}`,
         })),
       }) }} />
