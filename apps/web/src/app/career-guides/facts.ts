@@ -1,5 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { comparePairs } from '../compare/compare-data';
+import { occTitle } from '../jobs/jobs-data';
 
 // The numbers on a career guide are computed here, at render, from the same
 // files the board reads. They are never taken from the generated guide file:
@@ -28,6 +30,14 @@ export type CareerFacts = {
   countries: { country: string; n: number }[];
   routesOut: { id: string; to: string; matchPct: number; salary: string | null; time: string | null; licensed: boolean }[];
   routesIn: { from: string; fromTitle: string; matchPct: number }[];
+  /* 2026-09-08, the Himalayas pass: the blocks their guides fake with prose, we
+     compute from the board. Seniority bands come from level words in titles,
+     country bands from the salary files, the week's market from posting dates. */
+  tiers: { key: string; label: string; n: number; band: { n: number; p25: number; p75: number } | null }[];
+  countryBands: { country: string; n: number; p25: number; p50: number; p75: number }[];
+  topCompanies: { name: string; n: number }[];
+  fresh: { week: number; medianDays: number | null };
+  similar: { slug: string; title: string }[];
   licence: Licence | null;
   guide: { title: string; generated: string; prose: Prose } | null;
 };
@@ -49,6 +59,10 @@ export type Prose = {
   pros: string[];
   cons: string[];
   faq: { q: string; a: string }[];
+  /* optional, hand-written per guide from 2026-09-08 on (the Himalayas pass) */
+  responsibilities?: string[];
+  levels?: { title: string; years: string; focus: string }[];
+  soft_skills?: string[];
 };
 
 /** The credential gate, where one exists: the real path and how long it takes. */
@@ -113,7 +127,7 @@ export function careerFacts(occ: string): CareerFacts | null {
   const gen = read<Gen>(path.join(GEN, `${occ}.json`), {});
   if (!gen.origin) return null;
 
-  type Job = { remote?: boolean; c?: string };
+  type Job = { remote?: boolean; c?: string; title?: string; company?: string; smin?: number | null; smax?: number | null; posted?: string; lv?: 'e' | 's' };
   type Detail = { k?: string[]; b?: string[]; r?: { exp?: number; edu?: { state: string }; lang?: string[] } };
   const jobs = read<Job[]>(path.join(WEB, 'jobs', `${occ}.json`), []);
   const detail = read<Record<string, Detail>>(path.join(WEB, 'jobs-detail', `${occ}.json`), {});
@@ -143,6 +157,38 @@ export function careerFacts(occ: string): CareerFacts | null {
   const salaryScope: 'US' | 'Global' = usBlended || usPosted ? 'US' : 'Global';
   const salarySource: 'blended' | 'posted' | 'global' = usBlended ? 'blended' : usPosted ? 'posted' : 'global';
 
+  // seniority from the level tag, or from the title when the tag is missing
+  const levelOf = (j: Job): 'e' | 's' | 'm' => {
+    if (j.lv) return j.lv;
+    const t = (j.title ?? '').toLowerCase();
+    if (/\b(senior|sr\.?|lead|principal|head of|staff|director)\b/.test(t)) return 's';
+    if (/\b(junior|jr\.?|entry|intern|graduate|trainee|apprentice|associate)\b/.test(t)) return 'e';
+    return 'm';
+  };
+  const midOf = (j: Job) => (j.smin || j.smax ? ((j.smin ?? j.smax ?? 0) + (j.smax ?? j.smin ?? 0)) / 2 : null);
+  const bandOf = (js: Job[]) => {
+    const mids = js.map(midOf).filter((v): v is number => v != null && v > 0).sort((a, b) => a - b);
+    if (mids.length < 5) return null;
+    const q = (p: number) => Math.round(mids[Math.floor((mids.length - 1) * p)] / 1000);
+    return { n: mids.length, p25: q(0.25), p75: q(0.75) };
+  };
+  const tiers = ([['e', 'Entry / junior'], ['m', 'Mid (no level in the title)'], ['s', 'Senior / lead']] as const)
+    .map(([key, label]) => { const js = jobs.filter((j) => levelOf(j) === key); return { key, label, n: js.length, band: bandOf(js) }; })
+    .filter((t) => t.n > 0);
+  const countryBands = Object.entries(sal.by_country ?? {})
+    .map(([country, v]) => { const b = v.blended ?? v.posted; return b && b.n && b.n >= 5 ? { country, n: b.n, p25: b.p25, p50: b.p50, p75: b.p75 } : null; })
+    .filter((x): x is NonNullable<typeof x> => !!x)
+    .sort((a, b) => b.n - a.n).slice(0, 6);
+  const coTally = new Map<string, number>();
+  for (const j of jobs) if (j.company && j.company !== 'Name' && j.company !== 'Jobup') coTally.set(j.company, (coTally.get(j.company) ?? 0) + 1);
+  const topCompanies = [...coTally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([name, n]) => ({ name, n }));
+  const now = Date.now();
+  const ages = jobs.map((j) => { const t = Date.parse(`${(j.posted ?? '').slice(0, 10)}T12:00:00Z`); return Number.isFinite(t) ? Math.max(0, Math.floor((now - t) / 864e5)) : null; })
+    .filter((v): v is number => v != null).sort((a, b) => a - b);
+  const fresh = { week: ages.filter((d) => d <= 7).length, medianDays: ages.length ? ages[Math.floor(ages.length / 2)] : null };
+  const similar = comparePairs().filter((pr) => pr.a === occ || pr.b === occ).slice(0, 6)
+    .map((pr) => ({ slug: pr.slug, title: occTitle(pr.a === occ ? pr.b : pr.a) }));
+
   const guideRaw = read<{ title: string; generated: string; prose: Prose } | null>(path.join(GUIDES, `${occ}.json`), null);
   const guide = guideRaw ? normalizeGuideText(guideRaw) : null;
   const licence = read<Record<string, Licence>>(path.join(WEB, 'license-sheet.json'), {})[occ] ?? null;
@@ -171,6 +217,7 @@ export function careerFacts(occ: string): CareerFacts | null {
       licensed: r.license?.req === 'required',
     })),
     routesIn: (routesInto().get(occ) ?? []).slice(0, 6),
+    tiers, countryBands, topCompanies, fresh, similar,
     licence,
     guide,
   };
