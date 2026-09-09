@@ -61,6 +61,14 @@ function cellsFor(slug: string, list: Category[]): { title: string; rows: { c: C
       if (!byCountry.has(cty)) byCountry.set(cty, []);
       byCountry.get(cty)!.push({ c, label: shortLabel(c, { dropCountry: true }) || 'All roles' });
     }
+  } else if (slug === 'cities') {
+    // cities group like countries: Zürich's cell holds Zürich's occupation pages
+    push('Every city', of(['city'], (c) => c.title.replace(/^Jobs in /, '')));
+    for (const c of list.filter((x) => x.kind === 'occ-city')) {
+      const cty = c.city ?? countryOf(c) ?? 'Elsewhere';
+      if (!byCountry.has(cty)) byCountry.set(cty, []);
+      byCountry.get(cty)!.push({ c, label: shortLabel(c, { dropCountry: true }) || 'All roles' });
+    }
   } else if (slug === 'seniority') {
     push('The two levels', of(['level'], (c) => shortLabel(c)));
     push('Senior, by role', of(['level-occ'], (c) => shortLabel(c)).filter((r) => r.c.title.startsWith('Senior')));

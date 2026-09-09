@@ -5,6 +5,8 @@ import { occField, occTitle, jobOccupations } from './jobs-data';
 import { countryName } from './countries';
 import { regionOf, regionInName, regionName, regionSlug, type RegionKey } from './regions';
 import { article } from '../../lib/site';
+import { cityOf, citySlug } from './cities';
+import { createHash } from 'node:crypto';
 
 /* Programmatic category pages — the filter/tag axis of the board (the RemoteOK
    move: every tag, and every sensible tag pair, becomes a preloaded, indexed
@@ -70,7 +72,8 @@ export type CategoryKind =
   | 'remote-country' | 'remote-field-country' | 'level-field-country' | 'pay-field' // 3-dim long tail
   | 'occ-country' | 'pay-occ' | 'remote-occ-country' | 'level-occ-country'       // occupation-level long tail
   | 'flag-field' | 'flag-country' | 'pay-country'                                // benefits/pay long tail
-  | 'region' | 'field-region' | 'remote-region' | 'occ-region';                  // macro-region axis (LATAM, Europe…)
+  | 'region' | 'field-region' | 'remote-region' | 'occ-region'                   // macro-region axis (LATAM, Europe…)
+  | 'city' | 'occ-city';                                                          // city axis (2026-09-09): "Architect jobs in Zürich"
 export type Category = {
   slug: string;          // /jobs/<slug>
   kind: CategoryKind;
@@ -84,7 +87,20 @@ export type Category = {
   showAllBase?: string;  // combos on one occupation: "/jobs/<occ>" instead of "/jobs"
   destOcc?: string;      // occupation-scoped combos: the destination occupation slug
   graced?: boolean;      // below THRESHOLD today, kept alive by the grace window
+  city?: string;         // city kinds: the canonical city name
+  cityCountry?: string;  // city kinds: the resolved country code the city sits in
+  indexable: boolean;    // joins the sitemap (city kinds only above CITY_SITEMAP_FLOOR; everything else always)
+  sig: string;           // content signature (the matched job ids) for an honest lastmod
 };
+
+/* CITY PAGES (2026-09-09). "Architect jobs in Zürich" is the query every job
+   board is built on and the one axis this family lacked. Pages mint at the
+   usual THRESHOLD and are link-discovered from the boards, the city hubs and
+   the browse spine; only the strong ones join the sitemap (the companies
+   pattern), so 2,410 pages in Google's discovered-not-indexed queue do not
+   become 4,000 overnight. */
+const CITY_SITEMAP_FLOOR = 20;
+const OCC_CITY_SITEMAP_FLOOR = 10;
 
 // NFKD + diacritic strip so "Türkiye" -> "turkiye", not "t-rkiye".
 const slugify = (s: string) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -96,9 +112,10 @@ const inName = (c: string) => (THE.has(c) ? `the ${countryName(c)}` : countryNam
 
 
 // Candidate specs, before the threshold cut.
-function candidates(): Omit<Category, 'count' | 'remoteN'>[] {
+type Cand = Omit<Category, 'count' | 'remoteN' | 'indexable' | 'sig'>;
+function candidates(): Cand[] {
   const jobs = allJobs();
-  const out: Omit<Category, 'count' | 'remoteN'>[] = [];
+  const out: Cand[] = [];
   const fields = [...new Set(jobs.map((j) => occField(j.occ)))].filter((f) => f && f !== 'Other').sort();
   const codes = ([...new Set(jobs.map((j) => j.c).filter(Boolean))] as string[]).filter((c) => countryName(c) !== c);
   const occs = [...new Set(jobs.map((j) => j.occ))];
@@ -203,8 +220,41 @@ function candidates(): Omit<Category, 'count' | 'remoteN'>[] {
     out.push({ slug: `over-100k-in-${slugify(name)}`, kind: 'pay-country', title: `Jobs paying over $100k in ${disp}`, searchTitle: `$100k+ in ${disp}`, noun: `roles in ${disp} posting $100k or more`, query: `c=${c}&pay=100`, match: (j) => j.c === c && (j.smax ?? j.smin ?? 0) >= 100000 });
   }
 
+  // ── city axis: "Jobs in Zürich", "Architect jobs in Zürich" ──
+  // City + country is the identity (San Jose, CA and San José, CR stay apart);
+  // the slug takes the bare city and, on a collision across countries, the
+  // bigger city keeps it and the other gets a country suffix.
+  const cityKey = (j: Job) => { const c = cityOf(j.location); return c && j.c ? `${c}|${j.c}` : null; };
+  const cityCount = new Map<string, number>();
+  for (const j of jobs) { const k = cityKey(j); if (k) cityCount.set(k, (cityCount.get(k) ?? 0) + 1); }
+  const cityList = [...cityCount.entries()].filter(([, n]) => n >= THRESHOLD).sort((a, b) => b[1] - a[1]).map(([k]) => k);
+  const citySlugs = new Map<string, string>();
+  const usedCity = new Set<string>();
+  for (const k of cityList) {
+    const [city, cc] = k.split('|');
+    let sl = citySlug(city);
+    if (usedCity.has(sl) || codes.some((c) => slugify(countryName(c)) === sl)) sl = `${sl}-${slugify(countryName(cc))}`;
+    usedCity.add(sl);
+    citySlugs.set(k, sl);
+  }
+  for (const k of cityList) {
+    const [city, cc] = k.split('|');
+    const sl = citySlugs.get(k)!;
+    const where = `${city}, ${countryName(cc)}`;
+    out.push({ slug: `in-${sl}`, kind: 'city', title: `Jobs in ${city}`, searchTitle: city, query: `loc=${encodeURIComponent(city)}&c=${cc}`, city, cityCountry: cc,
+      noun: `roles in ${where}`, match: (j) => j.c === cc && cityOf(j.location) === city } as Cand);
+    for (const o of occs) {
+      const t = occTitle(o);
+      out.push({ slug: `${o}-in-${sl}`, kind: 'occ-city', title: `${t} jobs in ${city}`, searchTitle: `${t.toLowerCase()} in ${city}`, city, cityCountry: cc, destOcc: o,
+        showAllBase: `/jobs/${o}`, query: `loc=${encodeURIComponent(city)}&c=${cc}`, noun: `${t.toLowerCase()} roles in ${where}`,
+        match: (j) => j.occ === o && j.c === cc && cityOf(j.location) === city } as Cand);
+    }
+  }
+
   return out;
 }
+
+const sigOf = (ids: string[]) => createHash('sha1').update(ids.sort().join('\n')).digest('hex').slice(0, 12);
 
 let _cats: Category[] | null = null;
 export function allCategories(): Category[] {
@@ -226,7 +276,8 @@ export function allCategories(): Category[] {
       && !!ledger[c.slug] && daysSince(ledger[c.slug]) <= GRACE_DAYS;
     if (!clears && !graced) continue;
     seen.add(c.slug);
-    out.push({ ...c, count: matched.length, remoteN: matched.filter((j) => j.remote).length, graced });
+    const indexable = c.kind === 'city' ? matched.length >= CITY_SITEMAP_FLOOR : c.kind === 'occ-city' ? matched.length >= OCC_CITY_SITEMAP_FLOOR : true;
+    out.push({ ...c, count: matched.length, remoteN: matched.filter((j) => j.remote).length, graced, indexable, sig: sigOf(matched.map((j) => `${j.occ}/${j.id}`)) });
   }
   out.sort((a, b) => b.count - a.count);
   _cats = out;
@@ -255,6 +306,16 @@ function writeGrace(ledger: Record<string, string>, merit: Record<string, string
 }
 
 export function categorySlugs(): string[] { return allCategories().map((c) => c.slug); }
+/** The categories pushed at Google: everything but the thin end of the city axis. */
+export function categorySitemapSlugs(): string[] { return allCategories().filter((c) => c.indexable).map((c) => c.slug); }
+/** The occupation pages of one city, biggest first (the city hub's "by occupation" block). */
+export function cityOccCategories(city: string, cc: string): Category[] {
+  return allCategories().filter((c) => c.kind === 'occ-city' && c.city === city && c.cityCountry === cc);
+}
+/** The city page a city-scoped occupation page hangs from. */
+export function cityHub(city: string, cc: string): Category | null {
+  return allCategories().find((c) => c.kind === 'city' && c.city === city && c.cityCountry === cc) ?? null;
+}
 export function getCategory(slug: string): Category | null { return allCategories().find((c) => c.slug === slug) ?? null; }
 
 /** The SSR sample: newest first, capped. The full filtered set lives on the board. */
@@ -319,6 +380,10 @@ export function categoryBlurb(c: Category): string {
       if (c.slug === 'with-equity') return `${n} live roles that include equity, freshest first${rem}. Ownership on top of salary, read straight from the posting.`;
       if (c.slug === 'visa-sponsorship') return `${n} live roles that state visa sponsorship, freshest first${rem}. Read from the posting text, not employer-flagged, so verify at the source before you count on it.`;
       return `${n} live four-day-week roles, freshest first${rem}. A shorter week, stated in the posting. Apply at the origin.`;
+    case 'city':
+      return `${n} live openings in ${c.searchTitle}, from company career pages and public boards, freshest first${rem}. Every role names ${c.searchTitle} as its location, and each one links out to apply at the source.`;
+    case 'occ-city':
+      return `${n} live ${c.noun}, freshest first${rem}. The postings that name ${c.city} as the workplace, with the skills each one asks for and the routes ${article(c.searchTitle)} ${c.searchTitle.replace(/ in .*$/, '')} background reaches. Apply at the source.`;
     case 'pay':
       return `${n} live roles posting pay of ${c.searchTitle.replace('+', ' or more')}, freshest first. Only postings that state a salary are counted here. Apply at the source.`;
     default: { // the 2-dim combos

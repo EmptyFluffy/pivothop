@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Job } from '../jobs/JobCard';
 import { occField } from '../jobs/jobs-data';
+import { createHash } from 'node:crypto';
 
 /* The company-pages family (/companies/<slug>), plan family 3, first tranche
    2026-09-02. One company record feeds the profile page, its computed FAQ,
@@ -52,6 +53,7 @@ export type CompanyPage = {
   band: { n: number; p25: number; p75: number } | null;
   jobs: Job[];                        // freshest first
   newest: string;                     // ISO date of freshest posting
+  sig: string;                        // content signature (job ids) for an honest sitemap lastmod
 };
 
 function slugify(name: string): string {
@@ -177,9 +179,13 @@ function mineBlurbs(tranche: Map<string, Job[]>): Map<string, { text: string; n:
   return out;
 }
 
-let _pages: Map<string, CompanyPage> | null = null;
-function build(): Map<string, CompanyPage> {
-  if (_pages) return _pages;
+/* The slug table: company name -> page slug, for every company above the page
+   floor, in count order so collisions resolve the same way on every build.
+   Cheap (no blurb mining), so boards and guides can link company names without
+   paying for the full profile build. build() reuses it, so the two agree. */
+let _slugs: { entries: [string, Job[]][]; slugOf: Map<string, string> } | null = null;
+function slugTable() {
+  if (_slugs) return _slugs;
   const byCo = new Map<string, Job[]>();
   for (const j of allJobs()) {
     if (!j.company || EXCLUDE.has(j.company)) continue;
@@ -187,16 +193,34 @@ function build(): Map<string, CompanyPage> {
     arr.push(j);
     byCo.set(j.company, arr);
   }
-  _pages = new Map();
   const taken = new Set<string>();
-  const entries = [...byCo.entries()].filter(([, js]) => js.length >= PAGE_FLOOR)
+  const slugOf = new Map<string, string>();
+  const entries = ([...byCo.entries()] as [string, Job[]][]).filter(([, js]) => js.length >= PAGE_FLOOR)
     .sort((a, b) => b[1].length - a[1].length);
-  const blurbs = mineBlurbs(new Map(entries));
-  for (const [name, js] of entries) {
+  for (const [name] of entries) {
     let slug = slugify(name);
     if (!slug) continue;
     while (taken.has(slug)) slug = `${slug}-co`;
     taken.add(slug);
+    slugOf.set(name, slug);
+  }
+  _slugs = { entries, slugOf };
+  return _slugs;
+}
+/** The company page slug for a posting's company name, or null when it has no page. */
+export function companySlugFor(name: string | undefined | null): string | null {
+  return name ? slugTable().slugOf.get(name) ?? null : null;
+}
+
+let _pages: Map<string, CompanyPage> | null = null;
+function build(): Map<string, CompanyPage> {
+  if (_pages) return _pages;
+  _pages = new Map();
+  const { entries, slugOf } = slugTable();
+  const blurbs = mineBlurbs(new Map(entries));
+  for (const [name, js] of entries) {
+    const slug = slugOf.get(name);
+    if (!slug) continue;
     js.sort((a, b) => (b.posted || '').localeCompare(a.posted || ''));
     const top = (key: (j: Job) => string | undefined) => {
       const m = new Map<string, number>();
@@ -222,6 +246,7 @@ function build(): Map<string, CompanyPage> {
       band: band(js),
       jobs: js,
       newest: js[0]?.posted ?? '',
+      sig: createHash('sha1').update(js.map((j) => `${j.occ}/${j.id}`).sort().join('\n')).digest('hex').slice(0, 12),
     });
   }
   return _pages;

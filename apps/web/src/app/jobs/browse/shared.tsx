@@ -27,6 +27,11 @@ export const FACETS: {
     kinds: ['country', 'region', 'field-country', 'occ-country', 'occ-region'],
   },
   {
+    slug: 'cities', title: 'By city', short: 'Cities', h1: 'Every city, preloaded.',
+    note: 'Where the roles actually sit, city by city. Each city holds its own occupation pages.',
+    kinds: ['city', 'occ-city'],
+  },
+  {
     slug: 'seniority', title: 'By seniority', short: 'Seniority', h1: 'Seniority, preloaded.',
     note: 'Senior and entry-level, read from the posting title, overall, by role, and by country.',
     kinds: ['level', 'level-occ', 'level-field-country', 'level-occ-country'],

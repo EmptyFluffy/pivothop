@@ -22,6 +22,7 @@ export type SkillEntry = {
   term: string;
   field: string;
   def: string;
+  page?: boolean;      // has its own /skills/<slug> page (the chip links there first)
   unlocks: { slug: string; title: string; count: number }[];
 };
 
@@ -43,7 +44,7 @@ export default function SkillStrip({ skills }: { skills: SkillEntry[] }) {
       <div className="jd-skillgrid">
         {skills.map((s) => (
           <Link
-            key={s.slug} className="jd-skill" href={`/glossary#skill-${s.slug}`}
+            key={s.slug} className="jd-skill" href={s.page ? `/skills/${s.slug}` : `/glossary#skill-${s.slug}`}
             onClick={(e) => {
               if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
               // Phones keep the plain glossary link. A job listing is itself a

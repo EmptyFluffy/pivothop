@@ -14,6 +14,9 @@ import { careerFacts } from '../../career-guides/facts';
 import { originAnchors, pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
 import { Crumbs } from '../../components/Crumbs';
+import { companySlugFor } from '../../companies/companies-data';
+import { hasSkillPage } from '../../skills/skills-data';
+import { cityOccCategories, cityHub } from '../categories-data';
 
 /* One slug space, two kinds of page:
    - an occupation (in jobs-index)      -> the single-occupation board + routes in
@@ -231,7 +234,10 @@ function OccupationBoard({ occ }: { occ: string }) {
               <h3>Skills named most</h3>
               <ul>
                 {skills.map((x) => (
-                  <li key={x.skill}><span>{skillName(x.skill)}</span><span className="n">{x.sharePct}%</span></li>
+                  <li key={x.skill}>
+                    {hasSkillPage(x.skill) ? <Link className="gl" href={`/skills/${x.skill}`}>{skillName(x.skill)}</Link> : <span>{skillName(x.skill)}</span>}
+                    <span className="n">{x.sharePct}%</span>
+                  </li>
                 ))}
               </ul>
               <p className="rt-note occ-tbl-note">Share of postings naming each skill, from the posting text itself.</p>
@@ -241,9 +247,15 @@ function OccupationBoard({ occ }: { occ: string }) {
             <div className="occ-cos">
               <h3>Hiring the most right now</h3>
               <ul>
-                {companies.map(([co, n]) => (
-                  <li key={co}><span>{co}</span><span className="n">{n}</span></li>
-                ))}
+                {companies.map(([co, n]) => {
+                  const cs = companySlugFor(co);
+                  return (
+                    <li key={co}>
+                      {cs ? <Link className="gl" href={`/companies/${cs}`}>{co}</Link> : <span>{co}</span>}
+                      <span className="n">{n}</span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
@@ -429,6 +441,10 @@ function CategoryBoard({ cat }: { cat: Category }) {
   const waysIn = cat.destOcc ? routesInto(cat.destOcc) : [];
   const destHasSalary = cat.destOcc ? coverableSlugs().includes(cat.destOcc) : false;
   const faq = categoryFaq(cat, waysIn);
+  // city axis (2026-09-09): a city hub lists its occupation pages; an occupation-in-city
+  // page links back up to the hub and across to the occupation board.
+  const cityOccs = cat.kind === 'city' && cat.city && cat.cityCountry ? cityOccCategories(cat.city, cat.cityCountry) : [];
+  const hub = cat.kind === 'occ-city' && cat.city && cat.cityCountry ? cityHub(cat.city, cat.cityCountry) : null;
   // Same-kind siblings first, then the top pages of other kinds.
   const rest = allCategories().filter((c) => c.slug !== cat.slug);
   const related = [...rest.filter((c) => c.kind === cat.kind).slice(0, 8), ...rest.filter((c) => c.kind !== cat.kind).slice(0, 8)];
@@ -456,6 +472,23 @@ function CategoryBoard({ cat }: { cat: Category }) {
           scope={{ title: cat.searchTitle, showAllHref: showAll, showAllLabel: `See all ${cat.count.toLocaleString()}` }}
         />
 
+        {cityOccs.length > 0 && (
+          <section className="rt-sec jb-byocc">
+            <h2>{cat.city} jobs by occupation</h2>
+            <p className="rt-note">The roles hiring in {cat.city} right now, each with its own page. Counts move with the nightly scrape.</p>
+            <span className="jb-occlinks">
+              {cityOccs.map((c) => (
+                <Link key={c.slug} href={`/jobs/${c.slug}`}>{occTitle(c.destOcc!)} <span className="lbl">{c.count.toLocaleString()}</span></Link>
+              ))}
+            </span>
+          </section>
+        )}
+        {hub && (
+          <p className="rt-note">
+            All roles in {cat.city}: <Link className="gl" href={`/jobs/${hub.slug}`}>{hub.title}</Link>{' '}
+            ({hub.count.toLocaleString()} open). Every {destTitle.toLowerCase()} role, anywhere: <Link className="gl" href={`/jobs/${cat.destOcc}`}>{destTitle} jobs</Link>.
+          </p>
+        )}
         {waysIn.length > 0 && (
           <section className="rt-sec">
             <h2>Routes into {destTitle.toLowerCase()}</h2>
