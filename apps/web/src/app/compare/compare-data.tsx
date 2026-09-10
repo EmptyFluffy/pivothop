@@ -90,6 +90,30 @@ const SEED_PAIRS = new Set([
   'network-engineer|penetration-tester',
 ]);
 
+/* Pairs Search Console proved people weigh (export read 2026-09-10: 36 compare
+   URLs with impressions had dropped to 404, 3,023 impressions between them,
+   including the site's single most-shown page, physical therapist vs
+   registered nurse at 799). They dropped because the adjacency data no longer
+   scored a direction, and a page needs one to qualify. Demand is the better
+   test: a proven pair publishes whenever both sides have their own report
+   facts (posted band, postings, board), and says plainly when readiness could
+   not be measured. That absence is the finding for most of these. Keys are
+   sorted (a|b), like the seeds. Never remove a key here without a redirect. */
+const PROVEN_PAIRS = new Set([
+  'physical-therapist|registered-nurse', 'psychologist|registered-nurse', 'paramedic|registered-nurse',
+  'dental-hygienist|physical-therapist', 'compliance-officer|construction-manager', 'devops-engineer|security-engineer',
+  'physical-therapist|physician', 'medical-assistant|physical-therapist', 'customer-success-manager|product-manager',
+  'data-scientist|solutions-architect', 'electrician|welder', 'electrician|plumber', 'automotive-technician|plumber',
+  'graphic-designer|marketing-manager', 'electrician|solar-installer', 'paramedic|physician',
+  'data-scientist|mlops-engineer', 'it-support|technical-writer', 'market-researcher|ux-researcher',
+  'industrial-designer|product-designer', 'economist|product-manager', 'genetic-counselor|psychologist',
+  'marketing-manager|product-designer', 'economist|it-support', 'penetration-tester|solutions-architect',
+  '3d-modeler|graphic-designer', 'dental-hygienist|social-worker', 'content-strategist|technical-writer',
+  'architectural-drafter|industrial-designer', 'growth-marketer|product-analyst', 'customer-success-manager|ux-researcher',
+  'health-informatics-specialist|therapist', 'actuary|operations-manager', 'management-consultant|real-estate-developer',
+  'health-informatics-specialist|physician', 'dietitian|health-informatics-specialist',
+]);
+
 /* Same-field pairs the floor lets through but no human would ever weigh —
    field labels are broad, and sharing "Business" or "Healthcare" does not make
    executive assistant vs market researcher a real decision. Curated from the
@@ -201,6 +225,15 @@ function load() {
     if (a < b) p.ab = d; else p.ba = d;
     raw.set(key, p);
   }
+  // Seeded and proven pairs enter even with no measured direction, as long as
+  // both sides have their own report facts. The page then compares pay and
+  // boards and says readiness could not be scored. A curated pair never
+  // vanishes because one night's adjacency data stopped scoring it.
+  for (const key of [...SEED_PAIRS, ...PROVEN_PAIRS]) {
+    const [a, b] = key.split('|');
+    if (!bandOf.has(a) || !bandOf.has(b) || raw.has(key)) continue;
+    raw.set(key, { ab: null, ba: null });
+  }
   // Field + cluster per occupation, for the kinship test.
   let occKin = new Map<string, { field: string; cluster: string }>();
   try {
@@ -223,7 +256,8 @@ function load() {
     // seed with no measured direction never reaches this loop). BLOCK_PAIRS
     // wins over everything except an explicit seed.
     const kinOk = measured && kin && best >= SAME_FIELD_FLOOR && !BLOCK_PAIRS.has(key);
-    if (!(kinOk || SEED_PAIRS.has(key))) continue;
+    const seeded = SEED_PAIRS.has(key) || PROVEN_PAIRS.has(key);
+    if (!(kinOk || seeded)) continue;
     const [a, b] = key.split('|');
     _pairs.push({
       slug: `${a}-vs-${b}`, a, b, ab: p.ab, ba: p.ba,
@@ -252,7 +286,9 @@ export const mid = (b: [number, number] | null | undefined) => (b ? (b[0] + b[1]
 export function pairVerdict(p: ComparePair): string {
   const tA = occTitle(p.a), tB = occTitle(p.b);
   const best = Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0);
-  const overlap = best >= 65 ? 'largely the same skill set under two titles'
+  const unmeasured = !p.ab && !p.ba;
+  const overlap = unmeasured ? 'two jobs people weigh together whose postings share too few skills for a readiness score, which is itself the finding'
+    : best >= 65 ? 'largely the same skill set under two titles'
     : best >= 40 ? 'related jobs with a real gap between them'
     : 'mostly different jobs wearing similar names';
   const mA = mid(p.bandA), mB = mid(p.bandB);

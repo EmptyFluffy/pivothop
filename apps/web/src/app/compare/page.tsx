@@ -39,7 +39,7 @@ export default function CompareHub() {
             <span className="jb-occlinks">
               {list.map((p) => (
                 <Link key={p.slug} href={`/compare/${p.slug}`}>
-                  {occTitle(p.a)} vs {occTitle(p.b)} <span className="lbl">{Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0)}%</span>
+                  {occTitle(p.a)} vs {occTitle(p.b)} <span className="lbl">{p.ab || p.ba ? `${Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0)}%` : 'pay'}</span>
                 </Link>
               ))}
             </span>
@@ -47,7 +47,7 @@ export default function CompareHub() {
         ))}
 
         <p className="rt-method lbl">
-          A pair earns a page only when the skill overlap is measured in at least one direction from live postings. Bands are posted 25th&ndash;75th percentiles; readiness is coverage of the destination&rsquo;s posting-skill demand. Refreshed with the nightly scrape. Not sure where you stand? <Link className="gl" href="/">Run the instrument</Link>.
+          A pair earns a page when the skill overlap is measured in at least one direction from live postings, or when people demonstrably weigh the two together; those pages compare pay and boards and say plainly that readiness could not be scored (the label reads &ldquo;pay&rdquo;). Bands are posted 25th&ndash;75th percentiles; readiness is coverage of the destination&rsquo;s posting-skill demand. Refreshed with the nightly scrape. Not sure where you stand? <Link className="gl" href="/">Run the instrument</Link>.
         </p>
       </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
