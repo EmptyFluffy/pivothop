@@ -29,7 +29,7 @@ const EMPTY: Filters = {
   fieldSet: new Set(), region: '', ctySet: new Set(), remoteOnly: false,
   minPay: 0, hasSalary: false, tags: new Set(), fresh: '', srcSet: new Set(), lic: '',
   skillSet: new Set(),
-  benSet: new Set(), xp: '', edu: '', langNot: new Set(), exQ: new Set(), exCo: new Set(),
+  benSet: new Set(), xp: '', edu: '', langNot: new Set(), langHas: new Set(), exQ: new Set(), exCo: new Set(),
 };
 
 export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2, hero }: {
@@ -165,6 +165,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       xp: (['none', 'le2', 'y35', 'ge6'].includes(p.get('xp') ?? '') ? p.get('xp') : '') as Filters['xp'],
       edu: (['nodeg', 'waived'].includes(p.get('edu') ?? '') ? p.get('edu') : '') as Filters['edu'],
       langNot: new Set((p.get('lnot') ?? '').split(',').filter(Boolean)),
+      langHas: new Set((p.get('lang') ?? '').split(',').filter(Boolean)),
       // exclusions persist: the URL wins, else the standing local set (they are
       // preferences, not queries — a blocked company stays blocked next visit)
       exQ: new Set((p.get('not') ?? localStorage.getItem('ph-ex-q') ?? '').split(',').filter(Boolean)),
@@ -270,6 +271,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     if (f.xp) p.set('xp', f.xp);
     if (f.edu) p.set('edu', f.edu);
     if (f.langNot.size) p.set('lnot', [...f.langNot].join(','));
+    if (f.langHas.size) p.set('lang', [...f.langHas].join(','));
     if (f.exQ.size) p.set('not', [...f.exQ].join(','));
     if (f.exCo.size) p.set('notco', [...f.exCo].join(','));
     try {
@@ -379,6 +381,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
         if (spec.edu === 'nodeg') r = r.filter((j) => { const d = j.g?.d; return !d || !('bmd'.includes(d[0]) && d[1] === 'r'); });
         if (spec.edu === 'waived') r = r.filter((j) => j.g?.d?.[1] === 'w');
         if (spec.langNot.size) r = r.filter((j) => !j.g?.l?.some((c) => spec.langNot.has(c)));
+        if (spec.langHas.size) r = r.filter((j) => [...spec.langHas].every((c) => !!j.g?.l?.includes(c)));
       }
       if (omit !== 'exclude') {
         if (spec.exQ.size) r = r.filter((j) => { const tl = j.title.toLowerCase(); return ![...spec.exQ].some((k) => tl.includes(k)); });
@@ -425,7 +428,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return (cat: string, probe: Partial<Filters>) => applyFilters({ ...strip(f, cat), ...probe }).length;
     function strip(base: Filters, cat: string): Filters {
       // strip the category's own filter, the probe re-adds its single option
-      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet), skillSet: new Set(base.skillSet), benSet: new Set(base.benSet), langNot: new Set(base.langNot), exQ: new Set(base.exQ), exCo: new Set(base.exCo) };
+      const c: Filters = { ...base, fieldSet: new Set(base.fieldSet), ctySet: new Set(base.ctySet), tags: new Set(base.tags), srcSet: new Set(base.srcSet), skillSet: new Set(base.skillSet), benSet: new Set(base.benSet), langNot: new Set(base.langNot), langHas: new Set(base.langHas), exQ: new Set(base.exQ), exCo: new Set(base.exCo) };
       if (cat === 'field') c.fieldSet = new Set();
       if (cat === 'location') { c.region = ''; c.ctySet = new Set(); c.remoteOnly = false; }
       if (cat === 'pay') { c.minPay = 0; c.hasSalary = false; }
@@ -436,7 +439,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       if (cat === 'license') c.lic = '';
       if (cat === 'skills') c.skillSet = new Set();
       if (cat === 'benefits') c.benSet = new Set();
-      if (cat === 'require') { c.xp = ''; c.edu = ''; c.langNot = new Set(); }
+      if (cat === 'require') { c.xp = ''; c.edu = ''; c.langNot = new Set(); c.langHas = new Set(); }
       if (cat === 'exclude') { c.exQ = new Set(); c.exCo = new Set(); }
       return c;
     }

@@ -73,7 +73,8 @@ export type CategoryKind =
   | 'occ-country' | 'pay-occ' | 'remote-occ-country' | 'level-occ-country'       // occupation-level long tail
   | 'flag-field' | 'flag-country' | 'pay-country'                                // benefits/pay long tail
   | 'region' | 'field-region' | 'remote-region' | 'occ-region'                   // macro-region axis (LATAM, Europe…)
-  | 'city' | 'occ-city';                                                          // city axis (2026-09-09): "Architect jobs in Zürich"
+  | 'city' | 'occ-city'                                                           // city axis (2026-09-09): "Architect jobs in Zürich"
+  | 'lang-country';                                                                // language axis (2026-09-10): "English-speaking jobs in Switzerland"
 export type Category = {
   slug: string;          // /jobs/<slug>
   kind: CategoryKind;
@@ -101,6 +102,15 @@ export type Category = {
    become 4,000 overnight. */
 const CITY_SITEMAP_FLOOR = 20;
 const OCC_CITY_SITEMAP_FLOOR = 10;
+
+/* LANGUAGE PAGES (2026-09-10). "English-speaking jobs in Switzerland" is a
+   query no other page here answers, and GSC showed the demand landing on the
+   Swiss occupation pages. The gate is mined from the posting text (a line
+   like "fluent German required"), never from the language the posting is
+   written in. First GSC export had 3,028 pages in the discovered-not-indexed
+   queue, so the family mints only at LANG_FLOOR live roles: 29 pages today. */
+const LANG_FLOOR = 20;
+export const LANG_NAMES: Record<string, string> = { en: 'English', de: 'German', fr: 'French', it: 'Italian', es: 'Spanish', pt: 'Portuguese', ja: 'Japanese', nl: 'Dutch' };
 
 // NFKD + diacritic strip so "Türkiye" -> "turkiye", not "t-rkiye".
 const slugify = (s: string) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -251,6 +261,13 @@ function candidates(): Cand[] {
     }
   }
 
+  // ── language axis: "English-speaking jobs in Switzerland" ──
+  for (const c of codes) for (const [code, lang] of Object.entries(LANG_NAMES)) {
+    const name = countryName(c); const disp = inName(c);
+    out.push({ slug: `${lang.toLowerCase()}-speaking-in-${slugify(name)}`, kind: 'lang-country', title: `${lang}-speaking jobs in ${disp}`, searchTitle: `${lang}-speaking in ${disp}`,
+      noun: `roles in ${disp} whose postings ask for ${lang}`, query: `c=${c}&lang=${code}`, match: (j) => j.c === c && !!j.g?.l?.includes(code) } as Cand);
+  }
+
   return out;
 }
 
@@ -269,7 +286,7 @@ export function allCategories(): Category[] {
   for (const c of candidates()) {
     if (occSet.has(c.slug) || seen.has(c.slug)) continue;
     const matched = jobs.filter(c.match);
-    const clears = matched.length >= THRESHOLD;
+    const clears = matched.length >= (c.kind === 'lang-country' ? LANG_FLOOR : THRESHOLD);
     if (clears) merit[c.slug] = today;
     // grace: below the bar but recently above it, and not empty
     const graced = !clears && matched.length > 0
@@ -336,6 +353,8 @@ export type CategoryStats = {
   topFields: [string, number][];
   topOccs: [string, number][];
   newest: string;                   // most recent posted date in the set
+  gated: number;                    // matched jobs that state any language requirement
+  langs: [string, number][];        // language codes asked for, with counts, most first
 };
 /** Computed per-category facts for the FAQ block — every number is this filter's own. */
 export function categoryStats(c: Category): CategoryStats {
@@ -356,6 +375,59 @@ export function categoryStats(c: Category): CategoryStats {
     topFields: top((j) => { const f = occField(j.occ); return f === 'Other' ? undefined : f; }),
     topOccs: top((j) => j.occ),
     newest: m.reduce((s, j) => (j.posted > s ? j.posted : s), ''),
+    gated: m.filter((j) => (j.g?.l?.length ?? 0) > 0).length,
+    langs: (() => { const t = new Map<string, number>(); for (const j of m) for (const l of j.g?.l ?? []) t.set(l, (t.get(l) ?? 0) + 1); return [...t.entries()].sort((a, b) => b[1] - a[1]) as [string, number][]; })(),
+  };
+}
+
+/** The language page for a code in a country, if it minted (link only what exists). */
+export function langCategory(code: string, cc: string): Category | null {
+  const lang = LANG_NAMES[code]; if (!lang) return null;
+  return allCategories().find((c) => c.kind === 'lang-country' && c.slug === `${lang.toLowerCase()}-speaking-in-${slugify(countryName(cc))}`) ?? null;
+}
+
+/* SWISS BLOCK (2026-09-10). GSC's conversational queries ("plumber jobs in
+   switzerland with company vehicle", "chef job in switzerland at 80 to 100
+   percent") land on the Swiss occupation pages at positions 15 to 19, and the
+   pages did not answer what those queries ask: workload, language, where.
+   Everything here is computed from the category's own matched postings. */
+export type SwissStats = {
+  n: number;
+  workloadStated: number;   // titles that carry a percentage ("80-100%")
+  partTimeOk: number;       // of those, a lower bound under 100
+  fullOnly: number;         // of those, 100% only
+  ranges: [string, number][]; // the commonest stated ranges
+  gated: number;            // postings stating any language requirement
+  langs: [string, number][];
+  cities: [string, number][];
+  remoteN: number;
+};
+const WORKLOAD = /(\d{2,3})\s*(?:-|–|bis|à|to|\/)\s*(\d{2,3})\s*%|(\d{2,3})\s*%/;
+export function swissStats(c: Category): SwissStats | null {
+  if (!/(^|&)c=CH(&|$)/.test(c.query)) return null;
+  const m = allJobs().filter(c.match);
+  let stated = 0, part = 0, full = 0;
+  const ranges = new Map<string, number>();
+  for (const j of m) {
+    const w = WORKLOAD.exec(j.title); if (!w) continue;
+    const lo = Number(w[1] ?? w[3]), hi = Number(w[2] ?? w[3]);
+    if (!(lo >= 10 && hi <= 100 && lo <= hi)) continue;
+    stated++;
+    if (lo < 100) part++; else full++;
+    const key = lo === hi ? `${lo}%` : `${lo} to ${hi}%`;
+    ranges.set(key, (ranges.get(key) ?? 0) + 1);
+  }
+  const langs = new Map<string, number>();
+  for (const j of m) for (const l of j.g?.l ?? []) langs.set(l, (langs.get(l) ?? 0) + 1);
+  const cities = new Map<string, number>();
+  for (const j of m) { const ct = cityOf(j.location); if (ct) cities.set(ct, (cities.get(ct) ?? 0) + 1); }
+  return {
+    n: m.length, workloadStated: stated, partTimeOk: part, fullOnly: full,
+    ranges: [...ranges.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4) as [string, number][],
+    gated: m.filter((j) => (j.g?.l?.length ?? 0) > 0).length,
+    langs: [...langs.entries()].sort((a, b) => b[1] - a[1]) as [string, number][],
+    cities: [...cities.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6) as [string, number][],
+    remoteN: m.filter((j) => j.remote).length,
   };
 }
 
@@ -384,6 +456,8 @@ export function categoryBlurb(c: Category): string {
       return `${n} live openings in ${c.searchTitle}, from company career pages and public boards, freshest first${rem}. Every role names ${c.searchTitle} as its location, and each one links out to apply at the source.`;
     case 'occ-city':
       return `${n} live ${c.noun}, freshest first${rem}. The postings that name ${c.city} as the workplace, with the skills each one asks for and the routes ${article(c.searchTitle)} ${c.searchTitle.replace(/ in .*$/, '')} background reaches. Apply at the source.`;
+    case 'lang-country':
+      return `${n} live ${c.noun}, freshest first${rem}. The requirement is read from the posting text itself, a line like "fluent ${c.searchTitle.split('-')[0]} required", so a role that merely happens to be written in ${c.searchTitle.split('-')[0]} is not counted. Apply at the source.`;
     case 'pay':
       return `${n} live roles posting pay of ${c.searchTitle.replace('+', ' or more')}, freshest first. Only postings that state a salary are counted here. Apply at the source.`;
     default: { // the 2-dim combos

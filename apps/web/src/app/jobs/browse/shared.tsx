@@ -32,6 +32,11 @@ export const FACETS: {
     kinds: ['city', 'occ-city'],
   },
   {
+    slug: 'languages', title: 'By language', short: 'Languages', h1: 'Languages, preloaded.',
+    note: 'Roles whose postings ask for a language, by country. English-speaking jobs in Switzerland, German-speaking jobs in Germany. Read from the posting text, not from the language it is written in.',
+    kinds: ['lang-country'],
+  },
+  {
     slug: 'seniority', title: 'By seniority', short: 'Seniority', h1: 'Seniority, preloaded.',
     note: 'Senior and entry-level, read from the posting title, overall, by role, and by country.',
     kinds: ['level', 'level-occ', 'level-field-country', 'level-occ-country'],

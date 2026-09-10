@@ -69,6 +69,13 @@ function cellsFor(slug: string, list: Category[]): { title: string; rows: { c: C
       if (!byCountry.has(cty)) byCountry.set(cty, []);
       byCountry.get(cty)!.push({ c, label: shortLabel(c, { dropCountry: true }) || 'All roles' });
     }
+  } else if (slug === 'languages') {
+    // languages group by country: Switzerland's cell holds English, German, French
+    for (const c of list.filter((x) => x.kind === 'lang-country')) {
+      const cty = countryOf(c) ?? 'Elsewhere';
+      if (!byCountry.has(cty)) byCountry.set(cty, []);
+      byCountry.get(cty)!.push({ c, label: c.title.replace(/ jobs in .*$/, '') });
+    }
   } else if (slug === 'seniority') {
     push('The two levels', of(['level'], (c) => shortLabel(c)));
     push('Senior, by role', of(['level-occ'], (c) => shortLabel(c)).filter((r) => r.c.title.startsWith('Senior')));

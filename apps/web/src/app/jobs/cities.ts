@@ -14,7 +14,7 @@ import { US_STATE_NAMES } from '../salary/salary-data';
    why the reject list exists. Aliases fold the spellings the biggest cities
    arrive in (Zurich/Zürich, NYC/New York, München/Munich). */
 
-const REJECT = /^(remote|hybrid|anywhere|worldwide|global|multiple( locations)?|various( locations)?|flexible|home|home[- ]based|nationwide|nation ?wide|onsite|on-site|emea|apac|latam|europe|north america|south america|asia|africa|usa|u\.s\.a?\.?|us|uk|united states|united kingdom|great britain|england|scotland|wales|deutschland|germany|switzerland|schweiz|suisse|svizzera|costa rica|canada|australia|france|spain|españa|italy|italia|austria|österreich|netherlands|nederland|belgium|ireland|portugal|mexico|méxico|brazil|brasil|argentina|chile|colombia|peru|india|singapore|japan|china|not specified|n\/a|tbd|other|see description)$/i;
+const REJECT = /^(remote|hybrid|anywhere|worldwide|global|multiple( locations)?|various( locations)?|flexible|home|home[- ]based|nationwide|nation ?wide|onsite|on-site|emea|apac|latam|europe|north america|south america|asia|africa|usa|u\.s\.a?\.?|us|uk|united states|united kingdom|great britain|england|scotland|wales|deutschland|germany|switzerland|schweiz|suisse|svizzera|costa rica|canada|australia|france|spain|españa|italy|italia|austria|österreich|netherlands|nederland|belgium|ireland|portugal|mexico|méxico|brazil|brasil|argentina|chile|colombia|peru|india|singapore|japan|china|not specified|n\/a|tbd|other|see description|vaud|aargau|thurgau|valais|wallis|ticino|tessin|graubunden|graubuenden|grisons|nidwalden|obwalden|uri|jura|basel-landschaft|baselland|basel-stadt|kanton [a-z-]+|canton (of |de |du )?[a-z-]+)$/i;
 
 // canonical spellings; keys are lower-case, diacritics stripped
 const ALIAS: Record<string, string> = {

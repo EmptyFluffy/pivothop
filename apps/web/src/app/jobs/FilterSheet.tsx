@@ -39,6 +39,7 @@ export type Filters = {
   xp: '' | 'none' | 'le2' | 'y35' | 'ge6';   // years-of-experience band, mined from the text
   edu: '' | 'nodeg' | 'waived';              // education gate, mined; 'waived' is the strong signal
   langNot: Set<string>;     // language codes the posting must NOT demand (de fr en...)
+  langHas: Set<string>;     // language codes the posting MUST demand (the language pages' deep link)
   exQ: Set<string>;         // exclude: title keywords
   exCo: Set<string>;        // exclude: companies, lowercased
 };

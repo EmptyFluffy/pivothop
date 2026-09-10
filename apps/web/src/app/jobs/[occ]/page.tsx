@@ -16,7 +16,8 @@ import { article } from '../../../lib/site';
 import { Crumbs } from '../../components/Crumbs';
 import { companySlugFor } from '../../companies/companies-data';
 import { hasSkillPage } from '../../skills/skills-data';
-import { cityOccCategories, cityHub } from '../categories-data';
+import { cityOccCategories, cityHub, LANG_NAMES, langCategory } from '../categories-data';
+import { SwissBlock, swissFaq } from '../swiss';
 
 /* One slug space, two kinds of page:
    - an occupation (in jobs-index)      -> the single-occupation board + routes in
@@ -336,7 +337,8 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
   const s = categoryStats(cat);
   // Decapitalize only the first letter: "Jobs in Germany" -> "jobs in Germany"
   // (a full toLowerCase() would strip the proper nouns).
-  const tl = cat.title.charAt(0).toLowerCase() + cat.title.slice(1);
+  // (a language name keeps its capital: "English-speaking jobs in Switzerland")
+  const tl = cat.kind === 'lang-country' ? cat.title : cat.title.charAt(0).toLowerCase() + cat.title.slice(1);
   const catSet = new Set(categorySlugs());
   const qs = new URLSearchParams(cat.query);
   const ccode = qs.get('c');
@@ -387,6 +389,18 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
       text: `Every measured route out of ${occTl}, ranked by skill readiness with the salary and license gate for each, lives on one page: pivothop.com/routes/${cat.destOcc}.`,
       jsx: <>Every measured route out of {occTl}, ranked by skill readiness with the salary and license gate for each: <Link className="gl" href={`/routes/${cat.destOcc}`}>{pickAnchor(originAnchors(occTitle(cat.destOcc)), cat.destOcc).toLowerCase()}</Link>.</>,
     });
+  } else if (cat.kind === 'lang-country') {
+    const code = qs.get('lang') ?? '';
+    const lang = LANG_NAMES[code] ?? code;
+    const name = countryName(ccode ?? '');
+    const others = s.langs.filter(([c]) => c !== code && LANG_NAMES[c]).slice(0, 2);
+    const also = others.length ? ` ${others.map(([c, n]) => `${n} of them also ask for ${LANG_NAMES[c]}`).join(', and ')}.` : '';
+    const otherPages = others.map(([c]) => langCategory(c, ccode ?? '')).filter((x): x is Category => !!x);
+    out.push({
+      q: `Do these jobs need fluent ${lang}, or just some?`,
+      text: `Every one of the ${cat.count.toLocaleString()} postings here names ${lang} as a requirement in its own text, which is the only thing we count; we do not read the level, so "good ${lang}" and "native ${lang}" both land here. Open the posting for the exact wording before you apply.${also}`,
+      jsx: <>Every one of the {cat.count.toLocaleString()} postings here names {lang} as a requirement in its own text, which is the only thing we count; we do not read the level, so &ldquo;good {lang}&rdquo; and &ldquo;native {lang}&rdquo; both land here. Open the posting for the exact wording before you apply.{others.length ? <> {others.map(([c, n], i) => <span key={c}>{i > 0 ? ', and ' : ''}{n} of them also ask for {otherPages.find((p) => p.slug.startsWith(LANG_NAMES[c].toLowerCase())) ? <Link className="gl" href={`/jobs/${otherPages.find((p) => p.slug.startsWith(LANG_NAMES[c].toLowerCase()))!.slug}`}>{LANG_NAMES[c]}</Link> : LANG_NAMES[c]}</span>)}.</> : null}{' '}All roles in {name}: <Link className="gl" href={`/jobs/in-${slugifyName(name)}`}>jobs in {name}</Link>.</>,
+    });
   } else if (qs.get('t') === 'vi') {
     out.push({
       q: 'Are these visa-sponsorship offers verified?',
@@ -421,6 +435,9 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
       jsx: <>{s.topOccs.map(([o, n], i) => (<span key={o}>{i > 0 ? ', ' : ''}<Link className="gl" href={`/jobs/${o}`}>{occTitle(o)}</Link> ({n})</span>))}.</>,
     });
   }
+
+  // 3b. Switzerland: workload, language, place (jobs/swiss.tsx).
+  out.push(...swissFaq(cat));
 
   // 4. The funnel into the instrument.
   out.push({
@@ -489,6 +506,8 @@ function CategoryBoard({ cat }: { cat: Category }) {
             ({hub.count.toLocaleString()} open). Every {destTitle.toLowerCase()} role, anywhere: <Link className="gl" href={`/jobs/${cat.destOcc}`}>{destTitle} jobs</Link>.
           </p>
         )}
+        <SwissBlock cat={cat} />
+
         {waysIn.length > 0 && (
           <section className="rt-sec">
             <h2>Routes into {destTitle.toLowerCase()}</h2>
