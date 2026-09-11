@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { getCompany, companySlugs } from '../companies-data';
+import { getCompany, companySlugs, countryCompanySlugs, getCountryCompanies } from '../companies-data';
 import { occTitle } from '../../jobs/jobs-data';
 import { countryName } from '../../jobs/countries';
+import { coverableSlugs } from '../../salary/salary-data';
+import { CountryCompaniesPage } from '../CountryPage';
 import { postedLabel, companyInitial, monoTint } from '../../jobs/JobCard';
 import JobsList from '../../jobs/JobsList';
 
@@ -18,14 +20,24 @@ import { PageHead } from '../../components/PageHead';
    self-reported and nothing is written by hand, the FAQ answers are the
    page's own figures (the Himalayas company-record pattern, done honestly). */
 
+/* One slug space, two kinds of page: a company profile, or a country's
+   employer list (`in-<country>`). Companies resolve first. */
 export function generateStaticParams() {
-  return companySlugs().map((slug) => ({ slug }));
+  return [...companySlugs(), ...countryCompanySlugs()].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const c = getCompany(slug);
-  if (!c) return {};
+  if (!c) {
+    const k = getCountryCompanies(slug);
+    if (!k) return {};
+    return {
+      title: `Companies hiring in ${k.inName}: ${k.companies.length} employers, ${k.jobs.toLocaleString()} open roles`,
+      description: `${k.companies.length} companies with ${k.floor} or more open roles in ${k.inName} right now, ranked by what they have open here and grouped by field. Built nightly from the postings themselves: ${k.companies.slice(0, 3).map((r) => r.name).join(', ')} and more.`,
+      alternates: { canonical: `/companies/${slug}` },
+    };
+  }
   const sal = c.band ? ` ($${c.band.p25}k–$${c.band.p75}k posted)` : '';
   return {
     title: `Jobs at ${c.name}: ${c.count} open roles${sal}`,
@@ -37,7 +49,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const c = getCompany(slug);
-  if (!c) notFound();
+  if (!c) {
+    const k = getCountryCompanies(slug);
+    if (k) return <CountryCompaniesPage c={k} />;
+    notFound();
+  }
   const [tbg, tfg] = monoTint(c.name);
 
   /* The answers are written for a person asking, not as data readouts
@@ -85,11 +101,15 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
       jsx: <>Its postings spell some out. Across {c.name}&rsquo;s current listings we found {c.benefits.length >= 10 ? 'ten or more' : c.benefits.length} distinct benefits, and the ones it mentions most are {list}. We only count a benefit when the posting text states it, so anything missing here is unstated rather than absent.</>,
     });
   }
-  if (c.band) faq.push({
-    q: `What does ${c.name} pay?`,
-    text: `${c.band.n.toLocaleString()} of ${c.name}'s open roles state a salary. Across those, the middle half of posted pay runs from $${c.band.p25}k to $${c.band.p75}k a year. We do not guess for postings that stay silent, so read this as what ${c.name} is publicly offering right now, not a company-wide average.`,
-    jsx: <>{c.band.n.toLocaleString()} of {c.name}&rsquo;s open roles state a salary. Across those, the middle half of posted pay runs from ${c.band.p25}k to ${c.band.p75}k a year. We do not guess for postings that stay silent, so read this as what {c.name} is publicly offering right now, not a company-wide average.</>,
-  });
+  if (c.band) {
+    const r0 = c.payByOcc[0];
+    const byRole = r0 ? ` The role it states pay for most often is ${occTitle(r0.key).toLowerCase()}: ${r0.n} postings, ${r0.quartiles ? 'the middle half' : 'posted'} between $${r0.lo}k and $${r0.hi}k.` : '';
+    faq.push({
+      q: `What does ${c.name} pay?`,
+      text: `${c.band.n.toLocaleString()} of ${c.name}'s ${c.count.toLocaleString()} open roles state a salary. Across those, the middle half of posted pay runs from $${c.band.p25}k to $${c.band.p75}k a year, with $${c.band.p50}k in the middle.${byRole} We do not guess for postings that stay silent, so read this as what ${c.name} is publicly offering right now, not a company-wide average.`,
+      jsx: <>{c.band.n.toLocaleString()} of {c.name}&rsquo;s {c.count.toLocaleString()} open roles state a salary. Across those, the middle half of posted pay runs from ${c.band.p25}k to ${c.band.p75}k a year, with ${c.band.p50}k in the middle.{r0 ? <> The role it states pay for most often is <Link className="gl" href={`/jobs/${r0.key}`}>{occTitle(r0.key).toLowerCase()}</Link>: {r0.n} postings, {r0.quartiles ? 'the middle half' : 'posted'} between ${r0.lo}k and ${r0.hi}k.</> : null} We do not guess for postings that stay silent, so read this as what {c.name} is publicly offering right now, not a company-wide average.</>,
+    });
+  }
 
   return (
     <PageShell v2 active="companies">
@@ -145,6 +165,54 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             </table>
           </div>
         </section>
+
+        {c.band && (
+          <section className="rt-sec occ-facts">
+            <h2>What {c.name} pays, from its postings</h2>
+            <p className="rt-note">{c.stated.toLocaleString()} of its {c.count.toLocaleString()} live postings state a salary. Only those are counted; nothing is estimated for the ones that stay silent. Figures are annual, as posted.</p>
+            <div className="cg-band">
+              <div><span className="v">${c.band.p25}k</span><span className="k">25th</span></div>
+              <div className="mid"><span className="v">${c.band.p50}k</span><span className="k">Median</span></div>
+              <div><span className="v">${c.band.p75}k</span><span className="k">75th</span></div>
+            </div>
+            {c.payByOcc.length > 0 && (
+              <div className="occ-tblwrap">
+                <h3 className="cg-h3">By role</h3>
+                <table className="occ-tbl">
+                  <thead><tr><th>Role</th><th>State pay</th><th>Posted pay</th></tr></thead>
+                  <tbody>
+                    {c.payByOcc.map((r) => (
+                      <tr key={r.key}>
+                        <td>{coverableSlugs().includes(r.key) ? <Link className="gl" href={`/salary/${r.key}`}>{occTitle(r.key)}</Link> : occTitle(r.key)}</td>
+                        <td className="n">{r.n}</td>
+                        <td className="n">${r.lo}k to ${r.hi}k{r.quartiles ? '' : '*'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="rt-note occ-tbl-note">Middle half of posted pay where five or more postings state it; marked rows show the posted minimum and maximum of three or four postings.</p>
+              </div>
+            )}
+            {c.payByCountry.length > 1 && (
+              <div className="occ-tblwrap">
+                <h3 className="cg-h3">By country</h3>
+                <table className="occ-tbl">
+                  <thead><tr><th>Country</th><th>State pay</th><th>Posted pay</th></tr></thead>
+                  <tbody>
+                    {c.payByCountry.map((r) => (
+                      <tr key={r.key}>
+                        <td>{countryName(r.key)}</td>
+                        <td className="n">{r.n}</td>
+                        <td className="n">${r.lo}k to ${r.hi}k{r.quartiles ? '' : '*'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="rt-note occ-tbl-note">Same rule per country. Posted figures are converted to US dollars at the time of the scrape, so compare across countries with care.</p>
+              </div>
+            )}
+          </section>
+        )}
 
         <JobsList
           jobs={c.jobs}

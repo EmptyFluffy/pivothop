@@ -14,7 +14,7 @@ import { careerFacts } from '../../career-guides/facts';
 import { originAnchors, pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
 import { Crumbs } from '../../components/Crumbs';
-import { companySlugFor } from '../../companies/companies-data';
+import { companySlugFor, countryCompaniesFor } from '../../companies/companies-data';
 import { hasSkillPage } from '../../skills/skills-data';
 import { cityOccCategories, cityHub, LANG_NAMES, langCategory } from '../categories-data';
 import { SwissBlock, swissFaq } from '../swiss';
@@ -506,6 +506,17 @@ function CategoryBoard({ cat }: { cat: Category }) {
             ({hub.count.toLocaleString()} open). Every {destTitle.toLowerCase()} role, anywhere: <Link className="gl" href={`/jobs/${cat.destOcc}`}>{destTitle} jobs</Link>.
           </p>
         )}
+        {(() => {
+          // country pages hand off to the employer list of the same country
+          const cc = new URLSearchParams(cat.query).get('c');
+          const k = cat.kind === 'country' && cc ? countryCompaniesFor(cc) : null;
+          return k ? (
+            <p className="rt-note">
+              The employers behind these roles: <Link className="gl" href={`/companies/${k.slug}`}>companies hiring in {k.inName}</Link>{' '}
+              ({k.companies.length} with {k.floor} or more open roles here).
+            </p>
+          ) : null;
+        })()}
         <SwissBlock cat={cat} />
 
         {waysIn.length > 0 && (

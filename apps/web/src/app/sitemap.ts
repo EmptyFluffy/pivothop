@@ -10,7 +10,7 @@ import { jobOccupations } from './jobs/jobs-data';
 import { allCategories } from './jobs/categories-data';
 import { compareSlugs } from './compare/compare-data';
 import { skillPageSlugs } from './skills/skills-data';
-import { companySitemapSlugs, getCompany } from './companies/companies-data';
+import { companySitemapSlugs, getCompany, countryCompanySlugs, getCountryCompanies } from './companies/companies-data';
 import { getSkillPage } from './skills/skills-data';
 import { crJobsFor } from './hire/costa-rica/hire-data';
 import { careerFacts } from './career-guides/facts';
@@ -99,6 +99,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...hireOccSlugs().map((s) => ({ url: `${BASE}/hire/costa-rica/${s}`, ...dated(`/hire/costa-rica/${s}`, sigOf(crJobsFor(s).map((j) => `${j.occ}/${j.id}`).sort())), changeFrequency: 'daily' as const, priority: 0.7 })),
     { url: `${BASE}/companies`, ...fixed('/companies'), changeFrequency: 'daily', priority: 0.7 },
     ...companySitemapSlugs().map((s) => ({ url: `${BASE}/companies/${s}`, ...dated(`/companies/${s}`, getCompany(s)?.sig ?? ''), changeFrequency: 'daily' as const, priority: 0.7 })),
+    ...countryCompanySlugs().map((s) => ({ url: `${BASE}/companies/${s}`, ...dated(`/companies/${s}`, getCountryCompanies(s)?.sig ?? ''), changeFrequency: 'daily' as const, priority: 0.7 })),
     { url: `${BASE}/licenses`, ...mod('/licenses'), changeFrequency: 'monthly', priority: 0.7 },
     ...routableSlugs().map((s) => ({ url: `${BASE}/routes/${s}`, ...mod(`/routes/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),
     ...routeOrigins().map((s) => ({ url: `${BASE}/routes/${s}`, ...mod(`/routes/${s}`), changeFrequency: 'weekly' as const, priority: 0.8 })),

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Job } from '../jobs/JobCard';
 import { occField } from '../jobs/jobs-data';
+import { countryName } from '../jobs/countries';
 import { createHash } from 'node:crypto';
 
 /* The company-pages family (/companies/<slug>), plan family 3, first tranche
@@ -50,7 +51,13 @@ export type CompanyPage = {
   countries: [string, number][];      // ISO code, jobs
   occs: [string, number][];           // occ slug, jobs
   benefits: [string, number][];       // taxonomy term, postings declaring it
-  band: { n: number; p25: number; p75: number } | null;
+  band: { n: number; p25: number; p50: number; p75: number } | null;
+  /* What the company pays, by what and where (2026-09-11, the Himalayas
+     companies-salaries pattern done on posted pay only): rows need 3 stated
+     salaries; 5 or more get quartiles, 3 to 4 get the posted min and max. */
+  payByOcc: PayRow[];
+  payByCountry: PayRow[];
+  stated: number;                     // postings stating a salary
   jobs: Job[];                        // freshest first
   newest: string;                     // ISO date of freshest posting
   sig: string;                        // content signature (job ids) for an honest sitemap lastmod
@@ -95,14 +102,28 @@ function benefitTerm(i: number): string | null {
   return _benTerms.get(i) ?? null;
 }
 
+export type PayRow = { key: string; n: number; lo: number; hi: number; quartiles: boolean };
+const midsOf = (jobs: Job[]) => jobs.filter((j) => j.smin || j.smax)
+  .map((j) => ((j.smin ?? j.smax ?? 0) + (j.smax ?? j.smin ?? 0)) / 2).sort((a, b) => a - b);
 function band(jobs: Job[]): CompanyPage['band'] {
-  const mids = jobs
-    .filter((j) => j.smin || j.smax)
-    .map((j) => ((j.smin ?? j.smax ?? 0) + (j.smax ?? j.smin ?? 0)) / 2)
-    .sort((a, b) => a - b);
+  const mids = midsOf(jobs);
   if (mids.length < 5) return null;
   const q = (p: number) => Math.round(mids[Math.floor((mids.length - 1) * p)] / 1000);
-  return { n: mids.length, p25: q(0.25), p75: q(0.75) };
+  return { n: mids.length, p25: q(0.25), p50: q(0.5), p75: q(0.75) };
+}
+function payRows(jobs: Job[], key: (j: Job) => string | undefined, limit = 8): PayRow[] {
+  const groups = new Map<string, Job[]>();
+  for (const j of jobs) { const k = key(j); if (!k) continue; const a = groups.get(k) ?? []; a.push(j); groups.set(k, a); }
+  const out: PayRow[] = [];
+  for (const [k, js] of groups) {
+    const mids = midsOf(js);
+    if (mids.length < 3) continue;
+    const q = (p: number) => Math.round(mids[Math.floor((mids.length - 1) * p)] / 1000);
+    out.push(mids.length >= 5
+      ? { key: k, n: mids.length, lo: q(0.25), hi: q(0.75), quartiles: true }
+      : { key: k, n: mids.length, lo: Math.round(mids[0] / 1000), hi: Math.round(mids[mids.length - 1] / 1000), quartiles: false });
+  }
+  return out.sort((a, b) => b.n - a.n).slice(0, limit);
 }
 
 /* ── the blurb miner ─────────────────────────────────────────────────────────
@@ -244,6 +265,9 @@ function build(): Map<string, CompanyPage> {
       about: aboutFor(name),
       fields: top((j) => { const f = occField(j.occ); return f === 'Other' ? undefined : f; }).slice(0, 2) as [string, number][],
       band: band(js),
+      payByOcc: payRows(js, (j) => j.occ),
+      payByCountry: payRows(js, (j) => j.c),
+      stated: midsOf(js).length,
       jobs: js,
       newest: js[0]?.posted ?? '',
       sig: createHash('sha1').update(js.map((j) => `${j.occ}/${j.id}`).sort().join('\n')).digest('hex').slice(0, 12),
@@ -260,4 +284,86 @@ export function companySitemapSlugs(): string[] {
 export function getCompany(slug: string): CompanyPage | null { return build().get(slug) ?? null; }
 export function companiesRanked(): CompanyPage[] {
   return [...build().values()].sort((a, b) => b.count - a.count);
+}
+
+/* COMPANIES BY COUNTRY (2026-09-11), the Himalayas companies-locations
+   pattern: "Companies hiring in Switzerland". A page exists for a country
+   with COUNTRY_FLOOR companies that each hold 3+ live roles there, so every
+   row is a real employer with a profile to link to. Slug `in-<country>`,
+   served by the same /companies/[slug] route (company slugs never start with
+   "in-", measured 2026-09-11). Rows carry that country's own counts. */
+const COUNTRY_FLOOR = 10;
+// A row needs this many roles in the country; the floor steps up (3, 5, 10, 20)
+// until the list holds at most COUNTRY_MAX_ROWS, so Switzerland's 663 does not
+// become a 59,000px page. The page states the floor it used.
+const COUNTRY_ROW_FLOORS = [3, 5, 10, 20];
+const COUNTRY_MAX_ROWS = 250;
+export type CountryCompanyRow = { slug: string; name: string; n: number; remoteN: number; field: string | null; logo: string | null; total: number };
+export type CountryCompanies = {
+  slug: string; cc: string; name: string; inName: string;
+  floor: number;          // roles in the country a company needs to be listed
+  companies: CountryCompanyRow[];
+  jobs: number;           // live roles in the country across listed companies
+  allJobs: number;        // every live role in the country
+  fields: [string, number][];
+  latest: Job[];          // freshest roles in the country, across the listed companies
+  sig: string;
+};
+const THE = new Set(['US', 'GB', 'NL', 'AE', 'PH']);
+let _byCountry: Map<string, CountryCompanies> | null = null;
+function buildCountries(): Map<string, CountryCompanies> {
+  if (_byCountry) return _byCountry;
+  _byCountry = new Map();
+  const pages = build();
+  const perCountry = new Map<string, Map<string, Job[]>>();
+  const allByCountry = new Map<string, number>();
+  for (const j of allJobs()) {
+    if (!j.c || !j.company || EXCLUDE.has(j.company)) continue;
+    allByCountry.set(j.c, (allByCountry.get(j.c) ?? 0) + 1);
+    const m = perCountry.get(j.c) ?? new Map<string, Job[]>();
+    const a = m.get(j.company) ?? []; a.push(j); m.set(j.company, a); perCountry.set(j.c, m);
+  }
+  const { slugOf } = slugTable();
+  for (const [cc, m] of perCountry) {
+    const name = countryName(cc);
+    if (name === cc) continue;
+    // pick the smallest floor that keeps the list readable
+    const eligible = [...m.entries()].filter(([co]) => slugOf.get(co) && pages.get(slugOf.get(co)!));
+    let floor = COUNTRY_ROW_FLOORS[0];
+    for (const f of COUNTRY_ROW_FLOORS) { floor = f; if (eligible.filter(([, js]) => js.length >= f).length <= COUNTRY_MAX_ROWS) break; }
+    const rows: CountryCompanyRow[] = [];
+    const fieldCount = new Map<string, number>();
+    const latest: Job[] = [];
+    for (const [co, js] of m) {
+      const slug = slugOf.get(co); if (!slug || js.length < floor) continue;
+      const page = pages.get(slug); if (!page) continue;
+      const f = new Map<string, number>();
+      for (const j of js) { const fl = occField(j.occ); if (fl && fl !== 'Other') { f.set(fl, (f.get(fl) ?? 0) + 1); fieldCount.set(fl, (fieldCount.get(fl) ?? 0) + 1); } }
+      const field = [...f.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+      rows.push({ slug, name: co, n: js.length, remoteN: js.filter((j) => j.remote).length, field, logo: page.logo, total: page.count });
+      latest.push(...js);
+    }
+    if (rows.length < COUNTRY_FLOOR) continue;
+    rows.sort((a, b) => b.n - a.n);
+    latest.sort((a, b) => (b.posted || '').localeCompare(a.posted || ''));
+    const slug = `in-${slugify(name)}`;
+    _byCountry.set(slug, {
+      slug, cc, name, inName: THE.has(cc) ? `the ${name}` : name,
+      floor,
+      companies: rows,
+      jobs: rows.reduce((s, r) => s + r.n, 0),
+      allJobs: allByCountry.get(cc) ?? 0,
+      fields: [...fieldCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5),
+      latest: latest.slice(0, 8),
+      sig: createHash('sha1').update(rows.map((r) => `${r.slug}:${r.n}`).join('\n')).digest('hex').slice(0, 12),
+    });
+  }
+  return _byCountry;
+}
+export function countryCompanySlugs(): string[] { return [...buildCountries().keys()]; }
+export function getCountryCompanies(slug: string): CountryCompanies | null { return buildCountries().get(slug) ?? null; }
+export function countryCompanyPages(): CountryCompanies[] { return [...buildCountries().values()].sort((a, b) => b.companies.length - a.companies.length); }
+/** The companies-in-country page for a country code, if it exists. */
+export function countryCompaniesFor(cc: string): CountryCompanies | null {
+  return [...buildCountries().values()].find((c) => c.cc === cc) ?? null;
 }

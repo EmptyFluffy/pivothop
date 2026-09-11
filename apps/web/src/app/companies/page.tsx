@@ -3,7 +3,8 @@ import { PageShell } from '../components/SiteChrome';
 import { Crumbs } from '../components/Crumbs';
 import { PageHead } from '../components/PageHead';
 import { IndexSearch, type IxRow, type IxGroup } from '../components/IndexSearch';
-import { companiesRanked } from './companies-data';
+import { companiesRanked, countryCompanyPages } from './companies-data';
+import Link from 'next/link';
 import { companyInitial, monoTint } from '../jobs/JobCard';
 import { countryName } from '../jobs/countries';
 
@@ -56,6 +57,16 @@ export default function CompaniesHub() {
             <span className="lbl">{cos.length.toLocaleString()}</span> companies &middot; refreshed nightly</>}
         />
         <IndexSearch rows={rows} groups={groups} placeholder="Search a company" unit="companies" />
+
+        <section className="rt-sec jb-byocc">
+          <h2>By country</h2>
+          <p className="rt-note">Who is hiring where: each page ranks the companies with three or more open roles in that country, counted from the postings located there.</p>
+          <span className="jb-occlinks">
+            {countryCompanyPages().map((k) => (
+              <Link key={k.slug} href={`/companies/${k.slug}`}>Hiring in {k.inName} <span className="lbl">{k.companies.length}</span></Link>
+            ))}
+          </span>
+        </section>
         <p className="rt-method lbl">
           A company appears while it holds three or more live roles on the board and re-ranks with the nightly
           scrape. PivotHop is not affiliated with any company listed; a company can claim its profile from its
