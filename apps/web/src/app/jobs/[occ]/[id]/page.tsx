@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, getJobGates, skillDisplayName } from '../../jobs-data';
-import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard } from '../../JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard, isDirect, UNLOCK_HREF } from '../../JobCard';
 import SkillStrip from '../../SkillStrip';
 import BenefitStrip from '../../BenefitStrip';
 import { gateRows } from '../../gates';
@@ -29,8 +29,11 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const { occ, id } = await params;
   const j = getJob(occ, id);
   if (!j) return {};
-  const title = `${j.title} at ${j.company} | PivotHop jobs`;
-  const description = `${j.title} at ${j.company}${j.location ? `, ${j.location}` : ''}. Live ${occTitle(occ).toLowerCase()} opening with the pay, the posting, and the skill routes that lead into the role.`;
+  // direct postings keep the employer out of the title and share text: the
+  // company is what the lock holds
+  const who = isDirect(j) ? 'a company hiring direct' : j.company;
+  const title = `${j.title} at ${who} | PivotHop jobs`;
+  const description = `${j.title} at ${who}${j.location ? `, ${j.location}` : ''}. Live ${occTitle(occ).toLowerCase()} opening with the pay, the posting, and the skill routes that lead into the role.`;
   const url = `https://www.pivothop.com/jobs/${encodeURIComponent(occ)}/${encodeURIComponent(id)}`;
   const image = `https://www.pivothop.com/api/social/card?occ=${encodeURIComponent(occ)}&id=${encodeURIComponent(id)}`;
   return {
@@ -42,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
       url,
       title,
       description,
-      images: [{ url: image, width: 1200, height: 627, alt: `${j.title} at ${j.company}` }],
+      images: [{ url: image, width: 1200, height: 627, alt: `${j.title} at ${who}` }],
     },
     twitter: { card: 'summary_large_image', title, description, images: [image] },
     // Backfilled descriptions are the source's words; keep them out of the index
@@ -89,6 +92,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   const hasSalary = coverableSlugs().includes(occ);
   const logo = companyLogo(j.company);
   const initial = (j.company.match(/[a-z0-9]/i)?.[0] ?? '?').toUpperCase();
+  // direct postings: company and apply link stay locked until signed in with a plan
+  const locked = isDirect(j);
   const waysIn = routableSlugs()
     .filter((s) => routePair(s)?.dest === occ)
     .map((s) => { const p = routePair(s)!; return { slug: s, r: destRole(p.origin, p.dest), om: originMeta(p.origin) }; })
@@ -116,14 +121,14 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   return (
     <PageShell v2 active="jobs">
       <div className="rtp salp">
-        <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: title, href: `/jobs/${occ}` }, { label: j.company }]} />
+        <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: title, href: `/jobs/${occ}` }, { label: locked ? 'Direct posting' : j.company }]} />
         <div className="jd-head">
           {logo
-            ? <span className="jd-mark"><img src={logo} alt="" width={40} height={40} /></span>
-            : <span className="jd-mark jd-mono">{initial}</span>}
+            ? <span className={locked ? 'jd-mark jv-locked' : 'jd-mark'}><img src={logo} alt="" width={40} height={40} /></span>
+            : <span className={locked ? 'jd-mark jd-mono jv-locked' : 'jd-mark jd-mono'}>{initial}</span>}
           <div className="jd-headtext">
             <h1 className="rt-h1 jd-h1">{j.title}</h1>
-            <p className="jd-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
+            <p className="jd-co"><span className={locked ? 'jv-locked' : undefined}>{j.company}</span>{j.location ? ` · ${j.location}` : ''}</p>
           </div>
         </div>
 
@@ -131,7 +136,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
           <div><span className="v">{j.remote ? 'Remote' : 'On-site'}</span><span className="k">Workplace</span></div>
           {date && <div><span className="v" suppressHydrationWarning>{agoLabel(j.posted)}</span><span className="k">Posted · {date}</span></div>}
-          <div><span className="v">{sourceName(j.source)}</span><span className="k">Source</span></div>
+          <div><span className="v">{locked ? 'Company site' : sourceName(j.source)}</span><span className="k">Source</span></div>
           {occMedian != null && (
             <div>
               <span className="v"><Link href={`/salary/${occ}`}>{fmtk(occMedian)}</Link></span>
@@ -140,10 +145,23 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           )}
         </div>
 
-        <div className="jd-applyrow">
-          <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply now <Arrow45 size={24} /></a>
-          <span className="lbl">Opens the original posting at {j.company}. PivotHop does not host applications.</span>
-        </div>
+        {locked ? (
+          <>
+            <div className="jd-applyrow jd-locked">
+              <Link className="rt-go jd-apply" href={`${UNLOCK_HREF}?from=${occ}`}>Unlock this posting <Arrow45 size={24} /></Link>
+              <span className="lbl">This role was read straight from the employer&rsquo;s own site, not from a job board. The company and the apply link open with a PivotHop plan; the title, location and pay above are exactly as posted.</span>
+            </div>
+            <div className="jd-applyrow jd-premium-only">
+              <a className="rt-go jd-apply" href={UNLOCK_HREF} data-apply={j.url}>Apply now <Arrow45 size={24} /></a>
+              <span className="lbl">Opens the original posting at <span className="jv-locked">{j.company}</span>. PivotHop does not host applications.</span>
+            </div>
+          </>
+        ) : (
+          <div className="jd-applyrow">
+            <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply now <Arrow45 size={24} /></a>
+            <span className="lbl">Opens the original posting at {j.company}. PivotHop does not host applications.</span>
+          </div>
+        )}
 
         {gates.length > 0 && (
           <div className="jd-gates" aria-label="What the posting asks for">

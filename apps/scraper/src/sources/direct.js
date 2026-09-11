@@ -138,15 +138,59 @@ function parseLoose(text) {
   return objs.length === 1 ? objs[0] : null;
 }
 
-/* Cached model call: an unchanged page never pays twice. */
-async function extract(prompt, cacheKeyParts) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  const key = crypto.createHash('sha1').update(['direct-v2', MODEL, ...cacheKeyParts].join('|')).digest('hex');
-  const cacheFile = path.join(CACHE_DIR, `llm-${key}.json`);
-  if (fs.existsSync(cacheFile)) return JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+/* ── The model layer (2026-09-11): provider adapter, cost meter, budget ──
+ * Gemini Flash-Lite first (about a quarter of Haiku's price for the same
+ * JSON-extraction job), Anthropic as fallback or when only that key exists.
+ * Every call is metered from the provider's own usage counts and priced from
+ * the table below, so the nightly log states what the fleet cost and the run
+ * stops itself at DIRECT_BUDGET_USD instead of at an exhausted balance. */
+const GEMINI_MODEL = process.env.DIRECT_GEMINI_MODEL || 'gemini-2.5-flash-lite';
+const PROVIDER = process.env.DIRECT_PROVIDER || (process.env.GEMINI_API_KEY ? 'gemini' : 'anthropic');
+const BUDGET_USD = Number(process.env.DIRECT_BUDGET_USD) || 4; // per run
+// USD per million tokens, in/out. Override with DIRECT_PRICE_IN / DIRECT_PRICE_OUT.
+const PRICES = {
+  'gemini-2.5-flash-lite': [0.25, 1.5], 'gemini-2.5-flash': [0.3, 2.5],
+  'claude-haiku-4-5': [1, 5], 'claude-sonnet-4-5': [3, 15],
+};
+const meter = { calls: 0, cached: 0, tokensIn: 0, tokensOut: 0, usd: 0, schema: 0, provider: PROVIDER };
+function price(model) {
+  const p = PRICES[model] || [Number(process.env.DIRECT_PRICE_IN) || 1, Number(process.env.DIRECT_PRICE_OUT) || 5];
+  return p;
+}
+function charge(model, tin, tout) {
+  const [pi, po] = price(model);
+  meter.calls++; meter.tokensIn += tin; meter.tokensOut += tout;
+  meter.usd += (tin * pi + tout * po) / 1e6;
+}
+export function meterSummary() {
+  return `direct: LLM ${meter.provider}, ${meter.calls} calls, ${meter.cached} cache hits, ${meter.schema} pages read from JobPosting schema (no LLM), ${meter.tokensIn.toLocaleString()} tokens in / ${meter.tokensOut.toLocaleString()} out, est. $${meter.usd.toFixed(3)} (budget $${BUDGET_USD})`;
+}
+
+async function callGemini(prompt) {
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 4000, temperature: 0, responseMimeType: 'application/json' } }),
+    signal: AbortSignal.timeout(60000),
+  });
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => '');
+    if (res.status === 429 || (res.status === 403 && /billing|quota/i.test(errBody))) {
+      const e = new Error(`gemini ${res.status}: quota or billing`); e.creditsExhausted = true; throw e;
+    }
+    throw new Error(`gemini ${res.status}`);
+  }
+  const body = await res.json();
+  const text = (body.candidates?.[0]?.content?.parts || []).map((p) => p.text || '').join('');
+  const u = body.usageMetadata || {};
+  charge(GEMINI_MODEL, u.promptTokenCount || 0, u.candidatesTokenCount || 0);
+  return text;
+}
+
+async function callAnthropic(prompt) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+    headers: { 'x-api-key': process.env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     // 4000: a studio with 30 openings overflowed 2000 and returned a truncated
     // array, which threw and lost the whole site (BIG, 2026-08-03).
     body: JSON.stringify({ model: MODEL, max_tokens: 4000, messages: [{ role: 'user', content: prompt }] }),
@@ -155,18 +199,84 @@ async function extract(prompt, cacheKeyParts) {
   if (!res.ok) {
     const errBody = await res.text().catch(() => '');
     if (res.status === 400 && /credit balance/i.test(errBody)) {
-      const e = new Error('anthropic credits exhausted');
-      e.creditsExhausted = true;
-      throw e;
+      const e = new Error('anthropic credits exhausted'); e.creditsExhausted = true; throw e;
     }
     throw new Error(`anthropic ${res.status}`);
   }
   const body = await res.json();
-  const text = (body.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
+  charge(MODEL, body.usage?.input_tokens || 0, body.usage?.output_tokens || 0);
+  return (body.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
+}
+
+/* Cached model call: an unchanged page never pays twice. The cache key names
+ * the model, so switching providers re-reads the fleet once (about $5 on
+ * Flash-Lite for 900 pages) and then settles. */
+async function extract(prompt, cacheKeyParts) {
+  const model = PROVIDER === 'gemini' ? GEMINI_MODEL : MODEL;
+  const key = crypto.createHash('sha1').update(['direct-v2', model, ...cacheKeyParts].join('|')).digest('hex');
+  const cacheFile = path.join(CACHE_DIR, `llm-${key}.json`);
+  if (fs.existsSync(cacheFile)) { meter.cached++; return JSON.parse(fs.readFileSync(cacheFile, 'utf8')); }
+  if (meter.usd >= BUDGET_USD) {
+    const e = new Error(`direct budget of $${BUDGET_USD} reached`); e.budgetReached = true; throw e;
+  }
+  let text;
+  if (PROVIDER === 'gemini') {
+    try { text = await callGemini(prompt); }
+    catch (err) {
+      // a quota wall on Gemini falls back to Anthropic when that key exists
+      if (err.creditsExhausted && process.env.ANTHROPIC_API_KEY) text = await callAnthropic(prompt); else throw err;
+    }
+  } else {
+    text = await callAnthropic(prompt);
+  }
   const parsed = parseLoose(text);
   fs.mkdirSync(CACHE_DIR, { recursive: true });
   fs.writeFileSync(cacheFile, JSON.stringify(parsed));
   return parsed;
+}
+
+/* ── schema.org JobPosting, read for free ──────────────────────────────────
+ * Many careers pages and most ATS-hosted postings embed JobPosting JSON-LD.
+ * When it is there, it is the employer's own structured statement and beats
+ * a model reading prose: no tokens, no guessing. Returns [] when absent. */
+function jobPostingsFromHtml(html, baseUrl) {
+  const out = [];
+  if (!html) return out;
+  for (const m of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    let data; try { data = JSON.parse(m[1].trim()); } catch { continue; }
+    const nodes = [];
+    const walk = (n) => {
+      if (!n || typeof n !== 'object') return;
+      if (Array.isArray(n)) { n.forEach(walk); return; }
+      const t = n['@type']; const types = Array.isArray(t) ? t : [t];
+      if (types.includes('JobPosting')) nodes.push(n);
+      if (n['@graph']) walk(n['@graph']);
+      if (n.itemListElement) walk(n.itemListElement.map((x) => x.item || x));
+    };
+    walk(data);
+    for (const n of nodes) {
+      const title = typeof n.title === 'string' ? n.title.trim() : '';
+      if (!title) continue;
+      let url = n.url || n.mainEntityOfPage?.['@id'] || n.mainEntityOfPage || baseUrl;
+      try { url = new URL(typeof url === 'string' ? url : baseUrl, baseUrl).toString(); } catch { url = baseUrl; }
+      const loc = n.jobLocation;
+      const addr = (Array.isArray(loc) ? loc[0] : loc)?.address;
+      const location = addr ? [addr.addressLocality, addr.addressRegion, addr.addressCountry].filter(Boolean).join(', ') : (n.jobLocationType === 'TELECOMMUTE' ? 'Remote' : null);
+      const sal = n.baseSalary?.value;
+      const min = sal ? Number(sal.minValue ?? sal.value) || null : null;
+      const max = sal ? Number(sal.maxValue ?? sal.value) || null : null;
+      const unit = String(sal?.unitText || '').toUpperCase();
+      out.push({
+        title, url, location,
+        description: stripHtml(String(n.description || '')),
+        posted: typeof n.datePosted === 'string' ? n.datePosted.slice(0, 10) : null,
+        salary_min: min, salary_max: max, currency: n.baseSalary?.currency || null,
+        salary_period: unit === 'HOUR' ? 'hour' : unit === 'MONTH' ? 'month' : min ? 'year' : null,
+        remote: n.jobLocationType === 'TELECOMMUTE' || /remote/i.test(location || ''),
+      });
+    }
+  }
+  return out;
 }
 
 // Hosted ATS platforms these studios actually use. Measured 2026-08-03: a big
@@ -197,10 +307,11 @@ export async function fetchRaw({ log }) {
   const auto = readJson(path.join(CONFIG_DIR, 'direct-companies-auto.json'))?.companies ?? [];
   const seen = new Set(curated.map((c) => c.careers.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]));
   const companies = curated.concat(auto.filter((c) => !seen.has(c.careers.replace(/^https?:\/\/(www\.)?/, '').split('/')[0])));
-  if (!process.env.ANTHROPIC_API_KEY) {
-    log(`direct: ANTHROPIC_API_KEY not set — ${companies.length} studio careers pages NOT read (add the key to .env / Actions secrets)`);
+  if (!process.env.GEMINI_API_KEY && !process.env.ANTHROPIC_API_KEY) {
+    log(`direct: no GEMINI_API_KEY or ANTHROPIC_API_KEY — ${companies.length} careers pages NOT read (add a key to .env / Actions secrets)`);
     return [];
   }
+  log(`direct: ${companies.length} careers pages, model layer ${PROVIDER} (${PROVIDER === 'gemini' ? GEMINI_MODEL : MODEL}), budget $${BUDGET_USD} per run`);
   const rows = [];
   try {
     for (const { name: company, careers } of companies) {
@@ -245,6 +356,26 @@ export async function fetchRaw({ log }) {
         }
       }
 
+      // Free path first: JobPosting schema on the page itself.
+      const schemaJobs = jobPostingsFromHtml(rendered?.html ?? null, pageUrl);
+      if (schemaJobs.length) {
+        meter.schema++;
+        let kept = 0;
+        for (const sj of schemaJobs.slice(0, MAX_JOBS_PER_SITE)) {
+          const text = sj.description && sj.description.length >= 200 ? sj.description : null;
+          rows.push({
+            source: name, external_id: sj.url === pageUrl ? `${pageUrl}#${sj.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : sj.url,
+            title: sj.title, company, location: sj.location, remote_flag: sj.remote,
+            salary_min: sj.salary_min, salary_max: sj.salary_max, currency: sj.salary_min ? sj.currency : null,
+            salary_period: sj.salary_min ? sj.salary_period : null,
+            description_text: text || fullText, posted_at: sj.posted, url: sj.url,
+          });
+          kept++;
+        }
+        log(`direct:${company} — ${kept} postings from JobPosting schema (no LLM)`);
+        continue;
+      }
+
       const linkList = all.filter((l) => l.label).slice(0, 150).map((l) => `${l.label} -> ${l.href}`).join('\n').slice(0, 8000);
       const listing = await extract(
         `This is the careers page of ${company}, a design/architecture studio. From the page text and link list, return ONLY currently-open job positions as JSON: {"jobs":[{"title":"...","url":"..."}]}. Rules: real openings only (no "general application" catch-alls, no news, no projects); url must come from the link list; empty array if none. No prose, JSON only.\n\nPAGE TEXT:\n${pageText}\n\nLINKS:\n${linkList}`,
@@ -263,7 +394,7 @@ export async function fetchRaw({ log }) {
         // a stable one: page + title. The listing page IS the posting there,
         // its text carries the ad, and the apply route lives on it.
         const inline = j.url.replace(/[#?].*$/, '').replace(/\/$/, '') === pageUrl.replace(/[#?].*$/, '').replace(/\/$/, '');
-        let jobText, jobUrl = j.url, jobId = j.url;
+        let jobText, jobUrl = j.url, jobId = j.url, jobHtml = null;
         if (inline) {
           jobText = fullText;
           jobUrl = pageUrl;
@@ -271,9 +402,24 @@ export async function fetchRaw({ log }) {
         } else {
           if (!(await allowed(j.url))) continue;
           const jobPage = await renderGet(j.url);
+          jobHtml = jobPage?.html ?? null;
           jobText = jobPage ? jobPage.text.slice(0, 20000) : stripHtml((await politeGet(j.url)) || '').slice(0, 20000);
         }
         if (jobText.length < 200) continue; // a shell, not a posting
+        // Free path: the posting page carries its own JobPosting schema.
+        const sj = jobPostingsFromHtml(jobHtml, jobUrl)[0];
+        if (sj) {
+          meter.schema++;
+          rows.push({
+            source: name, external_id: jobId, title: sj.title || j.title, company,
+            location: sj.location, remote_flag: sj.remote || /\bremote\b/i.test(`${j.title} ${jobText.slice(0, 2000)}`),
+            salary_min: sj.salary_min, salary_max: sj.salary_max, currency: sj.salary_min ? sj.currency : null,
+            salary_period: sj.salary_min ? sj.salary_period : null,
+            description_text: jobText, posted_at: sj.posted, url: jobUrl,
+          });
+          kept++;
+          continue;
+        }
         // Two different sanity questions. A dedicated posting page must BE a
         // posting; an inline listing page must CONTAIN the named opening — the
         // first question asked of the second kind vetoed every inline job.
@@ -302,12 +448,17 @@ export async function fetchRaw({ log }) {
       log(`direct:${company} — ${kept} postings`);
     } catch (err) {
       if (err.creditsExhausted) {
-        log(`direct: ANTHROPIC CREDITS EXHAUSTED — fleet run abandoned at ${company}; top up at console.anthropic.com, nothing else is wrong`);
+        log(`direct: MODEL QUOTA OR CREDITS EXHAUSTED (${err.message}) — fleet run abandoned at ${company}; top up the provider, nothing else is wrong`);
+        break;
+      }
+      if (err.budgetReached) {
+        log(`direct: BUDGET REACHED ($${BUDGET_USD} this run) at ${company}; the rest of the fleet waits for tomorrow's cache-warm pass`);
         break;
       }
       log(`direct:${company} — failed: ${String(err.message).slice(0, 120)}`);
     }
     }
+    log(meterSummary());
     return rows;
   } finally {
     // A leaked Chromium would keep the nightly alive forever after the run.

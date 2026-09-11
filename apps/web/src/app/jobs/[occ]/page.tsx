@@ -9,7 +9,7 @@ import { routableSlugs, routePair, destRole, originMeta, routeOrigins } from '..
 import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShowAll, categoryStats, slugifyName, allCategories, type Category } from '../categories-data';
 import { countryName } from '../countries';
 import { REGION_META, type RegionKey } from '../regions';
-import { postedLabel, type Job } from '../JobCard';
+import { postedLabel, isDirect, type Job } from '../JobCard';
 import { careerFacts } from '../../career-guides/facts';
 import { originAnchors, pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
@@ -580,7 +580,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
         numberOfItems: cat.count,
         itemListElement: jobs.slice(0, 20).map((j, i) => ({
           '@type': 'ListItem', position: i + 1,
-          name: `${j.title} at ${j.company}`,
+          name: isDirect(j) ? j.title : `${j.title} at ${j.company}`,
           url: `https://www.pivothop.com/jobs/${j.occ}/${j.id}`,
         })),
       }) }} />

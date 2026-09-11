@@ -33,6 +33,17 @@ const SOURCE_NAMES: Record<string, string> = {
 };
 export const sourceName = (s: string) => SOURCE_NAMES[s] ?? s;
 
+/* DIRECT JOBS (2026-09-11). Postings read from the employer's own system (a
+   hosted ATS feed or its careers page), never from an aggregator. These are
+   the roles a subscriber pays for: company and apply link stay locked until
+   the reader is signed in with an active plan; title, location and pay stay
+   open so the page is honest about what is behind the lock. Aggregator rows
+   (Careerjet, Jooble, Himalayas...) are never locked: their terms want the
+   click, and locking them would be selling someone else's inventory. */
+export const DIRECT_SOURCES = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct']);
+export const isDirect = (j: { source: string }) => DIRECT_SOURCES.has(j.source);
+export const UNLOCK_HREF = '/direct';
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export function postedLabel(posted: string): string {
   // "2026-07-16" -> "Jul 16"; deterministic, no Date parsing.
@@ -94,23 +105,24 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
   const employer = j.source === 'employer' && !!j.url;
   const [tbg, tfg] = monoTint(j.company);
   const remoteNote = j.remote && !/remote/i.test(j.location || '');
-  const tagline = [employer ? 'Hiring' : null, j.featured ? 'Featured' : null, j.fl?.includes('4d') ? '4-day week' : null]
+  const locked = isDirect(j);
+  const tagline = [employer ? 'Hiring' : null, locked ? 'Direct' : null, j.featured ? 'Featured' : null, j.fl?.includes('4d') ? '4-day week' : null]
     .filter(Boolean).join(' \u00B7 ');
   const innerV2 = (
     <>
-      <span className="job-logo">
+      <span className={locked ? 'job-logo jv-locked' : 'job-logo'}>
         {j.logo
           ? <img src={j.logo} alt="" width={34} height={34} loading="lazy" />
           : <span className="job-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(j.company)}</span>}
       </span>
       <span className="jv-main">
-        <span className="jv-ti">{j.title} <span className="jv-at">at {j.company}</span></span>
+        <span className="jv-ti">{j.title} <span className="jv-at">at <span className={locked ? 'jv-locked' : undefined}>{j.company}</span></span></span>
         <span className="jv-loc">{j.location || 'Location unlisted'}{remoteNote ? ' \u00B7 Remote' : ''}</span>
         {tagline && <span className="jv-tags">{tagline}</span>}
       </span>
       <span className="jv-pay">{pay}</span>
       <span className="jv-age" suppressHydrationWarning>{agoLabel(j.posted)}</span>
-      <span className="jv-cell"><SaveButton j={j} /><span className="jv-apply">Apply</span></span>
+      <span className="jv-cell"><SaveButton j={j} /><span className={locked ? 'jv-apply jv-unlock' : 'jv-apply'}>{locked ? 'Unlock' : 'Apply'}</span></span>
     </>
   );
   const inner = v2 ? innerV2 : (
@@ -123,12 +135,13 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
       <span className="job-body">
         <span className="job-main">
           <span className="job-t">{j.title}</span>
-          <span className="job-co">{j.company}{j.location ? <span className="job-loc"> · {j.location}</span> : null}</span>
+          <span className="job-co"><span className={locked ? 'jv-locked' : undefined}>{j.company}</span>{j.location ? <span className="job-loc"> · {j.location}</span> : null}</span>
         </span>
         <span className="job-side">
           {pay && <span className="job-pay">{pay}</span>}
           <span className="job-m lbl">
             {employer && <span className="job-tag job-tag-hire">Hiring</span>}
+            {locked && <span className="job-tag job-tag-direct">Direct</span>}
             {j.featured && <span className="job-tag">Featured</span>}
             {j.fl?.includes('4d') && <span className="job-tag">4-day week</span>}
             {j.remote && <span className="job-tag">Remote</span>}
