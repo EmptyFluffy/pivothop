@@ -16,6 +16,7 @@ import { crJobsFor } from './hire/costa-rica/hire-data';
 import { careerFacts } from './career-guides/facts';
 import { createHash } from 'node:crypto';
 import { hireOccSlugs } from './hire/costa-rica/hire-data';
+import { FACETS } from './jobs/browse/shared';
 
 const BASE = 'https://www.pivothop.com';
 
@@ -74,6 +75,7 @@ function writeLedger() {
 const STATIC: Record<string, string> = {
   '/about': '2026-09-02', '/employers': '2026-09-02', '/support': '2026-09-02', '/privacy': '2026-09-02', '/terms': '2026-09-02',
   '/licenses': '2026-08-22', '/instrument': '2026-09-02', '/hire/costa-rica': '2026-09-02', '/companies': '2026-09-02', '/career-guides': '2026-09-08',
+  '/direct': '2026-09-11',
 };
 const fixed = (p: string) => (STATIC[p] ? { lastModified: new Date(`${STATIC[p]}T00:00:00Z`) } : {});
 // blog posts carry a month ("August 2026"); date them to the first of that month, honestly coarse
@@ -116,10 +118,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/jobs`, ...mod('/jobs'), changeFrequency: 'daily', priority: 0.8 },
     { url: `${BASE}/instrument`, ...fixed('/instrument'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE}/jobs/browse`, ...mod('/jobs/browse'), changeFrequency: 'daily', priority: 0.7 },
-    // the five facet sub-hubs (tier 2 of the browse spine) rank on their own
-    ...['remote', 'fields', 'countries', 'seniority', 'pay'].map((f) => (
-      { url: `${BASE}/jobs/browse/${f}`, ...mod(`/jobs/browse/${f}`), changeFrequency: 'daily' as const, priority: 0.65 }
+    // the facet sub-hubs (tier 2 of the browse spine) rank on their own; the
+    // list is the same FACETS the route renders, so a new facet cannot be
+    // forgotten here (the 2026-09-11 review found cities and languages missing)
+    ...FACETS.map((f) => (
+      { url: `${BASE}/jobs/browse/${f.slug}`, ...mod(`/jobs/browse/${f.slug}`), changeFrequency: 'daily' as const, priority: 0.65 }
     )),
+    { url: `${BASE}/direct`, ...fixed('/direct'), changeFrequency: 'daily', priority: 0.7 },
     ...jobOccupations().map((s) => ({ url: `${BASE}/jobs/${s}`, ...mod(`/jobs/${s}`), changeFrequency: 'daily' as const, priority: 0.7 })),
     ...allCategories().filter((c) => c.indexable).map((c) => ({ url: `${BASE}/jobs/${c.slug}`, ...dated(`/jobs/${c.slug}`, c.sig), changeFrequency: 'daily' as const, priority: c.kind === 'city' || c.kind === 'occ-city' ? 0.65 : 0.6 })),
   ];
