@@ -199,7 +199,6 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
               <a className="rt-go jsheet-apply" href={listing?.applyUrl ?? j.url} target="_blank" rel="nofollow noopener noreferrer">
                 Apply now <Arrow45 size={22} />
               </a>
-              <span className="jsheet-src lbl">Opens the original posting at {j.company}</span>
             </>
           ) : (
             // No outbound link resolved — send them to the full listing rather
@@ -208,7 +207,6 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
               <Link className="rt-go jsheet-apply" href={`/jobs/${j.occ}/${j.id}`}>
                 Open the full listing <Arrow45 size={22} />
               </Link>
-              <span className="jsheet-src lbl">The apply link lives on the listing page</span>
             </>
           )}
         </div>

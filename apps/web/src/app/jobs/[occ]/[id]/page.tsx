@@ -149,17 +149,17 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           <>
             <div className="jd-applyrow jd-locked">
               <Link className="rt-go jd-apply" href={`${UNLOCK_HREF}?from=${occ}`}>Unlock this posting <Arrow45 size={24} /></Link>
-              <span className="lbl">This role was read straight from the employer&rsquo;s own site, not from a job board. The company and the apply link open with a PivotHop plan; the title, location and pay above are exactly as posted.</span>
+              <Link className="jd-back" href={`/jobs/${occ}`}>All {tl} jobs</Link>
             </div>
             <div className="jd-applyrow jd-premium-only">
               <a className="rt-go jd-apply" href={UNLOCK_HREF} data-apply={j.url}>Apply now <Arrow45 size={24} /></a>
-              <span className="lbl">Opens the original posting at <span className="jv-locked">{j.company}</span>. PivotHop does not host applications.</span>
+              <Link className="jd-back" href={`/jobs/${occ}`}>All {tl} jobs</Link>
             </div>
           </>
         ) : (
           <div className="jd-applyrow">
             <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply now <Arrow45 size={24} /></a>
-            <span className="lbl">Opens the original posting at {j.company}. PivotHop does not host applications.</span>
+            <Link className="jd-back" href={`/jobs/${occ}`}>All {tl} jobs</Link>
           </div>
         )}
 
