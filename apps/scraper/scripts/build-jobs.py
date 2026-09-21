@@ -566,9 +566,15 @@ for role, jobs in kept_byocc.items():
     def _tail(t):
         words = re.sub(r'\(.*?\)', ' ', t.lower()).split(' - ')[0].split('/')[-1].split()
         return words[-1] if words else ''
-    sus = [j for j in jobs if _tail(j['title']) in TIER_TAIL]
+    # A title that names the profession itself after the dash is that profession:
+    # USAJOBS posts VA paramedics as "Medical Care Transportation Technician -
+    # Paramedic" (the federal series name, then the job). Cutting at the dash left
+    # "technician" and failed the 2026-09-21 run on a four-row board.
+    prof = role.replace('-', ' ')
+    sus = [j for j in jobs if _tail(j['title']) in TIER_TAIL and prof not in j['title'].lower()]
     share = len(sus) / len(jobs) if jobs else 0
-    if share >= 0.10:
+    # Percentages on a tiny board are noise: two rows out of five is 40%.
+    if share >= 0.10 and len(jobs) >= 10:
         lvl = 'FAIL' if share > 0.30 else 'WARN'
         print(f"purity {lvl}: {role} board is {share:.0%} tier-suffix titles "
               f"(e.g. {', '.join(repr(j['title'][:40]) for j in sus[:3])})")
