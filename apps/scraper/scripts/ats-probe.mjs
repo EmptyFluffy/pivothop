@@ -36,6 +36,10 @@ const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'work
 // staffing platforms and boards that are not employers: a board under their name is not "direct"
 const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|kelly|gpac|yellowshark|ok job|locum|recruit|staffing|personal|jobs?\b|talent|consult|agency|careers?\b|hiring|nhs jobs|indeed|linkedin|jobgether|pavago|mercor|crossover|toptal|turing|deel|remote\.com|outsourc)/i;
 
+// same-named tenants that are NOT the company the aggregator rows belong to
+// (verified by hand); the probe never adds these again even when state is lost
+const DENY = new Set(['lever:capital']); // "Capital One" -> a different Capital
+
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function getJson(url) {
@@ -113,6 +117,7 @@ for (const { co, n } of todo) {
   let hit = null;
   outer: for (const s of slugs) {
     for (const [ats, def] of Object.entries(ATS)) {
+      if (DENY.has(`${ats}:${s}`)) continue;
       if (known[ats].has(s)) { hit = { ats, slug: s, jobs: -1, already: true }; break outer; }
       const jobs = await def.probe(s);
       await sleep(120);

@@ -6,7 +6,12 @@ name: nightly-scrape
 on:
   schedule:
     - cron: '0 8 * * *'        # 08:00 UTC = 02:00 America/Costa_Rica (overnight local)
-  workflow_dispatch: {}         # manual "Run workflow" button, for testing
+  workflow_dispatch:            # manual "Run workflow" button, for testing
+    inputs:
+      recover_state:
+        description: 'Exact scraper-state-<run id> key to restore with the PREVIOUS cache path list (after the list changes, older entries are invisible to the normal step)'
+        required: false
+        default: ''
 
 # allow the job to push the data commit back to main
 permissions:
@@ -57,6 +62,24 @@ jobs:
           key: scraper-state-${{ github.run_id }}
           restore-keys: |
             scraper-state-
+
+      # actions/cache versions every entry by its PATH LIST. Adding
+      # ats-probe-state.json above (2026-09-21) made every older entry invisible:
+      # the next run saw "Cache not found for scraper-state-", fell back to the
+      # July seed, and published a 26k board instead of 40k. Before changing the
+      # list again, dispatch once with recover_state=<the last good key>: this
+      # step restores it with the OLD list, then the step above re-saves it under
+      # the new version at the end of the run.
+      - uses: actions/cache/restore@v4
+        if: github.event.inputs.recover_state != ''
+        with:
+          path: |
+            apps/scraper/data/postings_raw.ndjson
+            apps/scraper/data/first-seen.json
+            apps/scraper/data/logo-tried.json
+            apps/scraper/data/adjacency.json
+          key: ${{ github.event.inputs.recover_state }}
+          fail-on-cache-miss: true
 
       # Persist the polite HTTP cache too (20h TTL, matches the nightly cadence).
       # This is what keeps runs short AND inside the free Actions tier: warm runs

@@ -25,7 +25,7 @@ RAW="apps/scraper/data/postings_raw.ndjson"
 mkdir -p apps/scraper/data
 RAW_MB=$( [ -f "$RAW" ] && echo $(( $(wc -c < "$RAW") / 1048576 )) || echo 0 )
 if [ "$RAW_MB" -lt 50 ]; then
-  echo "corpus: ${RAW_MB}MB on disk — restoring from seed release $SEED_TAG"
+  echo "::warning::corpus: ${RAW_MB}MB on disk — restoring from seed release $SEED_TAG (accumulated corpus LOST: check the state cache; recover with workflow input recover_state=<last good key>)"
   gh release download "$SEED_TAG" -p 'postings_raw.ndjson.gz' -O /tmp/seed-raw.gz --clobber \
     && gunzip -c /tmp/seed-raw.gz > "$RAW" \
     && echo "corpus: restored $(( $(wc -c < "$RAW") / 1048576 ))MB"
