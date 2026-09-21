@@ -363,6 +363,28 @@ function buildCountries(): Map<string, CountryCompanies> {
 export function countryCompanySlugs(): string[] { return [...buildCountries().keys()]; }
 export function getCountryCompanies(slug: string): CountryCompanies | null { return buildCountries().get(slug) ?? null; }
 export function countryCompanyPages(): CountryCompanies[] { return [...buildCountries().values()].sort((a, b) => b.companies.length - a.companies.length); }
+/* COMPANIES WITH EQUITY (2026-09-21). GSC: "companies hiring with equity",
+   "unicorns hiring with equity", "meaningful equity" land on the equity JOBS
+   category at positions 28 to 46; the intent is a list of employers. A row
+   needs 3+ live postings that state equity and a company page to link. */
+export type EquityRow = { slug: string; name: string; n: number; total: number; logo: string | null; field: string | null; remoteN: number };
+let _equity: EquityRow[] | null = null;
+export function equityCompanies(): EquityRow[] {
+  if (_equity) return _equity;
+  const pages = build();
+  const rows: EquityRow[] = [];
+  for (const p of pages.values()) {
+    const eq = p.jobs.filter((j) => j.fl?.includes('eq'));
+    if (eq.length < 3) continue;
+    rows.push({ slug: p.slug, name: p.name, n: eq.length, total: p.count, logo: p.logo, field: p.fields[0]?.[0] ?? null, remoteN: eq.filter((j) => j.remote).length });
+  }
+  _equity = rows.sort((a, b) => b.n - a.n);
+  return _equity;
+}
+export function equityJobs(limit = 8): Job[] {
+  return allJobs().filter((j) => j.fl?.includes('eq') && companySlugFor(j.company)).sort((a, b) => (b.posted || '').localeCompare(a.posted || '')).slice(0, limit);
+}
+
 /** The companies-in-country page for a country code, if it exists. */
 export function countryCompaniesFor(cc: string): CountryCompanies | null {
   return [...buildCountries().values()].find((c) => c.cc === cc) ?? null;

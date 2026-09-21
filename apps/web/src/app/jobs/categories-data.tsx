@@ -90,6 +90,7 @@ export type Category = {
   graced?: boolean;      // below THRESHOLD today, kept alive by the grace window
   city?: string;         // city kinds: the canonical city name
   cityCountry?: string;  // city kinds: the resolved country code the city sits in
+  titleLocal?: string;   // Swiss cities: the title in the canton's language ("Emplois à Lausanne")
   indexable: boolean;    // joins the sitemap (city kinds only above CITY_SITEMAP_FLOOR; everything else always)
   sig: string;           // content signature (the matched job ids) for an honest lastmod
 };
@@ -252,6 +253,7 @@ function candidates(): Cand[] {
     const sl = citySlugs.get(k)!;
     const where = `${city}, ${countryName(cc)}`;
     out.push({ slug: `in-${sl}`, kind: 'city', title: `Jobs in ${city}`, searchTitle: city, query: `loc=${encodeURIComponent(city)}&c=${cc}`, city, cityCountry: cc,
+      titleLocal: cc === 'CH' ? swissLocalTitle(city) : undefined,
       noun: `roles in ${where}`, match: (j) => j.c === cc && cityOf(j.location) === city } as Cand);
     for (const o of occs) {
       const t = occTitle(o);
@@ -269,6 +271,21 @@ function candidates(): Cand[] {
   }
 
   return out;
+}
+
+/* SWISS CITY TITLES (2026-09-21). GSC shows the local queries arriving in the
+   canton's language ("offres emploi neuchatel", "emploi lausanne", "stellen
+   aarau", "lavoro lugano") and the English-only title ranking at 40 to 55 for
+   them. Each Swiss city page carries the title in its canton's language next
+   to the English one; the occupation-in-city pages stay English. */
+const CH_FR = new Set(['Lausanne', 'Geneva', 'Fribourg', 'Neuchâtel', 'Sion', 'Nyon', 'Yverdon-les-Bains', 'Delémont', 'Montreux', 'Vevey', 'La Chaux-de-Fonds', 'Bulle', 'Morges', 'Renens', 'Martigny', 'Monthey', 'Le Locle', 'Porrentruy', 'Payerne', 'Carouge', 'Lancy', 'Meyrin', 'Vernier', 'Pully', 'Gland', 'Aigle', 'Villars-sur-Glâne', 'Marin', 'Estavayer-le-Lac', 'Sierre', 'Moutier', 'Crans-Montana', 'Rolle', 'Écublens', 'Ecublens', 'Prilly']);
+const CH_IT = new Set(['Lugano', 'Bellinzona', 'Locarno', 'Mendrisio', 'Chiasso', 'Biasca', 'Manno', 'Paradiso']);
+const CH_FR_NAME: Record<string, string> = { Geneva: 'Genève' };
+export function swissLocalTitle(city: string): string {
+  if (city === 'Biel' || city === 'Bienne') return 'Stellen in Biel · Emplois à Bienne';
+  if (CH_IT.has(city)) return `Lavoro a ${city}`;
+  if (CH_FR.has(city)) return `Emplois à ${CH_FR_NAME[city] ?? city}`;
+  return `Stellen in ${city}`;
 }
 
 const sigOf = (ids: string[]) => createHash('sha1').update(ids.sort().join('\n')).digest('hex').slice(0, 12);
@@ -429,6 +446,14 @@ export function swissStats(c: Category): SwissStats | null {
     cities: [...cities.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6) as [string, number][],
     remoteN: m.filter((j) => j.remote).length,
   };
+}
+
+/** One plain sentence for the meta description: the count, the thing, remote if any. */
+export function categoryShort(c: Category): string {
+  const n = c.count.toLocaleString();
+  const rem = c.remoteN > 0 && c.kind !== 'remote' && !/^remote/.test(c.slug) ? `, ${c.remoteN.toLocaleString()} remote` : '';
+  const thing = c.kind === 'city' ? `roles in ${c.city}` : c.kind === 'country' || c.kind === 'region' ? `roles in ${c.searchTitle}` : (c.noun ?? `${c.searchTitle} roles`);
+  return `${n} open ${thing}${rem}. Pay, skills and the routes in, updated daily.`;
 }
 
 /** A distinct, count-bearing intro per category — never boilerplate. */

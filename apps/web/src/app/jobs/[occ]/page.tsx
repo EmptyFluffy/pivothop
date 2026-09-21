@@ -6,7 +6,7 @@ import { getJobs, jobOccupations, jobCount, occTitle, occField, occSearchText, o
 import JobsBrowse from '../JobsBrowse';
 import { coverableSlugs } from '../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, routeOrigins } from '../../routes/routes-data';
-import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShowAll, categoryStats, slugifyName, allCategories, type Category } from '../categories-data';
+import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShort, categoryShowAll, categoryStats, slugifyName, allCategories, type Category } from '../categories-data';
 import { countryName } from '../countries';
 import { REGION_META, type RegionKey } from '../regions';
 import { postedLabel, isDirect, type Job } from '../JobCard';
@@ -47,8 +47,8 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   }
   const cat = getCategory(occ);
   if (cat) return {
-    title: `${cat.title}: ${cat.count.toLocaleString()} open roles`,
-    description: categoryBlurb(cat),
+    title: cat.titleLocal ? `${cat.title} · ${cat.titleLocal}` : `${cat.title}: ${cat.count.toLocaleString()} open roles`,
+    description: categoryShort(cat),
     alternates: { canonical: `/jobs/${occ}` },
   };
   return {};
@@ -471,7 +471,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
           hero={
             <header className="jb-hero">
               <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: cat.title }]} />
-              <p className="jb-vmeta">{jobs.length.toLocaleString()} live roles &middot; freshest first</p>
+              <p className="jb-vmeta">{cat.titleLocal ? <>{cat.titleLocal} &middot; </> : null}{jobs.length.toLocaleString()} open roles</p>
               <h1 className="rt-h1">{cat.title}</h1>
               <p className="jb-lede">
                 {categoryBlurb(cat)}{' '}
@@ -501,6 +501,9 @@ function CategoryBoard({ cat }: { cat: Category }) {
             All roles in {cat.city}: <Link className="gl" href={`/jobs/${hub.slug}`}>{hub.title}</Link>{' '}
             ({hub.count.toLocaleString()} open). Every {destTitle.toLowerCase()} role, anywhere: <Link className="gl" href={`/jobs/${cat.destOcc}`}>{destTitle} jobs</Link>.
           </p>
+        )}
+        {cat.slug === 'with-equity' && (
+          <p className="rt-note"><Link className="gl" href="/companies/with-equity">Companies hiring with equity</Link></p>
         )}
         {(() => {
           // country pages hand off to the employer list of the same country

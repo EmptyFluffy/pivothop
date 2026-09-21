@@ -3,7 +3,7 @@ import { PageShell } from '../components/SiteChrome';
 import { Crumbs } from '../components/Crumbs';
 import { PageHead } from '../components/PageHead';
 import { IndexSearch, type IxRow, type IxGroup } from '../components/IndexSearch';
-import { companiesRanked, countryCompanyPages } from './companies-data';
+import { companiesRanked, countryCompanyPages, equityCompanies } from './companies-data';
 import Link from 'next/link';
 import { companyInitial, monoTint } from '../jobs/JobCard';
 import { countryName } from '../jobs/countries';
@@ -66,6 +66,7 @@ export default function CompaniesHub() {
         <section className="rt-sec jb-byocc">
           <h2>By country</h2>
           <span className="jb-occlinks">
+            <Link href="/companies/with-equity">Hiring with equity <span className="lbl">{equityCompanies().length}</span></Link>
             {countryCompanyPages().map((k) => (
               <Link key={k.slug} href={`/companies/${k.slug}`}>Hiring in {k.inName} <span className="lbl">{k.companies.length}</span></Link>
             ))}

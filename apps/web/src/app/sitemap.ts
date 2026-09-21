@@ -75,7 +75,7 @@ function writeLedger() {
 const STATIC: Record<string, string> = {
   '/about': '2026-09-02', '/employers': '2026-09-02', '/support': '2026-09-02', '/privacy': '2026-09-02', '/terms': '2026-09-02',
   '/licenses': '2026-08-22', '/instrument': '2026-09-02', '/hire/costa-rica': '2026-09-02', '/companies': '2026-09-02', '/career-guides': '2026-09-08',
-  '/direct': '2026-09-11',
+  '/direct': '2026-09-11', '/companies/with-equity': '2026-09-21',
 };
 const fixed = (p: string) => (STATIC[p] ? { lastModified: new Date(`${STATIC[p]}T00:00:00Z`) } : {});
 // blog posts carry a month ("August 2026"); date them to the first of that month, honestly coarse
@@ -100,6 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/hire/costa-rica`, ...fixed('/hire/costa-rica'), changeFrequency: 'daily', priority: 0.8 },
     ...hireOccSlugs().map((s) => ({ url: `${BASE}/hire/costa-rica/${s}`, ...dated(`/hire/costa-rica/${s}`, sigOf(crJobsFor(s).map((j) => `${j.occ}/${j.id}`).sort())), changeFrequency: 'daily' as const, priority: 0.7 })),
     { url: `${BASE}/companies`, ...fixed('/companies'), changeFrequency: 'daily', priority: 0.7 },
+    { url: `${BASE}/companies/with-equity`, ...fixed('/companies/with-equity'), changeFrequency: 'daily', priority: 0.7 },
     ...companySitemapSlugs().map((s) => ({ url: `${BASE}/companies/${s}`, ...dated(`/companies/${s}`, getCompany(s)?.sig ?? ''), changeFrequency: 'daily' as const, priority: 0.7 })),
     ...countryCompanySlugs().map((s) => ({ url: `${BASE}/companies/${s}`, ...dated(`/companies/${s}`, getCountryCompanies(s)?.sig ?? ''), changeFrequency: 'daily' as const, priority: 0.7 })),
     { url: `${BASE}/licenses`, ...mod('/licenses'), changeFrequency: 'monthly', priority: 0.7 },
