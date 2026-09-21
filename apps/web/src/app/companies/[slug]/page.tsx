@@ -33,15 +33,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const k = getCountryCompanies(slug);
     if (!k) return {};
     return {
-      title: `Companies hiring in ${k.inName}: ${k.companies.length} employers, ${k.jobs.toLocaleString()} open roles`,
-      description: `${k.companies.length} companies with ${k.floor} or more open roles in ${k.inName} right now, ranked by what they have open here and grouped by field. Built nightly from the postings themselves: ${k.companies.slice(0, 3).map((r) => r.name).join(', ')} and more.`,
+      title: `Companies hiring in ${k.inName}`,
+      description: `${k.companies.length} companies hiring in ${k.inName} right now, ${k.jobs.toLocaleString()} open roles: ${k.companies.slice(0, 3).map((r) => r.name).join(', ')} and more.`,
       alternates: { canonical: `/companies/${slug}` },
     };
   }
-  const sal = c.band ? ` ($${c.band.p25}k–$${c.band.p75}k posted)` : '';
+  const where = c.countries.length === 1 ? ` in ${countryName(c.countries[0][0])}` : '';
+  const extras = [c.band ? 'pay' : null, c.benefits.length >= 2 ? 'benefits' : null].filter(Boolean).join(' and ');
   return {
-    title: `Jobs at ${c.name}: ${c.count} open roles${sal}`,
-    description: `${c.count} live openings at ${c.name}${c.remoteN > 0 ? `, ${c.remoteN} fully remote` : ''}. What it hires for, where, the benefits its postings declare, and posted pay, computed nightly from the listings themselves.`,
+    title: `${c.name} jobs`,
+    description: `${c.count} open roles at ${c.name}${where}${c.remoteN > 0 ? `, ${c.remoteN} remote` : ''}${extras ? `, with ${extras}` : ''}.`,
     alternates: { canonical: `/companies/${slug}` },
   };
 }
@@ -168,8 +169,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
         {c.band && (
           <section className="rt-sec occ-facts">
-            <h2>What {c.name} pays, from its postings</h2>
-            <p className="rt-note">{c.stated.toLocaleString()} of its {c.count.toLocaleString()} live postings state a salary. Only those are counted; nothing is estimated for the ones that stay silent. Figures are annual, as posted.</p>
+            <h2>What {c.name} pays</h2>
             <div className="cg-band">
               <div><span className="v">${c.band.p25}k</span><span className="k">25th</span></div>
               <div className="mid"><span className="v">${c.band.p50}k</span><span className="k">Median</span></div>
@@ -190,7 +190,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
                     ))}
                   </tbody>
                 </table>
-                <p className="rt-note occ-tbl-note">Middle half of posted pay where five or more postings state it; marked rows show the posted minimum and maximum of three or four postings.</p>
+                <p className="rt-note occ-tbl-note">* posted range, under five postings</p>
               </div>
             )}
             {c.payByCountry.length > 1 && (
@@ -208,7 +208,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
                     ))}
                   </tbody>
                 </table>
-                <p className="rt-note occ-tbl-note">Same rule per country. Posted figures are converted to US dollars at the time of the scrape, so compare across countries with care.</p>
+                <p className="rt-note occ-tbl-note">In US dollars</p>
               </div>
             )}
           </section>
@@ -218,16 +218,15 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           jobs={c.jobs}
           limit={10}
           total={c.count}
-          heading="Latest openings"
-          note={`${c.name}'s live postings on this board, freshest first. Apply at the source.`}
+          heading="Open roles"
+          note=""
           allHref={`/jobs?q=${encodeURIComponent(c.name)}`}
           allLabel={`All ${c.count.toLocaleString()} ${c.name} roles, filterable`}
         />
 
         {c.benefits.length >= 2 && (
           <section className="rt-sec">
-            <h2>Benefits its postings declare</h2>
-            <p className="rt-note">Mined from the posting text itself; the count is how many of its live postings state each benefit. Absence means unstated, not absent.</p>
+            <h2>Benefits</h2>
             <ul className="rt-rel">
               {c.benefits.map(([t, n]) => (
                 <li key={t}><span>{t}</span><span className="lbl">{n} postings</span></li>
@@ -256,9 +255,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         </div>
 
         <p className="rt-method lbl">
-          Computed nightly from {c.name}&rsquo;s live postings on re-displayable sources. Nothing on this page
-          is self-reported by the company, and PivotHop is not affiliated with it; each opening links out to
-          apply at the original posting.
+          Built from {c.name}&rsquo;s own postings; pay and benefits appear only where a posting states them. PivotHop is not affiliated with {c.name}.
         </p>
       </div>
 

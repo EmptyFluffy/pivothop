@@ -209,9 +209,7 @@ function OccupationBoard({ occ }: { occ: string }) {
 
         <section className="rt-sec occ-facts">
           <h2>What {jobs.length.toLocaleString()} postings say</h2>
-          <p className="rt-note">
-            Computed from the live board on the date of the nightly build{fresh.week > 0 ? <> &middot; <span className="lbl">{fresh.week}</span> added in the last 7 days</> : null}{fresh.medianDays != null ? <> &middot; median listing is <span className="lbl">{fresh.medianDays}</span> days old</> : null}.
-          </p>
+          {fresh.week > 0 && <p className="rt-note"><span className="lbl">{fresh.week}</span> added in the last 7 days</p>}
           {tiers.length > 1 && (
             <div className="occ-tblwrap">
               <table className="occ-tbl">
@@ -227,7 +225,7 @@ function OccupationBoard({ occ }: { occ: string }) {
                   ))}
                 </tbody>
               </table>
-              <p className="rt-note occ-tbl-note">Seniority is read from posting titles; roles with no level in the title are counted as mid. Bands cover only postings that state pay, and only where five or more do.</p>
+              <p className="rt-note occ-tbl-note">Level read from the title; pay where stated</p>
             </div>
           )}
           {skills.length >= 3 && (
@@ -241,7 +239,7 @@ function OccupationBoard({ occ }: { occ: string }) {
                   </li>
                 ))}
               </ul>
-              <p className="rt-note occ-tbl-note">Share of postings naming each skill, from the posting text itself.</p>
+              <p className="rt-note occ-tbl-note">Share of postings naming the skill</p>
             </div>
           )}
           {companies.length >= 3 && (
@@ -265,7 +263,6 @@ function OccupationBoard({ occ }: { occ: string }) {
         {waysIn.length > 0 && (
           <section className="rt-sec">
             <h2>Routes into {tl}</h2>
-            <p className="rt-note">The measured pivots that lead here, ranked by how much of the destination a typical origin profile already covers.</p>
             <ul className="rt-rel">
               {waysIn.map(({ slug, r, om }) => (
                 <li key={slug}><Link href={`/routes/${slug}`}>{om.title} &rarr; {title}</Link><span className="lbl">{r!.match}% readiness</span></li>
@@ -277,7 +274,7 @@ function OccupationBoard({ occ }: { occ: string }) {
         {variants.length > 0 && (
           <section className="rt-sec jb-byocc">
             <h2>More {tl} searches</h2>
-            <p className="rt-note">Preloaded filters over this board, refreshed with the nightly scrape. <Link className="gl" href="/jobs/browse">All preloaded searches</Link>.</p>
+            <p className="rt-note"><Link className="gl" href="/jobs/browse">All searches</Link></p>
             <span className="jb-occlinks">
               {variants.map((c) => (
                 <Link key={c.slug} href={`/jobs/${c.slug}`}>{c.title} <span className="lbl">{c.count.toLocaleString()}</span></Link>
@@ -304,7 +301,7 @@ function OccupationBoard({ occ }: { occ: string }) {
         )}
 
         <p className="rt-method lbl">
-          Listings backfilled from re-displayable sources (company career pages, remote-job boards, and public-sector postings), freshest first, refreshed with the nightly scrape. Each links out to apply at the original posting; PivotHop does not host applications. Salary shown where the posting states it.
+          Listings come from company career pages and public boards and link out to apply. Refreshed nightly.
         </p>
       </div>
 
@@ -492,7 +489,6 @@ function CategoryBoard({ cat }: { cat: Category }) {
         {cityOccs.length > 0 && (
           <section className="rt-sec jb-byocc">
             <h2>{cat.city} jobs by occupation</h2>
-            <p className="rt-note">The roles hiring in {cat.city} right now, each with its own page. Counts move with the nightly scrape.</p>
             <span className="jb-occlinks">
               {cityOccs.map((c) => (
                 <Link key={c.slug} href={`/jobs/${c.slug}`}>{occTitle(c.destOcc!)} <span className="lbl">{c.count.toLocaleString()}</span></Link>
@@ -512,8 +508,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
           const k = cat.kind === 'country' && cc ? countryCompaniesFor(cc) : null;
           return k ? (
             <p className="rt-note">
-              The employers behind these roles: <Link className="gl" href={`/companies/${k.slug}`}>companies hiring in {k.inName}</Link>{' '}
-              ({k.companies.length} with {k.floor} or more open roles here).
+              <Link className="gl" href={`/companies/${k.slug}`}>Companies hiring in {k.inName}</Link> ({k.companies.length})
             </p>
           ) : null;
         })()}
@@ -522,10 +517,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
         {waysIn.length > 0 && (
           <section className="rt-sec">
             <h2>Routes into {destTitle.toLowerCase()}</h2>
-            <p className="rt-note">
-              The measured pivots that lead here, ranked by how much of the destination a typical origin profile already covers.
-              {destHasSalary && <>{' '}What it pays: <Link className="gl" href={`/salary/${cat.destOcc}`}>{destTitle.toLowerCase()} salary</Link>.</>}
-            </p>
+            {destHasSalary && <p className="rt-note"><Link className="gl" href={`/salary/${cat.destOcc}`}>{destTitle} salary</Link></p>}
             <ul className="rt-rel">
               {waysIn.map(({ slug, r, om }) => (
                 <li key={slug}><Link href={`/routes/${slug}`}>{om.title} &rarr; {destTitle}</Link><span className="lbl">{r!.match}% readiness</span></li>
@@ -536,7 +528,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
 
         <section className="rt-sec">
           <h2>More ways to browse</h2>
-          <p className="rt-note">Every filter on the board is a page like this one, preloaded and refreshed nightly. <Link className="gl" href="/jobs/browse">Browse them all</Link>.</p>
+          <p className="rt-note"><Link className="gl" href="/jobs/browse">All searches</Link></p>
           <ul className="rt-rel">
             {related.map((c) => (
               <li key={c.slug}><Link href={`/jobs/${c.slug}`}>{c.title}</Link><span className="lbl">{c.count.toLocaleString()} open</span></li>
@@ -560,7 +552,7 @@ function CategoryBoard({ cat }: { cat: Category }) {
         </div>
 
         <p className="rt-method lbl">
-          Listings backfilled from re-displayable sources (company career pages, remote-job boards, and public-sector postings), freshest first, refreshed with the nightly scrape. A sample is shown here; <Link className="gl" href={showAll}>see the full filtered board</Link>. Each links out to apply at the original posting; salary shown where the posting states it.
+          Listings come from company career pages and public boards and link out to apply. Refreshed nightly. <Link className="gl" href={showAll}>Full filtered board</Link>.
         </p>
       </div>
 

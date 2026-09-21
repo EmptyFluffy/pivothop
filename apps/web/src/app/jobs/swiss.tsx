@@ -59,8 +59,7 @@ export function SwissBlock({ cat }: { cat: Category }) {
   const langLinks = s.langs.slice(0, 4).map(([c, n]) => ({ code: c, n, name: LANG_NAMES[c] ?? c, page: langCategory(c, 'CH') })).filter((l) => LANG_NAMES[l.code]);
   return (
     <section className="rt-sec occ-facts">
-      <h2>Working in Switzerland, from these {s.n.toLocaleString()} postings</h2>
-      <p className="rt-note">Workload, language and place, read from the postings themselves. Swiss employers write the workload into the title and name the language they need; both are counted here, nothing is inferred.</p>
+      <h2>Working in Switzerland</h2>
       <div className="cg-band">
         <div><span className="v">{s.workloadStated > 0 ? `${pct(s.partTimeOk, s.workloadStated)}%` : 'n/a'}</span><span className="k">Open below 100% (of {s.workloadStated} stating a workload)</span></div>
         <div className="mid"><span className="v">{s.gated >= 5 && s.langs[0] ? (LANG_NAMES[s.langs[0][0]] ?? s.langs[0][0]) : 'unstated'}</span><span className="k">{s.gated >= 5 ? `Language asked for most (${s.gated} state one)` : `Language: ${s.gated} of ${s.n} state one`}</span></div>
@@ -77,7 +76,7 @@ export function SwissBlock({ cat }: { cat: Category }) {
               </li>
             ))}
           </ul>
-          <p className="rt-note occ-tbl-note">Postings that name the language explicitly. The rest usually assume the canton&rsquo;s own language.</p>
+          <p className="rt-note occ-tbl-note">Where the posting names one; the rest assume the canton&rsquo;s language</p>
         </div>
       )}
       {s.ranges.length > 0 && (
@@ -86,7 +85,7 @@ export function SwissBlock({ cat }: { cat: Category }) {
           <ul>
             {s.ranges.map(([r, n]) => <li key={r}><span>{r}</span><span className="n">{n}</span></li>)}
           </ul>
-          <p className="rt-note occ-tbl-note">A range ending in 100% means full time is offered and less is negotiable.</p>
+          <p className="rt-note occ-tbl-note">A range ending in 100% means part time is negotiable</p>
         </div>
       )}
     </section>

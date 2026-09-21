@@ -30,7 +30,7 @@ export default function JobsList({
   return (
     <section className="rt-sec">
       <h2>{heading ?? `Open ${title} roles`}</h2>
-      <p className="rt-note">{note ?? 'Live openings tagged to this occupation, from company career pages and remote boards. Apply at the source.'}</p>
+      {note !== '' && <p className="rt-note">{note ?? 'Live openings, freshest first. Apply at the source.'}</p>}
       <ul className="job-list">
         {jobs.map((j) => <JobCard key={`${j.occ}-${j.id}`} j={j} v2={v2} />)}
       </ul>

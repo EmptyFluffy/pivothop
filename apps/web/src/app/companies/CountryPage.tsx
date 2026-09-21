@@ -75,9 +75,9 @@ export function CountryCompaniesPage({ c }: { c: CountryCompanies }) {
         <PageHead
           kicker="The employers, by country"
           title={<>Companies hiring in {c.inName}</>}
-          lede={`${c.companies.length} companies with ${c.floor} or more open roles in ${c.inName} right now, ranked by how many they have open here and grouped by the field each one hires in most. Every profile is built from the company's own postings. Nothing is self-reported.`}
-          meta={<><span className="lbl">{c.jobs.toLocaleString()}</span> live roles at these companies &middot;{' '}
-            <span className="lbl">{c.companies.length}</span> companies &middot; refreshed nightly</>}
+          lede={`${c.companies.length} companies hiring in ${c.inName} right now, and what each one has open.`}
+          meta={<><span className="lbl">{c.jobs.toLocaleString()}</span> open roles &middot;{' '}
+            <span className="lbl">{c.companies.length}</span> companies</>}
         />
         <IndexSearch rows={rows} groups={groups} placeholder={`Search a company hiring in ${c.name}`} unit="companies" />
 
@@ -86,7 +86,7 @@ export function CountryCompaniesPage({ c }: { c: CountryCompanies }) {
           limit={6}
           total={c.allJobs}
           heading={`Newest roles in ${c.inName}`}
-          note={`The freshest postings from these companies in ${c.inName}. Apply at the source.`}
+          note=""
           allHref={jobsPage ? `/jobs/${jobsPage.slug}` : `/jobs?c=${c.cc}`}
           allLabel={`All ${c.allJobs.toLocaleString()} roles in ${c.inName}`}
         />
@@ -107,7 +107,7 @@ export function CountryCompaniesPage({ c }: { c: CountryCompanies }) {
         </div>
 
         <p className="rt-method lbl">
-          A company appears here while it holds {c.floor} or more live roles located in {c.inName} on the board (the bar rises in countries where the list would otherwise run past 250 companies), and re-ranks with the nightly scrape. Counts are that country&rsquo;s postings only. PivotHop is not affiliated with any company listed; each role links out to apply at the original posting.
+          Companies with {c.floor} or more open roles in {c.inName}. Refreshed nightly. PivotHop is not affiliated with the companies listed.
         </p>
       </div>
 

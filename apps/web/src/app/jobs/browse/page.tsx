@@ -40,7 +40,6 @@ export default function JobsBrowseHub() {
 
         <section className="rt-sec bh-sec" aria-label="The biggest searches">
           <h2>The head of the board</h2>
-          <p className="rt-note">The eight densest searches tonight, by open roles.</p>
           <ul className="bh-band">
             {head.map((c) => (
               <Row key={c.slug} href={`/jobs/${c.slug}`} label={c.title} count={c.count} big />
@@ -55,7 +54,7 @@ export default function JobsBrowseHub() {
           return (
             <section key={f.slug} id={f.slug} className="rt-sec bh-sec">
               <h2>{f.title}</h2>
-              <p className="rt-note">{f.note} {list.length.toLocaleString()} pages; the largest holds {list[0].count.toLocaleString()} roles.</p>
+              <p className="rt-note">{list.length.toLocaleString()} pages</p>
               <ul className="bh-list">
                 {top.map((c) => (
                   <Row key={c.slug} href={`/jobs/${c.slug}`} label={c.title} count={c.count} />

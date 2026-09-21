@@ -8,11 +8,16 @@ import Link from 'next/link';
 import { companyInitial, monoTint } from '../jobs/JobCard';
 import { countryName } from '../jobs/countries';
 
-export const metadata: Metadata = {
-  title: 'Companies hiring now: who is hiring, for what, and what they pay',
-  description: 'Every company with live openings on the board, ranked by open roles and grouped by field. Each profile is built from the company’s own postings: roles, countries, posted pay, stated benefits. Search by name.',
-  alternates: { canonical: '/companies' },
-};
+/* The count is the live one; the copy stays short on purpose (house rule
+   2026-09-21: say the thing, not the method). */
+export function generateMetadata(): Metadata {
+  const n = companiesRanked().length;
+  return {
+    title: 'Companies hiring now',
+    description: `${n.toLocaleString()} companies with open roles. See what each one is hiring for, where, and what it pays.`,
+    alternates: { canonical: '/companies' },
+  };
+}
 
 /* One list for every company (2026-09-02). The first version showed cards
    for the 20-plus-role names and dropped everyone else into an inline A to Z:
@@ -52,15 +57,14 @@ export default function CompaniesHub() {
         <PageHead
           kicker="The employers"
           title="Who is hiring right now"
-          lede={`${cos.length.toLocaleString()} companies with live openings on this board, ranked by how many roles each has open today and grouped by the field it mostly hires in. Every profile is built from the company’s own postings: what it hires for, where, what it pays and the benefits it states. Nothing is self-reported.`}
-          meta={<><span className="lbl">{total.toLocaleString()}</span> live roles &middot;{' '}
-            <span className="lbl">{cos.length.toLocaleString()}</span> companies &middot; refreshed nightly</>}
+          lede={`${cos.length.toLocaleString()} companies with open roles. What each one is hiring for, where, and what it pays.`}
+          meta={<><span className="lbl">{total.toLocaleString()}</span> open roles &middot;{' '}
+            <span className="lbl">{cos.length.toLocaleString()}</span> companies</>}
         />
         <IndexSearch rows={rows} groups={groups} placeholder="Search a company" unit="companies" />
 
         <section className="rt-sec jb-byocc">
           <h2>By country</h2>
-          <p className="rt-note">Who is hiring where: each page ranks the companies with three or more open roles in that country, counted from the postings located there.</p>
           <span className="jb-occlinks">
             {countryCompanyPages().map((k) => (
               <Link key={k.slug} href={`/companies/${k.slug}`}>Hiring in {k.inName} <span className="lbl">{k.companies.length}</span></Link>
@@ -68,9 +72,7 @@ export default function CompaniesHub() {
           </span>
         </section>
         <p className="rt-method lbl">
-          A company appears while it holds three or more live roles on the board and re-ranks with the nightly
-          scrape. PivotHop is not affiliated with any company listed; a company can claim its profile from its
-          own page.
+          Profiles are built from each company&rsquo;s own postings and refreshed nightly. PivotHop is not affiliated with the companies listed.
         </p>
       </div>
     </PageShell>

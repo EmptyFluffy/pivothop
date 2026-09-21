@@ -47,19 +47,17 @@ export async function generateMetadata({ params }: { params: Promise<{ pair: str
   const pay = payRead(p);
   const best = Math.max(p.ab?.match ?? 0, p.ba?.match ?? 0);
   const open = jobCount(p.a) + jobCount(p.b);
-  // Title carries the question people type; description leads with the answer.
-  const title = pay
-    ? `${tA} vs ${tB}: pay, skills and which pays more`
-    : `${tA} vs ${tB}: skills, overlap and which is easier to move into`;
-  const lead = pay
+  // The thing plus the year in the title; one plain sentence in the description.
+  const title = `${tA} vs ${tB} (${new Date().getFullYear()})`;
+  const roles = open > 0 ? `, and ${open.toLocaleString()} open roles` : '';
+  const description = pay
     ? (pay.wash
-      ? `Posted pay is close to even: ${fmtBand(p.bandA)} for ${tA.toLowerCase()}s, ${fmtBand(p.bandB)} for ${tB.toLowerCase()}s.`
-      : `${occTitle(pay.hi)}s are posted about $${pay.gap}k a year higher (${fmtBand(pay.hi === p.a ? p.bandA : p.bandB)} vs ${fmtBand(pay.hi === p.a ? p.bandB : p.bandA)}).`)
-    : `Measured from ${(p.postingsA + p.postingsB).toLocaleString()} live postings.`;
-  const unmeasured = !p.ab && !p.ba;
+      ? `Pay is a tie. Where the two jobs differ, how much they overlap, which switch is easier${roles}.`
+      : `${occTitle(pay.hi).toLowerCase()}s earn about $${pay.gap}k more. Pay, skill overlap, which switch is easier${roles}.`.replace(/^./, (c) => c.toUpperCase()))
+    : `Skill overlap, which switch is easier${roles}.`;
   return {
     title,
-    description: `${lead} ${unmeasured ? 'Two jobs people weigh together whose postings share too few skills to score' : `Skill overlap ${best}%, readiness in both directions, the shared skills`}${open > 0 ? `, and ${open.toLocaleString()} open roles` : ''}. Refreshed nightly from live job postings.`,
+    description,
     alternates: { canonical: `/compare/${pair}` },
   };
 }
@@ -208,7 +206,7 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
       <div className="rtp">
         <Crumbs trail={[{ label: 'Compare', href: '/compare' }, { label: `${tA} vs ${tB}` }]} />
         <h1 className="rt-h1">{tA} vs {tB}</h1>
-        <p className="rt-dek">{pairVerdict(p)} Everything on this page is read from the two occupations&rsquo; own live postings and refreshed every night.</p>
+        <p className="rt-dek">{pairVerdict(p)}</p>
 
         <section className="rt-sec cmp-short">
           <h2>The short answer</h2>
@@ -231,7 +229,6 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
         {shared.length > 0 && (
           <section className="rt-sec">
             <h2>The overlap, measured</h2>
-            <p className="rt-note">Skills that appear in both occupations&rsquo; posting demand. This is the shared core; everything else on each side is the difference. Each linked skill has its own page with the roles it unlocks.</p>
             <div className="tags">
               {shared.map((s) => { const sl = skillSlug(s); return sl ? <Link key={s} className="tag have tag-go" href={`/skills/${sl}`}>{s}</Link> : <span key={s} className="tag have">{s}</span>; })}
             </div>
@@ -247,14 +244,14 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
           </div>
         </section>
 
-        <JobsList occ={p.a} limit={4} heading={`Open ${lA} roles right now`} note={`The freshest ${lA} openings on the board, from company career pages and remote boards. Apply at the source.`} />
-        <JobsList occ={p.b} limit={4} heading={`Open ${lB} roles right now`} note={`The freshest ${lB} openings on the board. Same rules: live, tagged to the occupation, linking to the original posting.`} />
+        <JobsList occ={p.a} limit={4} heading={`Open ${lA} roles`} note="" />
+        <JobsList occ={p.b} limit={4} heading={`Open ${lB} roles`} note="" />
 
         {(boardA > 0 || boardB > 0) && (
           <section className="rt-cta">
             <div>
               <h2>See the whole board for both</h2>
-              <p>{(boardA + boardB).toLocaleString()} live roles across the two, freshest first, with posted pay and remote flags where the posting states them.</p>
+              <p>{(boardA + boardB).toLocaleString()} open roles across the two.</p>
             </div>
             <div className="rt-go-row">
               {boardA > 0 && <Link className="rt-go" href={`/jobs/${p.a}`}>{boardA.toLocaleString()} {lA} jobs &rarr;</Link>}
@@ -277,7 +274,7 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
         <section className="rt-cta">
           <div>
             <h2>Which one do your skills favor?</h2>
-            <p>Run the instrument with your own skill set and both readiness numbers recompute for you. Free, no account.</p>
+            <p>Run the instrument with your own skills and both numbers recompute for you. Free.</p>
           </div>
           <Link className="rt-go" href="/">Run your own numbers &rarr;</Link>
         </section>
@@ -290,7 +287,7 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
         </div>
 
         <p className="rt-method lbl">
-          Method: each occupation&rsquo;s salary band is the posted 25th to 75th percentile from its own corpus, counting only postings that state pay; readiness is coverage of the destination&rsquo;s posting-skill weight; shared skills are read from the overlap waterfall. Pairs sharing too few skills are not scored in that direction. Job lists and counts are the live board. Refreshed with the nightly scrape.
+          Pay is the posted middle half; readiness is how much of the other role&rsquo;s skill demand a typical profile covers. Refreshed nightly.
         </p>
       </div>
 
