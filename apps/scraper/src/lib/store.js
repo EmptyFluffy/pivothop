@@ -2,34 +2,49 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { hasSupabase } from './env.js';
 
-// Read as a BUFFER and decode line by line — never as one string.
-//
-// V8 caps a single string at 0x1fffffe8 (536,870,888) characters. On 2026-07-31
-// postings_raw.ndjson was 535,851,089 bytes: 99.8% of that ceiling, under 1MB of
-// headroom, growing ~70MB a night. The cloud runner hit it first —
-// "Error: Cannot create a string longer than 0x1fffffe8 characters" — but the
-// laptop was one night behind it, and this is the primary publisher's read path
-// for the entire accumulated corpus.
-//
-// Buffers have no such cap (buffer.constants.MAX_LENGTH is gigabytes), so the
-// file is read as bytes and each line is decoded individually. Same synchronous
-// signature, so no caller changes; the ceiling is simply gone.
-function eachLine(buf, fn) {
-  let start = 0;
-  for (let i = 0; i < buf.length; i++) {
-    if (buf[i] !== 10) continue;                 // \n
-    let end = i;
-    if (end > start && buf[end - 1] === 13) end--; // tolerate CRLF
-    if (end > start) fn(buf.toString('utf8', start, end));
-    start = i + 1;
+// CHUNKED, NOT WHOLE (2026-09-21). readFileSync refuses anything over 2 GiB
+// (ERR_FS_FILE_TOO_LARGE), and the CI corpus reached 2,157,614,343 bytes on
+// 2026-09-17: four nightlies died in normalize before the gate. The file is now
+// read in 64MB slices and lines are decoded as they complete, so file size no
+// longer has a ceiling and no whole-file buffer is ever allocated.
+const READ_CHUNK = 64 << 20;
+export function forEachNdjson(file, fn, { tolerant = false } = {}) {
+  if (!fs.existsSync(file)) return { lines: 0, bad: 0 };
+  const fd = fs.openSync(file, 'r');
+  let carry = Buffer.alloc(0);
+  let lines = 0, bad = 0;
+  const emit = (line) => {
+    if (!line) return;
+    lines++;
+    try { fn(JSON.parse(line)); }
+    catch (e) { if (!tolerant) throw e; bad++; }
+  };
+  try {
+    const chunk = Buffer.allocUnsafe(READ_CHUNK);
+    for (;;) {
+      const n = fs.readSync(fd, chunk, 0, READ_CHUNK, null);
+      if (n === 0) break;
+      const buf = carry.length ? Buffer.concat([carry, chunk.subarray(0, n)]) : chunk.subarray(0, n);
+      let start = 0;
+      for (let i = 0; i < buf.length; i++) {
+        if (buf[i] !== 10) continue;
+        let end = i;
+        if (end > start && buf[end - 1] === 13) end--;
+        emit(buf.toString('utf8', start, end));
+        start = i + 1;
+      }
+      carry = Buffer.from(buf.subarray(start)); // copy: chunk is reused next read
+    }
+    if (carry.length) emit(carry.toString('utf8').replace(/\r$/, ''));
+  } finally {
+    fs.closeSync(fd);
   }
-  if (start < buf.length) fn(buf.toString('utf8', start));
+  return { lines, bad };
 }
 
 export function readNdjson(file) {
-  if (!fs.existsSync(file)) return [];
   const rows = [];
-  eachLine(fs.readFileSync(file), (l) => rows.push(JSON.parse(l)));
+  forEachNdjson(file, (r) => rows.push(r));
   return rows;
 }
 
@@ -92,14 +107,27 @@ export function readJson(file, fallback = null) {
 // Tolerant NDJSON read: skip any line that fails to parse (e.g. a legacy truncated
 // tail from before atomic writes) rather than throwing the whole corpus away.
 export function readNdjsonSafe(file) {
-  if (!fs.existsSync(file)) return [];
   const out = [];
-  let bad = 0;
-  eachLine(fs.readFileSync(file), (l) => {
-    try { out.push(JSON.parse(l)); } catch { bad++; }
-  });
+  const { bad } = forEachNdjson(file, (r) => out.push(r), { tolerant: true });
   if (bad) console.warn(`readNdjsonSafe: skipped ${bad} unparseable line(s) in ${path.basename(file)}`);
   return out;
+}
+
+/* Streaming NDJSON writer with the same atomic rename as writeNdjson: rows are
+   appended one at a time, so a filter over a corpus larger than memory can
+   rewrite it without materialising the kept set. commit() renames into place;
+   abandon() leaves the previous file untouched. */
+export function openNdjsonWriter(file) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  const tmp = `${file}.tmp-${process.pid}`;
+  const fd = fs.openSync(tmp, 'w');
+  let chunk = '';
+  let n = 0;
+  return {
+    write(row) { chunk += JSON.stringify(row) + '\n'; n++; if (chunk.length >= WRITE_CHUNK) { fs.writeSync(fd, chunk); chunk = ''; } },
+    commit() { if (chunk) fs.writeSync(fd, chunk); fs.closeSync(fd); fs.renameSync(tmp, file); return n; },
+    abandon() { fs.closeSync(fd); try { fs.unlinkSync(tmp); } catch { /* gone */ } },
+  };
 }
 
 /**

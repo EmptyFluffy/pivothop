@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readNdjsonSafe, writeNdjson, readJson, writeJson, supabaseUpsert } from '../lib/store.js';
+import { forEachNdjson, openNdjsonWriter, writeNdjson, readJson, writeJson, supabaseUpsert } from '../lib/store.js';
 import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE, FIRST_SEEN_FILE, TAXONOMY_DIR } from '../lib/paths.js';
 import path from 'node:path';
 import { mapTitle, cleanTitle } from './titles.js';
@@ -80,16 +80,35 @@ function contentHash(desc) {
  * Writes data-quality counters per batch and the unmapped-title log the
  * synonym tables grow from.
  */
-export async function normalize({ log }) {
-  const raw = readNdjsonSafe(RAW_FILE);
-  if (!raw.length) { log('normalize: no raw postings — run `ingest` first'); return null; }
+/* RAW RETENTION (2026-09-21). The corpus accumulated every row ever fetched
+   (960k rows, 2.16GB, +15k a night) and hit Node's 2 GiB single-read ceiling.
+   A posting first seen more than RAW_RETENTION_DAYS ago and not re-seen since
+   is closed: the board shows the 600 freshest per occupation and dedup works
+   in 60-day windows, so nothing the site displays depends on it. Such rows are
+   dropped here and the raw file is rewritten in one streaming pass; the
+   first-seen ledger keeps its 400-day memory so a repost stays honestly old. */
+const RAW_RETENTION_DAYS = Number(process.env.RAW_RETENTION_DAYS) || 90;
 
+export async function normalize({ log }) {
   const ledger = readJson(FIRST_SEEN_FILE) ?? {};
   const unmapped = new Map();
   const candidates = [];
+  const retentionCutoff = new Date(Date.now() - RAW_RETENTION_DAYS * DAY).toISOString().slice(0, 10);
+  const rawWriter = openNdjsonWriter(RAW_FILE);
+  let rawTotal = 0, expired = 0;
 
-  for (const r of raw) {
+  // One streaming pass: never the whole corpus in memory (see store.js).
+  const { bad } = forEachNdjson(RAW_FILE, (r) => {
+    rawTotal++;
     r.title = fixMojibake(r.title); r.company = fixMojibake(r.company); r.location = fixMojibake(r.location);
+
+    // Honest date first (needed for retention): min(ledger, source-reported).
+    const idKey = `${r.source}|${r.external_id}`;
+    const obs = String(r.posted_at ?? '').slice(0, 10);
+    if (obs && (!ledger[idKey] || obs < ledger[idKey])) ledger[idKey] = obs;
+    const posted = ledger[idKey] ?? obs;
+    if (posted && posted < retentionCutoff) { expired++; return; }
+    rawWriter.write(r);
 
     // Repair markup HERE as well as in the adapters, so the corpus already on disk
     // is fixed without re-scraping 260k rows. Feeds that deliver escaped HTML —
@@ -104,18 +123,12 @@ export async function normalize({ log }) {
     if (!mapped && r.avam_code && AVAM[r.avam_code]) mapped = { slug: AVAM[r.avam_code], method: 'avam' };
     if (!mapped) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);
-      continue;
+      return;
     }
     // Location first (specific), source market second (authoritative default).
     const country = inferCountry(r.location) ?? sourceCountry(r);
     const sal = toAnnualUsd({ ...r, country }); // country drives the currency-mismatch check
     const skills = extractSkills(`${r.title}\n${zoneText(r.description_text)}`);
-
-    // 1. Honest date: min(ledger, source-reported), per posting identity.
-    const idKey = `${r.source}|${r.external_id}`;
-    const obs = String(r.posted_at ?? '').slice(0, 10);
-    if (obs && (!ledger[idKey] || obs < ledger[idKey])) ledger[idKey] = obs;
-    const posted = ledger[idKey] ?? obs;
 
     // 2. Dedup key: normalized employer + cleaned title + place, per 60-day window.
     const place = country ?? String(r.location ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 24);
@@ -148,7 +161,11 @@ export async function normalize({ log }) {
         url: r.url,
       },
     });
-  }
+  }, { tolerant: true });
+  if (bad) log(`normalize: skipped ${bad} unparseable raw line(s)`);
+  if (!rawTotal) { rawWriter.abandon(); log('normalize: no raw postings — run `ingest` first'); return null; }
+  if (expired) { const kept = rawWriter.commit(); log(`normalize: retention — dropped ${expired} raw rows first seen before ${retentionCutoff} (${RAW_RETENTION_DAYS} days); ${kept} kept`); }
+  else rawWriter.abandon();
 
   // Keep the richest copy per dedup key.
   const best = new Map();
@@ -184,12 +201,12 @@ export async function normalize({ log }) {
   const withSkills3 = out.filter((p) => p.skills.length >= 3).length;
   const quality = {
     ranAt: new Date().toISOString(),
-    raw_total: raw.length,
+    raw_total: rawTotal,
     mapped: candidates.length,
     deduped: out.length,
     dupes_removed: dupes,
     blasts_collapsed: blasted,
-    pct_titles_mapped: +(100 * candidates.length / raw.length).toFixed(1),
+    pct_titles_mapped: +(100 * candidates.length / rawTotal).toFixed(1),
     pct_with_salary: out.length ? +(100 * withSalary / out.length).toFixed(1) : 0,
     pct_with_3plus_skills: out.length ? +(100 * withSkills3 / out.length).toFixed(1) : 0,
     unmapped_distinct_titles: unmapped.size,
@@ -200,7 +217,7 @@ export async function normalize({ log }) {
     titles: [...unmapped.entries()].sort((a, b) => b[1] - a[1]).slice(0, 400).map(([title, count]) => ({ title, count })),
   });
 
-  log(`normalize: ${raw.length} raw → ${candidates.length} mapped (${quality.pct_titles_mapped}%) → ${out.length} after dedup (−${dupes}, of which −${blasted} geo-blast) · salary ${quality.pct_with_salary}% · ≥3 skills ${quality.pct_with_3plus_skills}% · ${unmapped.size} distinct unmapped titles`);
+  log(`normalize: ${rawTotal} raw → ${candidates.length} mapped (${quality.pct_titles_mapped}%) → ${out.length} after dedup (−${dupes}, of which −${blasted} geo-blast) · salary ${quality.pct_with_salary}% · ≥3 skills ${quality.pct_with_3plus_skills}% · ${unmapped.size} distinct unmapped titles`);
 
   const { mirrored } = await supabaseUpsert('postings', out.map((p) => ({ ...p, skills: p.skills })), 'source,external_id');
   if (mirrored) log(`normalize: mirrored ${mirrored} rows to Supabase`);
