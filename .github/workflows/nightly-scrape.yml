@@ -53,6 +53,7 @@ jobs:
             apps/scraper/data/first-seen.json
             apps/scraper/data/logo-tried.json
             apps/scraper/data/adjacency.json
+            apps/scraper/data/ats-probe-state.json
           key: scraper-state-${{ github.run_id }}
           restore-keys: |
             scraper-state-

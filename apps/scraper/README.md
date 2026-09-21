@@ -108,3 +108,7 @@ Still open, in priority order:
    only the fields it uses before the next scale jump.
 6. Ingest IO is quadratic (each source rewrites the whole raw file). First fix
    if the nightly starts missing its window.
+
+## ATS discovery (`scripts/ats-probe.mjs`)
+
+Aggregator rows never carry the employer's own URL, so the way to a direct board is by name: each aggregator company not yet read directly is probed against the public JSON of Greenhouse, Lever, Ashby, SmartRecruiters, Workable and Recruitee under a few slug guesses. A board with 5+ postings is appended to the matching `config/*-companies.json` and read in full from the next nightly. The nightly probes 60 companies a night (`ATS_PROBE_PER_NIGHT`); state in `data/ats-probe-state.json` (60-day memory). First pass 2026-09-21: 400 companies, 52 boards, ~26,000 postings behind them, zero cost. Recruiting platforms (Jobgether, Pavago, Mercor...) are vetoed: a board under their name is not the employer's.
