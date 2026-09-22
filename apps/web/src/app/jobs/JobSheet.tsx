@@ -22,7 +22,8 @@ import type { Job } from './JobCard';
 import SaveButton from './SaveButton';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, isDirect } from './JobCard';
 import { type Listing, loadListing } from './detail';
-import { unlockJob, signInHref, toListingSections, type Unlocked } from '../../lib/unlock';
+import { unlockJob, toListingSections, type Unlocked } from '../../lib/unlock';
+import { isSignedInNow, requestSignIn } from '../../lib/auth-ui';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
 
 
@@ -211,13 +212,14 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
               </a>
             </>
           ) : isDirect(j) ? (
-            // a direct posting with no session: the employer and the link live
-            // behind sign-in (free); the reader comes back to this board after
-            <>
-              <Link className="rt-go jsheet-apply jsheet-unlock" href={signInHref()}>
-                Sign in to unlock <Arrow45 size={22} />
-              </Link>
-            </>
+            isSignedInNow()
+              // signed in but the vault did not answer: say so, never ask again
+              ? <span className="rt-go jsheet-apply jsheet-unlock" aria-disabled="true">Unlock unavailable right now</span>
+              // a direct posting with no session: the employer and the link live
+              // behind sign-in (free); the reader comes back to this board after
+              : <button type="button" className="rt-go jsheet-apply jsheet-unlock" onClick={() => requestSignIn('job')}>
+                  Sign in to unlock <Arrow45 size={22} />
+                </button>
           ) : (
             // No outbound link resolved — send them to the full listing rather
             // than render a button that does nothing when tapped.

@@ -13,7 +13,8 @@ import type { Job } from './JobCard';
 import SaveButton from './SaveButton';
 import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45, isDirect, LockMark } from './JobCard';
 import { type Listing, loadListing } from './detail';
-import { unlockJob, signInHref, toListingSections, type Unlocked } from '../../lib/unlock';
+import { unlockJob, toListingSections, type Unlocked } from '../../lib/unlock';
+import { isSignedInNow, requestSignIn } from '../../lib/auth-ui';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
 import BenefitStrip, { type BenefitEntry } from './BenefitStrip';
 
@@ -220,9 +221,13 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
             : <Arrow45 size={22} />}
         </a>
       ) : loaded && isDirect(j) ? (
-        // a direct posting with no session: employer and link live behind
-        // sign-in (free); the reader returns to this board afterwards
-        <Link className="rt-go jsheet-apply jsheet-unlock" href={signInHref()}>Sign in to unlock <Arrow45 size={22} /></Link>
+        isSignedInNow()
+          // signed in but the vault did not answer (not published yet, cap
+          // reached, or the key is missing): say so, never ask to sign in again
+          ? <span className="rt-go jsheet-apply jsheet-unlock" aria-disabled="true">Unlock unavailable right now</span>
+          // a direct posting with no session: employer and link live behind
+          // sign-in (free); the reader returns to this board afterwards
+          : <button type="button" className="rt-go jsheet-apply jsheet-unlock" onClick={() => requestSignIn('job')}>Sign in to unlock <Arrow45 size={22} /></button>
       ) : null}
       <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} target="_blank" rel="noopener"
         title="Opens the full posting in a new tab">Full posting</Link>
