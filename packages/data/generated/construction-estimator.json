@@ -5,13 +5,13 @@
     "title": "Construction Estimator",
     "field": "Construction",
     "cluster": "Built Environment",
-    "postings": 1225,
+    "postings": 2278,
     "salary": "$65k–$100k",
     "salary_band": [
-      66886,
-      100346
+      66898,
+      100347
     ],
-    "remote": "2%",
+    "remote": "4%",
     "separations": {
       "transfer": 5.4,
       "exit": 2.8,
@@ -31,81 +31,361 @@
         "label": "Contractor licensing varies by state; certifications (CCM) common"
       },
       "desc": "",
-      "match": 25,
-      "fit": 40,
-      "capability": 4,
+      "match": 26,
+      "fit": 46,
+      "capability": 35,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 12,
       "mobility_tier": null,
       "salary": "$75k–$120k",
       "salary_band": [
-        76577,
-        117800
+        76865,
+        119295
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Construction Administration",
+        "Procurement",
+        "Budgeting"
+      ],
+      "learn": [
+        "Brewing",
+        "Scheduling",
+        "Supply Chain",
+        "BIM"
+      ],
+      "waterfall": [
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 16.8,
+          "earned": 12
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 13.4,
+          "earned": 4.6
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 8.8,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 5.3,
+          "earned": 5.3
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 5.1,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 4.1,
+          "earned": 4.1
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Primary-Short",
+      "provenance": {
+        "postings": 3082,
+        "salaried": 750
+      }
+    },
+    {
+      "id": "quantity-surveyor",
+      "title": "Quantity Surveyor",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "lateral",
+      "license": null,
+      "desc": "Prices, measures and controls the cost of construction work from tender to final account.",
+      "match": 30,
+      "fit": 30,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$45k–$70k",
+      "salary_band": [
+        45909,
+        68863
       ],
       "demand": "High",
       "remote": "1%",
       "time": "12–24 mo",
       "have": [
+        "Budgeting",
+        "Cost Estimating",
+        "Procurement",
+        "Excel"
+      ],
+      "learn": [
+        "MEP",
+        "Financial Modeling",
+        "Forecasting",
+        "Change Management"
+      ],
+      "waterfall": [
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 22.7,
+          "earned": 3.4
+        },
+        {
+          "skill": "cost-estimating",
+          "name": "Cost Estimating",
+          "pts": 13.9,
+          "earned": 13.9
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 9.8,
+          "earned": 3.7
+        },
+        {
+          "skill": "mep",
+          "name": "MEP",
+          "pts": 6.1,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 5.1,
+          "earned": 2.4
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 4.7,
+          "earned": 4.7
+        },
+        {
+          "skill": "financial-modeling",
+          "name": "Financial Modeling",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "forecasting",
+          "name": "Forecasting",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "change-management",
+          "name": "Change Management",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 3.4,
+          "earned": 2.3
+        },
+        {
+          "skill": "social-media",
+          "name": "Social Media",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "stakeholder-management",
+          "name": "Stakeholder Management",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 2.4,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 301,
+        "salaried": 113
+      }
+    },
+    {
+      "id": "project-engineer",
+      "title": "Project Engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "license": null,
+      "desc": "The engineer on a project who turns the design into a delivered thing: scope, submittals, vendors, the site.",
+      "match": 22,
+      "fit": 22,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$65k–$110k",
+      "salary_band": [
+        64224,
+        109249
+      ],
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
         "Project Management",
         "Construction Administration",
-        "Budgeting",
         "Procurement"
       ],
       "learn": [
-        "Scheduling",
-        "Supply Chain",
+        "BIM",
+        "AutoCAD",
+        "MEP",
         "Brewing"
       ],
       "waterfall": [
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 17.3,
-          "earned": 10.9
+          "pts": 21.4,
+          "earned": 11.7
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 11.6,
-          "earned": 4.7
+          "pts": 9.7,
+          "earned": 4.4
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 8.7,
+          "earned": 0
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 7.9,
+          "earned": 0
+        },
+        {
+          "skill": "mep",
+          "name": "MEP",
+          "pts": 7.5,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 6,
+          "earned": 6
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "plc",
+          "name": "PLC / Controls",
+          "pts": 5.4,
+          "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 6.8,
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.6,
+          "earned": 0
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 4.1,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 6.3,
+          "pts": 4,
           "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 5.2,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 5.1,
-          "earned": 5.1
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 4.7,
-          "earned": 4.7
         }
       ],
       "low_confidence": false,
-      "observed": "Primary-Short",
+      "observed": null,
       "provenance": {
-        "postings": 1499,
-        "salaried": 552
+        "postings": 938,
+        "salaried": 228
       }
     },
     {
@@ -116,24 +396,25 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 20,
-      "fit": 16,
-      "capability": 12,
+      "match": 21,
+      "fit": 22,
+      "capability": 40,
       "mobility": 10,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 5,
       "mobility_tier": null,
-      "salary": "$55k–$85k",
+      "salary": "$55k–$90k",
       "salary_band": [
         54517,
-        85740
+        88898
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "1%",
       "time": "12–24 mo",
       "have": [
         "Project Management",
         "Procurement",
+        "Construction Administration",
         "Drafting"
       ],
       "learn": [
@@ -146,49 +427,61 @@
         {
           "skill": "space-planning",
           "name": "Space Planning",
-          "pts": 13.1,
+          "pts": 12.4,
           "earned": 0
         },
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 12.8,
+          "pts": 10.5,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 12.2,
-          "earned": 10.9
+          "pts": 9,
+          "earned": 9
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 8,
+          "pts": 8.7,
           "earned": 0
         },
         {
           "skill": "construction-documents",
           "name": "Construction Documentation",
-          "pts": 8,
+          "pts": 7.9,
           "earned": 0
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 7.1,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 6.8,
+          "pts": 7.6,
           "earned": 0
         },
         {
           "skill": "ffe",
           "name": "FF&E",
-          "pts": 6.8,
+          "pts": 6.6,
+          "earned": 0
+        },
+        {
+          "skill": "sketchup",
+          "name": "SketchUp",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "detailing",
+          "name": "Detailing",
+          "pts": 5.5,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 5.3,
           "earned": 0
         },
         {
@@ -198,172 +491,814 @@
           "earned": 5.1
         },
         {
-          "skill": "sketchup",
-          "name": "SketchUp",
-          "pts": 4.8,
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 4.2,
+          "earned": 3.7
+        },
+        {
+          "skill": "rendering",
+          "name": "Rendering",
+          "pts": 4.1,
           "earned": 0
         },
         {
-          "skill": "building-codes",
-          "name": "Building Codes",
-          "pts": 4.8,
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 3.4,
           "earned": 0
         },
         {
           "skill": "cad-drafting",
           "name": "Drafting",
-          "pts": 4.8,
-          "earned": 4.4
+          "pts": 3.3,
+          "earned": 3.3
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 703,
-        "salaried": 254
+        "postings": 1333,
+        "salaried": 296
       }
     },
     {
-      "id": "environmental-engineer",
-      "title": "Environmental Engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
+      "id": "construction-superintendent",
+      "title": "Construction Superintendent",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "lateral",
       "license": null,
-      "desc": "",
-      "match": 15,
-      "fit": 15,
-      "capability": 30,
-      "mobility": 4,
-      "mobility_source": "observed-flow-eu",
-      "mobility_eu": 4,
+      "desc": "Runs the site day to day: crews, subcontractors, sequence, safety and the schedule.",
+      "match": 19,
+      "fit": 19,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$65k–$110k",
+      "salary": "$70k–$125k",
       "salary_band": [
-        63050,
-        109928
+        67833,
+        125000
       ],
-      "demand": "Moderate",
-      "remote": "2%",
+      "demand": "High",
+      "remote": "1%",
       "time": "12–24 mo",
       "have": [
         "Project Management",
         "Construction Administration",
+        "Excel",
         "Procurement"
       ],
       "learn": [
-        "Sustainability",
+        "Scheduling",
         "Safety / OSHA",
-        "Criminal Investigation",
-        "Training & Facilitation"
+        "BIM",
+        "Brewing"
       ],
       "waterfall": [
         {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 16.7,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 16.1,
-          "earned": 0
-        },
-        {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 8.6,
-          "earned": 8.3
+          "pts": 12.8,
+          "earned": 7
         },
         {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 8.6,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 8.6,
-          "earned": 0
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 8,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 5.6,
-          "earned": 0
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 4.3,
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 12,
           "earned": 0
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 4.3,
-          "earned": 3.6
+          "pts": 8,
+          "earned": 2.7
         },
         {
-          "skill": "emergency-response",
-          "name": "Emergency Response",
-          "pts": 3.7,
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 7.5,
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.1,
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 7.5,
           "earned": 0
         },
         {
-          "skill": "negotiation",
-          "name": "Negotiation",
-          "pts": 3.1,
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 6.4,
           "earned": 0
         },
         {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 3.1,
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 6.2,
+          "earned": 2.8
+        },
+        {
+          "skill": "osha-safety",
+          "name": "OSHA & Site Safety",
+          "pts": 6.2,
           "earned": 0
         },
         {
-          "skill": "audit",
-          "name": "Audit",
-          "pts": 3.1,
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 3.1,
-          "earned": 3.1
+          "pts": 4.2,
+          "earned": 4.2
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 4,
+          "earned": 2.7
+        },
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 2.4,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 246,
-        "salaried": 153
+        "postings": 529,
+        "salaried": 89
+      }
+    },
+    {
+      "id": "project-scheduler",
+      "title": "Project Scheduler",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "lateral",
+      "license": null,
+      "desc": "Builds and maintains the programme for a project: activities, logic, resources and the critical path.",
+      "match": 15,
+      "fit": 15,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$75k–$135k",
+      "salary_band": [
+        73761,
+        135944
+      ],
+      "demand": "Moderate",
+      "remote": "8%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Excel",
+        "Procurement",
+        "Construction Administration"
+      ],
+      "learn": [
+        "Primavera P6",
+        "SAP",
+        "Scheduling",
+        "Supply Chain"
+      ],
+      "waterfall": [
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 11.5,
+          "earned": 5.1
+        },
+        {
+          "skill": "primavera",
+          "name": "Primavera P6",
+          "pts": 8.7,
+          "earned": 0
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 8.4,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 8,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 7.3,
+          "earned": 2
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4.9,
+          "earned": 3.1
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 4.5,
+          "earned": 0
+        },
+        {
+          "skill": "forecasting",
+          "name": "Forecasting",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 4.2,
+          "earned": 1.9
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 3.8,
+          "earned": 2.8
+        },
+        {
+          "skill": "power-bi",
+          "name": "Power BI",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "change-management",
+          "name": "Change Management",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
+          "skill": "risk-management",
+          "name": "Risk Management",
+          "pts": 2.1,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 244,
+        "salaried": 43
+      }
+    },
+    {
+      "id": "event-planner",
+      "title": "Event Planner",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 17,
+      "fit": 13,
+      "capability": 3,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$40k–$75k",
+      "salary_band": [
+        42010,
+        73808
+      ],
+      "demand": "High",
+      "remote": "4%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Procurement",
+        "Budgeting",
+        "Excel"
+      ],
+      "learn": [
+        "Event Planning",
+        "Supply Chain",
+        "Catering & Banquet",
+        "Primavera P6"
+      ],
+      "waterfall": [
+        {
+          "skill": "event-planning",
+          "name": "Event Planning",
+          "pts": 32.7,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 11.7,
+          "earned": 0
+        },
+        {
+          "skill": "catering",
+          "name": "Catering & Banquet",
+          "pts": 8.5,
+          "earned": 0
+        },
+        {
+          "skill": "primavera",
+          "name": "Primavera P6",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 4.8,
+          "earned": 4.8
+        },
+        {
+          "skill": "b2b",
+          "name": "B2B",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4.8,
+          "earned": 4.7
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 4,
+          "earned": 4
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.6,
+          "earned": 3.1
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 2.8,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 325,
+        "salaried": 126
+      }
+    },
+    {
+      "id": "general-manager",
+      "title": "General Manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Runs a site, branch, region or business unit end to end, with the P&L.",
+      "match": 13,
+      "fit": 13,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$65k–$165k",
+      "salary_band": [
+        64005,
+        164063
+      ],
+      "demand": "High",
+      "remote": "10%",
+      "time": "12–24 mo",
+      "have": [
+        "Budgeting",
+        "Procurement",
+        "Project Management",
+        "Excel"
+      ],
+      "learn": [
+        "Business Development",
+        "Training & Facilitation",
+        "Supply Chain",
+        "Operations"
+      ],
+      "waterfall": [
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 11.2,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 10.9,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 7.1,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 6.2,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 5.8,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 5.2,
+          "earned": 3.2
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 4.6,
+          "earned": 0
+        },
+        {
+          "skill": "go-to-market",
+          "name": "Go-to-Market",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4,
+          "earned": 3.5
+        },
+        {
+          "skill": "crm",
+          "name": "CRM",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "b2b",
+          "name": "B2B",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "sales",
+          "name": "Sales",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.5,
+          "earned": 2.3
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "forecasting",
+          "name": "Forecasting",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 730,
+        "salaried": 134
       }
     }
   ],
   "next": {
     "construction-manager": [],
+    "quantity-surveyor": [],
+    "project-engineer": [],
     "interior-designer": [],
-    "environmental-engineer": []
+    "construction-superintendent": [],
+    "project-scheduler": [
+      {
+        "t": "Project Manager",
+        "m": 13,
+        "slug": "project-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Agile",
+          "Lean / Six Sigma",
+          "Brewing",
+          "SAP"
+        ],
+        "observed": "Primary-Long",
+        "fit": 11,
+        "capability": null,
+        "mobility": 8,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 37,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "project-scheduler",
+          "readiness_after": 51,
+          "gain": 38
+        }
+      },
+      {
+        "t": "Business Analyst",
+        "m": 11,
+        "slug": "business-analyst",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "Agile",
+          "Product Management",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "fit": 22,
+        "capability": 63,
+        "mobility": 14,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 11,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "project-scheduler",
+          "readiness_after": 42,
+          "gain": 31
+        }
+      }
+    ],
+    "event-planner": [],
+    "general-manager": [
+      {
+        "t": "Facilities Manager",
+        "m": 11,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Facilities Operations",
+          "Maintenance",
+          "Operations",
+          "Property Management"
+        ],
+        "observed": null,
+        "fit": 7,
+        "capability": 0,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 37,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "general-manager",
+          "readiness_after": 30,
+          "gain": 19
+        }
+      },
+      {
+        "t": "Production Supervisor",
+        "m": 10,
+        "slug": "production-supervisor",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Lean / Six Sigma",
+          "Supply Chain",
+          "Operations",
+          "Quality Control"
+        ],
+        "observed": null,
+        "fit": 10,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "general-manager",
+          "readiness_after": 36,
+          "gain": 26
+        }
+      }
+    ]
   },
   "direct": [],
-  "cross": [],
-  "bridges": [],
+  "cross": [
+    [
+      "project-engineer",
+      "project-scheduler",
+      0.76
+    ],
+    [
+      "project-engineer",
+      "construction-superintendent",
+      0.7
+    ],
+    [
+      "construction-manager",
+      "construction-superintendent",
+      0.61
+    ],
+    [
+      "construction-manager",
+      "project-engineer",
+      0.53
+    ],
+    [
+      "construction-superintendent",
+      "project-scheduler",
+      0.53
+    ],
+    [
+      "construction-manager",
+      "project-scheduler",
+      0.52
+    ]
+  ],
+  "bridges": [
+    [
+      "general-manager",
+      "project-scheduler_0",
+      0.44
+    ],
+    [
+      "project-scheduler",
+      "general-manager_1",
+      0.35
+    ],
+    [
+      "general-manager",
+      "project-scheduler_1",
+      0.32
+    ],
+    [
+      "construction-superintendent",
+      "general-manager_0",
+      0.29
+    ]
+  ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

@@ -5,13 +5,13 @@
     "title": "Urban Planner",
     "field": "Architecture",
     "cluster": "Built Environment",
-    "postings": 91,
+    "postings": 208,
     "salary": "$60k–$100k",
     "salary_band": [
       60208,
-      99512
+      101103
     ],
-    "remote": "0%",
+    "remote": "2%",
     "separations": {
       "transfer": 5.3,
       "exit": 1.8,
@@ -20,6 +20,112 @@
     }
   },
   "roles": [
+    {
+      "id": "landscape-architect",
+      "title": "Landscape Architect",
+      "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
+      "license": {
+        "req": "required",
+        "label": "State landscape-architecture license in most states"
+      },
+      "desc": "",
+      "match": 66,
+      "fit": 72,
+      "capability": 53,
+      "mobility": 100,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 17,
+      "mobility_tier": null,
+      "salary": "$60k–$105k",
+      "salary_band": [
+        60208,
+        104346
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "9–16 mo + license",
+      "have": [
+        "Urban Design",
+        "Sustainability",
+        "AutoCAD",
+        "Project Management"
+      ],
+      "learn": [
+        "Construction Documentation",
+        "Revit",
+        "Business Development"
+      ],
+      "waterfall": [
+        {
+          "skill": "urban-design",
+          "name": "Urban Design",
+          "pts": 27,
+          "earned": 27
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 11.3,
+          "earned": 11.3
+        },
+        {
+          "skill": "autocad",
+          "name": "AutoCAD",
+          "pts": 9.7,
+          "earned": 6.7
+        },
+        {
+          "skill": "construction-documents",
+          "name": "Construction Documentation",
+          "pts": 9.4,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 7.8,
+          "earned": 7.8
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 5.6,
+          "earned": 0
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 5,
+          "earned": 5
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 4.1,
+          "earned": 4.1
+        },
+        {
+          "skill": "zoning",
+          "name": "Zoning",
+          "pts": 4.1,
+          "earned": 4.1
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Primary-Long",
+      "provenance": {
+        "postings": 638,
+        "salaried": 151
+      }
+    },
     {
       "id": "architect",
       "title": "Architect",
@@ -31,17 +137,17 @@
         "label": "State architecture license (RA/ARB) — registration required to practice/title"
       },
       "desc": "Designs buildings and the documents that get them built. Balances program, code, budget, and intent across years-long projects.",
-      "match": 28,
-      "fit": 51,
-      "capability": 51,
+      "match": 29,
+      "fit": 50,
+      "capability": 47,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 13,
       "mobility_tier": null,
-      "salary": "$60k–$110k",
+      "salary": "$60k–$115k",
       "salary_band": [
         60208,
-        109659
+        113128
       ],
       "demand": "High",
       "remote": "3%",
@@ -50,196 +156,469 @@
         "Project Management",
         "AutoCAD",
         "Sustainability",
-        "Urban Design"
+        "Presentation"
       ],
       "learn": [
         "Revit",
         "BIM",
-        "Construction Documentation",
-        "ArchiCAD"
+        "ArchiCAD",
+        "Construction Documentation"
       ],
       "waterfall": [
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 14.8,
+          "pts": 14.9,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 10.7,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 13.5,
-          "earned": 8.5
+          "pts": 10.1,
+          "earned": 7.3
         },
         {
-          "skill": "bim",
-          "name": "BIM",
-          "pts": 10.3,
+          "skill": "archicad",
+          "name": "ArchiCAD",
+          "pts": 9.5,
+          "earned": 0
+        },
+        {
+          "skill": "construction-documents",
+          "name": "Construction Documentation",
+          "pts": 9,
           "earned": 0
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 9,
-          "earned": 5.1
-        },
-        {
-          "skill": "construction-documents",
-          "name": "Construction Documentation",
-          "pts": 8.4,
-          "earned": 0
-        },
-        {
-          "skill": "archicad",
-          "name": "ArchiCAD",
-          "pts": 7.9,
-          "earned": 0
+          "pts": 8.6,
+          "earned": 4.7
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 7,
-          "earned": 7
+          "pts": 5.5,
+          "earned": 5.5
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 4.7,
-          "earned": 0
-        },
-        {
-          "skill": "urban-design",
-          "name": "Urban Design",
-          "pts": 3.9,
-          "earned": 3.9
-        },
-        {
-          "skill": "building-codes",
-          "name": "Building Codes",
-          "pts": 3.6,
+          "pts": 4.9,
           "earned": 0
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 3.6,
-          "earned": 3.6
+          "pts": 4.3,
+          "earned": 4.3
         },
         {
           "skill": "sketchup",
           "name": "SketchUp",
-          "pts": 3.5,
+          "pts": 4.3,
           "earned": 0
         },
         {
-          "skill": "aws",
-          "name": "AWS",
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "detailing",
+          "name": "Detailing",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "building-codes",
+          "name": "Building Codes",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "urban-design",
+          "name": "Urban Design",
+          "pts": 3.6,
+          "earned": 3.6
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 3.4,
+          "earned": 3.3
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 2827,
+        "salaried": 570
+      }
+    },
+    {
+      "id": "computational-designer",
+      "title": "Computational Designer",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Turns design intent into code. Writes algorithms and scripts to generate geometry, automate documentation, and solve problems that would be impossible by hand.",
+      "match": 17,
+      "fit": 44,
+      "capability": 47,
+      "mobility": 100,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$80k–$175k",
+      "salary_band": [
+        77500,
+        176125
+      ],
+      "demand": "Low",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "GIS",
+        "Urban Design"
+      ],
+      "learn": [
+        "Parametric Design",
+        "LLMs / Generative AI",
+        "Electrical Systems",
+        "Generative Design"
+      ],
+      "waterfall": [
+        {
+          "skill": "parametric-design",
+          "name": "Parametric Design",
+          "pts": 43.8,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 8.8,
+          "earned": 6.7
+        },
+        {
+          "skill": "llm",
+          "name": "LLMs / Generative AI",
+          "pts": 7,
+          "earned": 0
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 7,
+          "earned": 0
+        },
+        {
+          "skill": "generative-design",
+          "name": "Generative Design",
+          "pts": 7,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "sales-enablement",
+          "name": "Sales Enablement",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "gis",
+          "name": "GIS",
+          "pts": 5.3,
+          "earned": 5.3
+        },
+        {
+          "skill": "urban-design",
+          "name": "Urban Design",
+          "pts": 5.3,
+          "earned": 5.3
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 72,
+        "salaried": 31
+      }
+    },
+    {
+      "id": "management-consultant",
+      "title": "Management Consultant",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 14,
+      "fit": 37,
+      "capability": 76,
+      "mobility": 55,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$75k–$140k",
+      "salary_band": [
+        73587,
+        139439
+      ],
+      "demand": "High",
+      "remote": "17%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Presentation",
+        "Training & Facilitation",
+        "Sustainability"
+      ],
+      "learn": [
+        "Data Analysis",
+        "Business Development",
+        "Account Management",
+        "SAP"
+      ],
+      "waterfall": [
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 11.6,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 9,
+          "earned": 4
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 6.3,
+          "earned": 3.6
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 5.9,
+          "earned": 1.8
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 5.5,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "change-management",
+          "name": "Change Management",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.5,
+          "earned": 4.5
+        },
+        {
+          "skill": "agile",
+          "name": "Agile",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "product-management",
+          "name": "Product Management",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "saas",
+          "name": "SaaS",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "sql",
+          "name": "SQL",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "crm",
+          "name": "CRM",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "langchain",
+          "name": "LangChain / Agents",
           "pts": 3.4,
           "earned": 0
         },
         {
-          "skill": "quality-control",
-          "name": "Quality Control",
+          "skill": "salesforce",
+          "name": "Salesforce",
+          "pts": 3.3,
+          "earned": 0
+        },
+        {
+          "skill": "python",
+          "name": "Python",
           "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.2,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Supplemental",
+      "provenance": {
+        "postings": 963,
+        "salaried": 167
+      }
+    },
+    {
+      "id": "environmental-engineer",
+      "title": "Environmental Engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 28,
+      "fit": 34,
+      "capability": 50,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$65k–$120k",
+      "salary_band": [
+        63457,
+        118067
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Sustainability",
+        "Project Management",
+        "Training & Facilitation"
+      ],
+      "learn": [
+        "Safety / OSHA",
+        "Criminal Investigation",
+        "Compliance",
+        "Program Management"
+      ],
+      "waterfall": [
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 17.4,
+          "earned": 12.5
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 15.2,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 11.7,
+          "earned": 10.6
+        },
+        {
+          "skill": "criminal-investigation",
+          "name": "Criminal Investigation",
+          "pts": 10.6,
+          "earned": 0
+        },
+        {
+          "skill": "compliance",
+          "name": "Compliance",
+          "pts": 10.6,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3.1,
+          "pts": 8.2,
+          "earned": 4.8
+        },
+        {
+          "skill": "program-management",
+          "name": "Program Management",
+          "pts": 4.6,
           "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1188,
-        "salaried": 378
-      }
-    },
-    {
-      "id": "mobility-planner",
-      "title": "Mobility Planner",
-      "field": "Architecture",
-      "cluster": "Built Environment",
-      "kind": "lateral",
-      "license": null,
-      "desc": "",
-      "match": 23,
-      "fit": 44,
-      "capability": 100,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$45k–$75k",
-      "salary_band": [
-        45117,
-        73588
-      ],
-      "demand": "Moderate",
-      "remote": "0%",
-      "time": "12–24 mo",
-      "have": [
-        "Supply Chain",
-        "Transportation Planning",
-        "Sustainability",
-        "Project Management"
-      ],
-      "learn": [
-        "Customer Service",
-        "Scheduling",
-        "Lean / Six Sigma"
-      ],
-      "waterfall": [
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 55.2,
-          "earned": 6.5
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 12.1,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 9.5,
-          "earned": 0
-        },
-        {
-          "skill": "transportation-planning",
-          "name": "Transportation Planning",
-          "pts": 9.5,
-          "earned": 6.5
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 5.2,
-          "earned": 5.2
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 4.3,
-          "earned": 4.3
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 4.3,
+          "pts": 4.6,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 230,
-        "salaried": 189
+        "postings": 564,
+        "salaried": 212
       }
     },
     {
@@ -250,20 +629,20 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 32,
-      "fit": 39,
-      "capability": 59,
+      "match": 27,
+      "fit": 34,
+      "capability": 55,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$55k–$85k",
+      "salary": "$55k–$90k",
       "salary_band": [
         54517,
-        85740
+        88898
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "1%",
       "time": "12–24 mo",
       "have": [
         "Project Management",
@@ -281,50 +660,62 @@
         {
           "skill": "space-planning",
           "name": "Space Planning",
-          "pts": 13.1,
+          "pts": 12.4,
           "earned": 0
         },
         {
           "skill": "revit",
           "name": "Revit",
-          "pts": 12.8,
+          "pts": 10.5,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 12.2,
-          "earned": 11
+          "pts": 9,
+          "earned": 8.7
         },
         {
           "skill": "presentation",
           "name": "Presentation",
-          "pts": 8,
-          "earned": 8
+          "pts": 8.7,
+          "earned": 7.9
         },
         {
           "skill": "construction-documents",
           "name": "Construction Documentation",
-          "pts": 8,
+          "pts": 7.9,
           "earned": 0
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 7.1,
-          "earned": 6.6
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 6.8,
-          "earned": 6.8
+          "pts": 7.6,
+          "earned": 5.5
         },
         {
           "skill": "ffe",
           "name": "FF&E",
-          "pts": 6.8,
+          "pts": 6.6,
           "earned": 0
+        },
+        {
+          "skill": "sketchup",
+          "name": "SketchUp",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "detailing",
+          "name": "Detailing",
+          "pts": 5.5,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 5.3,
+          "earned": 5.3
         },
         {
           "skill": "procurement",
@@ -333,489 +724,35 @@
           "earned": 0
         },
         {
-          "skill": "sketchup",
-          "name": "SketchUp",
-          "pts": 4.8,
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 4.2,
           "earned": 0
         },
         {
-          "skill": "building-codes",
-          "name": "Building Codes",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 4.8,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 703,
-        "salaried": 254
-      }
-    },
-    {
-      "id": "management-consultant",
-      "title": "Management Consultant",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 13,
-      "fit": 37,
-      "capability": 78,
-      "mobility": 55,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$75k–$125k",
-      "salary_band": [
-        72554,
-        125596
-      ],
-      "demand": "High",
-      "remote": "15%",
-      "time": "12–24 mo",
-      "have": [
-        "Project Management",
-        "Presentation",
-        "Sustainability"
-      ],
-      "learn": [
-        "Data Analysis",
-        "SaaS",
-        "Business Development",
-        "SQL"
-      ],
-      "waterfall": [
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 11.8,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 9.2,
-          "earned": 4.2
-        },
-        {
-          "skill": "saas",
-          "name": "SaaS",
-          "pts": 6.8,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 6,
-          "earned": 4.2
-        },
-        {
-          "skill": "business-development",
-          "name": "Business Development",
-          "pts": 5.7,
-          "earned": 0
-        },
-        {
-          "skill": "sql",
-          "name": "SQL",
-          "pts": 5.2,
+          "skill": "rendering",
+          "name": "Rendering",
+          "pts": 4.1,
           "earned": 0
         },
         {
           "skill": "account-management",
           "name": "Account Management",
-          "pts": 5.2,
+          "pts": 3.4,
           "earned": 0
         },
         {
-          "skill": "product-management",
-          "name": "Product Management",
-          "pts": 4.7,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 4.7,
-          "earned": 4.7
-        },
-        {
-          "skill": "crm",
-          "name": "CRM",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4,
-          "earned": 0
-        },
-        {
-          "skill": "change-management",
-          "name": "Change Management",
-          "pts": 4,
-          "earned": 0
-        },
-        {
-          "skill": "python",
-          "name": "Python",
-          "pts": 3.8,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "salesforce",
-          "name": "Salesforce",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "agile",
-          "name": "Agile",
+          "skill": "cad-drafting",
+          "name": "Drafting",
           "pts": 3.3,
-          "earned": 0
-        },
-        {
-          "skill": "sales-enablement",
-          "name": "Sales Enablement",
-          "pts": 3.3,
-          "earned": 0
-        },
-        {
-          "skill": "stakeholder-management",
-          "name": "Stakeholder Management",
-          "pts": 3.3,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": "Supplemental",
-      "provenance": {
-        "postings": 461,
-        "salaried": 108
-      }
-    },
-    {
-      "id": "business-analyst",
-      "title": "Business Analyst",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 12,
-      "fit": 36,
-      "capability": 78,
-      "mobility": 55,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 9,
-      "mobility_tier": null,
-      "salary": "$75k–$140k",
-      "salary_band": [
-        76633,
-        140054
-      ],
-      "demand": "High",
-      "remote": "7%",
-      "time": "12–24 mo",
-      "have": [
-        "Supply Chain",
-        "Project Management",
-        "Presentation"
-      ],
-      "learn": [
-        "Data Analysis",
-        "Agile",
-        "Lean / Six Sigma",
-        "Product Management"
-      ],
-      "waterfall": [
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 10.2,
-          "earned": 0
-        },
-        {
-          "skill": "agile",
-          "name": "Agile",
-          "pts": 9.1,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 7.5,
-          "earned": 2.8
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 6.3,
-          "earned": 0
-        },
-        {
-          "skill": "product-management",
-          "name": "Product Management",
-          "pts": 5.9,
-          "earned": 0
-        },
-        {
-          "skill": "sql",
-          "name": "SQL",
-          "pts": 5.7,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 5.6,
-          "earned": 4.6
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 5.2,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 4.7,
-          "earned": 4.6
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4.7,
-          "earned": 0
-        },
-        {
-          "skill": "data-visualization",
-          "name": "Data Visualization",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "power-bi",
-          "name": "Power BI",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 3.8,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 3.6,
-          "earned": 0
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "forecasting",
-          "name": "Forecasting",
-          "pts": 3.1,
-          "earned": 0
-        },
-        {
-          "skill": "salesforce",
-          "name": "Salesforce",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "etl",
-          "name": "ETL",
-          "pts": 2.9,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": "Supplemental",
-      "provenance": {
-        "postings": 1121,
-        "salaried": 484
-      }
-    },
-    {
-      "id": "environmental-engineer",
-      "title": "Environmental Engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 26,
-      "fit": 33,
-      "capability": 54,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$65k–$110k",
-      "salary_band": [
-        63050,
-        109928
-      ],
-      "demand": "Moderate",
-      "remote": "2%",
-      "time": "12–24 mo",
-      "have": [
-        "Sustainability",
-        "Project Management",
-        "Event Planning",
-        "Supply Chain"
-      ],
-      "learn": [
-        "Safety / OSHA",
-        "Criminal Investigation",
-        "Training & Facilitation",
-        "Compliance"
-      ],
-      "waterfall": [
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 16.7,
-          "earned": 10
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 16.1,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 8.6,
-          "earned": 8.3
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 8.6,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 8.6,
-          "earned": 0
-        },
-        {
-          "skill": "compliance",
-          "name": "Compliance",
-          "pts": 8,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 5.6,
-          "earned": 0
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 4.3,
-          "earned": 4.3
-        },
-        {
-          "skill": "construction-administration",
-          "name": "Construction Administration",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "emergency-response",
-          "name": "Emergency Response",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.1,
-          "earned": 3.1
-        },
-        {
-          "skill": "negotiation",
-          "name": "Negotiation",
-          "pts": 3.1,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 3.1,
-          "earned": 0
-        },
-        {
-          "skill": "audit",
-          "name": "Audit",
-          "pts": 3.1,
-          "earned": 0
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 3.1,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 246,
-        "salaried": 153
+        "postings": 1333,
+        "salaried": 296
       }
     },
     {
@@ -829,176 +766,79 @@
         "label": "PE license required for responsible charge"
       },
       "desc": "",
-      "match": 24,
-      "fit": 27,
-      "capability": 53,
+      "match": 29,
+      "fit": 29,
+      "capability": 49,
       "mobility": 13,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 22,
       "mobility_tier": null,
-      "salary": "$65k–$105k",
+      "salary": "$65k–$110k",
       "salary_band": [
-        62801,
-        104938
+        64222,
+        109309
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "3%",
       "time": "12–24 mo + license",
       "have": [
         "Project Management",
         "AutoCAD",
-        "Sustainability"
+        "Sustainability",
+        "Training & Facilitation"
       ],
       "learn": [
-        "Civil 3D",
-        "Assessment",
         "Construction Administration",
-        "BIM"
+        "Civil 3D",
+        "BIM",
+        "Assessment"
       ],
       "waterfall": [
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 17.8,
-          "earned": 11
-        },
-        {
-          "skill": "civil-3d",
-          "name": "Civil 3D",
-          "pts": 9,
-          "earned": 0
+          "pts": 17,
+          "earned": 10.6
         },
         {
           "skill": "autocad",
           "name": "AutoCAD",
-          "pts": 8,
-          "earned": 6.6
-        },
-        {
-          "skill": "assessment",
-          "name": "Assessment",
-          "pts": 7.8,
-          "earned": 0
+          "pts": 9.5,
+          "earned": 6.7
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 7.6,
+          "pts": 8,
+          "earned": 0
+        },
+        {
+          "skill": "civil-3d",
+          "name": "Civil 3D",
+          "pts": 7.7,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 6.8,
-          "earned": 6.8
+          "pts": 7.3,
+          "earned": 7.3
         },
         {
           "skill": "bim",
           "name": "BIM",
+          "pts": 7.3,
+          "earned": 0
+        },
+        {
+          "skill": "assessment",
+          "name": "Assessment",
           "pts": 6.3,
           "earned": 0
         },
         {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 4.1,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1022,
-        "salaried": 619
-      }
-    },
-    {
-      "id": "executive-assistant",
-      "title": "Executive Assistant",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 29,
-      "fit": 25,
-      "capability": 30,
-      "mobility": 12,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 100,
-      "mobility_tier": null,
-      "salary": "$45k–$80k",
-      "salary_band": [
-        46828,
-        79932
-      ],
-      "demand": "High",
-      "remote": "6%",
-      "time": "12–24 mo",
-      "have": [
-        "Presentation",
-        "Supply Chain",
-        "Project Management",
-        "Event Planning"
-      ],
-      "learn": [
-        "Scheduling",
-        "Excel",
-        "Operations",
-        "Customer Service"
-      ],
-      "waterfall": [
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 19.5,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 11.8,
-          "earned": 11
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 11.6,
-          "earned": 6.6
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 9.7,
-          "earned": 0
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 6.5,
-          "earned": 6.5
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 5.4,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "accounting",
-          "name": "Accounting",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
+          "skill": "training",
+          "name": "Training & Facilitation",
           "pts": 4.7,
           "earned": 4.7
         }
@@ -1006,142 +846,141 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1505,
-        "salaried": 630
+        "postings": 2124,
+        "salaried": 900
+      }
+    },
+    {
+      "id": "structural-engineer",
+      "title": "Structural Engineer",
+      "field": "Engineering",
+      "cluster": "Built Environment",
+      "kind": "lateral",
+      "license": {
+        "req": "required",
+        "label": "PE license required to sign/seal structural work"
+      },
+      "desc": "",
+      "match": 18,
+      "fit": 23,
+      "capability": 49,
+      "mobility": 13,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 22,
+      "mobility_tier": null,
+      "salary": "$65k–$105k",
+      "salary_band": [
+        62926,
+        105337
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Project Management",
+        "Sustainability",
+        "Training & Facilitation"
+      ],
+      "learn": [
+        "Structural Analysis",
+        "FEA / Simulation",
+        "Revit",
+        "Steel Design"
+      ],
+      "waterfall": [
+        {
+          "skill": "structural-analysis",
+          "name": "Structural Analysis",
+          "pts": 39.8,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 11.4,
+          "earned": 9.2
+        },
+        {
+          "skill": "fea",
+          "name": "FEA / Simulation",
+          "pts": 11.3,
+          "earned": 0
+        },
+        {
+          "skill": "revit",
+          "name": "Revit",
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "steel-design",
+          "name": "Steel Design",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "etabs",
+          "name": "ETABS / SAP2000",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.6,
+          "earned": 4.6
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 4.5,
+          "earned": 4.2
+        },
+        {
+          "skill": "building-codes",
+          "name": "Building Codes",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 3.6,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1680,
+        "salaried": 461
       }
     }
   ],
   "next": {
+    "landscape-architect": [],
     "architect": [
       {
-        "t": "Mechanical Engineer",
-        "m": 21,
-        "slug": "mechanical-engineer",
-        "field": "Engineering",
-        "cluster": "Engineering & Manufacturing",
-        "kind": "pivot",
-        "gap": [
-          "Mechanical CAD",
-          "Prototyping",
-          "FEA / Simulation",
-          "MEP"
-        ],
-        "observed": null,
-        "fit": 18,
-        "capability": 9,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "architect",
-          "readiness_after": 32,
-          "gain": 11
-        }
-      },
-      {
-        "t": "Structural Engineer",
+        "t": "Building Envelope Consultant",
         "m": 18,
-        "slug": "structural-engineer",
-        "field": "Engineering",
-        "cluster": "Built Environment",
-        "kind": "lateral",
-        "gap": [
-          "Structural Analysis",
-          "FEA / Simulation",
-          "Revit",
-          "BIM"
-        ],
-        "observed": null,
-        "fit": 24,
-        "capability": 53,
-        "mobility": 13,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 22,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "architect",
-          "readiness_after": 44,
-          "gain": 26
-        }
-      }
-    ],
-    "mobility-planner": [
-      {
-        "t": "Event Planner",
-        "m": 16,
-        "slug": "event-planner",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Primavera P6",
-          "Customer Service",
-          "Catering & Banquet",
-          "Scheduling"
-        ],
-        "observed": null,
-        "fit": 19,
-        "capability": 35,
-        "mobility": 13,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 13,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "mobility-planner",
-          "readiness_after": 34,
-          "gain": 18
-        }
-      }
-    ],
-    "interior-designer": [
-      {
-        "t": "Architectural Drafter",
-        "m": 10,
-        "slug": "architectural-drafter",
+        "slug": "building-envelope-consultant",
         "field": "Architecture",
         "cluster": "Built Environment",
         "kind": "lateral",
         "gap": [
-          "Revit",
+          "Criminal Investigation",
+          "Account Management",
           "BIM",
-          "ArchiCAD",
-          "MEP"
+          "Energy Modeling"
         ],
         "observed": null,
-        "fit": 12,
-        "capability": 14,
-        "mobility": 13,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 26,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "interior-designer",
-          "readiness_after": 23,
-          "gain": 13
-        }
-      }
-    ],
-    "management-consultant": [
-      {
-        "t": "Project Manager",
-        "m": 12,
-        "slug": "project-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Program Management",
-          "Agile",
-          "Lean / Six Sigma",
-          "Procurement"
-        ],
-        "observed": "Primary-Short",
-        "fit": 12,
+        "fit": 16,
         "capability": null,
         "mobility": 13,
         "mobility_source": "observed-flow-us",
@@ -1149,43 +988,126 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "management-consultant",
-          "readiness_after": 59,
-          "gain": 47
+          "parent": "architect",
+          "readiness_after": 41,
+          "gain": 23
         }
       },
       {
-        "t": "Market Researcher",
+        "t": "Project Scheduler",
+        "m": 12,
+        "slug": "project-scheduler",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "lateral",
+        "gap": [
+          "Primavera P6",
+          "SAP",
+          "Scheduling",
+          "Excel"
+        ],
+        "observed": null,
+        "fit": 12,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "architect",
+          "readiness_after": 26,
+          "gain": 14
+        }
+      }
+    ],
+    "computational-designer": [
+      {
+        "t": "Research Scientist",
+        "m": 11,
+        "slug": "research-scientist",
+        "field": "Science",
+        "cluster": "Science",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "LLMs / Generative AI",
+          "Machine Learning",
+          "Python"
+        ],
+        "observed": null,
+        "fit": 9,
+        "capability": 4,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "computational-designer",
+          "readiness_after": 22,
+          "gain": 11
+        }
+      },
+      {
+        "t": "Real Estate Developer",
         "m": 10,
-        "slug": "market-researcher",
+        "slug": "real-estate-developer",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Market Research",
-          "Data Analysis",
-          "Statistics",
-          "Research"
+          "Business Development",
+          "Go-to-Market",
+          "Procurement",
+          "SaaS"
         ],
         "observed": null,
-        "fit": 26,
-        "capability": 73,
-        "mobility": 22,
-        "mobility_source": "observed-flow-eu",
-        "mobility_eu": 22,
+        "fit": 14,
+        "capability": null,
+        "mobility": 24,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "computational-designer",
+          "readiness_after": 18,
+          "gain": 8
+        }
+      }
+    ],
+    "management-consultant": [
+      {
+        "t": "Chemical Engineer",
+        "m": 15,
+        "slug": "chemical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Lean / Six Sigma",
+          "Process Engineering",
+          "Quality Control",
+          "Supply Chain"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 27,
+        "mobility": 13,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
           "parent": "management-consultant",
-          "readiness_after": 27,
-          "gain": 17
+          "readiness_after": 34,
+          "gain": 19
         }
-      }
-    ],
-    "business-analyst": [
+      },
       {
         "t": "Economist",
-        "m": 17,
+        "m": 13,
         "slug": "economist",
         "field": "Science",
         "cluster": "Science",
@@ -1197,132 +1119,229 @@
           "Data Analysis"
         ],
         "observed": null,
-        "fit": 24,
-        "capability": 62,
+        "fit": 21,
+        "capability": 58,
         "mobility": 7,
         "mobility_source": "observed-flow-us",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "business-analyst",
-          "readiness_after": 38,
-          "gain": 21
+          "parent": "management-consultant",
+          "readiness_after": 29,
+          "gain": 16
         }
-      },
+      }
+    ],
+    "environmental-engineer": [
       {
-        "t": "Industrial Engineer",
-        "m": 14,
-        "slug": "industrial-engineer",
+        "t": "Health and Safety Officer",
+        "m": 11,
+        "slug": "health-safety-officer",
         "field": "Engineering",
         "cluster": "Engineering & Manufacturing",
         "kind": "pivot",
         "gap": [
-          "Lean / Six Sigma",
-          "Welding / Fabrication",
-          "GD&T",
-          "Operations"
+          "Safety / OSHA",
+          "Risk Management",
+          "Criminal Investigation",
+          "Lean / Six Sigma"
         ],
         "observed": null,
-        "fit": 10,
-        "capability": 0,
+        "fit": 11,
+        "capability": null,
         "mobility": null,
         "mobility_source": null,
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "business-analyst",
-          "readiness_after": 50,
-          "gain": 36
+          "parent": "environmental-engineer",
+          "readiness_after": 27,
+          "gain": 16
         }
       }
     ],
-    "environmental-engineer": [
+    "interior-designer": [],
+    "civil-engineer": [
       {
-        "t": "Facilities Manager",
-        "m": 11,
-        "slug": "facilities-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
+        "t": "Construction Superintendent",
+        "m": 12,
+        "slug": "construction-superintendent",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "lateral",
         "gap": [
-          "Facilities Operations",
-          "Maintenance",
-          "Operations",
-          "Property Management"
+          "Scheduling",
+          "Construction Administration",
+          "Safety / OSHA",
+          "BIM"
         ],
-        "observed": "Supplemental",
-        "fit": 14,
-        "capability": 9,
-        "mobility": 24,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 22,
+        "observed": null,
+        "fit": 12,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "environmental-engineer",
-          "readiness_after": 26,
-          "gain": 15
+          "parent": "civil-engineer",
+          "readiness_after": 24,
+          "gain": 12
         }
       }
     ],
-    "civil-engineer": [],
-    "executive-assistant": []
+    "structural-engineer": [
+      {
+        "t": "Mechanical Engineer",
+        "m": 19,
+        "slug": "mechanical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Mechanical CAD",
+          "Prototyping",
+          "FEA / Simulation",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": 2,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "structural-engineer",
+          "readiness_after": 35,
+          "gain": 16
+        }
+      }
+    ]
   },
-  "direct": [],
+  "direct": [
+    {
+      "t": "Creative Director",
+      "m": 13,
+      "slug": "creative-director",
+      "field": "Design",
+      "cluster": "Design",
+      "kind": "pivot",
+      "gap": [
+        "Writing & Editing",
+        "Branding",
+        "Figma",
+        "Motion Design"
+      ],
+      "observed": null,
+      "fit": 20,
+      "capability": 38,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Project Manager",
+      "m": 12,
+      "slug": "project-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Agile",
+        "Lean / Six Sigma",
+        "Brewing",
+        "SAP"
+      ],
+      "observed": "Primary-Short",
+      "fit": 12,
+      "capability": null,
+      "mobility": 13,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 22,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Sustainability Consultant",
+      "m": 10,
+      "slug": "sustainability-consultant",
+      "field": "Architecture",
+      "cluster": "Built Environment",
+      "kind": "lateral",
+      "gap": [
+        "LEED",
+        "Energy Modeling",
+        "Account Management",
+        "Procurement"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": null,
+      "mobility": 12,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 13,
+      "mobility_tier": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "architect",
       "interior-designer",
-      0.61
+      0.59
     ],
     [
-      "business-analyst",
-      "executive-assistant",
-      0.58
-    ],
-    [
-      "management-consultant",
-      "business-analyst",
-      0.53
+      "landscape-architect",
+      "architect",
+      0.55
     ],
     [
       "architect",
       "civil-engineer",
-      0.49
+      0.51
     ],
     [
-      "mobility-planner",
-      "business-analyst",
-      0.35
+      "landscape-architect",
+      "interior-designer",
+      0.44
+    ],
+    [
+      "architect",
+      "structural-engineer",
+      0.39
     ],
     [
       "management-consultant",
-      "executive-assistant",
-      0.33
+      "environmental-engineer",
+      0.36
     ]
   ],
   "bridges": [
     [
-      "business-analyst",
-      "management-consultant_0",
-      0.53
-    ],
-    [
-      "architect",
-      "interior-designer_0",
-      0.38
+      "management-consultant",
+      "computational-designer_1",
+      0.48
     ],
     [
       "management-consultant",
-      "business-analyst_0",
+      "architect_1",
+      0.41
+    ],
+    [
+      "management-consultant",
+      "architect_0",
       0.33
     ],
     [
-      "business-analyst",
-      "mobility-planner_0",
-      0.32
+      "management-consultant",
+      "civil-engineer_0",
+      0.3
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

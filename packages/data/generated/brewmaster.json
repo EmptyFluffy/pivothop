@@ -3,8 +3,126 @@
   "origin": {
     "slug": "brewmaster",
     "title": "Brewmaster",
-    "postings": 55
+    "field": "Hospitality",
+    "cluster": "Hospitality",
+    "postings": 111,
+    "salary": "$45k–$60k",
+    "salary_band": [
+      42913,
+      61620
+    ],
+    "remote": "1%",
+    "separations": {
+      "transfer": 7.3,
+      "exit": 5.6,
+      "total": 12.8,
+      "openings": 24.2
+    }
   },
-  "insufficient": true,
-  "note": "55 mapped postings, but too few of them state their requirements in enough detail to build a defensible skill profile — honest empty state, never invented routes."
+  "roles": [
+    {
+      "id": "warehouse-manager",
+      "title": "Warehouse Manager",
+      "field": "Transport",
+      "cluster": "Service",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 20,
+      "fit": 20,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$45k–$70k",
+      "salary_band": [
+        46159,
+        67633
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Brewing",
+        "Lean / Six Sigma",
+        "Customer Service"
+      ],
+      "learn": [
+        "Supply Chain",
+        "Inventory Management",
+        "Rigging & Material Handling",
+        "Operations"
+      ],
+      "waterfall": [
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 38.7,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 11.6,
+          "earned": 11.6
+        },
+        {
+          "skill": "inventory-management",
+          "name": "Inventory Management",
+          "pts": 11.2,
+          "earned": 0
+        },
+        {
+          "skill": "rigging-materials",
+          "name": "Rigging & Material Handling",
+          "pts": 7.8,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 6.9,
+          "earned": 4
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "shipping-receiving",
+          "name": "Shipping & Receiving",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.4,
+          "earned": 4
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 5.3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1522,
+        "salaried": 449
+      }
+    }
+  ],
+  "next": {
+    "warehouse-manager": []
+  },
+  "direct": [],
+  "cross": [],
+  "bridges": [],
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }

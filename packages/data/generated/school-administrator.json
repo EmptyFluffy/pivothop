@@ -3,8 +3,1369 @@
   "origin": {
     "slug": "school-administrator",
     "title": "School Administrator",
-    "postings": 75
+    "field": "Education",
+    "cluster": "Education",
+    "postings": 123,
+    "salary": "$40k–$90k",
+    "salary_band": [
+      42169,
+      87825
+    ],
+    "remote": "1%",
+    "separations": {
+      "transfer": 4,
+      "exit": 2.4,
+      "total": 6.5,
+      "openings": 20.8
+    }
   },
-  "insufficient": true,
-  "note": "75 mapped postings, but too few of them state their requirements in enough detail to build a defensible skill profile — honest empty state, never invented routes."
+  "roles": [
+    {
+      "id": "teacher",
+      "title": "Teacher",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
+      "license": {
+        "req": "required",
+        "label": "State teaching certification required for public schools"
+      },
+      "desc": "",
+      "match": 42,
+      "fit": 57,
+      "capability": 43,
+      "mobility": 100,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 29,
+      "mobility_tier": null,
+      "salary": "$50k–$75k",
+      "salary_band": [
+        51890,
+        76531
+      ],
+      "demand": "High",
+      "remote": "4%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Teaching",
+        "Classroom Management",
+        "Curriculum Development",
+        "Special Education"
+      ],
+      "learn": [
+        "Early Childhood",
+        "Lesson Planning",
+        "Translation"
+      ],
+      "waterfall": [
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 51.2,
+          "earned": 26.2
+        },
+        {
+          "skill": "early-childhood",
+          "name": "Early Childhood",
+          "pts": 14.4,
+          "earned": 0
+        },
+        {
+          "skill": "classroom-management",
+          "name": "Classroom Management",
+          "pts": 8.4,
+          "earned": 3.9
+        },
+        {
+          "skill": "curriculum",
+          "name": "Curriculum Development",
+          "pts": 7,
+          "earned": 3.9
+        },
+        {
+          "skill": "special-education",
+          "name": "Special Education",
+          "pts": 6,
+          "earned": 3.9
+        },
+        {
+          "skill": "lesson-planning",
+          "name": "Lesson Planning",
+          "pts": 5.9,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "translation",
+          "name": "Translation",
+          "pts": 3.4,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Primary-Short",
+      "provenance": {
+        "postings": 2555,
+        "salaried": 831
+      }
+    },
+    {
+      "id": "professor",
+      "title": "Professor / Lecturer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
+      "license": null,
+      "desc": "",
+      "match": 32,
+      "fit": 45,
+      "capability": null,
+      "mobility": 74,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 59,
+      "mobility_tier": null,
+      "salary": "$50k–$100k",
+      "salary_band": [
+        51006,
+        100117
+      ],
+      "demand": "High",
+      "remote": "5%",
+      "time": "12–24 mo",
+      "have": [
+        "Teaching",
+        "Curriculum Development",
+        "Training & Facilitation"
+      ],
+      "learn": [
+        "Data Analysis",
+        "Lesson Planning",
+        "Instructional Design",
+        "Motion Design"
+      ],
+      "waterfall": [
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 58.9,
+          "earned": 23.6
+        },
+        {
+          "skill": "curriculum",
+          "name": "Curriculum Development",
+          "pts": 12,
+          "earned": 3.5
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 11.5,
+          "earned": 4.7
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "lesson-planning",
+          "name": "Lesson Planning",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "instructional-design",
+          "name": "Instructional Design",
+          "pts": 3.3,
+          "earned": 0
+        },
+        {
+          "skill": "motion-design",
+          "name": "Motion Design",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "assessment",
+          "name": "Assessment",
+          "pts": 3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1325,
+        "salaried": 311
+      }
+    },
+    {
+      "id": "environmental-engineer",
+      "title": "Environmental Engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 22,
+      "fit": 31,
+      "capability": 56,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$65k–$120k",
+      "salary_band": [
+        63457,
+        118067
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Project Management",
+        "Compliance",
+        "Training & Facilitation",
+        "Lean / Six Sigma"
+      ],
+      "learn": [
+        "Sustainability",
+        "Safety / OSHA",
+        "Criminal Investigation",
+        "Program Management"
+      ],
+      "waterfall": [
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 17.4,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 15.2,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 11.7,
+          "earned": 6.5
+        },
+        {
+          "skill": "criminal-investigation",
+          "name": "Criminal Investigation",
+          "pts": 10.6,
+          "earned": 0
+        },
+        {
+          "skill": "compliance",
+          "name": "Compliance",
+          "pts": 10.6,
+          "earned": 4.9
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 8.2,
+          "earned": 6.5
+        },
+        {
+          "skill": "program-management",
+          "name": "Program Management",
+          "pts": 4.6,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.6,
+          "earned": 4.6
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 564,
+        "salaried": 212
+      }
+    },
+    {
+      "id": "tutor",
+      "title": "Tutor",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
+      "license": null,
+      "desc": "",
+      "match": 25,
+      "fit": 27,
+      "capability": 14,
+      "mobility": 43,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 24,
+      "mobility_tier": null,
+      "salary": "$30k–$65k",
+      "salary_band": [
+        31215,
+        62684
+      ],
+      "demand": "High",
+      "remote": "11%",
+      "time": "12–24 mo",
+      "have": [
+        "Teaching",
+        "Training & Facilitation",
+        "Curriculum Development"
+      ],
+      "learn": [
+        "Tutoring",
+        "Excel"
+      ],
+      "waterfall": [
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 53.3,
+          "earned": 18.4
+        },
+        {
+          "skill": "tutoring",
+          "name": "Tutoring",
+          "pts": 32.2,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 6.1,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 4.4,
+          "earned": 3.7
+        },
+        {
+          "skill": "curriculum",
+          "name": "Curriculum Development",
+          "pts": 3.9,
+          "earned": 2.8
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Supplemental",
+      "provenance": {
+        "postings": 665,
+        "salaried": 160
+      }
+    },
+    {
+      "id": "hr-manager",
+      "title": "HR Manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 15,
+      "fit": 26,
+      "capability": 78,
+      "mobility": 8,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 12,
+      "mobility_tier": null,
+      "salary": "$65k–$125k",
+      "salary_band": [
+        65560,
+        125509
+      ],
+      "demand": "High",
+      "remote": "6%",
+      "time": "12–24 mo",
+      "have": [
+        "Scheduling",
+        "Training & Facilitation",
+        "Lean / Six Sigma",
+        "Project Management"
+      ],
+      "learn": [
+        "HR Operations",
+        "Recruiting",
+        "Operations",
+        "Data Analysis"
+      ],
+      "waterfall": [
+        {
+          "skill": "hr-operations",
+          "name": "HR Operations",
+          "pts": 27.2,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 8.2,
+          "earned": 5.7
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 7.4,
+          "earned": 3.3
+        },
+        {
+          "skill": "recruiting",
+          "name": "Recruiting",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.6,
+          "earned": 4.1
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 4.5,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "change-management",
+          "name": "Change Management",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 3.3,
+          "earned": 0
+        },
+        {
+          "skill": "case-management",
+          "name": "Case Management",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "criminal-investigation",
+          "name": "Criminal Investigation",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "people-management",
+          "name": "People Management",
+          "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 2.1,
+          "earned": 2.1
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 3117,
+        "salaried": 1033
+      }
+    },
+    {
+      "id": "instructional-designer",
+      "title": "Instructional Designer",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "lateral",
+      "license": null,
+      "desc": "",
+      "match": 19,
+      "fit": 25,
+      "capability": 71,
+      "mobility": 3,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 6,
+      "mobility_tier": null,
+      "salary": "$55k–$95k",
+      "salary_band": [
+        57119,
+        95223
+      ],
+      "demand": "High",
+      "remote": "7%",
+      "time": "12–24 mo",
+      "have": [
+        "Training & Facilitation",
+        "Curriculum Development",
+        "Teaching",
+        "Lean / Six Sigma"
+      ],
+      "learn": [
+        "Instructional Design",
+        "Illustration",
+        "Sales Enablement",
+        "Presentation"
+      ],
+      "waterfall": [
+        {
+          "skill": "instructional-design",
+          "name": "Instructional Design",
+          "pts": 44.9,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 10.7,
+          "earned": 3.9
+        },
+        {
+          "skill": "curriculum",
+          "name": "Curriculum Development",
+          "pts": 7.4,
+          "earned": 2.9
+        },
+        {
+          "skill": "illustration",
+          "name": "Illustration",
+          "pts": 6.4,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 5.4,
+          "earned": 5.4
+        },
+        {
+          "skill": "sales-enablement",
+          "name": "Sales Enablement",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.2,
+          "earned": 4.2
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "agile",
+          "name": "Agile",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "content-marketing",
+          "name": "Content Marketing",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 2.6,
+          "earned": 2.6
+        },
+        {
+          "skill": "writing",
+          "name": "Writing & Editing",
+          "pts": 2.4,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Primary-Long",
+      "provenance": {
+        "postings": 591,
+        "salaried": 180
+      }
+    },
+    {
+      "id": "health-informatics-specialist",
+      "title": "Health Informatics Specialist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 13,
+      "fit": 24,
+      "capability": 55,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$75k–$125k",
+      "salary_band": [
+        75674,
+        126187
+      ],
+      "demand": "Moderate",
+      "remote": "7%",
+      "time": "12–24 mo",
+      "have": [
+        "Business Development",
+        "Lean / Six Sigma",
+        "Training & Facilitation",
+        "Scheduling"
+      ],
+      "learn": [
+        "EHR / EMR",
+        "Patient Care",
+        "Data Analysis",
+        "Change Management"
+      ],
+      "waterfall": [
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 32.4,
+          "earned": 0
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 23.3,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 11.3,
+          "earned": 0
+        },
+        {
+          "skill": "change-management",
+          "name": "Change Management",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 3.5,
+          "earned": 3.1
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 3.5,
+          "earned": 3.5
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 3.5,
+          "earned": 3.5
+        },
+        {
+          "skill": "health-education",
+          "name": "Health Education",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "data-visualization",
+          "name": "Data Visualization",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 2.8,
+          "earned": 2.8
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 2.8,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 179,
+        "salaried": 97
+      }
+    },
+    {
+      "id": "recruiter",
+      "title": "Recruiter",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "",
+      "match": 15,
+      "fit": 21,
+      "capability": 43,
+      "mobility": 16,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 14,
+      "mobility_tier": null,
+      "salary": "$40k–$75k",
+      "salary_band": [
+        40171,
+        76500
+      ],
+      "demand": "High",
+      "remote": "10%",
+      "time": "12–24 mo",
+      "have": [
+        "Scheduling",
+        "Business Development",
+        "Training & Facilitation",
+        "Lean / Six Sigma"
+      ],
+      "learn": [
+        "Recruiting",
+        "Procurement",
+        "Supply Chain",
+        "Excel"
+      ],
+      "waterfall": [
+        {
+          "skill": "recruiting",
+          "name": "Recruiting",
+          "pts": 25.7,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 25,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 7.5,
+          "earned": 6.5
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 4.8,
+          "earned": 2.8
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "branding",
+          "name": "Branding",
+          "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 3.2,
+          "earned": 3.2
+        },
+        {
+          "skill": "go-to-market",
+          "name": "Go-to-Market",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 2.9,
+          "earned": 2.9
+        },
+        {
+          "skill": "stakeholder-management",
+          "name": "Stakeholder Management",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "saas",
+          "name": "SaaS",
+          "pts": 2.4,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 3788,
+        "salaried": 937
+      }
+    }
+  ],
+  "next": {
+    "teacher": [],
+    "professor": [],
+    "environmental-engineer": [
+      {
+        "t": "Project Engineer",
+        "m": 16,
+        "slug": "project-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Construction Administration",
+          "BIM",
+          "AutoCAD",
+          "MEP"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "environmental-engineer",
+          "readiness_after": 26,
+          "gain": 10
+        }
+      },
+      {
+        "t": "Landscape Architect",
+        "m": 15,
+        "slug": "landscape-architect",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Urban Design",
+          "Sustainability",
+          "AutoCAD",
+          "Construction Documentation"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 41,
+        "mobility": 4,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "environmental-engineer",
+          "readiness_after": 32,
+          "gain": 17
+        }
+      }
+    ],
+    "tutor": [],
+    "hr-manager": [
+      {
+        "t": "Chemical Engineer",
+        "m": 17,
+        "slug": "chemical-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Process Engineering",
+          "Quality Control",
+          "Supply Chain",
+          "Sustainability"
+        ],
+        "observed": null,
+        "fit": 13,
+        "capability": 16,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "hr-manager",
+          "readiness_after": 31,
+          "gain": 14
+        }
+      },
+      {
+        "t": "Content Moderator",
+        "m": 16,
+        "slug": "content-moderator",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Translation",
+          "LLMs / Generative AI",
+          "Product Management",
+          "Customer Service"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "hr-manager",
+          "readiness_after": 32,
+          "gain": 16
+        }
+      }
+    ],
+    "instructional-designer": [
+      {
+        "t": "Corporate Trainer",
+        "m": 11,
+        "slug": "corporate-trainer",
+        "field": "Education",
+        "cluster": "Education",
+        "kind": "lateral",
+        "gap": [
+          "Sales Enablement",
+          "Instructional Design",
+          "SaaS",
+          "Presentation"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 52,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 8,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "instructional-designer",
+          "readiness_after": 27,
+          "gain": 16
+        }
+      },
+      {
+        "t": "Real Estate Developer",
+        "m": 11,
+        "slug": "real-estate-developer",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Go-to-Market",
+          "Procurement",
+          "SaaS",
+          "Sales"
+        ],
+        "observed": null,
+        "fit": 9,
+        "capability": null,
+        "mobility": 4,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "instructional-designer",
+          "readiness_after": 20,
+          "gain": 9
+        }
+      }
+    ],
+    "health-informatics-specialist": [
+      {
+        "t": "Dietitian",
+        "m": 17,
+        "slug": "dietitian",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Patient Care",
+          "Case Management",
+          "Health Education",
+          "Mental Health"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": 38,
+        "mobility": 1,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "health-informatics-specialist",
+          "readiness_after": 41,
+          "gain": 24
+        }
+      },
+      {
+        "t": "Occupational Therapist",
+        "m": 15,
+        "slug": "occupational-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Treatment Planning",
+          "Mental Health",
+          "Rehabilitation",
+          "Financial Modeling"
+        ],
+        "observed": null,
+        "fit": 15,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "health-informatics-specialist",
+          "readiness_after": 25,
+          "gain": 10
+        }
+      }
+    ],
+    "recruiter": [
+      {
+        "t": "Production Supervisor",
+        "m": 16,
+        "slug": "production-supervisor",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Supply Chain",
+          "Operations",
+          "Quality Control",
+          "SAP"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "recruiter",
+          "readiness_after": 29,
+          "gain": 13
+        }
+      },
+      {
+        "t": "Compliance Officer",
+        "m": 16,
+        "slug": "compliance-officer",
+        "field": "Finance",
+        "cluster": "Finance",
+        "kind": "pivot",
+        "gap": [
+          "Risk Management",
+          "Contracts",
+          "Criminal Investigation",
+          "Data Analysis"
+        ],
+        "observed": null,
+        "fit": 12,
+        "capability": 14,
+        "mobility": 3,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 4,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "recruiter",
+          "readiness_after": 28,
+          "gain": 12
+        }
+      }
+    ]
+  },
+  "direct": [
+    {
+      "t": "Construction Superintendent",
+      "m": 14,
+      "slug": "construction-superintendent",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Construction Administration",
+        "Safety / OSHA",
+        "BIM",
+        "Brewing"
+      ],
+      "observed": null,
+      "fit": 14,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "General Manager",
+      "m": 13,
+      "slug": "general-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Supply Chain",
+        "Operations",
+        "Account Management",
+        "Budgeting"
+      ],
+      "observed": null,
+      "fit": 13,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Psychologist",
+      "m": 12,
+      "slug": "psychologist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Mental Health",
+        "Case Management",
+        "Treatment Planning",
+        "Supply Chain"
+      ],
+      "observed": null,
+      "fit": 16,
+      "capability": 41,
+      "mobility": 5,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 10,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Business Analyst",
+      "m": 11,
+      "slug": "business-analyst",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Data Analysis",
+        "Agile",
+        "Product Management",
+        "Supply Chain"
+      ],
+      "observed": null,
+      "fit": 21,
+      "capability": 62,
+      "mobility": 11,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Project Scheduler",
+      "m": 11,
+      "slug": "project-scheduler",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Primavera P6",
+        "SAP",
+        "Excel",
+        "Supply Chain"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Data Annotator",
+      "m": 11,
+      "slug": "data-annotator",
+      "field": "Technology",
+      "cluster": "Technology",
+      "kind": "pivot",
+      "gap": [
+        "LLMs / Generative AI",
+        "Translation",
+        "Machine Learning",
+        "Python"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    }
+  ],
+  "cross": [
+    [
+      "professor",
+      "tutor",
+      0.7
+    ],
+    [
+      "teacher",
+      "professor",
+      0.66
+    ],
+    [
+      "teacher",
+      "tutor",
+      0.61
+    ],
+    [
+      "hr-manager",
+      "recruiter",
+      0.41
+    ],
+    [
+      "professor",
+      "instructional-designer",
+      0.3
+    ]
+  ],
+  "bridges": [
+    [
+      "hr-manager",
+      "recruiter_0",
+      0.37
+    ],
+    [
+      "hr-manager",
+      "recruiter_1",
+      0.34
+    ],
+    [
+      "hr-manager",
+      "environmental-engineer_0",
+      0.32
+    ],
+    [
+      "recruiter",
+      "instructional-designer_1",
+      0.28
+    ]
+  ],
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }
