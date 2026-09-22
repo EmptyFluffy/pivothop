@@ -3,6 +3,8 @@ import { createBrowserClient } from '@supabase/ssr';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 /* Browser Supabase client, or null when the project isn't provisioned yet.
+   NEXT_PUBLIC_SUPABASE_ANON_KEY takes either the legacy anon JWT or the
+   newer sb_publishable_ key; @supabase/ssr accepts both.
    Every caller must tolerate null — the guest-save flow is fully functional
    without a backend, and sign-in simply reports itself unavailable. */
 
