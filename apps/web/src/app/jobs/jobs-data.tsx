@@ -94,27 +94,35 @@ function detailShards(): Record<string, number> {
 }
 const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL
   ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.pivothop.com');
+// A data file under public/data: from disk when it is there (dev, build, files
+// the bundle carries), otherwise from the site's own CDN. Nothing under
+// jobs-detail/ is in a function bundle, so at request time that path is
+// always the network one; the parsed file stays in the LRU for the instance.
+async function loadRel<T>(rel: string): Promise<T | null> {
+  const local = read<T>(rel);
+  if (local) return local;
+  try {
+    const res = await fetch(`${SITE_ORIGIN}/data/${rel}`, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    const v = (await res.json()) as T;
+    _readCache.set(rel, v);
+    if (_readCache.size > READ_CACHE_MAX) _readCache.delete(_readCache.keys().next().value as string);
+    return v;
+  } catch { return null; }
+}
 async function detailRow(occ: string, id: string): Promise<DetailRow | null> {
   if (!/^[a-z0-9-]+$/.test(occ) || !/^[a-z0-9]+$/.test(id)) return null;
   const shards = detailShards();
   if (!(occ in shards)) {
-    // data published before the shards existed (one file per occupation)
-    const legacy = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`);
-    if (legacy) return legacy[id] ?? null;
+    // data published before the shards existed: one file per occupation,
+    // which the bundle no longer carries either, so it is fetched too
+    const legacy = await loadRel<Record<string, DetailRow>>(`jobs-detail/${occ}.json`);
+    return legacy?.[id] ?? null;
   }
   const n = shards[occ] ?? 1;
   const k = (parseInt(id.slice(0, 4), 16) || 0) % n;
-  const rel = `jobs-detail/${occ}/${k}.json`;
-  const local = read<Record<string, DetailRow>>(rel);
-  if (local) return local[id] ?? null;
-  try {
-    const res = await fetch(`${SITE_ORIGIN}/data/${rel}`, { next: { revalidate: 3600 } });
-    if (!res.ok) return null;
-    const v = (await res.json()) as Record<string, DetailRow>;
-    _readCache.set(rel, v);
-    if (_readCache.size > READ_CACHE_MAX) _readCache.delete(_readCache.keys().next().value as string);
-    return v[id] ?? null;
-  } catch { return null; }
+  const v = await loadRel<Record<string, DetailRow>>(`jobs-detail/${occ}/${k}.json`);
+  return v?.[id] ?? null;
 }
 export async function getJobSections(occ: string, id: string): Promise<JobSection[]> {
   const v = await detailRow(occ, id);
