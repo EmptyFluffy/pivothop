@@ -97,6 +97,20 @@ export function companyInitial(company: string): string {
   return m ? m[0].toUpperCase() : '·';
 }
 
+/* The mark of a locked posting: a heavily blurred tile in the logo slot. The
+   real logo never ships (its filename and its pixels both name the employer,
+   2026-09-22: "es obvio que es OpenAI" even blurred), so this is a tile
+   tinted from the posting id, different per row the way logos are, and
+   blurred hard by CSS. Never a padlock: the slot should read as a logo. */
+export function LockMark({ size = 34, className = 'jd-mark', seed = '' }: { size?: number; className?: string; seed?: string }) {
+  const [a] = monoTint(seed || 'direct');
+  const [b] = monoTint(`${seed}~`);
+  return (
+    <span className={`${className} jd-blur`} style={{ width: size, height: size, background: `linear-gradient(135deg, ${a}, ${b})` }}
+      aria-label="Employer shown after sign-in" title="Employer shown after sign-in" />
+  );
+}
+
 export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: boolean }) {
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
@@ -110,10 +124,12 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
     .filter(Boolean).join(' \u00B7 ');
   const innerV2 = (
     <>
-      <span className={locked ? 'job-logo jv-locked' : 'job-logo'}>
-        {j.logo
-          ? <img src={j.logo} alt="" width={34} height={34} loading="lazy" />
-          : <span className="job-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(j.company)}</span>}
+      <span className="job-logo">
+        {locked
+          ? <LockMark size={34} className="job-mono" seed={j.id} />
+          : j.logo
+            ? <img src={j.logo} alt="" width={34} height={34} loading="lazy" />
+            : <span className="job-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(j.company)}</span>}
       </span>
       <span className="jv-main">
         <span className="jv-ti">{j.title} <span className="jv-at">at <span className={locked ? 'jv-locked' : undefined}>{j.company}</span></span></span>
@@ -128,9 +144,11 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
   const inner = v2 ? innerV2 : (
     <>
       <span className="job-logo">
-        {j.logo
-          ? <img src={j.logo} alt="" width={38} height={38} loading="lazy" />
-          : <span className="job-mono" aria-hidden="true">{companyInitial(j.company)}</span>}
+        {locked
+          ? <LockMark size={38} className="job-mono" seed={j.id} />
+          : j.logo
+            ? <img src={j.logo} alt="" width={38} height={38} loading="lazy" />
+            : <span className="job-mono" aria-hidden="true">{companyInitial(j.company)}</span>}
       </span>
       <span className="job-body">
         <span className="job-main">

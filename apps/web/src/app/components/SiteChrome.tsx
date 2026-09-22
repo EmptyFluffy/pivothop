@@ -8,6 +8,7 @@ import { MobileNav, NavBurger } from './MobileNav';
 import SavedNavLink from './SavedNavLink';
 import AuthNavButton from './AuthNavButton';
 import PremiumGate from './PremiumGate';
+import SignInSheet from './SignInSheet';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
    footer inside the landing's exact .shell frame. One source, so the pages can
@@ -156,6 +157,7 @@ export function PageShell({ children, active, wide, v2 }: { children: React.Reac
       {v2 && <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />}
       <div className="main">
         <PremiumGate />
+        <SignInSheet />
         <SwissBanner />
         <SearchOverlay />
         <LicenseSheet />

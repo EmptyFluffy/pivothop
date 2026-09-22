@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
 import SaveButton from './SaveButton';
-import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45, isDirect } from './JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45, isDirect, LockMark } from './JobCard';
 import { type Listing, loadListing } from './detail';
 import { unlockJob, signInHref, toListingSections, type Unlocked } from '../../lib/unlock';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
@@ -184,7 +184,9 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
     );
   })();
 
-  const makeSections = (title: string) => listing && listing.sections.length > 0 && (
+  // a direct posting shows no text until the vault answered (the public shard
+  // carries none; an unlocked one carries the real sections)
+  const makeSections = (title: string) => listing && listing.sections.length > 0 && (!isDirect(j) || real) && (
     <div className="jsheet-sec jsheet-desc">
       <h3>{title}</h3>
       {listing.sections.map((sec, i) => (
@@ -202,7 +204,7 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
     </div>
   );
 
-  const noneBlock = loaded && !listing?.sections.length && (
+  const noneBlock = loaded && !isDirect(j) && !listing?.sections.length && (
     <p className="jpane-none">
       This source publishes the posting text on its own site only, so the full
       description is one click away at {j.company}.
@@ -251,9 +253,11 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
         <div className="jpane-scroll" ref={scrollRef}>
           <div className="jpane-body" key={j.id}>
             <div className="jv-cohead">
-              {j.logo
-                ? <span className="jd-mark"><img src={j.logo} alt="" width={40} height={40} /></span>
-                : <span className="jd-mark jd-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(j.company)}</span>}
+              {real?.logo || j.logo
+                ? <span className="jd-mark"><img src={real?.logo ?? j.logo} alt="" width={40} height={40} /></span>
+                : isDirect(j) && !real
+                  ? <LockMark size={40} seed={j.id} />
+                  : <span className="jd-mark jd-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(real?.company ?? j.company)}</span>}
               <span className="jv-coname">{real?.company ?? j.company}</span>
             </div>
             <h2 className="jpane-title">{j.title}</h2>
@@ -292,9 +296,11 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
         {/* keyed so a swap re-runs the entrance fade */}
         <div className="jpane-body" key={j.id}>
           <div className="jpane-head">
-            {j.logo
-              ? <span className="jd-mark"><img src={j.logo} alt="" width={30} height={30} /></span>
-              : <span className="jd-mark jd-mono" aria-hidden="true">{companyInitial(j.company)}</span>}
+            {real?.logo || j.logo
+              ? <span className="jd-mark"><img src={real?.logo ?? j.logo} alt="" width={30} height={30} /></span>
+              : isDirect(j) && !real
+                ? <LockMark size={30} seed={j.id} />
+                : <span className="jd-mark jd-mono" aria-hidden="true">{companyInitial(real?.company ?? j.company)}</span>}
             <div>
               <h2 className="jpane-title">{j.title}</h2>
               <p className="jpane-co">{real?.company ?? j.company}{j.location ? ` · ${j.location}` : ''}</p>

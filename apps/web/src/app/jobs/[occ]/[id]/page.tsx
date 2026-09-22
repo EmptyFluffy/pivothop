@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, getJobGates, skillDisplayName } from '../../jobs-data';
-import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard, isDirect } from '../../JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard, isDirect, LockMark } from '../../JobCard';
 import UnlockRow from '../../UnlockRow';
 import SkillStrip from '../../SkillStrip';
 import BenefitStrip from '../../BenefitStrip';
@@ -124,9 +124,11 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
       <div className="rtp salp">
         <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: title, href: `/jobs/${occ}` }, { label: locked ? 'Direct posting' : j.company }]} />
         <div className="jd-head">
-          {logo
-            ? <span className={locked ? 'jd-mark jv-locked' : 'jd-mark'}><img src={logo} alt="" width={40} height={40} /></span>
-            : <span className={locked ? 'jd-mark jd-mono jv-locked' : 'jd-mark jd-mono'}>{initial}</span>}
+          {locked
+            ? <LockMark size={40} seed={j.id} />
+            : logo
+              ? <span className="jd-mark"><img src={logo} alt="" width={40} height={40} /></span>
+              : <span className="jd-mark jd-mono">{initial}</span>}
           <div className="jd-headtext">
             <h1 className="rt-h1 jd-h1">{j.title}</h1>
             <p className="jd-co"><span className={locked ? 'jv-locked' : undefined}>{j.company}</span>{j.location ? ` · ${j.location}` : ''}</p>
@@ -182,7 +184,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
           </section>
         )}
 
-        {sections.length > 0 && (
+        {!locked && sections.length > 0 && (
           <section className="rt-sec jd-desc">
             <h2>The posting</h2>
             {sections.map((s, i) => (

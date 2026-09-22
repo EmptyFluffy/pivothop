@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Arrow45 } from './JobCard';
-import { unlockJob, signInHref, signedIn, type Unlocked } from '../../lib/unlock';
+import { unlockJob, signedIn, type Unlocked } from '../../lib/unlock';
+import { requestSignIn } from '../../lib/auth-ui';
 
 /* The apply row of a direct posting's detail page. The static HTML carries no
    company and no link; with a session (or a share token in the URL) this
@@ -49,7 +50,7 @@ export default function UnlockRow({ occ, id, backHref, backLabel }: { occ: strin
   return (
     <div className="jd-applyrow jd-locked">
       {state === 'anon'
-        ? <Link className="rt-go jd-apply" href={signInHref()}>Sign in to unlock <Arrow45 size={24} /></Link>
+        ? <button type="button" className="rt-go jd-apply" onClick={() => requestSignIn('job')}>Sign in to view this job <Arrow45 size={24} /></button>
         : <span className="rt-go jd-apply" aria-busy={state === 'checking'}>{state === 'checking' ? 'Checking…' : 'Unlock unavailable'}</span>}
       <Link className="jd-back" href={backHref}>{backLabel}</Link>
       <span className="lbl">Posted on the employer&rsquo;s own site. Sign in with Google, free, to see who and apply there.</span>

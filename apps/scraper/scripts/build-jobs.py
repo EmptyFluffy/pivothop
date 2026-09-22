@@ -123,21 +123,7 @@ UNCAPPED = True
 DIRECT_REDACT = os.environ.get('DIRECT_REDACT') == '1'
 DIRECT_SOURCES = {'greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct'}
 PRIVATE_SRC = 'apps/web/private-src/direct'
-TEASER_CHARS = 280
 priv_byocc = collections.defaultdict(dict)
-
-def teaser(sections, company):
-    """The first TEASER_CHARS of a direct posting, employer name hidden."""
-    text = ''
-    for s in sections or []:
-        t = (s.get('t') or '').strip()
-        if t:
-            text = t
-            break
-    if company:
-        text = re.sub(re.escape(company), 'the company', text, flags=re.I)
-    text = text[:TEASER_CHARS].rstrip()
-    return [{'h': None, 't': text + '…'}] if text else []
 BROWSE_ROWS = 15000      # rows the /jobs client downloads; the rest is reachable by occupation
 ROWS_PER_SHARD = 300     # detail rows per shard file (~1MB each; Next's data cache caps a fetch at 2MB)
 MAX_SHARDS = 64
@@ -653,12 +639,13 @@ for role, jobs in kept_byocc.items():
     json.dump(jobs, open(f'{OUT}/{role}.json', 'w'), ensure_ascii=False)
     kept = {j['id'] for j in jobs}
     details = {i: v for i, v in desc_byocc[role].items() if i in kept}
-    # direct rows: the full text goes to the vault, the public shard keeps a teaser
+    # direct rows: the full text goes to the vault, the public shard keeps NO
+    # text (2026-09-22: even a teaser said "at OpenAI we..."); skills,
+    # benefits and gates stay, they name nobody
     for i, pv in priv_byocc.get(role, {}).items():
         if i in details:
-            full = details[i].get('s') or []
-            pv['sections'] = full
-            details[i] = {**details[i], 's': teaser(full, pv['company'])}
+            pv['sections'] = details[i].get('s') or []
+            details[i] = {**details[i], 's': []}
     n = max(1, min(MAX_SHARDS, -(-len(details) // ROWS_PER_SHARD)))
     shards[role] = n
     os.makedirs(f'{DETAIL}/{role}', exist_ok=True)

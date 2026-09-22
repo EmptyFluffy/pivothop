@@ -179,7 +179,7 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
             );
           })() : null}
 
-          {listing?.sections?.length ? (
+          {listing?.sections?.length && (!isDirect(j) || real) ? (
             <div className="jsheet-sec jsheet-desc">
               <h3>The posting</h3>
               {listing.sections.map((sec, i) => (

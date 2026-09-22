@@ -1,7 +1,9 @@
 'use client';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { JobCard, type Job } from './JobCard';
+import { JobCard, isDirect, type Job } from './JobCard';
+import { isSignedInNow, requestSignIn, primeSession } from '../../lib/auth-ui';
+import { shareTokenFromPage } from '../../lib/unlock';
 import JobSheet from './JobSheet';
 import JobPanel from './JobPanel';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
@@ -214,9 +216,13 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   // the address bar, Back, refresh and sharing all behave as if it were a page.
   // While the pane is open, a second pick replaces the entry instead of
   // pushing, so Back always returns to the board in one step.
+  useEffect(() => { primeSession(); }, []);
   useEffect(() => {
     const isPhone = () => window.matchMedia('(max-width: 760px)').matches;
     const openJob = (j: Job, href: string) => {
+      // a direct posting with no session opens the sign-in sheet, never the
+      // listing: nothing of it (not even the text) shows before signing in
+      if (isDirect(j) && !isSignedInNow() && !shareTokenFromPage()) { requestSignIn('job', href); return; }
       if (isPhone()) { history.pushState({ jobSheet: true }, '', href); setSheetJob(j); return; }
       if (history.state?.jobSheet) history.replaceState({ jobSheet: true }, '', href);
       else history.pushState({ jobSheet: true }, '', href);

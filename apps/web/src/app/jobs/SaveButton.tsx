@@ -5,6 +5,7 @@ import type { Job } from './JobCard';
 import { isSaved, toggleSave, onSavedChange, readSaved } from '../../lib/saved';
 import { supabaseBrowser } from '../../lib/supabase-browser';
 import { upsertSave, removeSave } from '../dashboard/actions';
+import { isSignedInNow, requestSignIn, primeSession } from '../../lib/auth-ui';
 
 /* The save toggle. Bookmark glyph, never a heart (hearts read as social
    likes; every major board converged on bookmark + Save/Saved). Guest-first:
@@ -23,6 +24,7 @@ function Bookmark({ filled, size = 20 }: { filled: boolean; size?: number }) {
 export default function SaveButton({ j, label }: { j: Job; label?: boolean }) {
   const [saved, setSaved] = useState(false);
   useEffect(() => {
+    primeSession();
     const sync = () => setSaved(isSaved(j.occ, j.id));
     sync();
     return onSavedChange(sync);
@@ -31,6 +33,9 @@ export default function SaveButton({ j, label }: { j: Job; label?: boolean }) {
   const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    // saving needs an account (2026-09-22): the sheet asks for one and the
+    // reader comes back to this page signed in
+    if (!isSignedInNow()) { requestSignIn('save'); return; }
     const now = toggleSave({
       occ: j.occ, id: j.id, title: j.title, company: j.company,
       location: j.location, remote: j.remote,
