@@ -41,6 +41,9 @@ const nextConfig: NextConfig = {
   // route.js.nft.json rather than trusting a green build.
   outputFileTracingIncludes: {
     '/api/roadmap': ['../../node_modules/@sparticuz/chromium/bin/**'],
+    // the sealed direct-jobs vault (private/direct/<occ>.enc): read only by
+    // /api/direct at request time, decrypted with DIRECT_KEY from the env
+    '/api/direct': ['./private/direct/**'],
   },
   // The route reads public/data/<dynamic>, so the tracer takes the whole
   // directory — 95MB after the Swiss unlock (2026-08-04), of which 65MB is

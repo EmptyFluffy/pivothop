@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../../components/SiteChrome';
 import { getJob, getJobs, getJobSections, jobOccupations, occTitle, companyLogo, type JobSection , getJobSkills, getJobBenefits, getJobGates, skillDisplayName } from '../../jobs-data';
-import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard, isDirect, UNLOCK_HREF } from '../../JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, JobCard, isDirect } from '../../JobCard';
+import UnlockRow from '../../UnlockRow';
 import SkillStrip from '../../SkillStrip';
 import BenefitStrip from '../../BenefitStrip';
 import { gateRows } from '../../gates';
@@ -146,16 +147,9 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
         </div>
 
         {locked ? (
-          <>
-            <div className="jd-applyrow jd-locked">
-              <Link className="rt-go jd-apply" href={`${UNLOCK_HREF}?from=${occ}`}>Unlock this posting <Arrow45 size={24} /></Link>
-              <Link className="jd-back" href={`/jobs/${occ}`}>All {tl} jobs</Link>
-            </div>
-            <div className="jd-applyrow jd-premium-only">
-              <a className="rt-go jd-apply" href={UNLOCK_HREF} data-apply={j.url}>Apply now <Arrow45 size={24} /></a>
-              <Link className="jd-back" href={`/jobs/${occ}`}>All {tl} jobs</Link>
-            </div>
-          </>
+          // the static page carries no employer and no link; UnlockRow fetches
+          // them from the vault behind a session or a share token
+          <UnlockRow occ={occ} id={id} backHref={`/jobs/${occ}`} backLabel={`All ${tl} jobs`} />
         ) : (
           <div className="jd-applyrow">
             <a className="rt-go jd-apply" href={j.url} target="_blank" rel="nofollow noopener noreferrer">Apply now <Arrow45 size={24} /></a>

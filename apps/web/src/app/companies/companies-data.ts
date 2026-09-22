@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Job } from '../jobs/JobCard';
 import { occField } from '../jobs/jobs-data';
+import { isDirect } from '../jobs/JobCard';
+import { openShard } from '../../lib/direct-vault';
 import { countryName } from '../jobs/countries';
 import { createHash } from 'node:crypto';
 
@@ -58,7 +60,8 @@ export type CompanyPage = {
   payByOcc: PayRow[];
   payByCountry: PayRow[];
   stated: number;                     // postings stating a salary
-  jobs: Job[];                        // freshest first
+  jobs: Job[];                        // freshest first, aggregator rows only
+  directN: number;                    // rows on the employer's own site: counted, priced, never listed
   newest: string;                     // ISO date of freshest posting
   sig: string;                        // content signature (job ids) for an honest sitemap lastmod
 };
@@ -68,12 +71,26 @@ function slugify(name: string): string {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
-let _all: Job[] | null = null;
-function allJobs(): Job[] {
+/* A direct row ships redacted ("Direct employer", no logo, no link). The
+   company page may still count it and price it, so at build time the row is
+   attributed to its employer through the vault (needs DIRECT_KEY at build);
+   it is flagged `lk` and kept OUT of the page's listing: the company page
+   shows that the employer hires and what it pays, never the titles, so the
+   (employer, title) pair cannot be assembled from public pages. Without the
+   key, direct rows simply do not count toward any company page. */
+type CoJob = Job & { lk?: boolean };
+let _all: CoJob[] | null = null;
+function allJobs(): CoJob[] {
   if (!_all) {
+    let raw: Job[] = [];
     try {
-      _all = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'all-jobs.json'), 'utf8')) as Job[];
-    } catch { _all = []; }
+      raw = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'all-jobs.json'), 'utf8')) as Job[];
+    } catch { raw = []; }
+    _all = raw.map((j): CoJob | null => {
+      if (!isDirect(j) || j.company !== 'Direct employer') return j;
+      const v = openShard(j.occ)?.[j.id];
+      return v ? { ...j, company: v.company, ...(v.logo ? { logo: v.logo } : {}), lk: true } : null;
+    }).filter((j): j is CoJob => j !== null);
   }
   return _all;
 }
@@ -275,7 +292,8 @@ function build(): Map<string, CompanyPage> {
       payByOcc: payRows(js, (j) => j.occ),
       payByCountry: payRows(js, (j) => j.c),
       stated: midsOf(js).length,
-      jobs: js,
+      jobs: js.filter((j) => !(j as CoJob).lk),
+      directN: js.filter((j) => (j as CoJob).lk).length,
       newest: js[0]?.posted ?? '',
       sig: createHash('sha1').update(js.map((j) => `${j.occ}/${j.id}`).sort().join('\n')).digest('hex').slice(0, 12),
     });

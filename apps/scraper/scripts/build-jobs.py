@@ -112,6 +112,32 @@ CAP = 600        # freshest N per occupation (per-occupation board + detail)
 # listing render parses one shard, never the occupation. Set UNCAPPED = False
 # to restore the ceiling for a measurement.
 UNCAPPED = True
+# THE DIRECT LOCK (2026-09-22). With DIRECT_REDACT=1 a row from an employer's
+# own hiring system ships to the public files as "Direct employer", no logo, no
+# apply URL, and its detail shard carries a teaser of the posting; the real
+# fields go to private-src/direct/<occ>.json (git-ignored), which
+# seal-direct.mjs encrypts into apps/web/private/direct/<occ>.enc for the
+# /api/direct route and the company pages' build-time attribution. Off (the
+# default) nothing changes. The repo is public: never write a real field of a
+# direct row anywhere under public/.
+DIRECT_REDACT = os.environ.get('DIRECT_REDACT') == '1'
+DIRECT_SOURCES = {'greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct'}
+PRIVATE_SRC = 'apps/web/private-src/direct'
+TEASER_CHARS = 280
+priv_byocc = collections.defaultdict(dict)
+
+def teaser(sections, company):
+    """The first TEASER_CHARS of a direct posting, employer name hidden."""
+    text = ''
+    for s in sections or []:
+        t = (s.get('t') or '').strip()
+        if t:
+            text = t
+            break
+    if company:
+        text = re.sub(re.escape(company), 'the company', text, flags=re.I)
+    text = text[:TEASER_CHARS].rstrip()
+    return [{'h': None, 't': text + '…'}] if text else []
 BROWSE_ROWS = 15000      # rows the /jobs client downloads; the rest is reachable by occupation
 ROWS_PER_SHARD = 300     # detail rows per shard file (~1MB each; Next's data cache caps a fetch at 2MB)
 MAX_SHARDS = 64
@@ -423,19 +449,23 @@ for line in open(NORM):
     bens = benefits_miner.extract(desc) if desc else []
     reqs = req_miner.extract(desc) if desc else {}
     grow = gate_row(reqs)
+    redact = DIRECT_REDACT and s in DIRECT_SOURCES
+    if redact:
+        priv_byocc[role][_id] = {'company': disp_co, 'url': url,
+                                 **({'logo': f'/data/logos/{logo_slug}.png'} if logo_slug in LOGOS else {})}
     byocc[role].append({
         'id': _id,
         'occ': role,
         'title': title[:120],
-        'company': disp_co,
+        'company': 'Direct employer' if redact else disp_co,
         'location': loc[:60] or ('Remote' if remote else ''),
         'remote': remote,
         'smin': smin,
         'smax': smax,
-        'url': url,
+        'url': '' if redact else url,
         'source': s,
         'posted': (str(d.get('posted_at') or ''))[:10],
-        **({'logo': f'/data/logos/{logo_slug}.png'} if logo_slug in LOGOS else {}),
+        **({'logo': f'/data/logos/{logo_slug}.png'} if logo_slug in LOGOS and not redact else {}),
         **({'fl': fl} if fl else {}),
         **({'lv': lv} if lv else {}),
         **({'c': cty} if cty else {}),
@@ -623,6 +653,12 @@ for role, jobs in kept_byocc.items():
     json.dump(jobs, open(f'{OUT}/{role}.json', 'w'), ensure_ascii=False)
     kept = {j['id'] for j in jobs}
     details = {i: v for i, v in desc_byocc[role].items() if i in kept}
+    # direct rows: the full text goes to the vault, the public shard keeps a teaser
+    for i, pv in priv_byocc.get(role, {}).items():
+        if i in details:
+            full = details[i].get('s') or []
+            pv['sections'] = full
+            details[i] = {**details[i], 's': teaser(full, pv['company'])}
     n = max(1, min(MAX_SHARDS, -(-len(details) // ROWS_PER_SHARD)))
     shards[role] = n
     os.makedirs(f'{DETAIL}/{role}', exist_ok=True)
@@ -669,6 +705,18 @@ json.dump(index, open(INDEX, 'w'), ensure_ascii=False)
 # slice. Every row is still reachable through its occupation file.
 json.dump(all_rows[:BROWSE_ROWS], open('apps/web/public/data/browse-jobs.json', 'w'), ensure_ascii=False)
 json.dump(shards, open('apps/web/public/data/detail-shards.json', 'w'), ensure_ascii=False)
+if DIRECT_REDACT:
+    shutil.rmtree(PRIVATE_SRC, ignore_errors=True)
+    os.makedirs(PRIVATE_SRC, exist_ok=True)
+    kept_ids = {role: {j['id'] for j in jobs} for role, jobs in kept_byocc.items()}
+    npriv = 0
+    for role, rows in priv_byocc.items():
+        rows = {i: v for i, v in rows.items() if i in kept_ids.get(role, set())}
+        if not rows:
+            continue
+        json.dump(rows, open(f'{PRIVATE_SRC}/{role}.json', 'w'), ensure_ascii=False)
+        npriv += len(rows)
+    print(f'direct lock: {npriv} rows redacted in public files, real fields in {PRIVATE_SRC} (seal-direct next)')
 
 # Benefits glossary: every mined benefit with its definition and how many of the
 # listings that shipped state it. Counts come from this run, so the glossary can

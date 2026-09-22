@@ -102,6 +102,12 @@ fi
 python3 apps/scraper/scripts/export-web-data.py      || { echo "::error::export-web-data failed"; exit 2; }
 node    apps/scraper/scripts/fetch-logos.mjs          || echo "::warning::fetch-logos failed (non-fatal)"
 python3 apps/scraper/scripts/build-jobs.py           || { echo "::error::build-jobs failed (purity canary?)"; exit 2; }
+# The direct lock: with DIRECT_REDACT=1 the public files are already redacted,
+# so the vault MUST seal or nobody (not even a subscriber) can open a direct
+# posting. A missing DIRECT_KEY is therefore fatal here, never a warning.
+if [ "${DIRECT_REDACT:-0}" = "1" ]; then
+  node apps/scraper/scripts/seal-direct.mjs || { echo "::error::seal-direct failed: DIRECT_REDACT=1 but the vault did not seal (DIRECT_KEY?)"; exit 2; }
+fi
 # The founder's untrimmed per-studio view (/admin/studios). Non-fatal.
 python3 apps/scraper/scripts/build-admin-studios.py  || echo "::warning::build-admin-studios failed (non-fatal)"
 # Order matters: build-skill-icons writes skill-marks.json, which

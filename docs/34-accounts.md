@@ -70,3 +70,52 @@ session log. Phase 2 (welcome email + digest) blocked on provisioning below.*
 
 Zero env vars set = today's behavior: guest saves, dashboard, honest
 sign-in message. Nothing breaks.
+
+## 2026-09-22 addendum: Google sign-in and the direct-jobs lock
+
+**Sign-in.** `/signin` now leads with "Continue with Google"
+(`supabase.auth.signInWithOAuth`, PKCE; the return leg is the route handler
+`/auth/callback`, which exchanges the code and writes the session cookies on
+the redirect). The email link stays as the fallback. `?next=` returns the
+reader to the page that asked (a locked posting, the dashboard).
+
+**The lock is in the data, not in CSS.** With the repo variable
+`DIRECT_REDACT=1`, build-jobs ships every employer-site row (Greenhouse,
+Lever, Ashby, SmartRecruiters, Workable, Recruitee, Workday, Personio, the
+studio fleet) as `company: "Direct employer"`, no logo, no apply URL, and a
+280-character teaser of the posting with the employer's name replaced. The
+real fields go to `apps/web/private-src/direct/<occ>.json` (git-ignored) and
+`seal-direct.mjs` encrypts them into `apps/web/private/direct/<occ>.enc`
+(AES-256-GCM under `DIRECT_KEY`, committed: the ciphertext is safe in a public
+repo). Readers of the vault: `/api/direct` (session or share token; 300
+unlocks per user per day, logged in `unlocks`, migration 0011) and the company
+pages at build time (a direct row is attributed to its employer for counts
+and pay, never listed by title). Inspect element, the JSON under /data, the
+social cards, the RSS feed, saved-job snapshots: none of them carry the
+employer of a direct row any more.
+
+**What a signed-in reader gets (free until the paywall):** the phone sheet,
+the desktop pane and the detail page fetch the real employer, logo, apply
+link and full text per posting. Anonymous readers see "Sign in to unlock".
+The plan check goes into `/api/direct` the day Lemon Squeezy is live.
+
+**Share tokens:** `shareToken(occ, id)` (lib/direct-vault) mints `?u=` for
+links we post ourselves; it opens that one posting without an account.
+
+### Provisioning additions (Carlos)
+
+6. Google: Google Cloud Console → APIs & Services → Credentials → OAuth
+   client (Web). Authorised redirect URI:
+   `https://<project-ref>.supabase.co/auth/v1/callback`. In Supabase: Auth →
+   Providers → Google → paste client ID and secret. Auth → URL configuration:
+   Site URL `https://www.pivothop.com`, redirect allowlist
+   `https://www.pivothop.com/**` (add the Vercel preview host too if you
+   want previews to sign in).
+7. Run `supabase/migrations/0011_unlocks.sql` after 0010.
+8. Vercel env (Production + Preview): `DIRECT_KEY` = the value in
+   `~/.pivothop-secrets/DIRECT_KEY.txt` on the laptop (already set as the
+   GitHub Actions secret of the same name). Never paste it anywhere else.
+9. Flip the lock on: `gh variable set DIRECT_REDACT --body 1` and dispatch
+   the nightly. The next data commit ships redacted; until then the site
+   behaves as before. Do this only after steps 4, 6 and 8, or nobody can
+   open a direct posting.

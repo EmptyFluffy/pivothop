@@ -2347,3 +2347,14 @@ html.ph-premium .v2t .jd-premium-only{ display:flex; }
   border:1.5px solid color-mix(in srgb, var(--v-text) 40%, transparent); border-radius:999px; color:var(--v-text);
   font-weight:600; font-size:15px; text-decoration:none; }
 .v2t .jd-applyrow .jd-back:hover{ border-color:var(--v-text); }
+
+/* ── sign-in: Google first, email link second ─────────────────────────── */
+.auth-google{ display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+.auth-google-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; }
+.auth-google-btn svg{ flex:none; }
+.auth-or{ text-align:left; opacity:.7; margin:4px 0 0; }
+/* ── the direct lock: unlock calls and the unlocked employer line ─────── */
+.v2t .jsheet-unlock, .v2t .jpane-foot .jsheet-unlock{ background:transparent; color:var(--v-fill); border:1.5px solid var(--v-fill); }
+.v2t .jsheet-unlock:hover{ background:var(--v-fill); color:var(--v-fill-ink); }
+.v2t .jd-unlocked{ margin:0 0 10px; }
+.v2t .jd-desc-full{ margin-top:22px; }

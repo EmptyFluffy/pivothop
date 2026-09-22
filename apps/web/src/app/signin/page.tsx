@@ -5,7 +5,7 @@ import { Crumbs } from '../components/Crumbs';
 
 export const metadata: Metadata = {
   title: 'Sign in | PivotHop',
-  description: 'Sign in with a magic link to keep your saved jobs across devices. No password.',
+  description: 'One click with Google, or an email link. Keeps your saved jobs across devices and opens the postings employers publish on their own sites.',
   alternates: { canonical: '/signin' },
 };
 
@@ -16,9 +16,9 @@ export default function SignInPage() {
         <Crumbs trail={[{ label: 'Sign in' }]} />
         <h1>Sign in.</h1>
         <p className="auth-sub">
-          No password. Enter your email and we send a one-time link; the same
-          email carries a 6-digit code if you are reading it on another device.
-          Jobs you saved in this browser come with you.
+          No password. One click with Google, or an email link with a 6-digit
+          code for another device. Jobs you saved in this browser come with
+          you, and the postings employers publish on their own sites open up.
         </p>
         <SignInForm />
       </div>

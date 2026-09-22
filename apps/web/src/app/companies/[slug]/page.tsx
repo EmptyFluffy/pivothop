@@ -214,6 +214,14 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           </section>
         )}
 
+        {c.directN > 0 && (
+          // rows on the employer's own site are counted and priced above but
+          // never listed here: the (employer, title) pair is what the lock holds
+          <p className="rt-note co-direct-note">
+            <span className="lbl">{c.directN.toLocaleString()}</span> of these roles are posted on {c.name}&rsquo;s own site.{' '}
+            <Link className="gl" href="/signin?next=/jobs">Sign in</Link> to see and apply to them from the board.
+          </p>
+        )}
         <JobsList
           jobs={c.jobs}
           limit={10}

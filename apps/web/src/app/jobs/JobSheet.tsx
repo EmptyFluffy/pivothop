@@ -20,13 +20,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
 import SaveButton from './SaveButton';
-import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45 } from './JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, isDirect } from './JobCard';
 import { type Listing, loadListing } from './detail';
+import { unlockJob, signInHref, toListingSections, type Unlocked } from '../../lib/unlock';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
 
 
 export default function JobSheet({ job, onClose, glossary }: { job: Job | null; onClose: () => void; glossary?: SkillEntry[] | null }) {
   const [listing, setListing] = useState<Listing | null>(null);
+  const [real, setReal] = useState<Unlocked | null>(null);
   // The sheet outlives the `job` prop by one transition. Without this it
   // unmounted the instant the parent cleared the job, so it vanished rather
   // than sliding away — the reason dismissing felt abrupt.
@@ -56,7 +58,15 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
   useEffect(() => {
     if (!job) return;
     let live = true;
-    loadListing(job.occ, job.id).then((l) => { if (live) setListing(l); });
+    // direct rows ship redacted; with a session the vault fills in the
+    // employer, the apply link and the full text (lib/unlock)
+    setReal(null);
+    Promise.all([loadListing(job.occ, job.id), isDirect(job) ? unlockJob(job.occ, job.id) : Promise.resolve(null)])
+      .then(([l, r]) => {
+        if (!live) return;
+        setReal(r);
+        setListing(l && r ? { ...l, applyUrl: r.url, sections: r.sections?.length ? toListingSections(r.sections) : l.sections } : l);
+      });
     return () => { live = false; };
   }, [job]);
 
@@ -139,7 +149,7 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
 
         <div className="jsheet-scroll" ref={scrollRef}>
           <h2 className="jsheet-title">{j.title}</h2>
-          <p className="jsheet-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
+          <p className="jsheet-co">{real?.company ?? j.company}{j.location ? ` · ${j.location}` : ''}</p>
 
           <div className="jsheet-facts">
             {pay && <div><span className="v">{pay}</span><span className="k">Posted pay</span></div>}
@@ -199,6 +209,14 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
               <a className="rt-go jsheet-apply" href={listing?.applyUrl ?? j.url} target="_blank" rel="nofollow noopener noreferrer">
                 Apply now <Arrow45 size={22} />
               </a>
+            </>
+          ) : isDirect(j) ? (
+            // a direct posting with no session: the employer and the link live
+            // behind sign-in (free); the reader comes back to this board after
+            <>
+              <Link className="rt-go jsheet-apply jsheet-unlock" href={signInHref()}>
+                Sign in to unlock <Arrow45 size={22} />
+              </Link>
             </>
           ) : (
             // No outbound link resolved — send them to the full listing rather

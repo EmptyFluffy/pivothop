@@ -112,6 +112,10 @@ jobs:
           # default Node heap OOM'd on it. Give it real headroom.
           NODE_OPTIONS: --max-old-space-size=8192
           FORCE_GRAPH: ${{ github.event.inputs.force_graph || '0' }}
+          # The direct lock (docs/34): the repo variable flips redaction on, the
+          # secret seals the vault. Set the same key in the Vercel env.
+          DIRECT_REDACT: ${{ vars.DIRECT_REDACT || '0' }}
+          DIRECT_KEY: ${{ secrets.DIRECT_KEY }}
           # gh release download needs a token on a PRIVATE repo — without it the
           # cold-cache corpus restore in ci-run.sh fails silently and the run
           # proceeds on an empty corpus, which is the failure mode it exists to

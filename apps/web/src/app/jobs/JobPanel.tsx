@@ -11,8 +11,9 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Job } from './JobCard';
 import SaveButton from './SaveButton';
-import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45 } from './JobCard';
+import { salaryLabel, postedLabel, agoLabel, sourceName, companyInitial, monoTint, Arrow45, isDirect } from './JobCard';
 import { type Listing, loadListing } from './detail';
+import { unlockJob, signInHref, toListingSections, type Unlocked } from '../../lib/unlock';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
 import BenefitStrip, { type BenefitEntry } from './BenefitStrip';
 
@@ -30,6 +31,7 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
   onStep?: (d: number) => void;                  // pager: swap to the neighbor listing
 }) {
   const [listing, setListing] = useState<Listing | null>(null);
+  const [real, setReal] = useState<Unlocked | null>(null);   // the unlocked employer of a direct row
   const [skillsOpen, setSkillsOpen] = useState(false); // v2: pills collapsed to 3 until asked
   const [loaded, setLoaded] = useState(false);
   const paneRef = useRef<HTMLElement>(null);
@@ -37,8 +39,16 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
 
   useEffect(() => {
     let live = true;
-    setListing(null); setLoaded(false); setSkillsOpen(false);
-    loadListing(job.occ, job.id).then((l) => { if (live) { setListing(l); setLoaded(true); } });
+    setListing(null); setLoaded(false); setSkillsOpen(false); setReal(null);
+    // direct rows ship redacted; with a session the vault fills in the
+    // employer, the apply link and the full text (lib/unlock)
+    Promise.all([loadListing(job.occ, job.id), isDirect(job) ? unlockJob(job.occ, job.id) : Promise.resolve(null)])
+      .then(([l, r]) => {
+        if (!live) return;
+        setReal(r);
+        setListing(l && r ? { ...l, applyUrl: r.url, sections: r.sections?.length ? toListingSections(r.sections) : l.sections } : l);
+        setLoaded(true);
+      });
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
     return () => { live = false; };
   }, [job]);
@@ -201,13 +211,17 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
 
   const foot = (
     <div className="jpane-foot">
-      {applyUrl && (
-        <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer" title={`Opens the original posting at ${j.company}`}>
+      {applyUrl ? (
+        <a className="rt-go jsheet-apply" href={applyUrl} target="_blank" rel="nofollow noopener noreferrer" title={`Opens the original posting at ${real?.company ?? j.company}`}>
           Apply now {v2
             ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
             : <Arrow45 size={22} />}
         </a>
-      )}
+      ) : loaded && isDirect(j) ? (
+        // a direct posting with no session: employer and link live behind
+        // sign-in (free); the reader returns to this board afterwards
+        <Link className="rt-go jsheet-apply jsheet-unlock" href={signInHref()}>Sign in to unlock <Arrow45 size={22} /></Link>
+      ) : null}
       <Link className="jpane-ghost" href={`/jobs/${j.occ}/${j.id}`} target="_blank" rel="noopener"
         title="Opens the full posting in a new tab">Full posting</Link>
     </div>
@@ -240,7 +254,7 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
               {j.logo
                 ? <span className="jd-mark"><img src={j.logo} alt="" width={40} height={40} /></span>
                 : <span className="jd-mark jd-mono" style={{ background: tbg, color: tfg }} aria-hidden="true">{companyInitial(j.company)}</span>}
-              <span className="jv-coname">{j.company}</span>
+              <span className="jv-coname">{real?.company ?? j.company}</span>
             </div>
             <h2 className="jpane-title">{j.title}</h2>
             <p className="jv-meta">
@@ -283,7 +297,7 @@ export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occN
               : <span className="jd-mark jd-mono" aria-hidden="true">{companyInitial(j.company)}</span>}
             <div>
               <h2 className="jpane-title">{j.title}</h2>
-              <p className="jpane-co">{j.company}{j.location ? ` · ${j.location}` : ''}</p>
+              <p className="jpane-co">{real?.company ?? j.company}{j.location ? ` · ${j.location}` : ''}</p>
               <p className="jpane-prov lbl" suppressHydrationWarning>
                 {direct ? 'Direct from the company’s board' : `Indexed from ${sourceName(j.source)}`}
                 {' · first seen '}{agoLabel(j.posted).toLowerCase()}
