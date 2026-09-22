@@ -147,7 +147,13 @@ git commit -q -m "data: nightly scrape $(date +%F) (${N} board listings)"
 # Rebase onto any commits that landed during the run (docs pushes, the laptop bot)
 # before pushing, so the publish never fails on a moved remote. A real conflict
 # (both bots regenerating the same files) exits red rather than force-anything.
-git pull --rebase origin main || { echo "::error::rebase before push failed — not publishing"; exit 2; }
+# Two runs overlapping (a late cron behind a manual dispatch, 2026-09-22)
+# both regenerate the same data files and the second one's rebase conflicts
+# on every logo, index and glossary. Those files are regenerated wholesale
+# each run, so during the rebase the replayed data commit ("theirs") is the
+# right side of every conflict; source files never conflict here because the
+# bot only commits data.
+git pull --rebase -X theirs origin main || { echo "::error::rebase before push failed — not publishing"; exit 2; }
 git push
 echo "published $CHANGED files (${N} listings) — Vercel deploying"
 
