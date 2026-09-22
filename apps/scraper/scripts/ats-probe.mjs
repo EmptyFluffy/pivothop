@@ -34,7 +34,7 @@ const NAMES = opt('--names', null);
 const AGG = new Set(['careerjet', 'jooble', 'himalayas', 'arbeitnow', 'jobicy', 'remoteok', 'themuse', 'reed', 'adzuna', 'getonbrd']);
 const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct']);
 // staffing platforms and boards that are not employers: a board under their name is not "direct"
-const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|kelly|gpac|yellowshark|ok job|locum|recruit|staffing|personal|jobs?\b|talent|consult|agency|careers?\b|hiring|nhs jobs|indeed|linkedin|jobgether|pavago|mercor|crossover|toptal|turing|deel|remote\.com|outsourc)/i;
+const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|kelly|gpac|yellowshark|ok job|locum|recruit|staffing|personal|jobs?\b|talent|consult|agency|careers?\b|hiring|nhs jobs|indeed|linkedin|jobgether|pavago|mercor|crossover|toptal|turing|deel|remote\.com|outsourc|human capital|associates|employment|technical resources|resourcing|hire hangar|braintrust|nexton|vaco|te emplea|emanate|venn group|goodman masson|oliver james|techbiz|adaptive teams|atomic hr)/i;
 
 // same-named tenants that are NOT the company the aggregator rows belong to
 // (verified by hand); the probe never adds these again even when state is lost
@@ -77,7 +77,10 @@ function slugsFor(name) {
   const raw = n.split(/[\s/]+/).filter(Boolean);
   const words = raw.filter((w) => w !== '&' && w !== 'and'); // "turner & townsend" -> turner townsend
   const out = new Set();
-  for (const v of [words.join(''), words.join('-'), words.join('and'), words[0]]) {
+  // The bare first word is tried only for one-word names: "Air Liquide" ->
+  // greenhouse:air and "Atlas Copco" -> ashby:atlas were someone else's boards
+  // (pass 2, 2026-09-22: 40 of 166 hits came from that fallback, most wrong).
+  for (const v of [words.join(''), words.join('-'), words.join('and'), ...(words.length === 1 ? [words[0]] : [])]) {
     const s = (v || '').replace(/[^a-z0-9-]/g, '');
     if (s.length >= 3) out.add(s);
   }
