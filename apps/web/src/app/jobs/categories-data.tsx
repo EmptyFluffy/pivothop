@@ -290,6 +290,54 @@ export function swissLocalTitle(city: string): string {
 
 const sigOf = (ids: string[]) => createHash('sha1').update(ids.sort().join('\n')).digest('hex').slice(0, 12);
 
+/* NARROWING POOLS (2026-09-22). allCategories tests every candidate against
+   the board: ~200k candidates once the board went uncapped (214 occupations,
+   hundreds of cities), times 88k rows, is billions of match calls per build
+   worker, and the first category page took over ten minutes to render. Vercel
+   kills a build at 45 minutes. Each candidate is now matched against the
+   smallest pre-grouped pool its own keys imply (city, occupation, country,
+   field, region); match() still runs on every row of the pool, so the result
+   is identical, only the rows that could never match are skipped. */
+type Pools = { byOcc: Map<string, Job[]>; byCountry: Map<string, Job[]>; byOccCountry: Map<string, Job[]>; byCity: Map<string, Job[]>; byField: Map<string, Job[]>; byRegion: Map<string, Job[]> };
+let _pools: Pools | null = null;
+function pools(): Pools {
+  if (_pools) return _pools;
+  const p: Pools = { byOcc: new Map(), byCountry: new Map(), byOccCountry: new Map(), byCity: new Map(), byField: new Map(), byRegion: new Map() };
+  const push = (m: Map<string, Job[]>, k: string, j: Job) => { const a = m.get(k); if (a) a.push(j); else m.set(k, [j]); };
+  for (const j of allJobs()) {
+    push(p.byOcc, j.occ, j);
+    push(p.byField, occField(j.occ), j);
+    if (j.c) {
+      push(p.byCountry, j.c, j);
+      push(p.byOccCountry, `${j.occ}|${j.c}`, j);
+      const city = cityOf(j.location);
+      if (city) push(p.byCity, `${city}|${j.c}`, j);
+      const rk = regionOf(j.c);
+      if (rk) push(p.byRegion, rk, j);
+    }
+  }
+  _pools = p;
+  return p;
+}
+/* The rows a category could match: a superset of match(), never a subset. A
+   candidate with a city matches only that city; with destOcc only that
+   occupation; with c= only that country; with f= that field; with region=
+   that region (every candidate family in candidates() keeps this true). */
+export function poolFor(c: { query: string; destOcc?: string; city?: string; cityCountry?: string }): Job[] {
+  const p = pools();
+  if (c.city && c.cityCountry) return p.byCity.get(`${c.city}|${c.cityCountry}`) ?? [];
+  const q = new URLSearchParams(c.query);
+  const cc = q.get('c');
+  if (c.destOcc && cc) return p.byOccCountry.get(`${c.destOcc}|${cc}`) ?? [];
+  if (c.destOcc) return p.byOcc.get(c.destOcc) ?? [];
+  if (cc) return p.byCountry.get(cc) ?? [];
+  const f = q.get('f');
+  if (f) return p.byField.get(f) ?? [];
+  const rk = q.get('region');
+  if (rk) return p.byRegion.get(rk) ?? [];
+  return allJobs();
+}
+
 let _cats: Category[] | null = null;
 export function allCategories(): Category[] {
   if (_cats) return _cats;
@@ -302,7 +350,7 @@ export function allCategories(): Category[] {
   const merit: Record<string, string> = {};
   for (const c of candidates()) {
     if (occSet.has(c.slug) || seen.has(c.slug)) continue;
-    const matched = jobs.filter(c.match);
+    const matched = poolFor(c).filter(c.match);
     const clears = matched.length >= (c.kind === 'lang-country' ? LANG_FLOOR : THRESHOLD);
     if (clears) merit[c.slug] = today;
     // grace: below the bar but recently above it, and not empty
@@ -354,7 +402,7 @@ export function getCategory(slug: string): Category | null { return allCategorie
 
 /** The SSR sample: newest first, capped. The full filtered set lives on the board. */
 export function categoryJobs(c: Category): Job[] {
-  return allJobs().filter(c.match).sort((a, b) => (b.posted || '').localeCompare(a.posted || '')).slice(0, CATEGORY_MAX);
+  return poolFor(c).filter(c.match).sort((a, b) => (b.posted || '').localeCompare(a.posted || '')).slice(0, CATEGORY_MAX);
 }
 
 /** The deep-link to the full filtered board for a category. */
@@ -375,7 +423,7 @@ export type CategoryStats = {
 };
 /** Computed per-category facts for the FAQ block — every number is this filter's own. */
 export function categoryStats(c: Category): CategoryStats {
-  const m = allJobs().filter(c.match);
+  const m = poolFor(c).filter(c.match);
   const mids = m.filter((j) => j.smin || j.smax)
     .map((j) => ((j.smin ?? j.smax ?? 0) + (j.smax ?? j.smin ?? 0)) / 2)
     .sort((a, b) => a - b);
@@ -422,7 +470,7 @@ export type SwissStats = {
 const WORKLOAD = /(\d{2,3})\s*(?:-|–|bis|à|to|\/)\s*(\d{2,3})\s*%|(\d{2,3})\s*%/;
 export function swissStats(c: Category): SwissStats | null {
   if (!/(^|&)c=CH(&|$)/.test(c.query)) return null;
-  const m = allJobs().filter(c.match);
+  const m = poolFor(c).filter(c.match);
   let stated = 0, part = 0, full = 0;
   const ranges = new Map<string, number>();
   for (const j of m) {

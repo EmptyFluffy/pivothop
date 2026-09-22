@@ -38,7 +38,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
-  boardTotal?: number;              // unscoped: the whole board's count, so a loaded slice never understates it
+  boardTotal?: number;              // the true count of this view's universe, so a loaded slice never understates it
   scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string };
   v2?: boolean;                     // full workspace layout (rail + lab chrome); /jobs only for now
   hero?: ReactNode;                 // meta line + H1, rendered inside the center column
@@ -414,7 +414,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   // A loaded slice of the board (browse-jobs.json) must never understate the
   // board: unfiltered, the rail quotes the server's total; filtered, it says
   // the count is within the newest N loaded.
-  const sliced = !scope && boardTotal != null && all !== null && all.length < boardTotal;
+  const sliced = boardTotal != null && all !== null && all.length < boardTotal;
   const filtering = Boolean(needle || locQ.trim() || sort === 'pay')
     || f.fieldSet.size > 0 || f.ctySet.size > 0 || f.remoteOnly || f.minPay > 0 || f.hasSalary || f.tags.size > 0
     || f.fresh !== '' || f.srcSet.size > 0 || f.lic !== '' || f.skillSet.size > 0 || f.benSet.size > 0

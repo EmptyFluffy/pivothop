@@ -204,6 +204,7 @@ function OccupationBoard({ occ }: { occ: string }) {
           titles={{ [occ]: title }}
           search={{ [occ]: occSearchText(occ) }}
           initialJobs={jobs.slice(0, 120)} // the freshest slice in the HTML; the client loads the full file
+          boardTotal={jobs.length}
           scope={{ occ, title }}
         />
 
@@ -482,7 +483,12 @@ function CategoryBoard({ cat }: { cat: Category }) {
           fields={maps.fields}
           titles={maps.titles}
           search={maps.search}
-          initialJobs={jobs}
+          // The freshest 300 in the HTML, never the whole category: uncapped, a
+          // country page holds 20-30k rows, and serialising them into every
+          // category page took the build from 10 minutes to over an hour (Vercel
+          // kills it at 45) and made 10MB pages. The rail quotes the true count.
+          initialJobs={jobs.slice(0, 300)}
+          boardTotal={jobs.length}
           scope={{ title: cat.searchTitle, showAllHref: showAll, showAllLabel: `See all ${cat.count.toLocaleString()}` }}
         />
 
