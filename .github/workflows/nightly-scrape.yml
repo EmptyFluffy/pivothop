@@ -12,6 +12,10 @@ on:
         description: 'Exact scraper-state-<run id> key to restore with the PREVIOUS cache path list (after the list changes, older entries are invisible to the normal step)'
         required: false
         default: ''
+      force_graph:
+        description: 'Set to 1 to re-score the adjacency graph on this run (otherwise Mondays only); needed after occupations are added to the taxonomy'
+        required: false
+        default: ''
 
 # allow the job to push the data commit back to main
 permissions:
@@ -107,6 +111,7 @@ jobs:
           # normalize holds the parsed 150k-row corpus in memory; the runner's
           # default Node heap OOM'd on it. Give it real headroom.
           NODE_OPTIONS: --max-old-space-size=8192
+          FORCE_GRAPH: ${{ github.event.inputs.force_graph || '0' }}
           # gh release download needs a token on a PRIVATE repo — without it the
           # cold-cache corpus restore in ci-run.sh fails silently and the run
           # proceeds on an empty corpus, which is the failure mode it exists to

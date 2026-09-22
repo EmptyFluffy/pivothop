@@ -16,18 +16,18 @@ const ago = (p: string) => {
   return d === 0 ? 'today' : `${d}d ago`;
 };
 
-export default function LabJobs() {
+export default async function LabJobs() {
   const ORIGIN = 'architect';
   const occs = ['interior-designer', 'architectural-drafter', 'bim-manager', 'project-manager'];
-  const rows = occs.flatMap((occ) => {
+  const rows = await Promise.all(occs.flatMap((occ) => {
     const role = destRole(ORIGIN, occ);
-    return getJobs(occ).slice(0, occ === 'interior-designer' ? 4 : 2).map((j) => ({
+    return getJobs(occ).slice(0, occ === 'interior-designer' ? 4 : 2).map(async (j) => ({
       j, occ,
       match: role?.match ?? null,
       gap: (role as { gap?: string[] } | undefined)?.gap?.slice(0, 2) ?? [],
-      skills: getJobSkills(occ, j.id).slice(0, 3),
+      skills: (await getJobSkills(occ, j.id)).slice(0, 3),
     }));
-  });
+  }));
   const sel = rows.find((r) => r.match && r.skills.length >= 2) ?? rows[0];
   const selIdx = rows.indexOf(sel);
   const selPay = pay(sel.j.smin, sel.j.smax);

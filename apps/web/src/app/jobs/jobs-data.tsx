@@ -78,24 +78,62 @@ export type JobSection = { h: string | null; t: string };
 // Detail rows are {s: sections, k: skill ids}; the bare-array form is the
 // pre-skills shape, still readable so a half-regenerated dataset never breaks.
 type DetailRow = JobSection[] | { s: JobSection[]; k?: string[]; b?: string[]; r?: Gates };
-export function getJobSections(occ: string, id: string): JobSection[] {
-  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+
+/* Detail rows live in shards: jobs-detail/<occ>/<k>.json, k = id's first four
+   hex digits mod the occupation's shard count (detail-shards.json, written by
+   build-jobs). The board is uncapped since 2026-09-22, so one file per
+   occupation would be tens of MB, too big for a function bundle and too slow
+   to parse per render. The shard directory is excluded from serverless bundles
+   (next.config outputFileTracingExcludes); at request time a shard is read from
+   disk when present (dev, build) and otherwise fetched from the site's own CDN,
+   where it is a static file with an hour of cache. */
+let _shards: Record<string, number> | null = null;
+function detailShards(): Record<string, number> {
+  if (!_shards) _shards = read<Record<string, number>>('detail-shards.json') ?? {};
+  return _shards;
+}
+const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.pivothop.com');
+async function detailRow(occ: string, id: string): Promise<DetailRow | null> {
+  if (!/^[a-z0-9-]+$/.test(occ) || !/^[a-z0-9]+$/.test(id)) return null;
+  const shards = detailShards();
+  if (!(occ in shards)) {
+    // data published before the shards existed (one file per occupation)
+    const legacy = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`);
+    if (legacy) return legacy[id] ?? null;
+  }
+  const n = shards[occ] ?? 1;
+  const k = (parseInt(id.slice(0, 4), 16) || 0) % n;
+  const rel = `jobs-detail/${occ}/${k}.json`;
+  const local = read<Record<string, DetailRow>>(rel);
+  if (local) return local[id] ?? null;
+  try {
+    const res = await fetch(`${SITE_ORIGIN}/data/${rel}`, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    const v = (await res.json()) as Record<string, DetailRow>;
+    _readCache.set(rel, v);
+    if (_readCache.size > READ_CACHE_MAX) _readCache.delete(_readCache.keys().next().value as string);
+    return v[id] ?? null;
+  } catch { return null; }
+}
+export async function getJobSections(occ: string, id: string): Promise<JobSection[]> {
+  const v = await detailRow(occ, id);
   return Array.isArray(v) ? v : v?.s ?? [];
 }
-export function getJobSkills(occ: string, id: string): string[] {
-  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+export async function getJobSkills(occ: string, id: string): Promise<string[]> {
+  const v = await detailRow(occ, id);
   return Array.isArray(v) ? [] : v?.k ?? [];
 }
 
 /** The gates this posting states: experience, education, language. */
-export function getJobGates(occ: string, id: string): Gates | null {
-  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+export async function getJobGates(occ: string, id: string): Promise<Gates | null> {
+  const v = await detailRow(occ, id);
   return Array.isArray(v) ? null : v?.r ?? null;
 }
 
 /** Benefits the miner read out of this posting (build-jobs, benefits.py). */
-export function getJobBenefits(occ: string, id: string): string[] {
-  const v = read<Record<string, DetailRow>>(`jobs-detail/${occ}.json`)?.[id];
+export async function getJobBenefits(occ: string, id: string): Promise<string[]> {
+  const v = await detailRow(occ, id);
   return Array.isArray(v) ? [] : v?.b ?? [];
 }
 let _skillNames: Record<string, string> | null = null;

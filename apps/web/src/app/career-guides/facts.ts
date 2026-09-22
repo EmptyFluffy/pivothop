@@ -130,7 +130,13 @@ export function careerFacts(occ: string): CareerFacts | null {
   type Job = { remote?: boolean; c?: string; title?: string; company?: string; smin?: number | null; smax?: number | null; posted?: string; lv?: 'e' | 's' };
   type Detail = { k?: string[]; b?: string[]; r?: { exp?: number; edu?: { state: string }; lang?: string[] } };
   const jobs = read<Job[]>(path.join(WEB, 'jobs', `${occ}.json`), []);
-  const detail = read<Record<string, Detail>>(path.join(WEB, 'jobs-detail', `${occ}.json`), {});
+  // detail rows are sharded per occupation (jobs-detail/<occ>/<k>.json); merge the directory
+  const detail: Record<string, Detail> = {};
+  try {
+    for (const f of fs.readdirSync(path.join(WEB, 'jobs-detail', occ))) {
+      if (f.endsWith('.json')) Object.assign(detail, read<Record<string, Detail>>(path.join(WEB, 'jobs-detail', occ, f), {}));
+    }
+  } catch { Object.assign(detail, read<Record<string, Detail>>(path.join(WEB, 'jobs-detail', `${occ}.json`), {})); } // pre-shard layout
   const rows = Object.values(detail);
 
   const tally = (get: (d: Detail) => string[] | undefined) => {

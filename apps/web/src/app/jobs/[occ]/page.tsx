@@ -203,7 +203,7 @@ function OccupationBoard({ occ }: { occ: string }) {
           fields={{ [occ]: occField(occ) }}
           titles={{ [occ]: title }}
           search={{ [occ]: occSearchText(occ) }}
-          initialJobs={jobs}
+          initialJobs={jobs.slice(0, 120)} // the freshest slice in the HTML; the client loads the full file
           scope={{ occ, title }}
         />
 

@@ -32,12 +32,13 @@ const EMPTY: Filters = {
   benSet: new Set(), xp: '', edu: '', langNot: new Set(), langHas: new Set(), exQ: new Set(), exCo: new Set(),
 };
 
-export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2, hero }: {
+export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2, hero, boardTotal }: {
   fields: Record<string, string>;   // occ slug -> field
   titles: Record<string, string>;   // occ slug -> display title
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
+  boardTotal?: number;              // unscoped: the whole board's count, so a loaded slice never understates it
   scope?: { occ?: string; title: string; showAllHref?: string; showAllLabel?: string };
   v2?: boolean;                     // full workspace layout (rail + lab chrome); /jobs only for now
   hero?: ReactNode;                 // meta line + H1, rendered inside the center column
@@ -184,16 +185,24 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       .then((d: BenefitEntry[]) => setBenefits(d))
       .catch(() => setBenefits([]));
     if (scope?.occ) {
-      fetch('/api/employer-jobs').then((r) => r.json()).catch(() => [])
-        .then((employer: Job[]) => {
-          const mine = (employer || []).filter((j) => j.occ === scope.occ);
-          if (mine.length) setAll((prev) => [...mine, ...(prev ?? initialJobs ?? [])]);
-        });
-    } else if (scope) {
-      // category page: the capped SSR sample is the corpus
-    } else {
+      // The server rendered the freshest slice of this occupation; the full
+      // file (uncapped since 2026-09-22) replaces it here, employer rows first.
       Promise.all([
-        fetch('/data/all-jobs.json').then((r) => r.json()).catch(() => []),
+        fetch(`/data/jobs/${scope.occ}.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+        fetch('/api/employer-jobs').then((r) => r.json()).catch(() => []),
+      ]).then(([board, employer]: [Job[] | null, Job[]]) => {
+        const mine = (employer || []).filter((j) => j.occ === scope.occ);
+        setAll([...mine, ...(board ?? initialJobs ?? [])]);
+      });
+    } else if (scope) {
+      // category page: the SSR sample is the corpus
+    } else {
+      // browse-jobs.json is the freshest slice of the board (build-jobs
+      // BROWSE_ROWS); the full universe is 3x too heavy for a phone. The rail
+      // says when a slice is loaded. all-jobs.json stays the fallback.
+      Promise.all([
+        fetch('/data/browse-jobs.json').then((r) => (r.ok ? r.json() : null)).catch(() => null)
+          .then((b: Job[] | null) => b ?? fetch('/data/all-jobs.json').then((r) => r.json()).catch(() => [])),
         fetch('/api/employer-jobs').then((r) => r.json()).catch(() => []),
       ]).then(([scraped, employer]: [Job[], Job[]]) => setAll([...(employer || []), ...(scraped || [])]));
     }
@@ -402,6 +411,15 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
     return r;
   }, [applyFilters, f, sort]);
 
+  // A loaded slice of the board (browse-jobs.json) must never understate the
+  // board: unfiltered, the rail quotes the server's total; filtered, it says
+  // the count is within the newest N loaded.
+  const sliced = !scope && boardTotal != null && all !== null && all.length < boardTotal;
+  const filtering = Boolean(needle || locQ.trim() || sort === 'pay')
+    || f.fieldSet.size > 0 || f.ctySet.size > 0 || f.remoteOnly || f.minPay > 0 || f.hasSalary || f.tags.size > 0
+    || f.fresh !== '' || f.srcSet.size > 0 || f.lic !== '' || f.skillSet.size > 0 || f.benSet.size > 0
+    || f.xp !== '' || f.edu !== '' || f.langNot.size > 0 || f.langHas.size > 0 || f.exQ.size > 0 || f.exCo.size > 0 || f.region !== '';
+
   // What the exclusions are hiding right now — counted, never silent.
   const hiddenByExclusion = useMemo(() => {
     if (!f.exQ.size && !f.exCo.size) return 0;
@@ -544,8 +562,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
             All filters{activeCount > 0 ? ` · ${activeCount}` : ''}
           </button>
           <div className="jb-rail-close">
-            <div className="jb-rail-big">{all === null ? '·' : results.length.toLocaleString()}</div>
-            <div className="jb-rail-lab">roles in this view</div>
+            <div className="jb-rail-big">{all === null ? '·' : (sliced && !filtering ? boardTotal! : results.length).toLocaleString()}</div>
+            <div className="jb-rail-lab">{sliced && filtering ? `roles in this view, of the newest ${all!.length.toLocaleString()}` : 'roles in this view'}</div>
           </div>
         </aside>
         );

@@ -45,6 +45,29 @@ const WINDOW_DAYS = 60; // Lightcast-style: the same job re-seen within a window
 // no-op for it.
 const CONTENT_MIN_CHARS = 200;
 
+// Sources that read the employer's own hiring system (ATS APIs and the studio
+// fleet). Same list as ats-probe's DIRECT and the web's DIRECT_SOURCES.
+const DIRECT_SOURCES = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct']);
+const isDirect = (c) => DIRECT_SOURCES.has(c.row.source);
+// Winner of a dedup key: the employer's copy over an aggregator's, then the
+// richer of two equals.
+function beats(c, prev) {
+  const d = isDirect(c), p = isDirect(prev);
+  if (d !== p) return d;
+  return c.richness > prev.richness;
+}
+// Carry over what the losing copy stated and the winner did not: a salary
+// band, or skills when the winner mined none. Richness is bumped so a later
+// candidate is compared against the merged row, not the bare winner.
+function backfill(winner, loser) {
+  const w = winner.row, l = loser.row;
+  if (!w.salary_usd_min && l.salary_usd_min) {
+    w.salary_usd_min = l.salary_usd_min; w.salary_usd_max = l.salary_usd_max; w.salary_confidence = l.salary_confidence;
+    winner.richness += 2;
+  }
+  if (!w.skills.length && l.skills.length) { w.skills = l.skills; winner.richness += Math.min(l.skills.length, 8) / 10; }
+}
+
 // Case and whitespace only. An earlier version also stripped each posting's own
 // location tokens and all digits, meaning to catch templates that write the city
 // into the body ("seeking a Perfusionist for a job in Harwood Heights, Illinois").
@@ -167,11 +190,20 @@ export async function normalize({ log }) {
   if (expired) { const kept = rawWriter.commit(); log(`normalize: retention — dropped ${expired} raw rows first seen before ${retentionCutoff} (${RAW_RETENTION_DAYS} days); ${kept} kept`); }
   else rawWriter.abandon();
 
-  // Keep the richest copy per dedup key.
+  // Keep the employer's own copy per dedup key, else the richest. An aggregator
+  // row of the same job is the commodity copy (every competitor has it); the
+  // employer-site row is what the board sells, so it always wins the key. The
+  // loser is not thrown away whole: a stated salary or mined skills the winner
+  // lacks are carried over, so preferring the direct copy never loses data.
+  // Measured 2026-09-22: 26k new direct postings raised the published direct
+  // share from 13.0% to 13.2%, because the aggregator copy usually carried the
+  // salary (richness +2) and beat the direct copy on the old rule.
   const best = new Map();
   for (const c of candidates) {
     const prev = best.get(c.dedupKey);
-    if (!prev || c.richness > prev.richness) best.set(c.dedupKey, c);
+    if (!prev) best.set(c.dedupKey, c);
+    else if (beats(c, prev)) { backfill(c, prev); best.set(c.dedupKey, c); }
+    else backfill(prev, c);
   }
   const placeDeduped = [...best.values()];
 
@@ -183,7 +215,8 @@ export async function normalize({ log }) {
     if (!c.contentKey) { kept.push(c); continue; }
     const prev = byContent.get(c.contentKey);
     if (!prev) { byContent.set(c.contentKey, c); kept.push(c); continue; }
-    if (c.richness > prev.richness) Object.assign(prev, c); // richest copy still wins
+    if (beats(c, prev)) { backfill(c, prev); Object.assign(prev, c); } // direct, else richest, still wins
+    else backfill(prev, c);
   }
   const blasted = placeDeduped.length - kept.length;
 

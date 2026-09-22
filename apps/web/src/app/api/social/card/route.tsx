@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   const place = job.remote
     ? (job.location ? `Remote · ${job.location.replace(/^remote(?:,\s*)?/i, '')}` : 'Remote')
     : (job.location || 'On-site');
-  const skills = getJobSkills(occ, id).slice(0, 3).map(skillDisplayName);
+  const skills = (await getJobSkills(occ, id)).slice(0, 3).map(skillDisplayName);
   const titleSize = job.title.length > 72 ? 42 : job.title.length > 52 ? 48 : 56;
   const icon = new URL('/icon.svg', req.nextUrl.origin).toString();
 

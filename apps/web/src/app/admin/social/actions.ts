@@ -24,7 +24,7 @@ export async function skipPost(id: number): Promise<{ ok: boolean }> {
 export async function regeneratePost(id: number, occ: string, jobId: string, variant: number): Promise<{ ok: boolean }> {
   const j = getJobs(occ).find((x) => x.id === jobId);
   if (!j) return { ok: false };
-  const c = scoreJob(j, null);
+  const c = await scoreJob(j, null);
   const next = variant + 1;
   const { copy } = generateSocialPost(c, 'linkedin', next);
   const ok = await mark(id, {

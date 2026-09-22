@@ -41,10 +41,10 @@ function bestWayIn(occ: string): Candidate['adjacency'] {
   return best;
 }
 
-export function scoreJob(j: {
+export async function scoreJob(j: {
   id: string; occ: string; title: string; company: string; location: string;
   remote: boolean; smin: number | null; smax: number | null; posted: string; c?: string;
-}, occMedian: number | null): Candidate {
+}, occMedian: number | null): Promise<Candidate> {
   const reasons: string[] = [];
   let score = 0;
   const m = mid(j.smin, j.smax);
@@ -55,9 +55,9 @@ export function scoreJob(j: {
   if (age <= 2) { score += 2; reasons.push('first seen this week'); }
   else if (age <= 7) { score += 1; reasons.push('recent'); }
   else if (age > 30) { score -= 2; }
-  const skills = getJobSkills(j.occ, j.id);
+  const skills = await getJobSkills(j.occ, j.id);
   if (skills.length >= 3) { score += 1; reasons.push('strong skill data'); }
-  const sections = getJobSections(j.occ, j.id);
+  const sections = await getJobSections(j.occ, j.id);
   if (sections.length >= 2) { score += 1; reasons.push('full posting text'); }
   else if (sections.length === 0) { score -= 1; }
   if (j.location && j.location.length > 2) { score += 0.5; }
@@ -106,7 +106,7 @@ export async function selectSocialJob(platform: Platform, filter?: SocialJobFilt
       /* Diversity: hard constraints against the recent ledger. */
       if (lastCompanies.has(j.company.toLowerCase())) continue;
       if (lastOccs.has(j.occ)) continue;
-      const c = scoreJob(j, occMedian);
+      const c = await scoreJob(j, occMedian);
       if (lastOcc && c.occ === lastOcc) c.score -= 10;
       candidates.push(c);
     }

@@ -59,7 +59,13 @@ function packet(occ, into) {
   const gen = readJson(path.join(GEN, `${occ}.json`));
   if (!gen?.origin) return null;
   const jobs = readJson(path.join(WEB, 'jobs', `${occ}.json`), []);
-  const detail = readJson(path.join(WEB, 'jobs-detail', `${occ}.json`), {});
+  // detail rows are sharded per occupation (jobs-detail/<occ>/<k>.json); merge the directory
+  const detail = {};
+  try {
+    for (const f of fs.readdirSync(path.join(WEB, 'jobs-detail', occ))) {
+      if (f.endsWith('.json')) Object.assign(detail, readJson(path.join(WEB, 'jobs-detail', occ, f), {}));
+    }
+  } catch { Object.assign(detail, readJson(path.join(WEB, 'jobs-detail', `${occ}.json`), {})); } // pre-shard layout
   const sal = readJson(path.join(WEB, 'salaries', `${occ}.json`));
   const rows = Object.values(detail);
 

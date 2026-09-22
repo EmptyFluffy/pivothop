@@ -34,7 +34,7 @@ export default function JobsHub() {
     <PageShell wide v2 active="jobs">
       <div className="rtp">
 
-        <JobsBrowse v2 hero={
+        <JobsBrowse v2 boardTotal={total} hero={
           <header className="jb-hero">
             <Crumbs trail={[{ label: 'Jobs' }]} />
             <p className="jb-vmeta">{total.toLocaleString()} live roles &middot; {occs.length} occupations &middot; {remoteN.toLocaleString()} fully remote &middot; <Link className="gl" href="/">run the instrument</Link></p>

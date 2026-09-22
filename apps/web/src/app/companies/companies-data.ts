@@ -155,10 +155,17 @@ function mineBlurbs(tranche: Map<string, Job[]>): Map<string, { text: string; n:
   type Cand = { ids: Set<string>; text: string; head: string };
   const cands = new Map<string, Map<string, Cand>>(); // company -> norm -> cand
   for (const [occ, refs] of byOcc) {
-    let detail: Record<string, { s?: { h?: string | null; t?: string }[] }>;
+    // detail rows are sharded per occupation (jobs-detail/<occ>/<k>.json); merge the directory
+    const detail: Record<string, { s?: { h?: string | null; t?: string }[] }> = {};
     try {
-      detail = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'jobs-detail', `${occ}.json`), 'utf8'));
-    } catch { continue; }
+      const dir = path.join(process.cwd(), 'public', 'data', 'jobs-detail', occ);
+      for (const f of fs.readdirSync(dir)) {
+        if (f.endsWith('.json')) Object.assign(detail, JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')));
+      }
+    } catch {
+      try { Object.assign(detail, JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'jobs-detail', `${occ}.json`), 'utf8'))); } // pre-shard layout
+      catch { continue; }
+    }
     for (const { co, id } of refs) {
       const secs = detail[id]?.s ?? [];
       for (const sec of secs) {

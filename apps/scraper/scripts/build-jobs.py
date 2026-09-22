@@ -18,7 +18,7 @@ Writes:
   apps/web/public/data/jobs-detail/{role_id}.json  id -> {desc} (detail pages, build-time read)
   apps/web/public/data/jobs-index.json             role_id -> count
 """
-import json, os, collections, hashlib, html, re, sys
+import json, os, collections, hashlib, html, re, sys, shutil
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import benefits as benefits_miner  # zone-aware perk extraction; see benefits.py
 import requirements as req_miner   # experience / education / language gates
@@ -102,6 +102,19 @@ OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
 # carries a 1h cache header plus a day of stale-while-revalidate, so a repeat
 # visitor and the CDN both fetch it once, not once per page view.
 CAP = 600        # freshest N per occupation (per-occupation board + detail)
+# UNCAPPED since 2026-09-22. The 600 ceiling turned away 64,409 live rows the
+# night the first 52 employer boards landed (registered-nurse alone held 16,108
+# more than it showed), and the board's job is now to carry everything we are
+# licensed to display. The payload problem the cap solved is solved elsewhere:
+# the browse client loads browse-jobs.json (the freshest BROWSE_ROWS, counts
+# still from the full universe), the occupation page renders a server-side
+# slice and fetches its full file, and detail descriptions are sharded so a
+# listing render parses one shard, never the occupation. Set UNCAPPED = False
+# to restore the ceiling for a measurement.
+UNCAPPED = True
+BROWSE_ROWS = 15000      # rows the /jobs client downloads; the rest is reachable by occupation
+ROWS_PER_SHARD = 300     # detail rows per shard file (~1MB each; Next's data cache caps a fetch at 2MB)
+MAX_SHARDS = 64
 # The global file must describe the SAME universe as the per-occupation boards,
 # or the site quotes two different numbers for one thing: the /jobs dek counted
 # the full board (3,066 remote) while the client could only filter the global
@@ -439,11 +452,12 @@ for line in open(NORM):
                                  **({'r': reqs} if reqs else {})}
 
 # 3. Freshest-first, capped, floored.
-for d in (OUT, DETAIL):
-    os.makedirs(d, exist_ok=True)
-    for f in os.listdir(d):
-        if f.endswith('.json'):
-            os.remove(os.path.join(d, f))
+os.makedirs(OUT, exist_ok=True)
+for f in os.listdir(OUT):
+    if f.endswith('.json'):
+        os.remove(os.path.join(OUT, f))
+shutil.rmtree(DETAIL, ignore_errors=True)   # sharded per occupation below; a stale dir must not survive
+os.makedirs(DETAIL, exist_ok=True)
 # Trim and cap first; flag featured on the originals; then write everything,
 # so the per-occupation files, the global file, and the strip all agree.
 # Per-occupation ceiling on ANY single country while other-country supply
@@ -471,6 +485,11 @@ kept_byocc = {}
 _capped_away = {}
 for role, jobs in byocc.items():
     jobs.sort(key=lambda j: j['posted'] or '', reverse=True)
+    if UNCAPPED:
+        _capped_away[role] = 0
+        if len(jobs) >= FLOOR:
+            kept_byocc[role] = list(jobs)
+        continue
     country_cap = int(CAP * COUNTRY_SHARE)
     picked = [j for j in jobs if j['source'] in PRIORITY_SOURCES]
     per_c = collections.Counter((j.get('c') or 'none') for j in picked)
@@ -583,12 +602,35 @@ for role, jobs in kept_byocc.items():
 if canary_fail:
     raise SystemExit('purity canary failed: a licensed board is >30% cross-tier titles')
 
-index, all_rows = {}, []
+index, all_rows, shards = {}, [], {}
+# Detail shards: jobs-detail/<occ>/<k>.json holds the rows whose id hashes to k
+# (ids are sha1 prefixes, so the first four hex digits are uniform). The web
+# reads detail-shards.json for the count and opens ONE shard per listing;
+# build-time readers merge the directory. One file per occupation was 3.4MB for
+# nurse-practitioner at CAP 600 and would be ~50MB uncapped: too big for a
+# serverless bundle, too slow to parse per request.
+def shard_of(job_id, n):
+    return int(job_id[:4], 16) % n
+def detail_rows(role):
+    """Every detail row of an occupation, across its shards."""
+    d = f'{DETAIL}/{role}'
+    if not os.path.isdir(d):
+        return
+    for f in sorted(os.listdir(d)):
+        if f.endswith('.json'):
+            yield from json.load(open(f'{d}/{f}')).values()
 for role, jobs in kept_byocc.items():
     json.dump(jobs, open(f'{OUT}/{role}.json', 'w'), ensure_ascii=False)
     kept = {j['id'] for j in jobs}
     details = {i: v for i, v in desc_byocc[role].items() if i in kept}
-    json.dump(details, open(f'{DETAIL}/{role}.json', 'w'), ensure_ascii=False)
+    n = max(1, min(MAX_SHARDS, -(-len(details) // ROWS_PER_SHARD)))
+    shards[role] = n
+    os.makedirs(f'{DETAIL}/{role}', exist_ok=True)
+    parts = [dict() for _ in range(n)]
+    for i, v in details.items():
+        parts[shard_of(i, n)][i] = v
+    for k, part in enumerate(parts):
+        json.dump(part, open(f'{DETAIL}/{role}/{k}.json', 'w'), ensure_ascii=False)
     index[role] = len(jobs)
     # global search rows: the SAME universe as the per-occupation file (never a
     # second slice — priority rows can push an occupation past CAP, and a
@@ -622,13 +664,18 @@ if remote_occ != remote_all:
 
 json.dump(all_rows, open(ALL, 'w'), ensure_ascii=False)
 json.dump(index, open(INDEX, 'w'), ensure_ascii=False)
+# The browse client's download: the freshest BROWSE_ROWS of the same universe.
+# Counts on the page come from all-jobs.json; the client says when it holds a
+# slice. Every row is still reachable through its occupation file.
+json.dump(all_rows[:BROWSE_ROWS], open('apps/web/public/data/browse-jobs.json', 'w'), ensure_ascii=False)
+json.dump(shards, open('apps/web/public/data/detail-shards.json', 'w'), ensure_ascii=False)
 
 # Benefits glossary: every mined benefit with its definition and how many of the
 # listings that shipped state it. Counts come from this run, so the glossary can
 # never quote a number the board does not hold.
 shipped = collections.Counter()
 for role in index:
-    for det in json.load(open(f'{DETAIL}/{role}.json')).values():
+    for det in detail_rows(role):
         for b in det.get('b') or []:
             shipped[b] += 1
 gloss = [{'slug': b['id'], 'term': b['name'], 'cat': b['cat'], 'glyph': b.get('glyph'),
@@ -640,13 +687,14 @@ seen_n = sum(1 for e in gloss if e['n'])
 print(f"benefits: {sum(shipped.values())} statements across {seen_n} of {len(gloss)} kinds")
 gates = collections.Counter()
 for role in index:
-    for det in json.load(open(f'{DETAIL}/{role}.json')).values():
+    for det in detail_rows(role):
         for k in (det.get('r') or {}):
             gates[k] += 1
 print(f"gates: experience {gates['exp']}, education {gates['edu']}, language {gates['lang']}")
 size_kb = os.path.getsize(ALL) // 1024
 board_total = sum(index.values())
 print(f"emitted {len(index)} occupation boards, {board_total} listings "
-      f"(global file carries {len(all_rows)} at ALL_CAP={ALL_CAP}), all-jobs.json {size_kb}KB")
-with_desc = sum(1 for role in index for _ in json.load(open(f'{DETAIL}/{role}.json')))
+      f"(global file carries {len(all_rows)}, {'uncapped' if UNCAPPED else f'CAP={CAP}'}; browse slice {min(len(all_rows), BROWSE_ROWS)}; "
+      f"{sum(shards.values())} detail shards), all-jobs.json {size_kb}KB")
+with_desc = sum(1 for role in index for _ in detail_rows(role))
 print(f"detail descriptions: {with_desc} of {board_total}")

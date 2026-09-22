@@ -51,6 +51,11 @@ const nextConfig: NextConfig = {
   // Verify after build by reading route.js.nft.json, not by trusting green.
   outputFileTracingExcludes: {
     '/api/roadmap': ['./public/data/jobs-detail/**'],
+    // Since the board went uncapped (2026-09-22) the detail shards are hundreds
+    // of MB: no function bundles them. jobs-data.tsx reads a shard from disk
+    // when it is there (dev, build) and otherwise fetches it from the site's own
+    // CDN, where it is a static file. Every route, not just the roadmap.
+    '/**': ['./public/data/jobs-detail/**'],
   },
 
   // Edge-request diet: logos are content-addressed by company and effectively

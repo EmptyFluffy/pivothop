@@ -83,10 +83,10 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
   if (!j) notFound();
   const title = occTitle(occ);
   const tl = title.toLowerCase();
-  const sections: JobSection[] = getJobSections(occ, id);
-  const skills = getJobSkills(occ, id);
-  const benefits = benefitEntries(getJobBenefits(occ, id));
-  const gates = gateRows(getJobGates(occ, id));
+  const sections: JobSection[] = await getJobSections(occ, id);
+  const skills = await getJobSkills(occ, id);
+  const benefits = benefitEntries(await getJobBenefits(occ, id));
+  const gates = gateRows(await getJobGates(occ, id));
   const pay = salaryLabel(j.smin, j.smax);
   const date = postedLabel(j.posted);
   const hasSalary = coverableSlugs().includes(occ);
