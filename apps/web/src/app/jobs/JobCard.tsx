@@ -119,8 +119,11 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
   const employer = j.source === 'employer' && !!j.url;
   const [tbg, tfg] = monoTint(j.company);
   const remoteNote = j.remote && !/remote/i.test(j.location || '');
-  const locked = isDirect(j);
-  const tagline = [employer ? 'Hiring' : null, locked ? 'Direct' : null, j.featured ? 'Featured' : null, j.fl?.includes('4d') ? '4-day week' : null]
+  // a direct row looks locked while it is still redacted; once the signed-in
+  // board has peeked its employer (JobsBrowse), it reads like any other card
+  const direct = isDirect(j);
+  const locked = direct && j.company === 'Direct employer';
+  const tagline = [employer ? 'Hiring' : null, direct ? 'Direct' : null, j.featured ? 'Featured' : null, j.fl?.includes('4d') ? '4-day week' : null]
     .filter(Boolean).join(' \u00B7 ');
   const innerV2 = (
     <>
@@ -159,7 +162,7 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
           {pay && <span className="job-pay">{pay}</span>}
           <span className="job-m lbl">
             {employer && <span className="job-tag job-tag-hire">Hiring</span>}
-            {locked && <span className="job-tag job-tag-direct">Direct</span>}
+            {direct && <span className="job-tag job-tag-direct">Direct</span>}
             {j.featured && <span className="job-tag">Featured</span>}
             {j.fl?.includes('4d') && <span className="job-tag">4-day week</span>}
             {j.remote && <span className="job-tag">Remote</span>}

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { JobCard, isDirect, type Job } from './JobCard';
 import { isSignedInNow, requestSignIn, primeSession } from '../../lib/auth-ui';
 import { shareTokenFromPage } from '../../lib/unlock';
+import { supabaseBrowser } from '../../lib/supabase-browser';
 import JobSheet from './JobSheet';
 import JobPanel from './JobPanel';
 import FilterSheet, { type Filters, type SkillEntry, srcGroup, SRC_GROUPS } from './FilterSheet';
@@ -216,7 +217,18 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   // the address bar, Back, refresh and sharing all behave as if it were a page.
   // While the pane is open, a second pick replaces the entry instead of
   // pushing, so Back always returns to the board in one step.
-  useEffect(() => { primeSession(); }, []);
+  // Session state for the board. Signed in, the direct rows on screen get
+  // their employer and logo from /api/direct/peek and stop looking locked;
+  // the apply link and the text still come per posting when one is opened.
+  const [authed, setAuthed] = useState(false);
+  useEffect(() => {
+    primeSession();
+    const sb = supabaseBrowser();
+    if (!sb) return;
+    sb.auth.getSession().then(({ data }) => setAuthed(!!data.session)).catch(() => undefined);
+    const { data: sub } = sb.auth.onAuthStateChange((_e, s) => setAuthed(!!s));
+    return () => sub.subscription.unsubscribe();
+  }, []);
   useEffect(() => {
     const isPhone = () => window.matchMedia('(max-width: 760px)').matches;
     const openJob = (j: Job, href: string) => {
@@ -487,6 +499,31 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   // v2 pagination: a window of PAGE rows behind the lab's circle pager.
   const pageCount = Math.max(1, Math.ceil(results.length / PAGE));
   const curPage = Math.min(page, pageCount);
+  // (below results and curPage: the peek effect reads both)
+  const peekedRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!authed || all === null) return;
+    const visible = v2 ? results.slice((curPage - 1) * PAGE, curPage * PAGE) : results.slice(0, shown);
+    const byOcc = new Map<string, string[]>();
+    for (const j of visible) {
+      if (!isDirect(j) || j.company !== 'Direct employer') continue;
+      const key = `${j.occ}/${j.id}`;
+      if (peekedRef.current.has(key)) continue;
+      peekedRef.current.add(key);
+      (byOcc.get(j.occ) ?? byOcc.set(j.occ, []).get(j.occ)!).push(j.id);
+    }
+    if (!byOcc.size) return;
+    for (const [occ, ids] of byOcc) {
+      fetch('/api/direct/peek', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ occ, ids }), credentials: 'same-origin' })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((m: Record<string, { company: string; logo?: string }> | null) => {
+          if (!m || !Object.keys(m).length) return;
+          setAll((prev) => prev ? prev.map((j) => (j.occ === occ && m[j.id] ? { ...j, company: m[j.id].company, ...(m[j.id].logo ? { logo: m[j.id].logo } : {}) } : j)) : prev);
+        })
+        .catch(() => undefined);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authed, all, results, curPage, shown, v2]);
   const goPage = (n: number) => {
     const to = Math.min(Math.max(1, n), pageCount);
     setPage(to);
