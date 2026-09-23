@@ -5,7 +5,10 @@ name: nightly-scrape
 # schedule + manual only, so its own push never re-triggers it (no loop).
 on:
   schedule:
-    - cron: '0 8 * * *'        # 08:00 UTC = 02:00 America/Costa_Rica (overnight local)
+    # 07:23, not 08:00: GitHub queues scheduled runs and the top of the hour is
+    # the busiest slot (2026-09-22 and 09-23 both fired five hours late); an odd
+    # minute is picked up sooner. 07:23 UTC = 01:23 America/Costa_Rica.
+    - cron: '23 7 * * *'
   workflow_dispatch:            # manual "Run workflow" button, for testing
     inputs:
       recover_state:
