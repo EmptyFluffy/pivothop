@@ -51,6 +51,9 @@ export async function fetchRaw({ log }) {
   const readTenant = async ({ tenant, wd, site, company, searchText }) => {
     const base = `https://${tenant}.${wd}.myworkdayjobs.com/wday/cxs/${tenant}/${site}`;
     const posts = [];
+    // Workday reports `total` on the first page only (0 on later pages,
+    // 2026-09-24: 45 tenants stopped at exactly 40 rows); remember it.
+    let total = null;
     for (let offset = 0; offset < MAX_JOBS; offset += PAGE) {
       const body = await fetchJson(`${base}/jobs`, {
         method: 'POST',
@@ -63,7 +66,8 @@ export async function fetchRaw({ log }) {
       }).catch(() => null);
       const page = body?.jobPostings ?? [];
       posts.push(...page);
-      if (page.length < PAGE || posts.length >= (body?.total ?? 0)) break;
+      if (total === null && typeof body?.total === 'number' && body.total > 0) total = body.total;
+      if (page.length < PAGE || (total !== null && posts.length >= total)) break;
     }
     if (!posts.length) { log(`workday:${tenant} — no postings (skipped)`); return; }
 
