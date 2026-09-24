@@ -1,0 +1,573 @@
+# Manual discovery lists (2026-09-23). One employer per line; the probe tries
+# every ATS it knows. Grouped by the fields the board is thin in. Names only,
+# no URLs: the probe derives the slugs. Re-run: node apps/scraper/scripts/ats-probe.mjs --names "$(grep -v '^#' apps/scraper/config/manual-employers.txt | paste -sd, -)"
+
+# ── US health systems and healthcare employers ──
+HCA Healthcare
+CommonSpirit Health
+Ascension
+Providence
+Kaiser Permanente
+Mayo Clinic
+Cleveland Clinic
+Mass General Brigham
+NYU Langone Health
+Northwell Health
+Advocate Health
+Intermountain Health
+Trinity Health
+Tenet Healthcare
+UPMC
+Geisinger
+Banner Health
+Sutter Health
+Baylor Scott and White Health
+AdventHealth
+Atrium Health
+Corewell Health
+Ochsner Health
+Sanford Health
+Cedars-Sinai
+Stanford Health Care
+UCSF Health
+Johns Hopkins Medicine
+Penn Medicine
+Mount Sinai
+Yale New Haven Health
+Duke Health
+Vanderbilt University Medical Center
+Emory Healthcare
+Houston Methodist
+MD Anderson Cancer Center
+Memorial Sloan Kettering
+Children's Hospital of Philadelphia
+Boston Children's Hospital
+Nationwide Children's Hospital
+Texas Children's Hospital
+Scripps Health
+Sharp HealthCare
+Dignity Health
+Bon Secours Mercy Health
+Novant Health
+WellSpan Health
+Lehigh Valley Health Network
+Henry Ford Health
+Beaumont Health
+OhioHealth
+SSM Health
+BJC HealthCare
+Mercy
+CVS Health
+Walgreens
+DaVita
+Fresenius Medical Care
+Encompass Health
+Labcorp
+Quest Diagnostics
+Humana
+Elevance Health
+Centene
+Molina Healthcare
+Cigna
+UnitedHealth Group
+Optum
+Amedisys
+LHC Group
+Brookdale Senior Living
+Genesis Healthcare
+Select Medical
+Lifepoint Health
+Universal Health Services
+Community Health Systems
+Prime Healthcare
+Steward Health Care
+ChristianaCare
+Hackensack Meridian Health
+RWJBarnabas Health
+Atlantic Health System
+Inova
+Sentara Healthcare
+Carilion Clinic
+Piedmont Healthcare
+Orlando Health
+BayCare
+Tampa General Hospital
+Jackson Health System
+Baptist Health South Florida
+Methodist Le Bonheur Healthcare
+Norton Healthcare
+IU Health
+Froedtert
+Aurora Health Care
+Allina Health
+HealthPartners
+Essentia Health
+Avera Health
+Nebraska Medicine
+University of Utah Health
+Renown Health
+Legacy Health
+PeaceHealth
+MultiCare
+Swedish Health Services
+Banfield Pet Hospital
+VCA Animal Hospitals
+Aspen Dental
+Heartland Dental
+Pacific Dental Services
+Smile Brands
+American Medical Response
+Global Medical Response
+Concentra
+Planned Parenthood
+American Red Cross
+
+# ── Swiss and European hospitals and care ──
+Insel Gruppe
+Universitätsspital Zürich
+CHUV
+Hôpitaux Universitaires de Genève
+Kantonsspital St. Gallen
+Kantonsspital Aarau
+Kantonsspital Baden
+Kantonsspital Winterthur
+Luzerner Kantonsspital
+Universitätsspital Basel
+Hirslanden
+Swiss Medical Network
+Spital Thurgau
+Spitäler Schaffhausen
+Ente Ospedaliero Cantonale
+Spitex Zürich
+Charité
+Helios Kliniken
+Asklepios Kliniken
+Sana Kliniken
+Vivantes
+Schön Klinik
+Rhön-Klinikum
+Universitätsklinikum Heidelberg
+Medizinische Universität Wien
+Vinzenz Gruppe
+Ramsay Santé
+Elsan
+AP-HP
+NHS
+Bupa
+Spire Healthcare
+HCA Healthcare UK
+Nuffield Health
+
+# ── Construction, engineering, trades ──
+Turner Construction
+Bechtel
+Kiewit
+Fluor
+Jacobs
+AECOM
+Skanska
+PCL Construction
+Clark Construction
+Whiting-Turner
+DPR Construction
+Hensel Phelps
+Mortenson
+Sundt
+Balfour Beatty
+Gilbane
+Suffolk Construction
+McCarthy Building Companies
+Brasfield & Gorrie
+JE Dunn
+Walsh Group
+Zachry
+Granite Construction
+Quanta Services
+MasTec
+Dycom
+EMCOR
+Comfort Systems USA
+Johnson Controls
+Carrier
+Trane Technologies
+Lennox
+Siemens
+Schindler
+Otis
+Kone
+ABB
+Honeywell
+Eaton
+Schneider Electric
+Implenia
+Marti
+Losinger Marazzi
+HRS Real Estate
+Frutiger
+Strabag
+Hochtief
+Vinci
+Bouygues
+Eiffage
+Ferrovial
+ACS
+Laing O'Rourke
+Kier
+Morgan Sindall
+Mace
+Lendlease
+Bilfinger
+Spie
+Bureau Veritas
+Intertek
+TÜV SÜD
+TÜV Rheinland
+DEKRA
+Sulzer
+Georg Fischer
+Bühler
+Stadler Rail
+Liebherr
+Hilti
+Geberit
+Sika
+Holcim
+Amrize
+Roto
+Belimo
+Bobst
+Burckhardt Compression
+Ferguson
+Watsco
+Fastenal
+Grainger
+Sherwin-Williams
+Pella
+Andersen Windows
+Lennar
+D.R. Horton
+PulteGroup
+Toll Brothers
+NVR
+KB Home
+Meritage Homes
+Taylor Morrison
+Beazer Homes
+Mr. Rooter
+Roto-Rooter
+ServiceMaster
+Terminix
+Rentokil
+Orkin
+ABM Industries
+ISS
+Sodexo
+Aramark
+Compass Group
+Cintas
+UniFirst
+
+# ── Retail, hospitality, food ──
+Marriott
+Hilton
+Hyatt
+IHG Hotels
+Four Seasons
+Wyndham
+Choice Hotels
+Kempinski
+Mandarin Oriental
+Rosewood Hotels
+Hard Rock International
+MGM Resorts
+Caesars Entertainment
+Wynn Resorts
+Las Vegas Sands
+Carnival
+Royal Caribbean
+Norwegian Cruise Line
+Disney
+Universal Parks
+Six Flags
+Cedar Fair
+Starbucks
+Chipotle
+McDonald's
+Yum Brands
+Darden
+Texas Roadhouse
+Cracker Barrel
+Panera
+Dutch Bros
+Shake Shack
+Sweetgreen
+Cava
+Target
+Walmart
+Costco
+Home Depot
+Lowe's
+Kroger
+Albertsons
+Publix
+H-E-B
+Wegmans
+Whole Foods
+Trader Joe's
+Aldi
+Lidl
+Dollar General
+Dollar Tree
+TJX
+Ross Stores
+Burlington
+Nordstrom
+Macy's
+Kohl's
+Best Buy
+Dick's Sporting Goods
+Tractor Supply
+Ulta Beauty
+Sephora
+Williams-Sonoma
+RH
+IKEA
+Migros
+Coop
+Denner
+Manor
+Globus
+Landi
+Jumbo
+Dosenbach
+Ochsner Sport
+Digitec Galaxus
+Zalando
+H&M
+Inditex
+Uniqlo
+Primark
+Decathlon
+Tesco
+Sainsbury's
+Marks and Spencer
+John Lewis
+Carrefour
+Ahold Delhaize
+Rewe
+Edeka
+Mercadona
+Whitbread
+Greggs
+Pret A Manger
+Compass Group UK
+
+# ── Transport, logistics, airlines ──
+FedEx
+UPS
+DHL
+XPO
+GXO Logistics
+J.B. Hunt
+Schneider National
+Werner Enterprises
+Knight-Swift
+Old Dominion Freight Line
+Saia
+Ryder
+Penske
+Estes Express
+ArcBest
+Amazon
+Delta Air Lines
+United Airlines
+American Airlines
+Southwest Airlines
+JetBlue
+Alaska Airlines
+Spirit Airlines
+Frontier Airlines
+SkyWest
+Republic Airways
+Swiss International Air Lines
+Lufthansa
+easyJet
+Ryanair
+British Airways
+Air France KLM
+Emirates
+Qatar Airways
+Etihad
+Copa Airlines
+Avianca
+LATAM Airlines
+Volaris
+SBB
+Deutsche Bahn
+ÖBB
+Amtrak
+Union Pacific
+BNSF
+CSX
+Norfolk Southern
+Canadian National
+Kuehne+Nagel
+DSV
+Maersk
+MSC
+Hapag-Lloyd
+CMA CGM
+Expeditors
+C.H. Robinson
+Panalpina
+Geodis
+DB Schenker
+Swissport
+Menzies Aviation
+dnata
+Hertz
+Avis Budget
+Enterprise Mobility
+Uber
+Lyft
+Waymo
+
+# ── Costa Rica and Latin America employers ──
+Intel Costa Rica
+Boston Scientific
+Abbott
+Baxter
+Hologic
+Edwards Lifesciences
+Establishment Labs
+Philips
+Medtronic
+Smith+Nephew
+Coloplast
+ICU Medical
+Terumo
+Cardinal Health
+Bayer
+Roche
+Pfizer
+Procter & Gamble
+Coca-Cola FEMSA
+Bridgestone
+Amazon Costa Rica
+Microsoft
+Citi
+HP
+IBM
+Experian
+Equifax
+Western Union
+Sykes
+Concentrix
+Teleperformance
+TTEC
+Cognizant
+Infosys
+Accenture
+DXC Technology
+Emerson
+National Instruments
+Moog
+VMware
+Auto Mercado
+Walmart Centroamérica
+Grupo Pujol
+Florida Ice and Farm
+Dos Pinos
+Fifco
+BAC Credomatic
+Banco Nacional de Costa Rica
+Banco Popular
+Scotiabank
+Grupo Mutual
+INS
+Grupo ICE
+Cuestamoras
+Grupo Britt
+Grupo Monge
+Gollo
+Purdy Motor
+Pricesmart
+Cargill
+Pipasa
+Chiquita
+Del Monte
+Dole
+Fyffes
+Mercado Libre
+Rappi
+Nubank
+Globant
+Softtek
+Ualá
+Kavak
+Bitso
+Clip
+Konfío
+Grupo Bimbo
+Femsa
+Cemex
+Grupo Televisa
+Banorte
+BBVA
+Santander
+Itaú
+Bradesco
+Falabella
+Cencosud
+Copec
+Ecopetrol
+Bancolombia
+Grupo Éxito
+Arcos Dorados
+Despegar
+Natura
+Ambev
+Embraer
+Vale
+Petrobras
+Magazine Luiza
+Localiza
+Stone
+PagSeguro
+QuintoAndar
+Loft
+Creditas
+Wildlife Studios
+Gympass
+Wellhub
+Hotmart
+RD Station
+TOTVS
+Movile
+iFood
+
+# ── Education, public sector, security ──
+Teach For America
+KIPP
+Success Academy
+Uncommon Schools
+Stride
+Pearson
+McGraw Hill
+Chegg
+Coursera
+Duolingo
+Kaplan
+EF Education First
+Nord Anglia Education
+Cognita
+GEMS Education
+Allied Universal
+GardaWorld
+Prosegur
+Brink's
+Loomis
+ADT
+Vivint
+Securitas Switzerland
+Protectas
