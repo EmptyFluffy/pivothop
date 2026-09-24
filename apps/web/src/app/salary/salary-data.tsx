@@ -954,10 +954,15 @@ export const SALARY_SLUGS = Object.keys(SALARY);
    generated from their own numbers (a real, occupation-specific read, drafted
    for a later hand pass), plus a data-driven FAQ and adjacency-derived related
    links. Gated by a data floor so nothing thin ships. */
-const OBS_FLOOR = 50;
+export const OBS_FLOOR = 50;
+/* A page ships when the corpus has OBS_FLOOR stated salaries for the role, OR
+   when an official OEWS anchor exists for its SOC (2026-09-24): the anchor is
+   public-record wage data on its own, and the posting-based blocks fill in as
+   the board grows. thinCorpus() tells the page which case it is in. */
 export function isCoverable(f: SalaryFile | null): f is SalaryFile {
-  return !!f && (usBand(f)?.p50 ?? 0) > 0 && (f.observations ?? 0) >= OBS_FLOOR;
+  return !!f && (usBand(f)?.p50 ?? 0) > 0 && ((f.observations ?? 0) >= OBS_FLOOR || !!f.anchor_source);
 }
+export function thinCorpus(f: SalaryFile): boolean { return (f.observations ?? 0) < OBS_FLOOR; }
 let _cover: string[] | null = null;
 const _coverSet = new Set<string>();
 function loadCover() {

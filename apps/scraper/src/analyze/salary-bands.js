@@ -124,6 +124,12 @@ export async function salaryBands({ log }) {
     if (!bySlug.has(o.slug)) bySlug.set(o.slug, []);
     bySlug.get(o.slug).push(o);
   }
+  // Occupations with an official anchor but no stated pay in the corpus yet
+  // still get a file (2026-09-24): the OEWS bands alone carry the page, and
+  // the posting-based cells fill in as the board grows.
+  for (const o of occs) {
+    if (!bySlug.has(o.slug) && socOf[o.slug] && oews[socOf[o.slug]]) bySlug.set(o.slug, []);
+  }
 
   const outDir = path.join(GENERATED_DIR, 'salaries');
   fs.mkdirSync(outDir, { recursive: true });
@@ -198,7 +204,7 @@ export async function salaryBands({ log }) {
       by_country: byCountry,
       remote,
       seniority: Object.keys(seniority).length ? seniority : null,
-      anchor_source: anchor ? 'BLS OEWS May 2024' : null,
+      anchor_source: anchor ? (anchor.src || 'BLS OEWS May 2024') : null,
       price_level_source: 'World Bank ICP 2023',
     };
     writeJson(path.join(outDir, `${slug}.json`), doc);

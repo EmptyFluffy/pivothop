@@ -97,10 +97,34 @@ def fetch_worldbank():
                      'price_level': round(p / f, 4), 'year': 2023}
     return out
 
+def history_fallback(socs):
+    """SOCs the taxonomy gained after wages.json was built (2026-09-24: 46 of
+    149) get the May 2023 national bands from vendor/oews-history, tagged with
+    their own source, until a May 2024 rebuild runs (bls.gov refuses scripted
+    downloads; the 2024 zips must be fetched in a browser and passed via
+    --oews). No state bands for these."""
+    wp = os.path.join(ROOT, 'packages/data/vendor/oews/wages.json')
+    doc = json.load(open(wp)) if os.path.exists(wp) else {'source': 'BLS OEWS May 2024', 'wages': {}}
+    wages = doc['wages']
+    missing = {s: v for s, v in socs.items() if s not in wages}
+    if not missing:
+        print('history fallback: nothing missing'); return
+    hist = os.path.join(ROOT, 'packages/data/vendor/oews-history/national_M2023.xlsx')
+    nat = parse_oews(hist, missing, False)
+    added = 0
+    for soc in missing:
+        if nat.get(soc):
+            wages[soc] = {'US': nat[soc], 'states': {}, 'src': 'BLS OEWS May 2023'}
+            added += 1
+    json.dump(doc, open(wp, 'w'))
+    print(f'history fallback: +{added} SOCs from May 2023 national bands ({len(missing) - added} still missing: {sorted(s for s in missing if not nat.get(s))})')
+
 def main():
     oews_dir = sys.argv[sys.argv.index('--oews') + 1] if '--oews' in sys.argv else None
     socs = our_socs()
     print(f'{len(socs)} distinct SOC codes across taxonomy')
+    if '--fallback-history' in sys.argv:
+        history_fallback(socs); return
 
     if oews_dir:
         nat = parse_oews(os.path.join(oews_dir, 'oesm24nat/national_M2024_dl.xlsx'), socs, False)

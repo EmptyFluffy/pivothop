@@ -4,7 +4,7 @@ import { jobCount } from '../../jobs/jobs-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { coverableSlugs, coverable, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES, getSwissBand, fmtChf } from '../salary-data';
+import { coverableSlugs, coverable, getSalaryDef, getSalary, getHistory, usBand, chartData, fmt, COUNTRY_NAMES, US_STATE_NAMES, getSwissBand, fmtChf, thinCorpus } from '../salary-data';
 import SalaryChart from '../SalaryChart';
 import { article } from '../../../lib/site';
 import SalaryFacts, { type CountryDatum } from '../SalaryFacts';
@@ -22,7 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
   const b = usBand(f);
   return {
     title: `${f.title} salary (2026): what they actually make`,
-    description: `${f.title} pay from ${f.observations.toLocaleString()} live job postings and official US BLS OEWS data: median ${fmt(b?.p50)}, typical range ${fmt(b?.p25)} to ${fmt(b?.p75)}, with a per-country switcher, the wage trend over recent years, and how it splits by seniority.`,
+    description: thinCorpus(f)
+      ? `${f.title} pay from official US BLS OEWS data: median ${fmt(b?.p50)}, typical range ${fmt(b?.p25)} to ${fmt(b?.p75)}, by state, with the wage trend over recent years.`
+      : `${f.title} pay from ${f.observations.toLocaleString()} live job postings and official US BLS OEWS data: median ${fmt(b?.p50)}, typical range ${fmt(b?.p25)} to ${fmt(b?.p75)}, with a per-country switcher, the wage trend over recent years, and how it splits by seniority.`,
     alternates: { canonical: `/salary/${occ}` },
   };
 }
@@ -88,9 +90,13 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
         <Crumbs trail={[{ label: 'Salaries', href: '/salary' }, { label: f.title }]} />
         <h1 className="rt-h1">{f.title} salary</h1>
         <p className="rt-dek">
-          {`What ${article(f.title)} ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live job postings blended with the official US `}
+          {thinCorpus(f)
+            ? `What ${article(f.title)} ${f.title.toLowerCase()} earns, from the official US `
+            : `What ${article(f.title)} ${f.title.toLowerCase()} actually earns, from ${f.observations.toLocaleString()} live job postings blended with the official US `}
           <a className="gl" href="/glossary#oews">OEWS</a>
-          {` (Occupational Employment and Wage Statistics) wage anchor. Pick a market for its median and range, then read the seniority split, the trend, and the country comparison below. Updated ${f.updated}.`}
+          {thinCorpus(f)
+            ? ` (Occupational Employment and Wage Statistics) record: the median, the range, the state detail and the trend. ${f.observations > 0 ? `${f.observations} live postings state pay for this role so far; ` : 'Few live postings state pay for this role yet; '}the posting-based splits appear as the board grows. Updated ${f.updated}.`
+            : ` (Occupational Employment and Wage Statistics) wage anchor. Pick a market for its median and range, then read the seniority split, the trend, and the country comparison below. Updated ${f.updated}.`}
         </p>
 
         <SalaryFacts
