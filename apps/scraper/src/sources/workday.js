@@ -42,7 +42,13 @@ function extractSalary(text) {
 export async function fetchRaw({ log }) {
   const tenants = readJson(path.join(CONFIG_DIR, 'workday-companies.json'))?.tenants ?? [];
   const rows = [];
-  for (const { tenant, wd, site, company, searchText } of tenants) {
+  // Tenants run CONCURRENTLY (2026-09-24): each one is its own host, so the
+  // per-host politeness in fetchJson still holds, and 74 tenants at up to
+  // 1,000 postings each would otherwise take the whole night in series.
+  const CONC = Number(process.env.WORKDAY_CONCURRENCY) || 6;
+  const queue = [...tenants];
+  const worker = async () => { for (let t = queue.shift(); t; t = queue.shift()) await readTenant(t); };
+  const readTenant = async ({ tenant, wd, site, company, searchText }) => {
     const base = `https://${tenant}.${wd}.myworkdayjobs.com/wday/cxs/${tenant}/${site}`;
     const posts = [];
     for (let offset = 0; offset < MAX_JOBS; offset += PAGE) {
@@ -59,14 +65,14 @@ export async function fetchRaw({ log }) {
       posts.push(...page);
       if (page.length < PAGE || posts.length >= (body?.total ?? 0)) break;
     }
-    if (!posts.length) { log(`workday:${tenant} — no postings (skipped)`); continue; }
+    if (!posts.length) { log(`workday:${tenant} — no postings (skipped)`); return; }
 
     let kept = 0;
     for (const p of posts) {
       if (!p.externalPath || !p.title) continue;
       const detail = await fetchJson(`${base}${p.externalPath}`, {
         headers: { accept: 'application/json', 'user-agent': UA },
-        minIntervalMs: 1500,
+        minIntervalMs: 700,
       }).catch(() => null);
       const info = detail?.jobPostingInfo;
       if (!info) continue;
@@ -90,6 +96,7 @@ export async function fetchRaw({ log }) {
       kept++;
     }
     log(`workday:${tenant} — ${kept} postings (${company})`);
-  }
+  };
+  await Promise.all(Array.from({ length: Math.min(CONC, queue.length) }, worker));
   return rows;
 }

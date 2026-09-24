@@ -26,6 +26,9 @@ import { redditTransitions } from './analyze/reddit-transitions.js';
 
 loadEnv();
 const log = (...a) => console.log(...a);
+// A rejection nobody awaited must not take the whole ingest down silently
+// (Node's default is to exit); log it and let the other sources finish.
+process.on('unhandledRejection', (err) => log(`unhandled rejection (continuing): ${err?.stack || err}`));
 
 const SOURCES = ['remotive', 'remoteok', 'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'arbeitnow', 'jobicy', 'themuse', 'himalayas', 'getonbrd', 'careerjet', 'adzuna', 'usajobs', 'reed', 'jobroom', 'jobtech', 'workday', 'personio', 'ane', 'amazon', 'jooble', 'direct'];
 

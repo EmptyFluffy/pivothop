@@ -82,17 +82,29 @@ export function writeNdjson(file, rows) {
 }
 
 /** Merge rows into an NDJSON file by key. Returns {added, updated, total}. */
+// STREAMED (2026-09-24). The old version parsed the whole corpus into a Map
+// (984k rows, several GB of heap) once per source, twenty times a run; the
+// runner has 7 GB and the kernel killed the ingest mid-run with five sources
+// in flight and nothing in the log. Now: the incoming rows are indexed by
+// key, the existing file streams through once (rows whose key is incoming
+// are dropped, the rest copied), then the incoming rows are appended. Memory
+// is the incoming batch plus one Set of keys. Same atomic rename as before.
 export function upsertNdjson(file, rows, keyFn) {
-  const existing = readNdjsonSafe(file);
-  const byKey = new Map(existing.map((r) => [keyFn(r), r]));
-  let added = 0, updated = 0;
-  for (const row of rows) {
-    const k = keyFn(row);
-    if (byKey.has(k)) updated++; else added++;
-    byKey.set(k, row);
-  }
-  writeNdjson(file, [...byKey.values()]);
-  return { added, updated, total: byKey.size };
+  const incoming = new Map();
+  for (const row of rows) incoming.set(keyFn(row), row); // last write wins within a batch
+  const w = openNdjsonWriter(file);
+  let kept = 0, updated = 0;
+  try {
+    if (fs.existsSync(file)) {
+      forEachNdjson(file, (r) => {
+        if (incoming.has(keyFn(r))) { updated++; return; }
+        w.write(r); kept++;
+      }, { tolerant: true });
+    }
+    for (const row of incoming.values()) w.write(row);
+    w.commit();
+  } catch (err) { w.abandon(); throw err; }
+  return { added: incoming.size - updated, updated, total: kept + incoming.size };
 }
 
 export function writeJson(file, obj) {
@@ -139,8 +151,12 @@ export async function supabaseUpsert(table, rows, onConflict) {
   const url = `${process.env.SUPABASE_URL.replace(/\/$/, '')}/rest/v1/${table}?on_conflict=${onConflict}`;
   const key = process.env.SUPABASE_SERVICE_KEY;
   let mirrored = 0;
-  for (let i = 0; i < rows.length; i += 500) {
-    const batch = rows.slice(i, i + 500);
+  // one row per conflict key per request: Postgres refuses a batch that
+  // updates the same row twice (21000), and paged boards can repeat a posting
+  const cols = onConflict.split(',');
+  const uniq = [...new Map(rows.map((r) => [cols.map((c) => r[c]).join('|'), r])).values()];
+  for (let i = 0; i < uniq.length; i += 500) {
+    const batch = uniq.slice(i, i + 500);
     const res = await fetch(url, {
       method: 'POST',
       headers: {
