@@ -78,9 +78,6 @@ export default function Home() {
               {direct.toLocaleString()} postings straight from company career pages and hiring systems, next to
               {' '}{total.toLocaleString()} in all. Sign in with Google to see who is hiring and apply there.
             </p>
-            <p className="lp-proof lbl">
-              {`${total.toLocaleString()} live roles · ${occs} occupations · ${remote.toLocaleString()} fully remote · ${routes.toLocaleString()} measured routes · read nightly`}
-            </p>
           </div>
           <img className="lp-hero-art" src="/hero-scout.png" alt="" width="987" height="1031" fetchPriority="high" />
         </section>
