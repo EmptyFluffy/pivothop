@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Chivo_Mono, Instrument_Sans } from 'next/font/google';
+import { Chivo_Mono, Instrument_Sans, Instrument_Serif } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
@@ -28,6 +28,18 @@ const sans = Instrument_Sans({
 // Chivo Mono replaced Space Mono 2026-08-23: the measurement face, chosen
 // off the saturated-defaults list — grotesque bones fit the Swiss system,
 // variable weights carry the bold data numerals Space Mono did.
+// DOCUMENTED EXCEPTION to the two-typeface rule (2026-09-24, Carlos): the
+// landing hero sets its headline in Instrument Serif, the serif sibling of the
+// word face, for the old-Mac editorial register of the current landing
+// idiom. Landing h1 only: nothing else on the site may use --font-serif, and
+// the graph's GLYPH_W stays measured against the sans.
+const serif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+});
 const mono = Chivo_Mono({
   subsets: ['latin'],
   weight: 'variable',
@@ -78,7 +90,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   // the root before React hydrates, so its class list legitimately differs
   // from the server's; without it every page logged a hydration mismatch.
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         {/* Favicons come from app/icon.svg (vector, for browser tabs + Google's
             SVG support) and app/favicon.ico (multi-size ICO fallback). Both are

@@ -29,7 +29,7 @@ export default function Home() {
   const idx = jobsIndex();
   const total = Object.values(idx).reduce((s, n) => s + n, 0);
   const occs = occList().length;
-  const { remote } = boardStats();
+  const { remote, direct } = boardStats();
   const routes = routableSlugs().length;
 
   // The trending block: the densest preloaded searches, server-rendered plain
@@ -73,11 +73,10 @@ export default function Home() {
       <div className="lp">
         <section className="lp-hero">
           <div className="lp-hero-copy">
-            <h1>Career moves, <span className="em">measured.</span></h1>
+            <h1>Jobs read from the employer&rsquo;s own site, <span className="em">not from LinkedIn.</span></h1>
             <p className="lp-sub">
-              PivotHop reads live job postings nightly and turns them into instruments: a job board tagged by
-              the skills that reach each role, a map of every adjacent career move, and the fair price of
-              remote work. Numbers, not vibes.
+              {direct.toLocaleString()} postings straight from company career pages and hiring systems, next to
+              {' '}{total.toLocaleString()} in all. Sign in with Google to see who is hiring and apply there.
             </p>
             <p className="lp-proof lbl">
               {`${total.toLocaleString()} live roles · ${occs} occupations · ${remote.toLocaleString()} fully remote · ${routes.toLocaleString()} measured routes · read nightly`}

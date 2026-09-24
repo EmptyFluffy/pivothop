@@ -7,6 +7,7 @@ import path from 'node:path';
    links out to apply at the source. Server-only (fs). */
 
 import type { Job } from './JobCard';
+import { DIRECT_SOURCES } from './JobCard';
 export type { Job };
 
 /* Parsed-JSON LRU. Every ISR listing render used to re-read and re-parse its
@@ -49,7 +50,7 @@ export function getJobs(occ: string): Job[] { return read<Job[]>(`jobs/${occ}.js
  *  build if those two files disagree, and this reader means new surfaces cannot
  *  reintroduce the split by counting somewhere else. Add facets here rather
  *  than filtering the board again in a page. */
-let _stats: { total: number; remote: number; withSalary: number } | null = null;
+let _stats: { total: number; remote: number; withSalary: number; direct: number } | null = null;
 export function boardStats() {
   if (!_stats) {
     const all = read<Job[]>('all-jobs.json') ?? [];
@@ -57,6 +58,7 @@ export function boardStats() {
       total: all.length,
       remote: all.filter((j) => j.remote).length,
       withSalary: all.filter((j) => j.smin != null || j.smax != null).length,
+      direct: all.filter((j) => DIRECT_SOURCES.has(j.source)).length,
     };
   }
   return _stats;
