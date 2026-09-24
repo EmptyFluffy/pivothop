@@ -21,10 +21,13 @@ export async function fetchRaw({ log }) {
     catch (err) { log(`smartrecruiters:${c} — ${err.message} (board skipped, source continues)`); continue; }
     if (!list?.content?.length) { log(`smartrecruiters:${c} — no public postings (skipped)`); continue; }
     let items = list.content;
-    // one page of pagination — 200 postings per company is plenty at hobbyist scale
-    if (list.totalFound > 100 && list.content.length === 100) {
-      const page2 = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings?limit=100&offset=100`).catch((err) => { log(`smartrecruiters:${c} p2 — ${err.message}`); return null; });
-      items = items.concat(page2?.content ?? []);
+    // up to SR_MAX_JOBS per company (200 -> 1000, 2026-09-24: SGS holds 4.5k,
+    // AbbVie 1.9k, Primark 900; two pages read a fraction of them)
+    const MAX = Number(process.env.SR_MAX_JOBS) || 1000;
+    for (let offset = 100; offset < Math.min(list.totalFound, MAX) && items.length % 100 === 0; offset += 100) {
+      const page = await fetchJson(`https://api.smartrecruiters.com/v1/companies/${c}/postings?limit=100&offset=${offset}`).catch((err) => { log(`smartrecruiters:${c} p${offset / 100 + 1} — ${err.message}`); return null; });
+      if (!page?.content?.length) break;
+      items = items.concat(page.content);
     }
     log(`smartrecruiters:${c} — ${items.length} postings (of ${list.totalFound})`);
     let detailed = 0;

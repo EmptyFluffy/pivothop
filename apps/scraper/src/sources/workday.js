@@ -23,7 +23,11 @@ export const name = 'workday';
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const PAGE = 20; // Workday's own page size; the list endpoint caps limit at 20
-const MAX_JOBS = 200; // per tenant, a runaway guard — these firms post dozens, not thousands
+// 200 -> 1000 per tenant (2026-09-24). The guard was sized for studios; the
+// manual discovery passes added TJX (11.6k postings), Trinity Health, Mercy,
+// Target, Four Seasons, Micron, Accenture, and a 200 cap read a tenth of
+// them. 1000 is 50 pages at 1.5s, ~75s per big tenant. Env-tunable.
+const MAX_JOBS = Number(process.env.WORKDAY_MAX_JOBS) || 1000;
 
 function extractSalary(text) {
   const m = text.match(/(?:salary|pay|compensation|base)[^\n]{0,80}?\$\s?([\d,]{4,11})(?:\.\d{2})?(?:\s?(?:[-–—]|to){1,3}\s?\$?\s?([\d,]{4,11})(?:\.\d{2})?)?/i)
