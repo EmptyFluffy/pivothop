@@ -1,137 +1,479 @@
 {
-  "_comment": "Workday CXS tenants. NEVER add unverified: fetch a real posting first (the 2026-08-03 studio probe found four namesake boards among 18 hits). New tenants come from the direct adapter's 'hosted ATS discovered' log lines.",
-  "tenants": [
-    {
-      "tenant": "kpf",
-      "wd": "wd5",
-      "site": "KPF_Careers",
-      "company": "Kohn Pedersen Fox"
-    },
-    {
-      "tenant": "hksinc",
-      "wd": "wd501",
-      "site": "HKSCareers",
-      "company": "HKS"
-    },
-    {
-      "tenant": "confluentmedical",
-      "wd": "wd503",
-      "site": "Confluent_Medical",
-      "company": "Confluent Medical",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "philips",
-      "wd": "wd3",
-      "site": "jobs-and-careers",
-      "company": "Philips",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "hpe",
-      "wd": "wd5",
-      "site": "Jobsathpe",
-      "company": "Hewlett Packard Enterprise",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "abbott",
-      "wd": "wd5",
-      "site": "abbottcareers",
-      "company": "Abbott",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "roche",
-      "wd": "wd3",
-      "site": "roche-ext",
-      "company": "Roche",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "edwards",
-      "wd": "wd5",
-      "site": "EdwardsCareers",
-      "company": "Edwards Lifesciences",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "dxctechnology",
-      "wd": "wd1",
-      "site": "DXCJobs",
-      "company": "DXC Technology",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "cardinalhealth",
-      "wd": "wd1",
-      "site": "EXT",
-      "company": "Cardinal Health",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "smithnephew",
-      "wd": "wd5",
-      "site": "External",
-      "company": "Smith+Nephew",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "kimberlyclark",
-      "wd": "wd1",
-      "site": "GLOBAL",
-      "company": "Kimberly-Clark",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "baxter",
-      "wd": "wd1",
-      "site": "baxter",
-      "company": "Baxter",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "pfizer",
-      "wd": "wd1",
-      "site": "PfizerCareers",
-      "company": "Pfizer",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "astrazeneca",
-      "wd": "wd3",
-      "site": "Careers",
-      "company": "AstraZeneca",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "bacardi",
-      "wd": "wd3",
-      "site": "Jobs_Bacardi",
-      "company": "Bacardi",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    },
-    {
-      "tenant": "intel",
-      "wd": "wd1",
-      "site": "External",
-      "company": "Intel",
-      "searchText": "Costa Rica",
-      "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
-    }
-  ]
+ "_comment": "Workday CXS tenants. NEVER add unverified: fetch a real posting first (the 2026-08-03 studio probe found four namesake boards among 18 hits). New tenants come from the direct adapter's 'hosted ATS discovered' log lines.",
+ "tenants": [
+  {
+   "tenant": "kpf",
+   "wd": "wd5",
+   "site": "KPF_Careers",
+   "company": "Kohn Pedersen Fox"
+  },
+  {
+   "tenant": "hksinc",
+   "wd": "wd501",
+   "site": "HKSCareers",
+   "company": "HKS"
+  },
+  {
+   "tenant": "confluentmedical",
+   "wd": "wd503",
+   "site": "Confluent_Medical",
+   "company": "Confluent Medical",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "philips",
+   "wd": "wd3",
+   "site": "jobs-and-careers",
+   "company": "Philips",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "hpe",
+   "wd": "wd5",
+   "site": "Jobsathpe",
+   "company": "Hewlett Packard Enterprise",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "abbott",
+   "wd": "wd5",
+   "site": "abbottcareers",
+   "company": "Abbott",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "roche",
+   "wd": "wd3",
+   "site": "roche-ext",
+   "company": "Roche",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "edwards",
+   "wd": "wd5",
+   "site": "EdwardsCareers",
+   "company": "Edwards Lifesciences",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "dxctechnology",
+   "wd": "wd1",
+   "site": "DXCJobs",
+   "company": "DXC Technology",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "cardinalhealth",
+   "wd": "wd1",
+   "site": "EXT",
+   "company": "Cardinal Health",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "smithnephew",
+   "wd": "wd5",
+   "site": "External",
+   "company": "Smith+Nephew",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "kimberlyclark",
+   "wd": "wd1",
+   "site": "GLOBAL",
+   "company": "Kimberly-Clark",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "baxter",
+   "wd": "wd1",
+   "site": "baxter",
+   "company": "Baxter",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "pfizer",
+   "wd": "wd1",
+   "site": "PfizerCareers",
+   "company": "Pfizer",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "astrazeneca",
+   "wd": "wd3",
+   "site": "Careers",
+   "company": "AstraZeneca",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "bacardi",
+   "wd": "wd3",
+   "site": "Jobs_Bacardi",
+   "company": "Bacardi",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "intel",
+   "wd": "wd1",
+   "site": "External",
+   "company": "Intel",
+   "searchText": "Costa Rica",
+   "_cr": "verified live CXS 2026-08-22; searchText keeps the 200-cap on the CR market"
+  },
+  {
+   "tenant": "trinityhealth",
+   "wd": "wd1",
+   "site": "Jobs",
+   "company": "Trinity Health"
+  },
+  {
+   "tenant": "bannerhealth",
+   "wd": "wd108",
+   "site": "Careers",
+   "company": "Banner Health"
+  },
+  {
+   "tenant": "ochsner",
+   "wd": "wd1",
+   "site": "Ochsner",
+   "company": "Ochsner Health"
+  },
+  {
+   "tenant": "vumc",
+   "wd": "wd1",
+   "site": "VumcCareers",
+   "company": "Vanderbilt University Medical Center"
+  },
+  {
+   "tenant": "sharp",
+   "wd": "wd1",
+   "site": "External",
+   "company": "Sharp HealthCare"
+  },
+  {
+   "tenant": "lvhn",
+   "wd": "wd1",
+   "site": "Lvhn",
+   "company": "Lehigh Valley Health Network"
+  },
+  {
+   "tenant": "ohiohealth",
+   "wd": "wd5",
+   "site": "ohiohealthjobs",
+   "company": "OhioHealth"
+  },
+  {
+   "tenant": "mercy",
+   "wd": "wd1",
+   "site": "MercyCareers",
+   "company": "Mercy"
+  },
+  {
+   "tenant": "fmc",
+   "wd": "wd12",
+   "site": "Fmc",
+   "company": "FMC Corporation"
+  },
+  {
+   "tenant": "labcorp",
+   "wd": "wd1",
+   "site": "External",
+   "company": "Labcorp"
+  },
+  {
+   "tenant": "humana",
+   "wd": "wd5",
+   "site": "Humana_External_Career_Site",
+   "company": "Humana"
+  },
+  {
+   "tenant": "centene",
+   "wd": "wd5",
+   "site": "Centene_External",
+   "company": "Centene"
+  },
+  {
+   "tenant": "cigna",
+   "wd": "wd5",
+   "site": "CignaCareers",
+   "company": "Cigna"
+  },
+  {
+   "tenant": "multicare",
+   "wd": "wd1",
+   "site": "Multicare",
+   "company": "MultiCare"
+  },
+  {
+   "tenant": "granite",
+   "wd": "wd1",
+   "site": "Careers",
+   "company": "Granite Construction"
+  },
+  {
+   "tenant": "carrier",
+   "wd": "wd5",
+   "site": "Jobs",
+   "company": "Carrier"
+  },
+  {
+   "tenant": "kone",
+   "wd": "wd3",
+   "site": "Careers",
+   "company": "Kone"
+  },
+  {
+   "tenant": "eiffage",
+   "wd": "wd3",
+   "site": "Eiffage_Careers",
+   "company": "Eiffage"
+  },
+  {
+   "tenant": "lendlease",
+   "wd": "wd3",
+   "site": "LendleaseCareers",
+   "company": "Lendlease"
+  },
+  {
+   "tenant": "georgfischer",
+   "wd": "wd103",
+   "site": "Georgfischer_Careers",
+   "company": "Georg Fischer"
+  },
+  {
+   "tenant": "taylormorrison",
+   "wd": "wd1",
+   "site": "TaylormorrisonCareers",
+   "company": "Taylor Morrison"
+  },
+  {
+   "tenant": "terminix",
+   "wd": "wd1",
+   "site": "Terminix",
+   "company": "Terminix"
+  },
+  {
+   "tenant": "fourseasons",
+   "wd": "wd3",
+   "site": "Search",
+   "company": "Four Seasons"
+  },
+  {
+   "tenant": "chipotle",
+   "wd": "wd5",
+   "site": "ChipotleCareers",
+   "company": "Chipotle"
+  },
+  {
+   "tenant": "shakeshack",
+   "wd": "wd5",
+   "site": "External",
+   "company": "Shake Shack"
+  },
+  {
+   "tenant": "target",
+   "wd": "wd5",
+   "site": "TargetCareers",
+   "company": "Target"
+  },
+  {
+   "tenant": "wegmans",
+   "wd": "wd1",
+   "site": "Wegmans",
+   "company": "Wegmans"
+  },
+  {
+   "tenant": "tjx",
+   "wd": "wd1",
+   "site": "Tjx_External",
+   "company": "TJX"
+  },
+  {
+   "tenant": "burlington",
+   "wd": "wd5",
+   "site": "BurlingtonCareers",
+   "company": "Burlington"
+  },
+  {
+   "tenant": "jbhunt",
+   "wd": "wd501",
+   "site": "Careers",
+   "company": "J.B. Hunt"
+  },
+  {
+   "tenant": "werner",
+   "wd": "wd501",
+   "site": "Werner",
+   "company": "Werner Enterprises"
+  },
+  {
+   "tenant": "saia",
+   "wd": "wd1",
+   "site": "SaiaCareers",
+   "company": "Saia"
+  },
+  {
+   "tenant": "ryder",
+   "wd": "wd5",
+   "site": "RyderCareers",
+   "company": "Ryder"
+  },
+  {
+   "tenant": "maersk",
+   "wd": "wd3",
+   "site": "Maersk_Careers",
+   "company": "Maersk"
+  },
+  {
+   "tenant": "chrobinson",
+   "wd": "wd5",
+   "site": "Chrobinson",
+   "company": "C.H. Robinson"
+  },
+  {
+   "tenant": "medtronic",
+   "wd": "wd1",
+   "site": "MedtronicCareers",
+   "company": "Medtronic"
+  },
+  {
+   "tenant": "terumo",
+   "wd": "wd3",
+   "site": "External",
+   "company": "Terumo"
+  },
+  {
+   "tenant": "bridgestone",
+   "wd": "wd5",
+   "site": "External",
+   "company": "Bridgestone"
+  },
+  {
+   "tenant": "equifax",
+   "wd": "wd5",
+   "site": "External",
+   "company": "Equifax"
+  },
+  {
+   "tenant": "westernunion",
+   "wd": "wd5",
+   "site": "westernunionjobs",
+   "company": "Western Union"
+  },
+  {
+   "tenant": "accenture",
+   "wd": "wd103",
+   "site": "AccentureCareers",
+   "company": "Accenture"
+  },
+  {
+   "tenant": "moog",
+   "wd": "wd5",
+   "site": "Moog_External_Career_Site",
+   "company": "Moog"
+  },
+  {
+   "tenant": "bbva",
+   "wd": "wd3",
+   "site": "Bbva",
+   "company": "BBVA"
+  },
+  {
+   "tenant": "santander",
+   "wd": "wd3",
+   "site": "SantanderCareers",
+   "company": "Santander"
+  },
+  {
+   "tenant": "zoom",
+   "wd": "wd5",
+   "site": "Zoom",
+   "company": "Zoom"
+  },
+  {
+   "tenant": "salesforce",
+   "wd": "wd12",
+   "site": "External_Career_Site",
+   "company": "Salesforce"
+  },
+  {
+   "tenant": "paypal",
+   "wd": "wd1",
+   "site": "Jobs",
+   "company": "PayPal"
+  },
+  {
+   "tenant": "netflix",
+   "wd": "wd108",
+   "site": "Netflix",
+   "company": "Netflix"
+  },
+  {
+   "tenant": "zendesk",
+   "wd": "wd1",
+   "site": "Zendesk",
+   "company": "Zendesk"
+  },
+  {
+   "tenant": "crowdstrike",
+   "wd": "wd5",
+   "site": "CrowdstrikeCareers",
+   "company": "CrowdStrike"
+  },
+  {
+   "tenant": "micron",
+   "wd": "wd1",
+   "site": "External",
+   "company": "Micron"
+  },
+  {
+   "tenant": "cisco",
+   "wd": "wd5",
+   "site": "Cisco_Careers",
+   "company": "Cisco"
+  },
+  {
+   "tenant": "verily",
+   "wd": "wd1",
+   "site": "Verily_Careers",
+   "company": "Verily"
+  },
+  {
+   "tenant": "usertesting",
+   "wd": "wd12",
+   "site": "Usertesting",
+   "company": "UserTesting"
+  },
+  {
+   "tenant": "ryancompanies",
+   "wd": "wd5",
+   "site": "Ryancompanies",
+   "company": "Ryan Companies"
+  },
+  {
+   "tenant": "swa",
+   "wd": "wd1",
+   "site": "External",
+   "company": "Southwest Airlines"
+  },
+  {
+   "tenant": "slu",
+   "wd": "wd5",
+   "site": "Careers",
+   "company": "Saint Louis University"
+  }
+ ]
 }
