@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
+import { firstSignIn } from '../../../lib/first-signin';
 
 /* The OAuth return leg (Google). Supabase sends the browser back here with
    ?code=; the code is exchanged for a session and the auth cookies are set on
@@ -27,9 +28,6 @@ export async function GET(req: NextRequest) {
   const { error } = await supabase.auth.exchangeCodeForSession(code);
   if (error) return NextResponse.redirect(new URL('/signin?error=oauth', url.origin));
   const { data: u } = await supabase.auth.getUser();
-  if (u?.user) {
-    await supabase.from('email_prefs').upsert({ user_id: u.user.id }, { onConflict: 'user_id', ignoreDuplicates: true })
-      .then(() => undefined, () => undefined);
-  }
+  if (u?.user) await firstSignIn(supabase, u.user);
   return res;
 }

@@ -1,6 +1,7 @@
 'use server';
 import { redirect } from 'next/navigation';
 import { supabaseServer } from '../../lib/supabase-server';
+import { firstSignIn } from '../../lib/first-signin';
 
 /* Auth server actions. Every path tolerates the Supabase project not existing
    yet (env absent → supabaseServer() is null): sign-in reports itself
@@ -56,12 +57,7 @@ export async function verifyToken(formData: FormData): Promise<void> {
   // (frequency 'off' — the digest is explicit opt-in). The welcome email
   // hangs off this same signal when the email phase lands.
   const { data: u } = await supabase!.auth.getUser();
-  if (u?.user) {
-    await supabase!.from('email_prefs').upsert(
-      { user_id: u.user.id },
-      { onConflict: 'user_id', ignoreDuplicates: true },
-    );
-  }
+  if (u?.user) await firstSignIn(supabase!, u.user);
   redirect(next);
 }
 
@@ -72,6 +68,5 @@ export async function ensurePrefs(): Promise<void> {
   if (!supabase) return;
   const { data: u } = await supabase.auth.getUser();
   if (!u?.user) return;
-  await supabase.from('email_prefs').upsert({ user_id: u.user.id }, { onConflict: 'user_id', ignoreDuplicates: true })
-    .then(() => undefined, () => undefined);
+  await firstSignIn(supabase, u.user);
 }
