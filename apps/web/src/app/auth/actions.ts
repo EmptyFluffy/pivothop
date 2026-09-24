@@ -64,3 +64,14 @@ export async function verifyToken(formData: FormData): Promise<void> {
   }
   redirect(next);
 }
+
+/* After a One Tap sign-in (no /auth/callback leg): the same first-sign-in
+   detector, an email_prefs row with the defaults. No-op without a session. */
+export async function ensurePrefs(): Promise<void> {
+  const supabase = await supabaseServer();
+  if (!supabase) return;
+  const { data: u } = await supabase.auth.getUser();
+  if (!u?.user) return;
+  await supabase.from('email_prefs').upsert({ user_id: u.user.id }, { onConflict: 'user_id', ignoreDuplicates: true })
+    .then(() => undefined, () => undefined);
+}
