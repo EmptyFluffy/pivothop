@@ -9,6 +9,7 @@ import SavedNavLink from './SavedNavLink';
 import AuthNavButton from './AuthNavButton';
 import PremiumGate from './PremiumGate';
 import SignInSheet from './SignInSheet';
+import RevealDirect from './RevealDirect';
 
 /* The site chrome shared by every secondary page: the landing's exact nav and
    footer inside the landing's exact .shell frame. One source, so the pages can
@@ -158,6 +159,7 @@ export function PageShell({ children, active, wide, v2 }: { children: React.Reac
       <div className="main">
         <PremiumGate />
         <SignInSheet />
+        <RevealDirect />
         <SwissBanner />
         <SearchOverlay />
         <LicenseSheet />

@@ -123,7 +123,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ occ:
     <PageShell v2 active="jobs">
       <div className="rtp salp">
         <Crumbs trail={[{ label: 'Jobs', href: '/jobs' }, { label: title, href: `/jobs/${occ}` }, { label: locked ? 'Direct posting' : j.company }]} />
-        <div className="jd-head">
+        <div className="jd-head" {...(locked ? { 'data-lk': `${occ}/${id}` } : {})}>
           {locked
             ? <LockMark size={40} seed={j.id} />
             : logo

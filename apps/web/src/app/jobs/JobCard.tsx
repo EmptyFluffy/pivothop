@@ -177,7 +177,7 @@ export function JobCard({ j, selected, v2 }: { j: Job; selected?: boolean; v2?: 
     <li>
       {employer
         ? <a href={j.url} target="_blank" rel="nofollow noopener noreferrer" className="job-card">{inner}</a>
-        : <Link href={`/jobs/${j.occ}/${j.id}`} className={`job-card${selected ? ' sel' : ''}`}>{inner}</Link>}
+        : <Link href={`/jobs/${j.occ}/${j.id}`} className={`job-card${selected ? ' sel' : ''}`} {...(locked ? { 'data-lk': `${j.occ}/${j.id}` } : {})}>{inner}</Link>}
     </li>
   );
 }
