@@ -776,7 +776,7 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
               {v2 && (
                 <div className="jb-thead" aria-hidden="true"><span /><span>Role</span><span>Salary</span><span>Posted</span><span /></div>
               )}
-              <ul className="job-list job-list-full">
+              <ul className="job-list job-list-full" data-live-board="">
                 {(v2 ? results.slice((curPage - 1) * PAGE, curPage * PAGE) : results.slice(0, shown)).map((j) => <JobCard key={j.id} j={j} selected={panelJob?.id === j.id} v2={v2} />)}
               </ul>
               {results.length === 0 && <p className="rt-note">Nothing matches. Clear a filter, or search fewer words.</p>}

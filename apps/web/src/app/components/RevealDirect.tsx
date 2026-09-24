@@ -20,7 +20,9 @@ export default function RevealDirect() {
       if (running) return;
       running = true;
       try {
-        const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-lk]'));
+        // the live board patches its own React state; touching its DOM would
+        // fight React and crash the page on the next render
+        const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-lk]')).filter((n) => !n.closest('[data-live-board]'));
         const byOcc = new Map<string, Map<string, HTMLElement[]>>();
         for (const n of nodes) {
           const [occ, id] = (n.dataset.lk ?? '').split('/');
@@ -44,29 +46,25 @@ export default function RevealDirect() {
         }
       } finally { running = false; }
     };
+    // Attribute and text changes only, never node replacement: React owns these
+    // elements and a removed node makes its next reconciliation throw.
     const patch = (n: HTMLElement, v: { company: string; logo?: string }) => {
       n.querySelectorAll<HTMLElement>('.jv-locked').forEach((el) => { el.textContent = v.company; el.classList.remove('jv-locked'); });
       n.querySelectorAll<HTMLElement>('.jd-blur').forEach((tile) => {
-        const size = tile.offsetWidth || 34;
-        const isMark = tile.classList.contains('jd-mark');
-        let repl: HTMLElement;
+        tile.classList.remove('jd-blur');
+        tile.removeAttribute('title'); tile.removeAttribute('aria-label');
         if (v.logo) {
-          const img = document.createElement('img');
-          img.src = v.logo; img.alt = ''; img.width = size; img.height = size;
-          if (isMark) { repl = document.createElement('span'); repl.className = 'jd-mark'; repl.appendChild(img); }
-          else repl = img;
+          tile.style.background = `url("${v.logo}") center / cover no-repeat`;
+          tile.style.borderRadius = '8px';
         } else {
           const [bg, fg] = monoTint(v.company);
-          repl = document.createElement('span');
-          repl.className = isMark ? 'jd-mark jd-mono' : 'job-mono';
-          repl.style.background = bg; repl.style.color = fg;
-          repl.setAttribute('aria-hidden', 'true');
-          repl.textContent = companyInitial(v.company);
+          tile.style.background = bg; tile.style.color = fg;
+          tile.style.display = 'inline-flex'; tile.style.alignItems = 'center'; tile.style.justifyContent = 'center';
+          tile.style.fontWeight = '600';
+          tile.textContent = companyInitial(v.company);
         }
-        tile.replaceWith(repl);
       });
       n.querySelectorAll<HTMLElement>('.jv-unlock').forEach((el) => { el.textContent = 'Apply'; el.classList.remove('jv-unlock'); });
-      n.querySelectorAll<HTMLElement>('.job-tag-direct').forEach((el) => { el.textContent = 'Direct'; });
       n.removeAttribute('data-lk');
     };
     sb.auth.getSession().then(({ data }) => { if (data.session) void run(); }).catch(() => undefined);
