@@ -605,8 +605,12 @@ for role, jobs in kept_byocc.items():
     # USAJOBS posts VA paramedics as "Medical Care Transportation Technician -
     # Paramedic" (the federal series name, then the job). Cutting at the dash left
     # "technician" and failed the 2026-09-21 run on a four-row board.
-    prof = role.replace('-', ' ')
-    sus = [j for j in jobs if _tail(j['title']) in TIER_TAIL and prof not in j['title'].lower()]
+    # The profession's own names: the slug, its title and its synonyms, so
+    # "Emergency Medical Technician" on the emt board is the profession, not a
+    # tier suffix (2026-09-25: the emt board failed at 33% on its own name).
+    _occ = next((o for o in tax if o['slug'] == role), None)
+    profs = {role.replace('-', ' ')} | ({_occ['title'].lower()} | {x.lower() for x in _occ.get('synonyms', [])} if _occ else set())
+    sus = [j for j in jobs if _tail(j['title']) in TIER_TAIL and not any(pn in j['title'].lower() for pn in profs)]
     share = len(sus) / len(jobs) if jobs else 0
     # Percentages on a tiny board are noise: two rows out of five is 40%.
     if share >= 0.10 and len(jobs) >= 10:
