@@ -108,7 +108,7 @@ function status() {
     }
   }
   if (readJson(ADJACENCY_FILE)) log('adjacency: computed');
-  log(`supabase mirror: ${hasSupabase() ? 'ON' : 'off (local NDJSON only — set SUPABASE_URL + SUPABASE_SERVICE_KEY in .env to enable)'}`);
+  log(`supabase mirror: ${process.env.SUPABASE_MIRROR === '1' && hasSupabase() ? 'ON' : 'off (SUPABASE_MIRROR=1 plus SUPABASE_URL and SUPABASE_SERVICE_KEY to enable)'}`);
 }
 
 const [cmd, arg] = process.argv.slice(2);
