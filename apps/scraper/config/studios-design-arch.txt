@@ -1,0 +1,755 @@
+# Design, UX and architecture studios, by their own website (2026-09-25).
+# "Name | domain". studio-resolve.mjs goes to the site, finds the careers page
+# and reads the hiring system it links to. Already-fleet domains are skipped.
+
+# ── US architecture: large and mid-size ──
+Gensler | gensler.com
+Perkins&Will | perkinswill.com
+HOK | hok.com
+Skidmore Owings & Merrill | som.com
+HDR | hdrinc.com
+Stantec | stantec.com
+Populous | populous.com
+Perkins Eastman | perkinseastman.com
+NBBJ | nbbj.com
+ZGF Architects | zgf.com
+CannonDesign | cannondesign.com
+HGA | hga.com
+Corgan | corgan.com
+Page | pagethink.com
+Ennead Architects | ennead.com
+Diller Scofidio + Renfro | dsrny.com
+SHoP Architects | shoparc.com
+Morphosis | morphosis.com
+Olson Kundig | olsonkundig.com
+Bohlin Cywinski Jackson | bcj.com
+Cooper Robertson | cooperrobertson.com
+Beyer Blinder Belle | beyerblinderbelle.com
+Robert A.M. Stern Architects | ramsa.com
+Pelli Clarke & Partners | pcparch.com
+Handel Architects | handelarchitects.com
+FXCollaborative | fxcollaborative.com
+Dattner Architects | dattner.com
+WXY | wxystudio.com
+Steven Holl Architects | stevenholl.com
+Safdie Architects | safdiearchitects.com
+Thornton Tomasetti | thorntontomasetti.com
+Buro Happold | burohappold.com
+Walter P Moore | walterpmoore.com
+Magnusson Klemencic Associates | mka.com
+CallisonRTKL | callisonrtkl.com
+LPA Design Studios | lpadesignstudios.com
+DLR Group | dlrgroup.com
+Cuningham | cuningham.com
+Ayers Saint Gross | asg-architects.com
+Ballinger | ballinger-ae.com
+SmithGroup | smithgroup.com
+Little | littleonline.com
+Gresham Smith | greshamsmith.com
+LS3P | ls3p.com
+Clark Nexsen | clarknexsen.com
+Moody Nolan | moodynolan.com
+Rockwell Group | rockwellgroup.com
+Yabu Pushelberg | yabupushelberg.com
+AvroKO | avroko.com
+Meyer Davis | meyerdavis.com
+ICRAVE | icrave.com
+Mithun | mithun.com
+Lake|Flato | lakeflato.com
+Marlon Blackwell Architects | marlonblackwell.com
+Brooks + Scarpa | brooksscarpa.com
+Michael Maltzan Architecture | mmaltzan.com
+Johnston Marklee | johnstonmarklee.com
+WORKac | work.ac
+MOS Architects | mos.nyc
+SO-IL | so-il.org
+nARCHITECTS | narchitects.com
+LEVENBETTS | levenbetts.com
+Leong Leong | leong-leong.com
+Höweler + Yoon | howeleryoon.com
+Merge Architects | mergearchitects.com
+NADAAA | nadaaa.com
+Payette | payette.com
+Elkus Manfredi | elkus-manfredi.com
+CBT Architects | cbtarchitects.com
+Shepley Bulfinch | shepleybulfinch.com
+Bruner/Cott | brunercott.com
+Bergmeyer | bergmeyer.com
+Arrowstreet | arrowstreet.com
+Perry Dean Rogers | perrydean.com
+William Rawn Associates | rawnarch.com
+Leers Weinzapfel | lwa-architects.com
+Machado Silvetti | machado-silvetti.com
+Utile | utiledesign.com
+Carrier Johnson + Culture | carrierjohnson.com
+AC Martin | acmartin.com
+Rios | rios.com
+Gruen Associates | gruenassociates.com
+Steinberg Hart | steinberghart.com
+Johnson Fain | johnsonfain.com
+HLW | hlw.design
+Ted Moudis Associates | tedmoudis.com
+TPG Architecture | tpgarchitecture.com
+Spector Group | spectorgroup.com
+Mancini | mancini.com
+STUDIOS Architecture | studios.com
+IA Interior Architects | interiorarchitects.com
+NELSON Worldwide | nelsonworldwide.com
+Solomon Cordwell Buenz | scb.com
+Goettsch Partners | gpchicago.com
+Valerio Dewalt Train | buildordie.com
+Krueck Sexton Partners | ksarch.com
+Booth Hansen | boothhansen.com
+Hartshorne Plunkard | hparchs.com
+Lamar Johnson Collaborative | theljc.com
+Wight & Company | wightco.com
+Eckenhoff Saunders | eckenhoffsaunders.com
+Legat Architects | legat.com
+FGM Architects | fgmarchitects.com
+Cordogan Clark | cordoganclark.com
+Epstein | epsteinglobal.com
+Harley Ellis Devereaux | hed.design
+Kirksey | kirksey.com
+Ziegler Cooper | zieglercooper.com
+PDR | pdrcorp.com
+Powers Brown | powersbrown.com
+Rottet Studio | rottetstudio.com
+Overland Partners | overlandpartners.com
+Alamo Architects | alamoarchitects.com
+Marmon Mok | marmonmok.com
+Ford Powell & Carson | fpcarch.com
+Michael Hsu Office of Architecture | michaelhsuoffice.com
+Clayton Korte | claytonkorte.com
+Baldridge Architects | baldridgearchitects.com
+Runa Workshop | runaworkshop.com
+Mark Odom Studio | markodomstudio.com
+Sanders Architecture | sandersarchitecture.com
+Nelsen Partners | nelsenpartners.com
+Studio 8 Architects | studio8architects.com
+BOKA Powell | bokapowell.com
+Omniplan | omniplan.com
+GFF | gff.com
+5G Studio Collaborative | 5gstudio.com
+Merriman Anderson Architects | merrimananderson.com
+Good Fulton & Farrell | gff.com
+The Beck Group | beckgroup.com
+Humphreys & Partners Architects | humphreys.com
+JHP Architecture | jhparch.com
+Womack + Hampton | womackhampton.com
+Ankrom Moisan | ankrommoisan.com
+Weber Thompson | weberthompson.com
+Runberg Architecture Group | runberg.com
+SRG Partnership | srgpartnership.com
+LMN Architects | lmnarchitects.com
+Miller Hull | millerhull.com
+GGLO | gglo.com
+Schemata Workshop | schemataworkshop.com
+Hacker Architects | hackerarchitects.com
+Bora Architects | bora.co
+Holst Architecture | holstarc.com
+Works Progress Architecture | worksprogressarchitecture.com
+Lever Architecture | leverarchitecture.com
+Skylab Architecture | skylabarchitecture.com
+Allied Works | alliedworks.com
+THA Architecture | tha-architecture.com
+Mackenzie | mcknze.com
+SERA Architects | seradesign.com
+Hennebery Eddy | henneberyeddy.com
+Opsis Architecture | opsisarch.com
+Arquitectonica | arquitectonica.com
+Zyscovich | zyscovich.com
+Cooper Carry | coopercarry.com
+Smallwood | smallwood.com
+Rule Joy Trammell + Rubio | rjtr.com
+Lord Aeck Sargent | lordaecksargent.com
+Praxis3 | praxis3.com
+Niles Bolton Associates | nilesbolton.com
+TVS Design | tvsdesign.com
+Hickok Cole | hickokcole.com
+Cunningham Quill | cunninghamquill.com
+Bonstra Haresign | bonstra.com
+Shalom Baranes Associates | sbaranes.com
+Quinn Evans | quinnevans.com
+KGD Architecture | kgdarchitecture.com
+Hord Coplan Macht | hcm2.com
+Design Collective | designcollective.com
+Ziger Snead | zigersnead.com
+Marks Thomas | marksthomas.com
+GWWO Architects | gwwoinc.com
+Little Diversified | littleonline.com
+Shook Kelley | shookkelley.com
+Hastings Architecture | hastingsarchitecture.com
+EOA Architects | eoarch.com
+Tuck-Hinton | tuckhinton.com
+ESa | esarch.com
+Snow Kreilich Architects | snowkreilich.com
+MSR Design | msrdesign.com
+BWBR | bwbr.com
+EskewDumezRipple | eskewdumezripple.com
+Trahan Architects | trahanarchitects.com
+Waggonner & Ball | wbarchitects.com
+Jones Studio | jonesstudioinc.com
+Wendell Burnette Architects | wendellburnettearchitects.com
+Will Bruder Architects | willbruder.com
+DeBartolo Architects | debartoloarchitects.com
+FFKR Architects | ffkr.com
+VCBO Architecture | vcbo.com
+GSBS Architects | gsbsconsulting.com
+MHTN Architects | mhtn.com
+Method Studio | methodstudio.com
+Gould Evans | gouldevans.com
+Helix Architecture + Design | helixkc.com
+BNIM | bnim.com
+Hoefer Welker | hoeferwelker.com
+Rothschild Doyno Collaborative | rdcollab.com
+Desmone Architects | desmone.com
+EwingCole | ewingcole.com
+KieranTimberlake | kierantimberlake.com
+DIGSAU | digsau.com
+Erdy McHenry Architecture | erdymchenry.com
+Stanev Potts Architects | stanevpotts.com
+Voith & Mactavish | voithandmactavish.com
+Neumann/Smith | neumannsmith.com
+Rossetti | rossetti.com
+Hamilton Anderson Associates | hamilton-anderson.com
+Kraemer Design Group | kraemerdesigngroup.com
+McIntosh Poris Associates | mcintoshporis.com
+Davis Partnership Architects | davispartnership.com
+Fentress Architects | fentressarchitects.com
+Tryba Architects | trybaarchitects.com
+OZ Architecture | ozarch.com
+Shears Adkins Rockmore | sa-r.com
+RNL Design | rnldesign.com
+Klipp | klipp.com
+Anderson Mason Dale | amdarchitects.com
+Semple Brown Design | semplebrown.com
+KTGY | ktgy.com
+Withee Malcolm | witheemalcolm.com
+Bassenian Lagoni | bassenianlagoni.com
+Danielian Associates | danielian.com
+Ware Malcomb | waremalcomb.com
+Taylor Design | wearetaylor.com
+Studio One Eleven | studio-111.com
+HMC Architects | hmcarchitects.com
+CO Architects | coarchitects.com
+Ehrlich Yanai Rhee Chaney | eyrc.com
+Koning Eizenberg Architecture | kearch.com
+Lorcan O'Herlihy Architects | loharchitects.com
+Belzberg Architects | belzbergarchitects.com
+Lehrer Architects | lehrerarchitects.com
+Marmol Radziner | marmol-radziner.com
+Standard Architecture | standardarchitecture.com
+Kovac Design Studio | kovacdesignstudio.com
+Assembledge+ | assembledge.com
+Frederick Fisher and Partners | fisherpartners.net
+Roman and Williams | romanandwilliams.com
+Studio Sofield | studiosofield.com
+Ken Fulk | kenfulk.com
+Kelly Wearstler | kellywearstler.com
+Commune Design | communedesign.com
+Workstead | workstead.com
+COOKFOX Architects | cookfox.com
+Weiss/Manfredi | weissmanfredi.com
+Marvel Architects | marveldesigns.com
+Rogers Partners | rogersarchitects.com
+Gluck+ | gluckplus.com
+Andrew Berman Architect | andrewbermanarchitect.com
+Only If | onlyif.nyc
+Bernheimer Architecture | bernheimerarchitecture.com
+Frederick Tang Architecture | fredericktang.com
+Kohn Pedersen Fox | kpf.com
+Studio Gang | studiogang.com
+HKS | hksinc.com
+Arcadis | arcadis.com
+AECOM | aecom.com
+Jacobs | jacobs.com
+WSP | wsp.com
+Kimley-Horn | kimley-horn.com
+Burns & McDonnell | burnsmcd.com
+HNTB | hntb.com
+Michael Baker International | mbakerintl.com
+Dewberry | dewberry.com
+STV | stvinc.com
+Langan | langan.com
+Simpson Gumpertz & Heger | sgh.com
+Silman | silman.com
+Severud Associates | severud.com
+LeMessurier | lemessurier.com
+Odeh Engineers | odehengineers.com
+VHB | vhb.com
+Tighe & Bond | tighebond.com
+Weston & Sampson | westonandsampson.com
+Nelson\Nygaard | nelsonnygaard.com
+Fehr & Peers | fehrandpeers.com
+Kittelson & Associates | kittelson.com
+Alta Planning + Design | altago.com
+Toole Design | tooledesign.com
+Sam Schwartz | samschwartz.com
+
+# ── US landscape architecture ──
+SWA Group | swagroup.com
+Sasaki | sasaki.com
+OLIN | theolinstudio.com
+James Corner Field Operations | fieldoperations.net
+Hargreaves Jones | hargreavesjones.com
+SCAPE | scapestudio.com
+Reed Hilderbrand | reedhilderbrand.com
+Design Workshop | designworkshop.com
+Nelson Byrd Woltz | nbwla.com
+Michael Van Valkenburgh Associates | mvvainc.com
+Stoss Landscape Urbanism | stoss.net
+Ground Inc | groundinc.com
+Mikyoung Kim Design | myk-d.com
+Klopfer Martin Design Group | klopfermartin.com
+Copley Wolff Design Group | copley-wolff.com
+Starr Whitehouse | starrwhitehouse.com
+Mathews Nielsen | mnlandscape.com
+Future Green Studio | futuregreenstudio.com
+Thomas Balsley Associates | tbany.com
+Ken Smith Workshop | kensmithworkshop.com
+W Architecture | w-architecture.com
+Hollander Design | hollanderdesign.com
+Oehme van Sweden | ovsla.com
+Rhodeside & Harwell | rhodeside-harwell.com
+Mahan Rykiel Associates | mahanrykiel.com
+Floura Teeter | ftla.com
+Studio Outside | studiooutside.us
+TBG Partners | tbg-inc.com
+Asakura Robinson | asakurarobinson.com
+Ten Eyck Landscape Architects | teneyckla.com
+Hocker Design Group | hockerdesign.com
+MESA Design Group | mesadesigngroup.com
+Civitas | civitasinc.com
+Wenk Associates | wenkla.com
+Norris Design | norris-design.com
+Dig Studio | digstudio.com
+Surfacedesign | sdisf.com
+CMG Landscape Architecture | cmgsite.com
+Andrea Cochran Landscape Architecture | acochran.com
+Walker Macy | walkermacy.com
+Hood Design Studio | hooddesignstudio.com
+PWP Landscape Architecture | pwpla.com
+Spackman Mossop Michaels | smmlandscape.com
+Agency Landscape + Planning | agencylp.com
+Site Design Group | site-design.com
+Hoerr Schaudt | hoerrschaudt.com
+Coen+Partners | coenpartners.com
+Confluence | confluence.design
+Studio-MLA | studio-mla.com
+Rios Clementi Hale | rchstudios.com
+
+# ── UK architecture and design ──
+Foster + Partners | fosterandpartners.com
+Zaha Hadid Architects | zaha-hadid.com
+Grimshaw | grimshaw.global
+Heatherwick Studio | heatherwick.com
+Rogers Stirk Harbour + Partners | rsh-p.com
+Allies and Morrison | alliesandmorrison.com
+Hawkins\Brown | hawkinsbrown.com
+Feilden Clegg Bradley Studios | fcbstudios.com
+AHMM | ahmm.co.uk
+Stanton Williams | stantonwilliams.com
+Haworth Tompkins | haworthtompkins.com
+David Chipperfield Architects | davidchipperfield.com
+Wilkinson Eyre | wilkinsoneyre.com
+Sheppard Robson | sheppardrobson.com
+BDP | bdp.com
+Purcell | purcelluk.com
+Scott Brownrigg | scottbrownrigg.com
+Pollard Thomas Edwards | ptea.co.uk
+PRP | prp.co.uk
+Levitt Bernstein | levittbernstein.co.uk
+HTA Design | hta.co.uk
+Weston Williamson | westonwilliamson.com
+Squire and Partners | squireandpartners.com
+Stiff + Trevillion | stiffandtrevillion.com
+Tp bennett | tpbennett.com
+Assael Architecture | assael.co.uk
+Studio Egret West | egretwest.com
+Stephen Taylor Architects | stephentaylorarchitects.co.uk
+6a architects | 6a.co.uk
+Carmody Groarke | carmodygroarke.com
+Sergison Bates | sergisonbates.co.uk
+Caruso St John | carusostjohn.com
+Adam Khan Architects | adamkhan.co.uk
+Mae Architects | mae.co.uk
+Waugh Thistleton Architects | waughthistleton.com
+dRMM | drmm.co.uk
+Studio Weave | studioweave.com
+Assemble | assemblestudio.co.uk
+Mikhail Riches | mikhailriches.com
+Bennetts Associates | bennettsassociates.com
+Hopkins Architects | hopkins.co.uk
+Make Architects | makearchitects.com
+Architecture 00 | architecture00.net
+Morris+Company | morrisand.co
+Pilbrow & Partners | pilbrowandpartners.com
+Fletcher Priest Architects | fletcherpriest.com
+Buckley Gray Yeoman | buckleygrayyeoman.com
+Orms | orms.co.uk
+Conran and Partners | conranandpartners.com
+Benoy | benoy.com
+Chapman Taylor | chapmantaylor.com
+Broadway Malyan | broadwaymalyan.com
+Ryder Architecture | ryderarchitecture.com
+Stride Treglown | stridetreglown.com
+AHR | ahrglobal.com
+IBI Group | ibigroup.com
+LDA Design | lda-design.co.uk
+Gustafson Porter + Bowman | gp-b.com
+Grant Associates | grant-associates.uk.com
+Gillespies | gillespies.co.uk
+J & L Gibbons | jlg-london.com
+Periscope | periscope-studio.com
+
+# ── Europe architecture ──
+BIG - Bjarke Ingels Group | big.dk
+OMA | oma.com
+MVRDV | mvrdv.com
+UNStudio | unstudio.com
+Mecanoo | mecanoo.nl
+Powerhouse Company | powerhouse-company.com
+KAAN Architecten | kaanarchitecten.com
+Neutelings Riedijk | neutelings-riedijk.com
+Civic Architects | civicarchitects.eu
+NL Architects | nlarchitects.nl
+Snøhetta | snohetta.com
+Henning Larsen | henninglarsen.com
+3XN | 3xn.com
+Schmidt Hammer Lassen | shl.dk
+COBE | cobe.dk
+Vilhelm Lauritzen Architects | vla.dk
+C.F. Møller | cfmoller.com
+White Arkitekter | whitearkitekter.com
+Tham & Videgård | thamvidegard.se
+Helen & Hard | helenhard.no
+Lendager | lendager.com
+SANAA | sanaa.co.jp
+Herzog & de Meuron | herzogdemeuron.com
+Christ & Gantenbein | christgantenbein.com
+Diener & Diener | dienerdiener.ch
+Gigon/Guyer | gigon-guyer.ch
+EM2N | em2n.ch
+Burckhardt+Partner | burckhardtpartner.ch
+Itten+Brechbühl | ittenbrechbuehl.ch
+Boltshauser Architekten | boltshauser.info
+Graber Pulver | graberpulver.ch
+Holzer Kobler | holzerkobler.com
+Atelier 5 | atelier5.ch
+Caruso St John Zurich | carusostjohn.com
+Gmp Architekten | gmp.de
+Sauerbruch Hutton | sauerbruchhutton.de
+David Chipperfield Berlin | davidchipperfield.com
+Barkow Leibinger | barkowleibinger.com
+Behnisch Architekten | behnisch.com
+Henn | henn.com
+Ingenhoven | ingenhovenarchitects.com
+kadawittfeldarchitektur | kadawittfeldarchitektur.de
+Hascher Jehle | hascherjehle.de
+Coop Himmelb(l)au | coop-himmelblau.at
+Querkraft | querkraft.at
+Snøhetta Innsbruck | snohetta.com
+Dominique Perrault | perraultarchitecture.com
+Jean Nouvel | jeannouvel.com
+Lacaton & Vassal | lacatonvassal.com
+Valode & Pistre | v-p.com
+Wilmotte & Associés | wilmotte.com
+Studio Gang Paris | studiogang.com
+RCR Arquitectes | rcrarquitectes.es
+Ensamble Studio | ensamble.info
+Carlo Ratti Associati | carloratti.com
+Renzo Piano Building Workshop | rpbw.com
+Stefano Boeri Architetti | stefanoboeriarchitetti.net
+Mario Cucinella Architects | mcarchitects.it
+Park Associati | parkassociati.com
+Piuarch | piuarch.it
+Citterio-Viel & Partners | citterio-viel.com
+Kengo Kuma and Associates | kkaa.co.jp
+Sou Fujimoto Architects | sou-fujimoto.net
+Woods Bagot | woodsbagot.com
+Hassell | hassellstudio.com
+Bates Smart | batessmart.com
+Cox Architecture | coxarchitecture.com.au
+Architectus | architectus.com.au
+Warren and Mahoney | warrenandmahoney.com
+Aedas | aedas.com
+Benoy Asia | benoy.com
+Ong&Ong | ong-ong.com
+WOHA | woha-architects.com
+
+# ── Latin America and Costa Rica ──
+Taller Rozana Montiel | rozanamontiel.com
+Fernanda Canales | fernandacanales.com
+Frida Escobedo | fridaescobedo.net
+Rojkind Arquitectos | rojkindarquitectos.com
+TEN Arquitectos | ten-arquitectos.com
+Sordo Madaleno | sordomadaleno.com
+Isay Weinfeld | isayweinfeld.com
+Studio MK27 | studiomk27.com.br
+Triptyque | triptyque.com
+Elemental | elementalchile.cl
+Mazzanti Arquitectos | elequipodemazzanti.com
+Plan:b Arquitectos | planbarq.com
+Salagnac Arquitectos | salagnac.com
+Studio Saxe | studiosaxe.com
+Formafatal | formafatal.com
+Gensler Costa Rica | gensler.com
+Zürcher Arquitectos | zurcherarquitectos.com
+Cañas Arquitectos | canasarquitectos.com
+Robles Arquitectos | roblesarq.com
+Sanchez Jimenez Arquitectos | sanchezjimenez.com
+
+# ── Product, UX and service design studios and consultancies ──
+IDEO | ideo.com
+frog | frog.co
+Pentagram | pentagram.com
+Huge | hugeinc.com
+R/GA | rga.com
+Work & Co | work.co
+Instrument | instrument.com
+Fantasy | fantasy.co
+Dept | deptagency.com
+ustwo | ustwo.com
+Designit | designit.com
+Artefact | artefactgroup.com
+Smart Design | smartdesignworldwide.com
+Teague | teague.com
+fuseproject | fuseproject.com
+Ammunition | ammunitiongroup.com
+Whipsaw | whipsaw.com
+NewDealDesign | newdealdesign.com
+Method | method.com
+Continuum | continuuminnovation.com
+Punchcut | punchcut.com
+Moment Design | momentdesign.com
+Cooper | cooper.com
+Clay | clay.global
+MetaLab | metalab.com
+Ramotion | ramotion.com
+Focus Lab | focuslab.agency
+thoughtbot | thoughtbot.com
+Viget | viget.com
+Happy Cog | happycog.com
+Upstatement | upstatement.com
+Postlight | postlight.com
+Rangle | rangle.io
+Nerdery | nerdery.com
+Bottle Rocket | bottlerocketstudios.com
+WillowTree | willowtreeapps.com
+Fueled | fueled.com
+Savvy Apps | savvyapps.com
+Rightpoint | rightpoint.com
+Bounteous | bounteous.com
+Hero Digital | herodigital.com
+Code and Theory | codeandtheory.com
+Big Spaceship | bigspaceship.com
+Area 17 | area17.com
+Barbarian | wearebarbarian.com
+Firstborn | firstborn.com
+Stink Studios | stinkstudios.com
+Media.Monks | monks.com
+Jam3 | jam3.com
+Active Theory | activetheory.net
+Resn | resn.co.nz
+Hello Monday | hellomonday.com
+Locomotive | locomotive.ca
+Dogstudio | dogstudio.co
+Lusion | lusion.co
+Made by Many | madebymany.com
+Elephant | elephant.is
+Tigerspike | tigerspike.com
+Cantina | cantina.co
+Argodesign | argodesign.com
+Frog Design Munich | frog.co
+Lunar | lunar.com
+Tangible | tangible.is
+Modernist Studio | modernist.studio
+Crema | crema.us
+Dialexa | dialexa.com
+Yeti | yeti.co
+Ueno | ueno.co
+Basic Agency | basicagency.com
+Hello Design | hellodesign.com
+Ferroconcrete | ferroconcrete.com
+Struck | struck.com
+Character | characterbrand.com
+Moniker | monikersf.com
+Tolleson | tolleson.com
+Turner Duckworth | turnerduckworth.com
+Manual Creative | manualcreative.com
+Studio Rodrigo | studiorodrigo.com
+Athletics | athleticsnyc.com
+Wondersauce | wondersauce.com
+Sub Rosa | wearesubrosa.com
+Redscout | redscout.com
+Lovely Day | lovelyday.studio
+Enlisted Design | enlisteddesign.com
+Native | nativedesign.com
+Champions Design | championsdesign.com
+Order | order.design
+Underline Studio | underlinestudio.com
+Studio Freight | studiofreight.com
+Chermayeff & Geismar & Haviv | cghnyc.com
+Doyle Partners | doylepartners.com
+Base Design | basedesign.com
+Hyperakt | hyperakt.com
+Mother Design | motherdesign.com
+Wolff Olins | wolffolins.com
+Interbrand | interbrand.com
+Landor | landor.com
+Prophet | prophet.com
+Lippincott | lippincott.com
+Siegel+Gale | siegelgale.com
+COLLINS | wearecollins.com
+Sterling Brands | sterlingbrands.com
+CBX | cbx.com
+Marks | marks.design
+Design Bridge and Partners | designbridge.com
+Jones Knowles Ritchie | jkrglobal.com
+Bulletproof | bulletproof.com
+Pearlfisher | pearlfisher.com
+Elmwood | elmwood.com
+Superunion | superunion.com
+FutureBrand | futurebrand.com
+Carbone Smolan Agency | carbonesmolan.com
+Mucca | mucca.com
+Anagrama | anagrama.com
+Vault49 | vault49.com
+Koto | koto.studio
+DixonBaxi | dixonbaxi.com
+Ragged Edge | raggededge.com
+Mucho | mucho.ninja
+Two Times Elliott | twotimeselliott.com
+Porto Rocha | portorocha.com
+Gretel | gretelny.com
+Trollbäck+Company | trollback.com
+Sagmeister & Walsh | sagmeisterwalsh.com
+Studio Number One | studionumberone.com
+Buck | buck.co
+Oddfellows | oddfellows.tv
+Giant Ant | giantant.ca
+Golden Wolf | goldenwolf.tv
+Psyop | psyop.com
+Tendril | tendril.studio
+ManvsMachine | mvsm.com
+Elastic | elastic.tv
+Imaginary Forces | imaginaryforces.com
+Local Projects | localprojects.com
+Gallagher & Associates | gallagherdesign.com
+Ralph Appelbaum Associates | raai.com
+Thinc Design | thincdesign.com
+C&G Partners | cgpartnersllc.com
+Bluecadet | bluecadet.com
+Potion | potiondesign.com
+Unit9 | unit9.com
+Momentum Design Lab | momentumdesignlab.com
+Kin + Carta | kinandcarta.com
+Slalom | slalom.com
+West Monroe | westmonroe.com
+Globant | globant.com
+Wizeline | wizeline.com
+Gorilla Logic | gorillalogic.com
+Avantica | avantica.com
+Sophilabs | sophilabs.com
+Zemoga | zemoga.com
+10Clouds | 10clouds.com
+Netguru | netguru.com
+STRV | strv.com
+Toptal Design | toptal.com
+Fjord | fjordnet.com
+Idean | idean.com
+Frog Design Austin | frog.co
+Big Human | bighuman.com
+Red Antler | redantler.com
+Gin Lane | ginlane.com
+Pattern Brands | pattern.com
+Mschf | mschf.com
+Superrb | superrb.com
+Instrument Portland | instrument.com
+Wieden+Kennedy | wk.com
+Droga5 | droga5.com
+72andSunny | 72andsunny.com
+Anomaly | anomaly.com
+Mother | motherlondon.com
+Johannes Leonardo | johannesleonardo.com
+Mischief | mischiefusa.com
+Pereira O'Dell | pereiraodell.com
+Mekanism | mekanism.com
+Goodby Silverstein & Partners | gspsf.com
+Venables Bell & Partners | venablesbell.com
+Arnold Worldwide | arn.com
+Hill Holliday | hhcc.com
+The Martin Agency | martinagency.com
+Fallon | fallon.com
+Carmichael Lynch | carmichaellynch.com
+Colle McVoy | collemcvoy.com
+GSD&M | gsdm.com
+The Richards Group | richards.com
+Preacher | preacher.co
+Callen | callen.com
+Deutsch | deutsch.com
+Team One | teamone-usa.com
+BBH | bartleboglehegarty.com
+AKQA | akqa.com
+VML | vml.com
+Ogilvy | ogilvy.com
+McCann | mccann.com
+FCB | fcb.com
+TBWA | tbwa.com
+DDB | ddb.com
+Grey | grey.com
+Havas | havas.com
+Publicis Sapient | publicissapient.com
+Digitas | digitas.com
+Razorfish | razorfish.com
+Critical Mass | criticalmass.com
+Jack Morton | jackmorton.com
+George P. Johnson | gpj.com
+Momentum Worldwide | momentumww.com
+Sparks | wearesparks.com
+Freeman | freeman.com
+
+# ── Industrial, furniture and object design ──
+Herman Miller | hermanmiller.com
+Steelcase | steelcase.com
+Knoll | knoll.com
+Vitra | vitra.com
+Hay | hay.dk
+Muuto | muuto.com
+Fritz Hansen | fritzhansen.com
+&Tradition | andtradition.com
+Menu | menu.as
+Allsteel | allsteeloffice.com
+Haworth | haworth.com
+Humanscale | humanscale.com
+Emeco | emeco.net
+Flos | flos.com
+Artemide | artemide.com
+Louis Poulsen | louispoulsen.com
+Rich Brilliant Willing | richbrilliantwilling.com
+Apparatus Studio | apparatusstudio.com
+Lindsey Adelman Studio | lindseyadelman.com
+Gantri | gantri.com
+Snarkitecture | snarkitecture.com
+Layer | layerdesign.com
+Industrial Facility | industrialfacility.co.uk
+PriestmanGoode | priestmangoode.com
+Seymourpowell | seymourpowell.com
+Map Project Office | mapprojectoffice.com
+Tangerine | tangerine.net
+Morrama | morrama.com
+Kaleidoscope | kascope.com
+Bould Design | boulddesign.com
+Box Clever | boxclever.com
+Design Concepts | dcinc.com
+Delve | delve.com
+Karten Design | kartendesign.com
+Altitude | altitudeinc.com
+Essential Design | essentialdesign.com
+Bresslergroup | bresslergroup.com
+Nectar Product Development | nectarpd.com
+Ziba | ziba.com
+Frog Design Shanghai | frog.co
+Minimal | minimalny.com
+Aruliden | aruliden.com
+Hatch Duo | hatchduo.com

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import { stripHtml } from '../lib/text.js';
 import { readJson } from '../lib/store.js';
 import { CONFIG_DIR, CACHE_DIR } from '../lib/paths.js';
+import { mapTitle } from '../normalize/titles.js';
 
 // Direct careers pages — the hidden-jobs source. The 2026-08-03 studio probe
 // showed that most name-brand architecture and design studios (Foster +
@@ -152,7 +153,7 @@ const PRICES = {
   'gemini-2.5-flash-lite': [0.25, 1.5], 'gemini-2.5-flash': [0.3, 2.5],
   'claude-haiku-4-5': [1, 5], 'claude-sonnet-4-5': [3, 15],
 };
-const meter = { calls: 0, cached: 0, tokensIn: 0, tokensOut: 0, usd: 0, schema: 0, provider: PROVIDER };
+const meter = { calls: 0, cached: 0, tokensIn: 0, tokensOut: 0, usd: 0, schema: 0, heuristic: 0, provider: PROVIDER };
 function price(model) {
   const p = PRICES[model] || [Number(process.env.DIRECT_PRICE_IN) || 1, Number(process.env.DIRECT_PRICE_OUT) || 5];
   return p;
@@ -163,7 +164,7 @@ function charge(model, tin, tout) {
   meter.usd += (tin * pi + tout * po) / 1e6;
 }
 export function meterSummary() {
-  return `direct: LLM ${meter.provider}, ${meter.calls} calls, ${meter.cached} cache hits, ${meter.schema} pages read from JobPosting schema (no LLM), ${meter.tokensIn.toLocaleString()} tokens in / ${meter.tokensOut.toLocaleString()} out, est. $${meter.usd.toFixed(3)} (budget $${BUDGET_USD})`;
+  return `direct: LLM ${meter.provider}, ${meter.calls} calls, ${meter.cached} cache hits, ${meter.schema} pages read from JobPosting schema, ${meter.heuristic} studios read by the no-model path, ${meter.tokensIn.toLocaleString()} tokens in / ${meter.tokensOut.toLocaleString()} out, est. $${meter.usd.toFixed(3)} (budget $${BUDGET_USD})`;
 }
 
 async function callGemini(prompt) {
@@ -285,7 +286,79 @@ function jobPostingsFromHtml(html, baseUrl) {
 // Kundig to JazzHR, NBBJ to Jobvite. The job list is never on the page we were
 // pointed at, which is why extraction kept returning an honest zero. So when a
 // careers page names one of these, the adapter FOLLOWS it and reads there.
-const ATS_HINT = /myworkdayjobs\.com|teamtailor\.com|jobs\.personio|bamboohr\.com|homerun\.co|pinpointhq\.com|applytojob\.com|jobvite\.com|icims\.com|breezy\.hr|avature\.net|dayforcehcm\.com|successfactors\.|sapsf\.|taleo\.net|eploy\.net|hirehive\.com|smartrecruiters\.com|greenhouse\.io|lever\.co|ashbyhq\.com|recruitee\.com|workable\.com|recruiting\.paylocity\.com|careers\.hibob\.com/;
+const ATS_HINT = /myworkdayjobs\.com|teamtailor\.com|jobs\.personio|bamboohr\.com|homerun\.co|pinpointhq\.com|applytojob\.com|jobvite\.com|icims\.com|breezy\.hr|avature\.net|dayforcehcm\.com|successfactors\.|sapsf\.|taleo\.net|eploy\.net|hirehive\.com|smartrecruiters\.com|greenhouse\.io|lever\.co|ashbyhq\.com|recruitee\.com|workable\.com|recruiting\.paylocity\.com|careers\.hibob\.com|recruitingbypaycor\.com|ultipro\.com|workforcenow\.adp\.com|isolvedhire\.com|applicantpro\.com|recruiterbox\.com|zohorecruit\.|hire\.trakstar\.com|jobscore\.com|freshteam\.com|paycomonline\.net|rippling\.com|softgarden\.io|join\.com\/companies|reachmee\.com|clearcompany\.com|jobs\.gusto\.com/;
+
+/* ── the no-model reader ────────────────────────────────────────────────────
+ * A job is a link on the careers page (or the ATS page it points at) whose
+ * label maps to an occupation and whose path looks like a posting; or, for the
+ * boutique studios that list openings inline, a short line of page text that
+ * maps to an occupation and names a role noun. The taxonomy does the judging a
+ * model would: "Interior Design" (a service) has no role noun and is ignored,
+ * "Project Architect" is a job. Inline postings take the text between their
+ * line and the next one as the ad. */
+const ROLE_NOUN = /\b(architects?|designers?|engineer|manager|director|intern|internship|assistant|coordinator|specialist|lead|developer|planner|technician|administrator|artist|producer|strategist|writer|researcher|analyst|consultant|associate|drafter|draughtsperson|modell?er|visuali[sz]er|estimator|surveyor|officer|accountant|bookkeeper|receptionist|principal|architekt(?:in)?|zeichner(?:in)?|praktikant(?:in)?|praktikum|projektleiter(?:in)?|bauleiter(?:in)?|stagiaire|architecte|dessinat(?:eur|rice)|projeteu(?:r|se)|arquitect[oa]|diseñador[a]?|progettista)\b/i;
+const POSTING_PATH = /career|job|position|opening|vacanc|stellen|emploi|role|posting|apply|lavor|empleo|vaga|join|offre/i;
+function atsListingRoot(href) {
+  try {
+    const u = new URL(href);
+    const h = u.hostname;
+    if (/\.careers\.hibob\.com$/.test(h)) return `${u.origin}/jobs`;
+    if (/\.bamboohr\.com$/.test(h)) return `${u.origin}/careers`;
+    if (/\.(breezy\.hr|homerun\.co|applytojob\.com|pinpointhq\.com|teamtailor\.com|recruitee\.com|isolvedhire\.com|applicantpro\.com|recruiterbox\.com|freshteam\.com)$/.test(h)) return `${u.origin}/`;
+    return href;
+  } catch { return href; }
+}
+const POSTING_SIGNALS = /\b(apply|application|requirements?|qualifications?|responsibilit\w*|experience|we are looking|we're looking|you will|salary|full[- ]time|part[- ]time|contract|deadline|start date|bewerb\w*|anforderung\w*|aufgaben|ihr profil|pensum|stellenantritt|postuler|profil recherch\w*|missions?|requisitos|responsabilidades)\b|\b\d{2,3}\s?[-–]?\s?\d{0,3}\s?%/gi;
+// catch-alls are not openings
+const NOT_OPENING = /spontaneous|unsolicited|general application|open application|initiativbewerbung|spontanbewerbung|candidature spontan|candidatura espont|talent (?:pool|community)|future opportunit|no (?:current )?(?:openings|vacancies|positions)|keine offenen/i;
+// "Basel: Project Architect (100%)" -> location Basel, title Project Architect (100%)
+function splitPlace(t) {
+  const m = /^([A-ZÀ-Ý][\p{L} .'-]{1,30}):\s+(.{4,})$/u.exec(t);
+  return m && m[1].split(/\s+/).length <= 3 ? { place: m[1].trim(), title: m[2].trim() } : { place: null, title: t };
+}
+const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
+function heuristicJobs(pageUrl, all, text) {
+  const out = []; const seenT = new Set();
+  const host = hostOf(pageUrl);
+  const base = (() => { try { return new URL(pageUrl).pathname.replace(/\/$/, ''); } catch { return ''; } })();
+  for (const l of all) {
+    const label = (l.label || '').split('\n')[0].trim();
+    if (label.length < 5 || label.length > 90 || NOT_OPENING.test(label) || !ROLE_NOUN.test(label) || !mapTitle(label)) continue;
+    if (hostOf(l.href) !== host) continue;
+    let p = ''; try { p = new URL(l.href).pathname.replace(/\/$/, ''); } catch { continue; }
+    // on a hosted ATS page every deeper link is a posting (breezy /p/..., jazz /apply/...)
+    if (p === base || (!ATS_HINT.test(pageUrl) && !POSTING_PATH.test(p))) continue;
+    const k = label.toLowerCase(); if (seenT.has(k)) continue; seenT.add(k);
+    out.push({ title: label, url: l.href.replace(/#.*$/, ''), id: l.href.replace(/#.*$/, ''), inline: false });
+  }
+  if (out.length) return out;
+  const lines = String(text || '').split('\n').map((t) => t.trim());
+  const pageOpen = /(current|open) (openings|positions|roles|vacancies|opportunities)|job openings|we'?re hiring|we are hiring|now hiring|vacancies|offene stellen|stellenangebote|postes (ouverts|à pourvoir)|vacantes|job opportunities|career opportunities|available positions/i.test(String(text || ''));
+  const idx = [];
+  lines.forEach((t, i) => {
+    if (t.length < 5 || t.length > 80 || /[.!?:]$/.test(t) || t.split(/\s+/).length > 10) return;
+    if (/^(proven|experience|knowledge|ability|strong|excellent|good|minimum|at least|you|we|our|the|a|an|must|should|working|degree|previous|demonstrated|familiarity|proficien)/i.test(t)) return;
+    if (NOT_OPENING.test(t) || !ROLE_NOUN.test(t) || !mapTitle(t)) return;
+    const k = t.toLowerCase(); if (seenT.has(k)) return; seenT.add(k);
+    idx.push(i);
+  });
+  idx.forEach((i, n) => {
+    const end = n + 1 < idx.length ? idx[n + 1] : Math.min(lines.length, i + 60);
+    const body = lines.slice(i, end).join('\n').slice(0, 8000);
+    const t = lines[i];
+    // A heading is an opening only when its block reads like an ad: two
+    // distinct posting signals. A careers page that tiles its disciplines
+    // ("Structural Engineer", "Transport Planner") names roles it hires, not
+    // roles open today.
+    const sig = new Set((body.match(POSTING_SIGNALS) || []).map((x) => x.toLowerCase().slice(0, 6)));
+    // a listing page (announces openings) needs less per block: titles there
+    // often carry only a location and a "view" link
+    const ok = sig.size >= 2 || (pageOpen && (sig.size >= 1 || /\b(read more|learn more|view|details|apply|more info|mehr|en savoir plus|ver más)\b/i.test(body)));
+    if (!ok) return;
+    out.push({ title: t, url: pageUrl, id: `${pageUrl.replace(/[#?].*$/, '')}#${t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`, inline: true, text: body.length >= 200 ? body : String(text).slice(0, 20000) });
+  });
+  return out;
+}
 
 function links(html, baseUrl) {
   const out = [];
@@ -306,17 +379,22 @@ export async function fetchRaw({ log }) {
   const curated = readJson(path.join(CONFIG_DIR, 'direct-companies.json'))?.companies ?? [];
   const auto = readJson(path.join(CONFIG_DIR, 'direct-companies-auto.json'))?.companies ?? [];
   const seen = new Set(curated.map((c) => c.careers.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]));
-  const companies = curated.concat(auto.filter((c) => !seen.has(c.careers.replace(/^https?:\/\/(www\.)?/, '').split('/')[0])));
-  if (!process.env.GEMINI_API_KEY && !process.env.ANTHROPIC_API_KEY) {
-    log(`direct: no GEMINI_API_KEY or ANTHROPIC_API_KEY — ${companies.length} careers pages NOT read (add a key to .env / Actions secrets)`);
-    return [];
-  }
+  let companies = curated.concat(auto.filter((c) => !seen.has(c.careers.replace(/^https?:\/\/(www\.)?/, '').split('/')[0])));
+  // DIRECT_ONLY="Name|Name": read just these (debugging a reader change)
+  if (process.env.DIRECT_ONLY) { const only = new Set(process.env.DIRECT_ONLY.split('|')); companies = companies.filter((c) => only.has(c.name)); }
+  // No model, no stop (2026-09-25). The fleet used to return nothing without a
+  // key and to abandon the whole run the moment credits ran out, so for weeks
+  // 880 studios were read by nobody. Now the model is an upgrade, not a gate:
+  // JobPosting schema, then job links and inline headings whose text maps to an
+  // occupation in our taxonomy, read deterministically.
+  let llmDead = !process.env.GEMINI_API_KEY && !process.env.ANTHROPIC_API_KEY;
+  if (llmDead) log(`direct: no GEMINI_API_KEY or ANTHROPIC_API_KEY — ${companies.length} careers pages read WITHOUT a model (schema, job links, inline headings)`);
   log(`direct: ${companies.length} careers pages, model layer ${PROVIDER} (${PROVIDER === 'gemini' ? GEMINI_MODEL : MODEL}), budget $${BUDGET_USD} per run`);
   const rows = [];
   try {
-    for (const { name: company, careers } of companies) {
+    const readFirm = async ({ name: company, careers }) => {
     try {
-      if (!(await allowed(careers))) { log(`direct:${company} — robots.txt disallows, skipped`); continue; }
+      if (!(await allowed(careers))) { log(`direct:${company} — robots.txt disallows, skipped`); return; }
 
       // Render first — these are JS apps whose listings never appear in raw
       // HTML. Static fetch is the fallback, and it says so when it is used.
@@ -329,7 +407,7 @@ export async function fetchRaw({ log }) {
         pageText = rendered.text.slice(0, 12000);
       } else {
         const html = await politeGet(careers);
-        if (!html) { log(`direct:${company} — page unreachable (bot wall or dead URL), skipped`); continue; }
+        if (!html) { log(`direct:${company} — page unreachable (bot wall or dead URL), skipped`); return; }
         log(`direct:${company} — NOT RENDERED, static HTML only (JS-loaded jobs will be missed)`);
         all = links(html, careers);
         fullText = stripHtml(html).slice(0, 20000);
@@ -338,7 +416,10 @@ export async function fetchRaw({ log }) {
 
       // Follow the ATS the careers page points at — that is where the openings
       // are. Only when the current page is not already on it, and only one hop.
-      const atsUrl = all.find((l) => ATS_HINT.test(l.href));
+      const atsUrl0 = all.find((l) => ATS_HINT.test(l.href));
+      // a link to ONE posting (BIG -> hibob/jobs/<id>, Mecanoo -> homerun/<job>)
+      // is followed to the board's listing root instead, where every opening is
+      const atsUrl = atsUrl0 ? { ...atsUrl0, href: atsListingRoot(atsUrl0.href) } : null;
       if (atsUrl && !ATS_HINT.test(pageUrl)) {
         log(`direct:${company} — careers page links to a hosted ATS, following: ${atsUrl.href.slice(0, 80)}`);
         if (await allowed(atsUrl.href)) {
@@ -373,7 +454,43 @@ export async function fetchRaw({ log }) {
           kept++;
         }
         log(`direct:${company} — ${kept} postings from JobPosting schema (no LLM)`);
-        continue;
+        return;
+      }
+
+      if (llmDead) {
+        const found = heuristicJobs(pageUrl, all, fullText).slice(0, MAX_JOBS_PER_SITE);
+        let kept = 0;
+        for (const hj of found) {
+          let jobText = hj.text, sj = null;
+          if (!hj.inline) {
+            if (!(await allowed(hj.url))) continue;
+            // static first: most posting pages (ATS ones especially) are server
+            // rendered, and a browser render costs ten times the time
+            const staticHtml = await politeGet(hj.url);
+            const staticText = staticHtml ? stripHtml(staticHtml) : '';
+            if (staticText.length >= 400) {
+              jobText = staticText.slice(0, 20000);
+              sj = jobPostingsFromHtml(staticHtml, hj.url)[0] ?? null;
+            } else {
+              const jp = await renderGet(hj.url);
+              jobText = jp ? jp.text.slice(0, 20000) : staticText;
+              sj = jobPostingsFromHtml(jp?.html ?? null, hj.url)[0] ?? null;
+            }
+          }
+          if (!jobText || jobText.length < 200) continue;
+          const sp = splitPlace(hj.title);
+          rows.push({
+            source: name, external_id: hj.id, title: sj?.title || sp.title, company,
+            location: sj?.location ?? sp.place, remote_flag: sj?.remote || /\bremote\b/i.test(`${hj.title} ${jobText.slice(0, 2000)}`),
+            salary_min: sj?.salary_min ?? null, salary_max: sj?.salary_max ?? null, currency: sj?.salary_min ? sj.currency : null,
+            salary_period: sj?.salary_min ? sj.salary_period : null,
+            description_text: jobText, posted_at: sj?.posted ?? null, url: hj.url,
+          });
+          kept++;
+        }
+        meter.heuristic = (meter.heuristic ?? 0) + (kept ? 1 : 0);
+        log(`direct:${company} — ${kept} postings (no model: ${found.filter((f) => f.inline).length} inline, ${found.filter((f) => !f.inline).length} linked)`);
+        return;
       }
 
       const linkList = all.filter((l) => l.label).slice(0, 150).map((l) => `${l.label} -> ${l.href}`).join('\n').slice(0, 8000);
@@ -382,7 +499,7 @@ export async function fetchRaw({ log }) {
         [pageUrl, pageText.slice(0, 4000), linkList],
       );
       const jobs = (listing?.jobs ?? []).slice(0, MAX_JOBS_PER_SITE);
-      if (!jobs.length) { log(`direct:${company} — 0 open positions found`); continue; }
+      if (!jobs.length) { log(`direct:${company} — 0 open positions found`); return; }
 
       let kept = 0;
       for (const j of jobs) {
@@ -448,16 +565,26 @@ export async function fetchRaw({ log }) {
       log(`direct:${company} — ${kept} postings`);
     } catch (err) {
       if (err.creditsExhausted) {
-        log(`direct: MODEL QUOTA OR CREDITS EXHAUSTED (${err.message}) — fleet run abandoned at ${company}; top up the provider, nothing else is wrong`);
-        break;
+        log(`direct: MODEL QUOTA OR CREDITS EXHAUSTED (${err.message}) at ${company}; the rest of the fleet is read without a model`);
+        llmDead = true;
+        return;
       }
       if (err.budgetReached) {
-        log(`direct: BUDGET REACHED ($${BUDGET_USD} this run) at ${company}; the rest of the fleet waits for tomorrow's cache-warm pass`);
-        break;
+        log(`direct: BUDGET REACHED ($${BUDGET_USD} this run) at ${company}; the rest of the fleet is read without a model`);
+        llmDead = true;
+        return;
       }
       log(`direct:${company} — failed: ${String(err.message).slice(0, 120)}`);
     }
-    }
+    };
+    // Firms read concurrently (2026-09-25): the fleet is 1,000+ studios and the
+    // no-model path renders every one; in series it would outlast the nightly.
+    // Politeness stays per host (lastHit), and each firm is its own host.
+    const queue = [...companies];
+    const CONC = Number(process.env.DIRECT_CONCURRENCY) || 8;
+    await Promise.all(Array.from({ length: Math.min(CONC, queue.length) }, async () => {
+      for (let c = queue.shift(); c; c = queue.shift()) await readFirm(c);
+    }));
     log(meterSummary());
     return rows;
   } finally {
