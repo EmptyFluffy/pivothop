@@ -6,7 +6,7 @@ import { getJobs, jobOccupations, jobCount, occTitle, occField, occSearchText, o
 import JobsBrowse from '../JobsBrowse';
 import { coverableSlugs } from '../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, routeOrigins } from '../../routes/routes-data';
-import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShort, categoryShowAll, categoryStats, slugifyName, allCategories, type Category } from '../categories-data';
+import { getCategory, categorySlugs, categoryJobs, categoryBlurb, categoryShort, categoryShowAll, categoryStats, slugifyName, allCategories, type Category, categoryBand, stateOccCategories, stateHub } from '../categories-data';
 import { countryName } from '../countries';
 import { REGION_META, type RegionKey } from '../regions';
 import { postedLabel, isDirect, type Job } from '../JobCard';
@@ -46,11 +46,17 @@ export async function generateMetadata({ params }: { params: Promise<{ occ: stri
     };
   }
   const cat = getCategory(occ);
-  if (cat) return {
-    title: cat.titleLocal ? `${cat.title} · ${cat.titleLocal}` : `${cat.title}: ${cat.count.toLocaleString()} open roles`,
-    description: categoryShort(cat),
-    alternates: { canonical: `/jobs/${occ}` },
-  };
+  if (cat) {
+    // posted pay band in the title (2026-09-25): the one title element that
+    // moves CTR on a listing query, and it is our own number
+    const cb = categoryBand(cat);
+    const sal = cb ? ` ($${cb.p25}k–$${cb.p75}k)` : '';
+    return {
+      title: cat.titleLocal ? `${cat.title} · ${cat.titleLocal}${sal}` : `${cat.title}: ${cat.count.toLocaleString()} open roles${sal}`,
+      description: categoryShort(cat),
+      alternates: { canonical: `/jobs/${occ}` },
+    };
+  }
   return {};
 }
 
@@ -460,6 +466,13 @@ function CategoryBoard({ cat }: { cat: Category }) {
   // page links back up to the hub and across to the occupation board.
   const cityOccs = cat.kind === 'city' && cat.city && cat.cityCountry ? cityOccCategories(cat.city, cat.cityCountry) : [];
   const hub = cat.kind === 'occ-city' && cat.city && cat.cityCountry ? cityHub(cat.city, cat.cityCountry) : null;
+  // US state axis (2026-09-25): the same hub-and-spokes as cities
+  const stateOccs = cat.kind === 'state' && cat.state ? stateOccCategories(cat.state) : [];
+  const stateHubCat = cat.kind === 'occ-state' && cat.state ? stateHub(cat.state) : null;
+  // Category facts (2026-09-25, the Remote Rocketship blocks): who hires the
+  // most in this slice and what it pays by level, from the rows themselves.
+  const catTiers = tierStats(jobs);
+  const catCompanies = topCompanies(jobs.filter((j) => j.company !== 'Direct employer'), 5);
   // Same-kind siblings first, then the top pages of other kinds.
   const rest = allCategories().filter((c) => c.slug !== cat.slug);
   const related = [...rest.filter((c) => c.kind === cat.kind).slice(0, 8), ...rest.filter((c) => c.kind !== cat.kind).slice(0, 8)];
@@ -507,6 +520,61 @@ function CategoryBoard({ cat }: { cat: Category }) {
             All roles in {cat.city}: <Link className="gl" href={`/jobs/${hub.slug}`}>{hub.title}</Link>{' '}
             ({hub.count.toLocaleString()} open). Every {destTitle.toLowerCase()} role, anywhere: <Link className="gl" href={`/jobs/${cat.destOcc}`}>{destTitle} jobs</Link>.
           </p>
+        )}
+        {stateOccs.length > 0 && (
+          <section className="rt-sec jb-byocc">
+            <h2>{cat.searchTitle} jobs by occupation</h2>
+            <span className="jb-occlinks">
+              {stateOccs.map((c) => (
+                <Link key={c.slug} href={`/jobs/${c.slug}`}>{occTitle(c.destOcc!)} <span className="lbl">{c.count.toLocaleString()}</span></Link>
+              ))}
+            </span>
+          </section>
+        )}
+        {stateHubCat && (
+          <p className="rt-note">
+            All roles in {stateHubCat.searchTitle}: <Link className="gl" href={`/jobs/${stateHubCat.slug}`}>{stateHubCat.title}</Link>{' '}
+            ({stateHubCat.count.toLocaleString()} open). Every {destTitle.toLowerCase()} role, anywhere: <Link className="gl" href={`/jobs/${cat.destOcc}`}>{destTitle} jobs</Link>.
+          </p>
+        )}
+        {(catTiers.some((t) => t.band) || catCompanies.length >= 3) && (
+          <section className="rt-sec occ-facts">
+            <h2>What these postings say</h2>
+            {catTiers.some((t) => t.band) && (
+              <div className="occ-tblwrap">
+                <table className="occ-tbl">
+                  <thead><tr><th>Seniority</th><th>Live roles</th><th>State pay</th><th>Posted band</th></tr></thead>
+                  <tbody>
+                    {catTiers.map((t) => (
+                      <tr key={t.key}>
+                        <td>{t.label}</td>
+                        <td className="n">{t.n.toLocaleString()}</td>
+                        <td className="n">{t.band ? t.band.n.toLocaleString() : '—'}</td>
+                        <td className="n">{t.band ? `$${t.band.p25}k–$${t.band.p75}k` : '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="rt-note occ-tbl-note">Level read from the title; pay where stated, in US dollars</p>
+              </div>
+            )}
+            {catCompanies.length >= 3 && (
+              <div className="occ-cos">
+                <h3>Hiring the most right now</h3>
+                <ul>
+                  {catCompanies.map(([co, n]) => {
+                    const cs = companySlugFor(co);
+                    return (
+                      <li key={co}>
+                        {cs ? <Link className="gl" href={`/companies/${cs}`}>{co}</Link> : <span>{co}</span>}
+                        <span className="n">{n}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </section>
         )}
         {cat.slug === 'with-equity' && (
           <p className="rt-note"><Link className="gl" href="/companies/with-equity">Companies hiring with equity</Link></p>

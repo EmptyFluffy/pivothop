@@ -69,6 +69,14 @@ function cellsFor(slug: string, list: Category[]): { title: string; rows: { c: C
       if (!byCountry.has(cty)) byCountry.set(cty, []);
       byCountry.get(cty)!.push({ c, label: shortLabel(c, { dropCountry: true }) || 'All roles' });
     }
+  } else if (slug === 'states') {
+    // states group like cities: Texas's cell holds Texas's occupation pages
+    push('Every state', of(['state'], (c) => c.title.replace(/^Jobs in /, '')));
+    for (const c of list.filter((x) => x.kind === 'occ-state')) {
+      const cty = countryOf(c) ?? 'Elsewhere';
+      if (!byCountry.has(cty)) byCountry.set(cty, []);
+      byCountry.get(cty)!.push({ c, label: shortLabel(c, { dropCountry: true }) || 'All roles' });
+    }
   } else if (slug === 'languages') {
     // languages group by country: Switzerland's cell holds English, German, French
     for (const c of list.filter((x) => x.kind === 'lang-country')) {

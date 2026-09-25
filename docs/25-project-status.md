@@ -101,6 +101,19 @@
 
 ## Pending
 
+### The Remote Rocketship map (2026-09-25) — what to copy, what is done, what is left
+*Read from their sitemaps (11,875 URLs: 2,538 job titles, 6,823 country x title, 1,691 companies, ~580 tech/skill boards, 199 geographies, 605 static) and three page templates. Ours the same day: 8,930 URLs, 3,600 indexed. The constraint is indexing speed, not page supply, so the order favours what improves already-indexed pages first.*
+
+- ✅ **Posted pay band in title tags** (categories, companies; occupations already had it): "Nurse jobs in Texas: 412 open roles ($72k–$98k)". Zero new pages, the cheapest CTR change there is.
+- ✅ **US state family** (`state`, `occ-state`; slugs `in-<state>`, `<occ>-in-<state>`, Georgia takes `-usa`): 11k of 29k US rows carry a state; floors 6 / 10-to-index; `/jobs/browse/states` facet; state hub lists its occupation pages like the city family.
+- ✅ **"What these postings say" on category pages**: pay by level and the five employers hiring most in the slice (direct rows stay anonymous), the two blocks their pages carry that ours had only on occupation boards.
+- ⏳ **Job-title pages** (`/jobs/title/<slug>`), their biggest family. We hold ~200k distinct raw titles; every title with 15+ live rows hangs from its occupation ("Patient Navigator jobs", "Mortgage Closer jobs"). Estimated 2,000 to 3,000 pages. Gate: 15 rows, must map to an occupation, never a synonym of the occupation's own title (that is the occupation page). Do after the state family indexes.
+- ⏳ **Skill boards**: the 226 `/skills/<slug>` pages are glossary pages; theirs (`/jobs/aws/`) are live boards. Add the matching live list to each skill page (skills are already mined per posting), or a `/jobs/skill/<slug>` family. ~300 pages.
+- ⏳ **Level and requirement variants**: entry-level, no experience stated, no degree required, internships, part-time, per occupation. We hold `lv`, the experience and education gates and the contract type. ~600 pages with the 6 floor.
+- ⏳ **`agent-instructions.md`** next to `llms.txt`, pointing at the MCP route; and an OpenAPI description for the public JSON.
+- ✗ Industries (no per-posting industry), locale sites (/br, /de, /fr; the Swiss local-language titles cover the demand we can see), "ghost score".
+
+
 ### Near-term (do now / this week)
 - **[USER] Search Console — the gate on nearly everything else.** Resubmit the sitemap (**1,867 URLs**, now with honest per-page `lastmod`), Request Indexing on ~20 best pages (origin pages first — they went from near-orphaned to 5,080 inbound links, so they are the most likely to move). **Bing Webmaster Tools**: verify once (pairs with IndexNow, which Google does not support — it reaches Bing/Yandex and, through Bing's index, ChatGPT search). Read three things and report back: indexed count, the "crawled – currently not indexed" trend, and which queries already draw impressions. Until then every prioritisation below is a guess.
 - **[USER] Export loop wiring**: Postmark domain verify + Anthropic API key + pick render env (Vercel Pro vs VPS) — then the PDF send-loop goes fully live.

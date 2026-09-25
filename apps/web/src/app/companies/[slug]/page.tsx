@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const where = c.countries.length === 1 ? ` in ${countryName(c.countries[0][0])}` : '';
   const extras = [c.band ? 'pay' : null, c.benefits.length >= 2 ? 'benefits' : null].filter(Boolean).join(' and ');
   return {
-    title: `${c.name} jobs`,
+    title: `${c.name} jobs: ${c.count.toLocaleString()} open roles${c.band ? ` ($${c.band.p25}k–$${c.band.p75}k)` : ''}`,
     description: `${c.count} open roles at ${c.name}${where}${c.remoteN > 0 ? `, ${c.remoteN} remote` : ''}${extras ? `, with ${extras}` : ''}.`,
     alternates: { canonical: `/companies/${slug}` },
   };

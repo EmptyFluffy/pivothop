@@ -5,7 +5,8 @@ import { occField, occTitle, jobOccupations } from './jobs-data';
 import { countryName } from './countries';
 import { regionOf, regionInName, regionName, regionSlug, type RegionKey } from './regions';
 import { article } from '../../lib/site';
-import { cityOf, citySlug } from './cities';
+import { cityOf, citySlug, stateOf } from './cities';
+import { US_STATE_NAMES } from '../salary/salary-data';
 import { createHash } from 'node:crypto';
 
 /* Programmatic category pages — the filter/tag axis of the board (the RemoteOK
@@ -74,7 +75,8 @@ export type CategoryKind =
   | 'flag-field' | 'flag-country' | 'pay-country'                                // benefits/pay long tail
   | 'region' | 'field-region' | 'remote-region' | 'occ-region'                   // macro-region axis (LATAM, Europe…)
   | 'city' | 'occ-city'                                                           // city axis (2026-09-09): "Architect jobs in Zürich"
-  | 'lang-country';                                                                // language axis (2026-09-10): "English-speaking jobs in Switzerland"
+  | 'lang-country'                                                                 // language axis (2026-09-10): "English-speaking jobs in Switzerland"
+  | 'state' | 'occ-state';                                                        // US state axis (2026-09-25): "Nurse jobs in Texas"
 export type Category = {
   slug: string;          // /jobs/<slug>
   kind: CategoryKind;
@@ -91,6 +93,7 @@ export type Category = {
   city?: string;         // city kinds: the canonical city name
   cityCountry?: string;  // city kinds: the resolved country code the city sits in
   titleLocal?: string;   // Swiss cities: the title in the canton's language ("Emplois à Lausanne")
+  state?: string;        // state kinds: the two-letter US state code
   indexable: boolean;    // joins the sitemap (city kinds only above CITY_SITEMAP_FLOOR; everything else always)
   sig: string;           // content signature (the matched job ids) for an honest lastmod
 };
@@ -263,6 +266,29 @@ function candidates(): Cand[] {
     }
   }
 
+  // ── US state axis (2026-09-25): "Jobs in Texas", "Nurse jobs in Texas" ──
+  // The one geography Remote Rocketship has and we did not: 11k of our 29k
+  // US rows carry a state. Slugs are in-<state>; a state that shares a name
+  // with a country (Georgia) takes -usa.
+  const stateCount = new Map<string, number>();
+  for (const j of jobs) { if (j.c !== 'US') continue; const st = stateOf(j.location); if (st) stateCount.set(st, (stateCount.get(st) ?? 0) + 1); }
+  const usedSlugs = new Set(out.map((c) => c.slug));
+  for (const [st, n] of [...stateCount.entries()].sort((a, b) => b[1] - a[1])) {
+    if (n < THRESHOLD) continue;
+    const name = US_STATE_NAMES[st]; if (!name) continue;
+    let sl = slugify(name);
+    if (usedSlugs.has(`in-${sl}`)) sl = `${sl}-usa`;
+    usedSlugs.add(`in-${sl}`);
+    out.push({ slug: `in-${sl}`, kind: 'state', title: `Jobs in ${name}`, searchTitle: name, query: 'c=US', state: st,
+      noun: `roles in ${name}`, match: (j) => j.c === 'US' && stateOf(j.location) === st } as Cand);
+    for (const o of occs) {
+      const t = occTitle(o);
+      out.push({ slug: `${o}-in-${sl}`, kind: 'occ-state', title: `${t} jobs in ${name}`, searchTitle: `${t.toLowerCase()} in ${name}`, state: st, destOcc: o,
+        showAllBase: `/jobs/${o}`, query: 'c=US', noun: `${t.toLowerCase()} roles in ${name}`,
+        match: (j) => j.occ === o && j.c === 'US' && stateOf(j.location) === st } as Cand);
+    }
+  }
+
   // ── language axis: "English-speaking jobs in Switzerland" ──
   for (const c of codes) for (const [code, lang] of Object.entries(LANG_NAMES)) {
     const name = countryName(c); const disp = inName(c);
@@ -358,7 +384,7 @@ export function allCategories(): Category[] {
       && !!ledger[c.slug] && daysSince(ledger[c.slug]) <= GRACE_DAYS;
     if (!clears && !graced) continue;
     seen.add(c.slug);
-    const indexable = c.kind === 'city' ? matched.length >= CITY_SITEMAP_FLOOR : c.kind === 'occ-city' ? matched.length >= OCC_CITY_SITEMAP_FLOOR : true;
+    const indexable = c.kind === 'city' ? matched.length >= CITY_SITEMAP_FLOOR : c.kind === 'occ-city' || c.kind === 'occ-state' ? matched.length >= OCC_CITY_SITEMAP_FLOOR : true;
     out.push({ ...c, count: matched.length, remoteN: matched.filter((j) => j.remote).length, graced, indexable, sig: sigOf(matched.map((j) => `${j.occ}/${j.id}`)) });
   }
   out.sort((a, b) => b.count - a.count);
@@ -391,6 +417,20 @@ export function categorySlugs(): string[] { return allCategories().map((c) => c.
 /** The categories pushed at Google: everything but the thin end of the city axis. */
 export function categorySitemapSlugs(): string[] { return allCategories().filter((c) => c.indexable).map((c) => c.slug); }
 /** The occupation pages of one city, biggest first (the city hub's "by occupation" block). */
+export function stateOccCategories(st: string): Category[] {
+  return allCategories().filter((c) => c.kind === 'occ-state' && c.state === st);
+}
+export function stateHub(st: string): Category | null {
+  return allCategories().find((c) => c.kind === 'state' && c.state === st) ?? null;
+}
+/* Posted pay band of a category, for its title tag: 25th and 75th of the
+   stated mid-points, 8 stated or more. Same shape as the occupation page. */
+export function categoryBand(c: Category): { n: number; p25: number; p75: number } | null {
+  const mids = poolFor(c).filter(c.match).map((j) => (j.smin || j.smax ? ((j.smin ?? j.smax ?? 0) + (j.smax ?? j.smin ?? 0)) / 2 : null)).filter((v): v is number => v != null).sort((a, b) => a - b);
+  if (mids.length < 8) return null;
+  const q = (p: number) => Math.round(mids[Math.floor((mids.length - 1) * p)] / 1000);
+  return { n: mids.length, p25: q(0.25), p75: q(0.75) };
+}
 export function cityOccCategories(city: string, cc: string): Category[] {
   return allCategories().filter((c) => c.kind === 'occ-city' && c.city === city && c.cityCountry === cc);
 }
@@ -500,7 +540,7 @@ export function swissStats(c: Category): SwissStats | null {
 export function categoryShort(c: Category): string {
   const n = c.count.toLocaleString();
   const rem = c.remoteN > 0 && c.kind !== 'remote' && !/^remote/.test(c.slug) ? `, ${c.remoteN.toLocaleString()} remote` : '';
-  const thing = c.kind === 'city' ? `roles in ${c.city}` : c.kind === 'country' || c.kind === 'region' ? `roles in ${c.searchTitle}` : (c.noun ?? `${c.searchTitle} roles`);
+  const thing = c.kind === 'city' ? `roles in ${c.city}` : c.kind === 'country' || c.kind === 'region' || c.kind === 'state' ? `roles in ${c.searchTitle}` : (c.noun ?? `${c.searchTitle} roles`);
   return `${n} open ${thing}${rem}. Pay, skills and the routes in, updated daily.`;
 }
 
@@ -527,6 +567,10 @@ export function categoryBlurb(c: Category): string {
       return `${n} live four-day-week roles, freshest first${rem}. A shorter week, stated in the posting. Apply at the origin.`;
     case 'city':
       return `${n} live openings in ${c.searchTitle}, from company career pages and public boards, freshest first${rem}. Every role names ${c.searchTitle} as its location, and each one links out to apply at the source.`;
+    case 'state':
+      return `${n} live openings in ${c.searchTitle}, from company career pages and public boards, freshest first${rem}. Every role names a ${c.searchTitle} location, and each one links out to apply at the source.`;
+    case 'occ-state':
+      return `${n} live ${c.noun}, freshest first${rem}. The postings that place the job in ${c.searchTitle.replace(/^.* in /, '')}, with the skills each one asks for. Apply at the source.`;
     case 'occ-city':
       return `${n} live ${c.noun}, freshest first${rem}. The postings that name ${c.city} as the workplace, with the skills each one asks for and the routes ${article(c.searchTitle)} ${c.searchTitle.replace(/ in .*$/, '')} background reaches. Apply at the source.`;
     case 'lang-country':

@@ -127,7 +127,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     )),
     { url: `${BASE}/direct`, ...fixed('/direct'), changeFrequency: 'daily', priority: 0.7 },
     ...jobOccupations().map((s) => ({ url: `${BASE}/jobs/${s}`, ...mod(`/jobs/${s}`), changeFrequency: 'daily' as const, priority: 0.7 })),
-    ...allCategories().filter((c) => c.indexable).map((c) => ({ url: `${BASE}/jobs/${c.slug}`, ...dated(`/jobs/${c.slug}`, c.sig), changeFrequency: 'daily' as const, priority: c.kind === 'city' || c.kind === 'occ-city' ? 0.65 : 0.6 })),
+    ...allCategories().filter((c) => c.indexable).map((c) => ({ url: `${BASE}/jobs/${c.slug}`, ...dated(`/jobs/${c.slug}`, c.sig), changeFrequency: 'daily' as const, priority: c.kind === 'city' || c.kind === 'occ-city' || c.kind === 'state' || c.kind === 'occ-state' ? 0.65 : 0.6 })),
   ];
   writeLedger();
   return urls;

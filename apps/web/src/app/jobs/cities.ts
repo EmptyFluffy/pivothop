@@ -71,3 +71,22 @@ export function cityOf(location: string | undefined | null): string | null {
 
 /** Slug for a city page: NFKD, diacritics stripped, bare. */
 export const citySlug = (city: string) => city.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+/* US state of a posting (2026-09-25, the state family): the two-letter code
+   after a comma ("Houston, TX", "Chicago, IL; Pittsburgh, PA" keeps the first)
+   or a full state name anywhere in the text ("Washington, District of
+   Columbia"). Only meaningful when the resolved country is US; the caller
+   checks that. */
+const STATE_BY_NAME: Record<string, string> = Object.fromEntries(Object.entries(US_STATE_NAMES).map(([k, v]) => [fold(v), k]));
+export function stateOf(location: string | undefined | null): string | null {
+  if (!location) return null;
+  const m = /,\s*([A-Za-z]{2})\b(?![a-z])/.exec(location);
+  if (m && STATE_CODES.has(m[1].toLowerCase())) return m[1].toUpperCase();
+  const f = fold(location.replace(/\([^)]*\)/g, ' '));
+  for (const seg of f.split(/\s*[;|/·•,]\s*|\s+-\s+/)) {
+    const st = STATE_BY_NAME[seg.trim()];
+    if (st) return st;
+  }
+  if (/\bd\.?c\.?\b/.test(f) && /washington/.test(f)) return 'DC';
+  return null;
+}

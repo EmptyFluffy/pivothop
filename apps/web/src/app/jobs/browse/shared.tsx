@@ -32,6 +32,11 @@ export const FACETS: {
     kinds: ['city', 'occ-city'],
   },
   {
+    slug: 'states', title: 'By US state', short: 'States', h1: 'Every state, preloaded.',
+    note: 'The United States by state, then each state by occupation.',
+    kinds: ['state', 'occ-state'],
+  },
+  {
     slug: 'languages', title: 'By language', short: 'Languages', h1: 'Languages, preloaded.',
     note: 'Roles whose postings ask for a language, by country. English-speaking jobs in Switzerland, German-speaking jobs in Germany. Read from the posting text, not from the language it is written in.',
     kinds: ['lang-country'],
