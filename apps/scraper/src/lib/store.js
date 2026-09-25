@@ -154,7 +154,19 @@ export async function supabaseUpsert(table, rows, onConflict) {
   // one row per conflict key per request: Postgres refuses a batch that
   // updates the same row twice (21000), and paged boards can repeat a posting
   const cols = onConflict.split(',');
-  const uniq = [...new Map(rows.map((r) => [cols.map((c) => r[c]).join('|'), r])).values()];
+  // Project onto the table's columns (schema 0001): readers carry extra
+  // fields (avam_code, company_logo_url, employment_type...) that PostgREST
+  // rejects as a whole batch, and an empty string is not a timestamp.
+  const KNOWN = {
+    postings_raw: ['source', 'external_id', 'title', 'company', 'location', 'remote_flag', 'salary_min', 'salary_max', 'currency', 'salary_period', 'description_text', 'posted_at', 'url'],
+    postings: ['source', 'external_id', 'role_id', 'title_raw', 'skills', 'salary_usd_min', 'salary_usd_max', 'salary_confidence', 'remote_flag', 'country', 'posted_at', 'url'],
+  }[table];
+  const shaped = rows.map((r) => {
+    const o = {};
+    for (const k of KNOWN ?? Object.keys(r)) if (k in r) o[k] = r[k] === '' ? null : r[k];
+    return o;
+  });
+  const uniq = [...new Map(shaped.map((r) => [cols.map((c) => r[c]).join('|'), r])).values()];
   for (let i = 0; i < uniq.length; i += 500) {
     const batch = uniq.slice(i, i + 500);
     const res = await fetch(url, {
