@@ -38,7 +38,7 @@ const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|
 
 // same-named tenants that are NOT the company the aggregator rows belong to
 // (verified by hand); the probe never adds these again even when state is lost
-const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workday:suffolk', 'workday:mpc', 'workday:bbb', 'lever:genesis', 'greenhouse:universal', 'greenhouse:spire', 'greenhouse:rva', 'ashby:clark', 'ashby:quanta', 'ashby:vinci', 'ashby:rasa', 'ashby:method', 'ashby:lunar', 'workable:htb', 'recruitee:rha', 'personio:asg', 'personio:ksp', 'personio:bbdo', 'smartrecruiters:gong', 'smartrecruiters:pennmedicine']); // namesakes verified by hand (2026-09-24 manual passes)
+const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workday:suffolk', 'workday:mpc', 'workday:bbb', 'lever:genesis', 'greenhouse:universal', 'greenhouse:spire', 'greenhouse:rva', 'ashby:clark', 'ashby:quanta', 'ashby:vinci', 'ashby:rasa', 'ashby:method', 'ashby:lunar', 'workable:htb', 'recruitee:rha', 'personio:asg', 'personio:ksp', 'personio:bbdo', 'smartrecruiters:gong', 'smartrecruiters:pennmedicine', 'greenhouse:bpd', 'greenhouse:css', 'greenhouse:pep', 'greenhouse:ghost', 'greenhouse:porter', 'personio:dpa', 'personio:pec', 'personio:tfs', 'lever:sar', 'workable:vbp', 'ashby:base', 'recruitee:quartz']); // namesakes verified by hand (2026-09-24 manual passes)
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
