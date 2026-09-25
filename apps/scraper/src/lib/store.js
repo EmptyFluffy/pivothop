@@ -146,7 +146,12 @@ export function openNdjsonWriter(file) {
  * Optional Supabase mirror via PostgREST upsert (zero dependencies).
  * No-op without SUPABASE_URL + SUPABASE_SERVICE_KEY — the scraper is local-first by design.
  */
+/* The Supabase mirror is OFF unless SUPABASE_MIRROR=1 (2026-09-25). Nothing
+   reads these tables: the site serves static JSON. With the accounts project
+   (free tier, 500 MB) holding the same credentials, one night of mirroring
+   the 1M-row corpus filled its disk to 94% and put sign-in at risk. */
 export async function supabaseUpsert(table, rows, onConflict) {
+  if (process.env.SUPABASE_MIRROR !== '1') return { mirrored: 0 };
   if (!hasSupabase() || !rows.length) return { mirrored: 0 };
   const url = `${process.env.SUPABASE_URL.replace(/\/$/, '')}/rest/v1/${table}?on_conflict=${onConflict}`;
   const key = process.env.SUPABASE_SERVICE_KEY;
