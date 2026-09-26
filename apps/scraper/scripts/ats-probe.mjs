@@ -17,6 +17,7 @@
  * data/ats-probe-state.json so a company is not re-probed for 60 days. */
 import fs from 'node:fs';
 import path from 'node:path';
+import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -143,10 +144,13 @@ function readList(ats) {
 // the slug a config row answers to: a string, or the tenant of an object row
 const slugOf = (x) => (typeof x === 'string' ? x : x?.tenant ?? '').toLowerCase();
 
-/* Aggregator companies not yet direct, most rows first. */
-function candidates() {
+/* Aggregator companies not yet direct, most rows first. Streamed: the corpus
+ * passed Node's 512 MB string ceiling on the runner (2026-09-26 nightly died on
+ * readFileSync with "Cannot create a string longer than 0x1fffffe8"). */
+async function candidates() {
   const agg = new Map(); const direct = new Set();
-  for (const line of fs.readFileSync(RAW, 'utf8').split('\n')) {
+  const rl = readline.createInterface({ input: fs.createReadStream(RAW, 'utf8'), crlfDelay: Infinity });
+  for await (const line of rl) {
     if (!line) continue;
     let r; try { r = JSON.parse(line); } catch { continue; }
     const co = (r.company || '').trim(); if (!co) continue;
@@ -161,7 +165,7 @@ const state = fs.existsSync(STATE) ? JSON.parse(fs.readFileSync(STATE, 'utf8')) 
 const fresh = (co) => state[co] && Date.now() - Date.parse(state[co].at) < 60 * 864e5;
 const known = {}; for (const a of Object.keys(ATS)) known[a] = new Set(readList(a).list.map(slugOf));
 
-const todo = NAMES ? NAMES.split(',').map((s) => ({ co: s.trim(), n: 0 })) : candidates().filter((c) => !fresh(c.co)).slice(0, LIMIT);
+const todo = NAMES ? NAMES.split(',').map((s) => ({ co: s.trim(), n: 0 })) : (await candidates()).filter((c) => !fresh(c.co)).slice(0, LIMIT);
 console.log(`ats-probe: ${todo.length} companies to probe (min ${MIN_ROWS} aggregator rows, limit ${LIMIT}${DRY ? ', dry run' : ''})`);
 
 const found = [];
