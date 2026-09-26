@@ -53,7 +53,7 @@ export const SRC_GROUPS: { code: string; label: string; sub: string }[] = [
 export const srcGroup = (s: string): string =>
   s === 'direct' || s === 'personio' || s === 'workday' ? 'studio'
   : s === 'usajobs' || s === 'jobroom' ? 'federal'
-  : ['greenhouse', 'lever', 'ashby', 'workable', 'recruitee', 'smartrecruiters'].includes(s) ? 'ats'
+  : ['greenhouse', 'lever', 'ashby', 'workable', 'recruitee', 'smartrecruiters', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor'].includes(s) ? 'ats'
   : 'boards';
 
 const PAY_STOPS = [50, 100, 150, 200] as const;

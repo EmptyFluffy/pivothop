@@ -30,6 +30,7 @@ const SOURCE_NAMES: Record<string, string> = {
   himalayas: 'Himalayas', arbeitnow: 'Arbeitnow', themuse: 'The Muse',
   smartrecruiters: 'SmartRecruiters', jobicy: 'Jobicy', remoteok: 'RemoteOK', remotive: 'Remotive',
   workable: 'Workable', recruitee: 'Recruitee', careerjet: 'Careerjet', getonbrd: 'Get on Board',
+  bamboohr: 'BambooHR', breezy: 'Breezy HR', pinpoint: 'Pinpoint', teamtailor: 'Teamtailor',
 };
 export const sourceName = (s: string) => SOURCE_NAMES[s] ?? s;
 
@@ -40,7 +41,7 @@ export const sourceName = (s: string) => SOURCE_NAMES[s] ?? s;
    open so the page is honest about what is behind the lock. Aggregator rows
    (Careerjet, Jooble, Himalayas...) are never locked: their terms want the
    click, and locking them would be selling someone else's inventory. */
-export const DIRECT_SOURCES = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct']);
+export const DIRECT_SOURCES = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'direct']);
 export const isDirect = (j: { source: string }) => DIRECT_SOURCES.has(j.source);
 export const UNLOCK_HREF = '/direct';
 

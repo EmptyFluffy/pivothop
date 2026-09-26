@@ -47,7 +47,7 @@ const CONTENT_MIN_CHARS = 200;
 
 // Sources that read the employer's own hiring system (ATS APIs and the studio
 // fleet). Same list as ats-probe's DIRECT and the web's DIRECT_SOURCES.
-const DIRECT_SOURCES = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct']);
+const DIRECT_SOURCES = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'direct']);
 const isDirect = (c) => DIRECT_SOURCES.has(c.row.source);
 // Winner of a dedup key: the employer's copy over an aggregator's, then the
 // richer of two equals.

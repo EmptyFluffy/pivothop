@@ -74,7 +74,7 @@ const todo = firms.filter((f) => { const d = regDomain(f.url); if (!d || seenDom
 console.log(`studio-resolve: ${todo.length} firms (${firms.length} before domain dedupe)${DRY ? ', dry run' : ''}`);
 
 /* ── ATS signatures: name -> regex with the identifying groups ── */
-const BAD = /^(embed|js|v1|api|www|jobs|careers|career|static|assets|cdn|app|apply|boards|job-boards|widget|widgets|en|en-us|de|fr|es|search|login|index|oneclick-ui)$/i;
+const BAD = /^(embed|js|v1|api|www|jobs|careers|career|static|assets|cdn|app|apply|boards|job-boards|widget|widgets|en|en-us|de|fr|es|search|login|index|oneclick-ui|staticfe)$/i; // staticfe: a BambooHR asset host, not a company
 const SIGS = [
   ['greenhouse', /(?:boards|job-boards)(?:\.eu)?\.greenhouse\.io\/(?:embed\/job_board(?:\/js)?\?for=)?([A-Za-z0-9_-]+)/g],
   ['greenhouse', /boards-api\.greenhouse\.io\/v1\/boards\/([A-Za-z0-9_-]+)/g],
@@ -143,12 +143,18 @@ const VERIFY = {
   workable: async (s) => { const b = await gj(`https://apply.workable.com/api/v1/widget/accounts/${s}`); return b?.jobs ? b.jobs.length : null; },
   recruitee: async (s) => { const b = await gj(`https://${s}.recruitee.com/api/offers/`); return b?.offers ? b.offers.length : null; },
   personio: async (s) => { try { const r = await fetch(`https://${s}.jobs.personio.com/xml`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const x = await r.text(); return /<workzag-jobs|<position>/.test(x) ? (x.match(/<position>/g) ?? []).length : null; } catch { return null; } },
+  bamboohr: async (s) => { const b = await gj(`https://${s}.bamboohr.com/careers/list`); return Array.isArray(b?.result) ? b.result.length : null; },
+  breezy: async (s) => { const b = await gj(`https://${s}.breezy.hr/json`); return Array.isArray(b) ? b.length : null; },
+  pinpoint: async (s) => { const b = await gj(`https://${s}.pinpointhq.com/postings.json`); return Array.isArray(b?.data) ? b.data.length : null; },
+  teamtailor: async (s) => { try { const r = await fetch(`https://${s}.teamtailor.com/jobs.rss`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const x = await r.text(); return /<rss/.test(x) ? (x.match(/<item>/g) ?? []).length : null; } catch { return null; } },
   workday: async (s) => { const [t, wd, site] = s.split('|'); const b = await gj(`https://${t}.${wd}.myworkdayjobs.com/wday/cxs/${t}/${site}/jobs`, { method: 'POST', headers: { 'content-type': 'application/json', 'user-agent': BUA }, body: JSON.stringify({ limit: 1, offset: 0, searchText: '' }) }); return typeof b?.total === 'number' ? b.total : null; },
 };
 const CONFIG_OF = {
   greenhouse: ['greenhouse-companies.json', 'boards'], lever: ['lever-companies.json', 'companies'], ashby: ['ashby-companies.json', 'companies'],
   smartrecruiters: ['smartrecruiters-companies.json', 'companies'], workable: ['workable-companies.json', 'companies'], recruitee: ['recruitee-companies.json', 'companies'],
   personio: ['personio-companies.json', 'tenants'], workday: ['workday-companies.json', 'tenants'],
+  bamboohr: ['bamboohr-companies.json', 'companies'], breezy: ['breezy-companies.json', 'companies'],
+  pinpoint: ['pinpoint-companies.json', 'companies'], teamtailor: ['teamtailor-companies.json', 'companies'],
 };
 
 /* ── the crawl ── */
@@ -262,7 +268,7 @@ await browser.close();
 
 /* ── verify supported ATS and write ── */
 fs.mkdirSync(path.dirname(REPORT), { recursive: true });
-const slugOf = (x) => (typeof x === 'string' ? x : x?.tenant ?? '').toLowerCase();
+const slugOf = (x) => (typeof x === 'string' ? x : x?.tenant ?? x?.slug ?? '').toLowerCase();
 const known = {};
 for (const [ats, [file, key]] of Object.entries(CONFIG_OF)) known[ats] = new Set((readJson(path.join(CONFIG, file), {})[key] ?? []).map(slugOf));
 const adds = {}; const pending = new Map(); let verified = 0, postings = 0;
@@ -280,7 +286,8 @@ for (const r of report) {
       // when the tenant looks like it; otherwise it is flagged for a hand label.
       const looksLike = (t) => { const a = t.toLowerCase().replace(/[^a-z0-9]/g, ''); const b = r.name.toLowerCase().replace(/[^a-z0-9]/g, ''); return a.length >= 3 && (b.includes(a) || a.includes(b.slice(0, 5))); };
       const entry = ats === 'workday' ? (() => { const [tenant, wd, site] = slug.split('|'); return { tenant, wd, site, company: looksLike(tenant) ? r.name : `${tenant} (parent of ${r.name}; relabel)` }; })()
-        : ats === 'personio' ? { tenant: slug, company: r.name } : slug;
+        : ats === 'personio' ? { tenant: slug, company: r.name }
+        : ['bamboohr', 'pinpoint', 'teamtailor'].includes(ats) ? { slug, company: r.name } : slug; // these feeds carry no company name
       (adds[ats] ??= []).push(entry); known[ats].add(id);
       r.status = `${ats}:${id} +${n}`;
       break;

@@ -30,7 +30,7 @@ const log = (...a) => console.log(...a);
 // (Node's default is to exit); log it and let the other sources finish.
 process.on('unhandledRejection', (err) => log(`unhandled rejection (continuing): ${err?.stack || err}`));
 
-const SOURCES = ['remotive', 'remoteok', 'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'arbeitnow', 'jobicy', 'themuse', 'himalayas', 'getonbrd', 'careerjet', 'adzuna', 'usajobs', 'reed', 'jobroom', 'jobtech', 'workday', 'personio', 'ane', 'amazon', 'jooble', 'direct'];
+const SOURCES = ['remotive', 'remoteok', 'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'arbeitnow', 'jobicy', 'themuse', 'himalayas', 'getonbrd', 'careerjet', 'adzuna', 'usajobs', 'reed', 'jobroom', 'jobtech', 'workday', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ane', 'amazon', 'jooble', 'direct'];
 
 // Fault-isolated ingest: each source runs in its own try/catch so one dead API,
 // timeout, or schema change can't sink the run — the failure is logged and the

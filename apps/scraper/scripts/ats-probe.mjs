@@ -31,9 +31,12 @@ const DRY = args.includes('--dry');
 const LIMIT = Number(opt('--limit', 400));
 const MIN_ROWS = Number(opt('--min', 5));
 const NAMES = opt('--names', null);
+// companies probed at once; each one is a sequential chain of GETs across the
+// ATS list (Workday alone tries 10 clusters), so one at a time is ~1/min
+const CONCURRENCY = Number(opt('--concurrency', 6));
 
 const AGG = new Set(['careerjet', 'jooble', 'himalayas', 'arbeitnow', 'jobicy', 'remoteok', 'themuse', 'reed', 'adzuna', 'getonbrd']);
-const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'direct']);
+const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'direct']);
 // staffing platforms and boards that are not employers: a board under their name is not "direct"
 const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|kelly|gpac|yellowshark|ok job|locum|recruit|staffing|personal|jobs?\b|talent|consult|agency|careers?\b|hiring|nhs jobs|indeed|linkedin|jobgether|pavago|mercor|crossover|toptal|turing|deel|remote\.com|outsourc|human capital|associates|employment|technical resources|resourcing|hire hangar|braintrust|nexton|vaco|te emplea|emanate|venn group|goodman masson|oliver james|techbiz|adaptive teams|atomic hr)/i;
 
@@ -81,10 +84,15 @@ const ATS = {
       const sites = ['External', 'Careers', 'careers', 'Career', 'Jobs', 'jobs', 'External_Careers', 'ExternalCareers', 'External_Career_Site',
         `${T}Careers`, `${s}careers`, `${T}_Careers`, `${T}_External`, `${s}jobs`, `${T}Jobs`, T, s, `${T}_External_Career_Site`, `${T}_Careers_Site`, 'careers-home', 'Search', 'en-US'];
       const H = { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36' };
-      for (const wd of ['wd1', 'wd3', 'wd5', 'wd12', 'wd101', 'wd103', 'wd104', 'wd108', 'wd501', 'wd503']) {
-        let t;
-        try { t = await fetch(`https://${s}.${wd}.myworkdayjobs.com/ph-probe`, { headers: { ...H, accept: 'text/html' }, signal: AbortSignal.timeout(10000) }); } catch { continue; }
-        if (t.status !== 404) continue; // 500 = no such tenant on this cluster
+      const CLUSTERS = ['wd1', 'wd3', 'wd5', 'wd12', 'wd101', 'wd103', 'wd104', 'wd108', 'wd501', 'wd503'];
+      const lives = async (wd) => { try { const t = await fetch(`https://${s}.${wd}.myworkdayjobs.com/ph-probe`, { headers: { ...H, accept: 'text/html' }, signal: AbortSignal.timeout(10000) }); return t.status === 404; } catch { return false; } }; // 500 = no such tenant on this cluster
+      let home = null;
+      for (let b = 0; b < CLUSTERS.length && !home; b += 5) {
+        const batch = CLUSTERS.slice(b, b + 5);
+        const ok = await Promise.all(batch.map(lives));
+        home = batch.find((_, i) => ok[i]) ?? null;
+      }
+      for (const wd of home ? [home] : []) {
         for (const site of sites) {
           try {
             const r = await fetch(`https://${s}.${wd}.myworkdayjobs.com/wday/cxs/${s}/${site}/jobs`, { method: 'POST', headers: { ...H, 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify({ limit: 1, offset: 0, searchText: '' }), signal: AbortSignal.timeout(12000) });
@@ -142,7 +150,7 @@ function readList(ats) {
   return { f, d, list: d[ATS[ats].key] ?? [] };
 }
 // the slug a config row answers to: a string, or the tenant of an object row
-const slugOf = (x) => (typeof x === 'string' ? x : x?.tenant ?? '').toLowerCase();
+const slugOf = (x) => (typeof x === 'string' ? x : x?.tenant ?? x?.slug ?? '').toLowerCase();
 
 /* Aggregator companies not yet direct, most rows first. Streamed: the corpus
  * passed Node's 512 MB string ceiling on the runner (2026-09-26 nightly died on
@@ -169,19 +177,24 @@ const todo = NAMES ? NAMES.split(',').map((s) => ({ co: s.trim(), n: 0 })) : (aw
 console.log(`ats-probe: ${todo.length} companies to probe (min ${MIN_ROWS} aggregator rows, limit ${LIMIT}${DRY ? ', dry run' : ''})`);
 
 const found = [];
-for (const { co, n } of todo) {
+async function probeOne({ co, n }) {
   const slugs = slugsFor(co);
   let hit = null;
-  outer: for (const s of slugs) {
-    for (const [ats, def] of Object.entries(ATS)) {
-      if (DENY.has(`${ats}:${s}`)) continue;
-      if (known[ats].has(s)) { hit = { ats, slug: s, jobs: -1, already: true }; break outer; }
-      const got = await def.probe(s);
-      await sleep(120);
-      const jobs = typeof got === 'number' ? got : got?.jobs ?? null;
+  for (const s of slugs) {
+    const order = Object.entries(ATS).filter(([ats]) => !DENY.has(`${ats}:${s}`));
+    const listed = order.find(([ats]) => known[ats].has(s));
+    if (listed) { hit = { ats: listed[0], slug: s, jobs: -1, already: true }; break; }
+    // every ATS answers on its own host, so one slug is tested against all of
+    // them at once; the first hit in list order wins, as it did sequentially
+    const got = await Promise.all(order.map(([, def]) => def.probe(s).catch(() => null)));
+    for (let i = 0; i < order.length && !hit; i++) {
+      const g = got[i];
+      const jobs = typeof g === 'number' ? g : g?.jobs ?? null;
       // under 5 postings a same-named tenant is usually someone else's test board
-      if (jobs !== null && jobs >= 5) { hit = { ats, slug: s, jobs, entry: typeof got === 'object' ? got.entry : null }; break outer; }
+      if (jobs !== null && jobs >= 5) hit = { ats: order[i][0], slug: s, jobs, entry: typeof g === 'object' ? g.entry : null };
     }
+    if (hit) break;
+    await sleep(120);
   }
   state[co] = { at: new Date().toISOString(), hit: hit ? `${hit.ats}:${hit.slug}` : null };
   if (hit) {
@@ -191,6 +204,8 @@ for (const { co, n } of todo) {
     console.log(`  · ${co} (${n}) no public ATS under ${slugs.slice(0, 3).join(', ')}`);
   }
 }
+let next = 0;
+await Promise.all(Array.from({ length: Math.max(1, CONCURRENCY) }, async () => { while (next < todo.length) await probeOne(todo[next++]); }));
 
 if (!DRY) {
   fs.writeFileSync(STATE, JSON.stringify(state, null, 0) + '\n');
