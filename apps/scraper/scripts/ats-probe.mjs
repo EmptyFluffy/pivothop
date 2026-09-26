@@ -46,7 +46,16 @@ const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|
 
 // same-named tenants that are NOT the company the aggregator rows belong to
 // (verified by hand); the probe never adds these again even when state is lost
-const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workday:suffolk', 'workday:mpc', 'workday:bbb', 'lever:genesis', 'greenhouse:universal', 'greenhouse:spire', 'greenhouse:rva', 'ashby:clark', 'ashby:quanta', 'ashby:vinci', 'ashby:rasa', 'ashby:method', 'ashby:lunar', 'workable:htb', 'recruitee:rha', 'personio:asg', 'personio:ksp', 'personio:bbdo', 'smartrecruiters:gong', 'smartrecruiters:pennmedicine', 'greenhouse:bpd', 'greenhouse:css', 'greenhouse:pep', 'greenhouse:ghost', 'greenhouse:porter', 'personio:dpa', 'personio:pec', 'personio:tfs', 'lever:sar', 'workable:vbp', 'ashby:base', 'recruitee:quartz']); // namesakes verified by hand (2026-09-24 manual passes)
+const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workday:suffolk', 'workday:mpc', 'workday:bbb', 'lever:genesis', 'greenhouse:universal', 'greenhouse:spire', 'greenhouse:rva', 'ashby:clark', 'ashby:quanta', 'ashby:vinci', 'ashby:rasa', 'ashby:method', 'ashby:lunar', 'workable:htb', 'recruitee:rha', 'personio:asg', 'personio:ksp', 'personio:bbdo', 'smartrecruiters:gong', 'smartrecruiters:pennmedicine', 'greenhouse:bpd', 'greenhouse:css', 'greenhouse:pep', 'greenhouse:ghost', 'greenhouse:porter', 'personio:dpa', 'personio:pec', 'personio:tfs', 'lever:sar', 'workable:vbp', 'ashby:base', 'recruitee:quartz',
+  // 2026-09-26 manual pass, each checked against the board's own name, titles and places
+  'personio:water', 'personio:brp', 'personio:st-engineering', 'personio:cmc', 'personio:app', 'personio:sgd', 'personio:tcm',
+  'greenhouse:solutions', 'greenhouse:lpc', 'greenhouse:find', 'greenhouse:srm', 'greenhouse:tsg', 'greenhouse:ventana', 'greenhouse:verse', 'greenhouse:trillium',
+  'workday:wit', 'workday:ptc', 'workday:fca', 'workday:ccc', 'workday:hcsc',
+  'ashby:mirage', 'ashby:quantum', 'ashby:linkup', 'ashby:hyde', 'ashby:pearl', 'ashby:tbc',
+  'recruitee:tes', 'recruitee:prisma', 'recruitee:trp', 'recruitee:lss',
+  'smartrecruiters:freeport-mcmoran', 'smartrecruiters:doit', 'lever:bhhc',
+  // same company, but staffing volume that would flood the board: one job repeated per city or per client
+  'greenhouse:pulse', 'lever:bluelightconsulting', 'recruitee:agenturfurhaushaltshilfe', 'smartrecruiters:npnow']); // namesakes verified by hand (2026-09-24 manual passes)
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -229,7 +238,8 @@ if (!DRY) {
   for (const [ats, hits] of Object.entries(byAts)) {
     const { f, d, list } = readList(ats);
     const have = new Set(list.map(slugOf));
-    const add = hits.filter((h) => !have.has(h.slug)).map((h) => (ATS[ats].object ? { ...h.entry, company: h.co } : h.slug));
+    // two aggregator names can land on one board (2brains, 2Brains): add it once
+    const add = hits.filter((h) => !have.has(h.slug) && have.add(h.slug)).map((h) => (ATS[ats].object ? { ...h.entry, company: h.co } : h.slug));
     d[ATS[ats].key] = [...list, ...add];
     fs.writeFileSync(f, JSON.stringify(d, null, 1) + '\n'); // the lists' own indent
     console.log(`config: ${ATS[ats].file} +${add.length}`);
