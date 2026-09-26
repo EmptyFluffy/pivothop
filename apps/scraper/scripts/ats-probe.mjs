@@ -31,6 +31,8 @@ const DRY = args.includes('--dry');
 const LIMIT = Number(opt('--limit', 400));
 const MIN_ROWS = Number(opt('--min', 5));
 const NAMES = opt('--names', null);
+// one company per line; names with commas ("KBR, Inc.") cannot go through --names
+const NAMES_FILE = opt('--names-file', null);
 // companies probed at once; each one is a sequential chain of GETs across the
 // ATS list (Workday alone tries 10 clusters), so one at a time is ~1/min
 const CONCURRENCY = Number(opt('--concurrency', 6));
@@ -193,7 +195,8 @@ const state = fs.existsSync(STATE) ? JSON.parse(fs.readFileSync(STATE, 'utf8')) 
 const fresh = (co) => state[co] && Date.now() - Date.parse(state[co].at) < 60 * 864e5;
 const known = {}; for (const a of Object.keys(ATS)) known[a] = new Set(readList(a).list.map(slugOf));
 
-const todo = NAMES ? NAMES.split(',').map((s) => ({ co: s.trim(), n: 0 })) : (await candidates()).filter((c) => !fresh(c.co)).slice(0, LIMIT);
+const todo = NAMES_FILE ? fs.readFileSync(NAMES_FILE, 'utf8').split('\n').map((s) => s.trim()).filter(Boolean).map((co) => ({ co, n: 0 }))
+  : NAMES ? NAMES.split(',').map((s) => ({ co: s.trim(), n: 0 })) : (await candidates()).filter((c) => !fresh(c.co)).slice(0, LIMIT);
 console.log(`ats-probe: ${todo.length} companies to probe (min ${MIN_ROWS} aggregator rows, limit ${LIMIT}${DRY ? ', dry run' : ''})`);
 
 const found = [];
