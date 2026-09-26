@@ -34,6 +34,10 @@ const NAMES = opt('--names', null);
 // companies probed at once; each one is a sequential chain of GETs across the
 // ATS list (Workday alone tries 10 clusters), so one at a time is ~1/min
 const CONCURRENCY = Number(opt('--concurrency', 6));
+// --skip workable,personio / --only workable: split a big run by ATS, e.g.
+// everything fast in parallel first, then the rate-limited Workable alone
+const SKIP = new Set((opt('--skip', '') || '').split(',').filter(Boolean));
+const ONLY = new Set((opt('--only', '') || '').split(',').filter(Boolean));
 
 const AGG = new Set(['careerjet', 'jooble', 'himalayas', 'arbeitnow', 'jobicy', 'remoteok', 'themuse', 'reed', 'adzuna', 'getonbrd']);
 const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'direct']);
@@ -47,13 +51,20 @@ const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workda
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function getJson(url) {
-  try {
-    const res = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json' }, signal: AbortSignal.timeout(15000) });
-    if (!res.ok) return null;
-    const ct = res.headers.get('content-type') || '';
-    if (!/json/.test(ct)) return null;
-    return await res.json();
-  } catch { return null; }
+  // 429 is "slow down", not "no board": with companies probed in parallel,
+  // Workable answers 429 often, and a null there was recorded as a miss that
+  // kept the company out of the probe for 60 days
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const res = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json' }, signal: AbortSignal.timeout(15000) });
+      if (res.status === 429) { await sleep(1500 * attempt + Math.random() * 1000); continue; } // still 429 after 4 tries: undefined, "not checked"
+      if (!res.ok) return null;
+      const ct = res.headers.get('content-type') || '';
+      if (!/json/.test(ct)) return null;
+      return await res.json();
+    } catch { return null; }
+  }
+  return undefined;
 }
 
 /* Each ATS: how to test a slug and how many postings the board holds. */
@@ -67,7 +78,7 @@ const ATS = {
   smartrecruiters: { file: 'smartrecruiters-companies.json', key: 'companies',
     probe: async (s) => { const b = await getJson(`https://api.smartrecruiters.com/v1/companies/${s}/postings?limit=1`); return typeof b?.totalFound === 'number' ? b.totalFound : null; } },
   workable: { file: 'workable-companies.json', key: 'companies',
-    probe: async (s) => { const b = await getJson(`https://apply.workable.com/api/v1/widget/accounts/${s}`); return b?.jobs ? b.jobs.length : null; } },
+    probe: async (s) => { const b = await getJson(`https://apply.workable.com/api/v1/widget/accounts/${s}`); return b === undefined ? undefined : b?.jobs ? b.jobs.length : null; } },
   recruitee: { file: 'recruitee-companies.json', key: 'companies',
     probe: async (s) => { const b = await getJson(`https://${s}.recruitee.com/api/offers/`); return b?.offers ? b.offers.length : null; } },
   // Workday (2026-09-23): where hospitals, retailers, airlines and builders
@@ -179,14 +190,15 @@ console.log(`ats-probe: ${todo.length} companies to probe (min ${MIN_ROWS} aggre
 const found = [];
 async function probeOne({ co, n }) {
   const slugs = slugsFor(co);
-  let hit = null;
+  let hit = null; let throttled = false;
   for (const s of slugs) {
-    const order = Object.entries(ATS).filter(([ats]) => !DENY.has(`${ats}:${s}`));
+    const order = Object.entries(ATS).filter(([ats]) => !DENY.has(`${ats}:${s}`) && !SKIP.has(ats) && (!ONLY.size || ONLY.has(ats)));
     const listed = order.find(([ats]) => known[ats].has(s));
     if (listed) { hit = { ats: listed[0], slug: s, jobs: -1, already: true }; break; }
     // every ATS answers on its own host, so one slug is tested against all of
     // them at once; the first hit in list order wins, as it did sequentially
     const got = await Promise.all(order.map(([, def]) => def.probe(s).catch(() => null)));
+    if (got.some((g) => g === undefined)) throttled = true;
     for (let i = 0; i < order.length && !hit; i++) {
       const g = got[i];
       const jobs = typeof g === 'number' ? g : g?.jobs ?? null;
@@ -196,7 +208,10 @@ async function probeOne({ co, n }) {
     if (hit) break;
     await sleep(120);
   }
-  state[co] = { at: new Date().toISOString(), hit: hit ? `${hit.ats}:${hit.slug}` : null };
+  // a partial run (--skip/--only) or a throttled answer is not a verdict on
+  // the company: only record a miss when every ATS was actually asked
+  if (hit || (!throttled && !SKIP.size && !ONLY.size)) state[co] = { at: new Date().toISOString(), hit: hit ? `${hit.ats}:${hit.slug}` : null };
+  if (!hit && throttled) console.log(`  ? ${co} (${n}) throttled, not recorded`);
   if (hit) {
     found.push({ co, n, ...hit });
     console.log(`  ✓ ${co} (${n} aggregator rows) -> ${hit.ats}:${hit.slug}${hit.already ? ' (already listed)' : ` ${hit.jobs} postings`}`);
