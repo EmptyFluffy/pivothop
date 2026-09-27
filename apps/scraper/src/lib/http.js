@@ -7,6 +7,16 @@ const lastHit = new Map(); // host -> timestamp, for polite per-host spacing
 
 function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
+// AbortSignal.timeout's timer is unref'd: when a request stalls with no live
+// socket, nothing keeps the process up and the promise simply never settles.
+// On 2026-09-26 that silently stopped workday, smartrecruiters and bamboohr
+// mid-run twice; the process exited (code 13, unsettled top-level await) the
+// moment the last healthy source finished. A plain ref'd timer always fires.
+export function hard(p, ms, what) {
+  let t;
+  return Promise.race([p, new Promise((_, rej) => { t = setTimeout(() => rej(new Error(`hard timeout ${ms / 1000}s: ${what}`)), ms); })]).finally(() => clearTimeout(t));
+}
+
 /**
  * Polite JSON fetch: disk cache (default 20h TTL), per-host rate limit, retry on 429/5xx.
  * Returns parsed JSON, or null on 404. Throws on persistent failure.
@@ -36,7 +46,7 @@ export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minInt
     try {
       // Hard timeout: a dead socket must fail and retry, never wedge the run
       // (an untimed fetch once hung the nightly bot for an hour, mid-source).
-      res = await fetch(url, { method, body, headers: { accept: 'application/json', ...headers }, signal: AbortSignal.timeout(45000) });
+      res = await hard(fetch(url, { method, body, headers: { accept: 'application/json', ...headers }, signal: AbortSignal.timeout(45000) }), 60000, url);
     } catch (err) {
       if (attempt >= retries) throw err;
       await sleep(2000 * (attempt + 1));
@@ -56,7 +66,7 @@ export async function fetchJson(url, { headers = {}, ttlMs = 20 * 3600e3, minInt
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
     let resBody;
     try {
-      resBody = await res.json();
+      resBody = await hard(res.json(), 60000, url);
     } catch (err) {
       if (attempt >= retries) throw err;
       await sleep(2000 * (attempt + 1));

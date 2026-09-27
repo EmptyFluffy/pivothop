@@ -47,11 +47,23 @@ async function ingest(which) {
   }
   const results = [];
   let upserts = Promise.resolve();
+  // A source that never settles used to vanish without a word: the process
+  // exited when the last healthy source finished (2026-09-26, twice). The
+  // heartbeat keeps the process up and says who is still running; the
+  // deadline turns a wedged source into a logged failure the run survives.
+  const pending = new Set(names);
+  const t00 = Date.now();
+  const beat = setInterval(() => log(`ingest: ${((Date.now() - t00) / 60000).toFixed(0)} min, still running: ${[...pending].join(', ')}`), 10 * 60e3);
+  const DEADLINE = Number(process.env.INGEST_SOURCE_DEADLINE_MIN || 200) * 60e3;
   await Promise.all(names.map(async (n) => {
     const t0 = Date.now();
     try {
       const mod = await import(`./sources/${n}.js`);
-      const rows = await mod.fetchRaw({ log });
+      let dl;
+      const rows = await Promise.race([
+        mod.fetchRaw({ log }),
+        new Promise((_, rej) => { dl = setTimeout(() => rej(new Error(`deadline ${DEADLINE / 60e3} min`)), DEADLINE); }),
+      ]).finally(() => clearTimeout(dl));
       const min = ((Date.now() - t0) / 60000).toFixed(1);
       if (!rows.length) { results.push({ source: n, ok: true, added: 0, updated: 0 }); return; }
       upserts = upserts.then(async () => {
@@ -74,8 +86,11 @@ async function ingest(which) {
     } catch (err) {
       log(`${n}: FAILED — ${err.message} (skipped, other sources unaffected)`);
       results.push({ source: n, ok: false, error: err.message });
+    } finally {
+      pending.delete(n);
     }
   }));
+  clearInterval(beat);
   const failed = results.filter((r) => !r.ok);
   const added = results.reduce((s, r) => s + (r.added ?? 0), 0);
   log(`ingest: ${results.length - failed.length}/${results.length} sources ok, +${added} new postings${failed.length ? ` · failed: ${failed.map((f) => f.source).join(', ')}` : ''}`);

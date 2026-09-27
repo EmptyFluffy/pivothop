@@ -64,12 +64,15 @@ PROSPECT_PER_NIGHT="${PROSPECT_PER_NIGHT:-300}" node apps/scraper/scripts/prospe
 if [ "$(date +%u)" = "7" ]; then
   RETRY=1 PROSPECT_PER_NIGHT="${PROSPECT_PER_NIGHT:-300}" node apps/scraper/scripts/prospect.mjs || echo "::warning::prospect retry pass failed (non-fatal)"
 fi
+npm run --silent scrape -- ingest all || echo "::warning::ingest exited non-zero (continuing to the gate)"
 # ATS discovery (2026-09-21): the employers behind aggregator rows, probed by
 # name against the public JSON of the ATSs we read. A hit appends the slug to
-# the matching config list and the board is read directly from then on. 60
-# companies a night keeps it under two minutes; state in data/ats-probe-state.json.
-node apps/scraper/scripts/ats-probe.mjs --limit "${ATS_PROBE_PER_NIGHT:-60}" --min 5 || echo "::warning::ats-probe failed (non-fatal)"
-npm run --silent scrape -- ingest all || echo "::warning::ingest exited non-zero (continuing to the gate)"
+# the matching config list and the board is read directly from the NEXT night.
+# Runs AFTER ingest (2026-09-26): probing in parallel right before ingest hit
+# the same Workday and SmartRecruiters hosts the readers need a minute later,
+# and both runs that did it lost workday, smartrecruiters and bamboohr mid-read.
+# State in data/ats-probe-state.json; misses are only recorded when every ATS answered.
+node apps/scraper/scripts/ats-probe.mjs --limit "${ATS_PROBE_PER_NIGHT:-60}" --min 5 --concurrency 3 || echo "::warning::ats-probe failed (non-fatal)"
 # Absorb tracked sideload snapshots (careerjet: IP-bound to the founder's
 # machine, exported there, committed; see scripts/sideload.mjs).
 node apps/scraper/scripts/sideload.mjs || echo "::warning::sideload failed (non-fatal)"

@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { stripHtml } from '../lib/text.js';
 import { readJson } from '../lib/store.js';
+import { hard } from '../lib/http.js';
 import { CONFIG_DIR } from '../lib/paths.js';
 
 // Teamtailor public jobs RSS (2026-09-26). Every Teamtailor career site serves
@@ -22,9 +23,10 @@ export async function fetchRaw({ log }) {
     const company = (typeof c === 'object' && c.company) || slug;
     let xml;
     try {
-      const res = await fetch(`https://${slug}.teamtailor.com/jobs.rss`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(20000) });
-      if (!res.ok) { log(`teamtailor:${slug} — HTTP ${res.status} (skipped)`); continue; }
-      xml = await res.text();
+      const url = `https://${slug}.teamtailor.com/jobs.rss`;
+      const res = await hard(fetch(url, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(20000) }), 30000, url);
+      if (!res.ok) { await res.body?.cancel(); log(`teamtailor:${slug} — HTTP ${res.status} (skipped)`); continue; }
+      xml = await hard(res.text(), 30000, url);
     } catch (err) { log(`teamtailor:${slug} — ${err.message} (board skipped, source continues)`); continue; }
     await sleep(600);
     const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1]);

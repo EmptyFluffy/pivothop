@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { stripHtml } from '../lib/text.js';
-import { fetchJson } from '../lib/http.js';
+import { fetchJson, hard } from '../lib/http.js';
 import { readJson } from '../lib/store.js';
 import { CONFIG_DIR } from '../lib/paths.js';
 
@@ -27,9 +27,9 @@ function pay(text, countryId) {
 
 async function description(url) {
   try {
-    const res = await fetch(url, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(20000) });
-    if (!res.ok) return '';
-    const html = await res.text();
+    const res = await hard(fetch(url, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(20000) }), 30000, url);
+    if (!res.ok) { await res.body?.cancel(); return ''; }
+    const html = await hard(res.text(), 30000, url);
     for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
       // raw newlines inside the description string make the block invalid JSON
       let j; try { j = JSON.parse(m[1].replace(/[\u0000-\u001f]+/g, ' ')); } catch { continue; }
