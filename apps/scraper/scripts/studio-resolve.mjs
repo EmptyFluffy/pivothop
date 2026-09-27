@@ -145,6 +145,7 @@ const VERIFY = {
   personio: async (s) => { try { const r = await fetch(`https://${s}.jobs.personio.com/xml`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const x = await r.text(); return /<workzag-jobs|<position>/.test(x) ? (x.match(/<position>/g) ?? []).length : null; } catch { return null; } },
   bamboohr: async (s) => { const b = await gj(`https://${s}.bamboohr.com/careers/list`); return Array.isArray(b?.result) ? b.result.length : null; },
   breezy: async (s) => { const b = await gj(`https://${s}.breezy.hr/json`); return Array.isArray(b) ? b.length : null; },
+  ukg: async (s) => { const [t, g] = s.split('|'); for (const h of ['recruiting2.ultipro.com', 'recruiting.ultipro.com']) { const b = await gj(`https://${h}/${t}/JobBoard/${g}/JobBoardView/LoadSearchResults`, { method: 'POST', headers: { 'content-type': 'application/json', 'user-agent': BUA }, body: JSON.stringify({ opportunitySearch: { Top: 1, Skip: 0, QueryString: '', Filters: [] }, matchCriteria: { PreferredJobs: [], Educations: [], LicenseAndCertifications: [], Skills: [], hasNoLicenses: false, SkippedSkills: [] } }) }); if (typeof b?.totalCount === 'number') return b.totalCount; } return null; },
   pinpoint: async (s) => { const b = await gj(`https://${s}.pinpointhq.com/postings.json`); return Array.isArray(b?.data) ? b.data.length : null; },
   teamtailor: async (s) => { try { const r = await fetch(`https://${s}.teamtailor.com/jobs.rss`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const x = await r.text(); return /<rss/.test(x) ? (x.match(/<item>/g) ?? []).length : null; } catch { return null; } },
   workday: async (s) => { const [t, wd, site] = s.split('|'); const b = await gj(`https://${t}.${wd}.myworkdayjobs.com/wday/cxs/${t}/${site}/jobs`, { method: 'POST', headers: { 'content-type': 'application/json', 'user-agent': BUA }, body: JSON.stringify({ limit: 1, offset: 0, searchText: '' }) }); return typeof b?.total === 'number' ? b.total : null; },
@@ -154,7 +155,7 @@ const CONFIG_OF = {
   smartrecruiters: ['smartrecruiters-companies.json', 'companies'], workable: ['workable-companies.json', 'companies'], recruitee: ['recruitee-companies.json', 'companies'],
   personio: ['personio-companies.json', 'tenants'], workday: ['workday-companies.json', 'tenants'],
   bamboohr: ['bamboohr-companies.json', 'companies'], breezy: ['breezy-companies.json', 'companies'],
-  pinpoint: ['pinpoint-companies.json', 'companies'], teamtailor: ['teamtailor-companies.json', 'companies'],
+  pinpoint: ['pinpoint-companies.json', 'companies'], teamtailor: ['teamtailor-companies.json', 'companies'], ukg: ['ukg-companies.json', 'companies'],
 };
 
 /* ── the crawl ── */
@@ -268,7 +269,7 @@ await browser.close();
 
 /* ── verify supported ATS and write ── */
 fs.mkdirSync(path.dirname(REPORT), { recursive: true });
-const slugOf = (x) => (typeof x === 'string' ? x : x?.tenant ?? x?.slug ?? '').toLowerCase();
+const slugOf = (x) => (typeof x === 'string' ? x : x?.board ?? x?.tenant ?? x?.slug ?? '').toLowerCase();
 const known = {};
 for (const [ats, [file, key]] of Object.entries(CONFIG_OF)) known[ats] = new Set((readJson(path.join(CONFIG, file), {})[key] ?? []).map(slugOf));
 const adds = {}; const pending = new Map(); let verified = 0, postings = 0;
@@ -276,7 +277,7 @@ for (const r of report) {
   for (const k of r.ats) {
     const [ats, slug] = [k.slice(0, k.indexOf(':')), k.slice(k.indexOf(':') + 1)];
     if (VERIFY[ats]) {
-      const id = ats === 'workday' ? slug.split('|')[0].toLowerCase() : slug.toLowerCase();
+      const id = ats === 'workday' ? slug.split('|')[0].toLowerCase() : ats === 'ukg' ? slug.split('|')[1].toLowerCase() : slug.toLowerCase();
       if (known[ats].has(id)) { r.status = `${ats}:${id} already listed`; break; }
       const n = await VERIFY[ats](slug);
       if (n === null) continue;
@@ -287,6 +288,7 @@ for (const r of report) {
       const looksLike = (t) => { const a = t.toLowerCase().replace(/[^a-z0-9]/g, ''); const b = r.name.toLowerCase().replace(/[^a-z0-9]/g, ''); return a.length >= 3 && (b.includes(a) || a.includes(b.slice(0, 5))); };
       const entry = ats === 'workday' ? (() => { const [tenant, wd, site] = slug.split('|'); return { tenant, wd, site, company: looksLike(tenant) ? r.name : `${tenant} (parent of ${r.name}; relabel)` }; })()
         : ats === 'personio' ? { tenant: slug, company: r.name }
+        : ats === 'ukg' ? { tenant: slug.split('|')[0], board: slug.split('|')[1], company: r.name }
         : ['bamboohr', 'pinpoint', 'teamtailor'].includes(ats) ? { slug, company: r.name } : slug; // these feeds carry no company name
       (adds[ats] ??= []).push(entry); known[ats].add(id);
       r.status = `${ats}:${id} +${n}`;

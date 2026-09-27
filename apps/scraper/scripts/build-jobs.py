@@ -65,7 +65,7 @@ OK = {'greenhouse', 'usajobs', 'ashby', 'lever', 'himalayas', 'arbeitnow',
       # employer publishes them publicly to attract candidates and every card
       # links back to their own posting. workday/personio are hosted-ATS feeds,
       # `direct` is the studio careers pages we render.
-      'workday', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'direct',
+      'workday', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ukg', 'direct',
       # CR expansion (2026-08-22): amazon.jobs is the employer's own public
       # board; ANE is Costa Rica's public employment service (statutory
       # dissemination, the CR Job-Room); Jooble's partner API exists for
@@ -121,7 +121,7 @@ UNCAPPED = True
 # default) nothing changes. The repo is public: never write a real field of a
 # direct row anywhere under public/.
 DIRECT_REDACT = os.environ.get('DIRECT_REDACT') == '1'
-DIRECT_SOURCES = {'greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'direct'}
+DIRECT_SOURCES = {'greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ukg', 'direct'}
 PRIVATE_SRC = 'apps/web/private-src/direct'
 priv_byocc = collections.defaultdict(dict)
 BROWSE_ROWS = 15000      # rows the /jobs client downloads; the rest is reachable by occupation

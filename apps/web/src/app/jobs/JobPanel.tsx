@@ -21,7 +21,7 @@ import BenefitStrip, { type BenefitEntry } from './BenefitStrip';
 /* Sources that are the company's own board rather than an aggregator feed.
    Saying so on the pane is the provenance line (docs/26): a listing from the
    company's board dies when the company kills it. */
-const DIRECT = new Set(['greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'employer']);
+const DIRECT = new Set(['greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable', 'recruitee', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ukg', 'employer']);
 
 export default function JobPanel({ job, onClose, glossary, benefitBank, v2, occName, pos, onStep }: {
   job: Job; onClose: () => void; glossary?: SkillEntry[] | null;

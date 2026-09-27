@@ -42,7 +42,7 @@ const SKIP = new Set((opt('--skip', '') || '').split(',').filter(Boolean));
 const ONLY = new Set((opt('--only', '') || '').split(',').filter(Boolean));
 
 const AGG = new Set(['careerjet', 'jooble', 'himalayas', 'arbeitnow', 'jobicy', 'remoteok', 'themuse', 'reed', 'adzuna', 'getonbrd']);
-const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'direct']);
+const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ukg', 'direct']);
 // staffing platforms and boards that are not employers: a board under their name is not "direct"
 const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|kelly|gpac|yellowshark|ok job|locum|recruit|staffing|personal|jobs?\b|talent|consult|agency|careers?\b|hiring|nhs jobs|indeed|linkedin|jobgether|pavago|mercor|crossover|toptal|turing|deel|remote\.com|outsourc|human capital|associates|employment|technical resources|resourcing|hire hangar|braintrust|nexton|vaco|te emplea|emanate|venn group|goodman masson|oliver james|techbiz|adaptive teams|atomic hr)/i;
 
