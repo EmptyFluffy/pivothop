@@ -42,7 +42,7 @@ const SKIP = new Set((opt('--skip', '') || '').split(',').filter(Boolean));
 const ONLY = new Set((opt('--only', '') || '').split(',').filter(Boolean));
 
 const AGG = new Set(['careerjet', 'jooble', 'himalayas', 'arbeitnow', 'jobicy', 'remoteok', 'themuse', 'reed', 'adzuna', 'getonbrd']);
-const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ukg', 'direct']);
+const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ukg', 'paylocity', 'direct']);
 // staffing platforms and boards that are not employers: a board under their name is not "direct"
 const NOT_EMPLOYER = /\b(adecco|manpower|randstad|hays|michael page|robert half|kelly|gpac|yellowshark|ok job|locum|recruit|staffing|personal|jobs?\b|talent|consult|agency|careers?\b|hiring|nhs jobs|indeed|linkedin|jobgether|pavago|mercor|crossover|toptal|turing|deel|remote\.com|outsourc|human capital|associates|employment|technical resources|resourcing|hire hangar|braintrust|nexton|vaco|te emplea|emanate|venn group|goodman masson|oliver james|techbiz|adaptive teams|atomic hr)/i;
 
@@ -57,7 +57,8 @@ const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workda
   'recruitee:tes', 'recruitee:prisma', 'recruitee:trp', 'recruitee:lss',
   'smartrecruiters:freeport-mcmoran', 'smartrecruiters:doit', 'lever:bhhc',
   // same company, but staffing volume that would flood the board: one job repeated per city or per client
-  'greenhouse:pulse', 'lever:bluelightconsulting', 'recruitee:agenturfurhaushaltshilfe', 'smartrecruiters:npnow']); // namesakes verified by hand (2026-09-24 manual passes)
+  'greenhouse:pulse', 'lever:bluelightconsulting', 'recruitee:agenturfurhaushaltshilfe', 'smartrecruiters:npnow',
+  'workable:toloka-annotators', 'workable:zipdev', 'workable:rtg']); // namesakes verified by hand (2026-09-24 manual passes)
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

@@ -146,6 +146,7 @@ const VERIFY = {
   bamboohr: async (s) => { const b = await gj(`https://${s}.bamboohr.com/careers/list`); return Array.isArray(b?.result) ? b.result.length : null; },
   breezy: async (s) => { const b = await gj(`https://${s}.breezy.hr/json`); return Array.isArray(b) ? b.length : null; },
   ukg: async (s) => { const [t, g] = s.split('|'); for (const h of ['recruiting2.ultipro.com', 'recruiting.ultipro.com']) { const b = await gj(`https://${h}/${t}/JobBoard/${g}/JobBoardView/LoadSearchResults`, { method: 'POST', headers: { 'content-type': 'application/json', 'user-agent': BUA }, body: JSON.stringify({ opportunitySearch: { Top: 1, Skip: 0, QueryString: '', Filters: [] }, matchCriteria: { PreferredJobs: [], Educations: [], LicenseAndCertifications: [], Skills: [], hasNoLicenses: false, SkippedSkills: [] } }) }); if (typeof b?.totalCount === 'number') return b.totalCount; } return null; },
+  paylocity: async (s) => { try { const r = await fetch(`https://recruiting.paylocity.com/recruiting/jobs/All/${s}`, { headers: { 'user-agent': BUA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const m = (await r.text()).match(/window\.pageData\s*=\s*(\{[\s\S]*?\});\s*\n/); const j = m ? JSON.parse(m[1]).Jobs : null; return Array.isArray(j) ? j.length : null; } catch { return null; } },
   pinpoint: async (s) => { const b = await gj(`https://${s}.pinpointhq.com/postings.json`); return Array.isArray(b?.data) ? b.data.length : null; },
   teamtailor: async (s) => { try { const r = await fetch(`https://${s}.teamtailor.com/jobs.rss`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const x = await r.text(); return /<rss/.test(x) ? (x.match(/<item>/g) ?? []).length : null; } catch { return null; } },
   workday: async (s) => { const [t, wd, site] = s.split('|'); const b = await gj(`https://${t}.${wd}.myworkdayjobs.com/wday/cxs/${t}/${site}/jobs`, { method: 'POST', headers: { 'content-type': 'application/json', 'user-agent': BUA }, body: JSON.stringify({ limit: 1, offset: 0, searchText: '' }) }); return typeof b?.total === 'number' ? b.total : null; },
@@ -155,7 +156,7 @@ const CONFIG_OF = {
   smartrecruiters: ['smartrecruiters-companies.json', 'companies'], workable: ['workable-companies.json', 'companies'], recruitee: ['recruitee-companies.json', 'companies'],
   personio: ['personio-companies.json', 'tenants'], workday: ['workday-companies.json', 'tenants'],
   bamboohr: ['bamboohr-companies.json', 'companies'], breezy: ['breezy-companies.json', 'companies'],
-  pinpoint: ['pinpoint-companies.json', 'companies'], teamtailor: ['teamtailor-companies.json', 'companies'], ukg: ['ukg-companies.json', 'companies'],
+  pinpoint: ['pinpoint-companies.json', 'companies'], teamtailor: ['teamtailor-companies.json', 'companies'], ukg: ['ukg-companies.json', 'companies'], paylocity: ['paylocity-companies.json', 'companies'],
 };
 
 /* ── the crawl ── */
@@ -269,7 +270,7 @@ await browser.close();
 
 /* ── verify supported ATS and write ── */
 fs.mkdirSync(path.dirname(REPORT), { recursive: true });
-const slugOf = (x) => (typeof x === 'string' ? x : x?.board ?? x?.tenant ?? x?.slug ?? '').toLowerCase();
+const slugOf = (x) => (typeof x === 'string' ? x : x?.board ?? x?.guid ?? x?.tenant ?? x?.slug ?? '').toLowerCase();
 const known = {};
 for (const [ats, [file, key]] of Object.entries(CONFIG_OF)) known[ats] = new Set((readJson(path.join(CONFIG, file), {})[key] ?? []).map(slugOf));
 const adds = {}; const pending = new Map(); let verified = 0, postings = 0;
@@ -289,6 +290,7 @@ for (const r of report) {
       const entry = ats === 'workday' ? (() => { const [tenant, wd, site] = slug.split('|'); return { tenant, wd, site, company: looksLike(tenant) ? r.name : `${tenant} (parent of ${r.name}; relabel)` }; })()
         : ats === 'personio' ? { tenant: slug, company: r.name }
         : ats === 'ukg' ? { tenant: slug.split('|')[0], board: slug.split('|')[1], company: r.name }
+        : ats === 'paylocity' ? { guid: slug, company: r.name }
         : ['bamboohr', 'pinpoint', 'teamtailor'].includes(ats) ? { slug, company: r.name } : slug; // these feeds carry no company name
       (adds[ats] ??= []).push(entry); known[ats].add(id);
       r.status = `${ats}:${id} +${n}`;
