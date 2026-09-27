@@ -134,6 +134,30 @@ const ATS = {
       }
       return null;
     } },
+  // 2026-09-27: the systems with their own readers since yesterday. A missing
+  // tenant answers 404 (or BambooHR's HTML homepage), never an empty board.
+  bamboohr: { file: 'bamboohr-companies.json', key: 'companies', object: true,
+    probe: async (s) => { const b = await getJson(`https://${s}.bamboohr.com/careers/list`); return Array.isArray(b?.result) ? { jobs: b.result.length, entry: { slug: s } } : null; } },
+  breezy: { file: 'breezy-companies.json', key: 'companies',
+    probe: async (s) => { const b = await getJson(`https://${s}.breezy.hr/json`); return Array.isArray(b) ? b.length : null; } },
+  pinpoint: { file: 'pinpoint-companies.json', key: 'companies', object: true,
+    probe: async (s) => { const b = await getJson(`https://${s}.pinpointhq.com/postings.json`); return Array.isArray(b?.data) ? { jobs: b.data.length, entry: { slug: s } } : null; } },
+  teamtailor: { file: 'teamtailor-companies.json', key: 'companies', object: true,
+    probe: async (s) => {
+      try { const r = await fetch(`https://${s}.teamtailor.com/jobs.rss`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) { await r.body?.cancel(); return null; } const x = await r.text(); return /<rss/.test(x) ? { jobs: (x.match(/<item>/g) ?? []).length, entry: { slug: s } } : null; } catch { return null; }
+    } },
+  icims: { file: 'icims-companies.json', key: 'companies', object: true,
+    probe: async (s) => {
+      for (const sub of [`careers-${s}`, `jobs-${s}`]) {
+        try {
+          const r = await fetch(`https://${sub}.icims.com/jobs/search?ss=1&in_iframe=1`, { headers: { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36' }, signal: AbortSignal.timeout(15000) });
+          if (!r.ok) { await r.body?.cancel(); continue; }
+          const n = new Set([...(await r.text()).matchAll(/\/jobs\/(\d+)\/[^/"?]+\/job/g)].map((m) => m[1])).size;
+          if (n) return { jobs: n, entry: { sub } }; // 20 per page: a full page means 20+
+        } catch { /* next */ }
+      }
+      return null;
+    } },
   // Personio (European mid-market): one keyless XML feed per tenant.
   personio: { file: 'personio-companies.json', key: 'tenants', object: true,
     probe: async (s) => {
@@ -179,7 +203,7 @@ function readList(ats) {
   return { f, d, list: d[ATS[ats].key] ?? [] };
 }
 // the slug a config row answers to: a string, or the tenant of an object row
-const slugOf = (x) => (typeof x === 'string' ? x : x?.tenant ?? x?.slug ?? '').toLowerCase();
+const slugOf = (x) => (typeof x === 'string' ? x : x?.sub ?? x?.tenant ?? x?.slug ?? '').toLowerCase();
 
 /* Aggregator companies not yet direct, most rows first. Streamed: the corpus
  * passed Node's 512 MB string ceiling on the runner (2026-09-26 nightly died on
@@ -249,7 +273,8 @@ if (!DRY) {
     const { f, d, list } = readList(ats);
     const have = new Set(list.map(slugOf));
     // two aggregator names can land on one board (2brains, 2Brains): add it once
-    const add = hits.filter((h) => !have.has(h.slug) && have.add(h.slug)).map((h) => (ATS[ats].object ? { ...h.entry, company: h.co } : h.slug));
+    const idOf = (h) => String(h.entry?.sub ?? h.slug).toLowerCase(); // iCIMS rows key on the portal subdomain
+    const add = hits.filter((h) => !have.has(idOf(h)) && have.add(idOf(h))).map((h) => (ATS[ats].object ? { ...h.entry, company: h.co } : h.slug));
     d[ATS[ats].key] = [...list, ...add];
     fs.writeFileSync(f, JSON.stringify(d, null, 1) + '\n'); // the lists' own indent
     console.log(`config: ${ATS[ats].file} +${add.length}`);
