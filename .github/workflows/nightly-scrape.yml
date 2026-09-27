@@ -116,6 +116,13 @@ jobs:
           # default Node heap OOM'd on it. Give it real headroom.
           NODE_OPTIONS: --max-old-space-size=8192
           FORCE_GRAPH: ${{ github.event.inputs.force_graph || '0' }}
+          # Workday tenants are separate hosts (each keeps its own 700 ms
+          # spacing), so more at once costs no politeness; the fleet grew by
+          # ~40 tenants on 2026-09-26 and workday went 108 -> 138 min at 6.
+          WORKDAY_CONCURRENCY: '10'
+          # per-source ceiling inside ingest (cli.js); a wedged source fails
+          # loudly at this point instead of silently ending the run
+          INGEST_SOURCE_DEADLINE_MIN: '260'
           # The direct lock (docs/34): the repo variable flips redaction on, the
           # secret seals the vault. Set the same key in the Vercel env.
           DIRECT_REDACT: ${{ vars.DIRECT_REDACT || '0' }}

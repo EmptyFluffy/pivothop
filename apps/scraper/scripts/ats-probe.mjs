@@ -61,6 +61,12 @@ const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workda
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Workable rate-limits by IP: one request every WORKABLE_GAP_MS across the
+// whole run, however many companies are in flight (2026-09-26: 1,160 of 1,283
+// companies came back 429 even one at a time without a gap)
+const WORKABLE_GAP_MS = Number(process.env.WORKABLE_GAP_MS || 1500);
+let workableNext = Promise.resolve();
+const workableTurn = () => { const turn = workableNext; workableNext = turn.then(() => sleep(WORKABLE_GAP_MS)); return turn; };
 async function getJson(url) {
   // 429 is "slow down", not "no board": with companies probed in parallel,
   // Workable answers 429 often, and a null there was recorded as a miss that
@@ -89,7 +95,7 @@ const ATS = {
   smartrecruiters: { file: 'smartrecruiters-companies.json', key: 'companies',
     probe: async (s) => { const b = await getJson(`https://api.smartrecruiters.com/v1/companies/${s}/postings?limit=1`); return typeof b?.totalFound === 'number' ? b.totalFound : null; } },
   workable: { file: 'workable-companies.json', key: 'companies',
-    probe: async (s) => { const b = await getJson(`https://apply.workable.com/api/v1/widget/accounts/${s}`); return b === undefined ? undefined : b?.jobs ? b.jobs.length : null; } },
+    probe: async (s) => { await workableTurn(); const b = await getJson(`https://apply.workable.com/api/v1/widget/accounts/${s}`); return b === undefined ? undefined : b?.jobs ? b.jobs.length : null; } },
   recruitee: { file: 'recruitee-companies.json', key: 'companies',
     probe: async (s) => { const b = await getJson(`https://${s}.recruitee.com/api/offers/`); return b?.offers ? b.offers.length : null; } },
   // Workday (2026-09-23): where hospitals, retailers, airlines and builders
