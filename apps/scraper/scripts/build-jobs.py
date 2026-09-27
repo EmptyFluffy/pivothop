@@ -149,7 +149,8 @@ BRAND_CASE = {'openai': 'OpenAI', 'elevenlabs': 'ElevenLabs', 'gitlab': 'GitLab'
               'clickhouse': 'ClickHouse', 'posthog': 'PostHog', 'duckduckgo': 'DuckDuckGo',
               'hashicorp': 'HashiCorp', 'digitalocean': 'DigitalOcean', 'nerdwallet': 'NerdWallet',
               'betterup': 'BetterUp', 'pagerduty': 'PagerDuty', 'wework': 'WeWork',
-              'cockroachlabs': 'Cockroach Labs', 'jobandtalent': 'Job&Talent'}
+              'cockroachlabs': 'Cockroach Labs', 'jobandtalent': 'Job&Talent',
+              'artefactjobs': 'Artefact', 'thehutgroup': 'THG', 'wehrtyou': 'Hudson River Trading'}
 def display_company(name):
     """ATS slugs often arrive all-lowercase ('coinbase'); title-case those,
     with a map for brands whose casing title-casing gets wrong (OpenAI)."""

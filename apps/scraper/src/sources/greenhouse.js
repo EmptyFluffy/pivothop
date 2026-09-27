@@ -27,6 +27,16 @@ export async function fetchRaw({ log }) {
     catch (err) { log(`greenhouse:${token} — ${err.message} (board skipped, source continues)`); continue; }
     if (!body) { log(`greenhouse:${token} — no public board (skipped)`); continue; }
     const jobs = body.jobs ?? [];
+    // The board's own display name ('THG', 'PlayStation Global', 'Hudson
+    // River Trading') instead of its token ('thehutgroup', 'wehrtyou'). Cached
+    // a week: names change rarely and boards-api is one shared host. Some
+    // boards are named for a channel, not the company; those keep the token.
+    let org = token;
+    if (jobs.length) {
+      const meta = await fetchJson(`https://boards-api.greenhouse.io/v1/boards/${token}`, { ttlMs: 7 * 24 * 3600e3 }).catch(() => null);
+      const n = String(meta?.name ?? '').trim();
+      if (n && !/\b(jobs?|careers?|open roles|referrals?|welcome to|wrapping|linkedin|job board)\b/i.test(n)) org = n;
+    }
     log(`greenhouse:${token} — ${jobs.length} postings`);
     for (const j of jobs) {
       // Greenhouse delivers `content` as ESCAPED HTML, so this needs the repeated
@@ -38,7 +48,7 @@ export async function fetchRaw({ log }) {
         source: name,
         external_id: `${token}:${j.id}`,
         title: j.title ?? '',
-        company: token,
+        company: org,
         location: loc || null,
         remote_flag: /remote/i.test(loc) || /\bfully remote\b/i.test(text),
         salary_min: sal?.min ?? null,

@@ -58,7 +58,15 @@ const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workda
   'smartrecruiters:freeport-mcmoran', 'smartrecruiters:doit', 'lever:bhhc',
   // same company, but staffing volume that would flood the board: one job repeated per city or per client
   'greenhouse:pulse', 'lever:bluelightconsulting', 'recruitee:agenturfurhaushaltshilfe', 'smartrecruiters:npnow',
-  'workable:toloka-annotators', 'workable:zipdev', 'workable:rtg']); // namesakes verified by hand (2026-09-24 manual passes)
+  'workable:toloka-annotators', 'workable:zipdev', 'workable:rtg',
+  // 2026-09-27 pass (2,500 names from the live board): namesakes
+  'personio:tertianum', 'personio:worknow', 'personio:hps', 'personio:ssw', 'personio:gus', 'personio:wrs', 'personio:tosu',
+  'workday:mes', 'workday:hss', 'ashby:psi', 'ashby:cas', 'smartrecruiters:dzd', 'smartrecruiters:nbs',
+  'recruitee:h2r', 'recruitee:csp', 'recruitee:gac', 'lever:bis', 'greenhouse:tcs', 'greenhouse:its', 'greenhouse:ics',
+  // ...channel duplicates and referral-only boards
+  'greenhouse:artefactlinkedin', 'greenhouse:monzoreferrals',
+  // ...staffing, gig and freelance feeds
+  'ashby:hirehangar', 'ashby:10xteam', 'ashby:hirehire', 'recruitee:jetztjob', 'recruitee:swisselect', 'lever:assist-world', 'lever:weloglobal']); // namesakes verified by hand (2026-09-24 manual passes)
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
