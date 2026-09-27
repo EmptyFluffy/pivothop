@@ -74,7 +74,7 @@ const todo = firms.filter((f) => { const d = regDomain(f.url); if (!d || seenDom
 console.log(`studio-resolve: ${todo.length} firms (${firms.length} before domain dedupe)${DRY ? ', dry run' : ''}`);
 
 /* ── ATS signatures: name -> regex with the identifying groups ── */
-const BAD = /^(embed|js|v1|api|www|jobs|careers|career|static|assets|cdn|app|apply|boards|job-boards|widget|widgets|en|en-us|de|fr|es|search|login|index|oneclick-ui|staticfe)$/i; // staticfe: a BambooHR asset host, not a company
+const BAD = /^(embed|js|v1|api|www|jobs|careers|career|static|assets|cdn|app|apply|boards|job-boards|widget|widgets|en|en-us|de|fr|es|search|login|index|oneclick-ui|staticfe|cdn\d*)$/i; // staticfe: a BambooHR asset host, not a company
 const SIGS = [
   ['greenhouse', /(?:boards|job-boards)(?:\.eu)?\.greenhouse\.io\/(?:embed\/job_board(?:\/js)?\?for=)?([A-Za-z0-9_-]+)/g],
   ['greenhouse', /boards-api\.greenhouse\.io\/v1\/boards\/([A-Za-z0-9_-]+)/g],
@@ -147,6 +147,7 @@ const VERIFY = {
   breezy: async (s) => { const b = await gj(`https://${s}.breezy.hr/json`); return Array.isArray(b) ? b.length : null; },
   ukg: async (s) => { const [t, g] = s.split('|'); for (const h of ['recruiting2.ultipro.com', 'recruiting.ultipro.com']) { const b = await gj(`https://${h}/${t}/JobBoard/${g}/JobBoardView/LoadSearchResults`, { method: 'POST', headers: { 'content-type': 'application/json', 'user-agent': BUA }, body: JSON.stringify({ opportunitySearch: { Top: 1, Skip: 0, QueryString: '', Filters: [] }, matchCriteria: { PreferredJobs: [], Educations: [], LicenseAndCertifications: [], Skills: [], hasNoLicenses: false, SkippedSkills: [] } }) }); if (typeof b?.totalCount === 'number') return b.totalCount; } return null; },
   paylocity: async (s) => { try { const r = await fetch(`https://recruiting.paylocity.com/recruiting/jobs/All/${s}`, { headers: { 'user-agent': BUA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const m = (await r.text()).match(/window\.pageData\s*=\s*(\{[\s\S]*?\});\s*\n/); const j = m ? JSON.parse(m[1]).Jobs : null; return Array.isArray(j) ? j.length : null; } catch { return null; } },
+  icims: async (s) => { try { const r = await fetch(`https://${s}.icims.com/jobs/search?ss=1&in_iframe=1`, { headers: { 'user-agent': BUA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const n = new Set([...(await r.text()).matchAll(/\/jobs\/(\d+)\/[^/"?]+\/job/g)].map((m) => m[1])).size; return n; } catch { return null; } },
   pinpoint: async (s) => { const b = await gj(`https://${s}.pinpointhq.com/postings.json`); return Array.isArray(b?.data) ? b.data.length : null; },
   teamtailor: async (s) => { try { const r = await fetch(`https://${s}.teamtailor.com/jobs.rss`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) return null; const x = await r.text(); return /<rss/.test(x) ? (x.match(/<item>/g) ?? []).length : null; } catch { return null; } },
   workday: async (s) => { const [t, wd, site] = s.split('|'); const b = await gj(`https://${t}.${wd}.myworkdayjobs.com/wday/cxs/${t}/${site}/jobs`, { method: 'POST', headers: { 'content-type': 'application/json', 'user-agent': BUA }, body: JSON.stringify({ limit: 1, offset: 0, searchText: '' }) }); return typeof b?.total === 'number' ? b.total : null; },
@@ -156,7 +157,7 @@ const CONFIG_OF = {
   smartrecruiters: ['smartrecruiters-companies.json', 'companies'], workable: ['workable-companies.json', 'companies'], recruitee: ['recruitee-companies.json', 'companies'],
   personio: ['personio-companies.json', 'tenants'], workday: ['workday-companies.json', 'tenants'],
   bamboohr: ['bamboohr-companies.json', 'companies'], breezy: ['breezy-companies.json', 'companies'],
-  pinpoint: ['pinpoint-companies.json', 'companies'], teamtailor: ['teamtailor-companies.json', 'companies'], ukg: ['ukg-companies.json', 'companies'], paylocity: ['paylocity-companies.json', 'companies'],
+  pinpoint: ['pinpoint-companies.json', 'companies'], teamtailor: ['teamtailor-companies.json', 'companies'], ukg: ['ukg-companies.json', 'companies'], paylocity: ['paylocity-companies.json', 'companies'], icims: ['icims-companies.json', 'companies'],
 };
 
 /* ── the crawl ── */
@@ -270,7 +271,7 @@ await browser.close();
 
 /* ── verify supported ATS and write ── */
 fs.mkdirSync(path.dirname(REPORT), { recursive: true });
-const slugOf = (x) => (typeof x === 'string' ? x : x?.board ?? x?.guid ?? x?.tenant ?? x?.slug ?? '').toLowerCase();
+const slugOf = (x) => (typeof x === 'string' ? x : x?.board ?? x?.guid ?? x?.sub ?? x?.tenant ?? x?.slug ?? '').toLowerCase();
 const known = {};
 for (const [ats, [file, key]] of Object.entries(CONFIG_OF)) known[ats] = new Set((readJson(path.join(CONFIG, file), {})[key] ?? []).map(slugOf));
 const adds = {}; const pending = new Map(); let verified = 0, postings = 0;
@@ -291,6 +292,7 @@ for (const r of report) {
         : ats === 'personio' ? { tenant: slug, company: r.name }
         : ats === 'ukg' ? { tenant: slug.split('|')[0], board: slug.split('|')[1], company: r.name }
         : ats === 'paylocity' ? { guid: slug, company: r.name }
+        : ats === 'icims' ? { sub: slug, company: r.name }
         : ['bamboohr', 'pinpoint', 'teamtailor'].includes(ats) ? { slug, company: r.name } : slug; // these feeds carry no company name
       (adds[ats] ??= []).push(entry); known[ats].add(id);
       r.status = `${ats}:${id} +${n}`;
