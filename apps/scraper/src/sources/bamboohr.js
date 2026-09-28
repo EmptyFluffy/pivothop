@@ -13,23 +13,38 @@ import { CONFIG_DIR } from '../lib/paths.js';
 // carries both: { slug, company, country }.
 export const name = 'bamboohr';
 
-const DETAIL_CAP = Number(process.env.BAMBOOHR_MAX_JOBS || 400);
+const DETAIL_CAP = Number(process.env.BAMBOOHR_MAX_JOBS || 300);
+// boards are separate hosts: several at once; the budget keeps what was read
+const CONC = Number(process.env.BAMBOOHR_CONCURRENCY || 8);
+const BUDGET_MS = Number(process.env.BAMBOOHR_BUDGET_MIN || 90) * 60e3;
 const REMOTE_TYPE = '1'; // locationType: 0 on site, 1 remote, 2 hybrid
 
 export async function fetchRaw({ log }) {
   const companies = readJson(path.join(CONFIG_DIR, 'bamboohr-companies.json'))?.companies ?? [];
   const rows = [];
-  for (const c of companies) {
+  const stopAt = Date.now() + BUDGET_MS;
+  let next = 0; let cut = 0;
+  const worker = async () => { while (next < companies.length) { const c = companies[next++]; cut += await board(c, rows, log, stopAt); } };
+  await Promise.all(Array.from({ length: Math.min(CONC, companies.length) }, worker));
+  if (cut) log(`bamboohr: time budget reached, ${cut} openings left for the next run`);
+  return rows;
+}
+
+async function board(c, rows, log, stopAt) {
+  {
     const slug = typeof c === 'string' ? c : c.slug;
     const company = (typeof c === 'object' && c.company) || slug;
     const country = typeof c === 'object' ? c.country : null;
     let list;
     try { list = await fetchJson(`https://${slug}.bamboohr.com/careers/list`, { headers: { accept: 'application/json' }, minIntervalMs: 600 }); }
-    catch (err) { log(`bamboohr:${slug} — ${err.message} (board skipped, source continues)`); continue; }
+    catch (err) { log(`bamboohr:${slug} — ${err.message} (board skipped, source continues)`); return 0; }
     const jobs = Array.isArray(list?.result) ? list.result : null;
-    if (!jobs) { log(`bamboohr:${slug} — no public board (skipped)`); continue; }
+    if (!jobs) { log(`bamboohr:${slug} — no public board (skipped)`); return 0; }
     log(`bamboohr:${slug} — ${jobs.length} postings`);
-    for (const j of jobs.slice(0, DETAIL_CAP)) {
+    const todo = jobs.slice(0, DETAIL_CAP);
+    for (let i = 0; i < todo.length; i++) {
+      if (Date.now() > stopAt) return todo.length - i;
+      const j = todo[i];
       let d = null;
       try { d = (await fetchJson(`https://${slug}.bamboohr.com/careers/${j.id}/detail`, { headers: { accept: 'application/json' }, minIntervalMs: 600 }))?.result?.jobOpening ?? null; }
       catch { d = null; } // the list row still carries title and place
@@ -51,5 +66,5 @@ export async function fetchRaw({ log }) {
       });
     }
   }
-  return rows;
+  return 0;
 }

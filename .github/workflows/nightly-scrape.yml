@@ -42,7 +42,9 @@ jobs:
     # +12.5k), and the cancel also discarded the cache, so the next attempt
     # repeats the whole fetch. A ceiling only costs minutes when a run
     # actually needs them; a run killed before `publish` costs the whole run.
-    timeout-minutes: 330
+    # 355 (2026-09-28): the board grew to 147k listings and build-jobs alone now
+    # takes ~80 min; GitHub's ceiling for a hosted job is 360.
+    timeout-minutes: 355
     steps:
       - uses: actions/checkout@v4
 
@@ -122,7 +124,9 @@ jobs:
           WORKDAY_CONCURRENCY: '10'
           # per-source ceiling inside ingest (cli.js); a wedged source fails
           # loudly at this point instead of silently ending the run
-          INGEST_SOURCE_DEADLINE_MIN: '260'
+          # 180, not 260: after ingest the run still needs ~2 h (normalize ~30,
+          # build-jobs ~80, gates and publish ~15) inside the 355-minute job.
+          INGEST_SOURCE_DEADLINE_MIN: '180'
           # The direct lock (docs/34): the repo variable flips redaction on, the
           # secret seals the vault. Set the same key in the Vercel env.
           DIRECT_REDACT: ${{ vars.DIRECT_REDACT || '0' }}

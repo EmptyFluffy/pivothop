@@ -5,6 +5,7 @@ import { stripHtml } from '../lib/text.js';
 import { readJson } from '../lib/store.js';
 import { CONFIG_DIR, CACHE_DIR } from '../lib/paths.js';
 import { mapTitle } from '../normalize/titles.js';
+import { hard } from '../lib/http.js';
 
 // Direct careers pages — the hidden-jobs source. The 2026-08-03 studio probe
 // showed that most name-brand architecture and design studios (Foster +
@@ -44,8 +45,9 @@ async function politeGet(url) {
   if (wait > 0) await sleep(wait);
   lastHit.set(host, Date.now());
   try {
-    const res = await fetch(url, { headers: { 'user-agent': UA, accept: 'text/html' }, redirect: 'follow', signal: AbortSignal.timeout(20000) });
-    return res.ok ? await res.text() : null;
+    const res = await hard(fetch(url, { headers: { 'user-agent': UA, accept: 'text/html' }, redirect: 'follow', signal: AbortSignal.timeout(20000) }), 30000, url);
+    if (!res.ok) { res.body?.cancel().catch(() => {}); return null; }
+    return await hard(res.text(), 30000, url);
   } catch { return null; }
 }
 
@@ -79,20 +81,26 @@ async function renderGet(url) {
   if (wait > 0) await sleep(wait);
   lastHit.set(host, Date.now());
   let page;
+  // evaluate() and content() have no timeout of their own: a page whose
+  // script freezes the renderer held one worker, and so the whole direct
+  // source, for three hours on 2026-09-28. The whole render races a ref'd
+  // 60 s timer, and the page is closed without waiting on a frozen tab.
   try {
-    page = await browser.newPage({ userAgent: UA });
-    const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-    if (!res || res.status() >= 400) return null;
-    await page.waitForTimeout(2500); // let the client-side job list paint
-    const text = await page.evaluate(() => document.body.innerText);
-    // Links come from the LIVE DOM, so client-rendered anchors are included.
-    const links = await page.evaluate(() =>
-      [...document.querySelectorAll('a[href]')]
-        .map((a) => ({ href: a.href, label: (a.innerText || '').trim().slice(0, 120) }))
-        .filter((l) => /^https?:/.test(l.href)));
-    const html = await page.content();
-    return { text, links, html, url: page.url() };
-  } catch { return null; } finally { if (page) await page.close().catch(() => {}); }
+    return await hard((async () => {
+      page = await browser.newPage({ userAgent: UA });
+      const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      if (!res || res.status() >= 400) return null;
+      await page.waitForTimeout(2500); // let the client-side job list paint
+      const text = await page.evaluate(() => document.body.innerText);
+      // Links come from the LIVE DOM, so client-rendered anchors are included.
+      const links = await page.evaluate(() =>
+        [...document.querySelectorAll('a[href]')]
+          .map((a) => ({ href: a.href, label: (a.innerText || '').trim().slice(0, 120) }))
+          .filter((l) => /^https?:/.test(l.href)));
+      const html = await page.content();
+      return { text, links, html, url: page.url() };
+    })(), 60000, `render ${url}`);
+  } catch { return null; } finally { if (page) hard(page.close(), 10000, 'close').catch(() => {}); }
 }
 
 export async function closeBrowser() {
@@ -583,7 +591,12 @@ export async function fetchRaw({ log }) {
     const queue = [...companies];
     const CONC = Number(process.env.DIRECT_CONCURRENCY) || 8;
     await Promise.all(Array.from({ length: Math.min(CONC, queue.length) }, async () => {
-      for (let c = queue.shift(); c; c = queue.shift()) await readFirm(c);
+      // one firm can never hold a worker for more than FIRM_MS (default 4 min)
+      const FIRM_MS = Number(process.env.DIRECT_FIRM_MS) || 240000;
+      for (let c = queue.shift(); c; c = queue.shift()) {
+        try { await hard(readFirm(c), FIRM_MS, `firm ${c.name}`); }
+        catch (err) { log(`direct:${c.name} — ${err.message} (skipped, fleet continues)`); }
+      }
     }));
     log(meterSummary());
     return rows;

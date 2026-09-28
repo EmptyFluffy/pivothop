@@ -14,7 +14,13 @@ export const name = 'icims';
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const MAX_JOBS = Number(process.env.ICIMS_MAX_JOBS || 500);
+const MAX_JOBS = Number(process.env.ICIMS_MAX_JOBS || 300);
+// Portals are separate hosts, so several run at once (each keeps its own
+// 700 ms spacing). The budget stops fetching new openings and KEEPS what was
+// read: on 2026-09-28 forty portals read one after another would have run for
+// hours and taken the whole nightly past its time limit.
+const CONC = Number(process.env.ICIMS_CONCURRENCY || 8);
+const BUDGET_MS = Number(process.env.ICIMS_BUDGET_MIN || 90) * 60e3;
 async function get(url) {
   const res = await hard(fetch(url, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(20000) }), 30000, url);
   if (!res.ok) { await res.body?.cancel(); return null; }
@@ -33,7 +39,16 @@ const PERIOD = { YEAR: 'year', MONTH: 'month', WEEK: 'week', DAY: 'day', HOUR: '
 export async function fetchRaw({ log }) {
   const companies = readJson(path.join(CONFIG_DIR, 'icims-companies.json'))?.companies ?? [];
   const rows = [];
-  for (const c of companies) {
+  const stopAt = Date.now() + BUDGET_MS;
+  let next = 0; let cut = 0;
+  const worker = async () => { while (next < companies.length) { const c = companies[next++]; cut += await portal(c, rows, log, stopAt); } };
+  await Promise.all(Array.from({ length: Math.min(CONC, companies.length) }, worker));
+  if (cut) log(`icims: time budget reached, ${cut} openings left for the next run`);
+  return rows;
+}
+
+async function portal(c, rows, log, stopAt) {
+  {
     const base = `https://${c.sub}.icims.com`;
     const ids = new Map();
     try {
@@ -45,10 +60,13 @@ export async function fetchRaw({ log }) {
         if (ids.size === before) break; // past the last page
         await sleep(700);
       }
-    } catch (err) { log(`icims:${c.sub} — ${err.message} (board skipped, source continues)`); continue; }
-    if (!ids.size) { log(`icims:${c.sub} — no public openings (skipped)`); continue; }
+    } catch (err) { log(`icims:${c.sub} — ${err.message} (board skipped, source continues)`); return 0; }
+    if (!ids.size) { log(`icims:${c.sub} — no public openings (skipped)`); return 0; }
     log(`icims:${c.sub} — ${ids.size} postings (${c.company})`);
-    for (const [id, url] of [...ids].slice(0, MAX_JOBS)) {
+    const list = [...ids].slice(0, MAX_JOBS);
+    for (let i = 0; i < list.length; i++) {
+      if (Date.now() > stopAt) return list.length - i;
+      const [id, url] = list[i];
       let jp = null; try { jp = posting(await get(`${url}?in_iframe=1`)); } catch { jp = null; }
       await sleep(700);
       if (!jp) continue;
@@ -71,5 +89,5 @@ export async function fetchRaw({ log }) {
       });
     }
   }
-  return rows;
+  return 0;
 }
