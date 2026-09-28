@@ -2,30 +2,30 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 
-/* Three duties, one edge function (renamed middleware -> proxy per Next 16):
+/* Two duties, one function (renamed middleware -> proxy per Next 16):
 
    1. HTTP Basic Auth for /admin. Password lives in ADMIN_PASSWORD (Vercel env);
       user defaults to "admin". Credentials never touch a cookie and the browser
       resends them on every /admin request, so the review console and its server
       actions are both covered.
 
-   2. Visitor country (docs/32: SUGGEST, NEVER FORCE). Vercel stamps
-      x-vercel-ip-country on every request; a CH visitor gets a 30-day cookie
-      and a client component offers the Swiss board once, dismissibly. No
-      redirect, ever: Google crawls from the US and a forced redirect would
-      cloak the site from its own index, and a quarter of Swiss residents are
-      foreign nationals who may want exactly the page they asked for. The
-      static HTML stays byte-identical for every visitor — the banner hydrates
-      client-side off the cookie, so prerendering and SEO are untouched.
+   2. Supabase session refresh on the account routes (/dashboard, /auth,
+      /signin). The getAll/setAll bridge writes refreshed cookies onto BOTH the
+      request (so downstream server components see the new token this same
+      request) and the response. The response object the bridge built is the
+      one that must be returned: a fresh NextResponse created afterwards would
+      silently drop the Set-Cookie headers.
 
-   3. Supabase session refresh — the ONLY place tokens are refreshed. The
-      getAll/setAll bridge writes refreshed cookies onto BOTH the request (so
-      downstream server components see the new token this same request) and
-      the response. The response object the bridge built is the one that must
-      be returned: a fresh NextResponse created afterwards would silently drop
-      the Set-Cookie headers and users would randomly log out. Auth state
-      never varies the prerendered HTML (same doctrine as the geo cookies);
-      pages hydrate their signed-in chrome client-side. */
+   NARROW ON PURPOSE (2026-09-28). This used to match every page route, and
+   also stamped the visitor-country cookies. Every page view, every crawler
+   fetch of every job page included, was a function invocation: about a
+   million a day on the September bill, for 2-3k human visits a month. No
+   page reads the session on the server (pages hydrate signed-in chrome
+   client-side; the browser client refreshes its own token; /api/direct and
+   the server actions refresh through lib/supabase-server, which may write
+   cookies there). The country cookie moved to /api/geo, asked once per
+   visitor by lib/geo and never by a crawler. Widen the matcher only for a
+   route that genuinely needs a server-side session in a Server Component. */
 export default async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -65,24 +65,14 @@ export default async function proxy(req: NextRequest) {
     await supabase.auth.getClaims();
   }
 
-  const cc = req.headers.get('x-vercel-ip-country') || '';
-  if (cc === 'CH' && !req.cookies.get('ph-ch')) {
-    res.cookies.set('ph-ch', '1', { maxAge: 60 * 60 * 24 * 30, path: '/', sameSite: 'lax' });
-  }
-  // The same courtesy for everyone else. A board sorted by date alone shows a
-  // US nurse 390 Swiss listings first, because that is where the supply is.
-  // Two letters, readable by the client, never used to redirect or to vary the
-  // prerendered HTML.
-  if (/^[A-Z]{2}$/.test(cc) && req.cookies.get('ph-cc')?.value !== cc) {
-    res.cookies.set('ph-cc', cc, { maxAge: 60 * 60 * 24 * 30, path: '/', sameSite: 'lax' });
-  }
   return res;
 }
 
 export const config = {
   matcher: [
     '/admin', '/admin/:path*',
-    // geo cookie: page routes only — never assets, data files or the API
-    '/((?!_next|api|data|logos|.*\\..*).*)',
+    '/dashboard', '/dashboard/:path*',
+    '/auth/:path*',
+    '/signin',
   ],
 };

@@ -1,21 +1,23 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { visitorCountry } from '../../lib/geo';
 
-/* The Swiss suggestion (docs/32: suggest, never force). Renders only when the
-   proxy set the ph-ch cookie, i.e. Vercel geolocated the visitor to
-   Switzerland, and the visitor has not dismissed it. Client-side entirely, so
-   every prerendered page stays byte-identical for crawlers and non-Swiss
-   visitors; there is nothing here for SEO to see. Dismissal is remembered in
-   localStorage, not the cookie, so the proxy never needs to re-decide. */
+/* The Swiss suggestion (docs/32: suggest, never force). Renders only when
+   Vercel geolocated the visitor to Switzerland (lib/geo: asked once per
+   visitor, never by a crawler) and the visitor has not dismissed it.
+   Client-side entirely, so every prerendered page stays byte-identical for
+   crawlers and non-Swiss visitors; there is nothing here for SEO to see.
+   Dismissal is remembered in localStorage, not the cookie. */
 export default function SwissBanner() {
   const [show, setShow] = useState(false);
   const pathname = usePathname();
   useEffect(() => {
     if (typeof document === 'undefined') return;
-    if (!document.cookie.split('; ').includes('ph-ch=1')) return;
     if (localStorage.getItem('ph-ch-dismissed')) return;
-    setShow(true);
+    let live = true;
+    void visitorCountry().then((cc) => { if (live && cc === 'CH') setShow(true); });
+    return () => { live = false; };
   }, []);
   // On the Swiss board itself the banner would be furniture.
   if (!show || pathname?.startsWith('/jobs/in-switzerland')) return null;

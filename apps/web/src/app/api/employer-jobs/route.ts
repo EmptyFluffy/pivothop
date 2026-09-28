@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 /* The live layer: approved employer submissions, mapped to the board's Job
    shape. The board fetches this and merges it with the static scraped jobs, so
-   an approved post appears instantly.
+   an approved post appears within five minutes.
 
    Published statuses are 'posted' (a human approved it in /admin, the free
    early-access path) and 'paid' (the Lemon Squeezy webhook, kept for when
@@ -62,18 +62,27 @@ function toJob(r: Row): Job {
   };
 }
 
+/* Every board view fetches this, crawlers' included. Uncached it was one
+   function call and one Supabase query per board load for a list that
+   changes when a human approves a post (2026-09-28 bill). The CDN now holds
+   it five minutes and serves the stale copy for an hour while refreshing, so
+   an approved post appears within five minutes, and errors are cached for a
+   minute so a Supabase outage cannot turn into an invocation storm. */
+const FRESH = { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600' };
+const BRIEF = { 'Cache-Control': 'public, s-maxage=60' };
+
 export async function GET() {
   const base = process.env.SUPABASE_URL?.replace(/\/$/, '');
   const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!base || !key) return Response.json([]);
+  if (!base || !key) return Response.json([], { headers: BRIEF });
   try {
     const res = await fetch(`${base}/rest/v1/job_submissions?status=in.(posted,paid)&select=id,tier,role,company,occupation_slug,workplace,region,salary_min,salary_max,benefits,apply_url,apply_email,paid_at,created_at&order=created_at.desc`, {
       headers: { apikey: key, Authorization: `Bearer ${key}` },
       cache: 'no-store',
     });
-    if (!res.ok) return Response.json([]);
-    return Response.json(((await res.json()) as Row[]).map(toJob));
+    if (!res.ok) return Response.json([], { headers: BRIEF });
+    return Response.json(((await res.json()) as Row[]).map(toJob), { headers: FRESH });
   } catch {
-    return Response.json([]);
+    return Response.json([], { headers: BRIEF });
   }
 }

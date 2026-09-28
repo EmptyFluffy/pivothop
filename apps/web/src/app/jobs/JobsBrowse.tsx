@@ -12,6 +12,7 @@ import type { BenefitEntry } from './BenefitStrip';
 import { countryName } from './countries';
 import { regionOf, REGION_META, type RegionKey } from './regions';
 import { savedCount, onSavedChange } from '../../lib/saved';
+import { visitorCountry } from '../../lib/geo';
 
 /* The global board: one search over every listing, and one filter sheet
    (FilterSheet.tsx, docs/26) instead of a bar of dropdowns. The bar keeps only
@@ -74,8 +75,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   allRef.current = all;
 
   const set = (patch: Partial<Filters>) => setF((prev) => ({ ...prev, ...patch }));
-  // Visitor country, from the proxy's ph-cc cookie. Read client-side only, so
-  // the prerendered HTML stays byte-identical for crawlers (docs/32).
+  // Visitor country (lib/geo: asked once per visitor, never by a crawler).
+  // Client-side only, so the prerendered HTML stays byte-identical (docs/32).
   const [geoCC, setGeoCC] = useState('');
   // ---------- search typeahead (the landing instrument's pattern, docs/26) ----------
   // Suggest occupations (with their live count on this board) and skills (which
@@ -140,8 +141,10 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   };
   useEffect(() => {
     if (typeof document === 'undefined') return;
-    const m = document.cookie.match(/(?:^|; )ph-cc=([A-Z]{2})/);
-    if (m && !localStorage.getItem('ph-cc-dismissed')) setGeoCC(m[1]);
+    if (localStorage.getItem('ph-cc-dismissed')) return;
+    let live = true;
+    void visitorCountry().then((cc) => { if (live && cc) setGeoCC(cc); });
+    return () => { live = false; };
   }, []);
 
   // Load the corpus once, and read any shared filter state from the URL.
