@@ -5,11 +5,11 @@
     "title": "Flight Attendant",
     "field": "Hospitality",
     "cluster": "Service",
-    "postings": 95,
-    "salary": "$50k–$80k",
+    "postings": 97,
+    "salary": "$50k–$75k",
     "salary_band": [
-      51759,
-      81292
+      51412,
+      76078
     ],
     "remote": "3%",
     "separations": {
@@ -28,88 +28,88 @@
       "kind": "pivot",
       "license": null,
       "desc": "Takes the order, brings the food and drink, and reads the table.",
-      "match": 26,
-      "fit": 26,
+      "match": 22,
+      "fit": 22,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$30k–$50k",
+      "salary": "$30k–$45k",
       "salary_band": [
-        32249,
-        47560
+        32191,
+        47011
       ],
       "demand": "High",
       "remote": "1%",
       "time": "12–24 mo",
       "have": [
-        "Food Service",
         "Food & Beverage",
+        "Food Service",
         "Customer Service",
         "Catering & Banquet"
       ],
       "learn": [
         "Line Cooking",
         "Food Safety",
-        "Brewing",
-        "Guest Relations"
+        "Guest Relations",
+        "POS Systems"
       ],
       "waterfall": [
         {
-          "skill": "line-cooking",
-          "name": "Line Cooking",
-          "pts": 27.1,
-          "earned": 0
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 21.8,
+          "earned": 4.8
         },
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 20.9,
-          "earned": 10.5
+          "pts": 19.5,
+          "earned": 7.9
         },
         {
-          "skill": "food-beverage",
-          "name": "Food & Beverage",
-          "pts": 17.7,
-          "earned": 6.3
+          "skill": "line-cooking",
+          "name": "Line Cooking",
+          "pts": 17.8,
+          "earned": 0
         },
         {
           "skill": "food-safety",
           "name": "Food Safety",
-          "pts": 15.6,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 5.3,
-          "earned": 5.3
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 4.5,
+          "pts": 14.8,
           "earned": 0
         },
         {
           "skill": "guest-relations",
           "name": "Guest Relations",
-          "pts": 4.1,
+          "pts": 11.7,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.2,
+          "earned": 5.2
+        },
+        {
+          "skill": "toast-pos",
+          "name": "POS Systems",
+          "pts": 4.9,
           "earned": 0
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 4.1,
-          "earned": 4.1
+          "pts": 4.2,
+          "earned": 4.2
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 487,
-        "salaried": 53
+        "postings": 655,
+        "salaried": 52
       }
     },
     {
@@ -123,8 +123,8 @@
         "label": "Food-safety certification (ServSafe) typically required"
       },
       "desc": "",
-      "match": 16,
-      "fit": 22,
+      "match": 15,
+      "fit": 21,
       "capability": 37,
       "mobility": null,
       "mobility_source": null,
@@ -132,91 +132,121 @@
       "mobility_tier": null,
       "salary": "$40k–$60k",
       "salary_band": [
-        41224,
-        58736
+        41191,
+        59294
       ],
       "demand": "High",
-      "remote": "0%",
+      "remote": "1%",
       "time": "12–24 mo",
       "have": [
         "Food Service",
         "Catering & Banquet",
         "Food & Beverage",
-        "Customer Service"
+        "Scheduling"
       ],
       "learn": [
         "Food Safety",
         "Kitchen Management",
-        "Baking & Pastry",
+        "Guest Relations",
         "Menu Development"
       ],
       "waterfall": [
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 39.3,
-          "earned": 6.2
+          "pts": 32.9,
+          "earned": 4.9
         },
         {
           "skill": "food-safety",
           "name": "Food Safety",
-          "pts": 14.6,
+          "pts": 12.7,
           "earned": 0
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 12.2,
-          "earned": 3.7
+          "pts": 10.2,
+          "earned": 2.9
         },
         {
           "skill": "kitchen-management",
           "name": "Kitchen Management",
-          "pts": 11,
+          "pts": 9.3,
           "earned": 0
         },
         {
           "skill": "food-beverage",
           "name": "Food & Beverage",
-          "pts": 5.4,
-          "earned": 3.7
+          "pts": 5.2,
+          "earned": 2.9
         },
         {
-          "skill": "baking-pastry",
-          "name": "Baking & Pastry",
-          "pts": 4.4,
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 4.6,
           "earned": 0
         },
         {
           "skill": "menu-development",
           "name": "Menu Development",
-          "pts": 3.9,
+          "pts": 4.1,
           "earned": 0
         },
         {
-          "skill": "guest-relations",
-          "name": "Guest Relations",
-          "pts": 3.5,
+          "skill": "baking-pastry",
+          "name": "Baking & Pastry",
+          "pts": 4,
           "earned": 0
         },
         {
           "skill": "line-cooking",
           "name": "Line Cooking",
-          "pts": 3.1,
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 2.4,
+          "earned": 2.4
+        },
+        {
+          "skill": "food-cost",
+          "name": "Food Cost Control",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.3,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 2.6,
-          "earned": 2.6
+          "pts": 2.2,
+          "earned": 2.2
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2282,
-        "salaried": 931
+        "postings": 2510,
+        "salaried": 938
       }
     },
     {
@@ -227,8 +257,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Keeps a kitchen or counter running: prep, plating, dishes, stock, the pace of service.",
-      "match": 21,
-      "fit": 21,
+      "match": 18,
+      "fit": 18,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -240,226 +270,214 @@
         41891
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "1%",
       "time": "12–24 mo",
       "have": [
         "Food Service",
         "Customer Service",
         "Catering & Banquet",
-        "Food & Beverage"
+        "Scheduling"
       ],
       "learn": [
         "Food Safety",
         "Line Cooking",
-        "Maintenance",
-        "Hand & Power Tools"
+        "Food Cost Control",
+        "Community Engagement"
       ],
       "waterfall": [
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 30.7,
-          "earned": 4.9
+          "pts": 34.1,
+          "earned": 4.4
         },
         {
           "skill": "food-safety",
           "name": "Food Safety",
-          "pts": 18.6,
+          "pts": 19.4,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 10.6,
-          "earned": 10.6
-        },
-        {
-          "skill": "line-cooking",
-          "name": "Line Cooking",
-          "pts": 10.5,
-          "earned": 0
+          "pts": 12.9,
+          "earned": 8.8
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 9.4,
-          "earned": 2.9
+          "pts": 8.7,
+          "earned": 2.6
+        },
+        {
+          "skill": "line-cooking",
+          "name": "Line Cooking",
+          "pts": 8,
+          "earned": 0
+        },
+        {
+          "skill": "food-cost",
+          "name": "Food Cost Control",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "community-engagement",
+          "name": "Community Engagement",
+          "pts": 3.2,
+          "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 4.7,
+          "pts": 3.1,
           "earned": 0
         },
         {
           "skill": "hand-power-tools",
           "name": "Hand & Power Tools",
-          "pts": 3.7,
+          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "kitchen-management",
           "name": "Kitchen Management",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "food-beverage",
-          "name": "Food & Beverage",
           "pts": 2.4,
-          "earned": 2.4
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
-          "skill": "refrigeration",
-          "name": "Refrigeration",
-          "pts": 2.3,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 2.3,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 698,
-        "salaried": 218
-      }
-    },
-    {
-      "id": "event-planner",
-      "title": "Event Planner",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 13,
-      "fit": 16,
-      "capability": 20,
-      "mobility": 21,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 6,
-      "mobility_tier": null,
-      "salary": "$40k–$75k",
-      "salary_band": [
-        42010,
-        73808
-      ],
-      "demand": "High",
-      "remote": "4%",
-      "time": "12–24 mo",
-      "have": [
-        "Catering & Banquet",
-        "Customer Service",
-        "Scheduling"
-      ],
-      "learn": [
-        "Event Planning",
-        "Supply Chain",
-        "Primavera P6",
-        "Project Management"
-      ],
-      "waterfall": [
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 32.7,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 11.7,
-          "earned": 0
-        },
-        {
-          "skill": "catering",
-          "name": "Catering & Banquet",
-          "pts": 8.5,
-          "earned": 4.1
-        },
-        {
-          "skill": "primavera",
-          "name": "Primavera P6",
-          "pts": 6.9,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 5.2,
-          "earned": 5.2
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "b2b",
-          "name": "B2B",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 4.8,
-          "earned": 0
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 4,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 4,
-          "earned": 4
+          "pts": 1.7,
+          "earned": 1.7
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 979,
+        "salaried": 229
+      }
+    },
+    {
+      "id": "receptionist",
+      "title": "Receptionist",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": null,
+      "desc": "First face and voice of the place: welcomes, checks in, answers, routes, keeps the desk running.",
+      "match": 17,
+      "fit": 17,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$35k–$45k",
+      "salary_band": [
+        35371,
+        45269
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "12–24 mo",
+      "have": [
+        "Customer Service",
+        "Scheduling",
+        "Food & Beverage"
+      ],
+      "learn": [
+        "Front Office",
+        "Guest Relations",
+        "Excel",
+        "Brewing"
+      ],
+      "waterfall": [
+        {
+          "skill": "front-office",
+          "name": "Front Office",
+          "pts": 39.2,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 12.2,
+          "earned": 11.2
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 7.9,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 7.6,
+          "earned": 3.4
         },
         {
           "skill": "excel",
           "name": "Excel",
+          "pts": 6.4,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "housekeeping",
+          "name": "Housekeeping",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "hotel-operations",
+          "name": "Hotel Operations",
           "pts": 3.6,
           "earned": 0
         },
         {
-          "skill": "negotiation",
-          "name": "Negotiation",
-          "pts": 3.2,
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 3.4,
           "earned": 0
         },
         {
-          "skill": "presentation",
-          "name": "Presentation",
+          "skill": "ehr",
+          "name": "EHR / EMR",
           "pts": 2.8,
           "earned": 0
         },
         {
-          "skill": "business-development",
-          "name": "Business Development",
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
           "pts": 2.8,
+          "earned": 2.8
+        },
+        {
+          "skill": "opera-pms",
+          "name": "Opera PMS",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "translation",
+          "name": "Translation",
+          "pts": 2.2,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 325,
-        "salaried": 126
+        "postings": 1292,
+        "salaried": 166
       }
     },
     {
@@ -479,8 +497,8 @@
       "mobility_tier": null,
       "salary": "$30k–$45k",
       "salary_band": [
-        29165,
-        47044
+        29135,
+        46828
       ],
       "demand": "High",
       "remote": "0%",
@@ -488,63 +506,210 @@
       "have": [
         "Food Service",
         "Catering & Banquet",
-        "Food & Beverage"
+        "Food & Beverage",
+        "Customer Service"
       ],
       "learn": [
         "Line Cooking",
         "Food Safety",
-        "Brewing",
-        "Kitchen Management"
+        "Kitchen Management",
+        "Brewing"
       ],
       "waterfall": [
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 34.4,
-          "earned": 6.6
+          "pts": 32,
+          "earned": 5.4
         },
         {
           "skill": "line-cooking",
           "name": "Line Cooking",
-          "pts": 24.5,
+          "pts": 22.6,
           "earned": 0
         },
         {
           "skill": "food-safety",
           "name": "Food Safety",
-          "pts": 22,
+          "pts": 20.2,
           "earned": 0
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 7.1,
-          "earned": 4
+          "pts": 6.4,
+          "earned": 3.3
         },
         {
           "skill": "food-beverage",
           "name": "Food & Beverage",
-          "pts": 5,
-          "earned": 4
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 3.6,
-          "earned": 0
+          "pts": 4.3,
+          "earned": 3.3
         },
         {
           "skill": "kitchen-management",
           "name": "Kitchen Management",
-          "pts": 3.4,
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 2.9,
+          "earned": 2.9
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "baking-pastry",
+          "name": "Baking & Pastry",
+          "pts": 2.6,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 4072,
-        "salaried": 1079
+        "postings": 4650,
+        "salaried": 1100
+      }
+    },
+    {
+      "id": "housekeeper",
+      "title": "Housekeeper",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Keeps rooms, wards, offices and buildings clean and ready, to a standard and a clock.",
+      "match": 15,
+      "fit": 15,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$35k–$60k",
+      "salary_band": [
+        36178,
+        57782
+      ],
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Customer Service",
+        "Food Service",
+        "Scheduling",
+        "Food & Beverage"
+      ],
+      "learn": [
+        "Housekeeping",
+        "Brewing",
+        "Guest Relations",
+        "Maintenance"
+      ],
+      "waterfall": [
+        {
+          "skill": "housekeeping",
+          "name": "Housekeeping",
+          "pts": 42,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 9.6,
+          "earned": 0
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 8.4,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.3,
+          "earned": 5.3
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 4.1,
+          "earned": 4.1
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "front-office",
+          "name": "Front Office",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.2,
+          "earned": 3.2
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 2.7,
+          "earned": 2.7
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1283,
+        "salaried": 137
       }
     },
     {
@@ -555,17 +720,17 @@
       "kind": "lateral",
       "license": null,
       "desc": "",
-      "match": 12,
-      "fit": 12,
+      "match": 14,
+      "fit": 14,
       "capability": 23,
       "mobility": 5,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 5,
       "mobility_tier": null,
-      "salary": "$45k–$75k",
+      "salary": "$50k–$75k",
       "salary_band": [
-        46828,
-        73665
+        48166,
+        74981
       ],
       "demand": "High",
       "remote": "0%",
@@ -586,69 +751,93 @@
         {
           "skill": "hotel-operations",
           "name": "Hotel Operations",
-          "pts": 28.4,
+          "pts": 22.6,
           "earned": 0
         },
         {
           "skill": "guest-relations",
           "name": "Guest Relations",
-          "pts": 24.3,
+          "pts": 21.1,
           "earned": 0
         },
         {
           "skill": "front-office",
           "name": "Front Office",
-          "pts": 15.2,
+          "pts": 13.9,
           "earned": 0
         },
         {
           "skill": "food-beverage",
           "name": "Food & Beverage",
           "pts": 10.5,
-          "earned": 3
+          "earned": 2.5
         },
         {
           "skill": "housekeeping",
           "name": "Housekeeping",
-          "pts": 6.1,
+          "pts": 5.6,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 4.1,
+          "pts": 4.3,
           "earned": 0
         },
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 3.9,
-          "earned": 3.9
+          "pts": 4,
+          "earned": 4
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 3.1,
-          "earned": 3.1
-        },
-        {
-          "skill": "budgeting",
-          "name": "Budgeting",
-          "pts": 2.3,
-          "earned": 0
+          "pts": 3.4,
+          "earned": 3.4
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 2.1,
-          "earned": 2.1
+          "pts": 3.3,
+          "earned": 2.5
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "food-safety",
+          "name": "Food Safety",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "catering",
+          "name": "Catering & Banquet",
+          "pts": 1.7,
+          "earned": 1.7
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 1.7,
+          "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 804,
-        "salaried": 319
+        "postings": 958,
+        "salaried": 346
       }
     }
   ],
@@ -656,8 +845,9 @@
     "waiter": [],
     "chef": [],
     "food-service-worker": [],
-    "event-planner": [],
+    "receptionist": [],
     "cook": [],
+    "housekeeper": [],
     "hotel-manager": []
   },
   "direct": [],
@@ -665,32 +855,32 @@
     [
       "food-service-worker",
       "cook",
-      0.87
+      0.74
     ],
     [
       "waiter",
       "cook",
-      0.8
-    ],
-    [
-      "waiter",
-      "food-service-worker",
-      0.78
-    ],
-    [
-      "chef",
-      "food-service-worker",
-      0.78
+      0.71
     ],
     [
       "chef",
       "cook",
-      0.69
+      0.71
+    ],
+    [
+      "chef",
+      "food-service-worker",
+      0.67
     ],
     [
       "waiter",
       "chef",
-      0.63
+      0.62
+    ],
+    [
+      "waiter",
+      "food-service-worker",
+      0.58
     ]
   ],
   "bridges": [],

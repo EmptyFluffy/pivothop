@@ -5,11 +5,11 @@
     "title": "Hotel Manager",
     "field": "Hospitality",
     "cluster": "Service",
-    "postings": 804,
-    "salary": "$45k–$75k",
+    "postings": 958,
+    "salary": "$50k–$75k",
     "salary_band": [
-      46828,
-      73665
+      48166,
+      74981
     ],
     "remote": "0%",
     "separations": {
@@ -21,6 +21,96 @@
   },
   "roles": [
     {
+      "id": "waiter",
+      "title": "Waiter",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Takes the order, brings the food and drink, and reads the table.",
+      "match": 52,
+      "fit": 52,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$30k–$45k",
+      "salary_band": [
+        32191,
+        47011
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Food & Beverage",
+        "Food Service",
+        "Food Safety",
+        "Guest Relations"
+      ],
+      "learn": [
+        "Line Cooking",
+        "POS Systems"
+      ],
+      "waterfall": [
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 21.8,
+          "earned": 19.7
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 19.5,
+          "earned": 7.5
+        },
+        {
+          "skill": "line-cooking",
+          "name": "Line Cooking",
+          "pts": 17.8,
+          "earned": 0
+        },
+        {
+          "skill": "food-safety",
+          "name": "Food Safety",
+          "pts": 14.8,
+          "earned": 4.5
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 11.7,
+          "earned": 11.7
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.2,
+          "earned": 5.2
+        },
+        {
+          "skill": "toast-pos",
+          "name": "POS Systems",
+          "pts": 4.9,
+          "earned": 0
+        },
+        {
+          "skill": "catering",
+          "name": "Catering & Banquet",
+          "pts": 4.2,
+          "earned": 3.2
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 655,
+        "salaried": 52
+      }
+    },
+    {
       "id": "receptionist",
       "title": "Receptionist",
       "field": "Business",
@@ -28,8 +118,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "First face and voice of the place: welcomes, checks in, answers, routes, keeps the desk running.",
-      "match": 43,
-      "fit": 43,
+      "match": 46,
+      "fit": 46,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -38,77 +128,108 @@
       "salary": "$35k–$45k",
       "salary_band": [
         35371,
-        43484
+        45269
       ],
       "demand": "High",
-      "remote": "3%",
+      "remote": "2%",
       "time": "12–24 mo",
       "have": [
         "Front Office",
         "Customer Service",
         "Guest Relations",
-        "Housekeeping"
+        "Scheduling"
       ],
       "learn": [
         "Excel",
         "Brewing",
-        "Opera PMS"
+        "Patient Care",
+        "EHR / EMR"
       ],
       "waterfall": [
         {
           "skill": "front-office",
           "name": "Front Office",
-          "pts": 53.8,
-          "earned": 24.4
+          "pts": 39.2,
+          "earned": 18.4
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 12.2,
+          "earned": 4.6
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 7.9,
+          "earned": 7.9
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 7.6,
+          "earned": 4.4
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 10,
+          "pts": 6.4,
           "earned": 0
         },
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 9.1,
+          "pts": 5.3,
           "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 9,
-          "earned": 5
-        },
-        {
-          "skill": "guest-relations",
-          "name": "Guest Relations",
-          "pts": 5.7,
-          "earned": 5.7
         },
         {
           "skill": "housekeeping",
           "name": "Housekeeping",
-          "pts": 4.7,
-          "earned": 4.7
+          "pts": 4,
+          "earned": 4
         },
         {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 4.1,
-          "earned": 3.5
+          "skill": "hotel-operations",
+          "name": "Hotel Operations",
+          "pts": 3.6,
+          "earned": 3.6
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 2.8,
+          "earned": 2.8
         },
         {
           "skill": "opera-pms",
           "name": "Opera PMS",
-          "pts": 3.6,
+          "pts": 2.5,
+          "earned": 0
+        },
+        {
+          "skill": "translation",
+          "name": "Translation",
+          "pts": 2.2,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 911,
-        "salaried": 150
+        "postings": 1292,
+        "salaried": 166
       }
     },
     {
@@ -119,8 +240,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Curates and serves wine and builds a beverage program in restaurants and hospitality. A certified craft of taste.",
-      "match": 40,
-      "fit": 40,
+      "match": 44,
+      "fit": 44,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -128,8 +249,8 @@
       "mobility_tier": null,
       "salary": "$40k–$55k",
       "salary_band": [
-        39269,
-        56956
+        39296,
+        56980
       ],
       "demand": "High",
       "remote": "0%",
@@ -147,131 +268,331 @@
         {
           "skill": "wine-service",
           "name": "Wine Service",
-          "pts": 19.9,
+          "pts": 20.8,
           "earned": 0
         },
         {
           "skill": "food-beverage",
           "name": "Food & Beverage",
-          "pts": 16,
-          "earned": 16
+          "pts": 17.4,
+          "earned": 17.4
         },
         {
           "skill": "guest-relations",
           "name": "Guest Relations",
-          "pts": 16,
-          "earned": 16
+          "pts": 16.3,
+          "earned": 16.3
         },
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 12.5,
-          "earned": 8.2
+          "pts": 13.2,
+          "earned": 9.8
         },
         {
           "skill": "timber-design",
           "name": "Timber Design",
-          "pts": 4.8,
+          "pts": 5.1,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 702,
-        "salaried": 229
+        "postings": 711,
+        "salaried": 228
       }
     },
     {
-      "id": "waiter",
-      "title": "Waiter",
-      "field": "Hospitality",
-      "cluster": "Hospitality",
+      "id": "project-manager",
+      "title": "Project Manager",
+      "field": "Business",
+      "cluster": "Business",
       "kind": "pivot",
       "license": null,
-      "desc": "Takes the order, brings the food and drink, and reads the table.",
-      "match": 35,
-      "fit": 35,
+      "desc": "",
+      "match": 14,
+      "fit": 41,
       "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
+      "mobility": 100,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 28,
       "mobility_tier": null,
-      "salary": "$30k–$50k",
+      "salary": "$75k–$145k",
       "salary_band": [
-        32249,
-        47560
+        75199,
+        144960
       ],
       "demand": "High",
-      "remote": "1%",
+      "remote": "9%",
       "time": "12–24 mo",
       "have": [
-        "Food Service",
-        "Food & Beverage",
-        "Customer Service",
-        "Guest Relations"
+        "Procurement",
+        "Training & Facilitation",
+        "Scheduling",
+        "Operations"
       ],
       "learn": [
-        "Line Cooking",
-        "Food Safety",
-        "Brewing",
-        "Catering & Banquet"
+        "Project Management",
+        "Agile",
+        "Lean / Six Sigma",
+        "Stakeholder Management"
       ],
       "waterfall": [
         {
-          "skill": "line-cooking",
-          "name": "Line Cooking",
-          "pts": 27.1,
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 20.8,
           "earned": 0
         },
         {
-          "skill": "food-service",
-          "name": "Food Service",
-          "pts": 20.9,
-          "earned": 8.2
+          "skill": "agile",
+          "name": "Agile",
+          "pts": 6.2,
+          "earned": 0
         },
         {
-          "skill": "food-beverage",
-          "name": "Food & Beverage",
-          "pts": 17.7,
-          "earned": 17.7
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 6.1,
+          "earned": 0
         },
         {
-          "skill": "food-safety",
-          "name": "Food Safety",
-          "pts": 15.6,
+          "skill": "stakeholder-management",
+          "name": "Stakeholder Management",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "program-management",
+          "name": "Program Management",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4.4,
+          "earned": 1.7
+        },
+        {
+          "skill": "risk-management",
+          "name": "Risk Management",
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 4,
+          "earned": 2.4
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "data-analysis",
+          "name": "Data Analysis",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.8,
+          "earned": 3.2
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "jira",
+          "name": "Jira",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 3.3,
+          "earned": 3.3
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 3.3,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 3.2,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 5.3,
-          "earned": 5.3
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "guest-relations",
-          "name": "Guest Relations",
-          "pts": 4.1,
-          "earned": 4.1
-        },
-        {
-          "skill": "catering",
-          "name": "Catering & Banquet",
-          "pts": 4.1,
-          "earned": 0
+          "pts": 3.2,
+          "earned": 3.2
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 487,
-        "salaried": 53
+        "postings": 14391,
+        "salaried": 3120
+      }
+    },
+    {
+      "id": "housekeeper",
+      "title": "Housekeeper",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Keeps rooms, wards, offices and buildings clean and ready, to a standard and a clock.",
+      "match": 38,
+      "fit": 38,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$35k–$60k",
+      "salary_band": [
+        36178,
+        57782
+      ],
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Housekeeping",
+        "Guest Relations",
+        "Customer Service",
+        "Food Service"
+      ],
+      "learn": [
+        "Brewing",
+        "Maintenance",
+        "Facilities Operations",
+        "Patient Care"
+      ],
+      "waterfall": [
+        {
+          "skill": "housekeeping",
+          "name": "Housekeeping",
+          "pts": 42,
+          "earned": 8.3
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 9.6,
+          "earned": 0
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 8.4,
+          "earned": 8.4
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.3,
+          "earned": 5.1
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 4.1,
+          "earned": 4.1
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "front-office",
+          "name": "Front Office",
+          "pts": 3.4,
+          "earned": 3.4
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.2,
+          "earned": 3.2
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.9,
+          "earned": 2.9
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 2.7,
+          "earned": 2.7
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1283,
+        "salaried": 137
       }
     },
     {
@@ -282,104 +603,105 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 12,
-      "fit": 33,
-      "capability": 58,
+      "match": 17,
+      "fit": 38,
+      "capability": 71,
       "mobility": 58,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 28,
       "mobility_tier": null,
-      "salary": "$55k–$90k",
+      "salary": "$55k–$95k",
       "salary_band": [
-        54187,
-        90708
+        54032,
+        92532
       ],
       "demand": "High",
       "remote": "0%",
       "time": "12–24 mo",
       "have": [
         "Operations",
+        "Procurement",
         "Customer Service",
         "Budgeting"
       ],
       "learn": [
         "Facilities Operations",
         "Maintenance",
-        "Procurement",
+        "Safety / OSHA",
         "Property Management"
       ],
       "waterfall": [
         {
           "skill": "facilities-operations",
           "name": "Facilities Operations",
-          "pts": 38.7,
+          "pts": 33.3,
           "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 12.2,
+          "pts": 11.4,
           "earned": 0
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 6.7,
+          "pts": 6.2,
           "earned": 5.5
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 5.3,
+          "pts": 5.4,
+          "earned": 2.2
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 5.1,
           "earned": 0
         },
         {
           "skill": "property-management",
           "name": "Property Management",
-          "pts": 5.3,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 4.3,
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 4,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 4,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 3.7,
-          "earned": 3.7
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 3.6,
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 3.5,
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 3.8,
           "earned": 0
         },
         {
           "skill": "plumbing",
           "name": "Plumbing",
-          "pts": 3.2,
+          "pts": 3.6,
           "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 3.5,
+          "earned": 3.5
         },
         {
           "skill": "budgeting",
@@ -390,15 +712,27 @@
         {
           "skill": "vendor-management",
           "name": "Vendor Management",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
           "pts": 2.6,
+          "earned": 2.6
+        },
+        {
+          "skill": "compliance",
+          "name": "Compliance",
+          "pts": 2.3,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Primary-Short",
       "provenance": {
-        "postings": 1435,
-        "salaried": 596
+        "postings": 1651,
+        "salaried": 646
       }
     },
     {
@@ -412,171 +746,130 @@
         "label": "Food-safety certification (ServSafe) typically required"
       },
       "desc": "",
-      "match": 16,
-      "fit": 25,
-      "capability": 71,
+      "match": 31,
+      "fit": 35,
+      "capability": 80,
       "mobility": 6,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 11,
       "mobility_tier": null,
       "salary": "$40k–$60k",
       "salary_band": [
-        41224,
-        58736
+        41191,
+        59294
       ],
       "demand": "High",
-      "remote": "0%",
+      "remote": "1%",
       "time": "12–24 mo",
       "have": [
         "Food Service",
-        "Food & Beverage",
-        "Guest Relations",
-        "Customer Service"
-      ],
-      "learn": [
         "Food Safety",
         "Catering & Banquet",
+        "Food & Beverage"
+      ],
+      "learn": [
         "Kitchen Management",
-        "Baking & Pastry"
+        "Menu Development",
+        "Baking & Pastry",
+        "Line Cooking"
       ],
       "waterfall": [
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 39.3,
-          "earned": 4.9
+          "pts": 32.9,
+          "earned": 4.7
         },
         {
           "skill": "food-safety",
           "name": "Food Safety",
-          "pts": 14.6,
-          "earned": 0
+          "pts": 12.7,
+          "earned": 2.8
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 12.2,
-          "earned": 0
+          "pts": 10.2,
+          "earned": 2
         },
         {
           "skill": "kitchen-management",
           "name": "Kitchen Management",
-          "pts": 11,
+          "pts": 9.3,
           "earned": 0
         },
         {
           "skill": "food-beverage",
           "name": "Food & Beverage",
-          "pts": 5.4,
-          "earned": 5.4
+          "pts": 5.2,
+          "earned": 5.2
         },
         {
-          "skill": "baking-pastry",
-          "name": "Baking & Pastry",
-          "pts": 4.4,
-          "earned": 0
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 4.6,
+          "earned": 4.6
         },
         {
           "skill": "menu-development",
           "name": "Menu Development",
-          "pts": 3.9,
+          "pts": 4.1,
           "earned": 0
         },
         {
-          "skill": "guest-relations",
-          "name": "Guest Relations",
-          "pts": 3.5,
-          "earned": 3.5
+          "skill": "baking-pastry",
+          "name": "Baking & Pastry",
+          "pts": 4,
+          "earned": 0
         },
         {
           "skill": "line-cooking",
           "name": "Line Cooking",
-          "pts": 3.1,
+          "pts": 2.8,
           "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 2.5,
+          "earned": 2.5
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 2.5,
+          "earned": 2
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 2.4,
+          "earned": 2.4
+        },
+        {
+          "skill": "food-cost",
+          "name": "Food Cost Control",
+          "pts": 2.3,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.3,
+          "earned": 2.3
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 2.6,
-          "earned": 2.6
+          "pts": 2.2,
+          "earned": 2.2
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2282,
-        "salaried": 931
-      }
-    },
-    {
-      "id": "housekeeper",
-      "title": "Housekeeper",
-      "field": "Hospitality",
-      "cluster": "Hospitality",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Keeps rooms, wards, offices and buildings clean and ready, to a standard and a clock.",
-      "match": 23,
-      "fit": 23,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$35k–$55k",
-      "salary_band": [
-        36178,
-        56670
-      ],
-      "demand": "High",
-      "remote": "4%",
-      "time": "12–24 mo",
-      "have": [
-        "Housekeeping",
-        "Guest Relations",
-        "Front Office"
-      ],
-      "learn": [
-        "Brewing",
-        "Facilities Operations"
-      ],
-      "waterfall": [
-        {
-          "skill": "housekeeping",
-          "name": "Housekeeping",
-          "pts": 62.4,
-          "earned": 12.7
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 19.2,
-          "earned": 0
-        },
-        {
-          "skill": "guest-relations",
-          "name": "Guest Relations",
-          "pts": 5.4,
-          "earned": 5.4
-        },
-        {
-          "skill": "front-office",
-          "name": "Front Office",
-          "pts": 5,
-          "earned": 5
-        },
-        {
-          "skill": "facilities-operations",
-          "name": "Facilities Operations",
-          "pts": 4.5,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 927,
-        "salaried": 129
+        "postings": 2510,
+        "salaried": 938
       }
     },
     {
@@ -590,17 +883,17 @@
         "label": "FAA certification via the airline required"
       },
       "desc": "",
-      "match": 25,
-      "fit": 22,
-      "capability": 28,
+      "match": 35,
+      "fit": 32,
+      "capability": 50,
       "mobility": 12,
       "mobility_source": "observed-flow-eu",
       "mobility_eu": 12,
       "mobility_tier": null,
-      "salary": "$50k–$80k",
+      "salary": "$50k–$75k",
       "salary_band": [
-        51759,
-        81292
+        51412,
+        76078
       ],
       "demand": "Moderate",
       "remote": "3%",
@@ -609,178 +902,102 @@
         "Customer Service",
         "Food Service",
         "Scheduling",
-        "Food & Beverage"
+        "Catering & Banquet"
       ],
       "learn": [
-        "Cabin Safety",
-        "Catering & Banquet"
+        "Cabin Safety"
       ],
       "waterfall": [
         {
           "skill": "cabin-safety",
           "name": "Cabin Safety",
-          "pts": 47.9,
+          "pts": 47.4,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 22.9,
-          "earned": 6.4
+          "pts": 20.6,
+          "earned": 8.4
         },
         {
           "skill": "food-service",
           "name": "Food Service",
-          "pts": 10.4,
-          "earned": 8.1
+          "pts": 10.3,
+          "earned": 9.8
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 6.3,
-          "earned": 4.4
+          "pts": 6.2,
+          "earned": 6.2
         },
         {
           "skill": "catering",
           "name": "Catering & Banquet",
-          "pts": 6.3,
-          "earned": 0
+          "pts": 6.2,
+          "earned": 4.2
         },
         {
           "skill": "food-beverage",
           "name": "Food & Beverage",
-          "pts": 6.3,
-          "earned": 6.3
+          "pts": 6.2,
+          "earned": 6.2
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 95,
-        "salaried": 26
-      }
-    },
-    {
-      "id": "executive-assistant",
-      "title": "Executive Assistant",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 16,
-      "fit": 22,
-      "capability": 0,
-      "mobility": 53,
-      "mobility_source": "observed-flow-us",
-      "mobility_eu": 100,
-      "mobility_tier": null,
-      "salary": "$45k–$75k",
-      "salary_band": [
-        46159,
-        75901
-      ],
-      "demand": "High",
-      "remote": "7%",
-      "time": "12–24 mo",
-      "have": [
-        "Scheduling",
-        "Operations",
-        "Customer Service"
-      ],
-      "learn": [
-        "Presentation",
-        "Excel",
-        "Supply Chain",
-        "Project Management"
-      ],
-      "waterfall": [
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 19.4,
-          "earned": 4.5
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 14.8,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 13.3,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 12.6,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 6.8,
-          "earned": 6.8
-        },
-        {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 6.6,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 5.2,
-          "earned": 0
-        },
-        {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 4.5,
-          "earned": 4.5
-        },
-        {
-          "skill": "crm",
-          "name": "CRM",
-          "pts": 4.4,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 4348,
-        "salaried": 1144
+        "postings": 97,
+        "salaried": 24
       }
     }
   ],
   "next": {
+    "waiter": [],
     "receptionist": [
       {
-        "t": "Laboratory Technician",
-        "m": 10,
-        "slug": "laboratory-technician",
-        "field": "Science",
-        "cluster": "Science",
+        "t": "HR Manager",
+        "m": 14,
+        "slug": "hr-manager",
+        "field": "Business",
+        "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Quality Control",
-          "Lab Techniques",
-          "Patient Care",
-          "GMP & Validation"
+          "HR Operations",
+          "Recruiting",
+          "Data Analysis",
+          "Lean / Six Sigma"
         ],
         "observed": null,
-        "fit": 10,
+        "fit": 19,
+        "capability": 54,
+        "mobility": 0,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 16,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "receptionist",
+          "readiness_after": 24,
+          "gain": 10
+        }
+      },
+      {
+        "t": "Project Engineer",
+        "m": 12,
+        "slug": "project-engineer",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Construction Administration",
+          "AutoCAD",
+          "Quality Control"
+        ],
+        "observed": null,
+        "fit": 12,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -789,88 +1006,84 @@
         "reach": "bridged",
         "via": {
           "parent": "receptionist",
-          "readiness_after": 20,
-          "gain": 10
+          "readiness_after": 21,
+          "gain": 9
         }
       }
     ],
     "sommelier": [],
-    "waiter": [],
-    "facilities-manager": [
+    "project-manager": [
       {
-        "t": "Event Planner",
-        "m": 10,
-        "slug": "event-planner",
+        "t": "Executive Assistant",
+        "m": 20,
+        "slug": "executive-assistant",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Event Planning",
+          "Presentation",
+          "Excel",
           "Supply Chain",
-          "Catering & Banquet",
-          "Primavera P6"
-        ],
-        "observed": "Primary-Long",
-        "fit": 24,
-        "capability": 71,
-        "mobility": 17,
-        "mobility_source": "observed-flow-us",
-        "mobility_eu": 23,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "facilities-manager",
-          "readiness_after": 23,
-          "gain": 13
-        }
-      }
-    ],
-    "chef": [],
-    "housekeeper": [],
-    "flight-attendant": [],
-    "executive-assistant": [
-      {
-        "t": "HR Manager",
-        "m": 10,
-        "slug": "hr-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "HR Operations",
-          "Training & Facilitation",
-          "Recruiting",
-          "Lean / Six Sigma"
+          "Project Management"
         ],
         "observed": null,
-        "fit": 12,
-        "capability": 34,
-        "mobility": 0,
+        "fit": 30,
+        "capability": 31,
+        "mobility": 53,
         "mobility_source": "observed-flow-us",
-        "mobility_eu": 16,
+        "mobility_eu": 100,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "executive-assistant",
-          "readiness_after": 30,
-          "gain": 20
+          "parent": "project-manager",
+          "readiness_after": 62,
+          "gain": 42
         }
       },
       {
-        "t": "General Manager",
-        "m": 10,
-        "slug": "general-manager",
-        "field": "Business",
-        "cluster": "Business",
+        "t": "Construction Manager",
+        "m": 18,
+        "slug": "construction-manager",
+        "field": "Construction",
+        "cluster": "Built Environment",
         "kind": "pivot",
         "gap": [
-          "Business Development",
-          "Training & Facilitation",
-          "Supply Chain",
-          "Account Management"
+          "Project Management",
+          "Construction Administration",
+          "Brewing",
+          "Supply Chain"
         ],
         "observed": null,
-        "fit": 10,
+        "fit": 22,
+        "capability": 58,
+        "mobility": 2,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "project-manager",
+          "readiness_after": 68,
+          "gain": 50
+        }
+      }
+    ],
+    "housekeeper": [
+      {
+        "t": "Security Guard",
+        "m": 15,
+        "slug": "security-guard",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "lateral",
+        "gap": [
+          "Law Enforcement",
+          "Brewing",
+          "CPR / BLS",
+          "Emergency Response"
+        ],
+        "observed": null,
+        "fit": 15,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -878,46 +1091,334 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "executive-assistant",
-          "readiness_after": 27,
-          "gain": 17
+          "parent": "housekeeper",
+          "readiness_after": 25,
+          "gain": 10
         }
       }
-    ]
+    ],
+    "facilities-manager": [
+      {
+        "t": "Field Service Technician",
+        "m": 18,
+        "slug": "field-service-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Brewing",
+          "Maintenance",
+          "Sustainability",
+          "Quality Control"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "facilities-manager",
+          "readiness_after": 48,
+          "gain": 30
+        }
+      },
+      {
+        "t": "Production Supervisor",
+        "m": 17,
+        "slug": "production-supervisor",
+        "field": "Engineering",
+        "cluster": "Engineering & Manufacturing",
+        "kind": "pivot",
+        "gap": [
+          "Lean / Six Sigma",
+          "Supply Chain",
+          "Quality Control",
+          "HR Operations"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "facilities-manager",
+          "readiness_after": 32,
+          "gain": 15
+        }
+      }
+    ],
+    "chef": [
+      {
+        "t": "Cook",
+        "m": 20,
+        "slug": "cook",
+        "field": "Hospitality",
+        "cluster": "Hospitality",
+        "kind": "pivot",
+        "gap": [
+          "Line Cooking",
+          "Kitchen Management",
+          "Brewing",
+          "Baking & Pastry"
+        ],
+        "observed": null,
+        "fit": 20,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "chef",
+          "readiness_after": 72,
+          "gain": 52
+        }
+      },
+      {
+        "t": "Food Service Worker",
+        "m": 14,
+        "slug": "food-service-worker",
+        "field": "Hospitality",
+        "cluster": "Hospitality",
+        "kind": "pivot",
+        "gap": [
+          "Line Cooking",
+          "Food Cost Control",
+          "Community Engagement",
+          "Maintenance"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "chef",
+          "readiness_after": 62,
+          "gain": 48
+        }
+      }
+    ],
+    "flight-attendant": []
   },
-  "direct": [],
+  "direct": [
+    {
+      "t": "School Administrator",
+      "m": 16,
+      "slug": "school-administrator",
+      "field": "Education",
+      "cluster": "Education",
+      "kind": "pivot",
+      "gap": [
+        "Teaching",
+        "Classroom Management",
+        "Lean / Six Sigma",
+        "Business Development"
+      ],
+      "observed": null,
+      "fit": 26,
+      "capability": 71,
+      "mobility": 10,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Construction Estimator",
+      "m": 16,
+      "slug": "construction-estimator",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "gap": [
+        "Cost Estimating",
+        "Project Management",
+        "Construction Administration",
+        "Excel"
+      ],
+      "observed": null,
+      "fit": 12,
+      "capability": 0,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "General Manager",
+      "m": 15,
+      "slug": "general-manager",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Business Development",
+        "Account Management",
+        "Supply Chain",
+        "Lean / Six Sigma"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Pharmacist",
+      "m": 12,
+      "slug": "pharmacist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Patient Care",
+        "Medication Administration",
+        "Case Management",
+        "Clinical Skills"
+      ],
+      "observed": null,
+      "fit": 15,
+      "capability": 40,
+      "mobility": 1,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Customer Support Specialist",
+      "m": 11,
+      "slug": "customer-support",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "CRM",
+        "Excel",
+        "Supply Chain",
+        "Lean / Six Sigma"
+      ],
+      "observed": null,
+      "fit": 17,
+      "capability": 43,
+      "mobility": 11,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 11,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Content Moderator",
+      "m": 11,
+      "slug": "content-moderator",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Translation",
+        "Data Analysis",
+        "LLMs / Generative AI",
+        "Lean / Six Sigma"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Medical Sales Representative",
+      "m": 11,
+      "slug": "medical-sales-representative",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "gap": [
+        "Clinical Skills",
+        "Presentation",
+        "Sales",
+        "Triage"
+      ],
+      "observed": null,
+      "fit": 11,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    }
+  ],
   "cross": [
     [
       "waiter",
       "chef",
-      0.63
+      0.62
+    ],
+    [
+      "waiter",
+      "sommelier",
+      0.46
+    ],
+    [
+      "receptionist",
+      "housekeeper",
+      0.4
     ],
     [
       "sommelier",
-      "waiter",
-      0.33
+      "chef",
+      0.34
+    ],
+    [
+      "receptionist",
+      "flight-attendant",
+      0.32
+    ],
+    [
+      "chef",
+      "flight-attendant",
+      0.32
     ]
   ],
   "bridges": [
     [
-      "executive-assistant",
-      "facilities-manager_0",
-      0.34
+      "project-manager",
+      "receptionist_1",
+      0.56
     ],
     [
-      "facilities-manager",
-      "executive-assistant_1",
-      0.23
+      "waiter",
+      "chef_0",
+      0.49
     ],
     [
-      "facilities-manager",
-      "executive-assistant_0",
-      0.21
-    ],
-    [
-      "facilities-manager",
+      "project-manager",
       "receptionist_0",
-      0.2
+      0.45
+    ],
+    [
+      "facilities-manager",
+      "project-manager_1",
+      0.44
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"

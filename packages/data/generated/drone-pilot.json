@@ -5,17 +5,242 @@
     "title": "Drone Pilot",
     "field": "Transport",
     "cluster": "Transport",
-    "postings": 109,
+    "postings": 115,
     "salary": "$55k–$120k",
     "salary_band": [
-      56180,
-      119941
+      55120,
+      117736
     ],
-    "remote": "13%",
+    "remote": "16%",
     "separations": null
   },
-  "roles": [],
-  "next": {},
+  "roles": [
+    {
+      "id": "pilot",
+      "title": "Pilot",
+      "field": "Transport",
+      "cluster": "Service",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "FAA commercial/ATP certificate required"
+      },
+      "desc": "",
+      "match": 40,
+      "fit": 40,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$50k–$145k",
+      "salary_band": [
+        50614,
+        143132
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Aviation Operations",
+        "Flight Operations",
+        "Operations"
+      ],
+      "learn": [
+        "Cabin Safety",
+        "Scheduling",
+        "Supply Chain",
+        "Risk Management"
+      ],
+      "waterfall": [
+        {
+          "skill": "aviation-ops",
+          "name": "Aviation Operations",
+          "pts": 19.5,
+          "earned": 19.5
+        },
+        {
+          "skill": "flight-operations",
+          "name": "Flight Operations",
+          "pts": 15,
+          "earned": 15
+        },
+        {
+          "skill": "cabin-safety",
+          "name": "Cabin Safety",
+          "pts": 8.3,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 7.5,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 7.1,
+          "earned": 5.2
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 6.4,
+          "earned": 0
+        },
+        {
+          "skill": "risk-management",
+          "name": "Risk Management",
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 5.6,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 5.6,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 4.5,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 533,
+        "salaried": 117
+      }
+    },
+    {
+      "id": "cartographer",
+      "title": "Cartographer",
+      "field": "Science",
+      "cluster": "Science",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Turns spatial data into maps and models, from survey to screen. Overlaps GIS but centered on the map itself.",
+      "match": 12,
+      "fit": 12,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$80k–$120k",
+      "salary_band": [
+        81957,
+        121138
+      ],
+      "demand": "Low",
+      "remote": "18%",
+      "time": "12–24 mo",
+      "have": [
+        "GIS",
+        "Point Cloud / Scanning",
+        "Operations"
+      ],
+      "learn": [
+        "Statistics",
+        "Quality Control",
+        "ArcGIS",
+        "Python"
+      ],
+      "waterfall": [
+        {
+          "skill": "gis",
+          "name": "GIS",
+          "pts": 30.8,
+          "earned": 4.6
+        },
+        {
+          "skill": "point-cloud",
+          "name": "Point Cloud / Scanning",
+          "pts": 16.8,
+          "earned": 5.6
+        },
+        {
+          "skill": "statistics",
+          "name": "Statistics",
+          "pts": 11.2,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 10.3,
+          "earned": 0
+        },
+        {
+          "skill": "arcgis",
+          "name": "ArcGIS",
+          "pts": 8.4,
+          "earned": 0
+        },
+        {
+          "skill": "python",
+          "name": "Python",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 2.8,
+          "earned": 1.5
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "program-management",
+          "name": "Program Management",
+          "pts": 2.8,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 63,
+        "salaried": 35
+      }
+    }
+  ],
+  "next": {
+    "pilot": [],
+    "cartographer": []
+  },
   "direct": [],
   "cross": [],
   "bridges": [],
