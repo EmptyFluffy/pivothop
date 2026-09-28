@@ -21,6 +21,122 @@
   },
   "roles": [
     {
+      "id": "logistics-coordinator",
+      "title": "Logistics Coordinator",
+      "field": "Transport",
+      "cluster": "Transport",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Moves goods on time: carriers, customs, shipping paperwork, dangerous goods, the warehouse handoff.",
+      "match": 33,
+      "fit": 33,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$50k–$90k",
+      "salary_band": [
+        48988,
+        87934
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "12–24 mo",
+      "have": [
+        "Brewing",
+        "Customer Service",
+        "Lean / Six Sigma",
+        "Quality Control"
+      ],
+      "learn": [
+        "SAP",
+        "Supply Chain",
+        "Excel",
+        "Shipping & Receiving"
+      ],
+      "waterfall": [
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 28,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 25.3,
+          "earned": 25.3
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 15.7,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 5.9,
+          "earned": 0
+        },
+        {
+          "skill": "shipping-receiving",
+          "name": "Shipping & Receiving",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 4.6,
+          "earned": 2.9
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.1,
+          "earned": 2.2
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 2.5,
+          "earned": 2.2
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
+          "skill": "inventory-management",
+          "name": "Inventory Management",
+          "pts": 2,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1672,
+        "salaried": 66
+      }
+    },
+    {
       "id": "field-service-technician",
       "title": "Field Service Technician",
       "field": "Trades",
@@ -28,8 +144,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Installs, services and repairs equipment where it is: customer sites, homes, plants, roads.",
-      "match": 38,
-      "fit": 38,
+      "match": 33,
+      "fit": 33,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -37,7 +153,7 @@
       "mobility_tier": null,
       "salary": "$50k–$80k",
       "salary_band": [
-        49550,
+        49570,
         79500
       ],
       "demand": "High",
@@ -58,197 +174,99 @@
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 27.4,
-          "earned": 27.4
+          "pts": 23.5,
+          "earned": 23.5
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 13.4,
+          "pts": 12.5,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 9.7,
-          "earned": 6
+          "pts": 9.4,
+          "earned": 5.3
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 7,
+          "pts": 6.3,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 6.6,
+          "pts": 6.3,
           "earned": 0
         },
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 5.4,
+          "pts": 5.5,
           "earned": 0
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 5.1,
-          "earned": 4.5
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 4.9,
-          "earned": 0
+          "pts": 4.8,
+          "earned": 4
         },
         {
           "skill": "safety",
           "name": "Safety / OSHA",
-          "pts": 4.5,
+          "pts": 4.8,
           "earned": 0
         },
         {
-          "skill": "project-management",
-          "name": "Project Management",
-          "pts": 4.1,
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 4.4,
           "earned": 0
         },
         {
           "skill": "osha-safety",
           "name": "OSHA & Site Safety",
-          "pts": 4,
+          "pts": 4.3,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 4,
+          "pts": 3.9,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 4,
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "plc",
+          "name": "PLC / Controls",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 3.3,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2578,
-        "salaried": 396
-      }
-    },
-    {
-      "id": "logistics-coordinator",
-      "title": "Logistics Coordinator",
-      "field": "Transport",
-      "cluster": "Transport",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Moves goods on time: carriers, customs, shipping paperwork, dangerous goods, the warehouse handoff.",
-      "match": 35,
-      "fit": 35,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$50k–$90k",
-      "salary_band": [
-        48988,
-        87934
-      ],
-      "demand": "High",
-      "remote": "2%",
-      "time": "12–24 mo",
-      "have": [
-        "Brewing",
-        "Lean / Six Sigma",
-        "Customer Service",
-        "Quality Control"
-      ],
-      "learn": [
-        "SAP",
-        "Supply Chain",
-        "Excel",
-        "Shipping & Receiving"
-      ],
-      "waterfall": [
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 29.7,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 27.6,
-          "earned": 27.6
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 15.9,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 5.4,
-          "earned": 0
-        },
-        {
-          "skill": "shipping-receiving",
-          "name": "Shipping & Receiving",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 4.2,
-          "earned": 2.3
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 4,
-          "earned": 3.1
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 2.7,
-          "earned": 2.3
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 2.4,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 1.9,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1629,
-        "salaried": 62
+        "postings": 2647,
+        "salaried": 402
       }
     },
     {
@@ -259,17 +277,17 @@
       "kind": "pivot",
       "license": null,
       "desc": "Designs and programs the control systems that run machines and plants: PLCs, instrumentation, SCADA.",
-      "match": 27,
-      "fit": 27,
+      "match": 28,
+      "fit": 28,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$65k–$125k",
+      "salary": "$65k–$130k",
       "salary_band": [
-        64524,
-        125374
+        65974,
+        131156
       ],
       "demand": "High",
       "remote": "2%",
@@ -288,45 +306,45 @@
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 20.9,
+          "pts": 20.8,
           "earned": 0
         },
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 18.2,
-          "earned": 18.2
+          "pts": 18,
+          "earned": 18
         },
         {
           "skill": "plc",
           "name": "PLC / Controls",
-          "pts": 14,
+          "pts": 14.5,
           "earned": 0
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 5.2,
+          "pts": 5.4,
           "earned": 4.9
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.8,
+          "earned": 4.8
         },
         {
           "skill": "welding-fabrication",
           "name": "Welding / Fabrication",
           "pts": 4.5,
           "earned": 0
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 4.3,
-          "earned": 4.3
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1573,
-        "salaried": 95
+        "postings": 1587,
+        "salaried": 100
       }
     },
     {
@@ -337,8 +355,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Builds the product on the floor: assembly, machines, process steps, the paperwork that proves it.",
-      "match": 20,
-      "fit": 20,
+      "match": 17,
+      "fit": 17,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -346,8 +364,8 @@
       "mobility_tier": null,
       "salary": "$40k–$60k",
       "salary_band": [
-        41643,
-        58608
+        41812,
+        59817
       ],
       "demand": "High",
       "remote": "1%",
@@ -359,63 +377,63 @@
       ],
       "learn": [
         "Maintenance",
-        "Welding / Fabrication",
         "Hand & Power Tools",
+        "Welding / Fabrication",
         "SAP"
       ],
       "waterfall": [
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 14.8,
-          "earned": 14.8
+          "pts": 12.3,
+          "earned": 12.3
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 11.4,
-          "earned": 2.4
+          "pts": 11.7,
+          "earned": 2.2
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 7.4,
-          "earned": 2.4
+          "pts": 7.2,
+          "earned": 2.2
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 5.7,
-          "earned": 0
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 5.7,
+          "pts": 6.9,
           "earned": 0
         },
         {
           "skill": "hand-power-tools",
           "name": "Hand & Power Tools",
-          "pts": 5.6,
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 5.6,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "blueprint-reading",
           "name": "Blueprint Reading",
-          "pts": 4.8,
+          "pts": 5,
           "earned": 0
         },
         {
-          "skill": "gmp",
-          "name": "GMP & Validation",
-          "pts": 4.6,
+          "skill": "rigging-materials",
+          "name": "Rigging & Material Handling",
+          "pts": 4.5,
           "earned": 0
         },
         {
@@ -425,20 +443,26 @@
           "earned": 0
         },
         {
-          "skill": "rigging-materials",
-          "name": "Rigging & Material Handling",
-          "pts": 4.1,
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 4.4,
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4.1,
+          "skill": "gmp",
+          "name": "GMP & Validation",
+          "pts": 4.2,
           "earned": 0
         },
         {
           "skill": "cad-drafting",
           "name": "Drafting",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
           "pts": 3.8,
           "earned": 0
         },
@@ -449,47 +473,41 @@
           "earned": 0
         },
         {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 3.2,
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 2.5,
+          "pts": 2.4,
           "earned": 0
         },
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 2.1,
+          "pts": 2.2,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 2.1,
+          "pts": 2,
+          "earned": 0
+        },
+        {
+          "skill": "prototyping",
+          "name": "Prototyping",
+          "pts": 1.8,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1764,
-        "salaried": 169
+        "postings": 1893,
+        "salaried": 171
       }
     },
     {
@@ -503,8 +521,8 @@
         "label": "Contractor licensing varies by state; certifications (CCM) common"
       },
       "desc": "",
-      "match": 19,
-      "fit": 19,
+      "match": 16,
+      "fit": 16,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -512,11 +530,11 @@
       "mobility_tier": null,
       "salary": "$80k–$120k",
       "salary_band": [
-        79118,
-        119991
+        79271,
+        120435
       ],
       "demand": "High",
-      "remote": "2%",
+      "remote": "3%",
       "time": "12–24 mo",
       "have": [
         "Brewing",
@@ -533,50 +551,44 @@
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 20.4,
+          "pts": 19.4,
           "earned": 0
         },
         {
           "skill": "construction-administration",
           "name": "Construction Administration",
-          "pts": 17.3,
+          "pts": 16.6,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 9.1,
+          "pts": 8.8,
           "earned": 0
         },
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 8.9,
-          "earned": 8.9
+          "pts": 7.8,
+          "earned": 7.8
         },
         {
           "skill": "procurement",
           "name": "Procurement",
-          "pts": 7.2,
+          "pts": 7,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 6.7,
-          "earned": 0
-        },
-        {
-          "skill": "bim",
-          "name": "BIM",
-          "pts": 5.9,
+          "pts": 6.4,
           "earned": 0
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
           "pts": 5.7,
-          "earned": 4.8
+          "earned": 4.3
         },
         {
           "skill": "budgeting",
@@ -585,29 +597,41 @@
           "earned": 0
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 4.8,
-          "earned": 4.8
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 5.2,
+          "earned": 0
         },
         {
           "skill": "safety",
           "name": "Safety / OSHA",
-          "pts": 4.3,
+          "pts": 4.8,
           "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.7,
+          "earned": 4.3
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 4.1,
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 4,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 3514,
-        "salaried": 798
+        "postings": 3559,
+        "salaried": 809
       }
     },
     {
@@ -618,8 +642,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "",
-      "match": 15,
-      "fit": 15,
+      "match": 12,
+      "fit": 12,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -628,7 +652,7 @@
       "salary": "$45k–$70k",
       "salary_band": [
         46321,
-        69847
+        70154
       ],
       "demand": "High",
       "remote": "0%",
@@ -640,89 +664,119 @@
       ],
       "learn": [
         "Supply Chain",
-        "Inventory Management",
         "Rigging & Material Handling",
+        "Inventory Management",
         "Operations"
       ],
       "waterfall": [
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 34.7,
-          "earned": 0
-        },
-        {
-          "skill": "inventory-management",
-          "name": "Inventory Management",
-          "pts": 10.8,
+          "pts": 28.9,
           "earned": 0
         },
         {
           "skill": "rigging-materials",
           "name": "Rigging & Material Handling",
-          "pts": 10.8,
+          "pts": 11.2,
+          "earned": 0
+        },
+        {
+          "skill": "inventory-management",
+          "name": "Inventory Management",
+          "pts": 9.1,
           "earned": 0
         },
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 8.5,
-          "earned": 8.5
+          "pts": 6.6,
+          "earned": 6.6
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 7.1,
-          "earned": 2.8
+          "pts": 6.5,
+          "earned": 2.3
         },
         {
           "skill": "operations",
           "name": "Operations",
-          "pts": 6.2,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
           "pts": 5.3,
-          "earned": 3.8
-        },
-        {
-          "skill": "shipping-receiving",
-          "name": "Shipping & Receiving",
-          "pts": 5.2,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 5.2,
+          "pts": 4.8,
           "earned": 0
+        },
+        {
+          "skill": "shipping-receiving",
+          "name": "Shipping & Receiving",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 4.7,
+          "earned": 3
         },
         {
           "skill": "safety",
           "name": "Safety / OSHA",
-          "pts": 3.1,
+          "pts": 3.6,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 3.1,
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "food-safety",
+          "name": "Food Safety",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 2.4,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "osha-safety",
+          "name": "OSHA & Site Safety",
+          "pts": 2.1,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.1,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1877,
-        "salaried": 485
+        "postings": 1957,
+        "salaried": 495
       }
     }
   ],
   "next": {
-    "field-service-technician": [],
     "logistics-coordinator": [],
+    "field-service-technician": [],
     "controls-engineer": [],
     "manufacturing-technician": [],
     "construction-manager": [],
@@ -733,12 +787,12 @@
     [
       "field-service-technician",
       "manufacturing-technician",
-      0.69
+      0.65
     ],
     [
       "logistics-coordinator",
       "warehouse-manager",
-      0.54
+      0.52
     ],
     [
       "logistics-coordinator",
@@ -746,19 +800,19 @@
       0.49
     ],
     [
-      "field-service-technician",
-      "logistics-coordinator",
-      0.48
-    ],
-    [
       "controls-engineer",
       "manufacturing-technician",
-      0.43
+      0.45
+    ],
+    [
+      "logistics-coordinator",
+      "field-service-technician",
+      0.44
     ],
     [
       "manufacturing-technician",
       "warehouse-manager",
-      0.41
+      0.4
     ]
   ],
   "bridges": [],

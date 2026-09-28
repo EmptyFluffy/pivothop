@@ -5,7 +5,7 @@
     "title": "Plumber",
     "field": "Trades",
     "cluster": "Trades",
-    "postings": 3984,
+    "postings": 4002,
     "salary": "$50k–$75k",
     "salary_band": [
       52284,
@@ -21,167 +21,116 @@
   },
   "roles": [
     {
-      "id": "maintenance-technician",
-      "title": "Maintenance Technician",
+      "id": "hvac-technician",
+      "title": "HVAC Technician",
       "field": "Trades",
       "cluster": "Trades",
       "kind": "lateral",
-      "license": null,
-      "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
-      "match": 19,
-      "fit": 48,
-      "capability": 90,
-      "mobility": 78,
+      "license": {
+        "req": "required",
+        "label": "State license + EPA 608 certification required"
+      },
+      "desc": "",
+      "match": 18,
+      "fit": 51,
+      "capability": 96,
+      "mobility": 89,
       "mobility_source": "observed-flow-us",
-      "mobility_eu": 68,
+      "mobility_eu": 90,
       "mobility_tier": null,
-      "salary": "$50k–$70k",
+      "salary": "$60k–$80k",
       "salary_band": [
-        48968,
-        69967
+        59556,
+        79408
       ],
       "demand": "High",
-      "remote": "2%",
-      "time": "12–24 mo",
+      "remote": "0%",
+      "time": "12–24 mo + license",
       "have": [
         "Maintenance",
         "Plumbing",
-        "Blueprint Reading",
-        "Brewing"
+        "Customer Service",
+        "Blueprint Reading"
       ],
       "learn": [
-        "Lean / Six Sigma",
-        "Facilities Operations",
-        "Electrical Systems",
-        "Customer Service"
+        "HVAC Systems",
+        "Refrigeration",
+        "Scheduling",
+        "Facilities Operations"
       ],
       "waterfall": [
         {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 23.8,
-          "earned": 5.2
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 30,
+          "earned": 0
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 6.6,
+          "skill": "refrigeration",
+          "name": "Refrigeration",
+          "pts": 20.8,
+          "earned": 0
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 14.5,
+          "earned": 5.4
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 8.2,
+          "earned": 8.2
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 7.1,
+          "earned": 2.2
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 6.4,
           "earned": 0
         },
         {
           "skill": "facilities-operations",
           "name": "Facilities Operations",
-          "pts": 6,
+          "pts": 3.4,
           "earned": 0
-        },
-        {
-          "skill": "plumbing",
-          "name": "Plumbing",
-          "pts": 5.8,
-          "earned": 5.8
         },
         {
           "skill": "blueprint-reading",
           "name": "Blueprint Reading",
-          "pts": 5.2,
-          "earned": 2.4
+          "pts": 2.6,
+          "earned": 2.5
         },
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "plc",
-          "name": "PLC / Controls",
-          "pts": 4,
-          "earned": 0
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 3.8,
-          "earned": 3.8
-        },
-        {
-          "skill": "refrigeration",
-          "name": "Refrigeration",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 3.7,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 3.4,
-          "earned": 2.3
-        },
-        {
-          "skill": "hand-power-tools",
-          "name": "Hand & Power Tools",
-          "pts": 3,
+          "pts": 2.5,
           "earned": 0
         },
         {
           "skill": "safety",
           "name": "Safety / OSHA",
-          "pts": 2.9,
+          "pts": 2.4,
           "earned": 0
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 2.8,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 2.4,
+          "pts": 2.2,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": "Primary-Long",
       "provenance": {
-        "postings": 5372,
-        "salaried": 1488
+        "postings": 1550,
+        "salaried": 320
       }
     },
     {
@@ -195,9 +144,9 @@
         "label": "Code certifications (AWS) required for structural work"
       },
       "desc": "",
-      "match": 12,
-      "fit": 48,
-      "capability": 80,
+      "match": 13,
+      "fit": 50,
+      "capability": 87,
       "mobility": 100,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 54,
@@ -223,7 +172,7 @@
         {
           "skill": "welding-fabrication",
           "name": "Welding / Fabrication",
-          "pts": 60.9,
+          "pts": 59.9,
           "earned": 0
         },
         {
@@ -241,21 +190,21 @@
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 5.8,
-          "earned": 5.8
+          "pts": 6.4,
+          "earned": 6.4
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 3.1,
+          "pts": 3.5,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2665,
-        "salaried": 915
+        "postings": 2707,
+        "salaried": 917
       }
     },
     {
@@ -269,16 +218,16 @@
         "label": "State/journeyman electrician license required"
       },
       "desc": "",
-      "match": 24,
-      "fit": 45,
-      "capability": 86,
+      "match": 29,
+      "fit": 49,
+      "capability": 91,
       "mobility": 60,
       "mobility_source": "observed-flow-us",
       "mobility_eu": 100,
       "mobility_tier": null,
       "salary": "$55k–$75k",
       "salary_band": [
-        55023,
+        55056,
         77151
       ],
       "demand": "High",
@@ -287,7 +236,8 @@
       "have": [
         "Brewing",
         "Maintenance",
-        "Blueprint Reading"
+        "Blueprint Reading",
+        "Drafting"
       ],
       "learn": [
         "Electrical Systems",
@@ -298,45 +248,348 @@
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 16.8,
+          "pts": 17.5,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 14.2,
+          "pts": 14.1,
           "earned": 0
         },
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 12.9,
-          "earned": 10.6
+          "pts": 12.8,
+          "earned": 10.5
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 9,
-          "earned": 9
+          "pts": 9.7,
+          "earned": 9.7
         },
         {
           "skill": "blueprint-reading",
           "name": "Blueprint Reading",
-          "pts": 5,
-          "earned": 4.4
+          "pts": 5.7,
+          "earned": 4.6
         },
         {
           "skill": "electrical-wiring",
           "name": "Electrical Wiring",
-          "pts": 4.4,
+          "pts": 4.7,
           "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 4.4,
+          "earned": 4.4
         }
       ],
       "low_confidence": false,
       "observed": "Supplemental",
       "provenance": {
-        "postings": 7492,
-        "salaried": 728
+        "postings": 7535,
+        "salaried": 729
+      }
+    },
+    {
+      "id": "maintenance-technician",
+      "title": "Maintenance Technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "lateral",
+      "license": null,
+      "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
+      "match": 20,
+      "fit": 49,
+      "capability": 94,
+      "mobility": 78,
+      "mobility_source": "observed-flow-us",
+      "mobility_eu": 68,
+      "mobility_tier": null,
+      "salary": "$50k–$70k",
+      "salary_band": [
+        49183,
+        70144
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "12–24 mo",
+      "have": [
+        "Maintenance",
+        "Plumbing",
+        "Blueprint Reading",
+        "Customer Service"
+      ],
+      "learn": [
+        "Lean / Six Sigma",
+        "Facilities Operations",
+        "Electrical Systems",
+        "Welding / Fabrication"
+      ],
+      "waterfall": [
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 23.1,
+          "earned": 4.7
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 6.2,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 6.2,
+          "earned": 0
+        },
+        {
+          "skill": "plumbing",
+          "name": "Plumbing",
+          "pts": 5.6,
+          "earned": 5.6
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 5.3,
+          "earned": 0
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 5.2,
+          "earned": 2.2
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 4.7,
+          "earned": 1.9
+        },
+        {
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "plc",
+          "name": "PLC / Controls",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 4,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "refrigeration",
+          "name": "Refrigeration",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 3.3,
+          "earned": 2.2
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 3.2,
+          "earned": 3.2
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "hand-power-tools",
+          "name": "Hand & Power Tools",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 2.6,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": "Primary-Long",
+      "provenance": {
+        "postings": 5583,
+        "salaried": 1511
+      }
+    },
+    {
+      "id": "field-service-technician",
+      "title": "Field Service Technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "lateral",
+      "license": null,
+      "desc": "Installs, services and repairs equipment where it is: customer sites, homes, plants, roads.",
+      "match": 20,
+      "fit": 20,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$50k–$80k",
+      "salary_band": [
+        49570,
+        79500
+      ],
+      "demand": "High",
+      "remote": "5%",
+      "time": "12–24 mo",
+      "have": [
+        "Brewing",
+        "Maintenance",
+        "Customer Service"
+      ],
+      "learn": [
+        "Training & Facilitation",
+        "Sustainability",
+        "Electrical Systems",
+        "Quality Control"
+      ],
+      "waterfall": [
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 23.5,
+          "earned": 8.6
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 12.5,
+          "earned": 8.2
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 9.4,
+          "earned": 3.3
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 6.3,
+          "earned": 0
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 5.5,
+          "earned": 0
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 4.4,
+          "earned": 0
+        },
+        {
+          "skill": "osha-safety",
+          "name": "OSHA & Site Safety",
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "plc",
+          "name": "PLC / Controls",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 3.3,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 2647,
+        "salaried": 402
       }
     },
     {
@@ -354,10 +607,10 @@
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$50k–$75k",
+      "salary": "$55k–$75k",
       "salary_band": [
-        52390,
-        74299
+        52570,
+        74600
       ],
       "demand": "High",
       "remote": "0%",
@@ -365,106 +618,112 @@
       "have": [
         "Maintenance",
         "Brewing",
-        "Blueprint Reading",
-        "Drafting"
+        "Customer Service",
+        "Blueprint Reading"
       ],
       "learn": [
         "Electrical Systems",
+        "Welding / Fabrication",
         "Hand & Power Tools",
-        "Training & Facilitation",
-        "Swift"
+        "Training & Facilitation"
       ],
       "waterfall": [
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 26.1,
-          "earned": 6.1
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 12.6,
-          "earned": 6.7
+          "pts": 25.4,
+          "earned": 5.5
         },
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
+          "pts": 10.8,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
           "pts": 10.4,
-          "earned": 0
+          "earned": 5.7
         },
         {
-          "skill": "blueprint-reading",
-          "name": "Blueprint Reading",
-          "pts": 6.4,
-          "earned": 2.8
-        },
-        {
-          "skill": "hand-power-tools",
-          "name": "Hand & Power Tools",
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
           "pts": 6.2,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 5.2,
-          "earned": 0
-        },
-        {
-          "skill": "swift",
-          "name": "Swift",
-          "pts": 5.1,
           "earned": 0
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 5,
+          "pts": 5.7,
+          "earned": 2.2
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 5.7,
+          "earned": 2.5
+        },
+        {
+          "skill": "hand-power-tools",
+          "name": "Hand & Power Tools",
+          "pts": 5.6,
           "earned": 0
         },
         {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 4,
-          "earned": 2.7
-        },
-        {
-          "skill": "refrigeration",
-          "name": "Refrigeration",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "facilities-operations",
-          "name": "Facilities Operations",
-          "pts": 3.2,
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "safety",
           "name": "Safety / OSHA",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "swift",
+          "name": "Swift",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "hvac-systems",
+          "name": "HVAC Systems",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 3.4,
+          "earned": 2.5
+        },
+        {
+          "skill": "refrigeration",
+          "name": "Refrigeration",
+          "pts": 3.1,
+          "earned": 0
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
           "pts": 3,
+          "earned": 0
+        },
+        {
+          "skill": "osha-safety",
+          "name": "OSHA & Site Safety",
+          "pts": 2.7,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 3840,
-        "salaried": 970
+        "postings": 4055,
+        "salaried": 975
       }
     },
     {
@@ -475,8 +734,8 @@
       "kind": "lateral",
       "license": null,
       "desc": "Builds the product on the floor: assembly, machines, process steps, the paperwork that proves it.",
-      "match": 14,
-      "fit": 14,
+      "match": 13,
+      "fit": 13,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -484,8 +743,8 @@
       "mobility_tier": null,
       "salary": "$40k–$60k",
       "salary_band": [
-        41643,
-        58608
+        41812,
+        59817
       ],
       "demand": "High",
       "remote": "1%",
@@ -499,62 +758,62 @@
       "learn": [
         "Lean / Six Sigma",
         "Quality Control",
-        "Welding / Fabrication",
-        "Hand & Power Tools"
+        "Hand & Power Tools",
+        "Welding / Fabrication"
       ],
       "waterfall": [
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 14.8,
-          "earned": 5.3
+          "pts": 12.3,
+          "earned": 4.6
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
-          "pts": 11.4,
+          "pts": 11.7,
           "earned": 0
         },
         {
           "skill": "quality-control",
           "name": "Quality Control",
-          "pts": 7.4,
+          "pts": 7.2,
           "earned": 0
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 5.7,
-          "earned": 4.8
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 5.7,
-          "earned": 0
+          "pts": 6.9,
+          "earned": 4.4
         },
         {
           "skill": "hand-power-tools",
           "name": "Hand & Power Tools",
-          "pts": 5.6,
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 5.4,
           "earned": 0
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 5.6,
+          "pts": 5.3,
           "earned": 0
         },
         {
           "skill": "blueprint-reading",
           "name": "Blueprint Reading",
-          "pts": 4.8,
-          "earned": 2.2
+          "pts": 5,
+          "earned": 2
         },
         {
-          "skill": "gmp",
-          "name": "GMP & Validation",
-          "pts": 4.6,
+          "skill": "rigging-materials",
+          "name": "Rigging & Material Handling",
+          "pts": 4.5,
           "earned": 0
         },
         {
@@ -564,279 +823,382 @@
           "earned": 0
         },
         {
-          "skill": "rigging-materials",
-          "name": "Rigging & Material Handling",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4.1,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 3.8,
-          "earned": 2.2
-        },
-        {
-          "skill": "recruiting",
-          "name": "Recruiting",
-          "pts": 3.6,
-          "earned": 0
-        },
-        {
           "skill": "safety",
           "name": "Safety / OSHA",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 2.1,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 2.1,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1764,
-        "salaried": 169
-      }
-    },
-    {
-      "id": "electronics-technician",
-      "title": "Electronics Technician",
-      "field": "Trades",
-      "cluster": "Trades",
-      "kind": "lateral",
-      "license": null,
-      "desc": "Builds, tests and repairs electronic assemblies and instrumentation.",
-      "match": 12,
-      "fit": 12,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$55k–$95k",
-      "salary_band": [
-        55953,
-        95802
-      ],
-      "demand": "High",
-      "remote": "2%",
-      "time": "12–24 mo",
-      "have": [
-        "Blueprint Reading",
-        "Maintenance",
-        "Brewing",
-        "Drafting"
-      ],
-      "learn": [
-        "Electrical Systems",
-        "Lean / Six Sigma",
-        "PLC / Controls",
-        "Recruiting"
-      ],
-      "waterfall": [
-        {
-          "skill": "blueprint-reading",
-          "name": "Blueprint Reading",
-          "pts": 11.3,
-          "earned": 1.9
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 10.7,
-          "earned": 0
-        },
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 10.4,
-          "earned": 4.1
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 7.2,
-          "earned": 4.5
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 6.4,
-          "earned": 0
-        },
-        {
-          "skill": "plc",
-          "name": "PLC / Controls",
-          "pts": 5.2,
-          "earned": 0
-        },
-        {
-          "skill": "recruiting",
-          "name": "Recruiting",
-          "pts": 5,
-          "earned": 0
-        },
-        {
-          "skill": "hand-power-tools",
-          "name": "Hand & Power Tools",
-          "pts": 4.6,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
           "pts": 4.4,
           "earned": 0
         },
         {
-          "skill": "excel",
-          "name": "Excel",
+          "skill": "gmp",
+          "name": "GMP & Validation",
           "pts": 4.2,
           "earned": 0
         },
         {
           "skill": "cad-drafting",
           "name": "Drafting",
-          "pts": 4.1,
-          "earned": 1.8
+          "pts": 3.8,
+          "earned": 2
         },
         {
-          "skill": "operations",
-          "name": "Operations",
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 3.8,
+          "earned": 0
+        },
+        {
+          "skill": "recruiting",
+          "name": "Recruiting",
           "pts": 3.6,
           "earned": 0
         },
         {
-          "skill": "technical-writing",
-          "name": "Technical Writing",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "qa-testing",
-          "name": "QA / Testing",
+          "skill": "excel",
+          "name": "Excel",
           "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 2.7,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 2.7,
+          "pts": 2.4,
           "earned": 0
         },
         {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "osha-safety",
-          "name": "OSHA & Site Safety",
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
           "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 2,
+          "earned": 0
+        },
+        {
+          "skill": "prototyping",
+          "name": "Prototyping",
+          "pts": 1.8,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 536,
-        "salaried": 91
+        "postings": 1893,
+        "salaried": 171
+      }
+    },
+    {
+      "id": "housekeeper",
+      "title": "Housekeeper",
+      "field": "Hospitality",
+      "cluster": "Hospitality",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Keeps rooms, wards, offices and buildings clean and ready, to a standard and a clock.",
+      "match": 13,
+      "fit": 13,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$35k–$60k",
+      "salary_band": [
+        35786,
+        58180
+      ],
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Brewing",
+        "Customer Service",
+        "Maintenance"
+      ],
+      "learn": [
+        "Housekeeping",
+        "Guest Relations",
+        "Facilities Operations",
+        "Food Service"
+      ],
+      "waterfall": [
+        {
+          "skill": "housekeeping",
+          "name": "Housekeeping",
+          "pts": 38.7,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 8.7,
+          "earned": 6.2
+        },
+        {
+          "skill": "guest-relations",
+          "name": "Guest Relations",
+          "pts": 7.9,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 7.7,
+          "earned": 2.4
+        },
+        {
+          "skill": "facilities-operations",
+          "name": "Facilities Operations",
+          "pts": 5.1,
+          "earned": 0
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 4.3,
+          "earned": 4.3
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 4.2,
+          "earned": 0
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 3.6,
+          "earned": 0
+        },
+        {
+          "skill": "front-office",
+          "name": "Front Office",
+          "pts": 3.4,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 2.9,
+          "earned": 0
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.6,
+          "earned": 0
+        },
+        {
+          "skill": "food-beverage",
+          "name": "Food & Beverage",
+          "pts": 2.5,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 1360,
+        "salaried": 140
       }
     }
   ],
   "next": {
-    "maintenance-technician": [],
-    "welder": [],
+    "hvac-technician": [],
+    "welder": [
+      {
+        "t": "Machinist",
+        "m": 12,
+        "slug": "machinist",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "lateral",
+        "gap": [
+          "Welding / Fabrication",
+          "Mastercam / CAM",
+          "Lean / Six Sigma",
+          "SAP"
+        ],
+        "observed": null,
+        "fit": 12,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "welder",
+          "readiness_after": 65,
+          "gain": 53
+        }
+      }
+    ],
     "electrician": [],
+    "maintenance-technician": [
+      {
+        "t": "Facilities Manager",
+        "m": 11,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Facilities Operations",
+          "Operations",
+          "Procurement",
+          "Safety / OSHA"
+        ],
+        "observed": null,
+        "fit": 23,
+        "capability": 78,
+        "mobility": 7,
+        "mobility_source": "observed-flow-us",
+        "mobility_eu": 18,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "maintenance-technician",
+          "readiness_after": 43,
+          "gain": 32
+        }
+      }
+    ],
+    "field-service-technician": [],
     "automotive-technician": [],
-    "manufacturing-technician": [],
-    "electronics-technician": []
+    "manufacturing-technician": [
+      {
+        "t": "Electronics Technician",
+        "m": 11,
+        "slug": "electronics-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "lateral",
+        "gap": [
+          "Electrical Systems",
+          "PLC / Controls",
+          "Lean / Six Sigma",
+          "Hand & Power Tools"
+        ],
+        "observed": null,
+        "fit": 11,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "manufacturing-technician",
+          "readiness_after": 56,
+          "gain": 45
+        }
+      },
+      {
+        "t": "Construction Superintendent",
+        "m": 11,
+        "slug": "construction-superintendent",
+        "field": "Construction",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Project Management",
+          "Scheduling",
+          "Safety / OSHA",
+          "OSHA & Site Safety"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": null,
+        "mobility": 33,
+        "mobility_source": "observed-flow-ctot",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "manufacturing-technician",
+          "readiness_after": 31,
+          "gain": 20
+        }
+      }
+    ],
+    "housekeeper": []
   },
   "direct": [],
   "cross": [
     [
       "maintenance-technician",
       "automotive-technician",
-      0.74
+      0.72
     ],
     [
+      "field-service-technician",
       "manufacturing-technician",
-      "electronics-technician",
       0.65
     ],
     [
+      "field-service-technician",
       "automotive-technician",
-      "electronics-technician",
-      0.6
+      0.62
     ],
     [
       "maintenance-technician",
-      "electronics-technician",
-      0.59
+      "field-service-technician",
+      0.57
+    ],
+    [
+      "hvac-technician",
+      "maintenance-technician",
+      0.51
     ],
     [
       "electrician",
-      "electronics-technician",
-      0.52
-    ],
-    [
       "automotive-technician",
-      "manufacturing-technician",
       0.5
     ]
   ],
-  "bridges": [],
+  "bridges": [
+    [
+      "maintenance-technician",
+      "manufacturing-technician_0",
+      0.48
+    ],
+    [
+      "manufacturing-technician",
+      "welder_0",
+      0.39
+    ],
+    [
+      "manufacturing-technician",
+      "maintenance-technician_0",
+      0.34
+    ],
+    [
+      "field-service-technician",
+      "manufacturing-technician_1",
+      0.27
+    ]
+  ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
 }
