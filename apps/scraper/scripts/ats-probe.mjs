@@ -72,7 +72,7 @@ const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workda
   'pinpoint:nttdata', 'pinpoint:ridge', 'pinpoint:egis', 'pinpoint:magic', 'pinpoint:spire', 'pinpoint:harnham', 'pinpoint:ametek', 'pinpoint:nhs', 'pinpoint:kpmg', 'pinpoint:sonova', 'pinpoint:onlineriver', 'pinpoint:aequilibrium', 'pinpoint:ada', 'pinpoint:smith', 'pinpoint:holcim', 'pinpoint:csi', 'pinpoint:supportyourapp', 'pinpoint:bdc', 'pinpoint:htc', 'pinpoint:tiro', 'pinpoint:unit4', 'pinpoint:enfinityglobal', 'pinpoint:systemc', 'pinpoint:hireful', 'pinpoint:stepup', 'pinpoint:arbor-education', 'pinpoint:controlrisks', 'pinpoint:pah', 'pinpoint:bsi', 'pinpoint:bhp',
   'icims:aerotek', 'icims:sbs', 'icims:tradesmen', 'icims:jerseystem', 'icims:sas', 'icims:rockwood', 'icims:hoffman', 'icims:usaa',
   'teamtailor:nachhilfeunterricht', 'teamtailor:tusclasesparticulares', 'teamtailor:salesland', 'teamtailor:hka', 'teamtailor:adaptiveteams', 'teamtailor:livit', 'teamtailor:bbi', 'teamtailor:hsb', 'teamtailor:markssattin', 'teamtailor:ssh', 'teamtailor:messer', 'teamtailor:spotted', 'teamtailor:norr', 'teamtailor:sigma', 'teamtailor:tln', 'teamtailor:homa',
-  'breezy:pri', 'breezy:sourcefit', 'breezy:urrly', 'breezy:snappycx', 'breezy:ourassistants', 'breezy:skilled-trades-partners']); // namesakes verified by hand (2026-09-24 manual passes)
+  'breezy:pri', 'breezy:sourcefit', 'breezy:urrly', 'breezy:snappycx', 'breezy:ourassistants', 'breezy:skilled-trades-partners', 'pinpoint:mts', 'icims:teksystems']); // namesakes verified by hand (2026-09-24 manual passes)
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

@@ -591,8 +591,11 @@ export async function fetchRaw({ log }) {
     const queue = [...companies];
     const CONC = Number(process.env.DIRECT_CONCURRENCY) || 8;
     await Promise.all(Array.from({ length: Math.min(CONC, queue.length) }, async () => {
-      // one firm can never hold a worker for more than FIRM_MS (default 4 min)
-      const FIRM_MS = Number(process.env.DIRECT_FIRM_MS) || 240000;
+      // one firm can never hold a worker for more than FIRM_MS. 15 min, not 4:
+      // Gensler, BIG, HOK, Perkins&Will and Herzog & de Meuron follow hundreds of
+      // posting links and were cut at 4 min on 2026-09-28. The real hang guard
+      // is renderGet's 60 s; this is only the backstop.
+      const FIRM_MS = Number(process.env.DIRECT_FIRM_MS) || 900000;
       for (let c = queue.shift(); c; c = queue.shift()) {
         try { await hard(readFirm(c), FIRM_MS, `firm ${c.name}`); }
         catch (err) { log(`direct:${c.name} — ${err.message} (skipped, fleet continues)`); }

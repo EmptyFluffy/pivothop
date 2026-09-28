@@ -138,6 +138,9 @@ git config user.email "vinocouralvarez@gmail.com"
 # packages/data/fx holds the weekly FX snapshot (fx:update, Mondays) — a tracked
 # file outside the data dirs; without it the Monday rebase aborts on a dirty tree.
 # apps/web/private/direct: the sealed direct-jobs vault (ciphertext; the plain side is git-ignored)
+# Board configs: publish main + only what THIS run added (three-way), never the
+# stale checkout copy the rebase below would otherwise force over main.
+git fetch -q origin main && node apps/scraper/scripts/merge-config-lists.mjs || echo "::warning::merge-config-lists failed (configs published as the run left them)"
 git add apps/web/public/data apps/web/private/direct packages/data/generated packages/data/outreach packages/data/fx apps/web/src/lib/data.js
 # Belt-and-suspenders: stage any OTHER tracked modification (future writers) so the
 # rebase never fails on a dirty tree. -u touches tracked files only — never the

@@ -19,10 +19,10 @@ const MAX_JOBS = Number(process.env.ICIMS_MAX_JOBS || 300);
 // 700 ms spacing). The budget stops fetching new openings and KEEPS what was
 // read: on 2026-09-28 forty portals read one after another would have run for
 // hours and taken the whole nightly past its time limit.
-const CONC = Number(process.env.ICIMS_CONCURRENCY || 8);
+const CONC = Number(process.env.ICIMS_CONCURRENCY || 3); // 8 at once made iCIMS search pages time out (2026-09-28)
 const BUDGET_MS = Number(process.env.ICIMS_BUDGET_MIN || 90) * 60e3;
 async function get(url) {
-  const res = await hard(fetch(url, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(20000) }), 30000, url);
+  const res = await hard(fetch(url, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(45000) }), 60000, url); // search pages can take 20 s+
   if (!res.ok) { await res.body?.cancel(); return null; }
   return hard(res.text(), 30000, url);
 }
