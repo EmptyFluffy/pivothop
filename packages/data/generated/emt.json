@@ -381,8 +381,8 @@
         "years": 4
       },
       "desc": "",
-      "match": 49,
-      "fit": 49,
+      "match": 47,
+      "fit": 47,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -412,7 +412,7 @@
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 23.2,
+          "pts": 23.1,
           "earned": 21.6
         },
         {
@@ -472,7 +472,7 @@
         {
           "skill": "health-education",
           "name": "Health Education",
-          "pts": 3.3,
+          "pts": 3.4,
           "earned": 0
         },
         {
@@ -524,10 +524,10 @@
           "earned": 0
         },
         {
-          "skill": "emergency-care",
-          "name": "Emergency Care",
+          "skill": "accessibility",
+          "name": "Accessibility",
           "pts": 1.9,
-          "earned": 1.9
+          "earned": 0
         }
       ],
       "low_confidence": false,
@@ -555,10 +555,10 @@
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$45k–$60k",
+      "salary": "$45k–$55k",
       "salary_band": [
-        43027,
-        57639
+        43157,
+        57486
       ],
       "demand": "High",
       "remote": "1%",
@@ -571,8 +571,8 @@
       ],
       "learn": [
         "Brewing",
-        "Infection Control",
         "Case Management",
+        "Infection Control",
         "Phlebotomy"
       ],
       "waterfall": [
@@ -580,7 +580,7 @@
           "skill": "patient-care",
           "name": "Patient Care",
           "pts": 14.5,
-          "earned": 12.4
+          "earned": 12.3
         },
         {
           "skill": "cpr-bls",
@@ -609,7 +609,7 @@
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 6.4,
+          "pts": 6.3,
           "earned": 1.8
         },
         {
@@ -625,21 +625,21 @@
           "earned": 3.9
         },
         {
-          "skill": "infection-control",
-          "name": "Infection Control",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
           "skill": "case-management",
           "name": "Case Management",
           "pts": 3.5,
           "earned": 0
         },
         {
+          "skill": "infection-control",
+          "name": "Infection Control",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
           "skill": "phlebotomy",
           "name": "Phlebotomy",
-          "pts": 2.9,
+          "pts": 2.8,
           "earned": 0
         },
         {
@@ -669,7 +669,7 @@
         {
           "skill": "fea",
           "name": "FEA / Simulation",
-          "pts": 2.3,
+          "pts": 2.2,
           "earned": 0
         },
         {
@@ -693,15 +693,15 @@
         {
           "skill": "hipaa",
           "name": "HIPAA",
-          "pts": 1.7,
+          "pts": 1.8,
           "earned": 1.4
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 1987,
-        "salaried": 343
+        "postings": 1992,
+        "salaried": 346
       }
     },
     {
@@ -746,31 +746,31 @@
         {
           "skill": "treatment-planning",
           "name": "Treatment Planning",
-          "pts": 14.3,
+          "pts": 14.2,
           "earned": 0
         },
         {
           "skill": "clinical",
           "name": "Clinical Skills",
-          "pts": 13.5,
-          "earned": 13.5
+          "pts": 13.4,
+          "earned": 13.4
         },
         {
           "skill": "patient-care",
           "name": "Patient Care",
-          "pts": 12.1,
-          "earned": 12.1
+          "pts": 12.2,
+          "earned": 12.2
         },
         {
           "skill": "cpr-bls",
           "name": "CPR / BLS",
-          "pts": 11.7,
-          "earned": 11.7
+          "pts": 11.6,
+          "earned": 11.6
         },
         {
           "skill": "case-management",
           "name": "Case Management",
-          "pts": 9.7,
+          "pts": 10,
           "earned": 0
         },
         {
@@ -782,25 +782,25 @@
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 5.2,
+          "pts": 5.1,
           "earned": 3.3
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 3.8,
+          "pts": 3.7,
           "earned": 0
         },
         {
           "skill": "mental-health",
           "name": "Mental Health",
-          "pts": 3.4,
+          "pts": 3.3,
           "earned": 0
         },
         {
           "skill": "teaching",
           "name": "Teaching",
-          "pts": 3,
+          "pts": 3.3,
           "earned": 0
         },
         {
@@ -849,7 +849,7 @@
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 386,
+        "postings": 388,
         "salaried": 86
       }
     },
@@ -1076,6 +1076,33 @@
     "dental-assistant": [],
     "pharmacist": [
       {
+        "t": "Security Guard",
+        "m": 32,
+        "slug": "security-guard",
+        "field": "Public Safety",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Law Enforcement",
+          "Brewing",
+          "Criminal Investigation",
+          "Cybersecurity"
+        ],
+        "observed": null,
+        "fit": 32,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "pharmacist",
+          "readiness_after": 44,
+          "gain": 12
+        }
+      },
+      {
         "t": "Biomedical Engineer",
         "m": 32,
         "slug": "biomedical-engineer",
@@ -1101,63 +1128,9 @@
           "readiness_after": 43,
           "gain": 11
         }
-      },
-      {
-        "t": "Pharmacy Technician",
-        "m": 29,
-        "slug": "pharmacy-technician",
-        "field": "Healthcare",
-        "cluster": "Healthcare",
-        "kind": "lateral",
-        "gap": [
-          "Supply Chain",
-          "Inventory Management",
-          "Operations",
-          "Infection Control"
-        ],
-        "observed": null,
-        "fit": 29,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "pharmacist",
-          "readiness_after": 48,
-          "gain": 19
-        }
       }
     ],
     "medical-assistant": [
-      {
-        "t": "Security Guard",
-        "m": 33,
-        "slug": "security-guard",
-        "field": "Public Safety",
-        "cluster": "Service",
-        "kind": "pivot",
-        "gap": [
-          "Law Enforcement",
-          "Brewing",
-          "Criminal Investigation",
-          "Cybersecurity"
-        ],
-        "observed": null,
-        "fit": 33,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "medical-assistant",
-          "readiness_after": 48,
-          "gain": 15
-        }
-      },
       {
         "t": "Nurse Practitioner",
         "m": 33,
@@ -1183,6 +1156,33 @@
           "parent": "medical-assistant",
           "readiness_after": 66,
           "gain": 33
+        }
+      },
+      {
+        "t": "Registered Nurse",
+        "m": 33,
+        "slug": "registered-nurse",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "lateral",
+        "gap": [
+          "Brewing",
+          "Training & Facilitation",
+          "Case Management",
+          "Teaching"
+        ],
+        "observed": null,
+        "fit": 33,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "medical-assistant",
+          "readiness_after": 73,
+          "gain": 40
         }
       }
     ],
@@ -1215,20 +1215,20 @@
         }
       },
       {
-        "t": "Registered Nurse",
-        "m": 33,
-        "slug": "registered-nurse",
+        "t": "Pharmacy Technician",
+        "m": 29,
+        "slug": "pharmacy-technician",
         "field": "Healthcare",
         "cluster": "Healthcare",
         "kind": "lateral",
         "gap": [
-          "Brewing",
-          "Training & Facilitation",
-          "Case Management",
-          "Teaching"
+          "Supply Chain",
+          "Inventory Management",
+          "Operations",
+          "Infection Control"
         ],
         "observed": null,
-        "fit": 33,
+        "fit": 29,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1237,8 +1237,8 @@
         "reach": "bridged",
         "via": {
           "parent": "occupational-therapist",
-          "readiness_after": 53,
-          "gain": 20
+          "readiness_after": 40,
+          "gain": 11
         }
       }
     ],
@@ -1412,6 +1412,28 @@
       "reach": "direct"
     },
     {
+      "t": "Therapist / Counselor",
+      "m": 19,
+      "slug": "therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "lateral",
+      "gap": [
+        "Mental Health",
+        "Case Management",
+        "Telehealth",
+        "Treatment Planning"
+      ],
+      "observed": null,
+      "fit": 19,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
       "t": "IT Support Specialist",
       "m": 17,
       "slug": "it-support",
@@ -1426,28 +1448,6 @@
       ],
       "observed": null,
       "fit": 17,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Therapist / Counselor",
-      "m": 15,
-      "slug": "therapist",
-      "field": "Healthcare",
-      "cluster": "Healthcare",
-      "kind": "lateral",
-      "gap": [
-        "Mental Health",
-        "Case Management",
-        "Treatment Planning",
-        "Telehealth"
-      ],
-      "observed": null,
-      "fit": 15,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -1475,7 +1475,7 @@
     [
       "medical-assistant",
       "medical-scribe",
-      0.73
+      0.74
     ],
     [
       "dental-hygienist",
@@ -1490,14 +1490,9 @@
   ],
   "bridges": [
     [
-      "medical-assistant",
-      "occupational-therapist_1",
-      0.73
-    ],
-    [
       "occupational-therapist",
       "dental-hygienist_0",
-      0.69
+      0.7
     ],
     [
       "occupational-therapist",
@@ -1505,9 +1500,14 @@
       0.67
     ],
     [
-      "pharmacist",
-      "medical-assistant_1",
-      0.6
+      "occupational-therapist",
+      "medical-assistant_0",
+      0.61
+    ],
+    [
+      "medical-assistant",
+      "occupational-therapist_0",
+      0.54
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
