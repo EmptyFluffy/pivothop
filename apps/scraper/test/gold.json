@@ -570,6 +570,116 @@
       "title": "Interior Architect",
       "expect": "interior-designer",
       "why": "EU/Swiss usage: Innenarchitekt is the interior-design profession"
+    },
+    {
+      "title": "Travel ICU RN",
+      "expect": "registered-nurse",
+      "why": "rn tail: the credential closes the title and is too short for containment (2026-09-28)"
+    },
+    {
+      "title": "Travel Nurse (RN) - Labor & Delivery",
+      "expect": "registered-nurse",
+      "why": "travel nurse alias"
+    },
+    {
+      "title": "Licensed Practical Nurse",
+      "expect": null,
+      "why": "LPN is its own licensed occupation, never the RN board"
+    },
+    {
+      "title": "Primary Care Nurse Practitioner / Physician Assistant",
+      "expect": "nurse-practitioner",
+      "why": "a nurse alias must not steal the NP (primary care nurse was dropped for this)"
+    },
+    {
+      "title": "Python Engineer - Freelance AI Trainer",
+      "expect": "data-annotator",
+      "why": "AI-training gigs name a profession first; the work is rating model output"
+    },
+    {
+      "title": "Detective & Police Officers - Freelance AI Trainer Project",
+      "expect": "data-annotator",
+      "why": "was on the police board before 2026-09-28"
+    },
+    {
+      "title": "Generative AI Training Specialist",
+      "expect": "corporate-trainer",
+      "why": "control: teaching people about AI is a trainer, not a gig"
+    },
+    {
+      "title": "Teachers",
+      "expect": "teacher",
+      "why": "plural tier"
+    },
+    {
+      "title": "Line Cooks",
+      "expect": "cook",
+      "why": "plural tier"
+    },
+    {
+      "title": "especialista en datos maestros",
+      "expect": null,
+      "why": "Spanish plurals never singularise (maestros -> maestro -> teacher)"
+    },
+    {
+      "title": "Interior Design Tutor - Private Lessons",
+      "expect": "tutor",
+      "why": "design nouns are exact-only so they cannot steal tutors"
+    },
+    {
+      "title": "Luxury Interior Design Sales Rep for Architects",
+      "expect": "sales-representative",
+      "why": "design nouns are exact-only so they cannot steal sales reps"
+    },
+    {
+      "title": "Kitchen Designer (Sales)",
+      "expect": null,
+      "why": "kitchen designers are mostly commission sales; left unmapped on purpose"
+    },
+    {
+      "title": "Salesforce Developer",
+      "expect": "erp-consultant",
+      "why": "platform developers sit with the ERP/CRM consultants"
+    },
+    {
+      "title": "iOS Engineer",
+      "expect": "mobile-developer",
+      "why": "engineer spelling of the mobile developer"
+    },
+    {
+      "title": "Distribution Engineer, Electrical Utility",
+      "expect": "electrical-engineer",
+      "why": "bare distribution engineer is the power-utility role"
+    },
+    {
+      "title": "Director, Product Management",
+      "expect": "product-manager",
+      "why": "segment tier reaches the exact-only noun form"
+    },
+    {
+      "title": "Physician Assistant",
+      "expect": null,
+      "why": "control: tier guard still holds with the new physician specialties"
+    },
+    {
+      "title": "Chief Building Engineer",
+      "expect": "maintenance-technician",
+      "why": "building engineer is facilities maintenance (JLL)"
+    },
+    {
+      "title": "Company Secretary",
+      "expect": null,
+      "why": "secretary is exact-only: a company secretary is a governance officer"
+    },
+    {
+      "title": "Neuro-Oncologist",
+      "expect": "physician",
+      "why": "physician specialty alias"
+    },
+    {
+      "title": "Research Technician - College of Engineering - Biomedical Engineering",
+      "expect": null,
+      "why": "no noun-form alias for biomedical engineering: the segment named the department, not the job"
     }
   ],
   "skills": [

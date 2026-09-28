@@ -154,6 +154,21 @@ function matchOne(m, cleaned) {
 // after, so it needs refusing rather than rerouting.
 const NEVER = /\bnight audit(or|ing|s)?\b|\bremote pilot operator\b/;
 
+// Freelance model-training work sold under a profession's name (see mapTitle).
+// Narrow on purpose: "Generative AI Training Specialist" teaches people and stays
+// a trainer; only "- AI Training" / "for AI Training" as the engagement counts.
+const AI_TRAINING = /\bai (data )?trainer\b|\bagent evaluation\b|\bcoding agent\b|(?:\bfor|-)\s*ai training\b|\bai training (?:&|and) evaluation\b/i;
+
+// English agent-noun plurals only. Spanish and Portuguese plurals singularise
+// into false friends ("especialista en datos maestros" -> "maestro" -> teacher),
+// so -os/-as endings never qualify.
+const PLURAL_TAIL = /(?:er|or|ist|ian|ant|ent|ect|anic|ot|ook|ef|urse|ive|ard)s$/;
+function singularTail(cleaned) {
+  const i = cleaned.lastIndexOf(' ') + 1;
+  const w = cleaned.slice(i);
+  return PLURAL_TAIL.test(w) ? cleaned.slice(0, i) + w.slice(0, -1) : null;
+}
+
 // Software-architect disambiguation. The building `architect` synonym is
 // exactOnly, which blocks CONTAINMENT — but segmentation plus seniority
 // stripping still reduced "Principal Architect - Solutions" and "Lead
@@ -176,8 +191,16 @@ export function mapTitle(rawTitle) {
   // hands matchOne a bare "chef" segment, so the guard must also see the intact
   // title before any segment can match.
   if (CHEF_LEAD.test(primary)) return null;
+  // AI-training gigs name a real profession first: "Python Engineer - Freelance AI
+  // Trainer", "Detective & Police Officers - Freelance AI Trainer Project". The work
+  // is rating model output, so the profession is the topic, not the job; the whole
+  // title decides before any segment can.
+  if (AI_TRAINING.test(String(rawTitle))) return { slug: 'data-annotator', method: 'ai-training' };
   const first = guard(matchOne(m, primary));
   if (first) return first;
+  // "Travel ICU RN", "Local Nurse RN": the credential closes the title, and "rn" is
+  // too short for containment (phrases under 4 characters only match exactly).
+  if (/ rn$/.test(primary) && !/\b(lpn|lvn|practical|vocational)\b/.test(primary)) return { slug: 'registered-nurse', method: 'rn' };
   // Head segment mapped to nothing — try the remaining segments before giving up.
   for (const seg of titleSegments(rawTitle)) {
     if (seg === primary) continue;
@@ -199,6 +222,14 @@ export function mapTitle(rawTitle) {
   if (de) {
     const hit = guard(matchOne(m, cleanTitle(de)) ?? matchOne(m, cleanSegment(de)));
     if (hit) return { slug: hit.slug, method: 'de' };
+  }
+  // Plural head noun: a post for several openings names the role in the plural
+  // ("Teachers", "Welders", "Line Cooks") and no synonym carries it. Last tier, so
+  // it only sees titles every other tier gave up on.
+  const singular = singularTail(primary);
+  if (singular) {
+    const hit = guard(matchOne(m, singular));
+    if (hit) return { slug: hit.slug, method: 'plural' };
   }
   // The guard refused the building slug; give the title its REAL occupation
   // when the qualifier names one, else an honest miss.

@@ -81,7 +81,11 @@
     "bim modeler",
     "revit specialist",
     "bim technician",
-    "digital design manager"
+    "digital design manager",
+    "bim modeller",
+    "bim designer",
+    "bim engineer",
+    "bim/cad manager"
    ],
    "desc": "Owns the digital model across a project team. Sets standards, coordinates disciplines, and makes sure every drawing in the set comes from one source of truth.",
    "cluster": "Built Environment"
@@ -138,7 +142,10 @@
     "diseñador ux"
    ],
    "desc": "Designs how software should feel to use. Researches users, maps flows, sketches interfaces, and defends the human experience against every other project pressure.",
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "ux design"
+   ]
   },
   {
    "slug": "product-designer",
@@ -153,7 +160,10 @@
     "visual product designer"
    ],
    "desc": "Owns a digital product's look, feel, and story end to end. Combines visual design, systems thinking, and close collaboration with engineers and PMs.",
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "product design"
+   ]
   },
   {
    "slug": "interior-technologist",
@@ -182,7 +192,8 @@
     "regional planner",
     "land use planner",
     "planning consultant",
-    "community planner"
+    "community planner",
+    "planning officer"
    ],
    "desc": "Shapes cities and neighborhoods over years, not weeks. Works with public policy, GIS data, and community input to design zoning, mobility, and public space.",
    "cluster": "Built Environment"
@@ -300,7 +311,8 @@
     "business intelligence analyst",
     "power bi developer",
     "tableau developer",
-    "bi engineer"
+    "bi engineer",
+    "business intelligence engineer"
    ],
    "cluster": "Technology"
   },
@@ -315,7 +327,10 @@
     "cx designer",
     "customer experience designer"
    ],
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "service design"
+   ]
   },
   {
    "slug": "ux-researcher",
@@ -356,9 +371,13 @@
    "synonyms": [
     "brand designer",
     "brand identity designer",
-    "visual identity designer"
+    "visual identity designer",
+    "branding designer"
    ],
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "brand design"
+   ]
   },
   {
    "slug": "ffe-specialist",
@@ -436,7 +455,10 @@
     "interior architect",
     "interior architecture"
    ],
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "interior design"
+   ]
   },
   {
    "slug": "landscape-architect",
@@ -638,13 +660,17 @@
    "synonyms": [
     "structural engineer",
     "structural design engineer",
-    "structures engineer"
+    "structures engineer",
+    "structural designer"
    ],
    "cluster": "Built Environment",
    "license": {
     "req": "required",
     "label": "PE license required to sign/seal structural work"
-   }
+   },
+   "exactOnly": [
+    "structural engineering"
+   ]
   },
   {
    "slug": "civil-engineer",
@@ -677,13 +703,30 @@
     "ingenieur genie civil",
     "ingenieur travaux",
     "ingenieur vrd",
-    "ingenieur ouvrages d art"
+    "ingenieur ouvrages d art",
+    "civil designer",
+    "civil engineering designer",
+    "civil works engineer",
+    "civils design engineer",
+    "water resources engineer",
+    "stormwater engineer",
+    "municipal engineer",
+    "roadway engineer",
+    "bridge design engineer",
+    "transportation design engineer",
+    "geotechnical design engineer",
+    "setting out engineer",
+    "section engineer",
+    "resident engineer"
    ],
    "cluster": "Built Environment",
    "license": {
     "req": "required",
     "label": "PE license required for responsible charge"
-   }
+   },
+   "exactOnly": [
+    "civil engineering"
+   ]
   },
   {
    "slug": "mep-engineer",
@@ -696,7 +739,13 @@
     "hvac engineer",
     "building services engineer",
     "mep coordinator",
-    "plumbing engineer"
+    "plumbing engineer",
+    "building services design engineer",
+    "mep design engineer",
+    "plumbing designer",
+    "hvac designer",
+    "fire protection designer",
+    "fire sprinkler designer"
    ],
    "cluster": "Built Environment",
    "license": {
@@ -778,9 +827,37 @@
     "ingenieur developpement",
     "softwareentwickler",
     "softwareentwicklerin",
-    "applikationsentwickler"
+    "applikationsentwickler",
+    "fullstack engineer",
+    "python engineer",
+    "java engineer",
+    "c++ developer",
+    "c++ engineer",
+    "c# developer",
+    "rust engineer",
+    "scala engineer",
+    "typescript developer",
+    "wordpress developer",
+    "drupal developer",
+    "shopify developer",
+    "webflow developer",
+    "website developer",
+    "web engineer",
+    "sharepoint developer",
+    "appian developer",
+    "mulesoft developer",
+    "integration developer",
+    "aem developer",
+    "forward deployment engineer",
+    "founding engineer",
+    "mainframe developer",
+    "cobol developer"
    ],
-   "cluster": "Technology"
+   "cluster": "Technology",
+   "exactOnly": [
+    "software engineering",
+    "forward deployed engineering"
+   ]
   },
   {
    "slug": "frontend-developer",
@@ -799,7 +876,10 @@
     "ui engineer",
     "front end engineer",
     "desarrollador frontend",
-    "desarrollador web"
+    "desarrollador web",
+    "react engineer",
+    "angular developer",
+    "vue developer"
    ],
    "cluster": "Technology"
   },
@@ -821,7 +901,17 @@
     "ruby developer",
     "golang developer",
     ".net developer",
-    "desarrollador backend"
+    "desarrollador backend",
+    "back end engineer",
+    "go engineer",
+    "golang engineer",
+    "go developer",
+    "net developer",
+    "dot net developer",
+    ".net engineer",
+    "nodejs developer",
+    "node.js developer",
+    "ruby on rails developer"
    ],
    "cluster": "Technology"
   },
@@ -836,7 +926,12 @@
     "android developer",
     "mobile engineer",
     "react native developer",
-    "flutter developer"
+    "flutter developer",
+    "mobile app developer",
+    "ios engineer",
+    "android engineer",
+    "react native engineer",
+    "flutter engineer"
    ],
    "cluster": "Technology"
   },
@@ -856,9 +951,14 @@
     "release engineer",
     "database reliability engineer",
     "reliability engineer",
-    "cloud infrastructure engineer"
+    "cloud infrastructure engineer",
+    "devsecops engineer",
+    "cloud operations engineer"
    ],
-   "cluster": "Technology"
+   "cluster": "Technology",
+   "exactOnly": [
+    "site reliability engineering"
+   ]
   },
   {
    "slug": "qa-engineer",
@@ -874,7 +974,8 @@
     "automation engineer",
     "quality engineer",
     "qa tester",
-    "software tester"
+    "software tester",
+    "test analyst"
    ],
    "cluster": "Technology"
   },
@@ -903,9 +1004,18 @@
     "cyber defence analyst",
     "cyber defense analyst",
     "security operations analyst",
-    "security operations engineer"
+    "security operations engineer",
+    "cybersecurity specialist",
+    "cyber security specialist",
+    "cyber security consultant",
+    "incident response analyst",
+    "threat intelligence analyst",
+    "information security manager"
    ],
-   "cluster": "Technology"
+   "cluster": "Technology",
+   "exactOnly": [
+    "cyber security"
+   ]
   },
   {
    "slug": "data-scientist",
@@ -916,9 +1026,15 @@
     "data scientist",
     "applied scientist",
     "research data scientist",
-    "decision scientist"
+    "decision scientist",
+    "ai scientist",
+    "machine learning scientist",
+    "applied ai scientist"
    ],
-   "cluster": "Technology"
+   "cluster": "Technology",
+   "exactOnly": [
+    "data science"
+   ]
   },
   {
    "slug": "data-engineer",
@@ -931,9 +1047,13 @@
     "big data engineer",
     "etl developer",
     "data platform engineer",
-    "data warehouse engineer"
+    "data warehouse engineer",
+    "bigdata engineer"
    ],
-   "cluster": "Technology"
+   "cluster": "Technology",
+   "exactOnly": [
+    "data engineering"
+   ]
   },
   {
    "slug": "machine-learning-engineer",
@@ -943,9 +1063,14 @@
    "synonyms": [
     "machine learning engineer",
     "ml engineer",
-    "deep learning engineer"
+    "deep learning engineer",
+    "machine learning developer",
+    "ai research engineer"
    ],
-   "cluster": "Technology"
+   "cluster": "Technology",
+   "exactOnly": [
+    "machine learning engineering"
+   ]
   },
   {
    "slug": "database-administrator",
@@ -971,7 +1096,8 @@
     "sysadmin",
     "it administrator",
     "windows administrator",
-    "linux administrator"
+    "linux administrator",
+    "it engineer"
    ],
    "cluster": "Technology"
   },
@@ -1004,7 +1130,9 @@
     "support technician",
     "ict supporter",
     "informatiker support",
-    "technicien support informatique"
+    "technicien support informatique",
+    "information technology specialist",
+    "application support analyst"
    ],
    "cluster": "Technology"
   },
@@ -1092,9 +1220,14 @@
     "game designer",
     "level designer",
     "gameplay designer",
-    "narrative designer"
+    "narrative designer",
+    "game system designer",
+    "game economy designer"
    ],
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "game design"
+   ]
   },
   {
    "slug": "product-manager",
@@ -1108,7 +1241,10 @@
     "growth product manager",
     "platform product manager"
    ],
-   "cluster": "Business"
+   "cluster": "Business",
+   "exactOnly": [
+    "product management"
+   ]
   },
   {
    "slug": "project-manager",
@@ -1163,7 +1299,11 @@
     "management analyst",
     "program analyst",
     "management and program analyst",
-    "management and program specialist"
+    "management and program specialist",
+    "systems analyst",
+    "system analyst",
+    "it analyst",
+    "business system analyst"
    ],
    "cluster": "Business"
   },
@@ -1178,7 +1318,8 @@
     "documentation engineer",
     "api writer",
     "technical author",
-    "technical documentation writer"
+    "technical documentation writer",
+    "technical editor"
    ],
    "cluster": "Media & Writing"
   },
@@ -1216,9 +1357,17 @@
     "disenador grafico",
     "diseñador gráfico",
     "disenadora grafica",
-    "diseñadora gráfica"
+    "diseñadora gráfica",
+    "graphics designer",
+    "multimedia designer",
+    "presentation designer",
+    "social media designer",
+    "graphic design specialist"
    ],
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "graphic design"
+   ]
   },
   {
    "slug": "motion-designer",
@@ -1233,7 +1382,10 @@
     "2d animator",
     "3d animator"
    ],
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "motion design"
+   ]
   },
   {
    "slug": "video-editor",
@@ -1286,7 +1438,10 @@
     "product development engineer consumer",
     "cmf designer"
    ],
-   "cluster": "Design"
+   "cluster": "Design",
+   "exactOnly": [
+    "industrial design"
+   ]
   },
   {
    "slug": "creative-director",
@@ -1328,7 +1483,8 @@
     "content marketing manager",
     "editorial manager",
     "content lead",
-    "head of content"
+    "head of content",
+    "content editor"
    ],
    "cluster": "Media & Writing"
   },
@@ -1364,7 +1520,10 @@
     "product writer",
     "ux content designer"
    ],
-   "cluster": "Media & Writing"
+   "cluster": "Media & Writing",
+   "exactOnly": [
+    "content design"
+   ]
   },
   {
    "slug": "grant-writer",
@@ -1377,7 +1536,8 @@
     "proposal writer",
     "development writer",
     "bid writer",
-    "tender writer"
+    "tender writer",
+    "grants writer"
    ],
    "cluster": "Media & Writing"
   },
@@ -1423,7 +1583,11 @@
     "campaign manager",
     "crm manager",
     "email marketing manager",
-    "marketing associate"
+    "marketing associate",
+    "marketing officer",
+    "marketing communications specialist",
+    "marketing communications executive",
+    "marketing communications manager"
    ],
    "cluster": "Business"
   },
@@ -1439,9 +1603,14 @@
     "search engine optimization specialist",
     "sem specialist",
     "ppc specialist",
-    "paid media specialist"
+    "paid media specialist",
+    "seo executive",
+    "seo content specialist"
    ],
-   "cluster": "Business"
+   "cluster": "Business",
+   "exactOnly": [
+    "seo"
+   ]
   },
   {
    "slug": "social-media-manager",
@@ -1453,9 +1622,15 @@
     "community manager",
     "social media specialist",
     "social media coordinator",
-    "influencer marketing manager"
+    "influencer marketing manager",
+    "social media executive",
+    "social media analyst",
+    "social media editor"
    ],
-   "cluster": "Business"
+   "cluster": "Business",
+   "exactOnly": [
+    "social media"
+   ]
   },
   {
    "slug": "market-researcher",
@@ -1505,7 +1680,9 @@
     "territory manager",
     "territory sales representative",
     "field sales representative",
-    "outside sales representative"
+    "outside sales representative",
+    "sales specialist",
+    "account development representative"
    ],
    "cluster": "Business"
   },
@@ -1526,7 +1703,10 @@
     "regional sales manager",
     "business development manager",
     "bd manager",
-    "business development executive"
+    "business development executive",
+    "account director",
+    "enterprise account exec",
+    "strategic account director"
    ],
    "cluster": "Business"
   },
@@ -1541,7 +1721,9 @@
     "presales engineer",
     "pre-sales consultant",
     "solutions consultant",
-    "technical account manager"
+    "technical account manager",
+    "solution engineer",
+    "field application engineer"
    ],
    "cluster": "Business"
   },
@@ -1556,7 +1738,9 @@
     "client success manager",
     "customer success specialist",
     "onboarding specialist",
-    "customer success lead"
+    "customer success lead",
+    "customer success engineer",
+    "customer success executive"
    ],
    "cluster": "Business"
   },
@@ -1714,7 +1898,10 @@
     "recruitment coordinator",
     "recruitment officer",
     "reclutador",
-    "reclutadora"
+    "reclutadora",
+    "recruitment resourcer",
+    "recruitment advisor",
+    "recruiting specialist"
    ],
    "cluster": "Business"
   },
@@ -1767,7 +1954,8 @@
     "event manager",
     "events producer",
     "conference planner",
-    "meeting planner"
+    "meeting planner",
+    "events manager"
    ],
    "cluster": "Business"
   },
@@ -1787,7 +1975,13 @@
     "general ledger accountant",
     "contador",
     "contadora",
-    "contador publico"
+    "contador publico",
+    "accounting analyst",
+    "tax manager",
+    "tax analyst",
+    "tax senior",
+    "tax associate",
+    "tax specialist"
    ],
    "cluster": "Finance",
    "license": {
@@ -1830,7 +2024,9 @@
     "buchhalterin",
     "sachbearbeiter buchhaltung",
     "comptable",
-    "aide comptable"
+    "aide comptable",
+    "accounting technician",
+    "accounts technician"
    ],
    "cluster": "Finance"
   },
@@ -1852,7 +2048,17 @@
     "paraplanner",
     "financial management analyst",
     "analista financiero",
-    "analista financiera"
+    "analista financiera",
+    "treasury analyst",
+    "finance business partner",
+    "pricing analyst",
+    "commercial analyst",
+    "cost analyst",
+    "revenue analyst",
+    "controlling analyst",
+    "product control analyst",
+    "m&a analyst",
+    "financial planning & analysis analyst"
    ],
    "cluster": "Finance",
    "license": {
@@ -1908,7 +2114,13 @@
    "synonyms": [
     "actuary",
     "actuarial analyst",
-    "actuarial associate"
+    "actuarial associate",
+    "actuarial consultant",
+    "actuarial manager",
+    "actuarial specialist",
+    "actuarial advisor",
+    "actuarial pensions consultant",
+    "pensions actuarial consultant"
    ],
    "cluster": "Finance",
    "license": {
@@ -1947,7 +2159,10 @@
     "aml analyst",
     "kyc analyst",
     "risk analyst",
-    "risk manager"
+    "risk manager",
+    "fraud analyst",
+    "fincrime analyst",
+    "financial crime analyst"
    ],
    "cluster": "Finance",
    "license": {
@@ -2027,7 +2242,17 @@
     "nurse educator",
     "nurse case manager",
     "supervising public health nurse",
-    "registered nurses"
+    "registered nurses",
+    "travel nurse",
+    "registered general nurse",
+    "community nurse",
+    "practice nurse",
+    "ward nurse",
+    "research nurse",
+    "night nurse",
+    "oncology nurse",
+    "supervisory nurse",
+    "physical health nurse"
    ],
    "exactOnly": [
     "nurse"
@@ -2410,13 +2635,21 @@
     "thermal engineer",
     "maschinenbauingenieur",
     "ingenieur mecanique",
-    "ingeniera mecanica"
+    "ingeniera mecanica",
+    "industrial design engineer",
+    "solidworks designer",
+    "piping designer",
+    "computational fluid dynamics engineer",
+    "cfd engineer"
    ],
    "cluster": "Engineering & Manufacturing",
    "license": {
     "req": "partial",
     "label": "PE required for sign-off roles; not for most product/manufacturing roles"
-   }
+   },
+   "exactOnly": [
+    "mechanical engineering"
+   ]
   },
   {
    "slug": "electrical-engineer",
@@ -2447,13 +2680,19 @@
     "elektroingenieurin",
     "ingenieur electricien",
     "ingenieur electrique",
-    "ingeniera electrica"
+    "ingeniera electrica",
+    "distribution engineer",
+    "transmission line engineer",
+    "electronic engineer"
    ],
    "cluster": "Engineering & Manufacturing",
    "license": {
     "req": "partial",
     "label": "PE required for public-facing/utility sign-off; not for product roles"
-   }
+   },
+   "exactOnly": [
+    "electrical engineering"
+   ]
   },
   {
    "slug": "chemical-engineer",
@@ -2483,7 +2722,10 @@
     "ingeniero industrial",
     "ingeniera industrial"
    ],
-   "cluster": "Engineering & Manufacturing"
+   "cluster": "Engineering & Manufacturing",
+   "exactOnly": [
+    "industrial engineering"
+   ]
   },
   {
    "slug": "aerospace-engineer",
@@ -2539,9 +2781,13 @@
     "environmental analyst",
     "ecologist",
     "environmental planner",
-    "urban and environmental planner"
+    "urban and environmental planner",
+    "geoenvironmental engineer"
    ],
-   "cluster": "Engineering & Manufacturing"
+   "cluster": "Engineering & Manufacturing",
+   "exactOnly": [
+    "environmental engineering"
+   ]
   },
   {
    "slug": "research-scientist",
@@ -2639,7 +2885,8 @@
     "sanitar installateur",
     "plombier",
     "fontanera",
-    "heizungsinstallateur"
+    "heizungsinstallateur",
+    "plumbing and heating engineer"
    ],
    "cluster": "Trades",
    "license": {
@@ -2886,10 +3133,20 @@
     "design drafter",
     "architectural draftsperson",
     "draughtsman",
-    "draughtsperson"
+    "draughtsperson",
+    "draftsperson",
+    "civil drafter",
+    "structural drafter",
+    "electrical drafter",
+    "cadd drafter",
+    "cad drafter",
+    "autocad designer"
    ],
    "desc": "Turns an architect's design into the precise drawings a project gets built from. Lives in Revit and AutoCAD; owns the accuracy of the set.",
-   "cluster": "Built Environment"
+   "cluster": "Built Environment",
+   "exactOnly": [
+    "drafter"
+   ]
   },
   {
    "slug": "teaching-assistant",
@@ -2972,7 +3229,14 @@
     "mecanicien de maintenance",
     "aircraft mechanic",
     "aircraft maintenance technician",
-    "a&p mechanic"
+    "a&p mechanic",
+    "maintenance worker",
+    "building engineer",
+    "multi skilled engineer",
+    "multiskilled engineer",
+    "shift engineer",
+    "hotel engineer",
+    "gas engineer"
    ],
    "desc": "Keeps equipment and buildings running. Diagnoses faults, makes repairs, and prevents the breakdowns before they happen.",
    "cluster": "Trades"
@@ -3016,7 +3280,17 @@
     "agent architect",
     "ai/llm agent architect",
     "ai specialist",
-    "ai solutions engineer"
+    "ai solutions engineer",
+    "ai deployment engineer",
+    "ai agent engineer",
+    "ai product engineer",
+    "ai native engineer",
+    "ai evaluation engineer",
+    "artificial intelligence developer",
+    "llm model developer"
+   ],
+   "exactOnly": [
+    "ai engineering"
    ]
   },
   {
@@ -3033,7 +3307,9 @@
     "ml platform engineer",
     "ml infrastructure engineer",
     "llmops",
-    "llmops engineer"
+    "llmops engineer",
+    "machine learning ops engineer",
+    "ml ops developer"
    ]
   },
   {
@@ -3127,7 +3403,8 @@
    "synonyms": [
     "data architect",
     "analytics architect",
-    "data platform architect"
+    "data platform architect",
+    "data warehouse architect"
    ]
   },
   {
@@ -3206,7 +3483,25 @@
     "medico general",
     "médico general",
     "medico especialista",
-    "médico especialista"
+    "médico especialista",
+    "psychiatrist",
+    "urologist",
+    "oncologist",
+    "neurologist",
+    "radiologist",
+    "dermatologist",
+    "pediatrician",
+    "orthopedic surgeon",
+    "orthopaedic surgeon",
+    "breast surgeon",
+    "general surgeon",
+    "specialty doctor",
+    "speciality doctor",
+    "locum doctor",
+    "resident doctor",
+    "family doctor",
+    "telehealth doctor",
+    "occupational health doctor"
    ],
    "license": {
     "req": "required",
@@ -3322,7 +3617,10 @@
     "growth marketing manager",
     "performance marketer"
    ],
-   "desc": "Owns a growth number and runs experiments across acquisition, activation, and retention. Half marketer, half analyst."
+   "desc": "Owns a growth number and runs experiments across acquisition, activation, and retention. Half marketer, half analyst.",
+   "exactOnly": [
+    "growth marketing"
+   ]
   },
   {
    "slug": "conversation-designer",
@@ -3988,7 +4286,11 @@
     "antenna engineer",
     "hardwareentwickler",
     "ingenieur hardware",
-    "ingeniero de hardware"
+    "ingeniero de hardware",
+    "fpga developer",
+    "electronic design engineer",
+    "electronics design engineer",
+    "physical design engineer"
    ],
    "desc": "Designs boards, chips and RF front ends: schematics, layout, bring-up.",
    "cluster": "Technology"
@@ -4042,7 +4344,9 @@
     "animateur hse",
     "animatrice hse",
     "coordonnateur en sante et securite",
-    "coordonnatrice en sante et securite"
+    "coordonnatrice en sante et securite",
+    "safety and occupational health specialist",
+    "safety & occupational health specialist"
    ],
    "desc": "Keeps people from getting hurt at work: risk assessments, inspections, incident investigation, compliance.",
    "cluster": "Engineering & Manufacturing"
@@ -4494,13 +4798,24 @@
     "sachbearbeiter",
     "sachbearbeiterin",
     "direktionsassistent",
-    "direktionsassistentin"
+    "direktionsassistentin",
+    "medical secretary",
+    "school secretary",
+    "administration assistant",
+    "administration officer",
+    "program support assistant",
+    "management and program assistant",
+    "administrative support assistant",
+    "business support officer",
+    "project support officer",
+    "team administrator"
    ],
    "desc": "Keeps an office or a team organised: calendars, documents, orders, the phone, the follow-ups.",
    "cluster": "Business",
    "exactOnly": [
     "administrator",
-    "administration"
+    "administration",
+    "secretary"
    ]
   },
   {
@@ -4711,7 +5026,21 @@
     "sap developer",
     "sap engineer",
     "consultor sap",
-    "consultora sap"
+    "consultora sap",
+    "salesforce developer",
+    "salesforce engineer",
+    "salesforce administrator",
+    "servicenow developer",
+    "servicenow engineer",
+    "power platform developer",
+    "dynamics developer",
+    "dynamics 365 developer",
+    "dynamics crm developer",
+    "business central developer",
+    "workday developer",
+    "odoo developer",
+    "salesforce marketing cloud developer",
+    "sap successfactors consultant"
    ],
    "desc": "Configures and rolls out enterprise systems (SAP, Dynamics, Workday, Salesforce) for the people who have to use them.",
    "cluster": "Technology"
@@ -4859,7 +5188,8 @@
     "cajero",
     "cajera",
     "kassierer",
-    "kassiererin"
+    "kassiererin",
+    "retail sales specialist"
    ],
    "desc": "Serves customers on the shop floor: advice, the sale, the till, the shelves.",
    "cluster": "Business"
