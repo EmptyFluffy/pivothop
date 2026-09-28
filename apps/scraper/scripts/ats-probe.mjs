@@ -66,7 +66,13 @@ const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workda
   // ...channel duplicates and referral-only boards
   'greenhouse:artefactlinkedin', 'greenhouse:monzoreferrals',
   // ...staffing, gig and freelance feeds
-  'ashby:hirehangar', 'ashby:10xteam', 'ashby:hirehire', 'recruitee:jetztjob', 'recruitee:swisselect', 'lever:assist-world', 'lever:weloglobal']); // namesakes verified by hand (2026-09-24 manual passes)
+  'ashby:hirehangar', 'ashby:10xteam', 'ashby:hirehire', 'recruitee:jetztjob', 'recruitee:swisselect', 'lever:assist-world', 'lever:weloglobal',
+  // 2026-09-27 pass 2 (the five new systems): acronym namesakes, demo boards, staffing and tutoring gigs
+  'bamboohr:ehr', 'bamboohr:hamilton', 'bamboohr:gallagher', 'bamboohr:walmart', 'bamboohr:ethos', 'bamboohr:one', 'bamboohr:ssl', 'bamboohr:vdl', 'bamboohr:mdc', 'bamboohr:sms', 'bamboohr:sps', 'bamboohr:laprairie', 'bamboohr:lingoaid', 'bamboohr:fdc', 'bamboohr:ems', 'bamboohr:mediastream', 'bamboohr:alcor', 'bamboohr:mte', 'bamboohr:ccs', 'bamboohr:dtac', 'bamboohr:ecs', 'bamboohr:foundever', 'bamboohr:asp', 'bamboohr:scs', 'bamboohr:hudson', 'bamboohr:ebs', 'bamboohr:ihop', 'bamboohr:vsi', 'bamboohr:sgi', 'bamboohr:bison', 'bamboohr:ats', 'bamboohr:aca',
+  'pinpoint:nttdata', 'pinpoint:ridge', 'pinpoint:egis', 'pinpoint:magic', 'pinpoint:spire', 'pinpoint:harnham', 'pinpoint:ametek', 'pinpoint:nhs', 'pinpoint:kpmg', 'pinpoint:sonova', 'pinpoint:onlineriver', 'pinpoint:aequilibrium', 'pinpoint:ada', 'pinpoint:smith', 'pinpoint:holcim', 'pinpoint:csi', 'pinpoint:supportyourapp', 'pinpoint:bdc', 'pinpoint:htc', 'pinpoint:tiro', 'pinpoint:unit4', 'pinpoint:enfinityglobal', 'pinpoint:systemc', 'pinpoint:hireful', 'pinpoint:stepup', 'pinpoint:arbor-education', 'pinpoint:controlrisks', 'pinpoint:pah', 'pinpoint:bsi', 'pinpoint:bhp',
+  'icims:aerotek', 'icims:sbs', 'icims:tradesmen', 'icims:jerseystem', 'icims:sas', 'icims:rockwood', 'icims:hoffman', 'icims:usaa',
+  'teamtailor:nachhilfeunterricht', 'teamtailor:tusclasesparticulares', 'teamtailor:salesland', 'teamtailor:hka', 'teamtailor:adaptiveteams', 'teamtailor:livit', 'teamtailor:bbi', 'teamtailor:hsb', 'teamtailor:markssattin', 'teamtailor:ssh', 'teamtailor:messer', 'teamtailor:spotted', 'teamtailor:norr', 'teamtailor:sigma', 'teamtailor:tln', 'teamtailor:homa',
+  'breezy:pri', 'breezy:sourcefit', 'breezy:urrly', 'breezy:snappycx', 'breezy:ourassistants', 'breezy:skilled-trades-partners']); // namesakes verified by hand (2026-09-24 manual passes)
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -92,6 +98,13 @@ async function getJson(url) {
   }
   return undefined;
 }
+
+// Pinpoint and BambooHR answer an unknown tenant with THEIR demo board, not a
+// 404: five postings ('Head of DEI - Belfast', 'Marketing Manager'...; 'IT
+// Security Engineer', 'General Application' in Lindon, Utah), which clears the
+// five-posting floor. 2026-09-27: 30+ false hits (KPMG, Holcim, Walmart, IHOP).
+const DEMO_TITLES = /^(head of dei\b|it security engineer$|general application$)/i;
+const demoBoard = (titles) => titles.some((t) => DEMO_TITLES.test(String(t || '').trim()));
 
 /* Each ATS: how to test a slug and how many postings the board holds. */
 const ATS = {
@@ -145,11 +158,11 @@ const ATS = {
   // 2026-09-27: the systems with their own readers since yesterday. A missing
   // tenant answers 404 (or BambooHR's HTML homepage), never an empty board.
   bamboohr: { file: 'bamboohr-companies.json', key: 'companies', object: true,
-    probe: async (s) => { const b = await getJson(`https://${s}.bamboohr.com/careers/list`); return Array.isArray(b?.result) ? { jobs: b.result.length, entry: { slug: s } } : null; } },
+    probe: async (s) => { const b = await getJson(`https://${s}.bamboohr.com/careers/list`); if (!Array.isArray(b?.result) || demoBoard(b.result.map((j) => j.jobOpeningName))) return null; return { jobs: b.result.length, entry: { slug: s } }; } },
   breezy: { file: 'breezy-companies.json', key: 'companies',
     probe: async (s) => { const b = await getJson(`https://${s}.breezy.hr/json`); return Array.isArray(b) ? b.length : null; } },
   pinpoint: { file: 'pinpoint-companies.json', key: 'companies', object: true,
-    probe: async (s) => { const b = await getJson(`https://${s}.pinpointhq.com/postings.json`); return Array.isArray(b?.data) ? { jobs: b.data.length, entry: { slug: s } } : null; } },
+    probe: async (s) => { const b = await getJson(`https://${s}.pinpointhq.com/postings.json`); if (!Array.isArray(b?.data) || demoBoard(b.data.map((j) => j.title))) return null; return { jobs: b.data.length, entry: { slug: s } }; } },
   teamtailor: { file: 'teamtailor-companies.json', key: 'companies', object: true,
     probe: async (s) => {
       try { const r = await fetch(`https://${s}.teamtailor.com/jobs.rss`, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(15000) }); if (!r.ok) { await r.body?.cancel(); return null; } const x = await r.text(); return /<rss/.test(x) ? { jobs: (x.match(/<item>/g) ?? []).length, entry: { slug: s } } : null; } catch { return null; }
