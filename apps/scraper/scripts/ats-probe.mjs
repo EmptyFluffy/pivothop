@@ -40,6 +40,9 @@ const CONCURRENCY = Number(opt('--concurrency', 6));
 // everything fast in parallel first, then the rate-limited Workable alone
 const SKIP = new Set((opt('--skip', '') || '').split(',').filter(Boolean));
 const ONLY = new Set((opt('--only', '') || '').split(',').filter(Boolean));
+// --max-slugs 2: only the likeliest name shapes (joined, hyphenated); for slow,
+// rate-limited systems where every request costs seconds
+const MAX_SLUGS = Number(opt('--max-slugs', 0)) || Infinity;
 
 const AGG = new Set(['careerjet', 'jooble', 'himalayas', 'arbeitnow', 'jobicy', 'remoteok', 'themuse', 'reed', 'adzuna', 'getonbrd']);
 const DIRECT = new Set(['greenhouse', 'ashby', 'lever', 'smartrecruiters', 'workday', 'workable', 'recruitee', 'personio', 'bamboohr', 'breezy', 'pinpoint', 'teamtailor', 'ukg', 'paylocity', 'icims', 'direct']);
@@ -72,7 +75,9 @@ const DENY = new Set(['lever:capital', 'workday:jackson', 'workday:acs', 'workda
   'pinpoint:nttdata', 'pinpoint:ridge', 'pinpoint:egis', 'pinpoint:magic', 'pinpoint:spire', 'pinpoint:harnham', 'pinpoint:ametek', 'pinpoint:nhs', 'pinpoint:kpmg', 'pinpoint:sonova', 'pinpoint:onlineriver', 'pinpoint:aequilibrium', 'pinpoint:ada', 'pinpoint:smith', 'pinpoint:holcim', 'pinpoint:csi', 'pinpoint:supportyourapp', 'pinpoint:bdc', 'pinpoint:htc', 'pinpoint:tiro', 'pinpoint:unit4', 'pinpoint:enfinityglobal', 'pinpoint:systemc', 'pinpoint:hireful', 'pinpoint:stepup', 'pinpoint:arbor-education', 'pinpoint:controlrisks', 'pinpoint:pah', 'pinpoint:bsi', 'pinpoint:bhp',
   'icims:aerotek', 'icims:sbs', 'icims:tradesmen', 'icims:jerseystem', 'icims:sas', 'icims:rockwood', 'icims:hoffman', 'icims:usaa',
   'teamtailor:nachhilfeunterricht', 'teamtailor:tusclasesparticulares', 'teamtailor:salesland', 'teamtailor:hka', 'teamtailor:adaptiveteams', 'teamtailor:livit', 'teamtailor:bbi', 'teamtailor:hsb', 'teamtailor:markssattin', 'teamtailor:ssh', 'teamtailor:messer', 'teamtailor:spotted', 'teamtailor:norr', 'teamtailor:sigma', 'teamtailor:tln', 'teamtailor:homa',
-  'breezy:pri', 'breezy:sourcefit', 'breezy:urrly', 'breezy:snappycx', 'breezy:ourassistants', 'breezy:skilled-trades-partners', 'pinpoint:mts', 'icims:teksystems']); // namesakes verified by hand (2026-09-24 manual passes)
+  'breezy:pri', 'breezy:sourcefit', 'breezy:urrly', 'breezy:snappycx', 'breezy:ourassistants', 'breezy:skilled-trades-partners', 'pinpoint:mts', 'icims:teksystems',
+  // 2026-09-28 pass (706 hits): referral-only and job-board reposts, staffing and gig feeds, config-named namesakes with no clear employer
+  'greenhouse:referralsuseonly', 'greenhouse:thoughtworksreferral', 'greenhouse:lovable', 'greenhouse:ireland', 'greenhouse:openwork', 'greenhouse:humansignal', 'greenhouse:remotewoman', 'ashby:pragmatike', 'ashby:onhires', 'ashby:kirin', 'smartrecruiters:dps', 'teamtailor:stc', 'teamtailor:shine', 'teamtailor:match', 'teamtailor:ssa', 'teamtailor:inhaus', 'teamtailor:svh', 'teamtailor:arc', 'workday:tag', 'workday:nab', 'personio:slb', 'personio:primus', 'pinpoint:ats', 'bamboohr:onwardsearch', 'bamboohr:bos', 'bamboohr:bpt', 'bamboohr:sfs', 'bamboohr:gms', 'bamboohr:ibs', 'bamboohr:grafton', 'bamboohr:les', 'bamboohr:tpg', 'bamboohr:aline', 'bamboohr:fraser', 'bamboohr:benchmark', 'bamboohr:crg', 'icims:blueheron', 'icims:hamilton', 'icims:ccr', 'icims:bernhard', 'breezy:virtual-construction-assistants', 'recruitee:asspro', 'recruitee:connectpeople', 'workable:avomind']); // namesakes verified by hand (2026-09-24 manual passes)
 
 const UA = 'Mozilla/5.0 (compatible; PivotHopScraper/0.1; contact: hello@pivothop.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -253,7 +258,7 @@ console.log(`ats-probe: ${todo.length} companies to probe (min ${MIN_ROWS} aggre
 
 const found = [];
 async function probeOne({ co, n }) {
-  const slugs = slugsFor(co);
+  const slugs = slugsFor(co).slice(0, MAX_SLUGS);
   let hit = null; let throttled = false;
   for (const s of slugs) {
     const order = Object.entries(ATS).filter(([ats]) => !DENY.has(`${ats}:${s}`) && !SKIP.has(ats) && (!ONLY.size || ONLY.has(ats)));
