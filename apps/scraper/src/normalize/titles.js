@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { readJson } from '../lib/store.js';
 import { TAXONOMY_DIR } from '../lib/paths.js';
-import { foldAccents, translateRomance } from './titles-i18n.js';
+import { foldAccents, translateRomanceAll } from './titles-i18n.js';
 import { translateGerman } from './titles-de.js';
 
 // Rules-first title canonicalization against the occupation taxonomy.
@@ -98,14 +98,15 @@ const TIER_TAIL = new Set([
 // friend the Swiss corpus surfaced (2026-08-03: 86 Job-Room rows on `chef`, and
 // "Chef de projet" is a project manager, "Chef d'équipe" a team lead, "Chef de
 // rang" a waiter rank). Refused: chef/cheffe + de/du/d' + anything non-culinary
-// (cuisine and partie stay, they ARE cook titles), "chef comptable"/"chef
-// monteur" (French head-X without de), and the German inclusive "Chef/-in".
+// (cuisine and partie stay, they ARE cook titles; so do Spanish cocina and
+// Portuguese cozinha), "chef comptable"/"chef monteur" (French head-X without
+// de), and the German inclusive "Chef/-in".
 // English culinary titles ("Sous Chef", "Executive Chef", bare "Chef") are
 // untouched: none of them puts a complement after the word. Same call as Night
 // Auditor — an honest miss beats a confident mis-map; these become correct
 // again when the multilingual miner maps them to what they actually are.
 const CHEF_LEAD = new RegExp([
-  String.raw`\bchef(?:[/\s]?fes?)?s?\s+(?:ou\s+chef(?:[/\s]?fes?)?s?\s+)?d(?:[eu])?\b(?!\s+(?:cuisine|partie)\b)`,
+  String.raw`\bchef(?:[/\s]?fes?)?s?\s+(?:ou\s+chef(?:[/\s]?fes?)?s?\s+)?d(?:[eu])?\b(?!\s+(?:cuisine|partie|cocina|cozinha)\b)`,
   String.raw`\bchef(?:[/\s]?fes?)?s?\s+(?:comptable|monteur)\b`,
   String.raw`\bstv\.?\s*chef\b`,
   String.raw`\bchef\s*/\s*-?\s*in\b`,
@@ -211,8 +212,7 @@ export function mapTitle(rawTitle) {
   // it recognised an actual Spanish/Portuguese occupation head, so this can only
   // fire on titles the English tiers had already given up on — English mapping
   // cannot regress through it. See titles-i18n.js.
-  const en = translateRomance(rawTitle);
-  if (en) {
+  for (const en of translateRomanceAll(rawTitle) ?? []) {
     const hit = matchOne(m, cleanTitle(en)) ?? matchOne(m, cleanSegment(en));
     if (hit) return { slug: hit.slug, method: 'i18n' };
   }

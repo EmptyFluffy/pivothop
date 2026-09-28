@@ -41,6 +41,107 @@ export function foldAccents(s) {
 // translate wrong in isolation ("medico radiologo" is a radiologist, not a
 // physician; "recursos humanos" is not "resources human"). Longest first.
 const PHRASES = [
+  // Costa Rica and Central America (2026-09-28). ANE mapped 44% of its titles:
+  // the gap was local vocabulary for jobs the taxonomy already carries (salonero
+  // is a waiter, bodega is the warehouse, "credito y cobro" is collections).
+  // Targets follow the English synonyms already in occupations.json, including
+  // warehouse-manager's existing "auxiliar de almacen" for the bodega roles.
+  ['representante de desarrollo de negocios', 'business development representative'],
+  ['desarrollador de gestion de aplicaciones', 'application developer'],
+  ['disenador de tuberias', 'piping designer'],
+  ['ingeniero de proceso', 'manufacturing process engineer'],
+  ['ingeniera de proceso', 'manufacturing process engineer'],
+  // An ISO management system, not IT: "management systems analyst" would contain
+  // "systems analyst" and land on business-analyst. No occupation fits, so the
+  // translation keeps it an honest miss.
+  ['sistemas de gestion', 'iso'],
+  ['sistema de gestion', 'iso'],
+  ['disenador mecanico', 'mechanical designer'],
+  ['desarrollador de plataforma de datos', 'data platform engineer'],
+  ['analista de control de gastos', 'financial analyst'],
+  ['jefe administrativo contable', 'accounting manager'],
+  ['desarrollador de integraciones', 'integration developer'],
+  ['tecnico en aire acondicionado', 'hvac technician'],
+  ['tecnico de aire acondicionado', 'hvac technician'],
+  ['desarrollador de aplicaciones', 'application developer'],
+  ['planificador de la demanda', 'demand planner'],
+  ['desarrollador power platform', 'power platform developer'],
+  ['tecnico aire acondicionado', 'hvac technician'],
+  ['analista de reclutamiento', 'recruitment specialist'],
+  ['supervisor de mantenimiento', 'maintenance supervisor'],
+  ['operario de mantenimiento', 'maintenance technician'],
+  ['tecnico en refrigeracion', 'refrigeration technician'],
+  ['tecnico de refrigeracion', 'refrigeration technician'],
+  ['ejecutivo contact center', 'contact center agent'],
+  ['agente de contact center', 'contact center agent'],
+  ['inteligencia de negocios', 'business intelligence'],
+  ['planificador de demanda', 'demand planner'],
+  ['lider de mantenimiento', 'maintenance supervisor'],
+  ['jefe de mantenimiento', 'maintenance manager'],
+  ['tecnico electromecanico', 'maintenance technician'],
+  ['operario de manufactura', 'production operator'],
+  ['operaria de manufactura', 'production operator'],
+  ['operarios de produccion', 'production operator'],
+  ['operador de montacargas', 'forklift operator'],
+  ['operador de datacenter', 'data center technician'],
+  ['operador de data center', 'data center technician'],
+  ['operario de produccion', 'production operator'],
+  ['operaria de produccion', 'production operator'],
+  ['auxiliar de produccion', 'production operator'],
+  ['asistente de pacientes', 'patient care assistant'],
+  ['analista de auditoria', 'auditor'],
+  ['agente de call center', 'call center agent'],
+  ['jefe de contabilidad', 'accounting manager'],
+  ['designer de interiores', 'interior designer'],
+  ['encargado de bodega', 'warehouse supervisor'],
+  ['encargada de bodega', 'warehouse supervisor'],
+  ['lider de produccion', 'production supervisor'],
+  ['supervisor de planta', 'production supervisor'],
+  ['ingeniero residente', 'resident engineer'],
+  ['ingeniera residente', 'resident engineer'],
+  ['design de interiores', 'interior design'],
+  ['desarrollador movil', 'mobile developer'],
+  ['desarrolladora movil', 'mobile developer'],
+  ['asociado de ventas', 'sales associate'],
+  ['asociada de ventas', 'sales associate'],
+  ['asesor de negocios', 'sales representative'],
+  ['asesora de negocios', 'sales representative'],
+  ['auxiliar de bodega', 'warehouse associate'],
+  ['ayudante de bodega', 'warehouse associate'],
+  ['cuentas por cobrar', 'accounts receivable'],
+  ['ejecutivo comercial', 'sales executive'],
+  ['ejecutiva comercial', 'sales executive'],
+  ['jefatura de ventas', 'sales manager'],
+  ['gerente de ventas', 'sales manager'],
+  ['gerente comercial', 'sales manager'],
+  ['salud ocupacional', 'occupational health and safety'],
+  ['cuentas por pagar', 'accounts payable'],
+  ['agente de ventas', 'sales representative'],
+  ['jefe de marketing', 'marketing manager'],
+  ['credito y cobros', 'collections'],
+  ['credito y cobro', 'collections'],
+  ['agente de counter', 'customer service agent'],
+  ['jefe de bodega', 'warehouse manager'],
+  ['jefa de ventas', 'sales manager'],
+  ['jefe de ventas', 'sales manager'],
+  ['jefe comercial', 'sales manager'],
+  ['editor de videos', 'video editor'],
+  ['editora de video', 'video editor'],
+  ['editor de video', 'video editor'],
+  ['chefe de cozinha', 'chef'],
+  ['chef de cozinha', 'chef'],
+  ['agente rentista', 'customer service agent'],
+  ['qa automatizador', 'qa automation engineer'],
+  ['asesor de cobros', 'collections specialist'],
+  ['asesor de cobro', 'collections specialist'],
+  ['gestor de cobros', 'collections specialist'],
+  ['gestor de cobro', 'collections specialist'],
+  ['gestor de collections', 'collections specialist'],
+  ['tecnico de ti', 'it technician'],
+  ['tecnico en ti', 'it technician'],
+  ['telemercaderista', 'inside sales'],
+  ['montacarguista', 'forklift operator'],
+  ['oficinista', 'office assistant'],
   ['inteligencia artificial', 'artificial intelligence'],
   ['aprendizaje automatico', 'machine learning'],
   ['aprendizado de maquina', 'machine learning'],
@@ -177,6 +278,8 @@ const WORDS = {
   bibliotecario: 'librarian', policia: 'police officer', bombero: 'firefighter',
   piloto: 'pilot', sommelier: 'sommelier', barista: 'barista',
   estilista: 'stylist', peluquero: 'hairdresser',
+  salonero: 'server', salonera: 'server', saloneros: 'server', mucama: 'housekeeper',
+  miscelaneo: 'cleaner', miscelanea: 'cleaner', conserje: 'janitor', tutora: 'tutor',
 
   // ── domains and qualifiers ────────────────────────────────────────────────
   ia: 'artificial intelligence', datos: 'data', dados: 'data', sistemas: 'systems', sistema: 'system',
@@ -226,6 +329,11 @@ const WORDS = {
   hoteleria: 'hospitality', turismo: 'tourism', restaurante: 'restaurant',
   eventos: 'events', inmobiliario: 'real estate', inmobiliaria: 'real estate',
   agricola: 'agricultural', minero: 'mining', petrolero: 'petroleum',
+  contable: 'accounting', costos: 'cost', presupuesto: 'budget', precios: 'pricing',
+  inventarios: 'inventory', reabasto: 'replenishment', proceso: 'process',
+  administrativo: 'administrative', administrativa: 'administrative',
+  administrativos: 'administrative', administrativas: 'administrative',
+  aplicaciones: 'applications', gestion: 'management', plataforma: 'platform', ti: 'it',
 
 };
 
@@ -246,7 +354,23 @@ const DROP = new Set([
   'afirmativa', 'afirmativas', 'pcd', 'exclusiva', 'foco', 'anos', 'ano',
   'tiempo', 'completo', 'parcial', 'temporal', 'indefinido', 'practicas',
   'empresa', 'grupo', 'equipo', 'nuevo', 'nueva', 'urgente', 'inmediata',
+  'en', 'y', 'e', 'a', 'al', 'bilingue', 'bilingues', 'experimentado', 'experimentada',
 ]);
+
+// Posting furniture on Costa Rican boards: the town, the shift, the contract
+// length, "con experiencia". Removed before translation and never counted as
+// evidence; left in, they sat between a head and its complement and broke every
+// phrase ("asistente de contabilidad bilingue /santa ana").
+const LOCAL_NOISE = new RegExp(String.raw`\b(?:${[
+  'san jose', 'alajuela', 'heredia', 'cartago', 'escazu', 'santa ana', 'curridabat',
+  'belen', 'san rafael', 'tres rios', 'grecia', 'atenas', 'puntarenas', 'guanacaste',
+  'limon', 'san carlos', 'sabana', 'el coyol', 'coyol', 'tibas', 'candelaria', 'liberia',
+  'san pedro', 'moravia', 'pavas', 'desamparados', 'la uruca', 'santo domingo',
+  'barreal', 'cariari', 'costa rica', 'con experiencia', 'sin experiencia',
+  'te capacitamos', 'medio tiempo', 'tiempo completo', 'full time', 'part time',
+  'horarios? rotativos?', 'turno (?:tarde|noche|manana|nocturno|rotativo)',
+  '\\d+ meses', 'lunes a (?:viernes|sabado|domingo)',
+].join('|')})\b`, 'g');
 
 // Romance words spelled exactly as their English translation. Translating them is
 // correct; treating them as PROOF the title is Romance is not — "Civil Engineer"
@@ -271,6 +395,7 @@ const HEADS = new Set([
   'illustrator', 'editor', 'recruiter', 'researcher', 'scientist', 'statistician',
   'economist', 'actuary', 'librarian', 'pilot', 'sommelier', 'barista', 'stylist',
   'hairdresser', 'radiologist', 'cardiologist', 'pediatrician', 'chef',
+  'housekeeper', 'cleaner', 'janitor',
 ]);
 
 const PHRASE_RE = PHRASES.map(([es, en]) => [new RegExp(`(?:^|\\s)${es}(?=\\s|$)`, 'g'), ` ${en}`]);
@@ -289,17 +414,30 @@ const GENDER = [
  *  @returns {string|null} an English title, or null when the input showed no
  *  recognisable Romance occupation — the caller must not guess from a null. */
 export function translateRomance(rawTitle) {
+  return translateRomanceAll(rawTitle)?.[0] ?? null;
+}
+
+/** Every English word order worth trying, best first; null when not Romance.
+ *  [0] is the head-final order translateRomance has always returned. [1] puts the
+ *  head right after its first complement, for titles whose qualifiers trail:
+ *  "analista de precios y competencia" is a pricing analyst (of competition), and
+ *  head-final gives "pricing competencia analyst", which matches nothing. */
+export function translateRomanceAll(rawTitle) {
   let t = foldAccents(String(rawTitle).toLowerCase());
   for (const [re, rep] of GENDER) t = t.replace(re, rep);
   t = t.replace(/\(.*?\)/g, ' ')
     .replace(/[^a-z0-9+#\s]/g, ' ')
+    .replace(LOCAL_NOISE, ' ')
     .replace(/\s+/g, ' ')
     .trim();
   if (!t) return null;
 
+  // A phrase's English comes out glued with underscores, so the reorder below
+  // moves it as one block. Moving only its head word split it: "cientifico de
+  // datos cenic" became "data cenic scientist".
   let phraseHit = false;
   for (const [re, en] of PHRASE_RE) {
-    const after = t.replace(re, en);
+    const after = t.replace(re, en.replace(/(?<=\S) (?=\S)/g, '_'));
     if (after !== t) { phraseHit = true; t = after; }
   }
 
@@ -307,9 +445,13 @@ export function translateRomance(rawTitle) {
   // provenance — not a token count — is what licenses the reorder below.
   let evidence = phraseHit;
   const out = [];
+  let group = 0;
   for (const tok of t.split(/\s+/)) {
     if (!tok || DROP.has(tok)) continue;
-    if (Object.hasOwn(WORDS, tok)) {
+    if (tok.includes('_')) {
+      group++;
+      for (const w of tok.split('_')) if (w) out.push({ w, romance: false, group });
+    } else if (Object.hasOwn(WORDS, tok)) {
       const en = WORDS[tok];
       const romance = Boolean(en) && en !== tok && !ALSO_ENGLISH.has(tok);
       if (romance) evidence = true;
@@ -329,12 +471,23 @@ export function translateRomance(rawTitle) {
   // the job and everything after it qualifies: "consultora de medicos" is a
   // consultant FOR physicians. Taking the last head made it a physician.
   const hi = out.findIndex((o) => HEADS.has(o.w));
-  if (hi === -1) return phraseHit ? out.map((o) => o.w).join(' ').trim() || null : null;
+  if (hi === -1) return phraseHit ? [out.map((o) => o.w).join(' ').trim()].filter(Boolean) : null;
   if (!out[hi].romance && !phraseHit) return null;
 
   // Reorder: Romance is head-initial, English head-final. Moving the head to the
-  // end is what turns "engineer of software" into "software engineer". Titles that
-  // are already head-final (a phrase target) survive unchanged.
-  const rest = out.filter((_, i) => i !== hi).map((o) => o.w);
-  return [...rest, out[hi].w].join(' ').replace(/\s+/g, ' ').trim() || null;
+  // end is what turns "engineer of software" into "software engineer". A head that
+  // came from a phrase moves with its whole phrase.
+  const g = out[hi].group;
+  const isHead = (o, i) => (g ? o.group === g : i === hi);
+  const head = out.filter(isHead).map((o) => o.w);
+  const rest = out.filter((o, i) => !isHead(o, i));
+  const join = (ws) => ws.join(' ').replace(/\s+/g, ' ').trim();
+  const orders = [join([...rest.map((o) => o.w), ...head])];
+  // Near order: head after the first complement unit (a phrase block or one word).
+  if (rest.length > 1) {
+    const n = rest[0].group ? rest.filter((o) => o.group === rest[0].group).length : 1;
+    const near = join([...rest.slice(0, n).map((o) => o.w), ...head, ...rest.slice(n).map((o) => o.w)]);
+    if (near !== orders[0]) orders.push(near);
+  }
+  return orders.filter(Boolean).length ? orders.filter(Boolean) : null;
 }
