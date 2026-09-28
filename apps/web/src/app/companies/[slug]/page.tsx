@@ -14,6 +14,7 @@ import JobsList from '../../jobs/JobsList';
 const plain = (t: string) => t.replace(/\s*\u2014\s*/g, ', ').replace(/\s*–\s*/g, ' to ');
 import { Crumbs } from '../../components/Crumbs';
 import { PageHead } from '../../components/PageHead';
+import { BoardCta } from '../../components/BoardCta';
 
 /* A company page computed entirely from its live postings: what it is hiring
    for, where, what it declares in benefits, what it posts in pay. Nothing is
@@ -129,6 +130,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             {' '}&middot; newest {postedLabel(c.newest)}
           </>}
         />
+        <BoardCta from="company" links={[{ href: '#open-roles', n: c.count, text: `${c.count.toLocaleString()} open jobs at ${c.name}`, down: true }]} />
 
         {c.about && (
           <section className="rt-sec">
@@ -214,6 +216,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           </section>
         )}
 
+        <span id="open-roles" className="co-roles-anchor" aria-hidden="true" />
         {c.directN > 0 && (
           // rows on the employer's own site are counted and priced above but
           // never listed here: the (employer, title) pair is what the lock holds

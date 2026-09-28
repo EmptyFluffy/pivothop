@@ -13,6 +13,8 @@ import RouteCloud from '../RouteCloud';
 import { pickAnchor } from '../../../lib/site';
 import { article } from '../../../lib/site';
 import { Crumbs } from '../../components/Crumbs';
+import { BoardCta } from '../../components/BoardCta';
+import { roleNoun } from '../../components/role-noun';
 
 /* One slug space, two kinds of page:
    - "architect-to-interior-designer" (has "-to-")  -> the route page
@@ -83,6 +85,7 @@ export default async function RoutePage({ params }: { params: Promise<{ route: s
           {observed ? ' Corroborated by observed US worker transitions.' : ''} Updated with the nightly scrape.
         </p>
         {r.license && <p className="rt-lic lbl"><Link href={`/licenses#occ-${r.id}`} data-license={r.id}>{r.license.label}</Link></p>}
+        <BoardCta from="route" links={[{ href: `/jobs/${def.dest}`, n: destBoard, text: `${destBoard.toLocaleString()} open ${roleNoun(r.title)} jobs` }]} />
 
         <div className="rt2-measure" aria-hidden="true">
           <div className="line"><span>{om.title}</span><span className="bar"><i style={{ width: `${Math.max(2, Math.min(100, r.match))}%` }} /></span><span>{r.title}</span></div>
@@ -378,6 +381,7 @@ function OriginPage({ origin }: { origin: string }) {
           ])}
           {om.separations?.transfer != null ? ` In a typical year ${om.separations.transfer}% of ${ol}s move to a different occupation.` : ''}
         </p>
+        {reachBest && <BoardCta from="route-origin" links={[{ href: `/jobs/${reachBest.id}`, n: reachBest.n, text: `${reachBest.n.toLocaleString()} open ${roleNoun(reachBest.title)} jobs` }]} />}
 
         <div className="rt-facts">
           <div><span className="v">{rows.length}</span><span className="k">Measured routes</span></div>

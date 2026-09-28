@@ -6,6 +6,9 @@ import { CR_BENCHMARKS, CR_BY_SLUG, type BenchmarkSource } from '../benchmarks';
 import { crRoleStats } from '../live-data';
 import { Crumbs } from '../../../../components/Crumbs';
 import { PageHead } from '../../../../components/PageHead';
+import { BoardCta } from '../../../../components/BoardCta';
+import { roleNoun } from '../../../../components/role-noun';
+import { getCategory } from '../../../../jobs/categories-data';
 
 export function generateStaticParams() {
   return CR_BENCHMARKS.map((r) => ({ occ: r.slug }));
@@ -50,6 +53,13 @@ export default async function CostaRicaRoleSalaryPage({ params }: { params: Prom
       <div className="rtp salp">
         <Crumbs trail={[{ label: 'Salaries', href: '/salary' }, { label: 'By country', href: '/salary/by-country' }, { label: 'Costa Rica', href: '/salary/by-country/costa-rica' }, { label: role.title }]} />
         <PageHead kicker={<>Costa Rica · {role.title}</>} title={<>{role.title} salary in Costa Rica</>} lede={<>There is no honest single number for this market. Below, each benchmark stays attached to the market it actually measures so a local salary is not quietly averaged with equity-heavy total compensation or a remote US-company budget.</>} />
+        {(() => {
+          // The occupation-in-Costa-Rica board when it exists (same rows as
+          // live.jobs: occ + country CR), else the occupation board filtered to CR.
+          const cat = getCategory(`${role.slug}-in-costa-rica`);
+          const href = cat ? `/jobs/${cat.slug}` : `/jobs/${role.slug}?c=CR`;
+          return <BoardCta from="salary-cr" links={[{ href, n: live.jobs, text: `${live.jobs.toLocaleString()} open ${roleNoun(role.title)} jobs in Costa Rica` }]} />;
+        })()}
 
         <section className="rt-sec">
           <h2>The benchmarks</h2>

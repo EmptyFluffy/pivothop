@@ -14,6 +14,8 @@ import { companySlugFor } from '../../companies/companies-data';
 import JobsList from '../../jobs/JobsList';
 import { article } from '../../../lib/site';
 import { Crumbs } from '../../components/Crumbs';
+import { BoardCta } from '../../components/BoardCta';
+import { roleNoun } from '../../components/role-noun';
 
 /* The comparison page, rewritten 2026-09-10 after the GSC read. This family
    earns the site's impressions (PT vs RN 799, aerospace vs EE 695, paramedic
@@ -207,6 +209,10 @@ export default async function ComparePage({ params }: { params: Promise<{ pair: 
         <Crumbs trail={[{ label: 'Compare', href: '/compare' }, { label: `${tA} vs ${tB}` }]} />
         <h1 className="rt-h1">{tA} vs {tB}</h1>
         <p className="rt-dek">{pairVerdict(p)}</p>
+        <BoardCta from="compare" links={[
+          { href: `/jobs/${p.a}`, n: boardA, text: `${boardA.toLocaleString()} open ${roleNoun(tA)} jobs` },
+          { href: `/jobs/${p.b}`, n: boardB, text: `${boardB.toLocaleString()} open ${roleNoun(tB)} jobs` },
+        ]} />
 
         <section className="rt-sec cmp-short">
           <h2>The short answer</h2>

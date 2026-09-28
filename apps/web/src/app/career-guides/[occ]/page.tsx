@@ -13,6 +13,8 @@ import { hasOriginPage, routePair } from '../../routes/routes-data';
 import { article } from '../../../lib/site';
 import { Crumbs } from '../../components/Crumbs';
 import { PageHead } from '../../components/PageHead';
+import { BoardCta } from '../../components/BoardCta';
+import { roleNoun } from '../../components/role-noun';
 import { companiesRanked } from '../../companies/companies-data';
 
 /* The career guide. Everything numeric on this page is computed at request time
@@ -97,6 +99,7 @@ export default async function CareerGuide({ params }: { params: Promise<{ occ: s
             {f.postingsRead ? <> &middot; <span className="lbl">{f.postingsRead.toLocaleString()}</span> postings read</> : null}
           </>}
         />
+        <BoardCta from="guide" links={[{ href: `/jobs/${f.slug}`, n: f.liveOpenings, text: `${f.liveOpenings.toLocaleString()} open ${roleNoun(f.title)} jobs` }]} />
 
         <div className="rt-facts">
           {f.salary && <div><span className="v">{fmt(f.salary.p50)}</span><span className="k">{f.salary.scope === 'US' ? 'U.S. median pay' : 'Global median pay'}</span></div>}

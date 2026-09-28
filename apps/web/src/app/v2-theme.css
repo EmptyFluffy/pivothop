@@ -2259,6 +2259,12 @@ html:not(.vlight) .v2t .lp-dd{ box-shadow:0 18px 44px rgba(0,0,0,.55); }
 .v2t .rt-head-cta{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin:24px 0 0; }
 .v2t .rt-head-cta .rt-go{ margin-top:0; }
 .v2t .rt-head-cta .gl{ font-size:15px; font-weight:600; }
+/* the board button under a page head (components/BoardCta): the first
+   viewport's one CTA; a full-width tap target on phones */
+.v2t .board-cta{ margin:22px 0 6px; }
+@media (max-width:640px){ .v2t .board-cta .rt-go{ width:100%; justify-content:center; } }
+/* company pages: the button jumps to the roles; clear the sticky header */
+.v2t .co-roles-anchor{ display:block; height:0; scroll-margin-top:84px; }
 .v2t .ejf-cr{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:center;
   margin:28px 0 0; padding:20px 22px; border:1.5px solid var(--v-border2); border-radius:14px; }
 .v2t .ejf-cr b{ display:block; font-size:17px; font-weight:650; letter-spacing:-.015em; color:var(--v-text); }

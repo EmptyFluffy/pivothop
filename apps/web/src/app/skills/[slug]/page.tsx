@@ -7,6 +7,8 @@ import { occTitle } from '../../jobs/jobs-data';
 import { coverableSlugs } from '../../salary/salary-data';
 import { Crumbs } from '../../components/Crumbs';
 import { PageHead } from '../../components/PageHead';
+import { BoardCta } from '../../components/BoardCta';
+import { roleNoun } from '../../components/role-noun';
 
 /* A skill landing page: the definition, the occupations the skill unlocks
    (with live counts, the adjacency data no other board measures), the skills
@@ -69,6 +71,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             <Link className="gl" href={`/jobs?sk=${s.slug}`}>see them all on the board</Link>
           </>}
         />
+        {big && <BoardCta from="skill" links={[{ href: `/jobs/${big.slug}`, n: big.count, text: `${big.count.toLocaleString()} open ${roleNoun(big.title)} jobs` }]} />}
 
         <section className="rt-sec">
           <h2>What {s.term} unlocks</h2>

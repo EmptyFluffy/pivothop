@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { routableSlugs, hasOriginPage, originRoles } from '../../routes/routes-data';
 import { jobCount } from '../../jobs/jobs-data';
+import { BoardCta } from '../../components/BoardCta';
+import { roleNoun } from '../../components/role-noun';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
@@ -98,6 +100,7 @@ export default async function SalaryPage({ params }: { params: Promise<{ occ: st
             ? ` (Occupational Employment and Wage Statistics) record: the median, the range, the state detail and the trend. ${f.observations > 0 ? `${f.observations} live postings state pay for this role so far; ` : 'Few live postings state pay for this role yet; '}the posting-based splits appear as the board grows. Updated ${f.updated}.`
             : ` (Occupational Employment and Wage Statistics) wage anchor. Pick a market for its median and range, then read the seniority split, the trend, and the country comparison below. Updated ${f.updated}.`}
         </p>
+        <BoardCta from="salary" links={[{ href: `/jobs/${occ}`, n: jobCount(occ), text: `${jobCount(occ).toLocaleString()} open ${roleNoun(f.title)} jobs` }]} />
 
         <SalaryFacts
           countries={countryData}
