@@ -74,7 +74,13 @@ function buildMatcher() {
     }
   }
   phrases.sort((a, b) => b.phrase.length - a.phrase.length);
-  return { exact, phrases, occupations };
+  // Modifier tier table: head word -> { slugs: [[slug, [domain words]]], unless }.
+  const modifiers = new Map();
+  for (const fam of readJson(path.join(TAXONOMY_DIR, 'title-modifiers.json'))?.families ?? []) {
+    const entry = { slugs: Object.entries(fam.slugs), unless: new Set(fam.unless ?? []) };
+    for (const h of fam.heads) modifiers.set(h, entry);
+  }
+  return { exact, phrases, occupations, modifiers };
 }
 
 export function getTaxonomy() {
@@ -160,6 +166,22 @@ const NEVER = /\bnight audit(or|ing|s)?\b|\bremote pilot operator\b/;
 // a trainer; only "- AI Training" / "for AI Training" as the engagement counts.
 const AI_TRAINING = /\bai (data )?trainer\b|\bagent evaluation\b|\bcoding agent\b|(?:\bfor|-)\s*ai training\b|\bai training (?:&|and) evaluation\b/i;
 
+// See packages/data/taxonomy/title-modifiers.json for the table and its history.
+function modifierTier(m, cleaned) {
+  const i = cleaned.lastIndexOf(' ');
+  if (i < 0) return null;
+  const fam = m.modifiers.get(cleaned.slice(i + 1));
+  if (!fam) return null;
+  const words = cleaned.split(' ');
+  if (words.some((w) => fam.unless.has(w))) return null;
+  const before = ` ${cleaned.slice(0, i)} `;
+  const votes = new Set();
+  for (const [slug, toks] of fam.slugs) {
+    if (toks.some((t) => t === '*' || before.includes(` ${t} `))) votes.add(slug);
+  }
+  return votes.size === 1 ? { slug: [...votes][0], method: 'modifier' } : null;
+}
+
 // English agent-noun plurals only. Spanish and Portuguese plurals singularise
 // into false friends ("especialista en datos maestros" -> "maestro" -> teacher),
 // so -os/-as endings never qualify.
@@ -231,6 +253,12 @@ export function mapTitle(rawTitle) {
     const hit = guard(matchOne(m, singular));
     if (hit) return { slug: hit.slug, method: 'plural' };
   }
+  // Modifier tier, truly last: "Stormwater Management Engineer", "Linux IAM
+  // Engineer", "Tyre Technician". A domain word anywhere before the head decides
+  // the occupation; contiguous synonyms cannot reach these, and the long tail is
+  // too thin for one synonym per title. Only fires when exactly one slug is voted.
+  const byModifier = guard(modifierTier(m, primary));
+  if (byModifier) return byModifier;
   // The guard refused the building slug; give the title its REAL occupation
   // when the qualifier names one, else an honest miss.
   if (techArch && /architect/i.test(String(rawTitle))) {

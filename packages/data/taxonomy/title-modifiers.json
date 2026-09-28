@@ -1,0 +1,560 @@
+{
+ "$comment": "Modifier tier for mapTitle (2026-09-28). Last tier: it only sees titles every other tier left unmapped, so it can add mappings but never move one. A title whose LAST word is one of a family's heads maps to a slug when a listed domain word appears anywhere before that head (\"Senior Stormwater Management Engineer\" -> civil-engineer), which contiguous synonyms cannot reach. Two slugs voted = no mapping. Curated by hand from the unmapped-title log and audited against the corpus; broad words were removed after they misfired (ai: customer-success roles; cloud/platform: Workday and Salesforce developers; go: go-to-market; intelligence: security analysts; mobile: mobile equipment; planning: media planning; pipeline: VFX pipelines; product: support analysts). unless: words that veto the whole family for that title.",
+ "families": [
+  {
+   "heads": [
+    "engineer",
+    "developer",
+    "programmer"
+   ],
+   "slugs": {
+    "software-engineer": [
+     "java",
+     "python",
+     "rust",
+     "kotlin",
+     "scala",
+     "typescript",
+     "javascript",
+     "ruby",
+     "rails",
+     "django",
+     "laravel",
+     "php",
+     "c++",
+     "c#",
+     "elixir",
+     "haskell",
+     "clojure",
+     "perl",
+     "fullstack",
+     "microservices",
+     "saas",
+     "api",
+     "sdk",
+     "compiler",
+     "wordpress",
+     "shopify",
+     "magento",
+     "drupal",
+     "sharepoint",
+     "mulesoft",
+     "appian",
+     "outsystems",
+     "pega",
+     "mendix",
+     "cobol",
+     "mainframe",
+     "dotnet",
+     ".net",
+     "spring",
+     "symfony",
+     "nestjs",
+     "graphql"
+    ],
+    "frontend-developer": [
+     "react",
+     "angular",
+     "vue",
+     "vuejs",
+     "reactjs",
+     "nextjs",
+     "svelte",
+     "css",
+     "html",
+     "frontend",
+     "front-end"
+    ],
+    "backend-developer": [
+     "backend",
+     "back-end",
+     "node",
+     "nodejs",
+     "node.js",
+     "golang"
+    ],
+    "mobile-developer": [
+     "ios",
+     "android",
+     "swift",
+     "flutter",
+     "xamarin"
+    ],
+    "devops-engineer": [
+     "devops",
+     "devsecops",
+     "kubernetes",
+     "terraform",
+     "sre",
+     "aws",
+     "azure",
+     "gcp",
+     "observability"
+    ],
+    "data-engineer": [
+     "etl",
+     "spark",
+     "databricks",
+     "snowflake",
+     "airflow",
+     "kafka",
+     "hadoop",
+     "bigquery",
+     "dbt",
+     "lakehouse"
+    ],
+    "security-engineer": [
+     "security",
+     "cybersecurity",
+     "cyber",
+     "iam",
+     "identity",
+     "soc",
+     "appsec",
+     "infosec"
+    ],
+    "qa-engineer": [
+     "qa",
+     "test",
+     "testing",
+     "sdet",
+     "selenium",
+     "cypress"
+    ],
+    "hardware-engineer": [
+     "fpga",
+     "asic",
+     "rtl",
+     "pcb",
+     "silicon",
+     "vlsi",
+     "analog",
+     "rf",
+     "chip",
+     "semiconductor"
+    ],
+    "civil-engineer": [
+     "civil",
+     "civils",
+     "stormwater",
+     "wastewater",
+     "drainage",
+     "highway",
+     "highways",
+     "roadway",
+     "pavement",
+     "geotechnical",
+     "hydraulic",
+     "hydraulics",
+     "hydrology",
+     "hydrologist",
+     "transportation",
+     "traffic",
+     "municipal",
+     "bridge",
+     "bridges",
+     "tunnel",
+     "tunnelling",
+     "tunneling",
+     "rail",
+     "railway",
+     "dam",
+     "coastal",
+     "flood",
+     "water",
+     "sewer",
+     "earthworks"
+    ],
+    "structural-engineer": [
+     "structural",
+     "structures",
+     "seismic",
+     "steel",
+     "concrete",
+     "timber"
+    ],
+    "mechanical-engineer": [
+     "mechanical",
+     "piping",
+     "thermal",
+     "cfd",
+     "stress",
+     "turbomachinery",
+     "rotating",
+     "pressure"
+    ],
+    "mep-engineer": [
+     "mep",
+     "hvac",
+     "plumbing",
+     "sprinkler",
+     "ventilation"
+    ],
+    "electrical-engineer": [
+     "electrical",
+     "substation",
+     "protection",
+     "transmission",
+     "high voltage",
+     "hv",
+     "lv",
+     "grid",
+     "power"
+    ],
+    "environmental-engineer": [
+     "environmental",
+     "remediation",
+     "geoenvironmental",
+     "contaminated",
+     "ecology",
+     "air quality"
+    ],
+    "chemical-engineer": [
+     "chemical",
+     "petrochemical",
+     "refinery"
+    ],
+    "aerospace-engineer": [
+     "aerospace",
+     "aircraft",
+     "avionics",
+     "propulsion",
+     "spacecraft",
+     "satellite",
+     "flight",
+     "airframe",
+     "aeronautical"
+    ],
+    "biomedical-engineer": [
+     "biomedical",
+     "medical device",
+     "medical devices"
+    ],
+    "manufacturing-engineer": [
+     "manufacturing",
+     "npi",
+     "tooling",
+     "welding",
+     "machining",
+     "production"
+    ],
+    "robotics-engineer": [
+     "robotics",
+     "robot",
+     "autonomy",
+     "mechatronics"
+    ],
+    "controls-engineer": [
+     "plc",
+     "scada",
+     "dcs",
+     "controls",
+     "instrumentation",
+     "i&c"
+    ],
+    "machine-learning-engineer": [
+     "ml",
+     "mlops",
+     "pytorch",
+     "tensorflow",
+     "nlp"
+    ],
+    "sales-engineer": [
+     "presales",
+     "pre-sales"
+    ]
+   }
+  },
+  {
+   "heads": [
+    "designer"
+   ],
+   "slugs": {
+    "graphic-designer": [
+     "graphic",
+     "graphics",
+     "visual",
+     "packaging",
+     "multimedia",
+     "presentation",
+     "marketing",
+     "communication",
+     "communications",
+     "social"
+    ],
+    "brand-designer": [
+     "brand",
+     "branding",
+     "identity"
+    ],
+    "motion-designer": [
+     "motion",
+     "animation"
+    ],
+    "ux-designer": [
+     "ux",
+     "ui/ux",
+     "ux/ui",
+     "interaction",
+     "experience",
+     "web",
+     "website",
+     "user"
+    ],
+    "interior-designer": [
+     "interior",
+     "interiors",
+     "fitout",
+     "fit-out",
+     "workplace",
+     "residential",
+     "hospitality"
+    ],
+    "landscape-architect": [
+     "landscape"
+    ],
+    "game-designer": [
+     "game",
+     "level",
+     "gameplay",
+     "narrative",
+     "economy"
+    ],
+    "instructional-designer": [
+     "instructional",
+     "learning",
+     "curriculum",
+     "elearning",
+     "e-learning",
+     "training"
+    ],
+    "civil-engineer": [
+     "civil",
+     "drainage",
+     "highway",
+     "highways",
+     "roadway",
+     "stormwater",
+     "bridge"
+    ],
+    "structural-engineer": [
+     "structural"
+    ],
+    "mechanical-engineer": [
+     "mechanical",
+     "piping",
+     "solidworks"
+    ],
+    "mep-engineer": [
+     "mep",
+     "hvac",
+     "plumbing",
+     "sprinkler"
+    ],
+    "electrical-engineer": [
+     "electrical",
+     "substation"
+    ],
+    "architectural-drafter": [
+     "cad",
+     "autocad",
+     "revit",
+     "drafting",
+     "cadd"
+    ],
+    "bim-manager": [
+     "bim"
+    ]
+   }
+  },
+  {
+   "heads": [
+    "analyst"
+   ],
+   "slugs": {
+    "data-analyst": [
+     "data",
+     "analytics",
+     "reporting",
+     "insights",
+     "insight",
+     "sql",
+     "tableau",
+     "looker"
+    ],
+    "bi-developer": [
+     "bi",
+     "power bi"
+    ],
+    "financial-analyst": [
+     "financial",
+     "finance",
+     "fp&a",
+     "budget",
+     "treasury",
+     "pricing",
+     "cost",
+     "revenue",
+     "investment",
+     "valuation",
+     "commercial",
+     "controlling"
+    ],
+    "business-analyst": [
+     "business",
+     "requirements",
+     "process",
+     "functional"
+    ],
+    "security-engineer": [
+     "security",
+     "cyber",
+     "cybersecurity",
+     "soc",
+     "threat",
+     "vulnerability",
+     "infosec"
+    ],
+    "supply-chain-analyst": [
+     "supply",
+     "inventory",
+     "demand",
+     "logistics",
+     "procurement",
+     "replenishment",
+     "purchasing",
+     "sourcing",
+     "fulfillment",
+     "fulfilment"
+    ],
+    "compliance-officer": [
+     "compliance",
+     "aml",
+     "kyc",
+     "fraud",
+     "risk",
+     "regulatory",
+     "fincrime",
+     "crime",
+     "privacy"
+    ],
+    "hr-manager": [
+     "hr",
+     "hris",
+     "people",
+     "workforce",
+     "compensation",
+     "benefits"
+    ],
+    "actuary": [
+     "actuarial"
+    ],
+    "accountant": [
+     "accounting",
+     "tax"
+    ],
+    "gis-analyst": [
+     "gis",
+     "geospatial"
+    ]
+   }
+  },
+  {
+   "heads": [
+    "nurse"
+   ],
+   "slugs": {
+    "registered-nurse": [
+     "*"
+    ]
+   },
+   "unless": [
+    "practical",
+    "vocational",
+    "veterinary",
+    "vet",
+    "dental",
+    "nursery",
+    "enrolled",
+    "aide",
+    "assistant",
+    "student",
+    "midwife"
+   ]
+  },
+  {
+   "heads": [
+    "technician"
+   ],
+   "slugs": {
+    "maintenance-technician": [
+     "maintenance",
+     "facilities",
+     "facility",
+     "building"
+    ],
+    "hvac-technician": [
+     "hvac",
+     "refrigeration",
+     "heating"
+    ],
+    "laboratory-technician": [
+     "laboratory",
+     "lab"
+    ],
+    "automotive-technician": [
+     "automotive",
+     "diesel",
+     "vehicle",
+     "fleet",
+     "auto",
+     "tyre",
+     "tire",
+     "collision"
+    ],
+    "wind-turbine-technician": [
+     "wind",
+     "turbine"
+    ],
+    "solar-installer": [
+     "solar",
+     "pv"
+    ],
+    "field-service-technician": [
+     "field service"
+    ],
+    "electronics-technician": [
+     "electronics",
+     "electronic",
+     "avionics",
+     "calibration"
+    ],
+    "manufacturing-technician": [
+     "manufacturing",
+     "production",
+     "assembly",
+     "process",
+     "composite",
+     "composites"
+    ],
+    "it-support": [
+     "it",
+     "desktop",
+     "helpdesk",
+     "help desk",
+     "computer"
+    ],
+    "pharmacy-technician": [
+     "pharmacy"
+    ],
+    "architectural-drafter": [
+     "cad",
+     "revit",
+     "architectural",
+     "drafting",
+     "bim"
+    ]
+   }
+  }
+ ]
+}
