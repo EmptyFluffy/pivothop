@@ -27,11 +27,13 @@
     },
     {
       "title": "Physician Assistant - Cardiology",
-      "expect": null
+      "expect": "physician-assistant",
+      "why": "physician assistant is its own licensed occupation since 2026-09-30; never the physician board (the dental-hygienist lesson)"
     },
     {
       "title": "Physician Assistant Primary Care PACT (Baraboo)",
-      "expect": null
+      "expect": "physician-assistant",
+      "why": "physician assistant is its own licensed occupation since 2026-09-30; never the physician board (the dental-hygienist lesson)"
     },
     {
       "title": "Physician Liaison",
@@ -367,7 +369,8 @@
     },
     {
       "title": "Physician Assistant",
-      "expect": null
+      "expect": "physician-assistant",
+      "why": "physician assistant is its own licensed occupation since 2026-09-30; never the physician board (the dental-hygienist lesson)"
     },
     {
       "title": "Night Auditor",
@@ -583,13 +586,13 @@
     },
     {
       "title": "Licensed Practical Nurse",
-      "expect": null,
-      "why": "LPN is its own licensed occupation, never the RN board"
+      "expect": "licensed-practical-nurse",
+      "why": "LPN/LVN/EN is its own licensed occupation since 2026-09-30; never the RN board"
     },
     {
       "title": "Primary Care Nurse Practitioner / Physician Assistant",
-      "expect": "nurse-practitioner",
-      "why": "a nurse alias must not steal the NP (primary care nurse was dropped for this)"
+      "expect": "physician-assistant",
+      "why": "dual NP / PA posting: the longer name wins, and neither is RN or physician"
     },
     {
       "title": "Python Engineer - Freelance AI Trainer",
@@ -658,8 +661,8 @@
     },
     {
       "title": "Physician Assistant",
-      "expect": null,
-      "why": "control: tier guard still holds with the new physician specialties"
+      "expect": "physician-assistant",
+      "why": "physician assistant is its own licensed occupation since 2026-09-30; never the physician board (the dental-hygienist lesson)"
     },
     {
       "title": "Chief Building Engineer",
@@ -688,8 +691,8 @@
     },
     {
       "title": "Auxiliar de Bodega",
-      "expect": "warehouse-manager",
-      "why": "bodega is the warehouse; follows the existing auxiliar de almacen synonym"
+      "expect": "warehouse-associate",
+      "why": "bodega floor roles are warehouse associates since 2026-09-30, not the manager board"
     },
     {
       "title": "Analista de Crédito y Cobro",
@@ -793,8 +796,8 @@
     },
     {
       "title": "Enrolled Nurse",
-      "expect": null,
-      "why": "veto: an EN is the Australian LPN"
+      "expect": "licensed-practical-nurse",
+      "why": "LPN/LVN/EN is its own licensed occupation since 2026-09-30; never the RN board"
     },
     {
       "title": "Go To Market Engineer",
@@ -825,6 +828,46 @@
       "title": "Heavy Plant Engineer / Mobile Equipment Engineer",
       "expect": null,
       "why": "mobile was dropped: mobile equipment is not app development"
+    },
+    {
+      "title": "Warehouse Assistant Manager",
+      "expect": "warehouse-manager",
+      "why": "management stays on the manager board; warehouse assistant would otherwise win on length"
+    },
+    {
+      "title": "Assistant Store Director",
+      "expect": "store-manager",
+      "why": "store management, not retail sales"
+    },
+    {
+      "title": "Registered practical nurse (R.P.N.)",
+      "expect": "licensed-practical-nurse",
+      "why": "Canadian RPN = LPN tier"
+    },
+    {
+      "title": "Registered Behavior Technician",
+      "expect": "behavior-technician",
+      "why": "RBT, the entry ABA role; the BCBA is not mapped here"
+    },
+    {
+      "title": "CT/IR Technologist",
+      "expect": "radiologic-technologist",
+      "why": "CT and interventional radiology technologists"
+    },
+    {
+      "title": "Underground Mine Surveyor",
+      "expect": "land-surveyor",
+      "why": "mine surveyors are surveyors"
+    },
+    {
+      "title": "Montacarguista",
+      "expect": "warehouse-associate",
+      "why": "CR forklift operator"
+    },
+    {
+      "title": "Legal PA",
+      "expect": null,
+      "why": "control: a legal PA is a personal assistant, never the physician assistant board"
     }
   ],
   "skills": [

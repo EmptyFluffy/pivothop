@@ -3067,23 +3067,7 @@
     "distribution center manager",
     "inventory manager",
     "fulfillment manager",
-    "warehouse operative",
-    "warehouse associate",
-    "warehouse worker",
-    "forklift operator",
-    "forklift driver",
-    "order picker",
-    "picker packer",
-    "lagerist",
-    "lageristin",
-    "lagermitarbeiter",
-    "magasinier",
-    "magasiniere",
-    "bodeguero",
-    "bodeguera",
-    "operario de almacen",
-    "auxiliar de almacen",
-    "mozo de almacen"
+    "warehouse assistant manager"
    ],
    "cluster": "Service"
   },
@@ -5258,6 +5242,221 @@
    ],
    "desc": "Keeps rooms, wards, offices and buildings clean and ready, to a standard and a clock.",
    "cluster": "Hospitality"
+  },
+  {
+   "slug": "warehouse-associate",
+   "title": "Warehouse Associate",
+   "soc": "53-7062.00",
+   "field": "Transport",
+   "cluster": "Service",
+   "synonyms": [
+    "warehouse operative",
+    "warehouse associate",
+    "warehouse worker",
+    "forklift operator",
+    "forklift driver",
+    "order picker",
+    "picker packer",
+    "lagerist",
+    "lageristin",
+    "lagermitarbeiter",
+    "magasinier",
+    "magasiniere",
+    "bodeguero",
+    "bodeguera",
+    "operario de almacen",
+    "auxiliar de almacen",
+    "mozo de almacen",
+    "warehouse assistant",
+    "warehouse team member",
+    "material handler",
+    "materials handler",
+    "fulfillment associate",
+    "fulfillment center associate",
+    "reach truck driver",
+    "reach truck operator",
+    "loader",
+    "cariste",
+    "lagermitarbeiterin",
+    "logistiker efz",
+    "operador de montacargas",
+    "montacarguista"
+   ],
+   "desc": "Picks, packs, loads and moves stock in warehouses and distribution centers, often on a forklift. The floor role; the warehouse manager runs the building."
+  },
+  {
+   "slug": "store-manager",
+   "title": "Store Manager",
+   "soc": "41-1011.00",
+   "field": "Business",
+   "cluster": "Business",
+   "synonyms": [
+    "store manager",
+    "assistant store manager",
+    "retail store manager",
+    "store director",
+    "assistant store director",
+    "retail manager",
+    "shop manager",
+    "boutique manager",
+    "outlet manager",
+    "filialleiter",
+    "filialleiterin",
+    "responsable de magasin",
+    "directeur de magasin",
+    "gerente de tienda",
+    "jefe de tienda",
+    "encargado de tienda",
+    "encargada de tienda"
+   ],
+   "desc": "Runs one retail store: the staff and schedules, the sales targets, the stock and the floor. Most come up through sales associate and assistant manager."
+  },
+  {
+   "slug": "licensed-practical-nurse",
+   "title": "Licensed Practical Nurse",
+   "soc": "29-2061.00",
+   "field": "Healthcare",
+   "cluster": "Healthcare",
+   "synonyms": [
+    "licensed practical nurse",
+    "licensed vocational nurse",
+    "practical nurse",
+    "vocational nurse",
+    "registered practical nurse",
+    "enrolled nurse",
+    "lpn charge nurse",
+    "license practical nurse"
+   ],
+   "exactOnly": [
+    "lpn",
+    "lvn",
+    "rpn",
+    "lpn/lvn"
+   ],
+   "license": {
+    "req": "required",
+    "label": "State LPN/LVN license (NCLEX-PN); about a year of practical nursing school",
+    "years": 1
+   },
+   "desc": "Gives hands-on nursing care under a registered nurse or physician: vital signs, medications, wound care. A licensed role one tier below RN, reached in about a year."
+  },
+  {
+   "slug": "physician-assistant",
+   "title": "Physician Assistant",
+   "soc": "29-1071.00",
+   "field": "Healthcare",
+   "cluster": "Healthcare",
+   "synonyms": [
+    "physician assistant",
+    "physician associate",
+    "certified physician assistant",
+    "pa-c"
+   ],
+   "license": {
+    "req": "required",
+    "label": "State PA license (PANCE) after an accredited PA master's program",
+    "years": 3
+   },
+   "desc": "Examines, diagnoses, treats and prescribes as part of a physician-led team. A licensed clinician trained in a master's-level program; not a medical assistant and not a physician."
+  },
+  {
+   "slug": "radiologic-technologist",
+   "title": "Radiologic Technologist",
+   "soc": "29-2034.00",
+   "field": "Healthcare",
+   "cluster": "Healthcare",
+   "synonyms": [
+    "radiologic technologist",
+    "radiology technologist",
+    "radiographer",
+    "diagnostic radiographer",
+    "x-ray technologist",
+    "x-ray technician",
+    "xray technician",
+    "radiology technician",
+    "radiologic technician",
+    "radiology tech",
+    "rad tech",
+    "ct technologist",
+    "ct technician",
+    "ct tech",
+    "mri technologist",
+    "mri technician",
+    "mri tech",
+    "mammography technologist",
+    "mammographer",
+    "interventional radiology technologist",
+    "ir technologist",
+    "technologue en radiologie",
+    "mtra"
+   ],
+   "license": {
+    "req": "required",
+    "label": "ARRT registration, and a state license in most states; about 2 years of training",
+    "years": 2
+   },
+   "desc": "Positions patients and runs the imaging: X-ray, CT, MRI, mammography. Registered with the ARRT and licensed in most states after a roughly two-year program."
+  },
+  {
+   "slug": "land-surveyor",
+   "title": "Land Surveyor",
+   "soc": "17-1022.00",
+   "field": "Construction",
+   "cluster": "Built Environment",
+   "synonyms": [
+    "land surveyor",
+    "professional land surveyor",
+    "licensed land surveyor",
+    "registered land surveyor",
+    "geomatics surveyor",
+    "topographic surveyor",
+    "construction surveyor",
+    "boundary surveyor",
+    "cadastral surveyor",
+    "mine surveyor",
+    "hydrographic surveyor",
+    "survey party chief",
+    "survey crew chief",
+    "topografo",
+    "topógrafo",
+    "geomatiker",
+    "geomatikerin",
+    "geomatikingenieur",
+    "vermessungsingenieur",
+    "geometre",
+    "géomètre"
+   ],
+   "license": {
+    "req": "required",
+    "label": "State PLS license (FS and PS exams) after years of supervised field experience",
+    "years": 4
+   },
+   "desc": "Measures land, boundaries and construction layouts, then signs the survey that a permit or a deed relies on. Licensed in every US state; crews start as survey technicians."
+  },
+  {
+   "slug": "behavior-technician",
+   "title": "Behavior Technician",
+   "soc": "21-1093.00",
+   "field": "Healthcare",
+   "cluster": "Healthcare",
+   "synonyms": [
+    "behavior technician",
+    "behavioral technician",
+    "behaviour technician",
+    "registered behavior technician",
+    "aba technician",
+    "aba therapist",
+    "behavior interventionist",
+    "behavioral interventionist"
+   ],
+   "exactOnly": [
+    "rbt"
+   ],
+   "license": {
+    "req": "partial",
+    "label": "RBT credential (BACB) usually expected: 40 hours of training and an exam"
+   },
+   "desc": "Runs applied behavior analysis (ABA) sessions, mostly with autistic children, following a plan a board-certified behavior analyst writes. An entry role; the analyst is the next tier."
   }
  ]
 }

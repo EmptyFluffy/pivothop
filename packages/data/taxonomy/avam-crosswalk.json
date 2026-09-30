@@ -1,6 +1,8 @@
 {
   "_comment": "AVAM occupation code -> PivotHop occupation slug. AVAM is SECO's official occupation nomenclature; every Job-Room ad carries exactly one code (measured 2026-08-04: 31,096 of 31,096). Codes were mapped from corpus evidence — the dominant German titles behind each code (scratchpad avam-report) — and only where the target occupation already exists in occupations.json. A code whose profession we do not carry stays OUT of this file and the posting stays unmapped: an honest miss beats a confident mis-map (the dental-hygienist rule). The _gaps section lists the biggest of those, with posting counts, as the shopping list for future taxonomy additions.",
   "map": {
+    "101833": "warehouse-associate",
+    "102248": "warehouse-associate",
     "101224": "registered-nurse",
     "101228": "nurse-practitioner",
     "101229": "registered-nurse",
@@ -65,7 +67,6 @@
     "102040": { "n": 594, "what": "Polymechaniker — machinist / precision mechanic" },
     "101959": { "n": 617, "what": "Gaertner / Landschaftsgaertner (with 101960/101961) — gardener/landscaper; landscape-architect is NOT this" },
     "102048": { "n": 611, "what": "Metallbauer/Schlosser (with 102239) — metal fabricator; welder is only part of the trade" },
-    "101833": { "n": 670, "what": "Logistiker EFZ / Lagermitarbeiter (with 102248) — warehouse operative; warehouse-manager is the manager" },
     "101802": { "n": 583, "what": "Sachbearbeiter (with 101827) — administrative clerk / back office" },
     "102033": { "n": 326, "what": "Maler — painter/decorator" },
     "102324": { "n": 329, "what": "Reinigung (with 102221/101893) — cleaning staff" },
