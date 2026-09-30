@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { getSkillPage, skillPageSlugs, hasSkillPage } from '../skills-data';
+import { getSkillPage, skillPageSlugs, hasSkillPage, isGlossarySkill } from '../skills-data';
 import { occTitle } from '../../jobs/jobs-data';
 import { coverableSlugs } from '../../salary/salary-data';
 import { Crumbs } from '../../components/Crumbs';
@@ -33,7 +33,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function SkillPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const s = getSkillPage(slug);
-  if (!s) notFound();
+  // A skill whose page fell under the reach floor still has its glossary
+  // entry: send the old URL there (2026-09-30, five skill pages had 404ed).
+  if (!s) {
+    if (isGlossarySkill(slug)) permanentRedirect(`/glossary#skill-${slug}`);
+    notFound();
+  }
 
   const big = s.unlocks[0];
   const faq: { q: string; text: string; jsx: React.ReactNode }[] = [

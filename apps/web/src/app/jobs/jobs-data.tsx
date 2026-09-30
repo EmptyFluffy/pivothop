@@ -170,6 +170,11 @@ function origins(): OriginRow[] {
   if (!_origins) _origins = read<{ origins: OriginRow[] }>('origins.json')?.origins ?? [];
   return _origins;
 }
+/** A real occupation slug (any taxonomy occupation with a board or an origin
+ *  row). Used to tell a page that stopped qualifying from a garbage URL. */
+export function isKnownOcc(slug: string): boolean {
+  return slug in jobsIndex() || origins().some((o) => o.slug === slug);
+}
 let _fieldMap: Record<string, string> | null = null;
 export function occField(occ: string): string {
   if (!_fieldMap) {

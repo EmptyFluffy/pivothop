@@ -55,6 +55,10 @@ let _slugs: Set<string> | null = null;
 export function skillPageSlugs(): string[] {
   return glossary().filter((e) => skillReach(e) >= REACH_FLOOR).map((e) => e.slug);
 }
+/** A skill in the glossary, whether or not it has its own page today. */
+export function isGlossarySkill(slug: string): boolean {
+  return glossary().some((e) => e.slug === slug);
+}
 export function hasSkillPage(slug: string): boolean {
   if (!_slugs) _slugs = new Set(skillPageSlugs());
   return _slugs.has(slug);

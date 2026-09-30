@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { getRouteDef, routableSlugs, routePair, originMeta, destRole, unlocks, routeOrigins, originRoles, hasOriginPage } from '../routes-data';
 // coverableSlugs is the SAME predicate the salary generator uses — linking on
 // anything else (e.g. the curated SALARY_SLUGS list) can point at pages the
 // data floor didn't generate. The CI link gate caught exactly that.
 import { coverableSlugs, getSalary, usBand, fmt } from '../../salary/salary-data';
-import { jobCount } from '../../jobs/jobs-data';
+import { jobCount, isKnownOcc } from '../../jobs/jobs-data';
 import JobsList from '../../jobs/JobsList';
 import RouteCloud from '../RouteCloud';
 import { pickAnchor } from '../../../lib/site';
@@ -55,15 +55,37 @@ export async function generateMetadata({ params }: { params: Promise<{ route: st
 
 const EV = { have: { mark: '✓', word: 'Covered' }, partial: { mark: '◑', word: 'Partial' }, gap: { mark: '○', word: 'Gap' } } as const;
 
+/* A page that stopped qualifying overnight (the data moved, a pair or route
+   fell under its floor) was a live, possibly indexed URL. 2026-09-30: 81 such
+   URLs had dropped from the sitemap to a 404 in two days. A well-formed slug
+   now 308s to the nearest page that still answers the question; a slug that
+   never named real occupations still 404s. */
+function droppedRouteTarget(slug: string): string | null {
+  const at = slug.indexOf('-to-');
+  if (at > 0) {
+    const origin = slug.slice(0, at), dest = slug.slice(at + 4);
+    if (!isKnownOcc(origin) || !isKnownOcc(dest)) return null;
+    if (hasOriginPage(origin)) return `/routes/${origin}`;
+    return jobCount(dest) > 0 ? `/jobs/${dest}` : '/routes';
+  }
+  if (!isKnownOcc(slug)) return null;
+  return jobCount(slug) > 0 ? `/jobs/${slug}` : '/routes';
+}
+function dropped(route: string): never {
+  const to = droppedRouteTarget(route);
+  if (to) permanentRedirect(to);
+  notFound();
+}
+
 export default async function RoutePage({ params }: { params: Promise<{ route: string }> }) {
   const { route } = await params;
   const def = getRouteDef(route);
   if (!def) {
     if (routeOrigins().includes(route)) return <OriginPage origin={route} />;
-    notFound();
+    dropped(route);
   }
   const r = destRole(def.origin, def.dest);
-  if (!r) notFound();
+  if (!r) dropped(route);
   const om = originMeta(def.origin);
   const kids = unlocks(def.origin, def.dest);
   const observed = r.mobility != null && (r.mobility_source ?? '').startsWith('observed');

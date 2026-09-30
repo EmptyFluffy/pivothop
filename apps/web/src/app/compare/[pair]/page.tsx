@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import fs from 'node:fs';
 import path from 'node:path';
 import { PageShell } from '../../components/SiteChrome';
 import { getPair, compareSlugs, relatedPairs, fmtBand, mid, pairVerdict, type ComparePair, type CompareDir } from '../compare-data';
-import { occTitle, occField, jobCount, getJobs } from '../../jobs/jobs-data';
+import { occTitle, occField, jobCount, getJobs, isKnownOcc } from '../../jobs/jobs-data';
 import { coverableSlugs } from '../../salary/salary-data';
 import { routePair, routeOrigins } from '../../routes/routes-data';
 import { guidedSlugs } from '../../career-guides/facts';
@@ -139,10 +139,30 @@ function FactCol({ occ, band, postings, dir }: { occ: string; band: [number, num
   );
 }
 
+/* A page that stopped qualifying overnight (the data moved, a pair or route
+   fell under its floor) was a live, possibly indexed URL. 2026-09-30: 81 such
+   URLs had dropped from the sitemap to a 404 in two days. A well-formed slug
+   now 308s to the nearest page that still answers the question; a slug that
+   never named real occupations still 404s. */
+function droppedPairTarget(slug: string): string | null {
+  const at = slug.indexOf('-vs-');
+  if (at < 1) return null;
+  const a = slug.slice(0, at), b = slug.slice(at + 4);
+  if (!isKnownOcc(a) || !isKnownOcc(b)) return null;
+  if (getPair(`${b}-vs-${a}`)) return `/compare/${b}-vs-${a}`;
+  if (coverableSlugs().includes(a)) return `/salary/${a}`;
+  if (jobCount(a) > 0) return `/jobs/${a}`;
+  return '/compare';
+}
+
 export default async function ComparePage({ params }: { params: Promise<{ pair: string }> }) {
   const { pair } = await params;
   const p = getPair(pair);
-  if (!p) notFound();
+  if (!p) {
+    const to = droppedPairTarget(pair);
+    if (to) permanentRedirect(to);
+    notFound();
+  }
   const tA = occTitle(p.a), tB = occTitle(p.b);
   const lA = tA.toLowerCase(), lB = tB.toLowerCase();
   const rich = p.ab?.rich ? p.ab : p.ba?.rich ? p.ba : null;
