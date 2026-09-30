@@ -24,31 +24,49 @@ import benefits as benefits_miner  # zone-aware perk extraction; see benefits.py
 import requirements as req_miner   # experience / education / language gates
 
 # Mojibake repair (mirror of lib/text.js fixMojibake): UTF-8 bytes decoded as
-# Latin-1 give "EspaÃ±a" for "España". The tell is two adjacent high-Latin-1
-# chars, which real accented text never produces, so clean strings pass through.
-_MOJIBAKE = re.compile('[\u00c2-\u00ef][\u0080-\u00bf]')
+# Latin-1 give "EspaÃ±a" for "España". A candidate is a UTF-8 lead char
+# followed by continuation chars (U+0080-U+00BF). That shape alone is NOT
+# proof: French inclusive writing puts a middle dot after an accented capital
+# ("DIPLÔMÉ·E" = É + U+00B7), and treating it as mojibake both failed the
+# 2026-09-30 build and, where the title had no non-Latin-1 char to stop the
+# whole-string re-decode, silently rewrote it to "DIPLMɷE". So a two-char
+# pair only counts when it decodes to a plausible letter (Latin, Greek,
+# Cyrillic, Hebrew, Arabic): "Ã©" -> é yes, "É·" -> ɷ (IPA) no. Repairs are
+# made pair by pair, never by re-decoding the whole string, so correct
+# accents elsewhere in the title survive. Up to 3 passes for double encoding.
+_MOJI_SEQ = re.compile('[\u00c2-\u00df][\u0080-\u00bf]|[\u00e0-\u00ef][\u0080-\u00bf]{2}')
+_PLAUSIBLE = ((0x80, 0x24f), (0x370, 0x52f), (0x590, 0x6ff))
+def _moji_decode(seq):
+    """The char a mojibake sequence stands for, or None when the shape is a coincidence."""
+    try:
+        ch = seq.encode('latin-1').decode('utf-8')
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return None
+    if len(ch) != 1:
+        return None
+    if len(seq) == 2 and not any(lo <= ord(ch) <= hi for lo, hi in _PLAUSIBLE):
+        return None
+    return ch
+def has_mojibake(s):
+    return isinstance(s, str) and any(_moji_decode(m.group(0)) for m in _MOJI_SEQ.finditer(s))
+# A field truncated mid-character leaves a partial sequence at the end. A
+# 3-byte lead with one continuation ("æ¥", "â\x80") is never real text; a lone
+# lead char is dropped only from heavily encoded (CJK/Arabic) text, because a
+# Latin title may legitimately end in "é".
+_PARTIAL_3 = re.compile('[\u00e0-\u00ef][\u0080-\u00bf]$')
+_LONE_LEAD = re.compile('[\u00c2-\u00ef]$')
 def fix_mojibake(s):
-    if not isinstance(s, str) or not s or not _MOJIBAKE.search(s):
+    if not has_mojibake(s):
         return s
-    out = s
+    out = _PARTIAL_3.sub('', s)
+    # "Â"/"Ã" are the Latin-1 lead bytes; a title does not end on one
+    out = _LONE_LEAD.sub('', out) if len(_MOJI_SEQ.findall(out)) >= 3 else re.sub('[\u00c2\u00c3]$', '', out)
     for _ in range(3):
-        if not _MOJIBAKE.search(out):
-            break
-        try:
-            fixed = out.encode('latin-1').decode('utf-8')
-        except UnicodeEncodeError:
-            break                      # not Latin-1 representable: leave it alone
-        except UnicodeDecodeError:
-            # A truncated sequence at the end - a lone high byte with nothing to
-            # pair with - used to abort the whole repair and leave the entire
-            # string corrupted. Drop the undecodable tail, keep the rest.
-            fixed = out.encode('latin-1', 'ignore').decode('utf-8', 'ignore')
-            if not fixed or _MOJIBAKE.search(fixed):
-                break
-        if '�' in fixed or fixed == out:
+        fixed = _MOJI_SEQ.sub(lambda m: _moji_decode(m.group(0)) or m.group(0), out)
+        if fixed == out:
             break
         out = fixed
-    # Separator junk left dangling by a dropped tail ("Agent - ").
+    # the separator junk a dropped tail leaves dangling ("Agent - ")
     return re.sub(r'[\s·|,\-–—]+$', '', out)
 
 RAW = 'apps/scraper/data/postings_raw.ndjson'
@@ -671,7 +689,7 @@ all_rows.sort(key=lambda j: j['posted'] or '', reverse=True)
 
 # Mojibake canary: no displayed field may ship the two-high-byte corruption
 # signature (fix_mojibake runs on every read; this fails loudly on a regression).
-moji = [j for j in all_rows if _MOJIBAKE.search(f"{j['title']} {j['company']} {j['location']}")]
+moji = [j for j in all_rows if has_mojibake(f"{j['title']} {j['company']} {j['location']}")]
 if moji:
     for j in moji[:5]:
         print(f"mojibake canary: {j['company']!r} · {j['location']!r} · {j['title']!r}")

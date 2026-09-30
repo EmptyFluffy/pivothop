@@ -55,22 +55,45 @@ export function parseSalaryString(s) {
 }
 
 // Mojibake repair: UTF-8 bytes decoded as Latin-1 give "EspaÃ±a" for "España",
-// "MÃ©xico", "Ø§ÙÙ..." for Arabic, "â€™" for a curly quote. The universal tell is
-// two adjacent high-Latin-1 chars (a UTF-8 lead byte + a continuation byte),
-// which real accented text never produces — "São"/"Zürich"/"Núñez" have one
-// accent between ASCII, so they're left untouched. Re-decode up to 3× for
-// double-encoding; bail if a pass yields the replacement char or no change.
-const MOJIBAKE = /[\u00C2-\u00EF][\u0080-\u00BF]/;
+// "MÃ©xico", "Ø§ÙÙ..." for Arabic. A candidate is a UTF-8 lead char followed by
+// continuation chars (U+0080-U+00BF), but that shape alone is not proof: French
+// inclusive writing puts a middle dot after an accented letter ("DIPLÔMÉ·E" is
+// É + U+00B7), which the old whole-string re-decode turned into "DIPLMɷE"
+// (2026-09-30). So a two-char pair only counts when it decodes to a plausible
+// letter (Latin, Greek, Cyrillic, Hebrew, Arabic), and repairs are made pair by
+// pair so correct accents elsewhere survive. Up to 3 passes for double encoding.
+// Mirror of fix_mojibake in scripts/build-jobs.py; keep the two in step.
+const MOJI_SEQ = /[\u00C2-\u00DF][\u0080-\u00BF]|[\u00E0-\u00EF][\u0080-\u00BF]{2}/g;
+const PLAUSIBLE = [[0x80, 0x24f], [0x370, 0x52f], [0x590, 0x6ff]];
+function mojiDecode(seq) {
+  const ch = Buffer.from(seq, 'latin1').toString('utf8');
+  if (ch.includes('\uFFFD') || [...ch].length !== 1) return null;
+  if (seq.length === 2 && !PLAUSIBLE.some(([lo, hi]) => ch.codePointAt(0) >= lo && ch.codePointAt(0) <= hi)) return null;
+  return ch;
+}
+export function hasMojibake(s) {
+  if (typeof s !== 'string' || !s) return false;
+  for (const m of s.matchAll(MOJI_SEQ)) if (mojiDecode(m[0])) return true;
+  return false;
+}
+// A field truncated mid-character leaves a partial sequence at the end. A
+// 3-byte lead with one continuation is never real text; a lone lead char is
+// dropped only from heavily encoded (CJK/Arabic) text, because a Latin title
+// may legitimately end in "é".
+const PARTIAL_3 = /[\u00E0-\u00EF][\u0080-\u00BF]$/;
+const LONE_LEAD = /[\u00C2-\u00EF]$/;
 export function fixMojibake(s) {
-  if (typeof s !== 'string' || !s || !MOJIBAKE.test(s)) return s;
-  let out = s;
-  for (let i = 0; i < 3 && MOJIBAKE.test(out); i++) {
-    let fixed;
-    try { fixed = Buffer.from(out, 'latin1').toString('utf8'); } catch { break; }
-    if (fixed.includes('�') || fixed === out) break;
+  if (!hasMojibake(s)) return s;
+  let out = s.replace(PARTIAL_3, '');
+  // "Â"/"Ã" are the Latin-1 lead bytes; a title does not end on one
+  out = (out.match(MOJI_SEQ) || []).length >= 3 ? out.replace(LONE_LEAD, '') : out.replace(/[\u00C2\u00C3]$/, '');
+  for (let i = 0; i < 3; i++) {
+    const fixed = out.replace(MOJI_SEQ, (seq) => mojiDecode(seq) ?? seq);
+    if (fixed === out) break;
     out = fixed;
   }
-  return out;
+  // the separator junk a dropped tail leaves dangling
+  return out.replace(/[\s·|,\-–—]+$/, '');
 }
 
 export function slugify(s) {
