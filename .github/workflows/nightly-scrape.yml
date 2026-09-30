@@ -120,13 +120,15 @@ jobs:
           FORCE_GRAPH: ${{ github.event.inputs.force_graph || '0' }}
           # Workday tenants are separate hosts (each keeps its own 700 ms
           # spacing), so more at once costs no politeness; the fleet grew by
-          # ~40 tenants on 2026-09-26 and workday went 108 -> 138 min at 6.
-          WORKDAY_CONCURRENCY: '10'
+          # ~40 tenants on 2026-09-26 and workday went 108 -> 138 min at 6;
+          # 2026-09-28 added 63 more (259 total) and it took 154 min at 10.
+          WORKDAY_CONCURRENCY: '16'
           # per-source ceiling inside ingest (cli.js); a wedged source fails
           # loudly at this point instead of silently ending the run
-          # 180, not 260: after ingest the run still needs ~2 h (normalize ~30,
-          # build-jobs ~80, gates and publish ~15) inside the 355-minute job.
-          INGEST_SOURCE_DEADLINE_MIN: '180'
+          # 150 (was 180): after ingest the run still needs ~2.5 h (probe ~10,
+          # normalize ~32, build-jobs ~93, gates and publish ~20) inside the
+          # 355-minute job; the 2026-09-29 run ended 29 minutes from the wall.
+          INGEST_SOURCE_DEADLINE_MIN: '150'
           # The direct lock (docs/34): the repo variable flips redaction on, the
           # secret seals the vault. Set the same key in the Vercel env.
           DIRECT_REDACT: ${{ vars.DIRECT_REDACT || '0' }}
