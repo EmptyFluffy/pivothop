@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Build machine (PivotHop)
+
+Production builds run on Vercel's **Enhanced** machine (8 vCPUs). The site
+prerenders about 12,500 pages: on Turbo (30 vCPUs) a build took 10-20
+minutes at roughly three times the cost, and on Basic (2 vCPUs) three builds
+in a row (2026-09-28/29) hit Vercel's 45-minute limit and failed, leaving
+production on stale data. Do not go below Enhanced unless the build shrinks
+first (for example, by rendering the `/jobs/<category>` pages on demand).
+
+`vercel.json` skips builds for commits that do not touch `apps/web`,
+`packages` or the lockfile, so a scraper-only commit never redeploys.
