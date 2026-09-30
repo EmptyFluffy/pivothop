@@ -125,10 +125,10 @@ jobs:
           WORKDAY_CONCURRENCY: '16'
           # per-source ceiling inside ingest (cli.js); a wedged source fails
           # loudly at this point instead of silently ending the run
-          # 150 (was 180): after ingest the run still needs ~2.5 h (probe ~10,
-          # normalize ~32, build-jobs ~93, gates and publish ~20) inside the
-          # 355-minute job; the 2026-09-29 run ended 29 minutes from the wall.
-          INGEST_SOURCE_DEADLINE_MIN: '150'
+          # 170: SmartRecruiters is now the long pole (~155 min: one host, 700 ms
+          # between detail calls, re-read nightly); 150 cut it on 2026-09-30.
+          # With Workday at 16 (~125 min) the run is ~330 of its 355 minutes.
+          INGEST_SOURCE_DEADLINE_MIN: '170'
           # The direct lock (docs/34): the repo variable flips redaction on, the
           # secret seals the vault. Set the same key in the Vercel env.
           DIRECT_REDACT: ${{ vars.DIRECT_REDACT || '0' }}

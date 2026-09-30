@@ -148,7 +148,16 @@ git add apps/web/public/data apps/web/private/direct packages/data/generated pac
 git add -u
 CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
 if [ "$CHANGED" = "0" ]; then echo "no data changes — nothing to publish"; exit 0; fi
-if [ "$CHANGED" -gt 3000 ]; then echo "::error::implausible diff ($CHANGED files) — aborting, inspect manually"; git reset -q; exit 2; fi
+# Tripwire against a broken build wiping the published data, not against
+# growth. A fixed 3,000-file ceiling stopped the 2026-09-30 manual run at
+# 3,029 legitimate changes: the repo tracks ~22k data files now (19k logos,
+# 750 detail shards rewritten nightly). Abort on mass deletion or on more
+# than half of everything changing, and always print where the diff sits.
+DELETED=$(git diff --cached --name-only --diff-filter=D | wc -l | tr -d ' ')
+TOTAL=$(git ls-files | wc -l | tr -d ' ')
+echo "publish diff: $CHANGED files changed, $DELETED deleted, of $TOTAL tracked"
+git diff --cached --name-only | awk -F/ '{print $1"/"$2"/"$3"/"$4"/"$5}' | sed -E 's#/[^/]*\.[a-z]+$##' | sort | uniq -c | sort -rn | head -8
+if [ "$DELETED" -gt 1000 ] || [ "$CHANGED" -gt $((TOTAL / 2)) ]; then echo "::error::implausible diff ($CHANGED changed, $DELETED deleted of $TOTAL tracked): aborting, inspect manually"; git reset -q; exit 2; fi
 N=$(node -e 'try{console.log(require("./apps/web/public/data/all-jobs.json").length)}catch{console.log("?")}')
 git commit -q -m "data: nightly scrape $(date +%F) (${N} board listings)"
 # Rebase onto any commits that landed during the run (docs pushes, the laptop bot)

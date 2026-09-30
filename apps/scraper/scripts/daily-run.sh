@@ -108,8 +108,9 @@ git add -u -- apps/web/public/data packages/data apps/scraper/data apps/web/src/
 CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
 if [ "$CHANGED" = "0" ]; then
   echo "publish: no data changes — nothing to deploy" >> "$LOG"
-elif [ "$CHANGED" -gt 3000 ]; then
-  echo "publish: $CHANGED files changed — implausibly large, aborting (inspect manually)" >> "$LOG"
+elif [ "$(git diff --cached --name-only --diff-filter=D | wc -l | tr -d ' ')" -gt 1000 ] || [ "$CHANGED" -gt $(( $(git ls-files | wc -l | tr -d ' ') / 2 )) ]; then
+  # same tripwire as ci-run.sh: mass deletion or half the repo changing, not growth
+  echo "publish: $CHANGED files changed, implausible (mass deletion or half the repo), aborting (inspect manually)" >> "$LOG"
   git reset >> "$LOG" 2>&1
   date > "$MARKER"
   exit 2
