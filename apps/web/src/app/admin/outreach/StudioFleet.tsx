@@ -1,5 +1,4 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import { loadRel } from '../../jobs/jobs-data';
 import directCfg from '../../../../../scraper/config/direct-companies.json';
 import workdayCfg from '../../../../../scraper/config/workday-companies.json';
 import personioCfg from '../../../../../scraper/config/personio-companies.json';
@@ -13,9 +12,12 @@ import personioCfg from '../../../../../scraper/config/personio-companies.json';
 
 type Row = { name: string; channel: string; url: string; live: number };
 
-function liveCounts(): Map<string, number> {
+// all-jobs.json is not in the function bundle (next.config excludes it), so
+// at request time loadRel reads it from the site's own CDN.
+async function liveCounts(): Promise<Map<string, number>> {
   try {
-    const raw = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'all-jobs.json'), 'utf8'));
+    const raw = await loadRel<unknown>('all-jobs.json') as { company?: string; source?: string }[] | { jobs?: { company?: string; source?: string }[] } | null;
+    if (!raw) return new Map();
     const jobs: { company?: string; source?: string }[] = Array.isArray(raw) ? raw : raw.jobs ?? [];
     const m = new Map<string, number>();
     for (const j of jobs) {
@@ -26,8 +28,8 @@ function liveCounts(): Map<string, number> {
   } catch { return new Map(); }
 }
 
-export function StudioFleet() {
-  const live = liveCounts();
+export async function StudioFleet() {
+  const live = await liveCounts();
   const rows: Row[] = [
     ...directCfg.companies.map((c) => ({ name: c.name, channel: 'direct (rendered + AI-read)', url: c.careers, live: live.get(c.name) ?? 0 })),
     ...workdayCfg.tenants.map((t) => ({ name: t.company, channel: 'workday API', url: `https://${t.tenant}.${t.wd}.myworkdayjobs.com/${t.site}`, live: live.get(t.company) ?? 0 })),

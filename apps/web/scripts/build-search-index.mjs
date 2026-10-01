@@ -89,3 +89,13 @@ for (const g of GATES?.ch ?? []) {
 fs.writeFileSync(path.join(DATA, 'license-sheet.json'), JSON.stringify(sheet));
 console.log(`license-sheet: ${Object.keys(sheet).length} occupations`);
 console.log(`search-index: ${out.length} entries (${Object.entries(out.reduce((m, e) => ((m[e.k] = (m[e.k] ?? 0) + 1), m), {})).map(([k, n]) => `${k}:${n}`).join(' ')})`);
+
+// Logo index: the slugs that have a local logo, one small JSON. companyLogo()
+// reads this instead of listing public/data/logos (19k files), so no function
+// has to carry the logo directory to know which logos exist (2026-09-30: the
+// directory was 113MB inside every function bundle; see next.config.ts).
+try {
+  const logos = fs.readdirSync(path.join(DATA, 'logos')).filter((f) => f.endsWith('.png')).map((f) => f.slice(0, -4)).sort();
+  fs.writeFileSync(path.join(DATA, 'logo-index.json'), JSON.stringify(logos));
+  console.log(`logo-index: ${logos.length} logos`);
+} catch (err) { console.warn(`logo-index: skipped (${err.message})`); }

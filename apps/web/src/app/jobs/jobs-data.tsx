@@ -70,8 +70,14 @@ let _logoSet: Set<string> | null = null;
 /** Locally-served company logo when we have one (public/data/logos/<slug>.png), else null. */
 export function companyLogo(company: string): string | null {
   if (!_logoSet) {
-    try { _logoSet = new Set(fs.readdirSync(path.join(process.cwd(), 'public', 'data', 'logos')).filter((f) => f.endsWith('.png')).map((f) => f.slice(0, -4))); }
-    catch { _logoSet = new Set(); }
+    // logo-index.json (written by the prebuild) is what runtime renders use:
+    // the logos directory itself is excluded from function bundles.
+    const idx = read<string[]>('logo-index.json');
+    if (idx) _logoSet = new Set(idx);
+    else {
+      try { _logoSet = new Set(fs.readdirSync(path.join(process.cwd(), 'public', 'data', 'logos')).filter((f) => f.endsWith('.png')).map((f) => f.slice(0, -4))); }
+      catch { _logoSet = new Set(); }
+    }
   }
   const slug = company.toLowerCase().replace(/[^a-z0-9]/g, '');
   return slug && _logoSet.has(slug) ? `/data/logos/${slug}.png` : null;
@@ -100,7 +106,7 @@ const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL
 // the bundle carries), otherwise from the site's own CDN. Nothing under
 // jobs-detail/ is in a function bundle, so at request time that path is
 // always the network one; the parsed file stays in the LRU for the instance.
-async function loadRel<T>(rel: string): Promise<T | null> {
+export async function loadRel<T>(rel: string): Promise<T | null> {
   const local = read<T>(rel);
   if (local) return local;
   try {

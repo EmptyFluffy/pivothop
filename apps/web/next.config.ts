@@ -58,7 +58,21 @@ const nextConfig: NextConfig = {
     // of MB: no function bundles them. jobs-data.tsx reads a shard from disk
     // when it is there (dev, build) and otherwise fetches it from the site's own
     // CDN, where it is a static file. Every route, not just the roadmap.
-    '/**': ['./public/data/jobs-detail/**'],
+    // 2026-09-30: every function still carried 212MB and 20,563 data files
+    // (Vercel builds took 31 min for ~2.5 min of actual Next build, and the
+    // bundles were closing on the 250MB ceiling). The logo directory (113MB,
+    // 19k files) is only listed, now via logo-index.json; all-jobs.json and
+    // browse-jobs.json (58MB) are read at build time, and at request time only
+    // to decide a 404 for an unknown slug (every reader falls back to empty)
+    // or through loadRel, which fetches them from the CDN (admin outreach).
+    // Keys match with picomatch contains:true, so one '/**' key is the only
+    // honest scope: a negated key cannot carve a route out.
+    '/**': [
+      './public/data/jobs-detail/**',
+      './public/data/logos/**',
+      './public/data/all-jobs.json',
+      './public/data/browse-jobs.json',
+    ],
   },
 
   // Edge-request diet: logos are content-addressed by company and effectively
