@@ -47,6 +47,10 @@ export async function fetchRaw({ log }) {
         description_text: [d.UserArea?.Details?.MajorDuties, d.QualificationSummary].flat().filter(Boolean).join('\n').slice(0, 20000),
         posted_at: d.PublicationStartDate ?? null,
         url: d.PositionURI ?? null,
+        // OPM occupational series ("0081", "1102"; a posting can list several):
+        // the official occupation, mapped through series-crosswalk.json when
+        // the title alone does not map (normalize/index.js)
+        job_series: (d.JobCategory ?? []).map((c) => c?.Code).filter(Boolean).join(',') || null,
       });
     }
   }

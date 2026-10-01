@@ -9,6 +9,10 @@ import { mapTitle, cleanTitle } from './titles.js';
 // ground truth the title matcher can only approximate — a German title that
 // defeats every matcher tier still maps if its code is in the crosswalk.
 const AVAM = readJson(path.join(TAXONOMY_DIR, 'avam-crosswalk.json'))?.map ?? {};
+// OPM occupational series -> occupation slug (series-crosswalk.json): the same
+// idea for USAJOBS, which stamps every posting with its federal series. Only
+// series that name one of our occupations are in it; catch-alls are left out.
+const SERIES = readJson(path.join(TAXONOMY_DIR, 'series-crosswalk.json'))?.map ?? {};
 import { toAnnualUsd } from './salary.js';
 import { extractSkills, zoneText } from './skills.js';
 import { inferCountry, sourceCountry } from './country.js';
@@ -144,6 +148,12 @@ export async function normalize({ log }) {
     if (r.description_text && /[<&]/.test(r.description_text)) r.description_text = stripHtml(r.description_text);
     let mapped = mapTitle(r.title);
     if (!mapped && r.avam_code && AVAM[r.avam_code]) mapped = { slug: AVAM[r.avam_code], method: 'avam' };
+    if (!mapped && r.job_series) {
+      // an interdisciplinary announcement lists several series; when they point
+      // to different occupations the posting has no single one, so it stays out
+      const slugs = new Set(String(r.job_series).split(',').map((c) => SERIES[c]).filter(Boolean));
+      if (slugs.size === 1) mapped = { slug: [...slugs][0], method: 'series' };
+    }
     if (!mapped) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);
       return;
