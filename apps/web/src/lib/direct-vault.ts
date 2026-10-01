@@ -28,20 +28,26 @@ function keyBytes(): Buffer | null {
 
 export function vaultReady(): boolean { return keyBytes() !== null; }
 
-/** Every direct row of an occupation, decrypted, or null without a key/file. */
-export function openShard(occ: string): Record<string, VaultRow> | null {
+/** One shard decrypted and not cached, for a pass that reads each shard once. */
+export function readShard(occ: string): Record<string, VaultRow> | null {
   if (!/^[a-z0-9-]+$/.test(occ)) return null;
-  if (cache.has(occ)) return cache.get(occ) ?? null;
   const key = keyBytes();
   if (!key) return null;
-  let rows: Record<string, VaultRow> | null = null;
   try {
     const buf = fs.readFileSync(path.join(process.cwd(), 'private', 'direct', `${occ}.enc`));
     const iv = buf.subarray(0, 12), tag = buf.subarray(12, 28), data = buf.subarray(28);
     const d = createDecipheriv('aes-256-gcm', key, iv);
     d.setAuthTag(tag);
-    rows = JSON.parse(Buffer.concat([d.update(data), d.final()]).toString('utf8')) as Record<string, VaultRow>;
-  } catch { rows = null; }
+    return JSON.parse(Buffer.concat([d.update(data), d.final()]).toString('utf8')) as Record<string, VaultRow>;
+  } catch { return null; }
+}
+
+/** Every direct row of an occupation, decrypted, or null without a key/file. */
+export function openShard(occ: string): Record<string, VaultRow> | null {
+  if (!/^[a-z0-9-]+$/.test(occ)) return null;
+  if (cache.has(occ)) return cache.get(occ) ?? null;
+  if (!keyBytes()) return null;
+  const rows = readShard(occ);
   if (cache.size > 48) cache.delete(cache.keys().next().value as string);
   cache.set(occ, rows);
   return rows;

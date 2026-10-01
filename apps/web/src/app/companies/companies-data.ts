@@ -3,7 +3,7 @@ import path from 'node:path';
 import type { Job } from '../jobs/JobCard';
 import { occField } from '../jobs/jobs-data';
 import { isDirect } from '../jobs/JobCard';
-import { openShard } from '../../lib/direct-vault';
+import { readShard } from '../../lib/direct-vault';
 import { countryName } from '../jobs/countries';
 import { createHash } from 'node:crypto';
 
@@ -86,9 +86,25 @@ function allJobs(): CoJob[] {
     try {
       raw = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'all-jobs.json'), 'utf8')) as Job[];
     } catch { raw = []; }
+    // One decrypt per occupation, keeping only the employer. all-jobs.json is
+    // freshest-first, so a lookup per row walked the 218 shards in no order,
+    // thrashed openShard's 48-shard cache and re-decrypted up to 27MB per row:
+    // 49s per build worker, past Next's 60s page limit on Vercel (the only
+    // place the key exists), where every killed worker started over.
+    const who = new Map<string, Map<string, { company: string; logo?: string }>>();
+    const employer = (occ: string, id: string) => {
+      let m = who.get(occ);
+      if (!m) {
+        m = new Map();
+        const shard = readShard(occ);
+        if (shard) for (const [k, v] of Object.entries(shard)) m.set(k, { company: v.company, logo: v.logo });
+        who.set(occ, m);
+      }
+      return m.get(id);
+    };
     _all = raw.map((j): CoJob | null => {
       if (!isDirect(j) || j.company !== 'Direct employer') return j;
-      const v = openShard(j.occ)?.[j.id];
+      const v = employer(j.occ, j.id);
       return v ? { ...j, company: v.company, ...(v.logo ? { logo: v.logo } : {}), lk: true } : null;
     }).filter((j): j is CoJob => j !== null);
   }
