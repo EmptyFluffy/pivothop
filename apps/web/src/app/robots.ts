@@ -24,13 +24,19 @@ import type { MetadataRoute } from 'next';
    - /data/: raw JSON (all-jobs.json alone is 12MB). AI retrieval bots keep
      it, structured JSON is what a cited answer reads; nobody else needs it.
    - /dashboard, /signin, /auth/confirm, /design-lab: noindex by meta, left
-     crawlable on purpose so the noindex is read. */
+     crawlable on purpose so the noindex is read.
+   - Meta-ExternalAgent: shut out of everything (2026-10-01). It was 42% of
+     all requests (304k a day, Vercel firewall traffic) and Meta sent zero
+     visitors. A firewall rule denies it too; robots.txt is only a request. */
 
 const AI_BOTS = [
   'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-Web', 'anthropic-ai',
   'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended',
-  'CCBot', 'Amazonbot', 'cohere-ai', 'Meta-ExternalAgent',
+  'CCBot', 'Amazonbot', 'cohere-ai',
 ];
+
+// Crawlers that take everything and send nobody back.
+const BLOCKED_BOTS = ['Meta-ExternalAgent'];
 
 // The search engines that build the index we care about: they read the
 // noindex on detail pages themselves, so nothing is hidden from them.
@@ -47,6 +53,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: '*', allow: GENERIC_ALLOW, disallow: GENERIC_DISALLOW },
       ...SEARCH_BOTS.map((ua) => ({ userAgent: ua, allow: '/', disallow: SEARCH_DISALLOW })),
       ...AI_BOTS.map((ua) => ({ userAgent: ua, allow: '/', disallow: AI_DISALLOW })),
+      ...BLOCKED_BOTS.map((ua) => ({ userAgent: ua, disallow: '/' })),
     ],
     sitemap: 'https://www.pivothop.com/sitemap.xml',
     host: 'https://www.pivothop.com',

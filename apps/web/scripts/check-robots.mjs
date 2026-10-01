@@ -100,6 +100,12 @@ for (const ua of agents) {
   if (robots[ua] && allowed(robots[ua], '/j/abc123')) problems.push(`${ua} may crawl /j/ short links`);
 }
 
+// shut out on purpose (robots.ts BLOCKED_BOTS): no page at all
+for (const ua of ['meta-externalagent']) {
+  if (!robots[ua]) problems.push(`robots.txt has no group for ${ua}`);
+  else if (allowed(robots[ua], '/') || allowed(robots[ua], '/jobs/software-engineer')) problems.push(`${ua} should be disallowed everywhere`);
+}
+
 const uniq = [...new Set(problems)];
 if (uniq.length) {
   console.error(`check-robots: ${uniq.length} problem(s)`);
