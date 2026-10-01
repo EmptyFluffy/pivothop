@@ -8,9 +8,23 @@ import type { ListingSection, ListingPart } from '../app/jobs/detail';
    real fields are fetched from /api/direct and swapped in by the surface that
    asked. Nothing here can reveal anything the API would not. */
 
-export type Unlocked = { company: string; logo?: string; url: string; sections?: { h: string | null; t: string }[] };
+export type Unlocked = {
+  company: string; logo?: string; url: string; sections?: { h: string | null; t: string }[];
+  access?: { plan: 'member' } | { plan: 'free'; left: number };   // present where the paywall applies
+};
+
+/** Why a posting stayed locked: no session, this month's free opens used
+    (plans live), the daily cap, or anything else. */
+export type LockReason = 'sign-in' | 'plan' | 'cap' | 'error';
 
 const mem = new Map<string, Promise<Unlocked | null>>();
+const why = new Map<string, LockReason>();
+
+/** The reason the last unlockJob() of this posting came back null. */
+export function lockReason(occ: string, id: string): LockReason | null { return why.get(`${occ}/${id}`) ?? null; }
+
+/** Forget every cached answer (after a purchase, so the page re-asks). */
+export function resetUnlocks(): void { mem.clear(); why.clear(); }
 
 /** The share token in the current page URL, if any. */
 export function shareTokenFromPage(): string | null {
@@ -33,12 +47,16 @@ export function unlockJob(occ: string, id: string): Promise<Unlocked | null> {
   if (have) return have;
   const p = (async () => {
     const tok = shareTokenFromPage();
-    if (!tok && !(await signedIn())) return null;
+    if (!tok && !(await signedIn())) { why.set(key, 'sign-in'); return null; }
     try {
       const r = await fetch(`/api/direct?occ=${encodeURIComponent(occ)}&id=${encodeURIComponent(id)}${tok ? `&u=${encodeURIComponent(tok)}` : ''}`, { credentials: 'same-origin' });
-      if (!r.ok) return null;
+      if (!r.ok) {
+        why.set(key, r.status === 402 ? 'plan' : r.status === 401 ? 'sign-in' : r.status === 429 ? 'cap' : 'error');
+        return null;
+      }
+      why.delete(key);
       return (await r.json()) as Unlocked;
-    } catch { return null; }
+    } catch { why.set(key, 'error'); return null; }
   })();
   mem.set(key, p);
   p.then((v) => { if (v === null) mem.delete(key); });

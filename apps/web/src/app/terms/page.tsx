@@ -15,7 +15,7 @@ export default function TermsPage() {
       <main className="ab-main">
         <Crumbs trail={[{ label: 'Terms' }]} />
         <h1 className="ab-h1">Terms of use.</h1>
-        <p>Effective August 22, 2026.</p>
+        <p>Effective October 1, 2026.</p>
 
         <section className="ab-sec">
           <h2>Using PivotHop</h2>
@@ -58,6 +58,22 @@ export default function TermsPage() {
           <h2>Employer submissions</h2>
           <p>
             If you submit or pay to feature a job, you must have authority to publish the role and the information must be accurate, lawful, non-discriminatory, and connected to a genuine hiring opportunity. PivotHop may reject or remove misleading, unlawful, expired, duplicated, or otherwise inappropriate listings.
+          </p>
+        </section>
+
+        <section className="ab-sec" id="plans">
+          <h2>Direct plans, renewals and refunds</h2>
+          <p>
+            Direct plans open the postings PivotHop reads from employers&rsquo; own sites. They are sold by Lemon Squeezy, our reseller and merchant of record, which takes the payment, charges any sales tax and sends the receipt; its buyer terms apply to the purchase.
+          </p>
+          <p>
+            The monthly plan renews each month until you cancel. Cancel anytime from Manage billing on your dashboard: the plan stays open to the end of the month already paid and is not charged again. The one-time plan is a single payment that never renews, and covers the Direct postings for as long as PivotHop publishes them.
+          </p>
+          <p>
+            If a plan is not what you expected, write to {SITE_EMAIL} within 14 days of a payment and we refund that payment in full.
+          </p>
+          <p>
+            Without a plan, a signed-in account opens a limited number of Direct postings each month, as shown on the site. Plans are for your own job search: reselling, bulk copying or automated collection of Direct postings ends the plan without a refund.
           </p>
         </section>
 

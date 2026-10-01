@@ -3,15 +3,20 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import GoogleSignIn from './GoogleSignIn';
 import { onSignInRequest, primeSession, type SignInReason } from '../../lib/auth-ui';
+import { FREE_PER_MONTH, PLANS_PUBLIC } from '../../lib/plans';
 
 /* The sign-in sheet: opens over any page when something asks for a session
    (a locked posting, the save button). Google in one click; the email link
    as the fallback. Mounted once in the page shell. Nothing in it is
    personal, so the prerendered HTML stays identical for every visitor. */
 const COPY: Record<SignInReason, { h: string; p: string }> = {
-  job: { h: 'Sign in to view this job.', p: 'This posting is on the employer’s own site. A free account shows who is hiring, the full posting and the link to apply.' },
+  job: { h: 'Sign in to view this job.', p: PLANS_PUBLIC
+    ? `This posting is on the employer’s own site. A free account opens ${FREE_PER_MONTH} of these a month: who is hiring, the full posting and the link to apply.`
+    : 'This posting is on the employer’s own site. A free account shows who is hiring, the full posting and the link to apply.' },
   save: { h: 'Sign in to save jobs.', p: 'Saved jobs live in your dashboard and follow you across devices.' },
-  generic: { h: 'Sign in.', p: 'A free account keeps your saved jobs and opens the postings employers publish on their own sites.' },
+  generic: { h: 'Sign in.', p: PLANS_PUBLIC
+    ? `A free account keeps your saved jobs and opens ${FREE_PER_MONTH} postings a month that employers publish on their own sites.`
+    : 'A free account keeps your saved jobs and opens the postings employers publish on their own sites.' },
 };
 
 export default function SignInSheet() {

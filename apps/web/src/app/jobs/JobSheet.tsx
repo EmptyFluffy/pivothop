@@ -22,8 +22,9 @@ import type { Job } from './JobCard';
 import SaveButton from './SaveButton';
 import { salaryLabel, postedLabel, agoLabel, sourceName, Arrow45, isDirect } from './JobCard';
 import { type Listing, loadListing } from './detail';
-import { unlockJob, toListingSections, type Unlocked } from '../../lib/unlock';
-import { isSignedInNow, requestSignIn } from '../../lib/auth-ui';
+import { unlockJob, toListingSections, lockReason, type Unlocked } from '../../lib/unlock';
+import { isSignedInNow, requestSignIn, requestPlans } from '../../lib/auth-ui';
+import { FreeLeft } from './UnlockRow';
 import SkillStrip, { type SkillEntry } from './SkillStrip';
 
 
@@ -210,11 +211,15 @@ export default function JobSheet({ job, onClose, glossary }: { job: Job | null; 
               <a className="rt-go jsheet-apply" href={listing?.applyUrl ?? j.url} target="_blank" rel="nofollow noopener noreferrer">
                 Apply now <Arrow45 size={22} />
               </a>
+              {real?.access?.plan === 'free' && <FreeLeft left={real.access.left} />}
             </>
           ) : isDirect(j) ? (
             isSignedInNow()
-              // signed in but the vault did not answer: say so, never ask again
-              ? <span className="rt-go jsheet-apply jsheet-unlock" aria-disabled="true">Unlock unavailable right now</span>
+              // signed in: past this month's free opens (plans live) the way on
+              // is a plan; otherwise the vault did not answer: say so, never ask again
+              ? (lockReason(j.occ, j.id) === 'plan'
+                ? <button type="button" className="rt-go jsheet-apply jsheet-unlock" onClick={() => requestPlans('limit')}>See plans <Arrow45 size={22} /></button>
+                : <span className="rt-go jsheet-apply jsheet-unlock" aria-disabled="true">Unlock unavailable right now</span>)
               // a direct posting with no session: the employer and the link live
               // behind sign-in (free); the reader comes back to this board after
               : <button type="button" className="rt-go jsheet-apply jsheet-unlock" onClick={() => requestSignIn('job')}>

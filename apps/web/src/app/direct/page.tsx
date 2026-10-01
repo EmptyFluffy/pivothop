@@ -8,11 +8,13 @@ import { PageHead } from '../components/PageHead';
 import { DIRECT_SOURCES, type Job } from '../jobs/JobCard';
 import { occTitle } from '../jobs/jobs-data';
 import { countryName } from '../jobs/countries';
+import { PLANS, FREE_PER_MONTH, PLANS_PUBLIC } from '../../lib/plans';
+import PlansButton from './PlansButton';
 
 /* /direct (2026-09-11): what the lock on direct postings is, in plain words,
    with the live numbers behind it. This page is the landing for every
-   "Unlock" button on the board. Accounts and plans are the next phase
-   (docs/34); until they ship the page says so rather than pretending. */
+   "Unlock" button on the board. Sign-in has been live since 2026-09-22; the
+   plans copy switches on with NEXT_PUBLIC_PAYWALL (lib/plans). */
 
 export const metadata: Metadata = {
   title: 'Direct jobs: roles read from company sites, not job boards',
@@ -46,7 +48,9 @@ export default function DirectPage() {
     { q: 'What makes a posting "direct"?', a: 'We read it from the employer itself: its own careers page, or the hiring system the page hands you to (Greenhouse, Ashby, Lever, Workday and the like). Nothing on this list came through a job-board feed. That is the whole point: these are the roles that sit on company sites and often never make it to the big boards.' },
     { q: 'Why is the company hidden?', a: `Because that is the part we do the work for. Reading ${s.companies.toLocaleString()} employer sites every night costs money and care, and the company name plus the apply link is what a subscriber pays for. The title, location and posted pay stay open on every card so you can see exactly what is behind the lock before you decide.` },
     { q: 'Is everything on PivotHop locked now?', a: `No. ${(s.total - s.direct).toLocaleString()} of the ${s.total.toLocaleString()} live roles on the board come from public feeds and stay fully open, apply link included. Only the ${s.direct.toLocaleString()} direct postings are locked, and only their company and link.` },
-    { q: 'When can I sign up?', a: 'Accounts with Google sign-in and a monthly plan are the next thing we ship. Until then the lock is on, the counts are real, and every card tells you what is inside. If you want to be told the day it opens, write to hello@pivothop.com with the subject "direct".' },
+    PLANS_PUBLIC
+      ? { q: 'What does it cost?', a: `$${PLANS.monthly} a month, cancel anytime, or $${PLANS.lifetime} once. A free account opens ${FREE_PER_MONTH} direct jobs a month in full; a plan opens all of them and names the employer on every card. Lemon Squeezy takes the payment and sends the receipt.` }
+      : { q: 'How do I open one?', a: 'Sign in with Google, one click. For now a free account opens every direct posting: who is hiring, the full text and the link to apply.' },
   ];
   return (
     <PageShell v2>
@@ -82,13 +86,23 @@ export default function DirectPage() {
           <p className="rt-note occ-tbl-note">Counts are the live board on the date of the nightly build. The role links open the full board for that occupation, direct and public postings together.</p>
         </section>
 
-        <section className="rt-cta">
-          <div>
-            <h2>Plans open soon</h2>
-            <p>Google sign-in and a monthly plan are the next thing we ship. Until then, everything you see here is real, and the lock is honest about what it holds.</p>
-          </div>
-          <Link className="rt-go" href="/jobs">Browse the board &rarr;</Link>
-        </section>
+        {PLANS_PUBLIC ? (
+          <section className="rt-cta">
+            <div>
+              <h2>${PLANS.monthly} a month, or ${PLANS.lifetime} once</h2>
+              <p>A free account opens {FREE_PER_MONTH} direct jobs a month in full. A plan opens all {s.direct.toLocaleString()} of them, with the employer named on every card. Cancel the monthly plan anytime; the one-time plan never renews.</p>
+            </div>
+            <PlansButton label="See plans" />
+          </section>
+        ) : (
+          <section className="rt-cta">
+            <div>
+              <h2>Open them with Google</h2>
+              <p>Sign in with Google and a direct posting opens: who is hiring, the full text and the link to apply.</p>
+            </div>
+            <Link className="rt-go" href="/jobs">Browse the board &rarr;</Link>
+          </section>
+        )}
 
         <div className="post-faq rt-faq">
           <h2>Quick answers</h2>

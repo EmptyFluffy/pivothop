@@ -119,3 +119,17 @@ links we post ourselves; it opens that one posting without an account.
    the nightly. The next data commit ships redacted; until then the site
    behaves as before. Do this only after steps 4, 6 and 8, or nobody can
    open a direct posting.
+
+## Direct plans (2026-10-01)
+
+$8 a month or $50 once, sold through Lemon Squeezy (merchant of record). Signed in without a plan, 3 distinct direct postings a month open in full (`FREE_PER_MONTH`, calendar month, UTC); employer names and logos in lists (`/api/direct/peek`) are for members only. Share tokens stay unmetered. Code: `lib/plans.ts` (shared), `lib/paywall.ts` (server), `/api/checkout`, `/api/billing`, `/api/plan`, the store webhook `/api/lemonsqueezy/webhook`, `components/PlanSheet.tsx`.
+
+Activation, in order:
+
+1. Run `supabase/migrations/0013_memberships.sql` in the Supabase SQL editor.
+2. Lemon Squeezy, **test mode** first: one product with two variants, monthly subscription ($8) and single payment ($50). An API key. One store webhook to `https://www.pivothop.com/api/lemonsqueezy/webhook` with a signing secret and the events `order_created`, `order_refunded`, `subscription_created`, `subscription_updated`, `subscription_cancelled`, `subscription_resumed`, `subscription_expired`, `subscription_paused`, `subscription_unpaused`.
+3. Vercel env (Production): `LEMONSQUEEZY_API_KEY`, `LEMONSQUEEZY_STORE_ID`, `LEMONSQUEEZY_WEBHOOK_SECRET`, `LEMONSQUEEZY_VARIANT_MONTHLY`, `LEMONSQUEEZY_VARIANT_LIFETIME`, and `PAYWALL_TEST_EMAILS` (comma-separated accounts the gate applies to). Redeploy. Everyone else keeps the free lock.
+4. Test with a listed account: 3 free opens, the 4th shows the plans sheet, test card checkout, return with `?plan=welcome`, the page reloads as a member, `/dashboard` shows the plan, Manage billing opens the portal, cancelling shows "open until".
+5. Live: swap the five values for live-mode ones, add `NEXT_PUBLIC_PAYWALL=1` (gate and public copy for everyone), remove `PAYWALL_TEST_EMAILS`, redeploy.
+
+Do not set `LEMONSQUEEZY_VARIANT_STD`/`_FEAT` unless employer posts should stop being free: those two turn the employer form into a paid checkout.

@@ -2386,6 +2386,20 @@ body.ss-open{ overflow:hidden; }
 .v2t .ss-sheet .auth-google-btn{ background:var(--v-fill); color:var(--v-fill-ink); border:1px solid var(--v-fill); }
 .v2t .ss-sheet .auth-google-btn svg{ background:#fff; border-radius:50%; padding:2px; }
 .ss-alt a{ text-decoration:underline; }
+/* the Direct plans sheet (PlanSheet): two plans side by side, same sheet chrome */
+.ps-plans{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:4px 0 0; }
+.ps-plan{ display:flex; flex-direction:column; align-items:flex-start; gap:2px; padding:16px 16px 14px; border:1px solid var(--v-border); border-radius:12px; background:var(--v-surface, var(--v-bg)); color:var(--v-text); font:inherit; text-align:left; cursor:pointer; }
+.ps-plan:hover:not(:disabled){ border-color:var(--v-text); }
+.ps-plan:focus-visible{ outline:2px solid var(--v-text); outline-offset:2px; }
+.ps-plan:disabled{ opacity:.6; cursor:progress; }
+.ps-price{ font-size:34px; font-weight:650; letter-spacing:-.02em; line-height:1.05; font-variant-numeric:tabular-nums; }
+.ps-per{ font-size:15px; color:var(--v-text2); }
+.ps-note{ margin-top:8px; font-size:13px; color:var(--v-text2); }
+.ps-err{ margin:12px 0 0; color:var(--v-text); }
+.ps-done{ margin-top:6px; }
+.dash-plan{ display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; margin:0 0 20px; padding:12px 14px; border:1px solid var(--v-border); border-radius:10px; color:var(--v-text); }
+.jd-freeleft{ flex-basis:100%; }
+@media (max-width:380px){ .ps-plans{ grid-template-columns:1fr; } }
 @keyframes ss-up{ from{ transform:translateY(24px); opacity:0 } to{ transform:none; opacity:1 } }
 @media (min-width:761px){ .ss-wrap{ align-items:center; } .ss-sheet{ border-radius:18px; padding:34px 32px 32px; } }
 @media (prefers-reduced-motion:reduce){ .ss-sheet{ animation:none; } }

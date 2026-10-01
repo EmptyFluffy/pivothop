@@ -38,3 +38,20 @@ export function onSignInRequest(cb: (d: { reason: SignInReason; next?: string })
   window.addEventListener(EVT, h);
   return () => window.removeEventListener(EVT, h);
 }
+
+/* The plans sheet (PlanSheet, mounted next to SignInSheet): any surface that
+   meets a 402 from /api/direct, or a "See plans" link, opens it. 'limit' is
+   the reader who used this month's free opens; 'generic' is everyone else. */
+export type PlansReason = 'limit' | 'generic';
+const PLANS_EVT = 'ph-plans';
+
+export function requestPlans(reason: PlansReason = 'generic', next?: string): void {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new CustomEvent(PLANS_EVT, { detail: { reason, next } }));
+}
+
+export function onPlansRequest(cb: (d: { reason: PlansReason; next?: string }) => void): () => void {
+  const h = (e: Event) => cb((e as CustomEvent).detail ?? { reason: 'generic' });
+  window.addEventListener(PLANS_EVT, h);
+  return () => window.removeEventListener(PLANS_EVT, h);
+}

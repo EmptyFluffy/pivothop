@@ -9,6 +9,7 @@ import SavedNavLink from './SavedNavLink';
 import AuthNavButton from './AuthNavButton';
 import PremiumGate from './PremiumGate';
 import SignInSheet from './SignInSheet';
+import PlanSheet from './PlanSheet';
 import RevealDirect from './RevealDirect';
 import GoogleOneTap from './GoogleOneTap';
 
@@ -160,6 +161,7 @@ export function PageShell({ children, active, wide, v2 }: { children: React.Reac
       <div className="main">
         <PremiumGate />
         <SignInSheet />
+        <PlanSheet />
         <RevealDirect />
         <GoogleOneTap />
         <SwissBanner />

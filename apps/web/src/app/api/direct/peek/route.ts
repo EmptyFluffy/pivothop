@@ -1,12 +1,16 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { supabaseServer } from '../../../../lib/supabase-server';
 import { openShard } from '../../../../lib/direct-vault';
+import { paywallFor, membershipOf } from '../../../../lib/paywall';
+import { isMember } from '../../../../lib/plans';
 
 /* The signed-in board: employer name and logo for the direct rows on screen,
    so a member's list reads like a list (2026-09-22, Carlos: "no debería ver
    los logos blurred si ya estoy con la sesión iniciada"). Never the apply
    link or the text: those stay per-posting behind /api/direct and its daily
-   cap. Session only, one occupation and at most 60 ids per call. */
+   cap. Session only, one occupation and at most 60 ids per call. Where the
+   paywall applies, members only (Carlos, 2026-10-01: who is hiring is part
+   of what the plan sells); everyone else gets 402 and the blurred tile. */
 export const dynamic = 'force-dynamic';
 
 const MAX_IDS = 60;
@@ -23,6 +27,9 @@ export async function POST(req: NextRequest) {
   const sb = await supabaseServer();
   const { data } = sb ? await sb.auth.getUser() : { data: null };
   if (!data?.user) return NextResponse.json({ error: 'sign-in' }, { status: 401, headers: noStore });
+  if (sb && paywallFor(data.user.email) && !isMember(await membershipOf(sb))) {
+    return NextResponse.json({ error: 'plan' }, { status: 402, headers: noStore });
+  }
 
   const shard = openShard(occ);
   const out: Record<string, { company: string; logo?: string }> = {};

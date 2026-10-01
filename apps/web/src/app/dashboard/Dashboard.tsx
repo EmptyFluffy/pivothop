@@ -10,6 +10,7 @@ import {
 import { supabaseBrowser } from '../../lib/supabase-browser';
 import { mergeSaved, updateSave, removeSave } from './actions';
 import { Crumbs } from '../components/Crumbs';
+import PlanStatus from './PlanStatus';
 
 /* The saved-jobs dashboard. One list, status tabs over it — no kanban, no
    contacts, no reminders (the V1 cut every tracker research pass agreed on).
@@ -121,6 +122,7 @@ export default function Dashboard() {
           )}
         </div>
       </header>
+      {signedIn && <PlanStatus />}
 
       {list.length === 0 ? (
         <div className="dash-empty">
