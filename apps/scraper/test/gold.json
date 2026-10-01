@@ -61,7 +61,8 @@
     },
     {
       "title": "Physical Therapy Assistant",
-      "expect": null
+      "expect": "physical-therapist-assistant",
+      "why": "its own occupation since step 5; never the physical therapist board"
     },
     {
       "title": "Physical Therapist",
@@ -117,7 +118,8 @@
     },
     {
       "title": "Respiratory Therapist",
-      "expect": null
+      "expect": "respiratory-therapist",
+      "why": "its own occupation since step 5; never the mental-health therapist board"
     },
     {
       "title": "Mental Health Therapist",
@@ -866,8 +868,103 @@
     },
     {
       "title": "Legal PA",
+      "expect": "administrative-assistant",
+      "why": "control: a legal PA is a personal assistant (the admin board), never the physician assistant board"
+    },
+    {
+      "title": "Board Certified Behavior Analyst (BCBA)",
+      "expect": "behavior-analyst"
+    },
+    {
+      "title": "Clinical Supervisor, BCBA",
+      "expect": "behavior-analyst"
+    },
+    {
+      "title": "Registered Behavior Technician (RBT)",
+      "expect": "behavior-technician",
+      "why": "the technician tier stays put; BCBA is the next tier"
+    },
+    {
+      "title": "Behavior Technician - BCBA supervision provided",
+      "expect": "behavior-technician",
+      "why": "the longer phrase wins over the bcba token"
+    },
+    {
+      "title": "Wildland Firefighter",
+      "expect": "firefighter"
+    },
+    {
+      "title": "Firefighter/Paramedic",
+      "expect": "firefighter"
+    },
+    {
+      "title": "Registered Respiratory Therapist",
+      "expect": "respiratory-therapist"
+    },
+    {
+      "title": "Optometrist",
+      "expect": "optometrist"
+    },
+    {
+      "title": "Dispensing Optician",
       "expect": null,
-      "why": "control: a legal PA is a personal assistant, never the physician assistant board"
+      "why": "an optician fits lenses; not the optometrist board"
+    },
+    {
+      "title": "Physical Therapist Assistant",
+      "expect": "physical-therapist-assistant"
+    },
+    {
+      "title": "Medical Coder",
+      "expect": "medical-records-specialist"
+    },
+    {
+      "title": "Vibe Coding Specialist",
+      "expect": null,
+      "why": "control: 'coding specialist' alone is not medical coding"
+    },
+    {
+      "title": "Sterile Processing Technician",
+      "expect": "sterile-processing-technician"
+    },
+    {
+      "title": "Medical Supply Technician (Sterile Processing)",
+      "expect": "sterile-processing-technician"
+    },
+    {
+      "title": "Travel Interventional Radiology (IR) - $3,101 per week in Madison, WI",
+      "expect": "radiologic-technologist"
+    },
+    {
+      "title": "Travel Interventional Radiology RN - $3,011 per week",
+      "expect": "registered-nurse",
+      "why": "control: the IR nurse is an RN, not a technologist"
+    },
+    {
+      "title": "Supervisory Border Patrol Agent",
+      "expect": "police-officer"
+    },
+    {
+      "title": "Financial Manager",
+      "expect": "controller"
+    },
+    {
+      "title": "Human Resources Assistant",
+      "expect": "administrative-assistant",
+      "why": "HR assistants are clerical: the admin board and its pay, not hr-manager"
+    },
+    {
+      "title": "Lift Repair Engineer",
+      "expect": "field-service-technician"
+    },
+    {
+      "title": "Licensed Mental Health Professional (LPC/LMFT/LCSW)",
+      "expect": "therapist"
+    },
+    {
+      "title": "Kitchen Sales Designer",
+      "expect": null,
+      "why": "kitchen designers are mostly commission sales; left unmapped on purpose"
     }
   ],
   "skills": [

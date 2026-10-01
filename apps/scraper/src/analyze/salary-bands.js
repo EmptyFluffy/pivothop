@@ -110,7 +110,9 @@ const FE_HARD_EXCLUDE = new Set(['police-officer', 'flight-attendant', 'chef', '
   'real-estate-agent', 'teaching-assistant', 'school-administrator', 'medical-assistant',
   'physical-therapist', 'dentist', 'firefighter', 'pilot',
   'warehouse-associate', 'store-manager', 'licensed-practical-nurse', 'physician-assistant',
-  'radiologic-technologist', 'land-surveyor', 'behavior-technician']);
+  'radiologic-technologist', 'land-surveyor', 'behavior-technician',
+  'respiratory-therapist', 'optometrist', 'physical-therapist-assistant', 'sterile-processing-technician',
+  'behavior-analyst']);
 
 export async function salaryBands({ log }) {
   const occs = readJson(path.join(TAXONOMY_DIR, 'occupations.json')).occupations;
