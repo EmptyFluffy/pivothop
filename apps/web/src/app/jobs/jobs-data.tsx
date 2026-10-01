@@ -212,3 +212,12 @@ export function occMaps() {
   return _maps;
 }
 
+/** occMaps cut down to the occupations a page lists; the client fetches the
+    full set from /api/occ-maps (see the route for why). */
+export function occMapsFor(occs: Iterable<string>) {
+  const m = occMaps();
+  const fields: Record<string, string> = {}, titles: Record<string, string> = {}, search: Record<string, string> = {};
+  for (const o of occs) if (m.titles[o] != null) { fields[o] = m.fields[o]; titles[o] = m.titles[o]; search[o] = m.search[o]; }
+  return { fields, titles, search };
+}
+

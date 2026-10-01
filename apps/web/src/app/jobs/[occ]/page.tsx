@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
-import { getJobs, jobOccupations, jobCount, occTitle, occField, occSearchText, occMaps } from '../jobs-data';
+import { getJobs, jobOccupations, jobCount, occTitle, occField, occSearchText, occMapsFor } from '../jobs-data';
 import JobsBrowse from '../JobsBrowse';
 import { coverableSlugs } from '../../salary/salary-data';
 import { routableSlugs, routePair, destRole, originMeta, routeOrigins } from '../../routes/routes-data';
@@ -455,7 +455,8 @@ function categoryFaq(cat: Category, waysIn: ReturnType<typeof routesInto>): FaqI
 
 function CategoryBoard({ cat }: { cat: Category }) {
   const jobs = categoryJobs(cat);
-  const maps = occMaps();
+  const initial = jobs.slice(0, 300);
+  const maps = occMapsFor(initial.map((j) => j.occ));
   const showAll = categoryShowAll(cat);
   // The adjacency moat: occupation-scoped categories show the measured routes IN.
   const destTitle = cat.destOcc ? occTitle(cat.destOcc) : '';
@@ -496,11 +497,12 @@ function CategoryBoard({ cat }: { cat: Category }) {
           fields={maps.fields}
           titles={maps.titles}
           search={maps.search}
+          mapsUrl="/api/occ-maps"
           // The freshest 300 in the HTML, never the whole category: uncapped, a
           // country page holds 20-30k rows, and serialising them into every
           // category page took the build from 10 minutes to over an hour (Vercel
           // kills it at 45) and made 10MB pages. The rail quotes the true count.
-          initialJobs={jobs.slice(0, 300)}
+          initialJobs={initial}
           boardTotal={jobs.length}
           scope={{ title: cat.searchTitle, showAllHref: showAll, showAllLabel: `See all ${cat.count.toLocaleString()}` }}
         />

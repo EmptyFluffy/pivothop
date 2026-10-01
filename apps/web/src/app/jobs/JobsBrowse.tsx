@@ -36,10 +36,11 @@ const EMPTY: Filters = {
   benSet: new Set(), xp: '', edu: '', langNot: new Set(), langHas: new Set(), exQ: new Set(), exCo: new Set(),
 };
 
-export default function JobsBrowse({ fields, titles, search, featured, initialJobs, scope, v2, hero, boardTotal }: {
+export default function JobsBrowse({ fields: fields0, titles: titles0, search: search0, mapsUrl, featured, initialJobs, scope, v2, hero, boardTotal }: {
   fields: Record<string, string>;   // occ slug -> field
   titles: Record<string, string>;   // occ slug -> display title
   search: Record<string, string>;   // occ slug -> expansion text (title + field + taxonomy synonyms)
+  mapsUrl?: string;                 // category pages: the maps above hold only the listed occupations; the full set loads from here
   featured?: ReactNode;             // the featured ledger, shown while the board is unfiltered
   initialJobs?: Job[];              // scoped mode: this occupation's listings, rendered server-side
   boardTotal?: number;              // the true count of this view's universe, so a loaded slice never understates it
@@ -47,6 +48,8 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
   v2?: boolean;                     // full workspace layout (rail + lab chrome); /jobs only for now
   hero?: ReactNode;                 // meta line + H1, rendered inside the center column
 }) {
+  const [occMap, setOccMap] = useState({ fields: fields0, titles: titles0, search: search0 });
+  const { fields, titles, search } = occMap;
   const [all, setAll] = useState<Job[] | null>(initialJobs ?? null);
   const [q, setQ] = useState('');
   const [needle, setNeedle] = useState('');
@@ -179,6 +182,9 @@ export default function JobsBrowse({ fields, titles, search, featured, initialJo
       exCo: new Set((p.get('notco') ?? localStorage.getItem('ph-ex-co') ?? '').split(',').filter(Boolean)),
     });
     if (p.get('sort') === 'pay') setSort('pay');
+    if (mapsUrl) fetch(mapsUrl).then((r) => (r.ok ? r.json() : null))
+      .then((m: typeof occMap | null) => { if (m?.titles) setOccMap(m); })
+      .catch(() => {});
     // the license registry is small and powers the license filter
     fetch('/data/license-sheet.json').then((r) => r.json())
       .then((d: Record<string, unknown>) => setLicensed(new Set(Object.keys(d))))
