@@ -80,7 +80,7 @@ function buildMatcher() {
     const entry = { slugs: Object.entries(fam.slugs), unless: new Set(fam.unless ?? []) };
     for (const h of fam.heads) modifiers.set(h, entry);
   }
-  return { exact, phrases, occupations, modifiers };
+  return { exact, phrases, occupations, modifiers, slugs: new Set(occupations.map((o) => o.slug)) };
 }
 
 export function getTaxonomy() {
@@ -267,5 +267,19 @@ export function mapTitle(rawTitle) {
     // family by industry convention
     return { slug: 'solutions-architect', method: 'disambig' };
   }
+  // Reviewed classifications, the very last resort: the exact cleaned title, as a
+  // model placed it and a person audited it (title-classified.json, written by
+  // scripts/classify-titles.mjs). A lookup, never a model call; NEVER and the
+  // chef guard above still win, and a slug that left the taxonomy is ignored.
+  const cls = classified().get(primary);
+  if (cls && m.slugs.has(cls)) return guard({ slug: cls, method: 'classified' });
   return null;
+}
+
+let _classified = null;
+function classified() {
+  if (_classified) return _classified;
+  const map = readJson(path.join(TAXONOMY_DIR, 'title-classified.json'))?.map ?? {};
+  _classified = new Map(Object.entries(map).filter(([, v]) => typeof v === 'string'));
+  return _classified;
 }

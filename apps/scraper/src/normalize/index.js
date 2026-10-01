@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { forEachNdjson, openNdjsonWriter, writeNdjson, readJson, writeJson, supabaseUpsert } from '../lib/store.js';
-import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE, FIRST_SEEN_FILE, TAXONOMY_DIR } from '../lib/paths.js';
+import { RAW_FILE, POSTINGS_FILE, QUALITY_FILE, UNMAPPED_FILE, UNMAPPED_FULL_FILE, FIRST_SEEN_FILE, TAXONOMY_DIR } from '../lib/paths.js';
+import fs from 'node:fs';
 import path from 'node:path';
 import { mapTitle, cleanTitle } from './titles.js';
 
@@ -119,6 +120,7 @@ const RAW_RETENTION_DAYS = Number(process.env.RAW_RETENTION_DAYS) || 90;
 export async function normalize({ log }) {
   const ledger = readJson(FIRST_SEEN_FILE) ?? {};
   const unmapped = new Map();
+  const unmappedDirect = new Map();   // the same titles, counted on direct sources only
   const candidates = [];
   const retentionCutoff = new Date(Date.now() - RAW_RETENTION_DAYS * DAY).toISOString().slice(0, 10);
   const rawWriter = openNdjsonWriter(RAW_FILE);
@@ -156,6 +158,7 @@ export async function normalize({ log }) {
     }
     if (!mapped) {
       unmapped.set(r.title, (unmapped.get(r.title) ?? 0) + 1);
+      if (DIRECT_SOURCES.has(r.source)) unmappedDirect.set(r.title, (unmappedDirect.get(r.title) ?? 0) + 1);
       return;
     }
     // Location first (specific), source market second (authoritative default).
@@ -259,6 +262,12 @@ export async function normalize({ log }) {
     $comment: 'Distinct unmapped titles by frequency. Review, extend occupations.json synonyms, re-run normalize.',
     titles: [...unmapped.entries()].sort((a, b) => b[1] - a[1]).slice(0, 400).map(([title, count]) => ({ title, count })),
   });
+  // The whole list, not the top 400: the lexicon passes classify production
+  // titles from it (the nightly uploads it as an artifact; never committed).
+  // n = postings, d = postings on direct sources.
+  fs.writeFileSync(UNMAPPED_FULL_FILE, JSON.stringify([...unmapped.entries()].sort((a, b) => b[1] - a[1])
+    .map(([title, n]) => ({ title, n, d: unmappedDirect.get(title) ?? 0 }))));
+
 
   log(`normalize: ${rawTotal} raw → ${candidates.length} mapped (${quality.pct_titles_mapped}%) → ${out.length} after dedup (−${dupes}, of which −${blasted} geo-blast) · salary ${quality.pct_with_salary}% · ≥3 skills ${quality.pct_with_3plus_skills}% · ${unmapped.size} distinct unmapped titles`);
 

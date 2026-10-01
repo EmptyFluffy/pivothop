@@ -157,3 +157,14 @@ jobs:
           JOOBLE_API_KEY: ${{ secrets.JOOBLE_API_KEY }}
           JOOBLE_US_API_KEY: ${{ secrets.JOOBLE_US_API_KEY }}
         run: bash apps/scraper/scripts/ci-run.sh
+      # Every unmapped title with its posting counts (normalize writes it), kept a
+      # week: the lexicon passes classify production titles from it instead of
+      # the laptop sample. Not committed: it runs to megabytes of titles.
+      - name: Keep the unmapped titles
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unmapped-titles
+          path: apps/scraper/data/unmapped-full.json
+          retention-days: 7
+          if-no-files-found: ignore

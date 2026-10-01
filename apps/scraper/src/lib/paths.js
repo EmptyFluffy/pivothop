@@ -19,4 +19,5 @@ export const AGGREGATES_FILE = path.join(DATA_DIR, 'aggregates.json');
 export const ADJACENCY_FILE = path.join(DATA_DIR, 'adjacency.json');
 export const QUALITY_FILE = path.join(DATA_DIR, 'quality-latest.json');
 export const UNMAPPED_FILE = path.join(DATA_DIR, 'unmapped-titles.json');
+export const UNMAPPED_FULL_FILE = path.join(DATA_DIR, 'unmapped-full.json');
 export const FIRST_SEEN_FILE = path.join(DATA_DIR, 'first-seen.json');
