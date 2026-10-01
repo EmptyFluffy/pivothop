@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { PageShell } from '../components/SiteChrome';
 import { SITE_EMAIL } from '../../lib/site';
 import { Crumbs } from '../components/Crumbs';
+import { plansConfigured } from '../../lib/paywall';
+import { PLANS_PUBLIC } from '../../lib/plans';
 
 export const metadata: Metadata = {
   title: 'Terms | PivotHop',
@@ -10,12 +12,16 @@ export const metadata: Metadata = {
 };
 
 export default function TermsPage() {
+  // The plans section appears once Lemon Squeezy is configured (Lemon Squeezy
+  // reviews it before approving the store); the metered sentence only once the
+  // plans are public. Until then the page reads as it did before plans.
+  const plans = plansConfigured();
   return (
     <PageShell v2>
       <main className="ab-main">
         <Crumbs trail={[{ label: 'Terms' }]} />
         <h1 className="ab-h1">Terms of use.</h1>
-        <p>Effective October 1, 2026.</p>
+        <p>Effective {plans ? 'October 1, 2026' : 'August 22, 2026'}.</p>
 
         <section className="ab-sec">
           <h2>Using PivotHop</h2>
@@ -61,7 +67,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section className="ab-sec" id="plans">
+        {plans && <section className="ab-sec" id="plans">
           <h2>Direct plans, renewals and refunds</h2>
           <p>
             Direct plans open the postings PivotHop reads from employers&rsquo; own sites. They are sold by Lemon Squeezy, our reseller and merchant of record, which takes the payment, charges any sales tax and sends the receipt; its buyer terms apply to the purchase.
@@ -73,9 +79,9 @@ export default function TermsPage() {
             If a plan is not what you expected, write to {SITE_EMAIL} within 14 days of a payment and we refund that payment in full.
           </p>
           <p>
-            Without a plan, a signed-in account opens a limited number of Direct postings each month, as shown on the site. Plans are for your own job search: reselling, bulk copying or automated collection of Direct postings ends the plan without a refund.
+            {PLANS_PUBLIC && <>Without a plan, a signed-in account opens a limited number of Direct postings each month, as shown on the site. </>}Plans are for your own job search: reselling, bulk copying or automated collection of Direct postings ends the plan without a refund.
           </p>
-        </section>
+        </section>}
 
         <section className="ab-sec">
           <h2>Intellectual property and sources</h2>
