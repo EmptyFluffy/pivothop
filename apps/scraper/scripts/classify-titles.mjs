@@ -2,12 +2,14 @@
 //
 //   node scripts/classify-titles.mjs <titles.json> [--budget 5] [--batch 150] [--concurrency 4]
 //
-// <titles.json> is [{ k: cleanedTitle, n: postings, ex: one raw title }], most
-// frequent first. Results merge into packages/data/taxonomy/title-classified.json:
-// map[cleanedTitle] = slug, or null when the model said none or was unsure (kept,
-// so the title is never asked about twice). mapTitle() reads that file as its very
-// last tier, an exact lookup: no model ever runs inside the mapper, and every
-// entry is a line a person can read, audit and delete.
+// <titles.json> is [{ title, n: postings, d: direct postings }], the nightly's
+// unmapped-full.json artifact (or any list in that shape). Results merge into
+// packages/data/taxonomy/title-classified.json: map[rawTitleKey(title)] = slug, or
+// null when the model said none or was unsure (kept, so a title is asked once).
+// mapTitle() reads that file as its very last tier, an exact lookup on the RAW
+// title: never the cleaned one, which strips seniority and segments and would
+// leak a placement to every title sharing the stub (2026-10-02). No model ever
+// runs inside the mapper; every entry is a line a person can audit and delete.
 //
 // The bar is the rules' bar. A wrong confident answer is worse than a miss (the
 // dental-hygienist lesson), so the prompt makes "none" the default, keeps support
@@ -15,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { rawTitleKey } from '../src/normalize/titles.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const TAX = path.join(ROOT, 'packages', 'data', 'taxonomy');
@@ -51,13 +54,14 @@ Use high only when you are sure. No other text.`;
 const input = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const store = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : {};
 const map = store.map ?? {};
-const todo = input.filter((x) => x.k && x.k.length >= 3 && !(x.k in map));
+const todo = input.map((x) => ({ ...x, ex: x.title ?? x.ex, k: rawTitleKey(x.title ?? x.ex) }))
+  .filter((x) => x.k && x.k.length >= 3 && !(x.k in map));
 console.log(`classify: ${input.length} titles, ${todo.length} not yet classified; model ${MODEL}, budget $${BUDGET}, batch ${BATCH}`);
 
 let spent = 0, done = 0, slugs = 0, stopped = false;
 const save = () => {
   const out = {
-    $comment: 'Model-proposed occupations for titles every rule tier misses (scripts/classify-titles.mjs). mapTitle() reads it as its last tier, an exact lookup on the cleaned title. null = the model said none or was unsure; kept so a title is asked once. Audit before trusting; delete any wrong line.',
+    $comment: 'Model-proposed occupations for titles every rule tier misses (scripts/classify-titles.mjs). mapTitle() reads it as its last tier, an exact lookup on the raw title (rawTitleKey). null = the model said none or was unsure; kept so a title is asked once. Audit before trusting; delete any wrong line.',
     model: MODEL,
     updated: new Date().toISOString().slice(0, 10),
     map: Object.fromEntries(Object.entries(map).sort(([a], [b]) => a.localeCompare(b))),

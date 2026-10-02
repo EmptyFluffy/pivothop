@@ -267,13 +267,26 @@ export function mapTitle(rawTitle) {
     // family by industry convention
     return { slug: 'solutions-architect', method: 'disambig' };
   }
-  // Reviewed classifications, the very last resort: the exact cleaned title, as a
-  // model placed it and a person audited it (title-classified.json, written by
-  // scripts/classify-titles.mjs). A lookup, never a model call; NEVER and the
-  // chef guard above still win, and a slug that left the taxonomy is ignored.
-  const cls = classified().get(primary);
+  // Reviewed classifications, the very last resort: the exact title a model
+  // placed and a person audited (title-classified.json, written by
+  // scripts/classify-titles.mjs). Keyed on the RAW title (rawTitleKey), never the
+  // cleaned one: cleaning strips seniority and segments, so "Assistant Principal"
+  // and "Assistant - Transport" both clean to "assistant", and a placement judged
+  // on one leaked to every title sharing the stub (2026-10-02, 35% of the school
+  // board). A lookup, never a model call; NEVER and the guards above still win.
+  const cls = classified().get(rawTitleKey(rawTitle));
   if (cls && m.slugs.has(cls)) return guard({ slug: cls, method: 'classified' });
   return null;
+}
+
+/** The key for a reviewed classification: the raw title with only case, accents,
+    whitespace and gender markers normalized. Two titles share a key only when
+    they are the same title. */
+export function rawTitleKey(rawTitle) {
+  return foldAccents(String(rawTitle ?? '').toLowerCase())
+    .replace(/\(?\s*(m|w|f|h|d|x|gn|all genders|div\.?|divers)(\s*\/\s*(m|w|f|h|d|x|div\.?|divers))+\s*\)?/g, ' ')
+    .replace(/\(\s*all genders\s*\)/g, ' ')
+    .replace(/\s+/g, ' ').trim();
 }
 
 let _classified = null;

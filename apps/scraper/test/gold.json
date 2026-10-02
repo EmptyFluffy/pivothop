@@ -965,6 +965,26 @@
       "title": "Kitchen Sales Designer",
       "expect": null,
       "why": "kitchen designers are mostly commission sales; left unmapped on purpose"
+    },
+    {
+      "title": "Senior Assistant - Operations",
+      "expect": null,
+      "why": "control: a reviewed classification of 'Assistant Principal' must not leak to every title that cleans to 'assistant' (2026-10-02 canary)"
+    },
+    {
+      "title": "Assistant - Transport",
+      "expect": null,
+      "why": "same leak: classified placements are keyed on the raw title"
+    },
+    {
+      "title": "Senior Engineer",
+      "expect": null,
+      "why": "bare generic title: no occupation, whatever a classification says about some other engineer"
+    },
+    {
+      "title": "Analyst",
+      "expect": null,
+      "why": "bare generic title"
     }
   ],
   "skills": [
