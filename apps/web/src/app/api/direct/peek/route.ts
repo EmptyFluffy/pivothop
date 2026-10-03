@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'plan' }, { status: 402, headers: noStore });
   }
 
-  const shard = openShard(occ);
+  const shard = await openShard(occ);
   const out: Record<string, { company: string; logo?: string }> = {};
   if (shard) for (const id of ids) { const r = shard[id]; if (r) out[id] = { company: r.company, ...(r.logo ? { logo: r.logo } : {}) }; }
   return NextResponse.json(out, { headers: noStore });

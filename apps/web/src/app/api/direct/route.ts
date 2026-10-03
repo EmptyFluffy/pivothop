@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
   }
   if (!grant) return NextResponse.json({ error: 'sign-in' }, { status: 401, headers: noStore });
 
-  const row = openShard(occ)?.[id];
+  const row = (await openShard(occ))?.[id];
   if (!row) return NextResponse.json({ error: 'not-found' }, { status: 404, headers: noStore });
 
   let access: Access | null = null;

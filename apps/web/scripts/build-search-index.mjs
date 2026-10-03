@@ -99,3 +99,22 @@ try {
   fs.writeFileSync(path.join(DATA, 'logo-index.json'), JSON.stringify(logos));
   console.log(`logo-index: ${logos.length} logos`);
 } catch (err) { console.warn(`logo-index: skipped (${err.message})`); }
+
+// The sealed direct-jobs vault, published as static files at /data/vault/:
+// /api/direct and /api/direct/peek fetch one occupation's shard instead of
+// carrying ~370MB inside a function (2026-10-03: past Vercel's 250MB limit the
+// deploy failed twice in "Deploying outputs"). Ciphertext only, already public
+// in git; DIRECT_KEY stays in the env. Gitignored: rebuilt from private/direct.
+try {
+  const src = path.join(WEB, 'private', 'direct');
+  const dst = path.join(DATA, 'vault');
+  fs.rmSync(dst, { recursive: true, force: true });
+  fs.mkdirSync(dst, { recursive: true });
+  let n = 0, bytes = 0;
+  for (const f of fs.readdirSync(src)) {
+    if (!/^[a-z0-9-]+\.enc$/.test(f)) continue;
+    fs.copyFileSync(path.join(src, f), path.join(dst, f));
+    n++; bytes += fs.statSync(path.join(dst, f)).size;
+  }
+  console.log(`vault: ${n} sealed shards published (${(bytes / 1048576).toFixed(0)}MB)`);
+} catch (err) { console.warn(`vault: skipped (${err.message})`); }

@@ -45,7 +45,9 @@ const SEARCH_BOTS = ['Googlebot', 'Bingbot'];
 const GENERIC_DISALLOW = ['/admin', '/jobs/*/*', '/data/', '/j/'];
 const GENERIC_ALLOW = ['/', '/jobs/browse/'];
 const SEARCH_DISALLOW = ['/admin', '/data/', '/j/'];
-const AI_DISALLOW = ['/admin', '/j/'];
+// /data/vault/: the sealed direct-jobs shards (ciphertext, ~370MB): no use to anyone
+// without the key, and a crawl of it is pure bandwidth.
+const AI_DISALLOW = ['/admin', '/j/', '/data/vault/'];
 
 export default function robots(): MetadataRoute.Robots {
   return {

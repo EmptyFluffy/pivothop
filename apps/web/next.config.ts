@@ -41,9 +41,6 @@ const nextConfig: NextConfig = {
   // route.js.nft.json rather than trusting a green build.
   outputFileTracingIncludes: {
     '/api/roadmap': ['../../node_modules/@sparticuz/chromium/bin/**'],
-    // the sealed direct-jobs vault (private/direct/<occ>.enc): read only by
-    // /api/direct at request time, decrypted with DIRECT_KEY from the env
-    '/api/direct': ['./private/direct/**'],
   },
   // The route reads public/data/<dynamic>, so the tracer takes the whole
   // directory — 95MB after the Swiss unlock (2026-08-04), of which 65MB is
@@ -68,6 +65,11 @@ const nextConfig: NextConfig = {
     // Keys match with picomatch contains:true, so one '/**' key is the only
     // honest scope: a negated key cannot carve a route out.
     '/**': [
+      // the sealed direct-jobs vault: ~370MB and growing nightly. Bundled into
+      // /api/direct it broke Vercel's 250MB function limit (2026-10-03); the
+      // routes now fetch one shard from /data/vault/<occ>.enc instead.
+      './private/direct/**',
+      './public/data/vault/**',
       './public/data/jobs-detail/**',
       './public/data/logos/**',
       './public/data/all-jobs.json',
