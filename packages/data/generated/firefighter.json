@@ -1,0 +1,1423 @@
+{
+  "version": 2,
+  "origin": {
+    "slug": "firefighter",
+    "title": "Firefighter",
+    "field": "Public Safety",
+    "cluster": "Service",
+    "postings": 79,
+    "salary": "$65k–$80k",
+    "salary_band": [
+      63594,
+      81028
+    ],
+    "remote": "3%",
+    "separations": {
+      "transfer": 5.4,
+      "exit": 2,
+      "total": 7.4,
+      "openings": 27.1
+    }
+  },
+  "roles": [
+    {
+      "id": "emt",
+      "title": "EMT",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "EMT certification (NREMT or state) at the basic or advanced level"
+      },
+      "desc": "Responds to emergencies and gives basic life support on the way to hospital.",
+      "match": 78,
+      "fit": 78,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$30k–$60k",
+      "salary_band": [
+        32124,
+        60474
+      ],
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "6–12 mo + license",
+      "have": [
+        "Emergency Care",
+        "Patient Care",
+        "CPR / BLS",
+        "Clinical Skills"
+      ],
+      "learn": [
+        "Customer Service",
+        "HIPAA"
+      ],
+      "waterfall": [
+        {
+          "skill": "emergency-care",
+          "name": "Emergency Care",
+          "pts": 30.6,
+          "earned": 28.8
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 14.5,
+          "earned": 9.6
+        },
+        {
+          "skill": "cpr-bls",
+          "name": "CPR / BLS",
+          "pts": 13.5,
+          "earned": 13.5
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 9.8,
+          "earned": 5.6
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 7.8,
+          "earned": 0
+        },
+        {
+          "skill": "emergency-response",
+          "name": "Emergency Response",
+          "pts": 5.7,
+          "earned": 5.7
+        },
+        {
+          "skill": "vital-signs",
+          "name": "Vital Signs",
+          "pts": 5.7,
+          "earned": 3.9
+        },
+        {
+          "skill": "triage",
+          "name": "Triage",
+          "pts": 4.1,
+          "earned": 4.1
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 3.1,
+          "earned": 3.1
+        },
+        {
+          "skill": "shipping-receiving",
+          "name": "Shipping & Receiving",
+          "pts": 2.1,
+          "earned": 2.1
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 1.6,
+          "earned": 1.6
+        },
+        {
+          "skill": "hipaa",
+          "name": "HIPAA",
+          "pts": 1.6,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 86,
+        "salaried": 43
+      }
+    },
+    {
+      "id": "paramedic",
+      "title": "Paramedic",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "State paramedic license (NREMT); 1–2 yr accredited program",
+        "years": 2
+      },
+      "desc": "Delivers emergency medical care in the field and in transit, from ambulances to air rescue. Licensed, high-stakes, and shift-based. EMT is the tier below, not a synonym.",
+      "match": 72,
+      "fit": 72,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$55k–$75k",
+      "salary_band": [
+        54178,
+        76362
+      ],
+      "demand": "High",
+      "remote": "2%",
+      "time": "2+ yr incl. license",
+      "have": [
+        "Patient Care",
+        "Emergency Care",
+        "Clinical Skills",
+        "CPR / BLS"
+      ],
+      "learn": [
+        "Medication Administration",
+        "Customer Service",
+        "Phlebotomy",
+        "Operations"
+      ],
+      "waterfall": [
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 17.5,
+          "earned": 13.7
+        },
+        {
+          "skill": "emergency-care",
+          "name": "Emergency Care",
+          "pts": 16.9,
+          "earned": 16.9
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 14.6,
+          "earned": 8.1
+        },
+        {
+          "skill": "cpr-bls",
+          "name": "CPR / BLS",
+          "pts": 12.6,
+          "earned": 12.6
+        },
+        {
+          "skill": "emergency-response",
+          "name": "Emergency Response",
+          "pts": 7.3,
+          "earned": 7.3
+        },
+        {
+          "skill": "triage",
+          "name": "Triage",
+          "pts": 4.3,
+          "earned": 4.3
+        },
+        {
+          "skill": "vital-signs",
+          "name": "Vital Signs",
+          "pts": 3.5,
+          "earned": 3.5
+        },
+        {
+          "skill": "medication-administration",
+          "name": "Medication Administration",
+          "pts": 3.5,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 2,
+          "earned": 0
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 2,
+          "earned": 2
+        },
+        {
+          "skill": "phlebotomy",
+          "name": "Phlebotomy",
+          "pts": 1.8,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 1.8,
+          "earned": 1.8
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 1.6,
+          "earned": 0
+        },
+        {
+          "skill": "audio-mixing",
+          "name": "Audio Mixing",
+          "pts": 1.6,
+          "earned": 0
+        },
+        {
+          "skill": "rehabilitation",
+          "name": "Rehabilitation",
+          "pts": 1.6,
+          "earned": 0
+        },
+        {
+          "skill": "infection-control",
+          "name": "Infection Control",
+          "pts": 1.6,
+          "earned": 0
+        },
+        {
+          "skill": "case-management",
+          "name": "Case Management",
+          "pts": 1.4,
+          "earned": 0
+        },
+        {
+          "skill": "health-education",
+          "name": "Health Education",
+          "pts": 1.4,
+          "earned": 0
+        },
+        {
+          "skill": "hipaa",
+          "name": "HIPAA",
+          "pts": 1.4,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 1.4,
+          "earned": 1.4
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 314,
+        "salaried": 123
+      }
+    },
+    {
+      "id": "occupational-therapist",
+      "title": "Occupational Therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "Occupational therapy degree and state licence (NBCOT in the US)"
+      },
+      "desc": "Helps people do the everyday things an illness, injury or disability got in the way of.",
+      "match": 50,
+      "fit": 50,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$65k–$110k",
+      "salary_band": [
+        62794,
+        108138
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Clinical Skills",
+        "Patient Care",
+        "CPR / BLS",
+        "Scheduling"
+      ],
+      "learn": [
+        "Treatment Planning",
+        "Case Management",
+        "Rehabilitation",
+        "Mental Health"
+      ],
+      "waterfall": [
+        {
+          "skill": "treatment-planning",
+          "name": "Treatment Planning",
+          "pts": 13.7,
+          "earned": 0
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 12.8,
+          "earned": 9
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 12.2,
+          "earned": 12.2
+        },
+        {
+          "skill": "cpr-bls",
+          "name": "CPR / BLS",
+          "pts": 12,
+          "earned": 12
+        },
+        {
+          "skill": "case-management",
+          "name": "Case Management",
+          "pts": 9.7,
+          "earned": 0
+        },
+        {
+          "skill": "rehabilitation",
+          "name": "Rehabilitation",
+          "pts": 8.5,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 5,
+          "earned": 5
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "mental-health",
+          "name": "Mental Health",
+          "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "financial-modeling",
+          "name": "Financial Modeling",
+          "pts": 2.7,
+          "earned": 0
+        },
+        {
+          "skill": "risk-management",
+          "name": "Risk Management",
+          "pts": 2.2,
+          "earned": 2.2
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 2,
+          "earned": 0
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 2,
+          "earned": 2
+        },
+        {
+          "skill": "accessibility",
+          "name": "Accessibility",
+          "pts": 1.8,
+          "earned": 0
+        },
+        {
+          "skill": "hipaa",
+          "name": "HIPAA",
+          "pts": 1.7,
+          "earned": 0
+        },
+        {
+          "skill": "qa-testing",
+          "name": "QA / Testing",
+          "pts": 1.5,
+          "earned": 0
+        },
+        {
+          "skill": "infection-control",
+          "name": "Infection Control",
+          "pts": 1.5,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 428,
+        "salaried": 88
+      }
+    },
+    {
+      "id": "dental-hygienist",
+      "title": "Dental Hygienist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "State RDH license; accredited dental-hygiene associate degree (~3 yrs)",
+        "years": 3
+      },
+      "desc": "Cleans teeth, takes radiographs, and screens for oral disease alongside a dentist. A licensed clinical profession, one tier above dental assisting.",
+      "match": 50,
+      "fit": 50,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$70k–$100k",
+      "salary_band": [
+        71312,
+        100625
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "3+ yr incl. license",
+      "have": [
+        "Patient Care",
+        "Clinical Skills",
+        "Scheduling"
+      ],
+      "learn": [
+        "Periodontal Care",
+        "Radiography",
+        "Treatment Planning",
+        "Health Education"
+      ],
+      "waterfall": [
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 42.2,
+          "earned": 36.7
+        },
+        {
+          "skill": "periodontal-care",
+          "name": "Periodontal Care",
+          "pts": 13.6,
+          "earned": 0
+        },
+        {
+          "skill": "radiography",
+          "name": "Radiography",
+          "pts": 12.9,
+          "earned": 0
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 9.1,
+          "earned": 9.1
+        },
+        {
+          "skill": "treatment-planning",
+          "name": "Treatment Planning",
+          "pts": 8,
+          "earned": 0
+        },
+        {
+          "skill": "health-education",
+          "name": "Health Education",
+          "pts": 7,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.8,
+          "earned": 3.8
+        },
+        {
+          "skill": "infection-control",
+          "name": "Infection Control",
+          "pts": 3.5,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 489,
+        "salaried": 150
+      }
+    },
+    {
+      "id": "dental-assistant",
+      "title": "Dental Assistant",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Works chairside with the dentist: instruments, suction, x-rays, sterilisation, the patient.",
+      "match": 49,
+      "fit": 49,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$40k–$50k",
+      "salary_band": [
+        38635,
+        50750
+      ],
+      "demand": "High",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Patient Care",
+        "Scheduling",
+        "EHR / EMR"
+      ],
+      "learn": [
+        "Infection Control",
+        "Radiography",
+        "Mental Health",
+        "Periodontal Care"
+      ],
+      "waterfall": [
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 37.2,
+          "earned": 37.2
+        },
+        {
+          "skill": "infection-control",
+          "name": "Infection Control",
+          "pts": 13.2,
+          "earned": 0
+        },
+        {
+          "skill": "radiography",
+          "name": "Radiography",
+          "pts": 13.2,
+          "earned": 0
+        },
+        {
+          "skill": "mental-health",
+          "name": "Mental Health",
+          "pts": 12.9,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 6.2,
+          "earned": 6.2
+        },
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 5.5,
+          "earned": 5.5
+        },
+        {
+          "skill": "periodontal-care",
+          "name": "Periodontal Care",
+          "pts": 4.2,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 806,
+        "salaried": 231
+      }
+    },
+    {
+      "id": "registered-nurse",
+      "title": "Registered Nurse",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "State RN license (NCLEX) required",
+        "years": 2
+      },
+      "desc": "",
+      "match": 48,
+      "fit": 48,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$65k–$120k",
+      "salary_band": [
+        66788,
+        119464
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "2+ yr incl. license",
+      "have": [
+        "Patient Care",
+        "Clinical Skills",
+        "CPR / BLS",
+        "Training & Facilitation"
+      ],
+      "learn": [
+        "Brewing",
+        "Case Management",
+        "Rehabilitation",
+        "Treatment Planning"
+      ],
+      "waterfall": [
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 38.9,
+          "earned": 0
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 12.3,
+          "earned": 12.3
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 9.6,
+          "earned": 9.6
+        },
+        {
+          "skill": "cpr-bls",
+          "name": "CPR / BLS",
+          "pts": 7.8,
+          "earned": 7.8
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 6.8,
+          "earned": 6.8
+        },
+        {
+          "skill": "case-management",
+          "name": "Case Management",
+          "pts": 5.6,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 4.4,
+          "earned": 4.4
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 4.3,
+          "earned": 4.3
+        },
+        {
+          "skill": "rehabilitation",
+          "name": "Rehabilitation",
+          "pts": 4.1,
+          "earned": 0
+        },
+        {
+          "skill": "treatment-planning",
+          "name": "Treatment Planning",
+          "pts": 3.2,
+          "earned": 0
+        },
+        {
+          "skill": "emergency-care",
+          "name": "Emergency Care",
+          "pts": 3,
+          "earned": 3
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 24509,
+        "salaried": 1744
+      }
+    },
+    {
+      "id": "medical-scribe",
+      "title": "Medical Scribe",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Documents a clinician's visits in real time so the clinician can focus on the patient. A common on-ramp into healthcare and medical school.",
+      "match": 47,
+      "fit": 47,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$40k–$50k",
+      "salary_band": [
+        41080,
+        48880
+      ],
+      "demand": "Moderate",
+      "remote": "2%",
+      "time": "12–24 mo",
+      "have": [
+        "EHR / EMR",
+        "Patient Care",
+        "Clinical Skills",
+        "Scheduling"
+      ],
+      "learn": [
+        "HIPAA",
+        "Treatment Planning",
+        "Medical Terminology",
+        "Translation"
+      ],
+      "waterfall": [
+        {
+          "skill": "ehr",
+          "name": "EHR / EMR",
+          "pts": 33.6,
+          "earned": 14.1
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 20.6,
+          "earned": 20.6
+        },
+        {
+          "skill": "hipaa",
+          "name": "HIPAA",
+          "pts": 9.4,
+          "earned": 0
+        },
+        {
+          "skill": "treatment-planning",
+          "name": "Treatment Planning",
+          "pts": 8.4,
+          "earned": 0
+        },
+        {
+          "skill": "medical-terminology",
+          "name": "Medical Terminology",
+          "pts": 6.5,
+          "earned": 0
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 5.6,
+          "earned": 5.6
+        },
+        {
+          "skill": "translation",
+          "name": "Translation",
+          "pts": 3.7,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.7,
+          "earned": 3.7
+        },
+        {
+          "skill": "clinical-documentation",
+          "name": "Clinical Documentation",
+          "pts": 2.8,
+          "earned": 0
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 2.8,
+          "earned": 2.8
+        },
+        {
+          "skill": "rehabilitation",
+          "name": "Rehabilitation",
+          "pts": 2.8,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 132,
+        "salaried": 49
+      }
+    },
+    {
+      "id": "perfusionist",
+      "title": "Perfusionist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Runs the heart-lung machine that keeps a patient alive during cardiac surgery. A small field with high stakes and specialized training.",
+      "match": 47,
+      "fit": 47,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$105k–$255k",
+      "salary_band": [
+        105971,
+        256019
+      ],
+      "demand": "Moderate",
+      "remote": "0%",
+      "time": "12–24 mo",
+      "have": [
+        "Patient Care",
+        "Scheduling",
+        "Clinical Skills",
+        "CPR / BLS"
+      ],
+      "learn": [
+        "Perfusion"
+      ],
+      "waterfall": [
+        {
+          "skill": "perfusion",
+          "name": "Perfusion",
+          "pts": 53.3,
+          "earned": 0
+        },
+        {
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 16,
+          "earned": 16
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 10,
+          "earned": 9.9
+        },
+        {
+          "skill": "clinical",
+          "name": "Clinical Skills",
+          "pts": 9.3,
+          "earned": 9.3
+        },
+        {
+          "skill": "cpr-bls",
+          "name": "CPR / BLS",
+          "pts": 8,
+          "earned": 8
+        },
+        {
+          "skill": "teaching",
+          "name": "Teaching",
+          "pts": 3.3,
+          "earned": 3.3
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 195,
+        "salaried": 71
+      }
+    }
+  ],
+  "next": {
+    "emt": [
+      {
+        "t": "Optometrist",
+        "m": 46,
+        "slug": "optometrist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Operations",
+          "Treatment Planning"
+        ],
+        "observed": null,
+        "fit": 46,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "emt",
+          "readiness_after": 65,
+          "gain": 19
+        }
+      },
+      {
+        "t": "Medical Assistant",
+        "m": 42,
+        "slug": "medical-assistant",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Brewing",
+          "Customer Service",
+          "Infection Control",
+          "Case Management"
+        ],
+        "observed": null,
+        "fit": 42,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "emt",
+          "readiness_after": 57,
+          "gain": 15
+        }
+      }
+    ],
+    "paramedic": [
+      {
+        "t": "Pharmacist",
+        "m": 42,
+        "slug": "pharmacist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Medication Administration",
+          "Case Management",
+          "Customer Service",
+          "QA / Testing"
+        ],
+        "observed": null,
+        "fit": 42,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "paramedic",
+          "readiness_after": 58,
+          "gain": 16
+        }
+      },
+      {
+        "t": "Radiologic Technologist",
+        "m": 40,
+        "slug": "radiologic-technologist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Radiography",
+          "Quality Control",
+          "Infection Control",
+          "Medical Terminology"
+        ],
+        "observed": null,
+        "fit": 40,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "paramedic",
+          "readiness_after": 49,
+          "gain": 9
+        }
+      }
+    ],
+    "occupational-therapist": [
+      {
+        "t": "Physician Assistant",
+        "m": 46,
+        "slug": "physician-assistant",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Treatment Planning",
+          "Case Management",
+          "Telehealth",
+          "Clinical Research"
+        ],
+        "observed": null,
+        "fit": 46,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "occupational-therapist",
+          "readiness_after": 63,
+          "gain": 17
+        }
+      },
+      {
+        "t": "Nurse Practitioner",
+        "m": 44,
+        "slug": "nurse-practitioner",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Treatment Planning",
+          "Telehealth",
+          "Mental Health",
+          "Brewing"
+        ],
+        "observed": null,
+        "fit": 44,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "occupational-therapist",
+          "readiness_after": 69,
+          "gain": 25
+        }
+      }
+    ],
+    "dental-hygienist": [
+      {
+        "t": "Dentist",
+        "m": 43,
+        "slug": "dentist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Treatment Planning",
+          "Case Management",
+          "Radiography",
+          "Branding"
+        ],
+        "observed": null,
+        "fit": 43,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "dental-hygienist",
+          "readiness_after": 60,
+          "gain": 17
+        }
+      },
+      {
+        "t": "Dietitian",
+        "m": 37,
+        "slug": "dietitian",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Case Management",
+          "Treatment Planning",
+          "Health Education",
+          "Mental Health"
+        ],
+        "observed": null,
+        "fit": 37,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "dental-hygienist",
+          "readiness_after": 47,
+          "gain": 10
+        }
+      }
+    ],
+    "dental-assistant": [],
+    "registered-nurse": [
+      {
+        "t": "Physical Therapist",
+        "m": 43,
+        "slug": "physical-therapist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Rehabilitation",
+          "Treatment Planning",
+          "Brewing",
+          "Case Management"
+        ],
+        "observed": null,
+        "fit": 43,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "registered-nurse",
+          "readiness_after": 58,
+          "gain": 15
+        }
+      },
+      {
+        "t": "Physician",
+        "m": 39,
+        "slug": "physician",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Brewing",
+          "Case Management",
+          "Telehealth",
+          "Treatment Planning"
+        ],
+        "observed": null,
+        "fit": 39,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "registered-nurse",
+          "readiness_after": 86,
+          "gain": 47
+        }
+      }
+    ],
+    "medical-scribe": [
+      {
+        "t": "Health Informatics Specialist",
+        "m": 40,
+        "slug": "health-informatics-specialist",
+        "field": "Healthcare",
+        "cluster": "Healthcare",
+        "kind": "pivot",
+        "gap": [
+          "Data Analysis",
+          "Change Management",
+          "Health Education",
+          "Data Visualization"
+        ],
+        "observed": null,
+        "fit": 40,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "medical-scribe",
+          "readiness_after": 56,
+          "gain": 16
+        }
+      }
+    ],
+    "perfusionist": []
+  },
+  "direct": [
+    {
+      "t": "Respiratory Therapist",
+      "m": 43,
+      "slug": "respiratory-therapist",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Treatment Planning",
+        "Rehabilitation",
+        "Accessibility",
+        "HIPAA"
+      ],
+      "observed": null,
+      "fit": 43,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Biomedical Engineer",
+      "m": 40,
+      "slug": "biomedical-engineer",
+      "field": "Engineering",
+      "cluster": "Engineering & Manufacturing",
+      "kind": "pivot",
+      "gap": [
+        "QA / Testing",
+        "Project Management",
+        "Prototyping",
+        "Data Analysis"
+      ],
+      "observed": null,
+      "fit": 40,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Security Guard",
+      "m": 37,
+      "slug": "security-guard",
+      "field": "Public Safety",
+      "cluster": "Service",
+      "kind": "lateral",
+      "gap": [
+        "Law Enforcement",
+        "Brewing",
+        "Customer Service",
+        "Business Development"
+      ],
+      "observed": null,
+      "fit": 37,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Licensed Practical Nurse",
+      "m": 33,
+      "slug": "licensed-practical-nurse",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Customer Service",
+        "Treatment Planning",
+        "Medication Administration",
+        "Rehabilitation"
+      ],
+      "observed": null,
+      "fit": 33,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    },
+    {
+      "t": "Physical Therapist Assistant",
+      "m": 32,
+      "slug": "physical-therapist-assistant",
+      "field": "Healthcare",
+      "cluster": "Healthcare",
+      "kind": "pivot",
+      "gap": [
+        "Rehabilitation",
+        "Treatment Planning",
+        "Clinical Documentation",
+        "Case Management"
+      ],
+      "observed": null,
+      "fit": 32,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "reach": "direct"
+    }
+  ],
+  "cross": [
+    [
+      "emt",
+      "paramedic",
+      0.83
+    ],
+    [
+      "dental-hygienist",
+      "dental-assistant",
+      0.63
+    ],
+    [
+      "paramedic",
+      "dental-hygienist",
+      0.62
+    ],
+    [
+      "occupational-therapist",
+      "dental-assistant",
+      0.59
+    ],
+    [
+      "occupational-therapist",
+      "registered-nurse",
+      0.58
+    ],
+    [
+      "emt",
+      "dental-hygienist",
+      0.55
+    ]
+  ],
+  "bridges": [
+    [
+      "occupational-therapist",
+      "dental-hygienist_0",
+      0.79
+    ],
+    [
+      "occupational-therapist",
+      "registered-nurse_0",
+      0.76
+    ],
+    [
+      "occupational-therapist",
+      "dental-hygienist_1",
+      0.72
+    ],
+    [
+      "paramedic",
+      "emt_0",
+      0.63
+    ]
+  ],
+  "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
+}

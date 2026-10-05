@@ -5,11 +5,11 @@
     "title": "Truck Driver",
     "field": "Transport",
     "cluster": "Transport",
-    "postings": 1952,
-    "salary": "$35k–$75k",
+    "postings": 2580,
+    "salary": "$35k–$70k",
     "salary_band": [
-      35797,
-      74880
+      36985,
+      68114
     ],
     "remote": "1%",
     "separations": {
@@ -28,8 +28,8 @@
       "kind": "pivot",
       "license": null,
       "desc": "Installs, services and repairs equipment where it is: customer sites, homes, plants, roads.",
-      "match": 48,
-      "fit": 48,
+      "match": 55,
+      "fit": 55,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
@@ -37,59 +37,71 @@
       "mobility_tier": null,
       "salary": "$50k–$80k",
       "salary_band": [
-        49570,
-        79500
+        49845,
+        80870
       ],
       "demand": "High",
       "remote": "5%",
       "time": "12–24 mo",
       "have": [
         "Brewing",
+        "Maintenance",
         "Customer Service",
-        "Training & Facilitation",
         "Sustainability"
       ],
       "learn": [
-        "Maintenance",
         "Electrical Systems",
+        "Welding / Fabrication",
         "Quality Control",
-        "Welding / Fabrication"
+        "OSHA & Site Safety"
       ],
       "waterfall": [
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 23.5,
-          "earned": 23.5
+          "pts": 23.4,
+          "earned": 22.1
         },
         {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 12.5,
-          "earned": 0
+          "pts": 13.3,
+          "earned": 3.5
         },
         {
           "skill": "customer-service",
           "name": "Customer Service",
-          "pts": 9.4,
-          "earned": 9.4
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 6.3,
-          "earned": 6.3
+          "pts": 9.9,
+          "earned": 9.9
         },
         {
           "skill": "sustainability",
           "name": "Sustainability",
-          "pts": 6.3,
-          "earned": 5.5
+          "pts": 6.7,
+          "earned": 6.2
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 6.5,
+          "earned": 6.5
         },
         {
           "skill": "electrical-systems",
           "name": "Electrical Systems",
-          "pts": 5.5,
+          "pts": 5.6,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 5.2,
+          "earned": 3.7
+        },
+        {
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 5,
           "earned": 0
         },
         {
@@ -99,40 +111,22 @@
           "earned": 0
         },
         {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 4.8,
-          "earned": 3.8
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 4.4,
-          "earned": 0
-        },
-        {
           "skill": "osha-safety",
           "name": "OSHA & Site Safety",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 3.9,
+          "pts": 4.6,
           "earned": 0
         },
         {
           "skill": "project-management",
           "name": "Project Management",
-          "pts": 3.7,
+          "pts": 4,
           "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 4,
+          "earned": 3.4
         },
         {
           "skill": "plc",
@@ -141,38 +135,38 @@
           "earned": 0
         },
         {
-          "skill": "construction-administration",
-          "name": "Construction Administration",
-          "pts": 3.3,
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 3.5,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 2647,
-        "salaried": 402
+        "postings": 2914,
+        "salaried": 420
       }
     },
     {
-      "id": "manufacturing-technician",
-      "title": "Manufacturing Technician",
-      "field": "Trades",
-      "cluster": "Trades",
+      "id": "warehouse-associate",
+      "title": "Warehouse Associate",
+      "field": "Transport",
+      "cluster": "Service",
       "kind": "pivot",
       "license": null,
-      "desc": "Builds the product on the floor: assembly, machines, process steps, the paperwork that proves it.",
-      "match": 24,
-      "fit": 33,
+      "desc": "Picks, packs, loads and moves stock in warehouses and distribution centers, often on a forklift. The floor role; the warehouse manager runs the building.",
+      "match": 34,
+      "fit": 55,
       "capability": null,
-      "mobility": 53,
+      "mobility": 100,
       "mobility_source": "observed-flow-ctot",
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$40k–$60k",
+      "salary": "$35k–$55k",
       "salary_band": [
-        41812,
-        59817
+        35342,
+        54877
       ],
       "demand": "High",
       "remote": "1%",
@@ -180,434 +174,82 @@
       "have": [
         "Brewing",
         "Rigging & Material Handling",
-        "Safety / OSHA",
-        "Supply Chain"
+        "Supply Chain",
+        "Excel"
       ],
       "learn": [
+        "SAP",
+        "Inventory Management",
         "Lean / Six Sigma",
-        "Quality Control",
-        "Maintenance",
-        "Hand & Power Tools"
+        "Shipping & Receiving"
       ],
       "waterfall": [
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 12.3,
-          "earned": 12.3
-        },
-        {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 11.7,
-          "earned": 0
-        },
-        {
-          "skill": "quality-control",
-          "name": "Quality Control",
-          "pts": 7.2,
-          "earned": 0
-        },
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 6.9,
-          "earned": 0
-        },
-        {
-          "skill": "hand-power-tools",
-          "name": "Hand & Power Tools",
-          "pts": 6,
-          "earned": 0
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 5.4,
-          "earned": 0
+          "pts": 21.8,
+          "earned": 17.4
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 5.3,
-          "earned": 0
-        },
-        {
-          "skill": "blueprint-reading",
-          "name": "Blueprint Reading",
-          "pts": 5,
+          "pts": 20.2,
           "earned": 0
         },
         {
           "skill": "rigging-materials",
           "name": "Rigging & Material Handling",
-          "pts": 4.5,
-          "earned": 2.3
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 4.5,
-          "earned": 0
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 4.4,
-          "earned": 2
-        },
-        {
-          "skill": "gmp",
-          "name": "GMP & Validation",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 3.8,
-          "earned": 0
+          "pts": 17.4,
+          "earned": 3.3
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
-          "pts": 3.8,
-          "earned": 2.7
+          "pts": 16.1,
+          "earned": 4.6
         },
         {
-          "skill": "recruiting",
-          "name": "Recruiting",
-          "pts": 3.6,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 2.4,
-          "earned": 2.4
-        },
-        {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 2.2,
-          "earned": 0
-        },
-        {
-          "skill": "sustainability",
-          "name": "Sustainability",
-          "pts": 2,
-          "earned": 2
-        },
-        {
-          "skill": "prototyping",
-          "name": "Prototyping",
-          "pts": 1.8,
-          "earned": 0
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1893,
-        "salaried": 171
-      }
-    },
-    {
-      "id": "housekeeper",
-      "title": "Housekeeper",
-      "field": "Hospitality",
-      "cluster": "Hospitality",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Keeps rooms, wards, offices and buildings clean and ready, to a standard and a clock.",
-      "match": 27,
-      "fit": 31,
-      "capability": null,
-      "mobility": 40,
-      "mobility_source": "observed-flow-ctot",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$35k–$60k",
-      "salary_band": [
-        35786,
-        58180
-      ],
-      "demand": "High",
-      "remote": "3%",
-      "time": "12–24 mo",
-      "have": [
-        "Brewing",
-        "Customer Service",
-        "Supply Chain",
-        "Safety / OSHA"
-      ],
-      "learn": [
-        "Housekeeping",
-        "Guest Relations",
-        "Facilities Operations",
-        "Maintenance"
-      ],
-      "waterfall": [
-        {
-          "skill": "housekeeping",
-          "name": "Housekeeping",
-          "pts": 38.7,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 8.7,
-          "earned": 8.7
-        },
-        {
-          "skill": "guest-relations",
-          "name": "Guest Relations",
-          "pts": 7.9,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 7.7,
-          "earned": 7.7
-        },
-        {
-          "skill": "facilities-operations",
-          "name": "Facilities Operations",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "preventive-maintenance",
-          "name": "Maintenance",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "food-service",
-          "name": "Food Service",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 3.6,
-          "earned": 0
-        },
-        {
-          "skill": "front-office",
-          "name": "Front Office",
-          "pts": 3.4,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 2.7,
-          "earned": 2.7
-        },
-        {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 2.6,
-          "earned": 2.6
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 2.6,
-          "earned": 2.6
-        },
-        {
-          "skill": "food-beverage",
-          "name": "Food & Beverage",
-          "pts": 2.5,
-          "earned": 2.5
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 1360,
-        "salaried": 140
-      }
-    },
-    {
-      "id": "customer-support",
-      "title": "Customer Support Specialist",
-      "field": "Business",
-      "cluster": "Business",
-      "kind": "pivot",
-      "license": null,
-      "desc": "",
-      "match": 17,
-      "fit": 29,
-      "capability": null,
-      "mobility": 55,
-      "mobility_source": "observed-flow-ctot",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$35k–$75k",
-      "salary_band": [
-        37057,
-        73000
-      ],
-      "demand": "High",
-      "remote": "18%",
-      "time": "12–24 mo",
-      "have": [
-        "Customer Service",
-        "Supply Chain",
-        "Account Management",
-        "Training & Facilitation"
-      ],
-      "learn": [
-        "CRM",
-        "Excel",
-        "Lean / Six Sigma",
-        "SAP"
-      ],
-      "waterfall": [
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 43.2,
-          "earned": 6.1
-        },
-        {
-          "skill": "crm",
-          "name": "CRM",
-          "pts": 5.2,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 4.9,
+          "skill": "inventory-management",
+          "name": "Inventory Management",
+          "pts": 6,
           "earned": 0
         },
         {
           "skill": "lean-six-sigma",
           "name": "Lean / Six Sigma",
+          "pts": 4.6,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
           "pts": 4.4,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 4.3,
-          "earned": 2
-        },
-        {
-          "skill": "sap",
-          "name": "SAP",
-          "pts": 4.2,
-          "earned": 0
-        },
-        {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 3.4,
-          "earned": 1.9
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 3.4,
           "earned": 2.7
         },
         {
-          "skill": "translation",
-          "name": "Translation",
-          "pts": 3.4,
-          "earned": 0
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 4,
+          "earned": 3
         },
         {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 3.1,
-          "earned": 3.1
-        },
-        {
-          "skill": "saas",
-          "name": "SaaS",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
+          "skill": "shipping-receiving",
+          "name": "Shipping & Receiving",
           "pts": 2.9,
           "earned": 0
         },
         {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 2.8,
-          "earned": 0
-        },
-        {
-          "skill": "salesforce",
-          "name": "Salesforce",
+          "skill": "customer-service",
+          "name": "Customer Service",
           "pts": 2.7,
-          "earned": 0
-        },
-        {
-          "skill": "data-analysis",
-          "name": "Data Analysis",
-          "pts": 2.6,
-          "earned": 0
-        },
-        {
-          "skill": "b2b",
-          "name": "B2B",
-          "pts": 1.8,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 1.7,
-          "earned": 0
-        },
-        {
-          "skill": "technical-writing",
-          "name": "Technical Writing",
-          "pts": 1.6,
-          "earned": 0
-        },
-        {
-          "skill": "hr-operations",
-          "name": "HR Operations",
-          "pts": 1.4,
-          "earned": 1.4
+          "earned": 2.7
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 5535,
-        "salaried": 753
+        "postings": 2936,
+        "salaried": 126
       }
     },
     {
@@ -618,263 +260,106 @@
       "kind": "pivot",
       "license": null,
       "desc": "Keeps an office or a team organised: calendars, documents, orders, the phone, the follow-ups.",
-      "match": 27,
-      "fit": 27,
+      "match": 30,
+      "fit": 30,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$35k–$95k",
+      "salary": "$40k–$70k",
       "salary_band": [
-        37163,
-        96464
+        38374,
+        70983
       ],
       "demand": "High",
-      "remote": "11%",
+      "remote": "9%",
       "time": "12–24 mo",
       "have": [
         "Brewing",
-        "Supply Chain",
-        "Customer Service"
+        "Excel",
+        "Customer Service",
+        "Supply Chain"
       ],
       "learn": [
         "SAP",
-        "Excel",
         "Scheduling",
-        "Presentation"
+        "Presentation",
+        "Procurement"
       ],
       "waterfall": [
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 29.1,
-          "earned": 19.1
+          "pts": 24.7,
+          "earned": 17.2
         },
         {
           "skill": "sap",
           "name": "SAP",
-          "pts": 27.5,
+          "pts": 23.5,
           "earned": 0
         },
         {
           "skill": "excel",
           "name": "Excel",
-          "pts": 15.1,
+          "pts": 16.3,
+          "earned": 2.7
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 6,
+          "earned": 0
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.6,
+          "earned": 5.6
+        },
+        {
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 5.1,
           "earned": 0
         },
         {
           "skill": "supply-chain",
           "name": "Supply Chain",
           "pts": 4.9,
-          "earned": 4
+          "earned": 4.6
         },
         {
-          "skill": "scheduling",
-          "name": "Scheduling",
-          "pts": 4.4,
-          "earned": 0
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 4,
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 4.3,
           "earned": 0
         },
         {
           "skill": "crm",
           "name": "CRM",
-          "pts": 3.9,
+          "pts": 3.5,
           "earned": 0
         },
         {
-          "skill": "procurement",
-          "name": "Procurement",
-          "pts": 3.8,
+          "skill": "accounting",
+          "name": "Accounting",
+          "pts": 3.1,
           "earned": 0
         },
         {
           "skill": "quickbooks",
           "name": "QuickBooks",
-          "pts": 3.8,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 3.6,
-          "earned": 3.6
-        }
-      ],
-      "low_confidence": false,
-      "observed": null,
-      "provenance": {
-        "postings": 4048,
-        "salaried": 447
-      }
-    },
-    {
-      "id": "security-guard",
-      "title": "Security Guard",
-      "field": "Public Safety",
-      "cluster": "Service",
-      "kind": "pivot",
-      "license": null,
-      "desc": "Protects people, premises and goods on site: patrols, access control, screening, response.",
-      "match": 23,
-      "fit": 27,
-      "capability": null,
-      "mobility": 36,
-      "mobility_source": "observed-flow-ctot",
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "salary": "$50k–$115k",
-      "salary_band": [
-        52101,
-        114360
-      ],
-      "demand": "High",
-      "remote": "4%",
-      "time": "12–24 mo",
-      "have": [
-        "Brewing",
-        "Customer Service",
-        "Training & Facilitation",
-        "Supply Chain"
-      ],
-      "learn": [
-        "Law Enforcement",
-        "CPR / BLS",
-        "Emergency Response",
-        "Criminal Investigation"
-      ],
-      "waterfall": [
-        {
-          "skill": "law-enforcement",
-          "name": "Law Enforcement",
-          "pts": 14.9,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 11.6,
-          "earned": 11.6
-        },
-        {
-          "skill": "cpr-bls",
-          "name": "CPR / BLS",
-          "pts": 9,
-          "earned": 0
-        },
-        {
-          "skill": "emergency-response",
-          "name": "Emergency Response",
-          "pts": 7.3,
-          "earned": 0
-        },
-        {
-          "skill": "criminal-investigation",
-          "name": "Criminal Investigation",
-          "pts": 5.9,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 5.4,
-          "earned": 5.4
-        },
-        {
-          "skill": "clinical",
-          "name": "Clinical Skills",
-          "pts": 5.1,
-          "earned": 0
-        },
-        {
-          "skill": "cybersecurity",
-          "name": "Cybersecurity",
-          "pts": 4.3,
-          "earned": 0
-        },
-        {
-          "skill": "training",
-          "name": "Training & Facilitation",
-          "pts": 4,
-          "earned": 3.5
-        },
-        {
-          "skill": "firearms",
-          "name": "Firearms Proficiency",
-          "pts": 3.9,
-          "earned": 0
-        },
-        {
-          "skill": "business-development",
-          "name": "Business Development",
-          "pts": 3.5,
-          "earned": 0
-        },
-        {
-          "skill": "accessibility",
-          "name": "Accessibility",
-          "pts": 3.2,
-          "earned": 0
-        },
-        {
-          "skill": "operations",
-          "name": "Operations",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "scheduling",
-          "name": "Scheduling",
           "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "supply-chain",
-          "name": "Supply Chain",
-          "pts": 2.9,
-          "earned": 2.6
-        },
-        {
-          "skill": "hipaa",
-          "name": "HIPAA",
-          "pts": 2.9,
-          "earned": 0
-        },
-        {
-          "skill": "risk-management",
-          "name": "Risk Management",
-          "pts": 2.6,
-          "earned": 0
-        },
-        {
-          "skill": "radiography",
-          "name": "Radiography",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "excel",
-          "name": "Excel",
-          "pts": 2.5,
-          "earned": 0
-        },
-        {
-          "skill": "guest-relations",
-          "name": "Guest Relations",
-          "pts": 2.5,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 607,
-        "salaried": 86
+        "postings": 5122,
+        "salaried": 876
       }
     },
     {
@@ -888,17 +373,17 @@
         "label": "Veterinary degree (DVM or equivalent) and a state or cantonal licence to practise"
       },
       "desc": "Diagnoses and treats animals, from companion pets to herds, and advises the people who keep them.",
-      "match": 25,
-      "fit": 25,
+      "match": 27,
+      "fit": 27,
       "capability": null,
       "mobility": null,
       "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$15k–$150k",
+      "salary": "$15k–$155k",
       "salary_band": [
-        13532,
-        147500
+        14675,
+        154625
       ],
       "demand": "Moderate",
       "remote": "7%",
@@ -910,285 +395,621 @@
       ],
       "learn": [
         "Recruiting",
-        "Presentation",
         "Telehealth",
-        "Patient Care"
+        "Presentation",
+        "Scheduling"
       ],
       "waterfall": [
         {
           "skill": "recruiting",
           "name": "Recruiting",
-          "pts": 22.6,
+          "pts": 22.8,
           "earned": 0
         },
         {
           "skill": "brewing",
           "name": "Brewing",
-          "pts": 15.7,
-          "earned": 15.7
+          "pts": 17.1,
+          "earned": 17.1
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 7.8,
-          "earned": 6.1
-        },
-        {
-          "skill": "presentation",
-          "name": "Presentation",
-          "pts": 6.9,
-          "earned": 0
+          "pts": 8.6,
+          "earned": 5.7
         },
         {
           "skill": "telehealth",
           "name": "Telehealth",
-          "pts": 6.9,
+          "pts": 7.6,
           "earned": 0
         },
         {
-          "skill": "patient-care",
-          "name": "Patient Care",
-          "pts": 5.9,
-          "earned": 0
-        },
-        {
-          "skill": "radiography",
-          "name": "Radiography",
-          "pts": 4.9,
+          "skill": "presentation",
+          "name": "Presentation",
+          "pts": 6.7,
           "earned": 0
         },
         {
           "skill": "scheduling",
           "name": "Scheduling",
-          "pts": 4.9,
+          "pts": 6.7,
           "earned": 0
         },
         {
-          "skill": "event-planning",
-          "name": "Event Planning",
-          "pts": 4.9,
-          "earned": 0
-        },
-        {
-          "skill": "mental-health",
-          "name": "Mental Health",
-          "pts": 3.9,
+          "skill": "patient-care",
+          "name": "Patient Care",
+          "pts": 5.7,
           "earned": 0
         },
         {
           "skill": "treatment-planning",
           "name": "Treatment Planning",
-          "pts": 3.9,
+          "pts": 5.7,
           "earned": 0
         },
         {
-          "skill": "account-management",
-          "name": "Account Management",
-          "pts": 2.9,
-          "earned": 2.9
+          "skill": "event-planning",
+          "name": "Event Planning",
+          "pts": 5.7,
+          "earned": 0
         },
         {
-          "skill": "lean-six-sigma",
-          "name": "Lean / Six Sigma",
-          "pts": 2.9,
+          "skill": "radiography",
+          "name": "Radiography",
+          "pts": 4.8,
           "earned": 0
         },
         {
           "skill": "ehr",
           "name": "EHR / EMR",
-          "pts": 2.9,
+          "pts": 4.8,
           "earned": 0
         },
         {
-          "skill": "localization",
-          "name": "Localization",
-          "pts": 2.9,
-          "earned": 0
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 3.8,
+          "earned": 3.8
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 149,
-        "salaried": 33
+        "postings": 156,
+        "salaried": 39
       }
     },
     {
-      "id": "automotive-technician",
-      "title": "Automotive Technician",
-      "field": "Trades",
-      "cluster": "Trades",
+      "id": "building-surveyor",
+      "title": "Building Surveyor",
+      "field": "Architecture",
+      "cluster": "Built Environment",
       "kind": "pivot",
-      "license": null,
-      "desc": "Diagnoses and repairs vehicles, from brakes and diagnostics to full engine work. Includes auto, diesel, and heavy-equipment technicians.",
-      "match": 23,
-      "fit": 21,
+      "license": {
+        "req": "partial",
+        "label": "Licensure/registration varies by jurisdiction"
+      },
+      "desc": "Inspects buildings for defects, compliance, and condition. Advises on repair, regulation, and value across a building's life.",
+      "match": 27,
+      "fit": 27,
       "capability": null,
-      "mobility": 17,
-      "mobility_source": "observed-flow-ctot",
+      "mobility": null,
+      "mobility_source": null,
       "mobility_eu": null,
       "mobility_tier": null,
-      "salary": "$55k–$75k",
+      "salary": "$65k–$95k",
       "salary_band": [
-        52570,
-        74600
+        62853,
+        92626
       ],
       "demand": "High",
-      "remote": "0%",
+      "remote": "1%",
       "time": "12–24 mo",
       "have": [
-        "Brewing",
-        "Customer Service",
-        "Training & Facilitation",
-        "Safety / OSHA"
+        "Account Management",
+        "Safety / OSHA",
+        "Maintenance",
+        "Training & Facilitation"
       ],
       "learn": [
-        "Maintenance",
-        "Electrical Systems",
-        "Welding / Fabrication",
-        "Blueprint Reading"
+        "Project Management",
+        "Construction Administration",
+        "Contract Review",
+        "OSHA & Site Safety"
       ],
       "waterfall": [
         {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 21.6,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 10.4,
+          "earned": 0
+        },
+        {
+          "skill": "contract-review",
+          "name": "Contract Review",
+          "pts": 10.4,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 7.1,
+          "earned": 5.6
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 7.1,
+          "earned": 3.8
+        },
+        {
           "skill": "preventive-maintenance",
           "name": "Maintenance",
-          "pts": 25.4,
-          "earned": 0
+          "pts": 6.3,
+          "earned": 3.5
         },
         {
-          "skill": "electrical-systems",
-          "name": "Electrical Systems",
-          "pts": 10.8,
-          "earned": 0
-        },
-        {
-          "skill": "brewing",
-          "name": "Brewing",
-          "pts": 10.4,
-          "earned": 10.4
-        },
-        {
-          "skill": "welding-fabrication",
-          "name": "Welding / Fabrication",
-          "pts": 6.2,
-          "earned": 0
-        },
-        {
-          "skill": "customer-service",
-          "name": "Customer Service",
-          "pts": 5.7,
-          "earned": 5.7
-        },
-        {
-          "skill": "blueprint-reading",
-          "name": "Blueprint Reading",
-          "pts": 5.7,
-          "earned": 0
-        },
-        {
-          "skill": "hand-power-tools",
-          "name": "Hand & Power Tools",
-          "pts": 5.6,
+          "skill": "osha-safety",
+          "name": "OSHA & Site Safety",
+          "pts": 6.3,
           "earned": 0
         },
         {
           "skill": "training",
           "name": "Training & Facilitation",
-          "pts": 5.3,
-          "earned": 4.6
+          "pts": 5.2,
+          "earned": 5.2
         },
         {
-          "skill": "safety",
-          "name": "Safety / OSHA",
-          "pts": 5,
-          "earned": 2.5
-        },
-        {
-          "skill": "swift",
-          "name": "Swift",
-          "pts": 4.2,
+          "skill": "criminal-investigation",
+          "name": "Criminal Investigation",
+          "pts": 4.8,
           "earned": 0
         },
         {
-          "skill": "hvac-systems",
-          "name": "HVAC Systems",
-          "pts": 3.6,
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 4.8,
+          "earned": 4.8
+        },
+        {
+          "skill": "program-management",
+          "name": "Program Management",
+          "pts": 4.5,
           "earned": 0
         },
         {
-          "skill": "cad-drafting",
-          "name": "Drafting",
-          "pts": 3.4,
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 4.1,
           "earned": 0
         },
         {
-          "skill": "refrigeration",
-          "name": "Refrigeration",
-          "pts": 3.1,
-          "earned": 0
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.7,
+          "earned": 3.5
         },
         {
-          "skill": "facilities-operations",
-          "name": "Facilities Operations",
-          "pts": 3,
-          "earned": 0
-        },
-        {
-          "skill": "osha-safety",
-          "name": "OSHA & Site Safety",
-          "pts": 2.7,
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 3.7,
           "earned": 0
         }
       ],
       "low_confidence": false,
       "observed": null,
       "provenance": {
-        "postings": 4055,
-        "salaried": 975
+        "postings": 466,
+        "salaried": 309
+      }
+    },
+    {
+      "id": "manufacturing-technician",
+      "title": "Manufacturing Technician",
+      "field": "Trades",
+      "cluster": "Trades",
+      "kind": "pivot",
+      "license": null,
+      "desc": "Builds the product on the floor: assembly, machines, process steps, the paperwork that proves it.",
+      "match": 26,
+      "fit": 24,
+      "capability": null,
+      "mobility": 20,
+      "mobility_source": "observed-flow-ctot",
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$40k–$60k",
+      "salary_band": [
+        39926,
+        57890
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo",
+      "have": [
+        "Brewing",
+        "Maintenance",
+        "Rigging & Material Handling",
+        "Supply Chain"
+      ],
+      "learn": [
+        "Lean / Six Sigma",
+        "Quality Control",
+        "Hand & Power Tools",
+        "Blueprint Reading"
+      ],
+      "waterfall": [
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 11.7,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 11.2,
+          "earned": 11.2
+        },
+        {
+          "skill": "preventive-maintenance",
+          "name": "Maintenance",
+          "pts": 7.6,
+          "earned": 1.8
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "hand-power-tools",
+          "name": "Hand & Power Tools",
+          "pts": 6.1,
+          "earned": 0
+        },
+        {
+          "skill": "blueprint-reading",
+          "name": "Blueprint Reading",
+          "pts": 5.2,
+          "earned": 0
+        },
+        {
+          "skill": "sap",
+          "name": "SAP",
+          "pts": 5.1,
+          "earned": 0
+        },
+        {
+          "skill": "welding-fabrication",
+          "name": "Welding / Fabrication",
+          "pts": 5,
+          "earned": 0
+        },
+        {
+          "skill": "operations",
+          "name": "Operations",
+          "pts": 4.8,
+          "earned": 0
+        },
+        {
+          "skill": "rigging-materials",
+          "name": "Rigging & Material Handling",
+          "pts": 4.5,
+          "earned": 2.2
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 4.5,
+          "earned": 3
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 4.4,
+          "earned": 1.9
+        },
+        {
+          "skill": "gmp",
+          "name": "GMP & Validation",
+          "pts": 4.3,
+          "earned": 0
+        },
+        {
+          "skill": "cad-drafting",
+          "name": "Drafting",
+          "pts": 3.9,
+          "earned": 0
+        },
+        {
+          "skill": "recruiting",
+          "name": "Recruiting",
+          "pts": 3.3,
+          "earned": 0
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3,
+          "earned": 1.8
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 2.2,
+          "earned": 2.2
+        },
+        {
+          "skill": "electrical-systems",
+          "name": "Electrical Systems",
+          "pts": 2.2,
+          "earned": 0
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 2.1,
+          "earned": 2.1
+        },
+        {
+          "skill": "food-service",
+          "name": "Food Service",
+          "pts": 1.9,
+          "earned": 0
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 2235,
+        "salaried": 204
+      }
+    },
+    {
+      "id": "construction-manager",
+      "title": "Construction Manager",
+      "field": "Construction",
+      "cluster": "Built Environment",
+      "kind": "pivot",
+      "license": {
+        "req": "partial",
+        "label": "Contractor licensing varies by state; certifications (CCM) common"
+      },
+      "desc": "",
+      "match": 24,
+      "fit": 24,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$80k–$120k",
+      "salary_band": [
+        78625,
+        121950
+      ],
+      "demand": "High",
+      "remote": "3%",
+      "time": "12–24 mo",
+      "have": [
+        "Brewing",
+        "Supply Chain",
+        "Safety / OSHA",
+        "Excel"
+      ],
+      "learn": [
+        "Project Management",
+        "Construction Administration",
+        "Scheduling",
+        "Procurement"
+      ],
+      "waterfall": [
+        {
+          "skill": "project-management",
+          "name": "Project Management",
+          "pts": 20.1,
+          "earned": 0
+        },
+        {
+          "skill": "construction-administration",
+          "name": "Construction Administration",
+          "pts": 17,
+          "earned": 0
+        },
+        {
+          "skill": "scheduling",
+          "name": "Scheduling",
+          "pts": 8.8,
+          "earned": 0
+        },
+        {
+          "skill": "procurement",
+          "name": "Procurement",
+          "pts": 7.2,
+          "earned": 0
+        },
+        {
+          "skill": "brewing",
+          "name": "Brewing",
+          "pts": 7,
+          "earned": 7
+        },
+        {
+          "skill": "supply-chain",
+          "name": "Supply Chain",
+          "pts": 6.1,
+          "earned": 6
+        },
+        {
+          "skill": "quality-control",
+          "name": "Quality Control",
+          "pts": 5.9,
+          "earned": 0
+        },
+        {
+          "skill": "budgeting",
+          "name": "Budgeting",
+          "pts": 5.7,
+          "earned": 0
+        },
+        {
+          "skill": "bim",
+          "name": "BIM",
+          "pts": 5.5,
+          "earned": 0
+        },
+        {
+          "skill": "lean-six-sigma",
+          "name": "Lean / Six Sigma",
+          "pts": 4.7,
+          "earned": 0
+        },
+        {
+          "skill": "safety",
+          "name": "Safety / OSHA",
+          "pts": 4.7,
+          "earned": 3.9
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 3.8,
+          "earned": 3.5
+        },
+        {
+          "skill": "sustainability",
+          "name": "Sustainability",
+          "pts": 3.6,
+          "earned": 3.6
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 3976,
+        "salaried": 828
+      }
+    },
+    {
+      "id": "real-estate-agent",
+      "title": "Real Estate Agent",
+      "field": "Business",
+      "cluster": "Business",
+      "kind": "pivot",
+      "license": {
+        "req": "required",
+        "label": "State real-estate license required"
+      },
+      "desc": "",
+      "match": 24,
+      "fit": 24,
+      "capability": null,
+      "mobility": null,
+      "mobility_source": null,
+      "mobility_eu": null,
+      "mobility_tier": null,
+      "salary": "$60k–$105k",
+      "salary_band": [
+        60355,
+        103079
+      ],
+      "demand": "High",
+      "remote": "1%",
+      "time": "12–24 mo + license",
+      "have": [
+        "Training & Facilitation",
+        "Excel",
+        "Account Management",
+        "Customer Service"
+      ],
+      "learn": [
+        "Sales",
+        "Property Management",
+        "Negotiation",
+        "Business Development"
+      ],
+      "waterfall": [
+        {
+          "skill": "sales",
+          "name": "Sales",
+          "pts": 24.8,
+          "earned": 0
+        },
+        {
+          "skill": "property-management",
+          "name": "Property Management",
+          "pts": 20.6,
+          "earned": 0
+        },
+        {
+          "skill": "training",
+          "name": "Training & Facilitation",
+          "pts": 15.6,
+          "earned": 7.7
+        },
+        {
+          "skill": "excel",
+          "name": "Excel",
+          "pts": 11.1,
+          "earned": 4
+        },
+        {
+          "skill": "negotiation",
+          "name": "Negotiation",
+          "pts": 7.7,
+          "earned": 0
+        },
+        {
+          "skill": "business-development",
+          "name": "Business Development",
+          "pts": 6.9,
+          "earned": 0
+        },
+        {
+          "skill": "account-management",
+          "name": "Account Management",
+          "pts": 6.3,
+          "earned": 6.3
+        },
+        {
+          "skill": "customer-service",
+          "name": "Customer Service",
+          "pts": 5.8,
+          "earned": 5.8
+        }
+      ],
+      "low_confidence": false,
+      "observed": null,
+      "provenance": {
+        "postings": 758,
+        "salaried": 306
       }
     }
   ],
   "next": {
     "field-service-technician": [
       {
-        "t": "Construction Manager",
-        "m": 21,
-        "slug": "construction-manager",
-        "field": "Construction",
-        "cluster": "Built Environment",
-        "kind": "pivot",
-        "gap": [
-          "Project Management",
-          "Construction Administration",
-          "Scheduling",
-          "Procurement"
-        ],
-        "observed": null,
-        "fit": 21,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "field-service-technician",
-          "readiness_after": 43,
-          "gain": 22
-        }
-      },
-      {
-        "t": "Building Surveyor",
+        "t": "Maintenance Technician",
         "m": 19,
-        "slug": "building-surveyor",
-        "field": "Architecture",
-        "cluster": "Built Environment",
+        "slug": "maintenance-technician",
+        "field": "Trades",
+        "cluster": "Trades",
         "kind": "pivot",
         "gap": [
-          "Project Management",
-          "Contract Review",
-          "Construction Administration",
-          "Maintenance"
+          "Plumbing",
+          "Facilities Operations",
+          "Lean / Six Sigma",
+          "Electrical Systems"
         ],
         "observed": null,
         "fit": 19,
@@ -1200,24 +1021,106 @@
         "reach": "bridged",
         "via": {
           "parent": "field-service-technician",
-          "readiness_after": 50,
-          "gain": 31
+          "readiness_after": 37,
+          "gain": 18
+        }
+      },
+      {
+        "t": "Plumber",
+        "m": 18,
+        "slug": "plumber",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Plumbing",
+          "Drafting",
+          "Blueprint Reading"
+        ],
+        "observed": null,
+        "fit": 14,
+        "capability": null,
+        "mobility": 4,
+        "mobility_source": "observed-flow-ctot",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "field-service-technician",
+          "readiness_after": 32,
+          "gain": 14
         }
       }
     ],
-    "manufacturing-technician": [
+    "warehouse-associate": [
       {
-        "t": "Warehouse Manager",
-        "m": 21,
-        "slug": "warehouse-manager",
-        "field": "Transport",
-        "cluster": "Service",
+        "t": "Store Manager",
+        "m": 22,
+        "slug": "store-manager",
+        "field": "Business",
+        "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Inventory Management",
-          "Lean / Six Sigma",
           "Operations",
-          "SAP"
+          "Scheduling",
+          "Inventory Management",
+          "Telehealth"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": 3,
+        "mobility_source": "observed-flow-ctot",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "warehouse-associate",
+          "readiness_after": 30,
+          "gain": 8
+        }
+      },
+      {
+        "t": "Logistics Coordinator",
+        "m": 22,
+        "slug": "logistics-coordinator",
+        "field": "Transport",
+        "cluster": "Transport",
+        "kind": "lateral",
+        "gap": [
+          "SAP",
+          "Shipping & Receiving",
+          "Lean / Six Sigma",
+          "Inventory Management"
+        ],
+        "observed": null,
+        "fit": 22,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "warehouse-associate",
+          "readiness_after": 51,
+          "gain": 29
+        }
+      }
+    ],
+    "administrative-assistant": [
+      {
+        "t": "Merchandiser",
+        "m": 21,
+        "slug": "merchandiser",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Operations",
+          "Data Analysis",
+          "Inventory Management",
+          "Presentation"
         ],
         "observed": null,
         "fit": 21,
@@ -1228,43 +1131,43 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "manufacturing-technician",
+          "parent": "administrative-assistant",
           "readiness_after": 45,
           "gain": 24
         }
       },
       {
-        "t": "Electronics Technician",
-        "m": 16,
-        "slug": "electronics-technician",
-        "field": "Trades",
-        "cluster": "Trades",
+        "t": "Customer Support Specialist",
+        "m": 18,
+        "slug": "customer-support",
+        "field": "Business",
+        "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Blueprint Reading",
-          "Electrical Systems",
-          "Maintenance",
-          "PLC / Controls"
+          "CRM",
+          "Lean / Six Sigma",
+          "SAP",
+          "Translation"
         ],
         "observed": null,
-        "fit": 16,
+        "fit": 19,
         "capability": null,
-        "mobility": null,
-        "mobility_source": null,
+        "mobility": 21,
+        "mobility_source": "observed-flow-ctot",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "manufacturing-technician",
-          "readiness_after": 57,
-          "gain": 41
+          "parent": "administrative-assistant",
+          "readiness_after": 33,
+          "gain": 15
         }
       }
     ],
-    "housekeeper": [
+    "veterinarian": [
       {
         "t": "Receptionist",
-        "m": 18,
+        "m": 19,
         "slug": "receptionist",
         "field": "Business",
         "cluster": "Business",
@@ -1273,63 +1176,34 @@
           "Front Office",
           "Guest Relations",
           "Scheduling",
-          "Excel"
+          "Housekeeping"
         ],
         "observed": null,
-        "fit": 16,
+        "fit": 15,
         "capability": null,
-        "mobility": 12,
+        "mobility": 5,
         "mobility_source": "observed-flow-ctot",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "housekeeper",
-          "readiness_after": 41,
-          "gain": 23
-        }
-      }
-    ],
-    "customer-support": [
-      {
-        "t": "Mobility Planner",
-        "m": 19,
-        "slug": "mobility-planner",
-        "field": "Architecture",
-        "cluster": "Built Environment",
-        "kind": "pivot",
-        "gap": [
-          "Transportation Planning",
-          "Scheduling",
-          "Project Management",
-          "Shipping & Receiving"
-        ],
-        "observed": null,
-        "fit": 19,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "customer-support",
-          "readiness_after": 36,
-          "gain": 17
+          "parent": "veterinarian",
+          "readiness_after": 30,
+          "gain": 11
         }
       },
       {
-        "t": "Sales Representative",
+        "t": "Recruiter",
         "m": 15,
-        "slug": "sales-representative",
+        "slug": "recruiter",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
-          "Sales",
-          "CRM",
-          "Business Development",
-          "B2B"
+          "Recruiting",
+          "Procurement",
+          "Scheduling",
+          "Business Development"
         ],
         "observed": null,
         "fit": 15,
@@ -1340,16 +1214,43 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "customer-support",
-          "readiness_after": 43,
-          "gain": 28
+          "parent": "veterinarian",
+          "readiness_after": 31,
+          "gain": 16
         }
       }
     ],
-    "administrative-assistant": [
+    "building-surveyor": [
+      {
+        "t": "Facilities Manager",
+        "m": 17,
+        "slug": "facilities-manager",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Facilities Operations",
+          "Procurement",
+          "Operations",
+          "Property Management"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "building-surveyor",
+          "readiness_after": 27,
+          "gain": 10
+        }
+      },
       {
         "t": "Construction Superintendent",
-        "m": 13,
+        "m": 16,
         "slug": "construction-superintendent",
         "field": "Construction",
         "cluster": "Built Environment",
@@ -1363,32 +1264,61 @@
         "observed": null,
         "fit": 13,
         "capability": null,
-        "mobility": 14,
+        "mobility": 5,
         "mobility_source": "observed-flow-ctot",
         "mobility_eu": null,
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "administrative-assistant",
-          "readiness_after": 21,
-          "gain": 8
+          "parent": "building-surveyor",
+          "readiness_after": 36,
+          "gain": 20
+        }
+      }
+    ],
+    "manufacturing-technician": [
+      {
+        "t": "Automotive Technician",
+        "m": 23,
+        "slug": "automotive-technician",
+        "field": "Trades",
+        "cluster": "Trades",
+        "kind": "pivot",
+        "gap": [
+          "Electrical Systems",
+          "Welding / Fabrication",
+          "Hand & Power Tools",
+          "Blueprint Reading"
+        ],
+        "observed": null,
+        "fit": 18,
+        "capability": null,
+        "mobility": 6,
+        "mobility_source": "observed-flow-ctot",
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "manufacturing-technician",
+          "readiness_after": 55,
+          "gain": 32
         }
       },
       {
-        "t": "Chemist",
-        "m": 13,
-        "slug": "chemist",
-        "field": "Science",
-        "cluster": "Science",
+        "t": "Electronics Technician",
+        "m": 19,
+        "slug": "electronics-technician",
+        "field": "Trades",
+        "cluster": "Trades",
         "kind": "pivot",
         "gap": [
-          "Quality Control",
-          "Lab Techniques",
-          "GMP & Validation",
-          "Data Analysis"
+          "Blueprint Reading",
+          "Electrical Systems",
+          "Lean / Six Sigma",
+          "PLC / Controls"
         ],
         "observed": null,
-        "fit": 13,
+        "fit": 19,
         "capability": null,
         "mobility": null,
         "mobility_source": null,
@@ -1396,137 +1326,81 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "administrative-assistant",
-          "readiness_after": 25,
-          "gain": 12
+          "parent": "manufacturing-technician",
+          "readiness_after": 57,
+          "gain": 38
         }
       }
     ],
-    "security-guard": [
+    "construction-manager": [
       {
-        "t": "Real Estate Agent",
-        "m": 20,
-        "slug": "real-estate-agent",
+        "t": "Mobility Planner",
+        "m": 21,
+        "slug": "mobility-planner",
+        "field": "Architecture",
+        "cluster": "Built Environment",
+        "kind": "pivot",
+        "gap": [
+          "Transportation Planning",
+          "Scheduling",
+          "Project Management",
+          "Lean / Six Sigma"
+        ],
+        "observed": null,
+        "fit": 21,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "construction-manager",
+          "readiness_after": 39,
+          "gain": 18
+        }
+      },
+      {
+        "t": "Warehouse Manager",
+        "m": 17,
+        "slug": "warehouse-manager",
+        "field": "Transport",
+        "cluster": "Service",
+        "kind": "pivot",
+        "gap": [
+          "Inventory Management",
+          "Lean / Six Sigma",
+          "Operations",
+          "Shipping & Receiving"
+        ],
+        "observed": null,
+        "fit": 17,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "construction-manager",
+          "readiness_after": 25,
+          "gain": 8
+        }
+      }
+    ],
+    "real-estate-agent": [
+      {
+        "t": "Sales Representative",
+        "m": 16,
+        "slug": "sales-representative",
         "field": "Business",
         "cluster": "Business",
         "kind": "pivot",
         "gap": [
           "Sales",
-          "Property Management",
-          "Excel",
-          "Negotiation"
-        ],
-        "observed": null,
-        "fit": 20,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "security-guard",
-          "readiness_after": 36,
-          "gain": 16
-        }
-      },
-      {
-        "t": "General Manager",
-        "m": 13,
-        "slug": "general-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
+          "CRM",
           "Business Development",
-          "People Management",
-          "Risk Management",
-          "Sales"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "security-guard",
-          "readiness_after": 24,
-          "gain": 11
-        }
-      }
-    ],
-    "veterinarian": [
-      {
-        "t": "HR Manager",
-        "m": 13,
-        "slug": "hr-manager",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Recruiting",
-          "Scheduling",
-          "Data Analysis",
-          "Lean / Six Sigma"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "veterinarian",
-          "readiness_after": 28,
-          "gain": 15
-        }
-      },
-      {
-        "t": "Recruiter",
-        "m": 13,
-        "slug": "recruiter",
-        "field": "Business",
-        "cluster": "Business",
-        "kind": "pivot",
-        "gap": [
-          "Recruiting",
-          "Procurement",
-          "Scheduling",
-          "Business Development"
-        ],
-        "observed": null,
-        "fit": 13,
-        "capability": null,
-        "mobility": null,
-        "mobility_source": null,
-        "mobility_eu": null,
-        "mobility_tier": null,
-        "reach": "bridged",
-        "via": {
-          "parent": "veterinarian",
-          "readiness_after": 30,
-          "gain": 17
-        }
-      }
-    ],
-    "automotive-technician": [
-      {
-        "t": "Maintenance Technician",
-        "m": 16,
-        "slug": "maintenance-technician",
-        "field": "Trades",
-        "cluster": "Trades",
-        "kind": "pivot",
-        "gap": [
-          "Maintenance",
-          "Lean / Six Sigma",
-          "Facilities Operations",
-          "Plumbing"
+          "B2B"
         ],
         "observed": null,
         "fit": 16,
@@ -1537,111 +1411,93 @@
         "mobility_tier": null,
         "reach": "bridged",
         "via": {
-          "parent": "automotive-technician",
-          "readiness_after": 68,
-          "gain": 52
+          "parent": "real-estate-agent",
+          "readiness_after": 33,
+          "gain": 17
+        }
+      },
+      {
+        "t": "Medical Sales Representative",
+        "m": 16,
+        "slug": "medical-sales-representative",
+        "field": "Business",
+        "cluster": "Business",
+        "kind": "pivot",
+        "gap": [
+          "Clinical Skills",
+          "Presentation",
+          "Scheduling",
+          "Sales"
+        ],
+        "observed": null,
+        "fit": 16,
+        "capability": null,
+        "mobility": null,
+        "mobility_source": null,
+        "mobility_eu": null,
+        "mobility_tier": null,
+        "reach": "bridged",
+        "via": {
+          "parent": "real-estate-agent",
+          "readiness_after": 35,
+          "gain": 19
         }
       }
     ]
   },
-  "direct": [
-    {
-      "t": "Environmental Scientist",
-      "m": 12,
-      "slug": "environmental-scientist",
-      "field": "Science",
-      "cluster": "Science",
-      "kind": "pivot",
-      "gap": [
-        "Project Management",
-        "Lean / Six Sigma",
-        "OSHA & Site Safety",
-        "Criminal Investigation"
-      ],
-      "observed": null,
-      "fit": 12,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    },
-    {
-      "t": "Project Engineer",
-      "m": 12,
-      "slug": "project-engineer",
-      "field": "Engineering",
-      "cluster": "Engineering & Manufacturing",
-      "kind": "pivot",
-      "gap": [
-        "Project Management",
-        "Construction Administration",
-        "Procurement",
-        "Scheduling"
-      ],
-      "observed": null,
-      "fit": 12,
-      "capability": null,
-      "mobility": null,
-      "mobility_source": null,
-      "mobility_eu": null,
-      "mobility_tier": null,
-      "reach": "direct"
-    }
-  ],
+  "direct": [],
   "cross": [
     [
       "field-service-technician",
       "manufacturing-technician",
-      0.65
+      0.66
     ],
     [
-      "field-service-technician",
-      "automotive-technician",
-      0.62
-    ],
-    [
-      "manufacturing-technician",
-      "automotive-technician",
-      0.5
-    ],
-    [
-      "field-service-technician",
-      "security-guard",
-      0.46
-    ],
-    [
-      "customer-support",
+      "warehouse-associate",
       "administrative-assistant",
-      0.44
+      0.54
+    ],
+    [
+      "warehouse-associate",
+      "manufacturing-technician",
+      0.52
+    ],
+    [
+      "building-surveyor",
+      "construction-manager",
+      0.51
     ],
     [
       "field-service-technician",
-      "housekeeper",
-      0.42
+      "building-surveyor",
+      0.41
+    ],
+    [
+      "field-service-technician",
+      "administrative-assistant",
+      0.38
     ]
   ],
   "bridges": [
     [
       "manufacturing-technician",
-      "automotive-technician_0",
-      0.55
+      "field-service-technician_0",
+      0.52
     ],
     [
-      "automotive-technician",
-      "manufacturing-technician_1",
-      0.47
-    ],
-    [
-      "customer-support",
-      "manufacturing-technician_0",
-      0.45
+      "administrative-assistant",
+      "warehouse-associate_1",
+      0.5
     ],
     [
       "manufacturing-technician",
-      "administrative-assistant_1",
-      0.41
+      "field-service-technician_1",
+      0.43
+    ],
+    [
+      "construction-manager",
+      "building-surveyor_1",
+      0.42
     ]
   ],
   "formula": "match = round(100·destCoverage) over top-20 skill shares; ranked by match then weightedJaccard; pairs sharing <3 skills unscored"
