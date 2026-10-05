@@ -385,6 +385,13 @@ export function allCategories(): Category[] {
     if (!clears && !graced) continue;
     seen.add(c.slug);
     const indexable = c.kind === 'city' ? matched.length >= CITY_SITEMAP_FLOOR : c.kind === 'occ-city' || c.kind === 'occ-state' ? matched.length >= OCC_CITY_SITEMAP_FLOOR : true;
+    // Out-of-sitemap city cells are no longer built (2026-10-04). Past ~27k
+    // prerendered pages (~300k output files, ten per page) Vercel's deploy step
+    // failed three nights running with an internal error, and these ~4.8k thin
+    // pages (6 to 19 jobs, never in the sitemap) were the cheapest cut. Their
+    // URLs 308 to the parent board ([occ]/page.tsx, retiredCategoryTarget).
+    // The merit date above is still recorded, so the grace ledger is unchanged.
+    if (!indexable) continue;
     out.push({ ...c, count: matched.length, remoteN: matched.filter((j) => j.remote).length, graced, indexable, sig: sigOf(matched.map((j) => `${j.occ}/${j.id}`)) });
   }
   out.sort((a, b) => b.count - a.count);

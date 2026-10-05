@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { PageShell } from '../../components/SiteChrome';
 import { getJobs, jobOccupations, jobCount, occTitle, occField, occSearchText, occMapsFor } from '../jobs-data';
 import JobsBrowse from '../JobsBrowse';
@@ -65,7 +65,21 @@ export default async function JobsSlugPage({ params }: { params: Promise<{ occ: 
   if (jobCount(occ) > 0) return <OccupationBoard occ={occ} />;
   const cat = getCategory(occ);
   if (cat) return <CategoryBoard cat={cat} />;
+  const to = retiredCategoryTarget(occ);
+  if (to) permanentRedirect(to);
   notFound();
+}
+
+/* The thin city cells retired from the build on 2026-10-04 (categories-data:
+   out-of-sitemap occ-city, occ-state and city pages). Their URLs were live and
+   linked from the boards, so a visitor or a crawler lands on the board they
+   wanted instead of a 404: "<occ>-in-<place>" goes to the occupation's board,
+   "in-<place>" to the city index. */
+function retiredCategoryTarget(slug: string): string | null {
+  const m = /^(.+?)-in-[a-z0-9-]+$/.exec(slug);
+  if (m && jobCount(m[1]) > 0) return `/jobs/${m[1]}`;
+  if (/^in-[a-z0-9-]+$/.test(slug)) return '/jobs/browse/cities';
+  return null;
 }
 
 // The measured routes that lead INTO an occupation — the adjacency layer, shared
